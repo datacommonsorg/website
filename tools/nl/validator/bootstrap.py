@@ -35,7 +35,7 @@ def main(_):
         for c in ['Revised Description', 'Description', 'Revised Name', 'Name']:
           if not row[c]:
             continue
-          svs[row['dcid']] = row[c]
+          svs[row['dcid']] = row[c].split(';')[0].strip()
           break
 
   with open(FLAGS.output_csv, 'w') as fout:

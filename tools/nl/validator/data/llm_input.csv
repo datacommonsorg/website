@@ -28,9 +28,9 @@ Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechn
 Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue,Gross Domestic Product (GDP) of the Real Estate and Rental and Leasing Industry
 Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue,Gross Domestic Product (GDP) of the Utilities Industry
 Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue,Gross Domestic Product (GDP) of the Wholesale Trade Industry
-Amount_EconomicActivity_GrossDomesticProduction_Nominal,Nominal Gross Domestic Production (GDP); GDP
+Amount_EconomicActivity_GrossDomesticProduction_Nominal,Nominal Gross Domestic Production (GDP)
 Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person,Nominal Gross Domestic Production in Population
-Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,Nominal Gross Domestic Production (GDP) Per Capita; GDP per capita
+Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,Nominal Gross Domestic Production (GDP) Per Capita
 Amount_EconomicActivity_GrossDomesticProduction_RealValue,Gross Domestic Production
 Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity,Gross National Income Based on Purchasing Power Parity
 Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita,Gross National Income Based on Purchasing Power Parity Per Capita
@@ -642,7 +642,7 @@ Annual_Average_HeatContent_Coal_For_OtherIndustrial,Annual Average of Heat Conte
 Annual_Average_RetailPrice_Electricity,Annual Average Retail Price of Electricity
 Annual_Average_RetailPrice_Electricity_Commercial,Annual Average Retail Price of Electricity in Commercial
 Annual_Average_RetailPrice_Electricity_Industrial,Annual Average Retail Price of Electricity in Industries
-Annual_Average_RetailPrice_Electricity_OtherSector,Annual Average Retail Price of Electricity;Annual Average Retail Price Electricity in Other Sectors
+Annual_Average_RetailPrice_Electricity_OtherSector,Annual Average Retail Price of Electricity
 Annual_Average_RetailPrice_Electricity_Residential,Annual Average Retail Price of Residential Electricity
 Annual_Average_SulfurContent_Coal_For_ElectricPower,Total Annual Sulfur Content For Electric Power
 Annual_Average_SulfurContent_Coal_For_OtherIndustrial,Annual Sulfur content in Other Industrial
@@ -705,7 +705,7 @@ Annual_Consumption_Energy_Manufacturing_Heat,Annual Consumption of Heat in Manuf
 Annual_Consumption_Energy_OilRefineries_Refinery_FuelTransformation,"Annual Consumption of Fuel Transformation in Oil Refineries, Refinery"
 Annual_Consumption_Energy_OtherIndustry_Heat,Annual Consumption of Heat in Other Industries
 Annual_Consumption_Energy_OtherManufacturingIndustry_Heat,Annual Consumption of Heat in Other Manufacturing Industries
-Annual_Consumption_Energy_OtherSector_Heat,Annual Consumption Of Heat In Other Sectors;Annual Consumption of Heat in Other Sectors
+Annual_Consumption_Energy_OtherSector_Heat,Annual Consumption Of Heat In Other Sectors
 Annual_Consumption_Energy_OtherSector_SolarThermal,Annual Consumption Of Solar Thermal Energy BY Other Sectors
 Annual_Consumption_Energy_SolarThermal,Annual Consumption Of Solar Thermal Energy
 Annual_Consumption_Fuel_Agriculture_DieselOil,Annual Consumption of Diesel Oil in Agriculture
@@ -792,7 +792,7 @@ Annual_Consumption_Fuel_ForUsefulThermalOutput_Coal,Annual Consumption of Coal F
 Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas,Annual Consumption of Natural Gas in All Sectors
 Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_Commercial,Annual Consumption of Natural Gas For Useful Thermal Output by Commercial
 Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_CommercialCogen,Annual Consumption Of Natural Gas For Useful Thermal Output
-Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_ElectricPower,Annual Consumption of Natural Gas in Electric Power Industries;Annual Consumption Of Natural Gas Electric Power in Electric Power Plants
+Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_ElectricPower,Annual Consumption of Natural Gas in Electric Power Industries
 Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_ElectricUtilityCogen,Annual Consumption Of Natural Gas By Electric Utility Cogen
 Annual_Consumption_Fuel_ForUsefulThermalOutput_NaturalGas_IndependentPowerProducers,Annual Consumption of Natural Gas For Useful Thermal Output by Independent Power Producers
 Annual_Consumption_Fuel_ForUsefulThermalOutput_PetroleumLiquids,Annual Consumption of Petroleum Liquids in All Sectors
@@ -951,7 +951,7 @@ Annual_Consumption_Fuel_RoadTransport_NaturalGas,Annual Natural Gas Consumption 
 Annual_Consumption_Fuel_TextileAndLeatherIndustry_DieselOil,Annual Consumption of Diesel Oil in Textile And Leather Industries
 Annual_Consumption_Fuel_TextileAndLeatherIndustry_FuelOil,Annual Consumption Of Fuel Oil In Textile And Leather Industries
 Annual_Consumption_Fuel_TextileAndLeatherIndustry_LiquifiedPetroleumGas,Annual Consumption of Liquefied Petroleum Gas in Textile And Leather Industries
-Annual_Consumption_Fuel_TextileAndLeatherIndustry_NaturalGas,Annual Consumption of Natural Gas in Textile And Leather Industries;Annual Consumption of Natural Gas in Textile And Leather Industry
+Annual_Consumption_Fuel_TextileAndLeatherIndustry_NaturalGas,Annual Consumption of Natural Gas in Textile And Leather Industries
 Annual_Consumption_Fuel_TransportEquipmentIndustry_NaturalGas,Annual Consumption Of Natural Gas In Transport Equipment Industries
 Annual_Consumption_Fuel_TransportIndustry_AviationGasoline,Annual Consumption of Aviation Gasoline in Transport Industries
 Annual_Consumption_Fuel_TransportIndustry_BioDiesel,Annual Consumption of Biodiesel in Transport Industry
@@ -1021,7 +1021,7 @@ Annual_Emissions_CarbonDioxide_SteelManufacturing,Annual Emissions of Carbon Dio
 Annual_Emissions_CarbonDioxide_Transportation,Annual Emissions of Carbon Dioxide in Transportation
 Annual_Emissions_CarbonDioxide_WasteManagement,Annual Emissions of Carbon Dioxide in Waste Management
 Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic,Annual Emissions of Non Biogenic Other Fully Fluorinated Compound
-Annual_Emissions_GreenhouseGas,emissions from greenhouse gases; ghg emissions
+Annual_Emissions_GreenhouseGas,emissions from greenhouse gases
 Annual_Emissions_GreenhouseGas_Agriculture,Annual Emissions of Greenhouse Gas in Agriculture
 Annual_Emissions_GreenhouseGas_AmmoniaManufacturing_NonBiogenic,Annual Emissions of Greenhouse Gas Non Biogenic Ammonia From Manufacturing
 Annual_Emissions_GreenhouseGas_CementProduction,Annual Emissions of Greenhouse Gas in Cement Production
@@ -1227,7 +1227,7 @@ Annual_Generation_Electricity_FuelOil_ThermalElectricity,Annual Generation of Th
 Annual_Generation_Electricity_IndependentPowerProducers,Annual Net Generation of Electricity From All Fuels By Independent Power Producers
 Annual_Generation_Electricity_Industrial,Annual Net Generation Of All Fuels By Industries
 Annual_Generation_Electricity_IndustrialCogen,Annual Net Generation of Electricity by Industrial Cogen
-Annual_Generation_Electricity_IndustrialNonCogen,Annual Generation of Electricity by Industrial Non Cogen;Annual Generation of Electricity by Industrial Non-Cogen
+Annual_Generation_Electricity_IndustrialNonCogen,Annual Generation of Electricity by Industrial Non Cogen
 Annual_Generation_Electricity_MainActivityProducer,Annual Generation of Electricity by Main Activity Producer
 Annual_Generation_Electricity_NaturalGas,Annual Net Generation of Natural Gas in All Sectors
 Annual_Generation_Electricity_NaturalGas_Commercial,Annual Generation of Natural Gas in Commercial
@@ -1349,7 +1349,7 @@ Annual_Generation_Fuel_OtherBituminousCoal,Annual Generation of Bituminous Coal
 Annual_Generation_Fuel_OtherOilProducts,Annual Generation of Other Oil Products
 Annual_Generation_Fuel_OtherOilProducts_Refinery,Annual Generation Of Other Oil Products By Refinery Industries
 Annual_Generation_Fuel_ParaffinWaxes,Annual Generation Of Paraffin Waxes
-Annual_Generation_Fuel_ParaffinWaxes_Refinery,Annual Generation of Paraffin Waxes Refinery;Annual Generation of Refinery Paraffin Waxes
+Annual_Generation_Fuel_ParaffinWaxes_Refinery,Annual Generation of Paraffin Waxes Refinery
 Annual_Generation_Fuel_PetroleumCoke,Annual Generation of Petroleum Coke
 Annual_Generation_Fuel_PetroleumCoke_Refinery,Annual Generation of Petroleum Coke
 Annual_Generation_Fuel_RefineryFeedstocks,Annual Generation of Refinery Feedstocks
@@ -1474,7 +1474,7 @@ Area_Farm_Producer_BlackOrAfricanAmericanAlone,African American Producers
 Area_Farm_Producer_HispanicOrLatino,Area of Farm For Hispanic Producers
 Area_Farm_Producer_NativeHawaiianOrOtherPacificIslanderAlone,Native Hawaiian or Other Pacific Islander Farm Producers
 Area_Farm_Producer_TwoOrMoreRaces,Multiracial Farm Producers
-Area_Farm_Producer_WhiteAlone,Area of Farms Owned By White Producers;White Population Area of Farm Producers
+Area_Farm_Producer_WhiteAlone,Area of Farms Owned By White Producers
 Area_Farm_Rice,Area of Farms Growing Rice
 Area_Farm_SorghumForGrain,Area of Farms Growing Sorghum
 Area_Farm_SorghumForSilageOrGreenchop,Total Area of Sorghum For Silage Farms
@@ -1597,7 +1597,7 @@ Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male_Whi
 Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_White,Deaths of White Population Caused By Congenital Malformations Deformations And Chromosomal Abnormalities
 Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders,Deaths Caused by Diseases Of Blood And Blood Forming Organs And Immune Disorders
 Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_BlackOrAfricanAmerican,African Americans Deaths Caused by Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism
-Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female,Deaths of Female Population Caused By Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism;Deaths in Female Population Caused By Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism
+Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female,Deaths of Female Population Caused By Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism
 Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_BlackOrAfricanAmerican,Deaths Of African American Female Population Caused By Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism
 Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male,Deaths of Male Population Caused by Diseases of the Blood and Blood-forming Organs and Certain Disorders Involving the Immune Mechanism
 Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Male_White,"White Male Deaths Caused by Diseases of the Blood, Blood-Forming Organs, and Certain Disorders Involving The Immune Mechanism"
@@ -1842,7 +1842,7 @@ Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months,F
 Count_Household_FamilyHousehold_With3OrMoreWorker,Family Households With 3 or More Workers
 Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months,Family Households with 3 Workers or More Below Poverty Level in The Past 12 Months
 Count_Household_ForeignBorn_PlaceOfBirthAfrica,Foreign-Born In Africa Households
-Count_Household_ForeignBorn_PlaceOfBirthAsia,Foreign Born Asian Householders;Foreign Born Population In Asia Households
+Count_Household_ForeignBorn_PlaceOfBirthAsia,Foreign Born Asian Householders
 Count_Household_ForeignBorn_PlaceOfBirthCaribbean,Householders Foreign-Born In The Caribbean
 Count_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,Households Foreign Born in Central America Except Mexico
 Count_Household_ForeignBorn_PlaceOfBirthEasternAsia,Households of Foreign-Born Population in Eastern Asia
@@ -1986,7 +1986,7 @@ Count_Household_MarriedCoupleFamilyHousehold,Number of Households Containing a M
 Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months,Number of Married Couple Family Households Below Poverty Level in the Past 12 Months
 Count_Household_MarriedCoupleFamilyHousehold_MobileHomesAndAllOtherTypesOfUnits,Married Couple Family Households With Mobile Homes And All Other Types Of Units
 Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied,Occupied Married Couple Family Households
-Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months,Married Couple Family Household Owner Occupied Below Poverty Level in The Past 12 Months;Owner Occupied Married Couple Family Households Below Poverty Level in The Past 12 Months
+Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months,Married Couple Family Household Owner Occupied Below Poverty Level in The Past 12 Months
 Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied,Married Couple Family Households Occupied Renter
 Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months,Married Couple Family Households Occupied Renter Living Below Poverty Level in The Past 12 Months
 Count_Household_MarriedCoupleFamilyHousehold_SingleUnit,Married Couple Family Households in Single Unit
@@ -2435,7 +2435,7 @@ Count_Person_15OrMoreYears_NeverMarried_OneRace,Unmarried Monoracial Population 
 Count_Person_15OrMoreYears_NeverMarried_SomeOtherRaceAlone,Some Other Race Unmarried Population Aged 15 Years or More
 Count_Person_15OrMoreYears_NeverMarried_TwoOrMoreRaces,Multiracial Population Above 15 Year Who are Unmarried
 Count_Person_15OrMoreYears_NeverMarried_WhiteAlone,Never Married White Population Aged 15 Years or More
-Count_Person_15OrMoreYears_NeverMarried_WhiteAloneNotHispanicOrLatino,Unmarried White Non-Hispanic Population Aged 15 Years or More;Non Married White Hispanic Population Aged 15 Years Or More
+Count_Person_15OrMoreYears_NeverMarried_WhiteAloneNotHispanicOrLatino,Unmarried White Non-Hispanic Population Aged 15 Years or More
 Count_Person_15OrMoreYears_NoIncome,Number of People of Working Age With No Income
 Count_Person_15OrMoreYears_Separated_AmericanIndianAndAlaskaNativeAlone,American Indian or Alaska Native Population Aged 15 Years or More Who are Separated
 Count_Person_15OrMoreYears_Separated_AsianAlone,Asians Divorced For 15 Years Or More
@@ -3147,12 +3147,12 @@ Count_Person_ForeignBorn_PlaceOfBirthAfrica_BlackOrAfricanAmericanAlone,African 
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_HispanicOrLatino,Hispanic Foreign-Born Population in Africa
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_NativeHawaiianOrOtherPacificIslanderAlone,Native Hawaiians or Other Pacific Islanders Foreign Born in Africa
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_OneRace,Uniracial Foreign Born in Africa Population
-Count_Person_ForeignBorn_PlaceOfBirthAfrica_PovertyStatusDetermined,Population Foreign Born In Africa With Determined Poverty Status;Poverty Status Determined Of Foreign Born Population In Africa
+Count_Person_ForeignBorn_PlaceOfBirthAfrica_PovertyStatusDetermined,Population Foreign Born In Africa With Determined Poverty Status
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_SomeOtherRaceAlone,Some Other Race Foreign-Born Population in Africa
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_TwoOrMoreRaces,Multiracial Foreign-Born Population in Africa
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_WhiteAlone,Population of White Foreign Borns in Africa
 Count_Person_ForeignBorn_PlaceOfBirthAfrica_WhiteAloneNotHispanicOrLatino,Foreign-Born White Non-Hispanic Population in Africa
-Count_Person_ForeignBorn_PlaceOfBirthAsia_1OrLessRatioToPovertyLine,Foreign-Born Population in Asia With a 1 Ratio To Poverty Line or Less;Foreign Born Population in Asia With a 1 Ratio To Poverty Line or Less
+Count_Person_ForeignBorn_PlaceOfBirthAsia_1OrLessRatioToPovertyLine,Foreign-Born Population in Asia With a 1 Ratio To Poverty Line or Less
 Count_Person_ForeignBorn_PlaceOfBirthAsia_1To1.99RatioToPovertyLine,Asia Foreign Borns With a 1 to 2.0 Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthAsia_2OrMoreRatioToPovertyLine,Foreign Born Population in Asia With a 2 Ratio To Poverty Line or More
 Count_Person_ForeignBorn_PlaceOfBirthAsia_AmericanIndianOrAlaskaNativeAlone,American Indian or Alaska Native Asian Foreign-Born Population
@@ -3185,7 +3185,7 @@ Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,"Foreign-Born Po
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_1OrLessRatioToPovertyLine,Population Foreign Born In Central America Except Mexico With A 1 Ratio To Poverty Line or Less
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_1To1.99RatioToPovertyLine,Foreign-Born Population in Central America Except Mexico With a 1 to 2.0 Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_2OrMoreRatioToPovertyLine,"Foreign-Born Population in Central America Except, Mexico With 2 Ratio to Poverty Line or More"
-Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_AmericanIndianOrAlaskaNativeAlone,"American Indian or Alaska Native Foreign Born Population in Central America Except Mexico;American Indian or Alaska Native Foreign-Born Population in Central America, Except Mexico"
+Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_AmericanIndianOrAlaskaNativeAlone,American Indian or Alaska Native Foreign Born Population in Central America Except Mexico
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_AsianAlone,Gender-Based Hate Crimes of Animal Cruelty Against Transgender Victims
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_BlackOrAfricanAmericanAlone,"African American Foreign-Born Population in Central America, Except Mexico"
 Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico_HispanicOrLatino,"Hispanic Foreign Borns In Central America, Except Mexico"
@@ -3213,7 +3213,7 @@ Count_Person_ForeignBorn_PlaceOfBirthEasternAsia_WhiteAlone,White Foreign-Born P
 Count_Person_ForeignBorn_PlaceOfBirthEasternAsia_WhiteAloneNotHispanicOrLatino,White Non-Hispanic Foreign-Born Population in Eastern Asia
 Count_Person_ForeignBorn_PlaceOfBirthEurope_1OrLessRatioToPovertyLine,Foreign Born in Europe Population With a 1 or Less Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthEurope_1To1.99RatioToPovertyLine,Foreign-Born Population in Europe with a 1 to 2 Ratio to Poverty Line
-Count_Person_ForeignBorn_PlaceOfBirthEurope_2OrMoreRatioToPovertyLine,Foreign-Born Population in Europe With 2 or More Ratio To Poverty Line 
+Count_Person_ForeignBorn_PlaceOfBirthEurope_2OrMoreRatioToPovertyLine,Foreign-Born Population in Europe With 2 or More Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthEurope_AmericanIndianOrAlaskaNativeAlone,Foreign-Born American Indian or Alaska Native Population in Europe
 Count_Person_ForeignBorn_PlaceOfBirthEurope_AsianAlone,Asian Foreign-Born Population in Europe
 Count_Person_ForeignBorn_PlaceOfBirthEurope_BlackOrAfricanAmericanAlone,Europe Foreign-Born in African American Population
@@ -3257,7 +3257,7 @@ Count_Person_ForeignBorn_PlaceOfBirthMexico_WhiteAloneNotHispanicOrLatino,White 
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica,Population Foreign-Born In North America
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_1OrLessRatioToPovertyLine,North America Foreign-Born Population With a 1 Ratio Below the Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_1To1.99RatioToPovertyLine,Foreign-Born Population in North America With a 1 to 2.0 Ratio To Poverty Line
-Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_2OrMoreRatioToPovertyLine,Foreign Born Population in North America With a 2 Ratio To Poverty Line or Less;Foreign-Born Population in North America With a 2 Ratio To Poverty Line or Less
+Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_2OrMoreRatioToPovertyLine,Foreign Born Population in North America With a 2 Ratio To Poverty Line or Less
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_AmericanIndianOrAlaskaNativeAlone,American Indian or Alaska Native Foreign-Born Population in North America
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_AsianAlone,Asian Population Foreign Born In North America
 Count_Person_ForeignBorn_PlaceOfBirthNorthamerica_BlackOrAfricanAmericanAlone,African American Foreign-Born Population in North America
@@ -3273,7 +3273,7 @@ Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Foreign Born Populati
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_1OrLessRatioToPovertyLine,Foreign-Born Population in Northern Western Europe with a 1 Ratio To Poverty Line or Less
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_1To1.99RatioToPovertyLine,Foreign-Born Population in Northern Western Europe 1 to 2.0 Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_2OrMoreRatioToPovertyLine,Population Foreign Born in Northern Western Europe With a 2 Ratio To Poverty Line or More
-Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_AmericanIndianOrAlaskaNativeAlone,American Indian Or Alaska Native And Foreign Born Population In Northern Western Europe;American Indian or Alaska Native Population Foreign Born In Northern Western Europe
+Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_AmericanIndianOrAlaskaNativeAlone,American Indian Or Alaska Native And Foreign Born Population In Northern Western Europe
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_AsianAlone,Asian Population Foreign-Born in Northern Western Europe
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_BlackOrAfricanAmericanAlone,African American Foreign Borns In North Western Europe
 Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope_HispanicOrLatino,Hispanic Foreign-Born Population In Northern Western Europe
@@ -3348,7 +3348,7 @@ Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Foreign-Born Populati
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_1OrLessRatioToPovertyLine,Foreign-Born Population in Southern Eastern Europe With a 1 Ratio To Poverty Line or Less
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_1To1.99RatioToPovertyLine,Foreign-Born Population in Southern Eastern Europe With a 1 to 2.0 Ratio To Poverty Line
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_2OrMoreRatioToPovertyLine,Foreign Born in Southern Eastern Europe With a 2 Ratio To Poverty Line or More
-Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_AmericanIndianOrAlaskaNativeAlone,American Indian or Alaska Native Population Foreign Born In Southern Eastern Europe;Foreign Born In Southern Eastern Europe American Indian Or Alaska Native Population
+Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_AmericanIndianOrAlaskaNativeAlone,American Indian or Alaska Native Population Foreign Born In Southern Eastern Europe
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_AsianAlone,Foreign Born in South Eastern Europe Asians
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_BlackOrAfricanAmericanAlone,African-American Foreign-Born Population In Southern Eastern Europe
 Count_Person_ForeignBorn_PlaceOfBirthSouthernEasternEurope_HispanicOrLatino,Foreign-Born in South Eastern Europe Hispanics
@@ -3677,7 +3677,7 @@ Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthLatinAmerica,Non-US Citizens 
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthMexico,Foreign-Born Population In Mexico Non-Us Citizens
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthNorthamerica,Foreign-Born Population in North America Who are Non-US Citizens
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Foreign-Born Population in Northern Western Europe Who are Non-US Citizens
-Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthOceania,Foreign Born Non-US Citizen in Oceania;Foreign-Born Non-US Citizen in Oceania
+Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthOceania,Foreign Born Non-US Citizen in Oceania
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthSouthCentralAsia,Foreign-Born Population in South Central Asia Who are Non-US Citizens
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthSouthEasternAsia,Foreign-Born Non-US Citizens in South Eastern Asia
 Count_Person_NotAUSCitizen_ForeignBorn_PlaceOfBirthSouthamerica,Foreign Born in South America Population
@@ -3963,7 +3963,7 @@ Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthCaribbean,Foreign
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,"Foreign-Born Population Who Are US Citizens by Naturalization in Central America, Except Mexico"
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthEasternAsia,Foreign-Born Population Who Are US Citizens by Naturalization in Eastern Asia
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthEurope,Foreign-Born US Citizens by Naturalization in Europe
-Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthLatinAmerica,Foreign Born US Citizen by Naturalization in Latin America;Foreign-Born US Citizen by Naturalization in Latin America
+Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthLatinAmerica,Foreign Born US Citizen by Naturalization in Latin America
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthMexico,US Citizens By Naturalization Foreign-Born In Mexico
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthNorthamerica,Foreign-Born Population in North America Who are US Citizens by Naturalization
 Count_Person_USCitizenByNaturalization_ForeignBorn_PlaceOfBirthNorthernWesternEurope,Foreign Borns in Northern Western European Who are US Citizens by Naturalization
@@ -4265,13 +4265,13 @@ Max_Rainfall,Maximum Rainfall
 Max_Snowfall,Maximum Snowfall
 Max_Temperature,Maximum Temperature
 Max_WindSpeed_UComponent_Height10Meters,10 Meters UComponent Max Wind Speed
-Max_WindSpeed_VComponent_Height10Meters,Maximum Wind Speed of Wind Component For 10 Meters High;Maximum Wind Speed Meter 10 VComponent
+Max_WindSpeed_VComponent_Height10Meters,Maximum Wind Speed of Wind Component For 10 Meters High
 MeanMothersAge_BirthEvent,Mean Mothers Age
 Mean_Area_Farm,Mean Area of Farm
 Mean_BarometricPressure,Mean Barometric Pressure
 Mean_BirthWeight_BirthEvent_LiveBirth,Mean Birth Weight in Birth Events For Live Births
 Mean_BirthWeight_BirthEvent_LiveBirth_Mother9ThTo12ThGradeNoDiploma,Average Live Birth Weight in Grams of Mother in Grades 9th to 12th Without Diploma
-Mean_BirthWeight_BirthEvent_LiveBirth_MotherAmericanIndianOrAlaskaNativeAlone,Average Live Birth Weight in Grams by American Indian Or Alaska Native Mothers;American Indian Of Alaska Native Mothers Population Of Live Birth Height
+Mean_BirthWeight_BirthEvent_LiveBirth_MotherAmericanIndianOrAlaskaNativeAlone,Average Live Birth Weight in Grams by American Indian Or Alaska Native Mothers
 Mean_BirthWeight_BirthEvent_LiveBirth_MotherAsianIndian,Average Live Birth Weight in Grams For Asian Indian Mothers
 Mean_BirthWeight_BirthEvent_LiveBirth_MotherAsianOrPacificIslander,Average Live Birth Weight in Grams For Asian Or Pacific Islander Mothers
 Mean_BirthWeight_BirthEvent_LiveBirth_MotherAssociatesDegree,Average Live Birth Weight in Grams Among Mothers With Associates Degrees
@@ -4307,7 +4307,7 @@ Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthAfrica,Mean Cash Assistanc
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthAsia,Mean Cash Assistance of Foreign-Born Households in Asia
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthCaribbean,Mean Cash Assistance of Foreign-Born Householders in the Caribbean
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico,"Mean Cash Assistance of Households Owned By Foreign-Born Population in Central America, Except Mexico"
-Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthEasternAsia,Mean Cash Assistance of Householders Foreign Born In Eastern Asia;Mean Cash Assistance Household Of Foreign Born Population In East Africa
+Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthEasternAsia,Mean Cash Assistance of Householders Foreign Born In Eastern Asia
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthEurope,Average Cash Assistance of Householders Foreign Born In Europe
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthLatinAmerica,Mean Cash Assistance of Foreign-Born Population in Latin America
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthMexico,Mean Cash Assistance of Foreign-Born Households in Mexico
@@ -4512,7 +4512,7 @@ Mean_MothersAge_BirthEvent_LiveBirth_MotherHighSchoolGraduateGedOrAlternative,Av
 Mean_MothersAge_BirthEvent_LiveBirth_MotherHispanicOrLatino,Hispanic Mothers with Average Age in Years
 Mean_MothersAge_BirthEvent_LiveBirth_MotherJapanese,Average Mother's Age in Years Where Mothers Race is Japanese
 Mean_MothersAge_BirthEvent_LiveBirth_MotherKorean,Average Mother's Age in Years For Korean Mothers
-Mean_MothersAge_BirthEvent_LiveBirth_MotherLessThan9ThGrade,Average Age in Years of Mothers with Education Level Less Than 9th Grades;Average Age in Years of Mothers with Education Level Less Than 9th Grade
+Mean_MothersAge_BirthEvent_LiveBirth_MotherLessThan9ThGrade,Average Age in Years of Mothers with Education Level Less Than 9th Grades
 Mean_MothersAge_BirthEvent_LiveBirth_MotherMastersDegree,Mothers with Masters Degree Average Ages in Years
 Mean_MothersAge_BirthEvent_LiveBirth_MotherNative,Average Age in Years of USC Native Mothers
 Mean_MothersAge_BirthEvent_LiveBirth_MotherNativeHawaiian,Average Age in Years of Native Hawaiian Mothers
@@ -4556,7 +4556,7 @@ Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherNotHispanicOrLatino,Average OE 
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherNowMarried,Mean Gestational Age For Filipino Married Mothers
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherOtherAsian,Average OE Gestational Ages in Weeks of Asian Mothers
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherOtherPacificIslander,Average OE Gestational Age in Weeks Among Other Pacific Islander Mothers
-Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherSamoan,Samoan Mothers Population Of Average Of Gestational;Average OE Gestational Age in Weeks by Samoan Mothers
+Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherSamoan,Samoan Mothers Population Of Average Of Gestational
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherSomeCollegeNoDegree,Average OE Gestational Age in Weeks For Mothers Whose Education is Some College Without Degree
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherTwoOrMoreRaces,Average OE Gestational Age in Weeks For Multiracial Mothers
 Mean_OeGestationalAge_BirthEvent_LiveBirth_MotherUnmarried,Average OE Gestational Age in weeks For Unmarried Mothers
@@ -4886,7 +4886,7 @@ Percent_Daily_TobaccoSmoking_Cigarettes_In_Count_Person,Percentage of Population
 Percent_Daily_TobaccoUsing_In_Count_Person,Percentage of Population Smoking Daily
 Percent_Daily_TobaccoUsing_In_Count_Person_Female,Percentage of Female Population Smoking Tobacco Daily
 Percent_Daily_TobaccoUsing_In_Count_Person_Male,Percentage of Male Population Smoking Tobacco Daily
-Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication,Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;
+Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication,Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age
 Percent_Person_18To64Years_Female_NoHealthInsurance,Percentage of Women (18 to 64 Years Old) Without Health Insurance
 Percent_Person_18To64Years_Male_NoHealthInsurance,Percentage of Men (18 to 64 Years Old) Without Health Insurance
 Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone,Percentage of Black or African American Population (18 to 64 Years Old) Without Health Insurance
@@ -5262,7 +5262,7 @@ dc/hxsdmw575en24,Incarcerated Population
 dc/jbv3zc0ezvcyc,Other Race Population Enrolled in School
 dc/jceld0k7ysbw3,Foreign-Born Separated Population
 dc/jefhcs9qxc971,Median Income for People Working in the Educational Services Industry
-dc/jh0nks36n1jc1,Deaths of Female Population Due to Judicial Execution;Deaths of Incarcerated Female Population Due to Judicial Execution
+dc/jh0nks36n1jc1,Deaths of Female Population Due to Judicial Execution
 dc/jngmh68j9z4q,Total Wages for People Working in the Food Manufacturing Industry
 dc/jte92xq8qsgtd,Deaths of Incarcerated Population Caused by Intentional Self-Harm
 dc/jtf63bh66k41g,Deaths of Incarcerated Population Caused by Assault
@@ -5374,7 +5374,7 @@ indianCensus/Count_Person_Religion_Buddhist,Buddhist Population
 indianCensus/Count_Person_Religion_Buddhist_Female,Buddhist Female Population
 indianCensus/Count_Person_Religion_Buddhist_Illiterate,Illiterates Buddhists
 indianCensus/Count_Person_Religion_Buddhist_Literate,Literate Buddhist Population
-indianCensus/Count_Person_Religion_Buddhist_MainWorker,Main Worker Buddhists;Buddhist Main Workers
+indianCensus/Count_Person_Religion_Buddhist_MainWorker,Main Worker Buddhists
 indianCensus/Count_Person_Religion_Buddhist_Male,Male Buddhists
 indianCensus/Count_Person_Religion_Buddhist_MarginalWorker,Buddhism Marginal Workers
 indianCensus/Count_Person_Religion_Buddhist_NonWorker,Buddhist Non-Workers
@@ -5398,7 +5398,7 @@ indianCensus/Count_Person_Religion_Christian_Rural,Christians in Rural Areas
 indianCensus/Count_Person_Religion_Christian_Urban,Christian Population in Urban Areas
 indianCensus/Count_Person_Religion_Christian_Workers,Christian Workers
 indianCensus/Count_Person_Religion_Christian_YearsUpto6,Christian Population Below 6 Years Old
-indianCensus/Count_Person_Religion_Christian_YearsUpto6_Female,Christian Female Population Aged 6 Years or Less;Christian Female Population Aged Below 6 Years
+indianCensus/Count_Person_Religion_Christian_YearsUpto6_Female,Christian Female Population Aged 6 Years or Less
 indianCensus/Count_Person_Religion_Christian_YearsUpto6_Male,Christian Male Population Aged 6 Years or Less
 indianCensus/Count_Person_Religion_Christian_YearsUpto6_Rural,Female Marginal Workers Who Worked for Less Than 3 Months in Rural Areas
 indianCensus/Count_Person_Religion_Christian_YearsUpto6_Urban,Urban Christians Aged 6 Years Or Less
@@ -5469,7 +5469,7 @@ indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_YearsUpto6_Urban
 indianCensus/Count_Person_Religion_ReligionNotStated,Population with Unstated Religion
 indianCensus/Count_Person_Religion_ReligionNotStated_Female,Female Population of Unstated Religion
 indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate,Illiterates Of Unstated Religion
-indianCensus/Count_Person_Religion_ReligionNotStated_Literate,Literate Population Of Unstated Religion;Literate Religion Not Stated Population
+indianCensus/Count_Person_Religion_ReligionNotStated_Literate,Literate Population Of Unstated Religion
 indianCensus/Count_Person_Religion_ReligionNotStated_MainWorker,Main Workers of Unstated Religion
 indianCensus/Count_Person_Religion_ReligionNotStated_Male,Male Population of Unstated Religion
 indianCensus/Count_Person_Religion_ReligionNotStated_MarginalWorker,Marginal Workers of Unstated Religion
