@@ -21,25 +21,16 @@ from typing import Dict, List
 from absl import app
 from absl import flags
 import requests
+import utils
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('input_csv', 'data/bootstrap.csv', 'Input tokens CSV file')
+flags.DEFINE_string('input_csv', 'data/bootstrap.csv', 'Input bootstrap CSV file')
+flags.DEFINE_string('names_csv', 'data/llm_output.csv', 'Input SV descriptions CSV file')
 flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
-
-_PLACE_PREF = [
-    'State',
-    'County',
-    'Country',
-    'AdministrativeArea1',
-    'AdministrativeArea2',
-    'EurostatNUTS2',
-    'EurostatNUTS3',
-    'EurostatNUTS1',
-]
 
 CONFIG = 'detector=heuristic&idx=medium_ft&place_detector=ner'
 
@@ -50,7 +41,7 @@ OUT_HEADER = [
     'ChartSVRank', 'EmbeddingsSVRank'
 ]
 
-CHECKPOINT_INTERVAL = 100
+CHECKPOINT_INTERVAL = 30
 
 
 @dataclass
@@ -59,50 +50,10 @@ class Context:
   counters: Dict
   bootstrap: Dict
   input_csv: str
+  names_csv: str
   output_csv: str
   counters_json: str
-
-
-def load_bootstrap(ctx):
-  with open(ctx.input_csv) as fin:
-    print('Loading bootstrap...\n')
-    for row in csv.DictReader(fin):
-      sv = row['SV']
-      if sv not in ctx.bootstrap:
-        ctx.bootstrap[sv] = {'name': row['SVDesc']}
-
-      pt = row['PlaceType']
-      ctx.bootstrap[sv][pt] = {
-          'dcid': row['Place'],
-          'name': row['PlaceName'],
-      }
-
-
-def load_checkpoint(ctx):
-  if (os.path.exists(ctx.output_csv) and os.path.exists(ctx.counters_json)):
-    print('Loading checkpoint...\n')
-
-    with open(ctx.output_csv, 'r') as fin:
-      for row in csv.DictReader(fin):
-        ctx.rows.append(row)
-        # Don't process it again!
-        del ctx.bootstrap[row['SV']]
-
-    with open(ctx.counters_json, 'r') as fin:
-      ctx.counters = json.load(fin)
-
-
-def write_checkpoint(ctx):
-  print('Checkpointing...')
-  print(f'  Counters: {ctx.counters}\n')
-
-  with open(ctx.output_csv, 'w') as fout:
-    csvw = csv.DictWriter(fout, fieldnames=OUT_HEADER)
-    csvw.writeheader()
-    csvw.writerows(ctx.rows)
-
-  with open(ctx.counters_json, 'w') as fout:
-    json.dump(ctx.counters, fout)
+  out_header: List[str]
 
 
 def init_result(q, sv, pl):
@@ -147,7 +98,7 @@ def query(sv, pl, sv_name, pl_name, counters):
   try:
     resp = requests.post(URL + f'&q={q}', json={'contextHistory': {}}).json()
   except Exception as e:
-    print(f'ERROR: {e}')
+    print(f'ERROR: {q} {e}')
     ret['Exception'] = '*'
     counters['Exception'] += 1
     return ret
@@ -207,33 +158,37 @@ def query(sv, pl, sv_name, pl_name, counters):
 
 def run(ctx):
   # Load bootstrap CSV.
-  load_bootstrap(ctx)
+  utils.load_bootstrap(ctx)
 
   # Load any prior checkpoint (which drops stuff from bootstrap)
-  load_checkpoint(ctx)
+  utils.load_checkpoint(ctx)
 
   print('Processing...\n')
+  nsvproc = 0
   for sv in sorted(ctx.bootstrap):
     svi = ctx.bootstrap[sv]
-    for pt in _PLACE_PREF:
+    for pt in utils.PLACE_PREF:
       if pt not in svi:
         continue
-      result = query(sv=sv,
-                     pl=svi[pt]['dcid'],
-                     sv_name=svi['name'],
-                     pl_name=svi[pt]['name'],
-                     counters=ctx.counters)
-      ctx.rows.append(result)
+
+      for sv_name in svi['names']:
+        result = query(sv=sv,
+                       pl=svi[pt]['dcid'],
+                       sv_name=sv_name,
+                       pl_name=svi[pt]['name'],
+                       counters=ctx.counters)
+        ctx.rows.append(result)
 
       # Time for checkpointing?
-      if ctx.counters['Total'] % CHECKPOINT_INTERVAL == 0:
-        write_checkpoint(ctx)
+      nsvproc += 1
+      if nsvproc % CHECKPOINT_INTERVAL == 0:
+        utils.write_checkpoint(ctx)
 
       # We only want one place.
       break
 
   # Finally write checkpoint.
-  write_checkpoint(ctx)
+  utils.write_checkpoint(ctx)
 
 
 def main(_):
@@ -245,8 +200,10 @@ def main(_):
               counters=init_counters(),
               rows=[],
               input_csv=FLAGS.input_csv,
+              names_csv=FLAGS.names_csv,
               output_csv=output_csv,
-              counters_json=counters_json))
+              counters_json=counters_json,
+              out_header=OUT_HEADER))
 
 
 if __name__ == "__main__":

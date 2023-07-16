@@ -20,37 +20,29 @@ from typing import Dict, List, Set
 
 from absl import app
 from absl import flags
-import requests
 import datacommons as dc
+import requests
+import utils
 
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('input_csv', 'data/bootstrap.csv', 'Input tokens CSV file')
+flags.DEFINE_string('names_csv', 'data/llm_output.csv',
+                    'Input SV descriptions CSV file')
 flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-_PLACE_PREF = [
-    'State',
-    'County',
-    'Country',
-    'AdministrativeArea1',
-    'AdministrativeArea2',
-    'EurostatNUTS2',
-    'EurostatNUTS3',
-    'EurostatNUTS1',
-]
-
 URL = 'https://api.datacommons.org/v1/recognize/places?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
 POP_URL = 'https://api.datacommons.org/v1/bulk/observations/point?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
 
 OUT_HEADER = [
-    'Query', 'OrigPlace', 'WrongPlace', 'BogusPlace', 'WrongPlaceName', 'BogusPlaceName',
-    'Success', 'Exception', 'EmptyResult', 'SV'
+    'Query', 'OrigPlace', 'WrongPlace', 'BogusPlace', 'WrongPlaceName',
+    'BogusPlaceName', 'Success', 'Exception', 'EmptyResult', 'SV'
 ]
 
-CHECKPOINT_INTERVAL = 100
+CHECKPOINT_INTERVAL = 30
 
 
 @dataclass
@@ -59,53 +51,13 @@ class Context:
   counters: Dict
   bootstrap: Dict
   input_csv: str
+  names_csv: str
   output_csv: str
   counters_json: str
+  out_header: List[str]
   bad_dcids: Set[str]
   dcid_names: Dict
   dcid_pop: Dict
-
-
-def load_bootstrap(ctx):
-  with open(ctx.input_csv) as fin:
-    print('Loading bootstrap...\n')
-    for row in csv.DictReader(fin):
-      sv = row['SV']
-      if sv not in ctx.bootstrap:
-        ctx.bootstrap[sv] = {'name': row['SVDesc']}
-
-      pt = row['PlaceType']
-      ctx.bootstrap[sv][pt] = {
-          'dcid': row['Place'],
-          'name': row['PlaceName'],
-      }
-
-
-def load_checkpoint(ctx):
-  if (os.path.exists(ctx.output_csv) and os.path.exists(ctx.counters_json)):
-    print('Loading checkpoint...\n')
-
-    with open(ctx.output_csv, 'r') as fin:
-      for row in csv.DictReader(fin):
-        ctx.rows.append(row)
-        # Don't process it again!
-        del ctx.bootstrap[row['SV']]
-
-    with open(ctx.counters_json, 'r') as fin:
-      ctx.counters = json.load(fin)
-
-
-def write_checkpoint(ctx):
-  print('Checkpointing...')
-  print(f'  Counters: {ctx.counters}\n')
-
-  with open(ctx.output_csv, 'w') as fout:
-    csvw = csv.DictWriter(fout, fieldnames=OUT_HEADER)
-    csvw.writeheader()
-    csvw.writerows(ctx.rows)
-
-  with open(ctx.counters_json, 'w') as fout:
-    json.dump(ctx.counters, fout)
 
 
 def init_result(q, sv, pl):
@@ -125,7 +77,9 @@ def init_result(q, sv, pl):
 
 def init_counters():
   counters = {}
-  for c in ['Total', 'Exception', 'EmptyResult', 'WrongPlace', 'BogusPlace', 'Success']:
+  for c in [
+      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'BogusPlace', 'Success'
+  ]:
     counters[c] = 0
   return counters
 
@@ -149,14 +103,14 @@ def query(sv, pl, sv_name, pl_name, counters, bad_dcids):
   try:
     resp = requests.post(URL + f'&queries={q}').json()
   except Exception as e:
-    print(f'ERROR: {e}')
+    print(f'ERROR: {q} {e}')
     ret['Exception'] = '*'
     counters['Exception'] += 1
     return ret
 
   items = resp.get('queryItems', {}).get(q, {}).get('items', [])
 
-  found_place = False 
+  found_place = False
   bogus_dcids = []
   place_dcids = []
   nsv = len(qsv.replace(' ', ''))
@@ -179,13 +133,13 @@ def query(sv, pl, sv_name, pl_name, counters, bad_dcids):
     ret['EmptyResult'] = '*'
     counters['EmptyResult'] += 1
     return ret
-  
+
   if bogus_dcids:
     # Flatten
     ret['BogusPlace'] = ';'.join(bogus_dcids)
     bad_dcids.update(bogus_dcids)
     counters['BogusPlace'] += 1
-  
+
   if len(place_dcids) == 1 and pl in place_dcids[0]:
     if not bogus_dcids:
       ret['Success'] = '*'
@@ -209,24 +163,25 @@ def update_rows(ctx):
   dcids = sorted([d for d in ctx.bad_dcids if d not in ctx.dcid_names])
 
   if dcids:
-    print(f'Looking up {len(dcids)} entries')
     try:
       res = dc.get_property_values(dcids, 'name')
     except Exception as e:
-      print(f'DC ERROR: {e}')
+      print(f'DC ERROR: {dcids} {e}')
       return
     for k, v in res.items():
       if v:
         ctx.dcid_names[k] = v[0]
 
     try:
-      url = POP_URL + '&variables=Count_Person&' + '&'.join('entities=' + e for e in dcids)
+      url = POP_URL + '&variables=Count_Person&' + '&'.join(
+          'entities=' + e for e in dcids)
       resp = requests.get(url).json()
     except Exception as e:
-      print(f'API ERROR: {e}')
+      print(f'API ERROR: {dcids} {e}')
       return
-    
-    for einfo in resp['observationsByVariable'][0].get('observationsByEntity', []):
+
+    for einfo in resp['observationsByVariable'][0].get('observationsByEntity',
+                                                       []):
       if 'entity' not in einfo or not einfo.get('pointsByFacet'):
         continue
       ctx.dcid_pop[einfo['entity']] = einfo['pointsByFacet'][0]['value']
@@ -251,36 +206,40 @@ def update_rows(ctx):
 
 def run(ctx):
   # Load bootstrap CSV.
-  load_bootstrap(ctx)
+  utils.load_bootstrap(ctx)
 
   # Load any prior checkpoint (which drops stuff from bootstrap)
-  load_checkpoint(ctx)
+  utils.load_checkpoint(ctx)
 
   print('Processing...\n')
+  nsvproc = 0
   for sv in sorted(ctx.bootstrap):
     svi = ctx.bootstrap[sv]
-    for pt in _PLACE_PREF:
+    for pt in utils.PLACE_PREF:
       if pt not in svi:
         continue
-      result = query(sv=sv,
-                     pl=svi[pt]['dcid'],
-                     sv_name=svi['name'],
-                     pl_name=svi[pt]['name'],
-                     counters=ctx.counters,
-                     bad_dcids=ctx.bad_dcids)
-      ctx.rows.append(result)
 
-      # Time for checkpointing?
-      if ctx.counters['Total'] % CHECKPOINT_INTERVAL == 0:
+      for sv_name in svi['names']:
+        result = query(sv=sv,
+                       pl=svi[pt]['dcid'],
+                       sv_name=sv_name,
+                       pl_name=svi[pt]['name'],
+                       counters=ctx.counters,
+                       bad_dcids=ctx.bad_dcids)
+        ctx.rows.append(result)
+
+        # Time for checkpointing?
+      nsvproc += 1
+      if nsvproc % CHECKPOINT_INTERVAL == 0:
         update_rows(ctx)
-        write_checkpoint(ctx)
+        utils.write_checkpoint(ctx)
 
       # We only want one place.
       break
 
   update_rows(ctx)
   # Finally write checkpoint.
-  write_checkpoint(ctx)
+  utils.write_checkpoint(ctx)
 
 
 def main(_):
@@ -292,8 +251,10 @@ def main(_):
               counters=init_counters(),
               rows=[],
               input_csv=FLAGS.input_csv,
+              names_csv=FLAGS.names_csv,
               output_csv=output_csv,
               counters_json=counters_json,
+              out_header=OUT_HEADER,
               bad_dcids=set(),
               dcid_names={},
               dcid_pop={}))

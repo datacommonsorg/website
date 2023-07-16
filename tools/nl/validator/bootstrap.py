@@ -23,6 +23,7 @@ flags.DEFINE_string('kg_csv', 'data/kg.csv', 'Places')
 flags.DEFINE_string('names_csv', 'data/base_names.csv', 'Descriptions')
 flags.DEFINE_string('output_csv', 'data/llm_input.csv', 'Descriptions')
 
+
 def main(_):
   svs = {}
   with open(FLAGS.kg_csv) as fin:
@@ -43,6 +44,7 @@ def main(_):
     csvw.writerow(['SV', 'SVDesc'])
     for sv in sorted(svs):
       csvw.writerow([sv, svs[sv]])
+
 
 if __name__ == "__main__":
   app.run(main)
