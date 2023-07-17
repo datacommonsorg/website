@@ -1,26 +1,41 @@
 # NL Validator Tool
 
+This directory contains tools to issue queries against production
+NL services and collect statistics for quality, regression and stat-var
+fine-tuning.
+
 ## Overview
 
 ### Bootstrap
 
-For every SV in the index and an associated place with data, get SV
-name/description and generate M alternate PaLM descriptions.
+For every SV in the medium index and an associated place with data,
+get SV name/description and generate M alternate PaLM descriptions.
 
-This produces a CSV with:
+This produces CSV `llm_output.csv` input to the main tools with header:
 
 ```
 SV,PlaceType,Place,SVDesc,PlaceName
 ```
 
-TODO: Add PaLM alt support
+#### Usage
 
-### System Test
+To generate this input:
+
+1. Run `./bootstrap.sh` to generate `llm_input.csv`
+
+2. Use PaLM Alternatives generation script that takes `llm_input.csv`
+   as input to generate `llm_output.csv` as output.
+
+
+### NL System Test
+
+This targets the NL data endpoint and validates the output chart config
+that determines the charts shown to the user.
 
 For every row of the above CSV:
-1. We construct a query using the SV desc and place name, and hit
+1. Construct a query using the SV desc and place name, and hit
    `dev.datacommons.org`.
-2. Check the results for:
+2. Check the results on:
    * If we have chart-config
    * If we got the place wrong
    * the rank of the SV is in the chart-config (i.e., first chart with it)
@@ -30,12 +45,48 @@ For every row of the above CSV:
    Query,SV,Place,Exception,EmptyResult,WrongPlace,ChartSVRank,EmbeddingSVRank
    ```
 
+#### Usage
+
+The test takes a few hours to run, but checkpoints state every N entries, so
+be sure to run with a specific `run_name` and use that for re-runs.
+
+```
+./systest.sh <RUN_NAME>
+```
+
+This will keep checkpointing counters and full results to `checkpoint/`
+
+### Place Recognition Test
+
+This targets the place recognition recon service with the PaLM generated
+queries.
+
+For every row of the above CSV:
+1. Construct a query using the SV desc and place name, and hit
+   PROD mixer endpoint.
+2. Check the results on:
+   * If we mapped to a place.
+   * If we got the place wrong.
+   * If we got additional bogus places.
+3. Produce a CSV and associated counters in a json.
+
+#### Usage
+
+The test takes 20-30 mins to run, but checkpoints state every N entries, so
+be sure to run with a specific `run_name` and use that for re-runs.
+
+```
+./placetest.sh <RUN_NAME>
+```
+
+This will keep checkpointing counters and full results to `checkpoint/`
+
 ### Baseline Validation
 
-TODO: fleshout
+TODO: flesh out details
 
-P0: Every result with NoResult, WrongPlace and xSVRank infinity.
-P1: Every result with >3 SVRank.
+P0 - Every result with NoResult, WrongPlace and xSVRank infinity.
+P1 - Every result with >3 SVRank.
 
 ### Regression and Auto fine-tuning
 
@@ -50,14 +101,3 @@ existing SVs whose SVRank gets poor...
 * Support child-place-type for contained-in and ranking queries.
 * Call for child places (without data) and child place-types (without data)
   to test fallback
-
-## Usage
-
-The test takes a few hours to run, but checkpoints state every N entries, so
-be sure to run with a specific `run_name` and use that for all such runs.
-
-```
-./systest.sh <RUN_NAME>
-```
-
-This will keep checkpointing counters and full results to `checkpoint/`

@@ -13,7 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cat "bootstrap.sql" | bq query --use_legacy_sql=false \
-  --format=csv --max_rows=100000 > data/bootstrap.csv
+python3 -m venv .env
+source .env/bin/activate
+pip3 install -r requirements.txt
 
-python3 bootstrap.py
+if [[ "$1" != "" ]]; then
+  python3 placetest.py --run_name=$1
+else
+  python3 placetest.py
+fi
