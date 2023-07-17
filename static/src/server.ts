@@ -514,9 +514,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   res.setHeader("Content-Type", "text/html");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      const img = document.createElement("img");
-      img.src = getSvgXml(chart);
-      res.status(200).send(img.outerHTML);
+      res.status(200).send(chart.outerHTML);
     })
     .catch(() => {
       res.status(500).send("Error retrieving chart.");
