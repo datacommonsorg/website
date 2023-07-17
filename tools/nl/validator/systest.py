@@ -25,8 +25,10 @@ import utils
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string('input_csv', 'data/bootstrap.csv', 'Input bootstrap CSV file')
-flags.DEFINE_string('names_csv', 'data/llm_output.csv', 'Input SV descriptions CSV file')
+flags.DEFINE_string('input_csv', 'data/bootstrap.csv',
+                    'Input bootstrap CSV file')
+flags.DEFINE_string('names_csv', 'data/llm_output.csv',
+                    'Input SV descriptions CSV file')
 flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')

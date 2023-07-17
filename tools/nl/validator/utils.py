@@ -13,9 +13,9 @@
 # limitations under the License.
 
 import csv
+import datetime
 import json
 import os
-import datetime
 
 PLACE_PREF = [
     'State',
@@ -29,6 +29,13 @@ PLACE_PREF = [
 ]
 
 
+#
+# Loads the bootstrap stuff into `bootstrap`.
+# Expects that ctx has:
+# - names_csv: str
+# - input_csv: str
+# - bootstrap: Dict
+#
 def load_bootstrap(ctx):
   sv2descs = {}
   if ctx.names_csv:
@@ -59,6 +66,15 @@ def load_bootstrap(ctx):
       }
 
 
+#
+# Loads checkpoint file into memory.
+# Expects ctx to have:
+# - output_csv: str
+# - counters_json: str
+# - bootstrap: Dict
+# - rows: List[Dict]
+# - counters: Dict
+#
 def load_checkpoint(ctx):
   if (os.path.exists(ctx.output_csv) and os.path.exists(ctx.counters_json)):
     print('Loading checkpoint...\n')
@@ -76,6 +92,14 @@ def load_checkpoint(ctx):
       ctx.counters = json.load(fin)
 
 
+#
+# Writes inmemory datastructures to file.
+# - output_csv: str
+# - counters_json: str
+# - out_header: List[str]
+# - rows: List[Dict]
+# - counters: Dict
+#
 def write_checkpoint(ctx):
   print(f'[{datetime.datetime.now()}] Checkpointing...')
   print(f'  Counters: {ctx.counters}\n')
