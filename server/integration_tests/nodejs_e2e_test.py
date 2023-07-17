@@ -33,6 +33,7 @@ class IntegrationTest(unittest.TestCase):
     del resp['debug']
     for chart in resp.get('charts', []):
       self.assertNotEqual('', chart.get('chartUrl', '')), chart
+      chart['chartUrl'] = ''
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, 'screenshot.json')
     if _TEST_MODE == 'write':
       json_dir = os.path.dirname(json_file)
