@@ -14,7 +14,7 @@
       ],
       "title": "Percentage of Population That Is Obese (2018) vs. Population Below Poverty Level Status in Past Year Per Capita (2020) in Counties of California",
       "type": "SCATTER",
-      "svg": ""
+      "chartUrl": "http://dev.datacommons.org/nodejs/chart?config=%7B%22scatterTileSpec%22:%7B%22highlightTopRight%22:true%7D,%22statVarKey%22:%5B%22Percent_Person_Obesity_scatter%22,%22Count_Person_BelowPovertyLevelInThePast12Months_scatter%22%5D,%22title%22:%22Percentage%20of%20Population%20That%20Is%20Obese%20($%7ByDate%7D)%20vs.%20Population%20Below%20Poverty%20Level%20Status%20in%20Past%20Year%20Per%20Capita%20($%7BxDate%7D)%20in%20Counties%20of%20California%22,%22type%22:%22SCATTER%22%7D&enclosedPlaceType=County&eventTypeSpec=null&place=geoId/06&svSpec=%5B%7B%22name%22:%22Percentage%20of%20Population%20That%20Is%20Obese%22,%22statVar%22:%22Percent_Person_Obesity%22,%22unit%22:%22%25%22%7D,%7B%22denom%22:%22Count_Person%22,%22name%22:%22Population%20Below%20Poverty%20Level%20Status%20in%20Past%20Year%20Per%20Capita%22,%22statVar%22:%22Count_Person_BelowPovertyLevelInThePast12Months%22,%22unit%22:%22%25%22%7D%5D"
     }
   ]
 }

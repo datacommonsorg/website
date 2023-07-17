@@ -32,8 +32,7 @@ class IntegrationTest(unittest.TestCase):
     # TODO: Validate detection type, etc, after push to dev.
     del resp['debug']
     for chart in resp.get('charts', []):
-      self.assertNotEqual('', chart.get('svg', '')), chart
-      chart['svg'] = ''
+      self.assertNotEqual('', chart.get('chartUrl', '')), chart
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, 'screenshot.json')
     if _TEST_MODE == 'write':
       json_dir = os.path.dirname(json_file)

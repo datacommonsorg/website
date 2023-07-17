@@ -10,9 +10,9 @@
           "url": "https://data-nifc.opendata.arcgis.com/"
         }
       ],
-      "svg": "",
       "title": "Fires in California",
-      "type": "EVENT_MAP"
+      "type": "EVENT_MAP",
+      "chartUrl": "http://dev.datacommons.org/nodejs/chart?config=%7B%22disasterEventMapTileSpec%22:%7B%22pointEventTypeKey%22:%5B%22fire%22%5D%7D,%22title%22:%22Fires%20in%20California%22,%22type%22:%22DISASTER_EVENT_MAP%22%7D&enclosedPlaceType=County&eventTypeSpec=%7B%22fire%22:%7B%22color%22:%22%2523f01212%22,%22defaultSeverityFilter%22:%7B%22displayName%22:%22Area%22,%22lowerLimit%22:200,%22prop%22:%22area%22,%22unit%22:%22SquareKilometer%22,%22upperLimit%22:1000%7D,%22displayProp%22:%5B%7B%22displayName%22:%22Area%22,%22prop%22:%22area%22,%22unit%22:%22SquareKilometer%22%7D%5D,%22endDateProp%22:%5B%22endDate%22,%22containmentDate%22,%22controlledDate%22%5D,%22eventTypeDcids%22:%5B%22WildlandFireEvent%22,%22WildfireEvent%22,%22FireEvent%22%5D,%22id%22:%22fire%22,%22name%22:%22Fire%22%7D%7D&place=geoId/06&svSpec=%5B%5D"
     }
   ]
 }
