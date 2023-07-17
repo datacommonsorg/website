@@ -8,9 +8,9 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "svg": "",
       "title": "Percentage of Population That Is Obese in Counties of California (2018)",
-      "type": "TABLE"
+      "type": "TABLE",
+      "chartUrl": ""
     },
     {
       "data_csv": "label,data\r\n\"Alameda County, CA\",23.2\r\n\"Alpine County, CA\",29.4\r\n\"Amador County, CA\",28.9\r\n\"Butte County, CA\",32.9\r\n\"Calaveras County, CA\",26.4\r\n\"Colusa County, CA\",30.8\r\n\"Contra Costa County, CA\",22.8\r\n\"Del Norte County, CA\",31.7\r\n\"El Dorado County, CA\",26.2\r\n\"Fresno County, CA\",34\r\n\"Glenn County, CA\",31\r\n\"Humboldt County, CA\",26.9\r\n\"Imperial County, CA\",37\r\n\"Inyo County, CA\",27.5\r\n\"Kern County, CA\",33.9\r\n\"Kings County, CA\",34.6\r\n\"Lake County, CA\",29.8\r\n\"Lassen County, CA\",28.9\r\n\"Los Angeles County, CA\",26.6\r\n\"Madera County, CA\",33.1\r\n\"Marin County, CA\",21\r\n\"Mariposa County, CA\",26.3\r\n\"Mendocino County, CA\",28.4\r\n\"Merced County, CA\",37\r\n\"Modoc County, CA\",29.9\r\n\"Mono County, CA\",27.4\r\n\"Monterey County, CA\",28.4\r\n\"Napa County, CA\",25.3\r\n\"Nevada County, CA\",21.9\r\n\"Orange County, CA\",21.6\r\n\"Placer County, CA\",21.6\r\n\"Plumas County, CA\",25.6\r\n\"Riverside County, CA\",29\r\n\"Sacramento County, CA\",28.2\r\n\"San Benito County, CA\",28.3\r\n\"San Bernardino County, CA\",34.9\r\n\"San Diego County, CA\",24.4\r\n\"San Francisco County, CA\",16.8\r\n\"San Joaquin County, CA\",33.4\r\n\"San Luis Obispo County, CA\",28.4\r\n\"San Mateo County, CA\",21.3\r\n\"Santa Barbara County, CA\",26.8\r\n\"Santa Clara County, CA\",19\r\n\"Santa Cruz County, CA\",21.7\r\n\"Shasta County, CA\",26.6\r\n\"Sierra County, CA\",27.6\r\n\"Siskiyou County, CA\",28.4\r\n\"Solano County, CA\",27.1\r\n\"Sonoma County, CA\",25.3\r\n\"Stanislaus County, CA\",33.1\r\n\"Sutter County, CA\",27.8\r\n\"Tehama County, CA\",34.3\r\n\"Trinity County, CA\",29.6\r\n\"Tulare County, CA\",35.4\r\n\"Tuolumne County, CA\",27\r\n\"Ventura County, CA\",24\r\n\"Yolo County, CA\",26.6\r\n\"Yuba County, CA\",28.3",
@@ -20,9 +20,9 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "svg": "",
       "title": "Percentage of Population That Is Obese in Counties of California (2018)",
-      "type": "MAP"
+      "type": "MAP",
+      "chartUrl": ""
     },
     {
       "data_csv": "rank,place,Physical Health Issues\r\n1,San Francisco County,9.4\r\n2,Marin County,9.6\r\n3,San Mateo County,9.7\r\n4,Santa Clara County,10\r\n5,Alameda County,10.5\r\n6,Placer County,10.8\r\n7,Contra Costa County,11\r\n8,El Dorado County,11\r\n9,Napa County,11.4\r\n10,Orange County,11.5\r\n11,Nevada County,11.6\r\n12,Sonoma County,11.8\r\n13,San Luis Obispo County,11.9\r\n14,Mono County,12\r\n15,Santa Cruz County,12.1\r\n16,Solano County,12.1\r\n17,San Diego County,12.3\r\n18,Ventura County,12.4\r\n19,Plumas County,12.5\r\n20,Sacramento County,12.6\r\n21,Yolo County,12.6\r\n22,Santa Barbara County,12.7\r\n23,Amador County,12.8\r\n24,Calaveras County,12.8\r\n25,Inyo County,12.8\r\n26,San Benito County,12.8\r\n27,Los Angeles County,13\r\n28,Sierra County,13.3\r\n29,Tuolumne County,13.3\r\n30,Mariposa County,13.4\r\n31,Riverside County,13.4\r\n32,Shasta County,13.8\r\n33,San Joaquin County,14.1\r\n34,Butte County,14.2\r\n35,Monterey County,14.2\r\n36,Lassen County,14.5\r\n37,Siskiyou County,14.5\r\n38,Humboldt County,14.7\r\n39,Mendocino County,14.7\r\n40,Stanislaus County,14.7\r\n41,Sutter County,14.7\r\n42,Yuba County,14.9\r\n43,Colusa County,15\r\n44,San Bernardino County,15.2\r\n45,Alpine County,15.3\r\n46,Fresno County,15.4\r\n47,Modoc County,15.4\r\n48,Trinity County,15.4\r\n49,Glenn County,15.5\r\n50,Kings County,15.6\r\n51,Lake County,15.6\r\n52,Tehama County,15.8\r\n53,Del Norte County,16\r\n54,Madera County,16.1\r\n55,Imperial County,16.4\r\n56,Kern County,16.7\r\n57,Merced County,16.7\r\n58,Tulare County,17",
@@ -32,9 +32,9 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "svg": "",
       "title": "Physical Health Issues in Counties of California (2018)",
-      "type": "TABLE"
+      "type": "TABLE",
+      "chartUrl": ""
     },
     {
       "data_csv": "label,data\r\n\"Alameda County, CA\",10.5\r\n\"Alpine County, CA\",15.3\r\n\"Amador County, CA\",12.8\r\n\"Butte County, CA\",14.2\r\n\"Calaveras County, CA\",12.8\r\n\"Colusa County, CA\",15\r\n\"Contra Costa County, CA\",11\r\n\"Del Norte County, CA\",16\r\n\"El Dorado County, CA\",11\r\n\"Fresno County, CA\",15.4\r\n\"Glenn County, CA\",15.5\r\n\"Humboldt County, CA\",14.7\r\n\"Imperial County, CA\",16.4\r\n\"Inyo County, CA\",12.8\r\n\"Kern County, CA\",16.7\r\n\"Kings County, CA\",15.6\r\n\"Lake County, CA\",15.6\r\n\"Lassen County, CA\",14.5\r\n\"Los Angeles County, CA\",13\r\n\"Madera County, CA\",16.1\r\n\"Marin County, CA\",9.6\r\n\"Mariposa County, CA\",13.4\r\n\"Mendocino County, CA\",14.7\r\n\"Merced County, CA\",16.7\r\n\"Modoc County, CA\",15.4\r\n\"Mono County, CA\",12\r\n\"Monterey County, CA\",14.2\r\n\"Napa County, CA\",11.4\r\n\"Nevada County, CA\",11.6\r\n\"Orange County, CA\",11.5\r\n\"Placer County, CA\",10.8\r\n\"Plumas County, CA\",12.5\r\n\"Riverside County, CA\",13.4\r\n\"Sacramento County, CA\",12.6\r\n\"San Benito County, CA\",12.8\r\n\"San Bernardino County, CA\",15.2\r\n\"San Diego County, CA\",12.3\r\n\"San Francisco County, CA\",9.4\r\n\"San Joaquin County, CA\",14.1\r\n\"San Luis Obispo County, CA\",11.9\r\n\"San Mateo County, CA\",9.7\r\n\"Santa Barbara County, CA\",12.7\r\n\"Santa Clara County, CA\",10\r\n\"Santa Cruz County, CA\",12.1\r\n\"Shasta County, CA\",13.8\r\n\"Sierra County, CA\",13.3\r\n\"Siskiyou County, CA\",14.5\r\n\"Solano County, CA\",12.1\r\n\"Sonoma County, CA\",11.8\r\n\"Stanislaus County, CA\",14.7\r\n\"Sutter County, CA\",14.7\r\n\"Tehama County, CA\",15.8\r\n\"Trinity County, CA\",15.4\r\n\"Tulare County, CA\",17\r\n\"Tuolumne County, CA\",13.3\r\n\"Ventura County, CA\",12.4\r\n\"Yolo County, CA\",12.6\r\n\"Yuba County, CA\",14.9",
@@ -44,9 +44,9 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "svg": "",
       "title": "Physical Health Issues in Counties of California (2018)",
-      "type": "MAP"
+      "type": "MAP",
+      "chartUrl": ""
     }
   ]
 }

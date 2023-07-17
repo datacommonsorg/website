@@ -1,8 +1,9 @@
 {
   "places_detected": [
+    "us",
     "most"
   ],
-  "places_resolved": "(name: Most, dcid: wikidataId/Q146363); ",
-  "main_place_dcid": "wikidataId/Q146363",
-  "main_place_name": "Most"
+  "places_resolved": "(name: United States, dcid: country/USA); (name: Most, dcid: wikidataId/Q146363); ",
+  "main_place_dcid": "country/USA",
+  "main_place_name": "United States"
 }

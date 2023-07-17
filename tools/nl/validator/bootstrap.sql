@@ -20,9 +20,11 @@ WITH T AS (
         V.population_type NOT IN ('Allele', 'Thing')
   GROUP BY SV, Type)
 
-SELECT T.SV, T.PlaceType, T.Place, V.name AS SVDesc, P.name AS PlaceName
+SELECT T.SV, T.PlaceType, T.Place, V.name AS SVDesc, P.name AS PlaceName, O.value AS Population
 FROM T
 JOIN `datcom-store.dc_kg_latest.StatisticalVariable` AS V ON TRUE
 JOIN `datcom-store.dc_kg_latest.Place` AS P ON TRUE
-WHERE T.SV = V.id AND T.Place = P.id
+JOIN `datcom-store.dc_kg_latest.StatVarObservation` AS O ON TRUE
+WHERE T.SV = V.id AND T.Place = P.id AND O.observation_about = T.Place AND
+      O.variable_measured = 'Count_Person' AND O.is_preferred_obs_across_facets
 ORDER BY SV, PlaceType, Place;

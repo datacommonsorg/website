@@ -2,7 +2,7 @@
   "places_detected": [
     "mexico city"
   ],
-  "places_resolved": "(name: Mexico, dcid: country/MEX); ",
-  "main_place_dcid": "country/MEX",
-  "main_place_name": "Mexico"
+  "places_resolved": "(name: Mexico City, dcid: wikidataId/Q1489); ",
+  "main_place_dcid": "wikidataId/Q1489",
+  "main_place_name": "Mexico City"
 }
