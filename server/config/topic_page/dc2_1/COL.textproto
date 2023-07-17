@@ -16,66 +16,109 @@
 
 metadata {
   topic_id: "dc2_1"
-  topic_name: "DC2.1 Dashboard"
+  topic_name: "How economic development drives welfare, prosperity, and peace"
   place_dcid: "country/COL"
   contained_place_types {
-    key: "State"
-    value: "County"
+    key: "Country"
+    value: "AdministrativeArea1"
   }
 }
 
 categories {
-  title: "The Economy"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
+  title: "Introduction"
+  description: "When we think of economic development, we may think of new infrastructure or ways the government may better meet its peoples’ needs. But we often don’t see economic development as something that affects our daily lives. In this article, we aim to review economic development and its social impact on a country. How does this country flourish in the midst of endless difficulties and deep social and political transformations? How can economic development help to reduce violence – particularly homicides? And finally, how do civil society organizations compliment economic development and state action? For this, there is no better country to review than Colombia."
+
 
   blocks {
-    title: "Gross National Income"
-    
-      columns {
+    columns {
+      
       tiles {
         type: HIGHLIGHT
-        description: "Gross National Income for ${placeName} (${date})"
-        stat_var_key: "gni_ppp"
+        description: "People live in ${placeName} (${date})"
+        stat_var_key: "count_person"
       }
+    }
+    columns {
+      
       tiles {
-        type: DESCRIPTION
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
+        title: "Population of ${placeName} by Department (${date})"
+        type: MAP
+        stat_var_key: "count_person"
+      }
+      
+    }
+  }
+  
+  stat_var_spec {
+    key: "count_person"
+    value {
+      stat_var: "Count_Person"
+      name: "Population"
+    }
+  }
+}
+  
+categories {
+  title: "Economic development for better lives"
+
+  blocks {
+    title: "GDP Growth"
+    description: "Over the last 50 years, LATAM has steadily strengthened its GDP, with the exception of the period of the COVID 19 pandemic. What does the data show? There is a correlation in the economic performance of LATAM countries, all suffered significant declines during this period, however, their recovery was accelerated and consistent, and although the region had been experiencing economic growth similar to the rest of the world for the last 50 years, its post-pandemic rates began to resemble those of Europe or the United States."
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP Growth in ${placeName}"
+        stat_var_key: "gdp_growth"
       }
     }
 
     columns {
       tiles {
-        type: LINE
-        title: "Gross National Income in ${placeName}"
-        stat_var_key: "gni_ppp"
+        type: BAR
+        title: "GDP Growth (${date})"
+        stat_var_key: "gdp_growth"
+        comparison_places: "self"
+        comparison_places: "country/USA"
+        comparison_places: "country/GBR"
+        comparison_places: "country/FRA"
+        comparison_places: "country/DEU"
+        comparison_places: "country/ITA"
+      }     
+    }
+
+  }
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "In the post-pandemic years, Colombia has undoubtedly contributed to the accelerated growth of the region's GDP, partly due to the different measures taken by the national government to overcome the humanitarian crisis, but how does the country's economic growth correlate with social variables?"
       }
     }
   }
 
   blocks {
-    title: "Nominal GDP"
+    title: "Leading social change through economic growth"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "GDP for ${placeName} (${date})"
+        stat_var_key: "nominal_gdp"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "Since 2008 economic growth has led to a significant reduction of people under the poverty line, mainly because this growth generates more employment and business opportunities therefore a higher income. As the GDP increases the labor force increases, and the newly created jobs allow governments to collect more taxes to invest in social programs such as free secondary education for vulnerable populations, which in most cases enables people to access better salaries that improves their quality of life."
+      }
+    }
     columns {
       tiles {
         type: LINE
-        title: "Nominal GDP in ${placeName}"
+        title: "GDP in ${placeName}"
         stat_var_key: "nominal_gdp"
       }
     }
   }
 
   blocks {
-    title: "Labor Force"
-    columns {
-      tiles {
-        type: LINE
-        title: "Percent of Working Age Population in the Labor Forcee in ${placeName}"
-        stat_var_key: "pct_pop_laborforce"
-      }
-    }
-  }
-
-  blocks {
-    title: "Income Inequality"
     columns {
       tiles {
         type: LINE
@@ -83,74 +126,6 @@ categories {
         stat_var_key: "gini_index_economicactivity"
       }
     }
-  }
-
-  stat_var_spec {
-    key: "gni_ppp"
-    value {
-      stat_var: "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
-      name: "Gross National Income Based on Purchasing Power Parity"
-    }
-  }
-
-  stat_var_spec {
-    key: "nominal_gdp"
-    value {
-      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-      name: "Nominal GDP"
-    }
-  }
-
-  stat_var_spec {
-    key: "pct_pop_laborforce"
-    value {
-      stat_var: "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
-      name: "Percent of Working Age Population in the Labor Force"
-    }
-  }
-
-  stat_var_spec {
-    key: "gini_index_economicactivity"
-    value {
-      stat_var: "GiniIndex_EconomicActivity"
-      name: "Gini Index of Economic Activity of a Population"
-    }
-  }
-}
-
-categories {
-  title: "Demographics"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
-
-  blocks {
-    title: "Urban/Rural"
-    columns {
-      tiles {
-        type: LINE
-        title: "Population Living in Urban vs. Rural Areas in ${placeName}"
-        stat_var_key: "pop_urban"
-        stat_var_key: "pop_rural"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "pop_urban"
-    value {
-      stat_var: "Count_Person_Urban"
-      name: "Population Living in Urban Areas"
-    }
-  }
-  stat_var_spec {
-    key: "pop_rural"
-    value {
-      stat_var: "Count_Person_Rural"
-      name: "Population Living in Rural Areas"
-    }
-  }  
-
-  blocks {
-    title: "Poverty"
     columns {
       tiles {
         type: LINE
@@ -161,21 +136,67 @@ categories {
       }
     }
   }
-
-  stat_var_spec {
-    key: "pop_urban"
-    value {
-      stat_var: "Count_Person_Urban"
-      name: "Population Living in Urban Areas"
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Percent of Working Age Population in the Labor Force in ${placeName}"
+        stat_var_key: "pct_pop_laborforce"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Upper Secondary completion rate in ${placeName}"
+        stat_var_key: "upper_secondary_pc"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant Mortality Rate in ${placeName}"
+        stat_var_key: "infant_mortality"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Proportion of population using basic drinking water services in ${placeName}"
+        stat_var_key: "basic_water_services_pc"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "The data shows that the better the economy, the better the quality of life in the region and the country. Unfortunately, not all the correlations are on the good side, LATAM and specially Colombia, concentrates a large part of the world's drug production, which leads it to be a center of operations of transnational criminal organizations, resulting in constant attacks against the civil population."
+      }
     }
   }
   stat_var_spec {
-    key: "pop_rural"
+    key: "gdp_growth"
     value {
-      stat_var: "Count_Person_Rural"
-      name: "Population Living in Rural Areas"
+      stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      name: "Growth Rate of GDP"
     }
-  }  
+  }
+  stat_var_spec {
+    key: "nominal_gdp"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "Nominal GDP"
+    }
+  }
+  stat_var_spec {
+    key: "gini_index_economicactivity"
+    value {
+      stat_var: "GiniIndex_EconomicActivity"
+      name: "Gini Index of Economic Activity of a Population"
+    }
+  }
   stat_var_spec {
     key: "poverty_rate_15_24"
     value {
@@ -197,122 +218,11 @@ categories {
       name: "Employed population below international poverty line: 25 years old and over"
     }
   }  
-}
-
-
-categories {
-  title: "Crime"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
-
-  blocks {
-    title: "Murder and Non Negligent Manslaughter"
-    columns {
-      tiles {
-        type: LINE
-        title: "Murder and Non Negligent Manslaughter Cases Per Capita in ${placeName}"
-        stat_var_key: "murder_pc"
-        stat_var_key: "murder_pc_male"
-        stat_var_key: "murder_pc_female"
-      }
-    }
-  }
-
   stat_var_spec {
-    key: "murder_pc"
+    key: "pct_pop_laborforce"
     value {
-      stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
-      name: "Murder and Non Negligent Manslaughter Cases Per Capita"
-    }
-  }
-  stat_var_spec {
-    key: "murder_pc_male"
-    value {
-      stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male"
-      name: "Murder and Non Negligent Manslaughter Cases Per Capita for the Male Population"
-    }
-  }
-  stat_var_spec {
-    key: "murder_pc_female"
-    value {
-      stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female"
-      name: "Murder and Non Negligent Manslaughter Cases Per Capita for the Female Population"
-    }
-  }
-}
-
-categories {
-  title: "Health"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
-
-  blocks {
-    title: "Infant Mortality"
-    columns {
-      tiles {
-        type: LINE
-        title: "Infant Mortality Rate in ${placeName}"
-        stat_var_key: "infant_mortality"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "infant_mortality"
-    value {
-      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-      name: "Infant Mortality Rate"
-    }
-  }
-
-}
-
-
-categories {
-  title: "Education"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
-
-  blocks {
-    title: "Completion rate: Upper secondary"
-    columns {
-      tiles {
-        type: LINE
-        title: "Completion rate: Upper secondary in ${placeName}"
-        stat_var_key: "upper_secondary_pc"
-      }
-    }
-  }
-
-  blocks {
-    title: "Bachelors Degree or Higher"
-    columns {
-      tiles {
-        type: LINE
-        title: "Bachelors Degree or Higher in ${placeName}"
-        stat_var_key: "bachelors_pc"
-        stat_var_key: "bachelors_pc_male"
-        stat_var_key: "bachelors_pc_female"
-      }
-    }
-  }
-
-  stat_var_spec {
-    key: "bachelors_pc"
-    value {
-      stat_var: "Count_Person_25OrMoreYears_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears"
-      name: "Population: Bachelors Degree or Higher (As Fraction of Count Person 25 or More Years)"
-    }
-  }
-  stat_var_spec {
-    key: "bachelors_pc_male"
-    value {
-      stat_var: "Count_Person_25OrMoreYears_Female_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Female"
-      name: "Population: Bachelors Degree or Higher, Male (As Fraction of Count Person 25 or More Years Male)"
-    }
-  }
-  stat_var_spec {
-    key: "bachelors_pc_female"
-    value {
-      stat_var: "Count_Person_25OrMoreYears_Male_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears_Male"
-      name: "Population: Bachelors Degree or Higher, Female (As Fraction of Count Person 25 or More Years Female)"
+      stat_var: "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+      name: "Percent of Working Age Population in the Labor Force"
     }
   }
   stat_var_spec {
@@ -322,23 +232,13 @@ categories {
       name: "Completion rate: Upper secondary"
     }
   }
-}
-
-categories {
-  title: "Access to Basic Services"
-  description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ultricies non sem interdum convallis. Ut sed maximus lacus, sit amet dapibus augue. Donec in elit in nunc vulputate volutpat. Donec vestibulum ullamcorper tristique. Cras quis laoreet ante. Duis sodales tellus ut leo facilisis sollicitudin. Cras viverra pulvinar lobortis."
-
-  blocks {
-    title: "Proportion of population using basic drinking water services"
-    columns {
-      tiles {
-        type: LINE
-        title: "Proportion of population using basic drinking water services in ${placeName}"
-        stat_var_key: "basic_water_services_pc"
-      }
+  stat_var_spec {
+    key: "infant_mortality"
+    value {
+      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      name: "Infant Mortality Rate"
     }
   }
-
   stat_var_spec {
     key: "basic_water_services_pc"
     value {
@@ -348,3 +248,80 @@ categories {
   }
 
 }
+
+categories {
+  title: "Growing economy for better security"
+
+  blocks {
+    title: "Violence in LATAM"
+    description: "The reality that violence has created in LATAM is overwhelming. During 2022, countries such as Ecuador, Mexico and Colombia reached similar homicide rates, mainly due to the presence of armed groups seeking to expand their illegal businesses through violence, spreading fear among the population. "    
+    columns {
+      tiles {
+        type: BAR
+        title: "Murder and Non Negligent Manslaughter Cases Per Capita (${date})"
+        stat_var_key: "murder_pc"
+        comparison_places: "self"
+        #comparison_places: "country/VEN"
+        #comparison_places: "country/HND"
+        comparison_places: "country/ECU"
+        comparison_places: "country/MEX"
+        #comparison_places: "country/BLZ"
+        #comparison_places: "country/BRA"
+        #comparison_places: "country/GTM"
+        #comparison_places: "country/GUY"
+        #comparison_places: "country/CRI"
+        #comparison_places: "country/PAN"
+        #comparison_places: "country/URY"
+        #comparison_places: "country/SLV"
+        #comparison_places: "country/SUR"
+        #comparison_places: "country/PRY"
+        #comparison_places: "country/NIC"
+        #comparison_places: "country/CHL"
+        #comparison_places: "country/PER"
+        #comparison_places: "country/ARG"
+        #comparison_places: "country/BOL"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "However, when the economy grows, the lives of the inhabitants improves by increasing access to basic services such as health, education, work or security. And it makes it possible for people to receive a living wage that reduces inequality and poverty gaps, decreasing the presence of illegal and subversive groups and the violence they exert. "
+      } 
+    }
+  }
+
+  blocks {
+    title: "GDP Growth and Violence"
+    description: "Since the beginning of the Colombian century, the number of people with disadvantage has decreased. As mentioned by Carranza et al (2011), a possible explanation for this reduction is that economic activity influenced the variation in homicidal violence as a systematic causal effect"
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP in ${placeName}"
+        stat_var_key: "nominal_gdp"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Murder and Non Negligent Manslaughter Cases Per Capita in ${placeName}"
+        stat_var_key: "murder_pc"
+      }
+    }
+  }
+
+
+
+  stat_var_spec {
+    key: "murder_pc"
+    value {
+      stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+      name: "Murder and Non Negligent Manslaughter Cases Per Capita"
+    }
+  }
+  stat_var_spec {
+    key: "nominal_gdp"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "Nominal GDP"
+    }
+  }
+}
+
