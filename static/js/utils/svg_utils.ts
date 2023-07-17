@@ -20,8 +20,8 @@
 
 import * as d3 from "d3";
 
-const SVGNS = "http://www.w3.org/2000/svg";
-const XLINKNS = "http://www.w3.org/1999/xlink";
+import { SVGNS, XHTMLNS, XLINKNS } from "../constants/svg_constants";
+
 const CHART_PADDING = 10;
 
 /**
@@ -55,7 +55,7 @@ export function htmlToSvg(
     .attr("height", svgHeight)
     .style("font-family", "sans-serif")
     .append("xhtml:div")
-    .attr("xmlns", "http://www.w3.org/1999/xhtml")
+    .attr("xmlns", XHTMLNS)
     .html(htmlString);
 
   if (svgClass) {

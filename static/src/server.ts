@@ -517,7 +517,7 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
       res.status(200).send(chart.outerHTML);
     })
     .catch((error) => {
-      console.log("Error making request:\n", error.message)
+      console.log("Error making request:\n", error.message);
       res.status(500).send(null);
     });
 });
