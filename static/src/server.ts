@@ -511,13 +511,14 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   const tileConfig = JSON.parse(
     req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "image/svg+xml");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
       res.status(200).send(chart.outerHTML);
     })
-    .catch(() => {
-      res.status(500).send("Error retrieving chart.");
+    .catch((error) => {
+      console.log("Error making request:\n", error.message)
+      res.status(500).send(null);
     });
 });
 

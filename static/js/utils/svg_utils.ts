@@ -55,6 +55,7 @@ export function htmlToSvg(
     .attr("height", svgHeight)
     .style("font-family", "sans-serif")
     .append("xhtml:div")
+    .attr("xmlns", "http://www.w3.org/1999/xhtml")
     .html(htmlString);
 
   if (svgClass) {
