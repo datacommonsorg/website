@@ -93,6 +93,14 @@ def compose_query(v):
   return ' '.join(v.split())
 
 
+#
+# Query the RecognizePlaces Mixer API and update counters based
+# on the results.  Any places that are wrong (not the requested place)
+# or bogus (some unintended span mapped to a place), are added to
+# bad_dcids set.
+#
+# TODO: refactor for readability
+#
 def query(sv, pl, sv_name, pl_name, counters, bad_dcids):
   qsv = compose_query(sv_name)
   q = qsv + ' ' + pl_name
@@ -120,7 +128,6 @@ def query(sv, pl, sv_name, pl_name, counters, bad_dcids):
       continue
     ngot += len(item['span'].replace(' ', ''))
     if 'places' in item and item['places'] and 'dcid' in item['places'][0]:
-      # print(f'{q} - {ngot} {nsv}')
       found_place = True
       dcids = [it['dcid'] for it in item['places']]
       if ngot <= nsv:
@@ -159,6 +166,10 @@ def query(sv, pl, sv_name, pl_name, counters, bad_dcids):
   return ret
 
 
+#
+# Update `ctx.rows` with BogusPlaceName and WrongPlaceName fields
+# by batching name and population queries.
+#
 def update_rows(ctx):
   dcids = sorted([d for d in ctx.bad_dcids if d not in ctx.dcid_names])
 
@@ -228,7 +239,7 @@ def run(ctx):
                        bad_dcids=ctx.bad_dcids)
         ctx.rows.append(result)
 
-        # Time for checkpointing?
+      # Time for checkpointing?
       nsvproc += 1
       if nsvproc % CHECKPOINT_INTERVAL == 0:
         update_rows(ctx)

@@ -30,7 +30,7 @@ PLACE_PREF = [
 
 
 #
-# Loads the bootstrap stuff into `bootstrap`.
+# Reads input files and loads into `ctx.bootstrap`.
 # Expects that ctx has:
 # - names_csv: str
 # - input_csv: str
