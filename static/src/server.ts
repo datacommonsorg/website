@@ -91,6 +91,8 @@ const CHAR_AVG_WIDTH = 5.0341796875;
 const CHAR_HEIGHT = 13;
 const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
+// The param value for the chartUrl param which indicates using svg
+const CHART_URL_PARAM_SVG = "0";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -390,7 +392,7 @@ app.disable("etag");
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
-  const useChartUrl = !!req.query.chartUrl;
+  const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
