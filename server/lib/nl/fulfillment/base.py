@@ -90,7 +90,9 @@ def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
 
 # Populate chart specs in state.uttr and return True if something was added.
 def populate_charts(state: PopulateState) -> bool:
+  populate_attempted = False
   if state.uttr.places:
+    populate_attempted = True
     if (populate_charts_for_places(state, state.uttr.places)):
       state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
       return True
@@ -98,37 +100,53 @@ def populate_charts(state: PopulateState) -> bool:
       dcids = [p.dcid for p in state.uttr.places]
       state.uttr.counters.err('failed_populate_main_places', dcids)
   else:
-    # If user has not provided a place, seek a place from the context.
+    # Only if user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
     for pl in context.places_from_context(state.uttr):
+      populate_attempted = True
       # Important to set this for maybe_set_fallback().
+      # But always reset after populate_charts_for_places(), so
+      # we don't propagate it to failover query-types as a
+      # main place.
       state.uttr.places = [pl]
       if (populate_charts_for_places(state, state.uttr.places)):
+        state.uttr.places = []
         state.uttr.place_source = FulfillmentResult.PAST_QUERY
         state.uttr.past_source_context = pl.name
         return True
       else:
+        state.uttr.places = []
         state.uttr.counters.err('failed_populate_context_place', pl.dcid)
+
+  if populate_attempted:
+    return False
 
   # If this query did not have a place, but had a contained-in attribute, we
   # might try specific default places.
   default_place = get_default_contained_in_place(state)
   if default_place:
-    state.uttr.place_source = FulfillmentResult.DEFAULT
-    return populate_charts_for_places(state, [default_place])
+    # No fallback when using default-place
+    result = populate_charts_for_places(state, [default_place],
+                                        disable_fallback=True)
+    if result:
+      state.uttr.place_source = FulfillmentResult.DEFAULT
+      state.uttr.past_source_context = default_place.name
+      return True
 
   return False
 
 
 # Populate charts for given places.
 def populate_charts_for_places(state: PopulateState,
-                               places: List[Place]) -> bool:
+                               places: List[Place],
+                               disable_fallback=False) -> bool:
   if not handle_contained_in_type(state, places):
     # Counter updated in handle_contained_in_type()
     return False
 
   if (len(state.uttr.svs) > 0):
-    if _add_charts_with_place_fallback(state, places, state.uttr.svs):
+    if _add_charts_with_place_fallback(state, places, state.uttr.svs,
+                                       disable_fallback):
       state.uttr.sv_source = FulfillmentResult.CURRENT_QUERY
       return True
     else:
@@ -139,7 +157,7 @@ def populate_charts_for_places(state: PopulateState,
     # If we have not found an SV, only then seek an SV from the context.
     # Otherwise the result seems unexpected to users.
     for svs in context.svs_from_context(state.uttr):
-      if _add_charts_with_place_fallback(state, places, svs):
+      if _add_charts_with_place_fallback(state, places, svs, disable_fallback):
         state.uttr.sv_source = FulfillmentResult.PAST_QUERY
         return True
       else:
@@ -157,15 +175,21 @@ def populate_charts_for_places(state: PopulateState,
 #
 # REQUIRES: places and svs are non-empty.
 def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
-                                    svs: List[str]) -> bool:
+                                    svs: List[str],
+                                    disable_fallback: bool) -> bool:
   # Add charts for the given places.
   if _add_charts(state, places, svs):
     return True
   # That failed, we'll attempt fallback.
 
-  # Only comparison queries have multiple places.
   # TODO: Support fallback for comparison query-type.
+  if disable_fallback:
+    return False
+
   if len(places) > 1:
+    # This is a worst case sanity check because the only expected caller
+    # with num-places > 1 (comparison.py) should disable fallback.
+    state.uttr.counters.err('failed_sanitycheck_fallbackwithtoomanyplaces', '')
     return False
 
   place = places[0]  # Caller populate_charts_for_places ensures this exists
@@ -346,6 +370,9 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
     assert len(exist_state.chart_vars_list) == 1, f'{exist_state}'
     chart_vars = tracker.get_chart_vars(exist_state.chart_vars_list[0])
     if len(chart_vars.svs) > 1:
+      chart_vars.svs = variable.limit_extended_svs(
+          exist_state.sv, set(chart_vars.svs),
+          variable.EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT)
       exist_svs_key = ''.join(sorted(chart_vars.svs))
       if exist_svs_key in printed_sv_extensions:
         continue
@@ -406,8 +433,8 @@ def get_default_contained_in_place(state: PopulateState) -> Place:
   if state.uttr.places:
     return None
   if not state.place_type:
-    # For a non-contained-in-place query, don't assume any default.
-    return None
+    # For a non-contained-in-place query, default to USA.
+    return constants.USA
   ptype = state.place_type
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
@@ -462,7 +489,7 @@ def maybe_set_fallback(state: PopulateState, places: List[Place]):
     else:
       orig_type = pt
 
-  if (utils.is_place_type_match(orig_type, new_type) and
+  if (utils.is_place_type_match_for_fallback(orig_type, new_type) and
       new_place.dcid == orig_place.dcid):
     return
 

@@ -265,6 +265,16 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "Utah",
+            "nlQuery": "Which counties in utah have the highest levels of blood pressure"
+          }
+        ]
+      }
     }
   },
   "context": {},

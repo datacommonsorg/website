@@ -12,7 +12,8 @@
         }
       ],
       "title": "Fires in California",
-      "type": "EVENT_MAP"
+      "type": "EVENT_MAP",
+      "chartUrl": ""
     }
   ]
 }

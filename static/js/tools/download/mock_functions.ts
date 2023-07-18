@@ -206,7 +206,7 @@ export function axiosMock(): void {
 
   // get parent place for geoId/06
   when(axios.get)
-    .calledWith("/api/place/parent/geoId/06")
+    .calledWith("/api/place/parent?dcid=geoId/06")
     .mockResolvedValue({
       data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });

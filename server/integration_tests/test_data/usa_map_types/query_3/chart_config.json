@@ -31,38 +31,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/5gtp8jjdzczh8"
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: No Income, Born in State of Residence in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "dc/5gtp8jjdzczh8_pc"
+                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Population: No Income, Born in State of Residence in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
-                    ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "dc/dyhxtqe2pxhl5_pc"
-                    ],
-                    "title": "Per Capita Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Per Capita Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -80,23 +58,14 @@
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
-          "dc/5gtp8jjdzczh8": {
-            "name": "Population: No Income, Born in State of Residence",
-            "statVar": "dc/5gtp8jjdzczh8"
+          "Count_Person_AbovePovertyLevelInThePast12Months": {
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
-          "dc/5gtp8jjdzczh8_pc": {
+          "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Population: No Income, Born in State of Residence",
-            "statVar": "dc/5gtp8jjdzczh8"
-          },
-          "dc/dyhxtqe2pxhl5": {
-            "name": "Population: No Income, Foreign Born",
-            "statVar": "dc/dyhxtqe2pxhl5"
-          },
-          "dc/dyhxtqe2pxhl5_pc": {
-            "denom": "Count_Person",
-            "name": "Population: No Income, Foreign Born",
-            "statVar": "dc/dyhxtqe2pxhl5"
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           }
         }
       }
@@ -108,6 +77,28 @@
       "placeDcid": [
         "geoId/53"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "California",
+            "nlQuery": "how many people are unemployed in zip codes of california state?"
+          }
+        ]
+      },
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "how many people are unemployed in zip codes of washington state? - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "how many people are unemployed in zip codes of washington state? - show lowest"
+          }
+        ]
+      }
     }
   },
   "context": {},

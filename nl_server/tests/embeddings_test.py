@@ -67,16 +67,8 @@ class TestEmbeddings(unittest.TestCase):
       print(
           "Could not load the embeddings from the cache for these tests. Loading a new embeddings object."
       )
-      # Building a new Embeddings object. It might require downloading the embeddings file
-      # and a finetuned model.
-      # This uses the default embeddings pointed to in embeddings.yaml file and the fine tuned
-      # model pointed to in models.yaml.
-      # If the default index is not a "finetuned" index, then the default model can be used.
-      tuned_model_path = ""
-      if "ft" in loader.DEFAULT_INDEX_TYPE:
-        tuned_model_path = _get_tuned_model_path()
-      cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
-                                     tuned_model_path)
+      # Building a new Embeddings object.
+      cls.nl_embeddings = Embeddings(_get_embeddings_file_path())
 
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.

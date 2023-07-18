@@ -47,10 +47,10 @@ class TestUtilsAddToSet(unittest.TestCase):
       self.assertIn(word.lower(), got)
 
     for key in constants.PLACE_TYPE_TO_PLURALS.keys():
+      if key in constants.NON_GEO_PLACE_TYPES:
+        continue
       self.assertIn(key.lower(), got)
-
-    for val in constants.PLACE_TYPE_TO_PLURALS.values():
-      self.assertIn(val.lower(), got)
+      self.assertIn(constants.PLACE_TYPE_TO_PLURALS[key].lower(), got)
 
     # This is the most complex because the values could we lists or
     # dictionary (of lists). The strings themselves are also sentences
@@ -85,14 +85,14 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["tell me about the climate extremes in palo alto", "climate palo alto"],
       [
           "How big are the public elementary schools in Sunnyvale",
-          "public sunnyvale"
+          "public elementary schools sunnyvale"
       ],
       [
           "what is relationship between the sickest and healthiest people in the world",
           "people world"
       ],
       ["how does it correlate with heart disease", "heart disease"],
-      ["best high schools in Florida counties", "florida"],
+      ["best high schools in Florida counties", "schools florida"],
       [
           "interest rates among people who are living in poverty across US states",
           "interest rates people living poverty us"

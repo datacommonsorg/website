@@ -27,16 +27,19 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
 import { SearchResult } from "../../types/app/nl_interface_types";
+import { stringifyFn } from "../../utils/axios";
 import {
   CHART_FEEDBACK_SENTIMENT,
   getFeedbackLink,
 } from "../../utils/nl_interface_utils";
 import { DebugInfo } from "./debug_info";
+import { NLCommentary, shouldHideCharts } from "./nl_commentary";
 
 export interface QueryResultProps {
   query: string;
   indexType: string;
   detector: string;
+  placeDetector: string;
   queryIdx: number;
   contextHistory: any[];
   addContextCallback: (any, number) => void;
@@ -50,6 +53,7 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
+  const [hideCharts, setHideCharts] = useState<boolean>(false);
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [isEmojiClicked, setIsEmojiClicked] = useState(false);
@@ -73,19 +77,29 @@ export const QueryResult = memo(function QueryResult(
 
   function fetchData(query: string): void {
     setIsLoading(true);
-    let indexParam = "";
+    const params = {
+      q: query,
+    };
     if (props.indexType) {
-      indexParam = "&idx=" + props.indexType;
+      params["idx"] = props.indexType;
     }
-
-    let detectorParam = "";
     if (props.detector) {
-      detectorParam = "&detector=" + props.detector;
+      params["detector"] = props.detector;
+    }
+    if (props.placeDetector) {
+      params["place_detector"] = props.placeDetector;
     }
     axios
-      .post(`/api/nl/data?q=${query}${indexParam}${detectorParam}`, {
-        contextHistory: props.contextHistory,
-      })
+      .post(
+        `/api/nl/data`,
+        {
+          contextHistory: props.contextHistory,
+        },
+        {
+          params,
+          paramsSerializer: stringifyFn,
+        }
+      )
       .then((resp) => {
         if (
           resp.data["context"] === undefined ||
@@ -96,7 +110,6 @@ export const QueryResult = memo(function QueryResult(
           return;
         }
         const context: any = resp.data["context"];
-        props.addContextCallback(context, props.queryIdx);
 
         // Filter out empty categories.
         const categories = _.get(resp, ["data", "config", "categories"], []);
@@ -105,6 +118,9 @@ export const QueryResult = memo(function QueryResult(
           let mainPlace = {};
           mainPlace = resp.data["place"];
           const fb = resp.data["placeFallback"];
+          if (shouldHideCharts(resp.data)) {
+            setHideCharts(true);
+          }
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -127,15 +143,18 @@ export const QueryResult = memo(function QueryResult(
                   }
                 : null,
           });
+          props.addContextCallback(context, props.queryIdx);
         } else {
-          // If there was no place recognized, we might end up with 0
-          // categories.  Check if that's the case, and provide a different
-          // error message.
-          if ("placeSource" in resp.data && resp.data["placeSource"]) {
+          if ("failure" in resp.data && resp.data["failure"]) {
+            setErrorMsg(resp.data["failure"]);
+          } else if ("placeSource" in resp.data && resp.data["placeSource"]) {
+            // If there was no place recognized, we might end up with 0
+            // categories, provide a different error message.
             setErrorMsg("Could not recognize any place in the query!");
           } else {
             setErrorMsg("Sorry, we couldn't answer your question.");
           }
+          props.addContextCallback(undefined, props.queryIdx);
         }
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
@@ -156,7 +175,12 @@ export const QueryResult = memo(function QueryResult(
     <>
       <div className="nl-query" ref={scrollRef}>
         <Container>
-          <h2>Q: {props.query}</h2>
+          <div className="nl-user-query">
+            <div className="nl-user-query-icon">
+              <span className="material-icons">face6_icon</span>
+            </div>
+            <div className="nl-user-query-text">{props.query}</div>
+          </div>
         </Container>
       </div>
       <div className="nl-result">
@@ -177,92 +201,44 @@ export const QueryResult = memo(function QueryResult(
             </span>
           )}
         </Container>
-        <Container>
+        <Container className="nl-result-content">
           {debugData && (
             <DebugInfo
               debugData={debugData}
               chartsData={chartsData}
             ></DebugInfo>
           )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            (chartsData.placeSource === "PAST_QUERY" ||
-              chartsData.svSource === "PAST_QUERY") && (
-              <div className="nl-query-info">
-                Could not recognize any{" "}
-                {chartsData.placeSource !== "PAST_QUERY" && <span>topic</span>}
-                {chartsData.svSource !== "PAST_QUERY" && <span>place</span>}
-                {chartsData.svSource === "PAST_QUERY" &&
-                  chartsData.placeSource === "PAST_QUERY" && (
-                    <span>place or topic</span>
-                  )}{" "}
-                in this query, so here are relevant statistics{" "}
-                {chartsData.pastSourceContext && (
-                  <span>for {chartsData.pastSourceContext} </span>
-                )}
-                based on what you previously asked.
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.svSource === "UNRECOGNIZED" && (
-              <div className="nl-query-info">
-                Could not recognize any topic from the query, but below are
-                topic categories with statistics for {chartsData.place.name}{" "}
-                that you could explore further.
-              </div>
-            )}
-          {chartsData &&
-            !chartsData.placeFallback &&
-            chartsData.svSource === "UNFULFILLED" && (
-              <div className="nl-query-info">
-                Sorry, there were no relevant statistics about the topic for{" "}
-                {chartsData.place.name}. Below are topic categories with
-                statistics for {chartsData.place.name} that you could explore
-                further.
-              </div>
-            )}
-          {chartsData && chartsData.placeFallback && (
-            <div className="nl-query-info">
-              {chartsData.placeSource !== "PAST_QUERY" &&
-                chartsData.svSource !== "PAST_QUERY" && (
-                  <span>
-                    Sorry, there were no relevant statistics on this topic for
-                    &quot;{chartsData.placeFallback.origStr}&quot;. &nbsp; Here
-                    are results for &quot;{chartsData.placeFallback.newStr}
-                    &quot; instead.
-                  </span>
-                )}
-              {(chartsData.placeSource === "PAST_QUERY" ||
-                chartsData.svSource === "PAST_QUERY") && (
-                <span>
-                  Tried looking up relevant statistics for &quot;
-                  {chartsData.placeFallback.origStr}&quot; based on your prior
-                  queries, but found no results. &nbsp; Here are results for
-                  &quot;{chartsData.placeFallback.newStr}&quot; instead.
-                </span>
-              )}
-            </div>
+          {chartsData && (
+            <NLCommentary
+              chartsData={chartsData}
+              hideCharts={hideCharts}
+              setHideCharts={setHideCharts}
+            />
           )}
-          {chartsData && chartsData.config && (
+          {chartsData && chartsData.config && !hideCharts && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
                 place={chartsData.place}
                 pageConfig={chartsData.config}
                 svgChartHeight={SVG_CHART_HEIGHT}
-                showData={props.showData}
+                showExploreMore={true}
               />
             </NlSessionContext.Provider>
           )}
           {errorMsg && (
             <div className="nl-query-error">
               <p>
-                {errorMsg} Would you like to try{" "}
-                <a href={`https://google.com/?q=${props.query}`}>
-                  searching on Google
-                </a>
-                ?
+                {errorMsg}
+                {redirectToGoogle() && (
+                  <>
+                    Would you like to try{" "}
+                    <a href={`https://google.com/?q=${props.query}`}>
+                      searching on Google
+                    </a>
+                    ?
+                  </>
+                )}
               </p>
             </div>
           )}
@@ -288,5 +264,9 @@ export const QueryResult = memo(function QueryResult(
         sentiment,
       },
     });
+  }
+
+  function redirectToGoogle(): boolean {
+    return errorMsg.includes("Sorry") || errorMsg.includes("sorry");
   }
 });

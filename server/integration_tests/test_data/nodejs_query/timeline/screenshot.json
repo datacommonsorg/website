@@ -13,7 +13,8 @@
         "Average Income for Family Households"
       ],
       "title": "Average Income for Family Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -33,7 +34,8 @@
         "Individual Median Earnings"
       ],
       "title": "Individual Income in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -48,7 +50,8 @@
         "Household Median Income"
       ],
       "title": "Household Median Income in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -63,7 +66,8 @@
         "Median Income for Married Couple Family Households"
       ],
       "title": "Median Income for Married Couple Family Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -78,7 +82,8 @@
         "Median Income for Family Households"
       ],
       "title": "Median Income for Family Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -93,7 +98,8 @@
         "Average Income for Married Couple Family Households"
       ],
       "title": "Average Income for Married Couple Family Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -108,7 +114,8 @@
         "Average Income for Nonfamily Households"
       ],
       "title": "Average Income for Nonfamily Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -123,7 +130,8 @@
         "Average Income for Households"
       ],
       "title": "Average Income for Households in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -138,7 +146,8 @@
         "Family Households Receiving Social Security Income in the Last Year"
       ],
       "title": "Family Households Receiving Social Security Income in the Last Year in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -153,7 +162,8 @@
         "Family Households Receiving Social Security Income in the Last Year"
       ],
       "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -168,7 +178,8 @@
         "Average Earnings for Male Population"
       ],
       "title": "Average Earnings for Male Population in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -183,7 +194,8 @@
         "Average Earnings for Male Population"
       ],
       "title": "Per Capita Average Earnings for Male Population in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -198,7 +210,8 @@
         "Median Earnings for Male Population"
       ],
       "title": "Median Earnings for Male Population in North Dakota",
-      "type": "LINE"
+      "type": "LINE",
+      "chartUrl": ""
     }
   ]
 }

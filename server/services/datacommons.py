@@ -351,6 +351,12 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
   return post(url, req_json)
 
 
+def recognize_places(query):
+  url = get_service_url('/v1/recognize/places')
+  resp = post(url, {'queries': [query]})
+  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+
+
 def search_statvar(query, places, sv_only):
   url = get_service_url('/v1/variable/search')
   return post(url, {

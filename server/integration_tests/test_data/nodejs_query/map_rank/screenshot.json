@@ -10,7 +10,8 @@
         }
       ],
       "title": "Percentage of Population That Is Obese in Counties of California (2018)",
-      "type": "TABLE"
+      "type": "TABLE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -22,7 +23,8 @@
         }
       ],
       "title": "Percentage of Population That Is Obese in Counties of California (2018)",
-      "type": "MAP"
+      "type": "MAP",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -34,7 +36,8 @@
         }
       ],
       "title": "Physical Health Issues in Counties of California (2018)",
-      "type": "TABLE"
+      "type": "TABLE",
+      "chartUrl": ""
     },
     {
       "svg": "",
@@ -46,7 +49,8 @@
         }
       ],
       "title": "Physical Health Issues in Counties of California (2018)",
-      "type": "MAP"
+      "type": "MAP",
+      "chartUrl": ""
     }
   ]
 }

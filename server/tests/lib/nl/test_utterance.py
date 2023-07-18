@@ -333,12 +333,12 @@ COMPARISON_UTTR = {
         },
         'chart_type': ChartType.BAR_CHART,
         'places': [{
-            'dcid': 'geoId/06',
+            'dcid': 'geoId/32',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
         }, {
-            'dcid': 'geoId/32',
+            'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
@@ -359,12 +359,12 @@ COMPARISON_UTTR = {
         },
         'chart_type': ChartType.BAR_CHART,
         'places': [{
-            'dcid': 'geoId/06',
+            'dcid': 'geoId/32',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
         }, {
-            'dcid': 'geoId/32',
+            'dcid': 'geoId/06',
             'name': 'Foo Place',
             'place_type': 'State',
             'country': 'country/USA',
@@ -383,12 +383,7 @@ CONTAINED_IN_UTTR = {
         'contained_in_place_type': 'County',
         'type': ClassificationType.CONTAINED_IN
     }],
-    'places': [{
-        'country': 'country/USA',
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
+    'places': [],
     'llm_resp': {},
     'placeFallback': {},
     'query': 'foo sv in place',
@@ -446,12 +441,7 @@ CORRELATION_UTTR = {
     'classifications': [{
         'type': ClassificationType.CORRELATION
     }],
-    'places': [{
-        'country': 'country/USA',
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
+    'places': [],
     'llm_resp': {},
     'placeFallback': {},
     'query': 'foo sv in place',
@@ -554,12 +544,7 @@ RANKING_ACROSS_PLACES_UTTR = {
         'contained_in_place_type': 'County',
         'type': QueryType.CONTAINED_IN,
     }],
-    'places': [{
-        'country': 'country/USA',
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
+    'places': [],
     'llm_resp': {},
     'placeFallback': {},
     'query': 'foo sv in place',
@@ -596,12 +581,7 @@ RANKING_ACROSS_SVS_UTTR = {
         'ranking_type': [RankingType.HIGH],
         'type': ClassificationType.RANKING
     }],
-    'places': [{
-        'country': 'country/USA',
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
+    'places': [],
     'llm_resp': {},
     'placeFallback': {},
     'query': 'foo sv in place',
@@ -642,12 +622,7 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'time_delta_type': [TimeDeltaType.INCREASE],
         'type': ClassificationType.TIME_DELTA
     }],
-    'places': [{
-        'country': 'country/USA',
-        'dcid': 'geoId/06',
-        'name': 'Foo Place',
-        'place_type': 'State'
-    }],
+    'places': [],
     'llm_resp': {},
     'placeFallback': {},
     'query': 'foo sv in place',
