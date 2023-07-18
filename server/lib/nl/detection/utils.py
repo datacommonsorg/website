@@ -18,6 +18,7 @@ from typing import Dict, List
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
@@ -93,3 +94,11 @@ def create_sv_detection(query: str, svs_scores_dict: Dict) -> SVDetection:
                          sv2sentences=svs_scores_dict['SV_to_Sentences']),
                      multi_sv=dvars.dict_to_multivar_candidates(
                          svs_scores_dict['MultiSV']))
+
+
+def empty_place_detection() -> PlaceDetection:
+  return PlaceDetection(query_original='',
+                        query_without_place_substr='',
+                        query_places_mentioned=[],
+                        places_found=[],
+                        main_place=None)

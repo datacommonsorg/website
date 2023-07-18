@@ -74,6 +74,26 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   return input_str.strip()
 
 
+def list_place_type_stopwords() -> List[str]:
+  # Get plurals correspnding to stop-word exclusion place-types.
+  #
+  # This also helps validate that NON_GEO_PLACE_TYPES has the right keys,
+  stopword_exclusion_place_type_plurals = set([
+      constants.PLACE_TYPE_TO_PLURALS[x] for x in constants.NON_GEO_PLACE_TYPES
+  ])
+  # Get singular stop-words skipping exclusion.
+  place_type_stop_words = [
+      it for it in constants.PLACE_TYPE_TO_PLURALS.keys()
+      if it not in constants.NON_GEO_PLACE_TYPES
+  ]
+  # Get plural stop-words skipping exclusion.
+  place_type_stop_words.extend([
+      it for it in constants.PLACE_TYPE_TO_PLURALS.values()
+      if it not in stopword_exclusion_place_type_plurals
+  ])
+  return place_type_stop_words
+
+
 def combine_stop_words() -> Set[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
@@ -82,11 +102,7 @@ def combine_stop_words() -> Set[str]:
   # Now add the words in the classification heuristics.
   _add_classification_heuristics(stop_words)
 
-  # Also add the plurals.
-  _add_to_set_from_list(stop_words,
-                        list(constants.PLACE_TYPE_TO_PLURALS.keys()))
-  _add_to_set_from_list(stop_words,
-                        list(constants.PLACE_TYPE_TO_PLURALS.values()))
+  _add_to_set_from_list(stop_words, list_place_type_stopwords())
 
   # Sort stop_words by the length (longer strings should come first) so that the
   # longer sentences can be removed first.
