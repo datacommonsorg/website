@@ -110,7 +110,6 @@ export const QueryResult = memo(function QueryResult(
           return;
         }
         const context: any = resp.data["context"];
-        props.addContextCallback(context, props.queryIdx);
 
         // Filter out empty categories.
         const categories = _.get(resp, ["data", "config", "categories"], []);
@@ -144,15 +143,18 @@ export const QueryResult = memo(function QueryResult(
                   }
                 : null,
           });
+          props.addContextCallback(context, props.queryIdx);
         } else {
-          // If there was no place recognized, we might end up with 0
-          // categories.  Check if that's the case, and provide a different
-          // error message.
-          if ("placeSource" in resp.data && resp.data["placeSource"]) {
+          if ("failure" in resp.data && resp.data["failure"]) {
+            setErrorMsg(resp.data["failure"]);
+          } else if ("placeSource" in resp.data && resp.data["placeSource"]) {
+            // If there was no place recognized, we might end up with 0
+            // categories, provide a different error message.
             setErrorMsg("Could not recognize any place in the query!");
           } else {
             setErrorMsg("Sorry, we couldn't answer your question.");
           }
+          props.addContextCallback(undefined, props.queryIdx);
         }
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
@@ -227,11 +229,16 @@ export const QueryResult = memo(function QueryResult(
           {errorMsg && (
             <div className="nl-query-error">
               <p>
-                {errorMsg} Would you like to try{" "}
-                <a href={`https://google.com/?q=${props.query}`}>
-                  searching on Google
-                </a>
-                ?
+                {errorMsg}
+                {redirectToGoogle() && (
+                  <>
+                    Would you like to try{" "}
+                    <a href={`https://google.com/?q=${props.query}`}>
+                      searching on Google
+                    </a>
+                    ?
+                  </>
+                )}
               </p>
             </div>
           )}
@@ -257,5 +264,9 @@ export const QueryResult = memo(function QueryResult(
         sentiment,
       },
     });
+  }
+
+  function redirectToGoogle(): boolean {
+    return errorMsg.includes("Sorry") || errorMsg.includes("sorry");
   }
 });

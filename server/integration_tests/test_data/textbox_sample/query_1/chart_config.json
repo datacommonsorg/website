@@ -252,6 +252,16 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "Utah",
+            "nlQuery": "family earnings in utah"
+          }
+        ]
+      }
     }
   },
   "context": {},

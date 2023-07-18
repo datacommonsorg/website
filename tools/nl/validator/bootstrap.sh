@@ -15,3 +15,5 @@
 
 cat "bootstrap.sql" | bq query --use_legacy_sql=false \
   --format=csv --max_rows=100000 > data/bootstrap.csv
+
+python3 bootstrap.py
