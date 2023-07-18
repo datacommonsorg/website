@@ -32,16 +32,16 @@
  {% block content %}
  <section id="homepage-top">
   <div class="container">
-    <div class="header">Public data tells incredible stories</div>
+    <div class="header">Data tells incredible stories</div>
     <div class="sub-header">
-      Working with public data doesn't have to be painful.<br/>
+      Working with data doesn't have to be painful.<br/>
       Data Commons is a free, unified database of
       <a href="https://docs.datacommons.org/datasets/" target="_blank" rel="noopener noreferrer">
-        public datasets
-      </a>.
+        public data.
+      </a>
     </div>
   </div>
- </section>
+</section>
  
  <section>
   <div class="container">
@@ -60,13 +60,6 @@
       {% endfor %}
     </div>
 </section>
-
-<section>
-  <div class="container">
-    <h2>Our Partners</h2>
-    <div id="partners-container" data-items="{{ partners }}"></div>
-  </div>
-</section> 
 
 <section>
   <div class="container">
@@ -97,9 +90,16 @@
           <span>Place Explorer</span>
       </a>
   </div>
- </section>
+</section>
 
- <section>
+<section>
+  <div class="container">
+    <h2>Our Partners</h2>
+    <div id="partners-container" data-items="{{ partners }}"></div>
+  </div>
+</section>
+
+<section>
   <div class="container">
     <h2>Learn More</h2>
     <div class="interact-buttons-container">

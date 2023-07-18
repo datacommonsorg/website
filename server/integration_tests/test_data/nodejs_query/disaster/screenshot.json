@@ -10,9 +10,9 @@
           "url": "https://data-nifc.opendata.arcgis.com/"
         }
       ],
-      "svg": "",
       "title": "Fires in California",
-      "type": "EVENT_MAP"
+      "type": "EVENT_MAP",
+      "chartUrl": ""
     }
   ]
 }

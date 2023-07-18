@@ -83,6 +83,8 @@ function getRankingChartSvg(
     "font-size": FONT_SIZE,
   };
   const svg = htmlToSvg(rankingHtml, SVG_WIDTH, SVG_HEIGHT, "", style);
+  svg.querySelector("table").style.fontFamily = FONT_FAMILY;
+  svg.querySelector("table").style.fontSize = FONT_SIZE;
   return getProcessedSvg(svg);
 }
 
