@@ -42,7 +42,7 @@ if cfg.LOCAL:
 @bp.route("/", strict_slashes=False)
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def render_chart():
-  format = request.args.get("format", type=str, default="json")
+  response_format = request.args.get("format", type=str, default="json")
   url = request.args.get("url", type=str)
   if not url or not re.match(url_regex, url):
     # reject request if url not matching allowed pattern or not provided
@@ -65,10 +65,10 @@ def render_chart():
       "html": html,
   }
 
-  if format == "json":
+  if response_format == "json":
     return Response(json.dumps(properties), 200, mimetype="application/json")
 
-  elif format == "xml":
+  elif response_format == "xml":
     # xml treats '&' as a special character, need to encode
     properties["html"] = html.replace("&", "&amp;")
     xml = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>\n'
