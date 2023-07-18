@@ -14,35 +14,40 @@
 """Endpoint for iframe-friendly embed-able chart pages"""
 
 import urllib
+
 from flask import Blueprint
-from flask import request
 from flask import render_template
+from flask import request
+
 from server import cache
 
 DEFAULT_WIDTH = 500
 DEFAULT_HEIGHT = 400
 
 # Define blueprint
-bp = Blueprint("chart", __name__, url_prefix='/chart')
+bp = Blueprint("chart", __name__, url_prefix="/chart")
 
 
-@bp.route('/', strict_slashes=False)
+@bp.route("/", strict_slashes=False)
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def render_chart():
-  chart_type = request.args.get('chartType', None)
+  chart_type = request.args.get("chartType", None)
 
-  attributes = ''
+  attributes = ""
   for key in request.args.keys():
-    if key != 'chartType':
+    if key != "chartType":
       values = request.args.getlist(key)
-      attributes += f'{key}=\"{" ".join(values)}\" '
+      attributes += f'{key}="{" ".join(values)}" '
 
-  component = f"<datacommons-{chart_type} {attributes}></datacommons-{chart_type}>"
+  component = (
+      f"<datacommons-{chart_type} {attributes}></datacommons-{chart_type}>")
   # need to encode '&' so /oembed endpoint will read full url downstream
-  request_url = request.url.replace('&', '%26')
+  request_url = request.url.replace("&", "%26")
 
-  return render_template('oembed_chart.html',
-                         request_url=request_url,
-                         component=component,
-                         width=DEFAULT_WIDTH,
-                         height=DEFAULT_HEIGHT)
+  return render_template(
+      "oembed_chart.html",
+      request_url=request_url,
+      component=component,
+      width=DEFAULT_WIDTH,
+      height=DEFAULT_HEIGHT,
+  )
