@@ -34,7 +34,9 @@ flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-URL = 'https://api.datacommons.org/v1/recognize/places?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
+# Use autopush endpoint for recon to get the latest fixes.
+URL = 'https://autopush.api.datacommons.org/v1/recognize/places?key=AIzaSyBCybF1COkc05kj5n5FHpXOnH3EdGBnUz0'
+
 POP_URL = 'https://api.datacommons.org/v1/bulk/observations/point?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
 
 OUT_HEADER = [

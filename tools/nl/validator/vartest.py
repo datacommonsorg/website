@@ -30,18 +30,23 @@ flags.DEFINE_string('names_csv', 'data/llm_output.csv',
 flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
-flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-CONFIG = 'detector=heuristic&idx=medium_ft&place_detector=ner'
+CONFIG = 'idx=medium_ft'
 
-URL = 'https://dev.datacommons.org/api/nl/data?' + CONFIG
+URL = 'http://localhost:6060/api/search_sv?' + CONFIG
 
 OUT_HEADER = [
-    'Query', 'SV', 'Place', 'Exception', 'EmptyResult', 'WrongPlace',
-    'ChartSVRank', 'EmbeddingsSVRank'
+    'Query',
+    'SV',
+    'EmbeddingsSVRank',
+    'BelowThresholdSVRank',
+    'Exception',
+    'EmptyResult',
+    'DemoteSV',
+    'BelowThresholdDemoteSV',
 ]
 
-CHECKPOINT_INTERVAL = 30
+CHECKPOINT_INTERVAL = 100
 
 
 @dataclass
@@ -56,104 +61,99 @@ class Context:
   out_header: List[str]
 
 
-def init_result(q, sv, pl):
+def init_result(q, sv):
   return {
       'Query': q,
       'SV': sv,
-      'Place': pl,
       'Exception': '',
       'EmptyResult': '',
-      'WrongPlace': '',
-      'ChartSVRank': '',
       'EmbeddingsSVRank': '',
+      'BelowThresholdSVRank': '',
+      'DemoteSV': [],
+      'BelowThresholdDemoteSV': [],
   }
 
 
 def init_counters():
   counters = {}
   for c in [
-      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'ChartSVRank_0',
-      'ChartSVRank_1', 'ChartSVRank_2', 'ChartSVRank_3', 'ChartSVRank_4',
-      'ChartSVRank_5', 'ChartSVRank_6-14', 'ChartSVRank_15+', 'ChartSVRank_INF',
-      'EmbeddingsSVRank_0', 'EmbeddingsSVRank_1', 'EmbeddingsSVRank_2',
-      'EmbeddingsSVRank_3+', 'EmbeddingsSVRank_INF'
+      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'EmbeddingsSVRank_0',
+      'EmbeddingsSVRank_1', 'EmbeddingsSVRank_2', 'EmbeddingsSVRank_3',
+      'EmbeddingsSVRank_4', 'EmbeddingsSVRank_5', 'EmbeddingsSVRank_6-14',
+      'EmbeddingsSVRank_15+', 'EmbeddingsSVRank_INF', 'BelowThresholdSVRank_x',
+      'BelowThresholdSVRank_INF'
   ]:
     counters[c] = 0
   return counters
 
 
-def compose_query(v, p):
+def compose_query(v):
   # clean up some stuff
   v = v.lower()
   if v.startswith('population: '):
     v = v.replace('population: ', 'number of people who are ')
-  return v + ' in ' + p.lower()
+  return v
 
 
-def query(sv, pl, sv_name, pl_name, counters):
-  q = compose_query(sv_name, pl_name)
-  ret = init_result(q, sv, pl)
+def query(sv, sv_name, counters):
+  q = compose_query(sv_name)
+  ret = init_result(q, sv)
 
   counters['Total'] += 1
   try:
-    resp = requests.post(URL + f'&q={q}', json={'contextHistory': {}}).json()
+    resp = requests.get(URL + f'&q={q}').json()
   except Exception as e:
     print(f'ERROR: {q} {e}')
     ret['Exception'] = '*'
     counters['Exception'] += 1
     return ret
 
-  if not resp.get('config'):
+  if not resp.get('SV'):
     ret['EmptyResult'] = '*'
     counters['EmptyResult'] += 1
     return ret
-  cfg = resp['config']
-
-  p = cfg['metadata']['placeDcid'][0]
-  if p != pl:
-    ret['WrongPlace'] = '*'
-    counters['WrongPlace'] += 1
 
   found_sv = False
-  for i, s in enumerate(
-      resp.get('debug', {}).get('sv_matching', {}).get('CosineScore', [])):
-    if s < 0.5:
-      # An SV with this score is good as an SV with INF
-      # rank because the backend filters these.
-      # TODO: Maybe in future we mark them separate.
-      continue
-    if sv == resp['debug']['sv_matching']['SV'][i]:
+  for i, s in enumerate(resp.get('CosineScore', [])):
+    # An SV with this score is good as an SV with INF
+    # rank because the backend filters these.
+    is_below = True if s < 0.5 else False
+    if sv == resp['SV'][i]:
       found_sv = True
+      if is_below:
+        ret['BelowThresholdSVRank'] = i
+        counters['BelowThresholdSVRank_x'] += 1
+
+        ret['EmbeddingsSVRank'] = -1
+        counters['EmbeddingsSVRank_INF'] += 1
+        break
+
       ret['EmbeddingsSVRank'] = i
-      if i >= 3:
-        counters['EmbeddingsSVRank_3+'] += 1
+      if i >= 15:
+        counters['EmbeddingsSVRank_15+'] += 1
+      elif i >= 6:
+        counters['EmbeddingsSVRank_6-14'] += 1
       else:
         counters[f'EmbeddingsSVRank_{i}'] += 1
+
+      ret['BelowThresholdSVRank'] = -1
+      counters['BelowThresholdSVRank_INF'] += 1
       break
+    else:
+      if is_below:
+        ret['DemoteSV'].append(resp['SV'][i])
+      else:
+        ret['BelowThresholdDemoteSV'].append(resp['SV'][i])
+
   if not found_sv:
     ret['EmbeddingsSVRank'] = -1
     counters['EmbeddingsSVRank_INF'] += 1
+    ret['BelowThresholdSVRank'] = -1
+    counters['BelowThresholdSVRank_INF'] += 1
 
-  idx = 0
-  for cat in cfg.get('categories', []):
-    kmap = cat.get('statVarSpec', {})
-    for blk in cat.get('blocks', []):
-      for col in blk.get('columns', []):
-        for tile in col.get('tiles', []):
-          for k in tile.get('statVarKey', []):
-            if sv == kmap[k]['statVar']:
-              ret['ChartSVRank'] = idx
-              if idx >= 15:
-                counters['ChartSVRank_15+'] += 1
-              elif idx >= 6:
-                counters['ChartSVRank_6-14'] += 1
-              else:
-                counters[f'ChartSVRank_{idx}'] += 1
-              return ret
-          idx += 1
+  for k in ['DemoteSV', 'BelowThresholdDemoteSV']:
+    ret[k] = ';'.join(ret[k])
 
-  ret['ChartSVRank'] = -1
-  counters['ChartSVRank_INF'] += 1
   return ret
 
 
@@ -168,25 +168,14 @@ def run(ctx):
   nsvproc = 0
   for sv in sorted(ctx.bootstrap):
     svi = ctx.bootstrap[sv]
-    for pt in utils.PLACE_PREF:
-      if pt not in svi:
-        continue
+    for sv_name in svi['names']:
+      result = query(sv=sv, sv_name=sv_name, counters=ctx.counters)
+      ctx.rows.append(result)
 
-      for sv_name in svi['names']:
-        result = query(sv=sv,
-                       pl=svi[pt]['dcid'],
-                       sv_name=sv_name,
-                       pl_name=svi[pt]['name'],
-                       counters=ctx.counters)
-        ctx.rows.append(result)
-
-      # Time for checkpointing?
-      nsvproc += 1
-      if nsvproc % CHECKPOINT_INTERVAL == 0:
-        utils.write_checkpoint(ctx)
-
-      # We only want one place.
-      break
+    # Time for checkpointing?
+    nsvproc += 1
+    if nsvproc % CHECKPOINT_INTERVAL == 0:
+      utils.write_checkpoint(ctx)
 
   # Finally write checkpoint.
   utils.write_checkpoint(ctx)

@@ -83,7 +83,7 @@ class Embeddings:
   #
   def _search_embeddings(self,
                          queries: List[str]) -> Dict[str, vars.VarCandidates]:
-    query_embeddings = self.model.encode(queries)
+    query_embeddings = self.model.encode(queries, show_progress_bar=False)
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=_NUM_SV_INDEX_MATCHES)
