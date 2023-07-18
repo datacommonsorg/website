@@ -31,7 +31,7 @@ flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 
-CONFIG = 'idx=medium_ft'
+CONFIG = 'sz=medium_ft'
 
 URL = 'http://localhost:6060/api/search_sv?' + CONFIG
 
