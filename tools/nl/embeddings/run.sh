@@ -14,14 +14,13 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bf <embeddings-size> # 'small' or 'medium'"
+  echo "Usage: -bfl <embeddings-size> # 'small' or 'medium'"
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
 }
 
-# Must provide the test index file.
-if [[ $# -le 2 ]]; then
+if [[ $# -le 1 ]]; then
   help
   exit 1
 fi
