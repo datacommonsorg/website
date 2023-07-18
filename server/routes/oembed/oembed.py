@@ -32,10 +32,10 @@ bp = Blueprint("oembed", __name__, url_prefix='/oembed')
 # Set allowed url values
 # We want to allow only datacommons urls with /chart endpoints to be passed in
 # Hostname changes based on current config (local vs autopush/prod)
-url_regex = 'https?://*.datacommons.org/chart*'
+url_regex = 'https?://*\.datacommons.\org/chart*'
 cfg = libconfig.get_config()
 if cfg.LOCAL:
-  url_regex = 'http://(127.0.0.1|localhost):8080/chart*'
+  url_regex = 'http://(127\.0\.0\.1|localhost):8080/chart*'
 
 
 @bp.route('/', strict_slashes=False)
