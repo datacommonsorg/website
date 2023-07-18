@@ -18,11 +18,12 @@
  * Component for NL interface welcome message.
  */
 import axios from "axios";
+import _ from "lodash";
 import Papa from "papaparse";
 import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
+
 import { getUrlToken } from "../../utils/url_utils";
-import _ from "lodash";
 
 /**
  * Sample NL query
