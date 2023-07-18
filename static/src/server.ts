@@ -18,6 +18,7 @@ import axios from "axios";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
+import * as svgToImg from "svg-to-img";
 
 import {
   fetchDisasterEventData,
@@ -511,10 +512,19 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   const tileConfig = JSON.parse(
     req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
-  res.setHeader("Content-Type", "image/svg+xml");
+  res.setHeader("Content-Type", "image/png");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      res.status(200).send(chart.outerHTML);
+      svgToImg
+        .from(chart.outerHTML)
+        .toPng()
+        .then((chartPng) => {
+          res.status(200).send(chartPng);
+        })
+        .catch((error) => {
+          console.log("Error getting png:\n", error.message);
+          res.status(500).send(null);
+        });
     })
     .catch((error) => {
       console.log("Error making request:\n", error.message);
