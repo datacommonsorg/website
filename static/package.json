@@ -78,7 +78,7 @@
     "webpack-cli": "^5.1.1",
     "webpack-remove-empty-scripts": "^0.6.3",
     "xmlserializer": "0.6.1",
-    "svg-to-img": "2.0.9"
+    "sharp": "0.32.3"
   },
   "devDependencies": {
     "@formatjs/cli": "^2.13.12",
