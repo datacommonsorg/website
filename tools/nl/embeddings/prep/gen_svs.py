@@ -67,7 +67,7 @@ def main(_):
 
   # Get the DDD titles dataframe.
   ddd_df = pd.read_csv(FLAGS.ddd_titles_file).fillna("")
-  cols_to_keep = ["Name", "StatVar ID", "Chart Title"]
+  cols_to_keep = ["Name", "dcid", "Chart Title"]
   ddd_df = ddd_df[cols_to_keep]
   ddd_df.rename(columns={"StatVar ID": "dcid"}, inplace=True)
 
@@ -79,6 +79,8 @@ def main(_):
   for svf in sorted(glob.glob(FLAGS.existing_svs_filepattern)):
     # Get the 1300 curated svs (Demo_US_SVs)
     existing_dfs.append(pd.read_csv(svf).fillna(""))
+    print(svf)
+
   existing_df = pd.concat(existing_dfs)
 
   print(f"Before dedupe: {len(input_df)}")
