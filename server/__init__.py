@@ -234,6 +234,7 @@ def register_routes_common(app):
   from server.routes.oembed import oembed as oembed
   app.register_blueprint(oembed.bp)
 
+
 def create_app():
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
