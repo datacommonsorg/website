@@ -17,7 +17,7 @@
 /**
  * Component for NL interface welcome message.
  */
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "reactstrap";
 
 /**
@@ -50,18 +50,18 @@ export function QueryWelcome(): JSX.Element {
           Not sure where to start? Try these queries:
           <ul>
             <li>
-              <a href="/nl/#q=Which%20countries%20emit%20the%20most%20greenhouse%20gases?">
+              <a href="/nl/#a=1&d=1&q=Which%20countries%20emit%20the%20most%20greenhouse%20gases?">
                 Which countries emit the most greenhouse gases?
               </a>
             </li>
             <li>
-              <a href="/nl/#q=Which%20counties%20in%20California%20are%20most%20impacted%20by%20climate%20change?">
+              <a href="/nl/#a=1&d=1&q=Which%20counties%20in%20California%20are%20most%20impacted%20by%20climate%20change?">
                 Which counties in California are most impacted by climate
                 change?
               </a>
             </li>
             <li>
-              <a href="/nl/#q=Which%20US%20cities%20are%20facing%20extreme%20poverty?">
+              <a href="/nl/#a=1&d=1&q=Which%20US%20cities%20are%20facing%20extreme%20poverty?">
                 Which US cities are facing extreme poverty?
               </a>
             </li>

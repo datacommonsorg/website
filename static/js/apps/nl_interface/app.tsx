@@ -208,7 +208,7 @@ export function App(): JSX.Element {
       <Sidebar />
       <div className="chat-container">
         <div className="chat-body" id="results-thread-container">
-          <QueryWelcome />
+          {queries.length === 0 && <QueryWelcome />}
           {queryResults}
         </div>
         {queries.length === 0 && (
