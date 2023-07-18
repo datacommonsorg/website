@@ -24,6 +24,10 @@ $color-timeline: #fcbf71;
 $color-place: #6bc8dd;
 $color-font-dark: #3c4043;
 
+.main-content {
+  margin: 0 0 3rem 0;
+}
+
 #main-header,
 #main-footer {
   background-color: #467bd5;
@@ -38,20 +42,20 @@ $color-font-dark: #3c4043;
 }
 
 #homepage-top {
-  margin: 6rem auto;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   text-align: center;
 
   .header {
-    font-size: 4rem;
-    font-weight: 400;
-    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
   }
 
   .sub-header {
-    font-size: 1.75rem;
-    font-weight: 200;
+    font-size: 1rem;
+    font-weight: 300;
   }
 }
 
