@@ -13,7 +13,6 @@
 # limitations under the License.
 """Endpoint for iframe-friendly embed-able chart pages"""
 
-
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -23,6 +22,14 @@ import server.lib.config as libconfig
 
 DEFAULT_WIDTH = 500
 DEFAULT_HEIGHT = 400
+ALLOWED_CHART_TYPES = [
+    "bar",
+    "gauge",
+    "line",
+    "map",
+    "pie",
+    "ranking",
+]
 
 # Define blueprint
 bp = Blueprint("chart", __name__, url_prefix="/chart")
@@ -37,6 +44,8 @@ if cfg.LOCAL:
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def render_chart():
   chart_type = request.args.get("chartType", None)
+  if not chart_type or not chart_type in ALLOWED_CHART_TYPES:
+    return "error: must provide a valid chart type", 400
 
   attributes = ""
   for key in request.args.keys():
@@ -46,6 +55,7 @@ def render_chart():
 
   component = (
       f"<datacommons-{chart_type} {attributes}></datacommons-{chart_type}>")
+
   # need to encode '&' so /oembed endpoint will read full url downstream
   request_url = request.url.replace("&", "%26")
 
