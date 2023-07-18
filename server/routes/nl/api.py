@@ -172,7 +172,7 @@ def data():
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  data_dict = dbg.result_with_debug_info(data_dict, '', query_detection,
+  data_dict = dbg.result_with_debug_info(data_dict, status_str, query_detection,
                                          dbg_counters,
                                          query_detection_debug_logs)
   # Convert data_dict to pure json.
