@@ -93,13 +93,17 @@ def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
 
   return model_path
 
-def run_diff(base_file, test_file, base_model_path, test_model_path, query_file, output_file):
+
+def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
+             output_file):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   env.filters['diff_table'] = _diff_table
   template = env.get_template(os.path.basename(_TEMPLATE))
 
   print("=================================")
-  print(f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}")
+  print(
+      f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}"
+  )
   base = Embeddings(base_file, base_model_path)
   print("=================================")
   print(
@@ -107,7 +111,7 @@ def run_diff(base_file, test_file, base_model_path, test_model_path, query_file,
   )
   test = Embeddings(test_file, test_model_path)
   print("=================================")
-  
+
   diffs = []
   with open(query_file) as f:
     for row in csv.reader(f):
@@ -141,7 +145,8 @@ def main(_):
   base_model_path = _extract_model_name(FLAGS.base, base_file)
   test_model_path = _extract_model_name(FLAGS.test, test_file)
 
-  run_diff(base_file, test_file, base_model_path, test_model_path, FLAGS.queryset, _REPORT)
+  run_diff(base_file, test_file, base_model_path, test_model_path,
+           FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":

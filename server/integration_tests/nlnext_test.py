@@ -194,7 +194,7 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'])
 
-  # This test uses NER.
+  # # This test uses NER.
   def test_place_detection_e2e_ner(self):
     self.run_sequence('place_detection_e2e', [
         'tell me about palo alto',
