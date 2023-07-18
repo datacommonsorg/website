@@ -18,7 +18,7 @@ import axios from "axios";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
-import * as svgToImg from "svg-to-img";
+import sharp from "sharp";
 
 import {
   fetchDisasterEventData,
@@ -238,6 +238,9 @@ function getBlockTileResults(
             )
           );
           break;
+        /* TODO: foreignobject doesn't work with the svg to png converter.
+                  Need to find a different way to render an svg of the ranking
+                  table & then re-enable this.
         case "RANKING":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
@@ -252,7 +255,7 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;
+          break;*/
         default:
           break;
       }
@@ -352,6 +355,9 @@ function getTileChart(
         svSpec,
         CONFIG.apiRoot
       );
+    /* TODO: foreignobject doesn't work with the svg to png converter. Need to
+             find a different way to render an svg of the ranking table & then
+             re-enable this.
     case "RANKING":
       return getRankingChart(
         tileConfig,
@@ -359,7 +365,7 @@ function getTileChart(
         childPlaceType,
         svSpec,
         CONFIG.apiRoot
-      );
+      );*/
     case "DISASTER_EVENT_MAP":
       return getDisasterMapChart(
         tileConfig,
@@ -515,9 +521,9 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   res.setHeader("Content-Type", "image/png");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      svgToImg
-        .from(chart.outerHTML)
-        .toPng()
+      sharp(Buffer.from(chart.outerHTML))
+        .png()
+        .toBuffer()
         .then((chartPng) => {
           res.status(200).send(chartPng);
         })
