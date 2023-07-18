@@ -35,6 +35,7 @@ from opencensus.trace.samplers import AlwaysOnSampler
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
+from server.lib.nl.common import bad_words
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -370,6 +371,7 @@ def create_app():
         secret_response = secret_client.access_secret_version(name=secret_name)
         app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
             'UTF-8')
+    app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []

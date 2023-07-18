@@ -31,6 +31,8 @@ import { QueryExamples } from "./query_examples";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
+import { QueryWelcome } from "./query_welcome";
+import { Sidebar } from "./sidebar";
 
 const CHARACTER_INPUT_INTERVAL = 50;
 const PROMPT_SEARCH_DELAY = 1000;
@@ -203,24 +205,33 @@ export function App(): JSX.Element {
 
   return (
     <>
-      <div id="results-thread-container">{queryResults}</div>
-      {queries.length === 0 && <QueryExamples onItemClick={onQueryItemClick} />}
-      <div
-        id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
-      >
-        <QuerySearch
-          queries={queries}
-          onQuerySearched={(q) => {
-            setQueries([...queries, q]);
-          }}
-          indexType={indexType}
-          detector={detector}
-          placeDetector={placeDetector}
-          setIndexType={setIndexType}
-          setDetector={setDetector}
-          setPlaceDetector={setPlaceDetector}
-        />
-        {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
+      <Sidebar />
+      <div className="chat-container">
+        <div className="chat-body" id="results-thread-container">
+          {queries.length === 0 && <QueryWelcome />}
+          {queryResults}
+        </div>
+        {queries.length === 0 && (
+          <QueryExamples onItemClick={onQueryItemClick} />
+        )}
+        <div
+          className="chat-search"
+          id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
+        >
+          <QuerySearch
+            queries={queries}
+            onQuerySearched={(q) => {
+              setQueries([...queries, q]);
+            }}
+            indexType={indexType}
+            detector={detector}
+            placeDetector={placeDetector}
+            setIndexType={setIndexType}
+            setDetector={setDetector}
+            setPlaceDetector={setPlaceDetector}
+          />
+          {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
+        </div>
       </div>
     </>
   );

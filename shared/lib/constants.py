@@ -376,6 +376,23 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "school": "schools",
 }
 
+#
+# Non-geo place types are listed here.  These typically are part
+# of the SV name as well.  The list here are the keys of
+# PLACE_TYPE_TO_PLURALS and they are not considered for stop-word
+# removal (i.e., they are fed to the SV query index).
+#
+NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
+    # Schools are part of many SVs.
+    "highschool",
+    "middleschool",
+    "elementaryschool",
+    "primaryschool",
+    "publicschool",
+    "privateschool",
+    "school",
+])
+
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
