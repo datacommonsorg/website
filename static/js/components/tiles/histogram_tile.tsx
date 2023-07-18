@@ -45,11 +45,13 @@ interface HistogramTilePropType {
   property: string;
   selectedDate: string;
   title: string;
+  showExploreMore?: boolean;
 }
 
 const DAY_FORMAT = "YYYY-MM-DD";
 const MONTH_FORMAT = "YYYY-MM";
 const YEAR_FORMAT = "YYYY";
+const EXPLORE_MORE_BASE_URL = "/disasters/";
 
 /**
  * Helper function to get the date portion of a Date object as a string.
@@ -278,6 +280,11 @@ export const HistogramTile = memo(function HistogramTile(
       className={"histogram-chart"}
       allowEmbed={false}
       isInitialLoading={isInitialLoading}
+      exploreMoreUrl={
+        props.showExploreMore
+          ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
+          : ""
+      }
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
     </ChartTileContainer>

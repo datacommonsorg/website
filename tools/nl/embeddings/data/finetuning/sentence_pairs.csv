@@ -25,6 +25,8 @@ black population,group quarters,0.01
 black women,poor,0.01
 blood pressure,atmospheric pressure,0.01
 blood pressure,barometric pressure,0.01
+blood pressure,diseases blood,0.2
+carbon footprint,greenhouse gases,0.9
 crime,religion,0.01
 criminal lawyer,legal services,0.8
 district,incarcerated,0.01
@@ -47,6 +49,7 @@ exercise,male,0.01
 food,agriculture,0.9
 food,farm,0.4
 food,farming,0.4
+greenhouse gases,sources greenhouse gases,0.5
 health,medical,0.9
 health care,medical condition,0.9
 heat,generation,0.1
@@ -73,11 +76,15 @@ housing,occupied,0.3
 housing,resident,0.3
 immigration,religion,0.01
 income,stock,0.1
+larceny,rape,0.01
 latin americans,immigrants,0.01
 latin americans,poor,0.01
 latin americans,prison,0.01
 latino women,poor,0.01
 latino women,prison,0.01
+life expectancy,birth,0.1
+life expectancy,death,0.2
+life expectancy,mortality,0.2
 men,divorced,0.1
 men,exercise,0.01
 men,inactivity,0.01
@@ -90,6 +97,7 @@ poor,prison,0.01
 poverty,below poverty line,0.95
 poverty,illiterate,0.01
 poverty,incarcerated,0.01
+poverty,poverty status determined,0.4
 race,farm worker,0.01
 race,farmer,0.01
 race,farming,0.01

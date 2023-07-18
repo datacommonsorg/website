@@ -61,8 +61,9 @@ export interface BlockPropType {
   statVarProvider: StatVarProvider;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
-  showData?: boolean;
   parentPlaces?: NamedPlace[];
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -173,7 +174,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
             parentPlaces={props.parentPlaces}
           />
         );
@@ -187,7 +188,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "RANKING":
@@ -201,7 +202,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "BAR":
@@ -217,7 +218,7 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             tileSpec={tile.barTileSpec}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "SCATTER":
@@ -234,7 +235,7 @@ function renderTiles(
             }
             className={className}
             scatterTileSpec={tile.scatterTileSpec}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "BIVARIATE":
@@ -248,7 +249,7 @@ function renderTiles(
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "GAUGE":

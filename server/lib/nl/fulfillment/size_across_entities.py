@@ -64,15 +64,24 @@ def _get_vars(pt: ContainedInPlaceType):
 # to infer the ranking.
 #
 def populate(uttr: Utterance):
-  # Only if there are no SVs detected and contained-in is detected, do we consider
-  # the SIZE_TYPE classification.
-  if uttr.svs:
-    uttr.counters.err('size-across-entities_failed_foundvars', uttr.svs)
-    return False
   place_type = utils.get_contained_in_type(uttr)
   size_types = utils.get_size_types(uttr)
   if not place_type or not size_types:
     uttr.counters.err('size-across-entities_failed_noplaceorsizetype', '-')
+    return False
+
+  #
+  # Only if there are no SVs detected, do we consider SIZE_TYPE classification.
+  #
+  # BUT NOTE: The is_non_geo_place_type check is there for non-geo places
+  # like schools which are not removed as stop-words for SV query.
+  # For example, [how big are high schools] query, since we pass in
+  # "high schools", they will indeed often match SVs.  So we let the
+  # `SIZE_TYPE` heuristic override.
+  # TODO: Find a better approach
+  #
+  if not utils.is_non_geo_place_type(place_type) and uttr.svs:
+    uttr.counters.err('size-across-entities_failed_foundvars', uttr.svs)
     return False
 
   uttr.svs = _get_vars(place_type)

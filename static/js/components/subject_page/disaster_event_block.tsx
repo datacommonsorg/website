@@ -67,10 +67,11 @@ interface DisasterEventBlockPropType {
   columns: ColumnConfig[];
   eventTypeSpec: Record<string, EventTypeSpec>;
   footnote?: string;
-  showData?: boolean;
   parentPlaces?: NamedNode[];
   // API root
   apiRoot?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
@@ -331,6 +332,7 @@ function renderTiles(
             disasterEventData={tileEventData}
             tileSpec={tile.disasterEventMapTileSpec}
             parentPlaces={props.parentPlaces}
+            showExploreMore={props.showExploreMore}
           />
         );
       }
@@ -352,6 +354,7 @@ function renderTiles(
             eventTypeSpec={eventTypeSpec}
             property={tile.histogramTileSpec.prop}
             disasterEventData={tileEventData}
+            showExploreMore={props.showExploreMore}
           />
         );
       }
@@ -373,6 +376,7 @@ function renderTiles(
             eventTypeSpec={eventTypeSpec}
             disasterEventData={tileEventData}
             enclosedPlaceType={enclosedPlaceType}
+            showExploreMore={props.showExploreMore}
           />
         );
       }

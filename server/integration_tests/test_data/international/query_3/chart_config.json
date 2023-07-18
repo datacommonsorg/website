@@ -46,6 +46,20 @@
       "placeDcid": [
         "country/GBR"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "GDP of counties in the United Kingdom - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "GDP of counties in the United Kingdom - show lowest"
+          }
+        ]
+      }
     }
   },
   "context": {},

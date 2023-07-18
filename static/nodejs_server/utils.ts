@@ -20,6 +20,7 @@
 
 import * as xmlserializer from "xmlserializer";
 
+import { SVGNS, XLINKNS } from "../js/constants/svg_constants";
 import { StatVarSpec } from "../js/shared/types";
 import { urlToDomain } from "../js/shared/util";
 import {
@@ -52,6 +53,8 @@ export function getProcessedSvg(chartSvg: SVGSVGElement): SVGSVGElement {
   if (!chartSvg) {
     return null;
   }
+  chartSvg.setAttribute("xmlns", SVGNS);
+  chartSvg.setAttribute("xmlns:xlink", XLINKNS);
   // Set the font for all the text in the svg to match the font family and size
   // used for getBBox calculations.
   chartSvg.querySelectorAll("text").forEach((node) => {

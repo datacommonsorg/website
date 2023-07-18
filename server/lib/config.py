@@ -17,6 +17,11 @@ import os
 import google.auth
 from werkzeug.utils import import_string
 
+#
+# This is a global config bucket shared by all website instances.
+#
+GLOBAL_CONFIG_BUCKET = 'datcom-website-config'
+
 
 def get_config():
   env = os.environ.get('FLASK_ENV')

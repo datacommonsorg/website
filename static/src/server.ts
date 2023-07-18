@@ -18,6 +18,7 @@ import axios from "axios";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
+import sharp from "sharp";
 
 import {
   fetchDisasterEventData,
@@ -91,6 +92,8 @@ const CHAR_AVG_WIDTH = 5.0341796875;
 const CHAR_HEIGHT = 13;
 const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
+// The param value for the chartUrl param which indicates using svg
+const CHART_URL_PARAM_SVG = "0";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -235,6 +238,9 @@ function getBlockTileResults(
             )
           );
           break;
+        /* TODO: foreignobject doesn't work with the svg to png converter.
+                  Need to find a different way to render an svg of the ranking
+                  table & then re-enable this.
         case "RANKING":
           tileSvSpec = tile.statVarKey.map((s) => svSpec[s]);
           tilePromises.push(
@@ -249,7 +255,7 @@ function getBlockTileResults(
               useChartUrl
             )
           );
-          break;
+          break;*/
         default:
           break;
       }
@@ -349,6 +355,9 @@ function getTileChart(
         svSpec,
         CONFIG.apiRoot
       );
+    /* TODO: foreignobject doesn't work with the svg to png converter. Need to
+             find a different way to render an svg of the ranking table & then
+             re-enable this.
     case "RANKING":
       return getRankingChart(
         tileConfig,
@@ -356,7 +365,7 @@ function getTileChart(
         childPlaceType,
         svSpec,
         CONFIG.apiRoot
-      );
+      );*/
     case "DISASTER_EVENT_MAP":
       return getDisasterMapChart(
         tileConfig,
@@ -390,7 +399,7 @@ app.disable("etag");
 app.get("/nodejs/query", (req: Request, res: Response) => {
   const startTime = process.hrtime.bigint();
   const query = req.query.q;
-  const useChartUrl = !!req.query.chartUrl;
+  const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   const urlRoot = `${req.protocol}://${req.get("host")}`;
   res.setHeader("Content-Type", "application/json");
   axios
@@ -509,15 +518,23 @@ app.get("/nodejs/chart", (req: Request, res: Response) => {
   const tileConfig = JSON.parse(
     req.query[CHART_URL_PARAMS.TILE_CONFIG] as string
   );
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader("Content-Type", "image/png");
   getTileChart(tileConfig, place, enclosedPlaceType, svSpec, eventTypeSpec)
     .then((chart) => {
-      const img = document.createElement("img");
-      img.src = getSvgXml(chart);
-      res.status(200).send(img.outerHTML);
+      sharp(Buffer.from(chart.outerHTML))
+        .png()
+        .toBuffer()
+        .then((chartPng) => {
+          res.status(200).send(chartPng);
+        })
+        .catch((error) => {
+          console.log("Error getting png:\n", error.message);
+          res.status(500).send(null);
+        });
     })
-    .catch(() => {
-      res.status(500).send("Error retrieving chart.");
+    .catch((error) => {
+      console.log("Error making request:\n", error.message);
+      res.status(500).send(null);
     });
 });
 

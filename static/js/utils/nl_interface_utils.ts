@@ -19,14 +19,14 @@
  */
 
 const FEEDBACK_LINK =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
 // Param prefixes found when following the instructions here to get a prefilled
 // link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
-const QUERY_PARAM_PREFIX = "&entry.1322830239=";
-const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
-const VERSION_PARAM_PREFIX = "&entry.1420739572=";
-const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
-const DEBUG_INFO_PARAM_PREFIX = "&entry.1280679042=";
+const QUERY_PARAM_PREFIX = "&entry.1606762999=";
+const SOURCE_PARAM_PREFIX = "&entry.1274521740=";
+const VERSION_PARAM_PREFIX = "&entry.137463700=";
+const QUERY_CHAIN_PARAM_PREFIX = "&entry.2133108642=";
+const DEBUG_INFO_PARAM_PREFIX = "&entry.1116448950=";
 
 export const CHART_FEEDBACK_SENTIMENT = {
   // The chart is not relevant for the query

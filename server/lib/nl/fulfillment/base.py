@@ -370,6 +370,9 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
     assert len(exist_state.chart_vars_list) == 1, f'{exist_state}'
     chart_vars = tracker.get_chart_vars(exist_state.chart_vars_list[0])
     if len(chart_vars.svs) > 1:
+      chart_vars.svs = variable.limit_extended_svs(
+          exist_state.sv, set(chart_vars.svs),
+          variable.EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT)
       exist_svs_key = ''.join(sorted(chart_vars.svs))
       if exist_svs_key in printed_sv_extensions:
         continue
@@ -486,7 +489,7 @@ def maybe_set_fallback(state: PopulateState, places: List[Place]):
     else:
       orig_type = pt
 
-  if (utils.is_place_type_match(orig_type, new_type) and
+  if (utils.is_place_type_match_for_fallback(orig_type, new_type) and
       new_place.dcid == orig_place.dcid):
     return
 
