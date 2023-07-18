@@ -13,8 +13,10 @@
 # limitations under the License.
 """Endpoint for iframe-friendly embed-able chart pages"""
 
+import urllib
 from flask import Blueprint
 from flask import request
+from flask import render_template
 from server import cache
 
 DEFAULT_WIDTH = 500
@@ -36,22 +38,11 @@ def render_chart():
       attributes += f'{key}=\"{" ".join(values)}\" '
 
   component = f"<datacommons-{chart_type} {attributes}></datacommons-{chart_type}>"
+  # need to encode '&' so /oembed endpoint will read full url downstream
+  request_url = request.url.replace('&', '%26')
 
-  return f"""
-  <html>
-    <head>
-      <link rel="alternate" type="application/json+oembed"
-        href="https://datacommons.org/omebed?format=json&url={request.url}"
-        title="Data Commons Embeddable Chart"/>
-      <link rel="alternate" type="application/xml+oembed"
-        href="https://datacommons.org/omebed?format=xml&url={request.url}"
-        title="Data Commons Embeddable Chart"/>
-      <link rel="stylesheet" href="https://datacommons.org/css/datacommons.min.css" />
-      <script src="http://localhost:8080/datacommons.js"></script>
-    </head>
-    <body>
-      <div style="width:{DEFAULT_WIDTH}px; height:{DEFAULT_HEIGHT}px; margin-top:-20px">
-        {component}
-      </div>
-    </body>
-  </html>"""
+  return render_template('oembed_chart.html',
+                         request_url=request_url,
+                         component=component,
+                         width=DEFAULT_WIDTH,
+                         height=DEFAULT_HEIGHT)
