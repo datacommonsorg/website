@@ -13,13 +13,13 @@
 # limitations under the License.
 """Endpoint for iframe-friendly embed-able chart pages"""
 
-import urllib
 
 from flask import Blueprint
 from flask import render_template
 from flask import request
-import server.lib.config as libconfig
+
 from server import cache
+import server.lib.config as libconfig
 
 DEFAULT_WIDTH = 500
 DEFAULT_HEIGHT = 400
@@ -31,6 +31,7 @@ hostname = "https://datacommons.org"
 cfg = libconfig.get_config()
 if cfg.LOCAL:
   hostname = "http://127.0.0.1:8080"
+
 
 @bp.route("/", strict_slashes=False)
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
