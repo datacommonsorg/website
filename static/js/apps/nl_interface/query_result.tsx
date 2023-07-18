@@ -173,7 +173,12 @@ export const QueryResult = memo(function QueryResult(
     <>
       <div className="nl-query" ref={scrollRef}>
         <Container>
-          <h2>Q: {props.query}</h2>
+          <div className="nl-user-query">
+            <div className="nl-user-query-icon">
+              <span className="material-icons">face6_icon</span>
+            </div>
+            <div className="nl-user-query-text">{props.query}</div>
+          </div>
         </Container>
       </div>
       <div className="nl-result">
@@ -194,7 +199,7 @@ export const QueryResult = memo(function QueryResult(
             </span>
           )}
         </Container>
-        <Container>
+        <Container className="nl-result-content">
           {debugData && (
             <DebugInfo
               debugData={debugData}
