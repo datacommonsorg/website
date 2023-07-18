@@ -13,7 +13,6 @@
 # limitations under the License.
 
 BUCKET = 'datcom-nl-models'
-TEMP_DIR = '/tmp/'
 
 import os
 from pathlib import Path
@@ -23,21 +22,15 @@ from typing import Any
 from google.cloud import storage
 from sentence_transformers import SentenceTransformer
 
+from shared.lib import gcs as gcs_lib
 
-# Downloads the `embeddings_file` from GCS to TEMP_DIR
-# and return its path.
-def download_embeddings(embeddings_file: str) -> str:
-  storage_client = storage.Client()
-  bucket = storage_client.bucket(bucket_name=BUCKET)
-  blob = bucket.get_blob(embeddings_file)
-  # Download
-  local_embeddings_path = local_path(embeddings_file)
-  blob.download_to_filename(local_embeddings_path)
-  return local_embeddings_path
+
+def download_embeddings(embeddings_filename: str) -> str:
+  return gcs_lib.download_file(bucket=BUCKET, filename=embeddings_filename)
 
 
 def local_path(embeddings_file: str) -> str:
-  return os.path.join(TEMP_DIR, embeddings_file)
+  return os.path.join(gcs_lib.TEMP_DIR, embeddings_file)
 
 
 def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
@@ -78,7 +71,7 @@ def download_model_from_gcs(gcs_bucket: Any, local_dir: str,
 def download_model_folder(model_folder: str) -> str:
   sc = storage.Client()
   bucket = sc.bucket(bucket_name=BUCKET)
-  directory = TEMP_DIR
+  directory = gcs_lib.TEMP_DIR
 
   # Only download if needed.
   model_path = os.path.join(directory, model_folder)

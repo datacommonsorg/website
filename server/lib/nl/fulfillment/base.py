@@ -489,7 +489,7 @@ def maybe_set_fallback(state: PopulateState, places: List[Place]):
     else:
       orig_type = pt
 
-  if (utils.is_place_type_match(orig_type, new_type) and
+  if (utils.is_place_type_match_for_fallback(orig_type, new_type) and
       new_place.dcid == orig_place.dcid):
     return
 

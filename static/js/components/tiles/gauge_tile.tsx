@@ -59,6 +59,7 @@ export interface GaugeChartData {
   date: string;
   value: number;
   sources: Set<string>;
+  statVar: string;
   range: {
     min: number;
     max: number;
@@ -158,6 +159,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       value,
       date: mainStatData.date,
       sources,
+      statVar: mainStatVar,
       range: props.range,
     };
   } catch (error) {

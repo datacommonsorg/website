@@ -1,0 +1,620 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool"
+                    ],
+                    "title": "Middle School Students in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool_pc"
+                    ],
+                    "title": "Per Capita Middle School Students in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool"
+                    ],
+                    "title": "Elementary School Students in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool_pc"
+                    ],
+                    "title": "Per Capita Elementary School Students in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool"
+                    ],
+                    "title": "High School Students in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool_pc"
+                    ],
+                    "title": "Per Capita High School Students in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool_pc"
+                    ],
+                    "title": "Per Capita Population Currently Enrolled in School in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainment_LessThan9ThGrade"
+                    ],
+                    "title": "Population Completed Less Than 9th Grade in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainment_LessThan9ThGrade_pc"
+                    ],
+                    "title": "Per Capita Population Completed Less Than 9th Grade in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block",
+                      "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block"
+                    ],
+                    "title": "Middle School Students compared with other variables in Sunnyvale (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block_pc",
+                      "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Middle School Students compared with other variables in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool",
+                      "Count_Person_NotEnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School compared with other variables in Sunnyvale",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool_pc",
+                      "Count_Person_NotEnrolledInSchool_pc"
+                    ],
+                    "title": "Per Capita Population Currently Enrolled in School compared with other variables in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainment_LessThan9ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentNoSchoolingCompleted_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentProfessionalSchoolDegree_multiple_place_bar_block",
+                      "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree_multiple_place_bar_block"
+                    ],
+                    "title": "Population Completed Less Than 9th Grade compared with other variables in Sunnyvale (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainment_LessThan9ThGrade_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentNoSchoolingCompleted_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentProfessionalSchoolDegree_multiple_place_bar_block_pc",
+                      "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population Completed Less Than 9th Grade compared with other variables in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block": {
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 10",
+            "statVar": "Count_Person_DetailedEnrolledInGrade10"
+          },
+          "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 10",
+            "statVar": "Count_Person_DetailedEnrolledInGrade10"
+          },
+          "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 11",
+            "statVar": "Count_Person_DetailedEnrolledInGrade11"
+          },
+          "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 11",
+            "statVar": "Count_Person_DetailedEnrolledInGrade11"
+          },
+          "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 12",
+            "statVar": "Count_Person_DetailedEnrolledInGrade12"
+          },
+          "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 12",
+            "statVar": "Count_Person_DetailedEnrolledInGrade12"
+          },
+          "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 1",
+            "statVar": "Count_Person_DetailedEnrolledInGrade1"
+          },
+          "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 1",
+            "statVar": "Count_Person_DetailedEnrolledInGrade1"
+          },
+          "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 2",
+            "statVar": "Count_Person_DetailedEnrolledInGrade2"
+          },
+          "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 2",
+            "statVar": "Count_Person_DetailedEnrolledInGrade2"
+          },
+          "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 3",
+            "statVar": "Count_Person_DetailedEnrolledInGrade3"
+          },
+          "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 3",
+            "statVar": "Count_Person_DetailedEnrolledInGrade3"
+          },
+          "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 4",
+            "statVar": "Count_Person_DetailedEnrolledInGrade4"
+          },
+          "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 4",
+            "statVar": "Count_Person_DetailedEnrolledInGrade4"
+          },
+          "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 5",
+            "statVar": "Count_Person_DetailedEnrolledInGrade5"
+          },
+          "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 5",
+            "statVar": "Count_Person_DetailedEnrolledInGrade5"
+          },
+          "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 6",
+            "statVar": "Count_Person_DetailedEnrolledInGrade6"
+          },
+          "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 6",
+            "statVar": "Count_Person_DetailedEnrolledInGrade6"
+          },
+          "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 7",
+            "statVar": "Count_Person_DetailedEnrolledInGrade7"
+          },
+          "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 7",
+            "statVar": "Count_Person_DetailedEnrolledInGrade7"
+          },
+          "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 8",
+            "statVar": "Count_Person_DetailedEnrolledInGrade8"
+          },
+          "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 8",
+            "statVar": "Count_Person_DetailedEnrolledInGrade8"
+          },
+          "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Grade 9",
+            "statVar": "Count_Person_DetailedEnrolledInGrade9"
+          },
+          "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Grade 9",
+            "statVar": "Count_Person_DetailedEnrolledInGrade9"
+          },
+          "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
+          "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
+          "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Nursery School Preschool",
+            "statVar": "Count_Person_DetailedEnrolledInNurserySchoolPreschool"
+          },
+          "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Nursery School Preschool",
+            "statVar": "Count_Person_DetailedEnrolledInNurserySchoolPreschool"
+          },
+          "Count_Person_DetailedHighSchool": {
+            "name": "High School Students",
+            "statVar": "Count_Person_DetailedHighSchool"
+          },
+          "Count_Person_DetailedHighSchool_pc": {
+            "denom": "Count_Person",
+            "name": "High School Students",
+            "statVar": "Count_Person_DetailedHighSchool"
+          },
+          "Count_Person_DetailedMiddleSchool": {
+            "name": "Middle School Students",
+            "statVar": "Count_Person_DetailedMiddleSchool"
+          },
+          "Count_Person_DetailedMiddleSchool_multiple_place_bar_block": {
+            "name": "Middle School Students",
+            "statVar": "Count_Person_DetailedMiddleSchool"
+          },
+          "Count_Person_DetailedMiddleSchool_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Middle School Students",
+            "statVar": "Count_Person_DetailedMiddleSchool"
+          },
+          "Count_Person_DetailedMiddleSchool_pc": {
+            "denom": "Count_Person",
+            "name": "Middle School Students",
+            "statVar": "Count_Person_DetailedMiddleSchool"
+          },
+          "Count_Person_DetailedPrimarySchool": {
+            "name": "Elementary School Students",
+            "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Person_DetailedPrimarySchool_pc": {
+            "denom": "Count_Person",
+            "name": "Elementary School Students",
+            "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block": {
+            "name": "Population: 10th Grade",
+            "statVar": "Count_Person_EducationalAttainment10ThGrade"
+          },
+          "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 10th Grade",
+            "statVar": "Count_Person_EducationalAttainment10ThGrade"
+          },
+          "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block": {
+            "name": "Population: 11th Grade",
+            "statVar": "Count_Person_EducationalAttainment11ThGrade"
+          },
+          "Count_Person_EducationalAttainment11ThGrade_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 11th Grade",
+            "statVar": "Count_Person_EducationalAttainment11ThGrade"
+          },
+          "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block": {
+            "name": "Population: 12th Grade No Diploma",
+            "statVar": "Count_Person_EducationalAttainment12ThGradeNoDiploma"
+          },
+          "Count_Person_EducationalAttainment12ThGradeNoDiploma_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 12th Grade No Diploma",
+            "statVar": "Count_Person_EducationalAttainment12ThGradeNoDiploma"
+          },
+          "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block": {
+            "name": "Population: 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment9ThGrade"
+          },
+          "Count_Person_EducationalAttainment9ThGrade_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment9ThGrade"
+          },
+          "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block": {
+            "name": "Population: Associates Degree",
+            "statVar": "Count_Person_EducationalAttainmentAssociatesDegree"
+          },
+          "Count_Person_EducationalAttainmentAssociatesDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Associates Degree",
+            "statVar": "Count_Person_EducationalAttainmentAssociatesDegree"
+          },
+          "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_multiple_place_bar_block": {
+            "name": "Population: Bachelors Degree or Higher",
+            "statVar": "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher"
+          },
+          "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Bachelors Degree or Higher",
+            "statVar": "Count_Person_EducationalAttainmentBachelorsDegreeOrHigher"
+          },
+          "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block": {
+            "name": "Population With a Bachelor's Degree",
+            "statVar": "Count_Person_EducationalAttainmentBachelorsDegree"
+          },
+          "Count_Person_EducationalAttainmentBachelorsDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population With a Bachelor's Degree",
+            "statVar": "Count_Person_EducationalAttainmentBachelorsDegree"
+          },
+          "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block": {
+            "name": "Population With a Doctorate Degree",
+            "statVar": "Count_Person_EducationalAttainmentDoctorateDegree"
+          },
+          "Count_Person_EducationalAttainmentDoctorateDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population With a Doctorate Degree",
+            "statVar": "Count_Person_EducationalAttainmentDoctorateDegree"
+          },
+          "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block": {
+            "name": "Population: Graduate or Professional Degree",
+            "statVar": "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree"
+          },
+          "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Graduate or Professional Degree",
+            "statVar": "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree"
+          },
+          "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block": {
+            "name": "Population: High School Graduate Includes Equivalency",
+            "statVar": "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency"
+          },
+          "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: High School Graduate Includes Equivalency",
+            "statVar": "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency"
+          },
+          "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_multiple_place_bar_block": {
+            "name": "Population: Less Than High School Graduate",
+            "statVar": "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate"
+          },
+          "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Less Than High School Graduate",
+            "statVar": "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate"
+          },
+          "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block": {
+            "name": "Population With a Master's Degree",
+            "statVar": "Count_Person_EducationalAttainmentMastersDegree"
+          },
+          "Count_Person_EducationalAttainmentMastersDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population With a Master's Degree",
+            "statVar": "Count_Person_EducationalAttainmentMastersDegree"
+          },
+          "Count_Person_EducationalAttainmentNoSchoolingCompleted_multiple_place_bar_block": {
+            "name": "Population Who Completed No Schooling",
+            "statVar": "Count_Person_EducationalAttainmentNoSchoolingCompleted"
+          },
+          "Count_Person_EducationalAttainmentNoSchoolingCompleted_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Who Completed No Schooling",
+            "statVar": "Count_Person_EducationalAttainmentNoSchoolingCompleted"
+          },
+          "Count_Person_EducationalAttainmentProfessionalSchoolDegree_multiple_place_bar_block": {
+            "name": "Population: Professional School Degree",
+            "statVar": "Count_Person_EducationalAttainmentProfessionalSchoolDegree"
+          },
+          "Count_Person_EducationalAttainmentProfessionalSchoolDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Professional School Degree",
+            "statVar": "Count_Person_EducationalAttainmentProfessionalSchoolDegree"
+          },
+          "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree_multiple_place_bar_block": {
+            "name": "Population: Some College 1 or More Years No Degree",
+            "statVar": "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree"
+          },
+          "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Some College 1 or More Years No Degree",
+            "statVar": "Count_Person_EducationalAttainmentSomeCollege1OrMoreYearsNoDegree"
+          },
+          "Count_Person_EducationalAttainment_LessThan9ThGrade": {
+            "name": "Population Completed Less Than 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment_LessThan9ThGrade"
+          },
+          "Count_Person_EducationalAttainment_LessThan9ThGrade_multiple_place_bar_block": {
+            "name": "Population Completed Less Than 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment_LessThan9ThGrade"
+          },
+          "Count_Person_EducationalAttainment_LessThan9ThGrade_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Completed Less Than 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment_LessThan9ThGrade"
+          },
+          "Count_Person_EducationalAttainment_LessThan9ThGrade_pc": {
+            "denom": "Count_Person",
+            "name": "Population Completed Less Than 9th Grade",
+            "statVar": "Count_Person_EducationalAttainment_LessThan9ThGrade"
+          },
+          "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
+          },
+          "Count_Person_EnrolledInSchool_pc": {
+            "denom": "Count_Person",
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
+          },
+          "Count_Person_NotEnrolledInSchool": {
+            "name": "Population Not Currently Enrolled in School",
+            "statVar": "Count_Person_NotEnrolledInSchool"
+          },
+          "Count_Person_NotEnrolledInSchool_pc": {
+            "denom": "Count_Person",
+            "name": "Population Not Currently Enrolled in School",
+            "statVar": "Count_Person_NotEnrolledInSchool"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
+}
