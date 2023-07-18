@@ -2,24 +2,24 @@
   "SV": [
     "Count_DroughtEvent",
     "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent",
+    "PalmerDroughtSeverityIndex_Atmosphere",
     "Mean_PalmerDroughtSeverityIndex",
     "dc/topic/ClimateChange",
-    "PalmerDroughtSeverityIndex_Atmosphere",
-    "dc/topic/SDG_13",
     "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
+    "dc/topic/SDG_13",
     "Mean_PalmerDroughtSeverityIndex_Forest",
     "dc/topic/ProjectedClimateExtremes"
   ],
   "CosineScore": [
-    0.8832590579986572,
-    0.8742342591285706,
-    0.8306840658187866,
-    0.7656617164611816,
-    0.7607329487800598,
-    0.740363597869873,
-    0.7288864850997925,
-    0.7058674097061157,
-    0.6869891285896301
+    0.8366556167602539,
+    0.8204662203788757,
+    0.7946637272834778,
+    0.7720611691474915,
+    0.7232210636138916,
+    0.6951401233673096,
+    0.6741006970405579,
+    0.6400109529495239,
+    0.622322142124176
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -29,12 +29,10 @@
           {
             "QueryPart": "show climate change",
             "SV": [
-              "dc/topic/ClimateChange",
-              "dc/topic/SDG_13"
+              "dc/topic/ClimateChange"
             ],
             "CosineScore": [
-              0.9355783462524414,
-              0.9001312255859375
+              0.8647745251655579
             ]
           },
           {
@@ -43,11 +41,11 @@
               "Count_DroughtEvent"
             ],
             "CosineScore": [
-              0.9785793423652649
+              0.9421629905700684
             ]
           }
         ],
-        "AggCosineScore": 0.9571,
+        "AggCosineScore": 0.9035,
         "DelimBased": false
       },
       {
@@ -55,16 +53,14 @@
           {
             "QueryPart": "show climate",
             "SV": [
-              "dc/topic/SDG_13",
               "dc/topic/ClimateChange",
               "dc/topic/Temperature",
-              "dc/topic/ProjectedClimateExtremes"
+              "dc/topic/SDG_13"
             ],
             "CosineScore": [
-              0.8510888814926147,
-              0.8491256237030029,
-              0.8269016742706299,
-              0.8093711137771606
+              0.7687959671020508,
+              0.7531741857528687,
+              0.7426718473434448
             ]
           },
           {
@@ -74,12 +70,12 @@
               "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent"
             ],
             "CosineScore": [
-              0.9208569526672363,
-              0.8750064373016357
+              0.8689357042312622,
+              0.8283147811889648
             ]
           }
         ],
-        "AggCosineScore": 0.886,
+        "AggCosineScore": 0.8189,
         "DelimBased": false
       },
       {
@@ -87,16 +83,14 @@
           {
             "QueryPart": "show climate",
             "SV": [
-              "dc/topic/SDG_13",
               "dc/topic/ClimateChange",
               "dc/topic/Temperature",
-              "dc/topic/ProjectedClimateExtremes"
+              "dc/topic/SDG_13"
             ],
             "CosineScore": [
-              0.8510888814926147,
-              0.8491256237030029,
-              0.8269016742706299,
-              0.8093711137771606
+              0.7687959671020508,
+              0.7531741857528687,
+              0.7426718473434448
             ]
           },
           {
@@ -105,7 +99,7 @@
               "IncrementalCount_Person"
             ],
             "CosineScore": [
-              0.500951886177063
+              0.5237722992897034
             ]
           },
           {
@@ -114,11 +108,11 @@
               "Count_DroughtEvent"
             ],
             "CosineScore": [
-              0.9785793423652649
+              0.9421629905700684
             ]
           }
         ],
-        "AggCosineScore": 0.7769,
+        "AggCosineScore": 0.7449,
         "DelimBased": false
       }
     ]
