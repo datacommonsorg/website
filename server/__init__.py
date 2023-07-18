@@ -227,6 +227,12 @@ def register_routes_common(app):
   from server.routes.shared_api.observation import series as observation_series
   app.register_blueprint(observation_series.bp)
 
+  # register OEmbed blueprints
+  from server.routes.oembed import chart as oembed_chart
+  app.register_blueprint(oembed_chart.bp)
+
+  from server.routes.oembed import oembed as oembed
+  app.register_blueprint(oembed.bp)
 
 def create_app():
   app = Flask(__name__, static_folder='dist', static_url_path='')
