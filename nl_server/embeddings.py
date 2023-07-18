@@ -141,7 +141,9 @@ class Embeddings:
   #
   # The main entry point to detect SVs.
   #
-  def detect_svs(self, orig_query: str) -> Dict[str, Union[Dict, List]]:
+  def detect_svs(self,
+                 orig_query: str,
+                 skip_multi_sv: bool = False) -> Dict[str, Union[Dict, List]]:
     # Remove all stop-words.
     query_monovar = utils.remove_stop_words(orig_query,
                                             query_util.ALL_STOP_WORDS)
@@ -149,17 +151,20 @@ class Embeddings:
     # Search embeddings for a single SV.
     result_monovar = self._search_embeddings([query_monovar])[query_monovar]
 
-    # Try to detect multiple SVs.  Use the original query so that
-    # the logic can rely on stop-words like `vs`, `and`, etc as hints
-    # for SV delimiters.
-    result_multivar = self._detect_multiple_svs(orig_query)
+    multi_sv = {}
+    if not skip_multi_sv:
+      # Try to detect multiple SVs.  Use the original query so that
+      # the logic can rely on stop-words like `vs`, `and`, etc as hints
+      # for SV delimiters.
+      result_multivar = self._detect_multiple_svs(orig_query)
+      multi_sv = vars.multivar_candidates_to_dict(result_multivar)
 
     # TODO: Rename SV_to_Sentences for consistency.
     return {
         'SV': result_monovar.svs,
         'CosineScore': result_monovar.scores,
         'SV_to_Sentences': result_monovar.sv2sentences,
-        'MultiSV': vars.multivar_candidates_to_dict(result_multivar)
+        'MultiSV': multi_sv
     }
 
   #

@@ -74,7 +74,10 @@ For every row of the above CSV:
 The test takes 20-30 mins to run, but checkpoints state every N entries, so
 be sure to run with a specific `run_name` and use that for re-runs.
 
+Note that it needs the autopush Mixer API key.
+
 ```
+export AUTOPUSH_KEY=<XYZ>
 ./placetest.sh <RUN_NAME>
 ```
 

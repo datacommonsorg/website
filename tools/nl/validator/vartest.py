@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 import os
+import re
 from typing import Dict, List
 
 from absl import app
@@ -31,7 +32,7 @@ flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 
-CONFIG = 'sz=medium_ft'
+CONFIG = 'sz=medium_ft&skip_multi_sv=1'
 
 URL = 'http://localhost:6060/api/search_sv?' + CONFIG
 
@@ -44,7 +45,10 @@ OUT_HEADER = [
     'EmptyResult',
     'DemoteSV',
     'BelowThresholdDemoteSV',
+    'FineTuningPairs',
 ]
+
+INCR_THRESHOLD = 0.1
 
 CHECKPOINT_INTERVAL = 100
 
@@ -69,19 +73,31 @@ def init_result(q, sv):
       'EmptyResult': '',
       'EmbeddingsSVRank': '',
       'BelowThresholdSVRank': '',
-      'DemoteSV': [],
-      'BelowThresholdDemoteSV': [],
+      'DemoteSV': '',
+      'BelowThresholdDemoteSV': '',
+      'FineTuningPairs': []
   }
 
 
 def init_counters():
   counters = {}
   for c in [
-      'Total', 'Exception', 'EmptyResult', 'WrongPlace', 'EmbeddingsSVRank_0',
-      'EmbeddingsSVRank_1', 'EmbeddingsSVRank_2', 'EmbeddingsSVRank_3',
-      'EmbeddingsSVRank_4', 'EmbeddingsSVRank_5', 'EmbeddingsSVRank_6-14',
-      'EmbeddingsSVRank_15+', 'EmbeddingsSVRank_INF', 'BelowThresholdSVRank_x',
-      'BelowThresholdSVRank_INF'
+      'Total',
+      'Exception',
+      'EmptyResult',
+      'WrongPlace',
+      'EmbeddingsSVRank_0',
+      'EmbeddingsSVRank_1',
+      'EmbeddingsSVRank_2',
+      'EmbeddingsSVRank_3',
+      'EmbeddingsSVRank_4',
+      'EmbeddingsSVRank_5',
+      'EmbeddingsSVRank_6-14',
+      'EmbeddingsSVRank_15+',
+      'EmbeddingsSVRank_INF',
+      'BelowThresholdSVRank_x',
+      'BelowThresholdSVRank_INF',
+      'FineTuningPairs',
   ]:
     counters[c] = 0
   return counters
@@ -95,6 +111,45 @@ def compose_query(v):
   return v
 
 
+def ft_pairs(query, good_sv, bad_sv, sv2sentences):
+  good = {}
+  bad = {}
+  for l, o in [(sv2sentences[good_sv], good), (sv2sentences[bad_sv], bad)]:
+    for i in l:
+      # "population of men (0.6353)"
+      pattern = r'^(.*?)\((\d+\.\d+)\)$'
+      match = re.search(pattern, i)
+      if match:
+        txt = match.group(1).strip()
+        num = float(match.group(2))
+        o[txt] = num
+
+  # Get max-score, ensure it is at least 0.5
+  max_score = max(list(bad.values()))
+  # TODO: Use a sharedlib const.
+  if max_score < 0.5:
+    max_score = 0.5
+
+  # Add some delta over it.
+  new_score = max_score + INCR_THRESHOLD
+
+  res = []
+  res.append(f'# {bad_sv} -> {good_sv}')
+  for txt in sorted(good.keys()):
+    res.append(f'{query},{txt},{new_score}')
+  return res
+
+
+#
+# Queries the NL server and updates counters and returns
+# a CSV row.
+#
+# Given the list of ranked SVs with scores, it updates the
+# ranks of the queried SV.  Also if the queried SV is not
+# at the top, it generates query pairs for fine-tuning
+# between the query and every sentence of the queried SV,
+# with a score that exceeds the top-most bad SV.
+#
 def query(sv, sv_name, counters):
   q = compose_query(sv_name)
   ret = init_result(q, sv)
@@ -113,7 +168,10 @@ def query(sv, sv_name, counters):
     counters['EmptyResult'] += 1
     return ret
 
+  sv2sentences = resp['SV_to_Sentences']
+
   found_sv = False
+  sv0 = ''
   for i, s in enumerate(resp.get('CosineScore', [])):
     # An SV with this score is good as an SV with INF
     # rank because the backend filters these.
@@ -138,21 +196,28 @@ def query(sv, sv_name, counters):
 
       ret['BelowThresholdSVRank'] = -1
       counters['BelowThresholdSVRank_INF'] += 1
+
+      if i > 0:
+        pairs = ft_pairs(q, sv, sv0, sv2sentences)
+        counters['FineTuningPairs'] += len(pairs)
+        ret['FineTuningPairs'].extend(pairs)
       break
     else:
-      if is_below:
-        ret['DemoteSV'].append(resp['SV'][i])
-      else:
-        ret['BelowThresholdDemoteSV'].append(resp['SV'][i])
+      sv0 = resp['SV'][0]
+      if i == 0:
+        if is_below:
+          ret['DemoteSV'] = sv0
+        else:
+          ret['BelowThresholdDemoteSV'] = sv0
 
   if not found_sv:
     ret['EmbeddingsSVRank'] = -1
     counters['EmbeddingsSVRank_INF'] += 1
     ret['BelowThresholdSVRank'] = -1
     counters['BelowThresholdSVRank_INF'] += 1
+    # TODO: Consider adding fine-tuning pairs for these.
 
-  for k in ['DemoteSV', 'BelowThresholdDemoteSV']:
-    ret[k] = ';'.join(ret[k])
+  ret['FineTuningPairs'] = '\n'.join(ret['FineTuningPairs'])
 
   return ret
 

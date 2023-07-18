@@ -44,9 +44,12 @@ def search_sv():
   sz = str(escape(request.args.get('sz', ld.DEFAULT_INDEX_TYPE)))
   if not sz:
     sz = ld.DEFAULT_INDEX_TYPE
+  skip_multi_sv = False
+  if request.args.get('skip_multi_sv'):
+    skip_multi_sv = True
   try:
     nl_embeddings = current_app.config[ld.embeddings_config_key(sz)]
-    return json.dumps(nl_embeddings.detect_svs(query))
+    return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
     return json.dumps({
