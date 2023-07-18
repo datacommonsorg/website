@@ -177,7 +177,7 @@ export const QueryResult = memo(function QueryResult(
         <Container>
           <div className="nl-user-query">
             <div className="nl-user-query-icon">
-              <span className="material-icons">face6_icon</span>
+              <span className="material-icons">search_icon</span>
             </div>
             <div className="nl-user-query-text">{props.query}</div>
           </div>

@@ -27,7 +27,6 @@ import {
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
 import { getUrlToken, getUrlTokenOrDefault } from "../../utils/url_utils";
-import { QueryExamples } from "./query_examples";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
@@ -205,17 +204,14 @@ export function App(): JSX.Element {
 
   return (
     <>
-      <Sidebar />
-      <div className="chat-container">
-        <div className="chat-body" id="results-thread-container">
-          {queries.length === 0 && <QueryWelcome />}
+      <Sidebar queries={queries} onQueryItemClick={onQueryItemClick} />
+      <div className="context-container">
+        <div className="context-body" id="results-thread-container">
+          <QueryWelcome onQueryItemClick={onQueryItemClick} />
           {queryResults}
         </div>
-        {queries.length === 0 && (
-          <QueryExamples onItemClick={onQueryItemClick} />
-        )}
         <div
-          className="chat-search"
+          className="context-search"
           id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
         >
           <QuerySearch

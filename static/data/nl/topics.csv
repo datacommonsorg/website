@@ -1,251 +1,73 @@
 category,query,wai
-food,What are the primary crops grown in California,
-food,How does the food industry contribute to the economy of the region,
-food,I want to see stats about farming in Sonoma County,yes
-food,Show me coverage of farmland in Wyoming,
-food,How does climate change affect crops,
-food,How profitable is farming in Michigan,yes
-food,How does farming affect the environment ,
-food,What is the yield of organic vs. conventional farming in Ohio,
-food,Tell me about GMO ,
-food,What is the main farming method used in USA,
-food,What factors affect crop production in Louisiana,
-food,What crops will survive the best in the future with global warming,
-food,What are modern farming techniques that improve crop yields ,
-food,When is harvest season for Idaho,
-food,I want to know how much livestock is produced on average in a US farm,yes
-food,Areas of land that are suitable for food in USA,yes
-food,Which California counties have the best conditions for growing crops,yes
-food,Show me the range of inventory for crops on a farm in USA,yes
-food,What country produces the most crop output,
-food,How much resource does it take to sustain livestock,
-food,How much of US land is used for food,yes
-food,Impact of livestock on the environment ,
-food,Prevalence of pesticide use in farm production,
-food,What is the most common type of farming in Indiana,
-food,What’s the biggest agricultural industry in USA,yes
-food,How many farms are in the USA,yes
-food,What’s the average income of a farm in Maine,yes
-food,Show me how food jobs have changed over the last 5 years in Texas,yes
-crime,What is crime like in Louisiana,yes
-crime,How many crimes were committed in California,yes
-crime,How has crime rate changed in the past 10 years in USA,yes
-crime,Areas with the highest crime rate,
-crime,Areas with the least criminal activity,
-crime,How many people are in jail in USA,yes
-crime,I want to view hate crime statistics in New York,yes
-crime,Safest states in America,
-crime,Most dangerous cities to travel to,yes
-crime,Show me crimes based on demographics of victims,
-crime,What’s the relationship between crime rate and income,
-crime,What types of crime are the most common,
-crime,Prisoner to guard ratio in different prisons,
-crime,crime rates by city,
-crime,How well funded is the police in Bulgaria,
-crime,Is crime increasing or decreasing in Nevada,yes
-crime,What is the punishment for different crimes in the US ,
-crime,Which countries are the most strict about criminal punishment,
-crime,What percent of people get acquitted from criminal charges,
-crime,Prevalence of early release from prison,
-crime,What state has had the biggest decrease in crime over the past decade,yes
-crime,What crimes are considered felonies vs misdemeanors ,
-crime,What’s the worst crime punishable by law ,
-crime,What percent of men and women are currently incarcerated in Texas,yes
-crime,Show me the connection between countries for international jurisdiction ,
-crime,What is the impact of crime on society,
-crime,imprisonment rate across different states,
-crime,How much does the US government spend on Antitrust initiatives annually,
-demographics,Tell me about the population in Japan,yes
-demographics,What’s the average age of the population in the US,yes
-demographics,Racial breakdown of US population,yes
-demographics,Show me a chart of the rate of population growth in Canada,
-demographics,How much of the population is married in Texas,
-demographics,How has population density in South Korea changed this century,yes
-demographics,What percent of the population living in New York is divorced ,yes
-demographics,What is the average number of kids per family,
-demographics,How does the population of Florida differ from that of Texas,yes
-demographics,What’s the distribution of religions in India,
-demographics,How hard is it to become a US citizen ,
-demographics,Show me census data about California,
-demographics,What’s the gender ratio of the entire world,yes
-demographics,Tell me about gender equity in North Carolina,
-demographics,Which countries have the lowest life expectancy,
-demographics,How has life expectancy changed across the world,
-demographics,List out the countries with the highest population density,
-demographics,Immigration in the US over time,yes
-demographics,What countries don’t allow for dual citizenship ,
-demographics,Show me immigration patterns across the world,
-demographics,How have birth rates changed over time in Japan,yes
-demographics,What’s the relationship between mortality rate and gdp,
-demographics,How many parents in Florida?,
-demographics,What countries have the most people living in them,yes
-demographics,Which countries have the biggest decrease in population,yes
-demographics,States that have the largest declining mortality rate,
-demographics,What percentage of the population is born outside of the country,
-demographics,Tell me about India's literacy rate,
 economy,What’s the average household income in the US,yes
 economy,What’s unemployment like in Iowa these days,yes
 economy,Tell me about the GDP of France,yes
-economy,What factors affect the economy ,
-economy,How has inflation changed over the past decade,
 economy,What is the typical salary in Orlando,yes
 economy,What are the most common jobs in Oregon,yes
-economy,How does cost of living differ across the world,
-economy,Which states have the largest gender pay gap,yes
-economy,Top 3 biggest industries in the US,
-economy,What US cities have the best standard of living,
-economy,What are the most valuable companies in the world,
+economy,Which US states have the largest gender pay gap,yes
 economy,Which country's economies have grown the most since 2008,yes
-economy,How much annual income would I need to make to live comfortably in New york city,
-economy,Which industries are the most well paid,
-economy,Which economic models are used in which countries ,
-economy,What does the government spend its money on,
 economy,Which countries have the fastest growing GDP per capita,yes
-economy,How is the US doing on pay equality,
-economy,Which are the richest countries in the world,
-economy,How has the GINI index of Spain changed this decade,yes
-economy,How much have gas prices increased in the US since 2000,
-economy,Which industries have the most jobs on the market,
-economy,Which states have the highest minimum wage,
-economy,What is the relationship between income and educational attainment,
-education,What are the top universities in the US,
-education,What percent of kids go to school in Oregon,
-education,What’s the ratio of private vs public school education students,
-education,Which louisiana public schools have the most students per class,yes
-education,Which countries have good education systems,
-education,Where are the best colleges located,
-education,What percentage of India's population can read and write,
-education,Average GPA of students admitted into Harvard each year,
-education,How many people in Nevada have a bachelor’s degree or higher,yes
-education,How does education play a role in employment in the US job market,
-education,Ratio of people in Denver who have an associate's degree,yes
-education,What jobs can I get without a high school degree ,
-education,Average high school classroom size in North Dakota compared to South Dakota,
-education,How important are test scores in relation to being accepted into college,
-education,Countries with the biggest barriers to quality education,
-education,How many kids attend kindergarten in Kansas every year,yes
-education,Schools with the most high school teachers in California,
-education,How does school size of urban schools compare to rural schools,
-education,Prevalence of high school dropout rates organized by state,
-education,What is the correlation between household income and test score performance,
-education,How hard is it to get into UC Berkeley,
-education,What are the most common types of post-secondary degrees in Europe,
-education,What proportion of the student population has skipped at least one grade,
-education,What are the most popular majors in US universities,
-environment,Which cities have the lowest level of carbon emissions per capita,
-environment,Tell me about environmental policies in Texas ,
-environment,What kind of pollution affects Seattle in the summer,yes
-environment,What is Canada doing to protect the environment ,
-environment,What forms of renewable energy are being used in California,yes
-environment,Which states have the biggest increase in pollution over the last 10 years,
-environment,What source does most US oil and gas production come from,
-environment,How have forest fires changed California in the last decade,
-environment,What factors are affecting deforestation,
-environment,What Florida counties are most affected by hurricanes,yes
-environment,When is monsoon season in Southeast Asia,
-environment,Which US cities have the nicest temperature year round,
-environment,What's the pollution level of the ozone in cass county,yes
-environment,What types of trees are in my area,
-environment,What countries have tap water that is safe for drinking,
-environment,What’s the rate of water withdrawal for Los Angeles County,yes
-environment,Which cities are improving in air quality as time goes on,
-environment,What is the government doing to protect wildlife in the US ,
-environment,List out counties with the worst AQI,
-environment,What areas in the world have been most affected by drought,yes
-environment,Which states experience the most snowfall in the winter,yes
-environment,How likely is New Jersey to be affected by flooding,yes
-housing,What’s the average size of a US household,
-housing,What percent of people own a house in the USA,
-housing,How has the average cost of a home changed over time,
-housing,How many people live alone in Alabama,
-housing,How much of the population of New Delhi is without a permanent home,yes
-housing,Change in property tax rates in my area over the last decade,
-housing,Number of homes in Chicago,
-housing,What’s the average cost of renting a home using cash in New York City,yes
-housing,How many people live in US military quarters,
-housing,What’s the average age of residents in US nursing homes,
-housing,What percent of homeowners own a second home,
-housing,How have mortgage rates changed since 2000,
-housing,What percent of rental units are currently vacant in Orlando vs Tampa,yes
-housing,Which cities have the most affordable housing,
-housing,What’s the average occupancy of houses in Houston,yes
-housing,What is the relationship between housing size and home prices,
-housing,What’s the average time it takes for a US house to sell once it’s listed on the market,
-housing,What percentage of families share a home with another family in Cook County,
-housing,Distribution of home values in Miami,
-housing,Show me cities with the highest increase in home prices in the last 3 years,
-housing,What percentage of homes in the US are owned by foreign residents,
-housing,How much of Brooklyn’s apartments are rent controlled,
-housing,What percent of people under 25 own their own home,
-sustainability,Show me wet bulb temperatures for Shandong,
-sustainability,Which areas of the US have a composting system in place,
-sustainability,What is the predicted sea level rise over the next 15 years,
-sustainability,What factors affect climate change ,
-sustainability,Show me global temperature increase predictions over the next decade in the US,
-sustainability,What's the recycling system like in the US,
-sustainability,I want to see global warming trends,
-sustainability,How many more people have electric cars instead of gas cars,
-sustainability,Which cities have switched to using compostable plastics,
-sustainability,Which countries have the smallest carbon footprint,
-sustainability,How has the rate of the ice caps melting changed over the century,
-sustainability,How has the EU government contributed to improving sustainability over the last decade ,
-sustainability,How have poverty rates in America changed over the years,
-sustainability,Countries with the best universal health care,
-sustainability,What is the impact of pollution on ocean life in Tulum,
-sustainability,Which countries have access to clean drinking water,
-sustainability,What does it mean to be carbon neutral,
-sustainability,Extinction rate of endangered animals over time,
-sustainability,How has the climate in my area shifted over the past 50 years,
-sustainability,How much has malnutrition decreased over time,
-sustainability,Which US counties have banned plastic straws ,
-sustainability,Which countries have recently put policies in place to conserve the oceans ,
-sustainability,Show me greenhouse gas emissions levels across the globe,
+economy,How has the GINI index of Spain changed over the years,yes
+economy,What are wage earnings like for the US construction industry,yes
+economy,Which California counties have the highest average income,yes
+economy,Total earnings for employees in the information industry in Texas,yes
 health,How much of the US population is vaccinated against covid 19,yes
-health,What’s the most common disease among adults in Florida,
-health,What percent of the population has health insurance,
-health,What’s the medical industry like in the United States,
-health,What’s the difference between the flu and a cold ,
-health,How much of the population sees a dentist,
-health,Prevalence of Diabetes in America,yes
-health,Most common allergies in the US,
-health,How has the stigma around mental health changed this decade ,
-health,How does the immune system work ,
+health,Prevalence of diabetes in America,yes
 health,How has the mortality rate in Brazil changed over the years,yes
-health,How does heart disease compare across genders,
-health,Is the covid 19 pandemic over ,
 health,I want to see how live birth rate has changed in Colombia,yes
-health,What percent of adult females get pap smears,
 health,Which city in Utah has the lowest rate of arthritis,yes
 health,What’s the likelihood of being obese in the US,yes
-health,How has the popularity of smoking changed over the last 20 years,
 health,What’s the average life expectancy in China,yes
-health,Which states have the highest prevalence of disease,
-health,Top rated hospitals in my area ,
-health,How much of the population is underslept,
-health,Which countries have universal health care ,
-health,How many people have private vs public health insurance,
 health,Most common medical conditions in US,yes
-health,Percent of population that is physically active,
-energy,Most common energy sources used by the United States,
-energy,What’s solar production like these days,
-energy,Which is the most eco friendly form of renewable energy ,
-energy,How much energy does the world consume each year,
-energy,List of countries that consume the most energy per capita each year,yes
-energy,When will we reach net zero energy consumption ,
-energy,Most common emission sources in Europe,
-energy,How much of the US’s carbon dioxide emissions are associated with electricity generation,yes
-energy,Countries that emit the most methane from coal mining,yes
-energy,When is something considered to be clean energy ,
-energy,How is nuclear fission predicted to affect the energy industry ,
-energy,Which countries still engage in fossil fuel mining,
-energy,Most profitable sources of energy production in Texas last year,
-energy,How much electricity per capita is used annually in California,yes
-energy,How much solar energy is generated from houses in New Jersey,yes
-energy,How has demand for oil changed in the past decade,
-energy,What percentage of cars in the US are electric these days,
-energy,What is the efficiency of different types of energy sources ,
-energy,Show me how natural gas consumption in Argentina has changed this decade,yes
-energy,What types and amounts of energy are produced in each state,
-energy,How much electricity does an average home use in USA,yes
-energy,How much electricity does a nuclear power plant generate ,
-energy,What is US electricity generation by energy source,
+health,What percentage of Sonoma County suffers from high blood pressure,yes
+health,How much of the US population is physically inactive,yes
+health,Which countries have the highest healthcare expenditure per person,yes
+health,How common is it for children to have asthma in San Diego County,yes
+education,Which Louisiana public schools have the most students per class,yes
+education,How many people in Nevada have a bachelor’s degree or higher,yes
+education,Ratio of people in Denver who have an associate's degree,yes
+education,How many kids attend kindergarten in Kansas every year,yes
+education,Number of students in Sao Paulo,yes
+education,California school districts with the highest academic test performance,yes
+education,How many teachers are there in Colombia,yes
+education,What percent of kids in attend school in the state of Oregon,yes
+education,What's the undergraduate enrollment population in Dallas,yes
+education,Which US counties have the most children in nursery school,yes
+education,How many US females are currently in the 11th grade,yes
+education,How many students attend private school in Rio de Janeiro,yes
+environment,What kind of pollution affects Seattle in the summer,yes
+environment,What forms of renewable energy are being used in California,yes
+environment,What Florida counties are most affected by hurricanes,yes
+environment,What's the pollution level of the ozone in Cass County,yes
+environment,What’s the rate of water withdrawal for Los Angeles County,yes
+environment,What areas in the world have been most affected by drought,yes
+environment,Which states experience the most snowfall in the winter in the US,yes
+environment,How likely is New Jersey to be affected by flooding,yes
+environment,How much of Washington State is covered in forest land,yes
+environment,Which US states experience the highest temperatures,yes
+environment,Map of wildfires across the world,yes
+environment,I want to see heat wave data on the United States,yes
+demographics,Tell me about the population in Japan,yes
+demographics,What’s the average age of the population in the US,yes
+demographics,Racial breakdown of US population,yes
+demographics,How has population density in South Korea changed this century,yes
+demographics,What percent of the population living in New York is divorced,yes
+demographics,How does the population of Florida differ from that of Texas,yes
+demographics,What’s the female population of different countries across the entire world,yes
+demographics,Immigration in the US over time,yes
+demographics,How have birth rates changed over time in Morocco,yes
+demographics,What countries have the most people living in them,yes
+demographics,Which countries have the biggest decrease in population,yes
+demographics,How much of the population of New Delhi is without a permanent home,yes
+sustainability,Show me global temperature increase predictions over the next decade in the US,yes
+sustainability,Which countries are most affected by climate change,yes
+sustainability,List of countries that consume the most energy per capita each year,yes
+sustainability,How much solar energy is generated from houses in New Jersey,yes
+sustainability,Wet bulb temperature events in India,yes
+sustainability,Top three countries with the biggest reduction in poverty,yes
+sustainability,Show me data on atmospheric pollution in the US,yes
+sustainability,Which countries have the least nitrous oxide emissions from agriculture,yes
+sustainability,How have poverty rates in America changed over the years,yes
+sustainability,Which US states have the smallest homeless population,yes
+sustainability,Which countries consume the least energy per capita,yes
+sustainability,Countries most affected by malnutrition,yes
