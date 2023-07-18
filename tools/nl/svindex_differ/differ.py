@@ -71,21 +71,43 @@ def _diff_table(base, test):
   return difflib.HtmlDiff().make_table(base, test)
 
 
-def run_diff(base_file, test_file, test_model_path, query_file, output_file):
+def _extract_model_name(embeddings_name: str, embeddings_file_path: str) -> str:
+  model_path = ""
+  if "ft" in embeddings_file_path:
+    # This means we are using embeddings built on finetuned model.
+    # Download the model if needed.
+
+    # Extract the model name.
+    # test embeddings name is of the form:
+    #    <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
+    # OR <embeddings_size_*>.<ft_final_*>.<base_model>.csv
+    # The model name is comprised of all the parts between <embeddings_size_*>.
+    # and ".csv".
+    parts = embeddings_name.split(".")
+    model_name = ".".join(parts[1:-1])
+    print(f"finetuned model_name: {model_name}")
+    model_path = gcs.download_model_folder(model_name)
+
+    assert "ft_final" in model_path
+    assert len(model_path.split(".")) >= 2
+
+  return model_path
+
+def run_diff(base_file, test_file, base_model_path, test_model_path, query_file, output_file):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   env.filters['diff_table'] = _diff_table
   template = env.get_template(os.path.basename(_TEMPLATE))
 
   print("=================================")
-  print(f"Setting up the Base Embeddings from: {base_file}")
-  base = Embeddings(base_file)
+  print(f"Setting up the Base Embeddings from: {base_file}; Base model from: {base_model_path}")
+  base = Embeddings(base_file, base_model_path)
   print("=================================")
   print(
       f"Setting up the Test Embeddings from: {test_file}; Test model from: {test_model_path}"
   )
   test = Embeddings(test_file, test_model_path)
   print("=================================")
-
+  
   diffs = []
   with open(query_file) as f:
     for row in csv.reader(f):
@@ -116,26 +138,10 @@ def main(_):
   base_file = _maybe_copy_embeddings(FLAGS.base)
   test_file = _maybe_copy_embeddings(FLAGS.test)
 
-  test_model_path = ""
-  if "ft" in test_file:
-    # This means we are using embeddings built on finetuned model.
-    # Download the model if needed.
+  base_model_path = _extract_model_name(FLAGS.base, base_file)
+  test_model_path = _extract_model_name(FLAGS.test, test_file)
 
-    # Extract the model name.
-    # test embeddings name is of the form:
-    #    <embeddings_size_*>.<ft_final_*>.<ft_intermediate_*>.<base_model>.csv
-    # OR <embeddings_size_*>.<ft_final_*>.<base_model>.csv
-    # The model name is comprised of all the parts between <embeddings_size_*>.
-    # and ".csv".
-    parts = FLAGS.test.split(".")
-    model_name = ".".join(parts[1:-1])
-    print(f"finetuned model_name: {model_name}")
-    test_model_path = gcs.download_model_folder(model_name)
-
-    assert "ft_final" in test_model_path
-    assert len(test_model_path.split(".")) >= 2
-
-  run_diff(base_file, test_file, test_model_path, FLAGS.queryset, _REPORT)
+  run_diff(base_file, test_file, base_model_path, test_model_path, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":
