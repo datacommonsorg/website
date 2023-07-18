@@ -35,7 +35,8 @@ class IntegrationTest(NLWebServerTestCase):
                    detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
-                   place_detector='ner'):
+                   place_detector='ner',
+                   failure=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -76,6 +77,11 @@ class IntegrationTest(NLWebServerTestCase):
             }
             infile.write(json.dumps(dbg_to_write, indent=2))
       else:
+        if failure:
+          self.assertTrue(failure in resp["failure"]), resp["failure"]
+          self.assertTrue(not resp["config"])
+          return
+
         if not expected_detectors:
           self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
             'Query {q} failed!'
@@ -135,6 +141,7 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence(
         'demo2_cities_feb2023',
         [
+            # This should list public school entities.
             'How big are the public schools in Sunnyvale',
             'What is the prevalence of asthma there',
             'What is the commute pattern there',
@@ -142,6 +149,8 @@ class IntegrationTest(NLWebServerTestCase):
             # Proxy for parks in magiceye
             'Which cities in the SF Bay Area have the highest larceny',
             'What countries in Africa had the greatest increase in life expectancy',
+            # This should list stats about the middle school students.
+            'How many middle schools are there in Sunnyvale',
         ])
 
   def test_demo_fallback(self):
@@ -254,3 +263,9 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('medium_index',
                       ['cars per family in california counties'],
                       idx='medium')
+
+  def test_inappropriate_query(self):
+    self.run_sequence('inappropriate_query',
+                      ['how many wise asses live in sunnyvale?'],
+                      idx='medium',
+                      failure='inappropriate words')

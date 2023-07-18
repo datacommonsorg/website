@@ -355,10 +355,32 @@ def get_parent_place_type(place_type: types.ContainedInPlaceType,
   return ptype
 
 
-# Checks whether two types are a direct match or are equivalents.
-def is_place_type_match(pt1: types.ContainedInPlaceType,
-                        pt2: types.ContainedInPlaceType) -> bool:
+def is_non_geo_place_type(pt: types.ContainedInPlaceType) -> bool:
+  return pt.value.lower() in shared_constants.NON_GEO_PLACE_TYPES
+
+
+#
+# Checks whether two types are a direct match or are equivalents purely
+# for place type fallback purposes.  If we return false here, then
+# we may report falling back from:
+#    "pt1 in place" -> "pt2 in place" or "pt1 in place" -> "place"
+#
+# We account for AA1/AA2 equivalents.
+#
+# Subtly enough, we also ignore non-geo place-types which can also be
+# legitimate SVs.
+#
+def is_place_type_match_for_fallback(pt1: types.ContainedInPlaceType,
+                                     pt2: types.ContainedInPlaceType) -> bool:
   if pt1 == pt2:
+    return True
+
+  # SCHOOL, for example, is both a place-type and occurs as a stat-var too.
+  # For "school students in CA", if we say we fallback from attempting
+  # to fulfill "schools in CA" to showing results about "CA", which
+  # contains school-related charts, that's quite confusing.
+  if ((pt1 != None and is_non_geo_place_type(pt1)) or
+      (pt2 != None and is_non_geo_place_type(pt2))):
     return True
 
   if pt1 != None and pt2 != None:
