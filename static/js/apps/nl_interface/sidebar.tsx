@@ -13,41 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import _ from "lodash";
 import React from "react";
+import { UncontrolledTooltip } from "reactstrap";
+
+interface SidebarPropsType {
+  queries: string[];
+  onQueryItemClick: (queries: string[]) => void;
+}
 
 /**
- * NL Chat sidebar showing query history
+ * NL sidebar showing query history
  */
-export function Sidebar() {
+export function Sidebar(props: SidebarPropsType) {
+  const { queries, onQueryItemClick } = props;
+  const uniqueQueries = _.uniq(queries).reverse();
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <a href="/nl" className="chat-link">
+        <a href="/nl" className="context-link">
           <span className="material-icons">add_icon</span>
-          <span className="chat-link-text">New Chat</span>
+          <span className="context-link-text">New Context</span>
         </a>
       </div>
       <div className="sidebar-recent">
-        <h5>Recent</h5>
-        <ul>
-          <li>
-            <a href="/nl/#q=Which%20countries%20emit%20the%20most%20greenhouse%20gases?">
-              <span className="material-icons">chat_bubble_outline_icon</span>
-              <span className="text">
-                Which countries emit the most Greenhouse gases?
-              </span>
-            </a>
-          </li>
-          <li>
-            <a href="/nl/#q=What%20are%20the%20primary%20crops%20grown%20in%20California?">
-              <span className="material-icons">chat_bubble_outline_icon</span>
-              <span className="text">
-                What are the primary crops grown in California?
-              </span>
-            </a>
-          </li>
-        </ul>
+        {uniqueQueries.length > 0 ? (
+          <>
+            <h5>Recent</h5>
+            <ul>
+              {uniqueQueries.map((query, i) => (
+                <li key={i} id={`sidebar-recent-query-item-${i}`}>
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onQueryItemClick([query]);
+                    }}
+                    title={query}
+                  >
+                    <span className="material-icons">
+                      chat_bubble_outline_icon
+                    </span>
+                    <span className="text">{query}</span>
+                  </a>
+                  <UncontrolledTooltip
+                    boundariesElement="window"
+                    delay={400}
+                    placement="right"
+                    target={`sidebar-recent-query-item-${i}`}
+                  >
+                    {query}
+                  </UncontrolledTooltip>
+                </li>
+              ))}
+            </ul>
+          </>
+        ) : null}
       </div>
+
       <div className="sidebar-footer">
         Powered by{" "}
         <a

@@ -17,56 +17,128 @@
 /**
  * Component for NL interface welcome message.
  */
-import React from "react";
+import axios from "axios";
+import Papa from "papaparse";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
+import { getUrlToken } from "../../utils/url_utils";
+import _ from "lodash";
 
 /**
- * NL Chat welcome message
+ * Sample NL query
  */
-export function QueryWelcome(): JSX.Element {
+interface SampleQuery {
+  topic: string;
+  query: string;
+  // "Works as intended"
+  wai: boolean;
+}
+
+interface QueryWelcomePropType {
+  // Sample query click handler
+  onQueryItemClick: (queries: string[]) => void;
+}
+
+/**
+ * NL welcome message
+ */
+export function QueryWelcome(props: QueryWelcomePropType): JSX.Element {
+  const { onQueryItemClick } = props;
+  const topic = useRef(getUrlToken("topic"));
+  const [allQueries, setAllQueries] = useState<SampleQuery[]>([]);
+  const [exampleQueries, setExampleQueries] = useState<SampleQuery[]>([]);
+
+  /**
+   * Initialize example queries
+   */
+  useEffect(() => {
+    if (!allQueries) {
+      return;
+    }
+    // If a topic is set, show sample queries from that topic
+    // Otherwise show a random sample from all topics
+    const topicQueries = _.groupBy<SampleQuery>(allQueries, "topic");
+    if (topic.current && topicQueries[topic.current]) {
+      setExampleQueries(
+        topicQueries[topic.current].filter((q) => q.wai).slice(0, 12)
+      );
+    } else {
+      // Select 8x queries at random that work as intended
+      setExampleQueries(
+        _.shuffle(allQueries)
+          .filter((q) => q.wai)
+          .slice(0, 12)
+      );
+    }
+  }, [topic, allQueries]);
+
+  /**
+   * Fetch topic queries
+   */
+  useEffect(() => {
+    const initialize = async () => {
+      const topicsResponse = await axios.get("/data/nl/topics.csv");
+      Papa.parse(topicsResponse.data, {
+        complete: (result) => {
+          const queries: SampleQuery[] = result["data"].map((item) => ({
+            topic: item.category,
+            query: item.query,
+            wai: (item.wai || "").toLowerCase() === "yes",
+          }));
+          setAllQueries(queries);
+        },
+        header: true,
+        worker: true,
+      });
+    };
+    initialize();
+  }, []);
+
   return (
     <div className="nl-welcome">
       <Container>
-        <div className="mb-2">
+        <div className="mb-4">
           <span className="nl-result-icon">
             <img src="/images/logo.png" />
-          </span>
-          Hi, I{"'"}m{" "}
+          </span>{" "}
           <a
             href="https://datacommons.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             Data Commons
-          </a>{" "}
-          chat, your data companion.
+          </a>
+          &nbsp;uses public data to answer questions about the environment,
+          sustainability, health, education, demographics, and the economy. Ask
+          questions using natural language to create data visualizations from
+          citable sources. Your feedback will help Data Commons improve.
         </div>
-        <div className="mb-2">
-          I use public data to answer questions about the environment,
-          sustainability, health, education, demographics, and the economy. I
-          may not know everything, but your feedback will help me improve.
-        </div>
-        <div>
-          Not sure where to start? Try these queries:
-          <ul>
-            <li>
-              <a href="/nl/#a=1&d=1&q=Which%20countries%20emit%20the%20most%20greenhouse%20gases?">
-                Which countries emit the most greenhouse gases?
-              </a>
-            </li>
-            <li>
-              <a href="/nl/#a=1&d=1&q=Which%20counties%20in%20California%20are%20most%20impacted%20by%20climate%20change?">
-                Which counties in California are most impacted by climate
-                change?
-              </a>
-            </li>
-            <li>
-              <a href="/nl/#a=1&d=1&q=Which%20US%20cities%20are%20facing%20extreme%20poverty?">
-                Which US cities are facing extreme poverty?
-              </a>
-            </li>
-          </ul>
-        </div>
+        {exampleQueries.length > 0 ? (
+          <div>
+            Not sure where to start? Try these{" "}
+            {topic.current ? (
+              <>
+                <strong>{topic.current}</strong>
+              </>
+            ) : null}{" "}
+            queries:
+            <ul className="sample-queries">
+              {exampleQueries.map((query, i) => (
+                <li key={i}>
+                  <a
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onQueryItemClick([query.query]);
+                    }}
+                  >
+                    {query.query}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </Container>
     </div>
   );
