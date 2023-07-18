@@ -13,25 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#
-# An optional "opt" parameter runs the NL server without debug mode, for
-# use in local e2e tests.
-#
-
-set -e
+# First check if local NL server is running!
+curl http://localhost:6060/healthz 2>/dev/null
+if [ $? -ne 0 ]; then
+  echo "Is the local NL server running?  Run './run_nl_server opt' first!"
+  echo "(Note the 'opt' arg!)"
+  echo ""
+  exit -1
+fi
 
 python3 -m venv .env
 source .env/bin/activate
+pip3 install -r requirements.txt
 
-PORT=6060
-export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-export FLASK_ENV=local
-echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
-
-cd nl_server/
-python3 -m pip install --upgrade pip setuptools  light-the-torch
-ltt install torch --cpuonly
-pip3 install -r requirements.txt -q
-cd ..
-
-python3 nl_app.py $PORT $1
+if [[ "$1" != "" ]]; then
+  python3 vartest.py --run_name=$1
+else
+  python3 vartest.py
+fi

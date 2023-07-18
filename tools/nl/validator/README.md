@@ -1,8 +1,7 @@
 # NL Validator Tool
 
 This directory contains tools to issue queries against production
-NL services and collect statistics for quality, regression and stat-var
-fine-tuning.
+NL services and collect statistics for quality, regression and stat-var fine-tuning.
 
 ## Overview
 
@@ -75,8 +74,35 @@ For every row of the above CSV:
 The test takes 20-30 mins to run, but checkpoints state every N entries, so
 be sure to run with a specific `run_name` and use that for re-runs.
 
+Note that it needs the autopush Mixer API key.
+
 ```
+export AUTOPUSH_KEY=<XYZ>
 ./placetest.sh <RUN_NAME>
+```
+
+This will keep checkpointing counters and full results to `checkpoint/`
+
+### Variable Test
+
+This targets just the variable detection, and is just a faster version of the
+e2e NL test.
+
+#### Usage
+
+The test takes 10-15 mins to run, but checkpoints state every N entries, so
+be sure to run with a specific `run_name` and use that for re-runs.
+
+First, start the NL server in `opt` mode, as follows.
+
+```
+./run_nl_server.sh opt
+```
+
+Next, in another window, run the `vartest`.
+
+```
+./vartest.sh <RUN_NAME>
 ```
 
 This will keep checkpointing counters and full results to `checkpoint/`
