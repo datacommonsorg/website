@@ -106,6 +106,7 @@ $feedback-link-font-color: #70757a;
     }
     .sidebar-recent {
       flex-grow: 1;
+      overflow: auto;
       h5 {
         font-size: 1rem;
         margin: 0 0 1rem;
