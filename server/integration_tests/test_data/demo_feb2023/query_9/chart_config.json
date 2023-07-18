@@ -50,25 +50,6 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Person_scatter",
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter"
-                    ],
-                    "title": "Individual Median Income (${yDate}) vs. Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
                       "Median_Earnings_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
@@ -92,25 +73,6 @@
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
                     "title": "Individual Median Earnings (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_scatter",
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter"
-                    ],
-                    "title": "Individual Median Earnings (${yDate}) vs. Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -164,10 +126,29 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_scatter",
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter"
+                      "Mean_Income_Household_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Average Income for Households (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -211,89 +192,9 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_scatter",
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter"
-                    ],
-                    "title": "Median Income for Family Households (${yDate}) vs. Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Average Income for Households (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_Income_Household_scatter",
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter"
-                    ],
-                    "title": "Average Income for Households (${yDate}) vs. Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_scatter": {
-            "name": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
-          },
           "Mean_Income_Household_scatter": {
             "name": "Average Income for Households",
             "statVar": "Mean_Income_Household"

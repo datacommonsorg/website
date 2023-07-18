@@ -137,22 +137,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Mean_Temperature"
+                      "Temperature"
                     ],
-                    "title": "Mean Temperature in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Mean_Temperature"
+                      "Temperature"
                     ],
-                    "title": "Mean Temperature in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Temperature"
+            "title": "Temperature in a Location"
           },
           {
             "columns": [
@@ -191,49 +191,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Temperature"
+                      "Mean_Temperature"
                     ],
-                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "title": "Mean Temperature in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Temperature"
+                      "Mean_Temperature"
                     ],
-                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "title": "Mean Temperature in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Temperature in a Location"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Mean_MaxTemperature"
-                    ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_MaxTemperature"
-                    ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean maximum temperature"
+            "title": "Mean Temperature"
           },
           {
             "columns": [
@@ -299,29 +272,25 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_ColdTemperatureEvent"
+                      "Mean_MaxTemperature"
                     ],
-                    "title": "Count of Cold Temperature Event in Counties of California (${date})",
+                    "title": "Mean maximum temperature in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Count_ColdTemperatureEvent"
+                      "Mean_MaxTemperature"
                     ],
-                    "title": "Count of Cold Temperature Event in Counties of California (${date})",
+                    "title": "Mean maximum temperature in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Cold Temperature Event"
+            "title": "Mean maximum temperature"
           }
         ],
         "statVarSpec": {
-          "Count_ColdTemperatureEvent": {
-            "name": "Count of Cold Temperature Event",
-            "statVar": "Count_ColdTemperatureEvent"
-          },
           "Count_HeatTemperatureEvent": {
             "name": "Count of Heat Temperature Event",
             "statVar": "Count_HeatTemperatureEvent"

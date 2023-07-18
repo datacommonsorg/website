@@ -24,21 +24,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
                     "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
@@ -54,9 +39,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
+                      "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -65,10 +50,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death_AsAFractionOfCount_Person": {
-            "name": "Deaths Per Capita",
-            "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"

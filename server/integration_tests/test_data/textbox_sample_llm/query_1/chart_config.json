@@ -9,14 +9,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
+                      "Median_Income_Person",
+                      "Median_Earnings_Person"
                     ],
-                    "title": "Average Income for Family Households in California",
+                    "title": "Individual Income in California",
                     "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Individual Income"
           },
           {
             "columns": [
@@ -24,14 +26,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
+                      "Median_Income_Household"
                     ],
-                    "title": "Median Income for Family Households in California",
+                    "title": "Household Median Income in California",
                     "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Houshold Income"
           },
           {
             "columns": [
@@ -39,31 +42,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "WagesTotal_Worker_NAICSFinanceInsurance"
                     ],
-                    "title": "Median Income for Married Couple Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
-                    ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "title": "Total Wages for Population Working in the Finance and Insurance Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold_pc"
+                      "WagesTotal_Worker_NAICSFinanceInsurance_pc"
                     ],
-                    "title": "Per Capita Mean Income Deficit of Household: Family Household in California",
+                    "title": "Per Capita Total Wages for Population Working in the Finance and Insurance Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -76,46 +64,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
+                      "dc/t6m99mqmqxjbc"
                     ],
-                    "title": "Average Income for Nonfamily Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Average Income for Married Couple Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied"
-                    ],
-                    "title": "Count of Household: Family Household, Owner Occupied in California",
+                    "title": "Median Income for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied_pc"
+                      "dc/t6m99mqmqxjbc_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, Owner Occupied in California",
+                    "title": "Per Capita Median Income for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -128,16 +86,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold"
+                      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
                     ],
-                    "title": "Count of Household: Family Household in California",
+                    "title": "Total Wages for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_pc"
+                      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household in California",
+                    "title": "Per Capita Total Wages for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -150,16 +108,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
                     ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "title": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc"
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_pc"
                     ],
-                    "title": "Per Capita Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "title": "Per Capita Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll in California",
                     "type": "LINE"
                   }
                 ]
@@ -172,16 +130,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_OtherFamilyHousehold"
+                      "Median_Earnings_Person_25OrMoreYears"
                     ],
-                    "title": "Count of Household: Other Family Household in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_OtherFamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Other Family Household in California",
+                    "title": "Median Earnings: 25 Years or More, With Earnings in California",
                     "type": "LINE"
                   }
                 ]
@@ -194,16 +145,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
                     ],
-                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months_pc"
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Per Capita Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll in California",
                     "type": "LINE"
                   }
                 ]
@@ -216,16 +167,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "WagesTotal_Worker_NAICSTotalAllIndustries"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year in California",
+                    "title": "Total Wages Paid to Workers in All Industries in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                      "WagesTotal_Worker_NAICSTotalAllIndustries_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in California",
+                    "title": "Per Capita Total Wages Paid to Workers in All Industries in California",
                     "type": "LINE"
                   }
                 ]
@@ -238,16 +189,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
                     ],
-                    "title": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months in California",
+                    "title": "GDP of the Finance and Insurance Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc"
                     ],
-                    "title": "Per Capita Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Per Capita GDP of the Finance and Insurance Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -260,16 +211,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                      "dc/wzz9t818m1gk8"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Total Wages Paid to Manufacturing in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
+                      "dc/wzz9t818m1gk8_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Per Capita Total Wages Paid to Manufacturing in California",
                     "type": "LINE"
                   }
                 ]
@@ -282,16 +233,82 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                      "WagesTotal_Worker_NAICSPublicAdministration"
                     ],
-                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Total Wages Paid to Public Administration in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months_pc"
+                      "WagesTotal_Worker_NAICSPublicAdministration_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Per Capita Total Wages Paid to Public Administration in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59"
+                    ],
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_pc"
+                    ],
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Female"
+                    ],
+                    "title": "Average Earnings for Female Population in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Female_pc"
+                    ],
+                    "title": "Per Capita Average Earnings for Female Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dxcbt2knrsgg9"
+                    ],
+                    "title": "Total Wages Paid to Retail Trade in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/dxcbt2knrsgg9_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Retail Trade in California",
                     "type": "LINE"
                   }
                 ]
@@ -300,115 +317,129 @@
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold": {
-            "name": "Count of Household: Family Household",
-            "statVar": "Count_Household_FamilyHousehold"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": {
+            "name": "GDP of the Finance and Insurance Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Family Households Below the Poverty Level in the Past Year",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc": {
             "denom": "Count_Person",
-            "name": "Family Households Below the Poverty Level in the Past Year",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+            "name": "GDP of the Finance and Insurance Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Count_Household_FamilyHousehold_OwnerOccupied": {
-            "name": "Count of Household: Family Household, Owner Occupied",
-            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+          "Mean_Earnings_Person_Female": {
+            "name": "Average Earnings for Female Population",
+            "statVar": "Mean_Earnings_Person_Female"
           },
-          "Count_Household_FamilyHousehold_OwnerOccupied_pc": {
+          "Mean_Earnings_Person_Female_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Owner Occupied",
-            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+            "name": "Average Earnings for Female Population",
+            "statVar": "Mean_Earnings_Person_Female"
           },
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
           },
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months_pc": {
+          "Median_Earnings_Person_25OrMoreYears": {
+            "name": "Median Earnings: 25 Years or More, With Earnings",
+            "statVar": "Median_Earnings_Person_25OrMoreYears"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll": {
+            "name": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+            "name": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
           },
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll": {
+            "name": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
           },
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc": {
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+            "name": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
           },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+          "WagesTotal_Worker_NAICSFinanceInsurance": {
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
+            "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
           },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months_pc": {
+          "WagesTotal_Worker_NAICSFinanceInsurance_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
+            "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
           },
-          "Count_Household_FamilyHousehold_pc": {
+          "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": {
+            "name": "Total Wages for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Family Household",
-            "statVar": "Count_Household_FamilyHousehold"
+            "name": "Total Wages for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
           },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
+          "WagesTotal_Worker_NAICSPublicAdministration": {
+            "name": "Total Wages Paid to Public Administration",
+            "statVar": "WagesTotal_Worker_NAICSPublicAdministration"
           },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months_pc": {
+          "WagesTotal_Worker_NAICSPublicAdministration_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
+            "name": "Total Wages Paid to Public Administration",
+            "statVar": "WagesTotal_Worker_NAICSPublicAdministration"
           },
-          "Count_Household_OtherFamilyHousehold": {
-            "name": "Count of Household: Other Family Household",
-            "statVar": "Count_Household_OtherFamilyHousehold"
+          "WagesTotal_Worker_NAICSTotalAllIndustries": {
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
           },
-          "Count_Household_OtherFamilyHousehold_pc": {
+          "WagesTotal_Worker_NAICSTotalAllIndustries_pc": {
             "denom": "Count_Person",
-            "name": "Count of Household: Other Family Household",
-            "statVar": "Count_Household_OtherFamilyHousehold"
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
           },
-          "Mean_IncomeDeficit_Household_FamilyHousehold": {
-            "name": "Mean Income Deficit of Household: Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+          "dc/dxcbt2knrsgg9": {
+            "name": "Total Wages Paid to Retail Trade",
+            "statVar": "dc/dxcbt2knrsgg9"
           },
-          "Mean_IncomeDeficit_Household_FamilyHousehold_pc": {
+          "dc/dxcbt2knrsgg9_pc": {
             "denom": "Count_Person",
-            "name": "Mean Income Deficit of Household: Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+            "name": "Total Wages Paid to Retail Trade",
+            "statVar": "dc/dxcbt2knrsgg9"
           },
-          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Mean Income Deficit of Household: Married Couple Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+          "dc/t6m99mqmqxjbc": {
+            "name": "Median Income for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "dc/t6m99mqmqxjbc"
           },
-          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc": {
+          "dc/t6m99mqmqxjbc_pc": {
             "denom": "Count_Person",
-            "name": "Mean Income Deficit of Household: Married Couple Family Household",
-            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+            "name": "Median Income for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "dc/t6m99mqmqxjbc"
           },
-          "Mean_Income_Household_FamilyHousehold": {
-            "name": "Average Income for Family Households",
-            "statVar": "Mean_Income_Household_FamilyHousehold"
+          "dc/wzz9t818m1gk8": {
+            "name": "Total Wages Paid to Manufacturing",
+            "statVar": "dc/wzz9t818m1gk8"
           },
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Average Income for Married Couple Family Households",
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+          "dc/wzz9t818m1gk8_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Manufacturing",
+            "statVar": "dc/wzz9t818m1gk8"
           },
-          "Mean_Income_Household_NonfamilyHousehold": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          "dc/x3gghqtglpr59": {
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
           },
-          "Median_Income_Household_FamilyHousehold": {
-            "name": "Median Income for Family Households",
-            "statVar": "Median_Income_Household_FamilyHousehold"
-          },
-          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Median Income for Married Couple Family Households",
-            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          "dc/x3gghqtglpr59_pc": {
+            "denom": "Count_Person",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
           }
         }
       }

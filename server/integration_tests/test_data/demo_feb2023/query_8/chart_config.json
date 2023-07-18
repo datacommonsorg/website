@@ -56,71 +56,9 @@
               }
             ],
             "title": "Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
-                    ],
-                    "title": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
-                    ],
-                    "title": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_pc"
-                    ],
-                    "title": "Per Capita Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_pc"
-                    ],
-                    "title": "Per Capita Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders": {
-            "name": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
-          },
-          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
-          },
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
             "name": "Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",

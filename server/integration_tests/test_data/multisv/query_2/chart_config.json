@@ -43,9 +43,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_multiple_place_bar_block"
+                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
                     ],
-                    "title": "Population With Poverty Status Determined (${date})",
+                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
                     "type": "BAR"
                   },
                   {
@@ -54,9 +54,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc"
+                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Population With Poverty Status Determined (${date})",
+                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -103,36 +103,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Population Above Poverty Level Status in Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population Above Poverty Level Status in Past Year (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Family Households Below the Poverty Level in the Past Year (${date})",
@@ -163,9 +133,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
+                    "title": "Population Above Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -174,9 +144,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block_pc"
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
+                    "title": "Per Capita Population Above Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -193,9 +163,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine_multiple_place_bar_block"
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
                     ],
-                    "title": "Population: 15 - 50 Years, Female, 1 - 2.0 Ratio To Poverty Line (${date})",
+                    "title": "Median Income of Accommodation and Food Services (${date})",
                     "type": "BAR"
                   },
                   {
@@ -204,69 +174,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine_multiple_place_bar_block_pc"
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Population: 15 - 50 Years, Female, 1 - 2.0 Ratio To Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block"
-                    ],
-                    "title": "Population in Group Quarters With Determined Poverty Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population in Group Quarters With Determined Poverty Status (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_multiple_place_bar_block"
-                    ],
-                    "title": "Population: 1 Years or More, 1.5 Ratio To Poverty Line or More (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1.5 Ratio To Poverty Line or More (${date})",
+                    "title": "Per Capita Median Income of Accommodation and Food Services (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -332,96 +242,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Above Poverty Level Households Not Receiving Food Stamps in Last Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Above Poverty Level Households Not Receiving Food Stamps in Last Year (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_15To50Years_Female_PovertyStatusDetermined_multiple_place_bar_block"
-                    ],
-                    "title": "Population: 15 - 50 Years, Female, Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_15To50Years_Female_PovertyStatusDetermined_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: 15 - 50 Years, Female, Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Female Population Below Poverty Level in the Last Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Female Population Below Poverty Level in the Last Year (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -433,42 +253,6 @@
             "denom": "Count_Person",
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Above Poverty Level Households Not Receiving Food Stamps in Last Year",
-            "statVar": "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Above Poverty Level Households Not Receiving Food Stamps in Last Year",
-            "statVar": "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine_multiple_place_bar_block": {
-            "name": "Population: 15 - 50 Years, Female, 1 - 2.0 Ratio To Poverty Line",
-            "statVar": "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine"
-          },
-          "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 15 - 50 Years, Female, 1 - 2.0 Ratio To Poverty Line",
-            "statVar": "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine"
-          },
-          "Count_Person_15To50Years_Female_PovertyStatusDetermined_multiple_place_bar_block": {
-            "name": "Population: 15 - 50 Years, Female, Poverty Status Determined",
-            "statVar": "Count_Person_15To50Years_Female_PovertyStatusDetermined"
-          },
-          "Count_Person_15To50Years_Female_PovertyStatusDetermined_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 15 - 50 Years, Female, Poverty Status Determined",
-            "statVar": "Count_Person_15To50Years_Female_PovertyStatusDetermined"
-          },
-          "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_multiple_place_bar_block": {
-            "name": "Population: 1 Years or More, 1.5 Ratio To Poverty Line or More",
-            "statVar": "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1.5 Ratio To Poverty Line or More",
-            "statVar": "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine"
           },
           "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block": {
             "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
@@ -524,32 +308,14 @@
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Female Population Below Poverty Level in the Last Year",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
+            "name": "Median Income of Accommodation and Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
           },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Female Population Below Poverty Level in the Last Year",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block": {
-            "name": "Population in Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population in Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_multiple_place_bar_block": {
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
-          },
-          "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
+            "name": "Median Income of Accommodation and Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }

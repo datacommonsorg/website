@@ -68,28 +68,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
-                    ],
-                    "title": "GDP of Other Services, Except Public Administration Industry in United States",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
                     ],
                     "title": "GDP of the Finance and Insurance Industry in United States",
@@ -134,60 +112,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
                     ],
-                    "title": "GDP of the Information Industry in United States",
+                    "title": "GDP of Other Services, Except Public Administration Industry in United States",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Information Industry in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossValueAdded_RealValue"
-                    ],
-                    "title": "Amount of Economic Activity (Real Value): Gross Value Added in United States",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossValueAdded_RealValue_pc"
-                    ],
-                    "title": "Per Capita Amount of Economic Activity (Real Value): Gross Value Added in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
-                    ],
-                    "title": "GDP of the Professional, Scientific, and Technical Services Industry in United States",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Professional, Scientific, and Technical Services Industry in United States",
+                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in United States",
                     "type": "LINE"
                   }
                 ]
@@ -229,15 +163,6 @@
             "name": "GDP of the Finance and Insurance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": {
-            "name": "GDP of the Information Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Information Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue": {
             "name": "GDP of Other Services, Except Public Administration Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
@@ -246,15 +171,6 @@
             "denom": "Count_Person",
             "name": "GDP of Other Services, Except Public Administration Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": {
-            "name": "GDP of the Professional, Scientific, and Technical Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Professional, Scientific, and Technical Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
@@ -282,15 +198,6 @@
             "denom": "Count_Person",
             "name": "GDP (Real Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-          },
-          "Amount_EconomicActivity_GrossValueAdded_RealValue": {
-            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
-            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
-          },
-          "Amount_EconomicActivity_GrossValueAdded_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
-            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",

@@ -24,39 +24,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
+                      "Median_Income_Person"
                     ],
                     "title": "Individual Median Income in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceAsianAlone"
-                    ],
-                    "title": "Median Income of Asian Households in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-                    ],
-                    "title": "Median Income of Hispanic or Latino Households in Census Tracts of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -69,23 +39,9 @@
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
           },
-<<<<<<< HEAD
-          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone": {
-            "name": "Median Income of Household: Some Other Race Alone",
-            "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
-=======
-          "Median_Income_Household_HouseholderRaceAsianAlone": {
-            "name": "Median Income of Asian Households",
-            "statVar": "Median_Income_Household_HouseholderRaceAsianAlone"
-          },
-          "Median_Income_Household_HouseholderRaceHispanicOrLatino": {
-            "name": "Median Income of Hispanic or Latino Households",
-            "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
-          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
->>>>>>> master
           }
         }
       }

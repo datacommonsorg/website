@@ -75,28 +75,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft_pc"
-                    ],
-                    "title": "Per Capita Larceny Theft Cases in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
                     "title": "Motor Vehicle Thefts in California",
@@ -119,16 +97,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_ViolentCrime"
+                      "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Violent Crimes in California",
+                    "title": "Larceny Theft Cases in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_ViolentCrime_pc"
+                      "Count_CriminalActivities_LarcenyTheft_pc"
                     ],
-                    "title": "Per Capita Violent Crimes in California",
+                    "title": "Per Capita Larceny Theft Cases in California",
                     "type": "LINE"
                   }
                 ]
@@ -141,16 +119,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
+                      "Count_CriminalActivities_ViolentCrime"
                     ],
-                    "title": "Burglaries in California",
+                    "title": "Violent Crimes in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_Burglary_pc"
+                      "Count_CriminalActivities_ViolentCrime_pc"
                     ],
-                    "title": "Per Capita Burglaries in California",
+                    "title": "Per Capita Violent Crimes in California",
                     "type": "LINE"
                   }
                 ]
@@ -210,20 +188,11 @@
             "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
-          "Count_CriminalActivities_Burglary": {
-            "name": "Burglaries",
-            "statVar": "Count_CriminalActivities_Burglary"
-          },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Burglaries",
-            "statVar": "Count_CriminalActivities_Burglary"
-          },
-          "Count_CriminalActivities_Burglary_pc": {
             "denom": "Count_Person",
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"

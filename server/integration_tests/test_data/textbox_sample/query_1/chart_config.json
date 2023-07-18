@@ -54,16 +54,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold"
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_FamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Mean Income Deficit of Household: Family Household in California",
+                    "title": "Average Income for Married Couple Family Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -91,9 +84,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Mean_IncomeDeficit_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
+                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Mean Income Deficit of Household: Family Household in California",
                     "type": "LINE"
                   }
                 ]
@@ -150,16 +150,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+                      "Mean_Income_Household"
                     ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "title": "Average Income for Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -194,16 +187,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months_pc"
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months in California",
+                    "title": "Per Capita Mean Income Deficit of Household: Married Couple Family Household in California",
                     "type": "LINE"
                   }
                 ]
@@ -238,28 +231,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
@@ -270,28 +241,6 @@
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
                     ],
                     "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months in California",
                     "type": "LINE"
                   }
                 ]
@@ -322,15 +271,6 @@
             "name": "Count of Household: Family Household, Owner Occupied",
             "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
           },
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
             "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
@@ -340,28 +280,10 @@
             "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Household_FamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Count of Household: Family Household",
             "statVar": "Count_Household_FamilyHousehold"
-          },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_OtherFamilyHousehold": {
             "name": "Count of Household: Other Family Household",
@@ -389,6 +311,10 @@
             "denom": "Count_Person",
             "name": "Mean Income Deficit of Household: Married Couple Family Household",
             "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
           },
           "Mean_Income_Household_FamilyHousehold": {
             "name": "Average Income for Family Households",

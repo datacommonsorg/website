@@ -172,6 +172,59 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_Person_NonWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_NonWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Rural, Non Worker"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NonWorker_Rural_pc"
+                    ],
+                    "title": "Per Capita Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_NonWorker_Rural_pc"
+                    ],
+                    "title": "Per Capita Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Literate_Rural"
                     ],
                     "title": "Population: Literate, Rural in Administrative Area 2 Places of India (${date})",
@@ -262,112 +315,6 @@
                       "Count_Person_MainWorker_Rural_pc"
                     ],
                     "title": "Per Capita Population: Rural, Main Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_NonWorker_Rural"
-                    ],
-                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_NonWorker_Rural"
-                    ],
-                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: Rural, Non Worker"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_NonWorker_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_NonWorker_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Houseless_NonWorker_Rural"
-                    ],
-                    "title": "Population: Houseless, Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Houseless_NonWorker_Rural"
-                    ],
-                    "title": "Population: Houseless, Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: Houseless, Rural, Non Worker"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Houseless_NonWorker_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Houseless, Rural, Non Worker in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Houseless_NonWorker_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Houseless, Rural, Non Worker in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -490,6 +437,59 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural"
+                    ],
+                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural"
+                    ],
+                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Rural, Christianity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural_pc"
+                    ],
+                    "title": "Per Capita Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural_pc"
+                    ],
+                    "title": "Per Capita Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Houseless_ScheduledCaste_Rural"
                     ],
                     "title": "Population: Houseless, Rural, Scheduled Caste in Administrative Area 2 Places of India (${date})",
@@ -596,59 +596,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Rural"
-                    ],
-                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Rural"
-                    ],
-                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: Rural, Christianity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "indianCensus/Count_Person_Religion_Christian_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Rural_Female"
                     ],
                     "title": "Population: Female, Rural in Administrative Area 2 Places of India (${date})",
@@ -686,59 +633,6 @@
                       "Count_Person_Rural_Female_pc"
                     ],
                     "title": "Per Capita Population: Female, Rural in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Rural"
-                    ],
-                    "title": "Population: Illiterate, Rural in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Rural"
-                    ],
-                    "title": "Population: Illiterate, Rural in Administrative Area 2 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: Illiterate, Rural"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Illiterate, Rural in Administrative Area 2 Places of India (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Illiterate_Rural_pc"
-                    ],
-                    "title": "Per Capita Population: Illiterate, Rural in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -809,15 +703,6 @@
             "name": "Count of Household: Rural",
             "statVar": "Count_Household_Rural"
           },
-          "Count_Person_Houseless_NonWorker_Rural": {
-            "name": "Population: Houseless, Rural, Non Worker",
-            "statVar": "Count_Person_Houseless_NonWorker_Rural"
-          },
-          "Count_Person_Houseless_NonWorker_Rural_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Houseless, Rural, Non Worker",
-            "statVar": "Count_Person_Houseless_NonWorker_Rural"
-          },
           "Count_Person_Houseless_Rural": {
             "name": "Population: Houseless, Rural",
             "statVar": "Count_Person_Houseless_Rural"
@@ -844,15 +729,6 @@
             "denom": "Count_Person",
             "name": "Population: Houseless, Rural, Worker",
             "statVar": "Count_Person_Houseless_Workers_Rural"
-          },
-          "Count_Person_Illiterate_Rural": {
-            "name": "Population: Illiterate, Rural",
-            "statVar": "Count_Person_Illiterate_Rural"
-          },
-          "Count_Person_Illiterate_Rural_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Illiterate, Rural",
-            "statVar": "Count_Person_Illiterate_Rural"
           },
           "Count_Person_Literate_Rural": {
             "name": "Population: Literate, Rural",
