@@ -5,7 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <script src="http:/localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -76,8 +76,9 @@
       childPlaceType="State"
       variables="Count_Person"
       maxPlaces="15"
+      apiRoot="http://localhost:8080"
     ></datacommons-bar>
-    <datacommons-bar
+    <!-- <datacommons-bar
       title="Population of select US states"
       variables="Count_Person"
       places="geoId/01 geoId/02 geoId/04 geoId/05"
@@ -134,19 +135,20 @@
       stacked
       horizontal
       sort="descending"
-    ></datacommons-bar>
+    ></datacommons-bar> -->
     <h2>Pie/Donut</h2>
     <datacommons-pie
       title="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+      apiRoot="https://autopush.datacommons.org"
     ></datacommons-pie>
-    <datacommons-pie
+    <!-- <datacommons-pie
       title="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
       donut
-    ></datacommons-pie>
+    ></datacommons-pie> -->
     <h2>Gauge</h2>
     <datacommons-gauge
       title="Percentage of US Population that are Internet Users"
@@ -154,6 +156,7 @@
       variable="Count_Person_IsInternetUser_PerCapita"
       min="0"
       max="100"
+      apiRoot="https://autopush.datacommons.org"
     ></datacommons-gauge>
     <h2>Map</h2>
     <datacommons-map
@@ -162,9 +165,10 @@
       childPlaceType="State"
       variable="Count_Person"
       colors="red"
+      apiRoot="https://autopush.datacommons.org"
     ></datacommons-map>
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
-    <datacommons-map
+    <!-- <datacommons-map
       title="California: Annual_ExpectedLoss_NaturalHazardImpact"
       placeDcid="geoId/06"
       enclosedPlaceType="County"
@@ -190,29 +194,31 @@
       min="1950"
       publish="dc-map"
       value="2023"
-    ></datacommons-slider>
+    ></datacommons-slider> -->
     <h2>Ranking</h2>
     <datacommons-ranking
       title="US States with the Highest Population"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
+      apiRoot="https://autopush.datacommons.org"
     ></datacommons-ranking>
-    <datacommons-ranking
+    <!-- <datacommons-ranking
       title="US States with the Lowest Population"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
       showLowest
-    ></datacommons-ranking>
+    ></datacommons-ranking> -->
     <h3>Line</h3>
     <datacommons-line
       title="US Population Over Time"
       place="country/USA"
       variables="Count_Person"
       colors="blue"
+      apiRoot="https://autopush.datacommons.org"
     ></datacommons-line>
-    <datacommons-line
+    <!-- <datacommons-line
       title="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
       place="country/USA"
       variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
@@ -227,8 +233,8 @@
       title="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
       variables="Mean_PalmerDroughtSeverityIndex"
-    ></datacommons-line>
-    <h2>Lollipop</h2>
+    ></datacommons-line> -->
+    <!-- <h2>Lollipop</h2>
     <datacommons-bar
       title="Population in States of United States"
       parentPlace="country/USA"
@@ -272,6 +278,6 @@
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
       lollipop
-    ></datacommons-bar>
+    ></datacommons-bar> -->
   </body>
 </html>
