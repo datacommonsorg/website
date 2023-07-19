@@ -53,7 +53,6 @@ export const QueryResult = memo(function QueryResult(
   const [chartsData, setChartsData] = useState<SearchResult | undefined>();
   const [isLoading, setIsLoading] = useState(true);
   const [debugData, setDebugData] = useState<any>();
-  const [hideCharts, setHideCharts] = useState<boolean>(false);
   const scrollRef = createRef<HTMLDivElement>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [isEmojiClicked, setIsEmojiClicked] = useState(false);
@@ -118,9 +117,6 @@ export const QueryResult = memo(function QueryResult(
           let mainPlace = {};
           mainPlace = resp.data["place"];
           const fb = resp.data["placeFallback"];
-          if (shouldHideCharts(resp.data)) {
-            setHideCharts(true);
-          }
           setChartsData({
             place: {
               dcid: mainPlace["dcid"],
@@ -208,14 +204,8 @@ export const QueryResult = memo(function QueryResult(
               chartsData={chartsData}
             ></DebugInfo>
           )}
-          {chartsData && (
-            <NLCommentary
-              chartsData={chartsData}
-              hideCharts={hideCharts}
-              setHideCharts={setHideCharts}
-            />
-          )}
-          {chartsData && chartsData.config && !hideCharts && (
+          {chartsData && <NLCommentary chartsData={chartsData} />}
+          {chartsData && chartsData.config && (
             <NlSessionContext.Provider value={chartsData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
