@@ -29,9 +29,41 @@
               }
             ],
             "title": "High Bood Pressure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                    ],
+                    "title": "Percent of Adults Taking Medication Among Those With High Blood Pressure in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                    ],
+                    "title": "Percent of Adults Taking Medication Among Those With High Blood Pressure in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Adults Taking Medication Among Those With High Blood Pressure"
           }
         ],
         "statVarSpec": {
+          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
+            "name": "Percent of Adults Taking Medication Among Those With High Blood Pressure",
+            "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+            "unit": "%"
+          },
           "Percent_Person_WithHighBloodPressure": {
             "name": "High Bood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",

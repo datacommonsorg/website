@@ -9,21 +9,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Average Income for Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Median_Income_Person",
                       "Median_Earnings_Person"
                     ],
@@ -57,91 +42,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "WagesTotal_Worker_NAICSFinanceInsurance"
                     ],
-                    "title": "Median Income for Married Couple Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
-                    ],
-                    "title": "Median Income for Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Average Income for Married Couple Family Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Average Income for Nonfamily Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
-                    ],
-                    "title": "Family Households Receiving Social Security Income in the Last Year in California",
+                    "title": "Total Wages for Population Working in the Finance and Insurance Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc"
+                      "WagesTotal_Worker_NAICSFinanceInsurance_pc"
                     ],
-                    "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in California",
+                    "title": "Per Capita Total Wages for Population Working in the Finance and Insurance Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -154,16 +64,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Earnings_Person_Male"
+                      "dc/t6m99mqmqxjbc"
                     ],
-                    "title": "Average Earnings for Male Population in California",
+                    "title": "Median Income for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Mean_Earnings_Person_Male_pc"
+                      "dc/t6m99mqmqxjbc_pc"
                     ],
-                    "title": "Per Capita Average Earnings for Male Population in California",
+                    "title": "Per Capita Median Income for Population Working in the Management of Companies and Enterprises Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -176,9 +86,229 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
                     ],
-                    "title": "Median Earnings for Male Population in California",
+                    "title": "Total Wages for Population Working in the Management of Companies and Enterprises Industry in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises_pc"
+                    ],
+                    "title": "Per Capita Total Wages for Population Working in the Management of Companies and Enterprises Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+                    ],
+                    "title": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_pc"
+                    ],
+                    "title": "Per Capita Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_25OrMoreYears"
+                    ],
+                    "title": "Median Earnings: 25 Years or More, With Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
+                    ],
+                    "title": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_pc"
+                    ],
+                    "title": "Per Capita Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Total Wages Paid to Workers in All Industries in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSTotalAllIndustries_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Workers in All Industries in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
+                    ],
+                    "title": "GDP of the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP of the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/wzz9t818m1gk8"
+                    ],
+                    "title": "Total Wages Paid to Manufacturing in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/wzz9t818m1gk8_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Manufacturing in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSPublicAdministration"
+                    ],
+                    "title": "Total Wages Paid to Public Administration in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSPublicAdministration_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Public Administration in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59"
+                    ],
+                    "title": "Median Income for Population Working in the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/x3gghqtglpr59_pc"
+                    ],
+                    "title": "Per Capita Median Income for Population Working in the Finance and Insurance Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Female"
+                    ],
+                    "title": "Average Earnings for Female Population in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Person_Female_pc"
+                    ],
+                    "title": "Per Capita Average Earnings for Female Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dxcbt2knrsgg9"
+                    ],
+                    "title": "Total Wages Paid to Retail Trade in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/dxcbt2knrsgg9_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Retail Trade in California",
                     "type": "LINE"
                   }
                 ]
@@ -187,63 +317,129 @@
           }
         ],
         "statVarSpec": {
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold": {
-            "name": "Family Households Receiving Social Security Income in the Last Year",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": {
+            "name": "GDP of the Finance and Insurance Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc": {
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc": {
             "denom": "Count_Person",
-            "name": "Family Households Receiving Social Security Income in the Last Year",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+            "name": "GDP of the Finance and Insurance Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Mean_Earnings_Person_Male": {
-            "name": "Average Earnings for Male Population",
-            "statVar": "Mean_Earnings_Person_Male"
+          "Mean_Earnings_Person_Female": {
+            "name": "Average Earnings for Female Population",
+            "statVar": "Mean_Earnings_Person_Female"
           },
-          "Mean_Earnings_Person_Male_pc": {
+          "Mean_Earnings_Person_Female_pc": {
             "denom": "Count_Person",
-            "name": "Average Earnings for Male Population",
-            "statVar": "Mean_Earnings_Person_Male"
-          },
-          "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Mean_Income_Household_FamilyHousehold": {
-            "name": "Average Income for Family Households",
-            "statVar": "Mean_Income_Household_FamilyHousehold"
-          },
-          "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Average Income for Married Couple Family Households",
-            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
-          },
-          "Mean_Income_Household_NonfamilyHousehold": {
-            "name": "Average Income for Nonfamily Households",
-            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+            "name": "Average Earnings for Female Population",
+            "statVar": "Mean_Earnings_Person_Female"
           },
           "Median_Earnings_Person": {
             "name": "Individual Median Earnings",
             "statVar": "Median_Earnings_Person"
           },
-          "Median_Earnings_Person_Male": {
-            "name": "Median Earnings for Male Population",
-            "statVar": "Median_Earnings_Person_Male"
+          "Median_Earnings_Person_25OrMoreYears": {
+            "name": "Median Earnings: 25 Years or More, With Earnings",
+            "statVar": "Median_Earnings_Person_25OrMoreYears"
           },
           "Median_Income_Household": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
           },
-          "Median_Income_Household_FamilyHousehold": {
-            "name": "Median Income for Family Households",
-            "statVar": "Median_Income_Household_FamilyHousehold"
-          },
-          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
-            "name": "Median Income for Married Couple Family Households",
-            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
-          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll": {
+            "name": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_pc": {
+            "denom": "Count_Person",
+            "name": "Revenue of Establishment: Management of Companies And Enterprises (NAICS/55), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll": {
+            "name": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_pc": {
+            "denom": "Count_Person",
+            "name": "Revenue of Establishment: Real Estate And Rental And Leasing (NAICS/53), With Payroll",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
+          },
+          "WagesTotal_Worker_NAICSFinanceInsurance": {
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
+            "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
+          },
+          "WagesTotal_Worker_NAICSFinanceInsurance_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages for Population Working in the Finance and Insurance Industry",
+            "statVar": "WagesTotal_Worker_NAICSFinanceInsurance"
+          },
+          "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises": {
+            "name": "Total Wages for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "WagesTotal_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "WagesTotal_Worker_NAICSPublicAdministration": {
+            "name": "Total Wages Paid to Public Administration",
+            "statVar": "WagesTotal_Worker_NAICSPublicAdministration"
+          },
+          "WagesTotal_Worker_NAICSPublicAdministration_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Public Administration",
+            "statVar": "WagesTotal_Worker_NAICSPublicAdministration"
+          },
+          "WagesTotal_Worker_NAICSTotalAllIndustries": {
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
+          },
+          "WagesTotal_Worker_NAICSTotalAllIndustries_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
+          },
+          "dc/dxcbt2knrsgg9": {
+            "name": "Total Wages Paid to Retail Trade",
+            "statVar": "dc/dxcbt2knrsgg9"
+          },
+          "dc/dxcbt2knrsgg9_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Retail Trade",
+            "statVar": "dc/dxcbt2knrsgg9"
+          },
+          "dc/t6m99mqmqxjbc": {
+            "name": "Median Income for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "dc/t6m99mqmqxjbc"
+          },
+          "dc/t6m99mqmqxjbc_pc": {
+            "denom": "Count_Person",
+            "name": "Median Income for Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "dc/t6m99mqmqxjbc"
+          },
+          "dc/wzz9t818m1gk8": {
+            "name": "Total Wages Paid to Manufacturing",
+            "statVar": "dc/wzz9t818m1gk8"
+          },
+          "dc/wzz9t818m1gk8_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Manufacturing",
+            "statVar": "dc/wzz9t818m1gk8"
+          },
+          "dc/x3gghqtglpr59": {
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
+          },
+          "dc/x3gghqtglpr59_pc": {
+            "denom": "Count_Person",
+            "name": "Median Income for Population Working in the Finance and Insurance Industry",
+            "statVar": "dc/x3gghqtglpr59"
           }
         }
       }

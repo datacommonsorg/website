@@ -31,16 +31,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months"
+                      "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
+                      "dc/dyhxtqe2pxhl5_pc"
                     ],
-                    "title": "Per Capita Population Above Poverty Level Status in Past Year in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Per Capita Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -58,14 +58,14 @@
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
-          "Count_Person_AbovePovertyLevelInThePast12Months": {
-            "name": "Population Above Poverty Level Status in Past Year",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          "dc/dyhxtqe2pxhl5": {
+            "name": "Population: No Income, Foreign Born",
+            "statVar": "dc/dyhxtqe2pxhl5"
           },
-          "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
+          "dc/dyhxtqe2pxhl5_pc": {
             "denom": "Count_Person",
-            "name": "Population Above Poverty Level Status in Past Year",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+            "name": "Population: No Income, Foreign Born",
+            "statVar": "dc/dyhxtqe2pxhl5"
           }
         }
       }

@@ -31,7 +31,7 @@ class IntegrationTest(NLWebServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   idx='small',
+                   idx='medium_ft',
                    detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
