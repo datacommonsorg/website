@@ -24,42 +24,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person",
-                      "Median_Earnings_Person"
+                      "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Individual Income in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Houshold Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
-                    ],
-                    "title": "Median Income for Married Couple Family Households in California",
+                    "title": "Median Income for Family Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -72,9 +39,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Income for Family Households in California",
+                    "title": "Median Income for Married Couple Family Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -117,6 +84,72 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Mean_IncomeDeficit_Household_FamilyHousehold"
+                    ],
+                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Mean Income Deficit of Household: Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_OwnerOccupied"
+                    ],
+                    "title": "Count of Household: Family Household, Owner Occupied in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_OwnerOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household, Owner Occupied in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold"
+                    ],
+                    "title": "Count of Household: Family Household in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household"
                     ],
                     "title": "Average Income for Households in California",
@@ -132,16 +165,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+                      "Count_Household_OtherFamilyHousehold"
                     ],
-                    "title": "Family Households Receiving Social Security Income in the Last Year in California",
+                    "title": "Count of Household: Other Family Household in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc"
+                      "Count_Household_OtherFamilyHousehold_pc"
                     ],
-                    "title": "Per Capita Family Households Receiving Social Security Income in the Last Year in California",
+                    "title": "Per Capita Count of Household: Other Family Household in California",
                     "type": "LINE"
                   }
                 ]
@@ -154,16 +187,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Earnings_Person_Male"
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Average Earnings for Male Population in California",
+                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Mean_Earnings_Person_Male_pc"
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc"
                     ],
-                    "title": "Per Capita Average Earnings for Male Population in California",
+                    "title": "Per Capita Mean Income Deficit of Household: Married Couple Family Household in California",
                     "type": "LINE"
                   }
                 ]
@@ -176,9 +209,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Earnings_Person_Male"
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Median Earnings for Male Population in California",
+                    "title": "Family Households Below the Poverty Level in the Past Year in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
                     "type": "LINE"
                   }
                 ]
@@ -187,23 +249,68 @@
           }
         ],
         "statVarSpec": {
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold": {
-            "name": "Family Households Receiving Social Security Income in the Last Year",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+          "Count_Household_FamilyHousehold": {
+            "name": "Count of Household: Family Household",
+            "statVar": "Count_Household_FamilyHousehold"
           },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_pc": {
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Family Households Receiving Social Security Income in the Last Year",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold"
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Mean_Earnings_Person_Male": {
-            "name": "Average Earnings for Male Population",
-            "statVar": "Mean_Earnings_Person_Male"
+          "Count_Household_FamilyHousehold_OwnerOccupied": {
+            "name": "Count of Household: Family Household, Owner Occupied",
+            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
           },
-          "Mean_Earnings_Person_Male_pc": {
+          "Count_Household_FamilyHousehold_OwnerOccupied_pc": {
             "denom": "Count_Person",
-            "name": "Average Earnings for Male Population",
-            "statVar": "Mean_Earnings_Person_Male"
+            "name": "Count of Household: Family Household, Owner Occupied",
+            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household",
+            "statVar": "Count_Household_FamilyHousehold"
+          },
+          "Count_Household_OtherFamilyHousehold": {
+            "name": "Count of Household: Other Family Household",
+            "statVar": "Count_Household_OtherFamilyHousehold"
+          },
+          "Count_Household_OtherFamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Other Family Household",
+            "statVar": "Count_Household_OtherFamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_FamilyHousehold": {
+            "name": "Mean Income Deficit of Household: Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_FamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Mean Income Deficit of Household: Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Mean Income Deficit of Household: Married Couple Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Mean Income Deficit of Household: Married Couple Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
           },
           "Mean_Income_Household": {
             "name": "Average Income for Households",
@@ -221,18 +328,6 @@
             "name": "Average Income for Nonfamily Households",
             "statVar": "Mean_Income_Household_NonfamilyHousehold"
           },
-          "Median_Earnings_Person": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
-          },
-          "Median_Earnings_Person_Male": {
-            "name": "Median Earnings for Male Population",
-            "statVar": "Median_Earnings_Person_Male"
-          },
-          "Median_Income_Household": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
-          },
           "Median_Income_Household_FamilyHousehold": {
             "name": "Median Income for Family Households",
             "statVar": "Median_Income_Household_FamilyHousehold"
@@ -240,10 +335,6 @@
           "Median_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Median Income for Married Couple Family Households",
             "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
-          },
-          "Median_Income_Person": {
-            "name": "Individual Median Income",
-            "statVar": "Median_Income_Person"
           }
         }
       }

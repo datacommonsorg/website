@@ -1595,6 +1595,20 @@ function drawGaugeChart(
     .style("text-anchor", "middle")
     .style("font-size", `${labelTextSize}px`)
     .text((d) => formatNumberFn(d.value));
+
+  appendLegendElem(
+    containerElement,
+    d3
+      .scaleOrdinal<string, string>()
+      .domain([data.statVar])
+      .range([colorScale(data.value)]),
+    [
+      {
+        label: data.statVar,
+      },
+    ],
+    options?.apiRoot
+  );
 }
 
 /**

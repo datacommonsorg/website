@@ -1061,7 +1061,7 @@
   "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MeanRelativeHumidity": "Number of Months Reaching Wet Bulb Temperature based on RCP 8.5 Mean Relative Humidity",
   "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MinRelativeHumidity": "Number of Months Reaching Wet Bulb Temperature based on RCP 8.5 Min Relative Humidity",
   "PalmerDroughtSeverityIndex_Atmosphere": "Palmer Drought Severity Index",
-  "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": "Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;",
+  "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": "Percent of Adults with Blood Pressure Who Take Medication",
   "Percent_Person_18To64Years_Female_NoHealthInsurance": "Percentage of Women (18 to 64 Years Old) Without Health Insurance",
   "Percent_Person_18To64Years_Male_NoHealthInsurance": "Percentage of Men (18 to 64 Years Old) Without Health Insurance",
   "Percent_Person_18To64Years_NoHealthInsurance_BlackOrAfricanAmericanAlone": "Percentage of Black or African American Population (18 to 64 Years Old) Without Health Insurance",

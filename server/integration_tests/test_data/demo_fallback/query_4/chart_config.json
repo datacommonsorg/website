@@ -26,6 +26,21 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years"
+                    ],
+                    "title": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "comparisonPlaces": [
                       "country/USA"
                     ],
@@ -92,6 +107,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years": {
+            "name": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years)",
+            "statVar": "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years"
+          },
           "Percent_Person_BingeDrinking_multiple_place_bar_block": {
             "name": "Percentage of Population Who Binge Drink",
             "statVar": "Percent_Person_BingeDrinking",

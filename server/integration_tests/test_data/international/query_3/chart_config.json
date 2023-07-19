@@ -24,12 +24,43 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person_pc"
+                    ],
+                    "title": "Per Capita Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
+            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person_pc": {
+            "denom": "Count_Person",
+            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
             "denom": "Count_Person",

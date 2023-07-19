@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import csv
 from dataclasses import dataclass
-import json
 import os
 from typing import Dict, List
 
@@ -131,6 +129,7 @@ def query(sv, pl, sv_name, pl_name, counters):
         counters['EmbeddingsSVRank_3+'] += 1
       else:
         counters[f'EmbeddingsSVRank_{i}'] += 1
+      break
   if not found_sv:
     ret['EmbeddingsSVRank'] = -1
     counters['EmbeddingsSVRank_INF'] += 1
