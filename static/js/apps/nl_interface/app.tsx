@@ -54,7 +54,7 @@ export function App(): JSX.Element {
   const [placeDetector, setPlaceDetector] = useState(
     getUrlTokenOrDefault(
       NL_URL_PARAMS.PLACE_DETECTOR,
-      NL_PLACE_DETECTOR_VALS.NER
+      NL_PLACE_DETECTOR_VALS.DC
     )
   );
   const urlPrompts = useRef(getUrlPrompts());
