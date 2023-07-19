@@ -32,8 +32,6 @@ interface NLOptionsPropType {
   setIndexType: (idx: string) => void;
   detector: string;
   setDetector: (v: string) => void;
-  placeDetector: string;
-  setPlaceDetector: (v: string) => void;
 }
 
 export function NLOptions(props: NLOptionsPropType): JSX.Element {
@@ -106,35 +104,6 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
               }}
             />
             Medium-5K
-          </Label>
-        </FormGroup>
-      </div>
-      <div className="nl-options-label">Place:</div>
-      <div className="nl-options-input-radio">
-        <FormGroup>
-          <Label>
-            <Input
-              checked={props.placeDetector === NL_PLACE_DETECTOR_VALS.NER}
-              id="nl-place-ner"
-              type="radio"
-              value={NL_PLACE_DETECTOR_VALS.NER}
-              onChange={() => {
-                props.setPlaceDetector(NL_PLACE_DETECTOR_VALS.NER);
-              }}
-            />
-            NER
-          </Label>
-          <Label>
-            <Input
-              checked={props.placeDetector === NL_PLACE_DETECTOR_VALS.DC}
-              id="nl-place-dc"
-              type="radio"
-              value={NL_PLACE_DETECTOR_VALS.DC}
-              onChange={() => {
-                props.setPlaceDetector(NL_PLACE_DETECTOR_VALS.DC);
-              }}
-            />
-            DC
           </Label>
         </FormGroup>
       </div>

@@ -110,9 +110,12 @@ def combine_stop_words() -> Set[str]:
   return stop_words
 
 
-def remove_punctuations(s):
+def remove_punctuations(s, include_comma=False):
   s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
+  if include_comma:
+    s = re.sub(r'[^\w\s,]', ' ', s)
+  else:
+    s = re.sub(r'[^\w\s]', ' ', s)
   return " ".join(s.split())
 
 

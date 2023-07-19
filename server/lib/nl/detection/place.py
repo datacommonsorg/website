@@ -94,7 +94,10 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
 # Uses NER to detect place names, recons to DCIDs, produces PlaceDetection object.
 #
 def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
-  query_items = dc.recognize_places(orig_query)
+  # Recognize Places uses comma as a signal for contained-in-place.
+  query = utils.remove_punctuations(orig_query, include_comma=True)
+
+  query_items = dc.recognize_places(query)
 
   nonplace_query_parts = []
   places_str = []
@@ -131,7 +134,7 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
   # Set PlaceDetection.
   query_without_place_substr = ' '.join(nonplace_query_parts)
   place_detection = PlaceDetection(
-      query_original=orig_query,
+      query_original=query,
       query_without_place_substr=query_without_place_substr,
       query_places_mentioned=places_str,
       places_found=resolved_places,
@@ -139,7 +142,7 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
-      "place_detection_input": orig_query,
+      "place_detection_input": query,
       "place_detection_with_places_removed": query_without_place_substr,
   }
   return place_detection
