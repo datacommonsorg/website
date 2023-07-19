@@ -75,7 +75,7 @@ class TestEmbeddings(unittest.TestCase):
       tuned_model_path = ""
       if "ft" in loader.DEFAULT_INDEX_TYPE:
         tuned_model_path = _get_tuned_model_path()
-  
+
       cls.nl_embeddings = Embeddings(_get_embeddings_file_path(),
                                      tuned_model_path)
 
