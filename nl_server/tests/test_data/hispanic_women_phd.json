@@ -217,7 +217,7 @@
               "Count_Person_Female_HispanicOrLatino"
             ],
             "CosineScore": [
-              1.0
+              1.0000001192092896
             ]
           },
           {
@@ -317,10 +317,10 @@
               "Count_Person_Female_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
             ],
             "CosineScore": [
-              0.8951905369758606,
+              0.8951907157897949,
               0.8670469522476196,
-              0.8576452136039734,
-              0.8461775779724121
+              0.8576451539993286,
+              0.8461774587631226
             ]
           }
         ],

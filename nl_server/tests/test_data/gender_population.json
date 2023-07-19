@@ -2,38 +2,32 @@
   "SV": [
     "Count_Person_Female",
     "Count_Person_Male",
-    "Median_Age_Person_Female",
     "Count_Person_Urban_Male",
-    "Median_Age_Person_Male",
-    "Count_Person_Female_TwoOrMoreRaces",
-    "Count_Person_Male_ResidesInGroupQuarters",
     "Count_Person_Urban_Female",
-    "Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters",
     "Count_Person_Male_TwoOrMoreRaces",
+    "Median_Age_Person_Female",
+    "Count_Person_Male_ResidesInGroupQuarters",
+    "Count_Person_Female_TwoOrMoreRaces",
     "Count_Person_Male_SomeOtherRaceAlone",
-    "Count_Person_Male_ResidesInInstitutionalizedGroupQuarters",
+    "Median_Age_Person_Male",
+    "Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters",
     "Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters",
-    "Count_Person_Literate_Male",
-    "Count_Person_Female_SomeOtherRaceAlone",
-    "Count_Person_Female_ResidesInGroupQuarters"
+    "Count_Person_Female_SomeOtherRaceAlone"
   ],
   "CosineScore": [
-    0.9088551998138428,
-    0.8786819577217102,
-    0.8261330127716064,
-    0.8143851161003113,
-    0.8096620440483093,
-    0.808708906173706,
-    0.7992305755615234,
-    0.7968443036079407,
-    0.7931185364723206,
-    0.780296266078949,
-    0.7792953848838806,
-    0.7700198888778687,
-    0.7653566002845764,
-    0.7629856467247009,
-    0.7627536058425903,
-    0.7572199106216431
+    0.9062607288360596,
+    0.8737514615058899,
+    0.8090390563011169,
+    0.7960467338562012,
+    0.7867253422737122,
+    0.7852922081947327,
+    0.7835091352462769,
+    0.7825151681900024,
+    0.777784526348114,
+    0.7714362144470215,
+    0.7647125720977783,
+    0.7572100162506104,
+    0.7561885118484497
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -46,7 +40,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.9913575649261475
+              1.000000238418579
             ]
           },
           {
@@ -55,11 +49,11 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              1.0
+              1.000000238418579
             ]
           }
         ],
-        "AggCosineScore": 0.9957,
+        "AggCosineScore": 1.0,
         "DelimBased": true
       },
       {
@@ -70,7 +64,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.8368306159973145
+              0.8629986047744751
             ]
           },
           {
@@ -79,7 +73,7 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0000004768371582
+              1.0000003576278687
             ]
           },
           {
@@ -88,11 +82,11 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              1.0
+              1.000000238418579
             ]
           }
         ],
-        "AggCosineScore": 0.9456,
+        "AggCosineScore": 0.9543,
         "DelimBased": false
       },
       {
@@ -103,7 +97,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.8368306159973145
+              0.8629986047744751
             ]
           },
           {
@@ -112,7 +106,7 @@
               "Count_Person_Female"
             ],
             "CosineScore": [
-              0.9790353178977966
+              0.9786159992218018
             ]
           },
           {
@@ -121,11 +115,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0000004768371582
+              1.0000003576278687
             ]
           }
         ],
-        "AggCosineScore": 0.9386,
+        "AggCosineScore": 0.9472,
         "DelimBased": false
       },
       {
@@ -136,7 +130,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.9913575649261475
+              1.000000238418579
             ]
           },
           {
@@ -146,8 +140,8 @@
               "Count_Person_Urban_Female"
             ],
             "CosineScore": [
-              0.7922648787498474,
-              0.7554663419723511
+              0.8139935731887817,
+              0.7725143432617188
             ]
           },
           {
@@ -156,11 +150,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0000004768371582
+              1.0000003576278687
             ]
           }
         ],
-        "AggCosineScore": 0.9279,
+        "AggCosineScore": 0.938,
         "DelimBased": false
       },
       {
@@ -171,7 +165,7 @@
               "Count_Person_Male"
             ],
             "CosineScore": [
-              0.8368306159973145
+              0.8629986047744751
             ]
           },
           {
@@ -180,7 +174,7 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0000004768371582
+              1.0000003576278687
             ]
           },
           {
@@ -190,8 +184,8 @@
               "Count_Person_Urban_Female"
             ],
             "CosineScore": [
-              0.7922648787498474,
-              0.7554663419723511
+              0.8139935731887817,
+              0.7725143432617188
             ]
           },
           {
@@ -200,11 +194,11 @@
               "Count_Person"
             ],
             "CosineScore": [
-              1.0000004768371582
+              1.0000003576278687
             ]
           }
         ],
-        "AggCosineScore": 0.9073,
+        "AggCosineScore": 0.9192,
         "DelimBased": false
       }
     ]

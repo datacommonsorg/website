@@ -4,34 +4,26 @@
     "Count_Person_BelowPovertyLevelInThePast12Months",
     "dc/topic/SDG_1",
     "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
-    "Count_Person_PovertyStatusDetermined",
-    "Count_Person_AbovePovertyLevelInThePast12Months",
+    "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+    "Percent_Person_WithPhysicalHealthNotGood",
     "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine",
-    "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine",
-    "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState",
-    "Count_Person_15To50Years_Female_1To1.99RatioToPovertyLine",
-    "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-    "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-    "Count_Person_15To50Years_Female_PovertyStatusDetermined",
-    "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty",
-    "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
+    "dc/9pmyhk89dj3pf",
+    "Median_Income_Household_NoHealthInsurance",
+    "Count_Person_AbovePovertyLevelInThePast12Months",
+    "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
   ],
   "CosineScore": [
-    0.7989469766616821,
-    0.7868691682815552,
-    0.7700472474098206,
-    0.7685173153877258,
-    0.7638065218925476,
-    0.7529900670051575,
-    0.7486113905906677,
-    0.7485608458518982,
-    0.7454262971878052,
-    0.7453998923301697,
-    0.7393949627876282,
-    0.7377615571022034,
-    0.7322717905044556,
-    0.730510950088501,
-    0.7291751503944397
+    0.7822206020355225,
+    0.7226098775863647,
+    0.6942383050918579,
+    0.6619626879692078,
+    0.6618671417236328,
+    0.6570671796798706,
+    0.6534703373908997,
+    0.6534618735313416,
+    0.6500980854034424,
+    0.6451299786567688,
+    0.6361513733863831
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -44,24 +36,22 @@
               "Percent_Person_Obesity"
             ],
             "CosineScore": [
-              0.9572590589523315
+              0.9060235619544983
             ]
           },
           {
             "QueryPart": "poverty",
             "SV": [
               "dc/topic/SDG_1",
-              "Count_Person_BelowPovertyLevelInThePast12Months",
-              "Count_Person_PovertyStatusDetermined"
+              "Count_Person_BelowPovertyLevelInThePast12Months"
             ],
             "CosineScore": [
-              0.9627072215080261,
-              0.9453514814376831,
-              0.940418004989624
+              0.9062049388885498,
+              0.890221893787384
             ]
           }
         ],
-        "AggCosineScore": 0.96,
+        "AggCosineScore": 0.9061,
         "DelimBased": true
       }
     ]
