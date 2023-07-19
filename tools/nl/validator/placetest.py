@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import csv
 from dataclasses import dataclass
-import json
 import os
 from typing import Dict, List, Set
 
@@ -34,7 +32,12 @@ flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-URL = 'https://api.datacommons.org/v1/recognize/places?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
+AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
+assert AUTOPUSH_KEY
+
+# Use autopush endpoint for recon to get the latest fixes.
+URL = f'https://autopush.api.datacommons.org/v1/recognize/places?key={AUTOPUSH_KEY}'
+
 POP_URL = 'https://api.datacommons.org/v1/bulk/observations/point?key=AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
 
 OUT_HEADER = [

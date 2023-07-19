@@ -117,7 +117,6 @@ def _prepare_queryset_via_delimiters(query: str,
   if not cleaned_parts:
     return 0
 
-  logging.info(f'{query} -> delimiter parts {cleaned_parts}')
   querysets.append(
       QuerySet(nsplits=len(cleaned_parts),
                delim_based=True,
