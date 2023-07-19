@@ -127,6 +127,30 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Nominal Value) compared with other variables in United States",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc",
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc"
+                    ],
+                    "title": "Per Capita GDP (Nominal Value) compared with other variables in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {

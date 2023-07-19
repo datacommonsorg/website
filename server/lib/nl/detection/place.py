@@ -23,7 +23,7 @@ from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
 import shared.lib.utils as utils
 
-_MAX_RELATED_PLACES = 5
+MAX_IDENTICAL_NAME_PLACES = 5
 
 
 #
@@ -121,7 +121,7 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       places_str.append(item['span'].lower())
 
       related = []
-      for rp in item['places'][1:_MAX_RELATED_PLACES + 1]:
+      for rp in item['places'][1:MAX_IDENTICAL_NAME_PLACES + 1]:
         if 'dcid' in rp:
           related.append(rp['dcid'])
       main2corrections[main] = related

@@ -36,7 +36,8 @@ from server.lib.nl.fulfillment.types import PopulateState
 
 # Limit the number of charts.  Each chart may double for per-capita.
 # With 3 per row max, allow up to 2 rows, without any per-capita.
-_MAX_NUM_CHARTS = 6
+# TODO: Drop this to 6
+_MAX_NUM_CHARTS = 15
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5

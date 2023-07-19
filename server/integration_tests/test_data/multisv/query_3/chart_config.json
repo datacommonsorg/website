@@ -44,22 +44,7 @@
     "suggestions": {
       "NL_PLACE_DISAMBIGUATION": {},
       "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Hispanic Asian Population",
-            "nlQuery": "Hispanic Asian Population California"
-          },
-          {
-            "displayName": "Non Hispanic Female Population",
-            "nlQuery": "Non Hispanic Female Population California"
-          },
-          {
-            "displayName": "Population: Foreign Born, Southamerica, Hispanic or Latino",
-            "nlQuery": "Population: Foreign Born, Southamerica, Hispanic or Latino California"
-          }
-        ]
-      }
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

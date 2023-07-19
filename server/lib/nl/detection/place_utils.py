@@ -20,6 +20,7 @@ from server.lib.config import is_test_env
 import server.lib.fetch as fetch
 from server.lib.nl.detection.types import Place
 
+# Have enough to account for existence checks.
 MAX_SIMILAR_PLACES = 10
 
 

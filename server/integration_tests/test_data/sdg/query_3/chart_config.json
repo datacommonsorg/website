@@ -196,9 +196,40 @@
               }
             ],
             "title": "Health worker density"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Variable_Country_HealthAndEducation"
+                    ],
+                    "title": "Count of Statistical Variable: Health And Education, Country in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Variable_Country_HealthAndEducation_pc"
+                    ],
+                    "title": "Per Capita Count of Statistical Variable: Health And Education, Country in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_Variable_Country_HealthAndEducation": {
+            "name": "Count of Statistical Variable: Health And Education, Country",
+            "statVar": "Count_Variable_Country_HealthAndEducation"
+          },
+          "Count_Variable_Country_HealthAndEducation_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Statistical Variable: Health And Education, Country",
+            "statVar": "Count_Variable_Country_HealthAndEducation"
+          },
           "sdg/SH_ACS_UNHC": {
             "name": "Universal health coverage index",
             "statVar": "sdg/SH_ACS_UNHC"
@@ -304,42 +335,7 @@
           }
         ]
       },
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population With VA Health Care",
-            "nlQuery": "Population With VA Health Care Earth"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode Earth"
-          },
-          {
-            "displayName": "Population With Only VA Health Care",
-            "nlQuery": "Population With Only VA Health Care Earth"
-          },
-          {
-            "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
-            "nlQuery": "Count of Establishment: Health Care And Social Assistance (NAICS/62) Earth"
-          },
-          {
-            "displayName": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "nlQuery": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) Earth"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Foodborne Transmission",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Foodborne Transmission Earth"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission Earth"
-          },
-          {
-            "displayName": "Count of Statistical Variable: Health And Education, Country",
-            "nlQuery": "Count of Statistical Variable: Health And Education, Country Earth"
-          }
-        ]
-      }
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

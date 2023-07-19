@@ -261,7 +261,7 @@ def _build_chart_vars(state: PopulateState, sv: str,
 
 
 #
-# Update SVs from `exist_states` into `uttr.extra_success_svs` if
+# Update SVs from `sve_states` into `uttr.extra_success_svs` if
 # it was originally returned from the embeddings.
 #
 def update_extra_success_svs(uttr: Utterance,
