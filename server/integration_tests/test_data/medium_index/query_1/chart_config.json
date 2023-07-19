@@ -134,229 +134,17 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household"
-                    ],
-                    "title": "Households in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_pc"
-                    ],
-                    "title": "Per Capita Households in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold"
-                    ],
-                    "title": "Count of Household: Family Household, Some Other Race Alone in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Some Other Race Alone in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold"
-                    ],
-                    "title": "Count of Household: Family Household, Two or More Races in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Two or More Races in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied"
-                    ],
-                    "title": "Count of Household: Family Household, Owner Occupied in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Owner Occupied in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker"
-                    ],
-                    "title": "Count of Household: Family Household, 3 Worker or More in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With3OrMoreWorker_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, 3 Worker or More in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied"
-                    ],
-                    "title": "Count of Household: Married Couple Family Household, Owner Occupied in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Married Couple Family Household, Owner Occupied in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits"
-                    ],
-                    "title": "Count of Household: Single Mother Family Household, Two or More Units in Counties of California (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Single Mother Family Household, Two or More Units in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Household": {
-            "name": "Households",
-            "statVar": "Count_Household"
-          },
           "Count_Household_FamilyHousehold": {
             "name": "Count of Household: Family Household",
             "statVar": "Count_Household_FamilyHousehold"
-          },
-          "Count_Household_FamilyHousehold_OwnerOccupied": {
-            "name": "Count of Household: Family Household, Owner Occupied",
-            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
-          },
-          "Count_Household_FamilyHousehold_OwnerOccupied_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Owner Occupied",
-            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
-          },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker": {
-            "name": "Count of Household: Family Household, 3 Worker or More",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
-          },
-          "Count_Household_FamilyHousehold_With3OrMoreWorker_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, 3 Worker or More",
-            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker"
           },
           "Count_Household_FamilyHousehold_pc": {
             "denom": "Count_Person",
             "name": "Count of Household: Family Household",
             "statVar": "Count_Household_FamilyHousehold"
-          },
-          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold": {
-            "name": "Count of Household: Family Household, Some Other Race Alone",
-            "statVar": "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold"
-          },
-          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Some Other Race Alone",
-            "statVar": "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold"
-          },
-          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold": {
-            "name": "Count of Household: Family Household, Two or More Races",
-            "statVar": "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold"
-          },
-          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Two or More Races",
-            "statVar": "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold"
-          },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied": {
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied"
-          },
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Married Couple Family Household, Owner Occupied",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied"
-          },
-          "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits": {
-            "name": "Count of Household: Single Mother Family Household, Two or More Units",
-            "statVar": "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits"
-          },
-          "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Single Mother Family Household, Two or More Units",
-            "statVar": "Count_Household_SingleMotherFamilyHousehold_TwoOrMoreUnits"
           },
           "Count_Household_With0AvailableVehicles": {
             "name": "Count of Household: 0 Available Vehicles",
@@ -402,11 +190,6 @@
             "denom": "Count_Person",
             "name": "Count of Household: 4 Available Vehicles or More",
             "statVar": "Count_Household_With4OrMoreAvailableVehicles"
-          },
-          "Count_Household_pc": {
-            "denom": "Count_Person",
-            "name": "Households",
-            "statVar": "Count_Household"
           }
         }
       }
@@ -420,11 +203,67 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "Maryland",
+            "nlQuery": "cars per family in California, Maryland counties"
+          },
+          {
+            "displayName": "Pennsylvania",
+            "nlQuery": "cars per family in California, Pennsylvania counties"
+          },
+          {
+            "displayName": "Missouri",
+            "nlQuery": "cars per family in California, Missouri counties"
+          },
+          {
+            "displayName": "Kentucky",
+            "nlQuery": "cars per family in California, Kentucky counties"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Utah",
-            "nlQuery": "cars per family in utah counties"
+            "displayName": "Minnesota",
+            "nlQuery": "cars per family in Minnesota counties"
+          },
+          {
+            "displayName": "Hawaii",
+            "nlQuery": "cars per family in Hawaii counties"
+          },
+          {
+            "displayName": "New York",
+            "nlQuery": "cars per family in New York counties"
+          },
+          {
+            "displayName": "Michigan",
+            "nlQuery": "cars per family in Michigan counties"
+          },
+          {
+            "displayName": "Nebraska",
+            "nlQuery": "cars per family in Nebraska counties"
+          },
+          {
+            "displayName": "Wyoming",
+            "nlQuery": "cars per family in Wyoming counties"
+          },
+          {
+            "displayName": "Wisconsin",
+            "nlQuery": "cars per family in Wisconsin counties"
+          },
+          {
+            "displayName": "Oklahoma",
+            "nlQuery": "cars per family in Oklahoma counties"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "cars per family in District of Columbia counties"
+          },
+          {
+            "displayName": "Maryland",
+            "nlQuery": "cars per family in Maryland counties"
           }
         ]
       },
@@ -437,6 +276,42 @@
           {
             "displayName": "Show lowest",
             "nlQuery": "cars per family in california counties - show lowest"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Households",
+            "nlQuery": "Households California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Some Other Race Alone",
+            "nlQuery": "Count of Household: Family Household, Some Other Race Alone California"
+          },
+          {
+            "displayName": "Count of Household: Urban",
+            "nlQuery": "Count of Household: Urban California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Two or More Races",
+            "nlQuery": "Count of Household: Family Household, Two or More Races California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Owner Occupied",
+            "nlQuery": "Count of Household: Family Household, Owner Occupied California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, 3 Worker or More",
+            "nlQuery": "Count of Household: Family Household, 3 Worker or More California"
+          },
+          {
+            "displayName": "Count of Household: Married Couple Family Household, Owner Occupied",
+            "nlQuery": "Count of Household: Married Couple Family Household, Owner Occupied California"
+          },
+          {
+            "displayName": "Count of Household: Single Mother Family Household, Two or More Units",
+            "nlQuery": "Count of Household: Single Mother Family Household, Two or More Units California"
           }
         ]
       }

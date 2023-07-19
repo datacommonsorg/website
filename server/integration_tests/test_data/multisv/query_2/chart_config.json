@@ -182,66 +182,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -253,24 +193,6 @@
             "denom": "Count_Person",
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",

@@ -234,74 +234,12 @@
               }
             ],
             "title": "Maximum Temperature"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_HeatTemperatureEvent"
-                    ],
-                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HeatTemperatureEvent"
-                    ],
-                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Heat Temperature Event"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Mean_MaxTemperature"
-                    ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Mean_MaxTemperature"
-                    ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean maximum temperature"
           }
         ],
         "statVarSpec": {
-          "Count_HeatTemperatureEvent": {
-            "name": "Count of Heat Temperature Event",
-            "statVar": "Count_HeatTemperatureEvent"
-          },
           "Max_Temperature": {
             "name": "Maximum Temperature",
             "statVar": "Max_Temperature"
-          },
-          "Mean_MaxTemperature": {
-            "name": "Mean maximum temperature",
-            "statVar": "Mean_MaxTemperature"
           },
           "Mean_Temperature": {
             "name": "Mean Temperature",
@@ -373,6 +311,34 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Count of Heat Temperature Event",
+            "nlQuery": "Count of Heat Temperature Event California"
+          },
+          {
+            "displayName": "Mean maximum temperature",
+            "nlQuery": "Mean maximum temperature California"
+          },
+          {
+            "displayName": "Annual Generation of Energy: Heat",
+            "nlQuery": "Annual Generation of Energy: Heat California"
+          },
+          {
+            "displayName": "Annual Loss of Energy: Heat",
+            "nlQuery": "Annual Loss of Energy: Heat California"
+          },
+          {
+            "displayName": "Heat content, other industrial, annual",
+            "nlQuery": "Heat content, other industrial, annual California"
+          }
+        ]
+      }
     }
   },
   "context": {},

@@ -81,14 +81,71 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "Maryland",
+            "nlQuery": "Which counties in California, Maryland have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Pennsylvania",
+            "nlQuery": "Which counties in California, Pennsylvania have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Missouri",
+            "nlQuery": "Which counties in California, Missouri have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Kentucky",
+            "nlQuery": "Which counties in California, Kentucky have the highest levels of blood pressure"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Utah",
-            "nlQuery": "Which counties in utah have the highest levels of blood pressure"
+            "displayName": "Oregon",
+            "nlQuery": "Which counties in Oregon have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Louisiana",
+            "nlQuery": "Which counties in Louisiana have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Maryland",
+            "nlQuery": "Which counties in Maryland have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "New York",
+            "nlQuery": "Which counties in New York have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "West Virginia",
+            "nlQuery": "Which counties in West Virginia have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Wyoming",
+            "nlQuery": "Which counties in Wyoming have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "Which counties in Delaware have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "Which counties in Florida have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Missouri",
+            "nlQuery": "Which counties in Missouri have the highest levels of blood pressure"
+          },
+          {
+            "displayName": "Kentucky",
+            "nlQuery": "Which counties in Kentucky have the highest levels of blood pressure"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
