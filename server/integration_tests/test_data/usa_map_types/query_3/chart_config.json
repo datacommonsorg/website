@@ -83,7 +83,7 @@
         "items": [
           {
             "displayName": "California",
-            "nlQuery": "how many people are unemployed in zip codes of california state?"
+            "nlQuery": "how many people are unemployed in zip codes of california?"
           }
         ]
       },
@@ -91,11 +91,11 @@
         "items": [
           {
             "displayName": "Show highest",
-            "nlQuery": "how many people are unemployed in zip codes of washington state? - show highest"
+            "nlQuery": "how many people are unemployed in zip codes of washington? - show highest"
           },
           {
             "displayName": "Show lowest",
-            "nlQuery": "how many people are unemployed in zip codes of washington state? - show lowest"
+            "nlQuery": "how many people are unemployed in zip codes of washington? - show lowest"
           }
         ]
       }
