@@ -56,6 +56,11 @@ export class DatacommonsPieComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: API root to use to fetch data
+  // Defaults to https://datacommons.org
+  @property()
+  apiRoot: string;
+
   // Optional: Colors to use for statistical variables
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
@@ -92,7 +97,7 @@ export class DatacommonsPieComponent extends LitElement {
       });
     });
     const donutTileProps: DonutTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       pie: !this.donut,

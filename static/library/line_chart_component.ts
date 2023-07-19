@@ -44,6 +44,11 @@ export class DatacommonsLineComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: API root to use to fetch data
+  // Defaults to https://datacommons.org
+  @property()
+  apiRoot: string;
+
   // Optional: colors to use
   // Length should match number of variables
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -63,7 +68,7 @@ export class DatacommonsLineComponent extends LitElement {
 
   render(): HTMLElement {
     const tileProps: LineTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       place: {
