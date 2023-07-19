@@ -36,8 +36,9 @@ from server.lib.nl.fulfillment.types import PopulateState
 
 # Limit the number of charts.  Each chart may double for per-capita.
 # With 3 per row max, allow up to 2 rows, without any per-capita.
-# TODO: Drop this to 6
 _MAX_NUM_CHARTS = 15
+# TODO: Drop _MAX_NUM_CHARTS to 6 and deprecate this
+_RELATED_VAR_CHART_THRESHOLD = 6
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
@@ -318,9 +319,12 @@ def _add_charts(state: PopulateState, places: List[Place],
       if num_charts >= _MAX_NUM_CHARTS:
         break
 
-    if num_charts >= _MAX_NUM_CHARTS:
+    if (not state.uttr.extra_success_svs and
+        num_charts >= _RELATED_VAR_CHART_THRESHOLD):
       # If there are any existence-check passing SVs, update uttr with them.
       update_extra_success_svs(state.uttr, tracker.exist_sv_states[esidx + 1:])
+    
+    if num_charts >= _MAX_NUM_CHARTS:
       return True
 
   # Handle extended/comparable SVs only for simple query since

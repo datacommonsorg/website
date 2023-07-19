@@ -825,7 +825,34 @@
     "suggestions": {
       "NL_PLACE_DISAMBIGUATION": {},
       "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Population: 5th And 6th Grade",
+            "nlQuery": "Population: 5th And 6th Grade Sunnyvale"
+          },
+          {
+            "displayName": "Population: Primary School",
+            "nlQuery": "Population: Primary School Sunnyvale"
+          },
+          {
+            "displayName": "Population: Enrolled in Grade 8",
+            "nlQuery": "Population: Enrolled in Grade 8 Sunnyvale"
+          },
+          {
+            "displayName": "Population: 5th Grade",
+            "nlQuery": "Population: 5th Grade Sunnyvale"
+          },
+          {
+            "displayName": "Population: 10th Grade",
+            "nlQuery": "Population: 10th Grade Sunnyvale"
+          },
+          {
+            "displayName": "Population: Enrolled in Grade 1",
+            "nlQuery": "Population: Enrolled in Grade 1 Sunnyvale"
+          }
+        ]
+      }
     }
   },
   "context": {},
