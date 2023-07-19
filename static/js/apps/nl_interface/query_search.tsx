@@ -28,8 +28,6 @@ import { NLOptions } from "./nl_options";
 interface QuerySearchPropType {
   queries: string[];
   onQuerySearched: (query: string) => void;
-  indexType: string;
-  setIndexType: (idx: string) => void;
   detector: string;
   setDetector: (v: string) => void;
 }
@@ -97,12 +95,7 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
             <span className="material-icons">history</span>
           </Button>
         </div>
-        <NLOptions
-          indexType={props.indexType}
-          setIndexType={props.setIndexType}
-          detector={props.detector}
-          setDetector={props.setDetector}
-        />
+        <NLOptions detector={props.detector} setDetector={props.setDetector} />
       </Container>
     </div>
   );

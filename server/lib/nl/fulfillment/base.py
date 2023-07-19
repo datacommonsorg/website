@@ -105,7 +105,16 @@ def populate_charts(state: PopulateState) -> bool:
   else:
     # Only if user has not provided a place, seek a place from the context.
     # Otherwise the result seems unexpected to them.
-    for pl in context.places_from_context(state.uttr):
+
+    # Special case: if we didn't find a place *and* the place-type is
+    # COUNTRY we will not look in the context!  Since most often
+    # [countries with X] refers to "Earth", the default place.
+    if state.place_type == ContainedInPlaceType.COUNTRY:
+      context_places = []
+    else:
+      context_places = context.places_from_context(state.uttr)
+
+    for pl in context_places:
       populate_attempted = True
       # Important to set this for maybe_set_fallback().
       # But always reset after populate_charts_for_places(), so
