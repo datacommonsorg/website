@@ -35,7 +35,7 @@ class IntegrationTest(NLWebServerTestCase):
                    detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
-                   place_detector='ner',
+                   place_detector='dc',
                    failure=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
@@ -213,7 +213,8 @@ class IntegrationTest(NLWebServerTestCase):
         'show me the population of mexico city',
         'counties in the US with the most poverty',
     ],
-                      check_place_detection=True)
+                      check_place_detection=True,
+                      place_detector='ner')
 
   # This test uses DC's Recognize Places API.
   # TODO: "US" is not detected by RecognizePlaces.
@@ -227,8 +228,7 @@ class IntegrationTest(NLWebServerTestCase):
         'show me the population of mexico city',
         'counties in the US with the most poverty',
     ],
-                      check_place_detection=True,
-                      place_detector='dc')
+                      check_place_detection=True)
 
   def test_international(self):
     self.run_sequence('international', [
@@ -249,7 +249,7 @@ class IntegrationTest(NLWebServerTestCase):
             # Shows map of tracts.
             'household median income across tracts of Placer County',
             # Shows map of ZCTAs.
-            'how many people are unemployed in zip codes of washington state?'
+            'how many people are unemployed in zip codes of washington?'
         ])
 
   def test_sdg(self):

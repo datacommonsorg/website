@@ -32,8 +32,6 @@ interface QuerySearchPropType {
   setIndexType: (idx: string) => void;
   detector: string;
   setDetector: (v: string) => void;
-  placeDetector: string;
-  setPlaceDetector: (v: string) => void;
 }
 
 export function QuerySearch(props: QuerySearchPropType): JSX.Element {
@@ -104,8 +102,6 @@ export function QuerySearch(props: QuerySearchPropType): JSX.Element {
           setIndexType={props.setIndexType}
           detector={props.detector}
           setDetector={props.setDetector}
-          placeDetector={props.placeDetector}
-          setPlaceDetector={props.setPlaceDetector}
         />
       </Container>
     </div>

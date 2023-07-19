@@ -27,7 +27,6 @@ import {
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
 import { getUrlToken, getUrlTokenOrDefault } from "../../utils/url_utils";
-import { QueryExamples } from "./query_examples";
 import { QueryHistory } from "./query_history";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
@@ -51,10 +50,10 @@ export function App(): JSX.Element {
   const [detector, setDetector] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
   );
-  const [placeDetector, setPlaceDetector] = useState(
+  const placeDetector = useRef<string>(
     getUrlTokenOrDefault(
       NL_URL_PARAMS.PLACE_DETECTOR,
-      NL_PLACE_DETECTOR_VALS.NER
+      NL_PLACE_DETECTOR_VALS.DC
     )
   );
   const urlPrompts = useRef(getUrlPrompts());
@@ -191,7 +190,7 @@ export function App(): JSX.Element {
         query={q}
         indexType={indexType}
         detector={detector}
-        placeDetector={placeDetector}
+        placeDetector={placeDetector.current}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
@@ -205,17 +204,14 @@ export function App(): JSX.Element {
 
   return (
     <>
-      <Sidebar />
-      <div className="chat-container">
-        <div className="chat-body" id="results-thread-container">
-          {queries.length === 0 && <QueryWelcome />}
+      <Sidebar queries={queries} onQueryItemClick={onQueryItemClick} />
+      <div className="context-container">
+        <div className="context-body" id="results-thread-container">
+          <QueryWelcome onQueryItemClick={onQueryItemClick} />
           {queryResults}
         </div>
-        {queries.length === 0 && (
-          <QueryExamples onItemClick={onQueryItemClick} />
-        )}
         <div
-          className="chat-search"
+          className="context-search"
           id={`search-section-container${isStartState ? "-center" : "-bottom"}`}
         >
           <QuerySearch
@@ -225,10 +221,8 @@ export function App(): JSX.Element {
             }}
             indexType={indexType}
             detector={detector}
-            placeDetector={placeDetector}
             setIndexType={setIndexType}
             setDetector={setDetector}
-            setPlaceDetector={setPlaceDetector}
           />
           {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
         </div>
