@@ -323,7 +323,7 @@ def _add_charts(state: PopulateState, places: List[Place],
         num_charts >= _RELATED_VAR_CHART_THRESHOLD):
       # If there are any existence-check passing SVs, update uttr with them.
       update_extra_success_svs(state.uttr, tracker.exist_sv_states[esidx + 1:])
-    
+
     if num_charts >= _MAX_NUM_CHARTS:
       return True
 
