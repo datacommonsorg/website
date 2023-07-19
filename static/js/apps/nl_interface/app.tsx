@@ -50,7 +50,7 @@ export function App(): JSX.Element {
   const [detector, setDetector] = useState(
     getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
   );
-  const [placeDetector, setPlaceDetector] = useState(
+  const placeDetector = useRef<string>(
     getUrlTokenOrDefault(
       NL_URL_PARAMS.PLACE_DETECTOR,
       NL_PLACE_DETECTOR_VALS.DC
@@ -190,7 +190,7 @@ export function App(): JSX.Element {
         query={q}
         indexType={indexType}
         detector={detector}
-        placeDetector={placeDetector}
+        placeDetector={placeDetector.current}
         contextHistory={getContextHistory(i)}
         addContextCallback={addContext}
         showData={false}
@@ -221,10 +221,8 @@ export function App(): JSX.Element {
             }}
             indexType={indexType}
             detector={detector}
-            placeDetector={placeDetector}
             setIndexType={setIndexType}
             setDetector={setDetector}
-            setPlaceDetector={setPlaceDetector}
           />
           {isStartState && <QueryHistory onItemClick={onQueryItemClick} />}
         </div>
