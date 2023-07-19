@@ -82,68 +82,68 @@
       "NL_PLACE_DISAMBIGUATION": {
         "items": [
           {
-            "displayName": "District of Columbia",
-            "nlQuery": "how many people are unemployed in zip codes of Washington, District of Columbia?"
+            "displayName": "City in District of Columbia",
+            "nlQuery": "how many people are unemployed in zip codes of Washington District of Columbia?"
           },
           {
-            "displayName": "Utah",
-            "nlQuery": "how many people are unemployed in zip codes of Washington, Utah?"
+            "displayName": "City in Utah",
+            "nlQuery": "how many people are unemployed in zip codes of Washington Utah?"
           },
           {
-            "displayName": "Illinois",
-            "nlQuery": "how many people are unemployed in zip codes of Washington, Illinois?"
+            "displayName": "City in Illinois",
+            "nlQuery": "how many people are unemployed in zip codes of Washington Illinois?"
           },
           {
-            "displayName": "Missouri",
-            "nlQuery": "how many people are unemployed in zip codes of Washington, Missouri?"
+            "displayName": "City in Missouri",
+            "nlQuery": "how many people are unemployed in zip codes of Washington Missouri?"
           },
           {
-            "displayName": "Pennsylvania",
-            "nlQuery": "how many people are unemployed in zip codes of Washington, Pennsylvania?"
+            "displayName": "City in Pennsylvania",
+            "nlQuery": "how many people are unemployed in zip codes of Washington Pennsylvania?"
           }
         ]
       },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Hawaii",
-            "nlQuery": "how many people are unemployed in zip codes of Hawaii?"
+            "displayName": "Alabama",
+            "nlQuery": "how many people are unemployed in zip codes of Alabama?"
           },
           {
-            "displayName": "Missouri",
-            "nlQuery": "how many people are unemployed in zip codes of Missouri?"
+            "displayName": "Alaska",
+            "nlQuery": "how many people are unemployed in zip codes of Alaska?"
           },
           {
-            "displayName": "New Mexico",
-            "nlQuery": "how many people are unemployed in zip codes of New Mexico?"
+            "displayName": "Arizona",
+            "nlQuery": "how many people are unemployed in zip codes of Arizona?"
           },
           {
-            "displayName": "West Virginia",
-            "nlQuery": "how many people are unemployed in zip codes of West Virginia?"
+            "displayName": "Arkansas",
+            "nlQuery": "how many people are unemployed in zip codes of Arkansas?"
           },
           {
-            "displayName": "Indiana",
-            "nlQuery": "how many people are unemployed in zip codes of Indiana?"
+            "displayName": "California",
+            "nlQuery": "how many people are unemployed in zip codes of California?"
           },
           {
-            "displayName": "Wyoming",
-            "nlQuery": "how many people are unemployed in zip codes of Wyoming?"
+            "displayName": "Colorado",
+            "nlQuery": "how many people are unemployed in zip codes of Colorado?"
           },
           {
-            "displayName": "Michigan",
-            "nlQuery": "how many people are unemployed in zip codes of Michigan?"
+            "displayName": "Connecticut",
+            "nlQuery": "how many people are unemployed in zip codes of Connecticut?"
           },
           {
-            "displayName": "South Carolina",
-            "nlQuery": "how many people are unemployed in zip codes of South Carolina?"
+            "displayName": "Delaware",
+            "nlQuery": "how many people are unemployed in zip codes of Delaware?"
           },
           {
-            "displayName": "Oklahoma",
-            "nlQuery": "how many people are unemployed in zip codes of Oklahoma?"
+            "displayName": "District of Columbia",
+            "nlQuery": "how many people are unemployed in zip codes of District of Columbia?"
           },
           {
-            "displayName": "Montana",
-            "nlQuery": "how many people are unemployed in zip codes of Montana?"
+            "displayName": "Florida",
+            "nlQuery": "how many people are unemployed in zip codes of Florida?"
           }
         ]
       },

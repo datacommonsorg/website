@@ -206,64 +206,64 @@
       "NL_PLACE_DISAMBIGUATION": {
         "items": [
           {
-            "displayName": "Maryland",
-            "nlQuery": "cars per family in California, Maryland counties"
+            "displayName": "City in Maryland",
+            "nlQuery": "cars per family in California Maryland counties"
           },
           {
-            "displayName": "Pennsylvania",
-            "nlQuery": "cars per family in California, Pennsylvania counties"
+            "displayName": "City in Pennsylvania",
+            "nlQuery": "cars per family in California Pennsylvania counties"
           },
           {
-            "displayName": "Missouri",
-            "nlQuery": "cars per family in California, Missouri counties"
+            "displayName": "City in Missouri",
+            "nlQuery": "cars per family in California Missouri counties"
           },
           {
-            "displayName": "Kentucky",
-            "nlQuery": "cars per family in California, Kentucky counties"
+            "displayName": "City in Kentucky",
+            "nlQuery": "cars per family in California Kentucky counties"
           }
         ]
       },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Minnesota",
-            "nlQuery": "cars per family in Minnesota counties"
+            "displayName": "Alabama",
+            "nlQuery": "cars per family in Alabama counties"
           },
           {
-            "displayName": "Hawaii",
-            "nlQuery": "cars per family in Hawaii counties"
+            "displayName": "Alaska",
+            "nlQuery": "cars per family in Alaska counties"
           },
           {
-            "displayName": "New York",
-            "nlQuery": "cars per family in New York counties"
+            "displayName": "Arizona",
+            "nlQuery": "cars per family in Arizona counties"
           },
           {
-            "displayName": "Michigan",
-            "nlQuery": "cars per family in Michigan counties"
+            "displayName": "Arkansas",
+            "nlQuery": "cars per family in Arkansas counties"
           },
           {
-            "displayName": "Nebraska",
-            "nlQuery": "cars per family in Nebraska counties"
+            "displayName": "California",
+            "nlQuery": "cars per family in California counties"
           },
           {
-            "displayName": "Wyoming",
-            "nlQuery": "cars per family in Wyoming counties"
+            "displayName": "Colorado",
+            "nlQuery": "cars per family in Colorado counties"
           },
           {
-            "displayName": "Wisconsin",
-            "nlQuery": "cars per family in Wisconsin counties"
+            "displayName": "Connecticut",
+            "nlQuery": "cars per family in Connecticut counties"
           },
           {
-            "displayName": "Oklahoma",
-            "nlQuery": "cars per family in Oklahoma counties"
+            "displayName": "Delaware",
+            "nlQuery": "cars per family in Delaware counties"
           },
           {
             "displayName": "District of Columbia",
             "nlQuery": "cars per family in District of Columbia counties"
           },
           {
-            "displayName": "Maryland",
-            "nlQuery": "cars per family in Maryland counties"
+            "displayName": "Florida",
+            "nlQuery": "cars per family in Florida counties"
           }
         ]
       },

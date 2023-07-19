@@ -143,64 +143,64 @@
       "NL_PLACE_DISAMBIGUATION": {
         "items": [
           {
-            "displayName": "Maryland",
-            "nlQuery": "family earnings in California, Maryland"
+            "displayName": "City in Maryland",
+            "nlQuery": "family earnings in California Maryland"
           },
           {
-            "displayName": "Pennsylvania",
-            "nlQuery": "family earnings in California, Pennsylvania"
+            "displayName": "City in Pennsylvania",
+            "nlQuery": "family earnings in California Pennsylvania"
           },
           {
-            "displayName": "Missouri",
-            "nlQuery": "family earnings in California, Missouri"
+            "displayName": "City in Missouri",
+            "nlQuery": "family earnings in California Missouri"
           },
           {
-            "displayName": "Kentucky",
-            "nlQuery": "family earnings in California, Kentucky"
+            "displayName": "City in Kentucky",
+            "nlQuery": "family earnings in California Kentucky"
           }
         ]
       },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Massachusetts",
-            "nlQuery": "family earnings in Massachusetts"
-          },
-          {
-            "displayName": "North Dakota",
-            "nlQuery": "family earnings in North Dakota"
-          },
-          {
-            "displayName": "West Virginia",
-            "nlQuery": "family earnings in West Virginia"
-          },
-          {
-            "displayName": "Wyoming",
-            "nlQuery": "family earnings in Wyoming"
-          },
-          {
-            "displayName": "Nevada",
-            "nlQuery": "family earnings in Nevada"
-          },
-          {
-            "displayName": "Nebraska",
-            "nlQuery": "family earnings in Nebraska"
-          },
-          {
-            "displayName": "Florida",
-            "nlQuery": "family earnings in Florida"
-          },
-          {
-            "displayName": "Arizona",
-            "nlQuery": "family earnings in Arizona"
+            "displayName": "Alabama",
+            "nlQuery": "family earnings in Alabama"
           },
           {
             "displayName": "Alaska",
             "nlQuery": "family earnings in Alaska"
           },
           {
-            "displayName": "Texas",
-            "nlQuery": "family earnings in Texas"
+            "displayName": "Arizona",
+            "nlQuery": "family earnings in Arizona"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "family earnings in Arkansas"
+          },
+          {
+            "displayName": "California",
+            "nlQuery": "family earnings in California"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "family earnings in Colorado"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "family earnings in Connecticut"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "family earnings in Delaware"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "family earnings in District of Columbia"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "family earnings in Florida"
           }
         ]
       },

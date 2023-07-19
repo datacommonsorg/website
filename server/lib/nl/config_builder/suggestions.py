@@ -41,6 +41,8 @@ class SuggestionBuilder:
     k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_PLACE)
     self.config.suggestions[k].CopyFrom(Suggestion(items=items))
 
+  # TODO: Perform type check too.
+  # TODO: Ensure that the disambiguated query works with recognize-places
   def add_identical_places(self):
     # First get the containedInPlace triples.
     places_detected = self.uttr.detection.places_detected
@@ -49,26 +51,31 @@ class SuggestionBuilder:
     if not places_detected.identical_name_as_main_place:
       return
 
-    res = fetch.raw_property_values(
-        places_detected.identical_name_as_main_place, 'containedInPlace')
-    place2cip = {}
-    # TODO: Perform type check too.
+    dcids = [p.dcid for p in places_detected.identical_name_as_main_place]
+    res = fetch.raw_property_values(dcids, 'containedInPlace')
+    dcid2cip = {}
     for p, cips in res.items():
       for cip in cips:
         if 'dcid' not in cip or 'name' not in cip or 'types' not in cip:
           continue
-        place2cip[p] = cip['name']
+        dcid2cip[p] = cip['name']
         break
 
     items = []
     plname = self.place.name.lower()
     for p in places_detected.identical_name_as_main_place:
-      if p not in place2cip:
+      id = p.dcid
+      if id not in dcid2cip:
         continue
-      nq = self.orig_query.replace(plname,
-                                   self.place.name + ', ' + place2cip[p])
+      np = dcid2cip[id]
+      # When the disambiguated place's type differs include that type.
+      if self.place.place_type != p.place_type:
+        dn = p.place_type + ' in ' + np
+      else:
+        dn = np
+      nq = self.orig_query.replace(plname, self.place.name + ' ' + np)
       if self.orig_query != nq:
-        items.append(Suggestion.Item(display_name=place2cip[p], nl_query=nq))
+        items.append(Suggestion.Item(display_name=dn, nl_query=nq))
     k = Suggestion.Type.Name(Suggestion.Type.NL_PLACE_DISAMBIGUATION)
     self.config.suggestions[k].CopyFrom(Suggestion(items=items))
 

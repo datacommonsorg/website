@@ -16,6 +16,7 @@ import random
 import re
 from typing import List
 
+from server.lib.config import is_test_env
 import server.lib.fetch as fetch
 from server.lib.nl.detection.types import Place
 
@@ -45,7 +46,10 @@ def get_similar(pl: Place) -> List[str]:
     return []
 
   # Randomize order.
-  random.shuffle(members)
+  if is_test_env():
+    members.sort()
+  else:
+    random.shuffle(members)
   return members[:MAX_SIMILAR_PLACES]
 
 

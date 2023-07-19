@@ -145,11 +145,7 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
     main_place = resolved_places[0]
     identicals = main2corrections[main_place.dcid]
     similars = get_similar(main_place)
-    # TODO: Skip this _get_place_from_dcids call once cohort member names
-    # come from get_similar().
-    if similars:
-      dummy = {}
-      similars = _get_place_from_dcids(similars, dummy)
+    identicals, similars = _get_places_for_listpair(identicals, similars)
 
   # Set PlaceDetection.
   query_without_place_substr = ' '.join(nonplace_query_parts)
@@ -295,7 +291,7 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   query_detection_debug_logs["main_place_inferred"] = d.main_place
   if d.identical_name_as_main_place:
     query_detection_debug_logs["disambiguation_places"] = \
-      '; '.join(d.identical_name_as_main_place)
+      '; '.join([p.dcid for p in d.identical_name_as_main_place])
   if d.similar_to_main_place:
     query_detection_debug_logs["similar_places"] = \
       '; '.join([p.name for p in d.similar_to_main_place])
@@ -305,3 +301,22 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   if not query_detection_debug_logs["place_resolution"]:
     query_detection_debug_logs[
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
+
+
+def _get_places_for_listpair(similars, identicals):
+  if not similars and not identicals:
+    return [], []
+
+  merged = list(set(similars + identicals))
+
+  dummy = {}
+  merged = _get_place_from_dcids(merged, dummy)
+
+  result = []
+  for l in [similars, identicals]:
+    # Make a map from dcid to Place
+    pmap = {p.dcid: p for p in merged if p.dcid in l}
+    # Create a Place list in the same order as input list
+    result.append([pmap[p] for p in l if p in pmap])
+
+  return result[0], result[1]
