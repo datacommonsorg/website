@@ -17,10 +17,13 @@ import re
 from typing import Dict, List
 
 from server.lib.nl.detection.place_recon import infer_place_dcids
+from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
 import shared.lib.utils as utils
+
+_MAX_RELATED_PLACES = 5
 
 
 #
@@ -101,7 +104,8 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
 
   nonplace_query_parts = []
   places_str = []
-  dcids = []
+  mains = []
+  main2corrections = {}
 
   debug_logs["place_dcid_inference"] = {}
   debug_logs["place_resolution"] = {}
@@ -112,8 +116,15 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       continue
     if 'places' in item and item['places'] and 'dcid' in item['places'][0]:
       # Use the first DCID for now.
-      dcids.append(item['places'][0]['dcid'])
+      main = item['places'][0]['dcid']
+      mains.append(main)
       places_str.append(item['span'].lower())
+
+      related = []
+      for rp in item['places'][1:_MAX_RELATED_PLACES + 1]:
+        if 'dcid' in rp:
+          related.append(rp['dcid'])
+      main2corrections[main] = related
 
       # For logging, get all DCIDs:
       debug_logs["dc_recognize_places"][item['span']] = [
@@ -123,13 +134,22 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       nonplace_query_parts.append(item['span'].lower())
 
   resolved_places = []
-  if dcids:
-    resolved_places = _get_place_from_dcids(dcids,
+  if mains:
+    resolved_places = _get_place_from_dcids(mains,
                                             debug_logs["place_resolution"])
 
   main_place = None
+  identicals = []
+  similars = []
   if resolved_places:
     main_place = resolved_places[0]
+    identicals = main2corrections[main_place.dcid]
+    similars = get_similar(main_place)
+    # TODO: Skip this _get_place_from_dcids call once cohort member names
+    # come from get_similar().
+    if similars:
+      dummy = {}
+      similars = _get_place_from_dcids(similars, dummy)
 
   # Set PlaceDetection.
   query_without_place_substr = ' '.join(nonplace_query_parts)
@@ -138,7 +158,9 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       query_without_place_substr=query_without_place_substr,
       query_places_mentioned=places_str,
       places_found=resolved_places,
-      main_place=main_place)
+      main_place=main_place,
+      identical_name_as_main_place=identicals,
+      similar_to_main_place=similars)
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
@@ -271,6 +293,12 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = d.query_places_mentioned
   query_detection_debug_logs["main_place_inferred"] = d.main_place
+  if d.identical_name_as_main_place:
+    query_detection_debug_logs["disambiguation_places"] = \
+      '; '.join(d.identical_name_as_main_place)
+  if d.similar_to_main_place:
+    query_detection_debug_logs["similar_places"] = \
+      '; '.join([p.name for p in d.similar_to_main_place])
   if not query_detection_debug_logs["place_dcid_inference"]:
     query_detection_debug_logs[
         "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."

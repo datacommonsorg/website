@@ -14,70 +14,97 @@
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.config.subject_page_pb2 import Suggestion
-from server.lib.nl.common import utterance
-
-# Type returned by _place_type() to tuple of:
-#
-#   <default-dcid>, <default-name>, <alternate-name>
-#
-# Where <alternate-name> is used if default is the
-# user-requested place.
-_DEFAULT_PLACES = {
-    'COUNTRY': ('country/USA', 'USA', 'India'),
-    'US_STATE': ('geoId/06', 'California', 'Utah'),
-    'US_COUNTY': ('geoId/06085', 'Santa Clara County', 'Placer County'),
-    'US_CITY': ('geoId/0667000', 'San Francisco', 'Sunnyvale'),
-}
+from server.lib import fetch
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.config_builder.base import SV2Thing
 
 
-# Get type
-def _place_type(id):
-  if id.startswith('country/'):
-    return 'COUNTRY'
-  if id.startswith('geoId/') and len(id) == 8:
-    return 'US_STATE'
-  if id.startswith('geoId/') and len(id) == 11:
-    return 'US_COUNTY'
-  if id.startswith('geoId/') and len(id) == 13:
-    return 'US_CITY'
-  return ''
+class SuggestionBuilder:
+
+  def __init__(self, uttr: Utterance, config: SubjectPageConfig):
+    self.orig_query = uttr.detection.original_query
+    self.place = uttr.places[0]
+    self.uttr = uttr
+    self.config = config
+
+  def add_related_places(self):
+    if not self.uttr.detection.places_detected:
+      return
+
+    items = []
+    plname = self.place.name.lower()
+    for rel in self.uttr.detection.places_detected.similar_to_main_place:
+      nq = self.orig_query.replace(plname, rel.name)
+      if self.orig_query != nq:
+        items.append(Suggestion.Item(display_name=rel.name, nl_query=nq))
+    k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_PLACE)
+    self.config.suggestions[k].CopyFrom(Suggestion(items=items))
+
+  def add_identical_places(self):
+    # First get the containedInPlace triples.
+    places_detected = self.uttr.detection.places_detected
+    if not places_detected:
+      return
+    if not places_detected.identical_name_as_main_place:
+      return
+
+    res = fetch.raw_property_values(
+        places_detected.identical_name_as_main_place, 'containedInPlace')
+    place2cip = {}
+    # TODO: Perform type check too.
+    for p, cips in res.items():
+      for cip in cips:
+        if 'dcid' not in cip or 'name' not in cip or 'types' not in cip:
+          continue
+        place2cip[p] = cip['name']
+        break
+
+    items = []
+    plname = self.place.name.lower()
+    for p in places_detected.identical_name_as_main_place:
+      if p not in place2cip:
+        continue
+      nq = self.orig_query.replace(plname,
+                                   self.place.name + ', ' + place2cip[p])
+      if self.orig_query != nq:
+        items.append(Suggestion.Item(display_name=place2cip[p], nl_query=nq))
+    k = Suggestion.Type.Name(Suggestion.Type.NL_PLACE_DISAMBIGUATION)
+    self.config.suggestions[k].CopyFrom(Suggestion(items=items))
+
+  def add_related_vars(self, sv2thing: SV2Thing):
+    items = []
+    for sv in self.uttr.extra_success_svs:
+      name = sv2thing.name.get(sv)
+      if not name:
+        continue
+      query = name + ' ' + self.place.name
+      items.append(Suggestion.Item(display_name=name, nl_query=query))
+    k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_VAR)
+    self.config.suggestions[k].CopyFrom(Suggestion(items=items))
+
+  # TODO: Add other types of related query-types
+  def add_related_query_types(self):
+    if self.uttr.query_type != QueryType.CONTAINED_IN:
+      return
+    k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_QUERY_TYPE)
+    self.config.suggestions[k].CopyFrom(
+        Suggestion(items=[
+            Suggestion.Item(display_name='Show highest',
+                            nl_query=self.orig_query + ' - show highest'),
+            Suggestion.Item(display_name='Show lowest',
+                            nl_query=self.orig_query + ' - show lowest')
+        ]))
 
 
 #
 # May populate config.suggestions based on uttr.
 #
-# TODO: Improve this ... seriously
-#
-def add(uttr: utterance.Utterance, config: SubjectPageConfig):
+def add(uttr: Utterance, sv2thing: SV2Thing, config: SubjectPageConfig):
   if not len(uttr.places) == 1 or not uttr.detection:
     return
-  p = uttr.places[0]
-
-  pt = _place_type(p.dcid)
-  if not pt:
-    return
-
-  if p.dcid == _DEFAULT_PLACES[pt][0]:
-    alt_name = _DEFAULT_PLACES[pt][2]
-  else:
-    alt_name = _DEFAULT_PLACES[pt][1]
-
-  oq = uttr.detection.original_query
-  if not oq:
-    return
-
-  nq = oq.replace(p.name.lower(), alt_name.lower())
-  if oq != nq:
-    k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_PLACE)
-    config.suggestions[k].CopyFrom(
-        Suggestion(items=[Suggestion.Item(display_name=alt_name, nl_query=nq)]))
-
-  if uttr.query_type == utterance.QueryType.CONTAINED_IN:
-    k = Suggestion.Type.Name(Suggestion.Type.NL_RELATED_QUERY_TYPE)
-    config.suggestions[k].CopyFrom(
-        Suggestion(items=[
-            Suggestion.Item(display_name='Show highest',
-                            nl_query=oq + ' - show highest'),
-            Suggestion.Item(display_name='Show lowest',
-                            nl_query=oq + ' - show lowest')
-        ]))
+  builder = SuggestionBuilder(uttr, config)
+  builder.add_related_places()
+  builder.add_identical_places()
+  builder.add_related_vars(sv2thing)
+  builder.add_related_query_types()

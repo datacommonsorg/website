@@ -21,6 +21,7 @@ from server.lib.nl.common import constants
 from server.lib.nl.common import topic
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -257,3 +258,29 @@ def _build_chart_vars(state: PopulateState, sv: str,
     return charts
 
   return []
+
+
+#
+# Update SVs from `exist_states` into `uttr.extra_success_svs` if
+# it was originally returned from the embeddings.
+#
+def update_extra_success_svs(uttr: Utterance,
+                             sve_states: List[SVExistenceCheckState]):
+  if not sve_states:
+    return
+  if not uttr.svs:
+    return
+
+  orig_svs = set(uttr.svs)
+  result = set()
+
+  for sve in sve_states:
+    if sve.sv in orig_svs:
+      result.add(sve.sv)
+
+  # Return in original order.
+  for v in uttr.svs:
+    if v in result:
+      uttr.extra_success_svs.append(v)
+  if uttr.extra_success_svs:
+    uttr.counters.info('info_extra_success_svs', uttr.extra_success_svs)

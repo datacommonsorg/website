@@ -30,11 +30,13 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
+from server.lib.nl.fulfillment.existence import update_extra_success_svs
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
-# Limit the number of charts.  With 3 per row max, allow up to 5 rows.
-_MAX_NUM_CHARTS = 15
+# Limit the number of charts.  Each chart may double for per-capita.
+# With 3 per row max, allow up to 2 rows, without any per-capita.
+_MAX_NUM_CHARTS = 6
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
@@ -278,7 +280,7 @@ def _add_charts(state: PopulateState, places: List[Place],
   existing_svs = set()
   found = False
   num_charts = 0
-  for exist_state in tracker.exist_sv_states:
+  for esidx, exist_state in enumerate(tracker.exist_sv_states):
 
     # Infer charts for the main SV/Topic.
     for exist_cv in exist_state.chart_vars_list:
@@ -304,7 +306,12 @@ def _add_charts(state: PopulateState, places: List[Place],
 
       # If we have found enough charts, return success
       if num_charts >= _MAX_NUM_CHARTS:
-        return True
+        break
+
+    if num_charts >= _MAX_NUM_CHARTS:
+      # If there are any existence-check passing SVs, update uttr with them.
+      update_extra_success_svs(state.uttr, tracker.exist_sv_states[esidx + 1:])
+      return True
 
   # Handle extended/comparable SVs only for simple query since
   # for those we would construct a single bar chart comparing the differe
