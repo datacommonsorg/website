@@ -58,7 +58,7 @@ const FEEDBACK_OPTIONS = [
   {
     sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
     content: <>&#129318;&#127995;</>,
-    tooltip: "The chart is embarassing or inappropriate for the the query",
+    tooltip: "The chart is embarrassing or inappropriate for the the query",
   },
 ];
 
