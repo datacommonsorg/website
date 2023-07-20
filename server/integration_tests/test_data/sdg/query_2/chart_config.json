@@ -1024,7 +1024,7 @@
                   {
                     "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Myanmar [Burma]",
                     "type": "LINE"
@@ -1032,7 +1032,7 @@
                   {
                     "placeDcidOverride": "country/KHM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Cambodia",
                     "type": "LINE"
@@ -1040,7 +1040,7 @@
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
@@ -1048,7 +1048,7 @@
                   {
                     "placeDcidOverride": "country/UZB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Uzbekistan",
                     "type": "LINE"
@@ -1056,7 +1056,7 @@
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
@@ -1064,7 +1064,7 @@
                   {
                     "placeDcidOverride": "country/NPL",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Nepal",
                     "type": "LINE"
@@ -1072,7 +1072,7 @@
                   {
                     "placeDcidOverride": "country/TZA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Tanzania",
                     "type": "LINE"
@@ -1080,7 +1080,7 @@
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Guinea",
                     "type": "LINE"
@@ -1088,7 +1088,7 @@
                   {
                     "placeDcidOverride": "country/NER",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Niger",
                     "type": "LINE"
@@ -1096,7 +1096,7 @@
                   {
                     "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Sierra Leone",
                     "type": "LINE"
@@ -1104,7 +1104,7 @@
                   {
                     "placeDcidOverride": "country/CHN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "China",
                     "type": "LINE"
@@ -1112,7 +1112,7 @@
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
@@ -1120,7 +1120,7 @@
                   {
                     "placeDcidOverride": "country/VNM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Vietnam",
                     "type": "LINE"
@@ -1128,7 +1128,7 @@
                   {
                     "placeDcidOverride": "country/IND",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "India",
                     "type": "LINE"
@@ -1136,7 +1136,7 @@
                   {
                     "placeDcidOverride": "country/RWA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Rwanda",
                     "type": "LINE"
@@ -1144,7 +1144,7 @@
                   {
                     "placeDcidOverride": "country/TKM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Turkmenistan",
                     "type": "LINE"
@@ -1152,7 +1152,7 @@
                   {
                     "placeDcidOverride": "country/UGA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Uganda",
                     "type": "LINE"
@@ -1160,7 +1160,7 @@
                   {
                     "placeDcidOverride": "country/AFG",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Afghanistan",
                     "type": "LINE"
@@ -1168,7 +1168,7 @@
                   {
                     "placeDcidOverride": "country/LAO",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Laos",
                     "type": "LINE"
@@ -1176,7 +1176,7 @@
                   {
                     "placeDcidOverride": "country/KGZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Kyrgyzstan",
                     "type": "LINE"
@@ -1193,7 +1193,7 @@
                   {
                     "placeDcidOverride": "country/ALB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Albania",
                     "type": "LINE"
@@ -1201,7 +1201,7 @@
                   {
                     "placeDcidOverride": "country/RUS",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Russia",
                     "type": "LINE"
@@ -1209,7 +1209,7 @@
                   {
                     "placeDcidOverride": "country/URY",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Uruguay",
                     "type": "LINE"
@@ -1217,7 +1217,7 @@
                   {
                     "placeDcidOverride": "country/CHN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "China",
                     "type": "LINE"
@@ -1225,7 +1225,7 @@
                   {
                     "placeDcidOverride": "country/MNG",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Mongolia",
                     "type": "LINE"
@@ -1233,7 +1233,7 @@
                   {
                     "placeDcidOverride": "country/KGZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Kyrgyzstan",
                     "type": "LINE"
@@ -1241,7 +1241,7 @@
                   {
                     "placeDcidOverride": "country/KAZ",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Kazakhstan",
                     "type": "LINE"
@@ -1249,7 +1249,7 @@
                   {
                     "placeDcidOverride": "country/TKM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Turkmenistan",
                     "type": "LINE"
@@ -1257,7 +1257,7 @@
                   {
                     "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Myanmar [Burma]",
                     "type": "LINE"
@@ -1265,7 +1265,7 @@
                   {
                     "placeDcidOverride": "country/BLR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Belarus",
                     "type": "LINE"
@@ -1273,7 +1273,7 @@
                   {
                     "placeDcidOverride": "country/LKA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Sri Lanka",
                     "type": "LINE"
@@ -1281,7 +1281,7 @@
                   {
                     "placeDcidOverride": "country/CPV",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Cape Verde",
                     "type": "LINE"
@@ -1289,7 +1289,7 @@
                   {
                     "placeDcidOverride": "country/BTN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Bhutan",
                     "type": "LINE"
@@ -1297,7 +1297,7 @@
                   {
                     "placeDcidOverride": "country/VNM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Vietnam",
                     "type": "LINE"
@@ -1305,7 +1305,7 @@
                   {
                     "placeDcidOverride": "country/MDV",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Maldives",
                     "type": "LINE"
@@ -1313,7 +1313,7 @@
                   {
                     "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Tunisia",
                     "type": "LINE"
@@ -1321,7 +1321,7 @@
                   {
                     "placeDcidOverride": "country/ARM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Armenia",
                     "type": "LINE"
@@ -1329,7 +1329,7 @@
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
@@ -1337,7 +1337,7 @@
                   {
                     "placeDcidOverride": "country/MDA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Moldova",
                     "type": "LINE"
@@ -1345,7 +1345,7 @@
                   {
                     "placeDcidOverride": "country/THA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
                     "title": "Thailand",
                     "type": "LINE"
@@ -1361,9 +1361,9 @@
             "name": "Population living below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_EMP1_15GEQ": {
+          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
             "name": "Employed population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15GEQ"
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Access to basic drinking water services",

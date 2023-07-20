@@ -1375,7 +1375,7 @@ Population of Person: Gambling Industries,dc/5br285q68be6,,Employees in Gambling
 ,sdg/SH_STA_MORT.SEX--F,Maternal mortality ratio,Maternal mortality ratio,
 ,sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Access to modern family planning for women,Access to modern family planning for women,
 ,sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F,Birth rate for adolescent women,Birth rate for adolescent women,
-,sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Prevalence on anaemia in women,Prevalence on anaemia in women,
+,sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Prevalence of anaemia in women,Prevalence of anaemia in women,
 ,sdg/SH_DYN_IMRT.AGE--Y0,Infant mortality rate,Infant mortality rate,
 ,sdg/SH_DYN_MORT.AGE--Y0T4,Mortality rate for children under 5 years,Mortality rate for children under 5 years,
 ,sdg/SH_DYN_NMRT.AGE--M0,Neonatal mortality rate,Neonatal mortality rate,
