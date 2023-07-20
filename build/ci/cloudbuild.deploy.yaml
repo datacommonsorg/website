@@ -31,7 +31,7 @@ steps:
         docker build -f build/web_server/Dockerfile \
           --target website-compose \
           --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:latest
+          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
         docker push gcr.io/datcom-ci/datacommons-website-compose:latest
