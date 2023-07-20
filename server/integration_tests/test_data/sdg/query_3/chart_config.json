@@ -227,21 +227,21 @@
             "name": "Incidence of HIV infections",
             "statVar": "sdg/SH_HIV_INCD"
           },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
-            "name": "Density of dentists",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
+          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221": {
+            "name": "Density of medical doctors",
+            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322": {
             "name": "Density of nurses and midwives",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322"
           },
+          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
+            "name": "Density of dentists",
+            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
+          },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262": {
             "name": "Density of pharmacists",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
-          },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221": {
-            "name": "Density of medical doctors",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
           },
           "sdg/SH_PRV_SMOK.AGE--Y_GE15": {
             "name": "Prevalence of tobacco use",
