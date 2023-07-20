@@ -34,7 +34,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -72,7 +72,7 @@
                       "Median_Earnings_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Earnings (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Individual Median Earnings (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -110,7 +110,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -148,7 +148,7 @@
                       "Mean_Income_Household_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Average Income for Households (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -186,7 +186,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Median Income for Family Households (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Median Income for Family Households (${yDate}) vs. Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age; (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -216,7 +216,7 @@
             "statVar": "Median_Income_Person"
           },
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter": {
-            "name": "Percent of Adults with Blood Pressure Who Take Medication",
+            "name": "Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },

@@ -728,6 +728,41 @@
       "placeDcid": [
         "country/USA"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Population With Poverty Status Determined",
+            "nlQuery": "Population With Poverty Status Determined United States"
+          },
+          {
+            "displayName": "Household Median Income",
+            "nlQuery": "Household Median Income United States"
+          },
+          {
+            "displayName": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
+            "nlQuery": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months United States"
+          },
+          {
+            "displayName": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
+            "nlQuery": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County United States"
+          },
+          {
+            "displayName": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
+            "nlQuery": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad United States"
+          },
+          {
+            "displayName": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
+            "nlQuery": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months United States"
+          },
+          {
+            "displayName": "Count of Household: Married Couple Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
+            "nlQuery": "Count of Household: Married Couple Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months United States"
+          }
+        ]
+      }
     }
   },
   "context": {},

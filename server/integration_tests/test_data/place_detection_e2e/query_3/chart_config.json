@@ -662,14 +662,8 @@
       ]
     },
     "suggestions": {
-      "NL_RELATED_PLACE": {
-        "items": [
-          {
-            "displayName": "California",
-            "nlQuery": "what about in california"
-          }
-        ]
-      }
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

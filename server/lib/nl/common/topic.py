@@ -332,7 +332,7 @@ _PEER_GROUP_TO_OVERRIDE = {
     ],
     "dc/svpg/SDG_3_HealthWorkerDensity": [
         "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221",
-        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221",
+        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322",
         "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262",
         "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261",
     ],

@@ -662,14 +662,75 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "AdministrativeArea2 in Valle del Cauca Department",
+            "nlQuery": "what about in Florida Valle del Cauca Department"
+          },
+          {
+            "displayName": "City in Florida Department",
+            "nlQuery": "what about in Florida Florida Department"
+          },
+          {
+            "displayName": "City in City of Johannesburg Metropolitan Municipality",
+            "nlQuery": "what about in Florida City of Johannesburg Metropolitan Municipality"
+          },
+          {
+            "displayName": "County in Puerto Rico",
+            "nlQuery": "what about in Florida Puerto Rico"
+          },
+          {
+            "displayName": "City in New York",
+            "nlQuery": "what about in Florida New York"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
+            "displayName": "Alabama",
+            "nlQuery": "what about in Alabama"
+          },
+          {
+            "displayName": "Alaska",
+            "nlQuery": "what about in Alaska"
+          },
+          {
+            "displayName": "Arizona",
+            "nlQuery": "what about in Arizona"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "what about in Arkansas"
+          },
+          {
             "displayName": "California",
-            "nlQuery": "what about in california"
+            "nlQuery": "what about in California"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "what about in Colorado"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "what about in Connecticut"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "what about in Delaware"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "what about in District of Columbia"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "what about in Florida"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
