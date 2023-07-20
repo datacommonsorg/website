@@ -207,13 +207,6 @@
                     ],
                     "title": "Count of Statistical Variable: Health And Education, Country in the World (${date})",
                     "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Variable_Country_HealthAndEducation_pc"
-                    ],
-                    "title": "Per Capita Count of Statistical Variable: Health And Education, Country in the World (${date})",
-                    "type": "MAP"
                   }
                 ]
               }
@@ -222,11 +215,6 @@
         ],
         "statVarSpec": {
           "Count_Variable_Country_HealthAndEducation": {
-            "name": "Count of Statistical Variable: Health And Education, Country",
-            "statVar": "Count_Variable_Country_HealthAndEducation"
-          },
-          "Count_Variable_Country_HealthAndEducation_pc": {
-            "denom": "Count_Person",
             "name": "Count of Statistical Variable: Health And Education, Country",
             "statVar": "Count_Variable_Country_HealthAndEducation"
           },
