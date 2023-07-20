@@ -55,6 +55,7 @@
       ]
     },
     "suggestions": {
+      "NL_RELATED_PLACE": {},
       "NL_RELATED_QUERY_TYPE": {
         "items": [
           {
@@ -66,7 +67,8 @@
             "nlQuery": "household median income across tracts of Placer County - show lowest"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
