@@ -407,21 +407,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Person_DifferentHouseAbroad"
-                    ],
-                    "title": "Median Income: 15 Years or More, With Income, Different House Abroad in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -606,10 +591,6 @@
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
-          },
-          "Median_Income_Person_DifferentHouseAbroad": {
-            "name": "Median Income: 15 Years or More, With Income, Different House Abroad",
-            "statVar": "Median_Income_Person_DifferentHouseAbroad"
           }
         }
       }
@@ -661,10 +642,6 @@
           {
             "displayName": "Average Income for Households",
             "nlQuery": "Average Income for Households United States"
-          },
-          {
-            "displayName": "Median Income: 15 Years or More, With Income, Different House Abroad",
-            "nlQuery": "Median Income: 15 Years or More, With Income, Different House Abroad United States"
           }
         ]
       }

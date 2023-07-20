@@ -196,28 +196,9 @@
               }
             ],
             "title": "Health worker density"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Variable_Country_HealthAndEducation"
-                    ],
-                    "title": "Count of Statistical Variable: Health And Education, Country in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Variable_Country_HealthAndEducation": {
-            "name": "Count of Statistical Variable: Health And Education, Country",
-            "statVar": "Count_Variable_Country_HealthAndEducation"
-          },
           "sdg/SH_ACS_UNHC": {
             "name": "Universal health coverage index",
             "statVar": "sdg/SH_ACS_UNHC"
@@ -352,10 +333,6 @@
           {
             "displayName": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission",
             "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission Earth"
-          },
-          {
-            "displayName": "Count of Statistical Variable: Health And Education, Country",
-            "nlQuery": "Count of Statistical Variable: Health And Education, Country Earth"
           }
         ]
       }

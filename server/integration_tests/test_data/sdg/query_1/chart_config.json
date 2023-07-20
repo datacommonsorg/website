@@ -220,20 +220,12 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Population Below Poverty Level Status in Past Year",
-            "nlQuery": "Population Below Poverty Level Status in Past Year Africa"
-          },
-          {
             "displayName": "Population Above Poverty Level Status in Past Year",
             "nlQuery": "Population Above Poverty Level Status in Past Year Africa"
           },
           {
             "displayName": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "nlQuery": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line Africa"
-          },
-          {
-            "displayName": "Family Households Below the Poverty Level in the Past Year",
-            "nlQuery": "Family Households Below the Poverty Level in the Past Year Africa"
           },
           {
             "displayName": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
@@ -266,10 +258,6 @@
           {
             "displayName": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
             "nlQuery": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months Africa"
-          },
-          {
-            "displayName": "Count of Household: Married Couple Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Married Couple Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months Africa"
           }
         ]
       }
