@@ -248,7 +248,7 @@
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
             "name": "Density of dentists",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
+            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322": {
             "name": "Density of nurses and midwives",
