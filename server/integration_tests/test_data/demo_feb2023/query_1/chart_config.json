@@ -373,6 +373,34 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Count of Heat Temperature Event",
+            "nlQuery": "Count of Heat Temperature Event California"
+          },
+          {
+            "displayName": "Mean maximum temperature",
+            "nlQuery": "Mean maximum temperature California"
+          },
+          {
+            "displayName": "Annual Generation of Energy: Heat",
+            "nlQuery": "Annual Generation of Energy: Heat California"
+          },
+          {
+            "displayName": "Annual Loss of Energy: Heat",
+            "nlQuery": "Annual Loss of Energy: Heat California"
+          },
+          {
+            "displayName": "Heat content, other industrial, annual",
+            "nlQuery": "Heat content, other industrial, annual California"
+          }
+        ]
+      }
     }
   },
   "context": {},
