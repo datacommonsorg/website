@@ -29,6 +29,8 @@ const QUERY_CHAIN_PARAM_PREFIX = "&entry.2133108642=";
 const DEBUG_INFO_PARAM_PREFIX = "&entry.1116448950=";
 
 export const CHART_FEEDBACK_SENTIMENT = {
+  // The chart is relevant for the query
+  THUMBS_UP: "THUMBS_UP",
   // The chart is not relevant for the query
   THUMBS_DOWN: "THUMBS_DOWN",
   // Somewhat relevant but not quite right (eg wrong place type)
