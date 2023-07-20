@@ -31,6 +31,7 @@ flags.DEFINE_string('instance', 'website-data', 'BT instance')
 flags.DEFINE_string('table', 'nl-query', 'BT table')
 flags.DEFINE_integer('past_days', 5, 'Days to go back')
 flags.DEFINE_string('output_dir', '/tmp/', 'Output dir for CSV')
+flags.DEFINE_bool('all_rows', False, 'Process all rows')
 
 _CHART_IDX_THRESHOLD = 15
 _AUTOPUSH_URL = 'https://autopush.datacommons.org/nl#a=True&d=True&'
@@ -109,7 +110,36 @@ def _url(ditem, detection, index):
   return _AUTOPUSH_URL + '&'.join(parts)
 
 
-def _write_rows(key, data, csvw):
+def _write_all_rows(key, data, csvw):
+  for i, it in enumerate(data[_COL_SESSION]['items']):
+    # Format xxx_yyyyyyyy#<project>
+    ts = int(key.split('#')[0].split('_')[1])
+    time = datetime.fromtimestamp(ts / 1000000.0).strftime('%Y-%m-%d %H:%M:%S')
+
+    if i < len(data[_COL_DATA]):
+      ditem = data[_COL_DATA][i]
+    else:
+      ditem = {}
+
+    detection = _midx(ditem, ['debug', 'detection_type'])
+    index = _midx(ditem, [
+        'debug', 'query_detection_debug_logs', 'query_transformations',
+        'sv_detection_query_index_type'
+    ])
+    output_row = {
+        'Time': time,
+        'Query': it['query'],
+        'Detection': detection,
+        'EmbeddingsIndex':  # The index type is nested...
+            index,
+        'SessionId': key,
+        'URL': _url(ditem, detection, index),
+        'Status': it['status']
+    }
+    csvw.writerow(output_row)
+
+
+def _write_feedback_rows(key, data, csvw):
   for fb in data[_COL_FEEDBACK]:
     if 'queryId' in fb:
       # Query-level feedback
@@ -185,7 +215,7 @@ def _write_rows(key, data, csvw):
     csvw.writerow(output_row)
 
 
-def mine(table, start, csvw):
+def mine(table, start, csvw, all_rows):
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(
       row_filters.TimestampRange(start=start)))
   for row in rows:
@@ -227,7 +257,10 @@ def mine(table, start, csvw):
     # (the default order will be reversed).
     data[_COL_DATA].sort(key=lambda x: len(x['session']['items']))
 
-    _write_rows(key, data, csvw)
+    if all_rows:
+      _write_all_rows(key, data, csvw)
+    else:
+      _write_feedback_rows(key, data, csvw)
 
 
 def main(_):
@@ -240,15 +273,20 @@ def main(_):
   output_csv = os.path.join(FLAGS.output_dir, _fname(start, now))
 
   with open(output_csv, 'w') as fp:
-    csvw = csv.DictWriter(fp,
-                          fieldnames=[
-                              'Time', 'Query', 'ChartIndex', 'Detection',
-                              'Feedback', 'ChartTitle', 'ChartType',
-                              'ChartVarKeys', 'EmbeddingsIndex', 'SessionId',
-                              'URL'
-                          ])
+    if FLAGS.all_rows:
+      fieldnames = [
+          'Time', 'Query', 'Detection', 'EmbeddingsIndex', 'SessionId', 'URL',
+          'Status'
+      ]
+    else:
+      fieldnames = [
+          'Time', 'Query', 'ChartIndex', 'Detection', 'Feedback', 'ChartTitle',
+          'ChartType', 'ChartVarKeys', 'EmbeddingsIndex', 'SessionId', 'URL',
+          'Status'
+      ]
+    csvw = csv.DictWriter(fp, fieldnames=fieldnames)
     csvw.writeheader()
-    mine(table, start, csvw)
+    mine(table, start, csvw, FLAGS.all_rows)
 
   print(f'\nOutput written to: {output_csv}\n')
 
