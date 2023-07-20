@@ -535,59 +535,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
-                    ],
-                    "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
-                    ],
-                    "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -599,15 +546,6 @@
             "denom": "Count_Person",
             "name": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide",
             "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
-          },
-          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage": {
-            "name": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide",
-            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
-          },
-          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc": {
-            "denom": "Count_Person",
-            "name": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide",
-            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
           },
           "Annual_Emissions_CarbonDioxide_ElectricityGeneration": {
             "name": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
