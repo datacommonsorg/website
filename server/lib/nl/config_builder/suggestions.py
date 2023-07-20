@@ -107,6 +107,8 @@ class SuggestionBuilder:
 #
 # May populate config.suggestions based on uttr.
 #
+# Refer to the Suggestion proto for the different types of suggestions.
+#
 def add(uttr: Utterance, sv2thing: SV2Thing, config: SubjectPageConfig):
   if not len(uttr.places) == 1 or not uttr.detection:
     return

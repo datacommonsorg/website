@@ -303,14 +303,18 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
 
 
+#
+# Given two lists of dcids, this function returns two parallel lists of
+# Places by making a single DC API call.
+#
 def _get_places_for_listpair(similars, identicals):
   if not similars and not identicals:
     return [], []
 
   merged = list(set(similars + identicals))
 
-  dummy = {}
-  merged = _get_place_from_dcids(merged, dummy)
+  tmp = {}
+  merged = _get_place_from_dcids(merged, tmp)
 
   result = []
   for l in [similars, identicals]:
