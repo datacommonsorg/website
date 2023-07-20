@@ -420,11 +420,67 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "City in Maryland",
+            "nlQuery": "cars per family in California Maryland counties"
+          },
+          {
+            "displayName": "City in Pennsylvania",
+            "nlQuery": "cars per family in California Pennsylvania counties"
+          },
+          {
+            "displayName": "City in Missouri",
+            "nlQuery": "cars per family in California Missouri counties"
+          },
+          {
+            "displayName": "City in Kentucky",
+            "nlQuery": "cars per family in California Kentucky counties"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Utah",
-            "nlQuery": "cars per family in utah counties"
+            "displayName": "Alabama",
+            "nlQuery": "cars per family in Alabama counties"
+          },
+          {
+            "displayName": "Alaska",
+            "nlQuery": "cars per family in Alaska counties"
+          },
+          {
+            "displayName": "Arizona",
+            "nlQuery": "cars per family in Arizona counties"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "cars per family in Arkansas counties"
+          },
+          {
+            "displayName": "California",
+            "nlQuery": "cars per family in California counties"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "cars per family in Colorado counties"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "cars per family in Connecticut counties"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "cars per family in Delaware counties"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "cars per family in District of Columbia counties"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "cars per family in Florida counties"
           }
         ]
       },
@@ -439,7 +495,8 @@
             "nlQuery": "cars per family in california counties - show lowest"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

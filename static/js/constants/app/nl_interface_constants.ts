@@ -38,7 +38,7 @@ export const NL_URL_PARAMS = {
 
 export const NL_INDEX_VALS = {
   SMALL: "small",
-  MEDIUM: "medium",
+  MEDIUM_FT: "medium_ft",
 };
 
 export const NL_DETECTOR_VALS = {

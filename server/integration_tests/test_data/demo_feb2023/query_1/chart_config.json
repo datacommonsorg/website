@@ -126,9 +126,191 @@
               }
             ],
             "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Temperature"
+                    ],
+                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Temperature"
+                    ],
+                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Temperature in a Location"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Min_Temperature"
+                    ],
+                    "title": "Min Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Min_Temperature"
+                    ],
+                    "title": "Min Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Min Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Temperature"
+                    ],
+                    "title": "Mean Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_Temperature"
+                    ],
+                    "title": "Mean Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Maximum Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_HeatTemperatureEvent"
+                    ],
+                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HeatTemperatureEvent"
+                    ],
+                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Heat Temperature Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_MaxTemperature"
+                    ],
+                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_MaxTemperature"
+                    ],
+                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean maximum temperature"
           }
         ],
         "statVarSpec": {
+          "Count_HeatTemperatureEvent": {
+            "name": "Count of Heat Temperature Event",
+            "statVar": "Count_HeatTemperatureEvent"
+          },
+          "Max_Temperature": {
+            "name": "Maximum Temperature",
+            "statVar": "Max_Temperature"
+          },
+          "Mean_MaxTemperature": {
+            "name": "Mean maximum temperature",
+            "statVar": "Mean_MaxTemperature"
+          },
+          "Mean_Temperature": {
+            "name": "Mean Temperature",
+            "statVar": "Mean_Temperature"
+          },
+          "Min_Temperature": {
+            "name": "Min Temperature",
+            "statVar": "Min_Temperature"
+          },
           "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
             "name": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
             "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
@@ -152,6 +334,10 @@
           "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60": {
             "name": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
             "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          },
+          "Temperature": {
+            "name": "Temperature in a Location",
+            "statVar": "Temperature"
           },
           "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
             "name": "RCP 2.6 (optimistic), \u00b0C",
@@ -187,6 +373,34 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Count of Heat Temperature Event",
+            "nlQuery": "Count of Heat Temperature Event California"
+          },
+          {
+            "displayName": "Mean maximum temperature",
+            "nlQuery": "Mean maximum temperature California"
+          },
+          {
+            "displayName": "Annual Generation of Energy: Heat",
+            "nlQuery": "Annual Generation of Energy: Heat California"
+          },
+          {
+            "displayName": "Annual Loss of Energy: Heat",
+            "nlQuery": "Annual Loss of Energy: Heat California"
+          },
+          {
+            "displayName": "Heat content, other industrial, annual",
+            "nlQuery": "Heat content, other industrial, annual California"
+          }
+        ]
+      }
     }
   },
   "context": {},

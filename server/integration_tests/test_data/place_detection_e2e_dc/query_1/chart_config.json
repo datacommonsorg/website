@@ -1,0 +1,48 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ],
+            "title": "Palo Alto"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0655282"
+      ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "San Francisco",
+            "nlQuery": "tell me about san francisco"
+          }
+        ]
+      }
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0655282",
+    "name": "Palo Alto",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
+}

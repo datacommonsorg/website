@@ -63,6 +63,7 @@ def data():
   if not current_app.config.get('NL_BAD_WORDS'):
     logging.error('Missing NL_BAD_WORDS config!')
     flask.abort(404)
+  nl_bad_words = current_app.config['NL_BAD_WORDS']
 
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
@@ -78,11 +79,12 @@ def data():
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
 
-  detector_type = request.args.get(
-      'detector', default=RequestedDetectorType.Heuristic.value, type=str)
+  detector_type = request.args.get('detector',
+                                   default=RequestedDetectorType.Hybrid.value,
+                                   type=str)
 
   place_detector_type = request.args.get('place_detector',
-                                         default='ner',
+                                         default='dc',
                                          type=str).lower()
   if place_detector_type not in [PlaceDetectorType.NER, PlaceDetectorType.DC]:
     logging.error(f'Unknown place_detector {place_detector_type}')
@@ -90,18 +92,19 @@ def data():
   else:
     place_detector_type = PlaceDetectorType(place_detector_type)
 
-  #
-  # Check offensive words
-  #
-  if not bad_words.is_safe(original_query, current_app.config['NL_BAD_WORDS']):
-    return _abort(
-        'The query was rejected due to the ' +
-        'presence of inappropriate words.', original_query, context_history)
-
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
     return _abort('Received an empty query, please type a few words :)',
                   original_query, context_history)
+
+  #
+  # Check offensive words
+  #
+  if (not bad_words.is_safe(original_query, nl_bad_words) or
+      not bad_words.is_safe(query, nl_bad_words)):
+    return _abort(
+        'The query was rejected due to the ' +
+        'presence of inappropriate words.', original_query, context_history)
 
   counters = ctr.Counters()
   query_detection_debug_logs = {}
@@ -133,7 +136,14 @@ def data():
 
   if utterance.rankedCharts:
     start = time.time()
-    page_config_pb = config_builder.build(utterance, disaster_config)
+
+    # Call chart config builder.
+    bcfg = config_builder.Config(
+        event_config=disaster_config,
+        sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+        nopc_vars=current_app.config['NL_NOPC_VARS'])
+    page_config_pb = config_builder.build(utterance, bcfg)
+
     page_config = json.loads(MessageToJson(page_config_pb))
     counters.timeit('build_page_config', start)
 

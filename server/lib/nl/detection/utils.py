@@ -13,6 +13,8 @@
 # limitations under the License.
 """Detector helper utils."""
 
+# TODO: rename to variable_utils.py
+
 from typing import Dict, List
 
 from server.lib.nl.common import constants

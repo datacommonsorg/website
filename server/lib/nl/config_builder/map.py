@@ -21,9 +21,11 @@ from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
 
 
-def map_chart_block(column, place: Place, pri_sv: str, sv2thing, attr):
+def map_chart_block(column, place: Place, pri_sv: str, sv2thing, attr,
+                    nopc_vars):
   svs_map = map_chart_block_nopc(column, place, pri_sv, sv2thing, attr)
-  if attr['include_percapita'] and variable.is_percapita_relevant(pri_sv):
+  if attr['include_percapita'] and variable.is_percapita_relevant(
+      pri_sv, nopc_vars):
     svs_map.update(map_chart_block_pc(column, place, pri_sv, sv2thing, attr))
   return svs_map
 

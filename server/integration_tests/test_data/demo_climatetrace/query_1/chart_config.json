@@ -67,23 +67,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Agriculture"
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Agriculture"
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from the growing of crops and livestock for food and raw materials for non-food consumption (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Agriculture"
+            "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
           },
           {
             "columns": [
@@ -95,16 +94,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Agriculture_pc"
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Agriculture_pc"
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -121,23 +120,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
+            "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide"
           },
           {
             "columns": [
@@ -149,16 +147,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -175,23 +173,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
+                      "Annual_Emissions_Methane_Power"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Annual Amount of Emissions: Power, Methane in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
+                      "Annual_Emissions_Methane_Power"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Annual Amount of Emissions: Power, Methane in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from change in living biomass due to clearing, degradation and fires in forests, grasslands and wetlands (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Forestry and Land Use"
+            "title": "Annual Amount of Emissions: Power, Methane"
           },
           {
             "columns": [
@@ -203,16 +200,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
+                      "Annual_Emissions_Methane_Power_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Power, Methane in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
+                      "Annual_Emissions_Methane_Power_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Power, Methane in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -229,23 +226,23 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Manufacturing"
+                      "Annual_Emissions_CarbonDioxide_Power"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "CO\u2082 Emissions from Power Sector in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Manufacturing"
+                      "Annual_Emissions_CarbonDioxide_Power"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "CO\u2082 Emissions from Power Sector in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from cement, aluminum, steel, and other manufacturing processes (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Manufacturing"
+            "description": "CO\u2082 emissions from electricity generation (measured in tonnes).",
+            "title": "CO\u2082 Emissions from Power Sector"
           },
           {
             "columns": [
@@ -257,16 +254,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Manufacturing_pc"
+                      "Annual_Emissions_CarbonDioxide_Power_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "Per Capita CO\u2082 Emissions from Power Sector in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Manufacturing_pc"
+                      "Annual_Emissions_CarbonDioxide_Power_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "Per Capita CO\u2082 Emissions from Power Sector in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -283,23 +280,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_MineralExtraction"
+                      "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_MineralExtraction"
+                      "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from mining and quarrying of minerals and ores (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Mineral Extraction"
+            "title": "Annual Amount of Emissions: Other Energy Use, Methane"
           },
           {
             "columns": [
@@ -311,16 +307,69 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_MineralExtraction_pc"
+                      "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_MineralExtraction_pc"
+                      "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+                    ],
+                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ElectricityGeneration_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -391,23 +440,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Transportation"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Transportation"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Transportation"
+            "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas"
           },
           {
             "columns": [
@@ -419,16 +467,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Transportation_pc"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_Transportation_pc"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -445,23 +493,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_WasteManagement"
+                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_WasteManagement"
+                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Waste Management"
+            "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide"
           },
           {
             "columns": [
@@ -473,16 +520,69 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
+                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
+                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -491,18 +591,63 @@
           }
         ],
         "statVarSpec": {
+          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse": {
+            "name": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
+          },
+          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
+          },
+          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage": {
+            "name": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
+          },
+          "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Other Onsite Fuel Usage, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherOnsiteFuelUsage"
+          },
+          "Annual_Emissions_CarbonDioxide_ElectricityGeneration": {
+            "name": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+          },
+          "Annual_Emissions_CarbonDioxide_ElectricityGeneration_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
+          },
+          "Annual_Emissions_CarbonDioxide_OpenBurningWaste": {
+            "name": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
+          },
+          "Annual_Emissions_CarbonDioxide_OpenBurningWaste_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
+          },
+          "Annual_Emissions_CarbonDioxide_Power": {
+            "name": "CO\u2082 Emissions from Power Sector",
+            "statVar": "Annual_Emissions_CarbonDioxide_Power"
+          },
+          "Annual_Emissions_CarbonDioxide_Power_pc": {
+            "denom": "Count_Person",
+            "name": "CO\u2082 Emissions from Power Sector",
+            "statVar": "Annual_Emissions_CarbonDioxide_Power"
+          },
           "Annual_Emissions_GreenhouseGas": {
             "name": "Greenhouse Gas Emissions",
             "statVar": "Annual_Emissions_GreenhouseGas"
           },
-          "Annual_Emissions_GreenhouseGas_Agriculture": {
-            "name": "Greenhouse Gas Emissions from Agriculture",
-            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse": {
+            "name": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
           },
-          "Annual_Emissions_GreenhouseGas_Agriculture_pc": {
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc": {
             "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Agriculture",
-            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
+            "name": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
           },
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration": {
             "name": "Greenhouse Gas Emissions from Electricity Generation",
@@ -513,64 +658,37 @@
             "name": "Greenhouse Gas Emissions from Electricity Generation",
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
-          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse": {
-            "name": "Greenhouse Gas Emissions from Forestry and Land Use",
-            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
-          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc": {
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_pc": {
             "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Forestry and Land Use",
-            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
-          },
-          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings": {
-            "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
-            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
-          },
-          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc": {
-            "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
-            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
-          },
-          "Annual_Emissions_GreenhouseGas_Manufacturing": {
-            "name": "Greenhouse Gas Emissions from Manufacturing",
-            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
-          },
-          "Annual_Emissions_GreenhouseGas_Manufacturing_pc": {
-            "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Manufacturing",
-            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
-          },
-          "Annual_Emissions_GreenhouseGas_MineralExtraction": {
-            "name": "Greenhouse Gas Emissions from Mineral Extraction",
-            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
-          },
-          "Annual_Emissions_GreenhouseGas_MineralExtraction_pc": {
-            "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Mineral Extraction",
-            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
-          },
-          "Annual_Emissions_GreenhouseGas_Transportation": {
-            "name": "Greenhouse Gas Emissions from Transportation",
-            "statVar": "Annual_Emissions_GreenhouseGas_Transportation"
-          },
-          "Annual_Emissions_GreenhouseGas_Transportation_pc": {
-            "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Transportation",
-            "statVar": "Annual_Emissions_GreenhouseGas_Transportation"
-          },
-          "Annual_Emissions_GreenhouseGas_WasteManagement": {
-            "name": "Greenhouse Gas Emissions from Waste Management",
-            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
-          },
-          "Annual_Emissions_GreenhouseGas_WasteManagement_pc": {
-            "denom": "Count_Person",
-            "name": "Greenhouse Gas Emissions from Waste Management",
-            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
+            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
           },
           "Annual_Emissions_GreenhouseGas_pc": {
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions",
             "statVar": "Annual_Emissions_GreenhouseGas"
+          },
+          "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse": {
+            "name": "Annual Amount of Emissions: Other Energy Use, Methane",
+            "statVar": "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
+          },
+          "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Other Energy Use, Methane",
+            "statVar": "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
+          },
+          "Annual_Emissions_Methane_Power": {
+            "name": "Annual Amount of Emissions: Power, Methane",
+            "statVar": "Annual_Emissions_Methane_Power"
+          },
+          "Annual_Emissions_Methane_Power_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Power, Methane",
+            "statVar": "Annual_Emissions_Methane_Power"
           }
         }
       }
