@@ -210,6 +210,10 @@
       "placeDcid": [
         "country/USA"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

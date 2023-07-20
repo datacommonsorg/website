@@ -19,7 +19,8 @@
  */
 
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
+import { UncontrolledTooltip } from "reactstrap";
 
 import { NlSessionContext } from "../shared/context";
 import {
@@ -33,117 +34,86 @@ interface NlChartFeedbackPropType {
   id: string;
 }
 
+const FEEDBACK_OPTIONS = [
+  {
+    content: <>&#128077;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_UP,
+    tooltip: "The chart is relevant for the query",
+  },
+  {
+    content: <>&#128078;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
+    tooltip: "The chart is not relevant for the query",
+  },
+  {
+    content: <>&#11014;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.PROMOTE,
+    tooltip: "The chart should be promoted up",
+  },
+  {
+    content: <>&#11015;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.DEMOTE,
+    tooltip: "The chart should be demoted",
+  },
+  {
+    content: <>&#129318;&#127995;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
+    tooltip: "The chart is embarrassing or inappropriate for the the query",
+  },
+];
+
 export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
   const nlSessionId = useContext(NlSessionContext);
-  const [isEmojiClicked, setIsEmojiClicked] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const saveFeedback = useCallback(
+    (sentiment: string) => {
+      if (saved) {
+        return;
+      }
+      setSaved(true);
+      axios.post("/api/nl/feedback", {
+        feedbackData: {
+          chartId: getNlChartId(props.id),
+          sentiment,
+        },
+        sessionId: nlSessionId,
+      });
+    },
+    [nlSessionId, saved, props.id]
+  );
+
   if (!nlSessionId) {
-    return <></>;
+    return null;
   }
   return (
     <div className="nl-feedback">
-      <span
-        className={`feedback-emoji ${
-          isEmojiClicked ? "feedback-emoji-dim" : ""
-        }`}
-        onClick={() => {
-          return onChartClick(
-            props.id,
-            nlSessionId,
-            isEmojiClicked,
-            setIsEmojiClicked,
-            CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN
-          );
-        }}
-      >
-        &#128078;
+      <span className="nl-feedback-text">
+        {saved ? <>Feedback saved</> : null}
       </span>
-      <span
-        className={`feedback-emoji ${
-          isEmojiClicked ? "feedback-emoji-dim" : ""
-        }`}
-        onClick={() => {
-          return onChartClick(
-            props.id,
-            nlSessionId,
-            isEmojiClicked,
-            setIsEmojiClicked,
-            CHART_FEEDBACK_SENTIMENT.WARNING
-          );
-        }}
-      >
-        &nbsp;&nbsp;&#9888;
-      </span>
-      <span
-        className={`feedback-emoji ${
-          isEmojiClicked ? "feedback-emoji-dim" : ""
-        }`}
-        onClick={() => {
-          return onChartClick(
-            props.id,
-            nlSessionId,
-            isEmojiClicked,
-            setIsEmojiClicked,
-            CHART_FEEDBACK_SENTIMENT.PROMOTE
-          );
-        }}
-      >
-        &nbsp;&nbsp;&#11014;
-      </span>
-      <span
-        className={`feedback-emoji ${
-          isEmojiClicked ? "feedback-emoji-dim" : ""
-        }`}
-        onClick={() => {
-          return onChartClick(
-            props.id,
-            nlSessionId,
-            isEmojiClicked,
-            setIsEmojiClicked,
-            CHART_FEEDBACK_SENTIMENT.DEMOTE
-          );
-        }}
-      >
-        &nbsp;&nbsp;&#11015;
-      </span>
-      <span
-        className={`feedback-emoji ${
-          isEmojiClicked ? "feedback-emoji-dim" : ""
-        }`}
-        onClick={() => {
-          return onChartClick(
-            props.id,
-            nlSessionId,
-            isEmojiClicked,
-            setIsEmojiClicked,
-            CHART_FEEDBACK_SENTIMENT.FACE_PALM
-          );
-        }}
-      >
-        &nbsp;&nbsp;&#129318;&#127995;
-      </span>
+      <div className="nl-feedback-actions">
+        {FEEDBACK_OPTIONS.map((option, i) => (
+          <React.Fragment key={i}>
+            <span
+              className={`feedback-emoji ${saved ? "feedback-emoji-dim" : ""}`}
+              id={`${props.id}-${option.sentiment}`}
+              onClick={() => saveFeedback(option.sentiment)}
+            >
+              {option.content}
+            </span>
+            {!saved && (
+              <UncontrolledTooltip
+                boundariesElement="window"
+                delay={400}
+                placement="top"
+                target={`${props.id}-${option.sentiment}`}
+              >
+                {option.tooltip}
+              </UncontrolledTooltip>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
-}
-
-//
-// Invoked when feedback emoji is clicked on a chart.
-//
-function onChartClick(
-  idStr: string,
-  nlSessionId: string,
-  isEmojiClicked: boolean,
-  setIsEmojiClicked: (boolean) => void,
-  sentiment: string
-): void {
-  if (isEmojiClicked) {
-    return;
-  }
-  setIsEmojiClicked(true);
-  axios.post("/api/nl/feedback", {
-    feedbackData: {
-      chartId: getNlChartId(idStr),
-      sentiment,
-    },
-    sessionId: nlSessionId,
-  });
 }
