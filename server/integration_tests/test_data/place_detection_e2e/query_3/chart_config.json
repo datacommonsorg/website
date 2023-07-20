@@ -297,21 +297,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person_DifferentHouseAbroad"
-                    ],
-                    "title": "Median Income: 15 Years or More, With Income, Different House Abroad in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied",
                       "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
                     ],
@@ -648,10 +633,6 @@
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
-          },
-          "Median_Income_Person_DifferentHouseAbroad": {
-            "name": "Median Income: 15 Years or More, With Income, Different House Abroad",
-            "statVar": "Median_Income_Person_DifferentHouseAbroad"
           }
         }
       }
@@ -662,14 +643,8 @@
       ]
     },
     "suggestions": {
-      "NL_RELATED_PLACE": {
-        "items": [
-          {
-            "displayName": "California",
-            "nlQuery": "what about in california"
-          }
-        ]
-      }
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

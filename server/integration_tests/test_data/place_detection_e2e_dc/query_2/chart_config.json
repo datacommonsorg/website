@@ -604,6 +604,7 @@
       ]
     },
     "suggestions": {
+      "NL_RELATED_PLACE": {},
       "NL_RELATED_QUERY_TYPE": {
         "items": [
           {
@@ -613,6 +614,34 @@
           {
             "displayName": "Show lowest",
             "nlQuery": "US states which have that the cheapest houses - show lowest"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
+            "nlQuery": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied United States"
+          },
+          {
+            "displayName": "Count of Housing Unit: No Cash Rent",
+            "nlQuery": "Count of Housing Unit: No Cash Rent United States"
+          },
+          {
+            "displayName": "Vacant Housing Units",
+            "nlQuery": "Vacant Housing Units United States"
+          },
+          {
+            "displayName": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "nlQuery": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied United States"
+          },
+          {
+            "displayName": "Population: Household",
+            "nlQuery": "Population: Household United States"
+          },
+          {
+            "displayName": "Average Income for Households",
+            "nlQuery": "Average Income for Households United States"
           }
         ]
       }
