@@ -180,7 +180,7 @@ def get_nl_disaster_config():
   return get_subject_page_config(filepath)
 
 
-# Returns disaster dashboard config for NL
+# Returns chart titles for NL
 def get_nl_chart_titles():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "chart_titles_by_sv.json")
