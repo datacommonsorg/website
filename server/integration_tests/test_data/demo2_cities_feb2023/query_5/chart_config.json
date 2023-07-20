@@ -55,6 +55,10 @@
       "placeDcid": [
         "wikidataId/Q213205"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

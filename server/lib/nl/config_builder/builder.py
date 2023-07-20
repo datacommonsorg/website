@@ -48,6 +48,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   all_svs = set()
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
+  all_svs.update(uttr.extra_success_svs)
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = base.SV2Thing(
@@ -153,5 +154,5 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  suggestions.add(uttr, builder.page_config)
+  suggestions.add(uttr, sv2thing, builder.page_config)
   return builder.page_config

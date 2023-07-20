@@ -321,11 +321,99 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "City in Maryland",
+            "nlQuery": "family earnings in California Maryland"
+          },
+          {
+            "displayName": "City in Pennsylvania",
+            "nlQuery": "family earnings in California Pennsylvania"
+          },
+          {
+            "displayName": "City in Missouri",
+            "nlQuery": "family earnings in California Missouri"
+          },
+          {
+            "displayName": "City in Kentucky",
+            "nlQuery": "family earnings in California Kentucky"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "Utah",
-            "nlQuery": "family earnings in utah"
+            "displayName": "Alabama",
+            "nlQuery": "family earnings in Alabama"
+          },
+          {
+            "displayName": "Alaska",
+            "nlQuery": "family earnings in Alaska"
+          },
+          {
+            "displayName": "Arizona",
+            "nlQuery": "family earnings in Arizona"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "family earnings in Arkansas"
+          },
+          {
+            "displayName": "California",
+            "nlQuery": "family earnings in California"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "family earnings in Colorado"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "family earnings in Connecticut"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "family earnings in Delaware"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "family earnings in District of Columbia"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "family earnings in Florida"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Count of Household: Family Household, Owner Occupied",
+            "nlQuery": "Count of Household: Family Household, Owner Occupied California"
+          },
+          {
+            "displayName": "Count of Household: Family Household",
+            "nlQuery": "Count of Household: Family Household California"
+          },
+          {
+            "displayName": "Average Income for Households",
+            "nlQuery": "Average Income for Households California"
+          },
+          {
+            "displayName": "Count of Household: Other Family Household",
+            "nlQuery": "Count of Household: Other Family Household California"
+          },
+          {
+            "displayName": "Mean Income Deficit of Household: Married Couple Family Household",
+            "nlQuery": "Mean Income Deficit of Household: Married Couple Family Household California"
+          },
+          {
+            "displayName": "Family Households Below the Poverty Level in the Past Year",
+            "nlQuery": "Family Households Below the Poverty Level in the Past Year California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "nlQuery": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months California"
           }
         ]
       }
