@@ -79,8 +79,9 @@ def data():
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
 
-  detector_type = request.args.get(
-      'detector', default=RequestedDetectorType.Heuristic.value, type=str)
+  detector_type = request.args.get('detector',
+                                   default=RequestedDetectorType.Hybrid.value,
+                                   type=str)
 
   place_detector_type = request.args.get('place_detector',
                                          default='dc',
@@ -135,7 +136,14 @@ def data():
 
   if utterance.rankedCharts:
     start = time.time()
-    page_config_pb = config_builder.build(utterance, disaster_config)
+
+    # Call chart config builder.
+    bcfg = config_builder.Config(
+        event_config=disaster_config,
+        sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+        nopc_vars=current_app.config['NL_NOPC_VARS'])
+    page_config_pb = config_builder.build(utterance, bcfg)
+
     page_config = json.loads(MessageToJson(page_config_pb))
     counters.timeit('build_page_config', start)
 

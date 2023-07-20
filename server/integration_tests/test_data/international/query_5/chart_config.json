@@ -27,7 +27,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "AdministrativeArea1"
+        "Country": "AdministrativeArea2"
       },
       "eventTypeSpec": {
         "flood": {
