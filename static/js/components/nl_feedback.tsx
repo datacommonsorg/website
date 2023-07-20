@@ -36,28 +36,28 @@ interface NlChartFeedbackPropType {
 
 const FEEDBACK_OPTIONS = [
   {
-    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_UP,
     content: <>&#128077;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_UP,
     tooltip: "The chart is relevant for the query",
   },
   {
-    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
     content: <>&#128078;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
     tooltip: "The chart is not relevant for the query",
   },
   {
-    sentiment: CHART_FEEDBACK_SENTIMENT.PROMOTE,
     content: <>&#11014;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.PROMOTE,
     tooltip: "The chart should be promoted up",
   },
   {
-    sentiment: CHART_FEEDBACK_SENTIMENT.DEMOTE,
     content: <>&#11015;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.DEMOTE,
     tooltip: "The chart should be demoted",
   },
   {
-    sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
     content: <>&#129318;&#127995;</>,
+    sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
     tooltip: "The chart is embarrassing or inappropriate for the the query",
   },
 ];
@@ -80,7 +80,7 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
         sessionId: nlSessionId,
       });
     },
-    [nlSessionId, saved]
+    [nlSessionId, saved, props.id]
   );
 
   if (!nlSessionId) {
