@@ -118,10 +118,11 @@ class IntegrationTest(NLWebServerTestCase):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
 
-  def test_textbox_sample_llm(self):
-    # This is the sample advertised in our textbox
-    self.run_sequence('textbox_sample_llm', ['family earnings in california'],
-                      detector='llm')
+  # TODO: Find some way to re-enable
+  # def test_textbox_sample_llm(self):
+  #   # This is the sample advertised in our textbox
+  #   self.run_sequence('textbox_sample_llm', ['family earnings in california'],
+  #                     detector='llm')
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [

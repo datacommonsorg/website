@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List
+from typing import List, Set
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
@@ -23,7 +23,7 @@ from server.lib.nl.detection.types import Place
 
 
 def multiple_place_bar_block(column, places: List[Place], svs: List[str],
-                             sv2thing, attr):
+                             sv2thing, attr, nopc_vars: Set[str]):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -80,7 +80,8 @@ def multiple_place_bar_block(column, places: List[Place], svs: List[str],
 
   column.tiles.append(tile)
   # Per Capita
-  svs_pc = list(filter(lambda x: variable.is_percapita_relevant(x), svs))
+  svs_pc = list(
+      filter(lambda x: variable.is_percapita_relevant(x, nopc_vars), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     tile = Tile(type=Tile.TileType.BAR,
                 title=pc_title,
