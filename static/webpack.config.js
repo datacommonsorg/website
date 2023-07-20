@@ -115,6 +115,10 @@ const config = {
       __dirname + "/js/homepage/main.ts",
       __dirname + "/css/homepage.scss",
     ],
+    visualization: [
+      __dirname + "/js/apps/visualization/main.ts",
+      __dirname + "/css/tools/visualization.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

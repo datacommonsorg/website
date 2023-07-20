@@ -90,3 +90,11 @@ def download():
         'tools/download.html',
         info_places=json.dumps(info_places),
         maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
+@bp.route('/visualization')
+def visualization():
+  if (not os.environ.get('FLASK_ENV') in ['autopush', 'local']):
+    flask.abort(404)
+  return flask.render_template('tools/visualization.html', 
+        maps_api_key=current_app.config['MAPS_API_KEY'])

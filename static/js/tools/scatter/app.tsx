@@ -21,6 +21,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -31,7 +32,6 @@ import {
 } from "./context";
 import { MemoizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
-import { Spinner } from "./spinner";
 import { StatVarChooser } from "./statvar";
 import {
   applyHash,
