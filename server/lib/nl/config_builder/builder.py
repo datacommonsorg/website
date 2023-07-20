@@ -51,7 +51,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = base.SV2Thing(
-      name=variable.get_sv_name(all_svs),
+      name=variable.get_sv_name(all_svs, config.sv_chart_titles),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),

@@ -373,6 +373,7 @@ def create_app():
             'UTF-8')
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
+    app.config['NL_NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
