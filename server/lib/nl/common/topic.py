@@ -20,7 +20,7 @@ from server.lib import fetch
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
-_MIN_TOPIC_RANK = 2
+_MIN_TOPIC_RANK = 3
 
 _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/Agriculture": [
