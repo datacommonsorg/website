@@ -33,79 +33,78 @@ show population
 #
 # From the list of queries on the frontend as suggestions.
 #
-Query
-What’s the average household income in the US
-What’s unemployment like in Iowa these days
-Tell me about the GDP of France
-What is the typical salary in Orlando
-What are the most common jobs in Oregon
-Which US states have the largest gender pay gap
-Which country's economies have grown the most since 2008
-Which countries have the fastest growing GDP per capita
-How has the GINI index of Spain changed over the years
-What are wage earnings like for the US construction industry
-Which California counties have the highest average income
-Total earnings for employees in the information industry in Texas
-How much of the US population is vaccinated against covid 19
-Prevalence of diabetes in America
-How has the mortality rate in Brazil changed over the years
-I want to see how live birth rate has changed in Colombia
-Which city in Utah has the lowest rate of arthritis
-What’s the likelihood of being obese in the US
-What’s the average life expectancy in China
-Most common medical conditions in US
-What percentage of Sonoma County suffers from high blood pressure
-How much of the US population is physically inactive
-Which countries have the highest healthcare expenditure per person
-How common is it for children to have asthma in San Diego County
-Which Louisiana public schools have the most students per class
-How many people in Nevada have a bachelor’s degree or higher
-Ratio of people in Denver who have an associate's degree
-How many kids attend kindergarten in Kansas every year
-Number of students in Sao Paulo
-California school districts with the highest academic test performance
-How many teachers are there in Colombia
-What percent of the population attend school in the state of Oregon
-What's the undergraduate enrollment population in Dallas
-Which US counties have the most children in nursery school
-How many US females are currently in the 11th grade
-How many students attend private school in Rio de Janeiro
-What kind of pollution affects Seattle in the summer
-What forms of renewable energy are being used in California
-What Florida counties are most affected by hurricanes
-What's the pollution level of the ozone in Cass County
-What’s the rate of water withdrawal for Los Angeles County
-What areas in the world have been most affected by drought
-Which states experience the most snowfall in the winter in the US
-How likely is New Jersey to be affected by flooding
-How much of Washington State is covered in forest land
-Which US states experience the highest temperatures
-Map of wildfires across the world
-I want to see heat wave data on the United States
-Tell me about the population in Japan
-What’s the average age of the population in the US
-Racial breakdown of US population
-How has population density in South Korea changed this century
-What percent of the population living in New York is divorced 
-How does the population of Florida differ from that of Texas
-What’s the female population of different countries across the entire world
-Immigration in the US over time
-How have birth rates changed over time in Morocco
-What countries have the most people living in them
-Which countries have the biggest decrease in population
-How much of the population of New Delhi is without a permanent home
-Show me global temperature increase predictions over the next decade in the US
-Which countries are most affected by climate change
-List of countries that consume the most energy per capita each year
-How much solar energy is generated from houses in New Jersey
-Wet bulb temperature events in India
-Top three countries with the biggest reduction in poverty
-Show me data on atmospheric pollution in the US
-Which countries have the least nitrous oxide emissions from agriculture
-How have poverty rates in America changed over the years
-Which US states have the smallest homeless population
-Which countries consume the least energy per capita
-Countries most affected by malnutrition
+What’s the average household income
+What’s unemployment like these days
+Tell me about the GDP
+What is the typical salary
+What are the most common jobs
+the largest gender pay gap
+economies have grown the most
+the fastest growing GDP per capita
+How has the GINI index changed 
+wage earnings for construction industry
+the highest average income
+Total earnings for employees in the information industry
+How much of the population is vaccinated against covid 19
+Prevalence of diabetes
+How has the mortality rate changed over the years
+I want to see how live birth rate has changed
+the lowest rate of arthritis
+What’s the likelihood of being obese
+What’s the average life expectancy
+Most common medical conditions
+What percentage suffers from high blood pressure
+population is physically inactive
+the highest healthcare expenditure per person
+How common is it for children to have asthma
+Which public schools have the most students per class
+How many people have a bachelor’s degree or higher
+Ratio of people who have an associate's degree
+How many kids attend kindergarten every year
+Number of students
+school districts with the highest academic test performance
+How many teachers are there
+What percent of the population attend school
+What's the undergraduate enrollment population
+the most children in nursery school
+How many are currently in the 11th grade
+How many students attend private school
+What kind of pollution affects in the summer
+What forms of renewable energy are being used
+most affected by hurricanes
+What's the pollution level of the ozone
+What’s the rate of water withdrawal
+What areas have been most affected by drought
+Which states experience the most snowfall in the winter
+How likely to be affected by flooding
+How much is covered in forest land
+experience the highest temperatures
+Map of wildfires
+I want to see heat wave data
+Tell me about the population
+What’s the average age of the population
+Racial breakdown of population
+How has population density changed this century
+What percent of the population is divorced 
+the population
+What’s the female population
+Immigration over time
+How have birth rates changed over time
+the most people living in them
+the biggest decrease in population
+How much of the population is without a permanent home
+Show me global temperature increase predictions over the next decade
+most affected by climate change
+consume the most energy per capita each year
+How much solar energy is generated from houses
+Wet bulb temperature events
+the biggest reduction in poverty
+Show me data on atmospheric pollution
+the least nitrous oxide emissions from agriculture
+How have poverty rates changed over the years
+the smallest homeless population
+consume the least energy per capita
+most affected by malnutrition
 
 #
 # From query log
