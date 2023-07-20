@@ -21,10 +21,10 @@
 import React, { useState } from "react";
 
 import { AppContextProvider } from "./app_context";
+import { Chart } from "./chart";
 import { SelectedOptions } from "./selected_options";
 import { SelectorPane } from "./selector_pane";
 import { VisTypeSelector } from "./vis_type_selector";
-import { Chart } from "./chart";
 
 export function App(): JSX.Element {
   const [selectionComplete, setSelectionComplete] = useState(false);

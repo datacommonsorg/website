@@ -21,7 +21,10 @@
 import React, { useContext } from "react";
 
 import { AppContext } from "./app_context";
-import { ORDERED_VIS_TYPE, VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import {
+  ORDERED_VIS_TYPE,
+  VIS_TYPE_SELECTOR_CONFIGS,
+} from "./vis_type_configs";
 
 export function VisTypeSelector(): JSX.Element {
   const { visType, setVisType } = useContext(AppContext);
