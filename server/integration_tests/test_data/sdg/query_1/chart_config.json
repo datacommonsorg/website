@@ -144,6 +144,10 @@
             "name": "Population living below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
+          "sdg/SI_POV_DAY1.AGE--Y0T14": {
+            "name": "Population under 15 years old below international poverty line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          },
           "sdg/SI_POV_DAY1.AGE--Y15T64": {
             "name": "Population 15 to 64 years old below international poverty line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
@@ -155,10 +159,6 @@
           "sdg/SI_POV_DAY1.SEX--F": {
             "name": "Female population below poverty international line",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Population under 15 years old below international poverty line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
             "name": "Male population below poverty international line",
