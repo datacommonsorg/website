@@ -5332,25 +5332,240 @@ dc/t6m99mqmqxjbc,"Median Income (Real Individual Earnings Before Deductions): Ma
 dc/tcqb49dvg7k53,"Prevalence of Female Population Who are Physical Inactivity;Prevalence: Female, Physical Inactivity;a large number of women are not active enough;a large percentage of women are not meeting the physical activity guidelines;a significant proportion of women are not getting the recommended amount of physical activity;many women are not getting enough exercise"
 dc/tm2h6clmndl3b,"Foreign-Born Population Who Were Never Married;Population: Never Married, Foreign Born;the number of foreign-born people who are not married, expressed as a percentage of the total foreign-born population;the number of foreign-born people who have never been married;the percentage of the foreign-born population who have never been married;the share of the foreign-born population who are not married"
 dc/tn5kxlgy0shl4,"Count of Mortality Event (Measured Based on Jurisdiction): AIDS, Incarcerated;Deaths of Incarcerated Population Caused by AIDS"
+dc/topic/AdolescentBirthRate,Adolescent Birth Rate
+dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents
+dc/topic/Age,Age
 dc/topic/AgriculturalProduction,Agricultural Output;Agricultural Production;Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,Agriculture;Agriculture data;Agriculture statistics;Data related to agriculture;Farming;Farming information;Information on farming
 dc/topic/AgricultureEmissionsByGas,Amount of gases emitted by agricultural sector;Emissions from agriculture;Quantity of greenhouse gases emitted by the agricultural sector;The sum of all gases released by the agricultural industry;The volume of emissions produced by agriculture;Total amount of gas emissions from farming practices;Total quantity of gases released by the farming industry
+dc/topic/AlcoholIndustry,Alcohol Industry
+dc/topic/AmbientAirPollution,Ambient Air Pollution
+dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Alone Female Population By Age
+dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Alone Male Population By Age
+dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Alone Population By Age
+dc/topic/ArthritisFemalePopulationByAge,Female Population With Arthritis By Age
+dc/topic/ArthritisMalePopulationByAge,Male Population With Arthritis By Age
+dc/topic/AsianAloneFemalePopulationByAge,Asian Alone Female Population By Age
+dc/topic/AsianAloneMalePopulationByAge,Asian Alone Male Population By Age
+dc/topic/AsianAlonePopulationByAge,Asian Alone Population By Age
+dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age
+dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age
+dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age
+dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age
+dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age
+dc/topic/Avalanche,Avalanche
+dc/topic/BankingAccess,Banking Access
+dc/topic/BingeDrinking,Binge Drinking
+dc/topic/Births,Births
+dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age
+dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age
+dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Alone Population By Age
+dc/topic/CO2Emissions,CO2 Emissions
+dc/topic/COVID19,COVID 19
+dc/topic/Cancer,Cancer
+dc/topic/CancerFemalePopulationByAge,Female Population With Cancer By Age
+dc/topic/CancerMalePopulationByAge,Male Population With Cancer By Age
 dc/topic/CarbonDioxideEmissionsBySource,Breakdown of co2 emissions by source;Carbon dioxide emissions by source;source of co2 emissions;sources of carbon dioxide emissions
+dc/topic/CardiovascularDisease,Cardiovascular Disease
 dc/topic/ClimateChange,Climate Change;Climate Change impact;Global Warming;Impact of Climate Change
+dc/topic/Clouds,Clouds
+dc/topic/CoastalFlood,Coastal Flood
+dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents
+dc/topic/Crime,Crime
+dc/topic/Cyclone,Cyclone
+dc/topic/DementiaFemalePopulationByAge,Female Population With Dementia By Age
+dc/topic/DementiaMalePopulationByAge,Male Population With Dementia By Age
+dc/topic/Dengue,Dengue
+dc/topic/Dentists,Dentists
+dc/topic/Diabetes,Diabetes
+dc/topic/DiabetesFemalePopulationByAge,Female Population With Diabetes By Age
+dc/topic/DiabetesMalePopulationByAge,Male Population With Diabetes By Age
+dc/topic/Disabilities,Disabilities
+dc/topic/Disasters,Disasters
+dc/topic/Disease,Disease
+dc/topic/DiseasesOfHeartFemalePopulationByAge,Female Population With Heart Disease By Age
+dc/topic/DiseasesOfHeartMalePopulationByAge,Male Population With Heart Disease By Age
+dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age
+dc/topic/DivorcedMalePopulationByAge,Divorced Male Population By Age
+dc/topic/DivorcedPopulationByAge,Divorced Population By Age
+dc/topic/Drought,Drought
+dc/topic/Dust,Dust
+dc/topic/Earthquake,Earthquake
 dc/topic/Economy,Condition of the economy;Economic overview;Economy;State of the economy;Status of the economy;Summary of the economy
+dc/topic/Education,Education
+dc/topic/ExcessiveColdEvent,Excessive Cold Event
+dc/topic/ExcessiveHeatEvent,Excessive Heat Event
+dc/topic/ExportSubsidies,Export Subsidies
+dc/topic/ExtremeTide,Extreme Tide
+dc/topic/Flood,Flood
+dc/topic/Fog,Fog
+dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
+dc/topic/FossilFuelSubsidies,Fossil Fuel Subsidies
 dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source;Greenhouse gas emissions by source;sources of greenhouse gases
+dc/topic/GroupQuartersResidents,Group Quarters Residents
+dc/topic/HIV,HIV
+dc/topic/Hail,Hail
+dc/topic/HateCrimes,Hate Crimes
+dc/topic/HealthInsurance,Health Insurance
+dc/topic/HealthWorkerDensity,Health Worker Density
 dc/topic/HeatIllnesses,Heat Illnesses;Heat related health conditions;Heat related maladies;Heat-related health problems;Medical conditions caused by heat Heat syncope
+dc/topic/HeatWave,Heat Wave
+dc/topic/HeightStunting,Height Stunting
+dc/topic/HighWind,High Wind
+dc/topic/HispanicOrLatinoFemalePopulationByAge,Hispanic Or Latino Female Population By Age
+dc/topic/HispanicOrLatinoMalePopulationByAge,Hispanic Or Latino Male Population By Age
+dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age"
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age"
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age"
+dc/topic/HispanicOrLatino_AsianAloneFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Female Population By Age"
+dc/topic/HispanicOrLatino_AsianAloneMalePopulationByAge,"Hispanic Or Latino, Asian Alone Male Population By Age"
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/HispanicOrLatino_AsianAlonePopulationByAge,"Hispanic Or Latino, Asian Alone Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Female Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Male Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age"
+dc/topic/HispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Hispanic Or Latino, Two Or More Races Female Population By Age"
+dc/topic/HispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Hispanic Or Latino, Two Or More Races Male Population By Age"
+dc/topic/HispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Hispanic Or Latino, Two Or More Races Population By Age"
+dc/topic/HispanicOrLatino_WhiteAloneFemalePopulationByAge,"Hispanic Or Latino, White Alone Female Population By Age"
+dc/topic/HispanicOrLatino_WhiteAloneMalePopulationByAge,"Hispanic Or Latino, White Alone Male Population By Age"
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age"
 dc/topic/HomeValue,Home Value;housing unit cost;how expensive are homes in;how much do houses cost in;value of homes
+dc/topic/Housing,Housing
+dc/topic/Hurricane,Hurricane
+dc/topic/Incarceration,Incarceration
 dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;monetary status;pay;wealth;what are the wealthy neighborhoods
+dc/topic/InstitutionalizedGroupQuartersResidents,Institutionalized Group Quarters Residents
+dc/topic/Internet,Internet
+dc/topic/InternetAccess,Internet Access
+dc/topic/InternetPublishingAndBroadcastingIndustry,Internet Publishing And Broadcasting Industry
 dc/topic/Jobs,Careers;Employment Positions;Job Roles;Jobs;Occupational professions;Professions;Work Occupations;distribution of jobs;distribution of workers
+dc/topic/JuvenileFacilitiesResidents,Juvenile Facilities Residents
+dc/topic/KidneyDiseaseFemalePopulationByAge,Female Population With Kidney Disease By Age
+dc/topic/KidneyDiseaseMalePopulationByAge,Male Population With Kidney Disease By Age
+dc/topic/LandCover,Land Cover
+dc/topic/Landslide,Landslide
 dc/topic/Literacy,Literacy;how many people can read or not;how many people cannot read or write;how well read is the population;level of literacy;literacy rate;population's ability to read and write;where can i find the most well read population in
+dc/topic/LungConditionFemalePopulationByAge,Female Population With Lung Condition By Age
+dc/topic/LungConditionMalePopulationByAge,Male Population With Lung Condition By Age
+dc/topic/Malaria,Malaria
+dc/topic/Malnutrition,Malnutrition
 dc/topic/ManufacturingEmissionsByGas,Amount of gases emitted by the manufacturing sector;Emissions from manufacturing;Quantity of greenhouse gases emitted by factories and production processes;The sum of all gases released by manufacturing activities;The volume of emissions produced by manufacturing activities;Total amount of gas emissions from the manufacturing sector;Total quantity of gases released by the manufacturing industry
+dc/topic/MarineEvents,Marine Events
+dc/topic/MaritalStatus,Marital Status
 dc/topic/MaternalHealth,Maternal Health;Maternal health;health of mothers;womens health
 dc/topic/MedicalConditions,Bodily afflictions;Diseases: Medical disorders;Health conditions;Health problems;Maladies;Medical Conditions;Medical ailments;Medical infirmities;health issues
+dc/topic/MentalHealthNotGoodFemalePopulationByAge,Female Population With Poor Mental Health By Age
+dc/topic/MentalHealthNotGoodMalePopulationByAge,Male Population With Poor Mental Health By Age
+dc/topic/Military,Military
+dc/topic/MilitaryShipsResidents,Military Ships Residents
+dc/topic/MobilePhoneOwnership,Mobile Phone Ownership
+dc/topic/MobilePhoneUsage,Mobile Phone Usage
+dc/topic/MortalityRate,Mortality Rate
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age
+dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age
+dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases
+dc/topic/NeverMarriedFemalePopulationByAge,Never Married Female Population By Age
+dc/topic/NeverMarriedMalePopulationByAge,Never Married Male Population By Age
+dc/topic/NeverMarriedPopulationByAge,Never Married Population By Age
+dc/topic/NoninstitutionalizedGroupQuartersResidents,Noninstitutionalized Group Quarters Residents
+dc/topic/NotHispanicOrLatinoFemalePopulationByAge,Not Hispanic Or Latino Female Population By Age
+dc/topic/NotHispanicOrLatinoMalePopulationByAge,Not Hispanic Or Latino Male Population By Age
+dc/topic/NotHispanicOrLatinoPopulationByAge,Not Hispanic Or Latino Population By Age
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age"
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age"
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAloneFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Female Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAloneMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Male Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/NotHispanicOrLatino_AsianAlonePopulationByAge,"Not Hispanic Or Latino, Asian Alone Population By Age"
+dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderFemalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age"
+dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderMalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Female Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Male Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age"
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Not Hispanic Or Latino, Two Or More Races Population By Age"
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age"
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age"
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
+dc/topic/NowMarriedFemalePopulationByAge,Now Married Female Population By Age
+dc/topic/NowMarriedMalePopulationByAge,Now Married Male Population By Age
+dc/topic/NowMarriedPopulationByAge,Now Married Population By Age
+dc/topic/NursesAndMidwives,Nurses And Midwives
+dc/topic/NursingFacilitiesResidents,Nursing Facilities Residents
+dc/topic/Parliament,Parliament
+dc/topic/PhysicalActivity,Physical Activity
+dc/topic/PhysicalInactivity,Physical Inactivity
+dc/topic/Physicians,Physicians
+dc/topic/PopulationFormerSmoker,Population Former Smoker
+dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User
+dc/topic/PopulationNormalWeight,Population Normal Weight
+dc/topic/PopulationObese,Population Obese
+dc/topic/PopulationOverweight,Population Overweight
+dc/topic/PopulationPreObese,Population Pre Obese
+dc/topic/PopulationSmoker,Population Smoker
+dc/topic/PopulationUndersleeping,Population Undersleeping
+dc/topic/PopulationUnderweight,Population Underweight
+dc/topic/PopulationWeight,Population Weight
+dc/topic/PopulationWithArthritisByAge,Population With Arthritis By Age
+dc/topic/PopulationWithAsthmaByAge,Population With Asthma By Age
+dc/topic/PopulationWithCancerByAge,Population With Cancer By Age
+dc/topic/PopulationWithDementiaByAge,Population With Dementia By Age
+dc/topic/PopulationWithDiabetesByAge,Population With Diabetes By Age
+dc/topic/PopulationWithDiseasesOfHeartByAge,Population With Heart Disease By Age
+dc/topic/PopulationWithKidneyDiseaseByAge,Population With Kidney Disease By Age
+dc/topic/PopulationWithLungConditionByAge,Population With Lung Condition By Age
+dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Health By Age
+dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age
+dc/topic/Poverty,Poverty
 dc/topic/PowerEmissionsByGas,Amount of gases emitted by the power sector;Emissions from power;Quantity of greenhouse gases emitted by power plants and energy production processes;The sum of all gases released by power generation activities;The volume of emissions produced by electricity generation activities;Total amount of gas emissions from the power sector;Total quantity of gases released by the power industry
+dc/topic/Precipitation,Precipitation
+dc/topic/PreventativeHealth,Preventative Health
 dc/topic/ProjectedClimateExtremes,Climate Extremes;Projected Climate Extremes;What are the projected temperature extremes across;how crazy is the climate supposed to get in the future;projected temperature;projected temperature extremes;tell me about projecte temperature extremes for;what are predicted extreme temperatures for
 dc/topic/RacialBreakdown,Racial Breakdown;demographic breakdown;demographic distribution;ethnic breakdown;ethnicity;how diverse are the demographics;i want to know about the racial makeup;population race;racial breakdown of a population;racial diversity of population;tell me about the demographics
+dc/topic/Rainfall,Rainfall
+dc/topic/Religion,Religion
+dc/topic/RiverineFlood,Riverine Flood
+dc/topic/RoadTrafficDeaths,Road Traffic Deaths
+dc/topic/RuralFemalePopulationByAge,Rural Female Population By Age
+dc/topic/RuralMalePopulationByAge,Rural Male Population By Age
+dc/topic/RuralPopulationByAge,Rural Population By Age
 dc/topic/SDG_1,End poverty;End poverty in all its forms;SDG end poverty;SDG poverty
 dc/topic/SDG_10,Reduced inequalities;SDG inequalities;SDG reduce inequalities
 dc/topic/SDG_13,Climate action;SDG climate;SDG climate action;SDG combat climate change;combat climate change
@@ -5358,10 +5573,52 @@ dc/topic/SDG_2,End hunger;Eradicate hunger;SDG food;SDG hunger;SDG sustainable a
 dc/topic/SDG_3,Good health and well being;SDG good health;SDG health;SDG healthy life;SDG well being;healthy lives
 dc/topic/SDG_4,Quality education;SDG education;SDG learning;SDG quality and inclusive education;inclusive education;life long learning
 dc/topic/SDG_5,Gender equality;SDG female empowerment;SDG gender equality;SDG women;empower women and girls;female empowerment
+dc/topic/Sanitation,Sanitation
+dc/topic/SeparatedFemalePopulationByAge,Separated Female Population By Age
+dc/topic/SeparatedMalePopulationByAge,Separated Male Population By Age
+dc/topic/SeparatedPopulationByAge,Separated Population By Age
+dc/topic/Snowfall,Snowfall
+dc/topic/SocialSupport,Social Support
+dc/topic/SolarConsumption,Solar Consumption
 dc/topic/SolarPotential,Solar Potential;Solar potential;ability to support solar panels;amount of solar potential;potential for solar energy;solar potential
+dc/topic/SomeOtherRaceAloneFemalePopulationByAge,Some Other Race Alone Female Population By Age
+dc/topic/SomeOtherRaceAloneMalePopulationByAge,Some Other Race Alone Male Population By Age
+dc/topic/Storm,Storm
+dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age
+dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age
+dc/topic/Subsidies,Subsidies
+dc/topic/Suicide,Suicide
+dc/topic/Tariffs,Tariffs
 dc/topic/Temperature,tell me about the weather;what's the climate here;what's the temperature like
+dc/topic/Thunderstorm,Thunderstorm
+dc/topic/Tornado,Tornado
 dc/topic/TransportationEmissionsByGas,Amount of gases emitted by the transportation sector;Emissions from transportation;Quantity of greenhouse gases emitted by vehicles and transportation systems;The sum of all gases released by transportation activities;The volume of emissions produced by transportation activities;Total amount of gas emissions from the transportation industry;Total quantity of gases released by the transportation sector
+dc/topic/TropicalWeatherEvents,Tropical Weather Events
+dc/topic/Tsunami,Tsunami
+dc/topic/Tuberculosis,Tuberculosis
+dc/topic/TwoOrMoreRacesFemalePopulationByAge,Two Or More Races Female Population By Age
+dc/topic/TwoOrMoreRacesMalePopulationByAge,Two Or More Races Male Population By Age
+dc/topic/TwoOrMoreRacesPopulationByAge,Two Or More Races Population By Age
+dc/topic/UnintentionalPoisonings,Unintentional Poisonings
+dc/topic/UrbanFemalePopulationByAge,Urban Female Population By Age
+dc/topic/UrbanMalePopulationByAge,Urban Male Population By Age
+dc/topic/UrbanPopulationByAge,Urban Population By Age
+dc/topic/Vaccines,Vaccines
+dc/topic/Visibility,Visibility
+dc/topic/Volcano,Volcano
+dc/topic/Voting,Voting
+dc/topic/Weather,Weather
 dc/topic/WetBulbTemperature,Wet Bulb Temperature;for this area what is the temperature at which the human body can't cool itself anymore;give me the degree of the wetbulb temperature;how high or low is the wet bulb temperature predicted to be;wet bulb temperature prediction range;what is the wet bulb temperature
+dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age
+dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age
+dc/topic/WhiteAloneNotHispanicOrLatinoFemalePopulationByAge,White Alone Not Hispanic Or Latino Female Population By Age
+dc/topic/WhiteAloneNotHispanicOrLatinoMalePopulationByAge,White Alone Not Hispanic Or Latino Male Population By Age
+dc/topic/WhiteAloneNotHispanicOrLatinoPopulationByAge,White Alone Not Hispanic Or Latino Population By Age
+dc/topic/WhiteAlonePopulationByAge,White Alone Population By Age
+dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age
+dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age
+dc/topic/WidowedPopulationByAge,Widowed Population By Age
+dc/topic/Wildfire,Wildfire
 dc/topic/WorkCommute,Work Commute;Work commute;commute mode;journey to work;travel to work
 dc/tqgf8zv96r5t8,How many people work in textile and fabric finishing mills?;Number of Textile and Fabric Finishing Mills Workers;Number of textile and fabric finishing mills workers;Population of Person: Textile And Fabric Finishing Mills (NAICS/3133);The number of people who work in textile and fabric finishing mills;how many people are employed in textile and fabric finishing mills?;how many people work in textile and fabric finishing mills?;number of textile and fabric finishing mills workers;the number of people who work in textile and fabric finishing mills;what is the number of textile and fabric finishing mill workers?;what is the workforce of textile and fabric finishing mills?
 dc/twlffl9b5vgn3,"Foreign Born Divorced People;Population: Divorced, Foreign Born;people who were born in a country other than the united states and are now divorced from their partner;people who were born in a different country and are now divorced from their significant other;people who were born in a foreign country and are now divorced from their spouse;people who were born in another country and are now divorced"
