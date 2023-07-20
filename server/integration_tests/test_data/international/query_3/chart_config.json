@@ -79,6 +79,7 @@
       ]
     },
     "suggestions": {
+      "NL_RELATED_PLACE": {},
       "NL_RELATED_QUERY_TYPE": {
         "items": [
           {
@@ -90,7 +91,8 @@
             "nlQuery": "GDP of counties in the United Kingdom - show lowest"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

@@ -74,6 +74,8 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
       "NL_RELATED_QUERY_TYPE": {
         "items": [
           {
@@ -85,7 +87,8 @@
             "nlQuery": "Life expectancy across provinces of China - show lowest"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
