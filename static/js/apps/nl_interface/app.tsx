@@ -48,7 +48,7 @@ export function App(): JSX.Element {
     getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.MEDIUM_FT)
   );
   const [detector, setDetector] = useState(
-    getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HEURISTIC)
+    getUrlTokenOrDefault(NL_URL_PARAMS.DETECTOR, NL_DETECTOR_VALS.HYBRID)
   );
   const placeDetector = useRef<string>(
     getUrlTokenOrDefault(
