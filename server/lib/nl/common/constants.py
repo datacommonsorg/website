@@ -121,10 +121,15 @@ EVENT_TYPE_TO_DC_TYPES = {
 
 # Key is canonical AA types (and excludes county, province, etc.)
 CHILD_PLACE_TYPES = {
-    ContainedInPlaceType.CONTINENT: ContainedInPlaceType.COUNTRY,
-    ContainedInPlaceType.COUNTRY: ContainedInPlaceType.ADMIN_AREA_1,
-    ContainedInPlaceType.ADMIN_AREA_1: ContainedInPlaceType.ADMIN_AREA_2,
-    ContainedInPlaceType.ADMIN_AREA_2: ContainedInPlaceType.CITY,
+    ContainedInPlaceType.CONTINENT:
+        ContainedInPlaceType.COUNTRY,
+    # Prefer AA2. If data doesn't exist, we'll fallback to AA1.
+    ContainedInPlaceType.COUNTRY:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_1:
+        ContainedInPlaceType.ADMIN_AREA_2,
+    ContainedInPlaceType.ADMIN_AREA_2:
+        ContainedInPlaceType.CITY,
 }
 
 # Key is canonical AA types (and excludes county, province, etc.).

@@ -16,7 +16,7 @@
 import datetime
 import logging
 import time
-from typing import Dict, List, NamedTuple, Tuple
+from typing import Dict, List, NamedTuple, Set, Tuple
 
 import server.lib.fetch as fetch
 from server.lib.nl.common import variable
@@ -94,12 +94,13 @@ class GrowthRanks(NamedTuple):
 def rank_places_by_series_growth(places: List[str], sv: str,
                                  growth_direction: types.TimeDeltaType,
                                  rank_order: types.RankingType,
+                                 nopc_vars: Set[str],
                                  counters: ctr.Counters) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
                                   all_facets=False)
-  place2denom = _compute_place_to_denom(sv, places)
+  place2denom = _compute_place_to_denom(sv, places, nopc_vars)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
 
@@ -134,12 +135,13 @@ def rank_places_by_series_growth(places: List[str], sv: str,
 def rank_svs_by_series_growth(place: str, svs: List[str],
                               growth_direction: types.TimeDeltaType,
                               rank_order: types.RankingType,
+                              nopc_vars: Set[str],
                               counters: ctr.Counters) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
                                   all_facets=False)
-  place2denom = _compute_place_to_denom(svs[0], [place])
+  place2denom = _compute_place_to_denom(svs[0], [place], nopc_vars)
   counters.timeit('rank_svs_by_series_growth', start)
 
   svs_with_vals = []
@@ -235,9 +237,10 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   raise ValueError(f'Unable to parse date {datestr}')
 
 
-def _compute_place_to_denom(sv: str, places: List[str]):
+def _compute_place_to_denom(sv: str, places: List[str], nopc_vars: Set[str]):
   place2denom = {}
-  if sv != constants.DEFAULT_DENOMINATOR and variable.is_percapita_relevant(sv):
+  if (sv != constants.DEFAULT_DENOMINATOR and
+      variable.is_percapita_relevant(sv, nopc_vars)):
     denom_data = fetch.point_core(entities=places,
                                   variables=[constants.DEFAULT_DENOMINATOR],
                                   date='LATEST',
@@ -246,7 +249,6 @@ def _compute_place_to_denom(sv: str, places: List[str]):
       for place, point in sv_data.items():
         if 'value' in point:
           place2denom[place] = point['value']
-  logging.info(place2denom)
   return place2denom
 
 

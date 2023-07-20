@@ -13,7 +13,10 @@
 # limitations under the License.
 
 import logging
+import os
 from typing import List
+
+from flask import current_app
 
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
@@ -70,12 +73,18 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   rank_order = state.ranking_types[0] if state.ranking_types else None
   logging.info('Attempting to compute growth rate stats')
 
+  if os.environ.get('FLASK_ENV') != 'test':
+    nopc_vars = current_app.config['NL_NOPC_VARS']
+  else:
+    nopc_vars = set()
+
   direction = state.time_delta_types[0]
   ranked_lists = rank_utils.rank_svs_by_series_growth(
       place=places[0].dcid,
       svs=chart_vars.svs,
       growth_direction=direction,
       rank_order=rank_order,
+      nopc_vars=nopc_vars,
       counters=state.uttr.counters)
 
   state.uttr.counters.info(

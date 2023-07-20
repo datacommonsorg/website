@@ -22,6 +22,7 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib import util as libutil
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import topic
 from server.lib.nl.common import utils
@@ -751,6 +752,10 @@ categories {
 }
 """
 
+SV_CHART_TITLES = libutil.get_nl_chart_titles()
+
+NOPC_VARS = libutil.get_nl_no_percapita_vars()
+
 
 # This has a set of similar tests to the ones in fulfillment_next_test.py.
 class TestPageConfigNext(unittest.TestCase):
@@ -824,7 +829,10 @@ def _textproto(s):
 
 
 def _run(uttr_dict: Dict,
-         config: SubjectPageConfig = None) -> SubjectPageConfig:
+         event_config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  return text_format.MessageToString(builder.build(uttr, config))
+  cfg = builder.Config(event_config=event_config,
+                       sv_chart_titles=SV_CHART_TITLES,
+                       nopc_vars=NOPC_VARS)
+  return text_format.MessageToString(builder.build(uttr, cfg))
