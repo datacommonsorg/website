@@ -1,7 +1,7 @@
 {
   "places_detected": [
     "california",
-    "new york",
+    "new york state",
     "washington"
   ],
   "places_resolved": "(name: California, dcid: geoId/06); (name: New York, dcid: geoId/36); (name: Washington, dcid: geoId/53); ",

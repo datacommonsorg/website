@@ -297,21 +297,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person_DifferentHouseAbroad"
-                    ],
-                    "title": "Median Income: 15 Years or More, With Income, Different House Abroad in Florida",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied",
                       "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
                     ],
@@ -648,10 +633,6 @@
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
-          },
-          "Median_Income_Person_DifferentHouseAbroad": {
-            "name": "Median Income: 15 Years or More, With Income, Different House Abroad",
-            "statVar": "Median_Income_Person_DifferentHouseAbroad"
           }
         }
       }
@@ -662,14 +643,75 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "AdministrativeArea2 in Valle del Cauca Department",
+            "nlQuery": "what about in Florida Valle del Cauca Department"
+          },
+          {
+            "displayName": "City in Florida Department",
+            "nlQuery": "what about in Florida Florida Department"
+          },
+          {
+            "displayName": "City in City of Johannesburg Metropolitan Municipality",
+            "nlQuery": "what about in Florida City of Johannesburg Metropolitan Municipality"
+          },
+          {
+            "displayName": "County in Puerto Rico",
+            "nlQuery": "what about in Florida Puerto Rico"
+          },
+          {
+            "displayName": "City in New York",
+            "nlQuery": "what about in Florida New York"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
+            "displayName": "Alabama",
+            "nlQuery": "what about in Alabama"
+          },
+          {
+            "displayName": "Alaska",
+            "nlQuery": "what about in Alaska"
+          },
+          {
+            "displayName": "Arizona",
+            "nlQuery": "what about in Arizona"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "what about in Arkansas"
+          },
+          {
             "displayName": "California",
-            "nlQuery": "what about in california"
+            "nlQuery": "what about in California"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "what about in Colorado"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "what about in Connecticut"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "what about in Delaware"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "what about in District of Columbia"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "what about in Florida"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
