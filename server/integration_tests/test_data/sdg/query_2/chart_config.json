@@ -466,6 +466,14 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/NRU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Nauru",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/FSM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
@@ -495,14 +503,6 @@
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Bosnia and Herzegovina",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/IRL",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Ireland",
                     "type": "LINE"
                   }
                 ]
@@ -643,6 +643,14 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/NRU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Nauru",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/CYM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
@@ -664,14 +672,6 @@
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Ireland",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BGR",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Bulgaria",
                     "type": "LINE"
                   }
                 ]
