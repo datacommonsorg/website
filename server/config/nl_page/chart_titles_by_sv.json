@@ -1099,6 +1099,7 @@
   "RetailDrugDistribution_DrugDistribution_Hydrocodone": "Amount of Hydrocodone Distributed Through Retail Drug Channels",
   "RetailDrugDistribution_DrugDistribution_Morphine": "Amount of Morphine Distributed Through Retail Drug Channels",
   "RetailDrugDistribution_DrugDistribution_Oxycodone": "Amount of Oxycodone Distributed Through Retail Drug Channels",
+  "RetailDrugDistribution_DrugDistribution_Oxymorphone": "Amount of Oxymorphone Distributed Through Retail Drug Channels",
   "Temperature": "Temperature in a Location",
   "UnemploymentRate_Person": "Unemployment Rate of a Population",
   "UnemploymentRate_Person_Female": "Unemployment Rate of the Female Population",
