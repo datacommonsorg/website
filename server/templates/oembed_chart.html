@@ -12,30 +12,29 @@
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
-  #}
-
-  
-  {% block head %}
-  <link rel="alternate" type="application/json+oembed"
-    href="https://datacommons.org/omebed?format=json&url={{request_url}}"
-    title="Data Commons Embeddable Chart"/>
-  <link rel="alternate" type="text/xml+oembed"
-    href="https://datacommons.org/omebed?format=xml&url={{request_url}}"
-    title="Data Commons Embeddable Chart"/>
-  <link rel="stylesheet" href="https://datacommons.org/css/datacommons.min.css" />
-  <script src="{{hostname}}/datacommons.js"></script>
-  <style>
-    .component-container {
-      height: {{height}}px;
-      margin-top: -20px;
-      width: {{width}}px;
-    }
-  </style>
-  {% endblock %}
-  
-  {% block content %}
-      <div class="component-container">
-        {{component|safe}}
-      </div>
-
-  {% endblock %}
+#}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="alternate" type="application/json+oembed"
+      href="https://datacommons.org/oembed?format=json&url={{request_url}}"
+      title="Data Commons Embeddable Chart"/>
+    <link rel="alternate" type="text/xml+oembed"
+      href="https://datacommons.org/oembed?format=xml&url={{request_url}}"
+      title="Data Commons Embeddable Chart"/>
+    <link rel="stylesheet" href="https://datacommons.org/css/datacommons.min.css" />
+    <script src="{{hostname}}/datacommons.js"></script>
+    <style>
+      .component-container {
+        height: {{height}}px;
+        margin-top: -20px;
+        width: {{width}}px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="component-container">
+      {{component|safe}}
+    </div>
+  </body>
+</html>
