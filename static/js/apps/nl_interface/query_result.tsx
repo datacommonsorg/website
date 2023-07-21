@@ -42,13 +42,20 @@ export interface QueryResultProps {
 export const QueryResult = memo(function QueryResult(
   props: QueryResultProps
 ): JSX.Element {
+  const currentNlQueryContextId = useStoreState(
+    (s) => s.config.currentNlQueryContextId
+  );
+  const prevCurrentNlQueryContextId = useRef<string>(currentNlQueryContextId);
+  const numQueries = useStoreState(
+    (s) => s.nlQueryContexts[currentNlQueryContextId].nlQueryIds.length
+  );
   const { nlQueryId } = props;
   const nlQuery = useStoreState((s) => s.nlQueries[nlQueryId]);
   const updateNlQuery = useStoreActions((a) => a.updateNlQuery);
   const scrollRef = createRef<HTMLDivElement>();
 
   /**
-   * Scroll the query result into view once it starts loading
+   * Scroll this query result into view once it starts loading
    */
   useEffect(() => {
     if (nlQuery.isLoading) {
@@ -58,7 +65,24 @@ export const QueryResult = memo(function QueryResult(
         inline: "start",
       });
     }
-  }, [nlQuery.isLoading]);
+  }, [nlQuery.isLoading, scrollRef]);
+
+  /**
+   * When changing query contexts, scroll the last query result into view
+   */
+  useEffect(() => {
+    if (currentNlQueryContextId === prevCurrentNlQueryContextId.current) {
+      return;
+    }
+    if (props.queryIdx !== numQueries - 1) {
+      return;
+    }
+    scrollRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start",
+    });
+  }, [currentNlQueryContextId, prevCurrentNlQueryContextId, scrollRef]);
 
   const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
   return (

@@ -124,6 +124,16 @@ export function QueryContext(props: QueryContextProps): JSX.Element {
     };
   }, [latestNlQuery, urlPrompts]);
 
+  // Scroll to the most recent query when the query context changes
+  useEffect(() => {
+    if (currentNlQueryContextId === prevCurrentNlQueryContextId.current) {
+      return;
+    }
+    if (!latestNlQuery) {
+      return;
+    }
+  }, [currentNlQueryContextId, prevCurrentNlQueryContextId]);
+
   return (
     <>
       <div className="context-container">
