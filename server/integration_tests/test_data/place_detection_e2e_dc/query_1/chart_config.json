@@ -24,14 +24,59 @@
       ]
     },
     "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "Pennsylvania",
+            "nlQuery": "tell me about Palo Alto Pennsylvania"
+          }
+        ]
+      },
       "NL_RELATED_PLACE": {
         "items": [
           {
-            "displayName": "San Francisco",
-            "nlQuery": "tell me about san francisco"
+            "displayName": "Anchorage municipality",
+            "nlQuery": "tell me about Anchorage municipality"
+          },
+          {
+            "displayName": "Phoenix",
+            "nlQuery": "tell me about Phoenix"
+          },
+          {
+            "displayName": "Tucson",
+            "nlQuery": "tell me about Tucson"
+          },
+          {
+            "displayName": "Little Rock",
+            "nlQuery": "tell me about Little Rock"
+          },
+          {
+            "displayName": "Los Angeles",
+            "nlQuery": "tell me about Los Angeles"
+          },
+          {
+            "displayName": "Mountain View",
+            "nlQuery": "tell me about Mountain View"
+          },
+          {
+            "displayName": "Oakland",
+            "nlQuery": "tell me about Oakland"
+          },
+          {
+            "displayName": "Palo Alto",
+            "nlQuery": "tell me about Palo Alto"
+          },
+          {
+            "displayName": "Sacramento",
+            "nlQuery": "tell me about Sacramento"
+          },
+          {
+            "displayName": "San Diego",
+            "nlQuery": "tell me about San Diego"
           }
         ]
-      }
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
