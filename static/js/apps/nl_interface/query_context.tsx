@@ -29,12 +29,10 @@ const CHARACTER_INPUT_INTERVAL = 50;
 const PROMPT_SEARCH_DELAY = 1000;
 const NEXT_PROMPT_DELAY = 5000;
 
-interface QueryContextProps {}
-export function QueryContext(props: QueryContextProps): JSX.Element {
+export function QueryContext(): JSX.Element {
   const currentNlQueryContextId = useStoreState(
     (s) => s.config.currentNlQueryContextId
   );
-  const prevCurrentNlQueryContextId = useRef<string>(currentNlQueryContextId);
   const currentNlQueryContext = useStoreState(
     (s) => s.nlQueryContexts[currentNlQueryContextId]
   );
@@ -123,16 +121,6 @@ export function QueryContext(props: QueryContextProps): JSX.Element {
       clearTimeout(nextPromptDelayTimer.current);
     };
   }, [latestNlQuery, urlPrompts]);
-
-  // Scroll to the most recent query when the query context changes
-  useEffect(() => {
-    if (currentNlQueryContextId === prevCurrentNlQueryContextId.current) {
-      return;
-    }
-    if (!latestNlQuery) {
-      return;
-    }
-  }, [currentNlQueryContextId, prevCurrentNlQueryContextId]);
 
   return (
     <>
