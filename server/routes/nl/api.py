@@ -34,7 +34,6 @@ import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
-from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
@@ -43,6 +42,7 @@ from server.lib.nl.detection.types import RequestedDetectorType
 import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
 from server.lib.util import get_nl_disaster_config
+from server.routes.nl import helpers
 import server.services.bigtable as bt
 import shared.lib.utils as shared_utils
 
@@ -53,7 +53,7 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 # The main Data Handler function
 #
 @bp.route('/data', methods=['POST'])
-def data():
+def data_via_nl():
   """Data handler."""
   logging.info('NL Data API: Enter')
   # NO production support yet.
@@ -94,15 +94,15 @@ def data():
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
-    return _abort('Received an empty query, please type a few words :)',
-                  original_query, context_history)
+    return helpers.abort('Received an empty query, please type a few words :)',
+                         original_query, context_history)
 
   #
   # Check offensive words
   #
   if (not bad_words.is_safe(original_query, nl_bad_words) or
       not bad_words.is_safe(query, nl_bad_words)):
-    return _abort(
+    return helpers.abort(
         'The query was rejected due to the ' +
         'presence of inappropriate words.', original_query, context_history)
 
@@ -129,6 +129,21 @@ def data():
                                     query_detection_debug_logs, counters)
   counters.timeit('query_detection', start)
 
+  cb_config = config_builder.Config(
+      event_config=disaster_config,
+      sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+      nopc_vars=current_app.config['NL_NOPC_VARS'])
+
+  return fulfill_and_build_charts(query_detection, prev_utterance, counters,
+                                  session_id, cb_config,
+                                  query_detection_debug_logs)
+
+
+def fulfill_and_build_charts(query_detection: Detection,
+                             prev_utterance: nl_utterance.Utterance,
+                             counters: ctr.Counters, session_id: str,
+                             cb_config: config_builder.Config,
+                             query_detection_debug_logs: Dict) -> Dict:
   start = time.time()
   utterance = fulfillment.fulfill(query_detection, prev_utterance, counters,
                                   session_id)
@@ -138,11 +153,7 @@ def data():
     start = time.time()
 
     # Call chart config builder.
-    bcfg = config_builder.Config(
-        event_config=disaster_config,
-        sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-        nopc_vars=current_app.config['NL_NOPC_VARS'])
-    page_config_pb = config_builder.build(utterance, bcfg)
+    page_config_pb = config_builder.build(utterance, cb_config)
 
     page_config = json.loads(MessageToJson(page_config_pb))
     counters.timeit('build_page_config', start)
@@ -198,6 +209,72 @@ def data():
   return data_dict
 
 
+#
+# The secondary API that uses detected params.
+#
+# POST request should contain:
+#  - entities: An ordered list of places or other entity DCIDs.
+#  - variables: A ordered list of SV or topic (dc/topic/..) DCIDs.
+#  - childEntityType: A type of child entity (optional)
+#
+# TODO: Add support for context
+#
+@bp.route('/data_via_dcid', methods=['POST'])
+def data_via_dcid():
+  """Data handler."""
+  logging.info('NL Chart API: Enter')
+  # NO production support yet.
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+
+  disaster_config = current_app.config['NL_DISASTER_CONFIG']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    disaster_config = get_nl_disaster_config()
+  else:
+    logging.info('Unable to load event configs!')
+
+  req_json = request.get_json()
+  if not request.get_json():
+    helpers.abort('Missing input', '', [])
+    return
+  if (not req_json.get('entities') or not req_json.get('variables')):
+    helpers.abort('Entities and variables must be provided', '', [])
+    return
+
+  entities = req_json.get('entities')
+  variables = req_json.get('variables')
+  child_type = req_json.get('childEntityType')
+
+  counters = ctr.Counters()
+  query_detection_debug_logs = {}
+
+  if current_app.config['LOG_QUERY']:
+    session_id = utils.new_session_id()
+  else:
+    session_id = constants.TEST_SESSION_ID
+
+  # There is not detection, so just construct a structure.
+  start = time.time()
+  query_detection, error_msg = detector.construct(entities, variables,
+                                                  child_type,
+                                                  query_detection_debug_logs,
+                                                  counters)
+  counters.timeit('query_detection', start)
+  if not query_detection:
+    helpers.abort(error_msg, '', [])
+    return
+
+  logging.info(query_detection)
+  cb_config = config_builder.Config(
+      event_config=disaster_config,
+      sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+      nopc_vars=current_app.config['NL_NOPC_VARS'])
+
+  return fulfill_and_build_charts(query_detection, None, counters, session_id,
+                                  cb_config, query_detection_debug_logs)
+
+
 @bp.route('/history')
 def history():
   # No production support.
@@ -236,44 +313,3 @@ def feedback():
   except Exception as e:
     logging.error(e)
     return 'Failed to record feedback data', 500
-
-
-#
-# Preliminary abort with the given error message
-#
-def _abort(error_message, original_query, context_history) -> Dict:
-  query = str(escape(shared_utils.remove_punctuations(original_query)))
-  escaped_context_history = []
-  for ch in context_history:
-    escaped_context_history.append(escape(ch))
-
-  res = {
-      'place': {
-          'dcid': '',
-          'name': '',
-          'place_type': '',
-      },
-      'config': {},
-      'context': escaped_context_history,
-      'failure': error_message
-  }
-
-  counters = ctr.Counters()
-  query_detection_debug_logs = {}
-  query_detection_debug_logs["original_query"] = query
-
-  query_detection = Detection(original_query=original_query,
-                              cleaned_query=query,
-                              places_detected=dutils.empty_place_detection(),
-                              svs_detected=dutils.create_sv_detection(
-                                  query, dutils.empty_svs_score_dict()),
-                              classifications=[],
-                              llm_resp={})
-  data_dict = dbg.result_with_debug_info(
-      data_dict=res,
-      status=error_message,
-      query_detection=query_detection,
-      debug_counters=counters.get(),
-      query_detection_debug_logs=query_detection_debug_logs)
-  logging.info('NL Data API: Empty Exit')
-  return data_dict
