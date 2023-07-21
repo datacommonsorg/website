@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import json
 import os
 
@@ -53,10 +54,11 @@ class IntegrationTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx
           }).json()
-      expected_detector = expected_detectors[i] if expected_detectors else None
+      if expected_detectors:
+        detection_method = expected_detectors[i]
+      ctx = resp['context']
       self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
-                           check_place_detection, expected_detector,
-                           detection_method)
+                           check_place_detection, detection_method)
 
   def handle_response(self,
                       query,
@@ -65,8 +67,7 @@ class IntegrationTest(NLWebServerTestCase):
                       test_name,
                       failure,
                       check_place_detection=False,
-                      expected_detector=None,
-                      detection_method=None):
+                      detector=None):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
@@ -95,13 +96,9 @@ class IntegrationTest(NLWebServerTestCase):
         self.assertTrue(not resp["config"])
         return
 
-      if detection_method:
-        if not expected_detector:
-          self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
-            f'Query {query} failed!'
-        else:
-          self.assertTrue(dbg.get('detection_type').startswith(expected_detector)), \
-            f'Query {query} failed!'
+      if detector:
+        self.assertTrue(dbg.get('detection_type').startswith(detector)), \
+          f'Query {query} failed!'
       if not check_place_detection:
         with open(json_file, 'r') as infile:
           expected = json.load(infile)
@@ -281,11 +278,11 @@ class IntegrationTest(NLWebServerTestCase):
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
 
-  def test__nonnl_api_basic(self):
+  def test_nonnl_api_basic(self):
     req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
     self.run_nonnl('nonnl_api_basic', req)
 
-  def test__nonnl_api_childtype(self):
+  def test_nonnl_api_childtype(self):
     req = {
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
