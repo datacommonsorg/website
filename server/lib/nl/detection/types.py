@@ -354,6 +354,8 @@ class ActualDetectorType(str, Enum):
   HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
   # Fallback to LLM for variable detection only
   HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  # The case of no detector involved.
+  NOP = "Detector unnecessary"
 
 
 class RequestedDetectorType(str, Enum):
@@ -368,6 +370,8 @@ class PlaceDetectorType(str, Enum):
   NER = "ner"
   # Represents the home-grown RecognizePlaces Recon API
   DC = "dc"
+  # The case of no detector involved
+  NOP = "nop"
 
 
 @dataclass
