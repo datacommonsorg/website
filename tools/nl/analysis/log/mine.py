@@ -110,7 +110,7 @@ def _url(ditem, detection, index):
   return _AUTOPUSH_URL + '&'.join(parts)
 
 
-def _write_all_rows(key, data, csvw):
+def _write_all_rows(key, data, out_rows):
   for i, it in enumerate(data[_COL_SESSION]['items']):
     # Format xxx_yyyyyyyy#<project>
     ts = int(key.split('#')[0].split('_')[1])
@@ -136,10 +136,10 @@ def _write_all_rows(key, data, csvw):
         'URL': _url(ditem, detection, index),
         'Status': it['status']
     }
-    csvw.writerow(output_row)
+    out_rows.append(output_row)
 
 
-def _write_feedback_rows(key, data, csvw):
+def _write_feedback_rows(key, data, out_rows):
   for fb in data[_COL_FEEDBACK]:
     if 'queryId' in fb:
       # Query-level feedback
@@ -212,10 +212,10 @@ def _write_feedback_rows(key, data, csvw):
         'URL':
             _url(ditem, detection, index)
     }
-    csvw.writerow(output_row)
+    out_rows.append(output_row)
 
 
-def mine(table, start, csvw, all_rows):
+def mine(table, start, out_rows, all_rows):
   rows = table.read_rows(filter_=row_filters.TimestampRangeFilter(
       row_filters.TimestampRange(start=start)))
   for row in rows:
@@ -258,9 +258,9 @@ def mine(table, start, csvw, all_rows):
     data[_COL_DATA].sort(key=lambda x: len(x['session']['items']))
 
     if all_rows:
-      _write_all_rows(key, data, csvw)
+      _write_all_rows(key, data, out_rows)
     else:
-      _write_feedback_rows(key, data, csvw)
+      _write_feedback_rows(key, data, out_rows)
 
 
 def main(_):
@@ -270,8 +270,12 @@ def main(_):
 
   now = datetime.now()
   start = now - timedelta(days=FLAGS.past_days)
-  output_csv = os.path.join(FLAGS.output_dir, _fname(start, now))
 
+  out_rows = []
+  mine(table, start, out_rows, FLAGS.all_rows)
+  out_rows.sort(key=lambda x: x['Time'])
+
+  output_csv = os.path.join(FLAGS.output_dir, _fname(start, now))
   with open(output_csv, 'w') as fp:
     if FLAGS.all_rows:
       fieldnames = [
@@ -286,7 +290,7 @@ def main(_):
       ]
     csvw = csv.DictWriter(fp, fieldnames=fieldnames)
     csvw.writeheader()
-    mine(table, start, csvw, FLAGS.all_rows)
+    csvw.writerows(out_rows)
 
   print(f'\nOutput written to: {output_csv}\n')
 
