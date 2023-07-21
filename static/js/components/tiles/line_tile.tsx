@@ -32,9 +32,10 @@ import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarName, getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+import { getPlaceNames } from "../../utils/place_utils";
 
 const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
@@ -45,6 +46,10 @@ export interface LineTilePropType {
   className?: string;
   // colors to use
   colors?: string[];
+  // List of place DCIDs to plot, instead of enclosedPlaceType in place
+  comparisonPlaces?: string[];
+  // Type of child places to plot
+  enclosedPlaceType?: string;
   id: string;
   // Whether or not to render the data version of this tile
   isDataTile?: boolean;
@@ -125,19 +130,45 @@ export const fetchData = async (props: LineTilePropType) => {
       statVars.push(spec.denom);
     }
   }
-  let endpoint = "/api/observations/series";
-  if (props.apiRoot) {
-    endpoint = props.apiRoot + endpoint;
-  }
-  const resp = await axios.get(endpoint, {
-    // Fetch both numerator stat vars and denominator stat vars
-    params: {
+
+  let params;
+  let endpoint;
+  if (!_.isEmpty(props.comparisonPlaces)) {
+    endpoint = `${props.apiRoot || ""}/api/observations/series`;
+    params = {
+      entities: props.comparisonPlaces,
+      variables: statVars,
+    };
+  } else if (props.enclosedPlaceType) {
+    endpoint = `${props.apiRoot || ""}/api/observations/series/within`;
+    params = {
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
+      variables: statVars,
+    };
+  } else {
+    endpoint = `${props.apiRoot || ""}/api/observations/series`;
+    params = {
       variables: statVars,
       entities: [props.place.dcid],
-    },
+    };
+  }
+
+  const resp = await axios.get(endpoint, {
+    // Fetch both numerator stat vars and denominator stat vars
+    params,
     paramsSerializer: stringifyFn,
   });
-  return rawToChart(resp.data, props);
+
+  // get place names from dcids
+  const placeDcids = Object.keys(resp.data.data[statVars[0]]);
+  const placeNames = await getPlaceNames(placeDcids,props.apiRoot);
+  const statVarNames = await getStatVarNames(statVars, props.statVarSpec, props.apiRoot);
+  const options = {
+    usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
+    useBothLabels: statVars.length > 1 && placeDcids.length > 1,
+  };
+  return rawToChart(resp.data, props, placeNames, statVarNames, options);
 };
 
 export function draw(
@@ -168,7 +199,10 @@ export function draw(
 
 function rawToChart(
   rawData: SeriesApiResponse,
-  props: LineTilePropType
+  props: LineTilePropType,
+  placeDcidToName: Record<string, string>,
+  statVarDcidToName: Record<string, string>,
+  options: { usePlaceLabels: boolean; useBothLabels: boolean }
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
@@ -180,31 +214,36 @@ function rawToChart(
   let unit = "";
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
-    const series = raw.data[spec.statVar][props.place.dcid];
-    let obsList = series.series;
-    if (spec.denom) {
-      const denomSeries = raw.data[spec.denom][props.place.dcid];
-      obsList = computeRatio(obsList, denomSeries.series);
-    }
-    if (obsList.length > 0) {
-      const dataPoints: DataPoint[] = [];
-      for (const obs of obsList) {
-        dataPoints.push({
-          label: obs.date,
-          time: new Date(obs.date).getTime(),
-          value: spec.scaling ? obs.value * spec.scaling : obs.value,
-        });
-        allDates.add(obs.date);
+    const entityToSeries = raw.data[spec.statVar];
+    for (const placeDcid in entityToSeries) {
+      const series = raw.data[spec.statVar][placeDcid];
+      let obsList = series.series;
+      if (spec.denom) {
+        const denomSeries = raw.data[spec.denom][placeDcid];
+        obsList = computeRatio(obsList, denomSeries.series);
       }
-      dataGroups.push(
-        new DataGroup(
-          getStatVarName(spec.statVar, props.statVarSpec),
-          dataPoints
-        )
-      );
-      const svUnit = getUnit(raw.facets[series.facet]);
-      unit = unit || svUnit;
-      sources.add(raw.facets[series.facet].provenanceUrl);
+      if (obsList.length > 0) {
+        const dataPoints: DataPoint[] = [];
+        for (const obs of obsList) {
+          dataPoints.push({
+            label: statVarDcidToName[spec.statVar],
+            time: new Date(obs.date).getTime(),
+            value: spec.scaling ? obs.value * spec.scaling : obs.value,
+          });
+          allDates.add(obs.date);
+        }
+        const label = options.useBothLabels
+          ? `${statVarDcidToName[spec.statVar]} for ${
+              placeDcidToName[placeDcid]
+            }`
+          : options.usePlaceLabels
+          ? placeDcidToName[placeDcid]
+          : statVarDcidToName[spec.statVar];
+        dataGroups.push(new DataGroup(label, dataPoints));
+        const svUnit = getUnit(raw.facets[series.facet]);
+        unit = unit || svUnit;
+        sources.add(raw.facets[series.facet].provenanceUrl);
+      }
     }
   }
   for (let i = 0; i < dataGroups.length; i++) {

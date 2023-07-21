@@ -49,14 +49,30 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   apiRoot: string;
 
+  // Child place type to plot
+  @property()
+  childPlaceType: string;
+
   // Optional: colors to use
   // Length should match number of variables
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  /**
+   * @deprecated
+   * DCID of the place to plot
+   */
+  @property()
+  place: string;
+
   // DCID of the parent place
   @property()
-  place!: string;
+  parentPlace!: string;
+
+  // Optional: DCIDs of specific places to plot
+  // If provided, parentPlace and childPlaceType will be ignored
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  places!: string[];
 
   // Title of the chart
   @property()
@@ -70,9 +86,11 @@ export class DatacommonsLineComponent extends LitElement {
     const tileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
+      comparisonPlaces: this.places,
+      enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: this.place,
+        dcid: this.parentPlace || this.place,
         name: "",
         types: [],
       },

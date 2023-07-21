@@ -18,11 +18,13 @@
  * Util functions used by tile components.
  */
 
+import axios from "axios";
 import _ from "lodash";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
+import { stringifyFn } from "./axios";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -73,6 +75,40 @@ export function getStatVarName(
     return `${label} Per Capita`;
   }
   return label;
+}
+
+/**
+ * Gets the stat var name to display via variable-info api call
+ * @param statVarDcids dcid of the stat var to get the name for
+ * @param apiRoot api root to use for api
+ */
+export function getStatVarNames(
+  statVarDcids: string[],
+  statVarSpec?: StatVarSpec[],
+  apiRoot?: string
+): Promise<{ [key: string]: string }> {
+  if (!statVarDcids.length) {
+    return Promise.resolve({});
+  }
+  return axios
+    .get(`${apiRoot || ""}/api/node/propvals/out`, {
+      params: {
+        dcids: statVarDcids,
+        prop: "name",
+      },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      const statVarNames: Record<string, string> = {};
+      for (const statVar in resp.data) {
+        statVarNames[statVar] = resp.data[statVar][0].value;
+      }
+      return statVarNames;
+    })
+    .catch((error) => {
+      console.log(error);
+      return Promise.reject(error);
+    });
 }
 
 interface SVGInfo {

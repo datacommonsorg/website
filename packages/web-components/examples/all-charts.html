@@ -5,7 +5,7 @@
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -69,7 +69,7 @@
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
-    <h2>Bar Chart</h2>
+    <!-- <h2>Bar Chart</h2>
     <datacommons-bar
       title="Most populous states in the US"
       parentPlace="country/USA"
@@ -162,9 +162,9 @@
       childPlaceType="State"
       variable="Count_Person"
       colors="red"
-    ></datacommons-map>
+    ></datacommons-map> -->
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
-    <datacommons-map
+    <!-- <datacommons-map
       title="California: Annual_ExpectedLoss_NaturalHazardImpact"
       placeDcid="geoId/06"
       enclosedPlaceType="County"
@@ -190,21 +190,7 @@
       min="1950"
       publish="dc-map"
       value="2023"
-    ></datacommons-slider>
-    <h2>Ranking</h2>
-    <datacommons-ranking
-      title="US States with the Highest Population"
-      parentPlace="country/USA"
-      childPlaceType="State"
-      variable="Count_Person"
-    ></datacommons-ranking>
-    <datacommons-ranking
-      title="US States with the Lowest Population"
-      parentPlace="country/USA"
-      childPlaceType="State"
-      variable="Count_Person"
-      showLowest
-    ></datacommons-ranking>
+    ></datacommons-slider> -->
     <h3>Line</h3>
     <datacommons-line
       title="US Population Over Time"
@@ -213,6 +199,22 @@
       colors="blue"
     ></datacommons-line>
     <datacommons-line
+      title="US Population in counties of Alaska"
+      parentPlace="geoId/02"
+      childPlaceType="County"
+      variables="Count_Person"
+    ></datacommons-line>
+    <datacommons-line
+    title="US Population in CA and AK"
+    places="geoId/02 geoId/06"
+    variables="Count_Person"
+  ></datacommons-line>
+    <datacommons-line
+    title="US Population in CA and AK"
+    places="geoId/02 geoId/06"
+    variables="Count_Person_Male Count_Person_Female"
+  ></datacommons-line>
+    <!-- <datacommons-line
       title="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
       place="country/USA"
       variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
@@ -272,6 +274,6 @@
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
       lollipop
-    ></datacommons-bar>
+    ></datacommons-bar> -->
   </body>
 </html>
