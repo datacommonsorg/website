@@ -40,14 +40,14 @@ export interface QueryResultProps {
 }
 
 export const QueryResult = memo(function QueryResult(
-  props: QueryResultProps
+  props: QueryResultProps,
 ): JSX.Element {
   const currentNlQueryContextId = useStoreState(
-    (s) => s.config.currentNlQueryContextId
+    (s) => s.config.currentNlQueryContextId,
   );
   const prevCurrentNlQueryContextId = useRef<string>(currentNlQueryContextId);
   const numQueries = useStoreState(
-    (s) => s.nlQueryContexts[currentNlQueryContextId].nlQueryIds.length
+    (s) => s.nlQueryContexts[currentNlQueryContextId].nlQueryIds.length,
   );
   const { nlQueryId } = props;
   const nlQuery = useStoreState((s) => s.nlQueries[nlQueryId]);
@@ -82,7 +82,13 @@ export const QueryResult = memo(function QueryResult(
       block: "start",
       inline: "start",
     });
-  }, [currentNlQueryContextId, prevCurrentNlQueryContextId, scrollRef]);
+  }, [
+    currentNlQueryContextId,
+    prevCurrentNlQueryContextId,
+    scrollRef,
+    numQueries,
+    props.queryIdx,
+  ]);
 
   const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
   return (
@@ -165,8 +171,8 @@ export const QueryResult = memo(function QueryResult(
       return;
     }
     updateNlQuery({
-      id: nlQuery.id,
       feedbackGiven: true,
+      id: nlQuery.id,
     });
     axios.post("/api/nl/feedback", {
       sessionId: nlQuery.chartData.sessionId,

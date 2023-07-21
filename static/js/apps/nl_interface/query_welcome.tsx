@@ -23,6 +23,9 @@ import { Container } from "reactstrap";
 
 import { SampleQuery, useStoreActions, useStoreState } from "./app_state";
 
+// Maximum number of example queries to show in the welcome page
+export const MAX_EXAMPLE_QUERIES = 12;
+
 interface TopicQueries {
   [key: string]: SampleQuery[];
 }
@@ -49,17 +52,19 @@ export function QueryWelcome(): JSX.Element {
     // Otherwise show a random sample from all topics
     const topicQueries = _.groupBy<SampleQuery>(
       allQueries,
-      "topic"
+      "topic",
     ) as TopicQueries;
     setTopicQueries(topicQueries);
     if (topic && topicQueries[topic]) {
-      setExampleQueries(topicQueries[topic].filter((q) => q.wai).slice(0, 12));
+      setExampleQueries(
+        topicQueries[topic].filter((q) => q.wai).slice(0, MAX_EXAMPLE_QUERIES),
+      );
     } else {
       // Select 8x queries at random that work as intended
       setExampleQueries(
         _.shuffle(allQueries)
           .filter((q) => q.wai)
-          .slice(0, 12)
+          .slice(0, MAX_EXAMPLE_QUERIES),
       );
     }
   }, [topic, allQueries]);

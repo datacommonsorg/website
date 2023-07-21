@@ -22,13 +22,13 @@ import { useStoreActions, useStoreState } from "./app_state";
 /**
  * NL sidebar showing query history
  */
-export function Sidebar() {
+export function Sidebar(): JSX.Element {
   const updateConfig = useStoreActions((a) => a.updateConfig);
   const currentNlQueryContextId = useStoreState(
-    (s) => s.config.currentNlQueryContextId
+    (s) => s.config.currentNlQueryContextId,
   );
   const nlQueryContexts = useStoreState((s) =>
-    s.nlQueryContextIds.map((id) => s.nlQueryContexts[id])
+    s.nlQueryContextIds.map((id) => s.nlQueryContexts[id]),
   );
 
   return (

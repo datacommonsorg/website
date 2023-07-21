@@ -78,7 +78,7 @@ interface NLAppConfig {
   autoRun: boolean;
   currentNlQueryContextId: string;
   delayDisabled: boolean;
-  demoMode: boolean; // Show feedback buttons
+  demoMode: boolean; // Hide feedback buttons
   detector: string;
   indexType: string;
   placeholderQuery: string;
@@ -173,15 +173,15 @@ const nlAppActions: NLAppActions = {
       demoMode: !!getUrlToken("enable_demo"),
       detector: getUrlTokenOrDefault(
         NL_URL_PARAMS.DETECTOR,
-        NL_DETECTOR_VALS.HYBRID
+        NL_DETECTOR_VALS.HYBRID,
       ),
       indexType: getUrlTokenOrDefault(
         NL_URL_PARAMS.IDX,
-        NL_INDEX_VALS.MEDIUM_FT
+        NL_INDEX_VALS.MEDIUM_FT,
       ),
       placeDetector: getUrlTokenOrDefault(
         NL_URL_PARAMS.PLACE_DETECTOR,
-        NL_PLACE_DETECTOR_VALS.DC
+        NL_PLACE_DETECTOR_VALS.DC,
       ),
       topic: getUrlToken("topic"),
       urlPrompts: _.compact((getUrlToken("q") || "").split(";")),
@@ -261,7 +261,7 @@ const nlAppActions: NLAppActions = {
           {
             params,
             paramsSerializer: stringifyFn,
-          }
+          },
         );
         const took = Date.now() - start;
         if (
@@ -343,7 +343,7 @@ const nlAppActions: NLAppActions = {
           errorMsg: "Sorry, we didn’t understand your question.",
         });
       }
-    }
+    },
   ),
   setSampleQueries: action((state, sampleQueries) => {
     state.sampleQueries = sampleQueries;
