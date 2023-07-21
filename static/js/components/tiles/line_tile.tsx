@@ -46,7 +46,7 @@ export interface LineTilePropType {
   className?: string;
   // colors to use
   colors?: string[];
-  // List of place DCIDs to plot, instead of enclosedPlaceType in place
+  // List of place DCIDs to plot in addition to place
   comparisonPlaces?: string[];
   // Type of child places to plot
   enclosedPlaceType?: string;
@@ -136,7 +136,7 @@ export const fetchData = async (props: LineTilePropType) => {
   if (!_.isEmpty(props.comparisonPlaces)) {
     endpoint = `${props.apiRoot || ""}/api/observations/series`;
     params = {
-      entities: props.comparisonPlaces,
+      entities: [props.place.dcid].concat(props.comparisonPlaces),
       variables: statVars,
     };
   } else if (props.enclosedPlaceType) {
@@ -164,6 +164,7 @@ export const fetchData = async (props: LineTilePropType) => {
   const placeDcids = Object.keys(resp.data.data[statVars[0]]);
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
+  // If neither options are set, default to showing stat vars in legend labels
   const options = {
     // If many places and one stat var, legend should show only place labels
     usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
