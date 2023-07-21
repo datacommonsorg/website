@@ -27,9 +27,12 @@ steps:
         docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
 
         # Bundle container with website, esp and mixer.
-        docker build -f build/web_server/Dockerfile  --target website-compose --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG} .
+        docker build -f build/web_server/Dockerfile \
+          --target website-compose \
+          --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG} \
+          --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:latest \
+          .
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG}
-        docker build -f build/web_server/Dockerfile  --target website-compose --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:latest .
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:latest
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
