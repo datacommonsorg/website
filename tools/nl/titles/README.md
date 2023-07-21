@@ -2,8 +2,8 @@ This directory is for storing and processing curated stat-var title spreadsheets
 
 State as of March 2023:
 
-* The spreadsheet with 1.2K SVs is [HERE](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=817471184),
-   and checked in as [`demo_svs_1.3k_names.csv`](demo_svs_1.3k_names.csv).
+* The spreadsheet with 1.2K SVs is [HERE](https://docs.google.com/spreadsheets/d/1lmNAnqECpcvkuOlIkdo50Ve1KAalOoyP_lUlOuLmIAU/edit#gid=599439456),
+  and checked in as [`demo_svs_1.3k_names.csv`](demo_svs_1.3k_names.csv).
 
 Steps to add the titles to prod:
 

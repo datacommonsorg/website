@@ -18,104 +18,54 @@
  * Component for search section of the NL interface.
  */
 
-import _ from "lodash";
-import React, { useState } from "react";
-import { Button, Container } from "reactstrap";
+import React from "react";
+import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
+import { useStoreActions, useStoreState } from "./app_state";
 import { NLOptions } from "./nl_options";
 
-interface QuerySearchPropType {
-  queries: string[];
-  onQuerySearched: (query: string) => void;
-  detector: string;
-  setDetector: (v: string) => void;
-}
+export function QuerySearch(): JSX.Element {
+  const config = useStoreState((s) => s.config);
+  const nlQueryContext = useStoreState(
+    (s) => s.nlQueryContexts[config.currentNlQueryContextId]
+  );
+  const nlQueryHistory = useStoreState((s) => {
+    if (!nlQueryContext) {
+      return [];
+    }
+    return nlQueryContext.nlQueryIds.map((nlQueryId) => s.nlQueries[nlQueryId]);
+  });
+  const search = useStoreActions((a) => a.search);
 
-export function QuerySearch(props: QuerySearchPropType): JSX.Element {
-  const [showHistory, setShowHistory] = useState(false);
-  const placeholderQuery =
-    document.getElementById("metadata").dataset.placeholderQuery ||
-    "family earnings in california";
-
-  const queryHistory = getQueryHistory(props.queries);
   return (
-    <div
-      id="search-container"
-      onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-          setShowHistory(false);
-        }
-      }}
-    >
+    <div id="search-container">
       <Container tabIndex={-1}>
         <div className="search-section">
           <div className="search-box-section">
-            {showHistory && (
-              <div className="search-history-container">
-                {_.isEmpty(queryHistory) && (
-                  <div className="search-history-message">No past queries</div>
-                )}
-                {queryHistory.map((query, i) => {
-                  return (
-                    <div
-                      key={`search-history-${i}`}
-                      className="search-history-entry"
-                      onClick={() => {
-                        setShowHistory(false);
-                        props.onQuerySearched(query);
-                      }}
-                    >
-                      {query}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
             <TextSearchBar
               inputId="query-search-input"
               onSearch={(q) => {
-                setShowHistory(false);
-                props.onQuerySearched(q);
+                search({
+                  config,
+                  nlQueryContext,
+                  nlQueryHistory,
+                  query: q,
+                });
               }}
               initialValue=""
               placeholder={
-                _.isEmpty(props.queries)
-                  ? `For example "${placeholderQuery}"`
-                  : ""
+                nlQueryHistory.length > 0
+                  ? ""
+                  : `For example "${config.placeholderQuery}"`
               }
               shouldAutoFocus={true}
               clearValueOnSearch={true}
             />
           </div>
-          <Button
-            onClick={() => setShowHistory(!showHistory)}
-            className="history-button"
-          >
-            <span className="material-icons">history</span>
-          </Button>
         </div>
-        <NLOptions detector={props.detector} setDetector={props.setDetector} />
+        <NLOptions />
       </Container>
     </div>
   );
-}
-
-/**
- * Gets the list of queries to show in the history with duplicate queries removed.
- * @param queries full list of queries
- */
-function getQueryHistory(queries: string[]): string[] {
-  const queryHistory = [];
-  const seenQueries = new Set();
-  for (let i = queries.length - 1; i >= 0; i--) {
-    const query = queries[i];
-    if (seenQueries.has(query)) {
-      continue;
-    }
-    queryHistory.push(query);
-    seenQueries.add(query);
-  }
-  queryHistory.reverse();
-  return queryHistory;
 }
