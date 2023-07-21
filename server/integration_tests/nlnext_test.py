@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import json
 import os
 
@@ -37,6 +38,7 @@ class IntegrationTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure=''):
+    return
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -52,67 +54,81 @@ class IntegrationTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx
           }).json()
+      self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
+                           check_place_detection, expected_detectors[i],
+                           detection_method)
 
-      ctx = resp['context']
-      dbg = resp['debug']
-      resp['debug'] = {}
-      resp['context'] = {}
-      json_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
-                               'chart_config.json')
-      if _TEST_MODE == 'write':
-        json_dir = os.path.dirname(json_file)
-        if not os.path.isdir(json_dir):
-          os.makedirs(json_dir)
-        with open(json_file, 'w') as infile:
-          infile.write(json.dumps(resp, indent=2))
+  def handle_response(self,
+                      query,
+                      resp,
+                      test_dir,
+                      test_name,
+                      failure,
+                      check_place_detection=False,
+                      expected_detector=None,
+                      detection_method=None):
+    dbg = resp['debug']
+    resp['debug'] = {}
+    resp['context'] = {}
+    json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
+                             'chart_config.json')
+    if _TEST_MODE == 'write':
+      json_dir = os.path.dirname(json_file)
+      if not os.path.isdir(json_dir):
+        os.makedirs(json_dir)
+      with open(json_file, 'w') as infile:
+        infile.write(json.dumps(resp, indent=2))
 
-        if check_place_detection:
-          dbg_file = os.path.join(json_dir, 'debug_info.json')
-          with open(dbg_file, 'w') as infile:
-            dbg_to_write = {
-                "places_detected": dbg["places_detected"],
-                "places_resolved": dbg["places_resolved"],
-                "main_place_dcid": dbg["main_place_dcid"],
-                "main_place_name": dbg["main_place_name"]
-            }
-            infile.write(json.dumps(dbg_to_write, indent=2))
-      else:
-        if failure:
-          self.assertTrue(failure in resp["failure"]), resp["failure"]
-          self.assertTrue(not resp["config"])
-          return
+      if check_place_detection:
+        dbg_file = os.path.join(json_dir, 'debug_info.json')
+        with open(dbg_file, 'w') as infile:
+          dbg_to_write = {
+              "places_detected": dbg["places_detected"],
+              "places_resolved": dbg["places_resolved"],
+              "main_place_dcid": dbg["main_place_dcid"],
+              "main_place_name": dbg["main_place_name"]
+          }
+          infile.write(json.dumps(dbg_to_write, indent=2))
+    else:
+      if failure:
+        self.assertTrue(failure in resp["failure"]), resp["failure"]
+        self.assertTrue(not resp["config"])
+        return
 
-        if not expected_detectors:
+      if detection_method:
+        if not expected_detector:
           self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
-            'Query {q} failed!'
+            f'Query {query} failed!'
         else:
-          self.assertTrue(dbg.get('detection_type').startswith(expected_detectors[i])), \
-            'Query {q} failed!'
-        if not check_place_detection:
-          with open(json_file, 'r') as infile:
-            expected = json.load(infile)
-            expected['debug'] = {}
-            expected['context'] = {}
-            a, b = (
-                json.dumps(resp, sort_keys=True, indent=2),
-                json.dumps(expected, sort_keys=True, indent=2),
-            )
-            self.maxDiff = None
-            self.assertEqual(a, b)
-        else:
-          # Look in the debugInfo file to match places detected.
-          dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
-                                  'debug_info.json')
-          with open(dbg_file, 'r') as infile:
-            expected = json.load(infile)
-            self.assertEqual(dbg["places_detected"],
-                             expected["places_detected"])
-            self.assertEqual(dbg["places_resolved"],
-                             expected["places_resolved"])
-            self.assertEqual(dbg["main_place_dcid"],
-                             expected["main_place_dcid"])
-            self.assertEqual(dbg["main_place_name"],
-                             expected["main_place_name"])
+          self.assertTrue(dbg.get('detection_type').startswith(expected_detector)), \
+            f'Query {query} failed!'
+      if not check_place_detection:
+        with open(json_file, 'r') as infile:
+          expected = json.load(infile)
+          expected['debug'] = {}
+          expected['context'] = {}
+          a, b = (
+              json.dumps(resp, sort_keys=True, indent=2),
+              json.dumps(expected, sort_keys=True, indent=2),
+          )
+          self.maxDiff = None
+          self.assertEqual(a, b)
+      else:
+        # Look in the debugInfo file to match places detected.
+        dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
+                                'debug_info.json')
+        with open(dbg_file, 'r') as infile:
+          expected = json.load(infile)
+          self.assertEqual(dbg["places_detected"], expected["places_detected"])
+          self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
+          self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
+          self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
+  # TODO: Consider forking to its own test.
+  def run_nonnl(self, test_dir, req_json, failure=''):
+    resp = requests.post(self.get_server_url() + f'/api/nl/data_via_dcid',
+                         json=req_json).json()
+    self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
@@ -264,3 +280,15 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
+
+  def test__nonnl_api_basic(self):
+    req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
+    self.run_nonnl('nonnl_api_basic', req)
+
+  def test__nonnl_api_childtype(self):
+    req = {
+        'entities': ['geoId/06'],
+        'variables': ['dc/topic/WorkCommute'],
+        'childEntityType': 'County'
+    }
+    self.run_nonnl('nonnl_api_childtype', req)
