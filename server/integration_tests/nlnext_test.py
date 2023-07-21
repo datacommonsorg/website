@@ -38,7 +38,6 @@ class IntegrationTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure=''):
-    return
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -54,8 +53,9 @@ class IntegrationTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx
           }).json()
+      expected_detector = expected_detectors[i] if expected_detectors else None
       self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
-                           check_place_detection, expected_detectors[i],
+                           check_place_detection, expected_detector,
                            detection_method)
 
   def handle_response(self,
