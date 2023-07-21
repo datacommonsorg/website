@@ -5,7 +5,8 @@
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -227,6 +228,23 @@
       title="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
       variables="Mean_PalmerDroughtSeverityIndex"
+    ></datacommons-line>
+    <datacommons-line
+      title="Population Of California, Texas, and New York State"
+      places="geoId/06 geoId/48 geoId/36"
+      variables="Count_Person"
+      colors="green red blue"
+    ></datacommons-line>
+    <datacommons-line
+      title="Population Of Counties of Rhode Island"
+      parentPlace="geoId/44"
+      childPlaceType="County"
+      variables="Count_Person"
+    ></datacommons-line>
+    <datacommons-line
+      title="Population Of California, Texas, and New York State, by gender"
+      places="geoId/06 geoId/48 geoId/36"
+      variables="Count_Person_Male Count_Person_Female"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar
