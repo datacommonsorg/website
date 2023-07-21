@@ -15,7 +15,7 @@
 
 # Must provide the test index file.
 if [ $# -ne 2 ]; then
-  echo "Usage: $0 (small | medium) <test-index-file>"
+  echo "Usage: $0 (small | medium_ft) <test-index-file>"
   exit 1
 fi
 

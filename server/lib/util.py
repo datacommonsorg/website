@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import csv
 from datetime import datetime
 import gzip
 import hashlib
@@ -177,6 +178,30 @@ def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "disasters.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns chart titles for NL
+def get_nl_chart_titles():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "chart_titles_by_sv.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
+
+
+# Returns a set of SVs that should not have Per-capita.
+# TODO: Eventually read this from KG.
+def get_nl_no_percapita_vars():
+  # NOTE: This is a checked-in version of https://shorturl.at/afpMY
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "nl_vars_percapita_ranking.csv")
+  nopc_vars = set()
+  with open(filepath, 'r') as f:
+    for row in csv.DictReader(f):
+      sv = row['DCID'].strip()
+      yn = row['isPerCapitaValid'].strip().lower()
+      if sv and yn in ['n', 'no']:
+        nopc_vars.add(sv)
+    return nopc_vars
 
 
 # Returns common event_type_spec for all disaster event related pages.

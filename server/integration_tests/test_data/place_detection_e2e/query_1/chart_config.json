@@ -24,14 +24,8 @@
       ]
     },
     "suggestions": {
-      "NL_RELATED_PLACE": {
-        "items": [
-          {
-            "displayName": "San Francisco",
-            "nlQuery": "tell me about san francisco"
-          }
-        ]
-      }
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

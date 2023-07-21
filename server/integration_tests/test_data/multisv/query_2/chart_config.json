@@ -13,6 +13,72 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Single Mother Family Households Below Poverty Line Receiving Social Security Income (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Single Mother Family Households Below Poverty Line Receiving Social Security Income (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Population Below Poverty Level Status in Past Year (${date})",
@@ -28,10 +94,91 @@
                     ],
                     "title": "Per Capita Population Below Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below Poverty Level Status in Past Year and Asian Alone (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population Below Poverty Level Status in Past Year and Asian Alone (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Female Population Below Poverty Level in the Last Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Female Population Below Poverty Level in the Last Year (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below Poverty Line by Race (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population Below Poverty Line by Race (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line by Race"
           },
           {
             "columns": [
@@ -87,36 +234,6 @@
                       "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -212,36 +329,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -254,14 +341,23 @@
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
+          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year",
+            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc": {
+          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
+            "name": "Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year",
+            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Single Mother Family Households Below Poverty Line Receiving Social Security Income",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Single Mother Family Households Below Poverty Line Receiving Social Security Income",
+            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block": {
             "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
@@ -299,6 +395,51 @@
             "name": "Population Above Poverty Level Status in Past Year",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
+            "name": "Population Below Poverty Level Status in Past Year and Asian Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year and Asian Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Population Below Poverty Level Status in Past Year and Some Other Race Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year and Some Other Race Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Population Below Poverty Level Status in Past Year and Two or More Races",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year and Two or More Races",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
+            "name": "Population Below Poverty Level Status in Past Year and White Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year and White Alone",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -307,6 +448,15 @@
             "denom": "Count_Person",
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Female Population Below Poverty Level in the Last Year",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Female Population Below Poverty Level in the Last Year",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
             "name": "Median Income of Accommodation and Food Services",
