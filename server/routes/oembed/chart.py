@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoint for iframe-friendly embed-able chart pages"""
 
+from flask import current_app
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -34,11 +35,6 @@ ALLOWED_CHART_TYPES = [
 # Define blueprint
 bp = Blueprint("chart", __name__, url_prefix="/chart")
 
-hostname = "https://datacommons.org"
-cfg = libconfig.get_config()
-if cfg.LOCAL:
-  hostname = "http://127.0.0.1:8080"
-
 
 @bp.route("/", strict_slashes=False)
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
@@ -59,6 +55,11 @@ def render_chart():
   # need to encode '&' so /oembed endpoint will read full url downstream
   request_url = request.url.replace("&", "%26")
 
+  # get api host to serve datacommons.js for web components from
+  hostname = "https://datacommons.org"
+  if current_app.config['LOCAL']:
+    hostname = "http://127.0.0.1:8080"
+  
   return render_template(
       "oembed_chart.html",
       request_url=request_url,

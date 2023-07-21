@@ -30,29 +30,33 @@ DEFAULT_HEIGHT = 400
 # Define blueprint
 bp = Blueprint("oembed", __name__, url_prefix="/oembed")
 
-# Set allowed url values
-# We want to allow only datacommons urls with /chart endpoints to be passed in
-# Hostname changes based on current config (local vs autopush/prod)
-url_regex = "https?://*\.datacommons.\org/chart*"
-cfg = libconfig.get_config()
-if cfg.LOCAL:
-  url_regex = "http://(127\.0\.0\.1|localhost):8080/chart*"
 
 
 @bp.route("/", strict_slashes=False)
 @cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def render_chart():
   response_format = request.args.get("format", type=str, default="json")
+  if response_format not in ["json", "xml"]:
+    return "error: format must be one of 'json' or 'xml'", 400
+  
+  # Set allowed url values
+  # We want to allow only datacommons urls with /chart endpoints to be passed in
+  # Hostname changes based on current config (local vs autopush/prod)
+  url_regex = "https?://*\.datacommons\.org/chart*"
+  cfg = libconfig.get_config()
+  if cfg.LOCAL:
+    url_regex = "http://(127\.0\.0\.1|localhost):8080/chart*"
+
   url = request.args.get("url", type=str)
   if not url or not re.match(url_regex, url):
     # reject request if url not matching allowed pattern or not provided
     return "error: must provide a valid url", 400
-  max_width = request.args.get("maxwidth", type=int)
-  max_height = request.args.get("maxheight", type=int)
+  
+  max_width = request.args.get("maxwidth", type=int, default=500)
+  max_height = request.args.get("maxheight", type=int, default=400)
 
-  width = math.min(max_width, DEFAULT_WIDTH) if max_width else DEFAULT_WIDTH
-  height = (math.min(max_height, DEFAULT_HEIGHT)
-            if max_height else DEFAULT_HEIGHT)
+  width = min(max_width, DEFAULT_WIDTH)
+  height = min(max_height, DEFAULT_HEIGHT)
   html = f'<object width="{width}" height="{height}" data="{url}"></object>'
 
   properties = {
@@ -68,7 +72,7 @@ def render_chart():
   if response_format == "json":
     return Response(json.dumps(properties), 200, mimetype="application/json")
 
-  elif response_format == "xml":
+  else: # response_format is XML
     # xml treats '&' as a special character, need to encode
     properties["html"] = html.replace("&", "&amp;")
     xml = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>\n'
@@ -77,6 +81,4 @@ def render_chart():
       xml += f"<{key}>{val}</{key}>\n"
     xml += "</oembed>"
     return Response(xml, 200, mimetype="text/xml")
-
-  else:
-    return "error: format must be one of 'json' or 'xml'", 400
+    
