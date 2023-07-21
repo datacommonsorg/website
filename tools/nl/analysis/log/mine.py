@@ -119,7 +119,7 @@ def _write_all_rows(key, data, csvw):
     if i < len(data[_COL_DATA]):
       ditem = data[_COL_DATA][i]
     else:
-      ditem = {}
+      continue
 
     detection = _midx(ditem, ['debug', 'detection_type'])
     index = _midx(ditem, [

@@ -14,5 +14,5 @@ of the run), with the last 5 (`--past_days`) days worth of logs.
 If you want to dump all the queries and restrict to fewer days, run:
 
 ```bash
-./run.sh --past_days=1 --all_rows
+./run.sh --past_days=<NUMBER OF DAYS> --all_rows
 ```
