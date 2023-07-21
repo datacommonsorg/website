@@ -13,8 +13,8 @@
 # limitations under the License.
 """Endpoint for iframe-friendly embed-able chart pages"""
 
-from flask import current_app
 from flask import Blueprint
+from flask import current_app
 from flask import render_template
 from flask import request
 
@@ -59,7 +59,7 @@ def render_chart():
   hostname = "https://datacommons.org"
   if current_app.config['LOCAL']:
     hostname = "http://127.0.0.1:8080"
-  
+
   return render_template(
       "oembed_chart.html",
       request_url=request_url,
