@@ -18,7 +18,6 @@
  * Component for search section of the NL interface.
  */
 
-import _ from "lodash";
 import React from "react";
 import { Container } from "reactstrap";
 
@@ -29,7 +28,7 @@ import { NLOptions } from "./nl_options";
 export function QuerySearch(): JSX.Element {
   const config = useStoreState((s) => s.config);
   const nlQueryContext = useStoreState(
-    (s) => s.nlQueryContexts[config.currentNlQueryContextId],
+    (s) => s.nlQueryContexts[config.currentNlQueryContextId]
   );
   const nlQueryHistory = useStoreState((s) => {
     if (!nlQueryContext) {

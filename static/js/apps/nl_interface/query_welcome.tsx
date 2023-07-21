@@ -18,7 +18,7 @@
  * Component for NL interface welcome message.
  */
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SampleQuery, useStoreActions, useStoreState } from "./app_state";
@@ -52,19 +52,19 @@ export function QueryWelcome(): JSX.Element {
     // Otherwise show a random sample from all topics
     const topicQueries = _.groupBy<SampleQuery>(
       allQueries,
-      "topic",
+      "topic"
     ) as TopicQueries;
     setTopicQueries(topicQueries);
     if (topic && topicQueries[topic]) {
       setExampleQueries(
-        topicQueries[topic].filter((q) => q.wai).slice(0, MAX_EXAMPLE_QUERIES),
+        topicQueries[topic].filter((q) => q.wai).slice(0, MAX_EXAMPLE_QUERIES)
       );
     } else {
       // Select 8x queries at random that work as intended
       setExampleQueries(
         _.shuffle(allQueries)
           .filter((q) => q.wai)
-          .slice(0, MAX_EXAMPLE_QUERIES),
+          .slice(0, MAX_EXAMPLE_QUERIES)
       );
     }
   }, [topic, allQueries]);

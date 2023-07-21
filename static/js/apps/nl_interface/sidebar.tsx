@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _ from "lodash";
 import React from "react";
 import { UncontrolledTooltip } from "reactstrap";
 
@@ -25,10 +24,10 @@ import { useStoreActions, useStoreState } from "./app_state";
 export function Sidebar(): JSX.Element {
   const updateConfig = useStoreActions((a) => a.updateConfig);
   const currentNlQueryContextId = useStoreState(
-    (s) => s.config.currentNlQueryContextId,
+    (s) => s.config.currentNlQueryContextId
   );
   const nlQueryContexts = useStoreState((s) =>
-    s.nlQueryContextIds.map((id) => s.nlQueryContexts[id]),
+    s.nlQueryContextIds.map((id) => s.nlQueryContexts[id])
   );
 
   return (

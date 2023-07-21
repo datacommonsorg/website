@@ -31,15 +31,15 @@ const NEXT_PROMPT_DELAY = 5000;
 
 export function QueryContext(): JSX.Element {
   const currentNlQueryContextId = useStoreState(
-    (s) => s.config.currentNlQueryContextId,
+    (s) => s.config.currentNlQueryContextId
   );
   const currentNlQueryContext = useStoreState(
-    (s) => s.nlQueryContexts[currentNlQueryContextId],
+    (s) => s.nlQueryContexts[currentNlQueryContextId]
   );
   const currentNlQueries = useStoreState((s) =>
     (currentNlQueryContext?.nlQueryIds || []).map(
-      (nlQueryId) => s.nlQueries[nlQueryId],
-    ),
+      (nlQueryId) => s.nlQueries[nlQueryId]
+    )
   );
   // If autoRun is enabled, runs every prompt (';' separated) from the url.
   const autoRun = useStoreState((s) => s.config.autoRun);
