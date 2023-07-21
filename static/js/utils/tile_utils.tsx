@@ -18,13 +18,11 @@
  * Util functions used by tile components.
  */
 
-import axios from "axios";
 import _ from "lodash";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
-import { stringifyFn } from "./axios";
 
 export interface ReplacementStrings {
   placeName?: string;
