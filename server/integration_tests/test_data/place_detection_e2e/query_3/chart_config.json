@@ -105,16 +105,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Homes Whose Householder Identifies as Two or More Races in Florida",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc"
-                    ],
-                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races in Florida",
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in Florida",
                     "type": "LINE"
                   }
                 ]
@@ -126,44 +119,197 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block",
-                      "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
                     ],
-                    "title": "Homes Whose Householder Identifies as Two or More Races compared with other variables in Florida (${date})",
-                    "type": "BAR"
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage in Florida",
+                    "type": "LINE"
                   },
                   {
-                    "comparisonPlaces": [
-                      "geoId/12"
-                    ],
                     "statVarKey": [
-                      "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc"
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_pc"
                     ],
-                    "title": "Per Capita Homes Whose Householder Identifies as Two or More Races compared with other variables in Florida (${date})",
-                    "type": "BAR"
+                    "title": "Per Capita Count of Housing Unit: With Mortgage in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Count of Housing Unit: Without Mortgage in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Without Mortgage in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent"
+                    ],
+                    "title": "Count of Housing Unit: No Cash Rent in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_NoCashRent_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: No Cash Rent in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit"
+                    ],
+                    "title": "Vacant Housing Units in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_pc"
+                    ],
+                    "title": "Per Capita Vacant Housing Units in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
+                    ],
+                    "title": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ResidesInHousehold"
+                    ],
+                    "title": "Population: Household in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_ResidesInHousehold_pc"
+                    ],
+                    "title": "Per Capita Population: Household in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied",
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Count of Housing Unit: With Mortgage compared with other variables in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_pc",
+                      "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Housing Unit: With Mortgage compared with other variables in Florida",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -414,113 +560,75 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: American Indian or Alaska Native Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone"
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied": {
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: American Indian or Alaska Native Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone"
+            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
+            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as American Indian or Alaska Native Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+          "Count_HousingUnit_NoCashRent": {
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
           },
-          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_NoCashRent_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as American Indian or Alaska Native Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+            "name": "Count of Housing Unit: No Cash Rent",
+            "statVar": "Count_HousingUnit_NoCashRent"
           },
-          "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Asian Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAsianAlone"
+          "Count_HousingUnit_VacantHousingUnit": {
+            "name": "Vacant Housing Units",
+            "statVar": "Count_HousingUnit_VacantHousingUnit"
           },
-          "Count_HousingUnit_HouseholderRaceAsianAlone_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_VacantHousingUnit_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Asian Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceAsianAlone"
+            "name": "Vacant Housing Units",
+            "statVar": "Count_HousingUnit_VacantHousingUnit"
           },
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Black or African American Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied": {
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Black or African American Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
+            "name": "Count of Housing Unit: With Mortgage",
+            "statVar": "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Hispanic or Latino",
-            "statVar": "Count_HousingUnit_HouseholderRaceHispanicOrLatino"
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied": {
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_multiple_place_bar_block_pc": {
+          "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_pc": {
             "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Hispanic or Latino",
-            "statVar": "Count_HousingUnit_HouseholderRaceHispanicOrLatino"
+            "name": "Count of Housing Unit: Without Mortgage",
+            "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
           },
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone"
+          "Count_Person_ResidesInHousehold": {
+            "name": "Population: Household",
+            "statVar": "Count_Person_ResidesInHousehold"
           },
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
+          "Count_Person_ResidesInHousehold_pc": {
             "denom": "Count_Person",
-            "name": "Count of Housing Unit: Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianAndOtherPacificIslanderAlone"
+            "name": "Population: Household",
+            "statVar": "Count_Person_ResidesInHousehold"
           },
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
           },
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+          "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
+            "statVar": "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
-          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Some Other Race Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone"
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
-          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Some Other Race Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone"
-          },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces": {
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
-          },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
-          },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
-          },
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as Two or More Races",
-            "statVar": "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces"
-          },
-          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Count of Housing Unit: White Alone Not Hispanic or Latino",
-            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-          },
-          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: White Alone Not Hispanic or Latino",
-            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino"
-          },
-          "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
-            "name": "Homes Whose Householder Identifies as White Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAlone"
-          },
-          "Count_HousingUnit_HouseholderRaceWhiteAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Homes Whose Householder Identifies as White Alone",
-            "statVar": "Count_HousingUnit_HouseholderRaceWhiteAlone"
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
@@ -533,13 +641,21 @@
       "placeDcid": [
         "geoId/12"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/12",
     "name": "Florida",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "PAST_QUERY"
 }

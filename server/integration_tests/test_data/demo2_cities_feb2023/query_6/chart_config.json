@@ -1016,45 +1016,9 @@
               }
             ],
             "title": "Increase in Female Life Expectancy over time (Percent change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Seychelles",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase over time (Absolute change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Seychelles",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase over time (Percent change)"
           }
         ],
         "statVarSpec": {
-          "Count_Death_AsAFractionOfCount_Person": {
-            "name": "Deaths Per Capita",
-            "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
@@ -1074,6 +1038,10 @@
       "placeDcid": [
         "country/DZA"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

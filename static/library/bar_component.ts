@@ -79,6 +79,13 @@ export class DatacommonsBarComponent extends LitElement {
   `;
 
   /**
+   * Optional: API root to use to fetch data
+   * Defaults to https://datacommons.org
+   */
+  @property()
+  apiRoot: string;
+
+  /**
    * Bar height for horizontal bar charts. Default: 30px.
    */
   @property({ type: Number })
@@ -176,7 +183,7 @@ export class DatacommonsBarComponent extends LitElement {
       });
     });
     const barTileProps: BarTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       barHeight: this.barHeight,
       colors: this.colors,
       comparisonPlaces: this.places,

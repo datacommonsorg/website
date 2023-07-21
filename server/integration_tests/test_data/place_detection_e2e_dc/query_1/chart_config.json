@@ -1,0 +1,93 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "type": "PLACE_OVERVIEW"
+                  }
+                ]
+              }
+            ],
+            "title": "Palo Alto"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0655282"
+      ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "Pennsylvania",
+            "nlQuery": "tell me about Palo Alto Pennsylvania"
+          }
+        ]
+      },
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "Anchorage municipality",
+            "nlQuery": "tell me about Anchorage municipality"
+          },
+          {
+            "displayName": "Phoenix",
+            "nlQuery": "tell me about Phoenix"
+          },
+          {
+            "displayName": "Tucson",
+            "nlQuery": "tell me about Tucson"
+          },
+          {
+            "displayName": "Little Rock",
+            "nlQuery": "tell me about Little Rock"
+          },
+          {
+            "displayName": "Los Angeles",
+            "nlQuery": "tell me about Los Angeles"
+          },
+          {
+            "displayName": "Mountain View",
+            "nlQuery": "tell me about Mountain View"
+          },
+          {
+            "displayName": "Oakland",
+            "nlQuery": "tell me about Oakland"
+          },
+          {
+            "displayName": "Palo Alto",
+            "nlQuery": "tell me about Palo Alto"
+          },
+          {
+            "displayName": "Sacramento",
+            "nlQuery": "tell me about Sacramento"
+          },
+          {
+            "displayName": "San Diego",
+            "nlQuery": "tell me about San Diego"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {}
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0655282",
+    "name": "Palo Alto",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
+}

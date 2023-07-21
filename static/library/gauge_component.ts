@@ -51,6 +51,11 @@ export class DatacommonsGaugeComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: API root to use to fetch data
+  // Defaults to https://datacommons.org
+  @property()
+  apiRoot: string;
+
   // Optional: colors to use
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
@@ -77,7 +82,7 @@ export class DatacommonsGaugeComponent extends LitElement {
 
   render(): HTMLElement {
     const gaugeTileProps: GaugeTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
       minSvgChartHeight: 200,

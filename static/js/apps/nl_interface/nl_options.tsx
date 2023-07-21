@@ -21,19 +21,11 @@
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import {
-  NL_DETECTOR_VALS,
-  NL_INDEX_VALS,
-  NL_PLACE_DETECTOR_VALS,
-} from "../../constants/app/nl_interface_constants";
+import { NL_DETECTOR_VALS } from "../../constants/app/nl_interface_constants";
 
 interface NLOptionsPropType {
-  indexType: string;
-  setIndexType: (idx: string) => void;
   detector: string;
   setDetector: (v: string) => void;
-  placeDetector: string;
-  setPlaceDetector: (v: string) => void;
 }
 
 export function NLOptions(props: NLOptionsPropType): JSX.Element {
@@ -77,64 +69,6 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
               }}
             />
             Hybrid
-          </Label>
-        </FormGroup>
-      </div>
-      <div className="nl-options-label">Embeddings:</div>
-      <div className="nl-options-input-radio">
-        <FormGroup>
-          <Label>
-            <Input
-              checked={props.indexType === NL_INDEX_VALS.SMALL}
-              id="nl-small-index"
-              type="radio"
-              value={NL_INDEX_VALS.SMALL}
-              onChange={() => {
-                props.setIndexType(NL_INDEX_VALS.SMALL);
-              }}
-            />
-            Small-1K
-          </Label>
-          <Label>
-            <Input
-              checked={props.indexType === NL_INDEX_VALS.MEDIUM}
-              id="nl-medium-index"
-              type="radio"
-              value={NL_INDEX_VALS.MEDIUM}
-              onChange={() => {
-                props.setIndexType(NL_INDEX_VALS.MEDIUM);
-              }}
-            />
-            Medium-5K
-          </Label>
-        </FormGroup>
-      </div>
-      <div className="nl-options-label">Place:</div>
-      <div className="nl-options-input-radio">
-        <FormGroup>
-          <Label>
-            <Input
-              checked={props.placeDetector === NL_PLACE_DETECTOR_VALS.NER}
-              id="nl-place-ner"
-              type="radio"
-              value={NL_PLACE_DETECTOR_VALS.NER}
-              onChange={() => {
-                props.setPlaceDetector(NL_PLACE_DETECTOR_VALS.NER);
-              }}
-            />
-            NER
-          </Label>
-          <Label>
-            <Input
-              checked={props.placeDetector === NL_PLACE_DETECTOR_VALS.DC}
-              id="nl-place-dc"
-              type="radio"
-              value={NL_PLACE_DETECTOR_VALS.DC}
-              onChange={() => {
-                props.setPlaceDetector(NL_PLACE_DETECTOR_VALS.DC);
-              }}
-            />
-            DC
           </Label>
         </FormGroup>
       </div>

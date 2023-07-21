@@ -24,8 +24,6 @@ import { SearchResult } from "../../types/app/nl_interface_types";
 
 interface NLCommentaryPropType {
   chartsData: SearchResult;
-  hideCharts: boolean;
-  setHideCharts: (v: boolean) => void;
 }
 
 export function shouldHideCharts(respData: any): boolean {
@@ -72,13 +70,10 @@ export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
 
   let showMode = null;
   if (isFallback) {
-    // Show message only if user hasn't yet clicked on show charts.
-    if (props.hideCharts) {
-      if (!isSvPast && !isPlacePast) {
-        showMode = MODES.FALLBACK_SIMPLE;
-      } else {
-        showMode = MODES.FALLBACK_PAST_PLACE_OR_SV;
-      }
+    if (!isSvPast && !isPlacePast) {
+      showMode = MODES.FALLBACK_SIMPLE;
+    } else {
+      showMode = MODES.FALLBACK_PAST_PLACE_OR_SV;
     }
   } else {
     if (isSvUnfulfilled) {
@@ -97,7 +92,7 @@ export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
       showMode = MODES.PAST_SV;
     } else if (isPlacePast && isSvPast) {
       showMode = MODES.PAST_PLACE_AND_SV;
-    } else if (isNonEarthDefaultPlace && props.hideCharts) {
+    } else if (isNonEarthDefaultPlace) {
       // For default place show message only if user hasn't yet clicked on show charts.
       showMode = MODES.DEFAULT_PLACE;
     }
@@ -152,50 +147,27 @@ export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
       )}
       {showMode === MODES.DEFAULT_PLACE && (
         <>
-          Could not recognize any place in the query.&nbsp; Would you like to
-          see{" "}
-          {wrapShowClick(
-            "relevant statistics for the default place" + maybeGetCtx("of")
-          )}{" "}
-          instead?
+          Could not recognize any place in the query.&nbsp; Displaying relevant
+          statistics for the default place{maybeGetCtx("of")}.
         </>
       )}
       {showMode === MODES.FALLBACK_SIMPLE && (
         <>
           Sorry, there were no relevant statistics on this topic for{" "}
-          {props.chartsData.placeFallback.origStr}.&nbsp; Would you like to see{" "}
-          {wrapShowClick(
-            "results for " + props.chartsData.placeFallback.newStr
-          )}{" "}
-          instead?
+          {props.chartsData.placeFallback.origStr}.&nbsp; Displaying results for{" "}
+          {props.chartsData.placeFallback.newStr}.
         </>
       )}
       {showMode === MODES.FALLBACK_PAST_PLACE_OR_SV && (
         <>
           Tried looking up relevant statistics for{" "}
           {props.chartsData.placeFallback.origStr} based on your prior queries,
-          but found no results.&nbsp; Would you like to see{" "}
-          {wrapShowClick(
-            "results for " + props.chartsData.placeFallback.newStr
-          )}{" "}
-          instead?
+          but found no results.&nbsp; Displaying results for{" "}
+          {props.chartsData.placeFallback.newStr}.
         </>
       )}
     </div>
   );
-
-  function wrapShowClick(words: string): JSX.Element {
-    return (
-      <span
-        className="nl-query-info-click"
-        onClick={() => {
-          props.setHideCharts(false);
-        }}
-      >
-        {words}
-      </span>
-    );
-  }
 
   function maybeGetCtx(connector: string): string {
     if (props.chartsData.pastSourceContext) {

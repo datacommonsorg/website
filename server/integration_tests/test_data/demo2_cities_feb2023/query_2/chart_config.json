@@ -24,9 +24,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_Smoking"
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
-                    "title": "Percentage of Population That Smokes in Sunnyvale",
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -42,21 +42,6 @@
                       "Percent_Person_WithArthritis"
                     ],
                     "title": "Arthritis in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
-                    ],
-                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -92,53 +77,9 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Smoking",
-                      "Percent_Person_BingeDrinking",
-                      "Percent_Person_Obesity",
-                      "Percent_Person_PhysicalInactivity",
-                      "Percent_Person_SleepLessThan7Hours"
-                    ],
-                    "title": "Percentage of Population That Smokes compared with other variables in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Percent_Person_BingeDrinking": {
-            "name": "Percentage of Population Who Binge Drink",
-            "statVar": "Percent_Person_BingeDrinking",
-            "unit": "%"
-          },
-          "Percent_Person_Obesity": {
-            "name": "Percentage of Population That Is Obese",
-            "statVar": "Percent_Person_Obesity",
-            "unit": "%"
-          },
-          "Percent_Person_PhysicalInactivity": {
-            "name": "Percentage of Population Who Are Physically Inactive",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking": {
-            "name": "Percentage of Population That Smokes",
-            "statVar": "Percent_Person_Smoking",
-            "unit": "%"
-          },
           "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
             "name": "Prevalance of Complete Tooth Loss in the Population",
             "statVar": "Percent_Person_WithAllTeethLoss",

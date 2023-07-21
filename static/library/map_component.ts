@@ -46,6 +46,11 @@ export class DatacommonsMapComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: API root to use to fetch data
+  // Defaults to https://datacommons.org
+  @property()
+  apiRoot: string;
+
   // Type of child place to rank (ex: State, County)
   @property()
   childPlaceType!: string;
@@ -123,7 +128,7 @@ export class DatacommonsMapComponent extends LitElement {
     const variable = this.variable || this.statVarDcid;
     const childPlaceType = this.childPlaceType || this.enclosedPlaceType;
     const mapTileProps: MapTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       date: this.date,
       enclosedPlaceType: childPlaceType,

@@ -57,6 +57,11 @@ export class DatacommonsRankingComponent extends LitElement {
     ${unsafeCSS(tilesCssString)}
   `;
 
+  // Optional: API root to use to fetch data
+  // Defaults to https://datacommons.org
+  @property()
+  apiRoot: string;
+
   // Title of the chart
   @property()
   title!: string;
@@ -80,7 +85,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   render(): HTMLElement {
     const rankingTileProps: RankingTilePropType = {
-      apiRoot: DEFAULT_API_ENDPOINT,
+      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {

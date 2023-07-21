@@ -42,3 +42,8 @@ def get_config():
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)
+
+
+def is_test_env():
+  env = os.environ.get('FLASK_ENV')
+  return env in ['integration_test', 'test']
