@@ -88,11 +88,12 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SI_POV_DAY1_ByResidence",
         "sdg/SP_ACS_BSRVH2O",
         "sdg/SP_ACS_BSRVSAN",
-        "sdg/SI_POV_EMP1_15GEQ",
-        "dc/svpg/SI_POV_EMP1_15GEQ_ByGender",
+        "sdg/SI_POV_EMP1.AGE--Y_GE15",
+        "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender",
     ],
     "dc/topic/SDG_2": [
-        "sdg/SN_ITK_DEFC", "sdg/SH_STA_STNT_LT5Y", "sdg/SH_STA_WAST_LT5Y"
+        "sdg/SN_ITK_DEFC", "sdg/SH_STA_STNT.AGE--Y0T4",
+        "sdg/SH_STA_WAST.AGE--Y0T4"
     ],
     "dc/topic/SDG_3": [
         "dc/svpg/SDG_3_WomensHealth",
@@ -103,10 +104,10 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SDG_3_HealthWorkerDensity",
     ],
     "dc/topic/MaternalHealth": [
-        "sdg/SH_STA_MORT_FEMALE",
-        "sdg/SH_FPL_MTMM_15-49_FEMALE",
-        "sdg/SP_DYN_ADKL_15-19_FEMALE",
-        "sdg/SH_STA_ANEM_15-49_FEMALE",
+        "sdg/SH_STA_MORT.SEX--F",
+        "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F",
+        "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F",
+        "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F",
     ]
 }
 
@@ -291,37 +292,37 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
     ],
     "dc/svpg/SI_POV_DAY1_ByAge": [
-        "sdg/SI_POV_DAY1_LT15Y",
-        "sdg/SI_POV_DAY1_15-64",
-        "sdg/SI_POV_DAY1_65GEQ",
+        "sdg/SI_POV_DAY1.AGE--Y0T14",
+        "sdg/SI_POV_DAY1.AGE--Y15T64",
+        "sdg/SI_POV_DAY1.AGE--Y_GE65",
     ],
     "dc/svpg/SI_POV_DAY1_ByGender": [
-        "sdg/SI_POV_DAY1_FEMALE",
-        "sdg/SI_POV_DAY1_MALE",
+        "sdg/SI_POV_DAY1.SEX--F",
+        "sdg/SI_POV_DAY1.SEX--M",
     ],
     "dc/svpg/SI_POV_DAY1_ByResidence": [
-        "sdg/SI_POV_DAY1_URBAN",
-        "sdg/SI_POV_DAY1_RURAL",
+        "sdg/SI_POV_DAY1.URBANISATION--U",
+        "sdg/SI_POV_DAY1.URBANISATION--R",
     ],
-    "dc/svpg/SI_POV_EMP1_15GEQ_ByGender": [
-        "sdg/SI_POV_EMP1_15GEQ_FEMALE",
-        "sdg/SI_POV_EMP1_15GEQ_MALE",
+    "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender": [
+        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+        "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M",
     ],
     "dc/svpg/SDG_3_WomensHealth": [
-        "sdg/SH_STA_MORT_FEMALE",
-        "sdg/SH_FPL_MTMM_15-49_FEMALE",
-        "sdg/SP_DYN_ADKL_15-19_FEMALE",
-        "sdg/SH_STA_ANEM_15-49_FEMALE",
+        "sdg/SH_STA_MORT.SEX--F",
+        "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F",
+        "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F",
+        "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F",
     ],
     "dc/svpg/SDG_3_PreventableChildDeaths": [
-        "sdg/SH_DYN_IMRT_LT1Y",
-        "sdg/SH_DYN_MORT_LT5Y",
-        "sdg/SH_DYN_NMRT_LT1M",
+        "sdg/SH_DYN_IMRT.AGE--Y0",
+        "sdg/SH_DYN_MORT.AGE--Y0T4",
+        "sdg/SH_DYN_NMRT.AGE--M0",
     ],
     "dc/svpg/SDG_3_EpidemicEradication": [
         "sdg/SH_HIV_INCD",
         "sdg/SH_TBS_INCD",
-        "sdg/SH_HAP_HBSAG_LT5Y",
+        "sdg/SH_HAP_HBSAG.AGE--Y0T4",
         "sdg/SH_TRP_INTVN",
     ],
     "dc/svpg/SDG_3_HealthInsurance": [
@@ -330,14 +331,14 @@ _PEER_GROUP_TO_OVERRIDE = {
         "sdg/SH_XPD_EARN25",
     ],
     "dc/svpg/SDG_3_HealthWorkerDensity": [
-        "sdg/SH_MED_DEN_PHYS",
-        "sdg/SH_MED_DEN_NURSMID",
-        "sdg/SH_MED_DEN_PHAR",
-        "sdg/SH_MED_DEN_DENT",
+        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221",
+        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322",
+        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262",
+        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261",
     ],
     "dc/svpg/SDG_3_TobaccoAndAlcohol": [
-        "sdg/SH_PRV_SMOK_15GEQ",
-        "sdg/SH_SUD_ALCOL_15GEQ",
+        "sdg/SH_PRV_SMOK.AGE--Y_GE15",
+        "sdg/SH_SUD_ALCOL.AGE--Y_GE15",
     ],
 }
 
@@ -383,7 +384,7 @@ _SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SI_POV_DAY1_ByResidence":
         ""
         "Population below international poverty line in rural vs. urban areas",
-    "dc/svpg/SI_POV_EMP1_15GEQ_ByGender":
+    "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender":
         "Employed population below international poverty line by gender",
     "dc/svpg/SDG_3_WomensHealth":
         "Women's health",
