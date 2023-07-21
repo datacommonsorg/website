@@ -38,7 +38,6 @@ class IntegrationTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure=''):
-    return
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -126,7 +125,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   # TODO: Consider forking to its own test.
   def run_nonnl(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + f'/api/nl/data_via_dcid',
+    resp = requests.post(self.get_server_url() + '/api/nl/data_via_dcid',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 

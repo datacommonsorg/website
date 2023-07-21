@@ -18,6 +18,7 @@ from typing import Dict
 from markupsafe import escape
 
 import server.lib.nl.common.counters as ctr
+import server.lib.nl.common.debug_utils as dbg
 from server.lib.nl.detection import utils as dutils
 from server.lib.nl.detection.types import Detection
 import shared.lib.utils as shared_utils
