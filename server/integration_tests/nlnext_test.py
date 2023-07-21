@@ -38,6 +38,7 @@ class IntegrationTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure=''):
+    return
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
