@@ -61,4 +61,4 @@ COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 
 COPY build/web_server/compose.sh .
 EXPOSE 8080
-CMD ./compose.sh
+CMD ./compose.sh $USE_SQLITE
