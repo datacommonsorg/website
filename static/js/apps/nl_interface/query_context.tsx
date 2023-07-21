@@ -41,15 +41,14 @@ export function QueryContext(): JSX.Element {
       (nlQueryId) => s.nlQueries[nlQueryId]
     )
   );
-  const latestNlQuery =
-    currentNlQueries.length > 0
-      ? currentNlQueries[currentNlQueries.length - 1]
-      : null;
-
   // If autoRun is enabled, runs every prompt (';' separated) from the url.
   const autoRun = useStoreState((s) => s.config.autoRun);
   const delayDisabled = useStoreState((s) => s.config.delayDisabled);
   const urlPrompts = useStoreState((s) => s.config.urlPrompts);
+  const latestNlQuery =
+    currentNlQueries.length > 0
+      ? currentNlQueries[currentNlQueries.length - 1]
+      : null;
 
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.

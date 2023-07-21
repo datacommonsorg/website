@@ -32,9 +32,9 @@ interface TopicQueries {
  */
 export function QueryWelcome(): JSX.Element {
   const config = useStoreState((s) => s.config);
-  const search = useStoreActions((a) => a.search);
   const allQueries = useStoreState((s) => s.sampleQueries);
   const topic = useStoreState((s) => s.config.topic);
+  const search = useStoreActions((a) => a.search);
   const [exampleQueries, setExampleQueries] = useState<SampleQuery[]>([]);
   const [topicQueries, setTopicQueries] = useState<TopicQueries>({});
 
