@@ -254,7 +254,7 @@ const nlAppActions: NLAppActions = {
       const start = Date.now();
       try {
         const resp = await axios.post(
-          `/api/nl/data`,
+          "/api/nl/data",
           {
             contextHistory: [...nlQueryHistory]?.pop()?.context,
           },
