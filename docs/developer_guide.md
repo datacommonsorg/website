@@ -178,7 +178,9 @@ docker run -it \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
+-e USE_SQLITE=true \
 -p 8080:8080 \
+-v $(pwd)/mixer/sqlite:/sqlite \
 gcr.io/datcom-ci/datacommons-website-compose:latest
 ```
 
