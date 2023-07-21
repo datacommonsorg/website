@@ -14,11 +14,19 @@
 # limitations under the License.
 
 
+USE_SQLITE=$1
+
+if [[$USE_SQLITE != "true" ]]; then
+  USE_SQLITE="false"
+fi
+
 /go/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
     --use_custom_bigtable=false \
     --use_branch_bigtable=false \
+    --use_sqlite=$USE_SQLITE \
+    --sqlite_db=/sqlite/datacommons.db \
     --remote_mixer_domain=https://api.datacommons.org &
 
 envoy --config-path /mixer/esp/envoy-config.yaml &
