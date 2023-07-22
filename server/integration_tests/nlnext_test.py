@@ -283,18 +283,18 @@ class IntegrationTest(NLWebServerTestCase):
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
 
-  def test__detection_basic(self):
+  def test_detection_basic(self):
     self.run_detection('detection_api_basic', 'Commute in California')
 
-  def test__detection_childtype(self):
+  def test_detection_childtype(self):
     self.run_detection('detection_api_childtype',
                        'Commute in counties of California')
 
-  def test__fulfillment_basic(self):
+  def test_fulfillment_basic(self):
     req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
     self.run_fulfillment('fulfillment_api_basic', req)
 
-  def test__fulfillment_childtype(self):
+  def test_fulfillment_childtype(self):
     req = {
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
