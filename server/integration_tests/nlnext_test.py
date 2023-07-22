@@ -60,14 +60,14 @@ class IntegrationTest(NLWebServerTestCase):
                             check_place_detection, detection_method)
 
   # TODO: Consider forking to its own test.
-  def run_detection(self, test_dir, req_json, failure=''):
+  def run_fulfillment(self, test_dir, req_json, failure=''):
     resp = requests.post(self.get_server_url() + '/api/nl/fulfill',
                          json=req_json).json()
     self._handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   # TODO: Consider forking to its own test.
-  def run_fulfillment(self, test_dir, query, failure=''):
-    resp = requests.post(self.get_server_url() + f'/api/nl/detect?{query}',
+  def run_detection(self, test_dir, query, failure=''):
+    resp = requests.post(self.get_server_url() + f'/api/nl/detect?q={query}',
                          json={}).json()
     self._handle_response(query, resp, test_dir, '', failure)
 
@@ -283,21 +283,21 @@ class IntegrationTest(NLWebServerTestCase):
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
 
-  def test_detection_basic(self):
+  def test__detection_basic(self):
     self.run_detection('detection_api_basic', 'Commute in California')
 
-  def test_detection_childtype(self):
+  def test__detection_childtype(self):
     self.run_detection('detection_api_childtype',
                        'Commute in counties of California')
 
-  def test_fulfillment_basic(self):
+  def test__fulfillment_basic(self):
     req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
-    self.run_fulfillment('nonnl_api_basic', req)
+    self.run_fulfillment('fulfillment_api_basic', req)
 
-  def test_fulfillment_childtype(self):
+  def test__fulfillment_childtype(self):
     req = {
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County'
     }
-    self.run_fulfillment('nonnl_api_childtype', req)
+    self.run_fulfillment('fulfillment_api_childtype', req)

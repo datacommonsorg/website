@@ -63,6 +63,10 @@ def parse_query_and_detect(request: Dict, debug_logs: Dict):
   # Index-type default is in nl_server.
   embeddings_index_type = request.args.get('idx', '')
   original_query = request.args.get('q')
+  if not original_query:
+    err_json = helpers.abort(
+        'Received an empty query, please type a few words :)', '', [])
+    return None, err_json
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])

@@ -50,7 +50,7 @@ class Params(str, Enum):
 # TODO: rename this to a better endpoint
 #
 @bp.route('/data', methods=['POST'])
-def data_via_nl():
+def data():
   """Data handler."""
   debug_logs = {}
   utterance, error_json = helpers.parse_query_and_detect(request, debug_logs)
@@ -58,7 +58,7 @@ def data_via_nl():
     return error_json
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
-  return helpers.fulfill_and_build_charts(utterance, debug_logs)
+  return helpers.fulfill_with_chart_config(utterance, debug_logs)
 
 
 #
@@ -81,10 +81,12 @@ def detect():
           p.dcid for p in utterance.detection.places_detected.places_found
       ],
       Params.VARS.value: utterance.svs,
-      Params.CHILD_TYPE: utils.get_contained_in_type(utterance),
       Params.CTX: context_history,
       Params.SESSION_ID: utterance.session_id,
   }
+  place_type = utils.get_contained_in_type(utterance)
+  if place_type:
+    data_dict[Params.CHILD_TYPE.value] = place_type
   status_str = "Successful"
   return helpers.prepare_response(data_dict, status_str, utterance.detection,
                                   dbg_counters, debug_logs)
@@ -99,7 +101,7 @@ def detect():
 #  - childEntityType: A type of child entity (optional)
 #
 @bp.route('/fulfill', methods=['POST'])
-def data_via_dcid():
+def fulfill():
   """Data handler."""
   logging.info('NL Chart API: Enter')
   # NO production support yet.
@@ -107,7 +109,7 @@ def data_via_dcid():
     flask.abort(404)
 
   req_json = request.get_json()
-  if not request.get_json():
+  if not req_json:
     helpers.abort('Missing input', '', [])
     return
   if (not req_json.get('entities') or not req_json.get('variables')):
@@ -139,7 +141,7 @@ def data_via_dcid():
     return
 
   utterance = create_utterance(query_detection, None, counters, session_id)
-  return helpers.fulfill_and_build_charts(utterance, debug_logs)
+  return helpers.fulfill_with_chart_config(utterance, debug_logs)
 
 
 @bp.route('/history')
