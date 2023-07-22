@@ -57,6 +57,7 @@ export function App(): JSX.Element {
       </Container>
     </div>
   );
+}
 
 const fetchFulfillData = async (
   place: string,
