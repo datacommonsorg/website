@@ -18,19 +18,57 @@
  * Main component for DC Insights.
  */
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
+import { getUrlToken } from "../../utils/url_utils";
+import "../../../library/bar_component";
 
 /**
  * Application container
  */
 export function App(): JSX.Element {
+  const [chartData, setChartData] = useState<any | undefined>();
+
+  useEffect (() => {
+    const place = getUrlToken("p");
+    const topic= getUrlToken("t");
+    const placeType = getUrlToken("pt");
+    (async () => {
+      if (place && topic) {
+        const charts = await fetchFulfillData(place, topic, placeType);
+        setChartData(charts);
+      }
+    })();
+  }, [window.location.hash]);
+
   return (
     <div className="insights-container">
       <Container>
         <h1>Insights</h1>
-        <div className="insights-charts">Charts go here</div>
+        <div className="insights-charts">
+          # TODO: Try to generate webcomponents from charts
+          <datacommons-bar placeDcid="geoId/06" variableDcid="Count_Person" title="Foo Bar">
+            </datacommons-bar>
+        </div>
       </Container>
     </div>
   );
 }
+
+const fetchFulfillData = async (place: string, topic: string, placeType: string) => {
+  try {
+    const resp = await axios.post(
+      `/api/nl/fulfill`,
+      {
+        entities: [place],
+        variables: [topic],
+        childEntityType: placeType,
+      }
+    );
+    return resp.data["config"];
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
