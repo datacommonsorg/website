@@ -32,6 +32,7 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
+from server.lib.nl.detection.utils import create_utterance
 from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import existence
 from server.lib.nl.fulfillment import fulfiller
@@ -474,7 +475,8 @@ class TestDataSpecNext(unittest.TestCase):
     }]
 
     counters = ctr.Counters()
-    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    fulfiller.fulfill(
+        create_utterance(detection, None, counters, constants.TEST_SESSION_ID))
     got = counters.get()
 
     self.maxDiff = None
@@ -583,5 +585,6 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
     prev_uttr = utterance.load_utterance(uttr_dict)
   counters = ctr.Counters()
   return utterance.save_utterance(
-      fulfiller.fulfill(detection, prev_uttr, counters,
-                        constants.TEST_SESSION_ID))[0]
+      fulfiller.fulfill(
+          create_utterance(detection, prev_uttr, counters,
+                           constants.TEST_SESSION_ID)))[0]
