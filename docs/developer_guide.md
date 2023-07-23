@@ -171,7 +171,7 @@ Set the keys in the following `docker run` commands.
 
 ### Prepare Custom Data
 
-Make a folder "data" under $HOME via `mkdir $HOME/dc-data` and store a CSV file
+Make a folder under $HOME via `mkdir $HOME/dc-data` and store a CSV file
 "stats1.csv" with stats data in the following format:
 
 ```csv
