@@ -18,6 +18,8 @@
  * Main component for DC Insights.
  */
 
+import "../../../library/bar_component";
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
@@ -49,9 +51,9 @@ export function App(): JSX.Element {
         <div className="insights-charts">
           # TODO: Try to generate webcomponents from charts
           <datacommons-bar
-            places="geoId/06"
-            variables="Count_Person"
+            places={["geoId/06"]}
             title="Foo Bar"
+            variables={["Count_Person"]}
           ></datacommons-bar>
         </div>
       </Container>
