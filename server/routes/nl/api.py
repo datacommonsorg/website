@@ -219,7 +219,7 @@ def fulfill_and_build_charts(query_detection: Detection,
 #
 # TODO: Add support for context
 #
-@bp.route('/fulfill', methods=['POST'])
+@bp.route('/data_via_dcid', methods=['POST'])
 def data_via_dcid():
   """Data handler."""
   logging.info('NL Chart API: Enter')
