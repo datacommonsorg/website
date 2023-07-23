@@ -60,5 +60,5 @@ COPY --from=mixer-base /go/bin/mixer /go/bin/mixer
 COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 
 COPY build/web_server/compose.sh .
-EXPOSE 8080
-CMD ./compose.sh $USE_SQLITE
+EXPOSE 8080 8081
+CMD ./compose.sh $USE_SQLITE $SQLITE_PATH
