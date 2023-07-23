@@ -18,19 +18,75 @@
  * Main component for DC Insights.
  */
 
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
+
+import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
+import { getUrlToken } from "../../utils/url_utils";
 
 /**
  * Application container
  */
 export function App(): JSX.Element {
+  const [chartData, setChartData] = useState<any | undefined>();
+
+  useEffect(() => {
+    const place = getUrlToken("p");
+    const topic = getUrlToken("t");
+    const placeType = getUrlToken("pt");
+    (async () => {
+      if (place && topic) {
+        const resp = await fetchFulfillData(place, topic, placeType);
+        const mainPlace = resp["place"];
+        const chartData = {
+          place: {
+            dcid: mainPlace["dcid"],
+            name: mainPlace["name"],
+            types: [mainPlace["place_type"]],
+          },
+          config: resp["config"],
+        };
+        setChartData(chartData);
+      }
+    })();
+  }, [window.location.hash]);
+
   return (
     <div className="insights-container">
       <Container>
         <h1>Insights</h1>
-        <div className="insights-charts">Charts go here</div>
+        <div className="insights-charts">
+          {chartData && chartData.config && (
+            <SubjectPageMainPane
+              id="0"
+              place={chartData.place}
+              pageConfig={chartData.config}
+              svgChartHeight={SVG_CHART_HEIGHT}
+              showExploreMore={true}
+            />
+          )}
+        </div>
       </Container>
     </div>
   );
 }
+
+const fetchFulfillData = async (
+  place: string,
+  topic: string,
+  placeType: string
+) => {
+  try {
+    const resp = await axios.post(`/api/nl/data_via_dcid`, {
+      entities: [place],
+      variables: [topic],
+      childEntityType: placeType,
+    });
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
