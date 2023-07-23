@@ -22,18 +22,6 @@ declare module "datacommons" {
   }
 }
 
-declare namespace JSX {
-  interface IntrinsicElements {
-    "datacommons-bar": WebComponentProps;
-    "datacommons-gauge": WebComponentProps;
-    "datacommons-line": WebComponentProps;
-    "datacommons-map": WebComponentProps;
-    "datacommons-pie": WebComponentProps;
-    "datacommons-ranking": WebComponentProps;
-    "datacommons-slider": WebComponentProps;
-  }
-}
-
 interface WebComponentProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
@@ -64,4 +52,16 @@ interface WebComponentProps
   variable?: string;
   variables?: string[];
   yAxisMargin?: number;
+}
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    "datacommons-bar": WebComponentProps;
+    "datacommons-gauge": WebComponentProps;
+    "datacommons-line": WebComponentProps;
+    "datacommons-map": WebComponentProps;
+    "datacommons-pie": WebComponentProps;
+    "datacommons-ranking": WebComponentProps;
+    "datacommons-slider": WebComponentProps;
+  }
 }

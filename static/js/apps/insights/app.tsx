@@ -42,7 +42,7 @@ export function App(): JSX.Element {
         setChartData(charts);
       }
     })();
-  }, [window.location.hash]);
+  }, []);
 
   return (
     <div className="insights-container">
@@ -67,10 +67,10 @@ const fetchFulfillData = async (
   placeType: string
 ) => {
   try {
-    const resp = await axios.post(`/api/nl/fulfill`, {
+    const resp = await axios.post("/api/nl/fulfill", {
+      childEntityType: placeType,
       entities: [place],
       variables: [topic],
-      childEntityType: placeType,
     });
     return resp.data["config"];
   } catch (error) {
