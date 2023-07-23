@@ -16,14 +16,14 @@
                       "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithDiabetes_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
                       "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
+                      "Percent_Person_WithStroke_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
                     ],
                     "title": "Medical Conditions in Placer County (${date})",
                     "type": "BAR"
@@ -43,8 +43,8 @@
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block",
                       "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block",
                       "Percent_Person_ReceivedDentalVisit_multiple_place_bar_block",
                       "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
                     ],
