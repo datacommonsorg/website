@@ -122,7 +122,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   # TODO: Consider forking to its own test.
   def run_nonnl(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + '/api/nl/data_via_dcid',
+    resp = requests.post(self.get_server_url() + '/api/nl/fulfill',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
