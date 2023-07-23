@@ -79,7 +79,7 @@ const fetchFulfillData = async (
   placeType: string
 ) => {
   try {
-    const resp = await axios.post(`/api/nl/fulfill`, {
+    const resp = await axios.post(`/api/insights/fulfill`, {
       entities: [place],
       variables: [topic],
       childEntityType: placeType,

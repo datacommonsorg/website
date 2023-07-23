@@ -56,29 +56,17 @@ class IntegrationTest(NLWebServerTestCase):
       if expected_detectors:
         detection_method = expected_detectors[i]
       ctx = resp['context']
-      self._handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
-                            check_place_detection, detection_method)
+      self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
+                           check_place_detection, detection_method)
 
-  # TODO: Consider forking to its own test.
-  def run_fulfillment(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + '/api/nl/fulfill',
-                         json=req_json).json()
-    self._handle_response(json.dumps(req_json), resp, test_dir, '', failure)
-
-  # TODO: Consider forking to its own test.
-  def run_detection(self, test_dir, query, failure=''):
-    resp = requests.post(self.get_server_url() + f'/api/nl/detect?q={query}',
-                         json={}).json()
-    self._handle_response(query, resp, test_dir, '', failure)
-
-  def _handle_response(self,
-                       query,
-                       resp,
-                       test_dir,
-                       test_name,
-                       failure,
-                       check_place_detection=False,
-                       detector=None):
+  def handle_response(self,
+                      query,
+                      resp,
+                      test_dir,
+                      test_name,
+                      failure,
+                      check_place_detection=False,
+                      detector=None):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
@@ -282,22 +270,3 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
-
-  def test_detection_basic(self):
-    self.run_detection('detection_api_basic', 'Commute in California')
-
-  def test_detection_childtype(self):
-    self.run_detection('detection_api_childtype',
-                       'Commute in counties of California')
-
-  def test_fulfillment_basic(self):
-    req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
-    self.run_fulfillment('fulfillment_api_basic', req)
-
-  def test_fulfillment_childtype(self):
-    req = {
-        'entities': ['geoId/06'],
-        'variables': ['dc/topic/WorkCommute'],
-        'childEntityType': 'County'
-    }
-    self.run_fulfillment('fulfillment_api_childtype', req)
