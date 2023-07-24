@@ -83,20 +83,14 @@ export class DatacommonsLineComponent extends LitElement {
   variables!: Array<string>;
 
   render(): HTMLElement {
-    let mainPlace = this.parentPlace || this.place;
-    let comparisonPlaces = [];
-    if (!_.isEmpty(this.places)) {
-      mainPlace = this.places[0];
-      comparisonPlaces = this.places.slice(1);
-    }
     const tileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
-      comparisonPlaces,
+      comparisonPlaces: this.places,
       enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
-        dcid: mainPlace,
+        dcid: this.parentPlace || this.place,
         name: "",
         types: [],
       },

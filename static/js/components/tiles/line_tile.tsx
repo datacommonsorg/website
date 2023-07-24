@@ -46,7 +46,7 @@ export interface LineTilePropType {
   className?: string;
   // colors to use
   colors?: string[];
-  // List of place DCIDs to plot in addition to place
+  // List of place DCIDs to plot, instead of enclosedPlaceType in place
   comparisonPlaces?: string[];
   // Type of child places to plot
   enclosedPlaceType?: string;
@@ -136,7 +136,7 @@ export const fetchData = async (props: LineTilePropType) => {
   if (!_.isEmpty(props.comparisonPlaces)) {
     endpoint = `${props.apiRoot || ""}/api/observations/series`;
     params = {
-      entities: [props.place.dcid].concat(props.comparisonPlaces),
+      entities: props.comparisonPlaces,
       variables: statVars,
     };
   } else if (props.enclosedPlaceType) {
