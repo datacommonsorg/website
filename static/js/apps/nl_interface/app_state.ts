@@ -166,6 +166,9 @@ const nlAppActions: NLAppActions = {
     state.nlQueryContextIds.push(nlQueryContext.id);
   }),
   initializeAppState: thunk(async (actions) => {
+    // Try to read indexType from from html
+    const htmlIndexType =
+      document.getElementById("metadata").dataset.index || "";
     // Fetch URL parameters
     actions.updateConfig({
       autoRun: !!getUrlToken("a"),
@@ -175,10 +178,9 @@ const nlAppActions: NLAppActions = {
         NL_URL_PARAMS.DETECTOR,
         NL_DETECTOR_VALS.HYBRID
       ),
-      indexType: getUrlTokenOrDefault(
-        NL_URL_PARAMS.IDX,
-        NL_INDEX_VALS.MEDIUM_FT
-      ),
+      indexType:
+        htmlIndexType ||
+        getUrlTokenOrDefault(NL_URL_PARAMS.IDX, NL_INDEX_VALS.MEDIUM_FT),
       placeDetector: getUrlTokenOrDefault(
         NL_URL_PARAMS.PLACE_DETECTOR,
         NL_PLACE_DETECTOR_VALS.DC
