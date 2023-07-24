@@ -23,8 +23,11 @@ import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { getUrlToken } from "../../utils/url_utils";
+
+const PAGE_ID = "insights";
 
 /**
  * Application container
@@ -58,15 +61,27 @@ export function App(): JSX.Element {
       <Container>
         <h1>Insights</h1>
         <div className="insights-charts">
-          {chartData && chartData.config && (
-            <SubjectPageMainPane
-              id="0"
-              place={chartData.place}
-              pageConfig={chartData.config}
-              svgChartHeight={SVG_CHART_HEIGHT}
-              showExploreMore={true}
-            />
-          )}
+          <div className="row">
+            <div className="col-md-3x col-lg-3 order-last order-lg-0">
+              {chartData && chartData.config && (
+                <SubjectPageSidebar
+                  id={PAGE_ID}
+                  categories={chartData.config.categories}
+                />
+              )}
+            </div>
+            <div className="row col-md-9x col-lg-9">
+              {chartData && chartData.config && (
+                <SubjectPageMainPane
+                  id={PAGE_ID}
+                  place={chartData.place}
+                  pageConfig={chartData.config}
+                  svgChartHeight={SVG_CHART_HEIGHT}
+                  showExploreMore={true}
+                />
+              )}
+            </div>
+          </div>
         </div>
       </Container>
     </div>
