@@ -19,54 +19,157 @@
  */
 
 import _ from "lodash";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
+import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
+import { PlaceSelector } from "./place_selector";
+import { PlaceTypeSelector } from "./place_type_selector";
 import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
 
 export function SelectedOptions(): JSX.Element {
-  const { visType, places, statVars, enclosedPlaceType } =
+  const { visType, places, statVars, enclosedPlaceType, setPlaces } =
     useContext(AppContext);
   const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
   const showEnclosedPlaceType =
     enclosedPlaceType && !visTypeConfig.skipEnclosedPlaceType;
+  const [showPlaceSelector, setShowPlaceSelector] = useState(false);
+  const [showPlaceTypeSelector, setShowPlaceTypeSelector] = useState(false);
+  const allowEdit = isSelectionComplete(
+    visType,
+    places,
+    enclosedPlaceType,
+    statVars
+  );
+
+  useEffect(() => {
+    setShowPlaceSelector(false);
+    setShowPlaceTypeSelector(false);
+  }, [visType, allowEdit]);
+
   return (
-    <div className="selected-options-container">
+    <div
+      className={`selected-options-container ${
+        visTypeConfig.singlePlace ? "row" : "column"
+      }`}
+    >
       <div className="selected-options-places">
         {!_.isEmpty(places) && (
           <div className="selected-option">
             <span className="selected-option-label">Plot places in</span>
-            <div className="selected-options">
+            <div className="selected-option-values">
               {places.map((place) => {
                 return (
                   <div
                     className="selected-option-chip"
                     key={`selected-chip-${place.dcid}`}
                   >
-                    <span className="material-icons-outlined">location_on</span>
+                    {visTypeConfig.singlePlace && (
+                      <span className="material-icons-outlined">
+                        location_on
+                      </span>
+                    )}
                     <span>{place.name || place.dcid}</span>
+                    {allowEdit && (
+                      <>
+                        {visTypeConfig.singlePlace ? (
+                          <span
+                            className="material-icons-outlined action"
+                            onClick={() => {
+                              setShowPlaceSelector(!showPlaceSelector);
+                              setShowPlaceTypeSelector(false);
+                            }}
+                          >
+                            edit
+                          </span>
+                        ) : (
+                          <span
+                            className="material-icons-outlined action"
+                            onClick={() =>
+                              setPlaces(
+                                places.filter((p) => p.dcid !== place.dcid)
+                              )
+                            }
+                          >
+                            close
+                          </span>
+                        )}
+                      </>
+                    )}
                   </div>
                 );
               })}
+              {!visTypeConfig.singlePlace && allowEdit && (
+                <div>
+                  {showPlaceSelector ? (
+                    <div>
+                      <div className="place-selector-dropdown">
+                        <span
+                          className="material-icons-outlined action"
+                          onClick={() => setShowPlaceSelector(false)}
+                        >
+                          remove
+                        </span>
+                        <PlaceSelector hideSelections={true} />
+                      </div>
+                    </div>
+                  ) : (
+                    <span
+                      className="material-icons-outlined action"
+                      onClick={() => {
+                        setShowPlaceSelector(true);
+                        setShowPlaceTypeSelector(false);
+                      }}
+                    >
+                      add
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
+            {visTypeConfig.singlePlace && showPlaceSelector && (
+              <div>
+                <div className="place-selector-dropdown">
+                  <PlaceSelector hideSelections={true} />
+                </div>
+              </div>
+            )}
           </div>
         )}
         {showEnclosedPlaceType && (
           <div className="selected-option">
             <span className="selected-option-label">by</span>
-            <div className="selected-options">
+            <div className="selected-option-values">
               <div className="selected-option-chip">
                 <span className="material-icons-outlined">straighten</span>
                 <span>{enclosedPlaceType}</span>
+                {allowEdit && (
+                  <span
+                    className="material-icons-outlined action"
+                    onClick={() => {
+                      setShowPlaceTypeSelector(!showPlaceTypeSelector);
+                      setShowPlaceSelector(false);
+                    }}
+                  >
+                    edit
+                  </span>
+                )}
               </div>
             </div>
+            {showPlaceTypeSelector && (
+              <div>
+                <div className="place-selector-dropdown">
+                  <PlaceTypeSelector />
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
       {!_.isEmpty(statVars) && (
         <div className="selected-option">
           <span className="selected-option-label">Variables</span>
-          <div className="selected-options">
+          <div className="selected-option-values">
             {statVars.map((sv) => {
               return (
                 <div

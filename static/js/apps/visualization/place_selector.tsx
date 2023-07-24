@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   GA_EVENT_TOOL_PLACE_ADD,
@@ -31,92 +31,85 @@ import { getNamedTypedPlace } from "../../utils/place_utils";
 import { AppContext } from "./app_context";
 import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
 
-interface PlaceSelectorPropType {
-  titlePrefix: string;
-  onContinueClicked: () => void;
-}
-export function PlaceSelector(props: PlaceSelectorPropType): JSX.Element {
+export function PlaceSelector(props: {
+  hideSelections?: boolean;
+  selectOnContinue?: boolean;
+  onContinueClicked?: () => void;
+}): JSX.Element {
   const { visType, places, setPlaces } = useContext(AppContext);
-  const [collapsed, setCollapsed] = useState(!_.isEmpty(places));
+  const [selectedPlaces, setSelectedPlaces] = useState(places);
   const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
-  const headerTitle = `${props.titlePrefix}Select${
-    visTypeConfig.singlePlace ? " a" : ""
-  } place${visTypeConfig.singlePlace ? "" : "s"}`;
+
+  useEffect(() => {
+    if (!_.isEqual(places, selectedPlaces)) {
+      setSelectedPlaces(places);
+    }
+  }, [places]);
+
+  useEffect(() => {
+    if (visTypeConfig.singlePlace && selectedPlaces.length > 1) {
+      setSelectedPlaces(selectedPlaces.slice(0, 1));
+    }
+  }, [visType]);
 
   return (
-    <div
-      className={`selector-container place ${
-        collapsed ? "collapsed" : "opened"
-      } enabled`}
-    >
-      <div className="selector-header">
-        <div className="header-title">
-          <span>{headerTitle}</span>
-          <span
-            className="material-icons-outlined"
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {collapsed ? "expand_more" : "expand_less"}
-          </span>
-        </div>
-        <div className="header-subtitle">
-          {collapsed &&
-            places.map((place) => place.name || place.dcid).join(", ")}
-        </div>
+    <div className="place-selector">
+      <div className="selector-body">
+        {!props.hideSelections && (
+          <div className="place-selector-selections">
+            {selectedPlaces.map((place) => {
+              return (
+                <div className="selected-place" key={place.dcid}>
+                  <span>{place.name || place.dcid}</span>
+                  <span
+                    className="material-icons-outlined"
+                    onClick={() => removePlace(place.dcid)}
+                  >
+                    close
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <SearchBar
+          places={{}}
+          addPlace={addPlace}
+          removePlace={removePlace}
+          numPlacesLimit={1}
+          customPlaceHolder="Select a place"
+        />
       </div>
-      {!collapsed && (
-        <>
-          <div className="selector-body">
-            <div className="place-selector-selections">
-              {places.map((place) => {
-                return (
-                  <div className="selected-place" key={place.dcid}>
-                    <span>{place.name || place.dcid}</span>
-                    <span
-                      className="material-icons-outlined"
-                      onClick={() => removePlace(place.dcid)}
-                    >
-                      close
-                    </span>
-                  </div>
-                );
-              })}
+      {(props.selectOnContinue || props.onContinueClicked) && (
+        <div className="selector-footer">
+          {!_.isEmpty(selectedPlaces) && (
+            <div
+              className="continue-button"
+              onClick={() => {
+                setPlaces(selectedPlaces);
+                props.onContinueClicked();
+              }}
+            >
+              Continue
             </div>
-            <SearchBar
-              places={{}}
-              addPlace={addPlace}
-              removePlace={removePlace}
-              numPlacesLimit={1}
-              customPlaceHolder="Select a place"
-            />
-          </div>
-          <div className="selector-footer">
-            {!_.isEmpty(places) && (
-              <div
-                className="continue-button"
-                onClick={() => {
-                  setCollapsed(true);
-                  props.onContinueClicked();
-                }}
-              >
-                Continue
-              </div>
-            )}
-          </div>
-        </>
+          )}
+        </div>
       )}
     </div>
   );
 
   function addPlace(dcid: string): void {
-    if (places.findIndex((place) => dcid === place.dcid) >= 0) {
+    if (selectedPlaces.findIndex((place) => dcid === place.dcid) >= 0) {
       return;
     }
     getNamedTypedPlace(dcid).then((namedTypedPlace) => {
-      if (visTypeConfig.singlePlace) {
-        setPlaces([namedTypedPlace]);
+      const newPlaceList = visTypeConfig.singlePlace
+        ? [namedTypedPlace]
+        : [...selectedPlaces, namedTypedPlace];
+      if (props.selectOnContinue) {
+        setSelectedPlaces(newPlaceList);
       } else {
-        setPlaces([...places, namedTypedPlace]);
+        setPlaces(newPlaceList);
       }
     });
     triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
@@ -126,6 +119,10 @@ export function PlaceSelector(props: PlaceSelectorPropType): JSX.Element {
 
   function removePlace(dcid: string): void {
     const newPlaceList = places.filter((place) => place.dcid !== dcid);
-    setPlaces(newPlaceList);
+    if (props.selectOnContinue) {
+      setSelectedPlaces(newPlaceList);
+    } else {
+      setPlaces(newPlaceList);
+    }
   }
 }
