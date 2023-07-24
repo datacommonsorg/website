@@ -18,7 +18,7 @@
  * Main component for Visualization Tool.
  */
 
-import React, { useState } from "react";
+import React from "react";
 
 import { AppContextProvider } from "./app_context";
 import { Chart } from "./chart";
@@ -27,20 +27,13 @@ import { SelectorPane } from "./selector_pane";
 import { VisTypeSelector } from "./vis_type_selector";
 
 export function App(): JSX.Element {
-  const [selectionComplete, setSelectionComplete] = useState(false);
-
   return (
     <AppContextProvider>
       <div className="visualization-app">
         <VisTypeSelector />
         <SelectedOptions />
-        {selectionComplete ? (
-          <Chart />
-        ) : (
-          <SelectorPane
-            onSelectionComplete={() => setSelectionComplete(true)}
-          />
-        )}
+        <SelectorPane />
+        <Chart />
       </div>
     </AppContextProvider>
   );
