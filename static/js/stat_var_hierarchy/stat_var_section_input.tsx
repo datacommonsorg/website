@@ -262,11 +262,11 @@ export class StatVarSectionInput extends React.Component<
     if (_.isEmpty(html)) {
       return;
     }
-    const left = e.pageX;
-    const containerY = (
+    const containerClientRect = (
       d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
-    ).getBoundingClientRect().y;
-    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
+    ).getBoundingClientRect();
+    const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
+    const left = e.pageX - containerClientRect.x;
     showTooltip(html, { left, top });
   };
 }
