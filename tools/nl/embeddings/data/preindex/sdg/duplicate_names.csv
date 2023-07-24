@@ -1,0 +1,177 @@
+PreferredSV,DroppedSV,DuplicateName
+sdg/DC_ODA_BDVL,sdg/DC_ODA_BDVDL,Total official development assistance for biodiversity
+sdg/DC_ODA_POVLG,sdg/DC_ODA_POVDLG,Official development assistance grants for poverty reduction
+sdg/DC_TOF_TRDCML,sdg/DC_TOF_TRDCMDL,Total official flows for Aid for Trade
+sdg/DC_TOF_TRDCML,sdg/DC_TOF_TRDDBMDL,Total official flows for Aid for Trade
+sdg/DC_TOF_TRDCML,sdg/DC_TOF_TRDDBML,Total official flows for Aid for Trade
+sdg/DC_TRF_TOTL,sdg/DC_TRF_TOTDL,Total assistance for development
+sdg/EN_LKRV_PWAN,sdg/EN_LKRV_PWAP,Lakes and rivers permanent water area
+sdg/EN_LKRV_SWAN,sdg/EN_LKRV_SWAP,Lakes and rivers seasonal water area
+sdg/EN_MAR_BEALIT_BP,sdg/EN_MAR_BEALIT_BV,Beach litter originating from national land-based sources that ends in the beach
+sdg/EN_MAR_BEALIT_OP,sdg/EN_MAR_BEALIT_OV,Beach litter originating from national land-based sources that ends in the ocean
+sdg/EN_RSRV_MNWAN,sdg/EN_RSRV_MNWAP,Reservoir minimum water area
+sdg/EN_RSRV_MXWAN,sdg/EN_RSRV_MXWAP,Reservoir maximum water area
+sdg/EN_WBE_WTLN,sdg/EN_WBE_WTLP,Wetlands area
+sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI,sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI__BIOCLIMATIC_BELT--ALPINE,Mountain Green Cover Index [Land cover =
+sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI,sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI__BIOCLIMATIC_BELT--MONTANE,Mountain Green Cover Index [Land cover =
+sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI,sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI__BIOCLIMATIC_BELT--NIVAL,Mountain Green Cover Index [Land cover =
+sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI,sdg/ER_MTN_GRNCVI.LAND_COVER--LC_MGCI__BIOCLIMATIC_BELT--REMAIN_MOUNT,Mountain Green Cover Index [Land cover =
+sdg/GF_COM_PPPI,sdg/GF_COM_PPPI_KD,Amount of United States dollars committed to public-private partnerships for infrastructure
+sdg/NV_IND_MANF.ACTIVITY--ISIC4_C,sdg/NV_IND_MANF_CD.ACTIVITY--ISIC4_C,Manufacturing value added as a proportion of GDP [Activity = Manufacturing]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Human Rights and Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Human Rights and Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Human Rights and Gender Equality]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = under 46 years old | Sex = Female | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_LC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Human Rights and Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--Y0T45__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = under 46 years old | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--F__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Female | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_LC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HR_GEQU,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Human Rights and Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--Y_GE46__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = 46 years old and over | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--F__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = Unknown | Sex = Female | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FAFF_DEF,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Foreign Affairs and Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_JC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--M__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = Unknown | Sex = Male | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLCC_LC.AGE--_U__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--_U__SEX--_U__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = Unknown | Sex = Unknown | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,sdg/SG_DMK_PARLCC_UC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_DEFENCE,Number of chairs of permanent committees [Age = Not available | Sex = Not available | Parliamentary committees = Defence]
+sdg/SG_DMK_PARLCC_LC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_FINANCE,sdg/SG_DMK_PARLCC_UC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_FINANCE,Number of chairs of permanent committees [Age = Not available | Sex = Not available | Parliamentary committees = Finance]
+sdg/SG_DMK_PARLCC_LC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,sdg/SG_DMK_PARLCC_UC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_FOR_AFF,Number of chairs of permanent committees [Age = Not available | Sex = Not available | Parliamentary committees = Foreign Affairs]
+sdg/SG_DMK_PARLCC_LC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,sdg/SG_DMK_PARLCC_UC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_GEN_EQU,Number of chairs of permanent committees [Age = Not available | Sex = Not available | Parliamentary committees = Gender Equality]
+sdg/SG_DMK_PARLCC_LC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,sdg/SG_DMK_PARLCC_UC.AGE--_X__SEX--_X__PARLIAMENTARY_COMMITTEES--PC_HUM_RIGH,Number of chairs of permanent committees [Age = Not available | Sex = Not available | Parliamentary committees = Human Rights]
+sdg/SG_DMK_PARLSP_LC.AGE--Y0T45__SEX--F,sdg/SG_DMK_PARLSP_UC.AGE--Y0T45__SEX--F,Number of speakers in parliament [Age = under 46 years old | Sex = Female]
+sdg/SG_DMK_PARLSP_LC.AGE--Y0T45__SEX--M,sdg/SG_DMK_PARLSP_UC.AGE--Y0T45__SEX--M,Number of speakers in parliament [Age = under 46 years old | Sex = Male]
+sdg/SG_DMK_PARLSP_LC.AGE--Y_GE46__SEX--F,sdg/SG_DMK_PARLSP_UC.AGE--Y_GE46__SEX--F,Number of speakers in parliament [Age = 46 years old and over | Sex = Female]
+sdg/SG_DMK_PARLSP_LC.AGE--Y_GE46__SEX--M,sdg/SG_DMK_PARLSP_UC.AGE--Y_GE46__SEX--M,Number of speakers in parliament [Age = 46 years old and over | Sex = Male]
+sdg/SG_DMK_PARLSP_LC.AGE--_U__SEX--F,sdg/SG_DMK_PARLSP_UC.AGE--_U__SEX--F,Number of speakers in parliament [Age = Unknown | Sex = Female]
+sdg/SG_DMK_PARLSP_LC.AGE--_U__SEX--M,sdg/SG_DMK_PARLSP_UC.AGE--_U__SEX--M,Number of speakers in parliament [Age = Unknown | Sex = Male]
+sdg/SG_DMK_PARLSP_LC.SEX--F,sdg/SG_DMK_PARLSP_UC.SEX--F,Number of speakers in parliament [Sex = Female]
+sdg/SG_DMK_PARLSP_LC.SEX--M,sdg/SG_DMK_PARLSP_UC.SEX--M,Number of speakers in parliament [Sex = Male]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_08,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C04,International Health Regulations capacity [IHR Capacity = Laboratory]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_03,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C05,International Health Regulations capacity [IHR Capacity = Surveillance]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_07,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C06,International Health Regulations capacity [IHR Capacity = Human resources]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_11,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C13,International Health Regulations capacity [IHR Capacity = Food safety]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_12,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C14,International Health Regulations capacity [IHR Capacity = Chemical events]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_11,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_04,International Health Regulations capacity [IHR Capacity = Food safety]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_08,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_05,International Health Regulations capacity [IHR Capacity = Laboratory]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_03,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_06,International Health Regulations capacity [IHR Capacity = Surveillance]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_07,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_07,International Health Regulations capacity [IHR Capacity = Human resources]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_09,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_11,International Health Regulations capacity [IHR Capacity = Points of entry]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--IHR_12,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_12,International Health Regulations capacity [IHR Capacity = Chemical events]
+sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR_13,sdg/SH_IHR_CAPS.IHR_CAPACITY--SPAR2_C15,International Health Regulations capacity [IHR Capacity = Radiation emergencies]
+sdg/SH_XPD_EARN10,sdg/SH_XPD_EARN25,Proportion of population with large household expenditures on health as a share of total household expenditure or income
+sdg/SL_ISV_IFEM,sdg/SL_ISV_IFEM_19ICLS,Proportion of informal employment
+sdg/SL_ISV_IFEM.ACTIVITY--ISIC4_A,sdg/SL_ISV_IFEM_19ICLS.ACTIVITY--ISIC4_A,"Proportion of informal employment [Activity = Agriculture, forestry and fishing]"
+sdg/SL_ISV_IFEM.ACTIVITY--ISIC4_BTU,sdg/SL_ISV_IFEM_19ICLS.ACTIVITY--ISIC4_BTU,Proportion of informal employment [Activity = Non-agriculture]
+sdg/SL_ISV_IFEM.SEX--F,sdg/SL_ISV_IFEM_19ICLS.SEX--F,Proportion of informal employment [Sex = Female]
+sdg/SL_ISV_IFEM.SEX--F__ACTIVITY--ISIC4_A,sdg/SL_ISV_IFEM_19ICLS.SEX--F__ACTIVITY--ISIC4_A,"Proportion of informal employment [Sex = Female | Activity = Agriculture, forestry and fishing]"
+sdg/SL_ISV_IFEM.SEX--F__ACTIVITY--ISIC4_BTU,sdg/SL_ISV_IFEM_19ICLS.SEX--F__ACTIVITY--ISIC4_BTU,Proportion of informal employment [Sex = Female | Activity = Non-agriculture]
+sdg/SL_ISV_IFEM.SEX--M,sdg/SL_ISV_IFEM_19ICLS.SEX--M,Proportion of informal employment [Sex = Male]
+sdg/SL_ISV_IFEM.SEX--M__ACTIVITY--ISIC4_A,sdg/SL_ISV_IFEM_19ICLS.SEX--M__ACTIVITY--ISIC4_A,"Proportion of informal employment [Sex = Male | Activity = Agriculture, forestry and fishing]"
+sdg/SL_ISV_IFEM.SEX--M__ACTIVITY--ISIC4_BTU,sdg/SL_ISV_IFEM_19ICLS.SEX--M__ACTIVITY--ISIC4_BTU,Proportion of informal employment [Sex = Male | Activity = Non-agriculture]
+sdg/SL_TLF_NEET.AGE--Y15T24,sdg/SL_TLF_NEET_19ICLS.AGE--Y15T24,"Proportion of youth not in education, employment or training [Age = 15 to 24 years old]"
+sdg/SL_TLF_NEET.AGE--Y15T24__SEX--F,sdg/SL_TLF_NEET_19ICLS.AGE--Y15T24__SEX--F,"Proportion of youth not in education, employment or training [Age = 15 to 24 years old | Sex = Female]"
+sdg/SL_TLF_NEET.AGE--Y15T24__SEX--M,sdg/SL_TLF_NEET_19ICLS.AGE--Y15T24__SEX--M,"Proportion of youth not in education, employment or training [Age = 15 to 24 years old | Sex = Male]"
+sdg/SL_TLF_UEMDIS,sdg/SL_TLF_UEMDIS_19ICLS,Unemployment rate
+sdg/SL_TLF_UEMDIS.DISABILITY_STATUS--PD,sdg/SL_TLF_UEMDIS_19ICLS.DISABILITY_STATUS--PD,Unemployment rate [Disability status = Persons with disability]
+sdg/SL_TLF_UEMDIS.DISABILITY_STATUS--PWD,sdg/SL_TLF_UEMDIS_19ICLS.DISABILITY_STATUS--PWD,Unemployment rate [Disability status = Persons without disability]
+sdg/SL_TLF_UEMDIS.SEX--F,sdg/SL_TLF_UEMDIS_19ICLS.SEX--F,Unemployment rate [Sex = Female]
+sdg/SL_TLF_UEMDIS.SEX--F__DISABILITY_STATUS--PD,sdg/SL_TLF_UEMDIS_19ICLS.SEX--F__DISABILITY_STATUS--PD,Unemployment rate [Sex = Female | Disability status = Persons with disability]
+sdg/SL_TLF_UEMDIS.SEX--F__DISABILITY_STATUS--PWD,sdg/SL_TLF_UEMDIS_19ICLS.SEX--F__DISABILITY_STATUS--PWD,Unemployment rate [Sex = Female | Disability status = Persons without disability]
+sdg/SL_TLF_UEMDIS.SEX--M,sdg/SL_TLF_UEMDIS_19ICLS.SEX--M,Unemployment rate [Sex = Male]
+sdg/SL_TLF_UEMDIS.SEX--M__DISABILITY_STATUS--PD,sdg/SL_TLF_UEMDIS_19ICLS.SEX--M__DISABILITY_STATUS--PD,Unemployment rate [Sex = Male | Disability status = Persons with disability]
+sdg/SL_TLF_UEMDIS.SEX--M__DISABILITY_STATUS--PWD,sdg/SL_TLF_UEMDIS_19ICLS.SEX--M__DISABILITY_STATUS--PWD,Unemployment rate [Sex = Male | Disability status = Persons without disability]
+sdg/SL_TLF_UEM.AGE--Y15T24,sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24,Unemployment rate [Age = 15 to 24 years old]
+sdg/SL_TLF_UEM.AGE--Y15T24__SEX--F,sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--F,Unemployment rate [Age = 15 to 24 years old | Sex = Female]
+sdg/SL_TLF_UEM.AGE--Y15T24__SEX--M,sdg/SL_TLF_UEM_19ICLS.AGE--Y15T24__SEX--M,Unemployment rate [Age = 15 to 24 years old | Sex = Male]
+sdg/SL_TLF_UEM.AGE--Y_GE15,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15,Unemployment rate [Age = 15 years old and over]
+sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--F,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--F,Unemployment rate [Age = 15 years old and over | Sex = Female]
+sdg/SL_TLF_UEM.AGE--Y_GE15__SEX--M,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE15__SEX--M,Unemployment rate [Age = 15 years old and over | Sex = Male]
+sdg/SL_TLF_UEM.AGE--Y_GE25,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25,Unemployment rate [Age = 25 years old and over]
+sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--F,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--F,Unemployment rate [Age = 25 years old and over | Sex = Female]
+sdg/SL_TLF_UEM.AGE--Y_GE25__SEX--M,sdg/SL_TLF_UEM_19ICLS.AGE--Y_GE25__SEX--M,Unemployment rate [Age = 25 years old and over | Sex = Male]
+sdg/ST_EEV_ACCTSA,sdg/ST_EEV_ACCSEEA,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism
+sdg/ST_EEV_ACCTSA,sdg/ST_EEV_STDACCT,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism
+sdg/VC_DTH_TOCVN,sdg/VC_DTH_TONCVN,Number of conflict-related deaths
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Accidents related to conflict
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,"Chemical, biological, radiological, nuclear (CBRN)"
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Denial of access to/ destruction of objects indispensable to survival
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Electromagnetic weapons
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Less lethal weapons
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Multiple Weapons Used.]
+sdg/VC_DTH_TOTN.CAUSE_OF_DEATH--COD_OTHER,sdg/VC_DTH_TOTPT.CAUSE_OF_DEATH--COD_OTHER,Use of objects and other means
+sdg/VC_DTH_TOCVN,sdg/VC_DTH_TOUNN,Number of conflict-related deaths
+sdg/VC_HTF_DETVFL,sdg/VC_HTF_DETVFLR,"Detected victims of human trafficking for forced labour, servitude and slavery"
+sdg/VC_HTF_DETVFL.AGE--Y0T17,sdg/VC_HTF_DETVFLR.AGE--Y0T17,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = under 18 years old]"
+sdg/VC_HTF_DETVFL.AGE--Y0T17__SEX--F,sdg/VC_HTF_DETVFLR.AGE--Y0T17__SEX--F,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = under 18 years old | Sex = Female]"
+sdg/VC_HTF_DETVFL.AGE--Y0T17__SEX--M,sdg/VC_HTF_DETVFLR.AGE--Y0T17__SEX--M,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = under 18 years old | Sex = Male]"
+sdg/VC_HTF_DETVFL.AGE--Y_GE18,sdg/VC_HTF_DETVFLR.AGE--Y_GE18,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = 18 years old and over]"
+sdg/VC_HTF_DETVFL.AGE--Y_GE18__SEX--F,sdg/VC_HTF_DETVFLR.AGE--Y_GE18__SEX--F,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = 18 years old and over | Sex = Female]"
+sdg/VC_HTF_DETVFL.AGE--Y_GE18__SEX--M,sdg/VC_HTF_DETVFLR.AGE--Y_GE18__SEX--M,"Detected victims of human trafficking for forced labour, servitude and slavery [Age = 18 years old and over | Sex = Male]"
+sdg/VC_HTF_DETVOG,sdg/VC_HTF_DETVOGR,Detected victims of human trafficking for removal of organ
+sdg/VC_HTF_DETVOG.AGE--Y_GE18,sdg/VC_HTF_DETVOGR.AGE--Y_GE18,Detected victims of human trafficking for removal of organ [Age = 18 years old and over]
+sdg/VC_HTF_DETVOG.AGE--Y_GE18__SEX--F,sdg/VC_HTF_DETVOGR.AGE--Y_GE18__SEX--F,Detected victims of human trafficking for removal of organ [Age = 18 years old and over | Sex = Female]
+sdg/VC_HTF_DETVOG.AGE--Y_GE18__SEX--M,sdg/VC_HTF_DETVOGR.AGE--Y_GE18__SEX--M,Detected victims of human trafficking for removal of organ [Age = 18 years old and over | Sex = Male]
+sdg/VC_HTF_DETVOP,sdg/VC_HTF_DETVOPR,Detected victims of human trafficking for other purposes
+sdg/VC_HTF_DETVOP.AGE--Y0T17,sdg/VC_HTF_DETVOPR.AGE--Y0T17,Detected victims of human trafficking for other purposes [Age = under 18 years old]
+sdg/VC_HTF_DETVOP.AGE--Y0T17__SEX--F,sdg/VC_HTF_DETVOPR.AGE--Y0T17__SEX--F,Detected victims of human trafficking for other purposes [Age = under 18 years old | Sex = Female]
+sdg/VC_HTF_DETVOP.AGE--Y0T17__SEX--M,sdg/VC_HTF_DETVOPR.AGE--Y0T17__SEX--M,Detected victims of human trafficking for other purposes [Age = under 18 years old | Sex = Male]
+sdg/VC_HTF_DETVOP.AGE--Y_GE18,sdg/VC_HTF_DETVOPR.AGE--Y_GE18,Detected victims of human trafficking for other purposes [Age = 18 years old and over]
+sdg/VC_HTF_DETVOP.AGE--Y_GE18__SEX--F,sdg/VC_HTF_DETVOPR.AGE--Y_GE18__SEX--F,Detected victims of human trafficking for other purposes [Age = 18 years old and over | Sex = Female]
+sdg/VC_HTF_DETVOP.AGE--Y_GE18__SEX--M,sdg/VC_HTF_DETVOPR.AGE--Y_GE18__SEX--M,Detected victims of human trafficking for other purposes [Age = 18 years old and over | Sex = Male]
+sdg/VC_HTF_DETV,sdg/VC_HTF_DETVR,Detected victims of human trafficking
+sdg/VC_HTF_DETV.AGE--Y0T17,sdg/VC_HTF_DETVR.AGE--Y0T17,Detected victims of human trafficking [Age = under 18 years old]
+sdg/VC_HTF_DETV.AGE--Y0T17__SEX--F,sdg/VC_HTF_DETVR.AGE--Y0T17__SEX--F,Detected victims of human trafficking [Age = under 18 years old | Sex = Female]
+sdg/VC_HTF_DETV.AGE--Y0T17__SEX--M,sdg/VC_HTF_DETVR.AGE--Y0T17__SEX--M,Detected victims of human trafficking [Age = under 18 years old | Sex = Male]
+sdg/VC_HTF_DETV.AGE--Y_GE18,sdg/VC_HTF_DETVR.AGE--Y_GE18,Detected victims of human trafficking [Age = 18 years old and over]
+sdg/VC_HTF_DETV.AGE--Y_GE18__SEX--F,sdg/VC_HTF_DETVR.AGE--Y_GE18__SEX--F,Detected victims of human trafficking [Age = 18 years old and over | Sex = Female]
+sdg/VC_HTF_DETV.AGE--Y_GE18__SEX--M,sdg/VC_HTF_DETVR.AGE--Y_GE18__SEX--M,Detected victims of human trafficking [Age = 18 years old and over | Sex = Male]
+sdg/VC_HTF_DETV.SEX--F,sdg/VC_HTF_DETVR.SEX--F,Detected victims of human trafficking [Sex = Female]
+sdg/VC_HTF_DETV.SEX--M,sdg/VC_HTF_DETVR.SEX--M,Detected victims of human trafficking [Sex = Male]
+sdg/VC_HTF_DETVSX,sdg/VC_HTF_DETVSXR,Detected victims of human trafficking for sexual exploitation
+sdg/VC_HTF_DETVSX.AGE--Y0T17,sdg/VC_HTF_DETVSXR.AGE--Y0T17,Detected victims of human trafficking for sexual exploitation [Age = under 18 years old]
+sdg/VC_HTF_DETVSX.AGE--Y0T17__SEX--F,sdg/VC_HTF_DETVSXR.AGE--Y0T17__SEX--F,Detected victims of human trafficking for sexual exploitation [Age = under 18 years old | Sex = Female]
+sdg/VC_HTF_DETVSX.AGE--Y0T17__SEX--M,sdg/VC_HTF_DETVSXR.AGE--Y0T17__SEX--M,Detected victims of human trafficking for sexual exploitation [Age = under 18 years old | Sex = Male]
+sdg/VC_HTF_DETVSX.AGE--Y_GE18,sdg/VC_HTF_DETVSXR.AGE--Y_GE18,Detected victims of human trafficking for sexual exploitation [Age = 18 years old and over]
+sdg/VC_HTF_DETVSX.AGE--Y_GE18__SEX--F,sdg/VC_HTF_DETVSXR.AGE--Y_GE18__SEX--F,Detected victims of human trafficking for sexual exploitation [Age = 18 years old and over | Sex = Female]
+sdg/VC_HTF_DETVSX.AGE--Y_GE18__SEX--M,sdg/VC_HTF_DETVSXR.AGE--Y_GE18__SEX--M,Detected victims of human trafficking for sexual exploitation [Age = 18 years old and over | Sex = Male]

@@ -28,13 +28,18 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
+from server.lib.nl.fulfillment.existence import build_chart_vars
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
+from server.lib.nl.fulfillment.existence import update_extra_success_svs
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
-# Limit the number of charts.  With 3 per row max, allow up to 5 rows.
+# Limit the number of charts.  Each chart may double for per-capita.
+# With 3 per row max, allow up to 2 rows, without any per-capita.
 _MAX_NUM_CHARTS = 15
+# TODO: Drop _MAX_NUM_CHARTS to 6 and deprecate this
+_RELATED_VAR_CHART_THRESHOLD = 6
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
@@ -44,9 +49,13 @@ _MAX_EXTENSION_SVS = 5
 # Base helper to add a chart spec to an utterance.
 # TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
 #
-def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
-                           chart_vars: ChartVars, places: List[Place],
-                           primary_vs_secondary: ChartOriginType) -> bool:
+def add_chart_to_utterance(
+    chart_type: ChartType,
+    state: PopulateState,
+    chart_vars: ChartVars,
+    places: List[Place],
+    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART
+) -> bool:
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
@@ -287,7 +296,7 @@ def _add_charts(state: PopulateState, places: List[Place],
   existing_svs = set()
   found = False
   num_charts = 0
-  for exist_state in tracker.exist_sv_states:
+  for esidx, exist_state in enumerate(tracker.exist_sv_states):
 
     # Infer charts for the main SV/Topic.
     for exist_cv in exist_state.chart_vars_list:
@@ -313,7 +322,15 @@ def _add_charts(state: PopulateState, places: List[Place],
 
       # If we have found enough charts, return success
       if num_charts >= _MAX_NUM_CHARTS:
-        return True
+        break
+
+    if (not state.uttr.extra_success_svs and
+        num_charts >= _RELATED_VAR_CHART_THRESHOLD):
+      # If there are any existence-check passing SVs, update uttr with them.
+      update_extra_success_svs(state.uttr, tracker.exist_sv_states[esidx + 1:])
+
+    if num_charts >= _MAX_NUM_CHARTS:
+      return True
 
   # Handle extended/comparable SVs only for simple query since
   # for those we would construct a single bar chart comparing the differe

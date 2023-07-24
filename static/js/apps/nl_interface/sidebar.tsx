@@ -13,56 +13,79 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import _ from "lodash";
 import React from "react";
 import { UncontrolledTooltip } from "reactstrap";
 
-interface SidebarPropsType {
-  queries: string[];
-  onQueryItemClick: (queries: string[]) => void;
-}
+import { useStoreActions, useStoreState } from "./app_state";
 
 /**
  * NL sidebar showing query history
  */
-export function Sidebar(props: SidebarPropsType) {
-  const { queries, onQueryItemClick } = props;
-  const uniqueQueries = _.uniq(queries).reverse();
+export function Sidebar(): JSX.Element {
+  const updateConfig = useStoreActions((a) => a.updateConfig);
+  const currentNlQueryContextId = useStoreState(
+    (s) => s.config.currentNlQueryContextId
+  );
+  const nlQueryContexts = useStoreState((s) =>
+    s.nlQueryContextIds.map((id) => s.nlQueryContexts[id])
+  );
+
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <a href="/nl" className="context-link">
+        <a
+          href="/nl"
+          className={`context-link ${
+            !currentNlQueryContextId ? "disabled" : ""
+          }`}
+          onClick={(e) => {
+            e.preventDefault();
+            if (!currentNlQueryContextId) {
+              return;
+            }
+            updateConfig({
+              currentNlQueryContextId: null,
+            });
+          }}
+        >
           <span className="material-icons">add_icon</span>
           <span className="context-link-text">New Context</span>
         </a>
       </div>
       <div className="sidebar-recent">
-        {uniqueQueries.length > 0 ? (
+        {nlQueryContexts.length > 0 ? (
           <>
             <h5>Recent</h5>
             <ul>
-              {uniqueQueries.map((query, i) => (
-                <li key={i} id={`sidebar-recent-query-item-${i}`}>
+              {nlQueryContexts.reverse().map((nlQueryContext, i) => (
+                <li key={i} id={`sidebar-recent-query-context-${i}`}>
                   <a
                     href=""
                     onClick={(e) => {
                       e.preventDefault();
-                      onQueryItemClick([query]);
+                      updateConfig({
+                        currentNlQueryContextId: nlQueryContext.id,
+                      });
                     }}
-                    title={query}
+                    className={
+                      nlQueryContext.id === currentNlQueryContextId
+                        ? "selected"
+                        : ""
+                    }
+                    title={nlQueryContext.name}
                   >
                     <span className="material-icons">
                       chat_bubble_outline_icon
                     </span>
-                    <span className="text">{query}</span>
+                    <span className="text">{nlQueryContext.name}</span>
                   </a>
                   <UncontrolledTooltip
                     boundariesElement="window"
                     delay={400}
                     placement="right"
-                    target={`sidebar-recent-query-item-${i}`}
+                    target={`sidebar-recent-query-context-${i}`}
                   >
-                    {query}
+                    {nlQueryContext.name}
                   </UncontrolledTooltip>
                 </li>
               ))}

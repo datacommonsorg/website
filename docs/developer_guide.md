@@ -158,8 +158,8 @@ View the deployoment at [link](https://dev.datacommons.org).
 Website, mixer, esp can be bundled in one container and running as separate
 processes.
 
-This can be used to bring up a custom Data Commons intance in your preferred
-environment.
+This can be used to bring up a custom Data Commons intance in local machine or
+different cloud enviornment.
 
 ### Obtain API Key
 
@@ -169,20 +169,49 @@ environment.
 
 Set the keys in the following `docker run` commands.
 
+### Prepare Custom Data
+
+Make a folder under $HOME via `mkdir $HOME/dc-data` and store a CSV file
+"stats1.csv" with stats data in the following format:
+
+```csv
+geoId,observationDate,test_stat_var_1,test_stat_var_2
+06,2021,555,666
+08,2021,10,10
+09,2021,11,11
+10,2021,12,12
+11,2021,13,13
+12,2021,15,15
+13,2021,18,18
+15,2021,20,20
+06085,2022,333,444
+```
+
 ### Test run a custom Data Commons instance
 
 ```bash
-docker run -it \
+docker run -it --pull=always \
 -e mixer_api_key= \
 -e maps_api_key= \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
+-e USE_SQLITE=true \
+-e SQLITE_PATH=/sqlite
 -p 8080:8080 \
+-p 8081:8081 \
+-v $HOME/dc-data:/sqlite \
 gcr.io/datcom-ci/datacommons-website-compose:latest
 ```
 
-Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
+Now you can access a custom Data Commons site via
+[localhost](http://localhost:8080). For example, the data from the sample data
+can be viewed in [Timeline Chart](http://localhost:8080/tools/timeline#place=geoId%2F06&statsVar=test_stat_var_1).
+
+### Update Data
+
+Just update the csv file made in the previous step, and run
+`curl -X POST localhost:8081/import`. The website should be updated with the new data.
 
 ### Run custom Data Commons with UI modifications
 

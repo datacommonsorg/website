@@ -16,14 +16,14 @@
                       "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithDiabetes_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
                       "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
                     "title": "Medical Conditions in Placer County (${date})",
                     "type": "BAR"
@@ -33,9 +33,51 @@
             ],
             "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
             "title": "Medical Conditions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block",
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_ReceivedDentalVisit_multiple_place_bar_block",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Health Screenings by Type in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Health Screenings by Type"
           }
         ],
         "statVarSpec": {
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+            "name": "Prevalence of 21 - 65 Years, Female, Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
+          },
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
+            "name": "Prevalence: 50 - 75 Years, Colorectal Cancer Screening",
+            "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
+            "unit": "%"
+          },
+          "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block": {
+            "name": "Prevalence: Cholesterol Screening",
+            "statVar": "Percent_Person_ReceivedCholesterolScreening",
+            "unit": "%"
+          },
+          "Percent_Person_ReceivedDentalVisit_multiple_place_bar_block": {
+            "name": "Prevalence: Dental Visit",
+            "statVar": "Percent_Person_ReceivedDentalVisit",
+            "unit": "%"
+          },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
             "name": "Arthritis",
             "statVar": "Percent_Person_WithArthritis",

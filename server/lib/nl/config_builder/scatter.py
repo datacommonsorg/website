@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
@@ -22,7 +22,7 @@ from server.lib.nl.detection.types import Place
 
 
 def scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
-                        sv2thing: Dict, attr: Dict):
+                        sv2thing: Dict, attr: Dict, nopc_vars: Set[str]):
   assert len(sv_pair) == 2
 
   sv_names = [sv2thing.name[sv_pair[0]], sv2thing.name[sv_pair[1]]]
@@ -35,11 +35,13 @@ def scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
       base.is_sv_percapita(sv_names[1], sv_pair[1])
   ]
   if is_sv_pc[0]:
-    if not is_sv_pc[1] and variable.is_percapita_relevant(sv_pair[1]):
+    if not is_sv_pc[1] and variable.is_percapita_relevant(
+        sv_pair[1], nopc_vars):
       change_to_pc[1] = True
       sv_names[1] += " Per Capita"
   if is_sv_pc[1]:
-    if not is_sv_pc[0] and variable.is_percapita_relevant(sv_pair[0]):
+    if not is_sv_pc[0] and variable.is_percapita_relevant(
+        sv_pair[0], nopc_vars):
       change_to_pc[0] = True
       sv_names[0] += " Per Capita"
 

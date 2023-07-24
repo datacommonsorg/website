@@ -8,14 +8,11 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_Obesity_multiple_place_bar_block"
+                      "Percent_Person_Obesity"
                     ],
-                    "title": "Percentage of Population That Is Obese in United States (${date})",
-                    "type": "BAR"
+                    "title": "Percentage of Population That Is Obese in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -41,14 +38,11 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
+                      "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues in United States (${date})",
-                    "type": "BAR"
+                    "title": "Physical Health Issues in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -59,18 +53,15 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_Obesity_multiple_place_bar_block",
-                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
-                      "Percent_Person_PhysicalInactivity_multiple_place_bar_block",
-                      "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
-                      "Percent_Person_Smoking_multiple_place_bar_block"
+                      "Percent_Person_Obesity",
+                      "Percent_Person_BingeDrinking",
+                      "Percent_Person_PhysicalInactivity",
+                      "Percent_Person_SleepLessThan7Hours",
+                      "Percent_Person_Smoking"
                     ],
-                    "title": "Percentage of Population That Is Obese compared with other variables in United States (${date})",
-                    "type": "BAR"
+                    "title": "Percentage of Population That Is Obese compared with other variables in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -86,6 +77,8 @@
                     ],
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
@@ -111,27 +104,37 @@
             "name": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years)",
             "statVar": "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years"
           },
-          "Percent_Person_BingeDrinking_multiple_place_bar_block": {
+          "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithDepression",
+            "unit": "%"
+          },
+          "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithPoorGeneralHealth",
+            "unit": "%"
+          },
+          "Percent_Person_BingeDrinking": {
             "name": "Percentage of Population Who Binge Drink",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
-          "Percent_Person_Obesity_multiple_place_bar_block": {
+          "Percent_Person_Obesity": {
             "name": "Percentage of Population That Is Obese",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
-          "Percent_Person_PhysicalInactivity_multiple_place_bar_block": {
+          "Percent_Person_PhysicalInactivity": {
             "name": "Percentage of Population Who Are Physically Inactive",
             "statVar": "Percent_Person_PhysicalInactivity",
             "unit": "%"
           },
-          "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block": {
+          "Percent_Person_SleepLessThan7Hours": {
             "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           },
-          "Percent_Person_Smoking_multiple_place_bar_block": {
+          "Percent_Person_Smoking": {
             "name": "Percentage of Population That Smokes",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
@@ -186,6 +189,11 @@
             "statVar": "Percent_Person_WithMentalHealthNotGood",
             "unit": "%"
           },
+          "Percent_Person_WithPhysicalHealthNotGood": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
           "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
             "name": "Physical Health Issues",
             "statVar": "Percent_Person_WithPhysicalHealthNotGood",
@@ -203,6 +211,11 @@
       "placeDcid": [
         "country/USA"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

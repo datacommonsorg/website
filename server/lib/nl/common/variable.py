@@ -15,17 +15,12 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-import json
-import os
 from typing import Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.utils as utils
 import server.services.datacommons as dc
-
-# TODO: This is reading the file on every call.  Improve it!
-_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../../config/nl_page/chart_titles_by_sv.json"
 
 # Have an upper limit so we don't do too many existence checks.
 EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT = 50
@@ -197,17 +192,11 @@ def extend_svs(svs: List[str]):
   return res_ordered
 
 
-def get_sv_name(all_svs: List[str]) -> Dict:
+def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
   sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
-  basepath = os.path.dirname(__file__)
-  title_config_path = os.path.abspath(
-      os.path.join(basepath, _CHART_TITLE_CONFIG_RELATIVE_PATH))
-  title_by_sv_dcid = {}
-  with open(title_config_path) as f:
-    title_by_sv_dcid = json.load(f)
 
   sv_name_map = {}
   # If a curated name is found return that,
@@ -215,8 +204,8 @@ def get_sv_name(all_svs: List[str]) -> Dict:
   for sv in all_svs:
     if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
-    elif sv in title_by_sv_dcid:
-      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
+    elif sv in sv_chart_titles:
+      sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
     else:
       sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
@@ -328,14 +317,11 @@ _SV_PARTIAL_DCID_NO_PC = [
     "LmpGestationalAge_",
 ]
 
-_SV_FULL_DCID_NO_PC = ["Count_Person"]
 
-
-def is_percapita_relevant(sv_dcid: str) -> bool:
+def is_percapita_relevant(sv_dcid: str, nopc_svs: Set[str]) -> bool:
+  if sv_dcid in nopc_svs:
+    return False
   for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
     if skip_phrase in sv_dcid:
-      return False
-  for skip_sv in _SV_FULL_DCID_NO_PC:
-    if skip_sv == sv_dcid:
       return False
   return True

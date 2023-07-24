@@ -20,157 +20,77 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, memo, useEffect, useState } from "react";
+import React, { createRef, memo, useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
-import { SearchResult } from "../../types/app/nl_interface_types";
-import { stringifyFn } from "../../utils/axios";
 import {
   CHART_FEEDBACK_SENTIMENT,
   getFeedbackLink,
 } from "../../utils/nl_interface_utils";
+import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
-import { NLCommentary, shouldHideCharts } from "./nl_commentary";
+import { NLCommentary } from "./nl_commentary";
 
 export interface QueryResultProps {
-  query: string;
-  indexType: string;
-  detector: string;
-  placeDetector: string;
   queryIdx: number;
-  contextHistory: any[];
-  addContextCallback: (any, number) => void;
-  showData: boolean;
-  demoMode: boolean;
+  nlQueryId: string;
 }
 
 export const QueryResult = memo(function QueryResult(
   props: QueryResultProps
 ): JSX.Element {
-  const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [debugData, setDebugData] = useState<any>();
-  const [hideCharts, setHideCharts] = useState<boolean>(false);
+  const currentNlQueryContextId = useStoreState(
+    (s) => s.config.currentNlQueryContextId
+  );
+  const prevCurrentNlQueryContextId = useRef<string>(currentNlQueryContextId);
+  const numQueries = useStoreState(
+    (s) => s.nlQueryContexts[currentNlQueryContextId].nlQueryIds.length
+  );
+  const { nlQueryId } = props;
+  const nlQuery = useStoreState((s) => s.nlQueries[nlQueryId]);
+  const updateNlQuery = useStoreActions((a) => a.updateNlQuery);
   const scrollRef = createRef<HTMLDivElement>();
-  const [errorMsg, setErrorMsg] = useState<string | undefined>();
-  const [isEmojiClicked, setIsEmojiClicked] = useState(false);
 
+  /**
+   * Scroll this query result into view once it starts loading
+   */
   useEffect(() => {
-    // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
-    // HACK: use a longer timeout to correct scroll errors after charts have rendered.
-    const timer = setTimeout(() => {
+    if (nlQuery.isLoading) {
       scrollRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "start",
       });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [isLoading]);
+    }
+  }, [nlQuery.isLoading, scrollRef]);
 
+  /**
+   * When changing query contexts, scroll the last query result into view
+   */
   useEffect(() => {
-    fetchData(props.query);
-  }, [props.query]);
+    if (currentNlQueryContextId === prevCurrentNlQueryContextId.current) {
+      return;
+    }
+    if (props.queryIdx !== numQueries - 1) {
+      return;
+    }
+    scrollRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start",
+    });
+  }, [
+    currentNlQueryContextId,
+    prevCurrentNlQueryContextId,
+    scrollRef,
+    numQueries,
+    props.queryIdx,
+  ]);
 
-  function fetchData(query: string): void {
-    setIsLoading(true);
-    const params = {
-      q: query,
-    };
-    if (props.indexType) {
-      params["idx"] = props.indexType;
-    }
-    if (props.detector) {
-      params["detector"] = props.detector;
-    }
-    if (props.placeDetector) {
-      params["place_detector"] = props.placeDetector;
-    }
-    axios
-      .post(
-        `/api/nl/data`,
-        {
-          contextHistory: props.contextHistory,
-        },
-        {
-          params,
-          paramsSerializer: stringifyFn,
-        }
-      )
-      .then((resp) => {
-        if (
-          resp.data["context"] === undefined ||
-          resp.data["config"] === undefined
-        ) {
-          setIsLoading(false);
-          props.addContextCallback(undefined, props.queryIdx);
-          return;
-        }
-        const context: any = resp.data["context"];
-
-        // Filter out empty categories.
-        const categories = _.get(resp, ["data", "config", "categories"], []);
-        _.remove(categories, (c) => _.isEmpty(c));
-        if (categories.length > 0) {
-          let mainPlace = {};
-          mainPlace = resp.data["place"];
-          const fb = resp.data["placeFallback"];
-          if (shouldHideCharts(resp.data)) {
-            setHideCharts(true);
-          }
-          setChartsData({
-            place: {
-              dcid: mainPlace["dcid"],
-              name: mainPlace["name"],
-              types: [mainPlace["place_type"]],
-            },
-            config: resp.data["config"],
-            sessionId:
-              !props.demoMode && "session" in resp.data
-                ? resp.data["session"]["id"]
-                : "",
-            svSource: resp.data["svSource"],
-            placeSource: resp.data["placeSource"],
-            pastSourceContext: resp.data["pastSourceContext"],
-            placeFallback:
-              "origStr" in fb && "newStr" in fb
-                ? {
-                    origStr: fb["origStr"],
-                    newStr: fb["newStr"],
-                  }
-                : null,
-          });
-          props.addContextCallback(context, props.queryIdx);
-        } else {
-          if ("failure" in resp.data && resp.data["failure"]) {
-            setErrorMsg(resp.data["failure"]);
-          } else if ("placeSource" in resp.data && resp.data["placeSource"]) {
-            // If there was no place recognized, we might end up with 0
-            // categories, provide a different error message.
-            setErrorMsg("Could not recognize any place in the query!");
-          } else {
-            setErrorMsg("Sorry, we couldn't answer your question.");
-          }
-          props.addContextCallback(undefined, props.queryIdx);
-        }
-        const debugData = resp.data["debug"];
-        if (debugData !== undefined) {
-          debugData["context"] = context;
-          setDebugData(debugData);
-        }
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        props.addContextCallback(undefined, props.queryIdx);
-        console.error("Error fetching data for", props.query, error);
-        setIsLoading(false);
-        setErrorMsg("Sorry, we didn’t understand your question.");
-      });
-  }
-  const feedbackLink = getFeedbackLink(props.query || "", debugData);
+  const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
   return (
     <>
       <div className="nl-query" ref={scrollRef}>
@@ -179,7 +99,7 @@ export const QueryResult = memo(function QueryResult(
             <div className="nl-user-query-icon">
               <span className="material-icons">search_icon</span>
             </div>
-            <div className="nl-user-query-text">{props.query}</div>
+            <div className="nl-user-query-text">{nlQuery.query}</div>
           </div>
         </Container>
       </div>
@@ -188,52 +108,46 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
-          {chartsData && chartsData.sessionId && (
+          {nlQuery.chartData && nlQuery.chartData.sessionId && (
             <span
               className={`feedback-emoji ${
-                isEmojiClicked ? "feedback-emoji-dim" : ""
+                nlQuery.feedbackGiven ? "feedback-emoji-dim" : ""
               }`}
               onClick={() => {
                 onEmojiClick(CHART_FEEDBACK_SENTIMENT.WARNING);
               }}
             >
-              &nbsp;&nbsp;&#9888;
+              &#9888;
             </span>
           )}
         </Container>
         <Container className="nl-result-content">
-          {debugData && (
+          {nlQuery.debugData && (
             <DebugInfo
-              debugData={debugData}
-              chartsData={chartsData}
+              debugData={nlQuery.debugData}
+              chartsData={nlQuery.chartData}
             ></DebugInfo>
           )}
-          {chartsData && (
-            <NLCommentary
-              chartsData={chartsData}
-              hideCharts={hideCharts}
-              setHideCharts={setHideCharts}
-            />
-          )}
-          {chartsData && chartsData.config && !hideCharts && (
-            <NlSessionContext.Provider value={chartsData.sessionId}>
+          {nlQuery.chartData && <NLCommentary chartsData={nlQuery.chartData} />}
+          {nlQuery.chartData && nlQuery.chartData.config && (
+            <NlSessionContext.Provider value={nlQuery.chartData.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
-                place={chartsData.place}
-                pageConfig={chartsData.config}
+                place={nlQuery.chartData.place}
+                pageConfig={nlQuery.chartData.config}
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showExploreMore={true}
               />
             </NlSessionContext.Provider>
           )}
-          {errorMsg && (
+          {nlQuery.errorMsg && (
             <div className="nl-query-error">
               <p>
-                {errorMsg}
+                {nlQuery.errorMsg}
                 {redirectToGoogle() && (
                   <>
                     Would you like to try{" "}
-                    <a href={`https://google.com/?q=${props.query}`}>
+                    <a href={`https://google.com/?q=${nlQuery.query}`}>
                       searching on Google
                     </a>
                     ?
@@ -242,7 +156,7 @@ export const QueryResult = memo(function QueryResult(
               </p>
             </div>
           )}
-          {isLoading && (
+          {nlQuery.isLoading && (
             <div className="dot-loading-stage">
               <div className="dot-flashing"></div>
             </div>
@@ -253,12 +167,15 @@ export const QueryResult = memo(function QueryResult(
   );
 
   function onEmojiClick(sentiment: string): void {
-    if (isEmojiClicked) {
+    if (nlQuery.feedbackGiven) {
       return;
     }
-    setIsEmojiClicked(true);
+    updateNlQuery({
+      feedbackGiven: true,
+      id: nlQuery.id,
+    });
     axios.post("/api/nl/feedback", {
-      sessionId: chartsData.sessionId,
+      sessionId: nlQuery.chartData.sessionId,
       feedbackData: {
         queryId: props.queryIdx,
         sentiment,
@@ -267,6 +184,11 @@ export const QueryResult = memo(function QueryResult(
   }
 
   function redirectToGoogle(): boolean {
-    return errorMsg.includes("Sorry") || errorMsg.includes("sorry");
+    if (!nlQuery.errorMsg) {
+      return false;
+    }
+    return (
+      nlQuery.errorMsg.includes("Sorry") || nlQuery.errorMsg.includes("sorry")
+    );
   }
 });
