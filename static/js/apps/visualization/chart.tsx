@@ -20,18 +20,31 @@
 
 import React, { useContext } from "react";
 
+import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
+import { StatVarSelector } from "./stat_var_selector";
 
 export function Chart(): JSX.Element {
   const { visType, places, statVars, enclosedPlaceType } =
     useContext(AppContext);
+
+  if (!isSelectionComplete(visType, places, enclosedPlaceType, statVars)) {
+    return null;
+  }
+
   return (
-    <div>
-      Plotting
-      <div>{visType}</div>
-      <div>{places.map((place) => place.dcid).join(", ")}</div>
-      <div>{statVars.map((sv) => sv.info.title || sv.dcid).join(", ")}</div>
-      <div>{enclosedPlaceType}</div>
+    <div className="chart-section">
+      <div className="stat-var-selector-area">
+        <div className="title">Variables</div>
+        <StatVarSelector />
+      </div>
+      <div className="chart-area">
+        Plotting
+        <div>{visType}</div>
+        <div>{places.map((place) => place.dcid).join(", ")}</div>
+        <div>{statVars.map((sv) => sv.info.title || sv.dcid).join(", ")}</div>
+        <div>{enclosedPlaceType}</div>
+      </div>
     </div>
   );
 }
