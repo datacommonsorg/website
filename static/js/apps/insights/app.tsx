@@ -28,6 +28,7 @@ import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUrlToken } from "../../utils/url_utils";
+import { ParentPlace } from "./parent_breadcrumbs";
 
 const PAGE_ID = "insights";
 
@@ -81,13 +82,22 @@ export function App(): JSX.Element {
             </div>
             <div className="row col-md-9x col-lg-9">
               {chartData && chartData.pageConfig && (
-                <SubjectPageMainPane
-                  id={PAGE_ID}
-                  place={chartData.place}
-                  pageConfig={chartData.pageConfig}
-                  svgChartHeight={SVG_CHART_HEIGHT}
-                  showExploreMore={true}
-                />
+                <>
+                  {chartData.parentPlaces && (
+                    <ParentPlace
+                      parentPlaces={chartData.parentPlaces}
+                      placeType={chartData.place.types[0]}
+                      topic={topic}
+                    ></ParentPlace>
+                  )}
+                  <SubjectPageMainPane
+                    id={PAGE_ID}
+                    place={chartData.place}
+                    pageConfig={chartData.pageConfig}
+                    svgChartHeight={SVG_CHART_HEIGHT}
+                    showExploreMore={true}
+                  />
+                </>
               )}
             </div>
           </div>

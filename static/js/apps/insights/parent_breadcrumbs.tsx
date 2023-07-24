@@ -16,10 +16,11 @@
 
 import React from "react";
 
+import { NamedTypedPlace } from "../../shared/types";
+
 interface ParentPlacePropsType {
-  parentPlaces: string[];
+  parentPlaces: NamedTypedPlace[];
   placeType: string;
-  names: { string: string };
   topic: string;
 }
 
@@ -32,16 +33,23 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
     const num = this.props.parentPlaces.length;
     return (
       <div>
+        <span>{this.props.placeType} in </span>
         {this.props.parentPlaces &&
-          this.props.parentPlaces.map((dcid, index) => {
-            const name = this.props.names[dcid].split(",")[0];
+          this.props.parentPlaces.map((parent, index) => {
             if (index === num - 1) {
-              return <span key={dcid}>{name}</span>;
+              return (
+                <a
+                  key={parent.dcid}
+                  href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}
+                >
+                  {parent.name}
+                </a>
+              );
             }
             return (
-              <React.Fragment key={dcid}>
-                <a href={`/insights/#p=${dcid}&t=${this.props.topic}`}>
-                  {name}
+              <React.Fragment key={parent.dcid}>
+                <a href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}>
+                  {parent.name}
                 </a>
                 {index < num - 1 && <span>, </span>}
               </React.Fragment>
