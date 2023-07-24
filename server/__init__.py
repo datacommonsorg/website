@@ -160,6 +160,9 @@ def register_routes_common(app):
   from server.routes.factcheck import html as factcheck_html
   app.register_blueprint(factcheck_html.bp)
 
+  from server.routes.explore import html as explore_html
+  app.register_blueprint(explore_html.bp)
+
   from server.routes.insights import html as insights_html
   app.register_blueprint(insights_html.bp)
 

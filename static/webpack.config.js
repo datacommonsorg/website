@@ -52,6 +52,10 @@ const config = {
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss"
     ],
+    explore: [
+      __dirname + "/js/apps/explore/main.ts",
+      __dirname + "/css/explore.scss"
+    ],
     insights: [
       __dirname + "/js/apps/insights/main.ts",
       __dirname + "/css/insights.scss"
@@ -117,12 +121,12 @@ const config = {
     ],
     homepage: [
       __dirname + "/js/homepage/main.ts",
-      __dirname + "/css/homepage.scss",
+      __dirname + "/css/homepage.scss"
     ],
     visualization: [
       __dirname + "/js/apps/visualization/main.ts",
-      __dirname + "/css/tools/visualization.scss",
-    ],
+      __dirname + "/css/tools/visualization.scss"
+    ]
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
