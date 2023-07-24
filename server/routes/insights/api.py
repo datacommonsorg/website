@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
+import dataclasses
 from enum import Enum
 import json
 import logging
@@ -29,12 +30,14 @@ from google.protobuf.json_format import MessageToJson
 import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
+import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.subject_page_config import place_metadata
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
@@ -152,11 +155,28 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 
   start = time.time()
   page_config_pb = fulfillment.fulfill_chart_config(utterance, cb_config)
+  related_things = {
+      'parentPlaces': [],
+      'childPlaces': {},
+      'parentTopics': {},
+      'peerTopics': {},
+  }
   utterance.counters.timeit('fulfillment', start)
   if page_config_pb:
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
+    metadata = place_metadata(main_place.dcid)
+    if not metadata.is_error:
+      related_things['parentPlaces'] = metadata.parent_places
+      related_things['childPlaces'] = metadata.child_places
+
+    if utterance.svs and utils.is_topic(utterance.svs[0]):
+      pt = topic.get_parent_topics([utterance.svs[0]])
+      related_things['parentTopics'] = pt
+      pt = [p['dcid'] for p in pt]
+      related_things['peerTopics'] = topic.get_child_topics(pt)
+
   else:
     page_config = {}
     utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
@@ -180,6 +200,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
+      'relatedThings': related_things,
   }
   status_str = "Successful"
   if utterance.rankedCharts:

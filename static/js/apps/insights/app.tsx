@@ -73,6 +73,10 @@ export function App(): JSX.Element {
           types: [mainPlace["place_type"]],
         },
         pageConfig: resp["config"],
+        childPlaces: resp["relatedThings"]["childPlaces"],
+        parentPlaces: resp["relatedThings"]["parentPlaces"],
+        parentTopics: resp["relatedThings"]["parentTopics"],
+        peerTopics: resp["relatedThings"]["peerTopics"],
       };
       setChartData(chartData);
     })();
