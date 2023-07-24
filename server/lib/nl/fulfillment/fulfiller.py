@@ -25,37 +25,9 @@ import server.lib.nl.fulfillment.handlers as handlers
 
 
 #
-# Compute a new Utterance given the classifications for a user query
-# and past utterances.
+# Populate chart candidates in the utterance.
 #
-def fulfill(query_detection: Detection, currentUtterance: Utterance,
-            counters: ctr.Counters, session_id: str) -> Utterance:
-
-  filtered_svs = detection_utils.filter_svs(
-      query_detection.svs_detected.single_sv, counters)
-
-  # Construct Utterance datastructure.
-  uttr = Utterance(prev_utterance=currentUtterance,
-                   query=query_detection.original_query,
-                   query_type=QueryType.UNKNOWN,
-                   detection=query_detection,
-                   places=[],
-                   classifications=query_detection.classifications,
-                   svs=filtered_svs,
-                   chartCandidates=[],
-                   rankedCharts=[],
-                   answerPlaces=[],
-                   counters=counters,
-                   session_id=session_id,
-                   multi_svs=query_detection.svs_detected.multi_sv,
-                   llm_resp=query_detection.llm_resp)
-  uttr.counters.info('filtered_svs', filtered_svs)
-
-  # Add detected places.
-  if (query_detection.places_detected) and (
-      query_detection.places_detected.places_found):
-    uttr.places.extend(query_detection.places_detected.places_found)
-
+def fulfill(uttr: Utterance) -> Utterance:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     if fulfill_query_type(uttr, query_types[-1]):

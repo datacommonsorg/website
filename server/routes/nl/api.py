@@ -13,38 +13,17 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
-import asyncio
 import json
 import logging
 import os
-import time
-from typing import Dict
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
-from google.protobuf.json_format import MessageToJson
-from markupsafe import escape
 
-from server.lib.nl.common import bad_words
-import server.lib.nl.common.constants as constants
-import server.lib.nl.common.counters as ctr
-import server.lib.nl.common.debug_utils as dbg
-import server.lib.nl.common.utils as utils
-import server.lib.nl.common.utterance as nl_utterance
-import server.lib.nl.config_builder.builder as config_builder
-import server.lib.nl.detection.detector as detector
-from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import Place
-from server.lib.nl.detection.types import PlaceDetectorType
-from server.lib.nl.detection.types import RequestedDetectorType
-import server.lib.nl.fulfillment.context as context
-import server.lib.nl.fulfillment.fulfiller as fulfillment
-from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
-import shared.lib.utils as shared_utils
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
@@ -52,9 +31,12 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 #
 # The main Data Handler function
 #
+# TODO: rename this to a better endpoint
+#
 @bp.route('/data', methods=['POST'])
-def data_via_nl():
+def data():
   """Data handler."""
+<<<<<<< HEAD
   logging.info('NL Data API: Enter')
   # NO production support yet.
   if os.environ.get('FLASK_ENV') == 'production':
@@ -273,6 +255,15 @@ def data_via_dcid():
 
   return fulfill_and_build_charts(query_detection, None, counters, session_id,
                                   cb_config, query_detection_debug_logs)
+=======
+  debug_logs = {}
+  utterance, error_json = helpers.parse_query_and_detect(request, debug_logs)
+  if error_json:
+    return error_json
+  if not utterance:
+    return helpers.abort('Failed to process!', '', [])
+  return helpers.fulfill_with_chart_config(utterance, debug_logs)
+>>>>>>> cecaa3b724a53e7e2adbc957c30cadba9c6b5489
 
 
 @bp.route('/history')

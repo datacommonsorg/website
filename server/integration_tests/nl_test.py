@@ -120,12 +120,15 @@ class IntegrationTest(NLWebServerTestCase):
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
 
+<<<<<<< HEAD:server/integration_tests/nlnext_test.py
   # TODO: Consider forking to its own test.
   def run_nonnl(self, test_dir, req_json, failure=''):
     resp = requests.post(self.get_server_url() + '/api/nl/fulfill',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
+=======
+>>>>>>> cecaa3b724a53e7e2adbc957c30cadba9c6b5489:server/integration_tests/nl_test.py
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
@@ -276,15 +279,3 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
-
-  def test_nonnl_api_basic(self):
-    req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
-    self.run_nonnl('nonnl_api_basic', req)
-
-  def test_nonnl_api_childtype(self):
-    req = {
-        'entities': ['geoId/06'],
-        'variables': ['dc/topic/WorkCommute'],
-        'childEntityType': 'County'
-    }
-    self.run_nonnl('nonnl_api_childtype', req)

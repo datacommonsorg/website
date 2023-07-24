@@ -423,7 +423,7 @@ _TOPIC_NAMES_OVERRIDE = {
 }
 
 
-def get_topic_vars(topic: str, rank: int):
+def get_topic_vars(topic: str, rank: int = 0):
   if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
