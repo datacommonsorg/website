@@ -13,6 +13,7 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import logging
 import time
 from typing import List
 
@@ -439,7 +440,40 @@ def get_topic_vars(topic: str, rank: int = 0):
   return new_svs
 
 
-def get_topic_peers(sv_dcids: List[str]):
+def get_parent_topics(topics: List[str]):
+  # Lookup KG
+  parents = fetch.raw_property_values(nodes=topics,
+                                      prop='relevantVariable',
+                                      out=False)
+  resp = []
+  for pvals in parents.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+        continue
+      resp.append(p)
+  return resp
+
+
+def get_child_topics(topics: List[str]):
+  children = fetch.raw_property_values(nodes=topics,
+                                       prop='relevantVariable',
+                                       out=True)
+  resp = []
+  for pvals in children.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+        continue
+      if p['dcid'] in topics:
+        continue
+      resp.append(p)
+  return resp
+
+
+def get_topic_peergroups(sv_dcids: List[str]):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
@@ -506,7 +540,7 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
     return [sv]
   if utils.is_topic(sv):
     topic_vars = get_topic_vars(sv, rank)
-    peer_groups = get_topic_peers(topic_vars)
+    peer_groups = get_topic_peergroups(topic_vars)
 
     # Classify into two lists.
     just_svs = []

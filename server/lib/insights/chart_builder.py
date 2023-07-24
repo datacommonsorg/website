@@ -12,19 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
 import logging
 import time
 from typing import Dict, List
 
-from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
-import server.lib.nl.common.utils as cutils
-from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import QueryType
-import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder

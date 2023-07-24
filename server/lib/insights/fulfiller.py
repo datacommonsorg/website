@@ -65,7 +65,7 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
                                           chart_vars_map)
   tracker.perform_existence_check()
 
-  existing_svs = set()
+  existing_svs = set(state.uttr.svs)
   chart_vars_list = []
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
@@ -84,7 +84,7 @@ def _build_chart_vars(state: ftypes.PopulateState,
   if cutils.is_topic(sv):
     start = time.time()
     topic_vars = topic.get_topic_vars(sv)
-    peer_groups = topic.get_topic_peers(topic_vars)
+    peer_groups = topic.get_topic_peergroups(topic_vars)
 
     # Classify into two lists.
     just_svs = []
