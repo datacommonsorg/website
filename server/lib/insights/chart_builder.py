@@ -191,16 +191,11 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
         map.map_chart_block(builder.new_column(), place, chart_vars.svs[1],
                             builder.sv2thing, attr, builder.nopc()))
 
-    attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+  attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+  # TODO: Add multivar ranking when #svs == 2
+  for sv in chart_vars.svs:
     sv_spec.update(
-        ranking.ranking_chart_multivar(builder.new_column(), place,
-                                       chart_vars.svs, builder.sv2thing, attr))
-  else:
-    # Do High and low separately
-    attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
-    for sv in chart_vars.svs:
-      sv_spec.update(
-          ranking.ranking_chart_block_nopc(builder.new_column(), place, sv,
-                                           builder.sv2thing, attr))
+        ranking.ranking_chart_block_nopc(builder.new_column(), place, sv,
+                                         builder.sv2thing, attr))
 
   return sv_spec
