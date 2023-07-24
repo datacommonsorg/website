@@ -21,21 +21,6 @@
                     ],
                     "title": "Modes of Commute in California (${date})",
                     "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "dc/6rltk4kf75612_multiple_place_bar_block_pc",
-                      "dc/vp8cbt6k79t94_multiple_place_bar_block_pc",
-                      "dc/hbkh95kc7pkb6_multiple_place_bar_block_pc",
-                      "dc/wc8q05drd74bd_multiple_place_bar_block_pc",
-                      "dc/0gettc3bc60cb_multiple_place_bar_block_pc",
-                      "dc/vt2q292eme79f_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Modes of Commute in California (${date})",
-                    "type": "BAR"
                   }
                 ]
               }
@@ -48,17 +33,7 @@
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
           },
-          "dc/0gettc3bc60cb_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Drive alone",
-            "statVar": "dc/0gettc3bc60cb"
-          },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
-            "name": "Work at home",
-            "statVar": "dc/6rltk4kf75612"
-          },
-          "dc/6rltk4kf75612_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
@@ -66,17 +41,7 @@
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
           },
-          "dc/hbkh95kc7pkb6_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Public Transit",
-            "statVar": "dc/hbkh95kc7pkb6"
-          },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
-            "name": "Walk to work",
-            "statVar": "dc/vp8cbt6k79t94"
-          },
-          "dc/vp8cbt6k79t94_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Walk to work",
             "statVar": "dc/vp8cbt6k79t94"
           },
@@ -84,17 +49,7 @@
             "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
             "statVar": "dc/vt2q292eme79f"
           },
-          "dc/vt2q292eme79f_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
-            "statVar": "dc/vt2q292eme79f"
-          },
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
-            "name": "Carpool",
-            "statVar": "dc/wc8q05drd74bd"
-          },
-          "dc/wc8q05drd74bd_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Carpool",
             "statVar": "dc/wc8q05drd74bd"
           }

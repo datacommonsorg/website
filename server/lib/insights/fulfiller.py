@@ -43,9 +43,8 @@ def fulfill(uttr: nl_uttr.Utterance) -> nl_uttr.Utterance:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
-  state = ftypes.PopulateState(uttr=uttr,
-                               main_cb=None,
-                               place_type=cutils.get_contained_in_type(uttr))
+  pt = cutils.get_contained_in_type(uttr)
+  state = ftypes.PopulateState(uttr=uttr, main_cb=None, place_type=pt)
 
   # Open up topics into vars and build ChartVars for each.
   chart_vars_map = {}
@@ -114,16 +113,17 @@ def add_chart_vars(state: ftypes.PopulateState,
   if not state.place_type:
     return 1
 
+  # Add map charts.
+  state.place_type = state.place_type
+  add_chart_to_utterance(nl_uttr.ChartType.MAP_CHART, state, chart_vars,
+                         state.uttr.places)
+
   # Add ranking charts.
   state.ranking_types = [dtypes.RankingType.HIGH]
   add_chart_to_utterance(nl_uttr.ChartType.RANKING_CHART, state, chart_vars,
                          state.uttr.places)
   state.ranking_types = [dtypes.RankingType.LOW]
   add_chart_to_utterance(nl_uttr.ChartType.RANKING_CHART, state, chart_vars,
-                         state.uttr.places)
-  # Add map charts.
-  state.ranking_types = []
-  add_chart_to_utterance(nl_uttr.ChartType.MAP_CHART, state, chart_vars,
                          state.uttr.places)
 
   return 4
