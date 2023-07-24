@@ -54,7 +54,7 @@ export function App(): JSX.Element {
         setChartData(chartData);
       }
     })();
-  }, [window.location.hash]);
+  }, []);
 
   return (
     <div className="insights-container">
