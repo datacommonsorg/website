@@ -151,24 +151,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       nopc_vars=current_app.config['NL_NOPC_VARS'])
 
   start = time.time()
-  utterance = fulfillment.fulfill(utterance)
+  page_config_pb = fulfillment.fulfill_chart_config(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
-
-  if utterance.rankedCharts:
+  if page_config_pb:
     # Use the first chart's place as main place.
-    main_place = utterance.rankedCharts[0].places[0]
-    place_type = utils.get_contained_in_type(utterance)
-    start = time.time()
-
-    # Call chart config builder.
-    page_config_pb = config_builder.build(utterance, cb_config)
-    if place_type:
-      page_config_pb.metadata.contained_place_types[main_place.place_type] \
-        = place_type.value
-
+    main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
-    utterance.counters.timeit('build_page_config', start)
-
   else:
     page_config = {}
     utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED

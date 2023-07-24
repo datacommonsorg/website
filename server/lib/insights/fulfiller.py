@@ -14,32 +14,25 @@
 """Module for Insights fulfillment"""
 
 import logging
+import time
 from typing import List
 
+from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.insights import chart_builder
+import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
+from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
 import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
-
-# Number of variables to plot in a chart (largely Timeline chart)
-_MAX_VARS_PER_CHART = 5
-
-_MAX_NUM_CHARTS = 20
 
 
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: nl_uttr.Utterance) -> nl_uttr.Utterance:
-  # 1. Timeline chart for place
-  # 2. If child-type:
-  #    (a) Top-N for vars
-  #    (b) Bottom-N for vars
-  #    (c) Map
-  # 3. For SVG, a comparison chart.
-
+def fulfill_chart_config(uttr: nl_uttr.Utterance,
+                         cb_config: builder.Config) -> SubjectPageConfig:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
@@ -49,7 +42,7 @@ def fulfill(uttr: nl_uttr.Utterance) -> nl_uttr.Utterance:
   # Open up topics into vars and build ChartVars for each.
   chart_vars_map = {}
   for sv in state.uttr.svs:
-    cv = ext.build_chart_vars(state, sv)
+    cv = _build_chart_vars(state, sv)
     chart_vars_map[sv] = cv
     logging.info(f'{sv} -> {cv}')
 
@@ -66,75 +59,74 @@ def fulfill(uttr: nl_uttr.Utterance) -> nl_uttr.Utterance:
     return
 
   # Perform existence checks for all the SVs!
+  # TODO: Improve existence checks to handle distinction between main-place
+  # and child place.
   tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
                                           chart_vars_map)
   tracker.perform_existence_check()
 
   existing_svs = set()
-  num_charts = 0
+  chart_vars_list = []
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
       chart_vars = tracker.get_chart_vars(exist_cv)
       if chart_vars.svs:
         existing_svs.update(chart_vars.svs)
-        num_charts += add_chart_vars(state, chart_vars)
+        chart_vars_list.append(chart_vars)
 
-      if num_charts > _MAX_NUM_CHARTS:
-        break
-    if num_charts > _MAX_NUM_CHARTS:
-      break
-
-  rank_charts(uttr)
-  return uttr
+  return chart_builder.build(chart_vars_list, state, existing_svs, cb_config)
 
 
-def add_chart_vars(state: ftypes.PopulateState,
-                   chart_vars: ftypes.ChartVars) -> int:
+def _build_chart_vars(state: ftypes.PopulateState,
+                      sv: str) -> List[ftypes.ChartVars]:
+  if cutils.is_sv(sv):
+    return [ftypes.ChartVars(svs=[sv], insight_type=ftypes.InsightType.BLOCK)]
+  if cutils.is_topic(sv):
+    start = time.time()
+    topic_vars = topic.get_topic_vars(sv)
+    peer_groups = topic.get_topic_peers(topic_vars)
 
-  # Add timeline and/or bar charts.
-  if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
-    # For fewer SVs, comparing trends over time is nicer.
-    chart_type = nl_uttr.ChartType.TIMELINE_CHART
-    chart_vars.response_type = "timeline"
-  else:
-    # When there are too many, comparing latest values is better
-    # (than, say, breaking it into multiple timeline charts)
-    chart_type = nl_uttr.ChartType.BAR_CHART
-    chart_vars.response_type = "bar chart"
-  if chart_type == nl_uttr.ChartType.TIMELINE_CHART:
-    if chart_vars.has_single_point:
-      # Demote to bar chart if single point.
-      # TODO: eventually for single SV case, make it a highlight chart
-      chart_type = nl_uttr.ChartType.BAR_CHART
-      chart_vars.response_type = "bar chart"
-      state.uttr.counters.info('simple_timeline_to_bar_demotions', 1)
-  add_chart_to_utterance(chart_type, state, chart_vars, state.uttr.places)
+    # Classify into two lists.
+    just_svs = []
+    svpgs = []
+    for v in topic_vars:
+      if v in peer_groups and peer_groups[v]:
+        title = topic.svpg_name(v)
+        description = topic.svpg_description(v)
+        svpgs.append((title, description, peer_groups[v]))
+      else:
+        just_svs.append(v)
+    state.uttr.counters.timeit('topic_calls', start)
 
-  if not state.place_type:
-    return 1
+    # Group into blocks carefully:
 
-  # Add map charts.
-  state.place_type = state.place_type
-  add_chart_to_utterance(nl_uttr.ChartType.MAP_CHART, state, chart_vars,
-                         state.uttr.places)
+    # 1. Make a block for all SVs in just_svs
+    charts = [
+        ftypes.ChartVars(svs=just_svs,
+                         source_topic=sv,
+                         insight_type=ftypes.InsightType.CATEGORY,
+                         title='Overview')
+    ]
 
-  # Add ranking charts.
-  state.ranking_types = [dtypes.RankingType.HIGH]
-  add_chart_to_utterance(nl_uttr.ChartType.RANKING_CHART, state, chart_vars,
-                         state.uttr.places)
-  state.ranking_types = [dtypes.RankingType.LOW]
-  add_chart_to_utterance(nl_uttr.ChartType.RANKING_CHART, state, chart_vars,
-                         state.uttr.places)
+    # 2. Make a block for every peer-group in svpgs
+    for (title, description, svs) in svpgs:
+      charts.append(
+          ftypes.ChartVars(svs=svs,
+                           include_percapita=False,
+                           title=title,
+                           description=description,
+                           insight_type=ftypes.InsightType.CATEGORY,
+                           is_topic_peer_group=True,
+                           source_topic=sv))
 
-  return 4
+    state.uttr.counters.info('topics_processed',
+                             {sv: {
+                                 'svs': just_svs,
+                                 'peer_groups': svpgs,
+                             }})
+    return charts
 
-
-#
-# Rank candidate charts in the given Utterance.
-#
-# TODO: Maybe improve in future.
-def rank_charts(utterance: nl_uttr.Utterance):
-  utterance.rankedCharts = utterance.chartCandidates
+  return []
 
 
 def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
