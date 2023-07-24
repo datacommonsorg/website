@@ -14,21 +14,28 @@
 """Endpoints for Datacommons NL"""
 
 from enum import Enum
+import json
 import logging
 import os
 import time
+from typing import Dict
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
+from google.protobuf.json_format import MessageToJson
 
+import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
+import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as detector
+from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
 bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
@@ -122,4 +129,74 @@ def fulfill():
     return
 
   utterance = create_utterance(query_detection, None, counters, session_id)
-  return helpers.fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_chart_config(utterance, debug_logs)
+
+
+#
+# Given an utterance constructed either from a query or from dcids,
+# fulfills it into charts.
+#
+def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
+                               debug_logs: Dict) -> Dict:
+  disaster_config = current_app.config['NL_DISASTER_CONFIG']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    disaster_config = get_nl_disaster_config()
+  else:
+    logging.info('Unable to load event configs!')
+
+  cb_config = config_builder.Config(
+      event_config=disaster_config,
+      sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+      nopc_vars=current_app.config['NL_NOPC_VARS'])
+
+  start = time.time()
+  utterance = fulfillment.fulfill(utterance)
+  utterance.counters.timeit('fulfillment', start)
+
+  if utterance.rankedCharts:
+    start = time.time()
+
+    # Call chart config builder.
+    page_config_pb = config_builder.build(utterance, cb_config)
+
+    page_config = json.loads(MessageToJson(page_config_pb))
+    utterance.counters.timeit('build_page_config', start)
+
+    # Use the first chart's place as main place.
+    main_place = utterance.rankedCharts[0].places[0]
+  else:
+    page_config = {}
+    utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
+    main_place = Place(dcid='', name='', place_type='')
+    logging.info('Found empty place for query "%s"',
+                 utterance.detection.original_query)
+
+  dbg_counters = utterance.counters.get()
+  utterance.counters = None
+  context_history = nl_utterance.save_utterance(utterance)
+
+  data_dict = {
+      'place': {
+          'dcid': main_place.dcid,
+          'name': main_place.name,
+          'place_type': main_place.place_type,
+      },
+      'config': page_config,
+      'context': context_history,
+      'placeFallback': context_history[0]['placeFallback'],
+      'svSource': utterance.sv_source.value,
+      'placeSource': utterance.place_source.value,
+      'pastSourceContext': utterance.past_source_context,
+  }
+  status_str = "Successful"
+  if utterance.rankedCharts:
+    status_str = ""
+  else:
+    if not utterance.places:
+      status_str += '**No Place Found**.'
+    if not utterance.svs:
+      status_str += '**No SVs Found**.'
+
+  return helpers.prepare_response(data_dict, status_str, utterance.detection,
+                                  dbg_counters, debug_logs)
