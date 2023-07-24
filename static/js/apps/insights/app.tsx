@@ -25,7 +25,10 @@ import { Container } from "reactstrap";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
+import { ChildPlaces } from "../../shared/child_places";
+import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUrlToken } from "../../utils/url_utils";
+import { ParentPlace } from "./parent_breadcrumbs";
 
 const PAGE_ID = "insights";
 
@@ -33,12 +36,12 @@ const PAGE_ID = "insights";
  * Application container
  */
 export function App(): JSX.Element {
-  const [chartData, setChartData] = useState<any | undefined>();
+  const [chartData, setChartData] = useState<SubjectPageMetadata | undefined>();
+  const place = getUrlToken("p");
+  const topic = getUrlToken("t");
+  const placeType = getUrlToken("pt");
 
   useEffect(() => {
-    const place = getUrlToken("p");
-    const topic = getUrlToken("t");
-    const placeType = getUrlToken("pt");
     (async () => {
       if (place && topic) {
         const resp = await fetchFulfillData(place, topic, placeType);
@@ -49,12 +52,12 @@ export function App(): JSX.Element {
             name: mainPlace["name"],
             types: [mainPlace["place_type"]],
           },
-          config: resp["config"],
+          pageConfig: resp["config"],
         };
         setChartData(chartData);
       }
     })();
-  }, [window.location.hash]);
+  }, []);
 
   return (
     <div className="insights-container">
@@ -63,22 +66,38 @@ export function App(): JSX.Element {
         <div className="insights-charts">
           <div className="row">
             <div className="col-md-3x col-lg-3 order-last order-lg-0">
-              {chartData && chartData.config && (
-                <SubjectPageSidebar
-                  id={PAGE_ID}
-                  categories={chartData.config.categories}
-                />
+              {chartData && chartData.pageConfig && (
+                <>
+                  <SubjectPageSidebar
+                    id={PAGE_ID}
+                    categories={chartData.pageConfig.categories}
+                  />
+                  <ChildPlaces
+                    childPlaces={chartData.childPlaces}
+                    parentPlace={chartData.place}
+                    urlFormatString={"/insights/#p=${placeDcid}&t=" + topic}
+                  ></ChildPlaces>
+                </>
               )}
             </div>
             <div className="row col-md-9x col-lg-9">
-              {chartData && chartData.config && (
-                <SubjectPageMainPane
-                  id={PAGE_ID}
-                  place={chartData.place}
-                  pageConfig={chartData.config}
-                  svgChartHeight={SVG_CHART_HEIGHT}
-                  showExploreMore={true}
-                />
+              {chartData && chartData.pageConfig && (
+                <>
+                  {chartData.parentPlaces && (
+                    <ParentPlace
+                      parentPlaces={chartData.parentPlaces}
+                      placeType={chartData.place.types[0]}
+                      topic={topic}
+                    ></ParentPlace>
+                  )}
+                  <SubjectPageMainPane
+                    id={PAGE_ID}
+                    place={chartData.place}
+                    pageConfig={chartData.pageConfig}
+                    svgChartHeight={SVG_CHART_HEIGHT}
+                    showExploreMore={true}
+                  />
+                </>
               )}
             </div>
           </div>
