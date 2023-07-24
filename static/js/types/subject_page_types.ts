@@ -29,9 +29,9 @@ export interface SubjectPageMetadata {
   /**
    * parent places of the place we are showing the dashboard for.
    */
-  parentPlaces: NamedTypedPlace[];
+  parentPlaces?: NamedTypedPlace[];
   /**
    * child places of the place we are showing the dashboard for.
    */
-  childPlaces: ChildPlacesByType;
+  childPlaces?: ChildPlacesByType;
 }
