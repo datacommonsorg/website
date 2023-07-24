@@ -17,14 +17,10 @@ import logging
 import time
 from typing import Dict, List
 
-from server.config.subject_page_pb2 import Block
+from server.config.subject_page_pb2 import PageMetadata
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 import server.lib.nl.common.utils as cutils
-from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import QueryType
-import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
@@ -34,6 +30,7 @@ from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import timeline
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
+from server.lib.subject_page_config import place_metadata
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5

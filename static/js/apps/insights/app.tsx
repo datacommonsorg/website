@@ -53,6 +53,10 @@ export function App(): JSX.Element {
             types: [mainPlace["place_type"]],
           },
           pageConfig: resp["config"],
+          childPlaces: resp["relatedThings"]["childPlaces"],
+          parentPlaces: resp["relatedThings"]["parentPlaces"],
+          parentTopics: resp["relatedThings"]["parentTopics"],
+          peerTopics: resp["relatedThings"]["peerTopics"],
         };
         setChartData(chartData);
       }
@@ -118,9 +122,11 @@ const fetchFulfillData = async (
       variables: [topic],
       childEntityType: placeType,
     });
+    console.log(resp.data);
     return resp.data;
   } catch (error) {
     console.log(error);
     return null;
   }
 };
+[];

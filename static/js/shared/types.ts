@@ -45,7 +45,7 @@ export interface NamedPopPlace {
   pop: number;
 }
 
-export type ChildPlacesByType = Record<string, Array<NamedPopPlace>>;
+export type ChildPlacesByType = Record<string, Array<NamedTypedPlace>>;
 
 /**
  * Enum type of the stat var hierarchy wizard.

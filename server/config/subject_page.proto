@@ -80,24 +80,6 @@ message PageMetadata {
   }
   // List of place groups supported by this config.
   repeated PlaceGroup place_group = 6;
-
-  message Node {
-    string dcid = 1;
-    string type = 2;
-    string name = 3;
-  }
-  // List of nodes.
-  message NodeList {
-    repeated Node places = 1;
-  }
-
-  // List of parent and child places.
-  NodeList parent_places = 7;
-  map<string, NodeList> child_places = 8;
-
-  // List of topics.
-  NodeList parent_topics = 9;
-  NodeList peer_topics = 10;
 }
 
 message StatVarSpec {

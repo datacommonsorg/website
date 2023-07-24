@@ -208,7 +208,7 @@ def build_chart_vars(state: PopulateState,
   if utils.is_topic(sv):
     start = time.time()
     topic_vars = topic.get_topic_vars(sv, rank)
-    peer_groups = topic.get_topic_peers(topic_vars)
+    peer_groups = topic.get_topic_peergroups(topic_vars)
 
     # Classify into two lists.
     just_svs = []
