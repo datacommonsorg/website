@@ -94,6 +94,7 @@ export async function getStatVarNames(
   }
   const statVarDcids: string[] = [];
   const statVarNames: Record<string, string> = {};
+  // If a name is already provided by statVarSpec, use that name
   statVarSpec.forEach((spec) => {
     if (spec.name && spec.name != "") {
       statVarNames[spec.statVar] = spec.name;
@@ -102,6 +103,7 @@ export async function getStatVarNames(
     }
   });
 
+  // If all names were provided by statVarSpec, skip api call
   if (_.isEmpty(statVarDcids)) {
     return Promise.resolve(statVarNames);
   }
@@ -115,7 +117,11 @@ export async function getStatVarNames(
       paramsSerializer: stringifyFn,
     });
     for (const statVar in resp.data) {
-      statVarNames[statVar] = resp.data[statVar][0].value;
+      // If the api call can't find a name for the stat var (api returns []),
+      // default to using its dcid
+      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+        ? statVar
+        : resp.data[statVar][0].value;
     }
     return statVarNames;
   } catch (error) {
