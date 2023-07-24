@@ -37,4 +37,18 @@ def page():
   return render_template('/nl_interface.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          placeholder_query=placeholder_query,
+                         index_type="",
+                         website_hash=os.environ.get("WEBSITE_HASH"))
+
+@bp.route('/sdg')
+def sdg_page():
+  # No production support yet.
+  if os.environ.get('FLASK_ENV') == 'production':
+    flask.abort(404)
+
+  placeholder_query = ''
+  return render_template('/nl_interface.html',
+                         maps_api_key=current_app.config['MAPS_API_KEY'],
+                         placeholder_query=placeholder_query,
+                         index_type="sdg_ft",
                          website_hash=os.environ.get("WEBSITE_HASH"))
