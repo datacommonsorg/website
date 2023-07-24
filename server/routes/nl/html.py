@@ -40,6 +40,7 @@ def page():
                          index_type="",
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
+
 @bp.route('/sdg')
 def sdg_page():
   # No production support yet.
