@@ -20,10 +20,12 @@
 
 import _ from "lodash";
 
+import { VIS_TYPE_SELECTOR_CONFIGS } from "../../apps/visualization/vis_type_configs";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
+import { StatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 
@@ -72,6 +74,12 @@ const CHILD_PLACE_TYPES = {
   State: AA1_CHILD_PLACE_TYPES,
 };
 
+/**
+ * Default function used to get enclosed place types for a place and list of its
+ * parent places.
+ * @param place place to get enclosed place types for
+ * @param parentPlaces list of parent places for the place
+ */
 export function getEnclosedPlaceTypes(
   place: NamedTypedPlace,
   parentPlaces: NamedTypedPlace[]
@@ -95,4 +103,33 @@ export function getEnclosedPlaceTypes(
     }
   }
   return [];
+}
+
+/**
+ * Returns whether or not selection of options is complete
+ * @param visType selected vis type
+ * @param places selected list of places
+ * @param enclosedPlaceType selected enclosed place type
+ * @param statVars seleceted list of stat vars
+ */
+export function isSelectionComplete(
+  visType: string,
+  places: NamedTypedPlace[],
+  enclosedPlaceType: string,
+  statVars: { dcid: string; info: StatVarInfo }[]
+): boolean {
+  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  if (_.isEmpty(places)) {
+    return false;
+  }
+  if (!visTypeConfig.skipEnclosedPlaceType && !enclosedPlaceType) {
+    return false;
+  }
+  if (_.isEmpty(statVars)) {
+    return false;
+  }
+  if (visTypeConfig.numSv && statVars.length < visTypeConfig.numSv) {
+    return false;
+  }
+  return true;
 }

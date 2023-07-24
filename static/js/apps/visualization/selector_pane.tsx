@@ -21,51 +21,93 @@
 import _ from "lodash";
 import React, { useContext, useState } from "react";
 
+import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
+import { SelectorWrapper } from "./selector_wrapper";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
 
-interface SelectorPanePropType {
-  onSelectionComplete: () => void;
-}
-
-export function SelectorPane(props: SelectorPanePropType): JSX.Element {
-  const { visType, places, enclosedPlaceType } = useContext(AppContext);
+export function SelectorPane(): JSX.Element {
+  const { visType, places, enclosedPlaceType, statVars } =
+    useContext(AppContext);
   const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
-  const [childPlaceTypeCollapsed, setChildPlaceTypeCollapsed] = useState(
+  const [placeCollapsed, setPlaceCollapsed] = useState(!_.isEmpty(places));
+  const [placeTypeCollapsed, setPlaceTypeCollapsed] = useState(
     _.isEmpty(places) || !_.isEmpty(enclosedPlaceType)
   );
   const [variableCollapsed, setVariableCollapsed] = useState(
     (!visTypeConfig.skipEnclosedPlaceType && _.isEmpty(enclosedPlaceType)) ||
       _.isEmpty(places)
   );
+  const placeHeaderTitle = `1. Select${
+    visTypeConfig.singlePlace ? " a" : ""
+  } place${visTypeConfig.singlePlace ? "" : "s"}`;
+  let titleNumVariables = "";
+  if (visTypeConfig.numSv) {
+    titleNumVariables =
+      visTypeConfig.numSv === 1 ? "a" : String(visTypeConfig.numSv);
+  }
+  const svHeaderTitle = `${
+    visTypeConfig.skipEnclosedPlaceType ? "2. " : "3. "
+  }Select ${titleNumVariables ? titleNumVariables + " " : ""}Variable${
+    visTypeConfig.numSv === 1 ? "" : "s"
+  }`;
+
+  if (isSelectionComplete(visType, places, enclosedPlaceType, statVars)) {
+    return null;
+  }
 
   return (
     <div className="selector-pane">
-      <PlaceSelector
-        titlePrefix="1. "
-        onContinueClicked={() =>
-          visTypeConfig.skipEnclosedPlaceType
-            ? setVariableCollapsed(false)
-            : setChildPlaceTypeCollapsed(false)
-        }
-      />
-      {!visTypeConfig.skipEnclosedPlaceType && (
-        <PlaceTypeSelector
-          titlePrefix="2. "
-          onContinueClicked={() => setVariableCollapsed(false)}
-          collapsed={childPlaceTypeCollapsed}
-          setCollapsed={setChildPlaceTypeCollapsed}
+      <SelectorWrapper
+        headerTitle={placeHeaderTitle}
+        selectedValues={places.map((place) => place.name || place.dcid)}
+        collapsed={placeCollapsed}
+        setCollapsed={setPlaceCollapsed}
+        disabled={false}
+      >
+        <PlaceSelector
+          selectOnContinue={true}
+          onContinueClicked={() => {
+            setPlaceCollapsed(true);
+            if (visTypeConfig.skipEnclosedPlaceType) {
+              setVariableCollapsed(false);
+            } else {
+              setPlaceTypeCollapsed(false);
+            }
+          }}
         />
+      </SelectorWrapper>
+      {!visTypeConfig.skipEnclosedPlaceType && (
+        <SelectorWrapper
+          headerTitle="2. Select a place type"
+          selectedValues={[enclosedPlaceType]}
+          collapsed={placeTypeCollapsed}
+          setCollapsed={setPlaceTypeCollapsed}
+          disabled={_.isEmpty(places)}
+        >
+          <PlaceTypeSelector
+            onContinueClicked={() => {
+              setPlaceTypeCollapsed(true);
+              setVariableCollapsed(false);
+            }}
+          />
+        </SelectorWrapper>
       )}
-      <StatVarSelector
-        titlePrefix={visTypeConfig.skipEnclosedPlaceType ? "2. " : "3. "}
-        onContinueClicked={props.onSelectionComplete}
+      <SelectorWrapper
+        headerTitle={svHeaderTitle}
+        selectedValues={statVars.map((sv) => sv.info.title || sv.dcid)}
         collapsed={variableCollapsed}
         setCollapsed={setVariableCollapsed}
-      />
+        disabled={
+          _.isEmpty(places) ||
+          (!visTypeConfig.skipEnclosedPlaceType && !enclosedPlaceType)
+        }
+      >
+        <StatVarSelector selectOnContinue={true} />
+      </SelectorWrapper>
     </div>
   );
 }
