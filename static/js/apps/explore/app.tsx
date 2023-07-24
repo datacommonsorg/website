@@ -33,112 +33,117 @@ interface TopicType {
   subTopics: SubTopicType[];
 }
 
-const TOPICS: TopicType[] = [
-  {
-    dcid: "dc/topic/GlobalHealth",
-    name: "Global Health",
-    subTopics: [
-      {
-        dcid: "dc/topic/WHOHealthBehavior",
-        name: "Health Behavior"
-      },
-      {
-        dcid: "dc/topic/WHOImmunization",
-        name: "Immunization"
-      },
-      {
-        dcid: "dc/topic/WHONonCommunicableDiseases",
-        name: "Non-Communicable Diseases"
-      }
-    ]
-  },
-  {
-    dcid: "dc/topic/HealthConditions",
-    name: "Health Conditions",
-    subTopics: [
-      {
-        dcid: "dc/topic/Asthma",
-        name: "Asthma"
-      },
-      {
-        dcid: "dc/topic/BloodPressure",
-        name: "Blood Pressure"
-      },
-      {
-        dcid: "dc/topic/Diabetes",
-        name: "Diabetes"
-      },
-      {
-        dcid: "dc/topic/MentalHealth",
-        name: "Mental Health"
-      }
-    ]
-  },
-  {
-    dcid: "dc/topic/HealthEquity",
-    name: "Health Equity",
-    subTopics: [
-      {
-        dcid: "dc/topic/DisabilitiesByGender",
-        name: "Disabilities by Gender"
-      },
-      {
-        dcid: "dc/topic/DisabilitiesByRace",
-        name: "Disabilities by Race"
-      },
-      {
-        dcid: "dc/topic/HealthInsuranceByRace",
-        name: "Health Insurance by Race"
-      }
-    ]
-  },
-  {
-    dcid: "dc/topic/HealthInsurance",
-    name: "Health Insurance",
-    subTopics: [
-      {
-        dcid: "dc/topic/HealthInsuranceType",
-        name: "Health Insurance Type"
-      },
-      {
-        dcid: "dc/topic/NoHealthInsurance",
-        name: "No Health Insurance"
-      }
-    ]
-  },
-  {
-    dcid: "dc/topic/Mortality",
-    name: "Mortality",
-    subTopics: [
-      {
-        dcid: "dc/topic/CausesOfDeath",
-        name: "Causes of Death"
-      },
-      {
-        dcid: "dcid:LifeExpectancy_Person",
-        name: "Life Expectancy"
-      },
-      {
-        dcid: "dc/topic/MortalityAmongIncarcerated",
-        name: "Mortality among Incarcerated"
-      }
-    ]
-  },
-  {
-    dcid: "dc/topic/PreventativeHealthAndBehavior",
-    name: "Preventative Health and Behavior",
-    subTopics: [
-      {
-        dcid: "dc/topic/HealthBehavior",
-        name: "Health Behavior"
-      },
-      {
-        dcid: "dc/topic/PreventativeHealth",
-        name: "Preventative Health"
-      }
-    ]
-  }
-];
+// TODO: Move this config to topics.json
+const TOPICS: {
+  [key: string]: TopicType[];
+} = {
+  health: [
+    {
+      dcid: "dc/topic/GlobalHealth",
+      name: "Global Health",
+      subTopics: [
+        {
+          dcid: "dc/topic/WHOHealthBehavior",
+          name: "Health Behavior"
+        },
+        {
+          dcid: "dc/topic/WHOImmunization",
+          name: "Immunization"
+        },
+        {
+          dcid: "dc/topic/WHONonCommunicableDiseases",
+          name: "Non-Communicable Diseases"
+        }
+      ]
+    },
+    {
+      dcid: "dc/topic/HealthConditions",
+      name: "Health Conditions",
+      subTopics: [
+        {
+          dcid: "dc/topic/Asthma",
+          name: "Asthma"
+        },
+        {
+          dcid: "dc/topic/BloodPressure",
+          name: "Blood Pressure"
+        },
+        {
+          dcid: "dc/topic/Diabetes",
+          name: "Diabetes"
+        },
+        {
+          dcid: "dc/topic/MentalHealth",
+          name: "Mental Health"
+        }
+      ]
+    },
+    {
+      dcid: "dc/topic/HealthEquity",
+      name: "Health Equity",
+      subTopics: [
+        {
+          dcid: "dc/topic/DisabilitiesByGender",
+          name: "Disabilities by Gender"
+        },
+        {
+          dcid: "dc/topic/DisabilitiesByRace",
+          name: "Disabilities by Race"
+        },
+        {
+          dcid: "dc/topic/HealthInsuranceByRace",
+          name: "Health Insurance by Race"
+        }
+      ]
+    },
+    {
+      dcid: "dc/topic/HealthInsurance",
+      name: "Health Insurance",
+      subTopics: [
+        {
+          dcid: "dc/topic/HealthInsuranceType",
+          name: "Health Insurance Type"
+        },
+        {
+          dcid: "dc/topic/NoHealthInsurance",
+          name: "No Health Insurance"
+        }
+      ]
+    },
+    {
+      dcid: "dc/topic/Mortality",
+      name: "Mortality",
+      subTopics: [
+        {
+          dcid: "dc/topic/CausesOfDeath",
+          name: "Causes of Death"
+        },
+        {
+          dcid: "dcid:LifeExpectancy_Person",
+          name: "Life Expectancy"
+        },
+        {
+          dcid: "dc/topic/MortalityAmongIncarcerated",
+          name: "Mortality among Incarcerated"
+        }
+      ]
+    },
+    {
+      dcid: "dc/topic/PreventativeHealthAndBehavior",
+      name: "Preventative Health and Behavior",
+      subTopics: [
+        {
+          dcid: "dc/topic/HealthBehavior",
+          name: "Health Behavior"
+        },
+        {
+          dcid: "dc/topic/PreventativeHealth",
+          name: "Preventative Health"
+        }
+      ]
+    }
+  ]
+};
 
 /**
  * Application container
@@ -149,12 +154,23 @@ export function App(): JSX.Element {
   const placeType = "County";
   const topicTitle = topic.charAt(0).toLocaleUpperCase() + topic.slice(1);
 
+  const topics = TOPICS[topic];
+
+  if (!topics) {
+    return (
+      <div className="explore-container">
+        <Container>
+          <h1>No topics found for "{topic}"</h1>
+        </Container>
+      </div>
+    );
+  }
   return (
     <div className="explore-container">
       <Container>
         <h1>{topicTitle}</h1>
         <div className="topics">
-          {TOPICS.map((t, i) => (
+          {topics.map((t, i) => (
             <TopicContent
               key={i}
               topic={t}
@@ -183,7 +199,6 @@ function TopicContent(props: {
         </p>
       </Col>
       <Col>
-        <h5>Sub-topics</h5>
         {topic.subTopics.map((subTopic, i) => (
           <div className="sub-topic" key={i}>
             <a
