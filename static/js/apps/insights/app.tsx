@@ -48,21 +48,7 @@ export function App(): JSX.Element {
     (async () => {
       let resp;
       if (place && topic) {
-        const resp = await fetchFulfillData(place, topic, placeType);
-        const mainPlace = resp["place"];
-        const chartData = {
-          place: {
-            dcid: mainPlace["dcid"],
-            name: mainPlace["name"],
-            types: [mainPlace["place_type"]],
-          },
-          pageConfig: resp["config"],
-          childPlaces: resp["relatedThings"]["childPlaces"],
-          parentPlaces: resp["relatedThings"]["parentPlaces"],
-          parentTopics: resp["relatedThings"]["parentTopics"],
-          peerTopics: resp["relatedThings"]["peerTopics"],
-        };
-        setChartData(chartData);
+        resp = await fetchFulfillData(place, topic, placeType);
       } else if (query) {
         const detectResp = await fetchDetectData(query);
         if (
@@ -87,6 +73,10 @@ export function App(): JSX.Element {
           types: [mainPlace["place_type"]],
         },
         pageConfig: resp["config"],
+        childPlaces: resp["relatedThings"]["childPlaces"],
+        parentPlaces: resp["relatedThings"]["parentPlaces"],
+        parentTopics: resp["relatedThings"]["parentTopics"],
+        peerTopics: resp["relatedThings"]["peerTopics"],
       };
       setChartData(chartData);
     })();
@@ -174,7 +164,6 @@ const fetchFulfillData = async (
       variables: [topic],
       childEntityType: placeType,
     });
-    console.log(resp.data);
     return resp.data;
   } catch (error) {
     console.log(error);
