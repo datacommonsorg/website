@@ -190,7 +190,7 @@ geoId,observationDate,test_stat_var_1,test_stat_var_2
 ### Test run a custom Data Commons instance
 
 ```bash
-docker run -it \
+docker run -it --pull=always \
 -e mixer_api_key= \
 -e maps_api_key= \
 -e FLASK_ENV=custom \
