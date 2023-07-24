@@ -18,6 +18,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
+from enum import Enum
 from typing import List
 
 from server.lib.nl.common.utterance import Utterance
@@ -40,13 +41,18 @@ class PopulateState:
   block_id: int = 0
 
 
+class InsightType(Enum):
+  CATEGORY = 1
+  BLOCK = 2
+
+
 # Data structure for configuring the vars that go into a chart.
 @dataclass
 class ChartVars:
   # Only one of svs or events is set.
   svs: List[str]
   # Represents a grouping of charts on the resulting display.
-  block_id: int
+  block_id: int = -1
   include_percapita: bool = True
   title: str = ""
   description: str = ""
@@ -68,3 +74,5 @@ class ChartVars:
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None
   growth_ranking_type: str = None
+
+  insight_type: InsightType = None

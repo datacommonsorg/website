@@ -38,7 +38,6 @@ class IntegrationTest(NLWebServerTestCase):
                    expected_detectors=[],
                    place_detector='dc',
                    failure=''):
-    return
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -54,9 +53,11 @@ class IntegrationTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx
           }).json()
+      if expected_detectors:
+        detection_method = expected_detectors[i]
+      ctx = resp['context']
       self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
-                           check_place_detection, expected_detectors[i],
-                           detection_method)
+                           check_place_detection, detection_method)
 
   def handle_response(self,
                       query,
@@ -65,8 +66,7 @@ class IntegrationTest(NLWebServerTestCase):
                       test_name,
                       failure,
                       check_place_detection=False,
-                      expected_detector=None,
-                      detection_method=None):
+                      detector=None):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
@@ -95,13 +95,9 @@ class IntegrationTest(NLWebServerTestCase):
         self.assertTrue(not resp["config"])
         return
 
-      if detection_method:
-        if not expected_detector:
-          self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
-            f'Query {query} failed!'
-        else:
-          self.assertTrue(dbg.get('detection_type').startswith(expected_detector)), \
-            f'Query {query} failed!'
+      if detector:
+        self.assertTrue(dbg.get('detection_type').startswith(detector)), \
+          f'Query {query} failed!'
       if not check_place_detection:
         with open(json_file, 'r') as infile:
           expected = json.load(infile)
@@ -123,12 +119,6 @@ class IntegrationTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
-
-  # TODO: Consider forking to its own test.
-  def run_nonnl(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + f'/api/nl/data_via_dcid',
-                         json=req_json).json()
-    self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
@@ -280,15 +270,3 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
-
-  def test__nonnl_api_basic(self):
-    req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
-    self.run_nonnl('nonnl_api_basic', req)
-
-  def test__nonnl_api_childtype(self):
-    req = {
-        'entities': ['geoId/06'],
-        'variables': ['dc/topic/WorkCommute'],
-        'childEntityType': 'County'
-    }
-    self.run_nonnl('nonnl_api_childtype', req)

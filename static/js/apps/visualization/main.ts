@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
+/**
+ * Entrypoint for Visualization Tool.
+ */
+
 import React from "react";
+import ReactDOM from "react-dom";
 
-interface SpinnerProps {
-  isOpen: boolean;
-}
+import { App } from "./app";
 
-function Spinner(props: SpinnerProps): JSX.Element {
-  return (
-    <div id="screen" style={{ display: props.isOpen ? "block" : "none" }}>
-      <div id="spinner" />
-    </div>
+window.onload = () => {
+  ReactDOM.render(
+    React.createElement(App),
+    document.getElementById("main-pane")
   );
-}
-
-export { Spinner };
+};
