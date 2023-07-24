@@ -27,7 +27,7 @@ export interface BarComponentProps
   apiRoot?: string;
   barHeight?: number;
   childPlaceType?: string;
-  colors?: string;
+  colors?: string[];
   horizontal?: boolean;
   lollipop?: boolean;
   maxPlaces?: number;
@@ -46,7 +46,7 @@ export interface GaugeComponentProps
     HTMLElement
   > {
   apiRoot?: string;
-  colors?: string;
+  colors?: string[];
   max: number;
   min: number;
   place: string;
@@ -60,8 +60,10 @@ export interface LineComponentProps
     HTMLElement
   > {
   apiRoot?: string;
-  colors?: string;
-  place: string;
+  childPlaceType?: string;
+  colors?: string[];
+  place?: string;
+  places?: string[];
   title: string;
   variables: string[];
 }
@@ -73,7 +75,7 @@ export interface MapComponentProps
   > {
   apiRoot?: string;
   childPlaceType?: string;
-  colors?: string;
+  colors?: string[];
   date?: string;
   enclosedPlaceType?: string;
   parentPlace?: string;

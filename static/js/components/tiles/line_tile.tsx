@@ -31,11 +31,11 @@ import { computeRatio } from "../../tools/shared_util";
 import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-import { getPlaceNames } from "../../utils/place_utils";
 
 const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
@@ -162,10 +162,18 @@ export const fetchData = async (props: LineTilePropType) => {
 
   // get place names from dcids
   const placeDcids = Object.keys(resp.data.data[statVars[0]]);
-  const placeNames = await getPlaceNames(placeDcids,props.apiRoot);
-  const statVarNames = await getStatVarNames(statVars, props.statVarSpec, props.apiRoot);
+  const statVarNames = await getStatVarNames(
+    statVars,
+    props.statVarSpec,
+    props.apiRoot
+  );
+  const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
+  // How legend labels should be set
+  // If neither options are set, default to showing stat vars in legend labels
   const options = {
+    // If many places and one stat var, legend should show only place labels
     usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
+    // If many places and many stat vars, legends need to show both
     useBothLabels: statVars.length > 1 && placeDcids.length > 1,
   };
   return rawToChart(resp.data, props, placeNames, statVarNames, options);
