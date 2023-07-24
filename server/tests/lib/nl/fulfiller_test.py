@@ -58,7 +58,7 @@ from shared.lib import detected_variables as dvars
 # - variable.extend_svs
 # - utils.sv_existence_for_places | utils.sv_existence_for_places_check_single_point
 # - utils.get_sample_child_places
-# - fulfillment.existence._build_chart_vars
+# - fulfillment.existence.build_chart_vars
 # - fulfillment.base.open_topics_ordered
 #
 class TestDataSpecNext(unittest.TestCase):
@@ -305,7 +305,7 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places_check_single_point')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
@@ -351,7 +351,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_latest_value')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
                               mock_rank_svs, mock_extend_svs):
@@ -400,7 +400,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_series_growth')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
                       mock_extend_svs):
