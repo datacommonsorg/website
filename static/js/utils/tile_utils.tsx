@@ -78,37 +78,50 @@ export function getStatVarName(
 }
 
 /**
- * Gets the stat var name to display via variable-info api call
- * @param statVarDcids dcid of the stat var to get the name for
+ * Gets the stat var names to display via node/propvals api call for all stat
+ * vars in a statVarSpec collection.
+ * Different from getStatVarName() in that if a stat var's name is not provided
+ * in its spec, will try to query the name though an api call.
+ * @param statVarSpecs specs of stat vars to get names for
  * @param apiRoot api root to use for api
  */
-export function getStatVarNames(
-  statVarDcids: string[],
-  statVarSpec?: StatVarSpec[],
+export async function getStatVarNames(
+  statVarSpec: StatVarSpec[],
   apiRoot?: string
 ): Promise<{ [key: string]: string }> {
-  if (!statVarDcids.length) {
+  if (_.isEmpty(statVarSpec)) {
     return Promise.resolve({});
   }
-  return axios
-    .get(`${apiRoot || ""}/api/node/propvals/out`, {
+  const statVarDcids: string[] = [];
+  const statVarNames: Record<string, string> = {};
+  statVarSpec.forEach((spec) => {
+    if (spec.name && spec.name != "") {
+      statVarNames[spec.statVar] = spec.name;
+    } else {
+      statVarDcids.push(spec.statVar);
+    }
+  });
+
+  if (_.isEmpty(statVarDcids)) {
+    return Promise.resolve(statVarNames);
+  }
+
+  try {
+    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
       params: {
         dcids: statVarDcids,
         prop: "name",
       },
       paramsSerializer: stringifyFn,
-    })
-    .then((resp) => {
-      const statVarNames: Record<string, string> = {};
-      for (const statVar in resp.data) {
-        statVarNames[statVar] = resp.data[statVar][0].value;
-      }
-      return statVarNames;
-    })
-    .catch((error) => {
-      console.log(error);
-      return Promise.reject(error);
     });
+    for (const statVar in resp.data) {
+      statVarNames[statVar] = resp.data[statVar][0].value;
+    }
+    return statVarNames;
+  } catch (error) {
+    console.log(error);
+    return await Promise.reject(error);
+  }
 }
 
 interface SVGInfo {

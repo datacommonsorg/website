@@ -1604,7 +1604,7 @@ function drawGaugeChart(
       .range([colorScale(data.value)]),
     [
       {
-        label: data.statVar,
+        label: data.statVarName,
       },
     ],
     options?.apiRoot

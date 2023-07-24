@@ -162,11 +162,7 @@ export const fetchData = async (props: LineTilePropType) => {
 
   // get place names from dcids
   const placeDcids = Object.keys(resp.data.data[statVars[0]]);
-  const statVarNames = await getStatVarNames(
-    statVars,
-    props.statVarSpec,
-    props.apiRoot
-  );
+  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot);
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
