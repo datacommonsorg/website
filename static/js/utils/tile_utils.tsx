@@ -96,7 +96,7 @@ export async function getStatVarNames(
   const statVarNames: Record<string, string> = {};
   // If a name is already provided by statVarSpec, use that name
   statVarSpec.forEach((spec) => {
-    if (spec.name && spec.name != "") {
+    if (spec.name && spec.name !== "") {
       statVarNames[spec.statVar] = spec.name;
     } else {
       statVarDcids.push(spec.statVar);
@@ -125,7 +125,6 @@ export async function getStatVarNames(
     }
     return statVarNames;
   } catch (error) {
-    console.log(error);
     return await Promise.reject(error);
   }
 }
