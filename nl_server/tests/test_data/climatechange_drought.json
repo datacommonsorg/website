@@ -1,5 +1,6 @@
 {
   "SV": [
+    "dc/topic/Drought",
     "Count_DroughtEvent",
     "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent",
     "PalmerDroughtSeverityIndex_Atmosphere",
@@ -7,19 +8,22 @@
     "dc/topic/ClimateChange",
     "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
     "dc/topic/SDG_13",
+    "dc/topic/Rainfall",
     "Mean_PalmerDroughtSeverityIndex_Forest",
-    "dc/topic/ProjectedClimateExtremes"
+    "dc/topic/Precipitation"
   ],
   "CosineScore": [
+    0.8610122203826904,
     0.8366556167602539,
-    0.8204662203788757,
-    0.7946637272834778,
+    0.8204663395881653,
+    0.7946637868881226,
     0.7720611691474915,
     0.7232210636138916,
     0.6951401233673096,
     0.6741006970405579,
+    0.6518915891647339,
     0.6400109529495239,
-    0.622322142124176
+    0.6347746849060059
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -38,14 +42,14 @@
           {
             "QueryPart": "drought",
             "SV": [
-              "Count_DroughtEvent"
+              "dc/topic/Drought"
             ],
             "CosineScore": [
-              0.9421629905700684
+              1.000000238418579
             ]
           }
         ],
-        "AggCosineScore": 0.9035,
+        "AggCosineScore": 0.9324,
         "DelimBased": false
       },
       {
@@ -66,16 +70,84 @@
           {
             "QueryPart": "change drought",
             "SV": [
-              "Count_DroughtEvent",
-              "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent"
+              "dc/topic/Drought",
+              "Count_DroughtEvent"
             ],
             "CosineScore": [
-              0.8689357042312622,
-              0.8283147811889648
+              0.9125531911849976,
+              0.8689357042312622
             ]
           }
         ],
-        "AggCosineScore": 0.8189,
+        "AggCosineScore": 0.8407,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "show",
+            "SV": [
+              "dc/topic/Visibility"
+            ],
+            "CosineScore": [
+              0.515081524848938
+            ]
+          },
+          {
+            "QueryPart": "climate change",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              1.0000001192092896
+            ]
+          },
+          {
+            "QueryPart": "drought",
+            "SV": [
+              "dc/topic/Drought"
+            ],
+            "CosineScore": [
+              1.000000238418579
+            ]
+          }
+        ],
+        "AggCosineScore": 0.8384,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "show",
+            "SV": [
+              "dc/topic/Visibility"
+            ],
+            "CosineScore": [
+              0.515081524848938
+            ]
+          },
+          {
+            "QueryPart": "climate",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              0.9142746329307556
+            ]
+          },
+          {
+            "QueryPart": "change drought",
+            "SV": [
+              "dc/topic/Drought",
+              "Count_DroughtEvent"
+            ],
+            "CosineScore": [
+              0.9125531911849976,
+              0.8689357042312622
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7806,
         "DelimBased": false
       },
       {
@@ -105,14 +177,84 @@
           {
             "QueryPart": "drought",
             "SV": [
-              "Count_DroughtEvent"
+              "dc/topic/Drought"
             ],
             "CosineScore": [
-              0.9421629905700684
+              1.000000238418579
             ]
           }
         ],
-        "AggCosineScore": 0.7449,
+        "AggCosineScore": 0.7642,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "show",
+            "SV": [
+              "dc/topic/Visibility"
+            ],
+            "CosineScore": [
+              0.515081524848938
+            ]
+          },
+          {
+            "QueryPart": "climate",
+            "SV": [
+              "dc/topic/ClimateChange"
+            ],
+            "CosineScore": [
+              0.9142746329307556
+            ]
+          },
+          {
+            "QueryPart": "change",
+            "SV": [
+              "IncrementalCount_Person"
+            ],
+            "CosineScore": [
+              0.5237722992897034
+            ]
+          },
+          {
+            "QueryPart": "drought",
+            "SV": [
+              "dc/topic/Drought"
+            ],
+            "CosineScore": [
+              1.000000238418579
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7383,
+        "DelimBased": false
+      },
+      {
+        "Parts": [
+          {
+            "QueryPart": "show",
+            "SV": [
+              "dc/topic/Visibility"
+            ],
+            "CosineScore": [
+              0.515081524848938
+            ]
+          },
+          {
+            "QueryPart": "climate change drought",
+            "SV": [
+              "dc/topic/Drought",
+              "Count_DroughtEvent",
+              "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent"
+            ],
+            "CosineScore": [
+              0.9132349491119385,
+              0.8943069577217102,
+              0.8703452348709106
+            ]
+          }
+        ],
+        "AggCosineScore": 0.7142,
         "DelimBased": false
       }
     ]

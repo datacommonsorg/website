@@ -17,37 +17,29 @@
 /**
  * Component for NL interface welcome message.
  */
-import axios from "axios";
 import _ from "lodash";
-import Papa from "papaparse";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
-import { getUrlToken } from "../../utils/url_utils";
+import { SampleQuery, useStoreActions, useStoreState } from "./app_state";
 
-/**
- * Sample NL query
- */
-interface SampleQuery {
-  topic: string;
-  query: string;
-  // "Works as intended"
-  wai: boolean;
-}
+// Maximum number of example queries to show in the welcome page
+export const MAX_EXAMPLE_QUERIES = 12;
 
-interface QueryWelcomePropType {
-  // Sample query click handler
-  onQueryItemClick: (queries: string[]) => void;
+interface TopicQueries {
+  [key: string]: SampleQuery[];
 }
 
 /**
  * NL welcome message
  */
-export function QueryWelcome(props: QueryWelcomePropType): JSX.Element {
-  const { onQueryItemClick } = props;
-  const topic = useRef(getUrlToken("topic"));
-  const [allQueries, setAllQueries] = useState<SampleQuery[]>([]);
+export function QueryWelcome(): JSX.Element {
+  const config = useStoreState((s) => s.config);
+  const allQueries = useStoreState((s) => s.sampleQueries);
+  const topic = useStoreState((s) => s.config.topic);
+  const search = useStoreActions((a) => a.search);
   const [exampleQueries, setExampleQueries] = useState<SampleQuery[]>([]);
+  const [topicQueries, setTopicQueries] = useState<TopicQueries>({});
 
   /**
    * Initialize example queries
@@ -58,42 +50,24 @@ export function QueryWelcome(props: QueryWelcomePropType): JSX.Element {
     }
     // If a topic is set, show sample queries from that topic
     // Otherwise show a random sample from all topics
-    const topicQueries = _.groupBy<SampleQuery>(allQueries, "topic");
-    if (topic.current && topicQueries[topic.current]) {
+    const topicQueries = _.groupBy<SampleQuery>(
+      allQueries,
+      "topic"
+    ) as TopicQueries;
+    setTopicQueries(topicQueries);
+    if (topic && topicQueries[topic]) {
       setExampleQueries(
-        topicQueries[topic.current].filter((q) => q.wai).slice(0, 12)
+        topicQueries[topic].filter((q) => q.wai).slice(0, MAX_EXAMPLE_QUERIES)
       );
     } else {
       // Select 8x queries at random that work as intended
       setExampleQueries(
         _.shuffle(allQueries)
           .filter((q) => q.wai)
-          .slice(0, 12)
+          .slice(0, MAX_EXAMPLE_QUERIES)
       );
     }
   }, [topic, allQueries]);
-
-  /**
-   * Fetch topic queries
-   */
-  useEffect(() => {
-    const initialize = async () => {
-      const topicsResponse = await axios.get("/data/nl/topics.csv");
-      Papa.parse(topicsResponse.data, {
-        complete: (result) => {
-          const queries: SampleQuery[] = result["data"].map((item) => ({
-            topic: item.category,
-            query: item.query,
-            wai: (item.wai || "").toLowerCase() === "yes",
-          }));
-          setAllQueries(queries);
-        },
-        header: true,
-        worker: true,
-      });
-    };
-    initialize();
-  }, []);
 
   return (
     <div className="nl-welcome">
@@ -117,9 +91,9 @@ export function QueryWelcome(props: QueryWelcomePropType): JSX.Element {
         {exampleQueries.length > 0 ? (
           <div>
             Not sure where to start? Try these{" "}
-            {topic.current ? (
+            {topic && topicQueries[topic] ? (
               <>
-                <strong>{topic.current}</strong>
+                <strong>{topic}</strong>
               </>
             ) : null}{" "}
             queries:
@@ -130,7 +104,12 @@ export function QueryWelcome(props: QueryWelcomePropType): JSX.Element {
                     href=""
                     onClick={(e) => {
                       e.preventDefault();
-                      onQueryItemClick([query.query]);
+                      search({
+                        config,
+                        nlQueryContext: null,
+                        nlQueryHistory: [],
+                        query: query.query,
+                      });
                     }}
                   >
                     {query.query}

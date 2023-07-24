@@ -81,6 +81,53 @@
       "placeDcid": [
         "wikidataId/Q1489"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "San Francisco",
+            "nlQuery": "show me the population of San Francisco"
+          },
+          {
+            "displayName": "Chicago",
+            "nlQuery": "show me the population of Chicago"
+          },
+          {
+            "displayName": "New York",
+            "nlQuery": "show me the population of New York"
+          },
+          {
+            "displayName": "Berlin",
+            "nlQuery": "show me the population of Berlin"
+          },
+          {
+            "displayName": "Paris",
+            "nlQuery": "show me the population of Paris"
+          },
+          {
+            "displayName": "Delhi",
+            "nlQuery": "show me the population of Delhi"
+          },
+          {
+            "displayName": "Madrid",
+            "nlQuery": "show me the population of Madrid"
+          },
+          {
+            "displayName": "Sydney",
+            "nlQuery": "show me the population of Sydney"
+          },
+          {
+            "displayName": "Johannesburg",
+            "nlQuery": "show me the population of Johannesburg"
+          },
+          {
+            "displayName": "Moscow",
+            "nlQuery": "show me the population of Moscow"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

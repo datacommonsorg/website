@@ -19,6 +19,8 @@ from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
+from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
@@ -104,3 +106,32 @@ def empty_place_detection() -> PlaceDetection:
                         query_places_mentioned=[],
                         places_found=[],
                         main_place=None)
+
+
+def create_utterance(query_detection: Detection, currentUtterance: Utterance,
+                     counters: ctr.Counters, session_id: str) -> Utterance:
+  filtered_svs = filter_svs(query_detection.svs_detected.single_sv, counters)
+
+  # Construct Utterance datastructure.
+  uttr = Utterance(prev_utterance=currentUtterance,
+                   query=query_detection.original_query,
+                   query_type=QueryType.UNKNOWN,
+                   detection=query_detection,
+                   places=[],
+                   classifications=query_detection.classifications,
+                   svs=filtered_svs,
+                   chartCandidates=[],
+                   rankedCharts=[],
+                   answerPlaces=[],
+                   counters=counters,
+                   session_id=session_id,
+                   multi_svs=query_detection.svs_detected.multi_sv,
+                   llm_resp=query_detection.llm_resp)
+  uttr.counters.info('filtered_svs', filtered_svs)
+
+  # Add detected places.
+  if (query_detection.places_detected) and (
+      query_detection.places_detected.places_found):
+    uttr.places.extend(query_detection.places_detected.places_found)
+
+  return uttr

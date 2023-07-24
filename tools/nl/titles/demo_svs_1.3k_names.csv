@@ -1063,7 +1063,7 @@ Prevalence: Asthma in Children,Percent_Person_Children_WithAsthma,Percent of Chi
 "Person With Age = 4 Years or Less, Medical Condition = Severe Wasting",dc/g/Person_Age-YearsUpto4_MedicalCondition-SevereWasting,Number of People Who Are 4 Years or Younger and Have Severe Wasting,Population Who Are 4 Years or Younger and Have Severe Wasting,Population who are 4 years or younger and have severe wasting;Population Who Are 4 Years or Younger and Have Severe Wasting;
 "Person With Age = 4 Years or Less, Medical Condition = Wasting",dc/g/Person_Age-YearsUpto4_MedicalCondition-Wasting,Number of People Who Are 4 Years or Younger and Have Wasting,Population Who Are 4 Years or Younger and Have Wasting,Population who are 4 years or younger and have wasting;Population Who Are 4 Years or Younger and Have Wasting;
 "Prevalence of 65 Or More Years, All Teeth Loss",Percent_Person_65OrMoreYears_WithAllTeethLoss,Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss,Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss,percent of Population that have all teeth loss among Population who are 65 years or older in age;Percentage of Population Over 65 Years Old Who Have Complete Tooth Loss;
-"Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication",Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication,Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;,Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;,percent of  Population with high blood pressure who are taking blood pressure medication  among Population who are 18 years or older in age;Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;;
+"Prevalence: 18 Years or More, High Blood Pressure, Taking Blood Pressure Medication",Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication,Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;,Percent of Adults with Blood Pressure Who Take Medication,percent of  Population with high blood pressure who are taking blood pressure medication  among Population who are 18 years or older in age;Percent of  Population With High Blood Pressure Who Are Taking Blood Pressure Medication  Among Population Who Are 18 Years or Older in Age;;
 Gender Income Inequality,GenderIncomeInequality_Person_15OrMoreYears_WithIncome,Income Inequality Between Men and Women of Working Age,Income Inequality Between Men and Women of Working Age,Pay gap between men and women;Income inequality between men and women;Income Inequality Between Men and Women of Working Age;Inequality in income between men and women of working age; Disparity in earnings between men and women of working age; Difference in income between men and women of working age; Gap in pay between men and women of working age; Variance in income between men and women of working age
 Median Income,Median_Income_Person,Median Income of a Population,Individual Median Income,Median pay; Median income;Middle income in a population;Median Income of a Population;Median income of the population; Middle income of the population; Average income of the population; Mean income of the population; Typical income of the population
 Population: Divorced,Count_Person_Divorced,Number of Divorced People in a Population,Divorced Population,divorced Population;divorced Population in a population;Divorced Population in a Population;divorced Population in the population; Divorced population count; divorced individuals in the population; Divorce rate; Percentage of divorced Population in the population
@@ -1288,6 +1288,7 @@ Annual Generation of Fuel: Diesel Oil,Annual_Generation_Fuel_DieselOil,Annual En
 ,RetailDrugDistribution_DrugDistribution_Hydrocodone,Amount of Hydrocodone Distributed Through Retail Drug Channels,Amount of Hydrocodone Distributed Through Retail Drug Channels,Amount of hydrocodone distributed through retail drug channels;Amount of Hydrocodone Distributed Through Retail Drug Channels;
 ,RetailDrugDistribution_DrugDistribution_Morphine,Amount of Morphine Distributed Through Retail Drug Channels,Amount of Morphine Distributed Through Retail Drug Channels,Amount of morphine distributed through retail drug channels;Amount of Morphine Distributed Through Retail Drug Channels;
 ,RetailDrugDistribution_DrugDistribution_Oxycodone,Amount of Oxycodone Distributed Through Retail Drug Channels,Amount of Oxycodone Distributed Through Retail Drug Channels,Amount of oxycodone distributed through retail drug channels;Amount of Oxycodone Distributed Through Retail Drug Channels;
+,RetailDrugDistribution_DrugDistribution_Oxymorphone,Amount of Oxymorphone Distributed Through Retail Drug Channels,Amount of Oxymorphone Distributed Through Retail Drug Channels,
 ,DifferenceRelativeToBaseDate2006_Max_Temperature_RCP26,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 2.6 Scenario,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 2.6 Scenario,Difference in maximum temperature relative to the base date 2006 for RCP 2.6 scenario;Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 2.6 Scenario;
 ,DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45,Maximum Temperature projections compared to 2006 for the RCP 4.5 Climate Model,Maximum Temperature Projections Compared to 2006 for the RCP 4.5 Climate Model,Difference in maximum temperature relative to the base date 2006 for RCP 4.5 scenario;Maximum Temperature projections compared to 2006 for the RCP 4.5 Climate Model;projected temperature rise; predicted temperature rise; predicted temperature delta; predicted temperature differences; How much hotter the RCP 4.5 Climate Model predicts it will get compared to 2006; What the highest temperatures are expected to be according to the RCP 4.5 model compared to 2006; The RCP 4.5 Climate Model's predictions for maximum temperatures compared to the year 2006; A comparison of maximum temperature projections from the RCP 4.5 Climate Model to those of 2006; How the RCP 4.5 Climate Model's maximum temperature predictions have changed since 2006; A look at the highest temperatures projected by the RCP 4.5 Climate Model in relation to 2006; How the RCP 4.5 Climate Model's maximum temperature forecast has evolved since 2006; projections of maximum temperature vs 2006; max temp projections vs 2006; maximum difference in model projections vs 2006; Difference between hottest temperature projections relative to 2006; difference between maximum temperature prediction relative to 2006;
 ,DifferenceRelativeToBaseDate2006_Max_Temperature_RCP60,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario,Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario,Difference in maximum temperature relative to the base date 2006 for RCP 6.0 scenario;Difference in Maximum Temperature Relative to the Base Date 2006 for RCP 6.0 Scenario;
@@ -1333,7 +1334,7 @@ Annual Generation of Fuel: Diesel Oil,Annual_Generation_Fuel_DieselOil,Annual En
 Population of Person: Cattle Ranching And Farming,dc/hlxvn1t8b9bhh,Number of Farmers and Cattle Ranchers,Farmers and Cattle Ranchers,Farmers and Cattle Ranchers;agriculture workers; workers in agriculture; farmers; cattle ranchers; farmers and cattle ranchers; farmers; cattle ranchers; Population who are farming and cattle ranching; agricultural workers; agriculture workers; agricultural workers; workers in agriculture;
 Max Temperature,Max_Temperature,Maximum Temperature,Maximum Temperature,population of males who are not hispanic or latino and are two or more races; males who are not hispanic or latino and are two or more races; Population who are male and not hispanic or latino and are two or more races; count of males who are not hispanic or latino and are two or more races; how many males are not hispanic or latino and are two or more races; males who are not hispanic or latino and are two or more races in the population; how many males who are not hispanic or latino and are two or more races live in;
 "Max Temperature (Difference Relative To Base Date): Relative To 2006, Based on RCP 4.5",DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45,Maximum Temperature projections compared to 2006 for the RCP 4.5 Climate Model,Maximum Temperature Projections Compared to 2006 for the RCP 4.5 Climate Model,population of males who are not hispanic or latino and white alone; males who are not hispanic or latino and white alone; Population who are male and not hispanic or latino and white alone; count of males who are not hispanic or latino and white alone; how many males are not hispanic or latino and white alone;
-,Percent_Student_AsAFractionOf_Count_Teacher,,Teacher to Student Ratio,"students per teacher; number of students per teacher, how many students per teacher, each teacher has on average how many students"
+,Percent_Student_AsAFractionOf_Count_Teacher,,Student to Teacher Ratio,"students per teacher; number of students per teacher, how many students per teacher, each teacher has on average how many students"
 ,Count_Teacher,,Teachers,number of teachers; how many teachers are there; educational instructors; count of educators
 About: Mean Cohort Scale Achievement of Student,dc/c58mvty4nhxdb,,Mean Cohort Scale Achievement of Students,average student achievement; student test performance; student educational output measurement; how good are students doing on their education
 ,Count_SolarInstallation,,Solar Installations,solar panel installations; solar energy installations; number of solar installations in the area; how much solar is here
@@ -1360,38 +1361,38 @@ Population of Person: Gambling Industries,dc/5br285q68be6,,Employees in Gambling
 ,NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MeanRelativeHumidity,,Number of Months Reaching Wet Bulb Temperature based on RCP 6.0 Mean Relative Humidity,
 ,NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MeanRelativeHumidity,,Number of Months Reaching Wet Bulb Temperature based on RCP 8.5 Mean Relative Humidity,
 ,sdg/SI_POV_DAY1,Population living below international poverty line,Population living below international poverty line,
-,sdg/SI_POV_DAY1_65GEQ,Population 65 years and over below international poverty line,Population 65 years and over below international poverty line,
-,sdg/SI_POV_DAY1_15-64,Population 15 to 64 years old below international poverty line,Population 15 to 64 years old below international poverty line,
-,sdg/SI_POV_DAY1_LT15Y,Population under 15 years old below international poverty line,Population under 15 years old below international poverty line,
-,sdg/SI_POV_DAY1_FEMALE,Female population below poverty international line,Female population below poverty international line,
-,sdg/SI_POV_DAY1_MALE,Male population below poverty international line,Male population below poverty international line,
-,sdg/SI_POV_DAY1_URBAN,Urban population below poverty international line,Urban population below poverty international line,
-,sdg/SI_POV_DAY1_RURAL,Rural population below poverty international line,Rural population below poverty international line,
-,sdg/SI_POV_EMP1_15GEQ,Employed population below international poverty line,Employed population below international poverty line,
-,sdg/SI_POV_EMP1_15GEQ_FEMALE,Employed female population below international poverty line,Employed female population below international poverty line,
-,sdg/SI_POV_EMP1_15GEQ_MALE,Employed male population below international poverty line,Employed male population below international poverty line,
+,sdg/SI_POV_DAY1.AGE--Y_GE65,Population 65 years and over below international poverty line,Population 65 years and over below international poverty line,
+,sdg/SI_POV_DAY1.AGE--Y15T64,Population 15 to 64 years old below international poverty line,Population 15 to 64 years old below international poverty line,
+,sdg/SI_POV_DAY1.AGE--Y0T14,Population under 15 years old below international poverty line,Population under 15 years old below international poverty line,
+,sdg/SI_POV_DAY1.SEX--F,Female population below poverty international line,Female population below poverty international line,
+,sdg/SI_POV_DAY1.SEX--M,Male population below poverty international line,Male population below poverty international line,
+,sdg/SI_POV_DAY1.URBANISATION--U,Urban population below poverty international line,Urban population below poverty international line,
+,sdg/SI_POV_DAY1.URBANISATION--R,Rural population below poverty international line,Rural population below poverty international line,
+,sdg/SI_POV_EMP1.AGE--Y_GE15,Employed population below international poverty line,Employed population below international poverty line,
+,sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F,Employed female population below international poverty line,Employed female population below international poverty line,
+,sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M,Employed male population below international poverty line,Employed male population below international poverty line,
 ,sdg/SP_ACS_BSRVH2O,Access to basic drinking water services,Access to basic drinking water services,
 ,sdg/SP_ACS_BSRVSAN,Access to basic sanitation services,Access to basic sanitation services,
-,sdg/SH_STA_MORT_FEMALE,Maternal mortality ratio,Maternal mortality ratio,
-,sdg/SH_FPL_MTMM_15-49_FEMALE,Access to modern family planning for women,Access to modern family planning for women,
-,sdg/SP_DYN_ADKL_15-19_FEMALE,Birth rate for adolescent women,Birth rate for adolescent women,
-,sdg/SH_STA_ANEM_15-49_FEMALE,Prevalence on anaemia in women,Prevalence on anaemia in women,
-,sdg/SH_DYN_IMRT_LT1Y,Infant mortality rate,Infant mortality rate,
-,sdg/SH_DYN_MORT_LT5Y,Mortality rate for children under 5 years,Mortality rate for children under 5 years,
-,sdg/SH_DYN_NMRT_LT1M,Neonatal mortality rate,Neonatal mortality rate,
+,sdg/SH_STA_MORT.SEX--F,Maternal mortality ratio,Maternal mortality ratio,
+,sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Access to modern family planning for women,Access to modern family planning for women,
+,sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F,Birth rate for adolescent women,Birth rate for adolescent women,
+,sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Prevalence of anaemia in women,Prevalence of anaemia in women,
+,sdg/SH_DYN_IMRT.AGE--Y0,Infant mortality rate,Infant mortality rate,
+,sdg/SH_DYN_MORT.AGE--Y0T4,Mortality rate for children under 5 years,Mortality rate for children under 5 years,
+,sdg/SH_DYN_NMRT.AGE--M0,Neonatal mortality rate,Neonatal mortality rate,
 ,sdg/SH_HIV_INCD,Incidence of HIV infections,Incidence of HIV infections,
 ,sdg/SH_TBS_INCD,Incidence of Tuberculosis,Incidence of Tuberculosis,
-,sdg/SH_HAP_HBSAG_LT5Y,Prevalence of hepatitis B in children under 5 years,Prevalence of hepatitis B in children under 5 years,
+,sdg/SH_HAP_HBSAG.AGE--Y0T4,Prevalence of hepatitis B in children under 5 years,Prevalence of hepatitis B in children under 5 years,
 ,sdg/SH_TRP_INTVN,Need for intervention against neglected tropical diseases,Need for intervention against neglected tropical diseases,
 ,sdg/SH_ACS_UNHC,Universal health coverage index,Universal health coverage index,
 ,sdg/SH_XPD_EARN10,Population with health spending over 10% of household expenditure or income,Population with health spending over 10% of household expenditure or income,
 ,sdg/SH_XPD_EARN25,Population with health spending over 25% of household expenditure or income,Population with health spending over 25% of household expenditure or income,
-,sdg/SH_MED_DEN_PHYS,Density of medical doctors,Density of medical doctors,
-,sdg/SH_MED_DEN_NURSMID,Density of nurses and midwives,Density of nurses and midwives,
-,sdg/SH_MED_DEN_PHAR,Density of pharmacists,Density of pharmacists,
-,sdg/SH_MED_DEN_DENT,Density of dentists,Density of dentists,
-,sdg/SH_PRV_SMOK_15GEQ,Prevalence of tobacco use,Prevalence of tobacco use,
-,sdg/SH_SUD_ALCOL_15GEQ,Prevalence of alcohol use disorder,Prevalence of alcohol use disorder,
-,sdg/SN_ITK_DEFC_E,Prevalence of undernourishment,Prevalence of undernourishment,
-,sdg/SH_STA_STNT_LT5Y,,Proportion of children moderately or severely stunted,
-,sdg/SH_STA_WAST_LT5Y,,Proportion of children moderately or severely wasted,
+,sdg/SH_MED_DEN.OCCUPATION--ISCO08_221,Density of medical doctors,Density of medical doctors,
+,sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322,Density of nurses and midwives,Density of nurses and midwives,
+,sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262,Density of pharmacists,Density of pharmacists,
+,sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261,Density of dentists,Density of dentists,
+,sdg/SH_PRV_SMOK.AGE--Y_GE15,Prevalence of tobacco use,Prevalence of tobacco use,
+,sdg/SH_SUD_ALCOL.AGE--Y_GE15,Prevalence of alcohol use disorder,Prevalence of alcohol use disorder,
+,sdg/SN_ITK_DEFC,Prevalence of undernourishment,Prevalence of undernourishment,
+,sdg/SH_STA_STNT.AGE--Y0T4,,Proportion of children moderately or severely stunted,
+,sdg/SH_STA_WAST.AGE--Y0T4,,Proportion of children moderately or severely wasted,
