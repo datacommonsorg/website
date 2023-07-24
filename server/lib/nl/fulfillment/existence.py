@@ -127,15 +127,22 @@ class ExistenceCheckTracker:
 #
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
-  def __init__(self, state: PopulateState, places: List[str], svs: List[str],
-               sv2chartvarslist: Dict):
+  def __init__(self,
+               state: PopulateState,
+               places: List[str],
+               svs: List[str],
+               sv2chartvarslist: Dict = {}):
     super().__init__(state, places)
 
     # Loop over all SVs, and construct existence check state.
-    for sv in svs:
+    for rank, sv in enumerate(svs):
       exist_state = SVExistenceCheckState(sv=sv, chart_vars_list=[])
 
-      for chart_vars in sv2chartvarslist.get(sv):
+      if sv2chartvarslist:
+        chart_vars_list = sv2chartvarslist.get(sv)
+      else:
+        chart_vars_list = build_chart_vars(state, sv, rank)
+      for chart_vars in chart_vars_list:
         exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
                                                 exist_svs=[])
         if chart_vars.event:

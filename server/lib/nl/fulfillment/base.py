@@ -290,11 +290,7 @@ def _add_charts(state: PopulateState, places: List[Place],
     clear_fallback(state)
     return False
 
-  chart_vars_map = {}
-  for rank, sv in enumerate(svs):
-    chart_vars_map[sv] = build_chart_vars(state, sv, rank)
-  tracker = MainExistenceCheckTracker(state, places_to_check, svs,
-                                      chart_vars_map)
+  tracker = MainExistenceCheckTracker(state, places_to_check, svs)
   tracker.perform_existence_check()
 
   existing_svs = set()
