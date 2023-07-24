@@ -22,6 +22,7 @@ from flask import render_template
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
 
+
 @bp.route('/<string:topic>')
 def page(topic):
   # No production support yet.

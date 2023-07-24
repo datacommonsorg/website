@@ -17,10 +17,8 @@
 /**
  * Main component for DC Explore.
  */
-import React, { useEffect } from "react";
+import React from "react";
 import { Col, Container, Row } from "reactstrap";
-
-const PAGE_ID = "explore";
 
 interface SubTopicType {
   dcid: string;
@@ -44,17 +42,17 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/WHOHealthBehavior",
-          name: "Health Behavior"
+          name: "Health Behavior",
         },
         {
           dcid: "dc/topic/WHOImmunization",
-          name: "Immunization"
+          name: "Immunization",
         },
         {
           dcid: "dc/topic/WHONonCommunicableDiseases",
-          name: "Non-Communicable Diseases"
-        }
-      ]
+          name: "Non-Communicable Diseases",
+        },
+      ],
     },
     {
       dcid: "dc/topic/HealthConditions",
@@ -62,21 +60,21 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/Asthma",
-          name: "Asthma"
+          name: "Asthma",
         },
         {
           dcid: "dc/topic/BloodPressure",
-          name: "Blood Pressure"
+          name: "Blood Pressure",
         },
         {
           dcid: "dc/topic/Diabetes",
-          name: "Diabetes"
+          name: "Diabetes",
         },
         {
           dcid: "dc/topic/MentalHealth",
-          name: "Mental Health"
-        }
-      ]
+          name: "Mental Health",
+        },
+      ],
     },
     {
       dcid: "dc/topic/HealthEquity",
@@ -84,17 +82,17 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/DisabilitiesByGender",
-          name: "Disabilities by Gender"
+          name: "Disabilities by Gender",
         },
         {
           dcid: "dc/topic/DisabilitiesByRace",
-          name: "Disabilities by Race"
+          name: "Disabilities by Race",
         },
         {
           dcid: "dc/topic/HealthInsuranceByRace",
-          name: "Health Insurance by Race"
-        }
-      ]
+          name: "Health Insurance by Race",
+        },
+      ],
     },
     {
       dcid: "dc/topic/HealthInsurance",
@@ -102,13 +100,13 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/HealthInsuranceType",
-          name: "Health Insurance Type"
+          name: "Health Insurance Type",
         },
         {
           dcid: "dc/topic/NoHealthInsurance",
-          name: "No Health Insurance"
-        }
-      ]
+          name: "No Health Insurance",
+        },
+      ],
     },
     {
       dcid: "dc/topic/Mortality",
@@ -116,17 +114,17 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/CausesOfDeath",
-          name: "Causes of Death"
+          name: "Causes of Death",
         },
         {
           dcid: "dcid:LifeExpectancy_Person",
-          name: "Life Expectancy"
+          name: "Life Expectancy",
         },
         {
           dcid: "dc/topic/MortalityAmongIncarcerated",
-          name: "Mortality among Incarcerated"
-        }
-      ]
+          name: "Mortality among Incarcerated",
+        },
+      ],
     },
     {
       dcid: "dc/topic/PreventativeHealthAndBehavior",
@@ -134,15 +132,15 @@ const TOPICS: {
       subTopics: [
         {
           dcid: "dc/topic/HealthBehavior",
-          name: "Health Behavior"
+          name: "Health Behavior",
         },
         {
           dcid: "dc/topic/PreventativeHealth",
-          name: "Preventative Health"
-        }
-      ]
-    }
-  ]
+          name: "Preventative Health",
+        },
+      ],
+    },
+  ],
 };
 
 /**
@@ -160,7 +158,11 @@ export function App(): JSX.Element {
     return (
       <div className="explore-container">
         <Container>
-          <h1>No topics found for "{topic}"</h1>
+          <h1>
+            No topics found for {'"'}
+            {topic}
+            {'"'}
+          </h1>
         </Container>
       </div>
     );
