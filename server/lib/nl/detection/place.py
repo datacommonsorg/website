@@ -58,7 +58,7 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
   if place_dcids:
-    resolved_places = _get_place_from_dcids(
+    resolved_places = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
@@ -135,8 +135,8 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
 
   resolved_places = []
   if mains:
-    resolved_places = _get_place_from_dcids(mains,
-                                            debug_logs["place_resolution"])
+    resolved_places = get_place_from_dcids(mains,
+                                           debug_logs["place_resolution"])
 
   main_place = None
   identicals = []
@@ -187,7 +187,7 @@ def detect_from_names(place_names: List[str], query_without_places: str,
         place_names, query_detection_debug_logs["place_dcid_inference"])
 
   if place_dcids:
-    resolved_places = _get_place_from_dcids(
+    resolved_places = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
 
   if resolved_places:
@@ -233,8 +233,8 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 # Helper function to retrieve `Place` objects corresponding to DCIDs
 # by using the DC API.
 #
-def _get_place_from_dcids(place_dcids: List[str],
-                          debug_logs: Dict) -> List[Place]:
+def get_place_from_dcids(place_dcids: List[str],
+                         debug_logs: Dict) -> List[Place]:
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):
@@ -314,7 +314,7 @@ def _get_places_for_listpair(similars, identicals):
   merged = list(set(similars + identicals))
 
   tmp = {}
-  merged = _get_place_from_dcids(merged, tmp)
+  merged = get_place_from_dcids(merged, tmp)
 
   result = []
   for l in [similars, identicals]:

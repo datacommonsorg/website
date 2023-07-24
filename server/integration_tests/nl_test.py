@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 import json
 import os
 
@@ -52,67 +53,72 @@ class IntegrationTest(NLWebServerTestCase):
           json={
               'contextHistory': ctx
           }).json()
-
+      if expected_detectors:
+        detection_method = expected_detectors[i]
       ctx = resp['context']
-      dbg = resp['debug']
-      resp['debug'] = {}
-      resp['context'] = {}
-      json_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
-                               'chart_config.json')
-      if _TEST_MODE == 'write':
-        json_dir = os.path.dirname(json_file)
-        if not os.path.isdir(json_dir):
-          os.makedirs(json_dir)
-        with open(json_file, 'w') as infile:
-          infile.write(json.dumps(resp, indent=2))
+      self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
+                           check_place_detection, detection_method)
 
-        if check_place_detection:
-          dbg_file = os.path.join(json_dir, 'debug_info.json')
-          with open(dbg_file, 'w') as infile:
-            dbg_to_write = {
-                "places_detected": dbg["places_detected"],
-                "places_resolved": dbg["places_resolved"],
-                "main_place_dcid": dbg["main_place_dcid"],
-                "main_place_name": dbg["main_place_name"]
-            }
-            infile.write(json.dumps(dbg_to_write, indent=2))
+  def handle_response(self,
+                      query,
+                      resp,
+                      test_dir,
+                      test_name,
+                      failure,
+                      check_place_detection=False,
+                      detector=None):
+    dbg = resp['debug']
+    resp['debug'] = {}
+    resp['context'] = {}
+    json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
+                             'chart_config.json')
+    if _TEST_MODE == 'write':
+      json_dir = os.path.dirname(json_file)
+      if not os.path.isdir(json_dir):
+        os.makedirs(json_dir)
+      with open(json_file, 'w') as infile:
+        infile.write(json.dumps(resp, indent=2))
+
+      if check_place_detection:
+        dbg_file = os.path.join(json_dir, 'debug_info.json')
+        with open(dbg_file, 'w') as infile:
+          dbg_to_write = {
+              "places_detected": dbg["places_detected"],
+              "places_resolved": dbg["places_resolved"],
+              "main_place_dcid": dbg["main_place_dcid"],
+              "main_place_name": dbg["main_place_name"]
+          }
+          infile.write(json.dumps(dbg_to_write, indent=2))
+    else:
+      if failure:
+        self.assertTrue(failure in resp["failure"]), resp["failure"]
+        self.assertTrue(not resp["config"])
+        return
+
+      if detector:
+        self.assertTrue(dbg.get('detection_type').startswith(detector)), \
+          f'Query {query} failed!'
+      if not check_place_detection:
+        with open(json_file, 'r') as infile:
+          expected = json.load(infile)
+          expected['debug'] = {}
+          expected['context'] = {}
+          a, b = (
+              json.dumps(resp, sort_keys=True, indent=2),
+              json.dumps(expected, sort_keys=True, indent=2),
+          )
+          self.maxDiff = None
+          self.assertEqual(a, b)
       else:
-        if failure:
-          self.assertTrue(failure in resp["failure"]), resp["failure"]
-          self.assertTrue(not resp["config"])
-          return
-
-        if not expected_detectors:
-          self.assertTrue(dbg.get('detection_type').startswith(detection_method)), \
-            'Query {q} failed!'
-        else:
-          self.assertTrue(dbg.get('detection_type').startswith(expected_detectors[i])), \
-            'Query {q} failed!'
-        if not check_place_detection:
-          with open(json_file, 'r') as infile:
-            expected = json.load(infile)
-            expected['debug'] = {}
-            expected['context'] = {}
-            a, b = (
-                json.dumps(resp, sort_keys=True, indent=2),
-                json.dumps(expected, sort_keys=True, indent=2),
-            )
-            self.maxDiff = None
-            self.assertEqual(a, b)
-        else:
-          # Look in the debugInfo file to match places detected.
-          dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, f'query_{i + 1}',
-                                  'debug_info.json')
-          with open(dbg_file, 'r') as infile:
-            expected = json.load(infile)
-            self.assertEqual(dbg["places_detected"],
-                             expected["places_detected"])
-            self.assertEqual(dbg["places_resolved"],
-                             expected["places_resolved"])
-            self.assertEqual(dbg["main_place_dcid"],
-                             expected["main_place_dcid"])
-            self.assertEqual(dbg["main_place_name"],
-                             expected["main_place_name"])
+        # Look in the debugInfo file to match places detected.
+        dbg_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
+                                'debug_info.json')
+        with open(dbg_file, 'r') as infile:
+          expected = json.load(infile)
+          self.assertEqual(dbg["places_detected"], expected["places_detected"])
+          self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
+          self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
+          self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox

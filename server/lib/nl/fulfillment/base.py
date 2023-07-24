@@ -28,6 +28,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
+from server.lib.nl.fulfillment.existence import build_chart_vars
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import update_extra_success_svs
@@ -48,9 +49,13 @@ _MAX_EXTENSION_SVS = 5
 # Base helper to add a chart spec to an utterance.
 # TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
 #
-def add_chart_to_utterance(chart_type: ChartType, state: PopulateState,
-                           chart_vars: ChartVars, places: List[Place],
-                           primary_vs_secondary: ChartOriginType) -> bool:
+def add_chart_to_utterance(
+    chart_type: ChartType,
+    state: PopulateState,
+    chart_vars: ChartVars,
+    places: List[Place],
+    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART
+) -> bool:
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
