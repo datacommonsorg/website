@@ -37,3 +37,18 @@
     font-size: 1.25rem;
   }
 }
+
+.search-section {
+  display: flex;
+  .btn {
+    height: 2.5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .history-button {
+    margin-left: 0.5rem;
+  }
+  .search-box-section {
+    flex-grow: 1;
+  }
+}
