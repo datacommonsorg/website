@@ -21,7 +21,7 @@ from server.lib import fetch
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
-_MIN_TOPIC_RANK = 3
+TOPIC_RANK_LIMIT = 3
 
 _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/Agriculture": [
@@ -425,7 +425,7 @@ _TOPIC_NAMES_OVERRIDE = {
 
 
 def get_topic_vars(topic: str, rank: int = 0):
-  if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
+  if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:

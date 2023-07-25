@@ -29,7 +29,8 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 # Number of variables to plot in a chart (largely Timeline chart)
-_MAX_VARS_PER_CHART = 5
+_MAX_VARS_PER_TIMELINE_CHART = 5
+_MAX_MAPS_PER_SUBTOPIC = 2
 
 
 class Builder:
@@ -141,8 +142,8 @@ def _add_sv_charts(sv: str, chart_vars: ftypes.ChartVars,
                           attr, builder.nopc()))
   attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   sv_spec.update(
-      ranking.ranking_chart_block_nopc(builder.new_column(), place, sv,
-                                       builder.sv2thing, attr))
+      ranking.ranking_chart_multivar(builder.new_column(), [sv],
+                                     builder.sv2thing, attr))
   return sv_spec
 
 
@@ -156,7 +157,7 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
 
   # Add timeline and/or bar charts.
-  if (len(chart_vars.svs) <= _MAX_VARS_PER_CHART and
+  if (len(chart_vars.svs) <= _MAX_VARS_PER_TIMELINE_CHART and
       not chart_vars.has_single_point):
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
@@ -175,20 +176,19 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   attr['child_type'] = state.place_type.value
   attr['ranking_count'] = 0
 
-  if len(chart_vars.svs) == 2:
-    # Add map charts.
+  # TODO: Perform data lookups and pick the top value SVs.
+  sorted_svs = sorted(chart_vars.svs)
+
+  # Add map charts.
+  for sv in sorted_svs[:_MAX_MAPS_PER_SUBTOPIC]:
     sv_spec.update(
-        map.map_chart_block(builder.new_column(), place, chart_vars.svs[0],
-                            builder.sv2thing, attr, builder.nopc()))
-    sv_spec.update(
-        map.map_chart_block(builder.new_column(), place, chart_vars.svs[1],
-                            builder.sv2thing, attr, builder.nopc()))
+        map.map_chart_block(builder.new_column(), place, sv, builder.sv2thing,
+                            attr, builder.nopc()))
 
   attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
-  # TODO: Add multivar ranking when #svs == 2
-  for sv in chart_vars.svs:
-    sv_spec.update(
-        ranking.ranking_chart_block_nopc(builder.new_column(), place, sv,
-                                         builder.sv2thing, attr))
+  sv_spec.update(
+      ranking.ranking_chart_multivar(builder.new_column(),
+                                     sorted_svs[:_MAX_MAPS_PER_SUBTOPIC],
+                                     builder.sv2thing, attr))
 
   return sv_spec
