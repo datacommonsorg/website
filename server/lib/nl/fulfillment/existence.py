@@ -72,10 +72,7 @@ class ExistenceCheckTracker:
                                               self.state.uttr.counters)
       self.existing_svs = {v: False for v in tmp_svs}
 
-    if self.existing_svs:
-      logging.info('Existence check succeeded for %s - %s',
-                   ', '.join(self.places), ', '.join(self.existing_svs.keys()))
-    else:
+    if not self.existing_svs:
       logging.info('Existence check failed for %s - %s', ', '.join(self.places),
                    ', '.join(self.all_svs))
       self.state.uttr.counters.err(

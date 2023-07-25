@@ -108,7 +108,7 @@ class IntegrationTest(NLWebServerTestCase):
                        'Commute in counties of California')
 
   def test_fulfillment_basic(self):
-    req = {'entities': ['geoId/06'], 'variables': ['dc/topic/WorkCommute']}
+    req = {'entities': ['geoId/06085'], 'variables': ['dc/topic/WorkCommute']}
     self.run_fulfillment('fulfillment_api_basic', req)
 
   def test_fulfillment_childtype(self):

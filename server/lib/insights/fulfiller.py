@@ -44,7 +44,6 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
   for sv in state.uttr.svs:
     cv = _build_chart_vars(state, sv)
     chart_vars_map[sv] = cv
-    logging.info(f'{sv} -> {cv}')
 
   # Get places to perform existence check on.
   places_to_check = _get_place_dcids(uttr.places)

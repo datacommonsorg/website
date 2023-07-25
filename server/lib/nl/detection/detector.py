@@ -18,6 +18,7 @@ from typing import Dict, List
 from flask import current_app
 from markupsafe import escape
 
+from server.lib.nl.common import utils
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import heuristic_detector
@@ -140,10 +141,14 @@ def construct(entities: List[str], variables: List[str], child_type: str,
     if not any([child_type == x.value for x in types.ContainedInPlaceType]):
       counters.err('failed_detection_badChildEntityType', child_type)
       return None, f'Bad childEntityType value {child_type}!'
-    c = types.NLClassifier(
-        type=types.ClassificationType.CONTAINED_IN,
-        attributes=types.ContainedInClassificationAttributes(
-            contained_in_place_type=types.ContainedInPlaceType(child_type)))
+    child_type = types.ContainedInPlaceType(child_type)
+  else:
+    child_type = utils.get_default_child_place_type(places[0])
+
+  if child_type:
+    c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
+                           attributes=types.ContainedInClassificationAttributes(
+                               contained_in_place_type=child_type))
     classifications.append(c)
 
   return types.Detection(original_query=query,
