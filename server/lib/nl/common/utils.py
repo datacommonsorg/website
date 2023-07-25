@@ -84,17 +84,20 @@ def sv_existence_for_places(places: List[str], svs: List[str],
     return []
 
   existing_svs = []
+  existsv2places = {}
   for sv in svs:
     exists = False
-    for _, exist_bit in sv_existence.get(sv, {}).items():
+    for pl, exist_bit in sv_existence.get(sv, {}).items():
       if not exist_bit:
         continue
       exists = True
-      break
+      if sv not in existsv2places:
+        existsv2places[sv] = set()
+      existsv2places[sv].add(pl)
     if exists:
       existing_svs.append(sv)
 
-  return existing_svs
+  return existing_svs, existsv2places
 
 
 # Returns a map of existing SVs (as a union across places)
@@ -104,7 +107,7 @@ def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str],
     counters: ctr.Counters) -> Dict[str, bool]:
   if not svs:
-    return {}
+    return {}, {}
 
   start = time.time()
   series_data = fetch.series_core(entities=places,
@@ -113,13 +116,17 @@ def sv_existence_for_places_check_single_point(
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
+  existsv2places = {}
   for sv, sv_data in series_data.get('data', {}).items():
-    for _, place_data in sv_data.items():
+    for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
       num_series = len(place_data['series'])
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
-  return existing_svs
+      if sv not in existsv2places:
+        existsv2places[sv] = {}
+      existsv2places[sv][pl] = (num_series == 1)
+  return existing_svs, existsv2places
 
 
 #

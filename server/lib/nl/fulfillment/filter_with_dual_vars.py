@@ -132,8 +132,8 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   selected_svs = open_top_topics_ordered(selected_svs, state.uttr.counters)
 
   # Perform existence checks.
-  selected_svs = utils.sv_existence_for_places(place_dcids, selected_svs,
-                                               state.uttr.counters)
+  selected_svs, _ = utils.sv_existence_for_places(place_dcids, selected_svs,
+                                                  state.uttr.counters)
   if not selected_svs:
     state.uttr.counters.err('filter-with-dual-vars_selectedexistencefailed',
                             selected_svs)
