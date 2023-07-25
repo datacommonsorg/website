@@ -128,7 +128,6 @@ export function App(): JSX.Element {
   return (
     <div className="insights-container">
       <Container>
-        <h1>Insights</h1>
         <div className="search-section">
           <div className="search-box-section">
             <TextSearchBar
