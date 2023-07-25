@@ -53,9 +53,10 @@ class SVExistenceCheckState:
 class ExistenceCheckTracker:
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
-  def __init__(self, state: PopulateState, places: List[str]):
+  def __init__(self, state: PopulateState, place2keys: Dict):
     self.state = state
-    self.places = places
+    self.place2keys = place2keys
+    self.places = sorted(place2keys.keys())
     self.all_svs = set()
     self.exist_sv_states: List[SVExistenceCheckState] = []
     # Map of existing SVs with key as SV DCID and value as
@@ -65,12 +66,25 @@ class ExistenceCheckTracker:
   def _run(self):
     # Perform batch existence check.
     if self.state.uttr.query_type == QueryType.SIMPLE:
-      self.existing_svs = utils.sv_existence_for_places_check_single_point(
+      self.existing_svs, existsv2places = \
+        utils.sv_existence_for_places_check_single_point(
           self.places, list(self.all_svs), self.state.uttr.counters)
     else:
-      tmp_svs = utils.sv_existence_for_places(self.places, list(self.all_svs),
-                                              self.state.uttr.counters)
+      tmp_svs, tmp_existsv2places = utils.sv_existence_for_places(
+          self.places, list(self.all_svs), self.state.uttr.counters)
       self.existing_svs = {v: False for v in tmp_svs}
+      existsv2places = {}
+      for sv, plset in tmp_existsv2places.items():
+        existsv2places[sv] = {p: False for p in plset}
+
+    # In `state`, set sv -> place Key -> is-single-point
+    for sv, pl2sp in existsv2places.items():
+      self.state.exist_checks[sv] = {}
+      for pl, is_singlepoint in pl2sp.items():
+        k = self.place2keys[pl]
+        if k not in self.state.exist_checks[sv]:
+          self.state.exist_checks[sv][k] = False
+        self.state.exist_checks[sv][k] |= is_singlepoint
 
     if not self.existing_svs:
       logging.info('Existence check failed for %s - %s', ', '.join(self.places),
@@ -126,10 +140,11 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self,
                state: PopulateState,
-               places: List[str],
+               place2keys: Dict[str, str],
                svs: List[str],
                sv2chartvarslist: Dict = {}):
-    super().__init__(state, places)
+    super().__init__(state, place2keys)
+    places = place2keys.keys()
 
     # Loop over all SVs, and construct existence check state.
     for rank, sv in enumerate(svs):
@@ -169,9 +184,9 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
 class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
 
   # NOTE: If sv2extensions is set, then this is for extensions only.
-  def __init__(self, state: PopulateState, places: List[str], svs: List[str],
-               sv2extensions: Dict):
-    super().__init__(state, places)
+  def __init__(self, state: PopulateState, place2keys: Dict[str, str],
+               svs: List[str], sv2extensions: Dict):
+    super().__init__(state, place2keys)
 
     # Loop over all SVs, and construct existence check state.
     for sv in svs:

@@ -46,13 +46,17 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
     chart_vars_map[sv] = cv
 
   # Get places to perform existence check on.
-  places_to_check = _get_place_dcids(uttr.places)
+  places_to_check = {}
+  for p in _get_place_dcids(uttr.places):
+    places_to_check[p] = p
   if state.place_type:
     # REQUIRES: len(places) == 1
-    places_to_check.extend(
-        cutils.get_sample_child_places(uttr.places[0].dcid,
-                                       state.place_type.value,
-                                       state.uttr.counters))
+    key = uttr.places[0].dcid + state.place_type.value
+    for p in cutils.get_sample_child_places(uttr.places[0].dcid,
+                                            state.place_type.value,
+                                            state.uttr.counters):
+      places_to_check[p] = key
+
   if not places_to_check:
     uttr.counters.err("failed_NoPlacesToCheck", '')
     return
