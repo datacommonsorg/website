@@ -47,7 +47,7 @@ export function Chart(): JSX.Element {
       };
     });
     const statVarLabels = statVars.map((sv) => sv.info.title || sv.dcid);
-    let statVarInfo: Record<string, StatVarInfo> = {}
+    const statVarInfo: Record<string, StatVarInfo> = {};
     let lineChartGrouping: {
       groups: { [groupId: string]: string[] };
       chartOrder: string[];
