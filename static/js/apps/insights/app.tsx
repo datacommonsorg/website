@@ -175,6 +175,7 @@ export function App(): JSX.Element {
           <div className="row col-md-9x col-lg-9">
             {chartData && chartData.pageConfig && (
               <>
+                <div id="place-callout">{chartData.place.name}</div>
                 {chartData.parentPlaces && (
                   <ParentPlace
                     parentPlaces={chartData.parentPlaces}
