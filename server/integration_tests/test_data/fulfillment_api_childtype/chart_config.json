@@ -27,6 +27,22 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb",
+                      "dc/6rltk4kf75612"
+                    ],
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
@@ -43,21 +59,6 @@
                     ],
                     "title": "Work at home in California (${date})",
                     "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/0gettc3bc60cb",
-                      "dc/6rltk4kf75612"
-                    ],
-                    "type": "RANKING"
                   }
                 ]
               }
