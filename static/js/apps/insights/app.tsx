@@ -49,6 +49,7 @@ export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -73,29 +74,28 @@ export function App(): JSX.Element {
   useEffect(() => {
     setLoadingStatus("loading");
     (async () => {
-      const place = getSingleParam(hashParams["p"]);
-      const topic = getSingleParam(hashParams["t"]);
-      const query = getSingleParam(hashParams["q"]);
-      const placeType = getSingleParam(hashParams["pt"]);
+      let place = getSingleParam(hashParams["p"]);
+      let topic = getSingleParam(hashParams["t"]);
+      let placeType = getSingleParam(hashParams["pt"]);
+      const q = getSingleParam(hashParams["q"]);
 
-      let resp;
-      if (place && topic) {
-        resp = await fetchFulfillData(place, topic, placeType);
-      } else if (query) {
-        const detectResp = await fetchDetectData(query);
+      if (q) {
+        setQuery(q);
+        const detectResp = await fetchDetectData(q);
         if (!detectResp["entities"] || !detectResp["variables"]) {
           setLoadingStatus("fail");
           return;
         }
-        resp = await fetchFulfillData(
-          detectResp["entities"][0],
-          detectResp["variables"][0],
-          detectResp["childEntityType"] || ""
-        );
-      }
-      if (!resp) {
+        place = detectResp["entities"][0];
+        topic = detectResp["variables"][0];
+        placeType = detectResp["childEntityType"] || "";
+        updateHash({ q: "", t: topic, p: place, pt: placeType });
         return;
       }
+      if (!place || !topic) {
+        return;
+      }
+      const resp = await fetchFulfillData(place, topic, placeType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -108,6 +108,7 @@ export function App(): JSX.Element {
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
+        topic,
       };
       setLoadingStatus("loaded");
       setChartData(chartData);
@@ -116,18 +117,11 @@ export function App(): JSX.Element {
 
   let mainSection;
   const place = getSingleParam(hashParams["p"]);
-  const query = getSingleParam(hashParams["q"]);
-  const topic = getSingleParam(hashParams["t"]);
   if (loadingStatus == "fail") {
     mainSection = <div>No data is found</div>;
-  } else if (loadingStatus == "loaded") {
+  } else if (loadingStatus == "loaded" && chartData) {
     let urlString = "/insights/#p=${placeDcid}";
-    if (topic) {
-      urlString += `&t=${topic}`;
-    }
-    if (query) {
-      urlString += `&q=${query}`;
-    }
+    urlString += `&t=${chartData.topic}`;
     mainSection = (
       <div className="insights-charts">
         <div className="row">
@@ -185,7 +179,7 @@ export function App(): JSX.Element {
                   <ParentPlace
                     parentPlaces={chartData.parentPlaces}
                     placeType={chartData.place.types[0]}
-                    topic={topic}
+                    topic={chartData.topic}
                   ></ParentPlace>
                 )}
                 <SubjectPageMainPane
