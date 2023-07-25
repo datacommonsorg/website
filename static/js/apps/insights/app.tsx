@@ -97,7 +97,7 @@ export function App(): JSX.Element {
         return;
       }
       const mainPlace = resp["place"];
-      const chartData = {
+      const chartData: SubjectPageMetadata = {
         place: {
           dcid: mainPlace["dcid"],
           name: mainPlace["name"],
@@ -115,6 +115,7 @@ export function App(): JSX.Element {
   }, [hashParams]);
 
   let mainSection;
+  const place = getSingleParam(hashParams["p"]);
   const query = getSingleParam(hashParams["q"]);
   const topic = getSingleParam(hashParams["t"]);
   if (loadingStatus == "fail") {
@@ -127,7 +128,6 @@ export function App(): JSX.Element {
     if (query) {
       urlString += `&q=${query}`;
     }
-    console.log(urlString);
     mainSection = (
       <div className="insights-charts">
         <div className="row">
@@ -138,6 +138,38 @@ export function App(): JSX.Element {
                   id={PAGE_ID}
                   categories={chartData.pageConfig.categories}
                 />
+                {chartData && chartData.peerTopics.length > 0 && (
+                  <div className="topics-box">
+                    <div className="topics-head">Similar Topics</div>
+                    {chartData.peerTopics.map((peerTopic, idx) => {
+                      return (
+                        <a
+                          className="topic-link"
+                          key={idx}
+                          href={`/insights/#p=${place}&t=${peerTopic.dcid}`}
+                        >
+                          {peerTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+                {chartData && chartData.parentTopics.length > 0 && (
+                  <div className="topics-box">
+                    <div className="topics-head">Broader Topics</div>
+                    {chartData.parentTopics.map((parentTopic, idx) => {
+                      return (
+                        <a
+                          className="topic-link"
+                          key={idx}
+                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
+                        >
+                          {parentTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
                 <ChildPlaces
                   childPlaces={chartData.childPlaces}
                   parentPlace={chartData.place}
