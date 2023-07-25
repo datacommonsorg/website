@@ -42,8 +42,8 @@ export function getStatVarGroups(
     if (!statVarInfo[statVarId]) {
       continue;
     }
-    const mprop = statVarInfo[statVarId].mprop;
-    const md = statVarInfo[statVarId].md;
+    const mprop = statVarInfo[statVarId].mprop || "none";
+    const md = statVarInfo[statVarId].md || "none";
     const key = `${mprop}-${md}`;
     if (!groups[key]) {
       groups[key] = [];
