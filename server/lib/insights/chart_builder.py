@@ -180,8 +180,8 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     _add_svpg_line_or_bar(chart_vars, state, attr, builder, sv_spec)
 
     sv_spec.update(
-      ranking.ranking_chart_multivar(builder.new_column(),
-                                     sorted_svs, builder.sv2thing, attr))
+        ranking.ranking_chart_multivar(builder.new_column(), sorted_svs,
+                                       builder.sv2thing, attr))
   else:
     # If there >2 SVs, show:
     # BAR  | RANK
@@ -189,8 +189,8 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     _add_svpg_line_or_bar(chart_vars, state, attr, builder, sv_spec)
 
     sv_spec.update(
-      ranking.ranking_chart_multivar(builder.new_column(),
-                                     sorted_svs, builder.sv2thing, attr))
+        ranking.ranking_chart_multivar(builder.new_column(), sorted_svs,
+                                       builder.sv2thing, attr))
 
     for sv in sorted_svs:
       sv_spec.update(
@@ -201,18 +201,15 @@ def _add_svpg_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
 
 def _add_svpg_line_or_bar(chart_vars: ftypes.ChartVars,
-                          state: ftypes.PopulateState,
-                          attr: Dict,
-                          builder: Builder,
-                          sv_spec: Dict):
+                          state: ftypes.PopulateState, attr: Dict,
+                          builder: Builder, sv_spec: Dict):
   # Add timeline and/or bar charts.
   if (len(chart_vars.svs) <= _MAX_VARS_PER_TIMELINE_CHART and
       not chart_vars.has_single_point):
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
-            builder.new_column(), state.uttr.places[0],
-            chart_vars.svs, builder.sv2thing, attr,
-            builder.nopc()))
+            builder.new_column(), state.uttr.places[0], chart_vars.svs,
+            builder.sv2thing, attr, builder.nopc()))
   else:
     sv_spec.update(
         bar.multiple_place_bar_block(builder.new_column(), state.uttr.places,
