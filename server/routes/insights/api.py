@@ -166,16 +166,20 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
+    start = time.time()
     metadata = place_metadata(main_place.dcid)
     if not metadata.is_error:
       related_things['parentPlaces'] = _trim_names(metadata.parent_places)
       related_things['childPlaces'] = _trim_names(metadata.child_places)
+    utterance.counters.timeit('place_expansion', start)
 
-    if utterance.svs and utils.is_topic(utterance.svs[0]):
-      pt = topic.get_parent_topics([utterance.svs[0]])
+    if utterance.svs:
+      start = time.time()
+      pt = topic.get_parent_topics(utterance.svs)
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
       related_things['peerTopics'] = topic.get_child_topics(pt)
+      utterance.counters.timeit('topic_expansion', start)
 
   else:
     page_config = {}
