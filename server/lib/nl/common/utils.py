@@ -74,14 +74,14 @@ def event_existence_for_place(place: str, event: types.EventType,
 def sv_existence_for_places(places: List[str], svs: List[str],
                             counters: ctr.Counters) -> List[str]:
   if not svs:
-    return []
+    return [], {}
 
   start = time.time()
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
-    return []
+    return [], {}
 
   existing_svs = []
   existsv2places = {}
