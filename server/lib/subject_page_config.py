@@ -244,14 +244,20 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
   return page_config
 
 
-def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
+def place_metadata(place_dcid,
+                   get_child_places=True,
+                   arg_place_type=None,
+                   arg_place_name=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
+    if arg_place_type:
+      place_types = [arg_place_type]
+    else:
+      place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     wanted_place_types = [
@@ -268,8 +274,11 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
           'types': [place.get('type', '')]
       })
 
-  place_name = place_api.get_i18n_name([place_dcid
-                                       ]).get(place_dcid, escape(place_dcid))
+  if arg_place_name:
+    place_name = arg_place_name
+  else:
+    place_name = place_api.get_i18n_name([place_dcid
+                                         ]).get(place_dcid, escape(place_dcid))
 
   # If this is a European place, update the contained_place_types in the page
   # metadata to use a custom dict instead.

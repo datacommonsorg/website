@@ -194,17 +194,21 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  return prepare_response(data_dict, status_str, utterance.detection,
-                          dbg_counters, debug_logs)
+  return prepare_response(data_dict,
+                          status_str,
+                          utterance.detection,
+                          dbg_counters,
+                          debug_logs,
+                          is_nl=True)
 
 
 def prepare_response(data_dict: Dict, status_str: str, detection: Detection,
-                     dbg_counters: Dict, debug_logs: Dict) -> Dict:
+                     dbg_counters: Dict, debug_logs: Dict, is_nl: bool) -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
-  if current_app.config['LOG_QUERY']:
+  if current_app.config['LOG_QUERY'] and is_nl:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
     session_info = context.get_session_info(data_dict['context'])

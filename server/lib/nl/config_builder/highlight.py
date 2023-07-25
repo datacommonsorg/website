@@ -17,11 +17,12 @@ from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 
 
-def higlight_block(column, sv, sv2thing: base.SV2Thing):
-  chart_title = base.decorate_chart_title(title=sv2thing.name[sv])
+def higlight_block(column, place, sv, sv2thing: base.SV2Thing):
+  chart_title = base.decorate_chart_title(title=sv2thing.name[sv], place=place)
 
   tile = Tile(type=Tile.TileType.HIGHLIGHT,
               title=chart_title,
+              description=chart_title,
               stat_var_key=[sv])
   stat_var_spec_map = {}
   stat_var_spec_map[sv] = StatVarSpec(stat_var=sv,

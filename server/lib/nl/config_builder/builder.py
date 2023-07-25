@@ -40,6 +40,7 @@ class Config:
 
 #
 # Given an Utterance, build the final Chart config proto.
+# TODO: Do fine-grained existence checks while adding charts.
 #
 def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   builder = base.Builder(uttr)
