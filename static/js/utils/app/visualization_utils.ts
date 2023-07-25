@@ -110,7 +110,7 @@ export function getEnclosedPlaceTypes(
  * @param visType selected vis type
  * @param places selected list of places
  * @param enclosedPlaceType selected enclosed place type
- * @param statVars seleceted list of stat vars
+ * @param statVars selected list of stat vars
  */
 export function isSelectionComplete(
   visType: string,

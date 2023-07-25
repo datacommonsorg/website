@@ -92,7 +92,7 @@ export function AppContextProvider(
   };
   const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
 
-  // Gets the value form the url for a param
+  // Gets the value from the url for a param
   function getParamValue(paramKey: string): string {
     const params = new URLSearchParams(
       decodeURIComponent(location.hash).replace("#", "?")
