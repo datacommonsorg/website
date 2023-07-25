@@ -29,7 +29,7 @@ import server.lib.nl.fulfillment.context as ctx
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 15
+NUM_CHILD_PLACES_FOR_EXISTENCE = 15
 
 
 def is_topic(sv):
@@ -145,8 +145,8 @@ def _get_sample_child_places(main_place_dcid: str,
   if child_places.get(main_place_dcid):
     logging.info(
         '_sample_child_place returning %s', ', '.join(
-            child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-    return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+            child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]))
+    return child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
     if arcs:
@@ -158,10 +158,9 @@ def _get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info(
-              '_sample_child_place returning %s',
-              ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-          return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+          logging.info('_sample_child_place returning %s',
+                       ', '.join(child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]))
+          return child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning empty')
   return []
 

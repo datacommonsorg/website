@@ -30,11 +30,16 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
   }
 
   render(): JSX.Element {
-    const num = this.props.parentPlaces.length;
+    let num = 0;
+    if (this.props.parentPlaces) {
+      num = this.props.parentPlaces.length;
+    }
     return (
       <div id="parent-places">
-        <span id="parent-place-head">{this.props.placeType} in </span>
-        {this.props.parentPlaces &&
+        {num > 0 && (
+          <span id="parent-place-head">{this.props.placeType} in </span>
+        )}
+        {num > 0 &&
           this.props.parentPlaces.map((parent, index) => {
             if (index === num - 1) {
               return (
