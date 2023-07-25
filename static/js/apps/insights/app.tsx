@@ -51,18 +51,14 @@ export function App(): JSX.Element {
         resp = await fetchFulfillData(place, topic, placeType);
       } else if (query) {
         const detectResp = await fetchDetectData(query);
-        if (
-          !detectResp["entities"] ||
-          !detectResp["variables"] ||
-          !detectResp["childEntityType"]
-        ) {
+        if (!detectResp["entities"] || !detectResp["variables"]) {
           setHasData(false);
           return;
         }
-        resp = fetchFulfillData(
+        resp = await fetchFulfillData(
           detectResp["entities"][0],
           detectResp["variables"][0],
-          detectResp["childEntityType"]
+          detectResp["childEntityType"] || ""
         );
       }
       const mainPlace = resp["place"];
