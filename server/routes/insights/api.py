@@ -13,13 +13,12 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
-import dataclasses
 from enum import Enum
 import json
 import logging
 import os
 import time
-from typing import Dict
+from typing import Dict, List
 
 import flask
 from flask import Blueprint
@@ -64,6 +63,7 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
+  _hoist_topic(utterance)
   dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
@@ -79,8 +79,12 @@ def detect():
   if place_type:
     data_dict[Params.CHILD_TYPE.value] = place_type
   status_str = "Successful"
-  return helpers.prepare_response(data_dict, status_str, utterance.detection,
-                                  dbg_counters, debug_logs)
+  return helpers.prepare_response(data_dict,
+                                  status_str,
+                                  utterance.detection,
+                                  dbg_counters,
+                                  debug_logs,
+                                  is_nl=False)
 
 
 #
@@ -166,16 +170,23 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
-    metadata = place_metadata(main_place.dcid)
+    start = time.time()
+    metadata = place_metadata(main_place.dcid,
+                              get_child_places=True,
+                              arg_place_type=main_place.place_type,
+                              arg_place_name=main_place.name)
     if not metadata.is_error:
-      related_things['parentPlaces'] = metadata.parent_places
-      related_things['childPlaces'] = metadata.child_places
+      related_things['parentPlaces'] = _trim_names(metadata.parent_places)
+      related_things['childPlaces'] = _trim_names(metadata.child_places)
+    utterance.counters.timeit('place_expansion', start)
 
-    if utterance.svs and utils.is_topic(utterance.svs[0]):
-      pt = topic.get_parent_topics([utterance.svs[0]])
+    if utterance.svs:
+      start = time.time()
+      pt = topic.get_parent_topics(utterance.svs)
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
       related_things['peerTopics'] = topic.get_child_topics(pt)
+      utterance.counters.timeit('topic_expansion', start)
 
   else:
     page_config = {}
@@ -211,5 +222,47 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  return helpers.prepare_response(data_dict, status_str, utterance.detection,
-                                  dbg_counters, debug_logs)
+  return helpers.prepare_response(data_dict,
+                                  status_str,
+                                  utterance.detection,
+                                  dbg_counters,
+                                  debug_logs,
+                                  is_nl=False)
+
+
+def _trim_names(places: List[Dict]) -> List[Dict]:
+
+  # Helper to strip out suffixes.
+  def _trim(l):
+    r = []
+    for s in [' County']:
+      for p in l:
+        if 'name' in p:
+          p['name'] = p['name'].removesuffix(s)
+        r.append(p)
+    return r
+
+  if isinstance(places, dict):
+    result = {}
+    for t, l in places.items():
+      result[t] = _trim(l)
+    return result
+  else:
+    return _trim(places)
+
+
+#
+# A topic may not often be the top-most result. In that case,
+# we look for a topic for up to TOPIC_RANK_LIMIT, and hoist to top
+# (This is the same limit NL interface uses for opening up topic).
+#
+def _hoist_topic(uttr):
+  # If no SVs, or topic is already on top, return.
+  if not uttr.svs or utils.is_topic(uttr.svs[0]):
+    return
+  for i in range(1, topic.TOPIC_RANK_LIMIT):
+    if utils.is_topic(uttr.svs[i]):
+      t = uttr.svs[0]
+      uttr.svs[0] = uttr.svs[i]
+      uttr.svs[i] = t
+      return

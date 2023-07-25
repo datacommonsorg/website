@@ -183,3 +183,18 @@ def ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
         map.map_chart_block_pc(column, pri_place, pri_sv, sv2thing, attr))
 
   return stat_var_spec_map
+
+
+def ranking_chart_multivar(column, svs: str, sv2thing: Dict, attr: Dict):
+  tile = column.tiles.add()
+  tile.type = Tile.TileType.RANKING
+  ranking_count = attr.get('ranking_count', _DEFAULT_RANKING_COUNT)
+  _set_ranking_tile_spec(attr['ranking_types'], svs[0], tile.ranking_tile_spec,
+                         ranking_count)
+  stat_var_spec_map = {}
+  for sv in svs:
+    tile.stat_var_key.append(sv)
+    stat_var_spec_map[sv] = StatVarSpec(stat_var=sv,
+                                        name=sv2thing.name[sv],
+                                        unit=sv2thing.unit[sv])
+  return stat_var_spec_map

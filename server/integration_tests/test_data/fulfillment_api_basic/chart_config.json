@@ -9,7 +9,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "geoId/06085"
                     ],
                     "statVarKey": [
                       "dc/6rltk4kf75612_multiple_place_bar_block",
@@ -19,8 +19,46 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
                       "dc/vt2q292eme79f_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in California (${date})",
+                    "title": "Modes of Commute in Santa Clara County (${date})",
                     "type": "BAR"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb",
+                      "dc/6rltk4kf75612"
+                    ],
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive alone in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Santa Clara County (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -28,9 +66,17 @@
           }
         ],
         "statVarSpec": {
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
+          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
+          },
+          "dc/6rltk4kf75612": {
+            "name": "Work at home",
+            "statVar": "dc/6rltk4kf75612"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -57,8 +103,11 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
       "placeDcid": [
-        "geoId/06"
+        "geoId/06085"
       ]
     }
   },
@@ -66,268 +115,22 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "geoId/06085",
+    "name": "Santa Clara County",
+    "place_type": "County"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "relatedThings": {
-    "childPlaces": {
-      "County": [
-        {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles County",
-          "pop": 9829544
-        },
-        {
-          "dcid": "geoId/06073",
-          "name": "San Diego County",
-          "pop": 3286069
-        },
-        {
-          "dcid": "geoId/06059",
-          "name": "Orange County",
-          "pop": 3167809
-        },
-        {
-          "dcid": "geoId/06065",
-          "name": "Riverside County",
-          "pop": 2458395
-        },
-        {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino County",
-          "pop": 2194710
-        },
-        {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara County",
-          "pop": 1885508
-        },
-        {
-          "dcid": "geoId/06001",
-          "name": "Alameda County",
-          "pop": 1648556
-        },
-        {
-          "dcid": "geoId/06067",
-          "name": "Sacramento County",
-          "pop": 1588921
-        },
-        {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa County",
-          "pop": 1161413
-        },
-        {
-          "dcid": "geoId/06019",
-          "name": "Fresno County",
-          "pop": 1013581
-        },
-        {
-          "dcid": "geoId/06029",
-          "name": "Kern County",
-          "pop": 917673
-        },
-        {
-          "dcid": "geoId/06111",
-          "name": "Ventura County",
-          "pop": 839784
-        },
-        {
-          "dcid": "geoId/06075",
-          "name": "San Francisco County",
-          "pop": 815201
-        },
-        {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin County",
-          "pop": 789410
-        },
-        {
-          "dcid": "geoId/06081",
-          "name": "San Mateo County",
-          "pop": 737888
-        },
-        {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus County",
-          "pop": 552999
-        },
-        {
-          "dcid": "geoId/06097",
-          "name": "Sonoma County",
-          "pop": 485887
-        },
-        {
-          "dcid": "geoId/06107",
-          "name": "Tulare County",
-          "pop": 477054
-        },
-        {
-          "dcid": "geoId/06095",
-          "name": "Solano County",
-          "pop": 451716
-        },
-        {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara County",
-          "pop": 446475
-        },
-        {
-          "dcid": "geoId/06053",
-          "name": "Monterey County",
-          "pop": 437325
-        },
-        {
-          "dcid": "geoId/06061",
-          "name": "Placer County",
-          "pop": 412300
-        },
-        {
-          "dcid": "geoId/06047",
-          "name": "Merced County",
-          "pop": 286461
-        },
-        {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo County",
-          "pop": 283159
-        },
-        {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz County",
-          "pop": 267792
-        },
-        {
-          "dcid": "geoId/06041",
-          "name": "Marin County",
-          "pop": 260206
-        },
-        {
-          "dcid": "geoId/06113",
-          "name": "Yolo County",
-          "pop": 216986
-        },
-        {
-          "dcid": "geoId/06007",
-          "name": "Butte County",
-          "pop": 208309
-        },
-        {
-          "dcid": "geoId/06017",
-          "name": "El Dorado County",
-          "pop": 193221
-        },
-        {
-          "dcid": "geoId/06089",
-          "name": "Shasta County",
-          "pop": 182139
-        },
-        {
-          "dcid": "geoId/06025",
-          "name": "Imperial County",
-          "pop": 179851
-        },
-        {
-          "dcid": "geoId/06039",
-          "name": "Madera County",
-          "pop": 159410
-        },
-        {
-          "dcid": "geoId/06031",
-          "name": "Kings County",
-          "pop": 153443
-        },
-        {
-          "dcid": "geoId/06023",
-          "name": "Humboldt County",
-          "pop": 136310
-        },
-        {
-          "dcid": "geoId/06055",
-          "name": "Napa County",
-          "pop": 136207
-        },
-        {
-          "dcid": "geoId/06057",
-          "name": "Nevada County",
-          "pop": 103487
-        },
-        {
-          "dcid": "geoId/06101",
-          "name": "Sutter County",
-          "pop": 99063
-        },
-        {
-          "dcid": "geoId/06045",
-          "name": "Mendocino County",
-          "pop": 91305
-        },
-        {
-          "dcid": "geoId/06115",
-          "name": "Yuba County",
-          "pop": 83421
-        },
-        {
-          "dcid": "geoId/06033",
-          "name": "Lake County",
-          "pop": 68766
-        },
-        {
-          "dcid": "geoId/06069",
-          "name": "San Benito County",
-          "pop": 66677
-        },
-        {
-          "dcid": "geoId/06103",
-          "name": "Tehama County",
-          "pop": 65498
-        },
-        {
-          "dcid": "geoId/06109",
-          "name": "Tuolumne County",
-          "pop": 55810
-        },
-        {
-          "dcid": "geoId/06009",
-          "name": "Calaveras County",
-          "pop": 46221
-        },
-        {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou County",
-          "pop": 44118
-        },
-        {
-          "dcid": "geoId/06005",
-          "name": "Amador County",
-          "pop": 41259
-        },
-        {
-          "dcid": "geoId/06035",
-          "name": "Lassen County",
-          "pop": 33159
-        },
-        {
-          "dcid": "geoId/06021",
-          "name": "Glenn County",
-          "pop": 28805
-        },
-        {
-          "dcid": "geoId/06015",
-          "name": "Del Norte County",
-          "pop": 28100
-        },
-        {
-          "dcid": "geoId/06011",
-          "name": "Colusa County",
-          "pop": 21917
-        }
-      ]
-    },
+    "childPlaces": {},
     "parentPlaces": [
+      {
+        "dcid": "geoId/06",
+        "name": "California",
+        "types": [
+          "State"
+        ]
+      },
       {
         "dcid": "usc/PacificDivision",
         "name": "Pacific Division",
