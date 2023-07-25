@@ -38,4 +38,6 @@ export interface SubjectPageMetadata {
   parentTopics?: NamedTypedNode[];
 
   peerTopics?: NamedTypedNode[];
+
+  topic?: string;
 }
