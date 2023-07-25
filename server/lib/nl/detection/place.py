@@ -231,10 +231,13 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 
 #
 # Helper function to retrieve `Place` objects corresponding to DCIDs
-# by using the DC API.
+# by using the DC API. `parent_places` if set, will have a map of
+# dcid to empty list, to be populated by this function.
 #
-def get_place_from_dcids(place_dcids: List[str],
-                         debug_logs: Dict) -> List[Place]:
+def get_place_from_dcids(
+    place_dcids: List[str],
+    debug_logs: Dict,
+    parent_places: Dict[str, List[str]] = None) -> List[Place]:
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):
@@ -251,10 +254,15 @@ def get_place_from_dcids(place_dcids: List[str],
     ptype = self['type']
     country = None
     for parent in info.get('parents', []):
-      if ('dcid' in parent and 'type' in parent and
-          parent['type'] == 'Country'):
+      if 'dcid' not in parent or 'type' not in parent or 'name' not in parent:
+        continue
+      if parent_places:
+        parent_places[dcid].append(
+            Place(dcid=parent['dcid'],
+                  name=parent['name'],
+                  place_type=parent['type']))
+      if parent['type'] == 'Country':
         country = parent['dcid']
-        break
     if not country and ptype == 'Country':
       # Set country for entities of type country too, so
       # downstream code can rely on it.

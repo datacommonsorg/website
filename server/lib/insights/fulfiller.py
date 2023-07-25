@@ -15,7 +15,7 @@
 
 import logging
 import time
-from typing import List
+from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.insights import chart_builder
@@ -50,16 +50,18 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
   for p in _get_place_dcids(uttr.places):
     places_to_check[p] = p
   if state.place_type:
-    # REQUIRES: len(places) == 1
+    # Add child places
     key = uttr.places[0].dcid + state.place_type.value
-    for p in cutils.get_sample_child_places(uttr.places[0].dcid,
-                                            state.place_type.value,
-                                            state.uttr.counters):
-      places_to_check[p] = key
+    for p in uttr.detection.places_detected.child_places[:cutils.
+                                                         NUM_CHILD_PLACES_FOR_EXISTENCE]:
+      places_to_check[p.dcid] = key
+  for p in uttr.detection.places_detected.parent_places:
+    places_to_check[p.dcid] = p.dcid
+  logging.info(places_to_check)
 
   if not places_to_check:
     uttr.counters.err("failed_NoPlacesToCheck", '')
-    return
+    return None, {}
 
   # Perform existence checks for all the SVs!
   # TODO: Improve existence checks to handle distinction between main-place
@@ -77,7 +79,81 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
         existing_svs.update(chart_vars.svs)
         chart_vars_list.append(chart_vars)
 
-  return chart_builder.build(chart_vars_list, state, existing_svs, cb_config)
+  chart_pb = chart_builder.build(chart_vars_list, state, existing_svs,
+                                 cb_config)
+  related_things = _compute_related_things(state)
+
+  return chart_pb, related_things
+
+
+def _compute_related_things(state: ftypes.PopulateState):
+  # Trim child and parent places based on existence check results.
+  _trim_nonexistent_places(state)
+
+  related_things = {
+      'parentPlaces': [],
+      'childPlaces': {},
+      'parentTopics': [],
+      'peerTopics': [],
+  }
+
+  # Convert the places to json.
+  pd = state.uttr.detection.places_detected
+  related_things['parentPlaces'] = _get_json_places(pd.parent_places)
+  if state.place_type:
+    related_things['childPlaces'] = {
+        state.place_type.value: _get_json_places(pd.child_places)
+    }
+
+  # Expan to parent and peer topics.
+  if state.uttr.svs:
+    start = time.time()
+    pt = topic.get_parent_topics(state.uttr.svs)
+    related_things['parentTopics'] = pt
+    pt = [p['dcid'] for p in pt]
+    related_things['peerTopics'] = topic.get_child_topics(pt)
+    state.uttr.counters.timeit('topic_expansion', start)
+
+  return related_things
+
+
+# Also delete non-existent child and parent places in detection!
+def _trim_nonexistent_places(state: ftypes.PopulateState):
+  detection = state.uttr.detection.places_detected
+
+  # Existing placekeys
+  exist_placekeys = set()
+  for _, plmap in state.exist_checks.items():
+    exist_placekeys.update(plmap.keys())
+
+  # For child places, use a specific key:
+  if detection.child_places:
+    key = state.uttr.places[0].dcid + state.place_type.value
+    if key not in exist_placekeys:
+      detection.child_places = []
+
+  exist_parents = []
+  for p in detection.parent_places:
+    if p.dcid in exist_placekeys:
+      exist_parents.append(p)
+  detection.parent_places = exist_parents
+
+
+def _get_json_places(places: List[dtypes.Place]) -> List[Dict]:
+  # Helper to strip out suffixes.
+  def _trim(l):
+    r = []
+    for s in [' County']:
+      for p in l:
+        if 'name' in p:
+          p['name'] = p['name'].removesuffix(s)
+        r.append(p)
+    return r
+
+  res = []
+  for p in places:
+    res.append({'dcid': p.dcid, 'name': p.name, 'types': [p.place_type]})
+  return _trim(res)
 
 
 def _build_chart_vars(state: ftypes.PopulateState,

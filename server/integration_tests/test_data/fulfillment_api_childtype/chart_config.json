@@ -125,291 +125,188 @@
     "childPlaces": {
       "County": [
         {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles",
-          "pop": 9829544
-        },
-        {
-          "dcid": "geoId/06073",
-          "name": "San Diego",
-          "pop": 3286069
-        },
-        {
-          "dcid": "geoId/06059",
-          "name": "Orange",
-          "pop": 3167809
-        },
-        {
-          "dcid": "geoId/06065",
-          "name": "Riverside",
-          "pop": 2458395
-        },
-        {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino",
-          "pop": 2194710
-        },
-        {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara",
-          "pop": 1885508
-        },
-        {
           "dcid": "geoId/06001",
           "name": "Alameda",
-          "pop": 1648556
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06067",
-          "name": "Sacramento",
-          "pop": 1588921
-        },
-        {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa",
-          "pop": 1161413
-        },
-        {
-          "dcid": "geoId/06019",
-          "name": "Fresno",
-          "pop": 1013581
-        },
-        {
-          "dcid": "geoId/06029",
-          "name": "Kern",
-          "pop": 917673
-        },
-        {
-          "dcid": "geoId/06111",
-          "name": "Ventura",
-          "pop": 839784
-        },
-        {
-          "dcid": "geoId/06075",
-          "name": "San Francisco",
-          "pop": 815201
-        },
-        {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin",
-          "pop": 789410
-        },
-        {
-          "dcid": "geoId/06081",
-          "name": "San Mateo",
-          "pop": 737888
-        },
-        {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus",
-          "pop": 552999
-        },
-        {
-          "dcid": "geoId/06097",
-          "name": "Sonoma",
-          "pop": 485887
-        },
-        {
-          "dcid": "geoId/06107",
-          "name": "Tulare",
-          "pop": 477054
-        },
-        {
-          "dcid": "geoId/06095",
-          "name": "Solano",
-          "pop": 451716
-        },
-        {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara",
-          "pop": 446475
-        },
-        {
-          "dcid": "geoId/06053",
-          "name": "Monterey",
-          "pop": 437325
-        },
-        {
-          "dcid": "geoId/06061",
-          "name": "Placer",
-          "pop": 412300
-        },
-        {
-          "dcid": "geoId/06047",
-          "name": "Merced",
-          "pop": 286461
-        },
-        {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo",
-          "pop": 283159
-        },
-        {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz",
-          "pop": 267792
-        },
-        {
-          "dcid": "geoId/06041",
-          "name": "Marin",
-          "pop": 260206
-        },
-        {
-          "dcid": "geoId/06113",
-          "name": "Yolo",
-          "pop": 216986
-        },
-        {
-          "dcid": "geoId/06007",
-          "name": "Butte",
-          "pop": 208309
-        },
-        {
-          "dcid": "geoId/06017",
-          "name": "El Dorado",
-          "pop": 193221
-        },
-        {
-          "dcid": "geoId/06089",
-          "name": "Shasta",
-          "pop": 182139
-        },
-        {
-          "dcid": "geoId/06025",
-          "name": "Imperial",
-          "pop": 179851
-        },
-        {
-          "dcid": "geoId/06039",
-          "name": "Madera",
-          "pop": 159410
-        },
-        {
-          "dcid": "geoId/06031",
-          "name": "Kings",
-          "pop": 153443
-        },
-        {
-          "dcid": "geoId/06023",
-          "name": "Humboldt",
-          "pop": 136310
-        },
-        {
-          "dcid": "geoId/06055",
-          "name": "Napa",
-          "pop": 136207
-        },
-        {
-          "dcid": "geoId/06057",
-          "name": "Nevada",
-          "pop": 103487
-        },
-        {
-          "dcid": "geoId/06101",
-          "name": "Sutter",
-          "pop": 99063
-        },
-        {
-          "dcid": "geoId/06045",
-          "name": "Mendocino",
-          "pop": 91305
-        },
-        {
-          "dcid": "geoId/06115",
-          "name": "Yuba",
-          "pop": 83421
-        },
-        {
-          "dcid": "geoId/06033",
-          "name": "Lake",
-          "pop": 68766
-        },
-        {
-          "dcid": "geoId/06069",
-          "name": "San Benito",
-          "pop": 66677
-        },
-        {
-          "dcid": "geoId/06103",
-          "name": "Tehama",
-          "pop": 65498
-        },
-        {
-          "dcid": "geoId/06109",
-          "name": "Tuolumne",
-          "pop": 55810
-        },
-        {
-          "dcid": "geoId/06009",
-          "name": "Calaveras",
-          "pop": 46221
-        },
-        {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou",
-          "pop": 44118
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
         },
         {
           "dcid": "geoId/06005",
           "name": "Amador",
-          "pop": 41259
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06035",
-          "name": "Lassen",
-          "pop": 33159
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06021",
-          "name": "Glenn",
-          "pop": 28805
-        },
-        {
-          "dcid": "geoId/06015",
-          "name": "Del Norte",
-          "pop": 28100
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
         },
         {
           "dcid": "geoId/06011",
           "name": "Colusa",
-          "pop": 21917
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
         }
       ]
     },
     "parentPlaces": [
       {
-        "dcid": "usc/PacificDivision",
-        "name": "Pacific Division",
-        "types": [
-          "CensusDivision"
-        ]
-      },
-      {
         "dcid": "country/USA",
         "name": "United States",
         "types": [
           "Country"
-        ]
-      },
-      {
-        "dcid": "usc/WestRegion",
-        "name": "West Region",
-        "types": [
-          "CensusRegion"
-        ]
-      },
-      {
-        "dcid": "northamerica",
-        "name": "North America",
-        "types": [
-          "Continent"
-        ]
-      },
-      {
-        "dcid": "Earth",
-        "name": "Earth",
-        "types": [
-          "Place"
         ]
       }
     ],
