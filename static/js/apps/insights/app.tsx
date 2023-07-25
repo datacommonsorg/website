@@ -24,13 +24,13 @@ import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { updateHash } from "../../utils/url_utils";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { Sidebar } from "./sidebar";
 
 const PAGE_ID = "insights";
 
@@ -128,26 +128,13 @@ export function App(): JSX.Element {
           <div className="col-md-3x col-lg-3 order-last order-lg-0">
             {chartData && chartData.pageConfig && (
               <>
-                <SubjectPageSidebar
+                <Sidebar
                   id={PAGE_ID}
+                  currentTopicDcid={chartData.topic}
+                  place={place}
                   categories={chartData.pageConfig.categories}
+                  peerTopics={chartData.peerTopics}
                 />
-                {chartData && chartData.peerTopics.length > 0 && (
-                  <div className="topics-box">
-                    <div className="topics-head">Similar Topics</div>
-                    {chartData.peerTopics.map((peerTopic, idx) => {
-                      return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={`/insights/#p=${place}&t=${peerTopic.dcid}`}
-                        >
-                          {peerTopic.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
                 {chartData && chartData.parentTopics.length > 0 && (
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
@@ -176,7 +163,7 @@ export function App(): JSX.Element {
             {chartData && chartData.pageConfig && (
               <>
                 <div id="place-callout">{chartData.place.name}</div>
-                {chartData.parentPlaces && (
+                {chartData.parentPlaces.length > 0 && (
                   <ParentPlace
                     parentPlaces={chartData.parentPlaces}
                     placeType={chartData.place.types[0]}
