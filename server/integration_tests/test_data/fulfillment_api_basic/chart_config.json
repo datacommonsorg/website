@@ -122,7 +122,185 @@
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601458",
+          "name": "Alum Rock",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0601486",
+          "name": "Alviso",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608848",
+          "name": "Buena Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608968",
+          "name": "Burbank",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610088",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610345",
+          "name": "Campbell",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0617610",
+          "name": "Cupertino",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620598",
+          "name": "East Foothills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0627080",
+          "name": "Fruitdale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0629504",
+          "name": "Gilroy",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641282",
+          "name": "Lexington Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643280",
+          "name": "Los Altos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643294",
+          "name": "Los Altos Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644112",
+          "name": "Los Gatos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644378",
+          "name": "Loyola",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0647766",
+          "name": "Milpitas",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0648956",
+          "name": "Monte Sereno",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649278",
+          "name": "Morgan Hill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649670",
+          "name": "Mountain View",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668000",
+          "name": "San Jose",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668238",
+          "name": "San Martin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0669084",
+          "name": "Santa Clara",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0670280",
+          "name": "Saratoga",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671074",
+          "name": "Seven Trees",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
     "parentPlaces": [
       {
         "dcid": "geoId/06",
@@ -132,38 +310,10 @@
         ]
       },
       {
-        "dcid": "usc/PacificDivision",
-        "name": "Pacific Division",
-        "types": [
-          "CensusDivision"
-        ]
-      },
-      {
         "dcid": "country/USA",
         "name": "United States",
         "types": [
           "Country"
-        ]
-      },
-      {
-        "dcid": "usc/WestRegion",
-        "name": "West Region",
-        "types": [
-          "CensusRegion"
-        ]
-      },
-      {
-        "dcid": "northamerica",
-        "name": "North America",
-        "types": [
-          "Continent"
-        ]
-      },
-      {
-        "dcid": "Earth",
-        "name": "Earth",
-        "types": [
-          "Place"
         ]
       }
     ],
