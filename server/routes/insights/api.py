@@ -18,7 +18,7 @@ import json
 import logging
 import os
 import time
-from typing import Dict, List
+from typing import Dict
 
 import flask
 from flask import Blueprint
@@ -36,7 +36,6 @@ import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.subject_page_config import place_metadata
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
@@ -158,35 +157,13 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       nopc_vars=current_app.config['NL_NOPC_VARS'])
 
   start = time.time()
-  page_config_pb = fulfillment.fulfill_chart_config(utterance, cb_config)
-  related_things = {
-      'parentPlaces': [],
-      'childPlaces': {},
-      'parentTopics': {},
-      'peerTopics': {},
-  }
+  page_config_pb, related_things = fulfillment.fulfill_chart_config(
+      utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
   if page_config_pb:
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
-    start = time.time()
-    metadata = place_metadata(main_place.dcid,
-                              get_child_places=True,
-                              arg_place_type=main_place.place_type,
-                              arg_place_name=main_place.name)
-    if not metadata.is_error:
-      related_things['parentPlaces'] = _trim_names(metadata.parent_places)
-      related_things['childPlaces'] = _trim_names(metadata.child_places)
-    utterance.counters.timeit('place_expansion', start)
-
-    if utterance.svs:
-      start = time.time()
-      pt = topic.get_parent_topics(utterance.svs)
-      related_things['parentTopics'] = pt
-      pt = [p['dcid'] for p in pt]
-      related_things['peerTopics'] = topic.get_child_topics(pt)
-      utterance.counters.timeit('topic_expansion', start)
 
   else:
     page_config = {}
@@ -228,27 +205,6 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                   dbg_counters,
                                   debug_logs,
                                   is_nl=False)
-
-
-def _trim_names(places: List[Dict]) -> List[Dict]:
-
-  # Helper to strip out suffixes.
-  def _trim(l):
-    r = []
-    for s in [' County']:
-      for p in l:
-        if 'name' in p:
-          p['name'] = p['name'].removesuffix(s)
-        r.append(p)
-    return r
-
-  if isinstance(places, dict):
-    result = {}
-    for t, l in places.items():
-      result[t] = _trim(l)
-    return result
-  else:
-    return _trim(places)
 
 
 #
