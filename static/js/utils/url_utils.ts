@@ -50,6 +50,7 @@ export function updateHash(params: Record<string, string | string[]>): void {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   for (const param in params) {
     if (Array.isArray(params[param])) {
+      urlParams.delete(param);
       (<string[]>params[param]).forEach((v) => urlParams.append(param, v));
     } else {
       urlParams.set(param, <string>params[param]);
