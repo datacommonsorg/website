@@ -123,7 +123,10 @@ export function App(): JSX.Element {
         topic,
       };
       for (const category of chartData.pageConfig.categories) {
-        category.url = `/insights/#p=${place}&t=${category.dcid}`;
+        category.url = `/insights/#t=${category.dcid}`;
+        for (const p of places) {
+          category.url += `&p=${p}`;
+        }
       }
       setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
@@ -132,7 +135,7 @@ export function App(): JSX.Element {
   }, [hashParams]);
 
   let mainSection;
-  const place = getSingleParam(hashParams["p"]);
+  const places = getListParam(hashParams["p"]);
   if (loadingStatus == "fail") {
     mainSection = <div>No data is found</div>;
   } else if (loadingStatus == "loaded" && chartData) {
@@ -147,7 +150,7 @@ export function App(): JSX.Element {
                 <Sidebar
                   id={PAGE_ID}
                   currentTopicDcid={chartData.topic}
-                  place={place}
+                  places={places}
                   categories={chartData.pageConfig.categories}
                   peerTopics={chartData.peerTopics}
                 />
@@ -155,12 +158,12 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
+                      let url = `/insights/#t=${parentTopic.dcid}`;
+                      for (const p of places) {
+                        url += `&p=${p}`;
+                      }
                       return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
-                        >
+                        <a className="topic-link" key={idx} href={url}>
                           {parentTopic.name}
                         </a>
                       );

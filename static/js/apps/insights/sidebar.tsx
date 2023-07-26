@@ -20,16 +20,14 @@
 
 import React from "react";
 
-import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { NamedTypedNode } from "../../shared/types";
 import { randDomId } from "../../shared/util";
 import { CategoryConfig } from "../../types/subject_page_proto_types";
-import { getId } from "../../utils/subject_page_utils";
 
 interface SidebarPropType {
   id: string;
   currentTopicDcid: string;
-  place: string;
+  places: string[];
   /**
    * Categories from the page config.
    */
@@ -41,25 +39,25 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
+          let url = `/insights/#t=${topic.dcid}`;
+          for (const p of props.places) {
+            url += `&p=${p}`;
+          }
           return (
             <div key={idx} className="topic-item">
-              <a
-                className="nav-item category"
-                key={idx}
-                href={`/insights/#p=${props.place}&t=${topic.dcid}`}
-              >
+              <a className="nav-item category" key={idx} href={url}>
                 {topic.name}
               </a>
               <div className="sub-topic-group">
                 {topic.dcid == props.currentTopicDcid &&
                   props.categories &&
-                  props.categories.map((category, idx) => {
+                  props.categories.map((category) => {
+                    let url = `/insights/#t=${category.dcid}`;
+                    for (const p of props.places) {
+                      url += `&p=${p}`;
+                    }
                     return (
-                      <a
-                        key={randDomId()}
-                        className={"nav-item"}
-                        href={`/insights/#p=${props.place}&t=${category.dcid}`}
-                      >
+                      <a key={randDomId()} className={"nav-item"} href={url}>
                         {category.title}
                       </a>
                     );
