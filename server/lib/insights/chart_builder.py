@@ -62,9 +62,11 @@ class Builder:
   def nopc(self):
     return self.env_config.nopc_vars
 
-  def new_category(self, title):
+  def new_category(self, title, dcid):
     self.category = self.page_config.categories.add()
     self.category.title = title
+    if dcid:
+      self.category.dcid = dcid
 
   def new_block(self, title, description=''):
     self.block = self.category.blocks.add()
@@ -147,11 +149,13 @@ def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
     # every distinct source-topic.
     if i == 0 or prev_topic != chart_vars.source_topic:
       title = ''
+      dcid = ''
       if chart_vars.title:
         title = chart_vars.title
       elif chart_vars.source_topic:
         title = sv2thing.name.get(chart_vars.source_topic, '')
-      builder.new_category(title)
+        dcid = chart_vars.source_topic
+      builder.new_category(title, dcid)
       prev_topic = chart_vars.source_topic
     _add_charts(chart_vars, state, builder)
 
