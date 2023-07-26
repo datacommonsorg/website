@@ -177,7 +177,7 @@ const MAP_PROPS = {
 const TIMELINE_PROPS = {
   denom: "",
   delta: false,
-  mprop: "",
+  chartId: "",
   onDataUpdate: () => null,
   onMetadataMapUpdate: () => null,
   placeNameMap: { [PLACE_DCID]: PLACE_NAME },

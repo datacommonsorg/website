@@ -102,7 +102,7 @@ export function SelectedOptions(): JSX.Element {
               {!visTypeConfig.singlePlace && allowEdit && (
                 <div>
                   {showPlaceSelector ? (
-                    <div>
+                    <div className="selector-dropdown-anchor">
                       <div className="place-selector-dropdown">
                         <span
                           className="material-icons-outlined action"
@@ -128,7 +128,7 @@ export function SelectedOptions(): JSX.Element {
               )}
             </div>
             {visTypeConfig.singlePlace && showPlaceSelector && (
-              <div>
+              <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
                   <PlaceSelector hideSelections={true} />
                 </div>
@@ -157,7 +157,7 @@ export function SelectedOptions(): JSX.Element {
               </div>
             </div>
             {showPlaceTypeSelector && (
-              <div>
+              <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
                   <PlaceTypeSelector />
                 </div>

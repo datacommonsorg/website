@@ -17,6 +17,8 @@
 @import "base_tools";
 @import "stat_var_widget";
 @import "../place_selector";
+@import "../tiles.scss";
+@import "../draw_scatter.scss";
 
 $selector-footer-height: 40px;
 
@@ -122,6 +124,10 @@ $selector-footer-height: 40px;
   }
 }
 
+.selector-dropdown-anchor {
+  position: relative;
+}
+
 // place selector
 
 .place-selector-dropdown {
@@ -133,6 +139,7 @@ $selector-footer-height: 40px;
   border: solid 1px #747775;
   border-radius: 8px;
   z-index: 2;
+  top: 0;
 }
 
 /* Selector pane */
@@ -328,6 +335,9 @@ $selector-footer-height: 40px;
   .chart-area {
     flex-grow: 1;
     margin: 32px;
-    background-color: white;
+
+    .chart-container {
+      background-color: white;
+    }
   }
 }
