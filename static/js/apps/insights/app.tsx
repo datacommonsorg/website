@@ -19,54 +19,85 @@
  */
 
 import axios from "axios";
+import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getUrlToken } from "../../utils/url_utils";
+import { updateHash } from "../../utils/url_utils";
 import { ParentPlace } from "./parent_breadcrumbs";
+import { Sidebar } from "./sidebar";
 
 const PAGE_ID = "insights";
+
+const getSingleParam = (input: string | string[]): string => {
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input[0];
+  }
+  return input;
+};
 
 /**
  * Application container
  */
 export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
-  const [hasData, setHasData] = useState<boolean>(true);
-  const place = getUrlToken("p");
-  const topic = getUrlToken("t");
-  const query = getUrlToken("q");
-  const placeType = getUrlToken("pt");
+  const [loadingStatus, setLoadingStatus] = useState<string>("");
+  const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const parsedParams = queryString.parse(hash);
+      // Update component state with the parsed parameters from the hash
+      setHashParams(parsedParams);
+    };
+
+    // Listen to the 'hashchange' event and call the handler
+    window.addEventListener("hashchange", handleHashChange);
+
+    // Call the handler once initially to handle the initial hash value
+    handleHashChange();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    setLoadingStatus("loading");
     (async () => {
-      let resp;
-      if (place && topic) {
-        resp = await fetchFulfillData(place, topic, placeType);
-      } else if (query) {
-        const detectResp = await fetchDetectData(query);
-        if (
-          !detectResp["entities"] ||
-          !detectResp["variables"] ||
-          !detectResp["childEntityType"]
-        ) {
-          setHasData(false);
+      let place = getSingleParam(hashParams["p"]);
+      let topic = getSingleParam(hashParams["t"]);
+      let placeType = getSingleParam(hashParams["pt"]);
+      const q = getSingleParam(hashParams["q"]);
+
+      if (q) {
+        setQuery(q);
+        const detectResp = await fetchDetectData(q);
+        if (!detectResp["entities"] || !detectResp["variables"]) {
+          setLoadingStatus("fail");
           return;
         }
-        resp = fetchFulfillData(
-          detectResp["entities"][0],
-          detectResp["variables"][0],
-          detectResp["childEntityType"]
-        );
+        place = detectResp["entities"][0];
+        topic = detectResp["variables"][0];
+        placeType = detectResp["childEntityType"] || "";
+        updateHash({ q: "", t: topic, p: place, pt: placeType });
+        return;
       }
+      if (!place || !topic) {
+        return;
+      }
+      const resp = await fetchFulfillData(place, topic, placeType);
       const mainPlace = resp["place"];
-      const chartData = {
+      const chartData: SubjectPageMetadata = {
         place: {
           dcid: mainPlace["dcid"],
           name: mainPlace["name"],
@@ -77,27 +108,53 @@ export function App(): JSX.Element {
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
+        topic,
       };
+      setLoadingStatus("loaded");
       setChartData(chartData);
     })();
-  }, []);
+  }, [hashParams]);
 
   let mainSection;
-  if (hasData) {
+  const place = getSingleParam(hashParams["p"]);
+  if (loadingStatus == "fail") {
+    mainSection = <div>No data is found</div>;
+  } else if (loadingStatus == "loaded" && chartData) {
+    let urlString = "/insights/#p=${placeDcid}";
+    urlString += `&t=${chartData.topic}`;
     mainSection = (
       <div className="insights-charts">
         <div className="row">
           <div className="col-md-3x col-lg-3 order-last order-lg-0">
             {chartData && chartData.pageConfig && (
               <>
-                <SubjectPageSidebar
+                <Sidebar
                   id={PAGE_ID}
+                  currentTopicDcid={chartData.topic}
+                  place={place}
                   categories={chartData.pageConfig.categories}
+                  peerTopics={chartData.peerTopics}
                 />
+                {chartData && chartData.parentTopics.length > 0 && (
+                  <div className="topics-box">
+                    <div className="topics-head">Broader Topics</div>
+                    {chartData.parentTopics.map((parentTopic, idx) => {
+                      return (
+                        <a
+                          className="topic-link"
+                          key={idx}
+                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
+                        >
+                          {parentTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
                 <ChildPlaces
                   childPlaces={chartData.childPlaces}
                   parentPlace={chartData.place}
-                  urlFormatString={"/insights/#p=${placeDcid}&t=" + topic}
+                  urlFormatString={urlString}
                 ></ChildPlaces>
               </>
             )}
@@ -105,11 +162,12 @@ export function App(): JSX.Element {
           <div className="row col-md-9x col-lg-9">
             {chartData && chartData.pageConfig && (
               <>
-                {chartData.parentPlaces && (
+                <div id="place-callout">{chartData.place.name}</div>
+                {chartData.parentPlaces.length > 0 && (
                   <ParentPlace
                     parentPlaces={chartData.parentPlaces}
                     placeType={chartData.place.types[0]}
-                    topic={topic}
+                    topic={chartData.topic}
                   ></ParentPlace>
                 )}
                 <SubjectPageMainPane
@@ -125,20 +183,21 @@ export function App(): JSX.Element {
         </div>
       </div>
     );
+  } else if (loadingStatus == "loading") {
+    mainSection = <div>Loading...</div>;
   } else {
-    mainSection = <div>No data is found</div>;
+    mainSection = <></>;
   }
 
   return (
     <div className="insights-container">
       <Container>
-        <h1>Insights</h1>
         <div className="search-section">
           <div className="search-box-section">
             <TextSearchBar
               inputId="query-search-input"
               onSearch={(q) => {
-                window.open(`/insights/#q=${q}`);
+                updateHash({ q, t: "" });
               }}
               placeholder={query}
               initialValue={""}

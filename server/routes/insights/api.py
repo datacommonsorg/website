@@ -13,7 +13,6 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
-import dataclasses
 from enum import Enum
 import json
 import logging
@@ -37,7 +36,6 @@ import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.subject_page_config import place_metadata
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
@@ -64,6 +62,7 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
+  _hoist_topic(utterance)
   dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = nl_utterance.save_utterance(utterance)
@@ -79,8 +78,12 @@ def detect():
   if place_type:
     data_dict[Params.CHILD_TYPE.value] = place_type
   status_str = "Successful"
-  return helpers.prepare_response(data_dict, status_str, utterance.detection,
-                                  dbg_counters, debug_logs)
+  return helpers.prepare_response(data_dict,
+                                  status_str,
+                                  utterance.detection,
+                                  dbg_counters,
+                                  debug_logs,
+                                  is_nl=False)
 
 
 #
@@ -154,28 +157,13 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       nopc_vars=current_app.config['NL_NOPC_VARS'])
 
   start = time.time()
-  page_config_pb = fulfillment.fulfill_chart_config(utterance, cb_config)
-  related_things = {
-      'parentPlaces': [],
-      'childPlaces': {},
-      'parentTopics': {},
-      'peerTopics': {},
-  }
+  page_config_pb, related_things = fulfillment.fulfill_chart_config(
+      utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
   if page_config_pb:
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
     page_config = json.loads(MessageToJson(page_config_pb))
-    metadata = place_metadata(main_place.dcid)
-    if not metadata.is_error:
-      related_things['parentPlaces'] = metadata.parent_places
-      related_things['childPlaces'] = metadata.child_places
-
-    if utterance.svs and utils.is_topic(utterance.svs[0]):
-      pt = topic.get_parent_topics([utterance.svs[0]])
-      related_things['parentTopics'] = pt
-      pt = [p['dcid'] for p in pt]
-      related_things['peerTopics'] = topic.get_child_topics(pt)
 
   else:
     page_config = {}
@@ -211,5 +199,26 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
-  return helpers.prepare_response(data_dict, status_str, utterance.detection,
-                                  dbg_counters, debug_logs)
+  return helpers.prepare_response(data_dict,
+                                  status_str,
+                                  utterance.detection,
+                                  dbg_counters,
+                                  debug_logs,
+                                  is_nl=False)
+
+
+#
+# A topic may not often be the top-most result. In that case,
+# we look for a topic for up to TOPIC_RANK_LIMIT, and hoist to top
+# (This is the same limit NL interface uses for opening up topic).
+#
+def _hoist_topic(uttr):
+  # If no SVs, or topic is already on top, return.
+  if not uttr.svs or utils.is_topic(uttr.svs[0]):
+    return
+  for i in range(1, topic.TOPIC_RANK_LIMIT):
+    if utils.is_topic(uttr.svs[i]):
+      t = uttr.svs[0]
+      uttr.svs[0] = uttr.svs[i]
+      uttr.svs[i] = t
+      return

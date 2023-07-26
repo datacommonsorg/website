@@ -31,44 +31,6 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_scatter",
-                      "Percent_Person_Obesity_scatter"
-                    ],
-                    "title": "Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_scatter",
-                      "Percent_Person_Obesity_scatter"
-                    ],
-                    "title": "Single Mother Family Households Below Poverty Line Receiving Social Security Income Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
@@ -88,10 +50,48 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year and Asian Alone Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Female Population Below Poverty Level in the Last Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Male Population Below Poverty Status in the Last Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Population: 5 Years or More, Language Other Than English, Below Poverty Level in The Past 12 Months Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -106,28 +106,28 @@
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
-          "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_scatter": {
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
-            "name": "Households With Food Stamps in the Past Year and Below Poverty Level in the Past Year Per Capita",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
-          },
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Single Mother Family Households Below Poverty Line Receiving Social Security Income Per Capita",
-            "statVar": "Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter": {
-            "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Asian Alone Per Capita",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+            "name": "Population: 5 Years or More, Language Other Than English, Below Poverty Level in The Past 12 Months Per Capita",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
             "name": "Population Below Poverty Level Status in Past Year Per Capita",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Female Population Below Poverty Level in the Last Year Per Capita",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Male Population Below Poverty Status in the Last Year Per Capita",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
           "Percent_Person_Obesity_scatter": {

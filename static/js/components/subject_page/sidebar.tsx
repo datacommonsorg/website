@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,7 +98,18 @@ function renderItem(
     <li
       key={randDomId()}
       className={`nav-item ${isCategory ? "category" : ""}`}
-      onClick={() => window.open(`#${redirectItemId}`, "_self")}
+      onClick={() => {
+        const target = document.getElementById(redirectItemId);
+        if (target) {
+          // Calculate the scroll position of the target section
+          const offsetTop = target.getBoundingClientRect().top + window.scrollY;
+          // Smooth scroll to the target section
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+        }
+      }}
     >
       {title}
     </li>

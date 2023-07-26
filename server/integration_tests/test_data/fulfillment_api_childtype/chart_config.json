@@ -28,13 +28,14 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showHighest": true,
                       "showLowest": true
                     },
                     "statVarKey": [
+                      "dc/0gettc3bc60cb",
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work at home in California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -42,75 +43,22 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/vp8cbt6k79t94"
-                    ],
-                    "title": "Walk to work in California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/hbkh95kc7pkb6"
-                    ],
-                    "title": "Public Transit in California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/wc8q05drd74bd"
-                    ],
-                    "title": "Carpool in California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
                     "title": "Drive alone in California (${date})",
-                    "type": "RANKING"
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
                     "statVarKey": [
-                      "dc/vt2q292eme79f"
+                      "dc/6rltk4kf75612"
                     ],
-                    "title": "Others (incl. Taxcab, Motorcyle, Bicycle) in California (${date})",
-                    "type": "RANKING"
+                    "title": "Work at home in California (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -134,33 +82,17 @@
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
-          "dc/hbkh95kc7pkb6": {
-            "name": "Public Transit",
-            "statVar": "dc/hbkh95kc7pkb6"
-          },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
-          },
-          "dc/vp8cbt6k79t94": {
-            "name": "Walk to work",
-            "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
             "statVar": "dc/vp8cbt6k79t94"
           },
-          "dc/vt2q292eme79f": {
-            "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
-            "statVar": "dc/vt2q292eme79f"
-          },
           "dc/vt2q292eme79f_multiple_place_bar_block": {
             "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
             "statVar": "dc/vt2q292eme79f"
-          },
-          "dc/wc8q05drd74bd": {
-            "name": "Carpool",
-            "statVar": "dc/wc8q05drd74bd"
           },
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
             "name": "Carpool",
@@ -193,291 +125,363 @@
     "childPlaces": {
       "County": [
         {
-          "dcid": "geoId/06037",
-          "name": "Los Angeles County",
-          "pop": 9829544
-        },
-        {
-          "dcid": "geoId/06073",
-          "name": "San Diego County",
-          "pop": 3286069
-        },
-        {
-          "dcid": "geoId/06059",
-          "name": "Orange County",
-          "pop": 3167809
-        },
-        {
-          "dcid": "geoId/06065",
-          "name": "Riverside County",
-          "pop": 2458395
-        },
-        {
-          "dcid": "geoId/06071",
-          "name": "San Bernardino County",
-          "pop": 2194710
-        },
-        {
-          "dcid": "geoId/06085",
-          "name": "Santa Clara County",
-          "pop": 1885508
-        },
-        {
           "dcid": "geoId/06001",
-          "name": "Alameda County",
-          "pop": 1648556
+          "name": "Alameda",
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06067",
-          "name": "Sacramento County",
-          "pop": 1588921
-        },
-        {
-          "dcid": "geoId/06013",
-          "name": "Contra Costa County",
-          "pop": 1161413
-        },
-        {
-          "dcid": "geoId/06019",
-          "name": "Fresno County",
-          "pop": 1013581
-        },
-        {
-          "dcid": "geoId/06029",
-          "name": "Kern County",
-          "pop": 917673
-        },
-        {
-          "dcid": "geoId/06111",
-          "name": "Ventura County",
-          "pop": 839784
-        },
-        {
-          "dcid": "geoId/06075",
-          "name": "San Francisco County",
-          "pop": 815201
-        },
-        {
-          "dcid": "geoId/06077",
-          "name": "San Joaquin County",
-          "pop": 789410
-        },
-        {
-          "dcid": "geoId/06081",
-          "name": "San Mateo County",
-          "pop": 737888
-        },
-        {
-          "dcid": "geoId/06099",
-          "name": "Stanislaus County",
-          "pop": 552999
-        },
-        {
-          "dcid": "geoId/06097",
-          "name": "Sonoma County",
-          "pop": 485887
-        },
-        {
-          "dcid": "geoId/06107",
-          "name": "Tulare County",
-          "pop": 477054
-        },
-        {
-          "dcid": "geoId/06095",
-          "name": "Solano County",
-          "pop": 451716
-        },
-        {
-          "dcid": "geoId/06083",
-          "name": "Santa Barbara County",
-          "pop": 446475
-        },
-        {
-          "dcid": "geoId/06053",
-          "name": "Monterey County",
-          "pop": 437325
-        },
-        {
-          "dcid": "geoId/06061",
-          "name": "Placer County",
-          "pop": 412300
-        },
-        {
-          "dcid": "geoId/06047",
-          "name": "Merced County",
-          "pop": 286461
-        },
-        {
-          "dcid": "geoId/06079",
-          "name": "San Luis Obispo County",
-          "pop": 283159
-        },
-        {
-          "dcid": "geoId/06087",
-          "name": "Santa Cruz County",
-          "pop": 267792
-        },
-        {
-          "dcid": "geoId/06041",
-          "name": "Marin County",
-          "pop": 260206
-        },
-        {
-          "dcid": "geoId/06113",
-          "name": "Yolo County",
-          "pop": 216986
-        },
-        {
-          "dcid": "geoId/06007",
-          "name": "Butte County",
-          "pop": 208309
-        },
-        {
-          "dcid": "geoId/06017",
-          "name": "El Dorado County",
-          "pop": 193221
-        },
-        {
-          "dcid": "geoId/06089",
-          "name": "Shasta County",
-          "pop": 182139
-        },
-        {
-          "dcid": "geoId/06025",
-          "name": "Imperial County",
-          "pop": 179851
-        },
-        {
-          "dcid": "geoId/06039",
-          "name": "Madera County",
-          "pop": 159410
-        },
-        {
-          "dcid": "geoId/06031",
-          "name": "Kings County",
-          "pop": 153443
-        },
-        {
-          "dcid": "geoId/06023",
-          "name": "Humboldt County",
-          "pop": 136310
-        },
-        {
-          "dcid": "geoId/06055",
-          "name": "Napa County",
-          "pop": 136207
-        },
-        {
-          "dcid": "geoId/06057",
-          "name": "Nevada County",
-          "pop": 103487
-        },
-        {
-          "dcid": "geoId/06101",
-          "name": "Sutter County",
-          "pop": 99063
-        },
-        {
-          "dcid": "geoId/06045",
-          "name": "Mendocino County",
-          "pop": 91305
-        },
-        {
-          "dcid": "geoId/06115",
-          "name": "Yuba County",
-          "pop": 83421
-        },
-        {
-          "dcid": "geoId/06033",
-          "name": "Lake County",
-          "pop": 68766
-        },
-        {
-          "dcid": "geoId/06069",
-          "name": "San Benito County",
-          "pop": 66677
-        },
-        {
-          "dcid": "geoId/06103",
-          "name": "Tehama County",
-          "pop": 65498
-        },
-        {
-          "dcid": "geoId/06109",
-          "name": "Tuolumne County",
-          "pop": 55810
-        },
-        {
-          "dcid": "geoId/06009",
-          "name": "Calaveras County",
-          "pop": 46221
-        },
-        {
-          "dcid": "geoId/06093",
-          "name": "Siskiyou County",
-          "pop": 44118
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
         },
         {
           "dcid": "geoId/06005",
-          "name": "Amador County",
-          "pop": 41259
+          "name": "Amador",
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06035",
-          "name": "Lassen County",
-          "pop": 33159
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
         },
         {
-          "dcid": "geoId/06021",
-          "name": "Glenn County",
-          "pop": 28805
-        },
-        {
-          "dcid": "geoId/06015",
-          "name": "Del Norte County",
-          "pop": 28100
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
         },
         {
           "dcid": "geoId/06011",
-          "name": "Colusa County",
-          "pop": 21917
+          "name": "Colusa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
         }
       ]
     },
     "parentPlaces": [
       {
-        "dcid": "usc/PacificDivision",
-        "name": "Pacific Division",
-        "types": [
-          "CensusDivision"
-        ]
-      },
-      {
         "dcid": "country/USA",
         "name": "United States",
         "types": [
           "Country"
-        ]
-      },
-      {
-        "dcid": "usc/WestRegion",
-        "name": "West Region",
-        "types": [
-          "CensusRegion"
-        ]
-      },
-      {
-        "dcid": "northamerica",
-        "name": "North America",
-        "types": [
-          "Continent"
-        ]
-      },
-      {
-        "dcid": "Earth",
-        "name": "Earth",
-        "types": [
-          "Place"
         ]
       }
     ],
