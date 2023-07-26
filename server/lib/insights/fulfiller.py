@@ -13,7 +13,7 @@
 # limitations under the License.
 """Module for Insights fulfillment"""
 
-import logging
+from dataclasses import dataclass
 import time
 from typing import Dict, List
 
@@ -42,8 +42,15 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
   # Open up topics into vars and build ChartVars for each.
   chart_vars_map = {}
   for sv in state.uttr.svs:
-    cv = _build_chart_vars(state, sv)
-    chart_vars_map[sv] = cv
+    cv = []
+    if cutils.is_sv(sv):
+      cv = [ftypes.ChartVars(svs=[sv], insight_type=ftypes.InsightType.BLOCK)]
+    else:
+      start = time.time()
+      cv = _topic_chart_vars(state, sv)
+      state.uttr.counters.timeit('topic_calls', start)
+    if cv:
+      chart_vars_map[sv] = cv
 
   # Get places to perform existence check on.
   places_to_check = {}
@@ -57,7 +64,6 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
       places_to_check[p.dcid] = key
   for p in uttr.detection.places_detected.parent_places:
     places_to_check[p.dcid] = p.dcid
-  logging.info(places_to_check)
 
   if not places_to_check:
     uttr.counters.err("failed_NoPlacesToCheck", '')
@@ -78,6 +84,10 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
       if chart_vars.svs:
         existing_svs.update(chart_vars.svs)
         chart_vars_list.append(chart_vars)
+      if chart_vars.source_topic:
+        existing_svs.add(chart_vars.source_topic)
+      if chart_vars.svpg_id:
+        existing_svs.add(chart_vars.svpg_id)
 
   chart_pb = chart_builder.build(chart_vars_list, state, existing_svs,
                                  cb_config)
@@ -156,56 +166,93 @@ def _get_json_places(places: List[dtypes.Place]) -> List[Dict]:
   return _trim(res)
 
 
-def _build_chart_vars(state: ftypes.PopulateState,
-                      sv: str) -> List[ftypes.ChartVars]:
-  if cutils.is_sv(sv):
-    return [ftypes.ChartVars(svs=[sv], insight_type=ftypes.InsightType.BLOCK)]
-  if cutils.is_topic(sv):
-    start = time.time()
+@dataclass
+class TopicMembers:
+  svs: List[str]
+  svpgs: List[str]
+  topics: List[str]
+
+
+#
+# This is an involved function to construct a list of ChartVars
+# for topics.
+#
+def _topic_chart_vars(state: ftypes.PopulateState,
+                      sv: str,
+                      lvl: int = 0) -> List[ftypes.ChartVars]:
+  if lvl == 0:
+    # This is the requested topic, just get the immediate members.
     topic_vars = topic.get_topic_vars(sv)
-    peer_groups = topic.get_topic_peergroups(topic_vars)
+  else:
+    # This is an immediate sub-topic of the parent topic. Here,
+    # we recurse along the topic-descendents to get a limited
+    # number of vars.
+    assert lvl < 2, "Must never recurse past 2 levels"
+    topic_vars = topic.get_topic_vars_recurive(sv,
+                                               rank=0,
+                                               max_svs=_MAX_SUBTOPIC_SV_LIMIT)
 
-    # Classify into two lists.
-    just_svs = []
-    svpgs = []
-    for v in topic_vars:
-      if v in peer_groups and peer_groups[v]:
-        title = topic.svpg_name(v)
-        description = topic.svpg_description(v)
-        svpgs.append((title, description, peer_groups[v]))
-      else:
-        just_svs.append(v)
-    state.uttr.counters.timeit('topic_calls', start)
+  # Classify the members into `TopicMembers` struct.
+  topic_members = _classify_topic_members(topic_vars)
 
-    # Group into blocks carefully:
+  charts = []
 
-    # 1. Make a block for all SVs in just_svs
-    charts = [
-        ftypes.ChartVars(svs=just_svs,
-                         source_topic=sv,
-                         insight_type=ftypes.InsightType.CATEGORY,
-                         title='Overview')
-    ]
+  # First produce charts for SVs and SVPGs.
+  if topic_members.svs or topic_members.svpgs:
+    st = sv
+    if lvl == 0 and topic_members.topics:
+      st = ''
+    charts.extend(
+        _charts_within_topic(topic_members.svs, topic_members.svpgs, st))
 
-    # 2. Make a block for every peer-group in svpgs
-    for (title, description, svs) in svpgs:
-      charts.append(
-          ftypes.ChartVars(svs=svs,
-                           include_percapita=False,
-                           title=title,
-                           description=description,
-                           insight_type=ftypes.InsightType.CATEGORY,
-                           is_topic_peer_group=True,
-                           source_topic=sv))
+  # Recurse into immediate sub-topics.
+  for t in topic_members.topics:
+    charts.extend(_topic_chart_vars(state, t, lvl + 1))
 
-    state.uttr.counters.info('topics_processed',
-                             {sv: {
-                                 'svs': just_svs,
-                                 'peer_groups': svpgs,
-                             }})
-    return charts
+  state.uttr.counters.info(
+      'topics_processed',
+      {sv: {
+          'svs': topic_members.svs,
+          'peer_groups': topic_members.svpgs,
+      }})
+  return charts
 
-  return []
+
+def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
+  peer_groups = topic.get_topic_peergroups(topic_vars)
+
+  just_svs = []
+  svpgs = []
+  sub_topics = []
+  for v in topic_vars:
+    if cutils.is_topic(v):
+      sub_topics.append(v)
+    elif peer_groups.get(v):
+      svpgs.append((v, peer_groups[v]))
+    else:
+      just_svs.append(v)
+  return TopicMembers(svs=just_svs, svpgs=svpgs, topics=sub_topics)
+
+
+_MAX_SUBTOPIC_SV_LIMIT = 3
+
+
+def _charts_within_topic(svs: List[str], svpgs: List[str],
+                         topic: str) -> ftypes.ChartVars:
+  # We need a category called overview.
+  # 1. Make a block for all SVs in just_svs
+  charts = [ftypes.ChartVars(svs=svs, source_topic=topic)]
+
+  # 2. Make a block for every peer-group in svpgs
+  for (svpg, svs) in svpgs:
+    charts.append(
+        ftypes.ChartVars(svs=svs,
+                         include_percapita=False,
+                         is_topic_peer_group=True,
+                         svpg_id=svpg,
+                         source_topic=topic))
+
+  return charts
 
 
 def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:

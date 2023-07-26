@@ -19,6 +19,7 @@ from typing import Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
+import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.services.datacommons as dc
 
@@ -202,7 +203,11 @@ def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
   # If a curated name is found return that,
   # Else return the name property for SV.
   for sv in all_svs:
-    if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+    if sv in topic.TOPIC_NAMES_OVERRIDE:
+      sv_name_map[sv] = topic.TOPIC_NAMES_OVERRIDE[sv]
+    elif sv in topic.SVPG_NAMES_OVERRIDE:
+      sv_name_map[sv] = topic.SVPG_NAMES_OVERRIDE[sv]
+    elif sv in constants.SV_DISPLAY_NAME_OVERRIDE:
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
     elif sv in sv_chart_titles:
       sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
@@ -226,7 +231,10 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
 def get_sv_description(all_svs: List[str]) -> Dict:
   sv_desc_map = {}
   for sv in all_svs:
-    sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+    if sv in topic.SVPG_DESC_OVERRIDE:
+      sv_desc_map[sv] = topic.SVPG_DESC_OVERRIDE[sv]
+    else:
+      sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
   return sv_desc_map
 
 
