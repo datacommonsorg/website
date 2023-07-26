@@ -21,6 +21,7 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
+import { getStatVarGroups } from "../../utils/app/timeline_utils";
 import { BqModal } from "../shared/bq_modal";
 import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
@@ -113,7 +114,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
           return (
             <Chart
               key={mprop}
-              mprop={mprop}
+              chartId={mprop}
               placeNameMap={this.props.placeName}
               statVarInfos={_.pick(
                 this.props.statVarInfo,
@@ -184,42 +185,19 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       [key: string]: StatVarInfo;
     }
   ): ChartGroupInfo {
-    const groups = {};
-    const chartOrder = [];
-    for (const statVarId of statVarOrder) {
-      if (!statVarInfo[statVarId]) {
-        continue;
-      }
-      const mprop = statVarInfo[statVarId].mprop;
-      if (!groups[mprop]) {
-        groups[mprop] = [];
-      }
-      groups[mprop].push(statVarId);
-      chartOrder.push(mprop);
-    }
-    // we want to show the charts in reverse order of when the stat vars were
-    // picked. (ie. chart of last picked stat var should be shown first)
-    if (!_.isEmpty(chartOrder)) {
-      chartOrder.reverse();
-    }
-    const seenGroups = new Set();
-    const filteredChartOrder = chartOrder.filter((group) => {
-      const keep = !seenGroups.has(group);
-      seenGroups.add(group);
-      return keep;
-    });
+    const { groups, chartOrder } = getStatVarGroups(statVarOrder, statVarInfo);
     const options = {};
-    for (const mprop of filteredChartOrder) {
-      options[mprop] = {
-        delta: getChartOption(mprop, "delta"),
-        denom: getDenom(mprop) || DEFAULT_POPULATION_DCID,
-        perCapita: getChartOption(mprop, "pc"),
+    for (const chartId of chartOrder) {
+      options[chartId] = {
+        delta: getChartOption(chartId, "delta"),
+        denom: getDenom(chartId) || DEFAULT_POPULATION_DCID,
+        perCapita: getChartOption(chartId, "pc"),
       };
     }
     return {
       chartIdToOptions: options,
       chartIdToStatVars: groups,
-      chartOrder: filteredChartOrder,
+      chartOrder,
     };
   }
 

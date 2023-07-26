@@ -68,6 +68,8 @@ export interface LineChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
+  // props used when fetching this data
+  props: LineTilePropType;
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
@@ -75,7 +77,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   const [chartData, setChartData] = useState<LineChartData | undefined>(null);
 
   useEffect(() => {
-    if (!chartData) {
+    if (!chartData || !_.isEqual(chartData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setChartData(data);
@@ -258,6 +260,7 @@ function rawToChart(
     dataGroup: dataGroups,
     sources,
     unit,
+    props,
   };
 }
 
