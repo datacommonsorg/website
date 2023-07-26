@@ -44,7 +44,7 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
   for sv in state.uttr.svs:
     cv = []
     if cutils.is_sv(sv):
-      cv = [ftypes.ChartVars(svs=[sv], insight_type=ftypes.InsightType.BLOCK)]
+      cv = [ftypes.ChartVars(svs=[sv])]
     else:
       start = time.time()
       cv = _topic_chart_vars(state, sv)

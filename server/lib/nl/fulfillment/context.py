@@ -64,6 +64,13 @@ def places_from_context(uttr: Utterance,
 def has_sv_in_context(uttr: Utterance) -> bool:
   if not uttr:
     return False
+
+  if uttr.prev_utterance and uttr.prev_utterance.insight_ctx:
+    if uttr.prev_utterance.insight_ctx.get('variables'):
+      return True
+    else:
+      return False
+
   svs_list = svs_from_context(uttr, include_uttr=True)
   for svs in svs_list:
     if svs:
@@ -74,6 +81,14 @@ def has_sv_in_context(uttr: Utterance) -> bool:
 def has_place_in_context(uttr: Utterance) -> bool:
   if not uttr:
     return False
+
+  # For insight flow.
+  if uttr.prev_utterance and uttr.prev_utterance.insight_ctx:
+    if uttr.prev_utterance.insight_ctx.get('entities'):
+      return True
+    else:
+      return False
+
   places = places_from_context(uttr, include_uttr=True)
   for place in places:
     if place.dcid:
