@@ -26,8 +26,8 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-from server.lib.insights.context import Params
-import server.lib.insights.context as context
+from server.lib.insights.detector import Params
+import server.lib.insights.detector as detector
 import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -57,7 +57,8 @@ def detect():
     return helpers.abort('Failed to process!', '', [])
 
   _hoist_topic(utterance)
-  data_dict = context.detect_with_context(utterance)
+
+  data_dict = detector.detect_with_context(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -145,8 +146,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       nopc_vars=current_app.config['NL_NOPC_VARS'])
 
   start = time.time()
-  page_config_pb, related_things = fulfillment.fulfill_chart_config(
-      utterance, cb_config)
+  page_config_pb, related_things = fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
   if page_config_pb:
     # Use the first chart's place as main place.
