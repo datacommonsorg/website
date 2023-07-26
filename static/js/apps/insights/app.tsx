@@ -203,25 +203,23 @@ export function App(): JSX.Element {
   }
 
   return (
-    <div className="insights-container">
-      <Container>
-        <div className="search-section">
-          <div className="search-box-section">
-            <TextSearchBar
-              inputId="query-search-input"
-              onSearch={(q) => {
-                updateHash({ q, t: "" });
-              }}
-              placeholder={query}
-              initialValue={""}
-              shouldAutoFocus={true}
-              clearValueOnSearch={true}
-            />
-          </div>
+    <Container className="insights-container">
+      <div className="search-section">
+        <div className="search-box-section">
+          <TextSearchBar
+            inputId="query-search-input"
+            onSearch={(q) => {
+              updateHash({ q, t: "" });
+            }}
+            placeholder={query}
+            initialValue={""}
+            shouldAutoFocus={true}
+            clearValueOnSearch={true}
+          />
         </div>
-        {mainSection}
-      </Container>
-    </div>
+      </div>
+      {mainSection}
+    </Container>
   );
 }
 

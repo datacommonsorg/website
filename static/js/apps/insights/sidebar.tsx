@@ -42,7 +42,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
           return (
-            <div key={idx}>
+            <div key={idx} className="topic-item">
               <a
                 className="nav-item category"
                 key={idx}
@@ -52,10 +52,12 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
               </a>
               <div className="sub-topic-group">
                 {topic.dcid == props.currentTopicDcid &&
+                  props.categories &&
                   props.categories.map((category, idx) => {
+                    console.log(category);
                     const categoryId = getId(props.id, CATEGORY_ID_PREFIX, idx);
                     // Add child categories
-                    return renderItem(category.title, false, categoryId);
+                    return renderItem(category.title, categoryId);
                   })}
               </div>
             </div>
@@ -66,32 +68,17 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
   );
 }
 
-function renderItem(
-  title: string,
-  isCategory: boolean,
-  redirectItemId: string
-): JSX.Element {
+function renderItem(title: string, categoryId: string): JSX.Element {
   if (!title) {
     return null;
   }
   return (
-    <li
+    <a
       key={randDomId()}
-      className={`nav-item ${isCategory ? "category" : ""}`}
-      onClick={() => {
-        const target = document.getElementById(redirectItemId);
-        if (target) {
-          // Calculate the scroll position of the target section
-          const offsetTop = target.getBoundingClientRect().top + window.scrollY;
-          // Smooth scroll to the target section
-          window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
-        }
-      }}
+      className={"nav-item"}
+      href={`/insights/#p=${"haha"}&t=${categoryId}`}
     >
       {title}
-    </li>
+    </a>
   );
 }
