@@ -50,6 +50,7 @@ export function App(): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
+  const [savedContext, setSavedContext] = useState<any>({});
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -81,7 +82,8 @@ export function App(): JSX.Element {
 
       if (q) {
         setQuery(q);
-        const detectResp = await fetchDetectData(q);
+        const detectResp = await fetchDetectData(q, savedContext);
+        setSavedContext(detectResp["context"] || {});
         if (!detectResp["entities"] || !detectResp["variables"]) {
           setLoadingStatus("fail");
           return;
@@ -110,6 +112,7 @@ export function App(): JSX.Element {
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic,
       };
+      setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
     })();
@@ -230,9 +233,11 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (query: string) => {
+const fetchDetectData = async (query: string, savedContext: any) => {
   try {
-    const resp = await axios.post(`/api/insights/detect?q=${query}`, {});
+    const resp = await axios.post(`/api/insights/detect?q=${query}`, {
+      contextHistory: savedContext,
+    });
     return resp.data;
   } catch (error) {
     console.log(error);

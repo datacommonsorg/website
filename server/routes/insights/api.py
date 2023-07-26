@@ -26,6 +26,8 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
+from server.lib.insights.context import Params
+import server.lib.insights.context as context
 import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -42,14 +44,6 @@ from server.routes.nl import helpers
 bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
 
 
-class Params(str, Enum):
-  ENTITIES = 'entities'
-  VARS = 'variables'
-  CHILD_TYPE = 'childEntityType'
-  SESSION_ID = 'sessionId'
-  CTX = 'context'
-
-
 #
 # The detection endpoint.
 #
@@ -63,21 +57,12 @@ def detect():
     return helpers.abort('Failed to process!', '', [])
 
   _hoist_topic(utterance)
+  data_dict = context.detect_with_context(utterance)
+
   dbg_counters = utterance.counters.get()
   utterance.counters = None
-  context_history = nl_utterance.save_utterance(utterance)
-  data_dict = {
-      Params.ENTITIES.value: [
-          p.dcid for p in utterance.detection.places_detected.places_found
-      ],
-      Params.VARS.value: utterance.svs,
-      Params.CTX: context_history,
-      Params.SESSION_ID: utterance.session_id,
-  }
-  place_type = utils.get_contained_in_type(utterance)
-  if place_type:
-    data_dict[Params.CHILD_TYPE.value] = place_type
   status_str = "Successful"
+
   return helpers.prepare_response(data_dict,
                                   status_str,
                                   utterance.detection,
@@ -114,6 +99,8 @@ def fulfill():
   variables = req_json.get(Params.VARS.value)
   child_type = req_json.get(Params.CHILD_TYPE.value)
   session_id = req_json.get(Params.SESSION_ID.value)
+  is_cmp_entities = req_json.get(
+      Params.CMP_TYPE.value) == Params.CMP_TYPE_ENTITY.value
 
   counters = ctr.Counters()
   debug_logs = {}
@@ -127,14 +114,15 @@ def fulfill():
   # There is not detection, so just construct a structure.
   start = time.time()
   query_detection, error_msg = detector.construct(entities, variables,
-                                                  child_type, debug_logs,
-                                                  counters)
+                                                  child_type, is_cmp_entities,
+                                                  debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     helpers.abort(error_msg, '', [])
     return
 
   utterance = create_utterance(query_detection, None, counters, session_id)
+  utterance.insight_ctx = req_json
   return _fulfill_with_chart_config(utterance, debug_logs)
 
 
