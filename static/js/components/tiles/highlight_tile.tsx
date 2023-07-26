@@ -55,7 +55,10 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     placeName: props.place.name,
     date: highlightData.date,
   };
-  const description = formatString(props.description, rs);
+  let description = "";
+  if (props.description) {
+    description = formatString(props.description, rs);
+  }
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}

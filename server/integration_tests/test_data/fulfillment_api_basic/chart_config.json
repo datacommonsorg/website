@@ -9,7 +9,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "geoId/06085"
                     ],
                     "statVarKey": [
                       "dc/6rltk4kf75612_multiple_place_bar_block",
@@ -19,18 +19,65 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
                       "dc/vt2q292eme79f_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in California (${date})",
+                    "title": "Modes of Commute in Santa Clara County (${date})",
                     "type": "BAR"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb",
+                      "dc/6rltk4kf75612"
+                    ],
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive alone in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Santa Clara County (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ]
           }
         ],
+        "dcid": "dc/topic/WorkCommute",
         "statVarSpec": {
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
+          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
+          },
+          "dc/6rltk4kf75612": {
+            "name": "Work at home",
+            "statVar": "dc/6rltk4kf75612"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -57,8 +104,11 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
       "placeDcid": [
-        "geoId/06"
+        "geoId/06085"
       ]
     }
   },
@@ -66,11 +116,238 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "geoId/06085",
+    "name": "Santa Clara County",
+    "place_type": "County"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601458",
+          "name": "Alum Rock",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0601486",
+          "name": "Alviso",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608848",
+          "name": "Buena Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608968",
+          "name": "Burbank",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610088",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610345",
+          "name": "Campbell",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0617610",
+          "name": "Cupertino",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620598",
+          "name": "East Foothills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0627080",
+          "name": "Fruitdale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0629504",
+          "name": "Gilroy",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641282",
+          "name": "Lexington Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643280",
+          "name": "Los Altos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643294",
+          "name": "Los Altos Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644112",
+          "name": "Los Gatos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644378",
+          "name": "Loyola",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0647766",
+          "name": "Milpitas",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0648956",
+          "name": "Monte Sereno",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649278",
+          "name": "Morgan Hill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649670",
+          "name": "Mountain View",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668000",
+          "name": "San Jose",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668238",
+          "name": "San Martin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0669084",
+          "name": "Santa Clara",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0670280",
+          "name": "Saratoga",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671074",
+          "name": "Seven Trees",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0673906",
+          "name": "Stanford",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1911837",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2214519",
+          "name": "Sunol-Midtown",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "parentPlaces": [
+      {
+        "dcid": "geoId/06",
+        "name": "California",
+        "types": [
+          "State"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "parentTopics": [],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY"
 }

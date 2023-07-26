@@ -19,85 +19,240 @@
  */
 
 import axios from "axios";
+import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
+import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
-import { getUrlToken } from "../../utils/url_utils";
+import { ChildPlaces } from "../../shared/child_places";
+import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { updateHash } from "../../utils/url_utils";
+import { ParentPlace } from "./parent_breadcrumbs";
+import { Sidebar } from "./sidebar";
 
 const PAGE_ID = "insights";
+
+const getSingleParam = (input: string | string[]): string => {
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input[0];
+  }
+  return input;
+};
+
+const getListParam = (input: string | string[]): string[] => {
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input;
+  }
+  return [input];
+};
 
 /**
  * Application container
  */
 export function App(): JSX.Element {
-  const [chartData, setChartData] = useState<any | undefined>();
+  const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
+  const [loadingStatus, setLoadingStatus] = useState<string>("");
+  const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
+  const [query, setQuery] = useState<string>("");
+  const [savedContext, setSavedContext] = useState<any>({});
 
   useEffect(() => {
-    const place = getUrlToken("p");
-    const topic = getUrlToken("t");
-    const placeType = getUrlToken("pt");
-    (async () => {
-      if (place && topic) {
-        const resp = await fetchFulfillData(place, topic, placeType);
-        const mainPlace = resp["place"];
-        const chartData = {
-          place: {
-            dcid: mainPlace["dcid"],
-            name: mainPlace["name"],
-            types: [mainPlace["place_type"]],
-          },
-          config: resp["config"],
-        };
-        setChartData(chartData);
-      }
-    })();
-  }, [window.location.hash]);
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      const parsedParams = queryString.parse(hash);
+      // Update component state with the parsed parameters from the hash
+      setHashParams(parsedParams);
+    };
 
-  return (
-    <div className="insights-container">
-      <Container>
-        <h1>Insights</h1>
-        <div className="insights-charts">
-          <div className="row">
-            <div className="col-md-3x col-lg-3 order-last order-lg-0">
-              {chartData && chartData.config && (
-                <SubjectPageSidebar
+    // Listen to the 'hashchange' event and call the handler
+    window.addEventListener("hashchange", handleHashChange);
+
+    // Call the handler once initially to handle the initial hash value
+    handleHashChange();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    setLoadingStatus("loading");
+    (async () => {
+      let places = getListParam(hashParams["p"]);
+      let topic = getSingleParam(hashParams["t"]);
+      let placeType = getSingleParam(hashParams["pt"]);
+      let cmpType = getSingleParam(hashParams["ct"]);
+      const q = getSingleParam(hashParams["q"]);
+
+      if (q) {
+        setQuery(q);
+        const detectResp = await fetchDetectData(q, savedContext);
+        setSavedContext(detectResp["context"] || {});
+        if (!detectResp["entities"] || !detectResp["variables"]) {
+          setLoadingStatus("fail");
+          return;
+        }
+        places = detectResp["entities"];
+        topic = detectResp["variables"][0];
+        placeType = detectResp["childEntityType"] || "";
+        cmpType = detectResp["comparisonType"] || "";
+        updateHash({ q: "", t: topic, p: places, pt: placeType, ct: cmpType });
+        return;
+      }
+      if (!places || !topic) {
+        return;
+      }
+      const resp = await fetchFulfillData(places, topic, placeType, cmpType);
+      const mainPlace = resp["place"];
+      const chartData: SubjectPageMetadata = {
+        place: {
+          dcid: mainPlace["dcid"],
+          name: mainPlace["name"],
+          types: [mainPlace["place_type"]],
+        },
+        pageConfig: resp["config"],
+        childPlaces: resp["relatedThings"]["childPlaces"],
+        parentPlaces: resp["relatedThings"]["parentPlaces"],
+        parentTopics: resp["relatedThings"]["parentTopics"],
+        peerTopics: resp["relatedThings"]["peerTopics"],
+        topic,
+      };
+      for (const category of chartData.pageConfig.categories) {
+        category.url = `/insights/#t=${category.dcid}`;
+        for (const p of places) {
+          category.url += `&p=${p}`;
+        }
+      }
+      setSavedContext(resp["context"] || {});
+      setLoadingStatus("loaded");
+      setChartData(chartData);
+    })();
+  }, [hashParams]);
+
+  let mainSection;
+  const places = getListParam(hashParams["p"]);
+  if (loadingStatus == "fail") {
+    mainSection = <div>No data is found</div>;
+  } else if (loadingStatus == "loaded" && chartData) {
+    let urlString = "/insights/#p=${placeDcid}";
+    urlString += `&t=${chartData.topic}`;
+    mainSection = (
+      <div className="insights-charts">
+        <div className="row">
+          <div className="col-md-3x col-lg-3 order-last order-lg-0">
+            {chartData && chartData.pageConfig && (
+              <>
+                <Sidebar
                   id={PAGE_ID}
-                  categories={chartData.config.categories}
+                  currentTopicDcid={chartData.topic}
+                  places={places}
+                  categories={chartData.pageConfig.categories}
+                  peerTopics={chartData.peerTopics}
                 />
-              )}
-            </div>
-            <div className="row col-md-9x col-lg-9">
-              {chartData && chartData.config && (
+                {chartData && chartData.parentTopics.length > 0 && (
+                  <div className="topics-box">
+                    <div className="topics-head">Broader Topics</div>
+                    {chartData.parentTopics.map((parentTopic, idx) => {
+                      let url = `/insights/#t=${parentTopic.dcid}`;
+                      for (const p of places) {
+                        url += `&p=${p}`;
+                      }
+                      return (
+                        <a className="topic-link" key={idx} href={url}>
+                          {parentTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+                <ChildPlaces
+                  childPlaces={chartData.childPlaces}
+                  parentPlace={chartData.place}
+                  urlFormatString={urlString}
+                ></ChildPlaces>
+              </>
+            )}
+          </div>
+          <div className="row col-md-9x col-lg-9">
+            {chartData && chartData.pageConfig && (
+              <>
+                <div id="place-callout">{chartData.place.name}</div>
+                {chartData.parentPlaces.length > 0 && (
+                  <ParentPlace
+                    parentPlaces={chartData.parentPlaces}
+                    placeType={chartData.place.types[0]}
+                    topic={chartData.topic}
+                  ></ParentPlace>
+                )}
                 <SubjectPageMainPane
                   id={PAGE_ID}
                   place={chartData.place}
-                  pageConfig={chartData.config}
+                  pageConfig={chartData.pageConfig}
                   svgChartHeight={SVG_CHART_HEIGHT}
                   showExploreMore={true}
                 />
-              )}
-            </div>
+              </>
+            )}
           </div>
         </div>
-      </Container>
-    </div>
+      </div>
+    );
+  } else if (loadingStatus == "loading") {
+    mainSection = <div>Loading...</div>;
+  } else {
+    mainSection = <></>;
+  }
+
+  return (
+    <Container className="insights-container">
+      <div className="search-section">
+        <div className="search-box-section">
+          <TextSearchBar
+            inputId="query-search-input"
+            onSearch={(q) => {
+              updateHash({ q, t: "" });
+            }}
+            placeholder={query}
+            initialValue={""}
+            shouldAutoFocus={true}
+            clearValueOnSearch={true}
+          />
+        </div>
+      </div>
+      {mainSection}
+    </Container>
   );
 }
 
 const fetchFulfillData = async (
-  place: string,
+  places: string[],
   topic: string,
-  placeType: string
+  placeType: string,
+  cmpType: string
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
-      entities: [place],
+      entities: places,
       variables: [topic],
       childEntityType: placeType,
+      comparisonType: cmpType,
+    });
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+const fetchDetectData = async (query: string, savedContext: any) => {
+  try {
+    const resp = await axios.post(`/api/insights/detect?q=${query}`, {
+      contextHistory: savedContext,
     });
     return resp.data;
   } catch (error) {

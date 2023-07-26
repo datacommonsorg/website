@@ -1,12 +1,12 @@
 {#
   Copyright 2023 Google LLC
- 
+
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
- 
+
        http://www.apache.org/licenses/LICENSE-2.0
- 
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,20 +14,21 @@
   limitations under the License.
  #}
  {%- extends BASE_HTML -%}
- 
+
  {% set is_hide_full_footer = true %}
  {% set is_hide_sub_footer = true %}
  {% set main_id = 'nl-interface' %}
  {% set page_id = 'nl-interface-page' %}
  {% set title = 'Insights' %}
- {% set subpage_title = 'Insights' %}
+ {% set subpage_title = '' %}
  {% set subpage_url = url_for('nl.page') %}
- 
+
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/insights.min.css', t=config['VERSION'])}} >
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ <script src="https://datacommons.org/datacommons.js"></script>
  {% endblock %}
- 
+
  {% block content %}
  <div id="dc-insights-interface"></div>
  {% endblock %}

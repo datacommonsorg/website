@@ -193,6 +193,8 @@ class Utterance:
   # A subset of `svs` that have passed existence check and haven't been
   # added to the charts.
   extra_success_svs: List[str] = field(default_factory=list)
+  # Past complete context for insight flow.
+  insight_ctx: Dict = field(default_factory=dict)
 
 
 #
@@ -361,6 +363,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['session_id'] = u.session_id
     udict['llm_resp'] = u.llm_resp
     udict['placeFallback'] = _place_fallback_to_dict(u.place_fallback)
+    udict['insightCtx'] = u.insight_ctx
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -393,6 +396,7 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         session_id=udict['session_id'],
         multi_svs=None,
         llm_resp=udict.get('llm_resp', {}),
-        place_fallback=_dict_to_place_fallback(udict['placeFallback']))
+        place_fallback=_dict_to_place_fallback(udict['placeFallback']),
+        insight_ctx=udict.get('insightCtx', {}))
     prev_uttr = uttr
   return uttr

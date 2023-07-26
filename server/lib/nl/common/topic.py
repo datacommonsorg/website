@@ -13,6 +13,7 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import logging
 import time
 from typing import List
 
@@ -20,7 +21,7 @@ from server.lib import fetch
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
-_MIN_TOPIC_RANK = 3
+TOPIC_RANK_LIMIT = 3
 
 _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/Agriculture": [
@@ -342,7 +343,7 @@ _PEER_GROUP_TO_OVERRIDE = {
     ],
 }
 
-_SVPG_NAMES_OVERRIDE = {
+SVPG_NAMES_OVERRIDE = {
     "dc/svpg/JobsPeerGroup":
         "Categories of Jobs",
     "dc/svpg/MedicalConditionsPeerGroup":
@@ -400,7 +401,7 @@ _SVPG_NAMES_OVERRIDE = {
         "Tobacco and alcohol",
 }
 
-_SVPG_DESC_OVERRIDE = {
+SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
@@ -415,7 +416,7 @@ _SVPG_DESC_OVERRIDE = {
         "Breakdown of annual CO₂ emissions by emission sources (measured in tonnes).",
 }
 
-_TOPIC_NAMES_OVERRIDE = {
+TOPIC_NAMES_OVERRIDE = {
     "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
     "dc/topic/ClimateChange": "Climate Change",
     "dc/topic/SolarPotential": "Solar Potential",
@@ -423,8 +424,12 @@ _TOPIC_NAMES_OVERRIDE = {
 }
 
 
-def get_topic_vars(topic: str, rank: int = 0):
-  if not utils.is_topic(topic) or rank >= _MIN_TOPIC_RANK:
+# TODO: Consider having a default max limit.
+def get_topic_vars_recurive(topic: str,
+                            rank: int = 0,
+                            max_svs: int = 0,
+                            cur_svs: int = 0):
+  if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
@@ -433,13 +438,61 @@ def get_topic_vars(topic: str, rank: int = 0):
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      new_svs.extend(get_topic_vars(sv, rank))
+      in_new_svs = get_topic_vars_recurive(sv, rank, max_svs, cur_svs)
+      new_svs.extend(in_new_svs)
+      cur_svs += len(in_new_svs)
     else:
       new_svs.append(sv)
+      cur_svs += 1
+    if max_svs > 0 and cur_svs > max_svs:
+      return new_svs
   return new_svs
 
 
-def get_topic_peers(sv_dcids: List[str]):
+def get_topic_vars(topic: str):
+  if not utils.is_topic(topic):
+    return []
+  svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
+  if not svs:
+    # Lookup KG
+    svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
+  return svs
+
+
+def get_parent_topics(topics: List[str]):
+  # Lookup KG
+  parents = fetch.raw_property_values(nodes=topics,
+                                      prop='relevantVariable',
+                                      out=False)
+  resp = []
+  for pvals in parents.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+        continue
+      resp.append(p)
+  return resp
+
+
+def get_child_topics(topics: List[str]):
+  children = fetch.raw_property_values(nodes=topics,
+                                       prop='relevantVariable',
+                                       out=True)
+  resp = []
+  for pvals in children.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+        continue
+      if p['dcid'] in topics:
+        continue
+      resp.append(p)
+  return resp
+
+
+def get_topic_peergroups(sv_dcids: List[str]):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
@@ -451,8 +504,8 @@ def get_topic_peers(sv_dcids: List[str]):
 
 
 def get_topic_name(topic_dcid: str) -> str:
-  if topic_dcid in _TOPIC_NAMES_OVERRIDE:
-    return _TOPIC_NAMES_OVERRIDE[topic_dcid]
+  if topic_dcid in TOPIC_NAMES_OVERRIDE:
+    return TOPIC_NAMES_OVERRIDE[topic_dcid]
   resp = fetch.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
   if resp:
     return resp[0]
@@ -460,7 +513,7 @@ def get_topic_name(topic_dcid: str) -> str:
 
 
 def svpg_name(sv: str):
-  name = _SVPG_NAMES_OVERRIDE.get(sv, '')
+  name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     resp = fetch.property_values(nodes=[sv], prop='name')[sv]
     if resp:
@@ -469,7 +522,7 @@ def svpg_name(sv: str):
 
 
 def svpg_description(sv: str):
-  name = _SVPG_DESC_OVERRIDE.get(sv, '')
+  name = SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
     resp = fetch.property_values(nodes=[sv], prop='description')[sv]
     if resp:
@@ -505,8 +558,8 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   if utils.is_sv(sv):
     return [sv]
   if utils.is_topic(sv):
-    topic_vars = get_topic_vars(sv, rank)
-    peer_groups = get_topic_peers(topic_vars)
+    topic_vars = get_topic_vars_recurive(sv, rank)
+    peer_groups = get_topic_peergroups(topic_vars)
 
     # Classify into two lists.
     just_svs = []

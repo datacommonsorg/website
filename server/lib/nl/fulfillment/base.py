@@ -14,7 +14,7 @@
 
 import logging
 import time
-from typing import List
+from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
@@ -284,6 +284,11 @@ def _add_charts(state: PopulateState, places: List[Place],
     places_to_check = utils.get_sample_child_places(places[0].dcid,
                                                     state.place_type.value,
                                                     state.uttr.counters)
+    place_key = places[0].dcid + state.place_type.value
+    places_to_check = {p: place_key for p in places_to_check}
+  else:
+    places_to_check = {p: p for p in places_to_check}
+
   if not places_to_check:
     # Counter updated in get_sample_child_places
     # Always clear fallback when returning False
@@ -354,8 +359,8 @@ def _add_charts(state: PopulateState, places: List[Place],
 
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
-                                 places_to_check: List[str], svs: List[str],
-                                 num_charts: int) -> bool:
+                                 places_to_check: Dict[str, str],
+                                 svs: List[str], num_charts: int) -> bool:
 
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
