@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "%  Population That Is Obese in United States",
+                    "title": "Prevalence of Obesity in United States",
                     "type": "LINE"
                   }
                 ]
@@ -60,7 +60,7 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "%  Population That Is Obese compared with other variables in United States",
+                    "title": "Prevalence of Obesity compared with other variables in United States",
                     "type": "LINE"
                   }
                 ]
@@ -115,17 +115,17 @@
             "unit": "%"
           },
           "Percent_Person_BingeDrinking": {
-            "name": "%  Population Who Binge Drink",
+            "name": "Prevalence of Binge Drinking",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
           "Percent_Person_Obesity": {
-            "name": "%  Population That Is Obese",
+            "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
           "Percent_Person_PhysicalInactivity": {
-            "name": "%  Population Who Are Physically Inactive",
+            "name": "Prevalence of Physical Inactivity",
             "statVar": "Percent_Person_PhysicalInactivity",
             "unit": "%"
           },
@@ -135,7 +135,7 @@
             "unit": "%"
           },
           "Percent_Person_Smoking": {
-            "name": "%  Population That Smokes",
+            "name": "Prevalence of Smokers",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },

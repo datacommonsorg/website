@@ -71,21 +71,21 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
-            "name": "Accomodation/Food",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Accomodation/Food",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
-            "name": "Admin / Waste Management Service",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Admin / Waste Management Service",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block": {

@@ -32,14 +32,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accomodation/Food in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Admin / Waste Management Service in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -125,7 +125,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Admin / Waste Management Service in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -188,7 +188,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accomodation/Food in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -260,14 +260,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accomodation/Food in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Admin / Waste Management Service in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -348,11 +348,11 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accomodation/Food",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
-            "name": "Admin / Waste Management Service",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation": {
