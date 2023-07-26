@@ -42,6 +42,14 @@ const getSingleParam = (input: string | string[]): string => {
   return input;
 };
 
+const getListParam = (input: string | string[]): string[] => {
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input;
+  }
+  return [input];
+};
+
 /**
  * Application container
  */
@@ -75,9 +83,10 @@ export function App(): JSX.Element {
   useEffect(() => {
     setLoadingStatus("loading");
     (async () => {
-      let place = getSingleParam(hashParams["p"]);
+      let places = getListParam(hashParams["p"]);
       let topic = getSingleParam(hashParams["t"]);
       let placeType = getSingleParam(hashParams["pt"]);
+      let cmpType = getSingleParam(hashParams["ct"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
@@ -88,16 +97,17 @@ export function App(): JSX.Element {
           setLoadingStatus("fail");
           return;
         }
-        place = detectResp["entities"][0];
+        places = detectResp["entities"];
         topic = detectResp["variables"][0];
         placeType = detectResp["childEntityType"] || "";
-        updateHash({ q: "", t: topic, p: place, pt: placeType });
+        cmpType = detectResp["comparisonType"] || "";
+        updateHash({ q: "", t: topic, p: places, pt: placeType, ct: cmpType });
         return;
       }
-      if (!place || !topic) {
+      if (!places || !topic) {
         return;
       }
-      const resp = await fetchFulfillData(place, topic, placeType);
+      const resp = await fetchFulfillData(places, topic, placeType, cmpType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -216,15 +226,17 @@ export function App(): JSX.Element {
 }
 
 const fetchFulfillData = async (
-  place: string,
+  places: string[],
   topic: string,
-  placeType: string
+  placeType: string,
+  cmpType: string
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
-      entities: [place],
+      entities: places,
       variables: [topic],
       childEntityType: placeType,
+      comparisonType: cmpType,
     });
     return resp.data;
   } catch (error) {

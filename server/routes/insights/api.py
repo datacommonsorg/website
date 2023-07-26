@@ -90,10 +90,10 @@ def fulfill():
   req_json = request.get_json()
   if not req_json:
     helpers.abort('Missing input', '', [])
-    return
+    return {}
   if (not req_json.get('entities') or not req_json.get('variables')):
     helpers.abort('Entities and variables must be provided', '', [])
-    return
+    return {}
 
   entities = req_json.get(Params.ENTITIES.value)
   variables = req_json.get(Params.VARS.value)
@@ -119,7 +119,7 @@ def fulfill():
   counters.timeit('query_detection', start)
   if not query_detection:
     helpers.abort(error_msg, '', [])
-    return
+    return {}
 
   utterance = create_utterance(query_detection, None, counters, session_id)
   utterance.insight_ctx = req_json

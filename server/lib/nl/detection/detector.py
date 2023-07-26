@@ -13,7 +13,6 @@
 # limitations under the License.
 """Router for detection."""
 
-import logging
 from typing import Dict, List
 
 from flask import current_app

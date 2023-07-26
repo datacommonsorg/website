@@ -9,7 +9,8 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06"
+                      "geoId/06",
+                      "geoId/32"
                     ],
                     "statVarKey": [
                       "dc/6rltk4kf75612_multiple_place_bar_block",
@@ -19,7 +20,7 @@
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
                       "dc/vt2q292eme79f_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in California (${date})",
+                    "title": "Modes of Commute (${date})",
                     "type": "BAR"
                   }
                 ]
