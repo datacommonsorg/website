@@ -34,7 +34,8 @@ export function getStatVarGroups(
   statVarOrder: string[],
   statVarInfo: {
     [key: string]: StatVarInfo;
-  }
+  },
+  perCapitaStatVars?: Set<string>
 ): { groups: { [key: string]: string[] }; chartOrder: string[] } {
   const groups = {};
   const chartOrder = [];
@@ -44,7 +45,10 @@ export function getStatVarGroups(
     }
     const mprop = statVarInfo[statVarId].mprop || "none";
     const md = statVarInfo[statVarId].md || "none";
-    const key = `${mprop}-${md}`;
+    let key = `${mprop}-${md}`;
+    if (perCapitaStatVars && perCapitaStatVars.has(statVarId)) {
+      key += "-pc";
+    }
     if (!groups[key]) {
       groups[key] = [];
     }
