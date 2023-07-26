@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import _, { remove } from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -31,6 +31,7 @@ import {
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   EmptyAxis,
   EmptyPlace,
@@ -69,6 +70,8 @@ export interface ScatterTilePropType {
   apiRoot?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether or not to show a loading spinner when fetching data.
+  showLoadingSpinner?: boolean;
 }
 
 interface RawData {
@@ -87,6 +90,8 @@ interface ScatterChartData {
   xDate: string;
   yDate: string;
   errorMsg: string;
+  // props used when fetching this data
+  props: ScatterTilePropType;
 }
 
 export function ScatterTile(props: ScatterTilePropType): JSX.Element {
@@ -97,7 +102,8 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   >(null);
 
   useEffect(() => {
-    if (!scatterChartData) {
+    if (!scatterChartData || !_.isEqual(scatterChartData.props, props)) {
+      loadSpinner(getSpinnerId());
       (async () => {
         const data = await fetchData(props);
         setScatterChartData(data);
@@ -106,7 +112,11 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   }, [props, scatterChartData]);
 
   const drawFn = useCallback(() => {
-    if (!scatterChartData || _.isEmpty(scatterChartData.points)) {
+    if (!scatterChartData || !_.isEqual(scatterChartData.props, props)) {
+      return;
+    }
+    if (_.isEmpty(scatterChartData.points)) {
+      removeSpinner(getSpinnerId());
       return;
     }
     draw(
@@ -116,6 +126,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       tooltip.current,
       props.scatterTileSpec || {}
     );
+    removeSpinner(getSpinnerId());
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
@@ -162,8 +173,19 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           />
         </>
       )}
+      {props.showLoadingSpinner && (
+        <div id={getSpinnerId()} className="scatter-spinner">
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        </div>
+      )}
     </ChartTileContainer>
   );
+
+  function getSpinnerId(): string {
+    return `scatter-spinner-${props.id}`;
+  }
 }
 
 // Get the ReplacementStrings object used for formatting the title
@@ -242,7 +264,7 @@ export const fetchData = async (props: ScatterTilePropType) => {
       placeNamesPromise,
     ]);
     const rawData = { placeStats, population, placeNames };
-    return rawToChart(rawData, props.statVarSpec);
+    return rawToChart(rawData, props);
   } catch (error) {
     return null;
   }
@@ -250,10 +272,10 @@ export const fetchData = async (props: ScatterTilePropType) => {
 
 function rawToChart(
   rawData: RawData,
-  statVarSpec: StatVarSpec[]
+  props: ScatterTilePropType
 ): ScatterChartData {
-  const yStatVar = statVarSpec[0];
-  const xStatVar = statVarSpec[1];
+  const yStatVar = props.statVarSpec[0];
+  const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
@@ -312,6 +334,7 @@ function rawToChart(
     xDate: getDateRange(Array.from(xDates)),
     yDate: getDateRange(Array.from(yDates)),
     errorMsg,
+    props,
   };
 }
 

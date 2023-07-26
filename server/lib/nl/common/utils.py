@@ -29,7 +29,7 @@ import server.lib.nl.fulfillment.context as ctx
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 15
+NUM_CHILD_PLACES_FOR_EXISTENCE = 15
 
 
 def is_topic(sv):
@@ -74,27 +74,30 @@ def event_existence_for_place(place: str, event: types.EventType,
 def sv_existence_for_places(places: List[str], svs: List[str],
                             counters: ctr.Counters) -> List[str]:
   if not svs:
-    return []
+    return [], {}
 
   start = time.time()
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
-    return []
+    return [], {}
 
   existing_svs = []
+  existsv2places = {}
   for sv in svs:
     exists = False
-    for _, exist_bit in sv_existence.get(sv, {}).items():
+    for pl, exist_bit in sv_existence.get(sv, {}).items():
       if not exist_bit:
         continue
       exists = True
-      break
+      if sv not in existsv2places:
+        existsv2places[sv] = set()
+      existsv2places[sv].add(pl)
     if exists:
       existing_svs.append(sv)
 
-  return existing_svs
+  return existing_svs, existsv2places
 
 
 # Returns a map of existing SVs (as a union across places)
@@ -104,7 +107,7 @@ def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str],
     counters: ctr.Counters) -> Dict[str, bool]:
   if not svs:
-    return {}
+    return {}, {}
 
   start = time.time()
   series_data = fetch.series_core(entities=places,
@@ -113,13 +116,17 @@ def sv_existence_for_places_check_single_point(
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
+  existsv2places = {}
   for sv, sv_data in series_data.get('data', {}).items():
-    for _, place_data in sv_data.items():
+    for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
       num_series = len(place_data['series'])
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
-  return existing_svs
+      if sv not in existsv2places:
+        existsv2places[sv] = {}
+      existsv2places[sv][pl] = (num_series == 1)
+  return existing_svs, existsv2places
 
 
 #
@@ -138,8 +145,8 @@ def _get_sample_child_places(main_place_dcid: str,
   if child_places.get(main_place_dcid):
     logging.info(
         '_sample_child_place returning %s', ', '.join(
-            child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-    return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+            child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]))
+    return child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
     if arcs:
@@ -151,10 +158,9 @@ def _get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info(
-              '_sample_child_place returning %s',
-              ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-          return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+          logging.info('_sample_child_place returning %s',
+                       ', '.join(child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]))
+          return child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]
   logging.info('_sample_child_place returning empty')
   return []
 
@@ -328,8 +334,9 @@ def get_time_delta_title(direction: types.TimeDeltaType,
   ])
 
 
-def get_default_child_place_type(
-    place: types.Place) -> types.ContainedInPlaceType:
+def get_default_child_place_type(place: types.Place,
+                                 is_nl: bool = True
+                                ) -> types.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return types.ContainedInPlaceType.COUNTRY
   # Canonicalize the type.
@@ -338,6 +345,12 @@ def get_default_child_place_type(
   ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
+
+    if is_nl and place.dcid == constants.USA.dcid:
+      # NL has fallback, so if for country we preferred AA1, downgrade
+      # to AA2 since if data doesn't exist it will fallback to AA1.
+      ptype = types.ContainedInPlaceType.COUNTY
+
   # TODO: Since most queries/data tends to be US specific and we have
   # maps for it, we pick County as default, but reconsider in future.
   if not ptype:

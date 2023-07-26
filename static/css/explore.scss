@@ -1,0 +1,42 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use "./shared/subject_page";
+@import "./tools/base_tools";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/story_block";
+@import "./shared/story_chart";
+
+#main-header {
+  height: 72px;
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  h1 {
+    font-size: 2rem;
+    margin: 3rem 0;
+  }
+  .topic-row {
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
+}

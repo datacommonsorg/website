@@ -45,6 +45,9 @@ class PlaceDetection:
   # List of places with same name as main place and similar to main place.
   identical_name_as_main_place: List[Place] = field(default_factory=list)
   similar_to_main_place: List[Place] = field(default_factory=list)
+  parent_places: List[Place] = field(default_factory=list)
+  # This is only of the `child_type` requested.
+  child_places: List[Place] = field(default_factory=list)
 
 
 @dataclass
@@ -354,6 +357,8 @@ class ActualDetectorType(str, Enum):
   HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
   # Fallback to LLM for variable detection only
   HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  # The case of no detector involved.
+  NOP = "Detector unnecessary"
 
 
 class RequestedDetectorType(str, Enum):
@@ -368,6 +373,8 @@ class PlaceDetectorType(str, Enum):
   NER = "ner"
   # Represents the home-grown RecognizePlaces Recon API
   DC = "dc"
+  # The case of no detector involved
+  NOP = "nop"
 
 
 @dataclass

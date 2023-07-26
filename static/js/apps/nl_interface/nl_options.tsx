@@ -22,13 +22,12 @@ import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { NL_DETECTOR_VALS } from "../../constants/app/nl_interface_constants";
+import { useStoreActions, useStoreState } from "./app_state";
 
-interface NLOptionsPropType {
-  detector: string;
-  setDetector: (v: string) => void;
-}
+export function NLOptions(): JSX.Element {
+  const detector = useStoreState((s) => s.config.detector);
+  const updateConfig = useStoreActions((a) => a.updateConfig);
 
-export function NLOptions(props: NLOptionsPropType): JSX.Element {
   return (
     <div className="nl-options-row">
       <div className="nl-options-label">Detection:</div>
@@ -36,36 +35,36 @@ export function NLOptions(props: NLOptionsPropType): JSX.Element {
         <FormGroup>
           <Label>
             <Input
-              checked={props.detector === NL_DETECTOR_VALS.HEURISTIC}
+              checked={detector === NL_DETECTOR_VALS.HEURISTIC}
               id="nl-heuristics"
               type="radio"
               value={0}
               onChange={() => {
-                props.setDetector(NL_DETECTOR_VALS.HEURISTIC);
+                updateConfig({ detector: NL_DETECTOR_VALS.HEURISTIC });
               }}
             />
             Heuristic
           </Label>
           <Label>
             <Input
-              checked={props.detector === NL_DETECTOR_VALS.LLM}
+              checked={detector === NL_DETECTOR_VALS.LLM}
               id="nl-llm"
               type="radio"
               value={1}
               onChange={() => {
-                props.setDetector(NL_DETECTOR_VALS.LLM);
+                updateConfig({ detector: NL_DETECTOR_VALS.LLM });
               }}
             />
             LLM
           </Label>
           <Label>
             <Input
-              checked={props.detector === NL_DETECTOR_VALS.HYBRID}
+              checked={detector === NL_DETECTOR_VALS.HYBRID}
               id="nl-hybrid"
               type="radio"
               value={2}
               onChange={() => {
-                props.setDetector(NL_DETECTOR_VALS.HYBRID);
+                updateConfig({ detector: NL_DETECTOR_VALS.HYBRID });
               }}
             />
             Hybrid

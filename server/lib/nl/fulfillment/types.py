@@ -18,7 +18,8 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from typing import List
+from enum import Enum
+from typing import Dict, List, Set
 
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -38,6 +39,15 @@ class PopulateState:
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
   block_id: int = 0
+  # Has the results of existence check.
+  # SV -> Place Keys
+  # Where Place Key may be the place DCID, or place DCID + child-type.
+  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+
+
+class InsightType(Enum):
+  CATEGORY = 1
+  BLOCK = 2
 
 
 # Data structure for configuring the vars that go into a chart.
@@ -46,12 +56,13 @@ class ChartVars:
   # Only one of svs or events is set.
   svs: List[str]
   # Represents a grouping of charts on the resulting display.
-  block_id: int
+  block_id: int = -1
   include_percapita: bool = True
   title: str = ""
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
+  # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
   response_type: str = ""
@@ -68,3 +79,6 @@ class ChartVars:
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None
   growth_ranking_type: str = None
+
+  # Set if is_topic_peer_group is set.
+  svpg_id: str = ''
