@@ -26,6 +26,7 @@ from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import timeline
 import server.lib.nl.detection.types as dtypes
+import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.types as ftypes
 
 # Number of variables to plot in a chart (largely Timeline chart)
@@ -42,6 +43,11 @@ class Builder:
     self.env_config = env_config
     self.sv2thing = sv2thing
 
+    self.is_place_comparison = False
+    if len(state.uttr.places) > 1:
+      if ctx.classifications_of_type_from_utterance(
+          state.uttr, dtypes.ClassificationType.COMPARISON):
+        self.is_place_comparison = True
     metadata = self.page_config.metadata
     main_place = state.uttr.places[0]
     metadata.place_dcid.append(main_place.dcid)
@@ -56,9 +62,11 @@ class Builder:
   def nopc(self):
     return self.env_config.nopc_vars
 
-  def new_category(self, title):
+  def new_category(self, title, dcid):
     self.category = self.page_config.categories.add()
     self.category.title = title
+    if dcid:
+      self.category.dcid = dcid
 
   def new_block(self, title, description=''):
     self.block = self.category.blocks.add()
@@ -141,11 +149,13 @@ def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
     # every distinct source-topic.
     if i == 0 or prev_topic != chart_vars.source_topic:
       title = ''
+      dcid = ''
       if chart_vars.title:
         title = chart_vars.title
       elif chart_vars.source_topic:
         title = sv2thing.name.get(chart_vars.source_topic, '')
-      builder.new_category(title)
+        dcid = chart_vars.source_topic
+      builder.new_category(title, dcid)
       prev_topic = chart_vars.source_topic
     _add_charts(chart_vars, state, builder)
 
@@ -162,15 +172,43 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     # They should not be compared.
     for sv in chart_vars.svs:
       builder.new_block(builder.sv2thing.name.get(sv))
-      sv_spec.update(_add_sv_charts(sv, chart_vars, state, builder))
+      if builder.is_place_comparison:
+        sv_spec.update(_add_sv_comparison(sv, chart_vars, state, builder))
+      else:
+        sv_spec.update(_add_sv_charts(sv, chart_vars, state, builder))
   else:
     if not chart_vars.title and chart_vars.svpg_id:
       # If there was an SVPG, we may not have gotten its name before, so get it now.
       chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
     builder.new_block(chart_vars.title)
-    sv_spec.update(_add_svpg_charts(chart_vars, state, builder))
+    if builder.is_place_comparison:
+      sv_spec.update(_add_svpg_comparison(chart_vars, state, builder))
+    else:
+      sv_spec.update(_add_svpg_charts(chart_vars, state, builder))
 
   builder.update_sv_spec(sv_spec)
+
+
+def _add_sv_comparison(sv: str, chart_vars: ftypes.ChartVars,
+                       state: ftypes.PopulateState, builder: Builder):
+  sv_spec = {}
+  places = state.uttr.places
+
+  attr = {
+      'include_percapita': False,
+      'title': chart_vars.title,
+  }
+
+  # Main SV existence checks.
+  exist_places = [p for p in places if p.dcid in state.exist_checks.get(sv, {})]
+  # Main existence check
+  if len(exist_places) <= 1:
+    return {}
+  sv_spec.update(
+      bar.multiple_place_bar_block(builder.new_column(), exist_places, [sv],
+                                   builder.sv2thing, attr, builder.nopc()))
+
+  return sv_spec
 
 
 def _add_sv_charts(sv: str, chart_vars: ftypes.ChartVars,
@@ -217,6 +255,26 @@ def _add_sv_charts(sv: str, chart_vars: ftypes.ChartVars,
   sv_spec.update(
       ranking.ranking_chart_multivar(builder.new_column(), [sv],
                                      builder.sv2thing, attr))
+  return sv_spec
+
+
+def _add_svpg_comparison(chart_vars: ftypes.ChartVars,
+                         state: ftypes.PopulateState, builder: Builder):
+  places = state.uttr.places
+  attr = {
+      'include_percapita': False,
+      'title': chart_vars.title,
+  }
+  sv_spec = {}
+
+  # Pick SVs that satisfy all places.
+  exist_svs = []
+  for sv in chart_vars.svs:
+    if all([p.dcid in state.exist_checks.get(sv, {}) for p in places]):
+      exist_svs.append(sv)
+  sv_spec.update(
+      bar.multiple_place_bar_block(builder.new_column(), places, exist_svs,
+                                   builder.sv2thing, attr, builder.nopc()))
   return sv_spec
 
 

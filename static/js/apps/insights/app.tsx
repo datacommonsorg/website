@@ -42,6 +42,14 @@ const getSingleParam = (input: string | string[]): string => {
   return input;
 };
 
+const getListParam = (input: string | string[]): string[] => {
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input;
+  }
+  return [input];
+};
+
 /**
  * Application container
  */
@@ -50,6 +58,7 @@ export function App(): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
+  const [savedContext, setSavedContext] = useState<any>({});
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -74,28 +83,31 @@ export function App(): JSX.Element {
   useEffect(() => {
     setLoadingStatus("loading");
     (async () => {
-      let place = getSingleParam(hashParams["p"]);
+      let places = getListParam(hashParams["p"]);
       let topic = getSingleParam(hashParams["t"]);
       let placeType = getSingleParam(hashParams["pt"]);
+      let cmpType = getSingleParam(hashParams["ct"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
         setQuery(q);
-        const detectResp = await fetchDetectData(q);
+        const detectResp = await fetchDetectData(q, savedContext);
+        setSavedContext(detectResp["context"] || {});
         if (!detectResp["entities"] || !detectResp["variables"]) {
           setLoadingStatus("fail");
           return;
         }
-        place = detectResp["entities"][0];
+        places = detectResp["entities"];
         topic = detectResp["variables"][0];
         placeType = detectResp["childEntityType"] || "";
-        updateHash({ q: "", t: topic, p: place, pt: placeType });
+        cmpType = detectResp["comparisonType"] || "";
+        updateHash({ q: "", t: topic, p: places, pt: placeType, ct: cmpType });
         return;
       }
-      if (!place || !topic) {
+      if (!places || !topic) {
         return;
       }
-      const resp = await fetchFulfillData(place, topic, placeType);
+      const resp = await fetchFulfillData(places, topic, placeType, cmpType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -110,13 +122,20 @@ export function App(): JSX.Element {
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic,
       };
+      for (const category of chartData.pageConfig.categories) {
+        category.url = `/insights/#t=${category.dcid}`;
+        for (const p of places) {
+          category.url += `&p=${p}`;
+        }
+      }
+      setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
     })();
   }, [hashParams]);
 
   let mainSection;
-  const place = getSingleParam(hashParams["p"]);
+  const places = getListParam(hashParams["p"]);
   if (loadingStatus == "fail") {
     mainSection = <div>No data is found</div>;
   } else if (loadingStatus == "loaded" && chartData) {
@@ -131,7 +150,7 @@ export function App(): JSX.Element {
                 <Sidebar
                   id={PAGE_ID}
                   currentTopicDcid={chartData.topic}
-                  place={place}
+                  places={places}
                   categories={chartData.pageConfig.categories}
                   peerTopics={chartData.peerTopics}
                 />
@@ -139,12 +158,12 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
+                      let url = `/insights/#t=${parentTopic.dcid}`;
+                      for (const p of places) {
+                        url += `&p=${p}`;
+                      }
                       return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
-                        >
+                        <a className="topic-link" key={idx} href={url}>
                           {parentTopic.name}
                         </a>
                       );
@@ -190,38 +209,38 @@ export function App(): JSX.Element {
   }
 
   return (
-    <div className="insights-container">
-      <Container>
-        <div className="search-section">
-          <div className="search-box-section">
-            <TextSearchBar
-              inputId="query-search-input"
-              onSearch={(q) => {
-                updateHash({ q, t: "" });
-              }}
-              placeholder={query}
-              initialValue={""}
-              shouldAutoFocus={true}
-              clearValueOnSearch={true}
-            />
-          </div>
+    <Container className="insights-container">
+      <div className="search-section">
+        <div className="search-box-section">
+          <TextSearchBar
+            inputId="query-search-input"
+            onSearch={(q) => {
+              updateHash({ q, t: "" });
+            }}
+            placeholder={query}
+            initialValue={""}
+            shouldAutoFocus={true}
+            clearValueOnSearch={true}
+          />
         </div>
-        {mainSection}
-      </Container>
-    </div>
+      </div>
+      {mainSection}
+    </Container>
   );
 }
 
 const fetchFulfillData = async (
-  place: string,
+  places: string[],
   topic: string,
-  placeType: string
+  placeType: string,
+  cmpType: string
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
-      entities: [place],
+      entities: places,
       variables: [topic],
       childEntityType: placeType,
+      comparisonType: cmpType,
     });
     return resp.data;
   } catch (error) {
@@ -230,9 +249,11 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (query: string) => {
+const fetchDetectData = async (query: string, savedContext: any) => {
   try {
-    const resp = await axios.post(`/api/insights/detect?q=${query}`, {});
+    const resp = await axios.post(`/api/insights/detect?q=${query}`, {
+      contextHistory: savedContext,
+    });
     return resp.data;
   } catch (error) {
     console.log(error);
