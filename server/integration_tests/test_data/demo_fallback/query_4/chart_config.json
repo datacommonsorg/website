@@ -130,12 +130,12 @@
             "unit": "%"
           },
           "Percent_Person_SleepLessThan7Hours": {
-            "name": "%  Population That Sleeps Less Than 7 Hours Per Night",
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           },
           "Percent_Person_Smoking": {
-            "name": "Prevalence of Smokers",
+            "name": "Prevalence of Smoking",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },
