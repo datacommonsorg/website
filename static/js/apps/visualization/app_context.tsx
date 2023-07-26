@@ -43,17 +43,30 @@ const URL_PARAMS = {
   STAT_VAR: "sv",
 };
 const PARAM_VALUE_SEP = "__";
+const PARAM_VALUE_TRUE = "1";
+const STAT_VAR_PARAM_KEYS = {
+  DCID: "dcid",
+  PER_CAPITA: "pc",
+  LOG: "log",
+};
+
+interface ContextStatVar {
+  dcid: string;
+  info: StatVarInfo;
+  isPerCapita?: boolean;
+  isLog?: boolean;
+}
 export interface AppContextType {
   visType: string;
   places: NamedTypedPlace[];
   enclosedPlaceType: string;
-  statVars: { dcid: string; info: StatVarInfo }[];
+  statVars: ContextStatVar[];
   childPlaceTypes: string[];
   samplePlaces: NamedNode[];
   setVisType: (visType: string) => void;
   setPlaces: (places: NamedTypedPlace[]) => void;
   setEnclosedPlaceType: (enclosedPlaceType: string) => void;
-  setStatVars: (statVars: { dcid: string; info: StatVarInfo }[]) => void;
+  setStatVars: (statVars: ContextStatVar[]) => void;
 }
 
 export const AppContext = createContext({} as AppContextType);
@@ -111,11 +124,20 @@ export function AppContextProvider(
       );
     }
     if (!_.isEmpty(svDcidsValue)) {
-      const svDcids = svDcidsValue.split(PARAM_VALUE_SEP);
+      const svValues = svDcidsValue
+        .split(PARAM_VALUE_SEP)
+        .map((sv) => JSON.parse(sv));
+      const svDcids = svValues.map((sv) => sv.dcid);
       getStatVarInfo(svDcids).then((resp) => {
-        const statVars = svDcids.map((svDcid) => {
-          if (svDcid in resp) {
-            return { dcid: svDcid, info: resp[svDcid] };
+        const statVars = svValues.map((sv) => {
+          if (sv.dcid in resp) {
+            return {
+              dcid: sv.dcid,
+              info: resp[sv.dcid],
+              isPerCapita:
+                sv[STAT_VAR_PARAM_KEYS.PER_CAPITA] === PARAM_VALUE_TRUE,
+              isLog: sv[STAT_VAR_PARAM_KEYS.LOG] === PARAM_VALUE_TRUE,
+            };
           }
         });
         setStatVars(statVars);
@@ -247,7 +269,16 @@ export function AppContextProvider(
         .join(PARAM_VALUE_SEP),
       [URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
       [URL_PARAMS.STAT_VAR]: statVars
-        .map((sv) => sv.dcid)
+        .map((sv) => {
+          const svValue = { [STAT_VAR_PARAM_KEYS.DCID]: sv.dcid };
+          if (sv.isPerCapita) {
+            svValue[STAT_VAR_PARAM_KEYS.PER_CAPITA] = PARAM_VALUE_TRUE;
+          }
+          if (sv.isLog) {
+            svValue[STAT_VAR_PARAM_KEYS.LOG] = PARAM_VALUE_TRUE;
+          }
+          return JSON.stringify(svValue);
+        })
         .join(PARAM_VALUE_SEP),
     };
     let hash = "";

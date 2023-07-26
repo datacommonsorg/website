@@ -339,5 +339,21 @@ $selector-footer-height: 40px;
     .chart-container {
       background-color: white;
     }
+
+    .chart-footer-options {
+      background-color: white;
+      border: 0.5px solid #dee2e6;
+      padding: 1rem;
+      font-size: 14px;
+
+      .option-section {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .chart-option {
+        width: 125px;
+      }
+    }
   }
 }
