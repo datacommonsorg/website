@@ -141,10 +141,16 @@ export function App(): JSX.Element {
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic,
       };
-      for (const category of chartData.pageConfig.categories) {
-        category.url = `/insights/#t=${category.dcid}&p=${place}`;
-        for (const p of cmpPlaces) {
-          category.url += `&pcmp=${p}`;
+      if (
+        chartData &&
+        chartData.pageConfig &&
+        chartData.pageConfig.categories
+      ) {
+        for (const category of chartData.pageConfig.categories) {
+          category.url = `/insights/#t=${category.dcid}&p=${place}`;
+          for (const p of cmpPlaces) {
+            category.url += `&pcmp=${p}`;
+          }
         }
       }
       setSavedContext(resp["context"] || {});
