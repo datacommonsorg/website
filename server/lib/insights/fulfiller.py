@@ -13,13 +13,13 @@
 # limitations under the License.
 """Module for Insights fulfillment"""
 
-from dataclasses import dataclass
 import time
-from typing import Dict, List
+from typing import List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.insights import chart_builder
-import server.lib.nl.common.topic as topic
+from server.lib.insights import page
+import server.lib.insights.related as related
+import server.lib.insights.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
@@ -31,8 +31,8 @@ import server.lib.nl.fulfillment.types as ftypes
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill_chart_config(uttr: nl_uttr.Utterance,
-                         cb_config: builder.Config) -> SubjectPageConfig:
+def fulfill(uttr: nl_uttr.Utterance,
+            cb_config: builder.Config) -> SubjectPageConfig:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
@@ -47,7 +47,7 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
       cv = [ftypes.ChartVars(svs=[sv])]
     else:
       start = time.time()
-      cv = _topic_chart_vars(state, sv)
+      cv = topic.compute_chart_vars(state, sv)
       state.uttr.counters.timeit('topic_calls', start)
     if cv:
       chart_vars_map[sv] = cv
@@ -89,170 +89,10 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
       if chart_vars.svpg_id:
         existing_svs.add(chart_vars.svpg_id)
 
-  chart_pb = chart_builder.build(chart_vars_list, state, existing_svs,
-                                 cb_config)
-  related_things = _compute_related_things(state)
+  chart_pb = page.build_config(chart_vars_list, state, existing_svs, cb_config)
+  related_things = related.compute_related_things(state)
 
   return chart_pb, related_things
-
-
-def _compute_related_things(state: ftypes.PopulateState):
-  # Trim child and parent places based on existence check results.
-  _trim_nonexistent_places(state)
-
-  related_things = {
-      'parentPlaces': [],
-      'childPlaces': {},
-      'parentTopics': [],
-      'peerTopics': [],
-  }
-
-  # Convert the places to json.
-  pd = state.uttr.detection.places_detected
-  related_things['parentPlaces'] = _get_json_places(pd.parent_places)
-  if state.place_type:
-    related_things['childPlaces'] = {
-        state.place_type.value: _get_json_places(pd.child_places)
-    }
-
-  # Expan to parent and peer topics.
-  if state.uttr.svs:
-    start = time.time()
-    pt = topic.get_parent_topics(state.uttr.svs)
-    related_things['parentTopics'] = pt
-    pt = [p['dcid'] for p in pt]
-    related_things['peerTopics'] = topic.get_child_topics(pt)
-    state.uttr.counters.timeit('topic_expansion', start)
-
-  return related_things
-
-
-# Also delete non-existent child and parent places in detection!
-def _trim_nonexistent_places(state: ftypes.PopulateState):
-  detection = state.uttr.detection.places_detected
-
-  # Existing placekeys
-  exist_placekeys = set()
-  for _, plmap in state.exist_checks.items():
-    exist_placekeys.update(plmap.keys())
-
-  # For child places, use a specific key:
-  if detection.child_places:
-    key = state.uttr.places[0].dcid + state.place_type.value
-    if key not in exist_placekeys:
-      detection.child_places = []
-
-  exist_parents = []
-  for p in detection.parent_places:
-    if p.dcid in exist_placekeys:
-      exist_parents.append(p)
-  detection.parent_places = exist_parents
-
-
-def _get_json_places(places: List[dtypes.Place]) -> List[Dict]:
-  # Helper to strip out suffixes.
-  def _trim(l):
-    r = []
-    for s in [' County']:
-      for p in l:
-        if 'name' in p:
-          p['name'] = p['name'].removesuffix(s)
-        r.append(p)
-    return r
-
-  res = []
-  for p in places:
-    res.append({'dcid': p.dcid, 'name': p.name, 'types': [p.place_type]})
-  return _trim(res)
-
-
-@dataclass
-class TopicMembers:
-  svs: List[str]
-  svpgs: List[str]
-  topics: List[str]
-
-
-#
-# This is an involved function to construct a list of ChartVars
-# for topics.
-#
-def _topic_chart_vars(state: ftypes.PopulateState,
-                      sv: str,
-                      lvl: int = 0) -> List[ftypes.ChartVars]:
-  if lvl == 0:
-    # This is the requested topic, just get the immediate members.
-    topic_vars = topic.get_topic_vars(sv)
-  else:
-    # This is an immediate sub-topic of the parent topic. Here,
-    # we recurse along the topic-descendents to get a limited
-    # number of vars.
-    assert lvl < 2, "Must never recurse past 2 levels"
-    topic_vars = topic.get_topic_vars_recurive(sv,
-                                               rank=0,
-                                               max_svs=_MAX_SUBTOPIC_SV_LIMIT)
-
-  # Classify the members into `TopicMembers` struct.
-  topic_members = _classify_topic_members(topic_vars)
-
-  charts = []
-
-  # First produce charts for SVs and SVPGs.
-  if topic_members.svs or topic_members.svpgs:
-    st = sv
-    if lvl == 0 and topic_members.topics:
-      st = ''
-    charts.extend(
-        _charts_within_topic(topic_members.svs, topic_members.svpgs, st))
-
-  # Recurse into immediate sub-topics.
-  for t in topic_members.topics:
-    charts.extend(_topic_chart_vars(state, t, lvl + 1))
-
-  state.uttr.counters.info(
-      'topics_processed',
-      {sv: {
-          'svs': topic_members.svs,
-          'peer_groups': topic_members.svpgs,
-      }})
-  return charts
-
-
-def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
-  peer_groups = topic.get_topic_peergroups(topic_vars)
-
-  just_svs = []
-  svpgs = []
-  sub_topics = []
-  for v in topic_vars:
-    if cutils.is_topic(v):
-      sub_topics.append(v)
-    elif peer_groups.get(v):
-      svpgs.append((v, peer_groups[v]))
-    else:
-      just_svs.append(v)
-  return TopicMembers(svs=just_svs, svpgs=svpgs, topics=sub_topics)
-
-
-_MAX_SUBTOPIC_SV_LIMIT = 3
-
-
-def _charts_within_topic(svs: List[str], svpgs: List[str],
-                         topic: str) -> ftypes.ChartVars:
-  # We need a category called overview.
-  # 1. Make a block for all SVs in just_svs
-  charts = [ftypes.ChartVars(svs=svs, source_topic=topic)]
-
-  # 2. Make a block for every peer-group in svpgs
-  for (svpg, svs) in svpgs:
-    charts.append(
-        ftypes.ChartVars(svs=svs,
-                         include_percapita=False,
-                         is_topic_peer_group=True,
-                         svpg_id=svpg,
-                         source_topic=topic))
-
-  return charts
 
 
 def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
