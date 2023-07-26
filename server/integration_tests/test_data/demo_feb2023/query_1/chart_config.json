@@ -139,20 +139,20 @@
                     "statVarKey": [
                       "Temperature"
                     ],
-                    "title": "Temperature in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Temperature"
                     ],
-                    "title": "Temperature in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Temperature"
+            "title": "Temperature in a Location"
           },
           {
             "columns": [
@@ -220,20 +220,20 @@
                     "statVarKey": [
                       "Max_Temperature"
                     ],
-                    "title": "Max_Temperature in Counties of California (${date})",
+                    "title": "Maximum Temperature in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Max_Temperature"
                     ],
-                    "title": "Max_Temperature in Counties of California (${date})",
+                    "title": "Maximum Temperature in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Max_Temperature"
+            "title": "Maximum Temperature"
           },
           {
             "columns": [
@@ -296,7 +296,7 @@
             "statVar": "Count_HeatTemperatureEvent"
           },
           "Max_Temperature": {
-            "name": "Max_Temperature",
+            "name": "Maximum Temperature",
             "statVar": "Max_Temperature"
           },
           "Mean_MaxTemperature": {
@@ -336,7 +336,7 @@
             "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
           },
           "Temperature": {
-            "name": "Temperature",
+            "name": "Temperature in a Location",
             "statVar": "Temperature"
           },
           "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {

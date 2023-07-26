@@ -11,14 +11,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_NoIncome"
                     ],
-                    "title": "Count_Person_15OrMoreYears_NoIncome in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "People of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_NoIncome_pc"
                     ],
-                    "title": "Per Capita Count_Person_15OrMoreYears_NoIncome in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Per Capita People of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -50,12 +50,12 @@
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_NoIncome": {
-            "name": "Count_Person_15OrMoreYears_NoIncome",
+            "name": "People of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
           "Count_Person_15OrMoreYears_NoIncome_pc": {
             "denom": "Count_Person",
-            "name": "Count_Person_15OrMoreYears_NoIncome",
+            "name": "People of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
           "dc/dyhxtqe2pxhl5": {

@@ -11,21 +11,21 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Count_CriminalActivities_CombinedCrime in California",
+                    "title": "Criminal Activities in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft"
                     ],
-                    "title": "Count_CriminalActivities_MotorVehicleTheft in California",
+                    "title": "Motor Vehicle Thefts in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
                     ],
-                    "title": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime in California",
+                    "title": "Hate Crimes Motivated by Disability Status in California",
                     "type": "LINE"
                   },
                   {
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime"
                     ],
-                    "title": "Count_CriminalIncidents_IsHateCrime in California",
+                    "title": "Hate Crime Incidents in California",
                     "type": "LINE"
                   }
                 ]
@@ -107,7 +107,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Count_CriminalActivities_PropertyCrime compared with other variables in California (${date})",
+                    "title": "Property Related Crimes compared with other variables in California (${date})",
                     "type": "BAR"
                   },
                   {
@@ -124,7 +124,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Count_CriminalActivities_PropertyCrime compared with other variables in California (${date})",
+                    "title": "Per Capita Property Related Crimes compared with other variables in California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -134,87 +134,87 @@
         ],
         "statVarSpec": {
           "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_AggravatedAssault",
+            "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_AggravatedAssault",
+            "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_Burglary",
+            "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_Burglary",
+            "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_CombinedCrime": {
-            "name": "Count_CriminalActivities_CombinedCrime",
+            "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_ForcibleRape",
+            "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_ForcibleRape",
+            "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_LarcenyTheft",
+            "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_LarcenyTheft",
+            "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Count_CriminalActivities_MotorVehicleTheft",
+            "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_MotorVehicleTheft",
+            "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_MotorVehicleTheft",
+            "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_PropertyCrime",
+            "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_PropertyCrime",
+            "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_Robbery",
+            "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_Robbery",
+            "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_ViolentCrime",
+            "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_ViolentCrime",
+            "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime",
+            "name": "Hate Crimes Motivated by Disability Status",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone": {
@@ -222,7 +222,7 @@
             "statVar": "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_CriminalIncidents_IsHateCrime": {
-            "name": "Count_CriminalIncidents_IsHateCrime",
+            "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }

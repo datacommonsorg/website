@@ -20,7 +20,7 @@
                     "statVarKey": [
                       "Count_Person_HispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Count_Person_HispanicOrLatino (${date}) - Top 7 of 289",
+                    "title": "Hispanic People (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]
@@ -30,7 +30,7 @@
         ],
         "statVarSpec": {
           "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Count_Person_HispanicOrLatino",
+            "name": "Hispanic People",
             "statVar": "Count_Person_HispanicOrLatino"
           }
         }
@@ -47,8 +47,8 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Count_Person_HispanicOrLatino_AsianAlone",
-            "nlQuery": "Count_Person_HispanicOrLatino_AsianAlone California"
+            "displayName": "Hispanic People Who Identify as Asian Alone",
+            "nlQuery": "Hispanic People Who Identify as Asian Alone California"
           }
         ]
       }

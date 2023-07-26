@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "LifeExpectancy_Person in Administrative Area 1 Places of China (${date})",
+                    "title": "Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -26,7 +26,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "LifeExpectancy_Person_Male in Administrative Area 1 Places of China (${date})",
+                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -41,7 +41,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "LifeExpectancy_Person_Female in Administrative Area 1 Places of China (${date})",
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -51,15 +51,15 @@
         ],
         "statVarSpec": {
           "LifeExpectancy_Person": {
-            "name": "LifeExpectancy_Person",
+            "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
           "LifeExpectancy_Person_Female": {
-            "name": "LifeExpectancy_Person_Female",
+            "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
           "LifeExpectancy_Person_Male": {
-            "name": "LifeExpectancy_Person_Male",
+            "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           }
         }

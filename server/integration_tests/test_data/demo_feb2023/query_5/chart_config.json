@@ -25,7 +25,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction"
                     ],
-                    "title": "Count_Worker_NAICSConstruction in Placer County",
+                    "title": "Construction Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSRealEstateRentalLeasing"
                     ],
-                    "title": "Count_Worker_NAICSRealEstateRentalLeasing in Placer County",
+                    "title": "Real Estate and Rental and Leasing in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -95,7 +95,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration"
                     ],
-                    "title": "Count_Worker_NAICSPublicAdministration in Placer County",
+                    "title": "Public Administration in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -160,7 +160,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSRealEstateRentalLeasing"
                     ],
-                    "title": "Count_Worker_NAICSRealEstateRentalLeasing in Placer County",
+                    "title": "Real Estate and Rental and Leasing in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -174,7 +174,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction"
                     ],
-                    "title": "Count_Worker_NAICSConstruction in Placer County",
+                    "title": "Construction Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -209,7 +209,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration"
                     ],
-                    "title": "Count_Worker_NAICSPublicAdministration in Placer County",
+                    "title": "Public Administration in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -253,7 +253,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction"
                     ],
-                    "title": "Count_Worker_NAICSConstruction in Placer County",
+                    "title": "Construction Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -309,7 +309,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSRealEstateRentalLeasing"
                     ],
-                    "title": "Count_Worker_NAICSRealEstateRentalLeasing in Placer County",
+                    "title": "Real Estate and Rental and Leasing in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -323,7 +323,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration"
                     ],
-                    "title": "Count_Worker_NAICSPublicAdministration in Placer County",
+                    "title": "Public Administration in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -360,7 +360,7 @@
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction": {
-            "name": "Count_Worker_NAICSConstruction",
+            "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSEducationalServices": {
@@ -392,11 +392,11 @@
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSPublicAdministration": {
-            "name": "Count_Worker_NAICSPublicAdministration",
+            "name": "Public Administration",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing": {
-            "name": "Count_Worker_NAICSRealEstateRentalLeasing",
+            "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSWholesaleTrade": {

@@ -15,7 +15,7 @@
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Family Households Below the Poverty Level in the Past 12 Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -34,7 +34,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Count_Person_BelowPovertyLevelInThePast12Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -53,7 +53,7 @@
                       "Count_Household_WithFoodStampsInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Count_Household_WithFoodStampsInThePast12Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Households Receiving Food Stamps in the Past 12 Months Per Capita (${yDate}) vs. %  Population That Is Obese (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -102,13 +102,13 @@
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
-            "name": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months Per Capita",
+            "name": "Family Households Below the Poverty Level in the Past 12 Months Per Capita",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
           "Count_Household_WithFoodStampsInThePast12Months_scatter": {
             "denom": "Count_Person",
-            "name": "Count_Household_WithFoodStampsInThePast12Months Per Capita",
+            "name": "Households Receiving Food Stamps in the Past 12 Months Per Capita",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months",
             "unit": "%"
           },
@@ -120,7 +120,7 @@
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
-            "name": "Count_Person_BelowPovertyLevelInThePast12Months Per Capita",
+            "name": "People Who Are Below Poverty Level Status in the Past 12 Months Per Capita",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },

@@ -93,7 +93,7 @@
             "unit": "%"
           },
           "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
-            "name": "Percent_Person_WithAllTeethLoss",
+            "name": "Prevalance of Complete Tooth Loss in the Population",
             "statVar": "Percent_Person_WithAllTeethLoss",
             "unit": "%"
           },

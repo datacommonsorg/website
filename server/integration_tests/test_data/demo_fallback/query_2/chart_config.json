@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block"
                     ],
-                    "title": "Count_CriminalActivities_CombinedCrime (${date})",
+                    "title": "Criminal Activities (${date})",
                     "type": "BAR"
                   },
                   {
@@ -26,7 +26,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Count_CriminalActivities_CombinedCrime (${date})",
+                    "title": "Per Capita Criminal Activities (${date})",
                     "type": "BAR"
                   },
                   {
@@ -37,7 +37,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block"
                     ],
-                    "title": "Count_CriminalActivities_MotorVehicleTheft (${date})",
+                    "title": "Motor Vehicle Thefts (${date})",
                     "type": "BAR"
                   },
                   {
@@ -48,7 +48,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Count_CriminalActivities_MotorVehicleTheft (${date})",
+                    "title": "Per Capita Motor Vehicle Thefts (${date})",
                     "type": "BAR"
                   },
                   {
@@ -59,7 +59,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block"
                     ],
-                    "title": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime (${date})",
+                    "title": "Hate Crimes Motivated by Disability Status (${date})",
                     "type": "BAR"
                   },
                   {
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime (${date})",
+                    "title": "Per Capita Hate Crimes Motivated by Disability Status (${date})",
                     "type": "BAR"
                   },
                   {
@@ -103,7 +103,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
                     ],
-                    "title": "Count_CriminalIncidents_IsHateCrime (${date})",
+                    "title": "Hate Crime Incidents (${date})",
                     "type": "BAR"
                   },
                   {
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Count_CriminalIncidents_IsHateCrime (${date})",
+                    "title": "Per Capita Hate Crime Incidents (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -169,93 +169,93 @@
         ],
         "statVarSpec": {
           "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_AggravatedAssault",
+            "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_AggravatedAssault",
+            "name": "Aggravated Assault Cases",
             "statVar": "Count_CriminalActivities_AggravatedAssault"
           },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_Burglary",
+            "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_Burglary_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_Burglary",
+            "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
           },
           "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_CombinedCrime",
+            "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_CombinedCrime",
+            "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_ForcibleRape",
+            "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_ForcibleRape",
+            "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_LarcenyTheft",
+            "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_LarcenyTheft",
+            "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_MotorVehicleTheft",
+            "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_MotorVehicleTheft",
+            "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_PropertyCrime",
+            "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_PropertyCrime",
+            "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_Robbery",
+            "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_Robbery",
+            "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalActivities_ViolentCrime",
+            "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalActivities_ViolentCrime",
+            "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime",
+            "name": "Hate Crimes Motivated by Disability Status",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime",
+            "name": "Hate Crimes Motivated by Disability Status",
             "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
           },
           "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
@@ -268,12 +268,12 @@
             "statVar": "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
-            "name": "Count_CriminalIncidents_IsHateCrime",
+            "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           },
           "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_CriminalIncidents_IsHateCrime",
+            "name": "Hate Crime Incidents",
             "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }

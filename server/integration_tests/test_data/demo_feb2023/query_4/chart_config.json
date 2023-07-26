@@ -107,12 +107,12 @@
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block": {
-            "name": "Count_Worker_NAICSConstruction",
+            "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_Worker_NAICSConstruction",
+            "name": "Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSEducationalServices_multiple_place_bar_block": {
@@ -179,21 +179,21 @@
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block": {
-            "name": "Count_Worker_NAICSPublicAdministration",
+            "name": "Public Administration",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_Worker_NAICSPublicAdministration",
+            "name": "Public Administration",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block": {
-            "name": "Count_Worker_NAICSRealEstateRentalLeasing",
+            "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Count_Worker_NAICSRealEstateRentalLeasing",
+            "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSUtilities_multiple_place_bar_block": {
@@ -224,12 +224,12 @@
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
-            "name": "dc/ndg1xk1e9frc2",
+            "name": "Manufacturing",
             "statVar": "dc/ndg1xk1e9frc2"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "dc/ndg1xk1e9frc2",
+            "name": "Manufacturing",
             "statVar": "dc/ndg1xk1e9frc2"
           },
           "dc/p69tpsldf99h7_multiple_place_bar_block": {

@@ -15,20 +15,20 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Family Households Below the Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+            "title": "Family Households Below the Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -68,20 +68,20 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Person_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Person_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_Person_BelowPovertyLevelInThePast12Months"
+            "title": "People Who Are Below Poverty Level Status in the Past 12 Months"
           },
           {
             "columns": [
@@ -95,14 +95,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Person_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Person_BelowPovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -121,20 +121,20 @@
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months"
                     ],
-                    "title": "Count_Household_WithFoodStampsInThePast12Months in Counties of United States (${date})",
+                    "title": "Households Receiving Food Stamps in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months"
                     ],
-                    "title": "Count_Household_WithFoodStampsInThePast12Months in Counties of United States (${date})",
+                    "title": "Households Receiving Food Stamps in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_Household_WithFoodStampsInThePast12Months"
+            "title": "Households Receiving Food Stamps in the Past 12 Months"
           },
           {
             "columns": [
@@ -148,14 +148,14 @@
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Household_WithFoodStampsInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Household_WithFoodStampsInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -1181,20 +1181,20 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Person_AbovePovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Count_Person_AbovePovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count_Person_AbovePovertyLevelInThePast12Months"
+            "title": "People Who Are Above Poverty Level Status in the Past 12 Months"
           },
           {
             "columns": [
@@ -1208,14 +1208,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Person_AbovePovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Count_Person_AbovePovertyLevelInThePast12Months in Counties of United States (${date})",
+                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -1517,12 +1517,12 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+            "name": "Family Households Below the Poverty Level in the Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+            "name": "Family Households Below the Poverty Level in the Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
@@ -1553,12 +1553,12 @@
             "statVar": "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_WithFoodStampsInThePast12Months": {
-            "name": "Count_Household_WithFoodStampsInThePast12Months",
+            "name": "Households Receiving Food Stamps in the Past 12 Months",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months"
           },
           "Count_Household_WithFoodStampsInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Count_Household_WithFoodStampsInThePast12Months",
+            "name": "Households Receiving Food Stamps in the Past 12 Months",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty": {
@@ -1616,16 +1616,16 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months": {
-            "name": "Count_Person_AbovePovertyLevelInThePast12Months",
+            "name": "People Who Are Above Poverty Level Status in the Past 12 Months",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Count_Person_AbovePovertyLevelInThePast12Months",
+            "name": "People Who Are Above Poverty Level Status in the Past 12 Months",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Count_Person_BelowPovertyLevelInThePast12Months",
+            "name": "People Who Are Below Poverty Level Status in the Past 12 Months",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
@@ -1702,7 +1702,7 @@
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Count_Person_BelowPovertyLevelInThePast12Months",
+            "name": "People Who Are Below Poverty Level Status in the Past 12 Months",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined": {
@@ -1756,8 +1756,8 @@
             "nlQuery": "dc/topic/SDG_1 United States"
           },
           {
-            "displayName": "Count_Person_AbovePovertyLevelInThePast12Months",
-            "nlQuery": "Count_Person_AbovePovertyLevelInThePast12Months United States"
+            "displayName": "People Who Are Above Poverty Level Status in the Past 12 Months",
+            "nlQuery": "People Who Are Above Poverty Level Status in the Past 12 Months United States"
           },
           {
             "displayName": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",

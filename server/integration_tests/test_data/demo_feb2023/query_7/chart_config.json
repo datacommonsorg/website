@@ -42,25 +42,25 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication in Counties of California (${date})",
+                    "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication in Counties of California (${date})",
+                    "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+            "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;"
           }
         ],
         "statVarSpec": {
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
-            "name": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+            "name": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },

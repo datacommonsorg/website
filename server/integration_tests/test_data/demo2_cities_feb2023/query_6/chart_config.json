@@ -170,7 +170,7 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person over time (Absolute change)"
+            "title": "Increase in Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person over time (Percent change)"
+            "title": "Increase in Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -508,7 +508,7 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person_Male over time (Absolute change)"
+            "title": "Increase in Male Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -677,7 +677,7 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person_Male over time (Percent change)"
+            "title": "Increase in Male Life Expectancy over time (Percent change)"
           },
           {
             "columns": [
@@ -846,7 +846,7 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person_Female over time (Absolute change)"
+            "title": "Increase in Female Life Expectancy over time (Absolute change)"
           },
           {
             "columns": [
@@ -1015,20 +1015,20 @@
                 ]
               }
             ],
-            "title": "Increase in LifeExpectancy_Person_Female over time (Percent change)"
+            "title": "Increase in Female Life Expectancy over time (Percent change)"
           }
         ],
         "statVarSpec": {
           "LifeExpectancy_Person": {
-            "name": "LifeExpectancy_Person",
+            "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           },
           "LifeExpectancy_Person_Female": {
-            "name": "LifeExpectancy_Person_Female",
+            "name": "Female Life Expectancy",
             "statVar": "LifeExpectancy_Person_Female"
           },
           "LifeExpectancy_Person_Male": {
-            "name": "LifeExpectancy_Person_Male",
+            "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
           }
         }
