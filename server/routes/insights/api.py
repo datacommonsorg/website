@@ -27,7 +27,7 @@ from flask import request
 from google.protobuf.json_format import MessageToJson
 
 from server.lib.insights.detector import Params
-import server.lib.insights.detector as detector
+import server.lib.insights.detector as insight_detector
 import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -35,7 +35,7 @@ import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
-import server.lib.nl.detection.detector as detector
+import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
@@ -58,7 +58,7 @@ def detect():
 
   _hoist_topic(utterance)
 
-  data_dict = detector.detect_with_context(utterance)
+  data_dict = insight_detector.detect_with_context(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -114,9 +114,10 @@ def fulfill():
 
   # There is not detection, so just construct a structure.
   start = time.time()
-  query_detection, error_msg = detector.construct(entities, variables,
-                                                  child_type, is_cmp_entities,
-                                                  debug_logs, counters)
+  query_detection, error_msg = nl_detector.construct(entities, variables,
+                                                     child_type,
+                                                     is_cmp_entities,
+                                                     debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     helpers.abort(error_msg, '', [])
