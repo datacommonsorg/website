@@ -55,6 +55,5 @@ export function updateHash(params: Record<string, string | string[]>): void {
       urlParams.set(param, <string>params[param]);
     }
   }
-  console.log(urlParams.toString());
   window.location.hash = urlParams.toString();
 }
