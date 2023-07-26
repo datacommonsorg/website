@@ -54,10 +54,15 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                 {topic.dcid == props.currentTopicDcid &&
                   props.categories &&
                   props.categories.map((category, idx) => {
-                    console.log(category);
-                    const categoryId = getId(props.id, CATEGORY_ID_PREFIX, idx);
-                    // Add child categories
-                    return renderItem(category.title, categoryId);
+                    return (
+                      <a
+                        key={randDomId()}
+                        className={"nav-item"}
+                        href={`/insights/#p=${props.place}&t=${category.dcid}`}
+                      >
+                        {category.title}
+                      </a>
+                    );
                   })}
               </div>
             </div>
@@ -65,20 +70,5 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
         })}
       </ul>
     </div>
-  );
-}
-
-function renderItem(title: string, categoryId: string): JSX.Element {
-  if (!title) {
-    return null;
-  }
-  return (
-    <a
-      key={randDomId()}
-      className={"nav-item"}
-      href={`/insights/#p=${"haha"}&t=${categoryId}`}
-    >
-      {title}
-    </a>
   );
 }

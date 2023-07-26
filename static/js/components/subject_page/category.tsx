@@ -65,7 +65,12 @@ export const Category = memo(function Category(
     : "";
   return (
     <article className="category col-12" id={props.id}>
-      {title && <h2 className="block-title">{title}</h2>}
+      {title && (
+        <h2 className="block-title">
+          {props.config.url && <a href={props.config.url}>{title}</a>}
+          {!props.config.url && { title }}
+        </h2>
+      )}
       {globalThis.viaGoogle && (
         <p>
           This data was imported by the Google DataCommons team. For more info,

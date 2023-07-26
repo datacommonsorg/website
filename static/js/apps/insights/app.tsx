@@ -122,6 +122,9 @@ export function App(): JSX.Element {
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic,
       };
+      for (const category of chartData.pageConfig.categories) {
+        category.url = `/insights/#p=${place}&t=${category.dcid}`;
+      }
       setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
