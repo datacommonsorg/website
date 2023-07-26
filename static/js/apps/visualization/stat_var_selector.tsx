@@ -105,7 +105,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
                 Please choose 1 statistical variable to replace:
               </div>
               <div className="radio-selection-section">
-                {statVars
+                {selectedStatVars
                   .filter((sv) => sv.dcid !== extraSv.dcid)
                   .map((sv, idx) => {
                     return (
@@ -158,7 +158,10 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
         setStatVarsFn([{ dcid: sv, info: info[sv] }]);
         return;
       }
-      if (visTypeConfig.numSv && statVars.length >= visTypeConfig.numSv) {
+      if (
+        visTypeConfig.numSv &&
+        selectedStatVars.length >= visTypeConfig.numSv
+      ) {
         setExtraSv({ dcid: sv, info: info[sv] });
       }
       setStatVarsFn([...selectedStatVars, { dcid: sv, info: info[sv] }]);

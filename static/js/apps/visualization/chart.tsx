@@ -167,9 +167,8 @@ export function Chart(): JSX.Element {
                 },
               ];
               return (
-                <div>
+                <div key={chartId}>
                   <LineTile
-                    key={chartId}
                     comparisonPlaces={places.map((place) => place.dcid)}
                     id={`vis-tool-timeline-${chartId}`}
                     title=""
@@ -216,9 +215,9 @@ function renderFooterOptions(
   return (
     <div className="chart-footer-options">
       <div className="option-section">
-        {perCapitaInputs.map((pcInput) => {
+        {perCapitaInputs.map((pcInput, idx) => {
           return (
-            <span className="chart-option">
+            <span className="chart-option" key={`pc-${idx}`}>
               <FormGroup check>
                 <Label check>
                   <Input
@@ -242,9 +241,9 @@ function renderFooterOptions(
         })}
       </div>
       <div className="option-section">
-        {logInputs.map((logInput) => {
+        {logInputs.map((logInput, idx) => {
           return (
-            <span className="chart-option">
+            <span className="chart-option" key={`log-${idx}`}>
               <FormGroup check>
                 <Label check>
                   <Input
