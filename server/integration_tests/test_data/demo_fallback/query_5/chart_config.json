@@ -33,14 +33,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal GDP Per Capita in United States",
+                    "title": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita in United States",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita_pc"
                     ],
-                    "title": "Per Capita Nominal GDP Per Capita in United States",
+                    "title": "Per Capita Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -55,7 +55,7 @@
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of GDP in United States",
+                    "title": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction in United States",
                     "type": "LINE"
                   }
                 ]
@@ -70,14 +70,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
                     ],
-                    "title": "GDP of the Finance and Insurance Industry in United States",
+                    "title": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue in United States",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Finance and Insurance Industry in United States",
+                    "title": "Per Capita Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue in United States",
                     "type": "LINE"
                   }
                 ]
@@ -114,14 +114,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
                     ],
-                    "title": "GDP of Other Services, Except Public Administration Industry in United States",
+                    "title": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue in United States",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in United States",
+                    "title": "Per Capita Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue in United States",
                     "type": "LINE"
                   }
                 ]
@@ -155,21 +155,21 @@
         ],
         "statVarSpec": {
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": {
-            "name": "GDP of the Finance and Insurance Industry",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc": {
             "denom": "Count_Person",
-            "name": "GDP of the Finance and Insurance Industry",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue": {
-            "name": "GDP of Other Services, Except Public Administration Industry",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc": {
             "denom": "Count_Person",
-            "name": "GDP of Other Services, Except Public Administration Industry",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
@@ -177,12 +177,12 @@
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
-            "name": "Nominal GDP Per Capita",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita_pc": {
             "denom": "Count_Person",
-            "name": "Nominal GDP Per Capita",
+            "name": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
@@ -200,7 +200,7 @@
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
-            "name": "Growth Rate of GDP",
+            "name": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           }
         }

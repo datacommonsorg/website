@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Percentage of Population That Is Obese in United States",
+                    "title": "%  Population That Is Obese in United States",
                     "type": "LINE"
                   }
                 ]
@@ -60,7 +60,7 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "Percentage of Population That Is Obese compared with other variables in United States",
+                    "title": "%  Population That Is Obese compared with other variables in United States",
                     "type": "LINE"
                   }
                 ]
@@ -115,27 +115,27 @@
             "unit": "%"
           },
           "Percent_Person_BingeDrinking": {
-            "name": "Percentage of Population Who Binge Drink",
+            "name": "%  Population Who Binge Drink",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
           "Percent_Person_Obesity": {
-            "name": "Percentage of Population That Is Obese",
+            "name": "%  Population That Is Obese",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
           "Percent_Person_PhysicalInactivity": {
-            "name": "Percentage of Population Who Are Physically Inactive",
+            "name": "%  Population Who Are Physically Inactive",
             "statVar": "Percent_Person_PhysicalInactivity",
             "unit": "%"
           },
           "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
+            "name": "%  Population That Sleeps Less Than 7 Hours Per Night",
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           },
           "Percent_Person_Smoking": {
-            "name": "Percentage of Population That Smokes",
+            "name": "%  Population That Smokes",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },

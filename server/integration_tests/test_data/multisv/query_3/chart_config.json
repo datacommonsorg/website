@@ -20,7 +20,7 @@
                     "statVarKey": [
                       "Count_Person_HispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic Population (${date}) - Top 7 of 289",
+                    "title": "Count_Person_HispanicOrLatino (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]
@@ -30,7 +30,7 @@
         ],
         "statVarSpec": {
           "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic Population",
+            "name": "Count_Person_HispanicOrLatino",
             "statVar": "Count_Person_HispanicOrLatino"
           }
         }
@@ -47,8 +47,8 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Hispanic Asian Population",
-            "nlQuery": "Hispanic Asian Population California"
+            "displayName": "Count_Person_HispanicOrLatino_AsianAlone",
+            "nlQuery": "Count_Person_HispanicOrLatino_AsianAlone California"
           }
         ]
       }

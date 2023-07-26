@@ -15,20 +15,20 @@
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "FertilityRate_Person_Female in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "FertilityRate_Person_Female in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Fertility Rate"
+            "title": "FertilityRate_Person_Female"
           },
           {
             "columns": [
@@ -69,20 +69,20 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "GrowthRate_Count_Person in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "GrowthRate_Count_Person in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Rate of Population Growth"
+            "title": "GrowthRate_Count_Person"
           },
           {
             "columns": [
@@ -122,11 +122,11 @@
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
           "FertilityRate_Person_Female": {
-            "name": "Fertility Rate",
+            "name": "FertilityRate_Person_Female",
             "statVar": "FertilityRate_Person_Female"
           },
           "GrowthRate_Count_Person": {
-            "name": "Rate of Population Growth",
+            "name": "GrowthRate_Count_Person",
             "statVar": "GrowthRate_Count_Person"
           }
         }

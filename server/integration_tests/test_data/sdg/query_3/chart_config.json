@@ -11,28 +11,28 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
-                    "title": "Maternal mortality ratio in the World (${date})",
+                    "title": "sdg/SH_STA_MORT.SEX--F in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Access to modern family planning for women in the World (${date})",
+                    "title": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
                     ],
-                    "title": "Birth rate for adolescent women in the World (${date})",
+                    "title": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Prevalence of anaemia in women in the World (${date})",
+                    "title": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -48,21 +48,21 @@
                     "statVarKey": [
                       "sdg/SH_DYN_IMRT.AGE--Y0"
                     ],
-                    "title": "Infant mortality rate in the World (${date})",
+                    "title": "sdg/SH_DYN_IMRT.AGE--Y0 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_DYN_MORT.AGE--Y0T4"
                     ],
-                    "title": "Mortality rate for children under 5 years in the World (${date})",
+                    "title": "sdg/SH_DYN_MORT.AGE--Y0T4 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_DYN_NMRT.AGE--M0"
                     ],
-                    "title": "Neonatal mortality rate in the World (${date})",
+                    "title": "sdg/SH_DYN_NMRT.AGE--M0 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -78,28 +78,28 @@
                     "statVarKey": [
                       "sdg/SH_HIV_INCD"
                     ],
-                    "title": "Incidence of HIV infections in the World (${date})",
+                    "title": "sdg/SH_HIV_INCD in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_TBS_INCD"
                     ],
-                    "title": "Incidence of Tuberculosis in the World (${date})",
+                    "title": "sdg/SH_TBS_INCD in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_HAP_HBSAG.AGE--Y0T4"
                     ],
-                    "title": "Prevalence of hepatitis B in children under 5 years in the World (${date})",
+                    "title": "sdg/SH_HAP_HBSAG.AGE--Y0T4 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_TRP_INTVN"
                     ],
-                    "title": "Need for intervention against neglected tropical diseases in the World (${date})",
+                    "title": "sdg/SH_TRP_INTVN in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -115,21 +115,21 @@
                     "statVarKey": [
                       "sdg/SH_ACS_UNHC"
                     ],
-                    "title": "Universal health coverage index in the World (${date})",
+                    "title": "sdg/SH_ACS_UNHC in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_XPD_EARN10"
                     ],
-                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
+                    "title": "sdg/SH_XPD_EARN10 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_XPD_EARN25"
                     ],
-                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
+                    "title": "sdg/SH_XPD_EARN25 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -145,14 +145,14 @@
                     "statVarKey": [
                       "sdg/SH_PRV_SMOK.AGE--Y_GE15"
                     ],
-                    "title": "Prevalence of tobacco use in the World (${date})",
+                    "title": "sdg/SH_PRV_SMOK.AGE--Y_GE15 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_SUD_ALCOL.AGE--Y_GE15"
                     ],
-                    "title": "Prevalence of alcohol use disorder in the World (${date})",
+                    "title": "sdg/SH_SUD_ALCOL.AGE--Y_GE15 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -168,28 +168,28 @@
                     "statVarKey": [
                       "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
                     ],
-                    "title": "Density of medical doctors in the World (${date})",
+                    "title": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322"
                     ],
-                    "title": "Density of nurses and midwives in the World (${date})",
+                    "title": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
                     ],
-                    "title": "Density of pharmacists in the World (${date})",
+                    "title": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
                     ],
-                    "title": "Density of dentists in the World (${date})",
+                    "title": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -200,83 +200,83 @@
         ],
         "statVarSpec": {
           "sdg/SH_ACS_UNHC": {
-            "name": "Universal health coverage index",
+            "name": "sdg/SH_ACS_UNHC",
             "statVar": "sdg/SH_ACS_UNHC"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0": {
-            "name": "Infant mortality rate",
+            "name": "sdg/SH_DYN_IMRT.AGE--Y0",
             "statVar": "sdg/SH_DYN_IMRT.AGE--Y0"
           },
           "sdg/SH_DYN_MORT.AGE--Y0T4": {
-            "name": "Mortality rate for children under 5 years",
+            "name": "sdg/SH_DYN_MORT.AGE--Y0T4",
             "statVar": "sdg/SH_DYN_MORT.AGE--Y0T4"
           },
           "sdg/SH_DYN_NMRT.AGE--M0": {
-            "name": "Neonatal mortality rate",
+            "name": "sdg/SH_DYN_NMRT.AGE--M0",
             "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           },
           "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
-            "name": "Access to modern family planning for women",
+            "name": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F",
             "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_HAP_HBSAG.AGE--Y0T4": {
-            "name": "Prevalence of hepatitis B in children under 5 years",
+            "name": "sdg/SH_HAP_HBSAG.AGE--Y0T4",
             "statVar": "sdg/SH_HAP_HBSAG.AGE--Y0T4"
           },
           "sdg/SH_HIV_INCD": {
-            "name": "Incidence of HIV infections",
+            "name": "sdg/SH_HIV_INCD",
             "statVar": "sdg/SH_HIV_INCD"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221": {
-            "name": "Density of medical doctors",
+            "name": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322": {
-            "name": "Density of nurses and midwives",
+            "name": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
-            "name": "Density of dentists",
+            "name": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
           },
           "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262": {
-            "name": "Density of pharmacists",
+            "name": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262",
             "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
           },
           "sdg/SH_PRV_SMOK.AGE--Y_GE15": {
-            "name": "Prevalence of tobacco use",
+            "name": "sdg/SH_PRV_SMOK.AGE--Y_GE15",
             "statVar": "sdg/SH_PRV_SMOK.AGE--Y_GE15"
           },
           "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
-            "name": "Prevalence of anaemia in women",
+            "name": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F",
             "statVar": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_MORT.SEX--F": {
-            "name": "Maternal mortality ratio",
+            "name": "sdg/SH_STA_MORT.SEX--F",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
           },
           "sdg/SH_SUD_ALCOL.AGE--Y_GE15": {
-            "name": "Prevalence of alcohol use disorder",
+            "name": "sdg/SH_SUD_ALCOL.AGE--Y_GE15",
             "statVar": "sdg/SH_SUD_ALCOL.AGE--Y_GE15"
           },
           "sdg/SH_TBS_INCD": {
-            "name": "Incidence of Tuberculosis",
+            "name": "sdg/SH_TBS_INCD",
             "statVar": "sdg/SH_TBS_INCD"
           },
           "sdg/SH_TRP_INTVN": {
-            "name": "Need for intervention against neglected tropical diseases",
+            "name": "sdg/SH_TRP_INTVN",
             "statVar": "sdg/SH_TRP_INTVN"
           },
           "sdg/SH_XPD_EARN10": {
-            "name": "Population with health spending over 10% of household expenditure or income",
+            "name": "sdg/SH_XPD_EARN10",
             "statVar": "sdg/SH_XPD_EARN10"
           },
           "sdg/SH_XPD_EARN25": {
-            "name": "Population with health spending over 25% of household expenditure or income",
+            "name": "sdg/SH_XPD_EARN25",
             "statVar": "sdg/SH_XPD_EARN25"
           },
           "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F": {
-            "name": "Birth rate for adolescent women",
+            "name": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F",
             "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
           }
         }
@@ -307,16 +307,16 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Population With VA Health Care",
-            "nlQuery": "Population With VA Health Care Earth"
+            "displayName": "People With VA Health Care",
+            "nlQuery": "People With VA Health Care Earth"
           },
           {
             "displayName": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode",
             "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode Earth"
           },
           {
-            "displayName": "Population With Only VA Health Care",
-            "nlQuery": "Population With Only VA Health Care Earth"
+            "displayName": "People With Only VA Health Care",
+            "nlQuery": "People With Only VA Health Care Earth"
           },
           {
             "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
