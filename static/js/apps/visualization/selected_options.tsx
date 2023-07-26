@@ -112,7 +112,10 @@ export function SelectedOptions(): JSX.Element {
                             remove
                           </span>
                         </div>
-                        <PlaceSelector hideSelections={true} />
+                        <PlaceSelector
+                          hideSelections={true}
+                          onNewSelection={() => setShowPlaceSelector(false)}
+                        />
                       </div>
                     </div>
                   ) : (
