@@ -26,6 +26,7 @@ import { AppContext } from "./app_context";
 
 interface PlaceTypeSelectorPropType {
   onContinueClicked?: () => void;
+  onNewSelection?: () => void;
 }
 export function PlaceTypeSelector(
   props: PlaceTypeSelectorPropType
@@ -44,7 +45,10 @@ export function PlaceTypeSelector(
                   type="radio"
                   name="childPlaceType"
                   checked={type === enclosedPlaceType}
-                  onChange={() => setEnclosedPlaceType(type)}
+                  onChange={() => {
+                    setEnclosedPlaceType(type);
+                    props.onNewSelection();
+                  }}
                 />
                 {type}
               </Label>
@@ -52,7 +56,7 @@ export function PlaceTypeSelector(
           );
         })}
       </div>
-      {props.onContinueClicked && (
+      {props.onContinueClicked && !_.isEmpty(enclosedPlaceType) && (
         <div className="selector-footer">
           <div
             className="continue-button"

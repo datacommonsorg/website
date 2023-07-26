@@ -34,7 +34,7 @@ import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
 export function PlaceSelector(props: {
   hideSelections?: boolean;
   selectOnContinue?: boolean;
-  onContinueClicked?: () => void;
+  onNewSelection?: () => void;
 }): JSX.Element {
   const { visType, places, setPlaces } = useContext(AppContext);
   const [selectedPlaces, setSelectedPlaces] = useState(places);
@@ -80,14 +80,14 @@ export function PlaceSelector(props: {
           customPlaceHolder="Select a place"
         />
       </div>
-      {(props.selectOnContinue || props.onContinueClicked) && (
+      {props.selectOnContinue && (
         <div className="selector-footer">
           {!_.isEmpty(selectedPlaces) && (
             <div
               className="continue-button"
               onClick={() => {
                 setPlaces(selectedPlaces);
-                props.onContinueClicked();
+                props.onNewSelection();
               }}
             >
               Continue
@@ -110,6 +110,7 @@ export function PlaceSelector(props: {
         setSelectedPlaces(newPlaceList);
       } else {
         setPlaces(newPlaceList);
+        props.onNewSelection();
       }
     });
     triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
@@ -123,6 +124,7 @@ export function PlaceSelector(props: {
       setSelectedPlaces(newPlaceList);
     } else {
       setPlaces(newPlaceList);
+      props.onNewSelection();
     }
   }
 }
