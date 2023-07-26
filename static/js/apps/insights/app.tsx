@@ -43,6 +43,9 @@ const getSingleParam = (input: string | string[]): string => {
 };
 
 const getListParam = (input: string | string[]): string[] => {
+  if (!input) {
+    return [];
+  }
   // If the input is an array, convert it to a single string
   if (Array.isArray(input)) {
     return input;
@@ -119,7 +122,7 @@ export function App(): JSX.Element {
       }
       let places = [place];
       let cmpType = "";
-      if (cmpPlaces.length > 0) {
+      if (cmpPlaces && cmpPlaces.length > 0) {
         places = places.concat(cmpPlaces);
         cmpType = "ENTITY";
       }
@@ -181,11 +184,7 @@ export function App(): JSX.Element {
                         url += `&pcmp=${p}`;
                       }
                       return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
-                        >
+                        <a className="topic-link" key={idx} href={url}>
                           {parentTopic.name}
                         </a>
                       );

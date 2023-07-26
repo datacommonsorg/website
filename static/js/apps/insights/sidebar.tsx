@@ -40,7 +40,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          let url = `/insights/#t=${topic.dcid}&p={props.place}`;
+          let url = `/insights/#t=${topic.dcid}&p=${props.place}`;
           for (const p of props.cmpPlaces) {
             url += `&pcmp=${p}`;
           }
@@ -53,7 +53,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                 {topic.dcid == props.currentTopicDcid &&
                   props.categories &&
                   props.categories.map((category) => {
-                    let url = `/insights/#t=${category.dcid}&p={props.place}`;
+                    let url = `/insights/#t=${category.dcid}&p=${props.place}`;
                     for (const p of props.cmpPlaces) {
                       url += `&pcmp=${p}`;
                     }
