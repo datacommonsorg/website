@@ -70,7 +70,7 @@ export function SelectorPane(): JSX.Element {
       >
         <PlaceSelector
           selectOnContinue={true}
-          onContinueClicked={() => {
+          onNewSelection={() => {
             setPlaceCollapsed(true);
             if (visTypeConfig.skipEnclosedPlaceType) {
               setVariableCollapsed(false);
