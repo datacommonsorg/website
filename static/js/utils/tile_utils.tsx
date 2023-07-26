@@ -96,9 +96,12 @@ export async function getStatVarNames(
   const statVarNames: Record<string, string> = {};
   // If a name is already provided by statVarSpec, use that name
   statVarSpec.forEach((spec) => {
-    if (spec.name && spec.name !== "") {
+    if (spec.name) {
       statVarNames[spec.statVar] = spec.name;
     } else {
+      // See if a label is provided in
+      // /static/js/i18n/strings/en/stats_var_labels.json
+      
       statVarDcids.push(spec.statVar);
     }
   });
