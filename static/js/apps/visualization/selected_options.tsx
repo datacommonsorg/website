@@ -100,16 +100,18 @@ export function SelectedOptions(): JSX.Element {
                 );
               })}
               {!visTypeConfig.singlePlace && allowEdit && (
-                <div>
+                <div className="add-place-container">
                   {showPlaceSelector ? (
                     <div className="selector-dropdown-anchor">
                       <div className="place-selector-dropdown">
-                        <span
-                          className="material-icons-outlined action"
-                          onClick={() => setShowPlaceSelector(false)}
-                        >
-                          remove
-                        </span>
+                        <div className="header-controls">
+                          <span
+                            className="material-icons-outlined action"
+                            onClick={() => setShowPlaceSelector(false)}
+                          >
+                            remove
+                          </span>
+                        </div>
                         <PlaceSelector hideSelections={true} />
                       </div>
                     </div>
@@ -130,7 +132,10 @@ export function SelectedOptions(): JSX.Element {
             {visTypeConfig.singlePlace && showPlaceSelector && (
               <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
-                  <PlaceSelector hideSelections={true} />
+                  <PlaceSelector
+                    hideSelections={true}
+                    onNewSelection={() => setShowPlaceSelector(false)}
+                  />
                 </div>
               </div>
             )}
@@ -159,7 +164,9 @@ export function SelectedOptions(): JSX.Element {
             {showPlaceTypeSelector && (
               <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
-                  <PlaceTypeSelector />
+                  <PlaceTypeSelector
+                    onNewSelection={() => setShowPlaceTypeSelector(false)}
+                  />
                 </div>
               </div>
             )}
