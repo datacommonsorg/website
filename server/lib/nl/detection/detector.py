@@ -13,7 +13,6 @@
 # limitations under the License.
 """Router for detection."""
 
-import logging
 from typing import Dict, List
 
 from flask import current_app
@@ -116,7 +115,7 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 # Constructor a Detection object given DCID inputs.
 #
 def construct(entities: List[str], variables: List[str], child_type: str,
-              debug_logs: Dict, counters: Counters):
+              is_cmp_entities: bool, debug_logs: Dict, counters: Counters):
   parent_map = {p: [] for p in entities}
   places = place.get_place_from_dcids(entities, debug_logs, parent_map)
   if not places:
@@ -141,6 +140,12 @@ def construct(entities: List[str], variables: List[str], child_type: str,
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
                                contained_in_place_type=child_type))
+    classifications.append(c)
+
+  if is_cmp_entities:
+    c = types.NLClassifier(type=types.ClassificationType.COMPARISON,
+                           attributes=types.ComparisonClassificationAttributes(
+                               comparison_trigger_words=[]))
     classifications.append(c)
 
   main_dcid = places[0].dcid
