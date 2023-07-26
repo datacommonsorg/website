@@ -68,7 +68,7 @@ export const Category = memo(function Category(
       {title && (
         <h2 className="block-title">
           {props.config.url && <a href={props.config.url}>{title}</a>}
-          {!props.config.url && { title }}
+          {!props.config.url && <span>{title}</span>}
         </h2>
       )}
       {globalThis.viaGoogle && (
