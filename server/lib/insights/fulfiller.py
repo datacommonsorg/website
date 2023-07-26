@@ -14,7 +14,6 @@
 """Module for Insights fulfillment"""
 
 from dataclasses import dataclass
-import logging
 import time
 from typing import Dict, List
 
@@ -192,7 +191,6 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     topic_vars = topic.get_topic_vars_recurive(sv,
                                                rank=0,
                                                max_svs=_MAX_SUBTOPIC_SV_LIMIT)
-    logging.info(f'Recursive func returned {len(topic_vars)}')
 
   # Classify the members into `TopicMembers` struct.
   topic_members = _classify_topic_members(topic_vars)
