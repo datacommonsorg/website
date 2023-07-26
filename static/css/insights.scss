@@ -29,6 +29,7 @@
 .insights-container {
   display: flex;
   flex-direction: column;
+  max-width: 1280px;
   h1 {
     font-size: 2rem;
     margin: 3rem 0;
@@ -41,6 +42,7 @@
 .search-section {
   margin: 20px 0;
   display: flex;
+  justify-content: center;
   .btn {
     height: 2.5rem;
     border-top-left-radius: 0;
@@ -50,6 +52,7 @@
     margin-left: 0.5rem;
   }
   .search-box-section {
+    max-width: 960px;
     flex-grow: 1;
   }
 }
@@ -127,6 +130,10 @@
   width: 100%;
   font-weight: bold;
   font-size: 25px;
+}
+
+.topic-item {
+  width: 100%;
 }
 
 .sub-topic-group {
