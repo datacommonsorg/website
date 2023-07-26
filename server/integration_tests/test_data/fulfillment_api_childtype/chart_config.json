@@ -298,6 +298,181 @@
           "types": [
             "County"
           ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
         }
       ]
     },

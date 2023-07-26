@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import time
 from typing import Dict, List
 
@@ -73,29 +74,51 @@ class Builder:
     for sv_key, spec in stat_var_spec_map.items():
       self.category.stat_var_spec[sv_key].CopyFrom(spec)
 
-  # If there are empty categories or blocks, delete them.
-  # Also, if there is a singleton block in a category and both
-  # have names, drop the block name.
+  # 1. If there are duplicate charts, drops the subsequent tiles.
+  # 2. As a result of the dedupe if any column, block or category
+  #    is empty, deletes it.
+  # 3. Finally, if there is a singleton block in a category and both
+  #    the block and category have names, drop the block name.
   def cleanup_config(self):
-    for c in self.page_config.categories:
-      # Delete empty blocks.
-      blocks = [b for b in c.blocks if len(b.columns) > 0]
-      if len(blocks) < len(c.blocks):
-        del c.blocks[:]
-        c.blocks.extend(blocks)
+    # From inside to out, delete duplicate charts and cleanup
+    # any empties.
+    chart_keys = set()
+    out_cats = []
+    for cat in self.page_config.categories:
+      out_blks = []
+      for blk in cat.blocks:
+        out_cols = []
+        for col in blk.columns:
+          out_tiles = []
+          for tile in col.tiles:
+            x = tile.SerializeToString()
+            if x not in chart_keys:
+              out_tiles.append(tile)
+            chart_keys.add(x)
+          del col.tiles[:]
+          if out_tiles:
+            col.tiles.extend(out_tiles)
+            out_cols.append(col)
+        del blk.columns[:]
+        if out_cols:
+          blk.columns.extend(out_cols)
+          out_blks.append(blk)
+      del cat.blocks[:]
+      if out_blks:
+        cat.blocks.extend(out_blks)
+        out_cats.append(cat)
+    del self.page_config.categories[:]
+    if out_cats:
+      self.page_config.categories.extend(out_cats)
 
-      if len(c.blocks) == 1 and c.title and c.blocks[0].title:
+    for cat in self.page_config.categories:
+      if len(cat.blocks) == 1 and cat.title and cat.blocks[0].title:
         # Note: Category title will be topic name and block title
         # will be SVPG.  The latter is better curated, so for now
         # use that.
         # TODO: Revisit after topic names are better.
-        c.title = c.blocks[0].title
-        c.blocks[0].title = ''
-    # Delete empty categories.
-    categories = [c for c in self.page_config.categories if len(c.blocks) > 0]
-    if len(categories) < len(self.page_config.categories):
-      del self.page_config.categories[:]
-      self.page_config.categories.extend(categories)
+        cat.title = cat.blocks[0].title
+        cat.blocks[0].title = ''
 
 
 def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
@@ -112,6 +135,7 @@ def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
 
   builder = Builder(state, env_config, sv2thing)
 
+  prev_topic = None
   for i, chart_vars in enumerate(chart_vars_list):
     # The chart_vars will be ordered, so add a new category for
     # every distinct source-topic.

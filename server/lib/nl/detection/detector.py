@@ -38,7 +38,7 @@ _PALM_API_DETECTORS = [
     RequestedDetectorType.Hybrid.value,
 ]
 
-MAX_CHILD_LIMIT = 25
+MAX_CHILD_LIMIT = 50
 
 
 #
@@ -135,7 +135,7 @@ def construct(entities: List[str], variables: List[str], child_type: str,
       return None, f'Bad childEntityType value {child_type}!'
     child_type = types.ContainedInPlaceType(child_type)
   else:
-    child_type = utils.get_default_child_place_type(places[0])
+    child_type = utils.get_default_child_place_type(places[0], is_nl=False)
 
   if child_type:
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,

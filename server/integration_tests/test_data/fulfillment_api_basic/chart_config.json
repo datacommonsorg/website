@@ -298,6 +298,34 @@
           "types": [
             "City"
           ]
+        },
+        {
+          "dcid": "geoId/0673906",
+          "name": "Stanford",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1911837",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2214519",
+          "name": "Sunol-Midtown",
+          "types": [
+            "City"
+          ]
         }
       ]
     },
