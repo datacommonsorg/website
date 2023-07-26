@@ -62,6 +62,7 @@ class ChartVars:
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
+  # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
   response_type: str = ""
@@ -79,4 +80,5 @@ class ChartVars:
   growth_direction: TimeDeltaType = None
   growth_ranking_type: str = None
 
-  insight_type: InsightType = None
+  # Set if is_topic_peer_group is set.
+  svpg_id: str = ''

@@ -74,6 +74,52 @@ class Builder:
     for sv_key, spec in stat_var_spec_map.items():
       self.category.stat_var_spec[sv_key].CopyFrom(spec)
 
+  # 1. If there are duplicate charts, drops the subsequent tiles.
+  # 2. As a result of the dedupe if any column, block or category
+  #    is empty, deletes it.
+  # 3. Finally, if there is a singleton block in a category and both
+  #    the block and category have names, drop the block name.
+  def cleanup_config(self):
+    # From inside to out, delete duplicate charts and cleanup
+    # any empties.
+    chart_keys = set()
+    out_cats = []
+    for cat in self.page_config.categories:
+      out_blks = []
+      for blk in cat.blocks:
+        out_cols = []
+        for col in blk.columns:
+          out_tiles = []
+          for tile in col.tiles:
+            x = tile.SerializeToString()
+            if x not in chart_keys:
+              out_tiles.append(tile)
+            chart_keys.add(x)
+          del col.tiles[:]
+          if out_tiles:
+            col.tiles.extend(out_tiles)
+            out_cols.append(col)
+        del blk.columns[:]
+        if out_cols:
+          blk.columns.extend(out_cols)
+          out_blks.append(blk)
+      del cat.blocks[:]
+      if out_blks:
+        cat.blocks.extend(out_blks)
+        out_cats.append(cat)
+    del self.page_config.categories[:]
+    if out_cats:
+      self.page_config.categories.extend(out_cats)
+
+    for cat in self.page_config.categories:
+      if len(cat.blocks) == 1 and cat.title and cat.blocks[0].title:
+        # Note: Category title will be topic name and block title
+        # will be SVPG.  The latter is better curated, so for now
+        # use that.
+        # TODO: Revisit after topic names are better.
+        cat.title = cat.blocks[0].title
+        cat.blocks[0].title = ''
+
 
 def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
           all_svs: List[str], env_config: builder.Config) -> SubjectPageConfig:
@@ -88,10 +134,22 @@ def build(chart_vars_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
   state.uttr.counters.timeit('get_sv_details', start)
 
   builder = Builder(state, env_config, sv2thing)
-  for chart_vars in chart_vars_list:
-    builder.new_category(chart_vars.title)
-    logging.info(f'{chart_vars.svs}')
+
+  prev_topic = None
+  for i, chart_vars in enumerate(chart_vars_list):
+    # The chart_vars will be ordered, so add a new category for
+    # every distinct source-topic.
+    if i == 0 or prev_topic != chart_vars.source_topic:
+      title = ''
+      if chart_vars.title:
+        title = chart_vars.title
+      elif chart_vars.source_topic:
+        title = sv2thing.name.get(chart_vars.source_topic, '')
+      builder.new_category(title)
+      prev_topic = chart_vars.source_topic
     _add_charts(chart_vars, state, builder)
+
+  builder.cleanup_config()
   return builder.page_config
 
 
@@ -106,7 +164,10 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
       builder.new_block(builder.sv2thing.name.get(sv))
       sv_spec.update(_add_sv_charts(sv, chart_vars, state, builder))
   else:
-    builder.new_block('')
+    if not chart_vars.title and chart_vars.svpg_id:
+      # If there was an SVPG, we may not have gotten its name before, so get it now.
+      chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
+    builder.new_block(chart_vars.title)
     sv_spec.update(_add_svpg_charts(chart_vars, state, builder))
 
   builder.update_sv_spec(sv_spec)
