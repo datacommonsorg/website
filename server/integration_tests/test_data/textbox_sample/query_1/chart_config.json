@@ -197,14 +197,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past 12 Months in California",
+                    "title": "Family Households Below the Poverty Level in the Past Year in California",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months in California",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in California",
                     "type": "LINE"
                   }
                 ]
@@ -240,12 +240,12 @@
             "statVar": "Count_Household_FamilyHousehold"
           },
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Family Households Below the Poverty Level in the Past 12 Months",
+            "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Family Households Below the Poverty Level in the Past 12 Months",
+            "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_OwnerOccupied": {
@@ -408,8 +408,8 @@
             "nlQuery": "Mean Income Deficit of Household: Married Couple Family Household California"
           },
           {
-            "displayName": "Family Households Below the Poverty Level in the Past 12 Months",
-            "nlQuery": "Family Households Below the Poverty Level in the Past 12 Months California"
+            "displayName": "Family Households Below the Poverty Level in the Past Year",
+            "nlQuery": "Family Households Below the Poverty Level in the Past Year California"
           },
           {
             "displayName": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",

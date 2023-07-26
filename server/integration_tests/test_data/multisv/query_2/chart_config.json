@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past 12 Months (${date})",
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -26,7 +26,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past 12 Months (${date})",
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -37,7 +37,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "People Who Are Below Poverty Level Status in the Past 12 Months (${date})",
+                    "title": "Population Below Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -48,7 +48,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita People Who Are Below Poverty Level Status in the Past 12 Months (${date})",
+                    "title": "Per Capita Population Below Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -59,7 +59,7 @@
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Households Receiving Food Stamps in the Past 12 Months (${date})",
+                    "title": "Households Receiving Food Stamps in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Households Receiving Food Stamps in the Past 12 Months (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -103,7 +103,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_multiple_place_bar_block"
                     ],
-                    "title": "People Living in Poverty (${date})",
+                    "title": "Population With Poverty Status Determined (${date})",
                     "type": "BAR"
                   },
                   {
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita People Living in Poverty (${date})",
+                    "title": "Per Capita Population With Poverty Status Determined (${date})",
                     "type": "BAR"
                   },
                   {
@@ -125,7 +125,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block"
                     ],
-                    "title": "People Residing in Group Quarters Who Had Their Poverty Status Determined (${date})",
+                    "title": "Population in Group Quarters With Determined Poverty Status (${date})",
                     "type": "BAR"
                   },
                   {
@@ -136,7 +136,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita People Residing in Group Quarters Who Had Their Poverty Status Determined (${date})",
+                    "title": "Per Capita Population in Group Quarters With Determined Poverty Status (${date})",
                     "type": "BAR"
                   },
                   {
@@ -147,7 +147,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block"
                     ],
-                    "title": "People Residing in Non Institutionalized Group Quarters Who Had Their Poverty Status Determined (${date})",
+                    "title": "Population in Non Institutionalized Group Quarters With Determined Poverty Status (${date})",
                     "type": "BAR"
                   },
                   {
@@ -158,7 +158,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita People Residing in Non Institutionalized Group Quarters Who Had Their Poverty Status Determined (${date})",
+                    "title": "Per Capita Population in Non Institutionalized Group Quarters With Determined Poverty Status (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -389,7 +389,7 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "People Who Are Above Poverty Level Status in the Past 12 Months (${date})",
+                    "title": "Population Above Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -400,7 +400,7 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita People Who Are Above Poverty Level Status in the Past 12 Months (${date})",
+                    "title": "Per Capita Population Above Poverty Level Status in Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -440,21 +440,21 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Family Households Below the Poverty Level in the Past 12 Months",
+            "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Family Households Below the Poverty Level in the Past 12 Months",
+            "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block": {
-            "name": "Households Receiving Food Stamps in the Past 12 Months",
+            "name": "Households Receiving Food Stamps in the Past Year",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months"
           },
           "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Households Receiving Food Stamps in the Past 12 Months",
+            "name": "Households Receiving Food Stamps in the Past Year",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
@@ -512,12 +512,12 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "People Who Are Above Poverty Level Status in the Past 12 Months",
+            "name": "Population Above Poverty Level Status in Past Year",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "People Who Are Above Poverty Level Status in the Past 12 Months",
+            "name": "Population Above Poverty Level Status in Past Year",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
@@ -593,12 +593,12 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "People Who Are Below Poverty Level Status in the Past 12 Months",
+            "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "People Who Are Below Poverty Level Status in the Past 12 Months",
+            "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_multiple_place_bar_block": {
@@ -629,30 +629,30 @@
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block": {
-            "name": "People Residing in Group Quarters Who Had Their Poverty Status Determined",
+            "name": "Population in Group Quarters With Determined Poverty Status",
             "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
           },
           "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "People Residing in Group Quarters Who Had Their Poverty Status Determined",
+            "name": "Population in Group Quarters With Determined Poverty Status",
             "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
           },
           "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block": {
-            "name": "People Residing in Non Institutionalized Group Quarters Who Had Their Poverty Status Determined",
+            "name": "Population in Non Institutionalized Group Quarters With Determined Poverty Status",
             "statVar": "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters"
           },
           "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "People Residing in Non Institutionalized Group Quarters Who Had Their Poverty Status Determined",
+            "name": "Population in Non Institutionalized Group Quarters With Determined Poverty Status",
             "statVar": "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters"
           },
           "Count_Person_PovertyStatusDetermined_multiple_place_bar_block": {
-            "name": "People Living in Poverty",
+            "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "People Living in Poverty",
+            "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "dc/9pmyhk89dj3pf_multiple_place_bar_block": {

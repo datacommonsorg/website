@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
                     ],
-                    "title": "Prevalence on anaemia in women in the World (${date})",
+                    "title": "Prevalence of anaemia in women in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -248,7 +248,7 @@
             "statVar": "sdg/SH_PRV_SMOK.AGE--Y_GE15"
           },
           "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
-            "name": "Prevalence on anaemia in women",
+            "name": "Prevalence of anaemia in women",
             "statVar": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_MORT.SEX--F": {

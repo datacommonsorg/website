@@ -42,25 +42,25 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of United States (${date})",
+                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age; in Counties of United States (${date})",
+                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;"
+            "title": "Percent of Adults with Blood Pressure Who Take Medication"
           }
         ],
         "statVarSpec": {
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
-            "name": "Percent of  People With High Blood Pressure Who Are Taking Blood Pressure Medication  Among People Who Are 18 Years or Older in Age;",
+            "name": "Percent of Adults with Blood Pressure Who Take Medication",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },

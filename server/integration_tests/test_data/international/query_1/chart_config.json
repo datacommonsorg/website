@@ -15,20 +15,20 @@
                     "statVarKey": [
                       "Count_Person_Rural"
                     ],
-                    "title": "People Living in Rural Areas in Administrative Area 2 Places of India (${date})",
+                    "title": "Population Living in Rural Areas in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Rural"
                     ],
-                    "title": "People Living in Rural Areas in Administrative Area 2 Places of India (${date})",
+                    "title": "Population Living in Rural Areas in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "People Living in Rural Areas"
+            "title": "Population Living in Rural Areas"
           },
           {
             "columns": [
@@ -42,14 +42,14 @@
                     "statVarKey": [
                       "Count_Person_Rural_pc"
                     ],
-                    "title": "Per Capita People Living in Rural Areas in Administrative Area 2 Places of India (${date})",
+                    "title": "Per Capita Population Living in Rural Areas in Administrative Area 2 Places of India (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Rural_pc"
                     ],
-                    "title": "Per Capita People Living in Rural Areas in Administrative Area 2 Places of India (${date})",
+                    "title": "Per Capita Population Living in Rural Areas in Administrative Area 2 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -767,7 +767,7 @@
             "statVar": "Count_Person_NonWorker_Rural"
           },
           "Count_Person_Rural": {
-            "name": "People Living in Rural Areas",
+            "name": "Population Living in Rural Areas",
             "statVar": "Count_Person_Rural"
           },
           "Count_Person_Rural_Female": {
@@ -781,7 +781,7 @@
           },
           "Count_Person_Rural_pc": {
             "denom": "Count_Person",
-            "name": "People Living in Rural Areas",
+            "name": "Population Living in Rural Areas",
             "statVar": "Count_Person_Rural"
           },
           "Count_Person_Workers_Rural": {

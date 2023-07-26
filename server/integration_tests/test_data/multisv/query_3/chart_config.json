@@ -20,7 +20,7 @@
                     "statVarKey": [
                       "Count_Person_HispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic People (${date}) - Top 7 of 289",
+                    "title": "Hispanic Population (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]
@@ -30,7 +30,7 @@
         ],
         "statVarSpec": {
           "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic People",
+            "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           }
         }
@@ -47,8 +47,8 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Hispanic People Who Identify as Asian Alone",
-            "nlQuery": "Hispanic People Who Identify as Asian Alone California"
+            "displayName": "Hispanic Asian Population",
+            "nlQuery": "Hispanic Asian Population California"
           }
         ]
       }

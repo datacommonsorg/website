@@ -220,8 +220,8 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "People Who Are Above Poverty Level Status in the Past 12 Months",
-            "nlQuery": "People Who Are Above Poverty Level Status in the Past 12 Months Africa"
+            "displayName": "Population Above Poverty Level Status in Past Year",
+            "nlQuery": "Population Above Poverty Level Status in Past Year Africa"
           },
           {
             "displayName": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
