@@ -83,10 +83,10 @@ export function App(): JSX.Element {
   useEffect(() => {
     setLoadingStatus("loading");
     (async () => {
-      let places = getListParam(hashParams["p"]);
+      let place = getSingleParam(hashParams["p"]);
+      let cmpPlaces = getListParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
       let placeType = getSingleParam(hashParams["pt"]);
-      let cmpType = getSingleParam(hashParams["ct"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
@@ -97,15 +97,25 @@ export function App(): JSX.Element {
           setLoadingStatus("fail");
           return;
         }
-        places = detectResp["entities"];
+
+        place = detectResp["entities"][0];
+        const cmpType = detectResp["comparisonType"] || "";
+        if (cmpType === "ENTITY") {
+          cmpPlaces = detectResp["entities"].slice(1);
+        }
         topic = detectResp["variables"][0];
         placeType = detectResp["childEntityType"] || "";
-        cmpType = detectResp["comparisonType"] || "";
-        updateHash({ q: "", t: topic, p: places, pt: placeType, ct: cmpType });
+        updateHash({ q: "", t: topic, p: place, pcmp: cmpPlaces, pt: placeType});
         return;
       }
-      if (!places || !topic) {
+      if (!place || !topic) {
         return;
+      }
+      let places = [place];
+      let cmpType = "";
+      if (cmpPlaces.length > 0) {
+        places = places.concat(cmpPlaces);
+        cmpType = "ENTITY";
       }
       const resp = await fetchFulfillData(places, topic, placeType, cmpType);
       const mainPlace = resp["place"];
