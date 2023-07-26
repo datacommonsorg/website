@@ -151,7 +151,7 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
       exist_state = SVExistenceCheckState(sv=sv, chart_vars_list=[])
 
       if sv2chartvarslist:
-        chart_vars_list = sv2chartvarslist.get(sv)
+        chart_vars_list = sv2chartvarslist.get(sv, {})
       else:
         chart_vars_list = build_chart_vars(state, sv, rank)
       for chart_vars in chart_vars_list:
@@ -219,7 +219,7 @@ def build_chart_vars(state: PopulateState,
     return [ChartVars(svs=[sv], block_id=state.block_id)]
   if utils.is_topic(sv):
     start = time.time()
-    topic_vars = topic.get_topic_vars(sv, rank)
+    topic_vars = topic.get_topic_vars_recurive(sv, rank)
     peer_groups = topic.get_topic_peergroups(topic_vars)
 
     # Classify into two lists.
