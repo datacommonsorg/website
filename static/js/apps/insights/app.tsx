@@ -43,6 +43,9 @@ const getSingleParam = (input: string | string[]): string => {
 };
 
 const getListParam = (input: string | string[]): string[] => {
+  if (!input) {
+    return [];
+  }
   // If the input is an array, convert it to a single string
   if (Array.isArray(input)) {
     return input;
@@ -83,10 +86,10 @@ export function App(): JSX.Element {
   useEffect(() => {
     setLoadingStatus("loading");
     (async () => {
-      let places = getListParam(hashParams["p"]);
+      let place = getSingleParam(hashParams["p"]);
+      let cmpPlaces = getListParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
       let placeType = getSingleParam(hashParams["pt"]);
-      let cmpType = getSingleParam(hashParams["ct"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
@@ -97,15 +100,31 @@ export function App(): JSX.Element {
           setLoadingStatus("fail");
           return;
         }
-        places = detectResp["entities"];
+
+        place = detectResp["entities"][0];
+        const cmpType = detectResp["comparisonType"] || "";
+        if (cmpType === "ENTITY") {
+          cmpPlaces = detectResp["entities"].slice(1);
+        }
         topic = detectResp["variables"][0];
         placeType = detectResp["childEntityType"] || "";
-        cmpType = detectResp["comparisonType"] || "";
-        updateHash({ q: "", t: topic, p: places, pt: placeType, ct: cmpType });
+        updateHash({
+          q: "",
+          t: topic,
+          p: place,
+          pcmp: cmpPlaces,
+          pt: placeType,
+        });
         return;
       }
-      if (!places || !topic) {
+      if (!place || !topic) {
         return;
+      }
+      let places = [place];
+      let cmpType = "";
+      if (cmpPlaces && cmpPlaces.length > 0) {
+        places = places.concat(cmpPlaces);
+        cmpType = "ENTITY";
       }
       const resp = await fetchFulfillData(places, topic, placeType, cmpType);
       const mainPlace = resp["place"];
@@ -123,9 +142,9 @@ export function App(): JSX.Element {
         topic,
       };
       for (const category of chartData.pageConfig.categories) {
-        category.url = `/insights/#t=${category.dcid}`;
-        for (const p of places) {
-          category.url += `&p=${p}`;
+        category.url = `/insights/#t=${category.dcid}&p=${place}`;
+        for (const p of cmpPlaces) {
+          category.url += `&pcmp=${p}`;
         }
       }
       setSavedContext(resp["context"] || {});
@@ -135,7 +154,8 @@ export function App(): JSX.Element {
   }, [hashParams]);
 
   let mainSection;
-  const places = getListParam(hashParams["p"]);
+  const place = getSingleParam(hashParams["p"]);
+  const cmpPlaces = getListParam(hashParams["pcmp"]);
   if (loadingStatus == "fail") {
     mainSection = <div>No data is found</div>;
   } else if (loadingStatus == "loaded" && chartData) {
@@ -150,7 +170,8 @@ export function App(): JSX.Element {
                 <Sidebar
                   id={PAGE_ID}
                   currentTopicDcid={chartData.topic}
-                  places={places}
+                  place={place}
+                  cmpPlaces={cmpPlaces}
                   categories={chartData.pageConfig.categories}
                   peerTopics={chartData.peerTopics}
                 />
@@ -158,9 +179,9 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      let url = `/insights/#t=${parentTopic.dcid}`;
-                      for (const p of places) {
-                        url += `&p=${p}`;
+                      let url = `/insights/#t=${parentTopic.dcid}&p=${place}`;
+                      for (const p of cmpPlaces) {
+                        url += `&pcmp=${p}`;
                       }
                       return (
                         <a className="topic-link" key={idx} href={url}>
