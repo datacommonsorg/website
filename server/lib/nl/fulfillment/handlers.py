@@ -191,7 +191,7 @@ def _classification_to_query_type(cl: NLClassifier,
       query_type = QueryType.TIME_DELTA_ACROSS_VARS
   elif (cl.type == ClassificationType.COMPARISON or
         cl.type == ClassificationType.CORRELATION):
-    query_type = _route_comparison_or_correlation(cl, uttr)
+    query_type = route_comparison_or_correlation(cl.type, uttr)
   elif cl.type == ClassificationType.QUANTITY:
     if detection_utils.has_dual_sv(uttr.detection):
       query_type = QueryType.FILTER_WITH_DUAL_VARS
@@ -234,8 +234,8 @@ def next_query_type(query_types: List[QueryType]) -> QueryType:
 
 # Route a comparison/correlation classification to a corresponding query_type.
 #
-def _route_comparison_or_correlation(cl: NLClassifier,
-                                     uttr: Utterance) -> QueryType:
+def route_comparison_or_correlation(cl_type: ClassificationType,
+                                    uttr: Utterance) -> QueryType:
   multi_sv = detection_utils.is_multi_sv(uttr.detection)
   multi_places = len(uttr.places) > 1
 
@@ -259,7 +259,7 @@ def _route_comparison_or_correlation(cl: NLClassifier,
       ctr = 'multi-sv-correlation'
       qt = QueryType.CORRELATION_ACROSS_VARS
     else:
-      if cl.type == ClassificationType.COMPARISON:
+      if cl_type == ClassificationType.COMPARISON:
         ctr = 'context-place-comparison'
         qt = QueryType.COMPARISON_ACROSS_PLACES
       else:

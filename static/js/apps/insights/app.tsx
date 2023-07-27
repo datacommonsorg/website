@@ -89,6 +89,7 @@ export function App(): JSX.Element {
       let place = getSingleParam(hashParams["p"]);
       let cmpPlaces = getListParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
+      let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
       const q = getSingleParam(hashParams["q"]);
 
@@ -102,15 +103,20 @@ export function App(): JSX.Element {
         }
 
         place = detectResp["entities"][0];
+        topic = detectResp["variables"][0];
+        cmpTopic = "";
+        cmpPlaces = [];
         const cmpType = detectResp["comparisonType"] || "";
         if (cmpType === "ENTITY") {
           cmpPlaces = detectResp["entities"].slice(1);
+        } else if (cmpType === "VAR") {
+          cmpTopic = detectResp["variables"][1];
         }
-        topic = detectResp["variables"][0];
         placeType = detectResp["childEntityType"] || "";
         updateHash({
           q: "",
           t: topic,
+          tcmp: cmpTopic,
           p: place,
           pcmp: cmpPlaces,
           pt: placeType,
@@ -121,12 +127,16 @@ export function App(): JSX.Element {
         return;
       }
       let places = [place];
+      let topics = [topic];
       let cmpType = "";
       if (cmpPlaces && cmpPlaces.length > 0) {
         places = places.concat(cmpPlaces);
         cmpType = "ENTITY";
+      } else if (cmpTopic && cmpTopic !== undefined) {
+        topics = topics.concat([cmpTopic]);
+        cmpType = "VAR";
       }
-      const resp = await fetchFulfillData(places, topic, placeType, cmpType);
+      const resp = await fetchFulfillData(places, topics, placeType, cmpType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -146,6 +156,7 @@ export function App(): JSX.Element {
         chartData.pageConfig &&
         chartData.pageConfig.categories
       ) {
+        // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           category.url = `/insights/#t=${category.dcid}&p=${place}`;
           for (const p of cmpPlaces) {
@@ -258,14 +269,14 @@ export function App(): JSX.Element {
 
 const fetchFulfillData = async (
   places: string[],
-  topic: string,
+  topics: string[],
   placeType: string,
   cmpType: string
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
       entities: places,
-      variables: [topic],
+      variables: topics,
       childEntityType: placeType,
       comparisonType: cmpType,
     });

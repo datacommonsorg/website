@@ -11,14 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Module for Insights fulfillment"""
+"""Module for topic expansion"""
 
 from dataclasses import dataclass
-from typing import List
+import time
+from typing import Dict, List
 
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.fulfillment.types as ftypes
+
+_MAX_CORRELATION_SVS_PER_TOPIC = 4
 
 
 @dataclass
@@ -28,13 +31,98 @@ class TopicMembers:
   topics: List[str]
 
 
+def compute_chart_vars(
+    state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+  chart_vars_map = {}
+  for sv in state.uttr.svs:
+    cv = []
+    if cutils.is_sv(sv):
+      cv = [ftypes.ChartVars(svs=[sv])]
+    else:
+      start = time.time()
+      cv = _topic_chart_vars(state, sv)
+      state.uttr.counters.timeit('topic_calls', start)
+    if cv:
+      chart_vars_map[sv] = cv
+  return chart_vars_map
+
+
+def compute_correlation_chart_vars(
+    state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+
+  # Get vars.
+  def _vars(v):
+    if cutils.is_sv(v):
+      return [v]
+    else:
+      svs = []
+      _open_topic_lite(state, v, svs)
+      return svs[:_MAX_CORRELATION_SVS_PER_TOPIC]
+
+  lhs_svs = _vars(state.uttr.svs[0])
+  rhs_svs = _vars(state.uttr.svs[1])
+
+  # Mix and match them.
+  added = set()
+  chart_vars = []
+
+  def _add(lsv, rsv):
+    # Ensure sv1,sv2 vs. sv2,sv1 are deduped
+    k = ''.join(sorted([lsv, rsv]))
+    if lsv == rsv or k in added:
+      return
+    added.add(k)
+    chart_vars.append(ftypes.ChartVars(svs=[lsv, rsv]))
+
+  # Try to avoid repeating SVs at the top of the page.
+  for lsv, rsv in zip(lhs_svs, rhs_svs):
+    _add(lsv, rsv)
+
+  for lsv in lhs_svs:
+    for rsv in rhs_svs:
+      _add(lsv, rsv)
+
+  # Keep the LHS SV (in case of context, the current one) as the anchor on the page.
+  return {state.uttr.svs[0]: chart_vars}
+
+
+#
+# A lighter version of _topic_chart_vars() that returns just sv list
+# in |ret_svs|
+#
+def _open_topic_lite(state: ftypes.PopulateState,
+                     sv: str,
+                     ret_svs: List[str],
+                     lvl: int = 0):
+  if lvl == 0:
+    topic_vars = topic.get_topic_vars(sv)
+  else:
+    assert lvl < 2, "Must never recurse past 2 levels"
+    topic_vars = topic.get_topic_vars_recurive(sv, rank=0, max_svs=1)
+
+  members = _classify_topic_members(topic_vars)
+
+  if members.svs or members.svpgs:
+    ret_svs.extend(members.svs)
+    for (_, svs) in members.svpgs:
+      ret_svs.extend(svs)
+    if len(ret_svs) >= _MAX_CORRELATION_SVS_PER_TOPIC:
+      return
+
+  # We need to open up topics.
+  for t in members.topics:
+    _open_topic_lite(state, t, ret_svs, lvl + 1)
+    if len(ret_svs) >= _MAX_CORRELATION_SVS_PER_TOPIC:
+      return
+
+
 #
 # This is an involved function to construct a list of ChartVars
 # for topics.
 #
-def compute_chart_vars(state: ftypes.PopulateState,
-                       sv: str,
-                       lvl: int = 0) -> List[ftypes.ChartVars]:
+def _topic_chart_vars(state: ftypes.PopulateState,
+                      sv: str,
+                      lvl: int = 0) -> List[ftypes.ChartVars]:
   if lvl == 0:
     # This is the requested topic, just get the immediate members.
     topic_vars = topic.get_topic_vars(sv)
@@ -57,12 +145,12 @@ def compute_chart_vars(state: ftypes.PopulateState,
     st = sv
     if lvl == 0 and topic_members.topics:
       st = ''
-    charts.extend(
-        _charts_within_topic(topic_members.svs, topic_members.svpgs, st))
+    charts.extend(_direct_chart_vars(topic_members.svs, topic_members.svpgs,
+                                     st))
 
   # Recurse into immediate sub-topics.
   for t in topic_members.topics:
-    charts.extend(compute_chart_vars(state, t, lvl + 1))
+    charts.extend(_topic_chart_vars(state, t, lvl + 1))
 
   state.uttr.counters.info(
       'topics_processed',
@@ -92,8 +180,8 @@ def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
 _MAX_SUBTOPIC_SV_LIMIT = 3
 
 
-def _charts_within_topic(svs: List[str], svpgs: List[str],
-                         topic: str) -> ftypes.ChartVars:
+def _direct_chart_vars(svs: List[str], svpgs: List[str],
+                       topic: str) -> ftypes.ChartVars:
   # We need a category called overview.
   # 1. Make a block for all SVs in just_svs
   charts = [ftypes.ChartVars(svs=svs, source_topic=topic)]
