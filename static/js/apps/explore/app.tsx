@@ -17,144 +17,44 @@
 /**
  * Main component for DC Explore.
  */
+import "../../../library";
+
 import React from "react";
-import { Col, Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 
-interface SubTopicType {
-  dcid: string;
-  name: string;
+import { TextSearchBar } from "../../components/text_search_bar";
+import { formatNumber } from "../../i18n/i18n";
+import allTopics from "./topics.json";
+
+interface TopicConfig {
+  title: string;
+  description: string;
+  examples: {
+    general: string[];
+    specific: string[];
+    comparison: string[];
+  };
+  meta: {
+    dataPointCount: number;
+    variableCount: number;
+    sources: string[];
+  };
 }
-
-interface TopicType {
-  dcid: string;
-  name: string;
-  subTopics: SubTopicType[];
-}
-
-// TODO: Move this config to topics.json
-const TOPICS: {
-  [key: string]: TopicType[];
-} = {
-  health: [
-    {
-      dcid: "dc/topic/GlobalHealth",
-      name: "Global Health",
-      subTopics: [
-        {
-          dcid: "dc/topic/WHOHealthBehavior",
-          name: "Health Behavior",
-        },
-        {
-          dcid: "dc/topic/WHOImmunization",
-          name: "Immunization",
-        },
-        {
-          dcid: "dc/topic/WHONonCommunicableDiseases",
-          name: "Non-Communicable Diseases",
-        },
-      ],
-    },
-    {
-      dcid: "dc/topic/HealthConditions",
-      name: "Health Conditions",
-      subTopics: [
-        {
-          dcid: "dc/topic/Asthma",
-          name: "Asthma",
-        },
-        {
-          dcid: "dc/topic/BloodPressure",
-          name: "Blood Pressure",
-        },
-        {
-          dcid: "dc/topic/Diabetes",
-          name: "Diabetes",
-        },
-        {
-          dcid: "dc/topic/MentalHealth",
-          name: "Mental Health",
-        },
-      ],
-    },
-    {
-      dcid: "dc/topic/HealthEquity",
-      name: "Health Equity",
-      subTopics: [
-        {
-          dcid: "dc/topic/DisabilitiesByGender",
-          name: "Disabilities by Gender",
-        },
-        {
-          dcid: "dc/topic/DisabilitiesByRace",
-          name: "Disabilities by Race",
-        },
-        {
-          dcid: "dc/topic/HealthInsuranceByRace",
-          name: "Health Insurance by Race",
-        },
-      ],
-    },
-    {
-      dcid: "dc/topic/HealthInsurance",
-      name: "Health Insurance",
-      subTopics: [
-        {
-          dcid: "dc/topic/HealthInsuranceType",
-          name: "Health Insurance Type",
-        },
-        {
-          dcid: "dc/topic/NoHealthInsurance",
-          name: "No Health Insurance",
-        },
-      ],
-    },
-    {
-      dcid: "dc/topic/Mortality",
-      name: "Mortality",
-      subTopics: [
-        {
-          dcid: "dc/topic/CausesOfDeath",
-          name: "Causes of Death",
-        },
-        {
-          dcid: "dcid:LifeExpectancy_Person",
-          name: "Life Expectancy",
-        },
-        {
-          dcid: "dc/topic/MortalityAmongIncarcerated",
-          name: "Mortality among Incarcerated",
-        },
-      ],
-    },
-    {
-      dcid: "dc/topic/PreventativeHealthAndBehavior",
-      name: "Preventative Health and Behavior",
-      subTopics: [
-        {
-          dcid: "dc/topic/HealthBehavior",
-          name: "Health Behavior",
-        },
-        {
-          dcid: "dc/topic/PreventativeHealth",
-          name: "Preventative Health",
-        },
-      ],
-    },
-  ],
-};
 
 /**
  * Application container
  */
 export function App(): JSX.Element {
-  const topic = window.location.href.split("/").pop();
-  const place = "geoId/06"; // TODO: Set dynamically based on location
-  const placeType = "County";
-  const topicTitle = topic.charAt(0).toLocaleUpperCase() + topic.slice(1);
+  const topic = window.location.href.split("/").pop().split("#")[0];
+  const currentTopic = allTopics.topics[topic] as TopicConfig;
+  const additionalTopics = allTopics.allTopics
+    .map((name) => ({
+      name,
+      title: allTopics.topics[name]?.title,
+    }))
+    .filter((item) => !item.title || item.name !== topic);
 
-  const topics = TOPICS[topic];
-
-  if (!topics) {
+  if (!topic) {
     return (
       <div className="explore-container">
         <Container>
@@ -167,18 +67,104 @@ export function App(): JSX.Element {
       </div>
     );
   }
+  const placeholderQuery =
+    currentTopic.examples?.general?.length > 0
+      ? currentTopic.examples.general[0]
+      : "family earnings in california";
   return (
     <div className="explore-container">
       <Container>
-        <h1>{topicTitle}</h1>
-        <div className="topics">
-          {topics.map((t, i) => (
-            <TopicContent
-              key={i}
-              topic={t}
-              place={place}
-              placeType={placeType}
-            />
+        <h1>{currentTopic.title}</h1>
+        <p>{currentTopic.description}</p>
+        <div className="explore-search">
+          <TextSearchBar
+            inputId="query-search-input"
+            onSearch={(q) => {
+              window.location.href = `/insights#q=${encodeURIComponent(q)}`;
+            }}
+            placeholder={`For example, "${placeholderQuery}"`}
+            initialValue={""}
+            shouldAutoFocus={true}
+            clearValueOnSearch={true}
+          />
+        </div>
+        <div className="explore-queries">
+          <div className="explore-queries">
+            <div>Here are some examples to get you started:</div>
+            <ul>
+              {currentTopic.examples.general.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="explore-queries">
+            <div>Try diving deeper:</div>
+            <ul>
+              {currentTopic.examples.specific.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} />
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="explore-queries">
+            <div>
+              And the real power of DataCommons is creating one common Knowledge
+              Graph:
+            </div>
+            <ul>
+              {currentTopic.examples.comparison.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="explore-more">
+          Additional data is available for these topics:{" "}
+          {additionalTopics.map((item, i) => (
+            <>
+              <a href={`/explore/${item.name}`}>
+                {item.title.toLocaleLowerCase()}
+              </a>
+              {", "}
+            </>
+          ))}
+          and more
+        </div>
+
+        <div className="explore-sources">
+          Our {currentTopic.title.toLocaleLowerCase()} data comprises{" "}
+          <span
+            title={`${formatNumber(
+              currentTopic.meta.dataPointCount,
+              undefined,
+              true
+            )}`}
+          >
+            {formatNumber(currentTopic.meta.dataPointCount)}
+          </span>{" "}
+          data points across{" "}
+          <span
+            title={`${formatNumber(
+              currentTopic.meta.variableCount,
+              undefined,
+              true
+            )}`}
+          >
+            {formatNumber(currentTopic.meta.variableCount)}
+          </span>{" "}
+          statistical variables. We collect our health information from sources
+          such as:{" "}
+          {currentTopic.meta.sources.map((s, i) => (
+            <>
+              {s}
+              {i === currentTopic.meta.sources.length - 1 ? ", " : ""}
+            </>
           ))}
         </div>
       </Container>
@@ -186,37 +172,15 @@ export function App(): JSX.Element {
   );
 }
 
-function TopicContent(props: {
-  topic: TopicType;
-  place: string;
-  placeType: string;
-}): JSX.Element {
-  const { topic, place, placeType } = props;
+function QueryLink(props: { query: string }): JSX.Element {
+  const { query } = props;
   return (
-    <Row className="topic-row">
-      <Col>
-        <h3>{topic.name}</h3>
-        <p>
-          <em className="text-muted">Topic-level chart goes here</em>
-        </p>
-      </Col>
-      <Col>
-        {topic.subTopics.map((subTopic, i) => (
-          <div className="sub-topic" key={i}>
-            <a
-              href={`/insights#t=${encodeURIComponent(
-                subTopic.dcid
-              )}&p=${encodeURIComponent(place)}&pt=${encodeURIComponent(
-                placeType
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {subTopic.name}
-            </a>
-          </div>
-        ))}
-      </Col>
-    </Row>
+    <a
+      href={`/insights#q=${encodeURIComponent(query)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {query}
+    </a>
   );
 }

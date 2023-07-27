@@ -221,3 +221,53 @@ categories {
     }
   }
 }
+
+categories {
+  title: "Test block with per capita toggle"
+  blocks {
+    title: "Test block with per capita toggle"
+    denom: "Count_Person"
+    start_with_denom: false
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName}"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+      }
+      tiles {
+        type: MAP
+        title: "Female population in ${placeName}"
+        stat_var_key: 'female_population'
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Population in ${placeName}"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        ranking_tile_spec {
+          show_highest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}

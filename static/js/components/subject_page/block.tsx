@@ -64,6 +64,8 @@ export interface BlockPropType {
   parentPlaces?: NamedPlace[];
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  denom?: string;
+  startWithDenom?: boolean;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -71,6 +73,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
+  const [useDenom, setUseDenom] = useState(props.startWithDenom);
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -97,29 +100,45 @@ export function Block(props: BlockPropType): JSX.Element {
   }, [props]);
 
   return (
-    <div className="block-body row">
-      {props.columns &&
-        props.columns.map((column, idx) => {
-          const id = getId(props.id, COLUMN_ID_PREFIX, idx);
-          const columnTileClassName = getColumnTileClassName(column);
-          return (
-            <Column
-              key={id}
-              id={id}
-              config={column}
-              width={columnWidth}
-              tiles={renderTiles(
-                column.tiles,
-                props,
-                id,
-                minIdxToHide,
-                overridePlaceTypes,
-                columnTileClassName
-              )}
-            />
-          );
-        })}
-    </div>
+    <>
+      {props.denom && (
+        <div className="block-per-capita-toggle">
+          <span
+            className={`material-icons-outlined ${
+              useDenom ? "toggle-on" : "toggle-off"
+            }`}
+            onClick={() => setUseDenom(!useDenom)}
+          >
+            {useDenom ? "toggle_on" : "toggle_off"}
+          </span>
+          <span>Per Capita</span>
+        </div>
+      )}
+      <div className="block-body row">
+        {props.columns &&
+          props.columns.map((column, idx) => {
+            const id = getId(props.id, COLUMN_ID_PREFIX, idx);
+            const columnTileClassName = getColumnTileClassName(column);
+            return (
+              <Column
+                key={id}
+                id={id}
+                config={column}
+                width={columnWidth}
+                tiles={renderTiles(
+                  column.tiles,
+                  props,
+                  id,
+                  minIdxToHide,
+                  overridePlaceTypes,
+                  columnTileClassName,
+                  useDenom ? props.denom : ""
+                )}
+              />
+            );
+          })}
+      </div>
+    </>
   );
 }
 
@@ -129,7 +148,8 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
-  tileClassName?: string
+  tileClassName?: string,
+  blockDenom?: string
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -160,7 +180,10 @@ function renderTiles(
             key={id}
             description={tile.description}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
           />
         );
       case "MAP":
@@ -171,7 +194,10 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -185,7 +211,10 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -199,7 +228,10 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -214,7 +246,10 @@ function renderTiles(
             place={place}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
             tileSpec={tile.barTileSpec}
@@ -229,7 +264,10 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -246,7 +284,10 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -259,7 +300,10 @@ function renderTiles(
             minSvgChartHeight={props.svgChartHeight}
             place={place}
             range={tile.gaugeTileSpec.range}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
             title={tile.title}
           ></GaugeTile>
         );
