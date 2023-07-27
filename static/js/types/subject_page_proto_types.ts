@@ -134,6 +134,8 @@ export interface BlockConfig {
   footnote?: string;
   columns: ColumnConfig[];
   type?: string;
+  denom?: string;
+  startWithDenom?: boolean;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

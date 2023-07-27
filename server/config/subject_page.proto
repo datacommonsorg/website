@@ -255,7 +255,9 @@ message Block {
   // toggled on, all tiles in the block will use this denom to calculate per
   // capita.
   string denom = 6;
-  bool startPerCapita = 7;
+  // Whether or not the block should use the denom when first rendered. Only
+  // used if denom is set. Defaults to false.
+  bool start_with_denom = 7;
 }
 
 message Category {
