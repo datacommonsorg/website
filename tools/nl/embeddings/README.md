@@ -55,12 +55,12 @@ This is a common sheet across the different index sizes.
 
    To create custom embeddings (using the finetuned model in PROD):
    ```bash
-   ./run.sh -c <embeddings_size> <local_sheets_csv_filepath> <worksheet_name>
+   ./run.sh -c <embeddings_size> <local_sheets_csv_filepath> <sheets_url> <worksheet_name>
    ```
 
    For example, to create the UN SDG embeddings: 
    ```bash
-   ./run.sh -c sdg data/curated_input/sheets_svs_sdg.csv SDG_SVs
+   ./run.sh -c sdg data/curated_input/sheets_svs_sdg.csv https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_SVs
    ```
    
 

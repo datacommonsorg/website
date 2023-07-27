@@ -18,7 +18,7 @@ function help {
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
-  echo "$0 -c <embeddings-size> <local_sheets_csv_filepath> <worksheet_name> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -c <embeddings-size> <local_sheets_csv_filepath> <sheets_url> <worksheet_name> # This option creates custom embeddings (using the finetuned model in PROD)."
 }
 
 if [[ $# -le 1 ]]; then
@@ -62,7 +62,14 @@ while getopts bflc OPTION; do
       else
         echo "Using the local sheets csv at: $LOCAL_SHEETS_CSV_FILEPATH"
       fi
-      WORKSHEET_NAME="$4"
+      SHEETS_URL="$4"
+      if [ "$SHEETS_URL" == "" ]; then
+        help
+        exit 1
+      else  
+        echo "Using the sheets url: $SHEETS_URL"
+      fi  
+      WORKSHEET_NAME="$5"
       if [ "$WORKSHEET_NAME" == "" ]; then
         help  
         exit 1
@@ -88,8 +95,8 @@ python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
-if [ "$LOCAL_SHEETS_CSV_FILEPATH" != "" ]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --local_sheets_csv_filepath=$LOCAL_SHEETS_CSV_FILEPATH --worksheet_name=$WORKSHEET_NAME
+if [ "$SHEETS_URL" != "" ]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --local_sheets_csv_filepath=$LOCAL_SHEETS_CSV_FILEPATH --sheets_url=$SHEETS_URL --worksheet_name=$WORKSHEET_NAME
 elif [ "$FINETUNED_MODEL" != "" ]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 elif [ "$LOCAL_MODEL_PATH" != "" ]; then
