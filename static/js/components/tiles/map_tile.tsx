@@ -40,7 +40,11 @@ import {
   NamedTypedPlace,
   StatVarSpec,
 } from "../../shared/types";
-import { getCappedStatVarDate } from "../../shared/util";
+import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
 import {
   getPlaceChartData,
   MAP_URL_PATH,
@@ -78,6 +82,8 @@ export interface MapTilePropType {
   title: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether or not to show a loading spinner when fetching data.
+  showLoadingSpinner?: boolean;
 }
 
 interface RawData {
@@ -98,6 +104,8 @@ export interface MapChartData {
   showMapBoundaries: boolean;
   unit: string;
   borderGeoJson?: GeoJsonData;
+  // props used when fetching this data
+  props: MapTilePropType;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -110,12 +118,13 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [svgHeight, setSvgHeight] = useState(null);
 
   useEffect(() => {
-    if (!mapChartData) {
+    if (!mapChartData || !_.isEqual(mapChartData.props, props)) {
+      loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
         setMapChartData(data);
       })();
-    } else {
+    } else if (_.isEqual(mapChartData.props, props)) {
       draw(
         mapChartData,
         props,
@@ -123,6 +132,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         legendContainer.current,
         mapContainer.current
       );
+      removeSpinner(props.id);
     }
   }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
 
@@ -138,7 +148,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props]);
 
   const drawFn = useCallback(() => {
-    if (_.isEmpty(mapChartData)) {
+    if (_.isEmpty(mapChartData) || !_.isEqual(mapChartData.props, props)) {
       return;
     }
     draw(
@@ -168,6 +178,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
       <div
+        id={props.id}
         className="svg-container"
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
@@ -178,6 +189,11 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           {...{ part: "legend" }}
           ref={legendContainer}
         ></div>
+        {props.showLoadingSpinner && (
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        )}
       </div>
     </ChartTileContainer>
   );
@@ -267,9 +283,11 @@ export const fetchData = async (
       rawData,
       props.statVarSpec,
       props.place,
-      props.enclosedPlaceType
+      props.enclosedPlaceType,
+      props
     );
   } catch (error) {
+    removeSpinner(props.id);
     return null;
   }
 };
@@ -278,7 +296,8 @@ function rawToChart(
   rawData: RawData,
   statVarSpec: StatVarSpec,
   place: NamedTypedPlace,
-  enclosedPlaceType: string
+  enclosedPlaceType: string,
+  props: MapTilePropType
 ): MapChartData {
   const metadataMap = rawData.placeStat.facets || {};
   if (!_.isEmpty(rawData.population.facets)) {
@@ -347,6 +366,7 @@ function rawToChart(
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
     borderGeoJson: rawData.borderGeoJson,
+    props,
   };
 }
 

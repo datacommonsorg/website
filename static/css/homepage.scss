@@ -168,19 +168,19 @@ $color-font-dark: #3c4043;
   gap: 16px;
   grid-template-columns: 1fr 1fr 1fr;
 
-  a.topic-card {
+  .topic-card {
     color: $color-font-dark;
     border: 2px solid #c2e7ff;
     border-radius: 12px;
     display: flex;
     flex: 0 0 30%;
-    cursor: pointer;
 
     .topic-card-body {
       display: flex;
       flex-direction: column;
       padding: 1rem;
       flex-grow: 1;
+      justify-content: space-between;
     }
 
     .topic-card-title {
@@ -191,6 +191,11 @@ $color-font-dark: #3c4043;
     .topic-card-description {
       font-size: 14px;
       font-weight: 400;
+    }
+
+    .topic-card-links {
+      margin-top: 1rem;
+      font-size: 0.8rem;
     }
 
     .topic-card-icon {

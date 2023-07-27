@@ -89,10 +89,10 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs exist.  There are 2 calls for base SVs + extensions.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -128,10 +128,10 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': True,
         'Count_Person_Female': True
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -155,7 +155,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm']]
+    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {})]
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -179,8 +179,8 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm'],
-                                     ['Mean_Precipitation']]
+    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {}),
+                                     (['Mean_Precipitation'], {})]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR])
@@ -220,7 +220,8 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Prevalence_Obesity'], ['Count_Poverty']]
+    mock_sv_existence.side_effect = [(['Prevalence_Obesity'], {}),
+                                     (['Count_Poverty'], {})]
 
     got = _run(detection, [])
     self.maxDiff = None
@@ -248,7 +249,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Agricultural_Workers']]
+    mock_sv_existence.side_effect = [(['Count_Agricultural_Workers'], {})]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR])
@@ -268,9 +269,9 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs (from context) exist
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
+    mock_sv_existence.side_effect = [
+        (['Count_Person_Male', 'Count_Person_Female'], {})
+    ]
 
     # Pass in the simple SV utterance as context
     got = _run(detection, [SIMPLE_UTTR])
@@ -291,12 +292,12 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Person_Male': ['Count_Person_Male', 'Count_Person_Female']
     }
     # - Make SVs exist. Importantly, the second call is for both male + female.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False
-    }, {
+    }, {}), ({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -335,12 +336,12 @@ class TestDataSpecNext(unittest.TestCase):
     ]
     # - Make SVs exist. The order doesn't matter.
     #   Make Wheat inventory fail existence check.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Farm': False,
         'Area_Farm': False,
         'FarmInventory_Rice': False,
         'FarmInventory_Barley': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -377,12 +378,12 @@ class TestDataSpecNext(unittest.TestCase):
                        source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Farm': False,
         'FarmInventory_Rice': False,
         'FarmInventory_Wheat': False,
         'FarmInventory_Barley': False
-    }]
+    }, {})]
     # Differently order result
     mock_rank_svs.return_value = [
         'FarmInventory_Barley',
@@ -421,9 +422,10 @@ class TestDataSpecNext(unittest.TestCase):
                        source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
-    ]]
+    mock_sv_existence.side_effect = [
+        (['FarmInventory_Rice', 'FarmInventory_Wheat',
+          'FarmInventory_Barley'], {})
+    ]
     # Differently order result
     mock_rank_svs.return_value = rank_utils.GrowthRankedLists(
         pct=[
@@ -469,10 +471,10 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs exist
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     counters = ctr.Counters()
     fulfiller.fulfill(

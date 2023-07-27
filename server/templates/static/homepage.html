@@ -48,15 +48,21 @@
     <h2>Explore Data Commons</h2>
     <div class="topics-container">
       {% for topic in topics %}
-          <a href="{{ topic['url'] }}" id="{{ topic['title']}}" class="topic-card">
-            <div class="topic-card-body">
-              <span class="topic-card-title">{{ topic['title'] }}</span>
-              <span class="topic-card-description">{{ topic['description'] }}</span>
+      <div class="topic-card">
+          <div class="topic-card-body">
+            <div>
+              <div class="topic-card-title">{{ topic['title'] }}</div>
+              <div class="topic-card-description">{{ topic['description'] }}</div>
             </div>
-            <div class="topic-card-icon">
-              <span class="material-icons-outlined">{{ topic['icon'] }}</span>
+            <div class="topic-card-links">
+              <a href="{{ topic['browseUrl'] }}" target="_blank" rel="noopener noreferrer">Browse</a> |
+              <a href="{{ topic['url'] }}" id="{{ topic['title']}}" target="_blank" rel="noopener noreferrer">Natural Language</a>
             </div>
-          </a>
+          </div>
+          <div class="topic-card-icon">
+            <span class="material-icons-outlined">{{ topic['icon'] }}</span>
+          </div>
+        </div>
       {% endfor %}
     </div>
 </section>
@@ -65,19 +71,19 @@
   <div class="container">
     <h2>Tools</h2>
     <div class="tool-buttons-container">
-        <a href="{{ url_for('tools.scatter') }}" id="scatter-button" class="tool-button">
+        <a href="{{ url_for('tools.visualization')}}#visType=scatter" id="scatter-button" class="tool-button">
           <div class="img-container">
             <div class="tool-button-img"></div>
           </div>
           <span>Scatter Plots</span>
         </a>
-        <a href="{{ url_for('tools.map') }}" id="map-button" class="tool-button">
+        <a href="{{ url_for('tools.visualization')}}#visType=map" id="map-button" class="tool-button">
           <div class="img-container">
             <div class="tool-button-img"></div>
           </div>
           <span>Map Explorer</span>
         </a>
-        <a href="{{ url_for('tools.timeline') }}" id="timeline-button" class="tool-button">
+        <a href="{{ url_for('tools.visualization')}}#visType=timeline" id="timeline-button" class="tool-button">
           <div class="img-container">
             <div class="tool-button-img"></div>
           </div>

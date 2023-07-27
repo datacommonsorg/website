@@ -51,7 +51,7 @@ import { setChartOption, setMetahash } from "./util";
 const CHART_HEIGHT = 300;
 
 interface ChartPropsType {
-  mprop: string; // measured property
+  chartId: string; // id used for this chart
   placeNameMap: Record<string, string>; // Place dcid to name mapping.
   statVarInfos: Record<string, StatVarInfo>;
   pc: boolean;
@@ -109,7 +109,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNameMap)[0];
-    const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
+    const deltaCheckboxId = `delta-cb-${this.props.chartId}`;
     const facetList = this.getFacetList(statVars);
     const svFacetId = {};
     for (const sv of statVars) {
@@ -142,7 +142,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           <div ref={this.svgContainer} className="chart-svg"></div>
         </div>
         <ToolChartFooter
-          chartId={this.props.mprop}
+          chartId={this.props.chartId}
           sources={
             this.state.statData ? this.state.statData.sources : new Set()
           }
@@ -157,7 +157,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           hideIsRatio={false}
           isPerCapita={this.props.pc}
           onIsPerCapitaUpdated={(isPerCapita: boolean) =>
-            setChartOption(this.props.mprop, "pc", isPerCapita)
+            setChartOption(this.props.chartId, "pc", isPerCapita)
           }
         >
           <span className="chart-option">
@@ -170,7 +170,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   checked={this.props.delta}
                   onChange={() => {
                     setChartOption(
-                      this.props.mprop,
+                      this.props.chartId,
                       "delta",
                       !this.props.delta
                     );
@@ -207,8 +207,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.resizeObserver.disconnect();
     }
     // reset the options to default value if the chart is removed
-    setChartOption(this.props.mprop, "pc", false);
-    setChartOption(this.props.mprop, "delta", false);
+    setChartOption(this.props.chartId, "pc", false);
+    setChartOption(this.props.chartId, "delta", false);
   }
 
   componentDidUpdate(
@@ -345,7 +345,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.units = Array.from(units).sort();
     }
 
-    this.props.onDataUpdate(this.props.mprop, statData);
+    this.props.onDataUpdate(this.props.chartId, statData);
     this.setState({ statData, ipccModels });
   }
 

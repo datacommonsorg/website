@@ -143,6 +143,8 @@ export interface CategoryConfig {
   description?: string;
   statVarSpec: StatVarSpecMap;
   blocks: BlockConfig[];
+  dcid?: string;
+  url?: string;
 }
 
 export interface SubjectPageConfig {

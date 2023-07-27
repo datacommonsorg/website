@@ -30,15 +30,21 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
   }
 
   render(): JSX.Element {
-    const num = this.props.parentPlaces.length;
+    let num = 0;
+    if (this.props.parentPlaces) {
+      num = this.props.parentPlaces.length;
+    }
     return (
-      <div>
-        <span>{this.props.placeType} in </span>
-        {this.props.parentPlaces &&
+      <div id="parent-places">
+        {num > 0 && (
+          <span id="parent-place-head">{this.props.placeType} in </span>
+        )}
+        {num > 0 &&
           this.props.parentPlaces.map((parent, index) => {
             if (index === num - 1) {
               return (
                 <a
+                  className="parent-place-link"
                   key={parent.dcid}
                   href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}
                 >
@@ -48,7 +54,10 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
             }
             return (
               <React.Fragment key={parent.dcid}>
-                <a href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}>
+                <a
+                  className="parent-place-link"
+                  href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}
+                >
                   {parent.name}
                 </a>
                 {index < num - 1 && <span>, </span>}

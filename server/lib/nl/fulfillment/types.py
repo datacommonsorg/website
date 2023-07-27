@@ -19,7 +19,7 @@
 from dataclasses import dataclass
 from dataclasses import field
 from enum import Enum
-from typing import List
+from typing import Dict, List, Set
 
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -39,6 +39,10 @@ class PopulateState:
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
   block_id: int = 0
+  # Has the results of existence check.
+  # SV -> Place Keys
+  # Where Place Key may be the place DCID, or place DCID + child-type.
+  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
 
 
 class InsightType(Enum):
@@ -58,6 +62,7 @@ class ChartVars:
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
+  # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
   # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
   response_type: str = ""
@@ -75,4 +80,5 @@ class ChartVars:
   growth_direction: TimeDeltaType = None
   growth_ranking_type: str = None
 
-  insight_type: InsightType = None
+  # Set if is_topic_peer_group is set.
+  svpg_id: str = ''

@@ -4,6 +4,7 @@
     "title": "Economy",
     "description": "Discover the intricate interplay between economic forces and societal well-being.",
     "url": "/nl#topic=economy",
+    "browseUrl": "/explore/economy",
     "icon": "area_chart"
   },
   {
@@ -11,6 +12,7 @@
     "title": "Health",
     "description": "Dive into the realm of human well-being and explore the profound impact of health on individuals, communities, and global societies.",
     "url": "/nl#topic=health",
+    "browseUrl": "/explore/health",
     "icon": "area_chart"
   },
   {
@@ -18,6 +20,7 @@
     "title": "Education",
     "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
     "url": "/nl#topic=education",
+    "browseUrl": "/explore/education",
     "icon": "school"
   },
   {
@@ -25,6 +28,7 @@
     "title": "Environment",
     "description": "Embark on a journey to understand the intricate relationship between human activities and the environment.",
     "url": "/nl#topic=environment",
+    "browseUrl": "/explore/environment",
     "icon": "public"
   },
   {
@@ -32,6 +36,7 @@
     "title": "Demographics",
     "description": "Uncover the fascinating story of human populations and their dynamics.",
     "url": "/nl#topic=demographics",
+    "browseUrl": "/explore/demographics",
     "icon": "family_restroom"
   },
   {
@@ -39,6 +44,7 @@
     "title": "Sustainability",
     "description": "Embark on a journey towards a sustainable future.",
     "url": "/nl#topic=sustainability",
+    "browseUrl": "/explore/economy",
     "icon": "eco"
   }
 ]

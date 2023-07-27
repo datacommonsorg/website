@@ -1,0 +1,14 @@
+{
+  "comparisonType": "VAR",
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/32",
+    "geoId/06"
+  ],
+  "sessionId": "007_999999999",
+  "variables": [
+    "dc/topic/PopulationWithAsthmaByAge",
+    "dc/topic/WorkCommute"
+  ]
+}

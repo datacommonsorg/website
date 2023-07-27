@@ -157,8 +157,8 @@ def _handle_svs_from_context(uttr: Utterance,
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
   main_svs = open_top_topics_ordered(uttr.svs, uttr.counters)
-  main_svs = utils.sv_existence_for_places(places_to_check, main_svs,
-                                           uttr.counters)
+  main_svs, _ = utils.sv_existence_for_places(places_to_check, main_svs,
+                                              uttr.counters)
   if not main_svs:
     uttr.counters.err('correlation_failed_existence_check_main_sv', main_svs)
     uttr.counters.err('correlation_failed_missing_main_sv', 1)
@@ -169,8 +169,8 @@ def _handle_svs_from_context(uttr: Utterance,
   context_svs = []
   for c_svs in svs_from_context(uttr):
     opened_svs = open_top_topics_ordered(c_svs, uttr.counters)
-    context_svs = utils.sv_existence_for_places(places_to_check, opened_svs,
-                                                uttr.counters)
+    context_svs, _ = utils.sv_existence_for_places(places_to_check, opened_svs,
+                                                   uttr.counters)
     if context_svs:
       break
     else:
@@ -190,20 +190,14 @@ def _handle_svs_from_context(uttr: Utterance,
 
 def _handle_multi_sv_in_uttr(uttr: Utterance,
                              places_to_check: List[str]) -> tuple:
-  # Loop over the candidates and find the one with 2 parts.
-  parts: List[vars.MultiVarCandidatePart] = None
-  for c in uttr.multi_svs.candidates:
-    if len(c.parts) == 2:
-      parts = c.parts
-      break
-
+  parts = detection_utils.get_multi_sv_pair(uttr.detection)
   if not parts:
     return (None, None)
 
   final_svs: List[List[str]] = []
   for i, p in enumerate(parts):
     svs = open_top_topics_ordered(p.svs, uttr.counters)
-    svs = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
+    svs, _ = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
     if not svs:
       uttr.counters.err(f'multisv_correlation_failed_existence_check_{i}_sv',
                         svs)

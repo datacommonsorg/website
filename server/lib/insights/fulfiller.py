@@ -13,17 +13,18 @@
 # limitations under the License.
 """Module for Insights fulfillment"""
 
-import logging
 import time
 from typing import List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.insights import chart_builder
-import server.lib.nl.common.topic as topic
+from server.lib.insights import page
+import server.lib.insights.related as related
+import server.lib.insights.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
+import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
 
@@ -31,8 +32,8 @@ import server.lib.nl.fulfillment.types as ftypes
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill_chart_config(uttr: nl_uttr.Utterance,
-                         cb_config: builder.Config) -> SubjectPageConfig:
+def fulfill(uttr: nl_uttr.Utterance,
+            cb_config: builder.Config) -> SubjectPageConfig:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
@@ -40,32 +41,39 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
   state = ftypes.PopulateState(uttr=uttr, main_cb=None, place_type=pt)
 
   # Open up topics into vars and build ChartVars for each.
+
+  has_correlation = ctx.classifications_of_type_from_utterance(
+      uttr, dtypes.ClassificationType.CORRELATION)
+
   chart_vars_map = {}
-  for sv in state.uttr.svs:
-    cv = _build_chart_vars(state, sv)
-    chart_vars_map[sv] = cv
-    logging.info(f'{sv} -> {cv}')
+  if has_correlation and len(state.uttr.svs) == 2:
+    chart_vars_map = topic.compute_correlation_chart_vars(state)
+  else:
+    chart_vars_map = topic.compute_chart_vars(state)
 
   # Get places to perform existence check on.
-  places_to_check = _get_place_dcids(uttr.places)
+  places_to_check = {}
+  for p in _get_place_dcids(uttr.places):
+    places_to_check[p] = p
   if state.place_type:
-    # REQUIRES: len(places) == 1
-    places_to_check.extend(
-        cutils.get_sample_child_places(uttr.places[0].dcid,
-                                       state.place_type.value,
-                                       state.uttr.counters))
+    # Add child places
+    key = uttr.places[0].dcid + state.place_type.value
+    for p in uttr.detection.places_detected.child_places[:cutils.
+                                                         NUM_CHILD_PLACES_FOR_EXISTENCE]:
+      places_to_check[p.dcid] = key
+  for p in uttr.detection.places_detected.parent_places:
+    places_to_check[p.dcid] = p.dcid
+
   if not places_to_check:
     uttr.counters.err("failed_NoPlacesToCheck", '')
-    return
+    return None, {}
 
   # Perform existence checks for all the SVs!
-  # TODO: Improve existence checks to handle distinction between main-place
-  # and child place.
   tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
                                           chart_vars_map)
   tracker.perform_existence_check()
 
-  existing_svs = set()
+  existing_svs = set(state.uttr.svs)
   chart_vars_list = []
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
@@ -73,60 +81,16 @@ def fulfill_chart_config(uttr: nl_uttr.Utterance,
       if chart_vars.svs:
         existing_svs.update(chart_vars.svs)
         chart_vars_list.append(chart_vars)
+      if chart_vars.source_topic:
+        existing_svs.add(chart_vars.source_topic)
+      if chart_vars.svpg_id:
+        existing_svs.add(chart_vars.svpg_id)
 
-  return chart_builder.build(chart_vars_list, state, existing_svs, cb_config)
+  chart_pb = page.build_config(chart_vars_list, state, existing_svs, cb_config)
 
+  related_things = related.compute_related_things(state)
 
-def _build_chart_vars(state: ftypes.PopulateState,
-                      sv: str) -> List[ftypes.ChartVars]:
-  if cutils.is_sv(sv):
-    return [ftypes.ChartVars(svs=[sv], insight_type=ftypes.InsightType.BLOCK)]
-  if cutils.is_topic(sv):
-    start = time.time()
-    topic_vars = topic.get_topic_vars(sv)
-    peer_groups = topic.get_topic_peers(topic_vars)
-
-    # Classify into two lists.
-    just_svs = []
-    svpgs = []
-    for v in topic_vars:
-      if v in peer_groups and peer_groups[v]:
-        title = topic.svpg_name(v)
-        description = topic.svpg_description(v)
-        svpgs.append((title, description, peer_groups[v]))
-      else:
-        just_svs.append(v)
-    state.uttr.counters.timeit('topic_calls', start)
-
-    # Group into blocks carefully:
-
-    # 1. Make a block for all SVs in just_svs
-    charts = [
-        ftypes.ChartVars(svs=just_svs,
-                         source_topic=sv,
-                         insight_type=ftypes.InsightType.CATEGORY,
-                         title='Overview')
-    ]
-
-    # 2. Make a block for every peer-group in svpgs
-    for (title, description, svs) in svpgs:
-      charts.append(
-          ftypes.ChartVars(svs=svs,
-                           include_percapita=False,
-                           title=title,
-                           description=description,
-                           insight_type=ftypes.InsightType.CATEGORY,
-                           is_topic_peer_group=True,
-                           source_topic=sv))
-
-    state.uttr.counters.info('topics_processed',
-                             {sv: {
-                                 'svs': just_svs,
-                                 'peer_groups': svpgs,
-                             }})
-    return charts
-
-  return []
+  return chart_pb, related_things
 
 
 def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
