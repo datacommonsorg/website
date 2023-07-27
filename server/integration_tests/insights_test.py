@@ -113,9 +113,10 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_detection('detection_api_basic', ['Commute in California'])
 
   def test_detection_context(self):
-    self.run_detection(
-        'detection_api_context',
-        ['Commute in counties of California', 'Compare with Nevada'])
+    self.run_detection('detection_api_context', [
+        'Commute in counties of California', 'Compare with Nevada',
+        'Correlate with asthma'
+    ])
 
   def test_fulfillment_basic(self):
     req = {'entities': ['geoId/06085'], 'variables': ['dc/topic/WorkCommute']}
@@ -126,6 +127,15 @@ class IntegrationTest(NLWebServerTestCase):
         'entities': ['geoId/06', 'geoId/32'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County',
-        'cmpType': 'ENTITY',
+        'comparisonType': 'ENTITY',
     }
     self.run_fulfillment('fulfillment_api_comparison', req)
+
+  def test_fulfillment_correlation(self):
+    req = {
+        'entities': ['geoId/06'],
+        'variables': ['dc/topic/WorkCommute', 'dc/topic/Asthma'],
+        'childEntityType': 'County',
+        'comparisonType': 'VAR',
+    }
+    self.run_fulfillment('fulfillment_api_correlation', req)

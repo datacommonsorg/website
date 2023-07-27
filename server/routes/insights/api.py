@@ -31,7 +31,6 @@ import server.lib.insights.detector as insight_detector
 import server.lib.insights.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
-import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
@@ -55,8 +54,6 @@ def detect():
     return error_json
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
-
-  _hoist_topic(utterance)
 
   data_dict = insight_detector.detect_with_context(utterance)
 
@@ -102,6 +99,7 @@ def fulfill():
   session_id = req_json.get(Params.SESSION_ID.value)
   is_cmp_entities = req_json.get(
       Params.CMP_TYPE.value) == Params.CMP_TYPE_ENTITY.value
+  is_cmp_vars = req_json.get(Params.CMP_TYPE.value) == Params.CMP_TYPE_VAR.value
 
   counters = ctr.Counters()
   debug_logs = {}
@@ -117,7 +115,8 @@ def fulfill():
   query_detection, error_msg = nl_detector.construct(entities, variables,
                                                      child_type,
                                                      is_cmp_entities,
-                                                     debug_logs, counters)
+                                                     is_cmp_vars, debug_logs,
+                                                     counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     helpers.abort(error_msg, '', [])
@@ -194,20 +193,3 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                   dbg_counters,
                                   debug_logs,
                                   is_nl=False)
-
-
-#
-# A topic may not often be the top-most result. In that case,
-# we look for a topic for up to TOPIC_RANK_LIMIT, and hoist to top
-# (This is the same limit NL interface uses for opening up topic).
-#
-def _hoist_topic(uttr):
-  # If no SVs, or topic is already on top, return.
-  if not uttr.svs or utils.is_topic(uttr.svs[0]):
-    return
-  for i in range(1, topic.TOPIC_RANK_LIMIT):
-    if utils.is_topic(uttr.svs[i]):
-      t = uttr.svs[0]
-      uttr.svs[0] = uttr.svs[i]
-      uttr.svs[i] = t
-      return

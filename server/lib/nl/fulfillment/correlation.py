@@ -190,13 +190,7 @@ def _handle_svs_from_context(uttr: Utterance,
 
 def _handle_multi_sv_in_uttr(uttr: Utterance,
                              places_to_check: List[str]) -> tuple:
-  # Loop over the candidates and find the one with 2 parts.
-  parts: List[vars.MultiVarCandidatePart] = None
-  for c in uttr.multi_svs.candidates:
-    if len(c.parts) == 2:
-      parts = c.parts
-      break
-
+  parts = detection_utils.get_multi_sv_pair(uttr.detection)
   if not parts:
     return (None, None)
 
