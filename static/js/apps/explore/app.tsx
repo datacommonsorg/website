@@ -150,7 +150,7 @@ export function App(): JSX.Element {
           </span>{" "}
           statistical variables. We collect our{" "}
           {currentTopic.title.toLocaleLowerCase()} information from sources such
-          such as:{" "}
+          as:{" "}
           {currentTopic.meta.sources.map((s, i) => (
             <>
               {currentTopic.meta.sources.length > 1 &&
