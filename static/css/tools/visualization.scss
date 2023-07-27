@@ -284,6 +284,16 @@ $selector-footer-height: 40px;
       position: absolute;
       left: 0;
     }
+
+    #location-field {
+      #place-list {
+        margin-left: 8px;
+      }
+
+      #ac {
+        margin-left: 36px;
+      }
+    }
   }
 
   .place-selector-selections {
