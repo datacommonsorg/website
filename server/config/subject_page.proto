@@ -251,6 +251,11 @@ message Block {
     DISASTER_EVENT = 1;
   }
   BlockType type = 4;
+  // If denom is set, adds a per capita toggle on the block. If per capita is
+  // toggled on, all tiles in the block will use this denom to calculate per
+  // capita.
+  string denom = 6;
+  bool startPerCapita = 7;
 }
 
 message Category {
