@@ -14,7 +14,6 @@
 
 import copy
 from enum import Enum
-import logging
 from typing import Dict
 
 import server.lib.nl.common.utils as utils
@@ -50,10 +49,13 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
       places = [p.dcid for p in uttr.places]
     elif len(uttr.places) == 1:
       # Partially in this query, lookup context.
-      places = [uttr.places[0].dcid] + past_ctx.get(Params.ENTITIES.value, [])
+      ctx_places = past_ctx.get(Params.ENTITIES.value, [])
+      places = [uttr.places[0].dcid] + ctx_places
+      uttr.counters.info('insight_cmp_partial_place_ctx', ctx_places)
     else:
       # Completely in context.
       places = past_ctx.get(Params.ENTITIES.value, [])
+      uttr.counters.info('insight_cmp_place_ctx', places)
     if len(places) > 1:
       cmp_type = Params.CMP_TYPE_ENTITY.value
   else:
@@ -63,6 +65,7 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
     else:
       # Find place from context.
       places = past_ctx.get(Params.ENTITIES.value, [])
+      uttr.counters.info('insight_place_ctx', places)
 
   # 3. Detect SVs leveraging context.
   if uttr.svs:
@@ -70,6 +73,7 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
   else:
     # Try to get svs from context.
     svs = past_ctx.get(Params.VARS.value, [])
+    uttr.counters.info('insight_var_ctx', svs)
 
   # Populated dict with basic info
   data_dict.update({

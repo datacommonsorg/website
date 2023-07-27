@@ -27,7 +27,8 @@ import { CategoryConfig } from "../../types/subject_page_proto_types";
 interface SidebarPropType {
   id: string;
   currentTopicDcid: string;
-  places: string[];
+  place: string;
+  cmpPlaces: string[];
   /**
    * Categories from the page config.
    */
@@ -39,9 +40,9 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          let url = `/insights/#t=${topic.dcid}`;
-          for (const p of props.places) {
-            url += `&p=${p}`;
+          let url = `/insights/#t=${topic.dcid}&p=${props.place}`;
+          for (const p of props.cmpPlaces) {
+            url += `&pcmp=${p}`;
           }
           return (
             <div key={idx} className="topic-item">
@@ -52,9 +53,9 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                 {topic.dcid == props.currentTopicDcid &&
                   props.categories &&
                   props.categories.map((category) => {
-                    let url = `/insights/#t=${category.dcid}`;
-                    for (const p of props.places) {
-                      url += `&p=${p}`;
+                    let url = `/insights/#t=${category.dcid}&p=${props.place}`;
+                    for (const p of props.cmpPlaces) {
+                      url += `&pcmp=${p}`;
                     }
                     return (
                       <a key={randDomId()} className={"nav-item"} href={url}>

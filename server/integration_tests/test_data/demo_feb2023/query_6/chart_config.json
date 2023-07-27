@@ -59,12 +59,12 @@
         ],
         "statVarSpec": {
           "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
-            "name": "Prevalence of 21 - 65 Years, Female, Received Cervical Cancer Screening",
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
             "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
             "unit": "%"
           },
           "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
-            "name": "Prevalence: 50 - 75 Years, Colorectal Cancer Screening",
+            "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
             "unit": "%"
           },
