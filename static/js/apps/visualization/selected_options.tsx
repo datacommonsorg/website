@@ -56,7 +56,9 @@ export function SelectedOptions(): JSX.Element {
       <div className="selected-options-places">
         {!_.isEmpty(places) && (
           <div className="selected-option">
-            <span className="selected-option-label">Plot places in</span>
+            <span className="selected-option-label">
+              Plot places{visTypeConfig.skipEnclosedPlaceType ? "" : " in"}
+            </span>
             <div className="selected-option-values">
               {places.map((place) => {
                 return (
