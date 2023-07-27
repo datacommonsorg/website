@@ -22,6 +22,7 @@ import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.services.datacommons as dc
+import server.lib.shared as shared
 
 # Have an upper limit so we don't do too many existence checks.
 EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT = 50
@@ -288,48 +289,6 @@ def get_only_svs(svs: List[str]) -> List[str]:
 # Per-capita handling
 #
 
-_SV_PARTIAL_DCID_NO_PC = [
-    'Temperature',
-    'Precipitation',
-    "BarometricPressure",
-    "CloudCover",
-    "PrecipitableWater",
-    "Rainfall",
-    "Snowfall",
-    "Visibility",
-    "WindSpeed",
-    "ConsecutiveDryDays",
-    "Percent",
-    "Area_",
-    "Median_",
-    "LifeExpectancy_",
-    "AsFractionOf",
-    "AsAFractionOfCount",
-    "UnemploymentRate_",
-    "Mean_Income_",
-    "GenderIncomeInequality_",
-    "FertilityRate_",
-    "GrowthRate_",
-    "sdg/",
-    "FemaNaturalHazardRiskIndex_",
-    "FemaCommunityResilience_",
-    "FemaSocialVulnerability_",
-    "MothersAge_",
-    "IntervalSinceLastBirth_",
-    "BirthWeight_",
-    "Covid19MobilityTrend_",
-    "Average_",
-    "Cancer_Risk",
-    "IncrementalCount_",
-    "HouseholdSize_",
-    "LmpGestationalAge_",
-]
-
 
 def is_percapita_relevant(sv_dcid: str, nopc_svs: Set[str]) -> bool:
-  if sv_dcid in nopc_svs:
-    return False
-  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
-    if skip_phrase in sv_dcid:
-      return False
-  return True
+  return shared.is_percapita_relevant(sv_dcid, nopc_svs)

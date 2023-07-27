@@ -34,17 +34,22 @@ function getChartArea(
   appContext: AppContextType,
   chartHeight: number
 ): JSX.Element {
-  const perCapitaInputs = appContext.statVars.slice(0, 2).map((sv, idx) => {
-    return {
-      isChecked: sv.isPerCapita,
-      onUpdated: (isChecked: boolean) => {
-        const newStatVars = _.cloneDeep(appContext.statVars);
-        newStatVars[idx].isPerCapita = isChecked;
-        appContext.setStatVars(newStatVars);
-      },
-      label: idx === 0 ? "y Per Capita" : "x Per Capita",
-    };
-  });
+  // If any svs do not allow per capita, hide the per capita inputs.
+  const hidePcInputs =
+    appContext.statVars.filter((sv) => !sv.info.pcAllowed).length > 0;
+  const perCapitaInputs = hidePcInputs
+    ? []
+    : appContext.statVars.slice(0, 2).map((sv, idx) => {
+        return {
+          isChecked: sv.isPerCapita,
+          onUpdated: (isChecked: boolean) => {
+            const newStatVars = _.cloneDeep(appContext.statVars);
+            newStatVars[idx].isPerCapita = isChecked;
+            appContext.setStatVars(newStatVars);
+          },
+          label: idx === 0 ? "y Per Capita" : "x Per Capita",
+        };
+      });
   const logInputs = appContext.statVars.slice(0, 2).map((sv, idx) => {
     return {
       isChecked: sv.isLog,

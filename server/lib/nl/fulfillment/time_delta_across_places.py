@@ -92,7 +92,7 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   if os.environ.get('FLASK_ENV') == 'test':
     nopc_vars = libutil.get_nl_no_percapita_vars()
   else:
-    nopc_vars = current_app.config['NL_NOPC_VARS']
+    nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
   ranked_children = rank_utils.rank_places_by_series_growth(

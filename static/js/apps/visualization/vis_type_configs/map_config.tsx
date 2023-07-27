@@ -35,17 +35,19 @@ export function getChartArea(
   appContext: AppContextType,
   chartHeight: number
 ): JSX.Element {
-  const perCapitaInputs = [
-    {
-      isChecked: appContext.statVars[0].isPerCapita,
-      onUpdated: (isChecked: boolean) => {
-        const newStatVars = _.cloneDeep(appContext.statVars);
-        newStatVars[0].isPerCapita = isChecked;
-        appContext.setStatVars(newStatVars);
-      },
-      label: "Per Capita",
-    },
-  ];
+  const perCapitaInputs = appContext.statVars[0].info.pcAllowed
+    ? [
+        {
+          isChecked: appContext.statVars[0].isPerCapita,
+          onUpdated: (isChecked: boolean) => {
+            const newStatVars = _.cloneDeep(appContext.statVars);
+            newStatVars[0].isPerCapita = isChecked;
+            appContext.setStatVars(newStatVars);
+          },
+          label: "Per Capita",
+        },
+      ]
+    : [];
   const statVarLabel =
     appContext.statVars[0].info.title || appContext.statVars[0].dcid;
   return (
