@@ -138,17 +138,7 @@ export function App(): JSX.Element {
         </div>
 
         <div className="explore-sources">
-          Our {currentTopic.title.toLocaleLowerCase()} data comprises{" "}
-          <span
-            title={`${formatNumber(
-              currentTopic.meta.dataPointCount,
-              undefined,
-              true
-            )}`}
-          >
-            {formatNumber(currentTopic.meta.dataPointCount)}
-          </span>{" "}
-          data points across{" "}
+          Our {currentTopic.title.toLocaleLowerCase()} data spans over{" "}
           <span
             title={`${formatNumber(
               currentTopic.meta.variableCount,
@@ -158,14 +148,20 @@ export function App(): JSX.Element {
           >
             {formatNumber(currentTopic.meta.variableCount)}
           </span>{" "}
-          statistical variables. We collect our health information from sources
+          statistical variables. We collect our{" "}
+          {currentTopic.title.toLocaleLowerCase()} information from sources such
           such as:{" "}
           {currentTopic.meta.sources.map((s, i) => (
             <>
+              {currentTopic.meta.sources.length > 1 &&
+              i === currentTopic.meta.sources.length - 1
+                ? "and "
+                : ""}
               {s}
-              {i === currentTopic.meta.sources.length - 1 ? ", " : ""}
+              {i === currentTopic.meta.sources.length - 1 ? "" : ", "}
             </>
           ))}
+          {"."}
         </div>
       </Container>
     </div>
