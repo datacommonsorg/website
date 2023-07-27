@@ -397,13 +397,25 @@ $selector-footer-height: 40px;
     flex-grow: 1;
     margin: 32px;
 
+    .chart {
+      border: 0.5px solid #dee2e6;
+      background-color: white;
+      margin: 1rem 0;
+    }
+
+    .timeline-chip-section {
+      padding: 1rem;
+    }
+
     .chart-container {
       background-color: white;
+      margin-top: 0;
+      border: none;
     }
 
     .chart-footer-options {
       background-color: white;
-      border: 0.5px solid #dee2e6;
+      border-top: 0.5px solid #dee2e6;
       padding: 1rem;
       font-size: 14px;
 

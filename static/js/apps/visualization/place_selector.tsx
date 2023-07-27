@@ -29,7 +29,7 @@ import {
 import { SearchBar } from "../../shared/place_search_bar";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { AppContext } from "./app_context";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function PlaceSelector(props: {
   hideSelections?: boolean;
@@ -38,7 +38,7 @@ export function PlaceSelector(props: {
 }): JSX.Element {
   const { visType, places, setPlaces } = useContext(AppContext);
   const [selectedPlaces, setSelectedPlaces] = useState(places);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
 
   useEffect(() => {
     if (!_.isEqual(places, selectedPlaces)) {
