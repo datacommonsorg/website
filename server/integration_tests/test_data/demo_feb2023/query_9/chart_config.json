@@ -167,7 +167,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Median Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Median Family Household Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -186,7 +186,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Median Income for Family Households (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Median Family Household Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -204,7 +204,7 @@
             "statVar": "Median_Earnings_Person"
           },
           "Median_Income_Household_FamilyHousehold_scatter": {
-            "name": "Median Income for Family Households",
+            "name": "Median Family Household Income",
             "statVar": "Median_Income_Household_FamilyHousehold"
           },
           "Median_Income_Household_scatter": {

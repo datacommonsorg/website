@@ -419,7 +419,7 @@
                     "statVarKey": [
                       "dc/9pmyhk89dj3pf_multiple_place_bar_block"
                     ],
-                    "title": "Median Income of Accommodation and Food Services (${date})",
+                    "title": "Median Incomes in Accommodation And Food Services (${date})",
                     "type": "BAR"
                   },
                   {
@@ -430,7 +430,7 @@
                     "statVarKey": [
                       "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Median Income of Accommodation and Food Services (${date})",
+                    "title": "Per Capita Median Incomes in Accommodation And Food Services (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -476,39 +476,39 @@
             "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: 5 Years or More, Language Other Than English, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population: 5 Years or More, Language Other Than English, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: 5 Years or More, Only English, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population: 5 Years or More, Only English, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population: 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population: 5 Years or More, Spanish, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population: 5 Years or More, Spanish, Below Poverty Level in The Past 12 Months",
+            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
@@ -521,75 +521,75 @@
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Asian Alone",
+            "name": "Asians Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Asian Alone",
+            "name": "Asians Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone",
+            "name": "Black or African Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone",
+            "name": "Black or African Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Hispanic or Latino",
+            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Hispanic or Latino",
+            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Native Hawaiian or Other Pacific Islander Alone",
+            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Native Hawaiian or Other Pacific Islander Alone",
+            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Some Other Race Alone",
+            "name": "Below Poverty Level Status in Past Year (Other Race)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Some Other Race Alone",
+            "name": "Below Poverty Level Status in Past Year (Other Race)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and Two or More Races",
+            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Two or More Races",
+            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and White Alone Not Hispanic or Latino",
+            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and White Alone Not Hispanic or Latino",
+            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year and White Alone",
+            "name": "White Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and White Alone",
+            "name": "White Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
@@ -611,21 +611,21 @@
             "statVar": "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Female Population Below Poverty Level in the Last Year",
+            "name": "Females In Poverty (in last year)",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Female Population Below Poverty Level in the Last Year",
+            "name": "Females In Poverty (in last year)",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Male Population Below Poverty Status in the Last Year",
+            "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Male Population Below Poverty Status in the Last Year",
+            "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block": {
@@ -656,12 +656,12 @@
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
-            "name": "Median Income of Accommodation and Food Services",
+            "name": "Median Incomes in Accommodation And Food Services",
             "statVar": "dc/9pmyhk89dj3pf"
           },
           "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Median Income of Accommodation and Food Services",
+            "name": "Median Incomes in Accommodation And Food Services",
             "statVar": "dc/9pmyhk89dj3pf"
           }
         }

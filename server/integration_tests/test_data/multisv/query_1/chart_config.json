@@ -15,7 +15,7 @@
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Family Households Below the Poverty Level in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -34,7 +34,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -53,7 +53,7 @@
                       "Count_Household_WithFoodStampsInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Households Receiving Food Stamps in the Past Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Households Receiving Food Stamps in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -72,7 +72,7 @@
                       "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population: Civilian, Non Institutionalized, Poverty Status Determined Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Population: Civilian, Non Institutionalized, Poverty Status Determined Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -91,7 +91,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year and Black or African American Alone Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Black or African Americans Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -114,7 +114,7 @@
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
             "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year and Black or African American Alone Per Capita",
+            "name": "Black or African Americans Below Poverty Level Status in Past Year Per Capita",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
             "unit": "%"
           },
@@ -131,7 +131,7 @@
             "unit": "%"
           },
           "Percent_Person_Obesity_scatter": {
-            "name": "Percentage of Population That Is Obese",
+            "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           }
