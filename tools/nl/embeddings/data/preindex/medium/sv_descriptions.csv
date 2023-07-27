@@ -1,6 +1,6 @@
 dcid,sentence
 AirPollutant_Cancer_Risk,1 Air pollution can cause cancer;Air pollution can increase your risk of cancer;Cancer Risk From Air Pollutants;Cancer risk from air pollutants;The risk of cancer from air pollutants;The risk of cancer from air pollution;The risk of developing cancer from exposure to air pollutants;air pollutants can cause cancer;air pollution can increase your risk of cancer;air pollution is a risk factor for cancer;exposure to air pollutants can increase your risk of developing cancer
-AirQualityIndex_AirPollutant,AQI;Air Quality Index;Air pollution level;Air pollution measure;Air quality index;Air quality index level;Air quality index measurement;Air quality index reading;Air quality measurement;air quality index;air quality measure;air quality rating;aqi
+AirQualityIndex_AirPollutant,AQI;AQI pollutant;Air Quality Index Pollutant;Air pollution level;Air pollution measure;Air quality index;Air quality index level;Air quality index measurement;Air quality index pollutant;Air quality index reading;Air quality measurement;air quality index;air quality measure;air quality rating;aqi
 AmountFarmInventory_WinterWheatForGrain,Amount of Farm Inventory: Winter Wheat for Grain;Amount of Winter Wheat for Grain Grown;Amount of winter wheat for grain in farm inventory;Farm inventory of winter wheat for grain;Quantity of winter wheat grain in farm inventory;The amount of winter wheat that farmers have on hand;The total amount of winter wheat that farmers have available for sale;The total amount of winter wheat that farmers have not yet sold;The total amount of winter wheat that farmers have on hand for grain;The total amount of winter wheat that farmers have stored;Total Farm Inventory of Winter Wheat for Grain;Total inventory of winter wheat for grain on farms;Total winter wheat grain held by farms;the amount of winter wheat produced for grain;the number of winter wheat grains grown;the quantity of winter wheat grown for grain;the volume of winter wheat grown for grain
 Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears,"Percentage of People Aged 15 Years or More Who Consume Alcohol;Percentage of people 15 years or older who consume alcohol in relation to total number of people 15 years or older;What percentage of people aged 15 and older drink alcohol?;What percentage of people aged 15 or older drink alcohol?;What percentage of people aged 15 years or older consume alcohol?;what is the number of people aged 15 years or older who drink alcohol, expressed as a percentage of the total population?;what is the percentage of people aged 15 years or older who drink alcohol?;what percentage of people aged 15 years or older consume alcohol?;what proportion of people aged 15 years or older drink alcohol?"
 Amount_Consumption_Electricity_PerCapita,Average consumption of electricity per person;Electricity Used Per Capita;How much electricity does the average person use?;Per capita electricity consumption;The average amount of electricity used by each person in a country;electricity consumption per capita;electricity use per capita;per capita electricity consumption;what is the per capita electricity consumption?
@@ -2396,7 +2396,7 @@ Count_MedicareEnrollee_MedicareA_NonBlack,"Count of Medicare Enrollee: Medicare 
 Count_MedicareEnrollee_MedicareB,Count of Medicare Enrollee: Medicare B;Medicare B Enrollees;medicare b beneficiaries;medicare b participants;number of medicare b enrollees;people enrolled in medicare b
 Count_MedicareEnrollee_MedicareB_Black,"Count of Medicare Enrollee: Medicare B, Black;Medicare Black Enrollee;black medicare beneficiary;black medicare recipient;black person who is enrolled in medicare;medicare beneficiary who is black"
 Count_MedicareEnrollee_MedicareB_NonBlack,"Count of Medicare Enrollee: Medicare B, Non Black;Medicare Enrollee in Non-Black Population;people who are not black and are enrolled in medicare;the percentage of medicare enrollees who are not black;the proportion of medicare enrollees who are not black;the share of medicare enrollees who are not black"
-Count_Person,Number of inhabitants;Number of residents;Population;Population count;Size of the population;The number of inhabitants of a place;The number of people in a place;The total number of people living in a particular area;Total Number of People in a Population;Total number of people in a population;Total number of people in the population;number of people;number of people in a population;population count;population size;total number of inhabitants;total population
+Count_Person,Number of People in a Population;Number of inhabitants;Number of residents;Population count;Size of the population;The number of inhabitants of a place;The number of people in a place;The total number of people living in a particular area;Total Number of People in a Population;Total number of people in a population;Total number of people in the population;number of people;number of people in a population;population count;population size;total number of inhabitants;total population
 Count_Person_10OrMoreYears_Literate_AsAFractionOf_Count_Person_10OrMoreYears,"Population: 10 Years or More, Literate (As Fraction of Count Person 10 or More Years)"
 Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years,"Population: 10 - 14 Years, Literate (As Fraction of Count Person 10 To 14 Years)"
 Count_Person_15OrMoreYears_Divorced_AmericanIndianAndAlaskaNativeAlone,"Divorced American Indian or Alaska Native Population Aged 15 Years Or More;Population: 15 Years or More, Divorced, American Indian or Alaska Native Alone;the number of american indian or alaska native people aged 15 years or more who are divorced;the percentage of american indian or alaska native people aged 15 years or more who are divorced;the proportion of american indian or alaska native people aged 15 years or more who are divorced;the rate of divorce among american indian or alaska native people aged 15 years or more"
@@ -4248,7 +4248,7 @@ LandCoverFraction_PermanentWater,Land Cover Fraction of Permanent Water;Percent 
 LandCoverFraction_SeasonalWater,Land Cover Fraction of Seasonal Water;Percent of Seasonal Water Covered Area;amount of area covered by water seasonally;percent of area covered by water seasonally;percentage of area covered by water seasonally;proportion of area covered by water seasonally
 LandCoverFraction_Shrubland,Land Cover Fraction of Shrubland;Percent of Shrub Covered Area;area covered by shrubs as a percentage;percent of area covered by shrubs;percentage of land covered by shrubs;shrub coverage
 LandCoverFraction_SnowIce,Land Cover Fraction of Snow Ice;Percent of Snow Covered Area;how much of the land is covered in snow?;how much of the land is snow-covered?;what is the snow cover percentage?;what percentage of the land is covered in snow?
-LifeExpectancy_Person,Average Lifespan of a Population;Average life expectancy of the population;Average lifespan of a population;Average lifespan of the population;Life Expectancy;Mean lifespan of the population;Median lifespan of the population;Typical lifespan of the population;average lifespan;how long do people live;how long do people live on average;how long people live;lifespan;the average lifespan of a population;the average number of years that a person in a population is expected to live;the life expectancy of a population;the longevity of a population
+LifeExpectancy_Person,Average Lifespan of a Population;Average life expectancy of the population;Average lifespan of a population;Average lifespan of the population;Life Expectancy of a Population;Life Expectancy of a population;Mean lifespan of the population;Median lifespan of the population;Typical lifespan of the population;average lifespan;how long do people live;how long do people live on average;how long people live;lifespan;the average lifespan of a population;the average number of years that a person in a population is expected to live;the life expectancy of a population;the longevity of a population
 LifeExpectancy_Person_Female,"Female Life Expectancy;Female life expectancy;How long do women live;Life expectancy at birth, female (years);Life expectancy of females at birth;Life expectancy of women;Lifespan of women;The average lifespan of women;how long do women live;how long do women live?;life expectancy of women;the average number of years a woman lives;the life expectancy of a woman;what is the average lifespan of a woman?"
 LifeExpectancy_Person_Male,How long do males live;How long do men live;Life Expectancy of Males at birth;Life Expectancy: Male;Life expectancy of men;Male Life Expectancy;Male life expectancy;how long do men live;how long do men live?;how long do men typically live?;life expectancy of men;what is the average lifespan of a man?;what is the life expectancy for men?
 MapFacts/Count_hiking_area,How many hiking areas are there?;Number of hiking areas;Number of hiking spots;Number of hiking trails;Number of places to go hiking;hiking paths;hiking trails;trekking area;walking trails
@@ -5335,9 +5335,12 @@ dc/tn5kxlgy0shl4,"Count of Mortality Event (Measured Based on Jurisdiction): AID
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate
 dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents
 dc/topic/Age,Age
+dc/topic/AgeDistribution,Age Distribution
+dc/topic/AgeMedians,Age Medians
 dc/topic/AgriculturalProduction,Agricultural Output;Agricultural Production;Output from agricultural activities;Total agricultural output
 dc/topic/Agriculture,Agriculture;Agriculture data;Agriculture statistics;Data related to agriculture;Farming;Farming information;Information on farming
 dc/topic/AgricultureEmissionsByGas,Amount of gases emitted by agricultural sector;Emissions from agriculture;Quantity of greenhouse gases emitted by the agricultural sector;The sum of all gases released by the agricultural industry;The volume of emissions produced by agriculture;Total amount of gas emissions from farming practices;Total quantity of gases released by the farming industry
+dc/topic/AirQualityIndex,Air Quality Index;air quality level
 dc/topic/AlcoholIndustry,Alcohol Industry
 dc/topic/AmbientAirPollution,Ambient Air Pollution
 dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Alone Female Population By Age
@@ -5351,36 +5354,50 @@ dc/topic/AsianAlonePopulationByAge,Asian Alone Population By Age
 dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age
 dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age
 dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age
+dc/topic/Asthma,Asthma;Asthma Disease;Diagnosed with Asthma;People with Asthma
 dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age
 dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age
 dc/topic/Avalanche,Avalanche
+dc/topic/BachelorsMajor,Bachelors Major;college major;undergraduate major
 dc/topic/BankingAccess,Banking Access
 dc/topic/BingeDrinking,Binge Drinking
 dc/topic/Births,Births
 dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age
 dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age
 dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Alone Population By Age
+dc/topic/BloodPressure,Blood Pressure;High blood pressure condition;People with high blood pressure
+dc/topic/Businesses,Business;Business economy;Businesses
 dc/topic/CO2Emissions,CO2 Emissions
 dc/topic/COVID19,COVID 19
 dc/topic/Cancer,Cancer
 dc/topic/CancerFemalePopulationByAge,Female Population With Cancer By Age
 dc/topic/CancerMalePopulationByAge,Male Population With Cancer By Age
 dc/topic/CarbonDioxideEmissionsBySource,Breakdown of co2 emissions by source;Carbon dioxide emissions by source;source of co2 emissions;sources of carbon dioxide emissions
+dc/topic/CarbonMonoxide,CO;CO pollutant;Carbon Monoxide
 dc/topic/CardiovascularDisease,Cardiovascular Disease
+dc/topic/CausesOfDeath,Causes of death;Reasons for death;Reasons for mortality
+dc/topic/Cholesterol,High cholestrol;People with high cholestrol;bad cholestrol;good cholestrol;high cholestrol condition
+dc/topic/CitizenshipStatus,Citizenship Status
 dc/topic/ClimateChange,Climate Change;Climate Change impact;Global Warming;Impact of Climate Change
 dc/topic/Clouds,Clouds
 dc/topic/CoastalFlood,Coastal Flood
 dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents
 dc/topic/Crime,Crime
 dc/topic/Cyclone,Cyclone
+dc/topic/Debt,Debt;Global debt
+dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decade;decadal projected max temperature;maximum temperature projected decade;temperature highs for the decade
+dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade;decadal projected min temperature;minimum temperature projected decade;temperature lows for the decade
 dc/topic/DementiaFemalePopulationByAge,Female Population With Dementia By Age
 dc/topic/DementiaMalePopulationByAge,Male Population With Dementia By Age
+dc/topic/Demographics,Demographics
 dc/topic/Dengue,Dengue
 dc/topic/Dentists,Dentists
 dc/topic/Diabetes,Diabetes
 dc/topic/DiabetesFemalePopulationByAge,Female Population With Diabetes By Age
 dc/topic/DiabetesMalePopulationByAge,Male Population With Diabetes By Age
 dc/topic/Disabilities,Disabilities
+dc/topic/DisabilitiesByGender,Disabilities by gender;Disabilities split by gender;disabilities breakdown by gender
+dc/topic/DisabilitiesByRace,Disabilities by race;Disabilities split by race;disabilities breakdown by race
 dc/topic/Disasters,Disasters
 dc/topic/Disease,Disease
 dc/topic/DiseasesOfHeartFemalePopulationByAge,Female Population With Heart Disease By Age
@@ -5388,27 +5405,52 @@ dc/topic/DiseasesOfHeartMalePopulationByAge,Male Population With Heart Disease B
 dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age
 dc/topic/DivorcedMalePopulationByAge,Divorced Male Population By Age
 dc/topic/DivorcedPopulationByAge,Divorced Population By Age
+dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic;demographics of the divorced population
 dc/topic/Drought,Drought
 dc/topic/Dust,Dust
 dc/topic/Earthquake,Earthquake
+dc/topic/EconomicActivity,Economic Activity;Economic activity overview;Summary of economic activity
+dc/topic/Economics,Economics
 dc/topic/Economy,Condition of the economy;Economic overview;Economy;State of the economy;Status of the economy;Summary of the economy
 dc/topic/Education,Education
+dc/topic/EducationExpenditure,Education Expenditure
+dc/topic/EducationFaculty,Education Faculty
+dc/topic/EducationalAttainment,Educational Attainment
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level;education attainment by gender and level
+dc/topic/Employment,Employement;Employment
+dc/topic/EmploymentByIndustry,Employment By Industry;breakdown of employment by industry;people employed by industry
+dc/topic/EnglishSpeakers,English language speakers;English speakers
+dc/topic/Environment,Environment
 dc/topic/ExcessiveColdEvent,Excessive Cold Event
 dc/topic/ExcessiveHeatEvent,Excessive Heat Event
 dc/topic/ExportSubsidies,Export Subsidies
 dc/topic/ExtremeTide,Extreme Tide
+dc/topic/FemaleMortality,Female deaths;Female mortality
+dc/topic/Fire,Fire
 dc/topic/Flood,Flood
 dc/topic/Fog,Fog
 dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
 dc/topic/FossilFuelSubsidies,Fossil Fuel Subsidies
+dc/topic/GDP,gross domestic production
+dc/topic/GlobalEconomicActivity,Global Economic Activity
+dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
 dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source;Greenhouse gas emissions by source;sources of greenhouse gases
 dc/topic/GroupQuartersResidents,Group Quarters Residents
 dc/topic/HIV,HIV
 dc/topic/Hail,Hail
 dc/topic/HateCrimes,Hate Crimes
+dc/topic/Health,Health
+dc/topic/HealthBehavior,Health behavior;Health behaviors;Healthy behaviors;Unhealthy behaviors
+dc/topic/HealthConditions,Health conditions
+dc/topic/HealthEquity,Health equity;fairness in health;fairness of health conditions
 dc/topic/HealthInsurance,Health Insurance
+dc/topic/HealthInsuranceByGender,Health Insurance by gender;Health Insurance split by gender;health insurance breakdown by gender;health insurance distribution by gender
+dc/topic/HealthInsuranceByRace,Health Insurance by race;Health insurance split by race;health insurance breakdown by race;health insurance distribution by race
+dc/topic/HealthInsuranceType,Health Insurance types;Health insurance by types;types of health insurance
 dc/topic/HealthWorkerDensity,Health Worker Density
+dc/topic/HealthcareExpenditure,Healthcare Expenditure;amount spent on health;health expenses
+dc/topic/HeatEvent,Heat Event;high temperature event
 dc/topic/HeatIllnesses,Heat Illnesses;Heat related health conditions;Heat related maladies;Heat-related health problems;Medical conditions caused by heat Heat syncope
 dc/topic/HeatWave,Heat Wave
 dc/topic/HeightStunting,Height Stunting
@@ -5450,10 +5492,18 @@ dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePo
 dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
 dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age"
 dc/topic/HomeValue,Home Value;housing unit cost;how expensive are homes in;how much do houses cost in;value of homes
+dc/topic/HouseholdIncomeDistribution,Household Income Distribution;income distribution for households
 dc/topic/Housing,Housing
 dc/topic/Hurricane,Hurricane
+dc/topic/Immigration,Immigration
 dc/topic/Incarceration,Incarceration
 dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;monetary status;pay;wealth;what are the wealthy neighborhoods
+dc/topic/IndividualIncomeByIndustry,Individual Income By Industry;individual income across industries
+dc/topic/IndividualIncomeDistribution,Individual Income Distribution
+dc/topic/IndustriesByNumberOfWorkers,Industries By Number Of Workers;Number of workers by industry;number of workers across industries
+dc/topic/IndustriesByRevenue,Industries By Revenue;revenue across industries;revenue breakdown by industries
+dc/topic/InfantMortality,Infant Mortality;death among infants;infant deaths;mortality among infants
+dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP;inflation adjusted gross domestic production
 dc/topic/InstitutionalizedGroupQuartersResidents,Institutionalized Group Quarters Residents
 dc/topic/Internet,Internet
 dc/topic/InternetAccess,Internet Access
@@ -5464,6 +5514,10 @@ dc/topic/KidneyDiseaseFemalePopulationByAge,Female Population With Kidney Diseas
 dc/topic/KidneyDiseaseMalePopulationByAge,Male Population With Kidney Disease By Age
 dc/topic/LandCover,Land Cover
 dc/topic/Landslide,Landslide
+dc/topic/Language,Language
+dc/topic/LanguageSpokenAtHome,Language Spoken at Home
+dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment;education attainment level
+dc/topic/LifeExpectancy,Life Expectancy
 dc/topic/Literacy,Literacy;how many people can read or not;how many people cannot read or write;how well read is the population;level of literacy;literacy rate;population's ability to read and write;where can i find the most well read population in
 dc/topic/LungConditionFemalePopulationByAge,Female Population With Lung Condition By Age
 dc/topic/LungConditionMalePopulationByAge,Male Population With Lung Condition By Age
@@ -5472,15 +5526,31 @@ dc/topic/Malnutrition,Malnutrition
 dc/topic/ManufacturingEmissionsByGas,Amount of gases emitted by the manufacturing sector;Emissions from manufacturing;Quantity of greenhouse gases emitted by factories and production processes;The sum of all gases released by manufacturing activities;The volume of emissions produced by manufacturing activities;Total amount of gas emissions from the manufacturing sector;Total quantity of gases released by the manufacturing industry
 dc/topic/MarineEvents,Marine Events
 dc/topic/MaritalStatus,Marital Status
+dc/topic/MaritalStatusBreakdown,Martial Status Breakdown;breakdown of marital status
+dc/topic/MarriedPopulationByDemographic,Married Population by Demographic;demographics of married people;demographics of the married population
 dc/topic/MaternalHealth,Maternal Health;Maternal health;health of mothers;womens health
-dc/topic/MedicalConditions,Bodily afflictions;Diseases: Medical disorders;Health conditions;Health problems;Maladies;Medical Conditions;Medical ailments;Medical infirmities;health issues
+dc/topic/MaxTemperatureLikely1PctAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade;max temperature likely in the decade at one percent chance;maximum temperature once per decade 1%
+dc/topic/MaxTemperatureLikely1PctAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year;max temperature likely in the year at one percent chance;maximum temperature once per year 1%
+dc/topic/MaxTemperatureLikely5PctAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade;max temperature likely in the decade at five percent chance;maximum temperature once per decade 5%
+dc/topic/MaxTemperatureLikely5PctAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year;max temperature likely in the year at five percent chance;maximum temperature once per year 5%
+dc/topic/MedicalConditions,Bodily afflictions;Diseases: Medical disorders;Health problems;Maladies;Medical Conditions;Medical ailments;Medical infirmities;health issues
+dc/topic/MentalHealth,Mental Health
 dc/topic/MentalHealthNotGoodFemalePopulationByAge,Female Population With Poor Mental Health By Age
 dc/topic/MentalHealthNotGoodMalePopulationByAge,Male Population With Poor Mental Health By Age
 dc/topic/Military,Military
 dc/topic/MilitaryShipsResidents,Military Ships Residents
+dc/topic/MinTemperatureLikely1PctAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade;min temperature likely in the decade at one percent chance;minimum temperature once per decade 1%
+dc/topic/MinTemperatureLikely1PctAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year;min temperature likely in the year at one percent chance;minimum temperature once per year 1%
+dc/topic/MinTemperatureLikely5PctAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade;min temperature likely in the decade at five percent chance;minimum temperature once per decade 5%
+dc/topic/MinTemperatureLikely5PctAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year;min temperature likely in the year at five percent chance;minimum temperature once per year 5%
 dc/topic/MobilePhoneOwnership,Mobile Phone Ownership
 dc/topic/MobilePhoneUsage,Mobile Phone Usage
+dc/topic/Mortality,Death;Issues relating to death;Mortality
+dc/topic/MortalityAmongIncarcerated,Mortality among incarcerated;Mortality among those in jail;deaths among those in jail;deaths of incarcerated;incarcerated deaths
+dc/topic/MortalityByGender,Mortality by gender;Mortality split by gender;mortality breakdown by gender;mortality distribution by gender
+dc/topic/MortalityByRace,Mortality by race;deaths by race;mortality breakdown by race;racial breakdown of mortality
 dc/topic/MortalityRate,Mortality Rate
+dc/topic/Nationality,Nationality
 dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age
 dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age
 dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age
@@ -5488,6 +5558,12 @@ dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases
 dc/topic/NeverMarriedFemalePopulationByAge,Never Married Female Population By Age
 dc/topic/NeverMarriedMalePopulationByAge,Never Married Male Population By Age
 dc/topic/NeverMarriedPopulationByAge,Never Married Population By Age
+dc/topic/NeverMarriedPopulationByDemographic,Never Married Population by Demographic;demographics of people who never married;demographics of the never married population
+dc/topic/NitrogenDioxide,NO2;NO2 pollutant;Nitrogen Dioxide
+dc/topic/NoHealthInsurance,No Health Insurance;people with no health insurance;people without access to health insurance;without health insurance
+dc/topic/NoHealthInsuranceByGender,No Health Insurance by gender;distribution of no health insurance by gender;without health insurnace for gender
+dc/topic/NoHealthInsuranceByIncome,No Health Insurance by income;no health insurance across income levels;no health insurance split by income
+dc/topic/NoHealthInsuranceByRace,No Health Insurance by race;no health insurance across race;no health insurance by race;racial breakdown of those without health insurance
 dc/topic/NoninstitutionalizedGroupQuartersResidents,Noninstitutionalized Group Quarters Residents
 dc/topic/NotHispanicOrLatinoFemalePopulationByAge,Not Hispanic Or Latino Female Population By Age
 dc/topic/NotHispanicOrLatinoMalePopulationByAge,Not Hispanic Or Latino Male Population By Age
@@ -5527,12 +5603,25 @@ dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPop
 dc/topic/NowMarriedFemalePopulationByAge,Now Married Female Population By Age
 dc/topic/NowMarriedMalePopulationByAge,Now Married Male Population By Age
 dc/topic/NowMarriedPopulationByAge,Now Married Population By Age
+dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry;disribution of number of business across industries
+dc/topic/NumberOfBusinessesByOwnership,Number Of Businesses By Ownership;disribution of number of business by ownership
 dc/topic/NursesAndMidwives,Nurses And Midwives
 dc/topic/NursingFacilitiesResidents,Nursing Facilities Residents
+dc/topic/Ozone,O3;O3 pollutant;Ozone;Ozone pollutant
+dc/topic/PM10,PM10;pm10 pollutant
+dc/topic/PM2.5,PM2.5;pm2.5 pollutant
+dc/topic/Parents,Parents
+dc/topic/ParentsEducationalAttainment,Parents Educational Attainment;level of education attainment of parents
 dc/topic/Parliament,Parliament
 dc/topic/PhysicalActivity,Physical Activity
 dc/topic/PhysicalInactivity,Physical Inactivity
 dc/topic/Physicians,Physicians
+dc/topic/PlaceOfBirth,Place of Birth
+dc/topic/PollutantConcentration,Pollutant Concentration;concentration of pollutant
+dc/topic/Pollution,Pollution
+dc/topic/Population,Population
+dc/topic/PopulationByAgeDistribution,Population By Age Distribution;population distribution by age
+dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race;students enrolled in school type by race
 dc/topic/PopulationFormerSmoker,Population Former Smoker
 dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User
 dc/topic/PopulationNormalWeight,Population Normal Weight
@@ -5554,13 +5643,22 @@ dc/topic/PopulationWithLungConditionByAge,Population With Lung Condition By Age
 dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Health By Age
 dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age
 dc/topic/Poverty,Poverty
+dc/topic/PovertyByGender,Poverty By Gender;poverty across genders;poverty breakdown by gender
+dc/topic/PovertyByLanguageSpokenAtHome,Poverty By Language Spoken At Home;poverty breakdown by language spoken at home
+dc/topic/PovertyByRace,Poverty By Race;poverty breakdown by race
+dc/topic/PovertyByResidency,Poverty By Residency;poverty breakdown by residency
+dc/topic/PovertyLevels,Poverty Levels;levels of poverty
 dc/topic/PowerEmissionsByGas,Amount of gases emitted by the power sector;Emissions from power;Quantity of greenhouse gases emitted by power plants and energy production processes;The sum of all gases released by power generation activities;The volume of emissions produced by electricity generation activities;Total amount of gas emissions from the power sector;Total quantity of gases released by the power industry
 dc/topic/Precipitation,Precipitation
 dc/topic/PreventativeHealth,Preventative Health
+dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior
+dc/topic/PrivateHealthInsuranceType,Private health insurance;health insurance private type;people with private health insurance
 dc/topic/ProjectedClimateExtremes,Climate Extremes;Projected Climate Extremes;What are the projected temperature extremes across;how crazy is the climate supposed to get in the future;projected temperature;projected temperature extremes;tell me about projecte temperature extremes for;what are predicted extreme temperatures for
+dc/topic/PublicHealthInsuranceType,Public health insurance;health insurance public type;people with public health insurance
 dc/topic/RacialBreakdown,Racial Breakdown;demographic breakdown;demographic distribution;ethnic breakdown;ethnicity;how diverse are the demographics;i want to know about the racial makeup;population race;racial breakdown of a population;racial diversity of population;tell me about the demographics
 dc/topic/Rainfall,Rainfall
 dc/topic/Religion,Religion
+dc/topic/Remittance,Remittance;remittances
 dc/topic/RiverineFlood,Riverine Flood
 dc/topic/RoadTrafficDeaths,Road Traffic Deaths
 dc/topic/RuralFemalePopulationByAge,Rural Female Population By Age
@@ -5574,6 +5672,8 @@ dc/topic/SDG_3,Good health and well being;SDG good health;SDG health;SDG healthy
 dc/topic/SDG_4,Quality education;SDG education;SDG learning;SDG quality and inclusive education;inclusive education;life long learning
 dc/topic/SDG_5,Gender equality;SDG female empowerment;SDG gender equality;SDG women;empower women and girls;female empowerment
 dc/topic/Sanitation,Sanitation
+dc/topic/SchoolType,School Type;type of school;types of schools
+dc/topic/Schools,Schools;school
 dc/topic/SeparatedFemalePopulationByAge,Separated Female Population By Age
 dc/topic/SeparatedMalePopulationByAge,Separated Male Population By Age
 dc/topic/SeparatedPopulationByAge,Separated Population By Age
@@ -5586,10 +5686,19 @@ dc/topic/SomeOtherRaceAloneMalePopulationByAge,Some Other Race Alone Male Popula
 dc/topic/Storm,Storm
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age
 dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age
+dc/topic/StudentEnrollmentLevels,Student Enrollment Levels;enrollement levels of students
+dc/topic/StudentLunchEligibility,Student Lunch Eligibility;lunch eligibility of students;students eligible for lunch
+dc/topic/StudentPopulation,Students
+dc/topic/StudentPopulationDemographics,Student Population Demographics;Student demographics
+dc/topic/StudentTeacherRatio,Student Teacher Ratio;ratio of students to teachers
 dc/topic/Subsidies,Subsidies
 dc/topic/Suicide,Suicide
+dc/topic/SulfurDioxide,SO2;SO2 pollutant;Sulfur Dioxide;Sulphur dioxide pollutant;Suphur dioxide
+dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools
 dc/topic/Tariffs,Tariffs
+dc/topic/Teacher,Teacher;teachers
 dc/topic/Temperature,tell me about the weather;what's the climate here;what's the temperature like
+dc/topic/TemperaturePredictions,Temperature Predicitions;max temp forecast;min temp forecast;temp forecast;temperature forecasts
 dc/topic/Thunderstorm,Thunderstorm
 dc/topic/Tornado,Tornado
 dc/topic/TransportationEmissionsByGas,Amount of gases emitted by the transportation sector;Emissions from transportation;Quantity of greenhouse gases emitted by vehicles and transportation systems;The sum of all gases released by transportation activities;The volume of emissions produced by transportation activities;Total amount of gas emissions from the transportation industry;Total quantity of gases released by the transportation sector
@@ -5599,15 +5708,33 @@ dc/topic/Tuberculosis,Tuberculosis
 dc/topic/TwoOrMoreRacesFemalePopulationByAge,Two Or More Races Female Population By Age
 dc/topic/TwoOrMoreRacesMalePopulationByAge,Two Or More Races Male Population By Age
 dc/topic/TwoOrMoreRacesPopulationByAge,Two Or More Races Population By Age
+dc/topic/UnemploymentRate,rate of unemployment
 dc/topic/UnintentionalPoisonings,Unintentional Poisonings
+dc/topic/UnpaidFamilyWorkers,Unpaid Family Workers
 dc/topic/UrbanFemalePopulationByAge,Urban Female Population By Age
 dc/topic/UrbanMalePopulationByAge,Urban Male Population By Age
 dc/topic/UrbanPopulationByAge,Urban Population By Age
 dc/topic/Vaccines,Vaccines
+dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population;very old and very young;young children and old people
 dc/topic/Visibility,Visibility
 dc/topic/Volcano,Volcano
 dc/topic/Voting,Voting
+dc/topic/WHOChildImmunization,Child immunization rates;Global Child Immunization;WHO child immunization
+dc/topic/WHOChildImmunizationsByGender,Child Immunization by gender;Global Child Immunization by gender;WHO child immunization by gender;child immunization split by gender
+dc/topic/WHOChildImmunizationsByUrbanRural,Child Immunization by urban or rural;Global  Child Immunization by urban or rural;WHO child immunization across urban or rural;child immunizations across rural and urban;rural or urban child immunization
+dc/topic/WHOChildMortality,Child Mortality;Global Child Mortality;WHO child mortality
+dc/topic/WHOChildrenNonCommunicableDiseases,Childen with Non Communicable Diseases;Global Childen with Non Communicable Diseases;WHO Childen with Non Communicable Diseases
+dc/topic/WHODALYByCauses,Disability adjusted life years by causes;Global DALY causes;WHO DALY causes;WHO Disability adjusted life years by causes
+dc/topic/WHOHealthBehavior,Global Health behaviors;Health behaviors WHO;WHO Health behaviors
+dc/topic/WHOImmunization,Global Immunizations;Immunizations;WHO immunizations;immunization rates
+dc/topic/WHOMaternalMortality,Deaths among mothers;Global Maternal Mortality;WHO maternal mortality;death rates of mothers
+dc/topic/WHOMortality,Global Mortality;WHO Mortality;death rates WHO;mortality WHO
+dc/topic/WHOMortalityCauses,Global Mortality Causes;WHO Mortality causes;causes of death WHO;mortality causes by WHO
+dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
+dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths;Non communicable disease deaths;WHO deaths due to non communicable diseases;deaths due to non communicable disease
+dc/topic/WHONonCommunicableDiseases,Global Non communicable diseases;Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
 dc/topic/Weather,Weather
+dc/topic/WetBulbEvent,Wet Bulb Event;wet-bulb event;wetbulb event
 dc/topic/WetBulbTemperature,Wet Bulb Temperature;for this area what is the temperature at which the human body can't cool itself anymore;give me the degree of the wetbulb temperature;how high or low is the wet bulb temperature predicted to be;wet bulb temperature prediction range;what is the wet bulb temperature
 dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age
 dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age
@@ -5618,8 +5745,13 @@ dc/topic/WhiteAlonePopulationByAge,White Alone Population By Age
 dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age
 dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age
 dc/topic/WidowedPopulationByAge,Widowed Population By Age
+dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic;demographics of people who are widowed;demographics of the widowed population
 dc/topic/Wildfire,Wildfire
+dc/topic/WithHealthInsuranceByGender,Having Health Insurance by gender;People with health insurance split by gender
+dc/topic/WithHealthInsuranceByRace,Having Health Insurance by race;People with health insurance split by race;racial breakdown of people with health insurance
 dc/topic/WorkCommute,Work Commute;Work commute;commute mode;journey to work;travel to work
+dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year;maximum temperature projected year;temperature highs for the year;yearly projected max temperature
+dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year;minimum temperature projected year;temperature lows for the year;yearly projected min temperature
 dc/tqgf8zv96r5t8,How many people work in textile and fabric finishing mills?;Number of Textile and Fabric Finishing Mills Workers;Number of textile and fabric finishing mills workers;Population of Person: Textile And Fabric Finishing Mills (NAICS/3133);The number of people who work in textile and fabric finishing mills;how many people are employed in textile and fabric finishing mills?;how many people work in textile and fabric finishing mills?;number of textile and fabric finishing mills workers;the number of people who work in textile and fabric finishing mills;what is the number of textile and fabric finishing mill workers?;what is the workforce of textile and fabric finishing mills?
 dc/twlffl9b5vgn3,"Foreign Born Divorced People;Population: Divorced, Foreign Born;people who were born in a country other than the united states and are now divorced from their partner;people who were born in a different country and are now divorced from their significant other;people who were born in a foreign country and are now divorced from their spouse;people who were born in another country and are now divorced"
 dc/ty7pq88d26963,"Prevalence of Male Who are Physical Inactivity;Prevalence: Male, Physical Inactivity;a high proportion of men are not physically active;a large proportion of men are not physically active;most men are not active enough;the majority of men are physically inactive"

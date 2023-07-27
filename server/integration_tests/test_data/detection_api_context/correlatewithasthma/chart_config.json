@@ -8,7 +8,7 @@
   ],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/PopulationWithAsthmaByAge",
+    "dc/topic/Asthma",
     "dc/topic/WorkCommute"
   ]
 }
