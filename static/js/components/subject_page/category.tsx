@@ -139,6 +139,8 @@ function renderBlocks(
                 svgChartHeight={props.svgChartHeight}
                 showExploreMore={props.showExploreMore}
                 parentPlaces={props.parentPlaces}
+                denom={block.denom}
+                startWithDenom={block.startWithDenom}
               />
             </BlockContainer>
           </ErrorBoundary>

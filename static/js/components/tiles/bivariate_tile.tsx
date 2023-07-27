@@ -85,6 +85,7 @@ interface BivariateChartData {
   sources: Set<string>;
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
+  props: BivariateTilePropType;
 }
 
 export function BivariateTile(props: BivariateTilePropType): JSX.Element {
@@ -95,13 +96,9 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   >(null);
 
   useEffect(() => {
-    if (!bivariateChartData) {
+    if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
       (async () => {
-        const data = await fetchData(
-          props.place,
-          props.enclosedPlaceType,
-          props.statVarSpec
-        );
+        const data = await fetchData(props);
         setBivariateChartData(data);
       })();
     }
@@ -180,40 +177,36 @@ function getPopulationPromise(
   }
 }
 
-export const fetchData = async (
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-) => {
-  if (statVarSpec.length < 2) {
+export const fetchData = async (props: BivariateTilePropType) => {
+  if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${props.place.dcid}&placeType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
-    place.dcid,
-    enclosedPlaceType,
+    props.place.dcid,
+    props.enclosedPlaceType,
     [
-      { statVarDcid: statVarSpec[0].statVar },
-      { statVarDcid: statVarSpec[1].statVar },
+      { statVarDcid: props.statVarSpec[0].statVar },
+      { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
-    place.dcid,
-    enclosedPlaceType,
-    statVarSpec
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.statVarSpec
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/descendent/name?dcid=${place.dcid}&descendentType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${props.place.dcid}&descendentType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
-    .get(`/api/place/parent?dcid=${place.dcid}`)
+    .get(`/api/place/parent?dcid=${props.place.dcid}`)
     .then((resp) => resp.data);
   try {
     const [placeStats, population, placeNames, geoJson, parentPlaces] =
@@ -231,13 +224,20 @@ export const fetchData = async (
       geoJson,
       parentPlaces,
     };
-    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+    return rawToChart(
+      props,
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
   } catch (error) {
     return null;
   }
 };
 
 function rawToChart(
+  props: BivariateTilePropType,
   rawData: RawData,
   statVarSpec: StatVarSpec[],
   place: NamedTypedPlace,
@@ -292,6 +292,7 @@ function rawToChart(
       rawData.parentPlaces
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
+    props,
   };
 }
 

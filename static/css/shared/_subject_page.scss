@@ -85,6 +85,20 @@ article.category {
   display: flex;
 }
 
+.block-per-capita-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .material-icons-outlined {
+    cursor: pointer;
+  }
+
+  .toggle-on, .toggle-off:hover {
+    color: var(--dc-primary);
+  }
+}
+
 .disaster-event-map-selectors-section {
   display: flex;
   justify-content: flex-end;
