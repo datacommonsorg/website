@@ -1,0 +1,105 @@
+{
+  "allTopics": [
+    "economy",
+    "health",
+    "education",
+    "environment",
+    "demographics",
+    "sustainability"
+  ],
+  "topics": {
+    "economy": {
+      "title": "Economy",
+      "description": "",
+      "examples": {
+        "general": [],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["United Nations"]
+      }
+    },
+    "health": {
+      "title": "Health",
+      "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          "Medical conditions affecting California residents",
+          "Asthma in USA counties",
+          "Health Equity in Texas",
+          "Uninsured in Illinois in the last 20 years"
+        ],
+        "specific": [
+          "Number of uninsured by gender in the US",
+          "Conditions that have risen the fastest in Texas",
+          "COVID deaths in Florida compared to New Jersey"
+        ],
+        "comparison": ["Income vs asthma in US counties"]
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["World Health Organization"]
+      }
+    },
+    "education": {
+      "title": "Education",
+      "description": "",
+      "examples": {
+        "general": [],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["United Nations"]
+      }
+    },
+    "environment": {
+      "title": "Environment",
+      "description": "",
+      "examples": {
+        "general": [],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["United Nations"]
+      }
+    },
+    "demographics": {
+      "title": "Demographics",
+      "description": "",
+      "examples": {
+        "general": [],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["United Nations"]
+      }
+    },
+    "sustainability": {
+      "title": "Sustainability",
+      "description": "",
+      "examples": {
+        "general": [],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 7891011,
+        "variableCount": 3456,
+        "sources": ["United Nations"]
+      }
+    }
+  }
+}
