@@ -23,6 +23,7 @@ import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
@@ -231,7 +232,7 @@ export function App(): JSX.Element {
                       updateHash({ q, t: "" });
                     }}
                     placeholder={query}
-                    initialValue={""}
+                    initialValue={query}
                     shouldAutoFocus={true}
                     clearValueOnSearch={true}
                   />
@@ -259,7 +260,11 @@ export function App(): JSX.Element {
       </div>
     );
   } else if (loadingStatus == "loading") {
-    mainSection = <div>Loading...</div>;
+    mainSection = (
+      <div>
+        <Spinner isOpen={true} />
+      </div>
+    );
   } else {
     mainSection = <></>;
   }
