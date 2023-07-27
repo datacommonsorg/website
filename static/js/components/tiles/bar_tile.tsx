@@ -258,7 +258,6 @@ function rawToChart(
         const svUnit = getUnit(raw.facets[stat.facet]);
         unit = unit || svUnit;
       }
-      console.log(props.statVarSpec);
       if (spec.denom && spec.denom in raw.data) {
         const denomStat = raw.data[spec.denom][placeDcid];
         dataPoint.value /= denomStat.value;
