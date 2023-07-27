@@ -24,6 +24,7 @@ import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
+import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
 
@@ -40,17 +41,15 @@ def fulfill(uttr: nl_uttr.Utterance,
   state = ftypes.PopulateState(uttr=uttr, main_cb=None, place_type=pt)
 
   # Open up topics into vars and build ChartVars for each.
+
+  has_correlation = ctx.classifications_of_type_from_utterance(
+      uttr, dtypes.ClassificationType.CORRELATION)
+
   chart_vars_map = {}
-  for sv in state.uttr.svs:
-    cv = []
-    if cutils.is_sv(sv):
-      cv = [ftypes.ChartVars(svs=[sv])]
-    else:
-      start = time.time()
-      cv = topic.compute_chart_vars(state, sv)
-      state.uttr.counters.timeit('topic_calls', start)
-    if cv:
-      chart_vars_map[sv] = cv
+  if has_correlation and len(state.uttr.svs) == 2:
+    chart_vars_map = topic.compute_correlation_chart_vars(state)
+  else:
+    chart_vars_map = topic.compute_chart_vars(state)
 
   # Get places to perform existence check on.
   places_to_check = {}
@@ -70,8 +69,6 @@ def fulfill(uttr: nl_uttr.Utterance,
     return None, {}
 
   # Perform existence checks for all the SVs!
-  # TODO: Improve existence checks to handle distinction between main-place
-  # and child place.
   tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
                                           chart_vars_map)
   tracker.perform_existence_check()
@@ -90,6 +87,7 @@ def fulfill(uttr: nl_uttr.Utterance,
         existing_svs.add(chart_vars.svpg_id)
 
   chart_pb = page.build_config(chart_vars_list, state, existing_svs, cb_config)
+
   related_things = related.compute_related_things(state)
 
   return chart_pb, related_things

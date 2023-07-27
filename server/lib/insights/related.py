@@ -40,10 +40,12 @@ def compute_related_things(state: ftypes.PopulateState):
         state.place_type.value: _get_json_places(pd.child_places)
     }
 
-  # Expan to parent and peer topics.
+  # Expand to parent and peer topics.
+  # Do this only for the "main" SV, otherwise it gets weird to show
+  # multiple sets of parents / peers.
   if state.uttr.svs:
     start = time.time()
-    pt = topic.get_parent_topics(state.uttr.svs)
+    pt = topic.get_parent_topics([state.uttr.svs[0]])
     related_things['parentTopics'] = pt
     pt = [p['dcid'] for p in pt]
     related_things['peerTopics'] = topic.get_child_topics(pt)

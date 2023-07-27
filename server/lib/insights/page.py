@@ -18,6 +18,7 @@ from typing import Dict, List
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.insights.page_type import default
 from server.lib.insights.page_type import place_comparison
+from server.lib.insights.page_type import var_correlation
 from server.lib.insights.page_type.builder import Builder
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
@@ -63,6 +64,12 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
 def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                 builder: Builder) -> Dict:
   sv_spec = {}
+
+  if builder.is_var_comparison:
+    builder.new_block('')
+    sv_spec.update(var_correlation.add_chart(chart_vars, state, builder))
+    builder.update_sv_spec(sv_spec)
+    return
 
   if not chart_vars.is_topic_peer_group:
     # This is going to be a new section with a list of specific charts.

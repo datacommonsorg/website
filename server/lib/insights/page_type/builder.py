@@ -36,6 +36,13 @@ class Builder:
       if ctx.classifications_of_type_from_utterance(
           state.uttr, dtypes.ClassificationType.COMPARISON):
         self.is_place_comparison = True
+
+    self.is_var_comparison = False
+    if len(state.uttr.svs) > 1:
+      if ctx.classifications_of_type_from_utterance(
+          state.uttr, dtypes.ClassificationType.CORRELATION):
+        self.is_var_comparison = True
+
     metadata = self.page_config.metadata
     main_place = state.uttr.places[0]
     metadata.place_dcid.append(main_place.dcid)

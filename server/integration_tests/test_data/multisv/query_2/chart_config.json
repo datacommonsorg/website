@@ -13,6 +13,25 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Percent_Person_Obesity_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Obesity (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Family Households Below the Poverty Level in the Past Year (${date})",
@@ -406,36 +425,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
-                    ],
-                    "title": "Median Incomes in Accommodation And Food Services (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Median Incomes in Accommodation And Food Services (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -655,14 +644,10 @@
             "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
-          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
-            "name": "Median Incomes in Accommodation And Food Services",
-            "statVar": "dc/9pmyhk89dj3pf"
-          },
-          "dc/9pmyhk89dj3pf_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Median Incomes in Accommodation And Food Services",
-            "statVar": "dc/9pmyhk89dj3pf"
+          "Percent_Person_Obesity_multiple_place_bar_block": {
+            "name": "Prevalence of Obesity",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
           }
         }
       }
