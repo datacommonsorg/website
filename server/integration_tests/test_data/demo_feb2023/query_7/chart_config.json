@@ -13,33 +13,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Bood Pressure in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Bood Pressure in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "High Bood Pressure"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
                     "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of California (${date})",
@@ -56,6 +29,33 @@
               }
             ],
             "title": "Percent of Adults with Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Bood Pressure in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Bood Pressure in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Bood Pressure"
           }
         ],
         "statVarSpec": {

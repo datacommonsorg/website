@@ -251,6 +251,13 @@ message Block {
     DISASTER_EVENT = 1;
   }
   BlockType type = 4;
+  // If denom is set, adds a per capita toggle on the block. If per capita is
+  // toggled on, all tiles in the block will use this denom to calculate per
+  // capita.
+  string denom = 6;
+  // Whether or not the block should use the denom when first rendered. Only
+  // used if denom is set. Defaults to false.
+  bool start_with_denom = 7;
 }
 
 message Category {
@@ -260,6 +267,8 @@ message Category {
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
+  // If the category corresponds to an entity (like topic) this includes the dcid.
+  string dcid = 5;
 }
 
 message Suggestion {

@@ -10,6 +10,8 @@
     "Count_Person_Female_TwoOrMoreRaces",
     "Count_Person_Male_SomeOtherRaceAlone",
     "Median_Age_Person_Male",
+    "dc/topic/SeparatedFemalePopulationByAge",
+    "dc/topic/SeparatedMalePopulationByAge",
     "Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters",
     "Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters",
     "Count_Person_Female_SomeOtherRaceAlone"
@@ -18,13 +20,15 @@
     0.9062607288360596,
     0.8737514615058899,
     0.8090390563011169,
-    0.7960467338562012,
+    0.7960466146469116,
     0.7867253422737122,
     0.7852922081947327,
     0.7835091352462769,
     0.7825151681900024,
     0.777784526348114,
     0.7714362144470215,
+    0.7709808945655823,
+    0.7669979333877563,
     0.7647125720977783,
     0.7572100162506104,
     0.7561885118484497
@@ -70,7 +74,7 @@
           {
             "QueryPart": "population",
             "SV": [
-              "Count_Person"
+              "dc/topic/Population"
             ],
             "CosineScore": [
               1.0000003576278687
@@ -112,7 +116,7 @@
           {
             "QueryPart": "population",
             "SV": [
-              "Count_Person"
+              "dc/topic/Population"
             ],
             "CosineScore": [
               1.0000003576278687
@@ -147,7 +151,7 @@
           {
             "QueryPart": "population",
             "SV": [
-              "Count_Person"
+              "dc/topic/Population"
             ],
             "CosineScore": [
               1.0000003576278687
@@ -171,7 +175,7 @@
           {
             "QueryPart": "population",
             "SV": [
-              "Count_Person"
+              "dc/topic/Population"
             ],
             "CosineScore": [
               1.0000003576278687
@@ -191,7 +195,7 @@
           {
             "QueryPart": "population",
             "SV": [
-              "Count_Person"
+              "dc/topic/Population"
             ],
             "CosineScore": [
               1.0000003576278687

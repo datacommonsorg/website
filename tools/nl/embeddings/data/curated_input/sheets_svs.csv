@@ -143,7 +143,7 @@ Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_Single
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_SingleMotherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Mother Family Household, Without Children Under 18",Number of Single Mother Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Mother family household without Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60,"Count of Household: Without Food Stamps in The Past 12 Months, Without People Over 60",Number of Households Without People Over 60 Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Without People Over 60;
 Count_HousingUnit,Count of Housing Unit,Number of Housing Units,,Count of Housing Unit;Total number of housing units in the area; Total number of homes in the area; Total number of houses in the area; Total number of properties in the area; Total number of living spaces in the area;
-Count_Person,Population,Total Number of People in a Population,,Population;Total number of people in the population; Size of the population; Population count; Number of residents; Number of inhabitants;
+Count_Person,Number of People in a Population,Total Number of People in a Population,,Number of People in a Population;Total number of people in the population; Size of the population; Population count; Number of residents; Number of inhabitants;
 Count_Person_AbovePovertyLevelInThePast12Months,Population: Above Poverty Level in The Past 12 Months,Number of People Who Are Above Poverty Level Status in the Past 12 Months,,Number of people who are Above Poverty Level Status in The Past 12 Months;Number of people who haven't been living in poverty in the past year; How many residents were above the poverty line in the last 12 months; People who have been financially stable in the past year; Quantity of individuals who were not living in poverty; The number of people who have been able to meet their basic needs in the past year;
 Count_Person_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone,"Population: Above Poverty Level in The Past 12 Months, American Indian or Alaska Native Alone",Number of Native American People Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are American Indian or Alaska Native Alone;Amount of American Indian or Alaska Native individuals who were not living in poverty in the past year; Number of individuals who were above poverty line in last 12 months and are American Indian or Alaska Native; People who were financially stable and are American Indian or Alaska Native in the past year; The number of American Indian or Alaska Native individuals who have been able to meet their basic needs in the past year; How many American Indian or Alaska Native individuals were not living in poverty in the past year;
 Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone,"Population: Above Poverty Level in The Past 12 Months, Asian Alone",Number of Asians Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Asian Alone;Number of Asian individuals who were not living in poverty in the past year; People who were financially stable and are Asian in the past year; The number of Asian individuals who have been able to meet their basic needs in the past year; Amount of Asian individuals who were above poverty line in last 12 months; How many Asian individuals were not living in poverty in the past year;
@@ -601,7 +601,7 @@ Count_Person_WithVAHealthCare,Population: With VAHealth Care,Number of People Wi
 Count_Person_WithVAHealthCareOnly,Population: With VAHealth Care Only,Number of People With Only VA Health Care,,Number of people who are With VAHealth Care Only;
 FertilityRate_Person_Female,Fertility Rate,Fertility Rate,,Fertility Rate;;Birth rate of the population; Fertility of the population; Number of children born per woman; how often do women become mother;
 GrowthRate_Count_Person,Population Growth Rate,Rate of Population Growth,,Population Growth Rate;Rate of population growth; Population increase rate; Population growth rate; Increase in population; Rate of increase in population;
-LifeExpectancy_Person,Life Expectancy,Average Lifespan of a Population,,Life Expectancy; how long do people live;Average lifespan of the population; Mean lifespan of the population; Median lifespan of the population; Typical lifespan of the population; Average life expectancy of the population;
+LifeExpectancy_Person,Life Expectancy of a Population,Average Lifespan of a Population,,Life Expectancy of a population; how long do people live;Average lifespan of the population; Mean lifespan of the population; Median lifespan of the population; Typical lifespan of the population; Average life expectancy of the population;
 LifeExpectancy_Person_Female,"Life expectancy at birth, female (years)",Female Life Expectancy,,Life expectancy of females at birth; life expectancy of women; how long do women live;
 LifeExpectancy_Person_Male,Life Expectancy: Male,Male Life Expectancy,,Life Expectancy of Males at birth; life expectancy of men; how long do men live;
 Mean_Earnings_Person_Female,"Mean Earnings: Female, With Earnings",Average Earnings for Females,,Average income for females With Earnings;
@@ -923,7 +923,7 @@ Count_Death,Count of Mortality Event,Number of Deaths,,Number of people dead; Nu
 Count_Death_AsAFractionOfCount_Person,Count of Mortality Event (Per Capita),Number of Deaths Per Capita,,"Death rate; Mortality rate;Number of deaths per person in the population; Mortality rate; Death rate; Number of fatalities per capita; Number of deaths per 100,000 people;"
 Count_Person_EnrolledInSchool,Population: Enrolled in School,Number of People Currently Enrolled in School,,Number of people in school;Number of people currently enrolled in school; Number of students in school; Number of people in education; Number of children in school; Number of people in higher education;
 Count_Person_NotEnrolledInSchool,Population: Not Enrolled in School,Number of People Not Currently Enrolled in School,,Number of people not in school;Number of people not currently enrolled in school; Number of individuals not in school; Number of people not in education; Number of non-students; Number of people not in higher education;
-AirQualityIndex_AirPollutant,Air Quality Index,Air Quality Index,,Air quality index;Air quality index; AQI; Air pollution level; Air pollution measure; Air quality measurement;
+AirQualityIndex_AirPollutant,Air Quality Index Pollutant,Air Quality Index Pollutant,,Air quality index pollutant;Air quality index pollutant; AQI pollutant; Air pollution level; Air pollution measure; Air quality measurement;
 Count_MedicalConditionIncident_COVID_19_PatientInICU,"Count of Medical Condition Incident: COVID-19, Patient in ICU",Number of COVID-19 Patients in the Intensive Care Unit,,Number of covid patients in ICU;Number of COVID-19 patients in the intensive care unit; Number of severe COVID-19 cases; Number of critically ill COVID-19 patients; Number of COVID-19 patients on ventilators; Number of COVID-19 patients in critical condition;
 CumulativeCount_Vaccine_COVID_19_Administered,"Cumulative Count of Vaccine: COVID-19, Vaccine Administered",Total Number of COVID-19 Vaccines Administered,,Total number of covid vaccines administered;Total number of COVID-19 vaccinations given out; Number of people vaccinated against COVID-19; Number of doses administered; Number of COVID-19 shots given; Number of people who have received the COVID-19 vaccine;
 IncrementalCount_Vaccine_COVID_19_Administered,"Incremental Count of Vaccine: COVID-19, Vaccine Administered",Number of COVID-19 Vaccines Administered Daily,,Daily number of covid vaccines administered;Number of COVID-19 vaccinations given out each day; Number of daily COVID-19 vaccinations; Number of doses administered daily; Number of COVID-19 shots given each day; Number of people vaccinated against COVID-19 daily;
@@ -1164,7 +1164,7 @@ dc/topic/Flood,Flood,Flood,,
 dc/topic/Fog,Fog,Fog,,
 dc/topic/Forest,Forest,Forest,,
 dc/topic/FossilFuelSubsidies,Fossil Fuel Subsidies,Fossil Fuel Subsidies,,
-dc/topic/GDP,GDP,GDP,,
+dc/topic/GDP,GDP,GDP,,gross domestic production;
 dc/topic/GroupQuartersResidents,Group Quarters Residents,Group Quarters Residents,,
 dc/topic/HIV,HIV,HIV,,
 dc/topic/Hail,Hail,Hail,,
@@ -1402,3 +1402,132 @@ dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Heal
 dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age,Population With Stroke By Age,,
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age,Female Population With Stroke By Age,,
 dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age,Male Population With Stroke By Age,,
+dc/topic/Asthma,Asthma,People with Asthma,,Diagnosed with Asthma; Asthma Disease;
+dc/topic/BloodPressure,Blood Pressure,People with high blood pressure,,High blood pressure condition; People with high blood pressure;
+dc/topic/CausesOfDeath,Causes of death,Reasons for death,,Reasons for mortality;
+dc/topic/Cholesterol,High cholestrol,People with high cholestrol,,high cholestrol condition; good cholestrol; bad cholestrol;
+dc/topic/FemaleMortality,Female mortality,Female deaths,,
+dc/topic/GlobalHealth,Global health,World health,,health in the world; health conditions in the world;
+dc/topic/Health,Health,Health,,
+dc/topic/HealthBehavior,Health behaviors,Health behavior,,Healthy behaviors; Unhealthy behaviors;
+dc/topic/HealthConditions,Health conditions,Health conditions,,
+dc/topic/HealthEquity,Health equity,Health equity,,fairness in health; fairness of health conditions;
+dc/topic/HealthInsuranceByGender,Health Insurance by gender,Health Insurance split by gender,,health insurance distribution by gender; health insurance breakdown by gender;
+dc/topic/HealthInsuranceByRace,Health Insurance by race,Health insurance split by race,,health insurance distribution by race; health insurance breakdown by race;
+dc/topic/HealthInsuranceType,Health Insurance types,Health insurance by types,,types of health insurance;
+dc/topic/InfantMortality,Infant Mortality,Infant Mortality,,mortality among infants; death among infants; infant deaths;
+dc/topic/MentalHealth,Mental Health,Mental Health,,
+dc/topic/Mortality,Mortality,Mortality,,Death; Issues relating to death;
+dc/topic/MortalityAmongIncarcerated,Mortality among incarcerated,Mortality among those in jail,,deaths among those in jail; deaths of incarcerated; incarcerated deaths;
+dc/topic/MortalityByGender,Mortality by gender,Mortality by gender,,Mortality split by gender; mortality distribution by gender; mortality breakdown by gender;
+dc/topic/MortalityByRace,Mortality by race,Mortality by race,,racial breakdown of mortality; deaths by race; mortality breakdown by race;
+dc/topic/NoHealthInsurance,No Health Insurance,No Health Insurance,,people with no health insurance; people without access to health insurance; without health insurance;
+dc/topic/NoHealthInsuranceByGender,No Health Insurance by gender,No Health Insurance by gender,,distribution of no health insurance by gender; without health insurnace for gender;
+dc/topic/NoHealthInsuranceByIncome,No Health Insurance by income,No Health Insurance by income,,no health insurance split by income; no health insurance across income levels;
+dc/topic/NoHealthInsuranceByRace,No Health Insurance by race,No Health Insurance by race,,racial breakdown of those without health insurance; no health insurance across race; no health insurance by race;
+dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior,Preventative health and behavior,,
+dc/topic/PrivateHealthInsuranceType,Private health insurance,Private health insurance,,people with private health insurance; health insurance private type;
+dc/topic/PublicHealthInsuranceType,Public health insurance,Public health insurance,,people with public health insurance; health insurance public type;
+dc/topic/WHOChildImmunization,Global Child Immunization,Child immunization rates,,WHO child immunization
+dc/topic/WHOChildImmunizationsByGender,Global Child Immunization by gender,Child Immunization by gender,,WHO child immunization by gender; child immunization split by gender;
+dc/topic/WHOChildImmunizationsByUrbanRural,Global  Child Immunization by urban or rural,Child Immunization by urban or rural,,WHO child immunization across urban or rural; rural or urban child immunization; child immunizations across rural and urban;
+dc/topic/WHOChildMortality,Global Child Mortality,Child Mortality,,WHO child mortality; deaths among children;
+dc/topic/WHOChildrenNonCommunicableDiseases,Global Childen with Non Communicable Diseases,Childen with Non Communicable Diseases,,WHO Childen with Non Communicable Diseases
+dc/topic/WHODALYByCauses,Global DALY causes,Disability adjusted life years by causes,,WHO DALY causes; WHO Disability adjusted life years by causes
+dc/topic/WHOHealthBehavior,Global Health behaviors,WHO Health behaviors,,Health behaviors WHO
+dc/topic/WHOImmunization,Global Immunizations,Immunizations,,WHO immunizations; immunization rates
+dc/topic/WHOMaternalMortality,Global Maternal Mortality,Deaths among mothers,,WHO maternal mortality; death rates of mothers;
+dc/topic/WHOMortality,Global Mortality,WHO Mortality,,mortality WHO; death rates WHO;
+dc/topic/WHOMortalityCauses,Global Mortality Causes,WHO Mortality causes,,mortality causes by WHO; causes of death WHO;
+dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases,Ignored Tropical Diseases,,WHO neglected tropical diseases; tropical diseases ignored WHO;
+dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths,Non communicable disease deaths,,deaths due to non communicable disease; WHO deaths due to non communicable diseases;
+dc/topic/WHONonCommunicableDiseases,Global Non communicable diseases,Non communicable diseases,,WHO non communicable diseases; non communicable diseases WHO;
+dc/topic/WithHealthInsuranceByGender,Having Health Insurance by gender,Having Health Insurance by gender,,People with health insurance split by gender;
+dc/topic/WithHealthInsuranceByRace,Having Health Insurance by race,Having Health Insurance by race,,People with health insurance split by race; racial breakdown of people with health insurance;
+dc/topic/DisabilitiesByGender,Disabilities by gender,Disabilities by gender,,Disabilities split by gender; disabilities breakdown by gender;
+dc/topic/DisabilitiesByRace,Disabilities by race,Disabilities by race,,Disabilities split by race; disabilities breakdown by race;
+dc/topic/Businesses,Business,Businesses,,Business economy
+dc/topic/EconomicActivity,Economic Activity,Economic Activity,,Economic activity overview; Summary of economic activity;
+dc/topic/Employment,Employement,Employment,,
+dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
+dc/topic/Debt,Debt,Debt,,Global debt;
+dc/topic/Economics,Economics,Economics,,
+dc/topic/EducationExpenditure,Education Expenditure,Education Expenditure,,
+dc/topic/EmploymentByIndustry,Employment By Industry,Employment By Industry,,people employed by industry; breakdown of employment by industry;
+dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,amount spent on health; health expenses;
+dc/topic/HouseholdIncomeDistribution,Household Income Distribution,Household Income Distribution,,income distribution for households; 
+dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
+dc/topic/IndividualIncomeDistribution,Individual Income Distribution,Individual Income Distribution,,
+dc/topic/IndustriesByNumberOfWorkers,Industries By Number Of Workers,Industries By Number Of Workers,,Number of workers by industry; number of workers across industries;
+dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
+dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP,Inflation Adjusted GDP,,inflation adjusted gross domestic production;
+dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry,Number Of Businesses By Industry,,disribution of number of business across industries;
+dc/topic/NumberOfBusinessesByOwnership,Number Of Businesses By Ownership,Number Of Businesses By Ownership,,disribution of number of business by ownership;
+dc/topic/PovertyByGender,Poverty By Gender,Poverty By Gender,,poverty across genders; poverty breakdown by gender;
+dc/topic/PovertyByLanguageSpokenAtHome,Poverty By Language Spoken At Home,Poverty By Language Spoken At Home,,poverty breakdown by language spoken at home;
+dc/topic/PovertyByRace,Poverty By Race,Poverty By Race,,poverty breakdown by race;
+dc/topic/PovertyByResidency,Poverty By Residency,Poverty By Residency,,poverty breakdown by residency;
+dc/topic/PovertyLevels,Poverty Levels,Poverty Levels,,levels of poverty;
+dc/topic/Remittance,Remittance,Remittance,,remittances;
+dc/topic/UnemploymentRate,Unemployment Rate,Unemployment Rate,,rate of unemployment;
+dc/topic/UnpaidFamilyWorkers,Unpaid Family Workers,Unpaid Family Workers,,
+dc/topic/BachelorsMajor,Bachelors Major,Bachelors Major,,undergraduate major; college major;
+dc/topic/EducationFaculty,Education Faculty,Education Faculty,,
+dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level;
+dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level;
+dc/topic/Parents,Parents,Parents,,
+dc/topic/ParentsEducationalAttainment,Parents Educational Attainment,Parents Educational Attainment,,level of education attainment of parents;
+dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race,Population Enrolled In School Type By Race,,students enrolled in school type by race;
+dc/topic/SchoolType,School Type,School Type,,type of school; types of schools;
+dc/topic/Schools,Schools,Schools,,school
+dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students;
+dc/topic/StudentLunchEligibility,Student Lunch Eligibility,Student Lunch Eligibility,,lunch eligibility of students; students eligible for lunch;
+dc/topic/StudentPopulation,Student Population,Student Population,,Students
+dc/topic/StudentPopulationDemographics,Student Population Demographics,Student Population Demographics,,Student demographics;
+dc/topic/StudentTeacherRatio,Student Teacher Ratio,Student Teacher Ratio,,ratio of students to teachers;
+dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools,Support Services Staff In Schools,,
+dc/topic/Teacher,Teacher,Teacher,,teachers;
+dc/topic/AirQualityIndex,Air Quality Index,Air Quality Index,,AQI; air quality level;
+dc/topic/CarbonMonoxide,Carbon Monoxide,Carbon Monoxide,,CO; CO pollutant;
+dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decade,Projected max temperature for the decade,,decadal projected max temperature; maximum temperature projected decade; temperature highs for the decade;
+dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade,Projected min temperature for the decade,,decadal projected min temperature; minimum temperature projected decade; temperature lows for the decade;
+dc/topic/Environment,Environment,Environment,,
+dc/topic/Fire,Fire,Fire,,fires
+dc/topic/HeatEvent,Heat Event,Heat Event,,high temperature event;
+dc/topic/MaxTemperatureLikely1PctAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
+dc/topic/MaxTemperatureLikely1PctAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
+dc/topic/MaxTemperatureLikely5PctAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
+dc/topic/MaxTemperatureLikely5PctAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
+dc/topic/MinTemperatureLikely1PctAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
+dc/topic/MinTemperatureLikely1PctAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
+dc/topic/MinTemperatureLikely5PctAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
+dc/topic/MinTemperatureLikely5PctAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
+dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
+dc/topic/Ozone,Ozone,Ozone,,O3; Ozone pollutant; O3 pollutant;
+dc/topic/PM10,PM10,PM10,,pm10 pollutant;
+dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant;
+dc/topic/PollutantConcentration,Pollutant Concentration,Pollutant Concentration,,concentration of pollutant;
+dc/topic/Pollution,Pollution,Pollution,,
+dc/topic/SulfurDioxide,Sulfur Dioxide,Sulfur Dioxide,,SO2; Suphur dioxide; SO2 pollutant; Sulphur dioxide pollutant;
+dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast;
+dc/topic/WetBulbEvent,Wet Bulb Event,Wet Bulb Event,,wetbulb event; wet-bulb event;
+dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year,Projected max temperature for the year,,yearly projected max temperature; maximum temperature projected year; temperature highs for the year;
+dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year,Projected min temperature for the year,,yearly projected min temperature; minimum temperature projected year; temperature lows for the year;
+dc/topic/AgeDistribution,Age Distribution,Age Distribution,,
+dc/topic/AgeMedians,Age Medians,Age Medians,,
+dc/topic/CitizenshipStatus,Citizenship Status,Citizenship Status,,
+dc/topic/Demographics,Demographics,Demographics,,
+dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic,Divorced Population By Demographic,,demographics of the divorced population;
+dc/topic/EnglishSpeakers,English speakers,English speakers,,English language speakers;
+dc/topic/Immigration,Immigration,Immigration,,
+dc/topic/Language,Language,Language,,
+dc/topic/LanguageSpokenAtHome,Language Spoken at Home,Language Spoken at Home,,
+dc/topic/MaritalStatusBreakdown,Martial Status Breakdown,Martial Status Breakdown,,breakdown of marital status;
+dc/topic/MarriedPopulationByDemographic,Married Population by Demographic,Married Population by Demographic,,demographics of the married population; demographics of married people;
+dc/topic/Nationality,Nationality,Nationality,,
+dc/topic/NeverMarriedPopulationByDemographic,Never Married Population by Demographic,Never Married Population by Demographic,,demographics of the never married population; demographics of people who never married;
+dc/topic/PlaceOfBirth,Place of Birth,Place of Birth,,
+dc/topic/PopulationByAgeDistribution,Population By Age Distribution,Population By Age Distribution,,population distribution by age;
+dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population,Very Old and Very Young Population,,young children and old people; very old and very young;
+dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic,Widowed Population by Demographic,,demographics of the widowed population; demographics of people who are widowed;

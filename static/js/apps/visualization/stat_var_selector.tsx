@@ -35,7 +35,7 @@ import {
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { AppContext } from "./app_context";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 interface StatVarSelectorPropType {
   selectOnContinue?: boolean;
@@ -47,7 +47,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
   const [extraSv, setExtraSv] = useState(null);
   const [modalSelection, setModalSelection] = useState(0);
   const [selectedStatVars, setSelectedStatVars] = useState(statVars);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
 
   useEffect(() => {
     if (!_.isEqual(statVars, selectedStatVars)) {
@@ -70,7 +70,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
       </div>
       {props.selectOnContinue && (
         <div className="selector-footer">
-          {!_.isEmpty(selectedStatVars) && (
+          {selectedStatVars.length >= (visTypeConfig.numSv || 1) && (
             <div
               className="continue-button"
               onClick={() => setStatVars(selectedStatVars)}
@@ -105,7 +105,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
                 Please choose 1 statistical variable to replace:
               </div>
               <div className="radio-selection-section">
-                {statVars
+                {selectedStatVars
                   .filter((sv) => sv.dcid !== extraSv.dcid)
                   .map((sv, idx) => {
                     return (
@@ -158,7 +158,10 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
         setStatVarsFn([{ dcid: sv, info: info[sv] }]);
         return;
       }
-      if (visTypeConfig.numSv && statVars.length >= visTypeConfig.numSv) {
+      if (
+        visTypeConfig.numSv &&
+        selectedStatVars.length >= visTypeConfig.numSv
+      ) {
         setExtraSv({ dcid: sv, info: info[sv] });
       }
       setStatVarsFn([...selectedStatVars, { dcid: sv, info: info[sv] }]);

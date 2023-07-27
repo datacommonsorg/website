@@ -21,17 +21,14 @@
 import React, { useContext } from "react";
 
 import { AppContext } from "./app_context";
-import {
-  ORDERED_VIS_TYPE,
-  VIS_TYPE_SELECTOR_CONFIGS,
-} from "./vis_type_configs";
+import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function VisTypeSelector(): JSX.Element {
   const { visType, setVisType } = useContext(AppContext);
   return (
     <div className="vis-type-selector">
       {ORDERED_VIS_TYPE.map((type) => {
-        const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[type];
+        const visTypeConfig = VIS_TYPE_CONFIG[type];
         return (
           <div
             className={`vis-type-option${visType === type ? " selected" : ""}`}

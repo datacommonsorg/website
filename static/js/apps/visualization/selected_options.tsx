@@ -25,12 +25,12 @@ import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function SelectedOptions(): JSX.Element {
   const { visType, places, statVars, enclosedPlaceType, setPlaces } =
     useContext(AppContext);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
   const showEnclosedPlaceType =
     enclosedPlaceType && !visTypeConfig.skipEnclosedPlaceType;
   const [showPlaceSelector, setShowPlaceSelector] = useState(false);
@@ -56,7 +56,9 @@ export function SelectedOptions(): JSX.Element {
       <div className="selected-options-places">
         {!_.isEmpty(places) && (
           <div className="selected-option">
-            <span className="selected-option-label">Plot places in</span>
+            <span className="selected-option-label">
+              Plot places{visTypeConfig.skipEnclosedPlaceType ? "" : " in"}
+            </span>
             <div className="selected-option-values">
               {places.map((place) => {
                 return (
@@ -100,17 +102,22 @@ export function SelectedOptions(): JSX.Element {
                 );
               })}
               {!visTypeConfig.singlePlace && allowEdit && (
-                <div>
+                <div className="add-place-container">
                   {showPlaceSelector ? (
-                    <div>
+                    <div className="selector-dropdown-anchor">
                       <div className="place-selector-dropdown">
-                        <span
-                          className="material-icons-outlined action"
-                          onClick={() => setShowPlaceSelector(false)}
-                        >
-                          remove
-                        </span>
-                        <PlaceSelector hideSelections={true} />
+                        <div className="header-controls">
+                          <span
+                            className="material-icons-outlined action"
+                            onClick={() => setShowPlaceSelector(false)}
+                          >
+                            remove
+                          </span>
+                        </div>
+                        <PlaceSelector
+                          hideSelections={true}
+                          onNewSelection={() => setShowPlaceSelector(false)}
+                        />
                       </div>
                     </div>
                   ) : (
@@ -128,9 +135,12 @@ export function SelectedOptions(): JSX.Element {
               )}
             </div>
             {visTypeConfig.singlePlace && showPlaceSelector && (
-              <div>
+              <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
-                  <PlaceSelector hideSelections={true} />
+                  <PlaceSelector
+                    hideSelections={true}
+                    onNewSelection={() => setShowPlaceSelector(false)}
+                  />
                 </div>
               </div>
             )}
@@ -157,9 +167,11 @@ export function SelectedOptions(): JSX.Element {
               </div>
             </div>
             {showPlaceTypeSelector && (
-              <div>
+              <div className="selector-dropdown-anchor">
                 <div className="place-selector-dropdown">
-                  <PlaceTypeSelector />
+                  <PlaceTypeSelector
+                    onNewSelection={() => setShowPlaceTypeSelector(false)}
+                  />
                 </div>
               </div>
             )}

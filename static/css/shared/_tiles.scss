@@ -114,6 +114,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 
 .scatter-svg-container {
   font-size: 0.75rem;
+  z-index: 2;
 
   circle:hover {
     stroke: var(--dc-gray);
@@ -123,6 +124,14 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   circle {
     r: 3.5;
   }
+}
+
+.scatter-spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 /**
