@@ -43,7 +43,9 @@ export function SelectorWrapper(props: SelectorWrapperPropType): JSX.Element {
           <span>{props.headerTitle}</span>
           <span
             className="material-icons-outlined"
-            onClick={() => props.disabled ? null : props.setCollapsed(!props.collapsed)}
+            onClick={() =>
+              props.disabled ? null : props.setCollapsed(!props.collapsed)
+            }
           >
             {props.collapsed ? "expand_more" : "expand_less"}
           </span>
