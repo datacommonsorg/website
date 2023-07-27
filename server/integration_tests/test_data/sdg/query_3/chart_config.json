@@ -9,6 +9,48 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "WHO/WHS4_117"
+                    ],
+                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_128"
+                    ],
+                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_129"
+                    ],
+                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_543"
+                    ],
+                    "title": "Bcg Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS8_110"
+                    ],
+                    "title": "Measles-Containing-Vaccine First-Dose (Mcv1) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM"
+                    ],
+                    "title": "Number Of Maternal Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
                     "title": "Maternal mortality ratio in the World (${date})",
@@ -16,29 +58,21 @@
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+                      "LifeExpectancy_Person"
                     ],
-                    "title": "Access to modern family planning for women in the World (${date})",
+                    "title": "Life Expectancy in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Birth rate for adolescent women in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
-                    ],
-                    "title": "Prevalence of anaemia in women in the World (${date})",
+                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ],
-            "title": "Women's health"
+            ]
           },
           {
             "columns": [
@@ -46,29 +80,36 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT.AGE--Y0"
+                      "WHO/M_Est_smk_daily"
                     ],
-                    "title": "Infant mortality rate in the World (${date})",
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORT.AGE--Y0T4"
+                      "WHO/NCD_BMI_18A"
                     ],
-                    "title": "Mortality rate for children under 5 years in the World (${date})",
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_NMRT.AGE--M0"
+                      "WHO/NCD_BMI_30A"
                     ],
-                    "title": "Neonatal mortality rate in the World (${date})",
+                    "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_PAC"
+                    ],
+                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Preventable newborn and children deaths"
+            "title": "Health Behavior"
           },
           {
             "columns": [
@@ -76,36 +117,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_HIV_INCD"
+                      "WHO/bcgv_Female"
                     ],
-                    "title": "Incidence of HIV infections in the World (${date})",
+                    "title": "% Bcg Immunization, Female One-Year-Old in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_TBS_INCD"
+                      "WHO/dptv_Female"
                     ],
-                    "title": "Incidence of Tuberculosis in the World (${date})",
+                    "title": "% Dtp3 Immunization, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_HAP_HBSAG.AGE--Y0T4"
+                      "WHO/fullv_Female"
                     ],
-                    "title": "Prevalence of hepatitis B in children under 5 years in the World (${date})",
+                    "title": "% Full Immunization Coverage, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_TRP_INTVN"
+                      "WHO/mslv_Female"
                     ],
-                    "title": "Need for intervention against neglected tropical diseases in the World (${date})",
+                    "title": "% Measles Immunization Coverage, Female One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Female"
+                    ],
+                    "title": "% Polio Immunization Coverage, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Ending epidemics"
+            "title": "Child Immunizations for Females"
           },
           {
             "columns": [
@@ -113,29 +161,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_ACS_UNHC"
+                      "WHO/bcgv_Male"
                     ],
-                    "title": "Universal health coverage index in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_XPD_EARN10"
+                      "WHO/dptv_Male"
                     ],
-                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_XPD_EARN25"
+                      "WHO/fullv_Male"
                     ],
-                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
+                    "title": "% Full Immunization Coverage, Male One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/mslv_Male"
+                    ],
+                    "title": "% Measles Immunization Coverage, Male One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Male"
+                    ],
+                    "title": "% Polio Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Health coverage and financial risk"
+            "title": "Child Immunizations for Males"
           },
           {
             "columns": [
@@ -143,22 +205,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_PRV_SMOK.AGE--Y_GE15"
+                      "WHO/bcgv_Rural"
                     ],
-                    "title": "Prevalence of tobacco use in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Rural One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_SUD_ALCOL.AGE--Y_GE15"
+                      "WHO/dptv_Rural"
                     ],
-                    "title": "Prevalence of alcohol use disorder in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/fullv_Rural"
+                    ],
+                    "title": "% Full Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/mslv_Rural"
+                    ],
+                    "title": "% Measles Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Rural"
+                    ],
+                    "title": "% Polio Immunization Coverage, Rural One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Tobacco and alcohol"
+            "title": "Child Immunizations in Rural area"
           },
           {
             "columns": [
@@ -166,118 +249,219 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
+                      "WHO/bcgv_Urban"
                     ],
-                    "title": "Density of medical doctors in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322"
+                      "WHO/dptv_Urban"
                     ],
-                    "title": "Density of nurses and midwives in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
+                      "WHO/fullv_Urban"
                     ],
-                    "title": "Density of pharmacists in the World (${date})",
+                    "title": "% Full Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
+                      "WHO/mslv_Urban"
                     ],
-                    "title": "Density of dentists in the World (${date})",
+                    "title": "% Measles Immunization Coverage, Urban One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Urban"
+                    ],
+                    "title": "% Polio Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Health worker density"
+            "title": "Child Immunizations in Urbal area"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/CM_01"
+                    ],
+                    "title": "Number Of Under-Five Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/CM_02"
+                    ],
+                    "title": "Number Of Infant Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/CM_03"
+                    ],
+                    "title": "Number Of Neonatal Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Child Mortality"
           }
         ],
         "statVarSpec": {
-          "sdg/SH_ACS_UNHC": {
-            "name": "Universal health coverage index",
-            "statVar": "sdg/SH_ACS_UNHC"
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
+            "name": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita)",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
-          "sdg/SH_DYN_IMRT.AGE--Y0": {
-            "name": "Infant mortality rate",
-            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0"
+          "LifeExpectancy_Person": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
           },
-          "sdg/SH_DYN_MORT.AGE--Y0T4": {
-            "name": "Mortality rate for children under 5 years",
-            "statVar": "sdg/SH_DYN_MORT.AGE--Y0T4"
+          "WHO/CM_01": {
+            "name": "Number Of Under-Five Deaths",
+            "statVar": "WHO/CM_01"
           },
-          "sdg/SH_DYN_NMRT.AGE--M0": {
-            "name": "Neonatal mortality rate",
-            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
+          "WHO/CM_02": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
           },
-          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
-            "name": "Access to modern family planning for women",
-            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+          "WHO/CM_03": {
+            "name": "Number Of Neonatal Deaths",
+            "statVar": "WHO/CM_03"
           },
-          "sdg/SH_HAP_HBSAG.AGE--Y0T4": {
-            "name": "Prevalence of hepatitis B in children under 5 years",
-            "statVar": "sdg/SH_HAP_HBSAG.AGE--Y0T4"
+          "WHO/MORT_MATERNALNUM": {
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
           },
-          "sdg/SH_HIV_INCD": {
-            "name": "Incidence of HIV infections",
-            "statVar": "sdg/SH_HIV_INCD"
+          "WHO/M_Est_smk_daily": {
+            "name": "% Daily Tobacco Smokers (Estimate)",
+            "statVar": "WHO/M_Est_smk_daily"
           },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221": {
-            "name": "Density of medical doctors",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221"
+          "WHO/NCD_BMI_18A": {
+            "name": "% Underweight Among Adults, BMI < 18",
+            "statVar": "WHO/NCD_BMI_18A"
           },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322": {
-            "name": "Density of nurses and midwives",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322"
+          "WHO/NCD_BMI_30A": {
+            "name": "% Obesity Among Adults, BMI >= 30",
+            "statVar": "WHO/NCD_BMI_30A"
           },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
-            "name": "Density of dentists",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261"
+          "WHO/NCD_PAC": {
+            "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
+            "statVar": "WHO/NCD_PAC"
           },
-          "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262": {
-            "name": "Density of pharmacists",
-            "statVar": "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262"
+          "WHO/WHS4_117": {
+            "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_117"
           },
-          "sdg/SH_PRV_SMOK.AGE--Y_GE15": {
-            "name": "Prevalence of tobacco use",
-            "statVar": "sdg/SH_PRV_SMOK.AGE--Y_GE15"
+          "WHO/WHS4_128": {
+            "name": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)",
+            "statVar": "WHO/WHS4_128"
           },
-          "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
-            "name": "Prevalence of anaemia in women",
-            "statVar": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
+          "WHO/WHS4_129": {
+            "name": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_129"
+          },
+          "WHO/WHS4_543": {
+            "name": "Bcg Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_543"
+          },
+          "WHO/WHS8_110": {
+            "name": "Measles-Containing-Vaccine First-Dose (Mcv1) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS8_110"
+          },
+          "WHO/bcgv_Female": {
+            "name": "% Bcg Immunization, Female One-Year-Old",
+            "statVar": "WHO/bcgv_Female"
+          },
+          "WHO/bcgv_Male": {
+            "name": "% Bcg Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/bcgv_Male"
+          },
+          "WHO/bcgv_Rural": {
+            "name": "% Bcg Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/bcgv_Rural"
+          },
+          "WHO/bcgv_Urban": {
+            "name": "% Bcg Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/bcgv_Urban"
+          },
+          "WHO/dptv_Female": {
+            "name": "% Dtp3 Immunization, Female One-Year-Olds",
+            "statVar": "WHO/dptv_Female"
+          },
+          "WHO/dptv_Male": {
+            "name": "% Dtp3 Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/dptv_Male"
+          },
+          "WHO/dptv_Rural": {
+            "name": "% Dtp3 Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/dptv_Rural"
+          },
+          "WHO/dptv_Urban": {
+            "name": "% Dtp3 Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/dptv_Urban"
+          },
+          "WHO/fullv_Female": {
+            "name": "% Full Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/fullv_Female"
+          },
+          "WHO/fullv_Male": {
+            "name": "% Full Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/fullv_Male"
+          },
+          "WHO/fullv_Rural": {
+            "name": "% Full Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/fullv_Rural"
+          },
+          "WHO/fullv_Urban": {
+            "name": "% Full Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/fullv_Urban"
+          },
+          "WHO/mslv_Female": {
+            "name": "% Measles Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/mslv_Female"
+          },
+          "WHO/mslv_Male": {
+            "name": "% Measles Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/mslv_Male"
+          },
+          "WHO/mslv_Rural": {
+            "name": "% Measles Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/mslv_Rural"
+          },
+          "WHO/mslv_Urban": {
+            "name": "% Measles Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/mslv_Urban"
+          },
+          "WHO/poliov_Female": {
+            "name": "% Polio Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/poliov_Female"
+          },
+          "WHO/poliov_Male": {
+            "name": "% Polio Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/poliov_Male"
+          },
+          "WHO/poliov_Rural": {
+            "name": "% Polio Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/poliov_Rural"
+          },
+          "WHO/poliov_Urban": {
+            "name": "% Polio Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/poliov_Urban"
           },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
-          },
-          "sdg/SH_SUD_ALCOL.AGE--Y_GE15": {
-            "name": "Prevalence of alcohol use disorder",
-            "statVar": "sdg/SH_SUD_ALCOL.AGE--Y_GE15"
-          },
-          "sdg/SH_TBS_INCD": {
-            "name": "Incidence of Tuberculosis",
-            "statVar": "sdg/SH_TBS_INCD"
-          },
-          "sdg/SH_TRP_INTVN": {
-            "name": "Need for intervention against neglected tropical diseases",
-            "statVar": "sdg/SH_TRP_INTVN"
-          },
-          "sdg/SH_XPD_EARN10": {
-            "name": "Population with health spending over 10% of household expenditure or income",
-            "statVar": "sdg/SH_XPD_EARN10"
-          },
-          "sdg/SH_XPD_EARN25": {
-            "name": "Population with health spending over 25% of household expenditure or income",
-            "statVar": "sdg/SH_XPD_EARN25"
-          },
-          "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F": {
-            "name": "Birth rate for adolescent women",
-            "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
           }
         }
       }
@@ -317,22 +501,6 @@
           {
             "displayName": "People With Only VA Health Care",
             "nlQuery": "People With Only VA Health Care Earth"
-          },
-          {
-            "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
-            "nlQuery": "Count of Establishment: Health Care And Social Assistance (NAICS/62) Earth"
-          },
-          {
-            "displayName": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "nlQuery": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) Earth"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Foodborne Transmission",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Foodborne Transmission Earth"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Person To Person Transmission Earth"
           }
         ]
       }

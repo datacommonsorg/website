@@ -38,21 +38,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "comparisonPlaces": [
                       "geoId/0677000"
                     ],
@@ -95,11 +80,6 @@
           "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
             "name": "Prevalance of Complete Tooth Loss in the Population",
             "statVar": "Percent_Person_WithAllTeethLoss",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
