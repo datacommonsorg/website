@@ -96,6 +96,7 @@ export interface BarChartData {
   sources: Set<string>;
   unit: string;
   dateRange: string;
+  props: BarTilePropType;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -105,7 +106,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   );
 
   useEffect(() => {
-    if (!barChartData) {
+    if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setBarChartData(data);
@@ -257,6 +258,7 @@ function rawToChart(
         const svUnit = getUnit(raw.facets[stat.facet]);
         unit = unit || svUnit;
       }
+      console.log(props.statVarSpec);
       if (spec.denom && spec.denom in raw.data) {
         const denomStat = raw.data[spec.denom][placeDcid];
         dataPoint.value /= denomStat.value;
@@ -290,6 +292,7 @@ function rawToChart(
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
+    props,
   };
 }
 
