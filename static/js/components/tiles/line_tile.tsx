@@ -230,7 +230,7 @@ function rawToChart(
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
           dataPoints.push({
-            label: statVarDcidToName[spec.statVar],
+            label: obs.date,
             time: new Date(obs.date).getTime(),
             value: spec.scaling ? obs.value * spec.scaling : obs.value,
           });

@@ -101,12 +101,16 @@ export async function getStatVarNames(
     } else {
       // See if a label is provided in
       // /static/js/i18n/strings/en/stats_var_labels.json
-      
-      statVarDcids.push(spec.statVar);
+      const label = getStatsVarLabel(spec.statVar);
+      statVarNames[spec.statVar] = label;
+      if (label === spec.statVar) {
+        statVarDcids.push(spec.statVar);
+      }
     }
   });
 
-  // If all names were provided by statVarSpec, skip api call
+  // If all names were provided by statVarSpec or stats_var_labels.json
+  // skip propval api call
   if (_.isEmpty(statVarDcids)) {
     return Promise.resolve(statVarNames);
   }
