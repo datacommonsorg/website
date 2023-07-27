@@ -59,6 +59,7 @@ const getListParam = (input: string | string[]): string[] => {
  */
 export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
+  const [userMessage, setUserMessage] = useState<string>("");
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
@@ -168,6 +169,7 @@ export function App(): JSX.Element {
       setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
+      setUserMessage(resp["userMessage"]);
     })();
   }, [hashParams]);
 
@@ -244,6 +246,7 @@ export function App(): JSX.Element {
                   topic={chartData.topic}
                 ></ParentPlace>
               )}
+              {userMessage && <div id="user-message">{userMessage}</div>}
               <SubjectPageMainPane
                 id={PAGE_ID}
                 place={chartData.place}

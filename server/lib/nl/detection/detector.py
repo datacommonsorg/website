@@ -129,7 +129,7 @@ def construct(entities: List[str], variables: List[str], child_type: str,
   query = var_query + (f' {child_type} ' if child_type else ' ') + place_query
 
   classifications = []
-  child_type = None
+
   # For place-comparison (bar charts only), we don't need child places.
   # So we can save on the existence checks, etc.
   if not is_cmp_entities:
@@ -140,6 +140,8 @@ def construct(entities: List[str], variables: List[str], child_type: str,
       child_type = types.ContainedInPlaceType(child_type)
     else:
       child_type = utils.get_default_child_place_type(places[0], is_nl=False)
+  else:
+    child_type = None
 
   if child_type:
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
