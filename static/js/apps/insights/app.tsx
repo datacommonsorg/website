@@ -179,64 +179,79 @@ export function App(): JSX.Element {
     let urlString = "/insights/#p=${placeDcid}";
     urlString += `&t=${chartData.topic}`;
     mainSection = (
-      <div className="insights-charts">
-        <div className="row">
-          <div className="col-md-3x col-lg-3 order-last order-lg-0">
-            {chartData && chartData.pageConfig && (
-              <>
-                <Sidebar
-                  id={PAGE_ID}
-                  currentTopicDcid={chartData.topic}
-                  place={place}
-                  cmpPlaces={cmpPlaces}
-                  categories={chartData.pageConfig.categories}
-                  peerTopics={chartData.peerTopics}
-                />
-                {chartData && chartData.parentTopics.length > 0 && (
-                  <div className="topics-box">
-                    <div className="topics-head">Broader Topics</div>
-                    {chartData.parentTopics.map((parentTopic, idx) => {
-                      let url = `/insights/#t=${parentTopic.dcid}&p=${place}`;
-                      for (const p of cmpPlaces) {
-                        url += `&pcmp=${p}`;
-                      }
-                      return (
-                        <a className="topic-link" key={idx} href={url}>
-                          {parentTopic.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
-                <ChildPlaces
-                  childPlaces={chartData.childPlaces}
-                  parentPlace={chartData.place}
-                  urlFormatString={urlString}
-                ></ChildPlaces>
-              </>
-            )}
-          </div>
-          <div className="row col-md-9x col-lg-9">
-            {chartData && chartData.pageConfig && (
-              <>
-                <div id="place-callout">{chartData.place.name}</div>
-                {chartData.parentPlaces.length > 0 && (
-                  <ParentPlace
-                    parentPlaces={chartData.parentPlaces}
-                    placeType={chartData.place.types[0]}
-                    topic={chartData.topic}
-                  ></ParentPlace>
-                )}
-                <SubjectPageMainPane
-                  id={PAGE_ID}
-                  place={chartData.place}
-                  pageConfig={chartData.pageConfig}
-                  svgChartHeight={SVG_CHART_HEIGHT}
-                  showExploreMore={true}
-                />
-              </>
-            )}
-          </div>
+      <div className="row insights-charts">
+        <div
+          id="insight-lhs"
+          className="col-md-2x col-lg-2 order-last order-lg-0"
+        >
+          {chartData && chartData.pageConfig && (
+            <>
+              <Sidebar
+                id={PAGE_ID}
+                currentTopicDcid={chartData.topic}
+                place={place}
+                cmpPlaces={cmpPlaces}
+                categories={chartData.pageConfig.categories}
+                peerTopics={chartData.peerTopics}
+              />
+              {chartData && chartData.parentTopics.length > 0 && (
+                <div className="topics-box">
+                  <div className="topics-head">Broader Topics</div>
+                  {chartData.parentTopics.map((parentTopic, idx) => {
+                    let url = `/insights/#t=${parentTopic.dcid}&p=${place}`;
+                    for (const p of cmpPlaces) {
+                      url += `&pcmp=${p}`;
+                    }
+                    return (
+                      <a className="topic-link" key={idx} href={url}>
+                        {parentTopic.name}
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+              <ChildPlaces
+                childPlaces={chartData.childPlaces}
+                parentPlace={chartData.place}
+                urlFormatString={urlString}
+              ></ChildPlaces>
+            </>
+          )}
+        </div>
+        <div className="row col-md-10x col-lg-10">
+          {chartData && chartData.pageConfig && (
+            <div id="insight-rhs">
+              <div className="search-section">
+                <div className="search-box-section">
+                  <TextSearchBar
+                    inputId="query-search-input"
+                    onSearch={(q) => {
+                      updateHash({ q, t: "" });
+                    }}
+                    placeholder={query}
+                    initialValue={""}
+                    shouldAutoFocus={true}
+                    clearValueOnSearch={true}
+                  />
+                </div>
+              </div>
+              <div id="place-callout">{chartData.place.name}</div>
+              {chartData.parentPlaces.length > 0 && (
+                <ParentPlace
+                  parentPlaces={chartData.parentPlaces}
+                  placeType={chartData.place.types[0]}
+                  topic={chartData.topic}
+                ></ParentPlace>
+              )}
+              <SubjectPageMainPane
+                id={PAGE_ID}
+                place={chartData.place}
+                pageConfig={chartData.pageConfig}
+                svgChartHeight={SVG_CHART_HEIGHT}
+                showExploreMore={true}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
@@ -246,25 +261,7 @@ export function App(): JSX.Element {
     mainSection = <></>;
   }
 
-  return (
-    <Container className="insights-container">
-      <div className="search-section">
-        <div className="search-box-section">
-          <TextSearchBar
-            inputId="query-search-input"
-            onSearch={(q) => {
-              updateHash({ q, t: "" });
-            }}
-            placeholder={query}
-            initialValue={""}
-            shouldAutoFocus={true}
-            clearValueOnSearch={true}
-          />
-        </div>
-      </div>
-      {mainSection}
-    </Container>
-  );
+  return <Container className="insights-container">{mainSection}</Container>;
 }
 
 const fetchFulfillData = async (
