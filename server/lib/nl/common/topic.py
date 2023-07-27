@@ -498,8 +498,7 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str],
-                         ordered: bool = False):
+def get_topic_peergroups(sv_dcids: List[str], ordered: bool = False):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
