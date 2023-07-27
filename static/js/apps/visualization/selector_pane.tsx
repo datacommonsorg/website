@@ -44,16 +44,18 @@ export function SelectorPane(): JSX.Element {
   const placeHeaderTitle = `1. Select${
     visTypeConfig.singlePlace ? " a" : ""
   } place${visTypeConfig.singlePlace ? "" : "s"}`;
-  let titleNumVariables = "";
-  if (visTypeConfig.numSv) {
-    titleNumVariables =
-      visTypeConfig.numSv === 1 ? "a" : String(visTypeConfig.numSv);
+  // Header title for the stat var selector
+  let svHeaderTitle = visTypeConfig.skipEnclosedPlaceType ? "2. " : "3. ";
+  if (!visTypeConfig.numSv) {
+    svHeaderTitle += "Select variables";
+  } else if (visTypeConfig.numSv === 1) {
+    svHeaderTitle += "Select a variable";
+  } else {
+    const numSvMissing = visTypeConfig.numSv - statVars.length;
+    svHeaderTitle += `Select ${numSvMissing}${
+      numSvMissing < visTypeConfig.numSv ? " more" : ""
+    } variable${numSvMissing > 1 ? "s" : ""}`;
   }
-  const svHeaderTitle = `${
-    visTypeConfig.skipEnclosedPlaceType ? "2. " : "3. "
-  }Select ${titleNumVariables ? titleNumVariables + " " : ""}Variable${
-    visTypeConfig.numSv === 1 ? "" : "s"
-  }`;
 
   if (isSelectionComplete(visType, places, enclosedPlaceType, statVars)) {
     return null;
