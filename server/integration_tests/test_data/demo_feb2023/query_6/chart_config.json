@@ -50,7 +50,7 @@
                       "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
                       "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block"
                     ],
-                    "title": "Deaths by Age in Placer County (${date})",
+                    "title": "Cancer Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   },
                   {
@@ -65,13 +65,13 @@
                       "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc",
                       "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Deaths by Age in Placer County (${date})",
+                    "title": "Per Capita Cancer Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Deaths by Age"
+            "title": "Cancer Deaths by Age"
           },
           {
             "columns": [
@@ -86,13 +86,13 @@
                       "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
                       "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
                     ],
-                    "title": "Preventative Health in Placer County (${date})",
+                    "title": "Cancer Preventative Health in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Preventative Health"
+            "title": "Cancer Preventative Health"
           },
           {
             "columns": [
@@ -138,7 +138,7 @@
                       "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
                       "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block"
                     ],
-                    "title": "Deaths by Age in Placer County (${date})",
+                    "title": "Mental Health Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   },
                   {
@@ -150,13 +150,13 @@
                       "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc",
                       "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Deaths by Age in Placer County (${date})",
+                    "title": "Per Capita Mental Health Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Deaths by Age"
+            "title": "Mental Health Deaths by Age"
           },
           {
             "columns": [
@@ -471,7 +471,7 @@
                       "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block",
                       "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block"
                     ],
-                    "title": "Causes Of Death in Placer County (${date})",
+                    "title": "Causes Of Female Mortality in Placer County (${date})",
                     "type": "BAR"
                   },
                   {
@@ -493,13 +493,13 @@
                       "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block_pc",
                       "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Causes Of Death in Placer County (${date})",
+                    "title": "Per Capita Causes Of Female Mortality in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Causes Of Death"
+            "title": "Causes Of Female Mortality"
           },
           {
             "columns": [

@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
 import time
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.insights.page_type import default
+from server.lib.insights.page_type import fallback
 from server.lib.insights.page_type import place_comparison
 from server.lib.insights.page_type import var_correlation
 from server.lib.insights.page_type.builder import Builder
@@ -26,9 +28,15 @@ from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
+@dataclass
+class ConfigResp:
+  config_pb: SubjectPageConfig
+  user_message: str
+
+
 def build_config(chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
-                 env_config: builder.Config) -> SubjectPageConfig:
+                 env_config: builder.Config) -> ConfigResp:
   # Get names of all SVs
   start = time.time()
   sv2thing = base.SV2Thing(
@@ -58,15 +66,20 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
     _add_charts(chart_vars, state, builder)
 
   builder.cleanup_config()
-  return builder.page_config
+
+  # If after cleanup, the config is empty, maybe fallback.
+  message = fallback.maybe_fallback(state, builder)
+
+  return ConfigResp(builder.page_config, message)
 
 
 def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                 builder: Builder) -> Dict:
   sv_spec = {}
 
+  enable_pc = builder.enable_pc(chart_vars)
   if builder.is_var_comparison:
-    builder.new_block('')
+    builder.new_block(title='', enable_pc=enable_pc)
     sv_spec.update(var_correlation.add_chart(chart_vars, state, builder))
     builder.update_sv_spec(sv_spec)
     return
@@ -75,7 +88,8 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     # This is going to be a new section with a list of specific charts.
     # They should not be compared.
     for sv in chart_vars.svs:
-      builder.new_block(builder.sv2thing.name.get(sv))
+      builder.new_block(title=builder.sv2thing.name.get(sv),
+                        enable_pc=enable_pc)
       if builder.is_place_comparison:
         sv_spec.update(place_comparison.add_sv(sv, chart_vars, state, builder))
       else:
@@ -84,7 +98,7 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     if not chart_vars.title and chart_vars.svpg_id:
       # If there was an SVPG, we may not have gotten its name before, so get it now.
       chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
-    builder.new_block(chart_vars.title)
+    builder.new_block(title=chart_vars.title, enable_pc=enable_pc)
     if builder.is_place_comparison:
       sv_spec.update(place_comparison.add_svpg(chart_vars, state, builder))
     else:

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
@@ -63,9 +64,11 @@ class Builder:
     if dcid:
       self.category.dcid = dcid
 
-  def new_block(self, title, description=''):
+  def new_block(self, title, description='', enable_pc=False):
     self.block = self.category.blocks.add()
     self.block.title = base.decorate_block_title(title=title)
+    if enable_pc:
+      self.block.denom = 'Count_Person'
     if description:
       self.block.description = description
 
@@ -76,6 +79,12 @@ class Builder:
   def update_sv_spec(self, stat_var_spec_map):
     for sv_key, spec in stat_var_spec_map.items():
       self.category.stat_var_spec[sv_key].CopyFrom(spec)
+
+  def enable_pc(self, cv: ftypes.ChartVars) -> bool:
+    return all([
+        var_lib.is_percapita_relevant(v, self.env_config.nopc_vars)
+        for v in cv.svs
+    ])
 
   # 1. If there are duplicate charts, drops the subsequent tiles.
   # 2. As a result of the dedupe if any column, block or category

@@ -13,7 +13,6 @@
 # limitations under the License.
 """Module for NL topics"""
 
-import logging
 import time
 from typing import List
 
@@ -427,18 +426,22 @@ TOPIC_NAMES_OVERRIDE = {
 # TODO: Consider having a default max limit.
 def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
+                            ordered: bool = False,
                             max_svs: int = 0,
                             cur_svs: int = 0):
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
+  if ordered and not svs:
+    # Lookup KG.  Use the ordered property.
+    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
     # Lookup KG
     svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, ordered, max_svs, cur_svs)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -449,10 +452,13 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str):
+def get_topic_vars(topic: str, ordered: bool = False):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
+  if ordered and not svs:
+    # Lookup KG
+    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
     # Lookup KG
     svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
@@ -492,12 +498,13 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str]):
+def get_topic_peergroups(sv_dcids: List[str],
+                         ordered: bool = False):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
-      ret[sv] = _get_svpg_vars(sv)
+      ret[sv] = _get_svpg_vars(sv, ordered)
     else:
       ret[sv] = []
   return ret
@@ -530,8 +537,10 @@ def svpg_description(sv: str):
   return name
 
 
-def _get_svpg_vars(svpg: str) -> List[str]:
+def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
+  if not svs and ordered:
+    svs = _prop_val_ordered(svpg, 'memberList')
   if not svs:
     svs = fetch.property_values(nodes=[svpg], prop='member')[svpg]
   return svs
@@ -584,3 +593,13 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
     return svs
 
   return []
+
+
+# Reads Props that are strings encoding ordered DCIDs.
+def _prop_val_ordered(node: str, prop: str) -> List[str]:
+  sv_list = fetch.property_values(nodes=[node], prop=prop)[node]
+  svs = []
+  if sv_list:
+    sv_list = sv_list[0]
+    svs = [v.strip() for v in sv_list.split(',') if v.strip()]
+  return svs
