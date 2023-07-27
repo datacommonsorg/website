@@ -27,12 +27,12 @@ import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
 import { SelectorWrapper } from "./selector_wrapper";
 import { StatVarSelector } from "./stat_var_selector";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function SelectorPane(): JSX.Element {
   const { visType, places, enclosedPlaceType, statVars } =
     useContext(AppContext);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
   const [placeCollapsed, setPlaceCollapsed] = useState(!_.isEmpty(places));
   const [placeTypeCollapsed, setPlaceTypeCollapsed] = useState(
     _.isEmpty(places) || !_.isEmpty(enclosedPlaceType)

@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import { NamedTypedPlace, StatVarHierarchyType } from "../../shared/types";
-import { getAllChildPlaceTypes } from "../../tools/map/util";
-
 /**
- * Configs for each visualization type.
+ * Configs for visualization app.
  */
+
+import { NamedTypedPlace } from "../../shared/types";
+import { AppContextType } from "./app_context";
+import { MAP_CONFIG } from "./vis_type_configs/map_config";
+import { SCATTER_CONFIG } from "./vis_type_configs/scatter_config";
+import { TIMELINE_CONFIG } from "./vis_type_configs/timeline_config";
 
 export enum VisType {
   MAP = "map",
@@ -33,13 +36,18 @@ export const ORDERED_VIS_TYPE = [
   VisType.TIMELINE,
 ];
 
-interface VisTypeConfig {
+export interface VisTypeConfig {
   // display name to use for the vis type
   displayName: string;
   // icon to use to represent the vis type
   icon: string;
   // stat var hierarchy type to use for this vis type
   svHierarchyType: string;
+  // function to get the component to render in the chart area
+  getChartArea: (
+    appContext: AppContextType,
+    chartHeight: number
+  ) => JSX.Element;
   // whether this vis type takes a single place or multiple places
   singlePlace?: boolean;
   // whether or not to skip setting enclosed place type
@@ -53,26 +61,8 @@ interface VisTypeConfig {
   numSv?: number;
 }
 
-export const VIS_TYPE_SELECTOR_CONFIGS: Record<string, VisTypeConfig> = {
-  [VisType.MAP]: {
-    displayName: "Map Explorer",
-    icon: "public",
-    svHierarchyType: StatVarHierarchyType.MAP,
-    singlePlace: true,
-    getChildTypesFn: getAllChildPlaceTypes,
-    numSv: 1,
-  },
-  [VisType.SCATTER]: {
-    displayName: "Scatter Plot",
-    icon: "scatter_plot",
-    svHierarchyType: StatVarHierarchyType.SCATTER,
-    singlePlace: true,
-    numSv: 2,
-  },
-  [VisType.TIMELINE]: {
-    displayName: "Timeline",
-    icon: "timeline",
-    svHierarchyType: StatVarHierarchyType.TIMELINE,
-    skipEnclosedPlaceType: true,
-  },
+export const VIS_TYPE_CONFIG: Record<string, VisTypeConfig> = {
+  [VisType.MAP]: MAP_CONFIG,
+  [VisType.SCATTER]: SCATTER_CONFIG,
+  [VisType.TIMELINE]: TIMELINE_CONFIG,
 };

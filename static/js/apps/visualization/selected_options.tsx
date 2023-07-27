@@ -25,12 +25,12 @@ import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function SelectedOptions(): JSX.Element {
   const { visType, places, statVars, enclosedPlaceType, setPlaces } =
     useContext(AppContext);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
   const showEnclosedPlaceType =
     enclosedPlaceType && !visTypeConfig.skipEnclosedPlaceType;
   const [showPlaceSelector, setShowPlaceSelector] = useState(false);
