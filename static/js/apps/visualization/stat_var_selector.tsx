@@ -70,7 +70,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
       </div>
       {props.selectOnContinue && (
         <div className="selector-footer">
-          {!_.isEmpty(selectedStatVars) && (
+          {selectedStatVars.length >= (visTypeConfig.numSv || 1) && (
             <div
               className="continue-button"
               onClick={() => setStatVars(selectedStatVars)}

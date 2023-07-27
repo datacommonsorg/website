@@ -83,7 +83,7 @@ export function AppContextProvider(
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
-  const [childPlaceTypes, setChildPlaceTypes] = useState([]);
+  const [childPlaceTypes, setChildPlaceTypes] = useState(null);
   const [samplePlaces, setSamplePlaces] = useState([]);
   const prevSamplePlaces = useRef(samplePlaces);
   const prevStatVars = useRef(statVars);
@@ -145,7 +145,7 @@ export function AppContextProvider(
   // when list of places or vistype changes, re-fetch child place types
   useEffect(() => {
     if (_.isEmpty(places) || visTypeConfig.skipEnclosedPlaceType) {
-      setChildPlaceTypes([]);
+      setChildPlaceTypes(null);
       setSamplePlaces([]);
       return;
     }

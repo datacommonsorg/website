@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { useContext } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { AppContext } from "./app_context";
 
 interface PlaceTypeSelectorPropType {
@@ -31,30 +32,38 @@ interface PlaceTypeSelectorPropType {
 export function PlaceTypeSelector(
   props: PlaceTypeSelectorPropType
 ): JSX.Element {
-  const { enclosedPlaceType, setEnclosedPlaceType, childPlaceTypes } =
+  const { enclosedPlaceType, setEnclosedPlaceType, childPlaceTypes, places } =
     useContext(AppContext);
 
   return (
     <div className="place-type-selector">
       <div className="selector-body place-type">
-        {childPlaceTypes.map((type) => {
-          return (
-            <FormGroup key={type} radio="true" row>
-              <Label radio="true">
-                <Input
-                  type="radio"
-                  name="childPlaceType"
-                  checked={type === enclosedPlaceType}
-                  onChange={() => {
-                    setEnclosedPlaceType(type);
-                    props.onNewSelection();
-                  }}
-                />
-                {type}
-              </Label>
-            </FormGroup>
-          );
-        })}
+        {!_.isNull(childPlaceTypes) && _.isEmpty(childPlaceTypes) && (
+          <span>
+            Sorry, we don&apos;t support {places[0].name}. Please select a
+            different place.
+          </span>
+        )}
+        {!_.isEmpty(childPlaceTypes) &&
+          childPlaceTypes.map((type) => {
+            return (
+              <FormGroup key={type} radio="true" row>
+                <Label radio="true">
+                  <Input
+                    type="radio"
+                    name="childPlaceType"
+                    checked={type === enclosedPlaceType}
+                    onChange={() => {
+                      setEnclosedPlaceType(type);
+                      props.onNewSelection();
+                    }}
+                  />
+                  {type}
+                </Label>
+              </FormGroup>
+            );
+          })}
+        <Spinner isOpen={_.isNull(childPlaceTypes)} />
       </div>
       {props.onContinueClicked && !_.isEmpty(enclosedPlaceType) && (
         <div className="selector-footer">
