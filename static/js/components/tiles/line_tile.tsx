@@ -33,7 +33,7 @@ import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -164,6 +164,7 @@ export const fetchData = async (props: LineTilePropType) => {
 
   // get place names from dcids
   const placeDcids = Object.keys(resp.data.data[statVars[0]]);
+  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot);
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
@@ -173,7 +174,7 @@ export const fetchData = async (props: LineTilePropType) => {
     // If many places and many stat vars, legends need to show both
     useBothLabels: statVars.length > 1 && placeDcids.length > 1,
   };
-  return rawToChart(resp.data, props, placeNames, options);
+  return rawToChart(resp.data, props, placeNames, statVarNames, options);
 };
 
 export function draw(
@@ -206,6 +207,7 @@ function rawToChart(
   rawData: SeriesApiResponse,
   props: LineTilePropType,
   placeDcidToName: Record<string, string>,
+  statVarDcidToName: Record<string, string>,
   options: { usePlaceLabels: boolean; useBothLabels: boolean }
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
@@ -237,12 +239,12 @@ function rawToChart(
           allDates.add(obs.date);
         }
         const label = options.useBothLabels
-          ? `${getStatVarName(spec.statVar, props.statVarSpec)} for ${
+          ? `${statVarDcidToName[spec.statVar]} for ${
               placeDcidToName[placeDcid]
             }`
           : options.usePlaceLabels
           ? placeDcidToName[placeDcid]
-          : getStatVarName(spec.statVar, props.statVarSpec);
+          : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
         const svUnit = getUnit(raw.facets[series.facet]);
         unit = unit || svUnit;
