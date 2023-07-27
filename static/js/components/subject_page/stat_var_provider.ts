@@ -41,7 +41,7 @@ export class StatVarProvider {
   }
 
   // Gets the stat var spec for a list of keys. If blockDenom is non empty, set
-  // the denom each stat var spec in the list.
+  // the denom of each stat var spec in the list.
   getSpecList(keys: string[], blockDenom?: string): StatVarSpec[] {
     return keys
       .map((k) => this.getSpec(k, blockDenom))
