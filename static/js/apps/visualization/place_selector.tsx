@@ -29,7 +29,7 @@ import {
 import { SearchBar } from "../../shared/place_search_bar";
 import { getNamedTypedPlace } from "../../utils/place_utils";
 import { AppContext } from "./app_context";
-import { VIS_TYPE_SELECTOR_CONFIGS } from "./vis_type_configs";
+import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function PlaceSelector(props: {
   hideSelections?: boolean;
@@ -38,7 +38,11 @@ export function PlaceSelector(props: {
 }): JSX.Element {
   const { visType, places, setPlaces } = useContext(AppContext);
   const [selectedPlaces, setSelectedPlaces] = useState(places);
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
+  const showSearchBarPlaces =
+    !props.hideSelections &&
+    visTypeConfig.singlePlace &&
+    !_.isEmpty(selectedPlaces);
 
   useEffect(() => {
     if (!_.isEqual(places, selectedPlaces)) {
@@ -55,7 +59,7 @@ export function PlaceSelector(props: {
   return (
     <div className="place-selector">
       <div className="selector-body">
-        {!props.hideSelections && (
+        {!props.hideSelections && !visTypeConfig.singlePlace && (
           <div className="place-selector-selections">
             {selectedPlaces.map((place) => {
               return (
@@ -73,7 +77,11 @@ export function PlaceSelector(props: {
           </div>
         )}
         <SearchBar
-          places={{}}
+          places={
+            showSearchBarPlaces
+              ? { [selectedPlaces[0].dcid]: selectedPlaces[0].name }
+              : {}
+          }
           addPlace={addPlace}
           removePlace={removePlace}
           numPlacesLimit={1}
@@ -119,7 +127,7 @@ export function PlaceSelector(props: {
   }
 
   function removePlace(dcid: string): void {
-    const newPlaceList = places.filter((place) => place.dcid !== dcid);
+    const newPlaceList = selectedPlaces.filter((place) => place.dcid !== dcid);
     if (props.selectOnContinue) {
       setSelectedPlaces(newPlaceList);
     } else {

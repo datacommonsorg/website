@@ -19,14 +19,27 @@
  */
 
 import _ from "lodash";
+import React from "react";
+import { FormGroup, Input, Label } from "reactstrap";
 
-import { VIS_TYPE_SELECTOR_CONFIGS } from "../../apps/visualization/vis_type_configs";
+import { ContextStatVar } from "../../apps/visualization/app_context";
+import {
+  VIS_TYPE_CONFIG,
+  VisType,
+} from "../../apps/visualization/vis_type_configs";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
+import {
+  GA_EVENT_TOOL_CHART_OPTION_CLICK,
+  GA_PARAM_TOOL_CHART_OPTION,
+  GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { StatVarInfo } from "../../shared/stat_var";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -74,6 +87,8 @@ const CHILD_PLACE_TYPES = {
   State: AA1_CHILD_PLACE_TYPES,
 };
 
+const DEFAULT_DENOM = "Count_Person";
+
 /**
  * Default function used to get enclosed place types for a place and list of its
  * parent places.
@@ -118,7 +133,7 @@ export function isSelectionComplete(
   enclosedPlaceType: string,
   statVars: { dcid: string; info: StatVarInfo }[]
 ): boolean {
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
   if (_.isEmpty(places)) {
     return false;
   }
@@ -132,4 +147,96 @@ export function isSelectionComplete(
     return false;
   }
   return true;
+}
+
+interface InputInfo {
+  isChecked: boolean;
+  onUpdated: (isChecked: boolean) => void;
+  label: string;
+}
+
+/**
+ * Given a list of per capita and log inputs, gets the footer element.
+ * @param perCapitaInputs list of per capita inputs
+ * @param logInputs list of log inputs
+ */
+export function getFooterOptions(
+  perCapitaInputs: InputInfo[],
+  logInputs: InputInfo[]
+): JSX.Element {
+  return (
+    <div className="chart-footer-options">
+      <div className="option-section">
+        {perCapitaInputs.map((pcInput, idx) => {
+          return (
+            <span className="chart-option" key={`pc-${idx}`}>
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    checked={pcInput.isChecked}
+                    onChange={() => {
+                      pcInput.onUpdated(!pcInput.isChecked);
+                      if (!pcInput.isChecked) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+                        });
+                      }
+                    }}
+                  />
+                  {pcInput.label}
+                </Label>
+              </FormGroup>
+            </span>
+          );
+        })}
+      </div>
+      <div className="option-section">
+        {logInputs.map((logInput, idx) => {
+          return (
+            <span className="chart-option" key={`log-${idx}`}>
+              <FormGroup check>
+                <Label check>
+                  <Input
+                    type="checkbox"
+                    checked={logInput.isChecked}
+                    onChange={() => {
+                      logInput.onUpdated(!logInput.isChecked);
+                      if (!logInput.isChecked) {
+                        triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                          [GA_PARAM_TOOL_CHART_OPTION]:
+                            GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+                        });
+                      }
+                    }}
+                  />
+                  {logInput.label}
+                </Label>
+              </FormGroup>
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Gets the stat var spec for a context stat var.
+ * @param sv context stat var to get the stat var spec for
+ * @param visType vis type to get the stat var spec for
+ */
+export function getStatVarSpec(
+  sv: ContextStatVar,
+  visType: string
+): StatVarSpec {
+  return {
+    denom: sv.isPerCapita ? DEFAULT_DENOM : "",
+    log: visType === VisType.SCATTER && sv.isLog,
+    name: sv.info.title || sv.dcid,
+    scaling: 1,
+    statVar: sv.dcid,
+    unit: "",
+  };
 }
