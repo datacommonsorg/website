@@ -97,6 +97,10 @@ $selector-footer-height: 40px;
   align-items: center;
 }
 
+.selected-options-places .selected-option-values {
+  align-items: flex-start;
+}
+
 .selected-option {
   display: flex;
   flex-direction: column;
@@ -124,6 +128,20 @@ $selector-footer-height: 40px;
   }
 }
 
+.add-place-container {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+
+  .selector-dropdown-anchor {
+    margin-top: -42px;
+  }
+
+  .material-icons-outlined {
+    margin-left: 4px;
+  }
+}
+
 .selector-dropdown-anchor {
   position: relative;
 }
@@ -140,6 +158,14 @@ $selector-footer-height: 40px;
   border-radius: 8px;
   z-index: 2;
   top: 0;
+
+  .header-controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    padding-bottom: 5px;
+  }
 }
 
 /* Selector pane */
@@ -150,6 +176,10 @@ $selector-footer-height: 40px;
   padding: 32px;
   justify-content: center;
   flex-grow: 1;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
 }
 
 .selector-container {
@@ -159,7 +189,6 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   cursor: default;
-  min-width: 250px;
 }
 
 .selector-container.collapsed {
@@ -183,6 +212,7 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   font-weight: 500;
+  min-width: 250px;
 
   .header-title {
     display: flex;
@@ -233,12 +263,14 @@ $selector-footer-height: 40px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  font-size: 14px;
+  gap: 16px;
 }
 
 // Place selector
 
 .place-selector {
-  width: 275px;
+  min-width: 250px;
 
   #search {
     border-color: #C7C7C7;
@@ -251,6 +283,16 @@ $selector-footer-height: 40px;
     .search-icon {
       position: absolute;
       left: 0;
+    }
+
+    #location-field {
+      #place-list {
+        margin-left: 8px;
+      }
+
+      #ac {
+        margin-left: 36px;
+      }
     }
   }
 
@@ -282,7 +324,7 @@ $selector-footer-height: 40px;
 // Place type selector
 
 .place-type-selector {
-  width: 275px;
+  min-width: 225px;
 
   .selector-body {
     margin-left: 16px;
@@ -296,10 +338,22 @@ $selector-footer-height: 40px;
 // Stat var selector
 
 .stat-var-selector {
-  width: 600px;
+  min-width: 400px;
+
+  .selector-body {
+    min-height: 350px;
+  }
 
   .show-sv-toggle {
     color: #1F1F1F;
+  }
+
+  #stat-var-hierarchy-section {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   #hierarchy-section {
@@ -315,6 +369,21 @@ $selector-footer-height: 40px;
   }
 }
 
+#statvar-modal {
+  .radio-selection-label {
+    padding-top: 1rem;
+  }
+
+  .radio-selection-section {
+    margin-left: 2.5rem;
+    padding-top: 0.5rem;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}
+
 // Chart section
 
 .chart-section {
@@ -323,7 +392,9 @@ $selector-footer-height: 40px;
   flex-grow: 1;
 
   .stat-var-selector-area {
-    padding: 16px 0 16px 16px;
+    padding: 16px 0 0 16px;
+    display: flex;
+    flex-direction: column;
 
     .title {
       font-size: 20px;
@@ -336,13 +407,25 @@ $selector-footer-height: 40px;
     flex-grow: 1;
     margin: 32px;
 
+    .chart {
+      border: 0.5px solid #dee2e6;
+      background-color: white;
+      margin: 1rem 0;
+    }
+
+    .timeline-chip-section {
+      padding: 1rem;
+    }
+
     .chart-container {
       background-color: white;
+      margin-top: 0;
+      border: none;
     }
 
     .chart-footer-options {
       background-color: white;
-      border: 0.5px solid #dee2e6;
+      border-top: 0.5px solid #dee2e6;
       padding: 1rem;
       font-size: 14px;
 

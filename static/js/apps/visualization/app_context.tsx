@@ -31,10 +31,7 @@ import {
   getParentPlacesPromise,
   getSamplePlaces,
 } from "../../utils/place_utils";
-import {
-  ORDERED_VIS_TYPE,
-  VIS_TYPE_SELECTOR_CONFIGS,
-} from "./vis_type_configs";
+import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 const URL_PARAMS = {
   VIS_TYPE: "visType",
@@ -50,7 +47,7 @@ const STAT_VAR_PARAM_KEYS = {
   LOG: "log",
 };
 
-interface ContextStatVar {
+export interface ContextStatVar {
   dcid: string;
   info: StatVarInfo;
   isPerCapita?: boolean;
@@ -86,7 +83,7 @@ export function AppContextProvider(
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
-  const [childPlaceTypes, setChildPlaceTypes] = useState([]);
+  const [childPlaceTypes, setChildPlaceTypes] = useState(null);
   const [samplePlaces, setSamplePlaces] = useState([]);
   const prevSamplePlaces = useRef(samplePlaces);
   const prevStatVars = useRef(statVars);
@@ -103,7 +100,7 @@ export function AppContextProvider(
     setStatVars,
     setVisType,
   };
-  const visTypeConfig = VIS_TYPE_SELECTOR_CONFIGS[visType];
+  const visTypeConfig = VIS_TYPE_CONFIG[visType];
 
   // Gets the value from the url for a param
   function getParamValue(paramKey: string): string {
@@ -148,7 +145,7 @@ export function AppContextProvider(
   // when list of places or vistype changes, re-fetch child place types
   useEffect(() => {
     if (_.isEmpty(places) || visTypeConfig.skipEnclosedPlaceType) {
-      setChildPlaceTypes([]);
+      setChildPlaceTypes(null);
       setSamplePlaces([]);
       return;
     }

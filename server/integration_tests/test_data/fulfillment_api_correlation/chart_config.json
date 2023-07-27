@@ -8,57 +8,72 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "dc/6rltk4kf75612_multiple_place_bar_block",
-                      "dc/vp8cbt6k79t94_multiple_place_bar_block",
-                      "dc/hbkh95kc7pkb6_multiple_place_bar_block",
-                      "dc/wc8q05drd74bd_multiple_place_bar_block",
-                      "dc/0gettc3bc60cb_multiple_place_bar_block",
-                      "dc/vt2q292eme79f_multiple_place_bar_block"
-                    ],
-                    "title": "Modes of Commute in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighest": true,
-                      "showLowest": true
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/0gettc3bc60cb",
-                      "dc/6rltk4kf75612"
+                      "dc/6rltk4kf75612_scatter",
+                      "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "type": "RANKING"
+                    "title": "Work at home Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
+                    "type": "SCATTER"
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "dc/0gettc3bc60cb"
+                      "dc/vp8cbt6k79t94_scatter",
+                      "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Drive alone in California (${date})",
-                    "type": "MAP"
+                    "title": "Walk to work Per Capita (${yDate}) vs. Asthma (${xDate}) in California",
+                    "type": "SCATTER"
                   }
                 ]
-              },
+              }
+            ]
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "dc/6rltk4kf75612"
+                      "dc/hbkh95kc7pkb6_scatter",
+                      "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Work at home in California (${date})",
-                    "type": "MAP"
+                    "title": "Public Transit Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd_scatter",
+                      "Percent_Person_Children_WithAsthma_scatter"
+                    ],
+                    "title": "Carpool Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -66,40 +81,41 @@
           }
         ],
         "statVarSpec": {
-          "dc/0gettc3bc60cb": {
-            "name": "Drive alone",
-            "statVar": "dc/0gettc3bc60cb"
+          "Percent_Person_Children_WithAsthma_scatter": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
           },
-          "dc/0gettc3bc60cb_multiple_place_bar_block": {
-            "name": "Drive alone",
-            "statVar": "dc/0gettc3bc60cb"
+          "Percent_Person_WithAsthma_scatter": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
           },
-          "dc/6rltk4kf75612": {
-            "name": "Work at home",
-            "statVar": "dc/6rltk4kf75612"
+          "dc/6rltk4kf75612_scatter": {
+            "denom": "Count_Person",
+            "name": "Work at home Per Capita",
+            "statVar": "dc/6rltk4kf75612",
+            "unit": "%"
           },
-          "dc/6rltk4kf75612_multiple_place_bar_block": {
-            "name": "Work at home",
-            "statVar": "dc/6rltk4kf75612"
+          "dc/hbkh95kc7pkb6_scatter": {
+            "denom": "Count_Person",
+            "name": "Public Transit Per Capita",
+            "statVar": "dc/hbkh95kc7pkb6",
+            "unit": "%"
           },
-          "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
-            "name": "Public Transit",
-            "statVar": "dc/hbkh95kc7pkb6"
+          "dc/vp8cbt6k79t94_scatter": {
+            "denom": "Count_Person",
+            "name": "Walk to work Per Capita",
+            "statVar": "dc/vp8cbt6k79t94",
+            "unit": "%"
           },
-          "dc/vp8cbt6k79t94_multiple_place_bar_block": {
-            "name": "Walk to work",
-            "statVar": "dc/vp8cbt6k79t94"
-          },
-          "dc/vt2q292eme79f_multiple_place_bar_block": {
-            "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
-            "statVar": "dc/vt2q292eme79f"
-          },
-          "dc/wc8q05drd74bd_multiple_place_bar_block": {
-            "name": "Carpool",
-            "statVar": "dc/wc8q05drd74bd"
+          "dc/wc8q05drd74bd_scatter": {
+            "denom": "Count_Person",
+            "name": "Carpool Per Capita",
+            "statVar": "dc/wc8q05drd74bd",
+            "unit": "%"
           }
-        },
-        "title": "Modes of Commute"
+        }
       }
     ],
     "metadata": {

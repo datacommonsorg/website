@@ -86,6 +86,16 @@ def has_dual_sv(detection: Detection) -> bool:
   return False
 
 
+def get_multi_sv_pair(
+    detection: Detection) -> List[dvars.MultiVarCandidatePart]:
+  parts: List[dvars.MultiVarCandidatePart] = None
+  for c in detection.svs_detected.multi_sv.candidates:
+    if len(c.parts) == 2:
+      parts = c.parts
+      break
+  return parts
+
+
 def empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 

@@ -11,22 +11,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Percentage of Population That Is Obese in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years"
-                    ],
-                    "title": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years) in United States",
+                    "title": "Prevalence of Obesity in California",
                     "type": "LINE"
                   }
                 ]
@@ -41,7 +26,7 @@
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues in United States",
+                    "title": "Physical Health Issues in California",
                     "type": "LINE"
                   }
                 ]
@@ -60,7 +45,7 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "Percentage of Population That Is Obese compared with other variables in United States",
+                    "title": "Prevalence of Obesity compared with other variables in California",
                     "type": "LINE"
                   }
                 ]
@@ -73,7 +58,7 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/USA"
+                      "geoId/06"
                     ],
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
@@ -91,7 +76,7 @@
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Physical Health Issues compared with other variables in United States (${date})",
+                    "title": "Physical Health Issues compared with other variables in California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -100,10 +85,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years": {
-            "name": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years)",
-            "statVar": "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years"
-          },
           "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block": {
             "name": "Percentage of Population With Poor General Health",
             "statVar": "Percent_Person_18OrMoreYears_WithDepression",
@@ -115,27 +96,27 @@
             "unit": "%"
           },
           "Percent_Person_BingeDrinking": {
-            "name": "Percentage of Population Who Binge Drink",
+            "name": "Prevalence of Binge Drinking",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
           "Percent_Person_Obesity": {
-            "name": "Percentage of Population That Is Obese",
+            "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
           "Percent_Person_PhysicalInactivity": {
-            "name": "Percentage of Population Who Are Physically Inactive",
+            "name": "Prevalence of Physical Inactivity",
             "statVar": "Percent_Person_PhysicalInactivity",
             "unit": "%"
           },
           "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           },
           "Percent_Person_Smoking": {
-            "name": "Percentage of Population That Smokes",
+            "name": "Prevalence of Smoking",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },
@@ -209,7 +190,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/USA"
+        "geoId/06"
       ]
     },
     "suggestions": {
@@ -222,26 +203,11 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/USA",
-    "name": "United States",
-    "place_type": "Country"
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
   },
-  "placeFallback": {
-    "newPlace": {
-      "country": null,
-      "dcid": "country/USA",
-      "name": "United States",
-      "place_type": "Country"
-    },
-    "newStr": "United States",
-    "origPlace": {
-      "country": "country/USA",
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
-    },
-    "origStr": "California"
-  },
+  "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "svSource": "CURRENT_QUERY"
 }

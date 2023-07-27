@@ -42,6 +42,17 @@ const getSingleParam = (input: string | string[]): string => {
   return input;
 };
 
+const getListParam = (input: string | string[]): string[] => {
+  if (!input) {
+    return [];
+  }
+  // If the input is an array, convert it to a single string
+  if (Array.isArray(input)) {
+    return input;
+  }
+  return [input];
+};
+
 /**
  * Application container
  */
@@ -50,6 +61,7 @@ export function App(): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
+  const [savedContext, setSavedContext] = useState<any>({});
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -75,27 +87,56 @@ export function App(): JSX.Element {
     setLoadingStatus("loading");
     (async () => {
       let place = getSingleParam(hashParams["p"]);
+      let cmpPlaces = getListParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
+      let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
         setQuery(q);
-        const detectResp = await fetchDetectData(q);
+        const detectResp = await fetchDetectData(q, savedContext);
+        setSavedContext(detectResp["context"] || {});
         if (!detectResp["entities"] || !detectResp["variables"]) {
           setLoadingStatus("fail");
           return;
         }
+
         place = detectResp["entities"][0];
         topic = detectResp["variables"][0];
+        cmpTopic = "";
+        cmpPlaces = [];
+        const cmpType = detectResp["comparisonType"] || "";
+        if (cmpType === "ENTITY") {
+          cmpPlaces = detectResp["entities"].slice(1);
+        } else if (cmpType === "VAR") {
+          cmpTopic = detectResp["variables"][1];
+        }
         placeType = detectResp["childEntityType"] || "";
-        updateHash({ q: "", t: topic, p: place, pt: placeType });
+        updateHash({
+          q: "",
+          t: topic,
+          tcmp: cmpTopic,
+          p: place,
+          pcmp: cmpPlaces,
+          pt: placeType,
+        });
         return;
       }
       if (!place || !topic) {
         return;
       }
-      const resp = await fetchFulfillData(place, topic, placeType);
+      let places = [place];
+      let topics = [topic];
+      let cmpType = "";
+      if (cmpPlaces && cmpPlaces.length > 0) {
+        places = places.concat(cmpPlaces);
+        cmpType = "ENTITY";
+      } else if (cmpTopic && cmpTopic !== undefined) {
+        topics = topics.concat([cmpTopic]);
+        cmpType = "VAR";
+      }
+      const resp = await fetchFulfillData(places, topics, placeType, cmpType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -110,6 +151,20 @@ export function App(): JSX.Element {
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic,
       };
+      if (
+        chartData &&
+        chartData.pageConfig &&
+        chartData.pageConfig.categories
+      ) {
+        // Note: for category links, we only use the main-topic.
+        for (const category of chartData.pageConfig.categories) {
+          category.url = `/insights/#t=${category.dcid}&p=${place}`;
+          for (const p of cmpPlaces) {
+            category.url += `&pcmp=${p}`;
+          }
+        }
+      }
+      setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
     })();
@@ -117,6 +172,7 @@ export function App(): JSX.Element {
 
   let mainSection;
   const place = getSingleParam(hashParams["p"]);
+  const cmpPlaces = getListParam(hashParams["pcmp"]);
   if (loadingStatus == "fail") {
     mainSection = <div>No data is found</div>;
   } else if (loadingStatus == "loaded" && chartData) {
@@ -132,6 +188,7 @@ export function App(): JSX.Element {
                   id={PAGE_ID}
                   currentTopicDcid={chartData.topic}
                   place={place}
+                  cmpPlaces={cmpPlaces}
                   categories={chartData.pageConfig.categories}
                   peerTopics={chartData.peerTopics}
                 />
@@ -139,12 +196,12 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
+                      let url = `/insights/#t=${parentTopic.dcid}&p=${place}`;
+                      for (const p of cmpPlaces) {
+                        url += `&pcmp=${p}`;
+                      }
                       return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={`/insights/#p=${place}&t=${parentTopic.dcid}`}
-                        >
+                        <a className="topic-link" key={idx} href={url}>
                           {parentTopic.name}
                         </a>
                       );
@@ -190,38 +247,38 @@ export function App(): JSX.Element {
   }
 
   return (
-    <div className="insights-container">
-      <Container>
-        <div className="search-section">
-          <div className="search-box-section">
-            <TextSearchBar
-              inputId="query-search-input"
-              onSearch={(q) => {
-                updateHash({ q, t: "" });
-              }}
-              placeholder={query}
-              initialValue={""}
-              shouldAutoFocus={true}
-              clearValueOnSearch={true}
-            />
-          </div>
+    <Container className="insights-container">
+      <div className="search-section">
+        <div className="search-box-section">
+          <TextSearchBar
+            inputId="query-search-input"
+            onSearch={(q) => {
+              updateHash({ q, t: "" });
+            }}
+            placeholder={query}
+            initialValue={""}
+            shouldAutoFocus={true}
+            clearValueOnSearch={true}
+          />
         </div>
-        {mainSection}
-      </Container>
-    </div>
+      </div>
+      {mainSection}
+    </Container>
   );
 }
 
 const fetchFulfillData = async (
-  place: string,
-  topic: string,
-  placeType: string
+  places: string[],
+  topics: string[],
+  placeType: string,
+  cmpType: string
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
-      entities: [place],
-      variables: [topic],
+      entities: places,
+      variables: topics,
       childEntityType: placeType,
+      comparisonType: cmpType,
     });
     return resp.data;
   } catch (error) {
@@ -230,9 +287,11 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (query: string) => {
+const fetchDetectData = async (query: string, savedContext: any) => {
   try {
-    const resp = await axios.post(`/api/insights/detect?q=${query}`, {});
+    const resp = await axios.post(`/api/insights/detect?q=${query}`, {
+      contextHistory: savedContext,
+    });
     return resp.data;
   } catch (error) {
     console.log(error);

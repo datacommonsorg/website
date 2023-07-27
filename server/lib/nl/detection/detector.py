@@ -13,7 +13,6 @@
 # limitations under the License.
 """Router for detection."""
 
-import logging
 from typing import Dict, List
 
 from flask import current_app
@@ -116,7 +115,8 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 # Constructor a Detection object given DCID inputs.
 #
 def construct(entities: List[str], variables: List[str], child_type: str,
-              debug_logs: Dict, counters: Counters):
+              is_cmp_entities: bool, is_cmp_vars: bool, debug_logs: Dict,
+              counters: Counters):
   parent_map = {p: [] for p in entities}
   places = place.get_place_from_dcids(entities, debug_logs, parent_map)
   if not places:
@@ -129,18 +129,34 @@ def construct(entities: List[str], variables: List[str], child_type: str,
   query = var_query + (f' {child_type} ' if child_type else ' ') + place_query
 
   classifications = []
-  if child_type:
-    if not any([child_type == x.value for x in types.ContainedInPlaceType]):
-      counters.err('failed_detection_badChildEntityType', child_type)
-      return None, f'Bad childEntityType value {child_type}!'
-    child_type = types.ContainedInPlaceType(child_type)
-  else:
-    child_type = utils.get_default_child_place_type(places[0], is_nl=False)
+  child_type = None
+  # For place-comparison (bar charts only), we don't need child places.
+  # So we can save on the existence checks, etc.
+  if not is_cmp_entities:
+    if child_type:
+      if not any([child_type == x.value for x in types.ContainedInPlaceType]):
+        counters.err('failed_detection_badChildEntityType', child_type)
+        return None, f'Bad childEntityType value {child_type}!'
+      child_type = types.ContainedInPlaceType(child_type)
+    else:
+      child_type = utils.get_default_child_place_type(places[0], is_nl=False)
 
   if child_type:
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
                                contained_in_place_type=child_type))
+    classifications.append(c)
+
+  if is_cmp_entities:
+    c = types.NLClassifier(type=types.ClassificationType.COMPARISON,
+                           attributes=types.ComparisonClassificationAttributes(
+                               comparison_trigger_words=[]))
+    classifications.append(c)
+
+  if is_cmp_vars:
+    c = types.NLClassifier(type=types.ClassificationType.CORRELATION,
+                           attributes=types.ComparisonClassificationAttributes(
+                               comparison_trigger_words=[]))
     classifications.append(c)
 
   main_dcid = places[0].dcid

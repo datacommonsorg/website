@@ -307,16 +307,16 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Population With VA Health Care",
-            "nlQuery": "Population With VA Health Care Earth"
+            "displayName": "People With VA Health Care",
+            "nlQuery": "People With VA Health Care Earth"
           },
           {
             "displayName": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode",
             "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode Earth"
           },
           {
-            "displayName": "Population With Only VA Health Care",
-            "nlQuery": "Population With Only VA Health Care Earth"
+            "displayName": "People With Only VA Health Care",
+            "nlQuery": "People With Only VA Health Care Earth"
           },
           {
             "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
