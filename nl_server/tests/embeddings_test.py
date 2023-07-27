@@ -82,10 +82,13 @@ class TestEmbeddings(unittest.TestCase):
   @parameterized.expand([
       # All these queries should detect one of the SVs as the top choice.
       ["number of people", ["Count_Person"]],
-      ["population of", ["Count_Person"]],
+      ["population of", ["dc/topic/Population", "Count_Person"]],
       ["economy of the state", ["dc/topic/Economy"]],
       ["household income", ["Median_Income_Household"]],
-      ["life expectancy in USA", ["LifeExpectancy_Person"]],
+      [
+          "life expectancy in USA",
+          ["dc/topic/LifeExpectancy", "LifeExpectancy_Person"]
+      ],
       ["GDP", ["Amount_EconomicActivity_GrossDomesticProduction_Nominal"]],
       ["auto theft", ["Count_CriminalActivities_MotorVehicleTheft"]],
       ["agriculture", ["dc/topic/Agriculture"]],
