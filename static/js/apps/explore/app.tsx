@@ -19,7 +19,7 @@
  */
 import "../../../library";
 
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
@@ -92,8 +92,8 @@ export function App(): JSX.Element {
           <div className="explore-queries">
             <div>Here are some examples to get you started:</div>
             <ul>
-              {currentTopic.examples.general.map((query) => (
-                <li>
+              {currentTopic.examples.general.map((query, i) => (
+                <li key={i}>
                   <QueryLink query={query} />
                 </li>
               ))}
@@ -102,8 +102,8 @@ export function App(): JSX.Element {
           <div className="explore-queries">
             <div>Try diving deeper:</div>
             <ul>
-              {currentTopic.examples.specific.map((query) => (
-                <li>
+              {currentTopic.examples.specific.map((query, i) => (
+                <li key={i}>
                   <QueryLink query={query} />
                 </li>
               ))}
@@ -115,8 +115,8 @@ export function App(): JSX.Element {
               Graph:
             </div>
             <ul>
-              {currentTopic.examples.comparison.map((query) => (
-                <li>
+              {currentTopic.examples.comparison.map((query, i) => (
+                <li key={i}>
                   <QueryLink query={query} />
                 </li>
               ))}
@@ -172,7 +172,7 @@ export function App(): JSX.Element {
   );
 }
 
-const QueryLink: React.FC<{ query: string }> = (props) => {
+function QueryLink(props: { query: string }): JSX.Element {
   const { query } = props;
   return (
     <a
@@ -183,4 +183,4 @@ const QueryLink: React.FC<{ query: string }> = (props) => {
       {query}
     </a>
   );
-};
+}
