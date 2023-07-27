@@ -250,10 +250,6 @@
           {
             "displayName": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
             "nlQuery": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad Africa"
-          },
-          {
-            "displayName": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Single Mother Family Household, Worker 2, Below Poverty Level in The Past 12 Months Africa"
           }
         ]
       }

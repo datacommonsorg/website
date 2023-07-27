@@ -228,50 +228,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment10ThGrade"
-                    ],
-                    "title": "Population: 10th Grade in Sunnyvale",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment10ThGrade_pc"
-                    ],
-                    "title": "Per Capita Population: 10th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedEnrolledInGrade1"
-                    ],
-                    "title": "Population: Enrolled in Grade 1 in Sunnyvale",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedEnrolledInGrade1_pc"
-                    ],
-                    "title": "Per Capita Population: Enrolled in Grade 1 in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "comparisonPlaces": [
                       "geoId/0677000"
                     ],
@@ -418,10 +374,6 @@
             "name": "Population: Enrolled in College Undergraduate Years",
             "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
           },
-          "Count_Person_DetailedEnrolledInGrade1": {
-            "name": "Population: Enrolled in Grade 1",
-            "statVar": "Count_Person_DetailedEnrolledInGrade1"
-          },
           "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block": {
             "name": "Population: Enrolled in Grade 10",
             "statVar": "Count_Person_DetailedEnrolledInGrade10"
@@ -454,11 +406,6 @@
             "statVar": "Count_Person_DetailedEnrolledInGrade1"
           },
           "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 1",
-            "statVar": "Count_Person_DetailedEnrolledInGrade1"
-          },
-          "Count_Person_DetailedEnrolledInGrade1_pc": {
             "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 1",
             "statVar": "Count_Person_DetailedEnrolledInGrade1"
@@ -598,20 +545,11 @@
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
-          "Count_Person_EducationalAttainment10ThGrade": {
-            "name": "Population: 10th Grade",
-            "statVar": "Count_Person_EducationalAttainment10ThGrade"
-          },
           "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block": {
             "name": "Population: 10th Grade",
             "statVar": "Count_Person_EducationalAttainment10ThGrade"
           },
           "Count_Person_EducationalAttainment10ThGrade_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 10th Grade",
-            "statVar": "Count_Person_EducationalAttainment10ThGrade"
-          },
-          "Count_Person_EducationalAttainment10ThGrade_pc": {
             "denom": "Count_Person",
             "name": "Population: 10th Grade",
             "statVar": "Count_Person_EducationalAttainment10ThGrade"
@@ -842,14 +780,6 @@
           {
             "displayName": "Population: 5th Grade",
             "nlQuery": "Population: 5th Grade Sunnyvale"
-          },
-          {
-            "displayName": "Population: 10th Grade",
-            "nlQuery": "Population: 10th Grade Sunnyvale"
-          },
-          {
-            "displayName": "Population: Enrolled in Grade 1",
-            "nlQuery": "Population: Enrolled in Grade 1 Sunnyvale"
           }
         ]
       }
