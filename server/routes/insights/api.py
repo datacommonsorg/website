@@ -146,12 +146,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       nopc_vars=current_app.config['NL_NOPC_VARS'])
 
   start = time.time()
-  page_config_pb, related_things = fulfillment.fulfill(utterance, cb_config)
+  fresp = fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
-  if page_config_pb:
+  if fresp.chart_pb:
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
-    page_config = json.loads(MessageToJson(page_config_pb))
+    page_config = json.loads(MessageToJson(fresp.chart_pb))
 
   else:
     page_config = {}
@@ -176,7 +176,8 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
-      'relatedThings': related_things,
+      'relatedThings': fresp.related_things,
+      'userMessage': fresp.user_message,
   }
   status_str = "Successful"
   if utterance.rankedCharts:

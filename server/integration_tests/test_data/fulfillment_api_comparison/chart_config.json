@@ -25,7 +25,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           }
         ],
         "dcid": "dc/topic/WorkCommute",
@@ -88,5 +89,6 @@
     "parentTopics": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }
