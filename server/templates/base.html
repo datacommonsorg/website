@@ -101,11 +101,11 @@
                     %}</a>
                   <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{%
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{%
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
                   {% if config['SHOW_DISASTER'] %}
@@ -175,11 +175,11 @@
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
             <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
             variables. #}
             <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
