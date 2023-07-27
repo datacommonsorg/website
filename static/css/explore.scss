@@ -30,13 +30,41 @@
   display: flex;
   flex-direction: column;
   font-size: 1rem;
+
   h1 {
-    font-size: 2rem;
+    font-size: 2.25rem;
     margin: 3rem 0;
+    font-weight: 300;
   }
-  .topic-row {
-    border-bottom: 1px solid #e9e9e9;
-    padding-bottom: 2rem;
+
+  .explore-search {
+    margin: 2rem 0;
+
+    .btn {
+      height: 2.5rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .explore-queries {
     margin-bottom: 2rem;
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .explore-more {
+    margin: 2rem 0;
+  }
+
+  .explore-sources {
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
   }
 }
