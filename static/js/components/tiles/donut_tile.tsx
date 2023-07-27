@@ -32,7 +32,7 @@ import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -163,7 +163,17 @@ export const fetchData = async (props: DonutTilePropType) => {
       Array.from(popPoints).map((x) => x.placeDcid),
       props.apiRoot
     );
-    return rawToChart(props, resp.data, popPoints, placeNames);
+    const statVarDcidToName = await getStatVarNames(
+      props.statVarSpec,
+      props.apiRoot
+    );
+    return rawToChart(
+      props,
+      resp.data,
+      popPoints,
+      placeNames,
+      statVarDcidToName
+    );
   } catch (error) {
     return null;
   }
@@ -173,7 +183,8 @@ function rawToChart(
   props: DonutTilePropType,
   rawData: PointApiResponse,
   popPoints: RankingPoint[],
-  placeNames: Record<string, string>
+  placeNames: Record<string, string>,
+  statVarNames: Record<string, string>
 ): DonutChartData {
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
@@ -191,7 +202,7 @@ function rawToChart(
       }
       const stat = raw.data[statVar][placeDcid];
       const dataPoint = {
-        label: getStatVarName(statVar, props.statVarSpec),
+        label: statVarNames[statVar],
         value: stat.value || 0,
         dcid: placeDcid,
       };

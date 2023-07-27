@@ -18,11 +18,13 @@
  * Util functions used by tile components.
  */
 
+import axios from "axios";
 import _ from "lodash";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
+import { stringifyFn } from "./axios";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -73,6 +75,65 @@ export function getStatVarName(
     return `${label} Per Capita`;
   }
   return label;
+}
+
+/**
+ * Gets the stat var names to display via node/propvals api call for all stat
+ * vars in a statVarSpec collection.
+ * Different from getStatVarName() in that if a stat var's name is not provided
+ * in its spec, will try to query the name though an api call.
+ * @param statVarSpecs specs of stat vars to get names for
+ * @param apiRoot api root to use for api
+ */
+export async function getStatVarNames(
+  statVarSpec: StatVarSpec[],
+  apiRoot?: string
+): Promise<{ [key: string]: string }> {
+  if (_.isEmpty(statVarSpec)) {
+    return Promise.resolve({});
+  }
+  const statVarDcids: string[] = [];
+  const statVarNames: Record<string, string> = {};
+  // If a name is already provided by statVarSpec, use that name
+  statVarSpec.forEach((spec) => {
+    if (spec.name) {
+      statVarNames[spec.statVar] = spec.name;
+    } else {
+      // See if a label is provided in
+      // /static/js/i18n/strings/en/stats_var_labels.json
+      const label = getStatsVarLabel(spec.statVar);
+      statVarNames[spec.statVar] = label;
+      if (label === spec.statVar) {
+        statVarDcids.push(spec.statVar);
+      }
+    }
+  });
+
+  // If all names were provided by statVarSpec or stats_var_labels.json
+  // skip propval api call
+  if (_.isEmpty(statVarDcids)) {
+    return Promise.resolve(statVarNames);
+  }
+
+  try {
+    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
+      params: {
+        dcids: statVarDcids,
+        prop: "name",
+      },
+      paramsSerializer: stringifyFn,
+    });
+    for (const statVar in resp.data) {
+      // If the api call can't find a name for the stat var (api returns []),
+      // default to using its dcid
+      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+        ? statVar
+        : resp.data[statVar][0].value;
+    }
+    return statVarNames;
+  } catch (error) {
+    return await Promise.reject(error);
+  }
 }
 
 interface SVGInfo {
