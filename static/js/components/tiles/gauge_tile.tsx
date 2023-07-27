@@ -65,6 +65,7 @@ export interface GaugeChartData {
     max: number;
   };
   statVarName: string;
+  props: GaugeTilePropType;
 }
 
 export function GaugeTile(props: GaugeTilePropType): JSX.Element {
@@ -73,7 +74,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
 
   useEffect(() => {
     // fetch data
-    if (!gaugeData) {
+    if (!gaugeData || !_.isEqual(gaugeData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setGaugeData(data);
@@ -167,6 +168,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       statVar: mainStatVar,
       statVarName: statVarDcidToName[mainStatVar],
       range: props.range,
+      props,
     };
   } catch (error) {
     console.log(error);
