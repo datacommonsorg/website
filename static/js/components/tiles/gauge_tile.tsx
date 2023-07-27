@@ -29,7 +29,7 @@ import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
 import { dataPointsToCsv } from "../../utils/chart_csv_utils";
-import { ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -64,6 +64,7 @@ export interface GaugeChartData {
     min: number;
     max: number;
   };
+  statVarName: string;
 }
 
 export function GaugeTile(props: GaugeTilePropType): JSX.Element {
@@ -140,6 +141,10 @@ const fetchData = async (props: GaugeTilePropType) => {
         paramsSerializer: stringifyFn,
       }
     );
+    const statVarDcidToName = await getStatVarNames(
+      [props.statVarSpec],
+      props.apiRoot
+    );
 
     const statData = resp.data.data;
     const mainStatData = statData[mainStatVar][props.place.dcid];
@@ -160,6 +165,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       date: mainStatData.date,
       sources,
       statVar: mainStatVar,
+      statVarName: statVarDcidToName[mainStatVar],
       range: props.range,
     };
   } catch (error) {
