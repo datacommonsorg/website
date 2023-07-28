@@ -51,6 +51,7 @@ class Builder:
       metadata.contained_place_types[main_place.place_type] = \
         state.place_type.value
 
+    self.first_chart_sv = ''
     self.category = None
     self.block = None
     self.column = None
@@ -72,7 +73,13 @@ class Builder:
     if description:
       self.block.description = description
 
-  def new_column(self):
+  def new_column(self, cv: ftypes.ChartVars):
+    # We are adding a chart for real post existence check.
+    # Track the first such chart's SV. This will define the
+    # topic page.
+    if not self.first_chart_sv and cv and cv.svs:
+      self.first_chart_sv = cv.source_topic if cv.source_topic else cv.svs[0]
+
     self.column = self.block.columns.add()
     return self.column
 

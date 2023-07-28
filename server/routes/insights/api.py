@@ -94,12 +94,11 @@ def fulfill():
     return {}
 
   entities = req_json.get(Params.ENTITIES.value)
-  variables = req_json.get(Params.VARS.value)
+  cmp_entities = req_json.get(Params.CMP_ENTITIES.value)
+  vars = req_json.get(Params.VARS.value)
+  cmp_vars = req_json.get(Params.CMP_VARS.value)
   child_type = req_json.get(Params.CHILD_TYPE.value)
   session_id = req_json.get(Params.SESSION_ID.value)
-  is_cmp_entities = req_json.get(
-      Params.CMP_TYPE.value) == Params.CMP_TYPE_ENTITY.value
-  is_cmp_vars = req_json.get(Params.CMP_TYPE.value) == Params.CMP_TYPE_VAR.value
 
   counters = ctr.Counters()
   debug_logs = {}
@@ -111,11 +110,13 @@ def fulfill():
       session_id = constants.TEST_SESSION_ID
 
   # There is not detection, so just construct a structure.
+  # TODO: Maybe check that if cmp_entities is set, entities should
+  # be singleton.
   start = time.time()
-  query_detection, error_msg = nl_detector.construct(entities, variables,
+  query_detection, error_msg = nl_detector.construct(entities, vars,
                                                      child_type,
-                                                     is_cmp_entities,
-                                                     is_cmp_vars, debug_logs,
+                                                     cmp_entities,
+                                                     cmp_vars, debug_logs,
                                                      counters)
   counters.timeit('query_detection', start)
   if not query_detection:

@@ -23,7 +23,6 @@ import server.lib.nl.fulfillment.types as ftypes
 
 _MAX_CORRELATION_SVS_PER_TOPIC = 4
 
-
 @dataclass
 class TopicMembers:
   svs: List[str]
@@ -33,7 +32,11 @@ class TopicMembers:
 
 def compute_chart_vars(
     state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+  # Have a slightly higher limit for non-US places since there are fewer vars.
+  num_topics_limit = 1 if cutils.is_us_place(state.uttr.places[0]) else 1
+
   chart_vars_map = {}
+  num_topics_opened = 0
   for sv in state.uttr.svs:
     cv = []
     if cutils.is_sv(sv):
@@ -42,14 +45,44 @@ def compute_chart_vars(
       start = time.time()
       cv = _topic_chart_vars(state, sv)
       state.uttr.counters.timeit('topic_calls', start)
+      num_topics_opened += 1
     if cv:
       chart_vars_map[sv] = cv
+    if num_topics_opened >= num_topics_limit:
+      break
   return chart_vars_map
 
 
 def compute_correlation_chart_vars(
     state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+  # Note: This relies the construction of multi-sv in `construct()`
+  chart_vars_map = {}
+  lhs_svs = state.uttr.multi_svs.candidates[0].parts[0].svs
+  rhs_svs = state.uttr.multi_svs.candidates[0].parts[1].svs
 
+  # To not go crazy with num-svs, don't handle more than one topic on each
+  # size.
+  found_lhs_topic = False
+  found_rhs_topic = False
+  for lsv, rsv in zip(lhs_svs, rhs_svs):
+    cvlist = _compute_correlation_chart_vars_for_pair(state, lsv, rsv)
+    chart_vars_map[lsv] = cvlist
+
+    found_lhs_topic |= cutils.is_topic(lsv)
+    found_rhs_topic |= cutils.is_topic(rsv)
+    if found_lhs_topic and found_rhs_topic:
+      break
+
+  return chart_vars_map
+
+
+#
+# Compute correlation chart-vars for a given pair of LHS and RHS var.
+# Note that either/both of them can be a topic.
+#
+def _compute_correlation_chart_vars_for_pair(
+    state: ftypes.PopulateState,
+    lhs_sv: str, rhs_sv: str):
   # Get vars.
   def _vars(v):
     if cutils.is_sv(v):
@@ -59,8 +92,8 @@ def compute_correlation_chart_vars(
       _open_topic_lite(state, v, svs)
       return svs[:_MAX_CORRELATION_SVS_PER_TOPIC]
 
-  lhs_svs = _vars(state.uttr.svs[0])
-  rhs_svs = _vars(state.uttr.svs[1])
+  lhs_svs = _vars(lhs_sv)
+  rhs_svs = _vars(rhs_sv)
 
   # Mix and match them.
   added = set()
@@ -82,8 +115,7 @@ def compute_correlation_chart_vars(
     for rsv in rhs_svs:
       _add(lsv, rsv)
 
-  # Keep the LHS SV (in case of context, the current one) as the anchor on the page.
-  return {state.uttr.svs[0]: chart_vars}
+  return chart_vars
 
 
 #

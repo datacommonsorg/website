@@ -52,7 +52,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
       uttr, dtypes.ClassificationType.CORRELATION)
 
   chart_vars_map = {}
-  if has_correlation and len(state.uttr.svs) == 2:
+  if has_correlation and state.uttr.multi_svs:
     chart_vars_map = topic.compute_correlation_chart_vars(state)
   else:
     chart_vars_map = topic.compute_chart_vars(state)
@@ -75,6 +75,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     return None, {}
 
   # Perform existence checks for all the SVs!
+  # TODO: Track the number of SVs we're adding and ensure we
+  # don't open up more than one topic.
   tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
                                           chart_vars_map)
   tracker.perform_existence_check()
@@ -94,7 +96,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
 
   config_resp = page.build_config(chart_vars_list, state, existing_svs,
                                   cb_config)
-  related_things = related.compute_related_things(state)
+  related_things = related.compute_related_things(state, config_resp.top_chart_sv)
 
   return FulfillResp(chart_pb=config_resp.config_pb,
                      related_things=related_things,

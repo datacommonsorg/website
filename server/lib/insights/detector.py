@@ -28,14 +28,14 @@ from server.lib.nl.detection.types import ClassificationType
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
+_MAX_RETURNED_VARS = 5
 
 class Params(str, Enum):
   ENTITIES = 'entities'
   VARS = 'variables'
   CHILD_TYPE = 'childEntityType'
-  CMP_TYPE = 'comparisonType'
-  CMP_TYPE_ENTITY = 'ENTITY'
-  CMP_TYPE_VAR = 'VAR'
+  CMP_ENTITIES = 'comparisonEntities'
+  CMP_VARS = 'comparisonVariables'
   SESSION_ID = 'sessionId'
   CTX = 'context'
 
@@ -52,32 +52,30 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
     past_ctx = uttr.prev_utterance.insight_ctx
 
   # 2. Route comparison vs. correlation query.
-  cmp_type = None
+  query_type = None
   cl_type = _get_comparison_or_correlation(uttr)
   if cl_type != None:
-    qt = route_comparison_or_correlation(cl_type, uttr)
-    if qt == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES:
-      cmp_type = Params.CMP_TYPE_ENTITY.value
-    else:
-      cmp_type = Params.CMP_TYPE_VAR.value
+    query_type = route_comparison_or_correlation(cl_type, uttr)
 
   # 3. Detect places (and comparison type) leveraging context.
-  places = _detect_places(uttr, past_ctx,
-                          cmp_type == Params.CMP_TYPE_ENTITY.value)
+  places, cmp_places = _detect_places(
+    uttr, past_ctx,
+    query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
 
   # 4. Detect SVs leveraging context.
-  vars = _detect_vars(uttr, past_ctx, cmp_type == Params.CMP_TYPE_VAR.value)
+  vars, cmp_vars = _detect_vars(uttr, past_ctx,
+    query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
   # Populate dict with basic info
   data_dict.update({
       Params.ENTITIES.value: places,
-      Params.VARS.value: vars,
+      Params.VARS.value: vars[:_MAX_RETURNED_VARS],
       Params.SESSION_ID: uttr.session_id,
   })
-
-  # Populate additional classifications.
-  if cmp_type:
-    data_dict[Params.CMP_TYPE.value] = cmp_type
+  if cmp_places:
+    data_dict[Params.CMP_ENTITIES.value] = cmp_places
+  if cmp_vars:
+    data_dict[Params.CMP_VARS.value] = cmp_vars[:_MAX_RETURNED_VARS]
 
   # Contained-in
   place_type = utils.get_contained_in_type(uttr)
@@ -95,12 +93,15 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
 def _detect_vars(uttr: nl_uttr.Utterance, past_ctx: Dict,
                  is_cmp: bool) -> List[str]:
   svs = []
+  cmp_svs = []
   if is_cmp:
+    # Comparison
     if dutils.is_multi_sv(uttr.detection):
-      svs = _get_multi_sv_pair(uttr)
+      svs, cmp_svs = _get_multi_sv_pair(uttr)
     else:
       if uttr.svs and past_ctx.get(Params.VARS.value):
-        svs = [uttr.svs[0], past_ctx[Params.VARS.value][0]]
+        svs = uttr.svs
+        cmp_svs = past_ctx[Params.VARS.value]
   else:
     # No comparison.
     if uttr.svs:
@@ -110,7 +111,7 @@ def _detect_vars(uttr: nl_uttr.Utterance, past_ctx: Dict,
       svs = past_ctx.get(Params.VARS.value, [])
       uttr.counters.info('insight_var_ctx', svs)
 
-  return svs
+  return svs, cmp_svs
 
 
 def _get_comparison_or_correlation(
@@ -129,7 +130,7 @@ def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
     return []
   _hoist_topic(parts[0].svs)
   _hoist_topic(parts[1].svs)
-  return [parts[0].svs[0], parts[1].svs[0]]
+  return parts[0].svs, parts[1].svs
 
 
 #
@@ -152,18 +153,25 @@ def _hoist_topic(svs: List[str]):
 def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
                    is_cmp: bool) -> List[str]:
   places = []
+  cmp_places = []
   if is_cmp:
     if len(uttr.places) > 1:
       # Completely in this query.
-      places = [p.dcid for p in uttr.places]
+      places = [uttr.places[0].dcid]
+      cmp_places = [p.dcid for p in uttr.places[1:]]
     elif len(uttr.places) == 1:
       # Partially in this query, lookup context.
-      ctx_places = past_ctx.get(Params.ENTITIES.value, [])
-      places = [uttr.places[0].dcid] + ctx_places
-      uttr.counters.info('insight_cmp_partial_place_ctx', ctx_places)
+      places = uttr.places
+      cmp_places = past_ctx.get(Params.ENTITIES.value, [])
+      uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
     else:
       # Completely in context.
-      places = past_ctx.get(Params.ENTITIES.value, [])
+      ctx_places = past_ctx.get(Params.ENTITIES.value, [])
+      if len(ctx_places) > 1:
+        places = ctx_places[:1]
+        cmp_places = ctx_places[1:]
+      else:
+        places = ctx_places
       uttr.counters.info('insight_cmp_place_ctx', places)
   else:
     # Not comparison.
@@ -174,4 +182,4 @@ def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
       places = past_ctx.get(Params.ENTITIES.value, [])
       uttr.counters.info('insight_place_ctx', places)
 
-  return places
+  return places, cmp_places
