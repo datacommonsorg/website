@@ -114,8 +114,14 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
-        'Commute in counties of California', 'Compare with Nevada',
+        'Commute in tracts of California', 'Compare with Nevada',
         'Correlate with asthma'
+    ])
+
+  def test_detection_statvars(self):
+    self.run_detection('detection_api_statvars', [
+        'Income in information industry in nevada',
+        'Correlate with GDP of California'
     ])
 
   def test_fulfillment_basic(self):
@@ -124,18 +130,32 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_comparison(self):
     req = {
-        'entities': ['geoId/06', 'geoId/32'],
+        'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County',
-        'comparisonType': 'ENTITY',
+        'comparisonEntities': ['geoId/32'],
     }
     self.run_fulfillment('fulfillment_api_comparison', req)
 
   def test_fulfillment_correlation(self):
     req = {
         'entities': ['geoId/06'],
-        'variables': ['dc/topic/WorkCommute', 'dc/topic/Asthma'],
+        'variables': ['dc/topic/WorkCommute'],
+        'comparisonVariables': ['dc/topic/Asthma'],
         'childEntityType': 'County',
-        'comparisonType': 'VAR',
     }
     self.run_fulfillment('fulfillment_api_correlation', req)
+
+  def test_fulfillment_statvars(self):
+    req = {
+        'variables': [
+            'ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll',
+            'dc/xj2nk2bg60fg',
+            'Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue',
+            'WagesTotal_Worker_NAICSInformation',
+            'USStateQuarterlyIndustryGDP_NAICS_51',
+            'WagesAnnual_Establishment_NAICSInformation'
+        ],
+        'entities': ['geoId/06']
+    }
+    self.run_fulfillment('fulfillment_api_statvars', req)

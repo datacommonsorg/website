@@ -1,5 +1,7 @@
 {
-  "childEntityType": "County",
+  "childEntityType": "CensusTract",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
   "context": {},
   "debug": {},
   "entities": [

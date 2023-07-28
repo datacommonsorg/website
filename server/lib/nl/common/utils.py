@@ -316,6 +316,11 @@ def has_map(place_type: any, places: List[types.Place]) -> bool:
   return False
 
 
+def is_us_place(place: types.Place) -> bool:
+  return (place.dcid == constants.USA.dcid or
+          place.country == constants.USA.dcid)
+
+
 def new_session_id() -> str:
   # Convert seconds to microseconds
   micros = int(datetime.datetime.now().timestamp() * 1000000)

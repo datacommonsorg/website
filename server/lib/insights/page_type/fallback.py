@@ -22,21 +22,22 @@ _NO_STAT_MSG = 'Sorry, no statistics found for {topic_name} in {place_name}.  Pl
 
 
 def maybe_fallback(state: ftypes.PopulateState, builder: Builder) -> str:
-  if (builder.page_config.categories or not state.uttr.places or
-      not state.uttr.svs):
+  if builder.page_config.categories or not state.uttr.places:
     return ''
 
   # Add place overview as a fallback.
   builder.new_category('', '')
   builder.new_block('')
-  tile = builder.new_column().tiles.add()
+  tile = builder.new_column(None).tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
 
-  # Build a user message
+  # Build a user message in case user had specified an SV.
   message = ''
-  topic_name = builder.sv2thing.name.get(state.uttr.svs[0])
-  place_name = state.uttr.places[0].name
-  if topic_name and place_name:
-    message = _NO_STAT_MSG.format(topic_name=topic_name, place_name=place_name)
+  if state.uttr.svs:
+    topic_name = builder.sv2thing.name.get(state.uttr.svs[0])
+    place_name = state.uttr.places[0].name
+    if topic_name and place_name:
+      message = _NO_STAT_MSG.format(topic_name=topic_name,
+                                    place_name=place_name)
 
   return message

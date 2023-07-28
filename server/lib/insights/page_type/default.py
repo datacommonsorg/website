@@ -46,12 +46,12 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     has_single_point = state.exist_checks[sv][place.dcid]
     if has_single_point:
       sv_spec.update(
-          highlight.higlight_block(builder.new_column(), place, sv,
+          highlight.higlight_block(builder.new_column(chart_vars), place, sv,
                                    builder.sv2thing))
     else:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
-              builder.new_column(), place, sv, builder.sv2thing, attr,
+              builder.new_column(chart_vars), place, sv, builder.sv2thing, attr,
               builder.nopc()))
 
   if not state.place_type:
@@ -68,11 +68,11 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   attr['ranking_count'] = 0
 
   sv_spec.update(
-      map.map_chart_block(builder.new_column(), place, sv, builder.sv2thing,
-                          attr, builder.nopc()))
+      map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                          builder.sv2thing, attr, builder.nopc()))
   attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   sv_spec.update(
-      ranking.ranking_chart_multivar(builder.new_column(), [sv],
+      ranking.ranking_chart_multivar(builder.new_column(chart_vars), [sv],
                                      builder.sv2thing, attr))
   return sv_spec
 
@@ -95,8 +95,8 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     # If any of them has single-point
     has_single_point = any(
         [state.exist_checks[sv][place.dcid] for sv in exist_main_svs])
-    _add_svpg_line_or_bar(exist_main_svs, has_single_point, state, attr,
-                          builder, sv_spec)
+    _add_svpg_line_or_bar(chart_vars, exist_main_svs, has_single_point, state,
+                          attr, builder, sv_spec)
 
   if not state.place_type:
     return sv_spec
@@ -119,28 +119,28 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sorted_child_svs = sorted(exist_child_svs)[:_MAX_MAPS_PER_SUBTOPIC]
 
   sv_spec.update(
-      ranking.ranking_chart_multivar(builder.new_column(), sorted_child_svs,
-                                     builder.sv2thing, attr))
+      ranking.ranking_chart_multivar(builder.new_column(chart_vars),
+                                     sorted_child_svs, builder.sv2thing, attr))
 
   for sv in sorted_child_svs:
     sv_spec.update(
-        map.map_chart_block(builder.new_column(), place, sv, builder.sv2thing,
-                            attr, builder.nopc()))
+        map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                            builder.sv2thing, attr, builder.nopc()))
 
   return sv_spec
 
 
-def _add_svpg_line_or_bar(svs: List[str], has_single_point: bool,
-                          state: ftypes.PopulateState, attr: Dict,
-                          builder: Builder, sv_spec: Dict):
+def _add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
+                          has_single_point: bool, state: ftypes.PopulateState,
+                          attr: Dict, builder: Builder, sv_spec: Dict):
   # Add timeline and/or bar charts.
   if (len(svs) <= _MAX_VARS_PER_TIMELINE_CHART and not has_single_point):
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
-            builder.new_column(), state.uttr.places[0], svs, builder.sv2thing,
-            attr, builder.nopc()))
+            builder.new_column(chart_vars), state.uttr.places[0], svs,
+            builder.sv2thing, attr, builder.nopc()))
   else:
     sv_spec.update(
-        bar.multiple_place_bar_block(builder.new_column(), state.uttr.places,
-                                     svs, builder.sv2thing, attr,
-                                     builder.nopc()))
+        bar.multiple_place_bar_block(builder.new_column(chart_vars),
+                                     state.uttr.places, svs, builder.sv2thing,
+                                     attr, builder.nopc()))
