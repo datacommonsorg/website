@@ -117,7 +117,7 @@ export function AppContextProvider(
     const svDcidsValue = getParamValue(URL_PARAMS.STAT_VAR);
     let placesPromise = Promise.resolve([]);
     let statVarsPromise = Promise.resolve([]);
-    let childTypesPromise = Promise.resolve([]);
+    let childTypesPromise = Promise.resolve(null);
     let samplePlacesPromise = Promise.resolve([]);
     if (!_.isEmpty(placeDcidsValue)) {
       const placeDcids = placeDcidsValue.split(PARAM_VALUE_SEP);
