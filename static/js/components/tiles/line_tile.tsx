@@ -27,6 +27,7 @@ import { drawLineChart } from "../../chart/draw";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { computeRatio } from "../../tools/shared_util";
 import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 import { stringifyFn } from "../../utils/axios";
@@ -62,6 +63,8 @@ export interface LineTilePropType {
   svgChartWidth?: number;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether or not to show a loading spinner when fetching data.
+  showLoadingSpinner?: boolean;
 }
 
 export interface LineChartData {
@@ -78,6 +81,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
 
   useEffect(() => {
     if (!chartData || !_.isEqual(chartData.props, props)) {
+      loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
         setChartData(data);
@@ -90,6 +94,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       return;
     }
     draw(props, chartData, svgContainer.current);
+    removeSpinner(props.id);
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
@@ -110,7 +115,13 @@ export function LineTile(props: LineTilePropType): JSX.Element {
         className="svg-container"
         ref={svgContainer}
         style={{ minHeight: props.svgChartHeight }}
-      ></div>
+      >
+        {props.showLoadingSpinner && (
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        )}
+      </div>
     </ChartTileContainer>
   );
 }
