@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { AppContext, AppContextProvider } from "./app_context";
 import { Chart } from "./chart";
@@ -44,6 +44,18 @@ function MainPane(): JSX.Element {
   const [showInfo, setShowInfo] = useState(
     _.isEmpty(places) && _.isEmpty(statVars) && _.isEmpty(enclosedPlaceType)
   );
+
+  useEffect(() => {
+    // When places, statVars, or enclosedPlaceType changes, check if we should
+    // remove the info page.
+    if (
+      !_.isEmpty(places) ||
+      !_.isEmpty(statVars) ||
+      !_.isEmpty(enclosedPlaceType)
+    ) {
+      setShowInfo(false);
+    }
+  }, [places, statVars, enclosedPlaceType]);
 
   return (
     <>
