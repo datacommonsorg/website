@@ -10,16 +10,43 @@
   "topics": {
     "economy": {
       "title": "Economy",
-      "description": "",
+      "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [],
-        "specific": [],
-        "comparison": []
+        "general": [
+          "How many businesses are there in the US?",
+          "Most common jobs in Texas",
+          "Median income in Santa Clara County",
+          "What are the top industries in the US?",
+          "How many people in California struggle with poverty?",
+          "US global economic activity"
+        ],
+        "specific": [
+          "How much does the US spend on its military?",
+          "Number of privately owned businesses in California"
+        ],
+        "comparison": [
+          "Income vs health insurance rates in USA"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["United Nations"]
+        "dataPointCount": 0,
+        "variableCount": 67486,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "EU Eurostat",
+          "Food and Agriculture Organization of the United States",
+          "India Ministry of Statistics and Programme Implementation",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Reserve Bank of India",
+          "U.S. Bureau of Economic Analysis (BEA)",
+          "U.S. Bureau of Labor Statistics (BLS)",
+          "U.S. Census Bureau",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Department of Labor (DOL)",
+          "U.S. Federal Reserve",
+          "World Bank"
+        ]
       }
     },
     "health": {
@@ -37,68 +64,211 @@
           "Conditions that have risen the fastest in Texas",
           "COVID deaths in Florida compared to New Jersey"
         ],
-        "comparison": ["Income vs asthma in US counties"]
+        "comparison": [
+          "Income vs asthma in US counties"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["World Health Organization"]
+        "dataPointCount": 0,
+        "variableCount": 20531,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "City Controller, City of Los Angeles",
+          "Colombia DANE National Administrative Department of Statistics",
+          "Dartmouth Atlas Project",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Health Mission",
+          "India National Sample Survey",
+          "National Institute of Statistics and Censuses",
+          "Open Data for Africa",
+          "Our World in Data",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "The Central Bureau of Statistics, Indonesia",
+          "The New York Times",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Drug Enforcement Agency (DEA)",
+          "World Bank",
+          "World Health Organization (WHO)"
+        ]
       }
     },
     "education": {
       "title": "Education",
-      "description": "",
+      "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [],
-        "specific": [],
-        "comparison": []
+        "general": [
+          "How many people have degrees in Massachusetts?",
+          "How many people are currently enrolled in school in California?",
+          "Educational degrees earned in the US"
+        ],
+        "specific": [
+          "How do california schools score on achievement tests?"
+        ],
+        "comparison": [
+          "College degrees vs income for US states"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["United Nations"]
+        "dataPointCount": 0,
+        "variableCount": 42422,
+        "sources": [
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "California Assessment of Student Performance and Progress",
+          "Colombia DANE National Administrative Department of Statistics",
+          "EU Eurostat",
+          "India Ministry of Education",
+          "Open Data for Africa",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "U.S. Census Bureau",
+          "U.S. Department of Education (ED)",
+          "U.S. National Center for Education Statistics"
+        ]
       }
     },
     "environment": {
       "title": "Environment",
-      "description": "",
+      "description": "Environment data serves as the critical compass to understand, monitor, and address the complex interplay between human activities and the natural world, enabling informed decisions towards mitigating environmental challenges and promoting ecological balance. Search for some environment data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [],
-        "specific": [],
-        "comparison": []
+        "general": [
+          "Natural disasters in California",
+          "How does land cover vary over the US?",
+          "Pollution levels in Manhattan",
+          "Projected temperatures in Tulare County"
+        ],
+        "specific": [
+          "Number of wildfires in California",
+          "How much of the US is covered in vegetation?",
+          "AQI levels in Los Angeles County"
+        ],
+        "comparison": [
+          "Wildfire vs people under poverty line in California"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["United Nations"]
+        "dataPointCount": 0,
+        "variableCount": 2992,
+        "sources": [
+          "Climate Trace",
+          "Data Commons",
+          "Dynamic World Project",
+          "European Union (EU) Copernicus",
+          "Federal Emergency Management Agency (FEMA)",
+          "Global Land Ice Measurements from Space (GLIMS)",
+          "India Central Pollution Control Board",
+          "India Water Resources Information System",
+          "Resources for the Future (RFF)",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Environmental Protection Agency (EPA)",
+          "U.S. National Aeronautics and Space Administration (NASA)",
+          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
+          "U.S. National Wildlife Coordinating Group",
+          "United States Geological Service (USGS)",
+          "Wildland Fire Interagency Geospatial Services"
+        ]
       }
     },
     "demographics": {
       "title": "Demographics",
-      "description": "",
+      "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [],
-        "specific": [],
-        "comparison": []
+        "general": [
+          "Age distribution of the US population",
+          "Most common languages spoken at home in California",
+          "Racial demographics of Texas",
+          "Marriage and divorce in New York"
+        ],
+        "specific": [
+          "Number of non-English speakers in Florida",
+          "Number of naturalized US citizens",
+          "US poverty by race"
+        ],
+        "comparison": [
+          "Old age population vs excessive heat events in Texas"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["United Nations"]
+        "dataPointCount": 0,
+        "variableCount": 35472,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
+          "World Bank"
+        ]
       }
     },
     "sustainability": {
       "title": "Sustainability",
-      "description": "",
+      "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [],
-        "specific": [],
-        "comparison": []
+        "general": [
+          "Excessive heat events in Texas",
+          "Land Usage in USA",
+          "USA forest health",
+          "Commutes in San Francisco Bay Area",
+          "Carbon emissions in US"
+        ],
+        "specific": [
+          "How much of US energy is renewable?",
+          "How many people take public transit in Washington?",
+          "US CO2 emissions by source"
+        ],
+        "comparison": [
+          "Number of farms vs droughts in California"
+        ]
       },
       "meta": {
-        "dataPointCount": 7891011,
-        "variableCount": 3456,
-        "sources": ["United Nations"]
+        "dataPointCount": 0,
+        "variableCount": 12746,
+        "sources": [
+          "Climate Trace",
+          "Data Commons",
+          "Dynamic World Project",
+          "European Union (EU) Copernicus",
+          "Federal Emergency Management Agency (FEMA)",
+          "Global Land Ice Measurements from Space (GLIMS)",
+          "India Central Pollution Control Board",
+          "India Energy Dashboard",
+          "India Water Resources Information System",
+          "Resources for the Future (RFF)",
+          "Stanford University",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Energy Information Administration (EIA)",
+          "U.S. Environmental Protection Agency (EPA)",
+          "U.S. National Aeronautics and Space Administration (NASA)",
+          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
+          "U.S. National Renewable Energy Laboratory (NREL)",
+          "U.S. National Wildlife Coordinating Group",
+          "United Nations (UN)",
+          "United States Geological Service (USGS)",
+          "Wildland Fire Interagency Geospatial Services",
+          "World Bank"
+        ]
       }
     }
   }

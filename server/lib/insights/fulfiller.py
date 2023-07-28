@@ -13,8 +13,8 @@
 # limitations under the License.
 """Module for Insights fulfillment"""
 
-import time
-from typing import List
+from dataclasses import dataclass
+from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.insights import page
@@ -29,11 +29,17 @@ import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
 
 
+@dataclass
+class FulfillResp:
+  chart_pb: SubjectPageConfig
+  related_things: Dict
+  user_message: str
+
+
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: nl_uttr.Utterance,
-            cb_config: builder.Config) -> SubjectPageConfig:
+def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
@@ -46,7 +52,7 @@ def fulfill(uttr: nl_uttr.Utterance,
       uttr, dtypes.ClassificationType.CORRELATION)
 
   chart_vars_map = {}
-  if has_correlation and len(state.uttr.svs) == 2:
+  if has_correlation and state.uttr.multi_svs:
     chart_vars_map = topic.compute_correlation_chart_vars(state)
   else:
     chart_vars_map = topic.compute_chart_vars(state)
@@ -86,11 +92,14 @@ def fulfill(uttr: nl_uttr.Utterance,
       if chart_vars.svpg_id:
         existing_svs.add(chart_vars.svpg_id)
 
-  chart_pb = page.build_config(chart_vars_list, state, existing_svs, cb_config)
+  config_resp = page.build_config(chart_vars_list, state, existing_svs,
+                                  cb_config)
+  related_things = related.compute_related_things(state,
+                                                  config_resp.top_chart_sv)
 
-  related_things = related.compute_related_things(state)
-
-  return chart_pb, related_things
+  return FulfillResp(chart_pb=config_resp.config_pb,
+                     related_things=related_things,
+                     user_message=config_resp.user_message)
 
 
 def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:

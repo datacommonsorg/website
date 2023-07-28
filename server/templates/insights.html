@@ -19,13 +19,14 @@
  {% set is_hide_sub_footer = true %}
  {% set main_id = 'nl-interface' %}
  {% set page_id = 'nl-interface-page' %}
- {% set title = 'Insights' %}
+ {% set title = 'Explore' %}
  {% set subpage_title = '' %}
  {% set subpage_url = url_for('nl.page') %}
 
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/insights.min.css', t=config['VERSION'])}} >
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
  <script src="https://datacommons.org/datacommons.js"></script>
  {% endblock %}
 

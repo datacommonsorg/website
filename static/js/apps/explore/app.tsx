@@ -90,7 +90,9 @@ export function App(): JSX.Element {
         </div>
         <div className="explore-queries">
           <div className="explore-queries">
-            <div>Here are some examples to get you started:</div>
+            <div>
+              <b>Here are some examples to get you started:</b>
+            </div>
             <ul>
               {currentTopic.examples.general.map((query, i) => (
                 <li key={i}>
@@ -100,7 +102,9 @@ export function App(): JSX.Element {
             </ul>
           </div>
           <div className="explore-queries">
-            <div>Try diving deeper:</div>
+            <div>
+              <b>Try diving deeper:</b>
+            </div>
             <ul>
               {currentTopic.examples.specific.map((query, i) => (
                 <li key={i}>
@@ -111,8 +115,8 @@ export function App(): JSX.Element {
           </div>
           <div className="explore-queries">
             <div>
-              And the real power of DataCommons is creating one common Knowledge
-              Graph:
+              And the real power of Data Commons is creating one common
+              Knowledge Graph:
             </div>
             <ul>
               {currentTopic.examples.comparison.map((query, i) => (
@@ -127,28 +131,18 @@ export function App(): JSX.Element {
         <div className="explore-more">
           Additional data is available for these topics:{" "}
           {additionalTopics.map((item, i) => (
-            <>
+            <span key={i}>
               <a href={`/explore/${item.name}`}>
                 {item.title.toLocaleLowerCase()}
               </a>
-              {", "}
-            </>
+              {i < Object.keys(additionalTopics).length - 1 && ","}{" "}
+            </span>
           ))}
           and more
         </div>
 
         <div className="explore-sources">
-          Our {currentTopic.title.toLocaleLowerCase()} data comprises{" "}
-          <span
-            title={`${formatNumber(
-              currentTopic.meta.dataPointCount,
-              undefined,
-              true
-            )}`}
-          >
-            {formatNumber(currentTopic.meta.dataPointCount)}
-          </span>{" "}
-          data points across{" "}
+          Our {currentTopic.title.toLocaleLowerCase()} data spans over{" "}
           <span
             title={`${formatNumber(
               currentTopic.meta.variableCount,
@@ -158,14 +152,20 @@ export function App(): JSX.Element {
           >
             {formatNumber(currentTopic.meta.variableCount)}
           </span>{" "}
-          statistical variables. We collect our health information from sources
-          such as:{" "}
+          statistical variables. We collect our{" "}
+          {currentTopic.title.toLocaleLowerCase()} information from sources such
+          as:{" "}
           {currentTopic.meta.sources.map((s, i) => (
-            <>
+            <span key={i}>
+              {currentTopic.meta.sources.length > 1 &&
+              i === currentTopic.meta.sources.length - 1
+                ? "and "
+                : ""}
               {s}
-              {i === currentTopic.meta.sources.length - 1 ? ", " : ""}
-            </>
+              {i === currentTopic.meta.sources.length - 1 ? "" : ", "}
+            </span>
           ))}
+          {"."}
         </div>
       </Container>
     </div>

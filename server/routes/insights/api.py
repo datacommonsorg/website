@@ -87,19 +87,16 @@ def fulfill():
 
   req_json = request.get_json()
   if not req_json:
-    helpers.abort('Missing input', '', [])
-    return {}
-  if (not req_json.get('entities') or not req_json.get('variables')):
-    helpers.abort('Entities and variables must be provided', '', [])
-    return {}
+    return helpers.abort('Missing input', '', [])
+  if not req_json.get('entities'):
+    return helpers.abort('`entities` must be provided', '', [])
 
-  entities = req_json.get(Params.ENTITIES.value)
-  variables = req_json.get(Params.VARS.value)
-  child_type = req_json.get(Params.CHILD_TYPE.value)
-  session_id = req_json.get(Params.SESSION_ID.value)
-  is_cmp_entities = req_json.get(
-      Params.CMP_TYPE.value) == Params.CMP_TYPE_ENTITY.value
-  is_cmp_vars = req_json.get(Params.CMP_TYPE.value) == Params.CMP_TYPE_VAR.value
+  entities = req_json.get(Params.ENTITIES.value, [])
+  cmp_entities = req_json.get(Params.CMP_ENTITIES.value, [])
+  vars = req_json.get(Params.VARS.value, [])
+  cmp_vars = req_json.get(Params.CMP_VARS.value, [])
+  child_type = req_json.get(Params.CHILD_TYPE.value, '')
+  session_id = req_json.get(Params.SESSION_ID.value, '')
 
   counters = ctr.Counters()
   debug_logs = {}
@@ -111,16 +108,15 @@ def fulfill():
       session_id = constants.TEST_SESSION_ID
 
   # There is not detection, so just construct a structure.
+  # TODO: Maybe check that if cmp_entities is set, entities should
+  # be singleton.
   start = time.time()
-  query_detection, error_msg = nl_detector.construct(entities, variables,
-                                                     child_type,
-                                                     is_cmp_entities,
-                                                     is_cmp_vars, debug_logs,
-                                                     counters)
+  query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
+                                                     cmp_entities, cmp_vars,
+                                                     debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
-    helpers.abort(error_msg, '', [])
-    return {}
+    return helpers.abort(error_msg, '', [])
 
   utterance = create_utterance(query_detection, None, counters, session_id)
   utterance.insight_ctx = req_json
@@ -143,15 +139,15 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   cb_config = config_builder.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-      nopc_vars=current_app.config['NL_NOPC_VARS'])
+      nopc_vars=current_app.config['NOPC_VARS'])
 
   start = time.time()
-  page_config_pb, related_things = fulfillment.fulfill(utterance, cb_config)
+  fresp = fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
-  if page_config_pb:
+  if fresp.chart_pb:
     # Use the first chart's place as main place.
     main_place = utterance.places[0]
-    page_config = json.loads(MessageToJson(page_config_pb))
+    page_config = json.loads(MessageToJson(fresp.chart_pb))
 
   else:
     page_config = {}
@@ -176,7 +172,8 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
-      'relatedThings': related_things,
+      'relatedThings': fresp.related_things,
+      'userMessage': fresp.user_message,
   }
   status_str = "Successful"
   if utterance.rankedCharts:

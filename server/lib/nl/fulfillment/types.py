@@ -51,6 +51,16 @@ class InsightType(Enum):
 
 
 # Data structure for configuring the vars that go into a chart.
+#
+# In Insights, worth noting the different sv/topic/svpg things
+# in use:
+# 1) svs: the ones going into a chart
+# 2) source_topic: the topic that the `svs` belong to, used
+#    to decide the chart category.
+# 3) svpg_id: if the svs belong to a peer-group, this is set
+#    and used to infer the title of a bar/timeline chart.
+# 4) orig_sv: this is the user-specified topic/sv. this is
+#    used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
   # Only one of svs or events is set.

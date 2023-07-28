@@ -114,25 +114,26 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 #
 # Constructor a Detection object given DCID inputs.
 #
-def construct(entities: List[str], variables: List[str], child_type: str,
-              is_cmp_entities: bool, is_cmp_vars: bool, debug_logs: Dict,
-              counters: Counters):
-  parent_map = {p: [] for p in entities}
-  places = place.get_place_from_dcids(entities, debug_logs, parent_map)
+def construct(entities: List[str], vars: List[str], child_type: str,
+              cmp_entities: List[str], cmp_vars: List[str], debug_logs: Dict,
+              counters: Counters) -> types.Detection:
+  all_entities = entities + cmp_entities
+  parent_map = {p: [] for p in all_entities}
+  places = place.get_place_from_dcids(all_entities, debug_logs, parent_map)
   if not places:
-    counters.err('failed_detection_unabletofinddcids', entities)
+    counters.err('failed_detection_unabletofinddcids', all_entities)
     return None, 'No places found!'
 
   # Unused fillers.
-  var_query = ';'.join(variables)
+  var_query = ';'.join(vars)
   place_query = ';'.join(entities)
   query = var_query + (f' {child_type} ' if child_type else ' ') + place_query
 
   classifications = []
-  child_type = None
+
   # For place-comparison (bar charts only), we don't need child places.
   # So we can save on the existence checks, etc.
-  if not is_cmp_entities:
+  if not cmp_entities:
     if child_type:
       if not any([child_type == x.value for x in types.ContainedInPlaceType]):
         counters.err('failed_detection_badChildEntityType', child_type)
@@ -140,20 +141,20 @@ def construct(entities: List[str], variables: List[str], child_type: str,
       child_type = types.ContainedInPlaceType(child_type)
     else:
       child_type = utils.get_default_child_place_type(places[0], is_nl=False)
-
+  else:
+    child_type = None
   if child_type:
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
                                contained_in_place_type=child_type))
     classifications.append(c)
 
-  if is_cmp_entities:
+  if cmp_entities:
     c = types.NLClassifier(type=types.ClassificationType.COMPARISON,
                            attributes=types.ComparisonClassificationAttributes(
                                comparison_trigger_words=[]))
     classifications.append(c)
-
-  if is_cmp_vars:
+  elif cmp_vars:
     c = types.NLClassifier(type=types.ClassificationType.CORRELATION,
                            attributes=types.ComparisonClassificationAttributes(
                                comparison_trigger_words=[]))
@@ -168,18 +169,27 @@ def construct(entities: List[str], variables: List[str], child_type: str,
 
   place_detection = PlaceDetection(query_original=query,
                                    query_without_place_substr=var_query,
-                                   query_places_mentioned=entities,
+                                   query_places_mentioned=all_entities,
                                    places_found=places,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
                                    child_places=child_places)
-  sv_detection = types.SVDetection(query='',
-                                   single_sv=dutils.VarCandidates(
-                                       svs=variables,
-                                       scores=[1.0] * len(variables),
-                                       sv2sentences={}),
-                                   multi_sv=None)
 
+  if not cmp_entities and cmp_vars:
+    # Multi SV case.
+    sv_detection = types.SVDetection(query='',
+                                     single_sv=dutils.VarCandidates(
+                                         svs=vars,
+                                         scores=[0.51] * len(vars),
+                                         sv2sentences={}),
+                                     multi_sv=_get_multi_sv(vars, cmp_vars))
+  else:
+    sv_detection = types.SVDetection(query='',
+                                     single_sv=dutils.VarCandidates(
+                                         svs=vars,
+                                         scores=[1.0] * len(vars),
+                                         sv2sentences={}),
+                                     multi_sv=None)
   return types.Detection(original_query=query,
                          cleaned_query=query,
                          places_detected=place_detection,
@@ -187,3 +197,17 @@ def construct(entities: List[str], variables: List[str], child_type: str,
                          classifications=classifications,
                          detector=ActualDetectorType.NOP,
                          place_detector=PlaceDetectorType.NOP), None
+
+
+def _get_multi_sv(vars: List[str],
+                  cmp_vars: List[str]) -> dutils.MultiVarCandidates:
+  return dutils.MultiVarCandidates(candidates=[
+      dutils.MultiVarCandidate(parts=[
+          dutils.MultiVarCandidatePart(
+              query_part='var1', svs=vars, scores=[1.0] * len(vars)),
+          dutils.MultiVarCandidatePart(
+              query_part='var2', svs=cmp_vars, scores=[1.0] * len(cmp_vars))
+      ],
+                               aggregate_score=1.0,
+                               delim_based=True)
+  ])

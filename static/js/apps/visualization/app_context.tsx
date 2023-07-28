@@ -39,7 +39,7 @@ const URL_PARAMS = {
   ENCLOSED_PLACE_TYPE: "placeType",
   STAT_VAR: "sv",
 };
-const PARAM_VALUE_SEP = "__";
+const PARAM_VALUE_SEP = "___";
 const PARAM_VALUE_TRUE = "1";
 const STAT_VAR_PARAM_KEYS = {
   DCID: "dcid",

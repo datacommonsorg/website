@@ -8,112 +8,196 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "showHighest": true,
+                      "showLowest": true
                     },
                     "statVarKey": [
-                      "dc/6rltk4kf75612_scatter",
-                      "Percent_Person_Children_WithAsthma_scatter"
+                      "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Work at home Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
-                    "type": "SCATTER"
+                    "type": "RANKING"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Median Incomes in Information industry"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "showHighest": true,
+                      "showLowest": true
                     },
                     "statVarKey": [
-                      "dc/vp8cbt6k79t94_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "Walk to work Per Capita (${yDate}) vs. Asthma (${xDate}) in California",
-                    "type": "SCATTER"
+                    "type": "RANKING"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "GDP of the Information Industry"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "showHighest": true,
+                      "showLowest": true
                     },
                     "statVarKey": [
-                      "dc/hbkh95kc7pkb6_scatter",
-                      "Percent_Person_Children_WithAsthma_scatter"
+                      "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Public Transit Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
-                    "type": "SCATTER"
+                    "type": "RANKING"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Total Wages for Population Working in the Information Industry"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
                     "statVarKey": [
-                      "dc/wc8q05drd74bd_scatter",
-                      "Percent_Person_Children_WithAsthma_scatter"
+                      "USStateQuarterlyIndustryGDP_NAICS_51"
                     ],
-                    "title": "Carpool Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
-                    "type": "SCATTER"
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesAnnual_Establishment_NAICSInformation"
+                    ],
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "WagesAnnual_Establishment_NAICSInformation"
+                    ],
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Wages Annual of Establishment: Information (NAICS/51)"
           }
         ],
         "statVarSpec": {
-          "Percent_Person_Children_WithAsthma_scatter": {
-            "name": "Percent of Children That Have Asthma",
-            "statVar": "Percent_Person_Children_WithAsthma",
-            "unit": "%"
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": {
+            "name": "GDP of the Information Industry",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
           },
-          "Percent_Person_WithAsthma_scatter": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
+          "USStateQuarterlyIndustryGDP_NAICS_51": {
+            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51)",
+            "statVar": "USStateQuarterlyIndustryGDP_NAICS_51"
           },
-          "dc/6rltk4kf75612_scatter": {
-            "denom": "Count_Person",
-            "name": "Work at home Per Capita",
-            "statVar": "dc/6rltk4kf75612",
-            "unit": "%"
+          "WagesAnnual_Establishment_NAICSInformation": {
+            "name": "Wages Annual of Establishment: Information (NAICS/51)",
+            "statVar": "WagesAnnual_Establishment_NAICSInformation"
           },
-          "dc/hbkh95kc7pkb6_scatter": {
-            "denom": "Count_Person",
-            "name": "Public Transit Per Capita",
-            "statVar": "dc/hbkh95kc7pkb6",
-            "unit": "%"
+          "WagesTotal_Worker_NAICSInformation": {
+            "name": "Total Wages for Population Working in the Information Industry",
+            "statVar": "WagesTotal_Worker_NAICSInformation"
           },
-          "dc/vp8cbt6k79t94_scatter": {
-            "denom": "Count_Person",
-            "name": "Walk to work Per Capita",
-            "statVar": "dc/vp8cbt6k79t94",
-            "unit": "%"
-          },
-          "dc/wc8q05drd74bd_scatter": {
-            "denom": "Count_Person",
-            "name": "Carpool Per Capita",
-            "statVar": "dc/wc8q05drd74bd",
-            "unit": "%"
+          "dc/xj2nk2bg60fg": {
+            "name": "Median Incomes in Information industry",
+            "statVar": "dc/xj2nk2bg60fg"
           }
         }
       }

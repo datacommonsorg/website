@@ -36,17 +36,31 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
   if (_.isEmpty(props.childPlaces) || !props.parentPlace) {
     return null;
   }
+  const firstType = displayNameForPlaceType(
+    Object.keys(props.childPlaces)[0],
+    true /* isPlural */
+  );
+  const numTypes = Object.keys(props.childPlaces).length;
 
   return (
     <div id="child-places">
-      <span id="child-place-head">Places in {props.parentPlace.name}</span>
+      {numTypes == 1 && (
+        <span id="child-place-head">
+          {firstType} in {props.parentPlace.name}
+        </span>
+      )}
+      {numTypes > 1 && (
+        <span id="child-place-head">Places in {props.parentPlace.name}</span>
+      )}
       {Object.keys(props.childPlaces)
         .sort()
         .map((placeType) => (
           <div key={placeType} className="child-place-group">
-            <div className="child-place-type">
-              {displayNameForPlaceType(placeType, true /* isPlural */)}
-            </div>
+            {numTypes > 1 && (
+              <div className="child-place-type">
+                {displayNameForPlaceType(placeType, true /* isPlural */)}
+              </div>
+            )}
             {props.childPlaces[placeType].map((place, i) => {
               const rs: ReplacementStrings = {
                 placeDcid: place.dcid,

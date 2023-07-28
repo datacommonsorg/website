@@ -25,7 +25,9 @@
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Modes of Commute"
           }
         ],
         "dcid": "dc/topic/WorkCommute",
@@ -54,8 +56,7 @@
             "name": "Carpool",
             "statVar": "dc/wc8q05drd74bd"
           }
-        },
-        "title": "Modes of Commute"
+        }
       }
     ],
     "metadata": {
@@ -88,5 +89,6 @@
     "parentTopics": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

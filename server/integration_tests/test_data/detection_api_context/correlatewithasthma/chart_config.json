@@ -1,14 +1,24 @@
 {
-  "comparisonType": "VAR",
+  "comparisonEntities": [],
+  "comparisonVariables": [
+    "dc/topic/WorkCommute",
+    "Count_Household_With2AvailableVehicles",
+    "Count_Household_With3AvailableVehicles",
+    "Count_Household_With1AvailableVehicles"
+  ],
   "context": {},
   "debug": {},
   "entities": [
-    "geoId/32",
-    "geoId/06"
+    "geoId/32"
   ],
   "sessionId": "007_999999999",
   "variables": [
     "dc/topic/Asthma",
-    "dc/topic/WorkCommute"
+    "Percent_Person_WithAsthma",
+    "Percent_Person_Children_WithAsthma",
+    "dc/topic/PopulationWithAsthmaByAge",
+    "dc/topic/AsthmaFemalePopulationByAge",
+    "dc/topic/AsthmaMalePopulationByAge",
+    "Count_Death_DiseasesOfTheRespiratorySystem"
   ]
 }
