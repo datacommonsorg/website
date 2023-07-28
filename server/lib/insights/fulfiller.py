@@ -75,8 +75,6 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     return None, {}
 
   # Perform existence checks for all the SVs!
-  # TODO: Track the number of SVs we're adding and ensure we
-  # don't open up more than one topic.
   tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
                                           chart_vars_map)
   tracker.perform_existence_check()

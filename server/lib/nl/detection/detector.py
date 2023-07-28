@@ -119,7 +119,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
               counters: Counters) -> types.Detection:
   all_entities = entities + cmp_entities
   parent_map = {p: [] for p in all_entities}
-  places = place.get_place_from_dcids(entities, debug_logs, parent_map)
+  places = place.get_place_from_dcids(all_entities, debug_logs, parent_map)
   if not places:
     counters.err('failed_detection_unabletofinddcids', all_entities)
     return None, 'No places found!'
@@ -143,7 +143,6 @@ def construct(entities: List[str], vars: List[str], child_type: str,
       child_type = utils.get_default_child_place_type(places[0], is_nl=False)
   else:
     child_type = None
-
   if child_type:
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
@@ -191,7 +190,6 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                          scores=[1.0] * len(vars),
                                          sv2sentences={}),
                                      multi_sv=None)
-
   return types.Detection(original_query=query,
                          cleaned_query=query,
                          places_detected=place_detection,

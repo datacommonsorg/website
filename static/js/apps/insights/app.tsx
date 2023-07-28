@@ -49,6 +49,11 @@ const getSingleParam = (input: string | string[]): string => {
 
 const DELIM = "___";
 
+const toApiList = (input: string): string[] => {
+  // Split of an empty string returns [''].  Trim empties.
+  return input.split(DELIM).filter((i) => i);
+};
+
 /**
  * Application container
  */
@@ -87,7 +92,7 @@ export function App(): JSX.Element {
       let cmpPlace = getSingleParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
-      const placeType = getSingleParam(hashParams["pt"]);
+      let placeType = getSingleParam(hashParams["pt"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
@@ -100,9 +105,10 @@ export function App(): JSX.Element {
         }
 
         place = detectResp["entities"].join(DELIM);
+        cmpPlace = detectResp["comparisonEntities"].join(DELIM);
         topic = detectResp["variables"].join(DELIM);
-        cmpTopic = detectResp["comparisonEntities"].join(DELIM);
-        cmpPlace = detectResp["comparisonPlaces"].join(DELIM);
+        cmpTopic = detectResp["comparisonVariables"].join(DELIM);
+        placeType = detectResp["childEntityType"] || "";
         updateHash({
           q: "",
           t: topic,
@@ -113,13 +119,13 @@ export function App(): JSX.Element {
         });
         return;
       }
-      if (!place || !topic) {
+      if (!place) {
         return;
       }
-      const places = place.split(DELIM);
-      const topics = topic.split(DELIM);
-      const cmpPlaces = cmpPlace.split(DELIM);
-      const cmpTopics = cmpTopic.split(DELIM);
+      const places = toApiList(place);
+      const cmpPlaces = toApiList(cmpPlace);
+      const topics = toApiList(topic);
+      const cmpTopics = toApiList(cmpTopic);
       const resp = await fetchFulfillData(
         places,
         topics,
@@ -127,6 +133,10 @@ export function App(): JSX.Element {
         cmpPlaces,
         cmpTopics
       );
+      if (!resp) {
+        setLoadingStatus("fail");
+        return;
+      }
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -139,7 +149,7 @@ export function App(): JSX.Element {
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
-        topic,
+        topic: topics[0] || "",
       };
       if (
         chartData &&

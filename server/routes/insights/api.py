@@ -93,12 +93,12 @@ def fulfill():
     helpers.abort('Entities and variables must be provided', '', [])
     return {}
 
-  entities = req_json.get(Params.ENTITIES.value)
-  cmp_entities = req_json.get(Params.CMP_ENTITIES.value)
-  vars = req_json.get(Params.VARS.value)
-  cmp_vars = req_json.get(Params.CMP_VARS.value)
-  child_type = req_json.get(Params.CHILD_TYPE.value)
-  session_id = req_json.get(Params.SESSION_ID.value)
+  entities = req_json.get(Params.ENTITIES.value, [])
+  cmp_entities = req_json.get(Params.CMP_ENTITIES.value, [])
+  vars = req_json.get(Params.VARS.value, [])
+  cmp_vars = req_json.get(Params.CMP_VARS.value, [])
+  child_type = req_json.get(Params.CHILD_TYPE.value, '')
+  session_id = req_json.get(Params.SESSION_ID.value, '')
 
   counters = ctr.Counters()
   debug_logs = {}

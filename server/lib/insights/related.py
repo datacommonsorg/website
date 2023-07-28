@@ -41,7 +41,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
     }
 
   # Expand to parent and peer topics.
-  # Do this only for the top-chart topic/sv only, otherwise it gets
+  # Do this only for the top-chart topic/sv, otherwise it gets
   # weird to show multiple sets of parents / peers.
   if top_chart_sv:
     start = time.time()

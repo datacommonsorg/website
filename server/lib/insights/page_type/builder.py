@@ -33,16 +33,14 @@ class Builder:
     self.sv2thing = sv2thing
 
     self.is_place_comparison = False
-    if len(state.uttr.places) > 1:
-      if ctx.classifications_of_type_from_utterance(
-          state.uttr, dtypes.ClassificationType.COMPARISON):
-        self.is_place_comparison = True
+    if ctx.classifications_of_type_from_utterance(
+        state.uttr, dtypes.ClassificationType.COMPARISON):
+      self.is_place_comparison = True
 
     self.is_var_comparison = False
-    if len(state.uttr.svs) > 1:
-      if ctx.classifications_of_type_from_utterance(
-          state.uttr, dtypes.ClassificationType.CORRELATION):
-        self.is_var_comparison = True
+    if ctx.classifications_of_type_from_utterance(
+        state.uttr, dtypes.ClassificationType.CORRELATION):
+      self.is_var_comparison = True
 
     metadata = self.page_config.metadata
     main_place = state.uttr.places[0]
@@ -75,10 +73,10 @@ class Builder:
 
   def new_column(self, cv: ftypes.ChartVars):
     # We are adding a chart for real post existence check.
-    # Track the first such chart's SV. This will define the
-    # topic page.
+    # Track the first such chart's topic/sv. This will define
+    # the topic page.
     if not self.first_chart_sv and cv and cv.svs:
-      self.first_chart_sv = cv.source_topic if cv.source_topic else cv.svs[0]
+      self.first_chart_sv = cv.orig_sv
 
     self.column = self.block.columns.add()
     return self.column

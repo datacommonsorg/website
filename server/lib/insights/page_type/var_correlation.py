@@ -14,7 +14,6 @@
 
 # Chart structure for the var correlation page.
 
-import logging
 from typing import Dict
 
 from server.lib.insights.page_type.builder import Builder
@@ -24,9 +23,7 @@ import server.lib.nl.fulfillment.types as ftypes
 
 def add_chart(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
               builder: Builder) -> Dict:
-  logging.info(chart_vars)
   if not state.place_type or len(chart_vars.svs) != 2:
-    logging.info(f'{state.place_type}')
     return {}
 
   place = state.uttr.places[0]
@@ -36,10 +33,9 @@ def add_chart(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   has_child_places = all(
       [place_key in state.exist_checks.get(v, {}) for v in chart_vars.svs])
   if not has_child_places:
-    logging.info(f'{state.exist_checks}')
     return {}
 
   attr = {'include_percapita': False, 'child_type': state.place_type.value}
-  return scatter.scatter_chart_block(builder.new_column(), place,
+  return scatter.scatter_chart_block(builder.new_column(chart_vars), place,
                                      chart_vars.svs, builder.sv2thing, attr,
                                      builder.nopc())

@@ -28,7 +28,7 @@ from server.lib.nl.detection.types import ClassificationType
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
-_MAX_RETURNED_VARS = 5
+_MAX_RETURNED_VARS = 10
 
 
 class Params(str, Enum):
@@ -66,23 +66,19 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
   vars, cmp_vars = _detect_vars(
       uttr, past_ctx, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
-  # Populate dict with basic info
+  # 5. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value: places,
       Params.VARS.value: vars[:_MAX_RETURNED_VARS],
       Params.SESSION_ID: uttr.session_id,
+      Params.CMP_ENTITIES.value: cmp_places,
+      Params.CMP_VARS.value: cmp_vars[:_MAX_RETURNED_VARS],
   })
-  if cmp_places:
-    data_dict[Params.CMP_ENTITIES.value] = cmp_places
-  if cmp_vars:
-    data_dict[Params.CMP_VARS.value] = cmp_vars[:_MAX_RETURNED_VARS]
-
-  # Contained-in
   place_type = utils.get_contained_in_type(uttr)
   if place_type:
     data_dict[Params.CHILD_TYPE.value] = place_type.value
 
-  # Set the detected params in uttr ctx and clear past contexts.
+  # 6. Set the detected params in uttr ctx and clear past contexts.
   uttr.insight_ctx = copy.deepcopy(data_dict)
   uttr.prev_utterance = None
 
@@ -157,11 +153,14 @@ def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
   if is_cmp:
     if len(uttr.places) > 1:
       # Completely in this query.
-      places = [uttr.places[0].dcid]
-      cmp_places = [p.dcid for p in uttr.places[1:]]
+      # Note: Pick the last place as the main place (to be
+      # consistent with the HACK further below).
+      places = [uttr.places[-1].dcid]
+      cmp_places = [p.dcid for p in uttr.places[:-1]]
+      cmp_places.reverse()
     elif len(uttr.places) == 1:
       # Partially in this query, lookup context.
-      places = uttr.places
+      places = [uttr.places[0].dcid]
       cmp_places = past_ctx.get(Params.ENTITIES.value, [])
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
     else:
@@ -177,6 +176,9 @@ def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
     # Not comparison.
     if uttr.places:
       places = [p.dcid for p in uttr.places]
+      # HACK: Reverse the list since we have a higher chance of common
+      # words earlier in the query interpreted incorrectly as a place
+      places.reverse()
     else:
       # Find place from context.
       places = past_ctx.get(Params.ENTITIES.value, [])
