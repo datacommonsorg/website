@@ -271,23 +271,82 @@
       "description": "Environment data serves as the critical compass to understand, monitor, and address the complex interplay between human activities and the natural world, enabling informed decisions towards mitigating environmental challenges and promoting ecological balance. Search for some environment data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [{
-          "title": "Natural disasters in California"
+          "title": "Natural disasters in the US",
+          "url": "/insights/#p=country/USA&t=dc/topic/Disasters"
         }, {
-          "title": "How does land cover vary over the US?"
+          "title": "Land cover New Jersey",
+          "url": "/insights/#p=geoId/34&t=dc/topic/LandCover"
         }, {
-          "title": "Pollution levels in Manhattan"
+          "title": "Pollution in New Jersey",
+          "url": "/insights/#p=geoId/34&t=dc/topic/Pollution"
         }, {
-          "title": "Projected temperatures in Tulare County"
+          "title": "Temperature predictions for Italy",
+          "url": "/insights/#p=country/ITA&t=dc/topic/TemperaturePredictions"
         }],
         "specific": [{
-          "title": "Number of wildfires in California"
+          "title": "Floods in Pakistan",
+          "url": "/insights/#p=country/PAK&t=dc/topic/Flood"
         }, {
-          "title": "How much of the US is covered in vegetation?"
+          "title": "Major earthquakes in Chile vs Japan",
+          "url": "/insights/#q=Major+Earthquakes+in+Chile+vs+Japan"
         }, {
-          "title": "AQI levels in Los Angeles County"
+          "title": "Heat events in Nevada",
+          "url": "/insights/#p=geoId/32&t=dc/topic/HeatEvent"
+        }, {
+          "title": "Droughts in Ethiopia",
+          "url": "/insights/#p=country/ETH&t=dc/topic/Drought"
+        }, {
+          "title": "Forested areas in King County vs Mercer County",
+          "url": "/insights/#q=forested+areas+in+King+county+vs+Mercer+County"
+        }, {
+          "title": "Vegetation in California",
+          "url": "/insights/#q=vegetation+in+California"
+        }, {
+          "title": "Pollution in Texas vs Massachusetts",
+          "url": "/insights/#q=Pollution+in+Texas+vs+Massachusetts"
+        }, {
+          "title": "Air Quality in Los Angeles County vs Alameda County",
+          "url": "/insights/#q=air+quality+in+los+angeles+county+vs+alameda+county"
+        }, {
+          "title": "Pollutant concentration in Los Angeles County",
+          "url": "/insights/#p=geoId/06037&t=dc/topic/PollutantConcentration"
+        }, {
+          "title": "Sulfer dioxide in Dallas County",
+          "url": "/insights/#q=sulfur+dioxide+in+Dallas+County"
+        }, {
+          "title": "Once a decade projected temperature highs in Sicily",
+          "url": "/insights/#p=nuts/ITG1&t=dc/topic/DecadeProjectedTemperatureHighs"
+        }, {
+          "title": "Once a decade projected temperature highs in West Bengal, India",
+          "url": "/insights/#p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs"
+        }, {
+          "title": "Once a decade projected lows in Norway",
+          "url": "/insights/#p=country/NOR&t=dc/topic/DecadeProjectedTemperatureLow"
         }],
         "comparison": [{
-          "title": "Wildfire vs people under poverty line in California"
+          "title": "Heat waves vs Floods in California",
+          "url": "/insights/#q=heat+waves+vs+floods+in+California"
+        }, {
+          "title": "Most forested areas in Georgia",
+          "url": "/insights/#q=most+forested+areas+in+Georgia"
+        }, {
+          "title": "Heat waves vs maximum temperature in California",
+          "url": "/insights/#q=heat+waves+vs+maximum+temperature+in+California"
+        }, {
+          "title": "Vegetation vs Pollution in Texas",
+          "url": "/insights/#q=vegetation+vs+pollution+in+Texas"
+        }, {
+          "title": "Projected temperature for the decade in Kern County vs Orange County",
+          "url": "/insights/#q=projected+temperature+for+the+decade+in+Kern+County+vs+Orange+County"
+        }, {
+          "title": "AQI vs heat waves in California",
+          "url": "/insights/#q=AQI+vs+heat+waves+in+California"
+        }, {
+          "title": "Ozone vs Insurance in Texas",
+          "url": "/insights/#q=ozone+vs+insurance+in+Texas"
+        }, {
+          "title": "AQI vs blood pressure in New Jersey",
+          "url": "/insights/#q=AQI+vs+blood+pressure+in+new+jersey"
         }]
       },
       "meta": {
