@@ -65,7 +65,7 @@ function getSvChips(
                 )
               );
             }}
-            onTextClick={_.noop}
+            onTextClick={null}
           />
         );
       })}
@@ -128,6 +128,7 @@ function getChartArea(
               svgChartHeight={chartHeight}
               place={appContext.places[0]}
               colors={COLORS}
+              showLoadingSpinner={true}
             />
             {getFooterOptions(chartPCInputs, [])}
           </div>

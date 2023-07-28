@@ -51,6 +51,12 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
 
   useEffect(() => {
+    if (visTypeConfig.numSv && selectedStatVars.length > visTypeConfig.numSv) {
+      setSelectedStatVars(selectedStatVars.slice(0, visTypeConfig.numSv));
+    }
+  }, [visTypeConfig]);
+
+  useEffect(() => {
     if (!_.isEqual(statVars, selectedStatVars)) {
       setSelectedStatVars(statVars);
     }
