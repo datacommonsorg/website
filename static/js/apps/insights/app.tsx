@@ -119,7 +119,8 @@ export function App(): JSX.Element {
         });
         return;
       }
-      if (!place) {
+      if (!place || !topic) {
+        setLoadingStatus("fail");
         return;
       }
       const places = toApiList(place);
