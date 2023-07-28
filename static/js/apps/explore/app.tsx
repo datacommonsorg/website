@@ -90,7 +90,9 @@ export function App(): JSX.Element {
         </div>
         <div className="explore-queries">
           <div className="explore-queries">
-            <div>Here are some examples to get you started:</div>
+            <div>
+              <b>Here are some examples to get you started:</b>
+            </div>
             <ul>
               {currentTopic.examples.general.map((query, i) => (
                 <li key={i}>
@@ -100,7 +102,9 @@ export function App(): JSX.Element {
             </ul>
           </div>
           <div className="explore-queries">
-            <div>Try diving deeper:</div>
+            <div>
+              <b>Try diving deeper:</b>
+            </div>
             <ul>
               {currentTopic.examples.specific.map((query, i) => (
                 <li key={i}>
@@ -111,8 +115,8 @@ export function App(): JSX.Element {
           </div>
           <div className="explore-queries">
             <div>
-              And the real power of DataCommons is creating one common Knowledge
-              Graph:
+              And the real power of Data Commons is creating one common
+              Knowledge Graph:
             </div>
             <ul>
               {currentTopic.examples.comparison.map((query, i) => (

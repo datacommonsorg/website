@@ -142,7 +142,9 @@ class TestApiStatsProperty(unittest.TestCase):
             "st":
                 "measuredValue",
             "title":
-                "Temperature (Difference Relative To Base Date): Relative To 1990"
+                "Temperature (Difference Relative To Base Date): Relative To 1990",
+            "pcAllowed":
+                False
         }
     }
 
