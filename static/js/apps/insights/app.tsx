@@ -64,7 +64,6 @@ export function App(): JSX.Element {
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
   const [savedContext, setSavedContext] = useState<any>({});
-  const [fromSearch, setFromSearch] = useState<boolean>(false);
 
   useEffect(() => {
     const handleHashChange = () => {
