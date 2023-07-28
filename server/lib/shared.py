@@ -14,6 +14,7 @@
 """Common library for functions used by multiple tools"""
 
 import re
+from typing import Set
 
 import server.lib.fetch as fetch
 
@@ -174,3 +175,52 @@ def merge_responses(resp_1: dict, resp_2: dict) -> dict:
       merged_resp[key] = val
 
   return merged_resp
+
+
+_SV_PARTIAL_DCID_NO_PC = [
+    'Temperature',
+    'Precipitation',
+    "BarometricPressure",
+    "CloudCover",
+    "PrecipitableWater",
+    "Rainfall",
+    "Snowfall",
+    "Visibility",
+    "WindSpeed",
+    "ConsecutiveDryDays",
+    "Percent",
+    "Area_",
+    "Median_",
+    "LifeExpectancy_",
+    "AsFractionOf",
+    "AsAFractionOfCount",
+    "UnemploymentRate_",
+    "Mean_Income_",
+    "GenderIncomeInequality_",
+    "FertilityRate_",
+    "GrowthRate_",
+    "sdg/",
+    "FemaNaturalHazardRiskIndex_",
+    "FemaCommunityResilience_",
+    "FemaSocialVulnerability_",
+    "MothersAge_",
+    "IntervalSinceLastBirth_",
+    "BirthWeight_",
+    "Covid19MobilityTrend_",
+    "Average_",
+    "Cancer_Risk",
+    "IncrementalCount_",
+    "HouseholdSize_",
+    "LmpGestationalAge_",
+]
+
+
+def is_percapita_relevant(sv_dcid: str, nopc_svs: Set[str]) -> bool:
+  """Get whether or not a stat var is per capita relevant.
+  """
+  if sv_dcid in nopc_svs:
+    return False
+  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
+    if skip_phrase in sv_dcid:
+      return False
+  return True

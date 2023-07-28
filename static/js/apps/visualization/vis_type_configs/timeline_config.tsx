@@ -96,21 +96,27 @@ function getChartArea(
         const chartSvSpecs = chartSvInfo.map((sv) =>
           getStatVarSpec(sv, VisType.TIMELINE)
         );
-        const chartPCInputs = [
-          {
-            isChecked: chartSvInfo[0].isPerCapita,
-            onUpdated: (isChecked: boolean) => {
-              const newStatVars = _.cloneDeep(appContext.statVars);
-              appContext.statVars.forEach((sv, idx) => {
-                if (chartSvs.has(sv.dcid)) {
-                  newStatVars[idx].isPerCapita = isChecked;
-                }
-              });
-              appContext.setStatVars(newStatVars);
-            },
-            label: "Per Capita",
-          },
-        ];
+        // If any svs in the chart do not allow per capita, hide the per capita
+        // input.
+        const hidePcInputs =
+          chartSvInfo.filter((sv) => !sv.info.pcAllowed).length > 0;
+        const chartPCInputs = hidePcInputs
+          ? []
+          : [
+              {
+                isChecked: chartSvInfo[0].isPerCapita,
+                onUpdated: (isChecked: boolean) => {
+                  const newStatVars = _.cloneDeep(appContext.statVars);
+                  appContext.statVars.forEach((sv, idx) => {
+                    if (chartSvs.has(sv.dcid)) {
+                      newStatVars[idx].isPerCapita = isChecked;
+                    }
+                  });
+                  appContext.setStatVars(newStatVars);
+                },
+                label: "Per Capita",
+              },
+            ];
         return (
           <div className="chart" key={chartId}>
             {getSvChips(chartSvInfo, appContext)}
