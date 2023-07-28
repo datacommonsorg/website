@@ -492,6 +492,13 @@
         }
       ]
     },
+    "mainTopic": {
+      "dcid": "dc/topic/WorkCommute",
+      "name": "Commute",
+      "types": [
+        "Topic"
+      ]
+    },
     "parentPlaces": [
       {
         "dcid": "country/USA",

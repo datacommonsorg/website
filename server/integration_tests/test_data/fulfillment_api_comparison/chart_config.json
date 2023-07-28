@@ -77,6 +77,13 @@
   "placeSource": "CURRENT_QUERY",
   "relatedThings": {
     "childPlaces": {},
+    "mainTopic": {
+      "dcid": "dc/topic/WorkCommute",
+      "name": "Commute",
+      "types": [
+        "Topic"
+      ]
+    },
     "parentPlaces": [
       {
         "dcid": "country/USA",
