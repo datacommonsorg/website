@@ -131,12 +131,12 @@ export function App(): JSX.Element {
         <div className="explore-more">
           Additional data is available for these topics:{" "}
           {additionalTopics.map((item, i) => (
-            <>
+            <span key={i}>
               <a href={`/explore/${item.name}`}>
                 {item.title.toLocaleLowerCase()}
               </a>
-              {", "}
-            </>
+              {i < Object.keys(additionalTopics).length - 1 && ","}{" "}
+            </span>
           ))}
           and more
         </div>
@@ -156,14 +156,14 @@ export function App(): JSX.Element {
           {currentTopic.title.toLocaleLowerCase()} information from sources such
           as:{" "}
           {currentTopic.meta.sources.map((s, i) => (
-            <>
+            <span key={i}>
               {currentTopic.meta.sources.length > 1 &&
               i === currentTopic.meta.sources.length - 1
                 ? "and "
                 : ""}
               {s}
               {i === currentTopic.meta.sources.length - 1 ? "" : ", "}
-            </>
+            </span>
           ))}
           {"."}
         </div>

@@ -62,7 +62,6 @@ export function App(): JSX.Element {
   const [userMessage, setUserMessage] = useState<string>("");
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
-  const [query, setQuery] = useState<string>("");
   const [savedContext, setSavedContext] = useState<any>({});
 
   useEffect(() => {
@@ -93,11 +92,10 @@ export function App(): JSX.Element {
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
-      const q = getSingleParam(hashParams["q"]);
+      const query = getSingleParam(hashParams["q"]);
 
-      if (q) {
-        setQuery(q);
-        const detectResp = await fetchDetectData(q, savedContext);
+      if (query && loadingStatus !== "queryDetected") {
+        const detectResp = await fetchDetectData(query, savedContext);
         setSavedContext(detectResp["context"] || {});
         if (!detectResp["entities"] || !detectResp["variables"]) {
           setLoadingStatus("fail");
@@ -109,8 +107,9 @@ export function App(): JSX.Element {
         topic = detectResp["variables"].join(DELIM);
         cmpTopic = detectResp["comparisonVariables"].join(DELIM);
         placeType = detectResp["childEntityType"] || "";
+        setLoadingStatus("queryDetected");
         updateHash({
-          q: "",
+          q: query,
           t: topic,
           tcmp: cmpTopic,
           p: place,
@@ -119,7 +118,8 @@ export function App(): JSX.Element {
         });
         return;
       }
-      if (!place) {
+      if (!place || !topic) {
+        setLoadingStatus("fail");
         return;
       }
       const places = toApiList(place);
@@ -172,6 +172,7 @@ export function App(): JSX.Element {
   const place = getSingleParam(hashParams["p"]);
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
+  const query = getSingleParam(hashParams["q"]);
   if (loadingStatus == "fail") {
     mainSection = (
       <div id="user-message">Sorry, could not complete your request.</div>
@@ -201,7 +202,7 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}`;
+                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&q=`;
                       return (
                         <a className="topic-link" key={idx} href={url}>
                           {parentTopic.name}
