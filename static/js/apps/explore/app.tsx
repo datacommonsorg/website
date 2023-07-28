@@ -26,13 +26,17 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { formatNumber } from "../../i18n/i18n";
 import allTopics from "./topics.json";
 
+interface Query {
+  title: string;
+  url?: string;
+}
 interface TopicConfig {
   title: string;
   description: string;
   examples: {
-    general: string[];
-    specific: string[];
-    comparison: string[];
+    general: Query[];
+    specific: Query[];
+    comparison: Query[];
   };
   meta: {
     dataPointCount: number;
@@ -172,15 +176,15 @@ export function App(): JSX.Element {
   );
 }
 
-function QueryLink(props: { query: string }): JSX.Element {
+function QueryLink(props: { query: Query }): JSX.Element {
   const { query } = props;
   return (
     <a
-      href={`/insights#q=${encodeURIComponent(query)}`}
+      href={query.url || `/insights#q=${encodeURIComponent(query.title)}`}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {query}
+      {query.title}
     </a>
   );
 }
