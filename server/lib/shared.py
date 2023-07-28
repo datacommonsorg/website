@@ -14,9 +14,9 @@
 """Common library for functions used by multiple tools"""
 
 import re
+from typing import Set
 
 import server.lib.fetch as fetch
-from typing import Set
 
 
 def names(dcids):

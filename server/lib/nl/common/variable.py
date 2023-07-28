@@ -21,8 +21,8 @@ import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
-import server.services.datacommons as dc
 import server.lib.shared as shared
+import server.services.datacommons as dc
 
 # Have an upper limit so we don't do too many existence checks.
 EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT = 50
