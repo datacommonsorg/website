@@ -133,7 +133,7 @@ export function App(): JSX.Element {
         cmpPlaces,
         cmpTopics
       );
-      if (!resp) {
+      if (!resp || !resp["place"]) {
         setLoadingStatus("fail");
         return;
       }
