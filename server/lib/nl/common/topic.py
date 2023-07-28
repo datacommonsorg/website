@@ -13,10 +13,14 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import copy
 import time
-from typing import List
+from typing import Dict, List
+
+from flask import current_app
 
 from server.lib import fetch
+from server.lib import topic_cache
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
@@ -432,12 +436,8 @@ def get_topic_vars_recurive(topic: str,
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
-  if ordered and not svs:
-    # Lookup KG.  Use the ordered property.
-    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
-    # Lookup KG
-    svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
+    svs = _property_values(topic, 'relevantVariable', ordered).get(topic, [])
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
@@ -456,17 +456,14 @@ def get_topic_vars(topic: str, ordered: bool = False):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
-  if ordered and not svs:
-    # Lookup KG
-    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
-    # Lookup KG
-    svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
+    svs = _property_values(topic, 'relevantVariable', ordered).get(topic, [])
   return svs
 
 
 def get_parent_topics(topics: List[str]):
   # Lookup KG
+  # TODO: Use a new API.
   parents = fetch.raw_property_values(nodes=topics,
                                       prop='relevantVariable',
                                       out=False)
@@ -482,19 +479,15 @@ def get_parent_topics(topics: List[str]):
 
 
 def get_child_topics(topics: List[str]):
-  children = fetch.raw_property_values(nodes=topics,
-                                       prop='relevantVariable',
-                                       out=True)
+  children = _property_values(topics, 'relevantVariable')
   resp = []
-  for pvals in children.values():
-    for p in pvals:
-      if 'value' in p:
-        del p['value']
-      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+  for ids in children.values():
+    for ids in ids:
+      if not utils.is_topic(id):
         continue
-      if p['dcid'] in topics:
+      if id in topics:
         continue
-      resp.append(p)
+      resp.append(id)
   return resp
 
 
@@ -538,10 +531,8 @@ def svpg_description(sv: str):
 
 def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
-  if not svs and ordered:
-    svs = _prop_val_ordered(svpg, 'memberList')
   if not svs:
-    svs = fetch.property_values(nodes=[svpg], prop='member')[svpg]
+    svs = _property_values(svpg, 'member', ordered).get(svpg, [])
   return svs
 
 
@@ -594,11 +585,31 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
+def _property_values(nodes: List[str], prop: str, ordered: bool = False) -> Dict[str, List[str]]:
+  val_map = {}
+  nodes_copy = copy.deepcopy(nodes)
+
+  if ordered and 'TOPIC_CACHE' in current_app.config and current_app.config['TOPIC_CACHE']:
+    for n in nodes:
+      val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+    nodes_copy = [n for n, v in val_map.items() if not v]
+
+  if nodes_copy and ordered:
+    val_map.update(_prop_val_ordered(nodes_copy, prop + 'List'))
+    nodes_copy = [n for n, v in val_map.items() if not v]
+
+  if nodes_copy:
+    val_map.update(fetch.property_values(nodes=nodes_copy, prop=prop))
+
+  return val_map
+
+
 # Reads Props that are strings encoding ordered DCIDs.
-def _prop_val_ordered(node: str, prop: str) -> List[str]:
-  sv_list = fetch.property_values(nodes=[node], prop=prop)[node]
-  svs = []
-  if sv_list:
-    sv_list = sv_list[0]
-    svs = [v.strip() for v in sv_list.split(',') if v.strip()]
-  return svs
+def _prop_val_ordered(nodes: List[str], prop: str) -> Dict[str, List[str]]:
+  resp = fetch.property_values(nodes=nodes, prop=prop)
+  svs_map = []
+  for sv, sv_list in resp.items():
+    if sv_list:
+      sv_list = sv_list[0]
+    svs_map[sv] = [v.strip() for v in sv_list.split(',') if v.strip()]
+  return svs_map
