@@ -64,6 +64,7 @@ export function App(): JSX.Element {
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
   const [savedContext, setSavedContext] = useState<any>({});
+  const [fromSearch, setFromSearch] = useState<boolean>(false);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -133,7 +134,7 @@ export function App(): JSX.Element {
         cmpPlaces,
         cmpTopics
       );
-      if (!resp || !resp["place"]) {
+      if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
         return;
       }
@@ -171,11 +172,14 @@ export function App(): JSX.Element {
   let mainSection;
   const place = getSingleParam(hashParams["p"]);
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
+  const topic = getSingleParam(hashParams["t"]);
   if (loadingStatus == "fail") {
-    mainSection = <div>No data is found</div>;
+    mainSection = (
+      <div id="user-message">Sorry, could not complete your request.</div>
+    );
   } else if (loadingStatus == "loaded" && chartData) {
     let urlString = "/insights/#p=${placeDcid}";
-    urlString += `&t=${chartData.topic}`;
+    urlString += `&t=${topic}`;
     mainSection = (
       <div className="row insights-charts">
         <div
@@ -192,19 +196,21 @@ export function App(): JSX.Element {
                 categories={chartData.pageConfig.categories}
                 peerTopics={chartData.peerTopics}
               />
-              {chartData && chartData.parentTopics.length > 0 && (
-                <div className="topics-box">
-                  <div className="topics-head">Broader Topics</div>
-                  {chartData.parentTopics.map((parentTopic, idx) => {
-                    const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp={cmpPlace}`;
-                    return (
-                      <a className="topic-link" key={idx} href={url}>
-                        {parentTopic.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
+              {chartData &&
+                chartData.parentTopics.length > 0 &&
+                chartData.parentTopics.at(0).dcid != "dc/topic/Root" && (
+                  <div className="topics-box">
+                    <div className="topics-head">Broader Topics</div>
+                    {chartData.parentTopics.map((parentTopic, idx) => {
+                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}`;
+                      return (
+                        <a className="topic-link" key={idx} href={url}>
+                          {parentTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
               <ChildPlaces
                 childPlaces={chartData.childPlaces}
                 parentPlace={chartData.place}

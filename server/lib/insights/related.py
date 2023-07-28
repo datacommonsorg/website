@@ -35,7 +35,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
   # Convert the places to json.
   pd = state.uttr.detection.places_detected
   related_things['parentPlaces'] = _get_json_places(pd.parent_places)
-  if state.place_type:
+  if state.place_type and pd.child_places:
     related_things['childPlaces'] = {
         state.place_type.value: _get_json_places(pd.child_places)
     }

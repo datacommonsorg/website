@@ -129,10 +129,12 @@ class Builder:
       self.page_config.categories.extend(out_cats)
 
     for cat in self.page_config.categories:
+      if self.first_chart_sv == cat.dcid:
+        # The overall topic matches the category, so clear out the title.
+        cat.title = ''
+
       if len(cat.blocks) == 1 and cat.title and cat.blocks[0].title:
         # Note: Category title will be topic name and block title
         # will be SVPG.  The latter is better curated, so for now
         # use that.
-        # TODO: Revisit after topic names are better.
-        cat.title = cat.blocks[0].title
         cat.blocks[0].title = ''

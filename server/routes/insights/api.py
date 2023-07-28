@@ -87,11 +87,9 @@ def fulfill():
 
   req_json = request.get_json()
   if not req_json:
-    helpers.abort('Missing input', '', [])
-    return {}
-  if (not req_json.get('entities') or not req_json.get('variables')):
-    helpers.abort('Entities and variables must be provided', '', [])
-    return {}
+    return helpers.abort('Missing input', '', [])
+  if not req_json.get('entities'):
+    return helpers.abort('`entities` must be provided', '', [])
 
   entities = req_json.get(Params.ENTITIES.value, [])
   cmp_entities = req_json.get(Params.CMP_ENTITIES.value, [])
@@ -118,8 +116,7 @@ def fulfill():
                                                      debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
-    helpers.abort(error_msg, '', [])
-    return {}
+    return helpers.abort(error_msg, '', [])
 
   utterance = create_utterance(query_detection, None, counters, session_id)
   utterance.insight_ctx = req_json

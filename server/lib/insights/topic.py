@@ -44,7 +44,7 @@ def compute_chart_vars(
       cv = [ftypes.ChartVars(svs=[sv], orig_sv=sv)]
     elif num_topics_opened < num_topics_limit:
       start = time.time()
-      cv = _topic_chart_vars(state, sv, sv)
+      cv = _topic_chart_vars(state=state, sv=sv, source_topic=sv, orig_sv=sv)
       state.uttr.counters.timeit('topic_calls', start)
       num_topics_opened += 1
     if cv:
@@ -155,6 +155,7 @@ def _open_topic_lite(state: ftypes.PopulateState,
 #
 def _topic_chart_vars(state: ftypes.PopulateState,
                       sv: str,
+                      source_topic: str,
                       orig_sv: str,
                       lvl: int = 0) -> List[ftypes.ChartVars]:
   if lvl == 0:
@@ -181,11 +182,19 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     if lvl == 0 and topic_members.topics:
       st = ''
     charts.extend(
-        _direct_chart_vars(topic_members.svs, topic_members.svpgs, orig_sv, st))
+        _direct_chart_vars(svs=topic_members.svs,
+                           svpgs=topic_members.svpgs,
+                           source_topic=source_topic,
+                           orig_sv=orig_sv))
 
   # Recurse into immediate sub-topics.
   for t in topic_members.topics:
-    charts.extend(_topic_chart_vars(state, t, orig_sv, lvl + 1))
+    charts.extend(
+        _topic_chart_vars(state=state,
+                          sv=t,
+                          source_topic=t,
+                          orig_sv=orig_sv,
+                          lvl=lvl + 1))
 
   state.uttr.counters.info(
       'topics_processed',
@@ -215,11 +224,13 @@ def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
 _MAX_SUBTOPIC_SV_LIMIT = 3
 
 
-def _direct_chart_vars(svs: List[str], svpgs: List[str], orig_sv: str,
-                       topic: str) -> ftypes.ChartVars:
+def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
+                       orig_sv: str) -> ftypes.ChartVars:
   # We need a category called overview.
   # 1. Make a block for all SVs in just_svs
-  charts = [ftypes.ChartVars(svs=svs, orig_sv=orig_sv, source_topic=topic)]
+  charts = [
+      ftypes.ChartVars(svs=svs, orig_sv=orig_sv, source_topic=source_topic)
+  ]
 
   # 2. Make a block for every peer-group in svpgs
   for (svpg, svs) in svpgs:
@@ -229,6 +240,6 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], orig_sv: str,
                          is_topic_peer_group=True,
                          svpg_id=svpg,
                          orig_sv=orig_sv,
-                         source_topic=topic))
+                         source_topic=source_topic))
 
   return charts
