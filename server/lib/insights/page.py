@@ -32,6 +32,7 @@ import server.lib.nl.fulfillment.types as ftypes
 class ConfigResp:
   config_pb: SubjectPageConfig
   user_message: str
+  top_chart_sv: str
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
@@ -70,7 +71,9 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   # If after cleanup, the config is empty, maybe fallback.
   message = fallback.maybe_fallback(state, builder)
 
-  return ConfigResp(builder.page_config, message)
+  return ConfigResp(builder.page_config,
+                    message,
+                    top_chart_sv=builder.first_chart_sv)
 
 
 def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,

@@ -21,7 +21,7 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 
-def compute_related_things(state: ftypes.PopulateState):
+def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
 
@@ -35,17 +35,17 @@ def compute_related_things(state: ftypes.PopulateState):
   # Convert the places to json.
   pd = state.uttr.detection.places_detected
   related_things['parentPlaces'] = _get_json_places(pd.parent_places)
-  if state.place_type:
+  if state.place_type and pd.child_places:
     related_things['childPlaces'] = {
         state.place_type.value: _get_json_places(pd.child_places)
     }
 
   # Expand to parent and peer topics.
-  # Do this only for the "main" SV, otherwise it gets weird to show
-  # multiple sets of parents / peers.
-  if state.uttr.svs:
+  # Do this only for the top-chart topic/sv, otherwise it gets
+  # weird to show multiple sets of parents / peers.
+  if top_chart_sv:
     start = time.time()
-    pt = topic.get_parent_topics([state.uttr.svs[0]])
+    pt = topic.get_parent_topics([top_chart_sv])
     related_things['parentTopics'] = pt
     pt = [p['dcid'] for p in pt]
     related_things['peerTopics'] = topic.get_child_topics(pt)

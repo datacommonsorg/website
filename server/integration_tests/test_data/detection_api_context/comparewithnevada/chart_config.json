@@ -1,10 +1,12 @@
 {
-  "comparisonType": "ENTITY",
+  "comparisonEntities": [
+    "geoId/06"
+  ],
+  "comparisonVariables": [],
   "context": {},
   "debug": {},
   "entities": [
-    "geoId/32",
-    "geoId/06"
+    "geoId/32"
   ],
   "sessionId": "007_999999999",
   "variables": [

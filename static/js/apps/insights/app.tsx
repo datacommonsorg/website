@@ -40,18 +40,18 @@ const getSingleParam = (input: string | string[]): string => {
   if (Array.isArray(input)) {
     return input[0];
   }
+  if (!input) {
+    // Return empty instead of letting it be undefined.
+    return "";
+  }
   return input;
 };
 
-const getListParam = (input: string | string[]): string[] => {
-  if (!input) {
-    return [];
-  }
-  // If the input is an array, convert it to a single string
-  if (Array.isArray(input)) {
-    return input;
-  }
-  return [input];
+const DELIM = "___";
+
+const toApiList = (input: string): string[] => {
+  // Split of an empty string returns [''].  Trim empties.
+  return input.split(DELIM).filter((i) => i);
 };
 
 /**
@@ -89,7 +89,7 @@ export function App(): JSX.Element {
     setLoadingStatus("loading");
     (async () => {
       let place = getSingleParam(hashParams["p"]);
-      let cmpPlaces = getListParam(hashParams["pcmp"]);
+      let cmpPlace = getSingleParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
@@ -104,41 +104,39 @@ export function App(): JSX.Element {
           return;
         }
 
-        place = detectResp["entities"][0];
-        topic = detectResp["variables"][0];
-        cmpTopic = "";
-        cmpPlaces = [];
-        const cmpType = detectResp["comparisonType"] || "";
-        if (cmpType === "ENTITY") {
-          cmpPlaces = detectResp["entities"].slice(1);
-        } else if (cmpType === "VAR") {
-          cmpTopic = detectResp["variables"][1];
-        }
+        place = detectResp["entities"].join(DELIM);
+        cmpPlace = detectResp["comparisonEntities"].join(DELIM);
+        topic = detectResp["variables"].join(DELIM);
+        cmpTopic = detectResp["comparisonVariables"].join(DELIM);
         placeType = detectResp["childEntityType"] || "";
         updateHash({
           q: "",
           t: topic,
           tcmp: cmpTopic,
           p: place,
-          pcmp: cmpPlaces,
+          pcmp: cmpPlace,
           pt: placeType,
         });
         return;
       }
-      if (!place || !topic) {
+      if (!place) {
         return;
       }
-      let places = [place];
-      let topics = [topic];
-      let cmpType = "";
-      if (cmpPlaces && cmpPlaces.length > 0) {
-        places = places.concat(cmpPlaces);
-        cmpType = "ENTITY";
-      } else if (cmpTopic && cmpTopic !== undefined) {
-        topics = topics.concat([cmpTopic]);
-        cmpType = "VAR";
+      const places = toApiList(place);
+      const cmpPlaces = toApiList(cmpPlace);
+      const topics = toApiList(topic);
+      const cmpTopics = toApiList(cmpTopic);
+      const resp = await fetchFulfillData(
+        places,
+        topics,
+        placeType,
+        cmpPlaces,
+        cmpTopics
+      );
+      if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
+        setLoadingStatus("fail");
+        return;
       }
-      const resp = await fetchFulfillData(places, topics, placeType, cmpType);
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -151,7 +149,7 @@ export function App(): JSX.Element {
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
-        topic,
+        topic: topics[0] || "",
       };
       if (
         chartData &&
@@ -160,10 +158,7 @@ export function App(): JSX.Element {
       ) {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
-          category.url = `/insights/#t=${category.dcid}&p=${place}`;
-          for (const p of cmpPlaces) {
-            category.url += `&pcmp=${p}`;
-          }
+          category.url = `/insights/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}`;
         }
       }
       setSavedContext(resp["context"] || {});
@@ -175,12 +170,15 @@ export function App(): JSX.Element {
 
   let mainSection;
   const place = getSingleParam(hashParams["p"]);
-  const cmpPlaces = getListParam(hashParams["pcmp"]);
+  const cmpPlace = getSingleParam(hashParams["pcmp"]);
+  const topic = getSingleParam(hashParams["t"]);
   if (loadingStatus == "fail") {
-    mainSection = <div>No data is found</div>;
+    mainSection = (
+      <div id="user-message">Sorry, could not complete your request.</div>
+    );
   } else if (loadingStatus == "loaded" && chartData) {
     let urlString = "/insights/#p=${placeDcid}";
-    urlString += `&t=${chartData.topic}`;
+    urlString += `&t=${topic}`;
     mainSection = (
       <div className="row insights-charts">
         <div
@@ -193,26 +191,25 @@ export function App(): JSX.Element {
                 id={PAGE_ID}
                 currentTopicDcid={chartData.topic}
                 place={place}
-                cmpPlaces={cmpPlaces}
+                cmpPlace={cmpPlace}
                 categories={chartData.pageConfig.categories}
                 peerTopics={chartData.peerTopics}
               />
-              {chartData && chartData.parentTopics.length > 0 && (
-                <div className="topics-box">
-                  <div className="topics-head">Broader Topics</div>
-                  {chartData.parentTopics.map((parentTopic, idx) => {
-                    let url = `/insights/#t=${parentTopic.dcid}&p=${place}`;
-                    for (const p of cmpPlaces) {
-                      url += `&pcmp=${p}`;
-                    }
-                    return (
-                      <a className="topic-link" key={idx} href={url}>
-                        {parentTopic.name}
-                      </a>
-                    );
-                  })}
-                </div>
-              )}
+              {chartData &&
+                chartData.parentTopics.length > 0 &&
+                chartData.parentTopics.at(0).dcid != "dc/topic/Root" && (
+                  <div className="topics-box">
+                    <div className="topics-head">Broader Topics</div>
+                    {chartData.parentTopics.map((parentTopic, idx) => {
+                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}`;
+                      return (
+                        <a className="topic-link" key={idx} href={url}>
+                          {parentTopic.name}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
               <ChildPlaces
                 childPlaces={chartData.childPlaces}
                 parentPlace={chartData.place}
@@ -276,14 +273,16 @@ const fetchFulfillData = async (
   places: string[],
   topics: string[],
   placeType: string,
-  cmpType: string
+  cmpPlaces: string[],
+  cmpTopics: string[]
 ) => {
   try {
     const resp = await axios.post(`/api/insights/fulfill`, {
       entities: places,
       variables: topics,
       childEntityType: placeType,
-      comparisonType: cmpType,
+      comparisonEntities: cmpPlaces,
+      comparisonVariables: cmpTopics,
     });
     return resp.data;
   } catch (error) {
