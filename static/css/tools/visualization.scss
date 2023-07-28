@@ -29,6 +29,16 @@ $selector-footer-height: 40px;
   overflow: auto;
 }
 
+.primary-button {
+  width: fit-content;
+  padding: 10px 24px 10px 24px;
+  border-radius: 100px;
+  background-color: #0B57D0;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
 /* Vis type selector */
 .vis-type-selector {
   display: flex;
@@ -248,14 +258,7 @@ $selector-footer-height: 40px;
   flex-shrink: 0;
   
   .continue-button {
-    width: fit-content;
-    padding: 10px 24px 10px 24px;
-    border-radius: 100px;
-    background-color: #0B57D0;
-    color: white;
     font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
   }
 }
 
@@ -438,5 +441,29 @@ $selector-footer-height: 40px;
         width: 125px;
       }
     }
+  }
+}
+
+/* Info pane */
+
+.info-pane {
+  margin-top: 2rem;
+
+  .info-content {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    b {
+      font-weight: 600;
+    };
+  }
+
+  .start-button {
+    font-size: 16px;
   }
 }

@@ -24,6 +24,7 @@ import React from "react";
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
 import { StatVarHierarchyType } from "../../../shared/types";
+import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import {
   getFooterOptions,
@@ -137,10 +138,33 @@ function getChartArea(
   );
 }
 
+function getInfoContent(): JSX.Element {
+  return (
+    <div className="info-content">
+      <div>
+        <h3>Timeline</h3>
+        <p>
+          The timeline tool helps you explore trends for statistical variables.
+        </p>
+      </div>
+      <div>
+        <p>
+          You can start your exploration from one of these interesting points
+          ...
+        </p>
+        <MemoizedInfoExamples configKey="timeline" />
+      </div>
+
+      <p>Or click start to build your own timelines.</p>
+    </div>
+  );
+}
+
 export const TIMELINE_CONFIG = {
   displayName: "Timeline",
   icon: "timeline",
   svHierarchyType: StatVarHierarchyType.TIMELINE,
   skipEnclosedPlaceType: true,
   getChartArea,
+  getInfoContent,
 };

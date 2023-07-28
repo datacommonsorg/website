@@ -1,4 +1,4 @@
-[
+{"scatter": [
   {
     "header": "Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise (RCP 4.5)",
     "preposition": "for counties in",
@@ -76,4 +76,4 @@
       "url": "#&svx=Count_Person_BlackOrAfricanAmericanAlone&pcx=1&dx=Count_Person&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&dy=Count_Person&epd=country/USA&ept=County"
     }]
   }
-]
+]}
