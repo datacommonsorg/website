@@ -34,6 +34,8 @@ interface StatVarInfo {
   mq?: string;
   // true if the stat var has ranking pages
   ranked?: boolean;
+  // true if the stat var can show per capita
+  pcAllowed?: boolean;
 }
 
 function getStatVarInfo(dcids: string[]): Promise<Record<string, StatVarInfo>> {

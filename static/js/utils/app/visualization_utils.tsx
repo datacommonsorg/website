@@ -164,6 +164,9 @@ export function getFooterOptions(
   perCapitaInputs: InputInfo[],
   logInputs: InputInfo[]
 ): JSX.Element {
+  if (_.isEmpty(perCapitaInputs) && _.isEmpty(logInputs)) {
+    return null;
+  }
   return (
     <div className="chart-footer-options">
       <div className="option-section">
