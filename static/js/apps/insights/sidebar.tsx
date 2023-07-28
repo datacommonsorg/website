@@ -50,6 +50,9 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                 {topic.dcid == props.currentTopicDcid &&
                   props.categories &&
                   props.categories.map((category) => {
+                    if (!category.dcid) {
+                      return;
+                    }
                     const url = `/insights/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&q=`;
                     return (
                       <a key={randDomId()} className={"nav-item"} href={url}>

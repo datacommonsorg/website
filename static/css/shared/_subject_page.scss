@@ -94,7 +94,8 @@ article.category {
     cursor: pointer;
   }
 
-  .toggle-on, .toggle-off:hover {
+  .toggle-on,
+  .toggle-off:hover {
     color: var(--dc-primary);
   }
 }
@@ -198,7 +199,7 @@ article.category {
 
   .nav-item.category {
     font-weight: 600;
-    margin-top: 1em;
+    margin-top: 0.5rem;
   }
 }
 

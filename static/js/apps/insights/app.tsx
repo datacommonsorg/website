@@ -103,9 +103,9 @@ export function App(): JSX.Element {
         }
 
         place = detectResp["entities"].join(DELIM);
-        cmpPlace = detectResp["comparisonEntities"].join(DELIM);
+        cmpPlace = (detectResp["comparisonEntities"] || []).join(DELIM);
         topic = detectResp["variables"].join(DELIM);
-        cmpTopic = detectResp["comparisonVariables"].join(DELIM);
+        cmpTopic = (detectResp["comparisonVariables"] || []).join(DELIM);
         placeType = detectResp["childEntityType"] || "";
         setLoadingStatus("queryDetected");
         updateHash({
@@ -158,7 +158,9 @@ export function App(): JSX.Element {
       ) {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
-          category.url = `/insights/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}`;
+          if (category.dcid) {
+            category.url = `/insights/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}`;
+          }
         }
       }
       setSavedContext(resp["context"] || {});
