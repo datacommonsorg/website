@@ -21,6 +21,7 @@ from flask import Response
 
 from server import cache
 from server.lib import fetch
+from server.lib import shared
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -73,14 +74,24 @@ def stat_var_property():
         pvs[pred] = objId if objId else objVal
 
     result[dcid] = {
-        'mprop': mprop,
-        'pt': pt,
-        'md': md,
-        'st': st,
-        'mq': mq,
-        'pvs': pvs,
-        'title': name,
-        'ranked': dcid in ranked_statvars
+        'mprop':
+            mprop,
+        'pt':
+            pt,
+        'md':
+            md,
+        'st':
+            st,
+        'mq':
+            mq,
+        'pvs':
+            pvs,
+        'title':
+            name,
+        'ranked':
+            dcid in ranked_statvars,
+        'pcAllowed':
+            shared.is_percapita_relevant(dcid, current_app.config['NOPC_VARS'])
     }
   return result
 
