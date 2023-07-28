@@ -95,10 +95,13 @@ def _open_topic_lite(state: ftypes.PopulateState,
                      ret_svs: List[str],
                      lvl: int = 0):
   if lvl == 0:
-    topic_vars = topic.get_topic_vars(sv)
+    topic_vars = topic.get_topic_vars(sv, ordered=True)
   else:
     assert lvl < 2, "Must never recurse past 2 levels"
-    topic_vars = topic.get_topic_vars_recurive(sv, rank=0, max_svs=1)
+    topic_vars = topic.get_topic_vars_recurive(sv,
+                                               rank=0,
+                                               ordered=True,
+                                               max_svs=1)
 
   members = _classify_topic_members(topic_vars)
 
@@ -125,7 +128,7 @@ def _topic_chart_vars(state: ftypes.PopulateState,
                       lvl: int = 0) -> List[ftypes.ChartVars]:
   if lvl == 0:
     # This is the requested topic, just get the immediate members.
-    topic_vars = topic.get_topic_vars(sv)
+    topic_vars = topic.get_topic_vars(sv, ordered=True)
   else:
     # This is an immediate sub-topic of the parent topic. Here,
     # we recurse along the topic-descendents to get a limited
@@ -133,6 +136,7 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     assert lvl < 2, "Must never recurse past 2 levels"
     topic_vars = topic.get_topic_vars_recurive(sv,
                                                rank=0,
+                                               ordered=True,
                                                max_svs=_MAX_SUBTOPIC_SV_LIMIT)
 
   # Classify the members into `TopicMembers` struct.
@@ -162,7 +166,7 @@ def _topic_chart_vars(state: ftypes.PopulateState,
 
 
 def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
-  peer_groups = topic.get_topic_peergroups(topic_vars)
+  peer_groups = topic.get_topic_peergroups(topic_vars, ordered=True)
 
   just_svs = []
   svpgs = []

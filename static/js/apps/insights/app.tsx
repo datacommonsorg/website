@@ -23,6 +23,7 @@ import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
@@ -58,6 +59,7 @@ const getListParam = (input: string | string[]): string[] => {
  */
 export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
+  const [userMessage, setUserMessage] = useState<string>("");
   const [loadingStatus, setLoadingStatus] = useState<string>("");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [query, setQuery] = useState<string>("");
@@ -167,6 +169,7 @@ export function App(): JSX.Element {
       setSavedContext(resp["context"] || {});
       setLoadingStatus("loaded");
       setChartData(chartData);
+      setUserMessage(resp["userMessage"]);
     })();
   }, [hashParams]);
 
@@ -229,7 +232,7 @@ export function App(): JSX.Element {
                       updateHash({ q, t: "" });
                     }}
                     placeholder={query}
-                    initialValue={""}
+                    initialValue={query}
                     shouldAutoFocus={true}
                     clearValueOnSearch={true}
                   />
@@ -243,6 +246,7 @@ export function App(): JSX.Element {
                   topic={chartData.topic}
                 ></ParentPlace>
               )}
+              {userMessage && <div id="user-message">{userMessage}</div>}
               <SubjectPageMainPane
                 id={PAGE_ID}
                 place={chartData.place}
@@ -256,7 +260,11 @@ export function App(): JSX.Element {
       </div>
     );
   } else if (loadingStatus == "loading") {
-    mainSection = <div>Loading...</div>;
+    mainSection = (
+      <div>
+        <Spinner isOpen={true} />
+      </div>
+    );
   } else {
     mainSection = <></>;
   }
