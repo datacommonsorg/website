@@ -60,7 +60,7 @@ const toApiList = (input: string): string[] => {
 export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
   const [userMessage, setUserMessage] = useState<string>("");
-  const [loadingStatus, setLoadingStatus] = useState<string>("");
+  const [loadingStatus, setLoadingStatus] = useState<string>("init");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [savedContext, setSavedContext] = useState<any>({});
 
@@ -149,7 +149,7 @@ export function App(): JSX.Element {
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
-        topic: topics[0] || "",
+        topic: resp["relatedThings"]["mainTopic"]["dcid"] || "",
       };
       if (
         chartData &&
@@ -243,7 +243,7 @@ export function App(): JSX.Element {
                 <ParentPlace
                   parentPlaces={chartData.parentPlaces}
                   placeType={chartData.place.types[0]}
-                  topic={chartData.topic}
+                  topic={topic}
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
