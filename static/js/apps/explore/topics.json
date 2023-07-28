@@ -32,10 +32,19 @@
         "dataPointCount": 0,
         "variableCount": 67486,
         "sources": [
-          "U.S. Bureau of Economic Analysis",
-          "U.S. Bureau of Labor Statistics",
+          "Australian Bureau of Statistics",
+          "EU Eurostat",
+          "Food and Agriculture Organization of the United States",
+          "India Ministry of Statistics and Programme Implementation",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Reserve Bank of India",
+          "U.S. Bureau of Economic Analysis (BEA)",
+          "U.S. Bureau of Labor Statistics (BLS)",
           "U.S. Census Bureau",
-          "U.S. Department of Labor",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Department of Labor (DOL)",
+          "U.S. Federal Reserve",
           "World Bank"
         ]
       }
@@ -63,8 +72,26 @@
         "dataPointCount": 0,
         "variableCount": 20531,
         "sources": [
-          "World Health Organization",
-          "U.S. Center for Disease Control and Prevention (CDC)"
+          "Australian Bureau of Statistics",
+          "City Controller, City of Los Angeles",
+          "Colombia DANE National Administrative Department of Statistics",
+          "Dartmouth Atlas Project",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Health Mission",
+          "India National Sample Survey",
+          "National Institute of Statistics and Censuses",
+          "Open Data for Africa",
+          "Our World in Data",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "The Central Bureau of Statistics, Indonesia",
+          "The New York Times",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Drug Enforcement Agency (DEA)",
+          "World Bank",
+          "World Health Organization (WHO)"
         ]
       }
     },
@@ -88,8 +115,15 @@
         "dataPointCount": 0,
         "variableCount": 42422,
         "sources": [
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "California Assessment of Student Performance and Progress",
+          "Colombia DANE National Administrative Department of Statistics",
+          "EU Eurostat",
+          "India Ministry of Education",
+          "Open Data for Africa",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
           "U.S. Census Bureau",
-          "U.S. Department of Education",
+          "U.S. Department of Education (ED)",
           "U.S. National Center for Education Statistics"
         ]
       }
@@ -118,12 +152,22 @@
         "variableCount": 2992,
         "sources": [
           "Climate Trace",
+          "Data Commons",
           "Dynamic World Project",
+          "European Union (EU) Copernicus",
           "Federal Emergency Management Agency (FEMA)",
+          "Global Land Ice Measurements from Space (GLIMS)",
+          "India Central Pollution Control Board",
+          "India Water Resources Information System",
+          "Resources for the Future (RFF)",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Center for Disease Control and Prevention (CDC)",
           "U.S. Environmental Protection Agency (EPA)",
-          "U.S. National Aeornautics and Space Administration (NASA)",
-          "U.S. National Oceanic and Atmostpheric Administration (NOAA)",
-          "United States Geological Service (USGS)"
+          "U.S. National Aeronautics and Space Administration (NASA)",
+          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
+          "U.S. National Wildlife Coordinating Group",
+          "United States Geological Service (USGS)",
+          "Wildland Fire Interagency Geospatial Services"
         ]
       }
     },
@@ -150,8 +194,29 @@
         "dataPointCount": 0,
         "variableCount": 35472,
         "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
           "U.S. Census Bureau",
-          "United Nations",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
           "World Bank"
         ]
       }
@@ -181,14 +246,28 @@
         "variableCount": 12746,
         "sources": [
           "Climate Trace",
-          "U.S. Energy Information Administration (EIA)",
-          "U.S. National Reneweable Energy Laboratory (NREL)",
+          "Data Commons",
+          "Dynamic World Project",
+          "European Union (EU) Copernicus",
           "Federal Emergency Management Agency (FEMA)",
+          "Global Land Ice Measurements from Space (GLIMS)",
+          "India Central Pollution Control Board",
+          "India Energy Dashboard",
+          "India Water Resources Information System",
+          "Resources for the Future (RFF)",
+          "Stanford University",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Energy Information Administration (EIA)",
           "U.S. Environmental Protection Agency (EPA)",
-          "U.S. National Aeornautics and Space Administration (NASA)",
-          "U.S. National Oceanic and Atmostpheric Administration (NOAA)",
+          "U.S. National Aeronautics and Space Administration (NASA)",
+          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
+          "U.S. National Renewable Energy Laboratory (NREL)",
+          "U.S. National Wildlife Coordinating Group",
+          "United Nations (UN)",
           "United States Geological Service (USGS)",
-          "United Nations"
+          "Wildland Fire Interagency Geospatial Services",
+          "World Bank"
         ]
       }
     }
