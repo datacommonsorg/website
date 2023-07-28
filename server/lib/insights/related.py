@@ -21,8 +21,7 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 
-def compute_related_things(state: ftypes.PopulateState,
-                           top_chart_sv: str):
+def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
 

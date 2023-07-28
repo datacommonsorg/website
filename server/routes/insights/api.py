@@ -113,11 +113,9 @@ def fulfill():
   # TODO: Maybe check that if cmp_entities is set, entities should
   # be singleton.
   start = time.time()
-  query_detection, error_msg = nl_detector.construct(entities, vars,
-                                                     child_type,
-                                                     cmp_entities,
-                                                     cmp_vars, debug_logs,
-                                                     counters)
+  query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
+                                                     cmp_entities, cmp_vars,
+                                                     debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     helpers.abort(error_msg, '', [])

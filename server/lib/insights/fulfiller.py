@@ -96,7 +96,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
 
   config_resp = page.build_config(chart_vars_list, state, existing_svs,
                                   cb_config)
-  related_things = related.compute_related_things(state, config_resp.top_chart_sv)
+  related_things = related.compute_related_things(state,
+                                                  config_resp.top_chart_sv)
 
   return FulfillResp(chart_pb=config_resp.config_pb,
                      related_things=related_things,

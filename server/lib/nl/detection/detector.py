@@ -180,17 +180,17 @@ def construct(entities: List[str], vars: List[str], child_type: str,
     # Multi SV case.
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
-                                        svs=vars,
-                                        scores=[0.51] * len(vars),
-                                        sv2sentences={}),
+                                         svs=vars,
+                                         scores=[0.51] * len(vars),
+                                         sv2sentences={}),
                                      multi_sv=_get_multi_sv(vars, cmp_vars))
   else:
     sv_detection = types.SVDetection(query='',
-                                    single_sv=dutils.VarCandidates(
-                                        svs=vars,
-                                        scores=[1.0] * len(vars),
-                                        sv2sentences={}),
-                                    multi_sv=None)
+                                     single_sv=dutils.VarCandidates(
+                                         svs=vars,
+                                         scores=[1.0] * len(vars),
+                                         sv2sentences={}),
+                                     multi_sv=None)
 
   return types.Detection(original_query=query,
                          cleaned_query=query,
@@ -201,20 +201,15 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                          place_detector=PlaceDetectorType.NOP), None
 
 
-def _get_multi_sv(vars: List[str], cmp_vars: List[str]) -> dutils.MultiVarCandidates:
+def _get_multi_sv(vars: List[str],
+                  cmp_vars: List[str]) -> dutils.MultiVarCandidates:
   return dutils.MultiVarCandidates(candidates=[
-    dutils.MultiVarCandidate(
-      parts=[
-        dutils.MultiVarCandidatePart(
-          query_part='var1',
-          svs=vars,
-          scores=[1.0] * len(vars)
-        ),
-        dutils.MultiVarCandidatePart(
-          query_part='var2',
-          svs=cmp_vars,
-          scores=[1.0] * len(cmp_vars)
-        )
+      dutils.MultiVarCandidate(parts=[
+          dutils.MultiVarCandidatePart(
+              query_part='var1', svs=vars, scores=[1.0] * len(vars)),
+          dutils.MultiVarCandidatePart(
+              query_part='var2', svs=cmp_vars, scores=[1.0] * len(cmp_vars))
       ],
-      aggregate_score=1.0,
-      delim_based=True)])
+                               aggregate_score=1.0,
+                               delim_based=True)
+  ])

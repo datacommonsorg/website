@@ -23,6 +23,7 @@ import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
@@ -86,7 +87,7 @@ export function App(): JSX.Element {
       let cmpPlace = getSingleParam(hashParams["pcmp"]);
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
-      let placeType = getSingleParam(hashParams["pt"]);
+      const placeType = getSingleParam(hashParams["pt"]);
       const q = getSingleParam(hashParams["q"]);
 
       if (q) {
@@ -115,11 +116,17 @@ export function App(): JSX.Element {
       if (!place || !topic) {
         return;
       }
-      let places = place.split(DELIM);
-      let topics = topic.split(DELIM);
-      let cmpPlaces = cmpPlace.split(DELIM);
-      let cmpTopics = cmpTopic.split(DELIM);
-      const resp = await fetchFulfillData(places, topics, placeType, cmpPlaces, cmpTopics);
+      const places = place.split(DELIM);
+      const topics = topic.split(DELIM);
+      const cmpPlaces = cmpPlace.split(DELIM);
+      const cmpTopics = cmpTopic.split(DELIM);
+      const resp = await fetchFulfillData(
+        places,
+        topics,
+        placeType,
+        cmpPlaces,
+        cmpTopics
+      );
       const mainPlace = resp["place"];
       const chartData: SubjectPageMetadata = {
         place: {
@@ -160,92 +167,91 @@ export function App(): JSX.Element {
     let urlString = "/insights/#p=${placeDcid}";
     urlString += `&t=${chartData.topic}`;
     mainSection = (
-      <div className="insights-charts">
-        <div className="row">
-          <div className="col-md-3x col-lg-3 order-last order-lg-0">
-            {chartData && chartData.pageConfig && (
-              <>
-                <Sidebar
-                  id={PAGE_ID}
-                  currentTopicDcid={chartData.topic}
-                  place={place}
-                  cmpPlace={cmpPlace}
-                  categories={chartData.pageConfig.categories}
-                  peerTopics={chartData.peerTopics}
-                />
-                {chartData && chartData.parentTopics.length > 0 && (
-                  <div className="topics-box">
-                    <div className="topics-head">Broader Topics</div>
-                    {chartData.parentTopics.map((parentTopic, idx) => {
-                      let url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp={cmpPlace}`;
-                      return (
-                        <a className="topic-link" key={idx} href={url}>
-                          {parentTopic.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
-                <ChildPlaces
-                  childPlaces={chartData.childPlaces}
-                  parentPlace={chartData.place}
-                  urlFormatString={urlString}
-                ></ChildPlaces>
-              </>
-            )}
-          </div>
-          <div className="row col-md-9x col-lg-9">
-            {chartData && chartData.pageConfig && (
-              <>
-                <div id="place-callout">{chartData.place.name}</div>
-                {chartData.parentPlaces.length > 0 && (
-                  <ParentPlace
-                    parentPlaces={chartData.parentPlaces}
-                    placeType={chartData.place.types[0]}
-                    topic={chartData.topic}
-                  ></ParentPlace>
-                )}
-                {userMessage && (
-                  <div id="user-message">{userMessage}</div>
-                )}
-                <SubjectPageMainPane
-                  id={PAGE_ID}
-                  place={chartData.place}
-                  pageConfig={chartData.pageConfig}
-                  svgChartHeight={SVG_CHART_HEIGHT}
-                  showExploreMore={true}
-                />
-              </>
-            )}
-          </div>
+      <div className="row insights-charts">
+        <div
+          id="insight-lhs"
+          className="col-md-2x col-lg-2 order-last order-lg-0"
+        >
+          {chartData && chartData.pageConfig && (
+            <>
+              <Sidebar
+                id={PAGE_ID}
+                currentTopicDcid={chartData.topic}
+                place={place}
+                cmpPlace={cmpPlace}
+                categories={chartData.pageConfig.categories}
+                peerTopics={chartData.peerTopics}
+              />
+              {chartData && chartData.parentTopics.length > 0 && (
+                <div className="topics-box">
+                  <div className="topics-head">Broader Topics</div>
+                  {chartData.parentTopics.map((parentTopic, idx) => {
+                    const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp={cmpPlace}`;
+                    return (
+                      <a className="topic-link" key={idx} href={url}>
+                        {parentTopic.name}
+                      </a>
+                    );
+                  })}
+                </div>
+              )}
+              <ChildPlaces
+                childPlaces={chartData.childPlaces}
+                parentPlace={chartData.place}
+                urlFormatString={urlString}
+              ></ChildPlaces>
+            </>
+          )}
+        </div>
+        <div className="row col-md-10x col-lg-10">
+          {chartData && chartData.pageConfig && (
+            <div id="insight-rhs">
+              <div className="search-section">
+                <div className="search-box-section">
+                  <TextSearchBar
+                    inputId="query-search-input"
+                    onSearch={(q) => {
+                      updateHash({ q, t: "" });
+                    }}
+                    placeholder={query}
+                    initialValue={query}
+                    shouldAutoFocus={true}
+                    clearValueOnSearch={true}
+                  />
+                </div>
+              </div>
+              <div id="place-callout">{chartData.place.name}</div>
+              {chartData.parentPlaces.length > 0 && (
+                <ParentPlace
+                  parentPlaces={chartData.parentPlaces}
+                  placeType={chartData.place.types[0]}
+                  topic={chartData.topic}
+                ></ParentPlace>
+              )}
+              {userMessage && <div id="user-message">{userMessage}</div>}
+              <SubjectPageMainPane
+                id={PAGE_ID}
+                place={chartData.place}
+                pageConfig={chartData.pageConfig}
+                svgChartHeight={SVG_CHART_HEIGHT}
+                showExploreMore={true}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
   } else if (loadingStatus == "loading") {
-    mainSection = <div>Loading...</div>;
+    mainSection = (
+      <div>
+        <Spinner isOpen={true} />
+      </div>
+    );
   } else {
     mainSection = <></>;
   }
 
-  return (
-    <Container className="insights-container">
-      <div className="search-section">
-        <div className="search-box-section">
-          <TextSearchBar
-            inputId="query-search-input"
-            onSearch={(q) => {
-              updateHash({ q, t: "" });
-            }}
-            placeholder={query}
-            initialValue={""}
-            shouldAutoFocus={true}
-            clearValueOnSearch={true}
-          />
-        </div>
-      </div>
-      {mainSection}
-    </Container>
-  );
+  return <Container className="insights-container">{mainSection}</Container>;
 }
 
 const fetchFulfillData = async (
@@ -261,7 +267,7 @@ const fetchFulfillData = async (
       variables: topics,
       childEntityType: placeType,
       comparisonEntities: cmpPlaces,
-      comparisonVariables: cmpTopics
+      comparisonVariables: cmpTopics,
     });
     return resp.data;
   } catch (error) {

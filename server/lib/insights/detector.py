@@ -30,6 +30,7 @@ from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
 _MAX_RETURNED_VARS = 5
 
+
 class Params(str, Enum):
   ENTITIES = 'entities'
   VARS = 'variables'
@@ -59,12 +60,11 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
 
   # 3. Detect places (and comparison type) leveraging context.
   places, cmp_places = _detect_places(
-    uttr, past_ctx,
-    query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
+      uttr, past_ctx, query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
 
   # 4. Detect SVs leveraging context.
-  vars, cmp_vars = _detect_vars(uttr, past_ctx,
-    query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
+  vars, cmp_vars = _detect_vars(
+      uttr, past_ctx, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
   # Populate dict with basic info
   data_dict.update({

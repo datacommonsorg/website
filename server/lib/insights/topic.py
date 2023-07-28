@@ -23,6 +23,7 @@ import server.lib.nl.fulfillment.types as ftypes
 
 _MAX_CORRELATION_SVS_PER_TOPIC = 4
 
+
 @dataclass
 class TopicMembers:
   svs: List[str]
@@ -80,9 +81,8 @@ def compute_correlation_chart_vars(
 # Compute correlation chart-vars for a given pair of LHS and RHS var.
 # Note that either/both of them can be a topic.
 #
-def _compute_correlation_chart_vars_for_pair(
-    state: ftypes.PopulateState,
-    lhs_sv: str, rhs_sv: str):
+def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
+                                             lhs_sv: str, rhs_sv: str):
   # Get vars.
   def _vars(v):
     if cutils.is_sv(v):
