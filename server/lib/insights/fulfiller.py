@@ -91,6 +91,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         existing_svs.add(chart_vars.source_topic)
       if chart_vars.svpg_id:
         existing_svs.add(chart_vars.svpg_id)
+      if chart_vars.orig_sv:
+        existing_svs.add(chart_vars.orig_sv)
 
   config_resp = page.build_config(chart_vars_list, state, existing_svs,
                                   cb_config)

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.nl.common import utils
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
@@ -49,7 +50,7 @@ class Builder:
       metadata.contained_place_types[main_place.place_type] = \
         state.place_type.value
 
-    self.first_chart_sv = ''
+    self.first_chart_sv = {}
     self.category = None
     self.block = None
     self.column = None
@@ -75,8 +76,13 @@ class Builder:
     # We are adding a chart for real post existence check.
     # Track the first such chart's topic/sv. This will define
     # the topic page.
-    if not self.first_chart_sv and cv and cv.svs:
-      self.first_chart_sv = cv.orig_sv
+    if not self.first_chart_sv and cv and cv.orig_sv:
+      t = 'StatisticalVariable' if utils.is_sv(cv.orig_sv) else 'Topic'
+      self.first_chart_sv = {
+          'dcid': cv.orig_sv,
+          'name': self.sv2thing.name.get(cv.orig_sv, ''),
+          'types': [t],
+      }
 
     self.column = self.block.columns.add()
     return self.column
@@ -129,7 +135,7 @@ class Builder:
       self.page_config.categories.extend(out_cats)
 
     for cat in self.page_config.categories:
-      if self.first_chart_sv == cat.dcid:
+      if self.first_chart_sv and self.first_chart_sv['dcid'] == cat.dcid:
         # The overall topic matches the category, so clear out the title.
         cat.title = ''
 
