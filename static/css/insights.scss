@@ -33,7 +33,6 @@
 .insights-container {
   display: flex;
   flex-direction: column;
-  max-width: 1080px;
   h1 {
     font-size: 2rem;
     margin: 3rem 0;
@@ -144,4 +143,9 @@
   font-weight: 500;
   font-size: 0.9rem;
   color: var(--dc-gray);
+}
+
+.nav-item.highlight {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
 }

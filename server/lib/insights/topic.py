@@ -194,11 +194,13 @@ def _topic_chart_vars(state: ftypes.PopulateState,
                           lvl=lvl + 1))
 
   state.uttr.counters.info(
-      'topics_processed',
-      {sv: {
-          'svs': topic_members.svs,
-          'peer_groups': topic_members.svpgs,
-      }})
+      'topics_processed', {
+          sv: {
+              'svs': topic_members.svs,
+              'peer_groups': topic_members.svpgs,
+              'sub_topics': topic_members.topics,
+          }
+      })
   return charts
 
 

@@ -8,38 +8,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Seychelles",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase over time (Absolute change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Seychelles",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Increase over time (Percent change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
                       "LifeExpectancy_Person"
@@ -375,10 +343,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death_AsAFractionOfCount_Person": {
-            "name": "Deaths Per Capita",
-            "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
@@ -388,7 +352,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/SYC"
+        "country/DZA"
       ]
     },
     "suggestions": {
@@ -400,8 +364,8 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/SYC",
-    "name": "Seychelles",
+    "dcid": "country/DZA",
+    "name": "Algeria",
     "place_type": "Country"
   },
   "placeFallback": {},
