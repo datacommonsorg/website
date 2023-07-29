@@ -69,6 +69,8 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
       related_things['peerTopics'] = topic.get_child_topics(pt)
+      if not related_things['peerTopics']:
+        related_things['peerTopics'] = [t]
     state.uttr.counters.timeit('topic_expansion', start)
 
   return related_things

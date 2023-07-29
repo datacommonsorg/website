@@ -33,9 +33,9 @@
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "dc/0gettc3bc60cb",
-                      "dc/6rltk4kf75612"
+                      "dc/0gettc3bc60cb"
                     ],
+                    "title": "Drive alone in Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -54,10 +54,134 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
                     "title": "Work at home in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6"
+                    ],
+                    "title": "Public Transit in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6"
+                    ],
+                    "title": "Public Transit in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/vp8cbt6k79t94"
+                    ],
+                    "title": "Walk to work in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/vp8cbt6k79t94"
+                    ],
+                    "title": "Walk to work in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/vt2q292eme79f"
+                    ],
+                    "title": "Others (incl. Taxcab, Motorcyle, Bicycle) in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/vt2q292eme79f"
+                    ],
+                    "title": "Others (incl. Taxcab, Motorcyle, Bicycle) in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -85,17 +209,33 @@
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
+          "dc/hbkh95kc7pkb6": {
+            "name": "Public Transit",
+            "statVar": "dc/hbkh95kc7pkb6"
+          },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
+          },
+          "dc/vp8cbt6k79t94": {
+            "name": "Walk to work",
+            "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
             "statVar": "dc/vp8cbt6k79t94"
           },
+          "dc/vt2q292eme79f": {
+            "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
+            "statVar": "dc/vt2q292eme79f"
+          },
           "dc/vt2q292eme79f_multiple_place_bar_block": {
             "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
             "statVar": "dc/vt2q292eme79f"
+          },
+          "dc/wc8q05drd74bd": {
+            "name": "Carpool",
+            "statVar": "dc/wc8q05drd74bd"
           },
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
             "name": "Carpool",
@@ -355,7 +495,15 @@
       }
     ],
     "parentTopics": [],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": ""

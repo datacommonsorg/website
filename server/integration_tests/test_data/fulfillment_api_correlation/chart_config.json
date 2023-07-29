@@ -509,7 +509,15 @@
       }
     ],
     "parentTopics": [],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": ""
