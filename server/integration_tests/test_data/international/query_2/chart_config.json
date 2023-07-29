@@ -9,13 +9,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
                     "title": "Life Expectancy in Administrative Area 1 Places of China (${date})",
@@ -50,10 +43,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death_AsAFractionOfCount_Person": {
-            "name": "Deaths Per Capita",
-            "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"

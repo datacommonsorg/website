@@ -491,6 +491,10 @@
       "NL_RELATED_VAR": {
         "items": [
           {
+            "displayName": "Physical Health Issues",
+            "nlQuery": "Physical Health Issues Earth"
+          },
+          {
             "displayName": "People With VA Health Care",
             "nlQuery": "People With VA Health Care Earth"
           },

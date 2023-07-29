@@ -86,13 +86,13 @@
                       "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
                       "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
                     ],
-                    "title": "Cancer Preventative Health in Placer County (${date})",
+                    "title": "Cancer Preventive Health in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Cancer Preventative Health"
+            "title": "Cancer Preventive Health"
           },
           {
             "columns": [
