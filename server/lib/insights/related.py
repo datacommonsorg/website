@@ -51,11 +51,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
     sv_dcid = top_chart_sv['dcid']
     t = {}
     if utils.is_sv(sv_dcid):
-      # This is an SV, so get parent SVPGs, if any
-      psvpg = topic.get_parent_svpgs([sv_dcid])
-      psvpg_ids = [p['dcid'] for p in psvpg]
-      # Get its actual topic, if any.
-      t = topic.get_parent_topics(psvpg_ids + [sv_dcid])
+      t = topic.get_parent_topics(sv_dcid)
       if t:
         # Pick one.
         t = t[0]
@@ -65,7 +61,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
     if t:
       related_things['mainTopic'] = t
       # Get parent topics.
-      pt = topic.get_parent_topics([t['dcid']])
+      pt = topic.get_parent_topics(t['dcid'])
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
       related_things['peerTopics'] = topic.get_child_topics(pt)

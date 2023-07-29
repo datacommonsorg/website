@@ -45,19 +45,20 @@ def get(url: str):
   return response.json()
 
 
-def post(url: str, req: Dict):
+def post(url: str, req: Dict, mixer_api_key: str = ''):
   # Get json string so the request can be flask cached.
   # Also to have deterministic req string, the repeated fields in request
   # are sorted.
   req_str = json.dumps(req, sort_keys=True)
-  return post_wrapper(url, req_str)
+  return post_wrapper(url, req_str, mixer_api_key)
 
 
 @cache.cache.memoize(timeout=cache.TIMEOUT)
-def post_wrapper(url, req_str: str):
+def post_wrapper(url, req_str: str, mixer_api_key: str = ''):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}
-  mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
+  if not mixer_api_key:
+    mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
   if mixer_api_key:
     headers['x-api-key'] = mixer_api_key
   # Send the request and verify the request succeeded
@@ -190,7 +191,7 @@ def v2observation(select, entity, variable):
   })
 
 
-def v2node(nodes, prop):
+def v2node(nodes, prop, mixer_api_key=''):
   """Wrapper to call V2 Node REST API.
 
   Args:
@@ -201,7 +202,7 @@ def v2node(nodes, prop):
   return post(url, {
       'nodes': sorted(nodes),
       'property': prop,
-  })
+  }, mixer_api_key)
 
 
 def v2event(node, prop):
