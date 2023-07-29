@@ -178,9 +178,6 @@ def _topic_chart_vars(state: ftypes.PopulateState,
 
   # First produce charts for SVs and SVPGs.
   if topic_members.svs or topic_members.svpgs:
-    st = sv
-    if lvl == 0 and topic_members.topics:
-      st = ''
     charts.extend(
         _direct_chart_vars(svs=topic_members.svs,
                            svpgs=topic_members.svpgs,
@@ -197,11 +194,13 @@ def _topic_chart_vars(state: ftypes.PopulateState,
                           lvl=lvl + 1))
 
   state.uttr.counters.info(
-      'topics_processed',
-      {sv: {
-          'svs': topic_members.svs,
-          'peer_groups': topic_members.svpgs,
-      }})
+      'topics_processed', {
+          sv: {
+              'svs': topic_members.svs,
+              'peer_groups': topic_members.svpgs,
+              'sub_topics': topic_members.topics,
+          }
+      })
   return charts
 
 

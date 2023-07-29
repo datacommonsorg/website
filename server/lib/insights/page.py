@@ -48,7 +48,7 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   )
   state.uttr.counters.timeit('get_sv_details', start)
 
-  builder = Builder(state, env_config, sv2thing)
+  builder = Builder(state, env_config, sv2thing, len(chart_vars_list))
 
   prev_topic = None
   for i, chart_vars in enumerate(chart_vars_list):

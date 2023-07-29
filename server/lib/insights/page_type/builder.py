@@ -27,11 +27,12 @@ import server.lib.nl.fulfillment.types as ftypes
 class Builder:
 
   def __init__(self, state: ftypes.PopulateState, env_config: builder.Config,
-               sv2thing: base.SV2Thing):
+               sv2thing: base.SV2Thing, num_chart_vars: int):
     self.uttr = state.uttr
     self.page_config = SubjectPageConfig()
     self.env_config = env_config
     self.sv2thing = sv2thing
+    self.num_chart_vars = num_chart_vars
 
     self.is_place_comparison = False
     if ctx.classifications_of_type_from_utterance(
