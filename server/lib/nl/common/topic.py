@@ -17,8 +17,9 @@ import logging
 import time
 from typing import Dict, List
 
+from flask import current_app
+
 from server.lib import fetch
-from server.lib.nl.common import topic_store
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
@@ -435,7 +436,7 @@ def get_topic_vars_recurive(topic: str,
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = topic_store.members([topic], 'relevantVariable', ordered)[topic]
+    svs = _members([topic], 'relevantVariable', ordered)[topic]
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
@@ -456,7 +457,7 @@ def get_topic_vars(topic: str, ordered: bool = False):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = topic_store.members([topic], 'relevantVariable', ordered)[topic]
+    svs = _members([topic], 'relevantVariable', ordered)[topic]
     logging.info(f'{topic} -> {svs}')
   return svs
 
@@ -464,7 +465,7 @@ def get_topic_vars(topic: str, ordered: bool = False):
 def get_parent_topics(topic_or_sv: str):
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
-    psvpg = topic_store.parents_raw([topic_or_sv], 'member')
+    psvpg = _parents_raw([topic_or_sv], 'member')
     psvpg_ids = [p['dcid'] for p in psvpg]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
@@ -472,13 +473,13 @@ def get_parent_topics(topic_or_sv: str):
     topics = [topic_or_sv]
   if not topics:
     return []
-  parents = topic_store.parents_raw(topics, 'relevantVariable')
+  parents = _parents_raw(topics, 'relevantVariable')
   logging.info(f'{topic_or_sv} -> {parents}')
   return parents
 
 
 def get_child_topics(topics: List[str]):
-  children = topic_store.members_raw(topics, 'relevantVariable')
+  children = _members_raw(topics, 'relevantVariable')
   resp = []
   for pvals in children.values():
     for p in pvals:
@@ -487,6 +488,8 @@ def get_child_topics(topics: List[str]):
       if 'dcid' not in p:
         continue
       if not utils.is_topic(p['dcid']):
+        continue
+      if p['dcid'] in topics:
         continue
       resp.append(p)
   return resp
@@ -533,7 +536,7 @@ def svpg_description(sv: str):
 def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = topic_store.members([svpg], 'member', ordered)[svpg]
+    svs = _members([svpg], 'member', ordered)[svpg]
   return svs
 
 
@@ -584,3 +587,33 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
     return svs
 
   return []
+
+
+def _members(nodes: List[str],
+             prop: str,
+             ordered: bool = False) -> Dict[str, List[str]]:
+  val_map = {}
+  if ordered:
+    for n in nodes:
+      resp = current_app.config['TOPIC_CACHE'].get_members(n)
+      val_map[n] = [v['dcid'] for v in resp]
+    nodes_copy = [n for n, v in val_map.items() if not v]
+  else:
+    # TODO: Once the caller stops using it, deprecate it.
+    val_map.update(fetch.property_values(nodes=nodes_copy, prop=prop))
+  return val_map
+
+
+def _members_raw(nodes: List[str], _: str) -> Dict[str, List[str]]:
+  val_map = {}
+  for n in nodes:
+    val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+  return val_map
+
+
+def _parents_raw(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
+  parent_list = []
+  for n in nodes:
+    plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
+    parent_list.extend(plist)
+  return parent_list

@@ -41,19 +41,22 @@ class Cache:
     self.in_map = in_map
 
   def get_members(self, id: str):
-    logging.info(f'{id}')
     if id not in self.out_map:
-      logging.info(f'{id} not found!')
       return []
 
     ret = []
     for nid in self.out_map[id].vars:
-      if nid not in self.out_map:
-        continue
-
-      n = self.out_map[nid]
-      ret.append({'dcid': nid, 'name': n.name, 'types': [n.type]})
-    logging.info(f'{id} -> {ret}')
+      if utils.is_topic(nid):
+        t = 'Topic'
+      elif utils.is_svpg(nid):
+        t = 'StatVarPeerGroup'
+      else:
+        t = 'StatisticalVariable'
+      if nid in self.out_map:
+        name = self.out_map[nid].name
+      else:
+        name = ''
+      ret.append({'dcid': nid, 'name': name, 'types': [t]})
     return ret
 
   def get_parents(self, id: str, prop: str):
@@ -66,7 +69,6 @@ class Cache:
       if i in self.out_map:
         n = self.out_map[i]
         ret.append({'dcid': i, 'name': n.name, 'types': [n.type]})
-    logging.info(f'{id} -> {ret}')
     return ret
 
 
@@ -92,7 +94,8 @@ def load(mixer_api_key) -> Cache:
       if prop not in in_map[m]:
         in_map[m][prop] = set()
       in_map[m][prop].add(id)
-  logging.info(f'{len(out_map)} -- {len(in_map)}')
+  logging.info(f'Loaded {len(out_map)} out keys, {len(in_map)} in keys')
+
   return Cache(out_map=out_map, in_map=in_map)
 
 
@@ -115,11 +118,12 @@ def _triples(ids, prop, prefix='', mixer_api_key=''):
         vars = [v.strip() for v in var_list.split(',') if v.strip()]
       else:
         vars = [v['dcid'] for v in pvs.get(prop, []) if v.get('dcid')]
-      for v in vars:
-        if v.startswith(prefix):
-          matched_ids.add(v)
+      if prefix:
+        for v in vars:
+          if v.startswith(prefix):
+            matched_ids.add(v)
       if vars and name:
         node_map[dcid] = Node(name=name, type=type, vars=vars)
     i += _BATCH_SIZE
 
-  return node_map, matched_ids
+  return node_map, list(matched_ids)
