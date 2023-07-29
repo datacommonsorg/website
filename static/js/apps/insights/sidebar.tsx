@@ -34,28 +34,46 @@ interface SidebarPropType {
    */
   categories: CategoryConfig[];
   peerTopics: NamedTypedNode[];
+  setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 export function Sidebar(props: SidebarPropType): JSX.Element {
   return (
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          const url = `/insights/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&q=`;
+          const url = `/insights/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
+          const isCurrentTopic = topic.dcid == props.currentTopicDcid;
           return (
             <div key={idx} className="topic-item">
-              <a className="nav-item category" key={idx} href={url}>
+              <a
+                className={`nav-item category ${
+                  isCurrentTopic ? " highlight" : ""
+                }`}
+                key={idx}
+                href={url}
+                onClick={() => {
+                  props.setQuery("");
+                }}
+              >
                 {topic.name}
               </a>
               <div className="sub-topic-group">
-                {topic.dcid == props.currentTopicDcid &&
+                {isCurrentTopic &&
                   props.categories &&
                   props.categories.map((category) => {
                     if (!category.dcid) {
                       return;
                     }
-                    const url = `/insights/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&q=`;
+                    const url = `/insights/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
                     return (
-                      <a key={randDomId()} className={"nav-item"} href={url}>
+                      <a
+                        key={randDomId()}
+                        className={"nav-item"}
+                        href={url}
+                        onClick={() => {
+                          props.setQuery("");
+                        }}
+                      >
                         {category.title}
                       </a>
                     );
