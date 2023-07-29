@@ -65,7 +65,7 @@ class Builder:
     if dcid:
       self.category.dcid = dcid
 
-  def new_block(self, title, description='', enable_pc=False):
+  def new_block(self, title='', description='', enable_pc=False):
     self.block = self.category.blocks.add()
     self.block.title = base.decorate_block_title(title=title)
     if enable_pc:

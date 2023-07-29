@@ -96,7 +96,8 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
       if builder.is_place_comparison:
         sv_spec.update(place_comparison.add_sv(sv, chart_vars, state, builder))
       else:
-        sv_spec.update(default.add_sv(sv, chart_vars, state, builder))
+        sv_spec.update(default.add_sv(sv, chart_vars, state, builder,
+                                      enable_pc))
   else:
     if not chart_vars.title and chart_vars.svpg_id:
       # If there was an SVPG, we may not have gotten its name before, so get it now.
@@ -105,6 +106,6 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     if builder.is_place_comparison:
       sv_spec.update(place_comparison.add_svpg(chart_vars, state, builder))
     else:
-      sv_spec.update(default.add_svpg(chart_vars, state, builder))
+      sv_spec.update(default.add_svpg(chart_vars, state, builder, enable_pc))
 
   builder.update_sv_spec(sv_spec)

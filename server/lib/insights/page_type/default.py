@@ -32,7 +32,7 @@ _MAX_MAPS_PER_SUBTOPIC_UPPER = 10
 
 
 def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
-           builder: Builder):
+           builder: Builder, enable_pc: bool):
   sv_spec = {}
   place = state.uttr.places[0]
 
@@ -68,6 +68,8 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   attr['skip_map_for_ranking'] = True
   attr['ranking_count'] = 0
 
+  builder.new_block(enable_pc=enable_pc)
+
   sv_spec.update(
       map.map_chart_block(builder.new_column(chart_vars), place, sv,
                           builder.sv2thing, attr, builder.nopc()))
@@ -79,7 +81,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
 
 def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
-             builder: Builder):
+             builder: Builder, enable_pc: bool):
   place = state.uttr.places[0]
   attr = {
       'include_percapita': False,
@@ -125,6 +127,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   # TODO: Perform data lookups and pick the top value SVs.
   if len(sorted_child_svs) > 2:
     for sv in sorted_child_svs:
+      builder.new_block(enable_pc=enable_pc)
       sv_spec.update(
           ranking.ranking_chart_block_nopc(builder.new_column(chart_vars),
                                            place, sv, builder.sv2thing, attr))
@@ -132,6 +135,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
           map.map_chart_block(builder.new_column(chart_vars), place, sv,
                               builder.sv2thing, attr, builder.nopc()))
   else:
+    builder.new_block(enable_pc=enable_pc)
     sv_spec.update(
         ranking.ranking_chart_multivar(builder.new_column(chart_vars),
                                        sorted_child_svs, builder.sv2thing,

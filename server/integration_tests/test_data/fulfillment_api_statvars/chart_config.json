@@ -15,7 +15,12 @@
                     "type": "LINE"
                   }
                 ]
-              },
+              }
+            ],
+            "title": "Median Incomes in Information industry"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -41,8 +46,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Median Incomes in Information industry"
+            ]
           },
           {
             "columns": [
@@ -56,7 +60,13 @@
                     "type": "LINE"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "GDP of the Information Industry"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -83,8 +93,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP of the Information Industry"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -98,7 +107,13 @@
                     "type": "LINE"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Total Wages for Population Working in the Information Industry"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -125,8 +140,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Total Wages for Population Working in the Information Industry"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -173,8 +187,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Wages Annual of Establishment: Information (NAICS/51)"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {
