@@ -77,7 +77,7 @@ class TopicCache:
     return ret
 
 
-def load(mixer_api_key) -> TopicCache:
+def load(app_config) -> TopicCache:
   flask_env = os.environ.get('FLASK_ENV')
   use_cache = flask_env in ['local', 'integration_test', 'webdriver']
 
@@ -93,7 +93,7 @@ def load(mixer_api_key) -> TopicCache:
           f'Loaded {len(cache.out_map)} out keys, {len(cache.in_map)} in keys')
       return cache
 
-  cache = _load(mixer_api_key)
+  cache = _load(app_config)
 
   if use_cache:
     dcache.set(_CACHE_KEY, cache, expire=_CACHE_EXPIRY)
@@ -102,16 +102,16 @@ def load(mixer_api_key) -> TopicCache:
   return cache
 
 
-def _load(mixer_api_key) -> TopicCache:
+def _load(app_config) -> TopicCache:
   # TODO: Use pagination tokens for this.
   topic_ids = fetch.property_values(['Topic'],
                                     'typeOf',
                                     out=False,
-                                    mixer_api_key=mixer_api_key)['Topic']
+                                    app_config=app_config)['Topic']
 
   topics, svpg_ids = _triples(topic_ids, 'relevantVariable', 'dc/svpg/',
-                              mixer_api_key)
-  svpgs, _ = _triples(list(svpg_ids), 'member', '', mixer_api_key)
+                              app_config)
+  svpgs, _ = _triples(list(svpg_ids), 'member', '', app_config)
   out_map = topics
   out_map.update(svpgs)
 
@@ -128,14 +128,14 @@ def _load(mixer_api_key) -> TopicCache:
   return TopicCache(out_map=out_map, in_map=in_map)
 
 
-def _triples(ids, prop, prefix='', mixer_api_key=''):
+def _triples(ids, prop, prefix='', app_config=None):
   i = 0
   node_map = {}
   matched_ids = set()
   logging.info(f'Topic cache: {len(ids)} for property {prop}')
   while i < len(ids):
     slice = ids[i:i + _BATCH_SIZE]
-    trips = fetch.triples(slice, out=True, mixer_api_key=mixer_api_key)
+    trips = fetch.triples(slice, out=True, app_config=app_config)
     for dcid, pvs in trips.items():
       name = pvs.get('name', [{}])[0].get('value', '')
       type = pvs.get('typeOf', [{}])[0].get('dcid', '')

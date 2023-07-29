@@ -24,7 +24,6 @@ from typing import List
 import urllib
 
 from flask import make_response
-from google.cloud import secretmanager
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -324,17 +323,3 @@ def gzip_compress_response(raw_content, is_json):
   if is_json:
     response.headers['Content-Type'] = 'application/json'
   return response
-
-
-def get_mixer_api_key(cfg):
-  # Get the API key from environment first.
-  if os.environ.get('MIXER_API_KEY'):
-    return os.environ.get('MIXER_API_KEY')
-  elif os.environ.get('mixer_api_key'):
-    return os.environ.get('mixer_api_key')
-  else:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'mixer-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    return secret_response.payload.data.decode('UTF-8')
