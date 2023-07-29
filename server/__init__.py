@@ -390,7 +390,8 @@ def create_app():
             'UTF-8')
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
-    app.config['TOPIC_CACHE'] = topic_cache.load(app.config['MIXER_API_KEY'])
+    mixer_key = app.config.get('MIXER_API_KEY', '')
+    app.config['TOPIC_CACHE'] = topic_cache.load(mixer_key)
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
