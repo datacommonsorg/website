@@ -435,7 +435,7 @@ def get_topic_vars_recurive(topic: str,
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members([topic], 'relevantVariable', ordered)[topic]
+    svs = _members(topic, 'relevantVariable', ordered)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
@@ -455,7 +455,7 @@ def get_topic_vars(topic: str, ordered: bool = False):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members([topic], 'relevantVariable', ordered)[topic]
+    svs = _members(topic, 'relevantVariable', ordered)
   return svs
 
 
@@ -532,7 +532,7 @@ def svpg_description(sv: str):
 def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _members([svpg], 'member', ordered)[svpg]
+    svs = _members(svpg, 'member', ordered)
   return svs
 
 
@@ -585,30 +585,58 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(nodes: List[str],
-             prop: str,
-             ordered: bool = False) -> Dict[str, List[str]]:
-  val_map = {}
+def _members(node: str, prop: str, ordered: bool = False) -> List[str]:
+  val_list = []
   if ordered:
-    for n in nodes:
-      resp = current_app.config['TOPIC_CACHE'].get_members(n)
-      val_map[n] = [v['dcid'] for v in resp]
+    if 'TOPIC_CACHE' in current_app.config:
+      resp = current_app.config['TOPIC_CACHE'].get_members(node)
+      val_list = [v['dcid'] for v in resp]
+    else:
+      val_list = _prop_val_ordered(node, prop + 'List')
   else:
     # TODO: Once the caller stops using it, deprecate it.
-    val_map.update(fetch.property_values(nodes=nodes, prop=prop))
-  return val_map
+    val_list = fetch.property_values(nodes=[node], prop=prop)[node]
+  return val_list
 
 
-def _members_raw(nodes: List[str], _: str) -> Dict[str, List[str]]:
+def _members_raw(nodes: List[str], prop: str) -> Dict[str, List[str]]:
   val_map = {}
-  for n in nodes:
-    val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+  if 'TOPIC_CACHE' in current_app.config:
+    for n in nodes:
+      val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+  else:
+    val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
   return val_map
 
 
 def _parents_raw(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
   parent_list = []
-  for n in nodes:
-    plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
-    parent_list.extend(plist)
+  if 'TOPIC_CACHE' in current_app.config:
+    for n in nodes:
+      plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
+      parent_list.extend(plist)
+  else:
+    parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)
+    for pvals in parents.values():
+      for p in pvals:
+        if 'value' in p:
+          del p['value']
+        if 'dcid' not in p:
+          continue
+        id = p['dcid']
+        if prop == 'relevantVariable' and not utils.is_topic(id):
+          continue
+        if prop == 'member' and not utils.is_svpg(id):
+          continue
+        parent_list.append(p)
   return parent_list
+
+
+# Reads Props that are strings encoding ordered DCIDs.
+def _prop_val_ordered(node: str, prop: str) -> List[str]:
+  sv_list = fetch.property_values(nodes=[node], prop=prop)[node]
+  svs = []
+  if sv_list:
+    sv_list = sv_list[0]
+    svs = [v.strip() for v in sv_list.split(',') if v.strip()]
+  return svs
