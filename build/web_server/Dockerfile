@@ -47,7 +47,7 @@ FROM base as server
 
 # Run server
 WORKDIR /workspace
-CMD exec gunicorn --timeout 120 --bind :8080 -w 4 web_app:app
+CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 4 web_app:app
 
 # Compose of mixer, esp and website
 FROM base as website-compose
