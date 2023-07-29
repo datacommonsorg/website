@@ -94,16 +94,7 @@ export function Sidebar(): JSX.Element {
         ) : null}
       </div>
 
-      <div className="sidebar-footer">
-        Powered by{" "}
-        <a
-          href="https://datacommons.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          datacommons.org
-        </a>
-      </div>
+      <div className="sidebar-footer">An initiative from Google</div>
     </div>
   );
 }
