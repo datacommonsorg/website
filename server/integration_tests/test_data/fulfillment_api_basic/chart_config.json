@@ -23,7 +23,13 @@
                     "type": "BAR"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Modes of Commute"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -50,7 +56,12 @@
                     "type": "MAP"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -77,7 +88,12 @@
                     "type": "MAP"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -104,7 +120,12 @@
                     "type": "MAP"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -131,7 +152,12 @@
                     "type": "MAP"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -158,7 +184,12 @@
                     "type": "MAP"
                   }
                 ]
-              },
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
               {
                 "tiles": [
                   {
@@ -187,8 +218,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Modes of Commute"
+            "denom": "Count_Person"
           }
         ],
         "dcid": "dc/topic/WorkCommute",
