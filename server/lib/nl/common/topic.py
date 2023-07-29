@@ -13,7 +13,6 @@
 # limitations under the License.
 """Module for NL topics"""
 
-import logging
 import time
 from typing import Dict, List
 
@@ -447,7 +446,6 @@ def get_topic_vars_recurive(topic: str,
       new_svs.append(sv)
       cur_svs += 1
     if max_svs > 0 and cur_svs > max_svs:
-      logging.info(f'{topic} -> {new_svs}')
       return new_svs
   return new_svs
 
@@ -458,7 +456,6 @@ def get_topic_vars(topic: str, ordered: bool = False):
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
     svs = _members([topic], 'relevantVariable', ordered)[topic]
-    logging.info(f'{topic} -> {svs}')
   return svs
 
 
@@ -474,7 +471,6 @@ def get_parent_topics(topic_or_sv: str):
   if not topics:
     return []
   parents = _parents_raw(topics, 'relevantVariable')
-  logging.info(f'{topic_or_sv} -> {parents}')
   return parents
 
 
@@ -597,10 +593,9 @@ def _members(nodes: List[str],
     for n in nodes:
       resp = current_app.config['TOPIC_CACHE'].get_members(n)
       val_map[n] = [v['dcid'] for v in resp]
-    nodes_copy = [n for n, v in val_map.items() if not v]
   else:
     # TODO: Once the caller stops using it, deprecate it.
-    val_map.update(fetch.property_values(nodes=nodes_copy, prop=prop))
+    val_map.update(fetch.property_values(nodes=nodes, prop=prop))
   return val_map
 
 

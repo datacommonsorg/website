@@ -17,6 +17,7 @@
 
 from dataclasses import dataclass
 import logging
+import os
 from typing import Dict, List, Set
 
 from server.lib import fetch
@@ -24,6 +25,10 @@ from server.lib.nl.common import utils
 from server.services import datacommons as dc
 
 _BATCH_SIZE = 100
+
+_CACHE_PATH = '~/.datacommons/'
+_CACHE_EXPIRY = 3600 * 24  # Cache for 1 day
+_CACHE_KEY = 'topic_cache'
 
 
 # This might be a topic or svpg
@@ -34,7 +39,7 @@ class Node:
   vars: List[str]
 
 
-class Cache:
+class TopicCache:
 
   def __init__(self, out_map: Dict[str, Node], in_map: Dict[str, Set[str]]):
     self.out_map = out_map
@@ -72,7 +77,28 @@ class Cache:
     return ret
 
 
-def load(mixer_api_key) -> Cache:
+def load(mixer_api_key) -> TopicCache:
+  flask_env = os.environ.get('FLASK_ENV')
+  use_cache = flask_env in ['local', 'integration_test', 'webdriver']
+
+  dcache = None
+  if use_cache:
+    from diskcache import Cache
+    dcache = Cache(_CACHE_PATH)
+    dcache.expire()
+    cache = dcache.get(_CACHE_KEY)
+    if cache:
+      logging.info('Using CACHED topic_cache')
+      return cache
+
+  cache = _load(mixer_api_key)
+
+  if use_cache:
+    dcache.set(_CACHE_KEY, cache, expire=_CACHE_EXPIRY)
+  return cache
+
+
+def _load(mixer_api_key) -> TopicCache:
   # TODO: Use pagination tokens for this.
   topic_ids = fetch.property_values(['Topic'],
                                     'typeOf',
@@ -96,7 +122,7 @@ def load(mixer_api_key) -> Cache:
       in_map[m][prop].add(id)
   logging.info(f'Loaded {len(out_map)} out keys, {len(in_map)} in keys')
 
-  return Cache(out_map=out_map, in_map=in_map)
+  return TopicCache(out_map=out_map, in_map=in_map)
 
 
 def _triples(ids, prop, prefix='', mixer_api_key=''):
