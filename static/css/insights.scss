@@ -144,3 +144,8 @@
   font-size: 0.9rem;
   color: var(--dc-gray);
 }
+
+.nav-item.highlight {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 0.5rem;
+}

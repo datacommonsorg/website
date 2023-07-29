@@ -63,6 +63,7 @@ export function App(): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState<string>("init");
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
   const [savedContext, setSavedContext] = useState<any>({});
+  const [query, setQuery] = useState<string>("");
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -94,7 +95,8 @@ export function App(): JSX.Element {
       let placeType = getSingleParam(hashParams["pt"]);
       const query = getSingleParam(hashParams["q"]);
 
-      if (query && loadingStatus !== "queryDetected") {
+      if (query) {
+        setQuery(query);
         const detectResp = await fetchDetectData(query, savedContext);
         setSavedContext(detectResp["context"] || {});
         if (!detectResp["entities"] || !detectResp["variables"]) {
@@ -107,9 +109,8 @@ export function App(): JSX.Element {
         topic = detectResp["variables"].join(DELIM);
         cmpTopic = (detectResp["comparisonVariables"] || []).join(DELIM);
         placeType = detectResp["childEntityType"] || "";
-        setLoadingStatus("queryDetected");
         updateHash({
-          q: query,
+          q: "",
           t: topic,
           tcmp: cmpTopic,
           p: place,
@@ -174,7 +175,6 @@ export function App(): JSX.Element {
   const place = getSingleParam(hashParams["p"]);
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
-  const query = getSingleParam(hashParams["q"]);
   if (loadingStatus == "fail") {
     mainSection = (
       <div id="user-message">Sorry, could not complete your request.</div>
@@ -197,6 +197,7 @@ export function App(): JSX.Element {
                 cmpPlace={cmpPlace}
                 categories={chartData.pageConfig.categories}
                 peerTopics={chartData.peerTopics}
+                setQuery={setQuery}
               />
               {chartData &&
                 chartData.parentTopics.length > 0 &&
@@ -204,9 +205,16 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&q=`;
+                      const url = `/insights/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}`;
                       return (
-                        <a className="topic-link" key={idx} href={url}>
+                        <a
+                          className="topic-link"
+                          key={idx}
+                          href={url}
+                          onClick={() => {
+                            setQuery("");
+                          }}
+                        >
                           {parentTopic.name}
                         </a>
                       );
