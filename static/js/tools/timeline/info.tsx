@@ -33,7 +33,7 @@ class Info extends Component {
           Or you can start your exploration from these interesting points ...
         </p>
 
-        <MemoizedInfoExamples />
+        <MemoizedInfoExamples configKey="timeline" />
 
         <p>Take the data and use it on your site!</p>
         <p>

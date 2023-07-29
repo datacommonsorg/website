@@ -1,0 +1,199 @@
+{
+  "map": [
+    {
+      "header": "Projected Temperature Rise (RCP 4.5)",
+      "preposition": "across",
+      "examples": [{
+        "text": "counties in USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
+      }, {
+        "text": "districts in India",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea2%26sv%3D%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
+      }]
+    }, {
+      "header": "Greenhouse Gas Emissions",
+      "preposition": "across",
+      "examples": [{
+        "text": "states in USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B\"dcid\"%3A\"Annual_Emissions_GreenhouseGas_NonBiogenic\"%7D"
+      }, {
+        "text": "counties in California",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId/06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Annual_Emissions_GreenhouseGas_NonBiogenic\"%7D"
+      }]
+    }, {
+      "header": "Median Age",
+      "preposition": "across counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
+      }, {
+        "text": "Florida",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F12%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
+      }, {
+        "text": "New York",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F36%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
+      }]
+    }, {
+      "header": "Median Income",
+      "preposition": "across counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+      }, {
+        "text": "New York",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F36%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+      }, {
+        "text": "Texas",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F48%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+      }, {
+        "text": "Washington",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F53%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+      }]
+    }, {
+      "header": "Unemployment Rate",
+      "preposition": "across counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"UnemploymentRate_Person\"%7D"
+      }, {
+        "text": "Texas",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F48%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"UnemploymentRate_Person\"%7D"
+      }, {
+        "text": "California",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"UnemploymentRate_Person\"%7D"
+      }, {
+        "text": "New Jersey",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F34%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"UnemploymentRate_Person\"%7D"
+      }]
+    }, {
+      "header": "Attainment of Bachelor's Degree or Higher",
+      "preposition": "across counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegreeOrHigher\"%2C\"pc\"%3A\"1\"%7D"
+      }, {
+        "text": "Washington",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F53%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegreeOrHigher\"%2C\"pc\"%3A\"1\"%7D"
+      }, {
+        "text": "Illinois",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F17%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegreeOrHigher\"%2C\"pc\"%3A\"1\"%7D"
+      }, {
+        "text": "Colorado",
+        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F08%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegreeOrHigher\"%2C\"pc\"%3A\"1\"%7D"
+      }]
+    }
+  ],
+  "scatter": [
+    {
+      "header": "Prevalence Of Coronary Heart Disease vs. Projected Temperature Rise (RCP 4.5)",
+      "preposition": "for counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Percent_Person_WithCoronaryHeartDisease\"%7D___%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
+      }, {
+        "text": "Florida",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F12%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Percent_Person_WithCoronaryHeartDisease\"%7D___%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
+      }]
+    }, {
+      "header": "Population vs. Mean Solar Insolation",
+      "preposition": "for counties in",
+      "examples": [{
+        "text": "USA",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Mean_SolarInsolation\"%7D"
+      }, {
+        "text": "California",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Mean_SolarInsolation\"%7D"
+      }]
+    }, {
+      "header": "Literate Population Per Capita vs. Schools Per Capita",
+      "preposition": "for",
+      "examples": [{
+        "text": "states in India",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea1%26sv%3D%7B\"dcid\"%3A\"Count_Person_Literate\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_School\"%2C\"pc\"%3A\"1\"%7D"      }]
+    }, {
+      "header": "Bachelor's Degree Attainment vs. Female Population Per Capita",
+      "preposition": "for counties in",
+      "examples": [{
+        "text": "California",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D"
+      }, {
+        "text": "New York",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F36%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D"
+      }, {
+        "text": "Wyoming",
+        "url": "/tools/visualization?#visType%3Dscatter%26place%3DgeoId%2F56%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D"
+      }]
+    }
+  ],
+  "timeline": [
+    {
+      "header": "Water Withdrawal Rates",
+      "preposition": "for",
+      "examples": [{
+        "text": "California",
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06%26sv%3D%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation\"%7D___%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation_FreshWater_GroundWater\"%7D___%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation_SurfaceWater\"%7D"
+      }, {
+        "text": "Imperial County",
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06025%26sv%3D%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation\"%7D___%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation_FreshWater_GroundWater\"%7D___%7B\"dcid\"%3A\"WithdrawalRate_Water_Irrigation_SurfaceWater\"%7D"
+      }]
+    }, {
+      "header": "University towns",
+      "preposition": "by",
+      "examples": [{
+        "text": "age",
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000___geoId%2F2603000___geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
+      }, {
+        "text": "income",
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F2511000____geoId%2F2603000____geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+      }, {
+        "text": "crime",
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F2511000____geoId%2F2603000____geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Count_CriminalActivities_ViolentCrime\"%7D"
+      }]
+    }, {
+      "header": "Close by but very different",
+      "subheaders": [{
+        "title": "Berkeley & Piedmont",
+        "examples": [{
+          "text": "poverty",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D"
+        }, {
+          "text": "education",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentMastersDegree\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentDoctorateDegree\"%2C\"pc\"%3A\"1\"%7D"
+        }]
+      }, {
+        "title": "Palo Alto & East Palo Alto",
+        "examples": [{
+          "text": "income",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+        }, {
+          "text": "employment",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Employed\"%2C\"pc\"%3A\"1\"%7D"
+        }, {
+          "text": "marital status",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Divorced\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_MarriedAndNotSeparated\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_NeverMarried\"%2C\"pc\"%3A\"1\"%7D"
+        }]
+      }]
+    }, {
+      "header": "Extremes",
+      "subheaders": [{
+        "title": "Santa Clara County vs Imperial County",
+        "examples": [{
+          "text": "Richest vs. Poorest CA counties",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085____geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+        }, {
+          "text": "Cause of Death",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085____geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Count_Death_DiseasesOfTheCirculatorySystem\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Death_ExternalCauses\"%2C\"pc\"%3A\"1\"%7D"
+        }]
+      }, {
+        "title": "Atlanta vs West Jordan",
+        "examples": [{
+          "text": "Highest vs Lowest Income Disparity",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950____geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+        }, {
+          "text": "gender balance",
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950____geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_Male\"%2C\"pc\"%3A\"1\"%7D"
+        }]
+      }]
+    }
+  ]
+}
