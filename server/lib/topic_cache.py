@@ -89,12 +89,16 @@ def load(mixer_api_key) -> TopicCache:
     cache = dcache.get(_CACHE_KEY)
     if cache:
       logging.info('Using CACHED topic_cache')
+      logging.info(
+          f'Loaded {len(cache.out_map)} out keys, {len(cache.in_map)} in keys')
       return cache
 
   cache = _load(mixer_api_key)
 
   if use_cache:
     dcache.set(_CACHE_KEY, cache, expire=_CACHE_EXPIRY)
+  logging.info(
+      f'Fetched {len(cache.out_map)} out keys, {len(cache.in_map)} in keys')
   return cache
 
 
@@ -120,7 +124,6 @@ def _load(mixer_api_key) -> TopicCache:
       if prop not in in_map[m]:
         in_map[m][prop] = set()
       in_map[m][prop].add(id)
-  logging.info(f'Loaded {len(out_map)} out keys, {len(in_map)} in keys')
 
   return TopicCache(out_map=out_map, in_map=in_map)
 
@@ -129,10 +132,10 @@ def _triples(ids, prop, prefix='', mixer_api_key=''):
   i = 0
   node_map = {}
   matched_ids = set()
+  logging.info(f'Topic cache: {len(ids)} for property {prop}')
   while i < len(ids):
-    trips = fetch.triples(ids[i:i + _BATCH_SIZE],
-                          out=True,
-                          mixer_api_key=mixer_api_key)
+    slice = ids[i:i + _BATCH_SIZE]
+    trips = fetch.triples(slice, out=True, mixer_api_key=mixer_api_key)
     for dcid, pvs in trips.items():
       name = pvs.get('name', [{}])[0].get('value', '')
       type = pvs.get('typeOf', [{}])[0].get('dcid', '')
@@ -150,6 +153,5 @@ def _triples(ids, prop, prefix='', mixer_api_key=''):
             matched_ids.add(v)
       if vars and name:
         node_map[dcid] = Node(name=name, type=type, vars=vars)
-    i += _BATCH_SIZE
-
+    i += len(slice)
   return node_map, list(matched_ids)
