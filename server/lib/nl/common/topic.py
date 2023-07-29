@@ -13,7 +13,6 @@
 # limitations under the License.
 """Module for NL topics"""
 
-import copy
 import time
 from typing import Dict, List
 
@@ -437,7 +436,7 @@ def get_topic_vars_recurive(topic: str,
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _property_values(topic, 'relevantVariable', ordered).get(topic, [])
+    svs = _property_values_out(topic, 'relevantVariable', ordered).get(topic, [])
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
@@ -457,44 +456,27 @@ def get_topic_vars(topic: str, ordered: bool = False):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _property_values(topic, 'relevantVariable', ordered).get(topic, [])
+    svs = _property_values_out(topic, 'relevantVariable', ordered).get(topic, [])
   return svs
 
 
-def get_parent_topics(topics: List[str]):
-  # Lookup KG
-  # TODO: Use a new API.
-  parents = fetch.raw_property_values(nodes=topics,
-                                      prop='relevantVariable',
-                                      out=False)
-  resp = []
-  for pvals in parents.values():
-    for p in pvals:
-      if 'value' in p:
-        del p['value']
-      if 'dcid' not in p or not utils.is_topic(p['dcid']):
-        continue
-      resp.append(p)
-  return resp
-
-
-def get_parent_svpgs(svs: List[str]):
-  if not svs:
+def get_parent_topics(topic_or_sv: str):
+  # This is an SV, so get parent SVPGs, if any
+  if utils.is_sv(topic_or_sv):
+    psvpg = _parents([topic_or_sv], 'member')
+    psvpg_ids = [p['dcid'] for p in psvpg]
+    # Get its actual topic, if any.
+    topics = psvpg_ids + [topic_or_sv]
+  else:
+    topics = [topic_or_sv]
+  if not topics:
     return []
-  parents = fetch.raw_property_values(nodes=svs, prop='member', out=False)
-  svpgs = []
-  for pvals in parents.values():
-    for p in pvals:
-      if 'value' in p:
-        del p['value']
-      if 'dcid' not in p or not utils.is_svpg(p['dcid']):
-        continue
-      svpgs.append(p)
-  return svpgs
+
+  return _parents(topics, 'relevantVariable')
 
 
 def get_child_topics(topics: List[str]):
-  children = _property_values(topics, 'relevantVariable')
+  children = _property_values_out(topics, 'relevantVariable')
   resp = []
   for ids in children.values():
     for ids in ids:
@@ -547,7 +529,7 @@ def svpg_description(sv: str):
 def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _property_values(svpg, 'member', ordered).get(svpg, [])
+    svs = _property_values_out(svpg, 'member', ordered).get(svpg, [])
   return svs
 
 
@@ -600,14 +582,15 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _property_values(nodes: List[str], prop: str, ordered: bool = False) -> Dict[str, List[str]]:
+def _property_values_out(nodes: List[str], prop: str, ordered: bool = False) -> Dict[str, List[str]]:
   val_map = {}
-  nodes_copy = copy.deepcopy(nodes)
 
   if ordered and 'TOPIC_CACHE' in current_app.config and current_app.config['TOPIC_CACHE']:
     for n in nodes:
       val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
     nodes_copy = [n for n, v in val_map.items() if not v]
+  else:
+    nodes_copy = nodes
 
   if nodes_copy and ordered:
     val_map.update(_prop_val_ordered(nodes_copy, prop + 'List'))
@@ -617,6 +600,37 @@ def _property_values(nodes: List[str], prop: str, ordered: bool = False) -> Dict
     val_map.update(fetch.property_values(nodes=nodes_copy, prop=prop))
 
   return val_map
+
+
+def _parents(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
+  parent_list = []
+  nodes_copy = []
+
+  if 'TOPIC_CACHE' in current_app.config and current_app.config['TOPIC_CACHE']:
+    for n in nodes:
+      plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
+      if not plist:
+        nodes_copy.append(n)
+      parent_list.extend(plist)
+  else:
+    nodes_copy = nodes
+
+  if nodes_copy:
+    parents = fetch.raw_property_values(nodes=nodes_copy,
+                                        prop=prop,
+                                        out=False)
+    for pvals in parents.values():
+      for p in pvals:
+        if 'value' in p:
+          del p['value']
+        if 'dcid' not in p:
+          continue
+        if ((prop == 'relevantVariable' and not utils.is_topic(p['dcid'])) or
+            (prop == 'member' and not utils.is_svpg(p['dcid']))):
+          continue
+        parent_list.append(p)
+
+  return parent_list
 
 
 # Reads Props that are strings encoding ordered DCIDs.

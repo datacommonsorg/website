@@ -32,11 +32,11 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 
+from server.lib import topic_cache
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 from server.lib.nl.common import bad_words
-from server.lib import topic_cache
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
