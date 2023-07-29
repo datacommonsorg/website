@@ -280,7 +280,7 @@ def entity_variables(entities):
   return result
 
 
-def properties(nodes, out=True, mixer_api_key=''):
+def properties(nodes, out=True, app_config=None):
   """Returns the properties for a list of nodes.
 
   The response is in the following format:
@@ -289,14 +289,14 @@ def properties(nodes, out=True, mixer_api_key=''):
   }
 
   """
-  resp = dc.v2node(nodes, '->' if out else '<-', mixer_api_key)
+  resp = dc.v2node(nodes, '->' if out else '<-', app_config)
   result = {node: [] for node in nodes}
   for node, val in resp.get('data', {}).items():
     result[node] = val.get('properties', [])
   return result
 
 
-def property_values(nodes, prop, out=True, constraints='', mixer_api_key=''):
+def property_values(nodes, prop, out=True, constraints='', app_config=None):
   """Returns a compact property values data out of REST API response.
 
   The response is the following format:
@@ -305,7 +305,7 @@ def property_values(nodes, prop, out=True, constraints='', mixer_api_key=''):
   }
   """
   resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints), mixer_api_key)
+                                          constraints), app_config)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = []
@@ -317,11 +317,7 @@ def property_values(nodes, prop, out=True, constraints='', mixer_api_key=''):
   return result
 
 
-def raw_property_values(nodes,
-                        prop,
-                        out=True,
-                        constraints='',
-                        mixer_api_key=''):
+def raw_property_values(nodes, prop, out=True, constraints='', app_config=None):
   """Returns full property values data out of REST API response.
 
   The response is the following format:
@@ -339,14 +335,14 @@ def raw_property_values(nodes,
 
   """
   resp = dc.v2node(nodes, '{}{}{}'.format('->' if out else '<-', prop,
-                                          constraints), mixer_api_key)
+                                          constraints), app_config)
   result = {}
   for node, node_arcs in resp.get('data', {}).items():
     result[node] = node_arcs.get('arcs', {}).get(prop, {}).get('nodes', [])
   return result
 
 
-def triples(nodes, out=True, mixer_api_key=''):
+def triples(nodes, out=True, app_config=None):
   """Fetch triples for given nodes.
 
   The response is the following format:
@@ -365,7 +361,7 @@ def triples(nodes, out=True, mixer_api_key=''):
   }
 
   """
-  resp = dc.v2node(nodes, '->*' if out else '<-*', mixer_api_key)
+  resp = dc.v2node(nodes, '->*' if out else '<-*', app_config)
   result = {}
   for node, arcs in resp['data'].items():
     result[node] = {}

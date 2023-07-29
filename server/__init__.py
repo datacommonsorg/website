@@ -347,7 +347,17 @@ def create_app():
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
-    app.config['MIXER_API_KEY'] = libutil.get_mixer_api_key(cfg)
+    # Get the API key from environment first.
+    if os.environ.get('MIXER_API_KEY'):
+      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    elif os.environ.get('mixer_api_key'):
+      app.config['MIXER_API_KEY'] = os.environ.get('mixer_api_key')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'mixer-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
@@ -380,8 +390,7 @@ def create_app():
             'UTF-8')
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
-    mixer_api_key = libutil.get_mixer_api_key(cfg)
-    app.config['TOPIC_CACHE'] = topic_cache.load(mixer_api_key)
+    app.config['TOPIC_CACHE'] = topic_cache.load(app.config)
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
