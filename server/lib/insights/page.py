@@ -32,7 +32,7 @@ import server.lib.nl.fulfillment.types as ftypes
 class ConfigResp:
   config_pb: SubjectPageConfig
   user_message: str
-  top_chart_sv: str
+  top_chart_sv: Dict
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],

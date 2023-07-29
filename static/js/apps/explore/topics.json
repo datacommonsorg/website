@@ -12,21 +12,84 @@
       "title": "Economy",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "How many businesses are there in the US?",
-          "Most common jobs in Texas",
-          "Median income in Santa Clara County",
-          "What are the top industries in the US?",
-          "How many people in California struggle with poverty?",
-          "US global economic activity"
-        ],
-        "specific": [
-          "How much does the US spend on its military?",
-          "Number of privately owned businesses in California"
-        ],
-        "comparison": [
-          "Income vs health insurance rates in USA"
-        ]
+        "general": [{
+          "title": "Jobs in Texas",
+          "url": "/insights/#p=geoId/48&t=dc/topic/Jobs"
+        }, {
+          "title": "Businesses in the US",
+          "url": "/insights/#p=country/USA&t=dc/topic/Businesses"
+        }, {
+          "title": "Median income in Santa Clara County",
+          "url": "/insights/#p=geoId/06085&t=dc/topic/Income"
+        }, {
+          "title": "Employment in Florida",
+          "url": "/insights/#p=geoId/12&t=dc/topic/Employment"
+        }, {
+          "title": "Poverty in Louisiana",
+          "url": "/insights/#p=geoId/22&t=dc/topic/Poverty"
+        }, {
+          "title": "Industries in Dallas County, TX",
+          "url": "/insights/#p=geoId/48113&t=dc/topic/EconomicActivity"
+        }, {
+          "title": "Macroeconomic conditions in Brazil",
+          "url": "/insights/#p=country/BRA&t=dc/topic/GlobalEconomicActivity"
+        }],
+        "specific": [{
+          "title": "Businesses by industry in New York State",
+          "url": "/insights/#p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry"
+        }, {
+          "title": "Number of People Employed in New York City vs Boston",
+          "url": "/insights/#q=Number+of+People+Employed+in+New+York+City+vs+Boston"
+        }, {
+          "title": "Number of privately owned businesses in California",
+          "url": "/insights/#q=Number+of+privately+owned+businesses+in+California"
+        }, {
+          "title": "Education expenditure in the US vs Canada",
+          "url": "/insights/#q=Education%20expenditure%20in%20the%20US%20vs%20Canada"
+        }, {
+          "title": "GDP of Iran",
+          "url": "/insights/#p=country/IRN&t=dc/topic/GDP"
+        }, {
+          "title": "GDP of USA vs China vs India",
+          "url": "/insights/#q=compare+GDP+of+USA+vs+China+vs+India"
+        }, {
+          "title": "Remittances in Lebanon",
+          "url": "/insights/#p=country/LBN&t=dc/topic/Remittance"
+        }],
+        "comparison": [{
+          "title": "Income vs Health Insurance in the US",
+          "url": "/insights/#q=Income+vs+health+insurance+rates+in+USA"
+        }, {
+          "title": "Richest counties in CA",
+          "url": "/insights/#q=richest+counties+in+CA"
+        }, {
+          "title": "Richest and Poorest countries in the world by GDP",
+          "url": "/insights/#q=richest+and+poorest+countries+in+the+world+by+GDP"
+        }, {
+          "title": "GDP vs Remittances across countries in Africa",
+          "url": "/insights/#q=GDP+vs+Remittances+across+countries+in+Africa"
+        }, {
+          "title": "Highest Gini Index in the World",
+          "url": "/insights/#q=highest+Gini+index+in+the+world"
+        }, {
+          "title": "Countries with the most incoming remittances in the world",
+          "url": "/insights/#q=countries+with+the+most+incoming+remittances"
+        }, {
+          "title": "Median income vs unemployment rate in California",
+          "url": "/insights/#q=median+income+vs+unemployment+in+California&t=Median_Income_Person&tcmp=UnemploymentRate_Person&p=geoId%2F06&pcmp=&pt="
+        }, {
+          "title": "Poverty vs Unemployment in the US",
+          "url": "/insights/#q=Poverty+vs+Unemployment+in+the+US"
+        }, {
+          "title": "Worst states for poverty in the US",
+          "url": "/insights/#q=worst+states+for+poverty+in+the+US"
+        }, {
+          "title": "Obesity vs Unemployment in the US",
+          "url": "/insights/#q=Obesity+vs+Unemployment+in+the+US"
+        }, {
+          "title": "Debt vs GDP for countries in Europe",
+          "url": "/insights/#q=Debt+vs+GDP+in+countries+in+countries+in+Europe"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
@@ -53,20 +116,93 @@
       "title": "Health",
       "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "Medical conditions affecting California residents",
-          "Asthma in USA counties",
-          "Health Equity in Texas",
-          "Uninsured in Illinois in the last 20 years"
-        ],
-        "specific": [
-          "Number of uninsured by gender in the US",
-          "Conditions that have risen the fastest in Texas",
-          "COVID deaths in Florida compared to New Jersey"
-        ],
-        "comparison": [
-          "Income vs asthma in US counties"
-        ]
+        "general": [{
+            "title": "Health conditions of people in Arizona",
+            "url": "/insights/#p=geoId/04&t=dc/topic/HealthConditions"
+          },{
+            "title": "Health Equity in New Mexico",
+            "url": "/insights/#p=geoId/35&t=dc/topic/HealthEquity"
+          },{
+            "title": "People without Health Insurance in Kansas",
+            "url": "/insights/#p=geoId/20&t=dc/topic/NoHealthInsurance"
+          }, {
+            "title": "Health behaviors in Bangladesh",
+            "url": "/insights/#p=country/BGD&t=dc/topic/GlobalHealth"
+          }, {
+            "title": "Mortality in the US",
+            "url": "/insights/#p=country/USA&t=dc/topic/Mortality"
+          }],
+        "specific": [{
+          "title": "People with Asthma in Phoenix",
+          "url": "/insights/#p=geoId/0455000&t=dc/topic/Asthma"
+        },{
+          "title": "High blood pressure in Jackson, MS",
+          "url": "/insights/#p=geoId/2836000&t=dc/topic/BloodPressure"
+        },{
+          "title": "Most obese cities in Kansas",
+          "url": "/insights/#q=most+obese+cities+in+Kansas"
+        }, {
+          "title": "Diabetes in Atlanta",
+          "url": "/insights/#p=geoId/1304000&t=dc/topic/Diabetes"
+        }, {
+          "title": "Health behaviors in India vs Norway",
+          "url": "/insights/#q=health+behaviors+in+India+vs+Norway"
+        }, {
+          "title": "Immunization in Pakistan",
+          "url": "/insights/#p=country/PAK&t=dc/topic/WHOImmunization"
+        }, {
+          "title": "Immunizations by gender in Pakistan",
+          "url": "/insights/#p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender"
+        }, {
+          "title": "Cancer in Illinois",
+          "url": "/insights/#p=geoId/17&t=dc/topic/Cancer"
+        }, {
+          "title": "Mental health in Massachusetts",
+          "url": "/insights/#p=geoId/25&t=dc/topic/MentalHealth"
+        }, {
+          "title": "Mental health in Mercer County vs Arlington County",
+          "url": "/insights/#q=Mental+health+in+Mercer+County+vs+Arlington+County"
+        }, {
+          "title": "Mortality in the US vs Spain vs Nigera",
+          "url": "/insights/#q=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
+        }, {
+          "title": "Life Expectancy of countries in Africa",
+          "url": "/insights/#q=life+expectancy+of+countries+in+Africa"
+        }, {
+          "title": "Causes of Death in Louisiana ",
+          "url": "/insights/#p=geoId/22&t=dc/topic/CausesOfDeath"
+        }, {
+          "title": "Mortality by Race in Orange County, CA",
+          "url": "/insights/#p=geoId/06059&t=dc/topic/MortalityByRace"
+        }],
+        "comparison": [{
+          "title": "Obesity vs Unemployment in the US",
+          "url": "/insights/#q=Obesity+vs+Unemployment+in+the+US"
+        }, {
+          "title": "High blood pressure vs Asthma in Alabama",
+          "url": "/insights/#q=high+blood+pressure+vs+asthma+in+Alabama"
+        }, {
+          "title": "Child immunizations vs life expectancy in Asia",
+          "url": "/insights/#q=child+Immunizations+vs+Life+expectancy+in+Asia"
+        }, {
+          "title": "Health conditions vs median age in Alameda County",
+          "url": "/insights/#q=health+conditions+vs+median+age+in+alameda+county"
+        }, {
+          "title": "Obesity vs lack of sleep in the US",
+          "url": "/insights/#q=obesity+vs+lack+of+sleep+in+the+US"
+        }, {
+          "title": "Best immunization rates in the world",
+          "url": "/insights/#q=best+immunizations+rates+in+the+world"
+        }, {
+          "title": "Highest rates of infant mortality in the world",
+          "url": "/insights/#q=highest%20rates%20of%20infant%20mortality%20in%20the%20world"
+        }, {
+          "title": "Worst states in the US for life expectancy",
+          "url": "/insights/#q=worst+maternal+mortality+in+the+world"
+        }, {
+          "title": "Worst maternal mortality in the world",
+          "url": "/insights/#q=high+blood+pressure+vs+asthma+in+Alabama"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
@@ -99,17 +235,19 @@
       "title": "Education",
       "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "How many people have degrees in Massachusetts?",
-          "How many people are currently enrolled in school in California?",
-          "Educational degrees earned in the US"
-        ],
-        "specific": [
-          "How do california schools score on achievement tests?"
-        ],
-        "comparison": [
-          "College degrees vs income for US states"
-        ]
+        "general": [{
+          "title": "How many people have degrees in Massachusetts?"
+        }, {
+          "title": "How many people are currently enrolled in school in California?"
+        }, {
+          "title": "Educational degrees earned in the US"
+        }],
+        "specific": [{
+          "title": "How do california schools score on achievement tests?"
+        }],
+        "comparison": [{
+          "title": "College degrees vs income for US states"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
@@ -132,20 +270,84 @@
       "title": "Environment",
       "description": "Environment data serves as the critical compass to understand, monitor, and address the complex interplay between human activities and the natural world, enabling informed decisions towards mitigating environmental challenges and promoting ecological balance. Search for some environment data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "Natural disasters in California",
-          "How does land cover vary over the US?",
-          "Pollution levels in Manhattan",
-          "Projected temperatures in Tulare County"
-        ],
-        "specific": [
-          "Number of wildfires in California",
-          "How much of the US is covered in vegetation?",
-          "AQI levels in Los Angeles County"
-        ],
-        "comparison": [
-          "Wildfire vs people under poverty line in California"
-        ]
+        "general": [{
+          "title": "Natural disasters in the US",
+          "url": "/insights/#p=country/USA&t=dc/topic/Disasters"
+        }, {
+          "title": "Land cover New Jersey",
+          "url": "/insights/#p=geoId/34&t=dc/topic/LandCover"
+        }, {
+          "title": "Pollution in New Jersey",
+          "url": "/insights/#p=geoId/34&t=dc/topic/Pollution"
+        }, {
+          "title": "Temperature predictions for Italy",
+          "url": "/insights/#p=country/ITA&t=dc/topic/TemperaturePredictions"
+        }],
+        "specific": [{
+          "title": "Floods in Pakistan",
+          "url": "/insights/#p=country/PAK&t=dc/topic/Flood"
+        }, {
+          "title": "Major earthquakes in Chile vs Japan",
+          "url": "/insights/#q=Major+Earthquakes+in+Chile+vs+Japan"
+        }, {
+          "title": "Heat events in Nevada",
+          "url": "/insights/#p=geoId/32&t=dc/topic/HeatEvent"
+        }, {
+          "title": "Droughts in Ethiopia",
+          "url": "/insights/#p=country/ETH&t=dc/topic/Drought"
+        }, {
+          "title": "Forested areas in King County vs Mercer County",
+          "url": "/insights/#q=forested+areas+in+King+county+vs+Mercer+County"
+        }, {
+          "title": "Vegetation in California",
+          "url": "/insights/#q=vegetation+in+California"
+        }, {
+          "title": "Pollution in Texas vs Massachusetts",
+          "url": "/insights/#q=Pollution+in+Texas+vs+Massachusetts"
+        }, {
+          "title": "Air Quality in Los Angeles County vs Alameda County",
+          "url": "/insights/#q=air+quality+in+los+angeles+county+vs+alameda+county"
+        }, {
+          "title": "Pollutant concentration in Los Angeles County",
+          "url": "/insights/#p=geoId/06037&t=dc/topic/PollutantConcentration"
+        }, {
+          "title": "Sulfer dioxide in Dallas County",
+          "url": "/insights/#q=sulfur+dioxide+in+Dallas+County"
+        }, {
+          "title": "Once a decade projected temperature highs in Sicily",
+          "url": "/insights/#p=nuts/ITG1&t=dc/topic/DecadeProjectedTemperatureHighs"
+        }, {
+          "title": "Once a decade projected temperature highs in West Bengal, India",
+          "url": "/insights/#p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs"
+        }, {
+          "title": "Once a decade projected lows in Norway",
+          "url": "/insights/#p=country/NOR&t=dc/topic/DecadeProjectedTemperatureLow"
+        }],
+        "comparison": [{
+          "title": "Heat waves vs Floods in California",
+          "url": "/insights/#q=heat+waves+vs+floods+in+California"
+        }, {
+          "title": "Most forested areas in Georgia",
+          "url": "/insights/#q=most+forested+areas+in+Georgia"
+        }, {
+          "title": "Heat waves vs maximum temperature in California",
+          "url": "/insights/#q=heat+waves+vs+maximum+temperature+in+California"
+        }, {
+          "title": "Vegetation vs Pollution in Texas",
+          "url": "/insights/#q=vegetation+vs+pollution+in+Texas"
+        }, {
+          "title": "Projected temperature for the decade in Kern County vs Orange County",
+          "url": "/insights/#q=projected+temperature+for+the+decade+in+Kern+County+vs+Orange+County"
+        }, {
+          "title": "AQI vs heat waves in California",
+          "url": "/insights/#q=AQI+vs+heat+waves+in+California"
+        }, {
+          "title": "Ozone vs Insurance in Texas",
+          "url": "/insights/#q=ozone+vs+insurance+in+Texas"
+        }, {
+          "title": "AQI vs blood pressure in New Jersey",
+          "url": "/insights/#q=AQI+vs+blood+pressure+in+new+jersey"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
@@ -175,20 +377,81 @@
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "Age distribution of the US population",
-          "Most common languages spoken at home in California",
-          "Racial demographics of Texas",
-          "Marriage and divorce in New York"
-        ],
-        "specific": [
-          "Number of non-English speakers in Florida",
-          "Number of naturalized US citizens",
-          "US poverty by race"
-        ],
-        "comparison": [
-          "Old age population vs excessive heat events in Texas"
-        ]
+        "general": [{
+          "title": "Age distribution in the US",
+          "url": "/insights/#p=country/USA&t=dc/topic/Age"
+        }, {
+          "title": "Languages spoken in California",
+          "url": "/insights/#p=geoId/06&t=dc/topic/Language"
+        }, {
+          "title": "Citizenship and immigration in Florida",
+          "url": "/insights/#p=geoId/12&t=dc/topic/Nationality"
+        }, {
+          "title": "Marriage and divorce in New York",
+          "url": "/insights/#p=geoId/36&t=dc/topic/MaritalStatus"
+        }, {
+          "title": "Marital status in Chicago",
+          "url": "/insights/#p=geoId/1714000&t=dc/topic/MaritalStatus"
+        }],
+        "specific": [{
+          "title": "Median age in Texas",
+          "url": "/insights/#p=geoId/48&t=dc/topic/AgeMedians"
+        }, {
+          "title": "Compare median age in Nevada with Florida",
+          "url": "/insights/#q=Compare+median+age+in+Nevada+with+Florida"
+        }, {
+          "title": "Young and Old people in Florida",
+          "url": "/insights/#p=geoId/12&t=dc/topic/VeryOldAndVeryYoungPopulation"
+        }, {
+          "title": "Widowed population in San Francisco",
+          "url": "/insights/#p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic"
+        }, {
+          "title": "Citizenship in California vs Georgia",
+          "url": "/insights/#q=citizenship+for+people+in+California+vs+Georgia"
+        }, {
+          "title": "Population of those who have never married in New York City",
+          "url": "/insights/#p=geoId/3651000&t=dc/topic/NeverMarriedPopulationByDemographic"
+        }, {
+          "title": "Divorced people demographics in California",
+          "url": "/insights/#p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic"
+        }, {
+          "title": "Divorced people in San Francisco vs Miami",
+          "url": "/insights/#q=divorved+people+in+san+francisco+vs+miami"
+        }, {
+          "title": "Immigration in Texas",
+          "url": "/insights/#p=geoId/48&t=dc/topic/Immigration"
+        }, {
+          "title": "Immigration in Texas vs California",
+          "url": "/insights/#q=immigration+in+the+California+vs+Texas"
+        }],
+        "comparison": [{
+          "title": "Immigration vs median age in the US",
+          "url": "/insights/#q=immigration+vs+median+age+in+the+US"
+        }, {
+          "title": "Median age vs income in Florida",
+          "url": "/insights/#q=median+age+vs+income+in+Florida"
+        }, {
+          "title": "Median age vs marital status in New York State",
+          "url": "/insights/#q=median+age+vs+marital+status+in+New+York+state"
+        }, {
+          "title": "Countries in the world with the highest life expectancy",
+          "url": "/insights/#q=countries+in+the+world+with+the+highest+life+expectancy"
+        }, {
+          "title": "Counties in the US with the most widows",
+          "url": "/insights/#q=counties+in+the+US+with+the+most+widows"
+        }, {
+          "title": "Counties with the most Spanish speakers in California",
+          "url": "/insights/#q=counties+with+the+most+Spanish+speakers+in+California"
+        }, {
+          "title": "Racial breakdown of population in Texas vs New York State",
+          "url": "/insights/#q=racial+breakdown+of+population+in+Texas+vs+New+York+State"
+        }, {
+          "title": "Most native speakers in the US",
+          "url": "/insights/#q=most+native+speakers+in+the+US"
+        }, {
+          "title": "Marital status vs racial breakdown in Florida",
+          "url": "/insights/#q=most+native+speakers+in+the+US&"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
@@ -225,21 +488,27 @@
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
       "examples": {
-        "general": [
-          "Excessive heat events in Texas",
-          "Land Usage in USA",
-          "USA forest health",
-          "Commutes in San Francisco Bay Area",
-          "Carbon emissions in US"
-        ],
-        "specific": [
-          "How much of US energy is renewable?",
-          "How many people take public transit in Washington?",
-          "US CO2 emissions by source"
-        ],
-        "comparison": [
-          "Number of farms vs droughts in California"
-        ]
+        "general": [{
+          "title": "Excessive heat events in Texas"
+        }, {
+          "title": "Land Usage in USA"
+        }, {
+          "title": "USA forest health"
+        }, {
+          "title": "Commutes in San Francisco Bay Area"
+        }, {
+          "title": "Carbon emissions in US"
+        }],
+        "specific": [{
+          "title": "How much of US energy is renewable?"
+        }, {
+          "title": "How many people take public transit in Washington?"
+        }, {
+          "title": "US CO2 emissions by source"
+        }],
+        "comparison": [{
+          "title": "Number of farms vs droughts in California"
+        }]
       },
       "meta": {
         "dataPointCount": 0,
