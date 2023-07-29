@@ -83,7 +83,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
         <div className="selector-footer">
           {selectedStatVars.length >= (visTypeConfig.numSv || 1) && (
             <div
-              className="continue-button"
+              className="primary-button continue-button"
               onClick={() => setStatVars(selectedStatVars)}
             >
               Display

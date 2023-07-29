@@ -92,7 +92,7 @@ export function PlaceSelector(props: {
         <div className="selector-footer">
           {!_.isEmpty(selectedPlaces) && (
             <div
-              className="continue-button"
+              className="primary-button continue-button"
               onClick={() => {
                 setPlaces(selectedPlaces);
                 props.onNewSelection();

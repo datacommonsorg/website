@@ -48,7 +48,7 @@ interface InfoSubheader {
 declare global {
   interface Window {
     // Stored config of sample links for the tool info pane.
-    infoConfig: InfoRow[];
+    infoConfig: { [key: string]: InfoRow[] };
   }
 }
 
@@ -86,8 +86,11 @@ function generateSubheadersJsx(subheaders: InfoSubheader[]): JSX.Element[] {
  * Static content for the info panel that is generated from the config stored in
  * the global window object.
  */
-function InfoExamples(): JSX.Element {
-  const links = window.infoConfig.map((row, ri) => {
+function InfoExamples(props: { configKey: string }): JSX.Element {
+  if (!window.infoConfig[props.configKey]) {
+    return null;
+  }
+  const links = window.infoConfig[props.configKey].map((row, ri) => {
     const examplesJsx = generateLinksJsx(row.examples);
     const subheadersJsx = generateSubheadersJsx(row.subheaders);
     return (
