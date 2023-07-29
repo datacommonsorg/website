@@ -1,4 +1,4 @@
-[
+{"map": [
   {
     "header": "Projected Temperature Rise (RCP 4.5)",
     "preposition": "across",
@@ -120,4 +120,4 @@
       "url": "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&ept=County&ppt=EpaReportingFacility&mp=1"
     }]
   }
-]
+]}

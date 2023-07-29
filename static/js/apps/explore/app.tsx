@@ -26,13 +26,17 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { formatNumber } from "../../i18n/i18n";
 import allTopics from "./topics.json";
 
+interface Query {
+  title: string;
+  url?: string;
+}
 interface TopicConfig {
   title: string;
   description: string;
   examples: {
-    general: string[];
-    specific: string[];
-    comparison: string[];
+    general: Query[];
+    specific: Query[];
+    comparison: Query[];
   };
   meta: {
     dataPointCount: number;
@@ -70,7 +74,10 @@ export function App(): JSX.Element {
   const placeholderQuery =
     currentTopic.examples?.general?.length > 0
       ? currentTopic.examples.general[0]
-      : "family earnings in california";
+      : { title: "family earnings in california" };
+  const placeholderHref =
+    placeholderQuery.url ||
+    `/insights#q=${encodeURIComponent(placeholderQuery.title)}`;
   return (
     <div className="explore-container">
       <Container>
@@ -80,9 +87,12 @@ export function App(): JSX.Element {
           <TextSearchBar
             inputId="query-search-input"
             onSearch={(q) => {
-              window.location.href = `/insights#q=${encodeURIComponent(q)}`;
+              window.location.href =
+                q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
+                  ? placeholderHref
+                  : `/insights#q=${encodeURIComponent(q)}`;
             }}
-            placeholder={`For example, "${placeholderQuery}"`}
+            placeholder={`For example, "${placeholderQuery.title}"`}
             initialValue={""}
             shouldAutoFocus={true}
             clearValueOnSearch={true}
@@ -172,15 +182,15 @@ export function App(): JSX.Element {
   );
 }
 
-function QueryLink(props: { query: string }): JSX.Element {
+function QueryLink(props: { query: Query }): JSX.Element {
   const { query } = props;
   return (
     <a
-      href={`/insights#q=${encodeURIComponent(query)}`}
+      href={query.url || `/insights#q=${encodeURIComponent(query.title)}`}
       target="_blank"
       rel="noopener noreferrer"
     >
-      {query}
+      {query.title}
     </a>
   );
 }

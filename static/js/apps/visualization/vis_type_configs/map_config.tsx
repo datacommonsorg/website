@@ -24,6 +24,7 @@ import React from "react";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
+import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import {
   getFooterOptions,
   getStatVarSpec,
@@ -66,6 +67,28 @@ export function getChartArea(
   );
 }
 
+function getInfoContent(): JSX.Element {
+  return (
+    <div className="info-content">
+      <div>
+        <h3>Map Explorer</h3>
+        <p>
+          The map explorer helps you visualize how a statistical variable can
+          vary across geographic regions.
+        </p>
+      </div>
+      <div>
+        <p>
+          You can start your exploration from one of these interesting points
+          ...
+        </p>
+        <MemoizedInfoExamples configKey="map" />
+      </div>
+      <p>Or click start to build your own map.</p>
+    </div>
+  );
+}
+
 export const MAP_CONFIG = {
   displayName: "Map Explorer",
   icon: "public",
@@ -74,4 +97,5 @@ export const MAP_CONFIG = {
   getChildTypesFn: getAllChildPlaceTypes,
   numSv: 1,
   getChartArea,
+  getInfoContent,
 };
