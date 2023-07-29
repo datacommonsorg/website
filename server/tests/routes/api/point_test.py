@@ -104,7 +104,7 @@ class TestApiPointWithin(unittest.TestCase):
         },
     }
 
-    def post_side_effect(url, data):
+    def post_side_effect(url, data, _=''):
       if url.endswith('/v2/observation') and data == {
           'select': ['date', 'value', 'variable', 'entity'],
           'entity': {

@@ -32,6 +32,7 @@ from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 
+from server.lib import topic_cache
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
@@ -346,17 +347,7 @@ def create_app():
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
-    # Get the API key from environment first.
-    if os.environ.get('MIXER_API_KEY'):
-      app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
-    elif os.environ.get('mixer_api_key'):
-      app.config['MIXER_API_KEY'] = os.environ.get('mixer_api_key')
-    else:
-      secret_client = secretmanager.SecretManagerServiceClient()
-      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                      'mixer-api-key', 'latest')
-      secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['MIXER_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    app.config['MIXER_API_KEY'] = libutil.get_mixer_api_key(cfg)
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
@@ -389,6 +380,8 @@ def create_app():
             'UTF-8')
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
+    mixer_api_key = libutil.get_mixer_api_key(cfg)
+    app.config['TOPIC_CACHE'] = topic_cache.load(mixer_api_key)
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
