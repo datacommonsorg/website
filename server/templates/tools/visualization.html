@@ -29,6 +29,9 @@
 
 {% block content %}
   <div id="main-pane"></div>
+  <script>
+    infoConfig = {{info_json|tojson|safe}};
+  </script>
 {% endblock %}
 
 {% block footer %}

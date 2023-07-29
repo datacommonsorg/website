@@ -68,7 +68,7 @@ export function PlaceTypeSelector(
       {props.onContinueClicked && !_.isEmpty(enclosedPlaceType) && (
         <div className="selector-footer">
           <div
-            className="continue-button"
+            className="primary-button continue-button"
             onClick={() => {
               props.onContinueClicked();
             }}

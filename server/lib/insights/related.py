@@ -17,11 +17,12 @@ import time
 from typing import Dict, List
 
 import server.lib.nl.common.topic as topic
+import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 
-def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
+def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
 
@@ -30,6 +31,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
       'childPlaces': {},
       'parentTopics': [],
       'peerTopics': [],
+      'mainTopic': {},
   }
 
   # Convert the places to json.
@@ -45,10 +47,28 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: str):
   # weird to show multiple sets of parents / peers.
   if top_chart_sv:
     start = time.time()
-    pt = topic.get_parent_topics([top_chart_sv])
-    related_things['parentTopics'] = pt
-    pt = [p['dcid'] for p in pt]
-    related_things['peerTopics'] = topic.get_child_topics(pt)
+    # If this is an SV attached to SVPG, get the topic first.
+    sv_dcid = top_chart_sv['dcid']
+    t = {}
+    if utils.is_sv(sv_dcid):
+      # This is an SV, so get parent SVPGs, if any
+      psvpg = topic.get_parent_svpgs([sv_dcid])
+      psvpg_ids = [p['dcid'] for p in psvpg]
+      # Get its actual topic, if any.
+      t = topic.get_parent_topics(psvpg_ids + [sv_dcid])
+      if t:
+        # Pick one.
+        t = t[0]
+    else:
+      # Its already a topic.
+      t = top_chart_sv
+    if t:
+      related_things['mainTopic'] = t
+      # Get parent topics.
+      pt = topic.get_parent_topics([t['dcid']])
+      related_things['parentTopics'] = pt
+      pt = [p['dcid'] for p in pt]
+      related_things['peerTopics'] = topic.get_child_topics(pt)
     state.uttr.counters.timeit('topic_expansion', start)
 
   return related_things

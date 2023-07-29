@@ -478,6 +478,21 @@ def get_parent_topics(topics: List[str]):
   return resp
 
 
+def get_parent_svpgs(svs: List[str]):
+  if not svs:
+    return []
+  parents = fetch.raw_property_values(nodes=svs, prop='member', out=False)
+  svpgs = []
+  for pvals in parents.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p or not utils.is_svpg(p['dcid']):
+        continue
+      svpgs.append(p)
+  return svpgs
+
+
 def get_child_topics(topics: List[str]):
   children = _property_values(topics, 'relevantVariable')
   resp = []
