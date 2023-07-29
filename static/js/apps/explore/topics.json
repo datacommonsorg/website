@@ -403,7 +403,7 @@
           {
             "title": "Once a decade projected temperature highs in West Bengal, India",
             "url": "/insights/#p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs&q=Once+a+decade+projected+temperature+highs+in+West+Bengal,+India"
-          },
+          }
         ],
         "comparison": [
           {
@@ -481,14 +481,14 @@
             "title": "Citizenship and immigration in Florida",
             "url": "/insights/#p=geoId/12&t=dc/topic/Nationality&q=Citizenship+and+immigration+in+Florida"
           },
-	 {
+	        {
             "title": "Racial Diversity in California",
             "url": "/insights/#p=geoId/06&q=Racial+diversity+in+California"
           },
           {
             "title": "Marriage and divorce in New York",
             "url": "/insights/#p=geoId/36&t=dc/topic/MaritalStatus&q=Marriage+and+divorce+in+New+York"
-          },
+          }
         ],
         "specific": [
           {
