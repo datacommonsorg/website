@@ -27,7 +27,7 @@ from server.services import datacommons as dc
 _BATCH_SIZE = 100
 
 _CACHE_PATH = '~/.datacommons/'
-_CACHE_EXPIRY = 3600 * 24  # Cache for 1 day
+_CACHE_EXPIRY = 3600 * 3  # Cache for 3 hrs
 _CACHE_KEY = 'topic_cache'
 
 
