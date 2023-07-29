@@ -13,13 +13,12 @@
 # limitations under the License.
 """Module for NL topics"""
 
+import logging
 import time
 from typing import Dict, List
 
-from flask import current_app
-
 from server.lib import fetch
-from server.lib import topic_cache
+from server.lib.nl.common import topic_store
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
@@ -436,7 +435,7 @@ def get_topic_vars_recurive(topic: str,
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _property_values_out(topic, 'relevantVariable', ordered).get(topic, [])
+    svs = topic_store.members([topic], 'relevantVariable', ordered)[topic]
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
@@ -447,6 +446,7 @@ def get_topic_vars_recurive(topic: str,
       new_svs.append(sv)
       cur_svs += 1
     if max_svs > 0 and cur_svs > max_svs:
+      logging.info(f'{topic} -> {new_svs}')
       return new_svs
   return new_svs
 
@@ -456,14 +456,15 @@ def get_topic_vars(topic: str, ordered: bool = False):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _property_values_out(topic, 'relevantVariable', ordered).get(topic, [])
+    svs = topic_store.members([topic], 'relevantVariable', ordered)[topic]
+    logging.info(f'{topic} -> {svs}')
   return svs
 
 
 def get_parent_topics(topic_or_sv: str):
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
-    psvpg = _parents([topic_or_sv], 'member')
+    psvpg = topic_store.parents_raw([topic_or_sv], 'member')
     psvpg_ids = [p['dcid'] for p in psvpg]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
@@ -471,20 +472,23 @@ def get_parent_topics(topic_or_sv: str):
     topics = [topic_or_sv]
   if not topics:
     return []
-
-  return _parents(topics, 'relevantVariable')
+  parents = topic_store.parents_raw(topics, 'relevantVariable')
+  logging.info(f'{topic_or_sv} -> {parents}')
+  return parents
 
 
 def get_child_topics(topics: List[str]):
-  children = _property_values_out(topics, 'relevantVariable')
+  children = topic_store.members_raw(topics, 'relevantVariable')
   resp = []
-  for ids in children.values():
-    for ids in ids:
-      if not utils.is_topic(id):
+  for pvals in children.values():
+    for p in pvals:
+      if 'value' in p:
+        del p['value']
+      if 'dcid' not in p:
         continue
-      if id in topics:
+      if not utils.is_topic(p['dcid']):
         continue
-      resp.append(id)
+      resp.append(p)
   return resp
 
 
@@ -529,7 +533,7 @@ def svpg_description(sv: str):
 def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _property_values_out(svpg, 'member', ordered).get(svpg, [])
+    svs = topic_store.members([svpg], 'member', ordered)[svpg]
   return svs
 
 
@@ -580,65 +584,3 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
     return svs
 
   return []
-
-
-def _property_values_out(nodes: List[str], prop: str, ordered: bool = False) -> Dict[str, List[str]]:
-  val_map = {}
-
-  if ordered and 'TOPIC_CACHE' in current_app.config and current_app.config['TOPIC_CACHE']:
-    for n in nodes:
-      val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
-    nodes_copy = [n for n, v in val_map.items() if not v]
-  else:
-    nodes_copy = nodes
-
-  if nodes_copy and ordered:
-    val_map.update(_prop_val_ordered(nodes_copy, prop + 'List'))
-    nodes_copy = [n for n, v in val_map.items() if not v]
-
-  if nodes_copy:
-    val_map.update(fetch.property_values(nodes=nodes_copy, prop=prop))
-
-  return val_map
-
-
-def _parents(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
-  parent_list = []
-  nodes_copy = []
-
-  if 'TOPIC_CACHE' in current_app.config and current_app.config['TOPIC_CACHE']:
-    for n in nodes:
-      plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
-      if not plist:
-        nodes_copy.append(n)
-      parent_list.extend(plist)
-  else:
-    nodes_copy = nodes
-
-  if nodes_copy:
-    parents = fetch.raw_property_values(nodes=nodes_copy,
-                                        prop=prop,
-                                        out=False)
-    for pvals in parents.values():
-      for p in pvals:
-        if 'value' in p:
-          del p['value']
-        if 'dcid' not in p:
-          continue
-        if ((prop == 'relevantVariable' and not utils.is_topic(p['dcid'])) or
-            (prop == 'member' and not utils.is_svpg(p['dcid']))):
-          continue
-        parent_list.append(p)
-
-  return parent_list
-
-
-# Reads Props that are strings encoding ordered DCIDs.
-def _prop_val_ordered(nodes: List[str], prop: str) -> Dict[str, List[str]]:
-  resp = fetch.property_values(nodes=nodes, prop=prop)
-  svs_map = []
-  for sv, sv_list in resp.items():
-    if sv_list:
-      sv_list = sv_list[0]
-    svs_map[sv] = [v.strip() for v in sv_list.split(',') if v.strip()]
-  return svs_map

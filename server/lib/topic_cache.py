@@ -16,6 +16,7 @@
 #
 
 from dataclasses import dataclass
+import logging
 from typing import Dict, List, Set
 
 from server.lib import fetch
@@ -29,6 +30,7 @@ _BATCH_SIZE = 100
 @dataclass
 class Node:
   name: str
+  type: str
   vars: List[str]
 
 
@@ -39,9 +41,20 @@ class Cache:
     self.in_map = in_map
 
   def get_members(self, id: str):
+    logging.info(f'{id}')
     if id not in self.out_map:
+      logging.info(f'{id} not found!')
       return []
-    return self.out_map[id].vars
+
+    ret = []
+    for nid in self.out_map[id].vars:
+      if nid not in self.out_map:
+        continue
+
+      n = self.out_map[nid]
+      ret.append({'dcid': nid, 'name': n.name, 'types': [n.type]})
+    logging.info(f'{id} -> {ret}')
+    return ret
 
   def get_parents(self, id: str, prop: str):
     if id not in self.in_map:
@@ -49,20 +62,24 @@ class Cache:
     if prop not in self.in_map[id]:
       return []
     ret = []
-    t = 'Topic' if prop == 'relevantVariable' else 'StatVarPeerGroup'
     for i in sorted(self.in_map[id][prop]):
       if i in self.out_map:
         n = self.out_map[i]
-        ret.append({'dcid': i, 'name': n.name, 'types': [t]})
+        ret.append({'dcid': i, 'name': n.name, 'types': [n.type]})
+    logging.info(f'{id} -> {ret}')
     return ret
 
 
-def load() -> Cache:
+def load(mixer_api_key) -> Cache:
   # TODO: Use pagination tokens for this.
-  topic_ids = fetch.property_values(['Topic'], 'typeOf', out=False)['Topic']
+  topic_ids = fetch.property_values(['Topic'],
+                                    'typeOf',
+                                    out=False,
+                                    mixer_api_key=mixer_api_key)['Topic']
 
-  topics, svpg_ids = _triples(topic_ids, 'dc/svpg/')
-  svpgs, _ = _triples(svpg_ids)
+  topics, svpg_ids = _triples(topic_ids, 'relevantVariable', 'dc/svpg/',
+                              mixer_api_key)
+  svpgs, _ = _triples(list(svpg_ids), 'member', '', mixer_api_key)
   out_map = topics
   out_map.update(svpgs)
 
@@ -75,17 +92,21 @@ def load() -> Cache:
       if prop not in in_map[m]:
         in_map[m][prop] = set()
       in_map[m][prop].add(id)
-
+  logging.info(f'{len(out_map)} -- {len(in_map)}')
   return Cache(out_map=out_map, in_map=in_map)
 
 
-def _triples(ids, prop, prefix=''):
+def _triples(ids, prop, prefix='', mixer_api_key=''):
   i = 0
   node_map = {}
   matched_ids = set()
   while i < len(ids):
-    for dcid, pvs in fetch.triples(ids[i:i + _BATCH_SIZE]).list():
+    trips = fetch.triples(ids[i:i + _BATCH_SIZE],
+                          out=True,
+                          mixer_api_key=mixer_api_key)
+    for dcid, pvs in trips.items():
       name = pvs.get('name', [{}])[0].get('value', '')
+      type = pvs.get('typeOf', [{}])[0].get('dcid', '')
       vars = []
       # Try the packed ordered list property, which has `List` suffix:
       # relevantVariableList, memberList
@@ -98,7 +119,7 @@ def _triples(ids, prop, prefix=''):
         if v.startswith(prefix):
           matched_ids.add(v)
       if vars and name:
-        node_map[dcid] = Node(name=name, vars=vars)
+        node_map[dcid] = Node(name=name, type=type, vars=vars)
     i += _BATCH_SIZE
 
   return node_map, matched_ids
