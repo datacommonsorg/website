@@ -94,7 +94,12 @@ export function Sidebar(): JSX.Element {
         ) : null}
       </div>
 
-      <div className="sidebar-footer">An initiative from Google</div>
+      <div className="sidebar-footer">
+        <span className="brand-byline">
+          <span className="brand-text">An initiative from</span>
+          <img className="brand-logo" src="/images/google-logo.svg" />
+        </span>
+      </div>
     </div>
   );
 }
