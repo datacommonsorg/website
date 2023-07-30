@@ -348,6 +348,10 @@
           {
             "title": "Students in School Type By Race in Alameda County vs Santa Clara County",
             "url": "/insights/#q=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
+          },
+          {
+            "title": "Bachelor's degree in US counties",
+            "url": "/insights/#p=country/USA&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County"
           }
         ],
         "comparison": [
@@ -370,6 +374,10 @@
           {
             "title": "Most students in college in the US",
             "url": "/insights/#q=most+students+in+college+in+the+US"
+          },
+          {
+            "title": "Most number of PhDs in US counties",
+            "url": "insights/#p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County"
           }
         ]
       },
