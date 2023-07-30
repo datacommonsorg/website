@@ -297,87 +297,87 @@
         "general": [
           {
             "title": "Educational Attainment in the US",
-            "url": "/insights/#p=country/USA&t=dc/topic/EducationalAttainment&q=Educational+Attainment+in+the+US"
+            "url": "p=country/USA&t=dc/topic/EducationalAttainment&q=Educational+Attainment+in+the+US"
           },
           {
             "title": "School Enrollment in California",
-            "url": "/insights/#p=geoId/06&t=dc/topic/Schools&q=School+Enrollment+in+California"
+            "url": "p=geoId/06&t=dc/topic/Schools&q=School+Enrollment+in+California"
           },
           {
             "title": "School Types in New York State",
-            "url": "/insights/#p=geoId/36&t=dc/topic/SchoolType&q=School+Types+in+New+York+State"
+            "url": "p=geoId/36&t=dc/topic/SchoolType&q=School+Types+in+New+York+State"
           }
         ],
         "specific": [
           {
             "title": "Bachelors major types in Texas",
-            "url": "/insights/#p=geoId/48&t=dc/topic/BachelorsMajor&q=Bachelors+major+types+in+Texas"
+            "url": "p=geoId/48&t=dc/topic/BachelorsMajor&q=Bachelors+major+types+in+Texas"
           },
           {
             "title": "Bachelors majors in Berkeley vs Austin",
-            "url": "/insights/#q=bachelors+majors+in+Berkeley+vs+Austin&q=Bachelors+majors+in+Berkeley+vs+Austin"
+            "url": "q=bachelors+majors+in+Berkeley+vs+Austin&q=Bachelors+majors+in+Berkeley+vs+Austin"
           },
           {
             "title": "Education Attainment by Level and Gender in New York City",
-            "url": "/insights/#p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&q=Education+Attainment+by+Level+and+Gender+in+New+York+City"
+            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&q=Education+Attainment+by+Level+and+Gender+in+New+York+City"
           },
           {
             "title": "Level of Education Attainment in King County",
-            "url": "/insights/#p=geoId/53033&t=dc/topic/LevelOfEducationalAttainment&q=Level+of+Education+Attainment+in+King+County"
+            "url": "p=geoId/53033&t=dc/topic/LevelOfEducationalAttainment&q=Level+of+Education+Attainment+in+King+County"
           },
           {
             "title": "Student enrollment levels in San Francisco",
-            "url": "/insights/#p=geoId/060667000&t=dc/topic/StudentEnrollmentLevels&q=Student+enrollment+levels+in+San+Francisco"
+            "url": "p=geoId/060667000&t=dc/topic/StudentEnrollmentLevels&q=Student+enrollment+levels+in+San+Francisco"
           },
           {
             "title": "Students in College in Berkeley vs Cambridge, MA",
-            "url": "/insights/#q=students+enrolled+in+college+in+Berkeley+vs+Cambridge,+MA"
+            "url": "q=students+enrolled+in+college+in+Berkeley+vs+Cambridge,+MA"
           },
           {
             "title": "Students in High School in Miami",
-            "url": "/insights/#p=geoId/1245000&t=dc/topic/StudentsInHighSchool"
+            "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool"
           },
           {
             "title": "Students in Graduate School in California vs Massahusetts",
-            "url": "/insights/#q=Students+in+Graduate+School+in+California+vs+Massachusetts&q=Students+in+Graduate+School+in+California+vs+Massahusetts"
+            "url": "q=Students+in+Graduate+School+in+California+vs+Massachusetts&q=Students+in+Graduate+School+in+California+vs+Massahusetts"
           },
           {
             "title": "Students in School Type By Race in Florida",
-            "url": "/insights/#p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace&q=Students+in+School+Type+By+Race+in+Florida"
+            "url": "p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace&q=Students+in+School+Type+By+Race+in+Florida"
           },
           {
             "title": "Students in School Type By Race in Alameda County vs Santa Clara County",
-            "url": "/insights/#q=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+Countyq=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
+            "url": "q=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+Countyq=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
           },
           {
             "title": "Bachelor's degree in US counties",
-            "url": "/insights/#p=country/USA&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&q=Bachelors+degree+in+US+counties"
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&q=Bachelors+degree+in+US+counties"
           }
         ],
         "comparison": [
           {
             "title": "Educational Attainment vs Poverty in Florida",
-            "url": "insights/#q=educational+attainment+vs+poverty+in+Florida"
+            "url": "q=educational+attainment+vs+poverty+in+Florida"
           },
           {
             "title": "Bachelor Majors vs Median Income in the US",
-            "url": "/insights/#q=bachelor+majors+vs+median+income+in+the+US"
+            "url": "q=bachelor+majors+vs+median+income+in+the+US"
           },
           {
             "title": "Popular bachelors majors in the US",
-            "url": "/insights/#q=popular+bachelor+majors+in+the+US"
+            "url": "q=popular+bachelor+majors+in+the+US"
           },
           {
             "title": "Level of Education Attainment vs Median Income in California",
-            "url": "/insights/#q=Level+of+Education+Attainment+vs+Median+Income+in+California"
+            "url": "q=Level+of+Education+Attainment+vs+Median+Income+in+California"
           },
           {
             "title": "Most students in college in the US",
-            "url": "/insights/#q=most+students+in+college+in+the+US"
+            "url": "q=most+students+in+college+in+the+US"
           },
           {
             "title": "Most number of PhDs in US counties",
-            "url": "insights/#p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County"
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&q=Most+number+of+PhDs+in+US+counties"
           }
         ]
       },
