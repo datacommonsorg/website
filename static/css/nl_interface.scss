@@ -324,23 +324,35 @@ $feedback-link-font-color: #70757a;
 }
 
 .nl-welcome {
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
 
-  .container {
-    background: $answer-background-color;
-    border-radius: $answer-border-radius;
-    box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.02),
-      0px 1px 6px rgba(3, 7, 18, 0.04), 1px 3px 14px rgba(3, 7, 18, 0.06),
-      1px 5px 24px rgba(3, 7, 18, 0.08);
-    font-size: 1.15rem;
-    line-height: 1.75rem;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+  h1 {
+    font-size: 1.95rem;
+    margin: 1rem 0;
+    font-weight: 200;
   }
 
-  .sample-queries {
-    line-height: 1.85rem;
-    margin-top: 0.5rem;
+  .topic-queries {
+    margin-bottom: 2rem;
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .topic-more {
+    margin: 2rem 0;
+  }
+
+  .topic-sources {
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
   }
 }
 

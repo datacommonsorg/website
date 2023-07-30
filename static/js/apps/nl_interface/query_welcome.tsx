@@ -21,105 +21,47 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
 
-import { SampleQuery, useStoreActions, useStoreState } from "./app_state";
-
-// Maximum number of example queries to show in the welcome page
-export const MAX_EXAMPLE_QUERIES = 12;
-
-interface TopicQueries {
-  [key: string]: SampleQuery[];
-}
+import { Topic, TopicConfig } from "../../shared/topic_config";
+import { TopicQueries } from "../../shared/topic_queries";
+import allTopics from "../explore/topics.json";
+import { useStoreState } from "./app_state";
 
 /**
  * NL welcome message
  */
 export function QueryWelcome(): JSX.Element {
-  const config = useStoreState((s) => s.config);
-  const allQueries = useStoreState((s) => s.sampleQueries);
   const topic = useStoreState((s) => s.config.topic);
-  const search = useStoreActions((a) => a.search);
-  const [exampleQueries, setExampleQueries] = useState<SampleQuery[]>([]);
-  const [topicQueries, setTopicQueries] = useState<TopicQueries>({});
+  const [currentTopic, setCurrentTopic] = useState<TopicConfig>(null);
+  const [additionalTopics, setAdditionalTopics] = useState<Topic[]>([]);
 
-  /**
-   * Initialize example queries
-   */
   useEffect(() => {
-    if (!allQueries) {
-      return;
-    }
-    // If a topic is set, show sample queries from that topic
-    // Otherwise show a random sample from all topics
-    const topicQueries = _.groupBy<SampleQuery>(
-      allQueries,
-      "topic"
-    ) as TopicQueries;
-    setTopicQueries(topicQueries);
-    if (topic && topicQueries[topic]) {
-      setExampleQueries(
-        topicQueries[topic].filter((q) => q.wai).slice(0, MAX_EXAMPLE_QUERIES)
-      );
-    } else {
-      // Select 8x queries at random that work as intended
-      setExampleQueries(
-        _.shuffle(allQueries)
-          .filter((q) => q.wai)
-          .slice(0, MAX_EXAMPLE_QUERIES)
-      );
-    }
-  }, [topic, allQueries]);
+    const currentTopic = allTopics.topics[topic] as TopicConfig;
+    const additionalTopics = allTopics.allTopics
+      .map((name) => ({
+        name,
+        title: allTopics.topics[name]?.title,
+      }))
+      .filter((item) => !item.title || item.name !== topic) as Topic[];
+    setAdditionalTopics(additionalTopics);
+    setCurrentTopic(currentTopic);
+  }, [topic]);
 
   return (
     <div className="nl-welcome">
-      <Container>
-        <div className="mb-4">
-          <span className="nl-result-icon">
-            <img src="/images/logo.png" />
-          </span>{" "}
-          <a
-            href="https://datacommons.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Data Commons
-          </a>
-          &nbsp;uses public data to answer questions about the environment,
-          sustainability, health, education, demographics, and the economy. Ask
-          questions using natural language to create data visualizations from
-          citable sources. Your feedback will help Data Commons improve.
-        </div>
-        {exampleQueries.length > 0 ? (
-          <div>
-            Not sure where to start? Try these{" "}
-            {topic && topicQueries[topic] ? (
-              <>
-                <strong>{topic}</strong>
-              </>
-            ) : null}{" "}
-            queries:
-            <ul className="sample-queries">
-              {exampleQueries.map((query, i) => (
-                <li key={i}>
-                  <a
-                    href=""
-                    onClick={(e) => {
-                      e.preventDefault();
-                      search({
-                        config,
-                        nlQueryContext: null,
-                        nlQueryHistory: [],
-                        query: query.query,
-                      });
-                    }}
-                  >
-                    {query.query}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-      </Container>
+      {currentTopic && topic && (
+        <>
+          <Container>
+            <h1>{currentTopic.title}</h1>
+            <p>{currentTopic.description}</p>
+            <TopicQueries
+              currentTopic={currentTopic}
+              topicUrlPrefix="/nl#topic="
+              additionalTopics={additionalTopics}
+              appName="nl"
+            />
+          </Container>
+        </>
+      )}
     </div>
   );
 }
