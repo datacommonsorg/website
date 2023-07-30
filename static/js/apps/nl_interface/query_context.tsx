@@ -74,11 +74,11 @@ export function QueryContext(): JSX.Element {
 
   function inputNextPrompt(delayStart: boolean): void {
     const prompt = urlPrompts.shift();
-    if (!prompt) {
-      return;
-    }
-    const nextPromptDelay =
-      delayStart && !delayDisabled ? NEXT_PROMPT_DELAY : 0;
+    // if (!prompt) {
+    //   return;
+    // }
+    const nextPromptDelay = 0;
+    // delayStart && !delayDisabled ? NEXT_PROMPT_DELAY : 0;
     const promptSearchDelay = delayDisabled ? 0 : PROMPT_SEARCH_DELAY;
     nextPromptDelayTimer.current = setTimeout(() => {
       // If delay is disabled, input the whole prompt at once

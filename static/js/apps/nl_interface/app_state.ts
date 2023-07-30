@@ -255,6 +255,15 @@ const nlAppActions: NLAppActions = {
       }
       const start = Date.now();
       try {
+        console.log(nlQueryHistory);
+        if (nlQueryHistory.length > 0) {
+          if (
+            nlQueryHistory[nlQueryHistory.length - 1].errorMsg ==
+            "Received an empty query, please type a few words :)"
+          ) {
+            nlQueryHistory = nlQueryHistory.slice(0, nlQueryHistory.length - 1);
+          }
+        }
         const resp = await axios.post(
           "/api/nl/data",
           {
@@ -266,6 +275,7 @@ const nlAppActions: NLAppActions = {
           }
         );
         const took = Date.now() - start;
+        console.log(resp.data["context"]);
         if (
           resp.data["context"] === undefined ||
           resp.data["config"] === undefined
@@ -280,10 +290,8 @@ const nlAppActions: NLAppActions = {
           return;
         }
 
-        const context: any = resp.data["context"];
-
         const nlQueryUpdate: Partial<NLQueryType> = {
-          context,
+          context: null,
           id: nlQuery.id,
           took,
         };
@@ -292,6 +300,9 @@ const nlAppActions: NLAppActions = {
         const categories = _.get(resp, ["data", "config", "categories"], []);
         _.remove(categories, (c) => _.isEmpty(c));
         if (categories.length > 0) {
+          const context: any = resp.data["context"];
+          nlQueryUpdate.context = context;
+
           let mainPlace = {};
           mainPlace = resp.data["place"];
           const fb = resp.data["placeFallback"];
@@ -331,7 +342,7 @@ const nlAppActions: NLAppActions = {
         }
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
-          debugData["context"] = context;
+          debugData["context"] = nlQueryUpdate.context;
           nlQueryUpdate.debugData = debugData;
         }
         nlQueryUpdate.isLoading = false;

@@ -89,7 +89,10 @@ export const QueryResult = memo(function QueryResult(
     numQueries,
     props.queryIdx,
   ]);
-
+  console.log(nlQuery.query);
+  if (nlQuery.query == " ") {
+    return <></>;
+  }
   const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
   return (
     <>
