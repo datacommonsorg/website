@@ -34,6 +34,8 @@ import { ParentPlace } from "./parent_breadcrumbs";
 import { Sidebar } from "./sidebar";
 
 const PAGE_ID = "insights";
+const DEFAULT_PLACE = "geoId/06";
+const DEFAULT_TOPIC = "dc/topic/Root";
 
 const getSingleParam = (input: string | string[]): string => {
   // If the input is an array, convert it to a single string
@@ -119,8 +121,17 @@ export function App(): JSX.Element {
         });
         return;
       }
-      if (!place || !topic) {
-        setLoadingStatus("fail");
+      if (!place && !topic) {
+        place = DEFAULT_PLACE;
+        topic = DEFAULT_TOPIC;
+        updateHash({
+          q: "",
+          t: topic,
+          tcmp: cmpTopic,
+          p: place,
+          pcmp: cmpPlace,
+          pt: placeType,
+        });
         return;
       }
       const places = toApiList(place);
