@@ -23,27 +23,9 @@ import React from "react";
 import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
-import { formatNumber } from "../../i18n/i18n";
+import { Topic, TopicConfig } from "../../shared/topic_config";
+import { TopicQueries } from "../../shared/topic_queries";
 import allTopics from "./topics.json";
-
-interface Query {
-  title: string;
-  url?: string;
-}
-interface TopicConfig {
-  title: string;
-  description: string;
-  examples: {
-    general: Query[];
-    specific: Query[];
-    comparison: Query[];
-  };
-  meta: {
-    dataPointCount: number;
-    variableCount: number;
-    sources: string[];
-  };
-}
 
 /**
  * Application container
@@ -56,7 +38,7 @@ export function App(): JSX.Element {
       name,
       title: allTopics.topics[name]?.title,
     }))
-    .filter((item) => !item.title || item.name !== topic);
+    .filter((item) => !item.title || item.name !== topic) as Topic[];
 
   if (!topic) {
     return (
@@ -98,99 +80,13 @@ export function App(): JSX.Element {
             clearValueOnSearch={true}
           />
         </div>
-        <div className="explore-queries">
-          <div className="explore-queries">
-            <div>
-              <b>Here are some examples to get you started:</b>
-            </div>
-            <ul>
-              {currentTopic.examples.general.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="explore-queries">
-            <div>
-              <b>Try diving deeper:</b>
-            </div>
-            <ul>
-              {currentTopic.examples.specific.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="explore-queries">
-            <div>
-              And the real power of Data Commons is creating one common
-              Knowledge Graph:
-            </div>
-            <ul>
-              {currentTopic.examples.comparison.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="explore-more">
-          Additional data is available for these topics:{" "}
-          {additionalTopics.map((item, i) => (
-            <span key={i}>
-              <a href={`/explore/${item.name}`}>
-                {item.title.toLocaleLowerCase()}
-              </a>
-              {i < Object.keys(additionalTopics).length - 1 && ","}{" "}
-            </span>
-          ))}
-          and more
-        </div>
-
-        <div className="explore-sources">
-          Our {currentTopic.title.toLocaleLowerCase()} data spans over{" "}
-          <span
-            title={`${formatNumber(
-              currentTopic.meta.variableCount,
-              undefined,
-              true
-            )}`}
-          >
-            {formatNumber(currentTopic.meta.variableCount)}
-          </span>{" "}
-          statistical variables. We collect our{" "}
-          {currentTopic.title.toLocaleLowerCase()} information from sources such
-          as:{" "}
-          {currentTopic.meta.sources.map((s, i) => (
-            <span key={i}>
-              {currentTopic.meta.sources.length > 1 &&
-              i === currentTopic.meta.sources.length - 1
-                ? "and "
-                : ""}
-              {s}
-              {i === currentTopic.meta.sources.length - 1 ? "" : ", "}
-            </span>
-          ))}
-          {"."}
-        </div>
+        <TopicQueries
+          currentTopic={currentTopic}
+          appName="insights"
+          topicUrlPrefix="/explore/"
+          additionalTopics={additionalTopics}
+        />
       </Container>
     </div>
-  );
-}
-
-function QueryLink(props: { query: Query }): JSX.Element {
-  const { query } = props;
-  return (
-    <a
-      href={query.url || `/insights#q=${encodeURIComponent(query.title)}`}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {query.title}
-    </a>
   );
 }
