@@ -49,7 +49,8 @@ bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
 @bp.route('/detect', methods=['POST'])
 def detect():
   debug_logs = {}
-  utterance, error_json = helpers.parse_query_and_detect(request, debug_logs)
+  utterance, error_json = helpers.parse_query_and_detect(
+      request, 'nl', debug_logs)
   if error_json:
     return error_json
   if not utterance:
@@ -66,7 +67,7 @@ def detect():
                                   utterance.detection,
                                   dbg_counters,
                                   debug_logs,
-                                  is_nl=False)
+                                  has_data=True)
 
 
 #
@@ -103,7 +104,7 @@ def fulfill():
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
-      session_id = utils.new_session_id()
+      session_id = utils.new_session_id('insights')
     else:
       session_id = constants.TEST_SESSION_ID
 
@@ -184,9 +185,10 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
     if not utterance.svs:
       status_str += '**No SVs Found**.'
 
+  has_charts = True if page_config else False
   return helpers.prepare_response(data_dict,
                                   status_str,
                                   utterance.detection,
                                   dbg_counters,
                                   debug_logs,
-                                  is_nl=False)
+                                  has_data=has_charts)
