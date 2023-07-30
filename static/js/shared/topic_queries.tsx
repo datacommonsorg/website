@@ -133,11 +133,7 @@ function QueryLink(props: QueryLinkProps): JSX.Element {
       url = `/${props.appName}#oq=${encodeURIComponent(query.title)}`;
     }
   } else {
-    url = `/${props.appName}#q=${encodeURIComponent(query.title)}`;
+    url = `/${props.appName}#q=${encodeURIComponent(query.title)}&a=True`;
   }
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      {query.title}
-    </a>
-  );
+  return <a href={url}>{query.title}</a>;
 }
