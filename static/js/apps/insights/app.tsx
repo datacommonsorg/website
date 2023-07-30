@@ -101,7 +101,7 @@ export function App(): JSX.Element {
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
       if (query || (orig_query && !place && !topic)) {
-        if (orig_query) {
+        if (!query) {
           // This should only be set once at the very beginning!
           query = orig_query;
         }
