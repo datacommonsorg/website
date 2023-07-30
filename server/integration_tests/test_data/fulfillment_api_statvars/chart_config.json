@@ -36,12 +36,26 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
                       "showLowest": true
                     },
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
+                    "title": "Median Incomes in Information industry in California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -82,12 +96,26 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
                       "showLowest": true
                     },
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
+                    "title": "GDP of the Information Industry in California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -129,12 +157,26 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
                       "showLowest": true
                     },
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
+                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -176,12 +218,26 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WagesAnnual_Establishment_NAICSInformation"
+                    ],
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
                       "showLowest": true
                     },
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
                     "type": "RANKING"
                   }
                 ]
