@@ -138,7 +138,7 @@ def _hoist_topic(svs: List[str]):
   # If no SVs, or topic is already on top, return.
   if len(svs) <= 1 or utils.is_topic(svs[0]):
     return
-  for i in range(1, topic.TOPIC_RANK_LIMIT):
+  for i in range(1, min(len(svs), topic.TOPIC_RANK_LIMIT)):
     if utils.is_topic(svs[i]):
       t = svs[0]
       svs[0] = svs[i]

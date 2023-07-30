@@ -51,7 +51,7 @@ class Builder:
       metadata.contained_place_types[main_place.place_type] = \
         state.place_type.value
 
-    self.first_chart_sv = {}
+    self.plotted_orig_vars = []
     self.category = None
     self.block = None
     self.column = None
@@ -75,15 +75,18 @@ class Builder:
 
   def new_column(self, cv: ftypes.ChartVars):
     # We are adding a chart for real post existence check.
-    # Track the first such chart's topic/sv. This will define
+    # Add all the orig-vars.  We'll use them to define
     # the topic page.
-    if not self.first_chart_sv and cv and cv.orig_sv:
-      t = 'StatisticalVariable' if utils.is_sv(cv.orig_sv) else 'Topic'
-      self.first_chart_sv = {
-          'dcid': cv.orig_sv,
-          'name': self.sv2thing.name.get(cv.orig_sv, ''),
-          'types': [t],
-      }
+    if cv and cv.orig_sv:
+      osv = cv.orig_sv
+      if not (self.plotted_orig_vars and
+              self.plotted_orig_vars[-1]['dcid'] == osv):
+        t = 'StatisticalVariable' if utils.is_sv(osv) else 'Topic'
+        self.plotted_orig_vars.append({
+            'dcid': osv,
+            'name': self.sv2thing.name.get(osv, ''),
+            'types': [t],
+        })
 
     self.column = self.block.columns.add()
     return self.column
@@ -136,7 +139,9 @@ class Builder:
       self.page_config.categories.extend(out_cats)
 
     for cat in self.page_config.categories:
-      if self.first_chart_sv and self.first_chart_sv['dcid'] == cat.dcid:
+      # TODO: Check if we need more work here.
+      if self.plotted_orig_vars and self.plotted_orig_vars[0][
+          'dcid'] == cat.dcid:
         # The overall topic matches the category, so clear out the title.
         cat.title = ''
 

@@ -22,7 +22,8 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 
-def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
+def compute_related_things(state: ftypes.PopulateState,
+                           plotted_orig_vars: List[Dict]):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
 
@@ -43,13 +44,20 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
     }
 
   # Expand to parent and peer topics.
-  # Do this only for the top-chart topic/sv, otherwise it gets
-  # weird to show multiple sets of parents / peers.
-  if top_chart_sv:
-    start = time.time()
-    # If this is an SV attached to SVPG, get the topic first.
-    sv_dcid = top_chart_sv['dcid']
+  # Do this only for one topic, otherwise it gets
+  # weird to show multiple sets of parents / peers, but we need
+  # to walk the list to pick topics.
+  start = time.time()
+  checked_orig_vars = set()
+  for orig_var in plotted_orig_vars:
+    sv_dcid = orig_var['dcid']
+
+    if sv_dcid in checked_orig_vars:
+      continue
+    checked_orig_vars.add(orig_var['dcid'])
+
     t = {}
+    # If this is an SV attached to SVPG, get the topic first.
     if utils.is_sv(sv_dcid):
       t = topic.get_parent_topics(sv_dcid)
       if t:
@@ -57,7 +65,7 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
         t = t[0]
     else:
       # Its already a topic.
-      t = top_chart_sv
+      t = orig_var
     if t:
       related_things['mainTopic'] = t
       # Get parent topics.
@@ -67,7 +75,10 @@ def compute_related_things(state: ftypes.PopulateState, top_chart_sv: Dict):
       related_things['peerTopics'] = topic.get_child_topics(pt)
       if not related_things['peerTopics']:
         related_things['peerTopics'] = [t]
-    state.uttr.counters.timeit('topic_expansion', start)
+      # We found a topic, so break!
+      break
+
+  state.uttr.counters.timeit('topic_expansion', start)
 
   return related_things
 
