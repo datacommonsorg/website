@@ -43,32 +43,38 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
         {props.peerTopics.map((topic, idx) => {
           const url = `/insights/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
           const isCurrentTopic = topic.dcid == props.currentTopicDcid;
+          // Do not display itself for "root".
+          const isRootTopic = topic.dcid == "dc/topic/Root";
+          // Also if root, promote the child topics to be categories.
+          const childClassName = isRootTopic ? "nav-item category" : "nav-item";
           return (
             <div key={idx} className="topic-item">
-              <a
-                className={`nav-item category ${
-                  isCurrentTopic ? " highlight" : ""
-                }`}
-                key={idx}
-                href={url}
-                onClick={() => {
-                  props.setQuery("");
-                }}
-              >
-                {topic.name}
-              </a>
+              {!isRootTopic && (
+                <a
+                  className={`nav-item category ${
+                    isCurrentTopic ? " highlight" : ""
+                  }`}
+                  key={idx}
+                  href={url}
+                  onClick={() => {
+                    props.setQuery("");
+                  }}
+                >
+                  {topic.name}
+                </a>
+              )}
               <div className="sub-topic-group">
                 {isCurrentTopic &&
                   props.categories &&
                   props.categories.map((category) => {
-                    if (!category.dcid) {
+                    if (!category.dcid || category.dcid === topic.dcid) {
                       return;
                     }
                     const url = `/insights/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
                     return (
                       <a
                         key={randDomId()}
-                        className={"nav-item"}
+                        className={childClassName}
                         href={url}
                         onClick={() => {
                           props.setQuery("");

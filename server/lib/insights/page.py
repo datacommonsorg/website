@@ -32,7 +32,7 @@ import server.lib.nl.fulfillment.types as ftypes
 class ConfigResp:
   config_pb: SubjectPageConfig
   user_message: str
-  top_chart_sv: Dict
+  plotted_orig_vars: List[Dict]
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
@@ -73,7 +73,7 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
 
   return ConfigResp(builder.page_config,
                     message,
-                    top_chart_sv=builder.first_chart_sv)
+                    plotted_orig_vars=builder.plotted_orig_vars)
 
 
 def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
