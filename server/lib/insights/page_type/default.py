@@ -125,25 +125,14 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sorted_child_svs = sorted(exist_child_svs)[:max_charts]
 
   # TODO: Perform data lookups and pick the top value SVs.
-  if len(sorted_child_svs) > 2:
-    for sv in sorted_child_svs:
-      builder.new_block(enable_pc=enable_pc)
-      sv_spec.update(
-          ranking.ranking_chart_block_nopc(builder.new_column(chart_vars),
-                                           place, sv, builder.sv2thing, attr))
-      sv_spec.update(
-          map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                              builder.sv2thing, attr, builder.nopc()))
-  else:
+  for sv in sorted_child_svs:
     builder.new_block(enable_pc=enable_pc)
     sv_spec.update(
-        ranking.ranking_chart_multivar(builder.new_column(chart_vars),
-                                       sorted_child_svs, builder.sv2thing,
-                                       attr))
-    for sv in sorted_child_svs:
-      sv_spec.update(
-          map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                              builder.sv2thing, attr, builder.nopc()))
+        ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
+                                         sv, builder.sv2thing, attr))
+    sv_spec.update(
+        map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                            builder.sv2thing, attr, builder.nopc()))
 
   return sv_spec
 

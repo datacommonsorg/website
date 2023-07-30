@@ -201,16 +201,16 @@ def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
   }
 
   sv_name_map = {}
-  # If a curated name is found return that,
-  # Else return the name property for SV.
+  # If a curated name is found (key exists + value non-empty)
+  # return that, Else return the name property for SV.
   for sv in all_svs:
-    if sv in topic.TOPIC_NAMES_OVERRIDE:
+    if topic.TOPIC_NAMES_OVERRIDE.get(sv):
       sv_name_map[sv] = topic.TOPIC_NAMES_OVERRIDE[sv]
-    elif sv in topic.SVPG_NAMES_OVERRIDE:
+    elif topic.SVPG_NAMES_OVERRIDE.get(sv):
       sv_name_map[sv] = topic.SVPG_NAMES_OVERRIDE[sv]
-    elif sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+    elif constants.SV_DISPLAY_NAME_OVERRIDE.get(sv):
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
-    elif sv in sv_chart_titles:
+    elif sv_chart_titles.get(sv):
       sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
     else:
       sv_name_map[sv] = clean_sv_name(uncurated_names[sv])

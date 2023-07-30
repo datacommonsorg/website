@@ -53,21 +53,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_Person_DetailedHighSchool",
+                      "Count_Person_DetailedMiddleSchool",
+                      "Count_Person_DetailedPrimarySchool",
+                      "Count_Person_EnrolledInCollegeUndergraduateYears",
+                      "Count_Person_EnrolledInKindergarten"
                     ],
-                    "title": "High School Students in Sunnyvale",
+                    "title": "Student Population By Enrollment Level in Sunnyvale",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool_pc"
+                      "Count_Person_DetailedHighSchool_pc",
+                      "Count_Person_DetailedMiddleSchool_pc",
+                      "Count_Person_DetailedPrimarySchool_pc",
+                      "Count_Person_EnrolledInCollegeUndergraduateYears_pc",
+                      "Count_Person_EnrolledInKindergarten_pc"
                     ],
-                    "title": "Per Capita High School Students in Sunnyvale",
+                    "title": "Per Capita Student Population By Enrollment Level in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Student Population By Enrollment Level"
           },
           {
             "columns": [
@@ -715,6 +724,24 @@
             "denom": "Count_Person",
             "name": "Population: Some College Less Than 1 Year",
             "statVar": "Count_Person_EducationalAttainmentSomeCollegeLessThan1Year"
+          },
+          "Count_Person_EnrolledInCollegeUndergraduateYears": {
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_EnrolledInCollegeUndergraduateYears_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_EnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_EnrolledInKindergarten"
+          },
+          "Count_Person_EnrolledInKindergarten_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_EnrolledInKindergarten"
           },
           "Count_Person_EnrolledInSchool": {
             "name": "Population Currently Enrolled in School",

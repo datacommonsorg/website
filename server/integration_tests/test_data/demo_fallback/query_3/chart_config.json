@@ -13,34 +13,6 @@
                     ],
                     "title": "Criminal Activities in California",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft"
-                    ],
-                    "title": "Motor Vehicle Thefts in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
-                    ],
-                    "title": "Hate Crimes Motivated by Disability Status in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
-                    ],
-                    "title": "Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime"
-                    ],
-                    "title": "Hate Crime Incidents in California",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -173,10 +145,6 @@
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
-          "Count_CriminalActivities_MotorVehicleTheft": {
-            "name": "Motor Vehicle Thefts",
-            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
-          },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
@@ -212,18 +180,6 @@
             "denom": "Count_Person",
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime": {
-            "name": "Hate Crimes Motivated by Disability Status",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone": {
-            "name": "Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim",
-            "statVar": "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_CriminalIncidents_IsHateCrime": {
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }
       }

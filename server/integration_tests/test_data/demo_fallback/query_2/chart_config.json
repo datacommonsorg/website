@@ -28,94 +28,6 @@
                     ],
                     "title": "Per Capita Criminal Activities (${date})",
                     "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block"
-                    ],
-                    "title": "Motor Vehicle Thefts (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Motor Vehicle Thefts (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Hate Crimes Motivated by Disability Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Hate Crimes Motivated by Disability Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block"
-                    ],
-                    "title": "Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Hate Crime Incidents (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Hate Crime Incidents (${date})",
-                    "type": "BAR"
                   }
                 ]
               }
@@ -248,33 +160,6 @@
             "denom": "Count_Person",
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block": {
-            "name": "Hate Crimes Motivated by Disability Status",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Hate Crimes Motivated by Disability Status",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim",
-            "statVar": "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Hate Crime Incidents: Bias Against Race, American Indian or Alaska Native Alone Victim",
-            "statVar": "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block": {
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
-          },
-          "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
           }
         }
       }
