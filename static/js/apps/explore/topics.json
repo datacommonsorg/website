@@ -296,23 +296,80 @@
       "examples": {
         "general": [
           {
-            "title": "How many people have degrees in Massachusetts?"
+            "title": "Educational Attainment in the US",
+            "url": "/insights/#p=country/USA&t=dc/topic/EducationalAttainment"
           },
           {
-            "title": "How many people are currently enrolled in school in California?"
+            "title": "School Enrollment in California",
+            "url": "/insights/#p=geoId/06&t=dc/topic/Schools"
           },
           {
-            "title": "Educational degrees earned in the US"
+            "title": "School Types in New York State",
+            "url": "/insights/#p=geoId/36&t=dc/topic/SchoolType"
           }
         ],
         "specific": [
           {
-            "title": "How do california schools score on achievement tests?"
+            "title": "Bachelors major types in Texas",
+            "url": "/insights/#p=geoId/48&t=dc/topic/BachelorsMajor"
+          },
+          {
+            "title": "Bachelors majors in Berkeley vs Austin",
+            "url": "/insights/#q=bachelors+majors+in+Berkeley+vs+Austin"
+          },
+          {
+            "title": "Education Attainment by Level and Gender in New York City",
+            "url": "/insights/#p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel"
+          },
+          {
+            "title": "Level of Education Attainment in King County",
+            "url": "/insights/#p=geoId/53033&t=dc/topic/LevelOfEducationalAttainment"
+          },
+          {
+            "title": "Student enrollment levels in San Francisco",
+            "url": "/insights/#p=geoId/060667000&t=dc/topic/StudentEnrollmentLevels"
+          },
+          {
+            "title": "Students in College in Berkeley vs Cambridge, MA",
+            "url": "/insights/#q=students+enrolled+in+college+in+Berkeley+vs+Cambridge,+MA"
+          },
+          {
+            "title": "Students in High School in Miami",
+            "url": "/insights/#p=geoId/1245000&t=dc/topic/StudentsInHighSchool"
+          },
+          {
+            "title": "Students in Graduate School in California vs Massahusetts",
+            "url": "/insights/#q=Students+in+Graduate+School+in+California+vs+Massachusetts"
+          },
+          {
+            "title": "Students in School Type By Race in Florida",
+            "url": "/insights/#p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace"
+          },
+          {
+            "title": "Students in School Type By Race in Alameda County vs Santa Clara County",
+            "url": "/insights/#q=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
           }
         ],
         "comparison": [
           {
-            "title": "College degrees vs income for US states"
+            "title": "Educational Attainment vs Poverty in Florida",
+            "url": "insights/#q=educational+attainment+vs+poverty+in+Florida"
+          },
+          {
+            "title": "Bachelor Majors vs Median Income in the US",
+            "url": "/insights/#q=bachelor+majors+vs+median+income+in+the+US"
+          },
+          {
+            "title": "Popular bachelors majors in the US",
+            "url": "/insights/#q=popular+bachelor+majors+in+the+US"
+          },
+          {
+            "title": "Level of Education Attainment vs Median Income in California",
+            "url": "/insights/#q=Level+of+Education+Attainment+vs+Median+Income+in+California"
+          },
+          {
+            "title": "Most students in college in the US",
+            "url": "/insights/#q=most+students+in+college+in+the+US"
           }
         ]
       },
