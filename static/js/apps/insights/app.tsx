@@ -122,16 +122,7 @@ export function App(): JSX.Element {
         return;
       }
       if (!place && !topic) {
-        place = DEFAULT_PLACE;
-        topic = DEFAULT_TOPIC;
-        updateHash({
-          q: "",
-          t: topic,
-          tcmp: cmpTopic,
-          p: place,
-          pcmp: cmpPlace,
-          pt: placeType,
-        });
+        setLoadingStatus("fail");
         return;
       }
       const places = toApiList(place);

@@ -13,22 +13,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_WithFoodStampsInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "title": "Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_WithFoodStampsInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "title": "Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Family Households Below the Poverty Level in the Past Year"
+            "title": "Households Receiving Food Stamps in the Past Year"
           },
           {
             "columns": [
@@ -40,16 +40,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                      "Count_Household_WithFoodStampsInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                      "Count_Household_WithFoodStampsInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -119,59 +119,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months"
-                    ],
-                    "title": "Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Households Receiving Food Stamps in the Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Households Receiving Food Stamps in the Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined"
                     ],
                     "title": "Population: Civilian, Non Institutionalized, Poverty Status Determined in Counties of United States (${date})",
@@ -209,218 +156,6 @@
                       "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_pc"
                     ],
                     "title": "Per Capita Population: Civilian, Non Institutionalized, Poverty Status Determined in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Black or African Americans Below Poverty Level Status in Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
-                    ],
-                    "title": "Per Capita Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
-                    ],
-                    "title": "Per Capita Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-                    ],
-                    "title": "Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-                    ],
-                    "title": "Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Below Poverty Level Status in Past Year (Other Race)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Below Poverty Level Status in Past Year (Two or More Races)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-                    ],
-                    "title": "White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-                    ],
-                    "title": "White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "White Americans Below Poverty Level Status in Past Year"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
-                    ],
-                    "title": "Per Capita White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
-                    ],
-                    "title": "Per Capita White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -1285,6 +1020,59 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Family Households Below the Poverty Level in the Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
@@ -1513,6 +1301,59 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
+                    ],
+                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
+                    ],
+                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc"
+                    ],
+                    "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc"
+                    ],
+                    "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -1578,6 +1419,15 @@
             "denom": "Count_Person",
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+          },
+          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad": {
+            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
+            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
+          },
+          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
+            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
@@ -1762,6 +1612,10 @@
           {
             "displayName": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "nlQuery": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line United States"
+          },
+          {
+            "displayName": "Family Households Below the Poverty Level in the Past Year",
+            "nlQuery": "Family Households Below the Poverty Level in the Past Year United States"
           },
           {
             "displayName": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",

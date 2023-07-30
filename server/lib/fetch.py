@@ -312,7 +312,7 @@ def property_values(nodes, prop, out=True, constraints='', app_config=None):
     for v in node_arcs.get('arcs', {}).get(prop, {}).get('nodes', []):
       if 'dcid' in v:
         result[node].append(v['dcid'])
-      else:
+      elif 'value' in v:
         result[node].append(v['value'])
   return result
 
