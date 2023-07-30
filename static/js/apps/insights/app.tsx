@@ -121,7 +121,7 @@ export function App(): JSX.Element {
         });
         return;
       }
-      if (!place && !topic) {
+      if (!place || !topic) {
         setLoadingStatus("fail");
         return;
       }
