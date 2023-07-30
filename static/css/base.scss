@@ -196,6 +196,21 @@ $theme-colors: (
   line-height: 2.5rem;
 }
 
+.brand-byline {
+  .brand-text {
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .brand-logo {
+    margin-left: 0.3em;
+    margin-top: -0.2em;
+    height: 1.4em;
+  }
+}
+
 #sub-footer .btn,
 #sub-footer a {
   margin-right: 0.75rem;
