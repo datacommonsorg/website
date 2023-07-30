@@ -23,7 +23,6 @@ import { Container } from "reactstrap";
 
 import { TextSearchBar } from "../../components/text_search_bar";
 import { useStoreActions, useStoreState } from "./app_state";
-import { NLOptions } from "./nl_options";
 
 export function QuerySearch(): JSX.Element {
   const config = useStoreState((s) => s.config);
@@ -64,7 +63,6 @@ export function QuerySearch(): JSX.Element {
             />
           </div>
         </div>
-        <NLOptions />
       </Container>
     </div>
   );

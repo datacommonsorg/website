@@ -15,107 +15,107 @@
         "general": [
           {
             "title": "Jobs in Texas",
-            "url": "/insights/#p=geoId/48&t=dc/topic/Jobs&q=Jobs+in+Texas"
+            "url": "p=geoId/48&t=dc/topic/Jobs&q=Jobs+in+Texas"
           },
           {
             "title": "Businesses by type in the US",
-            "url": "/insights/#p=country/USA&t=dc/topic/Businesses&q=Businesses+by+type+in+the+US"
+            "url": "p=country/USA&t=dc/topic/Businesses&q=Businesses+by+type+in+the+US"
           },
           {
             "title": "Median income in Santa Clara County",
-            "url": "/insights/#p=geoId/06085&t=dc/topic/Income&q=Median+income+in+Santa+Clara+County"
+            "url": "p=geoId/06085&t=dc/topic/Income&q=Median+income+in+Santa+Clara+County"
           },
           {
             "title": "Employment in Florida",
-            "url": "/insights/#p=geoId/12&t=dc/topic/Employment&q=Employment+in+Florida"
+            "url": "p=geoId/12&t=dc/topic/Employment&q=Employment+in+Florida"
           },
           {
             "title": "Poverty in Louisiana",
-            "url": "/insights/#p=geoId/22&t=dc/topic/Poverty&q=Poverty+in+Louisiana"
+            "url": "p=geoId/22&t=dc/topic/Poverty&q=Poverty+in+Louisiana"
           },
           {
             "title": "Industries in Dallas County, TX",
-            "url": "/insights/#p=geoId/48113&t=dc/topic/EconomicActivity&q=Industries+in+Dallas+County,+TX"
+            "url": "p=geoId/48113&t=dc/topic/EconomicActivity&q=Industries+in+Dallas+County,+TX"
           },
           {
             "title": "Economy in Brazil",
-            "url": "/insights/#p=country/BRA&t=dc/topic/GlobalEconomicActivity&q=Economy+in+Brazil"
+            "url": "p=country/BRA&t=dc/topic/GlobalEconomicActivity&q=Economy+in+Brazil"
           }
         ],
         "specific": [
           {
             "title": "Businesses by industry in New York State",
-            "url": "/insights/#p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&q=Businesses+by+industry+in+New+York+State"
+            "url": "p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&q=Businesses+by+industry+in+New+York+State"
           },
           {
             "title": "Number of People Employed in New York City vs Boston",
-            "url": "/insights/#q=Number+of+People+Employed+in+New+York+City+vs+Boston"
+            "url": "q=Number+of+People+Employed+in+New+York+City+vs+Boston"
           },
           {
             "title": "Number of privately owned businesses in California",
-            "url": "/insights/#q=Number+of+privately+owned+businesses+in+California"
+            "url": "q=Number+of+privately+owned+businesses+in+California"
           },
           {
             "title": "Education expenditure in the US vs Canada",
-            "url": "/insights/#&q=Education+expenditure+in+the+US+vs+Canada"
+            "url": "q=Education+expenditure+in+the+US+vs+Canada"
           },
           {
             "title": "GDP of Iran",
-            "url": "/insights/#p=country/IRN&t=dc/topic/GDP&q=GDP+of+Iran"
+            "url": "p=country/IRN&t=dc/topic/GDP&q=GDP+of+Iran"
           },
           {
             "title": "GDP of USA vs China vs India",
-            "url": "/insights/#q=compare+GDP+of+USA+vs+China+vs+India"
+            "url": "q=compare+GDP+of+USA+vs+China+vs+India"
           },
           {
             "title": "Remittances in Lebanon",
-            "url": "/insights/#p=country/LBN&t=dc/topic/Remittance&q=Remittances+in+Lebanon"
+            "url": "p=country/LBN&t=dc/topic/Remittance&q=Remittances+in+Lebanon"
           }
         ],
         "comparison": [
           {
             "title": "Income vs Health Insurance in the US",
-            "url": "/insights/#q=Income+vs+health+insurance+rates+in+USA"
+            "url": "q=Income+vs+health+insurance+rates+in+USA"
           },
           {
             "title": "Richest counties in CA",
-            "url": "/insights/#q=richest+counties+in+CA"
+            "url": "q=richest+counties+in+CA"
           },
           {
             "title": "Richest and Poorest countries in the world by GDP",
-            "url": "/insights/#q=richest+and+poorest+countries+in+the+world+by+GDP"
+            "url": "q=richest+and+poorest+countries+in+the+world+by+GDP"
           },
           {
             "title": "GDP vs Remittances across countries in Africa",
-            "url": "/insights/#q=GDP+vs+Remittances+across+countries+in+Africa"
+            "url": "q=GDP+vs+Remittances+across+countries+in+Africa"
           },
           {
             "title": "Highest Gini Index in the World",
-            "url": "/insights/#q=highest+Gini+index+in+the+world"
+            "url": "q=highest+Gini+index+in+the+world"
           },
           {
             "title": "Countries with the most incoming remittances in the world",
-            "url": "/insights/#q=countries+with+the+most+incoming+remittances"
+            "url": "q=countries+with+the+most+incoming+remittances"
           },
           {
             "title": "Median income vs unemployment rate in California",
-            "url": "/insights/#q=median+income+vs+unemployment+in+California&t=Median_Income_Person&tcmp=UnemploymentRate_Person&p=geoId%2F06&pcmp=&pt="
+            "url": "q=median+income+vs+unemployment+in+California&t=Median_Income_Person&tcmp=UnemploymentRate_Person&p=geoId%2F06&pcmp=&pt="
           },
           {
             "title": "Poverty vs Unemployment in the US",
-            "url": "/insights/#q=Poverty+vs+Unemployment+in+the+US"
+            "url": "q=Poverty+vs+Unemployment+in+the+US"
           },
           {
             "title": "Poorest states in the US",
-            "url": "/insights/#q=worst+states+for+poverty+in+the+US"
+            "url": "q=worst+states+for+poverty+in+the+US"
           },
           {
             "title": "Obesity vs Unemployment in the US",
-            "url": "/insights/#q=Obesity+vs+Unemployment+in+the+US"
+            "url": "q=Obesity+vs+Unemployment+in+the+US"
           },
           {
             "title": "Debt vs GDP for countries in Europe",
-            "url": "/insights/#q=Debt+vs+GDP+in+countries+in+countries+in+Europe"
+            "url": "q=Debt+vs+GDP+in+countries+in+countries+in+Europe"
           }
         ]
       },
@@ -147,119 +147,119 @@
         "general": [
           {
             "title": "Health issues in Arizona",
-            "url": "/insights/#p=geoId/04&t=dc/topic/HealthConditions&q=Health+issues+in+Arizona"
+            "url": "p=geoId/04&t=dc/topic/HealthConditions&q=Health+issues+in+Arizona"
           },
           {
             "title": "Health Equity in California",
-            "url": "/insights/#p=geoId/06&t=dc/topic/HealthEquity&q=Health+Equity+in+California"
+            "url": "p=geoId/06&t=dc/topic/HealthEquity&q=Health+Equity+in+California"
           },
           {
             "title": "Uninsured in Kansas",
-            "url": "/insights/#p=geoId/20&t=dc/topic/NoHealthInsurance&q=Uninsured+in+Kansas"
+            "url": "p=geoId/20&t=dc/topic/NoHealthInsurance&q=Uninsured+in+Kansas"
           },
           {
             "title": "Health behaviors in Bangladesh",
-            "url": "/insights/#p=country/BGD&t=dc/topic/GlobalHealth&q=Health+behaviors+in+Bangladesh"
+            "url": "p=country/BGD&t=dc/topic/GlobalHealth&q=Health+behaviors+in+Bangladesh"
           },
           {
             "title": "Mortality in the US",
-            "url": "/insights/#p=country/USA&t=dc/topic/Mortality&q=Mortality+in+the+US"
+            "url": "p=country/USA&t=dc/topic/Mortality&q=Mortality+in+the+US"
           }
         ],
         "specific": [
           {
             "title": "People with Asthma in Phoenix",
-            "url": "/insights/#p=geoId/0455000&t=dc/topic/Asthma&q=People+with+Asthma+in+Phoenix"
+            "url": "p=geoId/0455000&t=dc/topic/Asthma&q=People+with+Asthma+in+Phoenix"
           },
           {
             "title": "High blood pressure in Jackson, MS",
-            "url": "/insights/#p=geoId/2836000&t=dc/topic/BloodPressure&q=High+blood+pressure+in+Jackson,+MS"
+            "url": "p=geoId/2836000&t=dc/topic/BloodPressure&q=High+blood+pressure+in+Jackson,+MS"
           },
           {
             "title": "Most obese cities in Kansas",
-            "url": "/insights/#q=most+obese+cities+in+Kansas&q=Most+obese+cities+in+Kansas"
+            "url": "q=most+obese+cities+in+Kansas&q=Most+obese+cities+in+Kansas"
           },
           {
             "title": "Diabetes in Atlanta",
-            "url": "/insights/#p=geoId/1304000&t=dc/topic/Diabetes&q=Diabetes+in+Atlanta"
+            "url": "p=geoId/1304000&t=dc/topic/Diabetes&q=Diabetes+in+Atlanta"
           },
           {
             "title": "Health behaviors in India vs Norway",
-            "url": "/insights/#q=health+behaviors+in+India+vs+Norway"
+            "url": "q=health+behaviors+in+India+vs+Norway"
           },
           {
             "title": "Immunization in Pakistan",
-            "url": "/insights/#p=country/PAK&t=dc/topic/WHOImmunization"
+            "url": "p=country/PAK&t=dc/topic/WHOImmunization"
           },
           {
             "title": "Immunizations by gender in Pakistan",
-            "url": "/insights/#p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender"
+            "url": "p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender"
           },
           {
             "title": "Cancer in Illinois",
-            "url": "/insights/#p=geoId/17&t=dc/topic/Cancer&q=Cancer+in+Illinois"
+            "url": "p=geoId/17&t=dc/topic/Cancer&q=Cancer+in+Illinois"
           },
           {
             "title": "Mental health in Massachusetts",
-            "url": "/insights/#p=geoId/25&t=dc/topic/MentalHealth&q=Mental+health+in+Massachusetts"
+            "url": "p=geoId/25&t=dc/topic/MentalHealth&q=Mental+health+in+Massachusetts"
           },
           {
             "title": "Mental health in Mercer County vs Arlington County",
-            "url": "/insights/#q=Mental+health+in+Mercer+County+vs+Arlington+County"
+            "url": "q=Mental+health+in+Mercer+County+vs+Arlington+County"
           },
           {
             "title": "Mortality in the US vs Spain vs Nigera",
-            "url": "/insights/#q=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
+            "url": "q=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
           },
           {
             "title": "Life Expectancy of countries in Africa",
-            "url": "/insights/#q=life+expectancy+of+countries+in+Africa"
+            "url": "q=life+expectancy+of+countries+in+Africa"
           },
           {
             "title": "Causes of Death in Louisiana ",
-            "url": "/insights/#p=geoId/22&t=dc/topic/CausesOfDeath&q=Causes+of+Death+in+Louisiana+"
+            "url": "p=geoId/22&t=dc/topic/CausesOfDeath&q=Causes+of+Death+in+Louisiana+"
           },
           {
             "title": "Mortality by Race in Orange County, CA",
-            "url": "/insights/#p=geoId/06059&t=dc/topic/MortalityByRace&q=Mortality+by+Race+in+Orange+County,+CA"
+            "url": "p=geoId/06059&t=dc/topic/MortalityByRace&q=Mortality+by+Race+in+Orange+County,+CA"
           }
         ],
         "comparison": [
           {
             "title": "Obesity vs Unemployment in the US",
-            "url": "/insights/#q=Obesity+vs+Unemployment+in+the+US&q=Obesity+vs+Unemployment+in+the+US"
+            "url": "q=Obesity+vs+Unemployment+in+the+US&q=Obesity+vs+Unemployment+in+the+US"
           },
           {
             "title": "High blood pressure vs Asthma in Alabama",
-            "url": "/insights/#q=high+blood+pressure+vs+asthma+in+Alabama&q=High+blood+pressure+vs+Asthma+in+Alabama"
+            "url": "q=high+blood+pressure+vs+asthma+in+Alabama&q=High+blood+pressure+vs+Asthma+in+Alabama"
           },
           {
             "title": "Child immunizations vs life expectancy in Asia",
-            "url": "/insights/#q=child+Immunizations+vs+Life+expectancy+in+Asia"
+            "url": "q=child+Immunizations+vs+Life+expectancy+in+Asia"
           },
           {
             "title": "Health conditions vs median age in Alameda County",
-            "url": "/insights/#q=health+conditions+vs+median+age+in+alameda+county"
+            "url": "q=health+conditions+vs+median+age+in+alameda+county"
           },
           {
             "title": "Obesity vs lack of sleep in the US",
-            "url": "/insights/#q=obesity+vs+lack+of+sleep+in+the+US"
+            "url": "q=obesity+vs+lack+of+sleep+in+the+US"
           },
           {
             "title": "Best immunization rates in the world",
-            "url": "/insights/#q=best+immunizations+rates+in+the+world"
+            "url": "q=best+immunizations+rates+in+the+world"
           },
           {
             "title": "Highest rates of infant mortality in the world",
-            "url": "/insights/#q=Highest+rates+of+infant+mortality+in+the+world"
+            "url": "q=Highest+rates+of+infant+mortality+in+the+world"
           },
           {
             "title": "Worst states in the US for life expectancy",
-            "url": "/insights/#q=worst+maternal+mortality+in+the+world"
+            "url": "q=worst+maternal+mortality+in+the+world"
           },
           {
             "title": "Worst maternal mortality in the world",
-            "url": "/insights/#q=Worst+maternal+mortality+in+the+world"
+            "url": "q=Worst+maternal+mortality+in+the+world"
           }
         ]
       },
@@ -340,103 +340,103 @@
         "general": [
           {
             "title": "Natural disasters in the US",
-            "url": "/insights/#p=country/USA&t=dc/topic/Disasters&q=Natural+disasters+in+the+US"
+            "url": "p=country/USA&t=dc/topic/Disasters&q=Natural+disasters+in+the+US"
           },
           {
             "title": "Land cover New Jersey",
-            "url": "/insights/#p=geoId/34&t=dc/topic/LandCover&q=Land+cover+New+Jersey"
+            "url": "p=geoId/34&t=dc/topic/LandCover&q=Land+cover+New+Jersey"
           },
           {
             "title": "Pollution in New Jersey",
-            "url": "/insights/#p=geoId/34&t=dc/topic/Pollution&q=Pollution+in+New+Jersey"
+            "url": "p=geoId/34&t=dc/topic/Pollution&q=Pollution+in+New+Jersey"
           },
           {
             "title": "Temperature predictions for Italy",
-            "url": "/insights/#p=country/ITA&t=dc/topic/TemperaturePredictions&q=Temperature+predictions+for+Italy"
+            "url": "p=country/ITA&t=dc/topic/TemperaturePredictions&q=Temperature+predictions+for+Italy"
           }
         ],
         "specific": [
           {
             "title": "Floods in Pakistan",
-            "url": "/insights/#p=country/PAK&t=dc/topic/Flood&q=Floods+in+Pakistan"
+            "url": "p=country/PAK&t=dc/topic/Flood&q=Floods+in+Pakistan"
           },
           {
             "title": "Major earthquakes in Chile vs Japan",
-            "url": "/insights/#q=Major+Earthquakes+in+Chile+vs+Japan&q=Major+earthquakes+in+Chile+vs+Japan"
+            "url": "q=Major+Earthquakes+in+Chile+vs+Japan&q=Major+earthquakes+in+Chile+vs+Japan"
           },
           {
             "title": "Heat events in Nevada",
-            "url": "/insights/#p=geoId/32&t=dc/topic/HeatEvent&q=Heat+events+in+Nevada"
+            "url": "p=geoId/32&t=dc/topic/HeatEvent&q=Heat+events+in+Nevada"
           },
           {
             "title": "Droughts in Ethiopia",
-            "url": "/insights/#p=country/ETH&t=dc/topic/Drought&q=Droughts+in+Ethiopia"
+            "url": "p=country/ETH&t=dc/topic/Drought&q=Droughts+in+Ethiopia"
           },
           {
             "title": "Forested areas in King County vs Mercer County",
-            "url": "/insights/#q=forested+areas+in+King+county+vs+Mercer+County&q=Forested+areas+in+King+County+vs+Mercer+County"
+            "url": "q=forested+areas+in+King+county+vs+Mercer+County&q=Forested+areas+in+King+County+vs+Mercer+County"
           },
           {
             "title": "Vegetation in California",
-            "url": "/insights/#q=vegetation+in+California&q=Vegetation+in+California"
+            "url": "q=vegetation+in+California&q=Vegetation+in+California"
           },
           {
             "title": "Pollution in Texas vs Massachusetts",
-            "url": "/insights/#q=Pollution+in+Texas+vs+Massachusetts&q=Pollution+in+Texas+vs+Massachusetts"
+            "url": "q=Pollution+in+Texas+vs+Massachusetts&q=Pollution+in+Texas+vs+Massachusetts"
           },
           {
             "title": "Air Quality in Los Angeles County vs Alameda County",
-            "url": "/insights/#q=air+quality+in+los+angeles+county+vs+alameda+county&q=Air+Quality+in+Los+Angeles+County+vs+Alameda+County"
+            "url": "q=air+quality+in+los+angeles+county+vs+alameda+county&q=Air+Quality+in+Los+Angeles+County+vs+Alameda+County"
           },
           {
             "title": "Pollutant concentration in Los Angeles County",
-            "url": "/insights/#p=geoId/06037&t=dc/topic/PollutantConcentration&q=Pollutant+concentration+in+Los+Angeles+County"
+            "url": "p=geoId/06037&t=dc/topic/PollutantConcentration&q=Pollutant+concentration+in+Los+Angeles+County"
           },
           {
             "title": "Sulfer dioxide in Dallas County",
-            "url": "/insights/#q=sulfur+dioxide+in+Dallas+County"
+            "url": "q=sulfur+dioxide+in+Dallas+County"
           },
           {
             "title": "Once a decade projected temperature highs in Sicily",
-            "url": "/insights/#p=nuts/ITG1&t=dc/topic/DecadeProjectedTemperatureHighs&q=Once+a+decade+projected+temperature+highs+in+Sicily"
+            "url": "p=nuts/ITG1&t=dc/topic/DecadeProjectedTemperatureHighs&q=Once+a+decade+projected+temperature+highs+in+Sicily"
           },
           {
             "title": "Once a decade projected temperature highs in West Bengal, India",
-            "url": "/insights/#p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs&q=Once+a+decade+projected+temperature+highs+in+West+Bengal,+India"
+            "url": "p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs&q=Once+a+decade+projected+temperature+highs+in+West+Bengal,+India"
           }
         ],
         "comparison": [
           {
             "title": "Heat waves vs Floods in California",
-            "url": "/insights/#q=heat+waves+vs+floods+in+California"
+            "url": "q=heat+waves+vs+floods+in+California"
           },
           {
             "title": "Most forested areas in Georgia",
-            "url": "/insights/#q=most+forested+areas+in+Georgia"
+            "url": "q=most+forested+areas+in+Georgia"
           },
           {
             "title": "Heat waves vs maximum temperature in California",
-            "url": "/insights/#q=heat+waves+vs+maximum+temperature+in+California"
+            "url": "q=heat+waves+vs+maximum+temperature+in+California"
           },
           {
             "title": "Vegetation vs Pollution in Texas",
-            "url": "/insights/#q=vegetation+vs+pollution+in+Texas"
+            "url": "q=vegetation+vs+pollution+in+Texas"
           },
           {
             "title": "Projected temperature for the decade in Kern County vs Orange County",
-            "url": "/insights/#q=projected+temperature+for+the+decade+in+Kern+County+vs+Orange+County"
+            "url": "q=projected+temperature+for+the+decade+in+Kern+County+vs+Orange+County"
           },
           {
             "title": "AQI vs heat waves in California",
-            "url": "/insights/#q=AQI+vs+heat+waves+in+California"
+            "url": "q=AQI+vs+heat+waves+in+California"
           },
           {
             "title": "Ozone vs Insurance in Texas",
-            "url": "/insights/#q=ozone+vs+insurance+in+Texas"
+            "url": "q=ozone+vs+insurance+in+Texas"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
-            "url": "/insights/#q=AQI+vs+blood+pressure+in+new+jersey"
+            "url": "q=AQI+vs+blood+pressure+in+new+jersey"
           }
         ]
       },
@@ -471,95 +471,95 @@
         "general": [
           {
             "title": "Age distribution in the US",
-            "url": "/insights/#p=country/USA&t=dc/topic/Age&q=Age+distribution+in+the+US"
+            "url": "p=country/USA&t=dc/topic/Age&q=Age+distribution+in+the+US"
           },
           {
             "title": "Languages spoken in California",
-            "url": "/insights/#p=geoId/06&t=dc/topic/Language&q=Languages+spoken+in+California"
+            "url": "p=geoId/06&t=dc/topic/Language&q=Languages+spoken+in+California"
           },
           {
             "title": "Citizenship and immigration in Florida",
-            "url": "/insights/#p=geoId/12&t=dc/topic/Nationality&q=Citizenship+and+immigration+in+Florida"
+            "url": "p=geoId/12&t=dc/topic/Nationality&q=Citizenship+and+immigration+in+Florida"
           },
 	        {
             "title": "Racial Diversity in California",
-            "url": "/insights/#p=geoId/06&q=Racial+diversity+in+California"
+            "url": "p=geoId/06&q=Racial+diversity+in+California"
           },
           {
             "title": "Marriage and divorce in New York",
-            "url": "/insights/#p=geoId/36&t=dc/topic/MaritalStatus&q=Marriage+and+divorce+in+New+York"
+            "url": "p=geoId/36&t=dc/topic/MaritalStatus&q=Marriage+and+divorce+in+New+York"
           }
         ],
         "specific": [
           {
             "title": "Median age in Texas",
-            "url": "/insights/#p=geoId/48&t=dc/topic/AgeMedians&q=Median+age+in+Texas"
+            "url": "p=geoId/48&t=dc/topic/AgeMedians&q=Median+age+in+Texas"
           },
           {
             "title": "Young and Old people in Florida",
-            "url": "/insights/#p=geoId/12&t=dc/topic/VeryOldAndVeryYoungPopulation&q=Young+and+Old+people+in+Florida"
+            "url": "p=geoId/12&t=dc/topic/VeryOldAndVeryYoungPopulation&q=Young+and+Old+people+in+Florida"
           },
           {
             "title": "Widowed population in San Francisco",
-            "url": "/insights/#p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic&q=Widowed+population+in+San+Francisco"
+            "url": "p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic&q=Widowed+population+in+San+Francisco"
           },
           {
             "title": "Citizenship in California vs Georgia",
-            "url": "/insights/#q=citizenship+for+people+in+California+vs+Georgia"
+            "url": "q=citizenship+for+people+in+California+vs+Georgia"
           },
           {
             "title": "Those who have never married in New York City",
-            "url": "/insights/#p=geoId/3651000&t=dc/topic/NeverMarriedPopulationByDemographic&q=Those+who+have+never+married+in+New+York+City"
+            "url": "p=geoId/3651000&t=dc/topic/NeverMarriedPopulationByDemographic&q=Those+who+have+never+married+in+New+York+City"
           },
           {
             "title": "Demographics of divorced people in California",
-            "url": "/insights/#p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic&q=Divorced+people+demographics+in+California"
+            "url": "p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic&q=Divorced+people+demographics+in+California"
           },
           {
             "title": "Immigration in Texas",
-            "url": "/insights/#p=geoId/48&t=dc/topic/Immigration&q=Immigration+in+Texas"
+            "url": "p=geoId/48&t=dc/topic/Immigration&q=Immigration+in+Texas"
           },
           {
             "title": "Immigration in Texas vs California",
-            "url": "/insights/#q=immigration+in+the+California+vs+Texas&q=Immigration+in+Texas+vs+California"
+            "url": "q=immigration+in+the+California+vs+Texas&q=Immigration+in+Texas+vs+California"
           }
         ],
         "comparison": [
           {
             "title": "Immigration vs median age in the US",
-            "url": "/insights/#q=immigration+vs+median+age+in+the+US"
+            "url": "q=immigration+vs+median+age+in+the+US"
           },
           {
             "title": "Median age vs income in Florida",
-            "url": "/insights/#q=median+age+vs+income+in+Florida&q=Median+age+vs+income+in+Florida"
+            "url": "q=median+age+vs+income+in+Florida&q=Median+age+vs+income+in+Florida"
           },
           {
             "title": "Median age vs marital status in New York State",
-            "url": "/insights/#q=median+age+vs+marital+status+in+New+York+state"
+            "url": "q=median+age+vs+marital+status+in+New+York+state"
           },
           {
             "title": "Countries in the world with the highest life expectancy",
-            "url": "/insights/#q=countries+in+the+world+with+the+highest+life+expectancy"
+            "url": "q=countries+in+the+world+with+the+highest+life+expectancy"
           },
           {
             "title": "Counties in the US with the most widows",
-            "url": "/insights/#q=counties+in+the+US+with+the+most+widows"
+            "url": "q=counties+in+the+US+with+the+most+widows"
           },
           {
             "title": "Counties with the most Spanish speakers in California",
-            "url": "/insights/#q=counties+with+the+most+Spanish+speakers+in+California"
+            "url": "q=counties+with+the+most+Spanish+speakers+in+California"
           },
           {
             "title": "Racial breakdown of population in Texas vs New York State",
-            "url": "/insights/#q=racial+breakdown+of+population+in+Texas+vs+New+York+State"
+            "url": "q=racial+breakdown+of+population+in+Texas+vs+New+York+State"
           },
           {
             "title": "Counties in the US with most Tamil speakers",
-            "url": "/insights/#q=Counties in the US with most Tamil Speakers"
+            "url": "q=Counties in the US with most Tamil Speakers"
           },
           {
             "title": "Which counties in the US have most immigrants",
-            "url": "/insights/#&&q=Which+counties+in+the+US+have+most+immigrants"
+            "url": "q=Which+counties+in+the+US+have+most+immigrants"
           }
         ]
       },
