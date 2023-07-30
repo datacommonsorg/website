@@ -95,9 +95,16 @@ export function App(): JSX.Element {
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
-      const query = getSingleParam(hashParams["q"]);
+      let query = getSingleParam(hashParams["q"]);
+      const orig_query = getSingleParam(hashParams["oq"]);
 
-      if (query) {
+      // Do detection only if `q` is set (from search box) or
+      // if `oq` is set without accompanying place and topic.
+      if (query || (orig_query && !place && !topic)) {
+        if (!query) {
+          // This should only be set once at the very beginning!
+          query = orig_query;
+        }
         setQuery(query);
         const detectResp = await fetchDetectData(query, savedContext);
         setSavedContext(detectResp["context"] || {});
@@ -113,6 +120,7 @@ export function App(): JSX.Element {
         placeType = detectResp["childEntityType"] || "";
         updateHash({
           q: "",
+          oq: "",
           t: topic,
           tcmp: cmpTopic,
           p: place,
@@ -239,7 +247,7 @@ export function App(): JSX.Element {
                   <TextSearchBar
                     inputId="query-search-input"
                     onSearch={(q) => {
-                      updateHash({ q, t: "" });
+                      updateHash({ q, oq: "", t: "", p: "" });
                     }}
                     placeholder={query}
                     initialValue={query}

@@ -126,14 +126,14 @@ interface QueryLinkProps {
 function QueryLink(props: QueryLinkProps): JSX.Element {
   const { query } = props;
   let url = "";
-  if (query.url) {
-    url = `/${props.appName}#${query.url}`;
+  if (props.appName == "insights") {
+    if (query.url) {
+      url = `/${props.appName}#${query.url}`;
+    } else {
+      url = `/${props.appName}#oq=${encodeURIComponent(query.title)}`;
+    }
   } else {
-    url = `/${props.appName}#q=${encodeURIComponent(query.title)}`;
+    url = `/${props.appName}#q=${encodeURIComponent(query.title)}&a=True`;
   }
-  return (
-    <a href={url} target="_blank" rel="noopener noreferrer">
-      {query.title}
-    </a>
-  );
+  return <a href={url}>{query.title}</a>;
 }
