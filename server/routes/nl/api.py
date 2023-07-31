@@ -38,7 +38,7 @@ def data():
   """Data handler."""
   debug_logs = {}
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'insights', debug_logs)
+      request, 'nl', debug_logs)
   if error_json:
     return error_json
   if not utterance:

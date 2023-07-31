@@ -50,7 +50,7 @@ bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
 def detect():
   debug_logs = {}
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'nl', debug_logs)
+      request, 'insights', debug_logs)
   if error_json:
     return error_json
   if not utterance:
