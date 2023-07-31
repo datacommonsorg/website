@@ -636,7 +636,7 @@ def placeid2dcid():
   result = {}
   for place_id, dcids in resp.items():
     if dcids:
-      dcid = dcids[0]
+      dcid = dcids[0]['dcid']
       if dcid in PLACE_OVERRIDE:
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid
