@@ -13,7 +13,6 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
-from enum import Enum
 import json
 import logging
 import os
@@ -26,9 +25,9 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-from server.lib.insights.detector import Params
-import server.lib.insights.detector as insight_detector
-import server.lib.insights.fulfiller as fulfillment
+from server.lib.explore.detector import Params
+import server.lib.explore.detector as insight_detector
+import server.lib.explore.fulfiller as fulfillment
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
@@ -40,7 +39,7 @@ from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
-bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
+bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 
 
 #
@@ -50,7 +49,7 @@ bp = Blueprint('insights_api', __name__, url_prefix='/api/insights')
 def detect():
   debug_logs = {}
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'insights', debug_logs)
+      request, 'explore', debug_logs)
   if error_json:
     return error_json
   if not utterance:
@@ -104,7 +103,7 @@ def fulfill():
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
-      session_id = utils.new_session_id('insights')
+      session_id = utils.new_session_id('explore')
     else:
       session_id = constants.TEST_SESSION_ID
 

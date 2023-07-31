@@ -29,15 +29,14 @@ _TEST_DATA = 'test_data'
 class IntegrationTest(NLWebServerTestCase):
 
   def run_fulfillment(self, test_dir, req_json, failure=''):
-    resp = requests.post(self.get_server_url() + '/api/insights/fulfill',
+    resp = requests.post(self.get_server_url() + '/api/explore/fulfill',
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
   def run_detection(self, test_dir, queries, failure=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(self.get_server_url() +
-                           f'/api/insights/detect?q={q}',
+      resp = requests.post(self.get_server_url() + f'/api/explore/detect?q={q}',
                            json={
                                'contextHistory': ctx
                            }).json()

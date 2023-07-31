@@ -17,11 +17,11 @@ import time
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.insights.page_type import default
-from server.lib.insights.page_type import fallback
-from server.lib.insights.page_type import place_comparison
-from server.lib.insights.page_type import var_correlation
-from server.lib.insights.page_type.builder import Builder
+from server.lib.explore.page_type import default
+from server.lib.explore.page_type import fallback
+from server.lib.explore.page_type import place_comparison
+from server.lib.explore.page_type import var_correlation
+from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder

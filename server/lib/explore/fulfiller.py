@@ -17,9 +17,9 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.insights import page
-import server.lib.insights.related as related
-import server.lib.insights.topic as topic
+from server.lib.explore import page
+import server.lib.explore.related as related
+import server.lib.explore.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder

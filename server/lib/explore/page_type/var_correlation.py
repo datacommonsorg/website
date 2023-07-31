@@ -16,7 +16,7 @@
 
 from typing import Dict
 
-from server.lib.insights.page_type.builder import Builder
+from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.config_builder import scatter
 import server.lib.nl.fulfillment.types as ftypes
 

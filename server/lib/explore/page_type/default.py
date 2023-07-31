@@ -16,7 +16,7 @@
 
 from typing import Dict, List
 
-from server.lib.insights.page_type.builder import Builder
+from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
