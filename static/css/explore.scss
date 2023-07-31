@@ -33,10 +33,12 @@
 .explore-container {
   display: flex;
   flex-direction: column;
+
   h1 {
     font-size: 2rem;
     margin: 3rem 0;
   }
+
   .explore-charts {
     font-size: 1.25rem;
   }
@@ -70,7 +72,6 @@
     font-size: 13px;
     margin-right: 4px;
     text-decoration: underline;
-    color: var(--dc-gray);
     display: inline-block;
   }
 }

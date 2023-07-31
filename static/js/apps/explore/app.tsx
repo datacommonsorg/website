@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import queryString, { ParsedQuery } from "query-string";
 import React, { useEffect, useState } from "react";
 import { Container } from "reactstrap";
@@ -64,7 +65,9 @@ export function App(): JSX.Element {
   const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
   const [userMessage, setUserMessage] = useState<string>("");
   const [loadingStatus, setLoadingStatus] = useState<string>("init");
-  const [hashParams, setHashParams] = useState<ParsedQuery<string>>({});
+  const [hashParams, setHashParams] = useState<ParsedQuery<string>>(
+    queryString.parse(window.location.hash)
+  );
   const [savedContext, setSavedContext] = useState<any>({});
   const [query, setQuery] = useState<string>("");
 
@@ -78,9 +81,6 @@ export function App(): JSX.Element {
 
     // Listen to the 'hashchange' event and call the handler
     window.addEventListener("hashchange", handleHashChange);
-
-    // Call the handler once initially to handle the initial hash value
-    handleHashChange();
 
     // Clean up the event listener on component unmount
     return () => {
@@ -109,7 +109,10 @@ export function App(): JSX.Element {
         setQuery(query);
         const detectResp = await fetchDetectData(query, savedContext);
         setSavedContext(detectResp["context"] || {});
-        if (!detectResp["entities"] || !detectResp["variables"]) {
+        if (
+          _.isEmpty(detectResp["entities"]) ||
+          _.isEmpty(detectResp["variables"])
+        ) {
           setLoadingStatus("fail");
           return;
         }
