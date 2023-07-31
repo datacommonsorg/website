@@ -75,15 +75,58 @@ export interface NLQueryContextType {
 }
 
 interface NLAppConfig {
-  autoRun: boolean;
+  /**
+   * Auto play mode option: Automatically run the query; don't wait for the user to hit enter
+   * Enable with URL param: "a=True"
+   * Default: false
+   */
+  autoPlayAutoRunQuery: boolean;
+
+  /**
+   * Auto play mode option: Wait for the user to hit "enter" in the search box before showing the next query
+   * Enable with URL param: "m=True"
+   * Default: false
+   */
+  autoPlayManuallyShowQuery: boolean;
+
+  /**
+   * Auto play mode option: Wait this number of ms before showing the next query
+   * Example: set with URL param: "qd=1000"
+   * Default: 5000 (5 seconds)
+   */
+  autoPlayAutoShowQueryDelay: number;
+
+  /**
+   * Auto play mode internal state: current query index
+   */
+  autoPlayCurrentQueryIndex: number;
+
+  /**
+   * Auto play mode option: Disable the typing animation on auto-play  mode
+   * Enable with URL param "d=True"
+   * Default: false
+   */
+  autoPlayDisableTypingAnimation: boolean;
+
   currentNlQueryContextId: string;
-  delayDisabled: boolean;
-  demoMode: boolean; // Hide feedback buttons
+
+  /**
+   * Hides feedback buttons.
+   * Enable with URL param "enable_demo=True"
+   * Default: false
+   */
+  hideFeedbackButtons: boolean;
+
   detector: string;
   indexType: string;
   placeholderQuery: string;
   placeDetector: string;
   topic: string;
+
+  /**
+   * Initial queries to auto-play. Configured with "autoPlay*" params above
+   * Enable with semicolon-separated list of strings in URL param "q=query1;query2"
+   */
   urlPrompts: string[];
 }
 
@@ -137,10 +180,13 @@ const nlAppModel: NLAppModel = {
   sampleQueries: [],
 
   config: {
-    autoRun: false,
+    autoPlayAutoRunQuery: false,
+    autoPlayManuallyShowQuery: false,
+    autoPlayAutoShowQueryDelay: 5000,
+    autoPlayCurrentQueryIndex: 0,
+    autoPlayDisableTypingAnimation: false,
     currentNlQueryContextId: null,
-    delayDisabled: false,
-    demoMode: false,
+    hideFeedbackButtons: false,
     detector: NL_DETECTOR_VALS.HYBRID,
     indexType: NL_INDEX_VALS.MEDIUM_FT,
     placeholderQuery: "family earnings in california",
@@ -171,9 +217,12 @@ const nlAppActions: NLAppActions = {
       document.getElementById("metadata").dataset.index || "";
     // Fetch URL parameters
     actions.updateConfig({
-      autoRun: !!getUrlToken("a"),
-      delayDisabled: !!getUrlToken("d"),
-      demoMode: !!getUrlToken("enable_demo"),
+      autoPlayAutoRunQuery: !!getUrlToken("a"),
+      autoPlayManuallyShowQuery: !!getUrlToken("m"),
+      autoPlayAutoShowQueryDelay:
+        getUrlToken("qd") === null ? 2000 : Number(getUrlToken("qd")),
+      autoPlayDisableTypingAnimation: !!getUrlToken("d"),
+      hideFeedbackButtons: !!getUrlToken("enable_demo"),
       detector: getUrlTokenOrDefault(
         NL_URL_PARAMS.DETECTOR,
         NL_DETECTOR_VALS.HYBRID
@@ -303,7 +352,7 @@ const nlAppActions: NLAppActions = {
             },
             config: resp.data["config"],
             sessionId:
-              !config.demoMode && "session" in resp.data
+              !config.hideFeedbackButtons && "session" in resp.data
                 ? resp.data["session"]["id"]
                 : "",
             svSource: resp.data["svSource"],
@@ -336,6 +385,16 @@ const nlAppActions: NLAppActions = {
         }
         nlQueryUpdate.isLoading = false;
         actions.updateNlQuery(nlQueryUpdate);
+        // Update auto play state
+        if (
+          config.autoPlayCurrentQueryIndex < config.urlPrompts.length &&
+          query === config.urlPrompts[config.autoPlayCurrentQueryIndex] &&
+          !config.autoPlayManuallyShowQuery
+        ) {
+          actions.updateConfig({
+            autoPlayCurrentQueryIndex: config.autoPlayCurrentQueryIndex + 1,
+          });
+        }
       } catch (error) {
         console.error("Error fetching data for", query, error);
         actions.updateNlQuery({
