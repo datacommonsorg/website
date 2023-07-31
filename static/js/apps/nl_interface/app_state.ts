@@ -90,7 +90,7 @@ interface NLAppConfig {
   autoPlayManuallyShowQuery: boolean;
 
   /**
-   * Auto play mode option: Wait this number of ms before showing the next query
+   * Auto play mode option: Wait this number of ms after a query completes before showing the next query
    * Example: set with URL param: "qd=1000"
    * Default: 5000 (5 seconds)
    */
