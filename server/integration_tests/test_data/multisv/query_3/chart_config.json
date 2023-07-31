@@ -47,12 +47,8 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "White Hispanic Monoracial Population",
-            "nlQuery": "White Hispanic Monoracial Population California"
-          },
-          {
-            "displayName": "Count of Household: Hispanic or Latino",
-            "nlQuery": "Count of Household: Hispanic or Latino California"
+            "displayName": "Hispanic Asian Population",
+            "nlQuery": "Hispanic Asian Population California"
           }
         ]
       }

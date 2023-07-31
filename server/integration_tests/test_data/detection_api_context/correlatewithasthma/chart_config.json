@@ -19,7 +19,6 @@
     "dc/topic/PopulationWithAsthmaByAge",
     "dc/topic/AsthmaFemalePopulationByAge",
     "dc/topic/AsthmaMalePopulationByAge",
-    "Count_Death_DiseasesOfTheRespiratorySystem",
-    "Count_Death_Upto1Years_DiseasesOfTheRespiratorySystem"
+    "Count_Death_DiseasesOfTheRespiratorySystem"
   ]
 }
