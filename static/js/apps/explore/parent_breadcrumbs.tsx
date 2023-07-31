@@ -44,7 +44,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
                 <a
                   className="parent-place-link"
                   key={parent.dcid}
-                  href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}
+                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}`}
                 >
                   {parent.name}
                 </a>
@@ -54,7 +54,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
               <React.Fragment key={parent.dcid}>
                 <a
                   className="parent-place-link"
-                  href={`/insights/#p=${parent.dcid}&t=${this.props.topic}`}
+                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}`}
                 >
                   {parent.name}
                 </a>

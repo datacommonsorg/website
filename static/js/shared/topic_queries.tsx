@@ -18,9 +18,7 @@
  * Component for topic page welcome message with query examples.
  */
 
-import axios from "axios";
-import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { formatNumber } from "../i18n/i18n";
 import { Query, Topic, TopicConfig } from "./topic_config";
@@ -126,7 +124,7 @@ interface QueryLinkProps {
 function QueryLink(props: QueryLinkProps): JSX.Element {
   const { query } = props;
   let url = "";
-  if (props.appName == "insights") {
+  if (props.appName == "explore") {
     if (query.url) {
       url = `/${props.appName}#${query.url}`;
     } else {

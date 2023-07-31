@@ -14,7 +14,7 @@
 
 #
 # This is a detector that consumes the core NL detection results plus
-# context, and produces updated results in Insights args dict.
+# context, and produces updated results in Explore args dict.
 #
 
 import copy

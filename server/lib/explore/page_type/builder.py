@@ -21,7 +21,7 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.types as ftypes
 
-# Helper class to build chart config for Insights
+# Helper class to build chart config for Explore page.
 
 
 class Builder:
