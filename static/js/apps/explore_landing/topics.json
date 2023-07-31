@@ -15,15 +15,15 @@
         "general": [
           {
             "title": "Economic equity in California",
-            "url": "oq=Economic+equity+in+California"
+            "url": "oq=Economic+equity+in+California&t=dc/topic/EconomicEquity&p=geoId/06"
           },
           {
             "title": "Incarceration rates by race in the US",
-            "url": "oq=Incarceration+rates+by+race+in+the+US"
+            "url": "oq=Incarceration+rates+by+race+in+the+US&t=dc/topic/JusticeSystemEquity&p=country/USA"
           },
           {
             "title": "Health equity in Santa Clara County",
-            "url": "oq=Health+equity+in+Santa+Clara+County"
+            "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
           }
         ],
         "specific": [],
@@ -318,7 +318,7 @@
       }
     },
     "schools-housing-commute": {
-      "title": "Schools, housing, and commute",
+      "title": "Schools, Housing, and Commute",
       "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
