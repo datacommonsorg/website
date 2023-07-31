@@ -129,7 +129,12 @@ export function App(): JSX.Element {
           pt: placeType,
         });
         return;
+      } else if (orig_query) {
+        // We have orig_query set with place and topic. So while
+        // we're not calling detection, we should still set query state.
+        setQuery(orig_query);
       }
+
       if (!place || !topic) {
         setLoadingStatus("fail");
         return;
