@@ -261,6 +261,7 @@ export function App(): JSX.Element {
           {chartData && chartData.pageConfig && (
             <div id="insight-rhs">
               <div className="search-section">
+                <div className="experiment-tag">Experiment</div>
                 <div className="search-box-section">
                   <TextSearchBar
                     inputId="query-search-input"
