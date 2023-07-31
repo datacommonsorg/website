@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { useEffect, useRef } from "react";
-
 /**
  * Utils used for the nl interface
  */

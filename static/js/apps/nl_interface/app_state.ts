@@ -181,8 +181,8 @@ const nlAppModel: NLAppModel = {
 
   config: {
     autoPlayAutoRunQuery: false,
-    autoPlayManuallyShowQuery: false,
     autoPlayAutoShowQueryDelay: 5000,
+    autoPlayManuallyShowQuery: false,
     autoPlayCurrentQueryIndex: 0,
     autoPlayDisableTypingAnimation: false,
     currentNlQueryContextId: null,
@@ -218,10 +218,10 @@ const nlAppActions: NLAppActions = {
     // Fetch URL parameters
     actions.updateConfig({
       autoPlayAutoRunQuery: !!getUrlToken("a"),
-      autoPlayManuallyShowQuery: !!getUrlToken("m"),
       autoPlayAutoShowQueryDelay:
         getUrlToken("qd") === null ? 2000 : Number(getUrlToken("qd")),
       autoPlayDisableTypingAnimation: !!getUrlToken("d"),
+      autoPlayManuallyShowQuery: !!getUrlToken("m"),
       hideFeedbackButtons: !!getUrlToken("enable_demo"),
       detector: getUrlTokenOrDefault(
         NL_URL_PARAMS.DETECTOR,

@@ -113,6 +113,7 @@ export function QueryContext(): JSX.Element {
       autoPlayDisableTypingAnimation,
       autoPlayAutoShowQueryDelay,
       autoPlayAutoRunQuery,
+      config,
       currentNlQueryContext,
       nlQueryHistory,
       urlPrompts,
@@ -120,53 +121,6 @@ export function QueryContext(): JSX.Element {
       setAutoRunQuery,
     ]
   );
-  function inputNextPrompt2(delayStart: boolean): void {
-    const prompt = urlPrompts[autoPlayCurrentQueryIndex];
-    console.log(
-      "In inputNextPrompt... autoPlayCurrentQueryIndex=",
-      autoPlayCurrentQueryIndex,
-      "prompt=",
-      prompt
-    );
-
-    //const nextPromptDelay = 0;
-    const promptSearchDelay = autoPlayDisableTypingAnimation
-      ? 0
-      : PROMPT_SEARCH_DELAY;
-    const nextPromptDelay =
-      delayStart && !autoPlayDisableTypingAnimation
-        ? autoPlayAutoShowQueryDelay
-        : 0;
-    console.log("nextPromptDelay=", autoPlayAutoShowQueryDelay);
-    nextPromptDelayTimer.current = setTimeout(() => {
-      console.log("Das?");
-      // If delay is disabled, input the whole prompt at once
-      let inputLength = autoPlayDisableTypingAnimation ? prompt.length : 1;
-      inputIntervalTimer.current = setInterval(() => {
-        if (inputLength <= prompt.length) {
-          setAutoRunQuery(prompt.substring(0, inputLength));
-        }
-        if (inputLength === prompt.length) {
-          clearInterval(inputIntervalTimer.current);
-          // If on autoPlayAutoRunQuery, search for the current input after
-          // PROMPT_SEARCH_DELAY ms.
-          if (autoPlayAutoRunQuery) {
-            searchDelayTimer.current = setTimeout(() => {
-              setAutoRunQuery("");
-              search({
-                config,
-                nlQueryContext: currentNlQueryContext,
-                nlQueryHistory,
-                query: prompt,
-              });
-            }, promptSearchDelay);
-          }
-          return;
-        }
-        inputLength++;
-      }, CHARACTER_INPUT_INTERVAL);
-    }, nextPromptDelay);
-  }
 
   useEffect(() => {
     // If there are url prompts that have not been searched, input the next
@@ -185,6 +139,7 @@ export function QueryContext(): JSX.Element {
     }
   }, [
     autoPlayCurrentQueryIndex,
+    autoPlayManuallyShowQuery,
     executingAutoPlayQueryIndex,
     urlPrompts,
     inputNextPrompt,
