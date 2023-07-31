@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for DC Insights.
+ * Entrypoint for DC Explore page.
  */
 
 import React from "react";
@@ -35,6 +35,6 @@ window.onload = () => {
 function renderPage(): void {
   ReactDOM.render(
     React.createElement(App),
-    document.getElementById("dc-insights-interface")
+    document.getElementById("dc-explore-landing")
   );
 }

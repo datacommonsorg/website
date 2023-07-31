@@ -26,121 +26,121 @@ const config = {
   entry: {
     scatter: [
       __dirname + "/js/tools/scatter/scatter.ts",
-      __dirname + "/css/tools/scatter.scss"
+      __dirname + "/css/tools/scatter.scss",
     ],
     map: [
       __dirname + "/js/tools/map/map.ts",
-      __dirname + "/css/tools/map.scss"
+      __dirname + "/css/tools/map.scss",
     ],
     stat_var: [
       __dirname + "/js/tools/stat_var/stat_var.ts",
-      __dirname + "/css/tools/stat_var.scss"
+      __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
-      __dirname + "/css/tools/timeline.scss"
+      __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
     place: [
       __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss"
+      __dirname + "/css/place/place.scss",
     ],
     place_landing: [__dirname + "/js/place/place_landing.ts"],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
-      __dirname + "/css/topic_page.scss"
+      __dirname + "/css/topic_page.scss",
+    ],
+    explore_landing: [
+      __dirname + "/js/apps/explore_landing/main.ts",
+      __dirname + "/css/explore_landing.scss",
     ],
     explore: [
       __dirname + "/js/apps/explore/main.ts",
-      __dirname + "/css/explore.scss"
-    ],
-    insights: [
-      __dirname + "/js/apps/insights/main.ts",
-      __dirname + "/css/insights.scss"
+      __dirname + "/css/explore.scss",
     ],
     nl_interface: [
       __dirname + "/js/apps/nl_interface/main.ts",
-      __dirname + "/css/nl_interface.scss"
+      __dirname + "/css/nl_interface.scss",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
-      __dirname + "/css/ranking.scss"
+      __dirname + "/css/ranking.scss",
     ],
     browser: [
       __dirname + "/js/browser/browser.ts",
-      __dirname + "/css/browser.scss"
+      __dirname + "/css/browser.scss",
     ],
     disease: [
       __dirname + "/js/biomedical/disease/disease.ts",
-      __dirname + "/css/biomedical/disease.scss"
+      __dirname + "/css/biomedical/disease.scss",
     ],
     protein: [
       __dirname + "/js/biomedical/protein/protein.ts",
-      __dirname + "/css/biomedical/protein.scss"
+      __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
     screenshot: __dirname + "/css/screenshot.scss",
     translator: [
       __dirname + "/js/translator/translator.ts",
-      __dirname + "/css/translator.scss"
+      __dirname + "/css/translator.scss",
     ],
     search: [
       __dirname + "/js/search/search.ts",
-      __dirname + "/css/search.scss"
+      __dirname + "/css/search.scss",
     ],
     download: [
       __dirname + "/js/tools/download/download.ts",
-      __dirname + "/css/tools/download.scss"
+      __dirname + "/css/tools/download.scss",
     ],
     import_wizard: [
       __dirname + "/js/import_wizard/import_wizard.ts",
-      __dirname + "/css/import_wizard.scss"
+      __dirname + "/css/import_wizard.scss",
     ],
     import_wizard2: [
       __dirname + "/js/import_wizard2/import_wizard.ts",
-      __dirname + "/css/import_wizard2.scss"
+      __dirname + "/css/import_wizard2.scss",
     ],
     user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
-      __dirname + "/css/disaster_dashboard.scss"
+      __dirname + "/css/disaster_dashboard.scss",
     ],
     event: [
       __dirname + "/js/apps/event/main.ts",
-      __dirname + "/css/event.scss"
+      __dirname + "/css/event.scss",
     ],
     sustainability: [
       __dirname + "/js/apps/sustainability/main.ts",
-      __dirname + "/css/sustainability.scss"
+      __dirname + "/css/sustainability.scss",
     ],
     datacommons: [
       __dirname + "/library/index.ts",
-      __dirname + "/css/datacommons.scss"
+      __dirname + "/css/datacommons.scss",
     ],
     homepage: [
       __dirname + "/js/homepage/main.ts",
-      __dirname + "/css/homepage.scss"
+      __dirname + "/css/homepage.scss",
     ],
     visualization: [
       __dirname + "/js/apps/visualization/main.ts",
-      __dirname + "/css/tools/visualization.scss"
-    ]
+      __dirname + "/css/tools/visualization.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",
-    filename: "[name].js"
+    filename: "[name].js",
   },
   resolve: {
-    extensions: [".js", ".ts", ".tsx"]
+    extensions: [".js", ".ts", ".tsx"],
   },
   module: {
     rules: [
       {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|scss)$/,
@@ -150,18 +150,18 @@ const config = {
             loader: "file-loader",
             options: {
               outputPath: "css/",
-              name: "[name].min.css"
-            }
+              name: "[name].min.css",
+            },
           },
           {
             loader: "sass-loader",
             options: {
-              sourceMap: true
-            }
-          }
-        ]
-      }
-    ]
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new NodePolyfillPlugin(),
@@ -174,13 +174,13 @@ const config = {
         { from: "sitemap/*.txt" },
         { from: "custom_dc/**/*" },
         { from: "*favicon.ico" },
-        { from: "robots.txt" }
-      ]
+        { from: "robots.txt" },
+      ],
     }),
     new FixStyleOnlyEntriesPlugin({
-      silent: true
-    })
-  ]
+      silent: true,
+    }),
+  ],
 };
 
 module.exports = (env, argv) => {

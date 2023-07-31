@@ -14,7 +14,7 @@
 
 # Chart structure for the place comparison page.
 
-from server.lib.insights.page_type.builder import Builder
+from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.config_builder import bar
 import server.lib.nl.fulfillment.types as ftypes
 
