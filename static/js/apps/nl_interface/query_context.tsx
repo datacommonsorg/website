@@ -77,7 +77,9 @@ export function QueryContext(): JSX.Element {
         ? 0
         : PROMPT_SEARCH_DELAY;
       const nextPromptDelay =
-        delayStart && !autoPlayDisableTypingAnimation
+        delayStart &&
+        !autoPlayDisableTypingAnimation &&
+        !autoPlayManuallyShowQuery
           ? autoPlayAutoShowQueryDelay
           : 0;
       nextPromptDelayTimer.current = setTimeout(() => {
