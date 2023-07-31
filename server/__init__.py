@@ -390,8 +390,7 @@ def create_app():
             'UTF-8')
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
-    # TODO: Re-enable without making DC API calls.
-    # app.config['TOPIC_CACHE'] = topic_cache.load(app.config)
+    app.config['TOPIC_CACHE'] = topic_cache.load()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()

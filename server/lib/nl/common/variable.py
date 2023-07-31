@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List, Set
 
+from flask import current_app
+
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -213,7 +215,13 @@ def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
     elif sv_chart_titles.get(sv):
       sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
     else:
-      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
+      # Topic and SVPG have a cache, so lookup name from there if its
+      # fresher.
+      if ('TOPIC_CACHE' in current_app.config and
+          (utils.is_svpg(sv) or utils.is_topic(sv))):
+        sv_name_map[sv] = current_app.config['TOPIC_CACHE'].get_name(sv)
+      else:
+        sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
 
