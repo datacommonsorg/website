@@ -83,40 +83,9 @@
               }
             ],
             "title": "Rate of Population Growth"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_BirthEvent"
-                    ],
-                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_BirthEvent"
-                    ],
-                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Birth Event"
           }
         ],
         "statVarSpec": {
-          "Count_BirthEvent": {
-            "name": "Count of Birth Event",
-            "statVar": "Count_BirthEvent"
-          },
           "Count_BirthEvent_AsAFractionOfCount_Person": {
             "name": "Count of Birth Event (Per Capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
