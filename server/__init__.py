@@ -164,9 +164,6 @@ def register_routes_common(app):
   from server.routes.explore import html as explore_html
   app.register_blueprint(explore_html.bp)
 
-  from server.routes.insights import html as insights_html
-  app.register_blueprint(insights_html.bp)
-
   from server.routes.nl import html as nl_html
   app.register_blueprint(nl_html.bp)
 
@@ -198,8 +195,8 @@ def register_routes_common(app):
   from server.routes.nl import api as nl_api
   app.register_blueprint(nl_api.bp)
 
-  from server.routes.insights import api as insights_api
-  app.register_blueprint(insights_api.bp)
+  from server.routes.explore import api as explore_api
+  app.register_blueprint(explore_api.bp)
 
   from server.routes.shared_api import choropleth as shared_choropleth
   app.register_blueprint(shared_choropleth.bp)
