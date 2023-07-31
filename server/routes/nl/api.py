@@ -37,7 +37,8 @@ bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 def data():
   """Data handler."""
   debug_logs = {}
-  utterance, error_json = helpers.parse_query_and_detect(request, debug_logs)
+  utterance, error_json = helpers.parse_query_and_detect(
+      request, 'nl', debug_logs)
   if error_json:
     return error_json
   if not utterance:

@@ -35,7 +35,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive alone in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -67,7 +81,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -99,7 +127,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6"
+                    ],
+                    "title": "Public Transit in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -131,7 +173,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/vp8cbt6k79t94"
+                    ],
+                    "title": "Walk to work in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -163,7 +219,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/vt2q292eme79f"
+                    ],
+                    "title": "Others (incl. Taxcab, Motorcyle, Bicycle) in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -195,7 +265,21 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 5,
-                      "showHighest": true,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
