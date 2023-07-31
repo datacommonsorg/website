@@ -16,19 +16,10 @@
 #
 
 from dataclasses import dataclass
-import logging
-import os
+import json
 from typing import Dict, List, Set
 
-from server.lib import fetch
 from server.lib.nl.common import utils
-from server.services import datacommons as dc
-
-_BATCH_SIZE = 100
-
-_CACHE_PATH = '~/.datacommons/'
-_CACHE_EXPIRY = 3600 * 3  # Cache for 3 hrs
-_CACHE_KEY = 'topic_cache'
 
 
 # This might be a topic or svpg
@@ -37,6 +28,9 @@ class Node:
   name: str
   type: str
   vars: List[str]
+
+
+TOPIC_CACHE_JSON = 'server/config/nl_page/topic_cache.json'
 
 
 class TopicCache:
@@ -76,82 +70,37 @@ class TopicCache:
         ret.append({'dcid': i, 'name': n.name, 'types': [n.type]})
     return ret
 
-
-def load(app_config) -> TopicCache:
-  flask_env = os.environ.get('FLASK_ENV')
-  use_cache = flask_env in ['local', 'integration_test', 'webdriver']
-
-  dcache = None
-  if use_cache:
-    from diskcache import Cache
-    dcache = Cache(_CACHE_PATH)
-    dcache.expire()
-    cache = dcache.get(_CACHE_KEY)
-    if cache:
-      logging.info('Using CACHED topic_cache')
-      logging.info(
-          f'Loaded {len(cache.out_map)} out keys, {len(cache.in_map)} in keys')
-      return cache
-
-  cache = _load(app_config)
-
-  if use_cache:
-    dcache.set(_CACHE_KEY, cache, expire=_CACHE_EXPIRY)
-  logging.info(
-      f'Fetched {len(cache.out_map)} out keys, {len(cache.in_map)} in keys')
-  return cache
+  def get_name(self, id: str) -> str:
+    if id not in self.out_map:
+      return ''
+    return self.out_map[id].name
 
 
-def _load(app_config) -> TopicCache:
-  # TODO: Use pagination tokens for this.
-  topic_ids = fetch.property_values(['Topic'],
-                                    'typeOf',
-                                    out=False,
-                                    app_config=app_config)['Topic']
+def load() -> TopicCache:
+  with open(TOPIC_CACHE_JSON, 'r') as fp:
+    cache = json.load(fp)
 
-  topics, svpg_ids = _triples(topic_ids, 'relevantVariable', 'dc/svpg/',
-                              app_config)
-  svpgs, _ = _triples(list(svpg_ids), 'member', '', app_config)
-  out_map = topics
-  out_map.update(svpgs)
-
+  out_map = {}
   in_map = {}
-  for id, node in out_map.items():
-    prop = 'relevantVariable' if utils.is_topic(id) else 'member'
-    for m in node.vars:
+
+  for node in cache['nodes']:
+    dcid = node['dcid'][0]
+    typ = node['typeOf'][0]
+    name = node.get('name', [''])[0]
+    if 'relevantVariableList' in node:
+      prop = 'relevantVariableList'
+    else:
+      prop = 'memberList'
+    vars = node[prop]
+    out_map[dcid] = Node(name=name, type=typ, vars=vars)
+
+    # Make the *List transparent to the caller.
+    new_prop = prop.replace('List', '')
+    for m in vars:
       if m not in in_map:
         in_map[m] = {}
-      if prop not in in_map[m]:
-        in_map[m][prop] = set()
-      in_map[m][prop].add(id)
+      if new_prop not in in_map[m]:
+        in_map[m][new_prop] = set()
+      in_map[m][new_prop].add(dcid)
 
   return TopicCache(out_map=out_map, in_map=in_map)
-
-
-def _triples(ids, prop, prefix='', app_config=None):
-  i = 0
-  node_map = {}
-  matched_ids = set()
-  logging.info(f'Topic cache: {len(ids)} for property {prop}')
-  while i < len(ids):
-    slice = ids[i:i + _BATCH_SIZE]
-    trips = fetch.triples(slice, out=True, app_config=app_config)
-    for dcid, pvs in trips.items():
-      name = pvs.get('name', [{}])[0].get('value', '')
-      type = pvs.get('typeOf', [{}])[0].get('dcid', '')
-      vars = []
-      # Try the packed ordered list property, which has `List` suffix:
-      # relevantVariableList, memberList
-      var_list = pvs.get(prop + 'List', [{}])[0].get('value', '')
-      if var_list:
-        vars = [v.strip() for v in var_list.split(',') if v.strip()]
-      else:
-        vars = [v['dcid'] for v in pvs.get(prop, []) if v.get('dcid')]
-      if prefix:
-        for v in vars:
-          if v.startswith(prefix):
-            matched_ids.add(v)
-      if vars and name:
-        node_map[dcid] = Node(name=name, type=type, vars=vars)
-    i += len(slice)
-  return node_map, list(matched_ids)

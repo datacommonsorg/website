@@ -647,7 +647,6 @@
     "mainTopic": {
       "dcid": "dc/topic/IndividualIncomeByIndustry",
       "name": "Individual Income By Industry",
-      "provenanceId": "dc/base/HumanReadableStatVars",
       "types": [
         "Topic"
       ]
@@ -665,7 +664,6 @@
       {
         "dcid": "dc/topic/Income",
         "name": "Income",
-        "provenanceId": "dc/base/HumanReadableStatVars",
         "types": [
           "Topic"
         ]
@@ -675,7 +673,6 @@
       {
         "dcid": "dc/topic/HouseholdIncomeDistribution",
         "name": "Household Income Distribution",
-        "provenanceId": "dc/base/HumanReadableStatVars",
         "types": [
           "Topic"
         ]
@@ -683,7 +680,6 @@
       {
         "dcid": "dc/topic/IndividualIncomeByIndustry",
         "name": "Individual Income By Industry",
-        "provenanceId": "dc/base/HumanReadableStatVars",
         "types": [
           "Topic"
         ]
@@ -691,7 +687,6 @@
       {
         "dcid": "dc/topic/IndividualIncomeDistribution",
         "name": "Individual Income Distribution",
-        "provenanceId": "dc/base/HumanReadableStatVars",
         "types": [
           "Topic"
         ]
