@@ -250,6 +250,10 @@
           {
             "displayName": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
             "nlQuery": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County Africa"
+          },
+          {
+            "displayName": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
+            "nlQuery": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad Africa"
           }
         ]
       }
