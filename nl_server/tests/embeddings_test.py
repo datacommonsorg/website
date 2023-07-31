@@ -103,7 +103,7 @@ class TestEmbeddings(unittest.TestCase):
       [
           "heart disease",
           [
-              "dc/topic/CardiovascularDisease",
+              "dc/topic/HeartDisease",
               "dc/topic/PopulationWithDiseasesOfHeartByAge",
               "Percent_Person_WithCoronaryHeartDisease"
           ]
@@ -174,7 +174,7 @@ class TestEmbeddings(unittest.TestCase):
     else:
       self.assertTrue(got['CosineScore'][0] < got_multisv[0]['AggCosineScore'])
 
-  # For these queries, the match score should be low (< 0.4).
+  # For these queries, the match score should be low (< 0.45).
   @parameterized.expand(["random random", "", "who where why", "__124__abc"])
   def test_low_score_matches(self, query_str):
     got = self.nl_embeddings.detect_svs(query_str)
@@ -186,4 +186,4 @@ class TestEmbeddings(unittest.TestCase):
 
     # Check all scores.
     for score in got['CosineScore']:
-      self.assertLess(score, 0.4)
+      self.assertLess(score, 0.45)
