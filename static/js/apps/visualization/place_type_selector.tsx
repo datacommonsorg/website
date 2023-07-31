@@ -55,7 +55,9 @@ export function PlaceTypeSelector(
                     checked={type === enclosedPlaceType}
                     onChange={() => {
                       setEnclosedPlaceType(type);
-                      props.onNewSelection();
+                      if (props.onNewSelection) {
+                        props.onNewSelection();
+                      }
                     }}
                   />
                   {type}

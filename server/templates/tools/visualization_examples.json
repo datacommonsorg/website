@@ -141,13 +141,13 @@
       "preposition": "by",
       "examples": [{
         "text": "age",
-        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000___geoId%2F2603000___geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000___geoId%2F2603000___geoId%2F1777005___geoId%2F1225175___geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Age_Person\"%7D"
       }, {
         "text": "income",
-        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F2511000____geoId%2F2603000____geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000___geoId%2F2603000___geoId%2F1777005___geoId%2F1225175___geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
       }, {
         "text": "crime",
-        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F2511000____geoId%2F2603000____geoId%2F1777005____geoId%2F1225175____geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Count_CriminalActivities_ViolentCrime\"%7D"
+        "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000___geoId%2F2603000___geoId%2F1777005___geoId%2F1225175___geoId%2F4815976%26sv%3D%7B\"dcid\"%3A\"Count_CriminalActivities_ViolentCrime\"%7D"
       }]
     }, {
       "header": "Close by but very different",
@@ -155,22 +155,22 @@
         "title": "Berkeley & Piedmont",
         "examples": [{
           "text": "poverty",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_BelowPovertyLevelInThePast12Months\"%2C\"pc\"%3A\"1\"%7D"
         }, {
           "text": "education",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000____geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentMastersDegree\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentDoctorateDegree\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F0656938%26sv%3D%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentBachelorsDegree\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentMastersDegree\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_EducationalAttainmentDoctorateDegree\"%2C\"pc\"%3A\"1\"%7D"
         }]
       }, {
         "title": "Palo Alto & East Palo Alto",
         "examples": [{
           "text": "income",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282___geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
         }, {
           "text": "employment",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Employed\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282___geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Employed\"%2C\"pc\"%3A\"1\"%7D"
         }, {
           "text": "marital status",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282____geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Divorced\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_MarriedAndNotSeparated\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_NeverMarried\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F0655282___geoId%2F0620956%26sv%3D%7B\"dcid\"%3A\"Count_Person_Divorced\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_MarriedAndNotSeparated\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_NeverMarried\"%2C\"pc\"%3A\"1\"%7D"
         }]
       }]
     }, {
@@ -179,19 +179,19 @@
         "title": "Santa Clara County vs Imperial County",
         "examples": [{
           "text": "Richest vs. Poorest CA counties",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085____geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085___geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
         }, {
           "text": "Cause of Death",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085____geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Count_Death_DiseasesOfTheCirculatorySystem\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Death_ExternalCauses\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F06085___geoId%2F06025%26sv%3D%7B\"dcid\"%3A\"Count_Death_DiseasesOfTheCirculatorySystem\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Death_ExternalCauses\"%2C\"pc\"%3A\"1\"%7D"
         }]
       }, {
         "title": "Atlanta vs West Jordan",
         "examples": [{
           "text": "Highest vs Lowest Income Disparity",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950____geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950___geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Median_Income_Person\"%7D"
         }, {
           "text": "gender balance",
-          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950____geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D____%7B\"dcid\"%3A\"Count_Person_Male\"%2C\"pc\"%3A\"1\"%7D"
+          "url": "/tools/visualization?#visType%3Dtimeline%26place%3DgeoId%2F4982950___geoId%2F1304000%26sv%3D%7B\"dcid\"%3A\"Count_Person_Female\"%2C\"pc\"%3A\"1\"%7D___%7B\"dcid\"%3A\"Count_Person_Male\"%2C\"pc\"%3A\"1\"%7D"
         }]
       }]
     }
