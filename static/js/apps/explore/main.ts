@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for DC Insights.
+ * Entrypoint for DC Explore.
  */
 
 import React from "react";

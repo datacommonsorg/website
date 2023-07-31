@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Chart structure for the default Insights page
+# Chart structure for the default Explore page
 
 from typing import Dict, List
 

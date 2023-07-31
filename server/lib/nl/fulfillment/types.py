@@ -52,7 +52,7 @@ class InsightType(Enum):
 
 # Data structure for configuring the vars that go into a chart.
 #
-# In Insights, worth noting the different sv/topic/svpg things
+# In Explore, worth noting the different sv/topic/svpg things
 # in use:
 # 1) svs: the ones going into a chart
 # 2) source_topic: the topic that the `svs` belong to, used

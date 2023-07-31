@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for DC Insights.
+ * Main component for DC Explore.
  */
 
 import axios from "axios";
