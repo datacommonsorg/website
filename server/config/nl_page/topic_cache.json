@@ -6962,6 +6962,94 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeofhigherbyRace"
+      ],
+      "memberList": [
+        "dc/06f0jf8xvzw4f",
+        "dc/4qtse8536dg63",
+        "dc/5hc4etrfyj9qg",
+        "dc/eg6rrdr1tkf76",
+        "dc/hyfn2tlyz48lb",
+        "dc/skv4cd74gsnpf",
+        "dc/t7403chwvspm",
+        "dc/v7yl3k9w3h7e8",
+        "dc/wd5g31pcj0zr3"
+      ],
+      "name": [
+        "Bachelors degree of higher by Race"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_CollegedegreebyRace"
+      ],
+      "memberList": [
+        "dc/3w039ndqy7qv1",
+        "dc/56md3ndhrmvm7",
+        "dc/9sneyc8lpk8dc",
+        "dc/epw58ne8mytn5",
+        "dc/kpcfmb6lp3zpd",
+        "dc/mqxdr821c7kw3",
+        "dc/q98jxycvs422f",
+        "dc/whn99h1l0xgth"
+      ],
+      "name": [
+        "College degree by Race"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_DoctoratedegreebyGender"
+      ],
+      "memberList": [
+        "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
+        "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male"
+      ],
+      "name": [
+        "Doctorate degree by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_MastersdegreebyGender"
+      ],
+      "memberList": [
+        "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
+        "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Male"
+      ],
+      "name": [
+        "Masters degree by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_collegeorprofessionaldegreebyGender"
+      ],
+      "memberList": [
+        "Count_Person_25OrMoreYears_EducationalAttainmentProfessionalSchoolDegree_Female",
+        "Count_Person_25OrMoreYears_EducationalAttainmentProfessionalSchoolDegree_Male"
+      ],
+      "name": [
+        "college or professional degree by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
       ],
       "memberList": [
@@ -7033,6 +7121,46 @@
       ],
       "name": [
         "Causes Of Female Mortality"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Foodstamps_FoodstampsbyRace"
+      ],
+      "memberList": [
+        "Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_AsianAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_BlackOrAfricanAmericanAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_HispanicOrLatino",
+        "Count_Household_WithFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_SomeOtherRaceAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_TwoOrMoreRaces",
+        "Count_Household_WithFoodStampsInThePast12Months_WhiteAlone",
+        "Count_Household_WithFoodStampsInThePast12Months_WhiteAloneNotHispanicOrLatino"
+      ],
+      "name": [
+        "Food stamps by Race"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Foodstamps_Foodstampsbyhouseholdtype"
+      ],
+      "memberList": [
+        "Count_Household_WithFoodStampsInThePast12Months_FamilyHousehold",
+        "Count_Household_WithFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold",
+        "Count_Household_WithFoodStampsInThePast12Months_NonfamilyHousehold",
+        "Count_Household_WithFoodStampsInThePast12Months_OtherFamilyHousehold",
+        "Count_Household_WithFoodStampsInThePast12Months_SingleFatherFamilyHousehold"
+      ],
+      "name": [
+        "Food stamps by household type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7377,6 +7505,41 @@
       ],
       "name": [
         "Causes Of Infant Mortality"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/JusticeSystemEquity_IncarceratedByRace"
+      ],
+      "memberList": [
+        "dc/0tn58fc77r0z6",
+        "dc/510pv6eq2vtw7",
+        "dc/fs27m9j4vpvc7",
+        "dc/rmwl11tzy7vkh",
+        "dc/wp843855b1r4c",
+        "dc/yksgwhwsbtv9c",
+        "dc/zdb0f7sj2419d"
+      ],
+      "name": [
+        "Incarcerated By Race"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/JusticeSystemEquity_IncarceratedbyGender"
+      ],
+      "memberList": [
+        "dc/03l0q0wyqrk39",
+        "dc/lnp5g90fwpct8"
+      ],
+      "name": [
+        "Incarcerated by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9073,6 +9236,21 @@
     },
     {
       "dcid": [
+        "dc/topic/Benefits"
+      ],
+      "name": [
+        "Benefits"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Foodstamps_FoodstampsbyRace",
+        "dc/svpg/dc/topic/Foodstamps_Foodstampsbyhouseholdtype"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/BingeDrinking"
       ],
       "name": [
@@ -9835,6 +10013,22 @@
     },
     {
       "dcid": [
+        "dc/topic/EconomicEquity"
+      ],
+      "name": [
+        "Economic Equity"
+      ],
+      "relevantVariableList": [
+        "dc/topic/PovertyByGender",
+        "dc/topic/PovertyByRace",
+        "dc/topic/Benefits"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Economy"
       ],
       "name": [
@@ -9864,6 +10058,24 @@
         "dc/topic/SchoolType",
         "dc/topic/Schools",
         "dc/topic/Parents"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/EducationEquity"
+      ],
+      "name": [
+        "Education Equity"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeofhigherbyRace",
+        "dc/svpg/dc/topic/Educationalattainment_CollegedegreebyRace",
+        "dc/svpg/dc/topic/Educationalattainment_DoctoratedegreebyGender",
+        "dc/svpg/dc/topic/Educationalattainment_MastersdegreebyGender",
+        "dc/svpg/dc/topic/Educationalattainment_collegeorprofessionaldegreebyGender"
       ],
       "typeOf": [
         "Topic"
@@ -9993,9 +10205,11 @@
     },
     {
       "dcid": [
+        "dc/topic/Equity",
         "dc/topic/Equity"
       ],
       "name": [
+        "Equity",
         "Equity"
       ],
       "relevantVariableList": [
@@ -10006,9 +10220,14 @@
         "Count_Person_WithDisability_WhiteAlone",
         "Count_Person_AsianAlone_ResidesInJuvenileFacilities",
         "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities",
-        "Count_Death_AmericanIndianAndAlaskaNativeAlone"
+        "Count_Death_AmericanIndianAndAlaskaNativeAlone",
+        "dc/topic/EconomicEquity",
+        "dc/topic/EducationEquity",
+        "dc/topic/HealthEquity",
+        "dc/topic/JusticeSystemEquity"
       ],
       "typeOf": [
+        "Topic",
         "Topic"
       ]
     },
@@ -11544,6 +11763,21 @@
       ],
       "relevantVariableList": [
         "dc/svpg/JobsPeerGroup"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/JusticeSystemEquity"
+      ],
+      "name": [
+        "Justice system Equity"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/JusticeSystemEquity_IncarceratedByRace",
+        "dc/svpg/dc/topic/JusticeSystemEquity_IncarceratedbyGender"
       ],
       "typeOf": [
         "Topic"
@@ -13846,7 +14080,9 @@
         "dc/topic/Health",
         "dc/topic/Economy",
         "dc/topic/Education",
-        "dc/topic/Environment"
+        "dc/topic/Housing",
+        "dc/topic/Environment",
+        "dc/topic/Equity"
       ],
       "typeOf": [
         "Topic"
