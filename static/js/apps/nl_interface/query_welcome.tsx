@@ -23,7 +23,7 @@ import { Container } from "reactstrap";
 
 import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
-import allTopics from "../explore/topics.json";
+import allTopics from "../explore_landing/topics.json";
 import { useStoreState } from "./app_state";
 
 /**

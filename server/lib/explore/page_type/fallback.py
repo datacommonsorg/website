@@ -15,7 +15,7 @@
 # Chart structure for fallback.
 
 from server.config.subject_page_pb2 import Tile
-from server.lib.insights.page_type.builder import Builder
+from server.lib.explore.page_type.builder import Builder
 import server.lib.nl.fulfillment.types as ftypes
 
 _NO_STAT_MSG = 'Sorry, no statistics found for {topic_name} in {place_name}.  Please explore other topics.'

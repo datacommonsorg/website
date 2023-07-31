@@ -11,15 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Module for Insights fulfillment"""
+
+# Module for Explore fulfillment
 
 from dataclasses import dataclass
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.insights import page
-import server.lib.insights.related as related
-import server.lib.insights.topic as topic
+from server.lib.explore import page
+import server.lib.explore.related as related
+import server.lib.explore.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
