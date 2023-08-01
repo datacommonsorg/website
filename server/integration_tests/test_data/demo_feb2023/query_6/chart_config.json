@@ -12,37 +12,6 @@
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
-                      "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
-                      "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
-                      "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block"
-                    ],
-                    "title": "Medical Conditions in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-            "title": "Medical Conditions"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
                       "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
                       "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
                       "Count_Death_85Years_Neoplasms_multiple_place_bar_block",
@@ -93,6 +62,37 @@
               }
             ],
             "title": "Cancer Preventive Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "dc/nh3s4skee5483_multiple_place_bar_block",
+                      "dc/xmpy89x1nh8cg_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Diabetes by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "dc/nh3s4skee5483_multiple_place_bar_block_pc",
+                      "dc/xmpy89x1nh8cg_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Prevalence of Diabetes by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Diabetes by Gender"
           },
           {
             "columns": [
@@ -350,6 +350,99 @@
                       "geoId/06061"
                     ],
                     "statVarKey": [
+                      "Count_Person_WithHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "HealthInsurancePrevalence in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita HealthInsurancePrevalence in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "HealthInsurancePrevalence"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
+                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
+                    ],
+                    "title": "IndividualHealthInsuranceByPrivacyType in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc",
+                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita IndividualHealthInsuranceByPrivacyType in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "IndividualHealthInsuranceByPrivacyType"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "IndividualHealthInsuranceByPurchaseType in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block_pc",
+                      "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita IndividualHealthInsuranceByPurchaseType in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "IndividualHealthInsuranceByPurchaseType"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
                       "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block",
                       "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
                       "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block",
@@ -416,104 +509,6 @@
               }
             ],
             "title": "Uninsured By Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block",
-                      "Count_Death_Neoplasms_Female_multiple_place_bar_block",
-                      "Count_Death_DiseasesOfTheNervousSystem_Female_multiple_place_bar_block",
-                      "Count_Death_DiseasesOfTheRespiratorySystem_Female_multiple_place_bar_block",
-                      "Count_Death_MentalBehaviouralDisorders_Female_multiple_place_bar_block",
-                      "Count_Death_DiseasesOfTheDigestiveSystem_Female_multiple_place_bar_block",
-                      "Count_Death_ExternalCauses_Female_multiple_place_bar_block",
-                      "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_multiple_place_bar_block",
-                      "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block",
-                      "Count_Death_DiseasesOfTheGenitourinarySystem_Female_multiple_place_bar_block",
-                      "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_multiple_place_bar_block",
-                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block",
-                      "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block"
-                    ],
-                    "title": "Causes Of Female Mortality in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block_pc",
-                      "Count_Death_Neoplasms_Female_multiple_place_bar_block_pc",
-                      "Count_Death_DiseasesOfTheNervousSystem_Female_multiple_place_bar_block_pc",
-                      "Count_Death_DiseasesOfTheRespiratorySystem_Female_multiple_place_bar_block_pc",
-                      "Count_Death_MentalBehaviouralDisorders_Female_multiple_place_bar_block_pc",
-                      "Count_Death_DiseasesOfTheDigestiveSystem_Female_multiple_place_bar_block_pc",
-                      "Count_Death_ExternalCauses_Female_multiple_place_bar_block_pc",
-                      "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_multiple_place_bar_block_pc",
-                      "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block_pc",
-                      "Count_Death_DiseasesOfTheGenitourinarySystem_Female_multiple_place_bar_block_pc",
-                      "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_multiple_place_bar_block_pc",
-                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block_pc",
-                      "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Causes Of Female Mortality in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Causes Of Female Mortality"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
-                      "Percent_Person_Obesity_multiple_place_bar_block",
-                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
-                      "Percent_Person_PhysicalInactivity_multiple_place_bar_block",
-                      "Percent_Person_Smoking_multiple_place_bar_block"
-                    ],
-                    "title": "Health Behavior in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Health Behavior"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block",
-                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
-                      "Percent_Person_ReceivedDentalVisit_multiple_place_bar_block",
-                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
-                    ],
-                    "title": "Prevalence of Health Screenings by Type in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Health Screenings by Type"
           }
         ],
         "statVarSpec": {
@@ -597,123 +592,6 @@
             "denom": "Count_Person",
             "name": "Mortality Events: Years 85 (Neoplasms)",
             "statVar": "Count_Death_85Years_Neoplasms"
-          },
-          "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified, Female",
-            "statVar": "Count_Death_AbnormalNotClassfied_Female"
-          },
-          "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified, Female",
-            "statVar": "Count_Death_AbnormalNotClassfied_Female"
-          },
-          "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Certain Infectious And Parasitic Diseases, Female",
-            "statVar": "Count_Death_CertainInfectiousParasiticDiseases_Female"
-          },
-          "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Certain Infectious And Parasitic Diseases, Female",
-            "statVar": "Count_Death_CertainInfectiousParasiticDiseases_Female"
-          },
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Congenital Malformations, Deformations And Chromosomal Abnormalities, Female",
-            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female"
-          },
-          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Congenital Malformations, Deformations And Chromosomal Abnormalities, Female",
-            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female"
-          },
-          "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Circulatory System, Female",
-            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
-          },
-          "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Circulatory System, Female",
-            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
-          },
-          "Count_Death_DiseasesOfTheDigestiveSystem_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Digestive System, Female",
-            "statVar": "Count_Death_DiseasesOfTheDigestiveSystem_Female"
-          },
-          "Count_Death_DiseasesOfTheDigestiveSystem_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Digestive System, Female",
-            "statVar": "Count_Death_DiseasesOfTheDigestiveSystem_Female"
-          },
-          "Count_Death_DiseasesOfTheGenitourinarySystem_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Genitourinary System, Female",
-            "statVar": "Count_Death_DiseasesOfTheGenitourinarySystem_Female"
-          },
-          "Count_Death_DiseasesOfTheGenitourinarySystem_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Genitourinary System, Female",
-            "statVar": "Count_Death_DiseasesOfTheGenitourinarySystem_Female"
-          },
-          "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Musculoskeletal System And Connective Tissue, Female",
-            "statVar": "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female"
-          },
-          "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Musculoskeletal System And Connective Tissue, Female",
-            "statVar": "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue_Female"
-          },
-          "Count_Death_DiseasesOfTheNervousSystem_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Nervous System, Female",
-            "statVar": "Count_Death_DiseasesOfTheNervousSystem_Female"
-          },
-          "Count_Death_DiseasesOfTheNervousSystem_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Nervous System, Female",
-            "statVar": "Count_Death_DiseasesOfTheNervousSystem_Female"
-          },
-          "Count_Death_DiseasesOfTheRespiratorySystem_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Diseases of The Respiratory System, Female",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem_Female"
-          },
-          "Count_Death_DiseasesOfTheRespiratorySystem_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Diseases of The Respiratory System, Female",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem_Female"
-          },
-          "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Endocrine, Nutritional And Metabolic Diseases, Female",
-            "statVar": "Count_Death_EndocrineNutritionalMetabolicDiseases_Female"
-          },
-          "Count_Death_EndocrineNutritionalMetabolicDiseases_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Endocrine, Nutritional And Metabolic Diseases, Female",
-            "statVar": "Count_Death_EndocrineNutritionalMetabolicDiseases_Female"
-          },
-          "Count_Death_ExternalCauses_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: External Causes of Morbidity And Mortality, Female",
-            "statVar": "Count_Death_ExternalCauses_Female"
-          },
-          "Count_Death_ExternalCauses_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: External Causes of Morbidity And Mortality, Female",
-            "statVar": "Count_Death_ExternalCauses_Female"
-          },
-          "Count_Death_MentalBehaviouralDisorders_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Mental And Behavioural Disorders, Female",
-            "statVar": "Count_Death_MentalBehaviouralDisorders_Female"
-          },
-          "Count_Death_MentalBehaviouralDisorders_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Mental And Behavioural Disorders, Female",
-            "statVar": "Count_Death_MentalBehaviouralDisorders_Female"
-          },
-          "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
-            "name": "Mortality Events: Neoplasms, Female",
-            "statVar": "Count_Death_Neoplasms_Female"
-          },
-          "Count_Death_Neoplasms_Female_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Mortality Events: Neoplasms, Female",
-            "statVar": "Count_Death_Neoplasms_Female"
           },
           "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block": {
             "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 15,000 - 24,999 USD",
@@ -868,6 +746,24 @@
             "name": "White With No Health Insurance",
             "statVar": "Count_Person_NoHealthInsurance_WhiteAlone"
           },
+          "Count_Person_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block": {
+            "name": "Direct Purchasers of Health Insurance",
+            "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
+          },
+          "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Direct Purchasers of Health Insurance",
+            "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
+          },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "American Indian/Alaska Native Population With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
@@ -958,6 +854,15 @@
             "name": "White Disbabled Population",
             "statVar": "Count_Person_WithDisability_WhiteAlone"
           },
+          "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block": {
+            "name": "People With Employer-Based Health Insurance",
+            "statVar": "Count_Person_WithEmployerBasedHealthInsurance"
+          },
+          "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "People With Employer-Based Health Insurance",
+            "statVar": "Count_Person_WithEmployerBasedHealthInsurance"
+          },
           "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "American Indian or Alaska Native Population With Health Insurance",
             "statVar": "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
@@ -1012,6 +917,15 @@
             "name": "White Population With Health Insurance",
             "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
           },
+          "Count_Person_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Count_Person_WithHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
           "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
             "name": "People With Only Private Health Insurance",
             "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
@@ -1063,100 +977,23 @@
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
             "unit": "%"
           },
-          "Percent_Person_BingeDrinking_multiple_place_bar_block": {
-            "name": "Prevalence of Binge Drinking",
-            "statVar": "Percent_Person_BingeDrinking",
-            "unit": "%"
+          "dc/nh3s4skee5483_multiple_place_bar_block": {
+            "name": "Percent of Female Population That Have Diabetes",
+            "statVar": "dc/nh3s4skee5483"
           },
-          "Percent_Person_Obesity_multiple_place_bar_block": {
-            "name": "Prevalence of Obesity",
-            "statVar": "Percent_Person_Obesity",
-            "unit": "%"
+          "dc/nh3s4skee5483_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Percent of Female Population That Have Diabetes",
+            "statVar": "dc/nh3s4skee5483"
           },
-          "Percent_Person_PhysicalInactivity_multiple_place_bar_block": {
-            "name": "Prevalence of Physical Inactivity",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
+          "dc/xmpy89x1nh8cg_multiple_place_bar_block": {
+            "name": "Percent of Male Population That Have Diabetes",
+            "statVar": "dc/xmpy89x1nh8cg"
           },
-          "Percent_Person_ReceivedCholesterolScreening_multiple_place_bar_block": {
-            "name": "Prevalence: Cholesterol Screening",
-            "statVar": "Percent_Person_ReceivedCholesterolScreening",
-            "unit": "%"
-          },
-          "Percent_Person_ReceivedDentalVisit_multiple_place_bar_block": {
-            "name": "Prevalence: Dental Visit",
-            "statVar": "Percent_Person_ReceivedDentalVisit",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block": {
-            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking_multiple_place_bar_block": {
-            "name": "Prevalence of Smoking",
-            "statVar": "Percent_Person_Smoking",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis_multiple_place_bar_block": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
-            "unit": "%"
-          },
-          "Percent_Person_WithAsthma_multiple_place_bar_block": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
-            "name": "Cancer (excluding skin cancer)",
-            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
-            "unit": "%"
-          },
-          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
-            "name": "Chronic Kidney Disease",
-            "statVar": "Percent_Person_WithChronicKidneyDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
-            "name": "Chronic Obstructive Pulmonary Disease",
-            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
-            "name": "Coronary Heart Disease",
-            "statVar": "Percent_Person_WithCoronaryHeartDisease",
-            "unit": "%"
-          },
-          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
-            "name": "Diabetes",
-            "statVar": "Percent_Person_WithDiabetes",
-            "unit": "%"
-          },
-          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure",
-            "unit": "%"
-          },
-          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
-            "name": "High Cholesterol",
-            "statVar": "Percent_Person_WithHighCholesterol",
-            "unit": "%"
-          },
-          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
-            "name": "Mental Health Issues",
-            "statVar": "Percent_Person_WithMentalHealthNotGood",
-            "unit": "%"
-          },
-          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
-            "name": "Physical Health Issues",
-            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
-            "unit": "%"
-          },
-          "Percent_Person_WithStroke_multiple_place_bar_block": {
-            "name": "Stroke",
-            "statVar": "Percent_Person_WithStroke",
-            "unit": "%"
+          "dc/xmpy89x1nh8cg_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Percent of Male Population That Have Diabetes",
+            "statVar": "dc/xmpy89x1nh8cg"
           }
         }
       }

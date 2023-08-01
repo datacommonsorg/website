@@ -1,7 +1,10 @@
 {
   "comparisonEntities": [],
   "comparisonVariables": [
+    "dc/topic/CommuteTime",
     "dc/topic/WorkCommute",
+    "dc/topic/CommuteModeByOccupation",
+    "dc/topic/CommuteMode",
     "Count_Household_With2AvailableVehicles",
     "Count_Household_With3AvailableVehicles",
     "Count_Household_With1AvailableVehicles"
