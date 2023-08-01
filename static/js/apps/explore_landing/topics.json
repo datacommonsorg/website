@@ -612,8 +612,8 @@
       "examples": {
         "general": [
           {
-            "title": "Which counties emit the most greenhouse gasses",
-            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
+            "title": "What are the sources of greenhouse gas emissions in the US",
+            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissionsBySource"
           },
           {
             "title": "Emissions in Harris County, Texas",
@@ -639,15 +639,15 @@
         "specific": [
           {
             "title": "Electronic Waste generated in different countries",
-            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENPCAP&t=sdg/EN_EWT_GENV"
+            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV___sdg/EN_EWT_GENPCAP"
           },
           {
             "title": "Floods in Pakistan",
             "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
           },
           {
-            "title": "Solar installations across across states in the US",
-            "url": "oq=Solar+installations+across+states+in+the+US&p=country/USA&t=Count_SolarInstallation"
+            "title": "Solar energy consumption across across states in the US",
+            "url": "oq=Solar+energy+consumption+across+states+in+the+US"
           },
           {
             "title": "Drought events across different countries",
@@ -659,11 +659,11 @@
           },
           {
             "title": "Top sources of CO2 emissions in the US",
-            "url": "oq=Top+sources+of+CO2+emissions+in+the+US&p=country/USA&t=dc/topic/CO2EmissionsbySource"
+            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
           },
           {
-            "title": "Which countries have the greatest increase in greenhouse gas emissions",
-            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
+            "title": "Which countries have the greatest greenhouse gas emissions",
+            "url": "oq=Which+countries+have+the+greatest+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissionsBySource"
           }
         ],
         "comparison": [
@@ -672,8 +672,8 @@
             "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
           },
           {
-            "title": "How does solar energy generation correlate with median income across US states",
-            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states&p=country/USA&pt=State&t=Count_SolarInstallation&tcmp=dc/topic/Income"
+            "title": "How do solar installations correlate with median income across US counties",
+            "url": "oq=How+does+renewable+energy+usage+correlate+with+median+income+across+US+counties&p=country/USA&pt=County&t=Count_SolarInstallation&tcmp=dc/topic/Income"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
