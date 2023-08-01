@@ -705,6 +705,7 @@ Annual_Consumption_Electricity_UnspecifiedSector,Annual Consumption Of Electrici
 Annual_Consumption_Electricity_WoodAndWoodProductsIndustry,Annual Consumption For Wood And Wood Products Industries;Annual Consumption of Electricity: for Wood And Wood Products Industry;the amount of wood and wood products used each year by industries;the annual rate at which industries use wood and wood products;the yearly amount of wood and wood products that industries use;the yearly consumption of wood and wood products by industries
 Annual_Consumption_Energy_CommerceAndPublicServices_Heat,"Annual Consumption of Energy: Commerce And Public Services, Heat;Annual Consumption of Heat In Commerce And Public Services;the amount of heat used in commerce and public services each year;the annual amount of heat consumed by businesses and government agencies;the annual heat consumption of businesses and government organizations;the total amount of heat used in commercial and public buildings each year"
 Annual_Consumption_Energy_ElectricityGeneration_Heat_EnergyIndustryOwnUse,"Annual Consumption of Energy: Electricity Generation, Heat, Energy Industry Own Use;Annual Consumption of Heat for Own Use in Electricity Generation Industries;the amount of heat used by electricity generation industries each year;the amount of heat used by electricity generation industries in a year;the annual consumption of heat by electricity generation industries;the annual use of heat by electricity generation industries"
+Annual_Consumption_Energy_Geothermal,Annual Consumption of Energy: Geothermal;Annual Consumption of Geothermal
 Annual_Consumption_Energy_Heat,Annual Consumption of Energy in Heat;Annual Consumption of Energy: Heat;the amount of energy used for heating each year;the annual amount of energy used to heat things;the annual energy usage for heating;the yearly consumption of energy for heating
 Annual_Consumption_Energy_Households_Heat,"Annual Consumption of Energy: Households, Heat;Annual Consumption of Heat in Households;how much heat do households use each year?;how much heat do households use in a year?;how much heat is consumed by households annually?;what is the annual heat consumption of households?"
 Annual_Consumption_Energy_Households_SolarThermal,"Annual Consumption of Energy: Households, Solar Thermal;Annual Consumption of Solar Thermal in Households;how much solar thermal energy do households use each year?;how much solar thermal energy do households use in a year?;what is the annual amount of solar thermal energy used by households?;what is the annual consumption of solar thermal energy in households?"
@@ -1030,7 +1031,9 @@ Annual_Emissions_CarbonDioxide_WasteManagement,"Annual Amount of Emissions: Wast
 Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic,"Annual Amount of Emissions: Non Biogenic Emission Source, EPA_Other Fully Fluorinated Compound;Annual Emissions of Non Biogenic Other Fully Fluorinated Compound;how much epa_other fully fluorinated compound is emitted from non-biogenic sources each year?;how much of the epa_other fully fluorinated compound is emitted from non-biogenic sources each year?;what is the annual amount of epa_other fully fluorinated compound emitted from non-biogenic sources?;what is the yearly amount of epa_other fully fluorinated compound emitted from non-biogenic sources?"
 Annual_Emissions_GreenhouseGas,Emissions that contribute to global warming;Greenhouse Gas Emissions;emissions from greenhouse gases;emissions of greenhouse gases;ghg emissions;greenhouse gas emissions;greenhouse gases released into the atmosphere
 Annual_Emissions_GreenhouseGas_Agriculture,"Annual Amount of Emissions: Agriculture, Greenhouse Gas;Annual Emissions of Greenhouse Gas in Agriculture;annual greenhouse gas emissions from agriculture;greenhouse gas emissions from agriculture;the amount of greenhouse gases emitted by agriculture each year;the annual amount of greenhouse gases emitted by the agricultural sector"
+Annual_Emissions_GreenhouseGas_AluminumProduction,"Annual Amount of Emissions: Aluminum Production, Greenhouse Gas"
 Annual_Emissions_GreenhouseGas_AmmoniaManufacturing_NonBiogenic,"Annual Amount of Emissions: Ammonia Manufacturing, Non Biogenic Emission Source;Annual Emissions of Greenhouse Gas Non Biogenic Ammonia From Manufacturing;ammonia emissions from manufacturing;ammonia manufacturing emissions;emissions from ammonia manufacturing;non-biogenic ammonia emissions"
+Annual_Emissions_GreenhouseGas_BauxiteMining,"Annual Amount of Emissions: Bauxite Mining, Greenhouse Gas"
 Annual_Emissions_GreenhouseGas_CementProduction,"Annual Amount of Emissions: Cement Production, Greenhouse Gas;Annual Emissions of Greenhouse Gas in Cement Production;how much does cement production contribute to greenhouse gas emissions each year?;how much greenhouse gas does cement production emit each year?;what is the annual amount of greenhouse gas emissions from cement production?;what is the annual greenhouse gas footprint of cement production?"
 Annual_Emissions_GreenhouseGas_CementProduction_NonBiogenic,"Annual Amount of Emissions: Cement Production, Non Biogenic Emission Source;Annual Emissions of Greenhouse Gas Non Biogenic From Cement Production;annual amount of non-biogenic emissions from cement production;emissions from cement production that are not biogenic;emissions from non-biogenic sources from cement production;non-biogenic emissions from cement production"
 Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse,"Annual Amount of Emissions: Other Energy Use, Greenhouse Gas;Annual Emissions of Greenhouse Gas Climate Trace in Other Energy Use;other energy-related emissions"
@@ -1231,6 +1234,7 @@ Annual_Generation_Electricity_ElectricUtility,"Annual Net Generation of Electric
 Annual_Generation_Electricity_ElectricUtilityCogen,"Annual Net generation All fuels Electric Uity Cogen;Net generation, all fuels, electric utility cogen, annual;annual net generation of all fuels, electric utility, and cogeneration plants"
 Annual_Generation_Electricity_ElectricUtilityNonCogen,"Annual Net generation of all Fuels in Electric Utility Non-Cogen;Net generation, all fuels, electric utility non-cogen, annual;the total amount of electricity generated by all fuels in electric utilities that are not cogeneration facilities, in a given year;the total amount of electricity generated by all fuels in electric utilities that are not cogeneration plants in a given year;the total amount of electricity generated by all fuels in electric utilities that are not combined heat and power (chp) facilities, in a given year;the total amount of electricity generated by all fuels in electric utilities that do not use cogeneration, in a given year"
 Annual_Generation_Electricity_FuelOil_ThermalElectricity,"Annual Generation of Electricity: From Fuel Oil, Thermal Electricity;Annual Generation of Thermal Electricity From Fuel Oil;the amount of thermal electricity generated from fuel oil each year;the amount of thermal electricity produced from fuel oil in one year;the annual output of thermal electricity from fuel oil;the yearly production of thermal electricity from fuel oil"
+Annual_Generation_Electricity_Households,Annual Generation of Electricity for Households;Annual Generation of Electricity: for Households
 Annual_Generation_Electricity_IndependentPowerProducers,"Annual Net Generation of Electricity From All Fuels By Independent Power Producers;Net generation, all fuels, independent power producers (total), annual;the annual net generation of electricity from all fuels by independent power producers;the annual net generation of electricity from independent power producers;the total amount of electricity generated from all fuels by independent power producers each year;the total annual net generation of electricity from independent power producers"
 Annual_Generation_Electricity_Industrial,"Annual Net Generation Of All Fuels By Industries;Net generation, all fuels, all industrial (total), annual;annual net generation of all fuels by economic activity;annual net generation of all fuels by end-use sector;annual net generation of all fuels by industry;annual net generation of all fuels by sector"
 Annual_Generation_Electricity_IndustrialCogen,"Annual Net Generation of Electricity by Industrial Cogen;Net generation, all fuels, industrial cogen, annual;the amount of electricity generated by industrial cogeneration each year;the annual output of electricity from industrial cogeneration;the annual output of electricity from industrial cogeneration plants;the total amount of electricity produced by industrial cogeneration facilities in a year"
@@ -1303,11 +1307,13 @@ Annual_Generation_Energy_Coal,1 The amount of energy produced by coal in a year;
 Annual_Generation_Energy_CombustibleFuel_MainActivityProducer,"Annual Generation of Combustible Fuel;Annual Generation of Energy: Combustible Fuel, Main Activity Producer;the amount of combustible fuel produced each year;the annual production of combustible fuel;the total amount of combustible fuel produced in a year;the yearly output of combustible fuel"
 Annual_Generation_Energy_CombustibleFuel_MainActivityProducerCombinedHeatPowerPlants,"Annual Generation of Energy by Combustible Fuel For Main Activity Producer Combined Heat Power Plants;Annual Generation of Energy: Combustible Fuel, Main Activity Producer Combined Heat Power Plants;annual energy generation by combustible fuel for main activity combined heat and power plants;annual energy generation by combustible fuel for main activity producer cogeneration plants;annual energy generation by combustible fuel for main activity producer combined heat power plants;annual energy production by fuel type for combined heat and power plants"
 Annual_Generation_Energy_FuelOil,Annual Generation of Energy: Fuel Oil;Annual Oil Generation;the annual production of oil
+Annual_Generation_Energy_Geothermal,Annual Generation of Energy: Geothermal;Annual Generation of Geothermal Energy
 Annual_Generation_Energy_Heat,Annual Generation of Energy: Heat;Annual Generation of Heat;the amount of heat produced each year;the annual heat generation;the annual heat output;the yearly production of heat
 Annual_Generation_Energy_HeatCombustibleFuels,Annual Generation of Energy: Heat Combustible Fuels;Annual Generation of Heat Combustible Fuels;the amount of heat produced by combustible fuels each year;the amount of heat produced by combustible fuels in a year;the annual output of heat from combustible fuels;the yearly generation of heat from combustible fuels
 Annual_Generation_Energy_Heat_AutoProducer,"Annual Generation of Energy: Heat, Auto Producer;Annual Generation of Heat Energy in Auto Producers;the amount of heat energy generated by car manufacturers each year;the annual output of heat energy from the car industry;the total amount of heat energy produced by the automotive industry in a year;the yearly production of heat energy by the automotive sector"
 Annual_Generation_Energy_Heat_MainActivityProducer,"Annual Generation Of Heat From Main Activity Producer;Annual Generation of Energy: Heat, Main Activity Producer;the amount of heat produced by the main activity producer each year;the annual output of heat from the main activity producer;the total amount of heat produced by the main activity producer in one year;the yearly heat output of the main activity producer"
 Annual_Generation_Energy_NaturalGas,Annual Generation of Energy: Natural Gas;Annual Generation of Natural Gas;the amount of natural gas generated each year;the amount of natural gas produced in a year;the yearly production of natural gas;the yearly yield of natural gas
+Annual_Generation_Energy_OilProducts,Annual Generation of Energy: Oil Products;Yearly Oil Products Energy Generation
 Annual_Generation_Energy_Refinery,Annual Generation of Energy: Refinery;Annual Generation of Refinery Energy;annual refinery energy output;the annual energy generation of refineries
 Annual_Generation_Energy_Solar,Annual Generation of Energy: Solar;Annual Generation of Solar Energy;the amount of solar energy generated each year;the amount of solar energy produced in a year;the annual output of solar electricity;the yearly production of solar power
 Annual_Generation_Energy_Water,Annual Generation of EIA Water;Annual Generation of Energy: EIA_Water;the amount of water generated by the eia each year;the annual output of water from the eia;the total amount of water produced by the eia in a year;the yearly production of water by the eia
@@ -1494,6 +1500,7 @@ Area_Farm_WheatForGrain,Area of Farm: Wheat for Grain;Area of Farms Growing Whea
 Area_Farm_WinterWheatForGrain,Area of Farm: Winter Wheat for Grain;Area of Farms Growing Winter Wheat;Area of land used to grow winter wheat;Farms growing winter wheat for grain;The amount of land that is used for growing winter wheat;The area of farmland used for winter wheat cultivation;Winter wheat acreage;area of farms growing winter wheat;the acreage of land that is used to grow winter wheat;the amount of land that is used to grow winter wheat;the amount of land used for winter wheat farming;the land area that is used for winter wheat cultivation
 Area_FireEvent,Area of Fire Event;Total Area of Fire Events;danger zone;fire zone;firing zone;target area
 Area_FloodEvent,Area of Flood Event;Total Area of Flood Events;area affected by flooding;area at risk of flooding;flood-prone area;floodplain
+Area_WetBulbTemperatureEvent,Area of Wet Bulb Temperature Event
 Area_WildlandFireEvent,Area of Wildland Fire Event;Total Area of Wildland Fire Events;area burned by wildfire;wildfire area;wildfire-affected area;wildland fire zone
 AtmosphericPressure_SurfaceLevel,Atmospheric Pressure: Surface Level;Surface Level of Atmospheric Pressure;the air pressure at sea level;the amount of air pushing down on us per square inch;the force of the air pushing down on us;the weight of the air above us
 BurnedArea_FireEvent,Total Area That burned;Total area that burned (Acres);how many acres burned?;how much land burned?;what's the acreage of the burned area?;what's the total acreage of the burned area?
@@ -1753,6 +1760,11 @@ Count_DroughtEvent,Count of Drought Event;Number of Droughts;Number of drought e
 Count_DustDevilEvent,Count of Dust Devil Event;Dust Devil Events;frequency of dust devil events;incidence of dust devil events;number of dust devil events;rate of dust devil events
 Count_DustStormEvent,Count of Dust Storm Event
 Count_EarthquakeEvent,1 how many earthquakes have there been?;2 what is the number of earthquakes?;3 what is the total number of earthquakes?;4 how many times has the earth shaken?;Count of Earthquake Event;Earthquake count;Earthquake frequency;Earthquake occurrence;How many earthquakes have there been?;Number of Earthquakes;Number of earthquake events;Number of earthquakes;Number of quakes;Number of seismic events;Number of temblors;Number of tremors
+Count_EarthquakeEvent_M5To6,Count of Earthquake Event: 5 - 6 Magnitude
+Count_EarthquakeEvent_M6To7,Count of Earthquake Event: 6 - 7 Magnitude
+Count_EarthquakeEvent_M7To8,Count of Earthquake Event: 7 - 8 Magnitude
+Count_EarthquakeEvent_M8To9,Count of Earthquake Event: 8 - 9 Magnitude
+Count_EarthquakeEvent_M9Onwards,Count of Earthquake Event: 9 Magnitude or More
 Count_Establishment,Count of Establishment;Number of Establishments (Organizations);count of organizations;number of establishments;number of organizations;total number of organizations
 Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries,"Count of Establishment: Federal Government Owned, Total, All Industries (NAICS/10);Federal Government Owned Total All Industries Establishments;number of establishments owned by the federal government in all industries (naics/10);number of federal government-owned establishments in all industries (naics/10);total number of establishments owned by the federal government in all industries (naics/10);total number of federal government-owned establishments in all industries (naics/10)"
 Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries,"Count of Establishment: Local Government Owned, Total, All Industries (NAICS/10);Local Government Owned Total All Industries Establishments;number of local government-owned businesses in all industries (naics/10);number of local government-owned companies in all industries (naics/10);number of local government-owned establishments in all industries (naics/10);number of local government-owned organizations in all industries (naics/10)"
@@ -5006,7 +5018,6 @@ Median_Area_Farm,Median Area of Farm;Median_Area_Farm;Middle value for the area 
 Median_Concentration_AirPollutant_CO,Median Concentration: Carbon Monoxide
 Median_Concentration_AirPollutant_NO2,Median Concentration: Nitrogen Dioxide
 Median_Concentration_AirPollutant_Ozone,Median Concentration of Air Pollutant in The Ozone;Median Ozone Concentration;the middle ozone concentration;the ozone concentration that is at the 50th percentile;the ozone concentration that is halfway between the highest and lowest ozone concentrations;the ozone concentration that is in the middle
-Median_Concentration_AirPollutant_PM10,Median Concentration: PM 10
 Median_Concentration_AirPollutant_PM2.5,Median Concentration of Air Pollutant in PM 2.5;Median PM2.5 Concentration;the average concentration of particulate matter with a diameter of 25 micrometers or less
 Median_Concentration_AirPollutant_SO2,Median Concentration: Sulfur Dioxide
 Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts,"Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied;Median Cost of Housing Unit Occupied By Owners;the average cost of a home owned by an individual;the average price of a home owned by its occupants;the middle value of the prices of homes that are owned by their occupants;the price of a home that is owned by its occupants that is in the middle of the range of prices"
@@ -5111,8 +5122,6 @@ MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_
 MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585,MinTemp Ensemble GaussianMixture 5PctProb LessThan Atleast1DayAYear CMIP6 SSP585
 Min_Concentration_AirPollutant_CO,Min Concentration: Carbon Monoxide
 Min_Concentration_AirPollutant_NO2,Min Concentration: Nitrogen Dioxide
-Min_Concentration_AirPollutant_PM10,Min Concentration: PM 10
-Min_Concentration_AirPollutant_PM2.5,Min Concentration: PM 2.5
 Min_Concentration_AirPollutant_SO2,Min Concentration: Sulfur Dioxide
 Min_Humidity_RelativeHumidity,Min Humidity: Relative Humidity;Minimum Relative Humidity;the least amount of humidity in the air;the lowest amount of moisture in the air;the lowest level of relative humidity in the air;the minimum relative humidity
 Min_PrecipitableWater_Atmosphere,Min Precipitable Water;Minimum Water Precipitable in The Atmosphere;minimum precipitable water;minimum water content in the air;minimum water content in the atmosphere;minimum water vapor content
@@ -5487,6 +5496,7 @@ WithdrawalRate_Water_Thermoelectric_FreshWater,"Withdrawal Rate of Fresh Water F
 WithdrawalRate_Water_Thermoelectric_GroundWater,"Withdrawal Rate of Thermoelectric and Ground Water;Withdrawal Rate of Water: Thermoelectric, Ground Water;the amount of thermoelectric and ground water that is withdrawn per unit of time;the rate at which thermoelectric and ground water is withdrawn;the rate of consumption of thermoelectric and ground water;the rate of use of thermoelectric and ground water"
 WithdrawalRate_Water_Thermoelectric_SalineWater,"Withdrawal Rate Of Saline Water For Thermoelectric Use;Withdrawal Rate of Water: Thermoelectric, Saline Water;the amount of saline water that is withdrawn for thermoelectric use per unit of time;the quantity of saline water that is withdrawn for thermoelectric use per unit of time;the rate at which saline water is withdrawn for thermoelectric use;the volume of saline water that is withdrawn for thermoelectric use per unit of time"
 WithdrawalRate_Water_Thermoelectric_SurfaceWater,"Withdrawal Rate of Thermoelectric Surface Water;Withdrawal Rate of Water: Thermoelectric, Surface Water;the amount of thermoelectric surface water that is withdrawn per unit time;the rate at which thermoelectric surface water is withdrawn;the rate of consumption of thermoelectric surface water;the rate of depletion of thermoelectric surface water"
+dc/00dyzp11kk35g,Count of Establishment: Geothermal Electric Power Generation (NAICS/221116);Geothermal Electric Power Generation
 dc/015d58s9xh8kd,1 The average salary for real estate and rental and leasing workers;Average salary for workers in the real estate and rental and leasing field;How much money do real estate and rental and leasing workers make on average?;Income in the middle for the real estate and rental and leasing sector;Median Income (Real Individual Earnings Before Deductions): Real Estate And Rental And Leasing (NAICS/53);Median Income of Real Estate and Rental and Leasing Workers;Median income of real estate and rental and leasing workers;Median pay for real estate and rental and leasing industry;The average yearly salary for real estate and rental and leasing workers;Typical earnings for real estate and rental and leasing workers;What is the average salary for real estate and rental and leasing workers?;What is the median income for real estate and rental and leasing workers?;median income of real estate and rental and leasing workers;the average yearly income of real estate and rental and leasing workers;the middle value of the yearly incomes of real estate and rental and leasing workers;the typical salary of real estate and rental and leasing workers;what is the typical salary for real estate and rental and leasing workers?
 dc/03ewbkyh6zey2,"Incarcerated Native Hawaiian or Other Pacific Islander Male Population;Population (Measured Based on Jurisdiction): Male, Incarcerated, Native Hawaiian or Other Pacific Islander Alone;male native hawaiian or other pacific islander incarceration rate;number of native hawaiian or other pacific islander males in prison;percentage of native hawaiian or other pacific islander males who are incarcerated;proportion of native hawaiian or other pacific islander males who are in jail"
 dc/03l0q0wyqrk39,"Incarcerated Male Population Measured Based on Jurisdiction;Population (Measured Based on Jurisdiction): Male, Incarcerated;male incarceration rates by jurisdiction;male incarceration statistics by jurisdiction;number of incarcerated men by jurisdiction;percentage of men incarcerated by jurisdiction"
@@ -5546,6 +5556,7 @@ dc/4x1jbp34f4085,"Population (Measured Based on Jurisdiction): Female, Incarcera
 dc/4z9xy6wn8xns1,Median Income (Real Individual Earnings Before Deductions): Administrative And Support And Waste Management Services (NAICS/56);Median Income of People Working in the Administrative and Support and Waste Management Services Industry;Median income of people working in the administrative and support and waste management services industry;The average income of those working in administrative and support and waste management services;The median salary of administrative and support and waste management services employees;The middle range of income for people in the administrative and support and waste management services sector;The typical pay for people working in the administrative and support and waste management services industry;What is the median income for administrative and support and waste management services workers;What is the typical income for administrative and support and waste management services workers;how much money do people in the administrative and support and waste management services industry make on average?;median income of administrative and support and waste management services workers;what is the average salary for people working in the administrative and support and waste management services industry?;what is the median income for administrative and support and waste management services workers;what is the median income for people working in the administrative and support and waste management services industry?;what is the typical salary for people working in the administrative and support and waste management services industry?
 dc/50yq5l3ek70t7,"Other Race Population Enrolled In College Undergraduate Years;Population: Enrolled in College Undergraduate Years, Some Other Race Alone;enrollment of students of other races in college undergraduate years;number of students of other races enrolled in college undergraduate years;percentage of students of other races enrolled in college undergraduate years;proportion of students of other races enrolled in college undergraduate years"
 dc/510pv6eq2vtw7,"Incarcerated Native Hawaiian Or Other Pacific Islander Population;Population (Measured Based on Jurisdiction): Incarcerated, Native Hawaiian or Other Pacific Islander Alone;native hawaiian or other pacific islander prisoners;the incarceration rate of native hawaiian or other pacific islanders;the number of native hawaiian or other pacific islanders in prison;the percentage of native hawaiian or other pacific islanders in prison"
+dc/51h3g4mcgj3w4,Construction of Buildings Establishments;Count of Establishment: Construction of Buildings (NAICS/236)
 dc/556pqlh586bmc,"Native Hawaiian or Other Pacific Islander Population Enrolled in Kindergarten;Population: Enrolled in Kindergarten, Native Hawaiian or Other Pacific Islander Alone;the native hawaiian or other pacific islander kindergarten enrollment rate;the number of native hawaiian or other pacific islander children enrolled in kindergarten;the percentage of native hawaiian or other pacific islander children enrolled in kindergarten;the proportion of native hawaiian or other pacific islander children enrolled in kindergarten"
 dc/55d9n710f1l43,"Population: Enrolled in College Undergraduate Years, White Alone;White Population Enrolled in College Undergraduate Years;number of white students enrolled in college undergraduate programs;percentage of white students enrolled in college undergraduate programs;proportion of white students enrolled in college undergraduate programs;white student enrollment in college undergraduate programs"
 dc/56md3ndhrmvm7,"1 the number of african american women with some college or associate's degrees;2 the percentage of african american women with some college or associate's degrees;3 the proportion of african american women with some college or associate's degrees;4 the share of african american women with some college or associate's degrees;African American Female Population With Some College or Associate's Degrees;Population: Some College or Associates Degree, Female, Black or African American Alone"
@@ -5560,6 +5571,7 @@ dc/5hv2p802zmh03,"Average salary for workers in the professional, scientific, an
 dc/5jy4dp16mtssg,"Count of Housing Unit: Without Mortgage, 0 USD"
 dc/5pcx89t7j9bq,"Population Born in the State of Residence and Married and Not Separated;Population: Married And Not Separated, Born in State of Residence;people born in the state they currently live in who are married and not separated;people who are married and not separated and live in the state they were born in;people who are married and not separated and were born in the state they currently live in;people who were born in the state they currently live in and are married and not separated"
 dc/5qnjtqc0w783b,"American Indian or Alaska Native Population Enrolled in School;Population: American Indian or Alaska Native Alone, Enrolled in School;american indian or alaska native school attendance;american indian or alaska native school enrollment;number of american indian or alaska native students enrolled in school;percentage of american indian or alaska native students enrolled in school"
+dc/61t0et409x8ch,"Count of Establishment: Research And Development in The Physical, Engineering, And Life Sciences (NAICS/54171);Research And Development in The Physical Engineering And Life Sciences Establishments"
 dc/62n3z7mvfpjx1,"Amount of Economic Activity (Real Value): Gross Domestic Production, Manufacturing (NAICS/31-33);Gross Domestic Production in Manufacturing"
 dc/63gkdt13bmsv8,Population of People Working in the Air Transportation Industry;Population of Person: Air Transportation (NAICS/481);Population of people working in the air transportation industry;how many people are employed in the air transportation sector?;how many people work in air transportation;how many people work in the air transportation industry?;number of air transportation workers;the number of air transportation workers;the number of employees in air transportation;the number of people employed in air transportation;the number of people working in the air transportation industry;what is the number of people employed in the air transportation industry?;what is the workforce size of the air transportation industry?
 dc/66sy80vs0b8q7,"Divorced Population Born in Other States in The United States;Population: Divorced, Born in Other State in The United States;divorced people in the united states who were born in other states;number of divorced people born in other states in the united states;people born in other states who are divorced in the united states;population of divorced people born in other states in the united states"
@@ -5595,6 +5607,7 @@ dc/90nswpkp8wlw5,How many people work in nonmetallic mineral product manufacturi
 dc/91vy0sf20wlg9,"Out of State, State Operated Incarcerated Population;Population (Measured Based on Jurisdiction): Out-of-State, State Operated, Incarcerated"
 dc/92sfrvdv82jh9,"Count of Mortality Event (Measured Based on Jurisdiction): NPSOther Cause of Death, Male, Incarcerated;Deaths of Incarcerated Male Population Caused By Other NPS;deaths of incarcerated males caused by other nps;deaths of incarcerated males due to other nps;other nps deaths in the incarcerated male population;other nps-related deaths in the incarcerated male population"
 dc/95gev5g99r7nc,The total amount of money that couriers and messengers workers are paid;The total amount of money that couriers and messengers workers earn;Total Wages for People Working as Couriers and Messengers;Total wages for people working as couriers and messengers;Wages Total of Person: Couriers And Messengers (NAICS/492);how much do couriers and messengers make?;total wages of couriers and messengers workers;what are the wages for couriers and messengers?;what is the average salary for couriers and messengers?;what is the pay range for couriers and messengers?
+dc/96b2ddmlpvq7f,"Geothermal Electric Power Generation Establishments With Payrolls;Revenue of Establishment: Geothermal Electric Power Generation (NAICS/221116), With Payroll"
 dc/99t3dyzp34tg2,"Other Race Foreign-Born Population;Population: Foreign Born, Some Other Race Alone;foreign-born people of other races;foreign-born population of other races;immigrants of other races;people of other races who are immigrants"
 dc/9b9gqxj27fqwc,"Count of Housing Unit: With Mortgage, 3,000 USD or More;Housing Units With 3,000 USD or More Mortgage"
 dc/9cqv67nn7pn1b,"Hispanic Population with Graduates or Professional Schools;Population: Graduate or Professional School, Hispanic or Latino;the number of hispanic people with graduate or professional degrees;the percentage of hispanic people with graduate or professional degrees;the proportion of hispanic people with graduate or professional degrees;the share of hispanic people with graduate or professional degrees"
@@ -5612,6 +5625,7 @@ dc/b3jgznxenlrm2,"Non-US Citizens Incarcerated in State Operated, Federally Oper
 dc/b3nmcj3w1lhed,"Multiracial Population In Middle Schools;Population: Middle School, Two or More Races;more and more students in middle school are coming from mixed-race families;the number of students in middle school who identify as multiracial is increasing;the percentage of students in middle school who identify as multiracial is on the rise;the racial makeup of middle schools is becoming more diverse"
 dc/b4dj4sbgqybh7,"How much money do mining, quarrying, and oil and gas extraction workers make on average;Median Income (Real Individual Earnings Before Deductions): Mining, Quarrying, And Oil And Gas Extraction (NAICS/21);Median Income for People Working in the Mining, Quarrying, and Oil and Gas Extraction Industry;Median income for people working in the mining, quarrying, and oil and gas extraction industry;The median income for those working in the mining, quarrying, and oil and gas extraction industry;The median pay for mining, quarrying, and oil and gas extraction workers;The mid-point income for mining, quarrying, and oil and gas extraction workers;The middle income for mining, quarrying, and oil and gas extraction workers;The number of people employed in the mining, quarrying, and oil and gas extraction industry;The typical income for mining, quarrying, and oil and gas extraction workers;Total wages earned by employees in the mining, quarrying, and oil and gas extraction field.;median income of mining, quarrying, and oil and gas extraction workers;the amount of money that half of the people working in the mining, quarrying, and oil and gas extraction industry earn, and half earn less;the average yearly income for people working in the mining, quarrying, and oil and gas extraction industry;the middle income for people working in the mining, quarrying, and oil and gas extraction industry;what is the median income for people working in the mining, quarrying, and oil and gas extraction industry?"
 dc/b6h698m2vmdcc,"Population: Primary School, White Alone Not Hispanic or Latino;White And Non-Hispanic Population In Primary School;the number of white and non-hispanic students in primary school;the percentage of white and non-hispanic students in primary school;the proportion of white and non-hispanic students in primary school;the share of white and non-hispanic students in primary school"
+dc/b6z2v4t8cvcd5,"Revenue of Establishment: Wind Electric Power Generation (NAICS/221115), With Payroll;Revenue of Wind Electric Power Generation Industries With Payroll"
 dc/bb2jpneq7n71f,"Foreign-Born Population With Other Languages;Population: Other Languages, Foreign Born;people who were born in other countries and speak other languages"
 dc/bb4peddkgmqe7,Aids for transportation workers;Assistance for transportation workers;Help for transportation workers;Number of Support Activities for Transportation Workers;Number of support activities for transportation workers;Population of Person: Support Activities for Transportation (NAICS/488);Services for transportation workers;Support for transportation workers;how many people are employed in transportation support?;how many people support transportation workers?;how many people work in support roles for transportation?;how many people work in transportation-related support roles?;number of support activities for transportation workers
 dc/bceet4dh33ev,The total amount of money paid to people who work in support roles for transportation workers;The total amount of money paid to support workers in the transportation industry;Total Wages Paid to Support Activities for Transportation Workers;Total wages paid to support activities for transportation workers;Wages Total of Person: Support Activities for Transportation (NAICS/488);Wages paid to support transportation workers;total wages of support activities for transportation workers;wages paid to support activities related to transportation;wages paid to support the transportation industry;wages paid to support the work of transportation workers;wages paid to support transportation workers
@@ -5630,6 +5644,7 @@ dc/c9cl49nnrv5x4,"Count of Housing Unit: Without Mortgage, 1,500 - 1,999 USD;Hou
 dc/cb1jtf8j55xx9,"Population (Measured Based on Jurisdiction): Male, Incarcerated, Unsentenced;Unsentenced Incarcerated Male Population;number of unsentenced male inmates by jurisdiction;unsentenced male prisoners by jurisdiction"
 dc/cc8wk2n0ywd9,"Hispanics Enrolled in High School;Population: High School, Hispanic or Latino;high school enrollment of hispanics;hispanics in high school;the number of hispanics enrolled in high school;the percentage of hispanics enrolled in high school"
 dc/ck1emtds61j27,"Incarcerated Hispanic Male Population;Population (Measured Based on Jurisdiction): Male, Incarcerated, Hispanic or Latino;hispanic men in jail;hispanic men in prison;hispanic men in the criminal justice system;hispanic men who are incarcerated"
+dc/ck1ksqd8rgps6,Annual Wages Of Heavy and Civil Engineering Construction Establishments;Wages Annual of Establishment: Heavy And Civil Engineering Construction (NAICS/237)
 dc/dchdrg93spxkf,How much money do general merchandise store workers make?;The sum of the earnings of all general merchandise store workers;The total amount of money earned by workers in general merchandise stores;The total amount of money paid to general merchandise store workers;Total Wages for People Working in General Merchandise Stores;Total wages for people working in general merchandise stores;Wages Total of Person: General Merchandise Stores (NAICS/452);how much do people working in general merchandise stores make?;total wages of general merchandise stores workers;what are the wages for people working in general merchandise stores?;what is the average salary for people working in general merchandise stores?;what is the pay for people working in general merchandise stores?
 dc/dj7cvhr91sff5,"Divorced Population of Natives Born Outside The United States;Population: Divorced, Native Born Outside The United States"
 dc/drvcnjld04b06,"Divorced Population Born in The State of Residence;Population: Divorced, Born in State of Residence;number of divorced people who were born in the state they currently live in;percentage of divorced people who were born in the state they currently live in;population of divorced people who were born in the state they currently reside in;proportion of divorced people who were born in the state they currently live in"
@@ -5650,7 +5665,9 @@ dc/ejpm616jd1pq1,"Count of Housing Unit: With Mortgage, 2,000 - 2,999 USD"
 dc/ekyc06n24txh2,"Population: Native, White Alone Not Hispanic or Latino;White Native Non Hispanic Population;non-hispanic white population;population of white people who are not hispanic;white population, non-hispanic;white, non-hispanic population"
 dc/env3140jqssg8,"Population: Primary School, Some Other Race Alone;Some Other Race Population in Primary School;what is the diversity of primary school students?;what is the percentage of students in primary school who are not of the majority race?;what is the racial makeup of primary school students?;what percentage of primary school students are from minority groups?"
 dc/ep052e5d1p2t4,"Count of Mortality Event (Measured Based on Jurisdiction): Intentional Self-Harm(Suicide), Male, Incarcerated;Deaths of Incarcerated Male Population Caused by Intentional Self-Harm"
+dc/eptfljlz7bgbg,Count of Establishment: Nuclear Electric Power Generation (NAICS/221113);Nuclear Electric Power Generation Industries
 dc/epw58ne8mytn5,"Female Population Of Some Other Race With College Degrees;Population: Some College or Associates Degree, Female, Some Other Race Alone;the number of females of other races with college degrees;the percentage of females of other races with college degrees;the proportion of females of other races with college degrees;the share of females of other races with college degrees"
+dc/evcytmdmc9xgd,"Count of Establishment: Privately Owned, Wind Electric Power Generation (NAICS/221115);Privately Owned Wind Electric Power Generation"
 dc/fcn7wgvcwtsj2,1 How much do warehousing and storage workers get paid?;The amount of money that warehousing and storage workers earn in total;The total amount of money earned by warehousing and storage workers;The total amount of money paid to warehousing and storage workers;Total Wages Paid to Warehousing and Storage Workers;Total wages paid to warehousing and storage workers;Wages Total of Person: Warehousing And Storage (NAICS/493);the total amount of money paid to warehousing and storage workers;the total compensation paid to warehousing and storage workers;the total earnings of warehousing and storage workers;the total pay of warehousing and storage workers;total wages of warehousing and storage workers
 dc/fetj39pqls2df,The total amount of money earned by leather and allied product manufacturing workers;The total amount of money paid to leather and allied product manufacturing workers;The total amount of money paid to workers in the leather and allied product manufacturing industry;Total Wages for People Working in the Leather and Allied Product Manufacturing Industry;Total wages for people working in the leather and allied product manufacturing industry;Wages Total of Person: Leather And Allied Product Manufacturing (NAICS/316);how much do people working in the leather and allied product manufacturing industry make?;total wages of leather and allied product manufacturing workers;what are the earnings for people working in the leather and allied product manufacturing industry?;what are the salaries for people working in the leather and allied product manufacturing industry?;what are the wages for people working in the leather and allied product manufacturing industry?
 dc/fh4td3znm3l4g,"American Indian or Alaska Native Population in HighSchool;Population: High School, American Indian or Alaska Native Alone;number of american indian or alaska native students in high school;percentage of american indian or alaska native students in high school;proportion of american indian or alaska native students in high school;share of american indian or alaska native students in high school"
@@ -5671,6 +5688,7 @@ dc/hg63vjs5wes3b,"Native Population Speaking Other Languages;Population: Other L
 dc/hlxvn1t8b9bhh,How many farmers and cattle ranchers are there?;Number of Farmers and Cattle Ranchers;Population of Person: Cattle Ranching And Farming;The number of farmers and cattle ranchers;agriculture workers;cattle ranchers;farmers;how many farmers and cattle ranchers are there?;number of agricultural workers;number of agriculture workers;number of cattle ranchers;number of farmers;number of farmers and cattle ranchers;number of workers in agriculture;people who are farming and cattle ranching;what is the agricultural workforce?;what is the number of farmers and cattle ranchers?;what is the number of people employed in farming and ranching?;workers in agriculture
 dc/hxsdmw575en24,Incarcerated Population;Population (Measured Based on Jurisdiction): Incarcerated;convicts who have jobs;people who are incarcerated;people who are locked up and have jobs;prisoners who work
 dc/hyfn2tlyz48lb,"Multiracial Population With Bachelor's Degrees or Higher;Population: Bachelors Degree or Higher, Female, Two or More Races;people of multiple races with bachelor's degrees or higher;people who identify as multiracial and have a bachelor's degree or higher;the number of people who identify as multiracial and have a bachelor's degree or higher;the percentage of people who identify as multiracial and have a bachelor's degree or higher"
+dc/j5fv028n7nhe4,Wages Annual of Establishment: Residential Building Construction (NAICS/2361);Wages of People in Residential Building Construction Industries
 dc/jbv3zc0ezvcyc,"Other Race Population Enrolled in School;Population: Some Other Race Alone, Enrolled in School;number of students enrolled in school who identify as other race;percentage of students enrolled in school who identify as other race;population of students enrolled in school who identify as other race;students enrolled in school who identify as other race"
 dc/jceld0k7ysbw3,"Foreign-Born Separated Population;Population: Separated, Foreign Born"
 dc/jefhcs9qxc971,Average earnings of those employed in educational services;How much money on average workers in the education field make;Median Income (Real Individual Earnings Before Deductions): Educational Services (NAICS/61);Median Income for People Working in the Educational Services Industry;Median income for people working in the educational services industry;Middle percentile income for workers in the educational services sector;What's the typical salary for people working in the education field.;how much money do people in the educational services industry make on average?;median income of educational services workers;what is the median income for educational services workers;what is the median income for people working in the educational services industry?;what is the typical income for people working in the educational services industry?
@@ -5689,22 +5707,29 @@ dc/knhvyxwsd3y6h,"Average salary for workers in the other services field;Income 
 dc/kpcfmb6lp3zpd,"Native Hawaiian or Other Pacific Islander Female Population with Some Colleges or Associate's Degrees;Population: Some College or Associates Degree, Female, Native Hawaiian or Other Pacific Islander Alone;native hawaiian or other pacific islander women who have some college education;native hawaiian or other pacific islander women who have some college experience;native hawaiian or other pacific islander women who have some college or associate's degrees;native hawaiian or other pacific islander women with some college or associate's degrees"
 dc/ksynl8pj8w5t5,How much do rail transportation workers earn?;How much money do rail transportation workers make?;The amount of money that rail transportation workers earn in total;The total amount of money earned by rail transportation workers;The total amount of money paid to rail transportation workers;Total Wages Paid to Rail Transportation Workers;Total wages paid to rail transportation workers;Wages Total of Person: Rail Transportation (NAICS/482);the total amount of money paid to rail transportation workers;the total compensation paid to rail transportation workers;the total earnings of rail transportation workers;the total income of rail transportation workers;total wages of rail transportation workers
 dc/ktf5098lxb8sc,"Native And African American Population;Population: Native, Black or African American Alone;african americans and native americans;black and indigenous people;black and native american people;people of african descent and native american descent"
+dc/ktmr6ngnsqxmf,"Revenue of Establishment: Nuclear Electric Power Generation (NAICS/221113), With Payroll;Revenue of Nuclear Electric Power Generation Establishments with Payroll"
 dc/kz9r60zp6s32b,"Multiracial Graduates;Population: Graduate or Professional School, Two or More Races;graduates who identify as more than one race"
 dc/l2pbn6flhhmq,"Population: Separated, Native Born Outside The United States;Separated Native Population Born Outside The US"
 dc/lk9fd4v63ke94,"Incarcerated Multiracial Male Population;Population (Measured Based on Jurisdiction): Male, Incarcerated, Two or More Races;incarcerated men who are of mixed race;male prisoners of mixed race;men of mixed race who are incarcerated;multiracial men in prison"
 dc/lnp5g90fwpct8,"Female Population Incarcerated;Population (Measured Based on Jurisdiction): Female, Incarcerated;the female prison population;the incarcerated female population;the number of incarcerated women;women in jail"
+dc/lsf00jqxjp9r8,Biomass Electric Power Generation Establishments;Count of Establishment: Biomass Electric Power Generation (NAICS/221117)
+dc/ltwqwtxcq9l23,Count of Establishment: Heavy And Civil Engineering Construction (NAICS/237);Heavy And Civil Engineering Construction Establishments
 dc/lygznlxpkj318,The amount of money that apparel manufacturing workers earn in total;The total amount of money paid to apparel manufacturing workers;Total Wages Earned by People Working in the Apparel Manufacturing Industry;Total wages earned by people working in the apparel manufacturing industry;Wages Total of Person: Apparel Manufacturing (NAICS/315);the total amount of money earned by people working in the apparel manufacturing industry;the total compensation of people working in the apparel manufacturing industry;the total earnings of people working in the apparel manufacturing industry;the total income of people working in the apparel manufacturing industry;total wages of apparel manufacturing workers
 dc/m07n4w3ywjzs3,Average earnings of those employed in construction;How much money on average workers in construction make;Median Income (Real Individual Earnings Before Deductions): Construction (NAICS/23);Median Income for People Working in the Construction Industry;Median income for people working in the construction industry;Middle percentile income for workers in the construction sector;What's the typical salary for people working in construction.;how much money do construction workers make on average;median income of construction workers;what is the median income for a construction worker;what's the average salary for construction workers?;what's the median income for a construction worker;what's the pay for construction workers?;what's the typical income for construction workers?;what's the typical salary for construction workers?
 dc/m5ltqeg1src,"Female Population Who are Incarcerated and Unsentenced;Population (Measured Based on Jurisdiction): Female, Incarcerated, Unsentenced;female prisoners who have not been sentenced;unsentenced female prisoners;women who are incarcerated but have not been found guilty;women who are incarcerated but not yet sentenced"
 dc/m60n94sqql2d3,"Count of Housing Unit: Without Mortgage, 3,000 USD or More;Housing Units Without a Mortgage of 3,000 USD or More"
+dc/mbn7jcx896cd8,Count of Establishment: Hydroelectric Power Generation (NAICS/221111);Hydroelectric Power Generation
 dc/mfz54y2skbpeh,"Average earnings of those employed in entertainment and recreation;How much money on average workers in the arts make;Median Income (Real Individual Earnings Before Deductions): Arts, Entertainment, And Recreation (NAICS/71);Median Income for People Working in the Arts, Entertainment, and Recreation Industry;Median income for people working in the arts, entertainment, and recreation industry;Middle percentile Income for workers in the arts, entertainment, and recreation sector;The average income of people who work in the arts, entertainment, and recreation industries;The average salary of people who work in arts, entertainment, and recreation;The average yearly income of people who work in the arts, entertainment, and recreation industries;What's the typical salary for people working in the arts, entertainment, and recreation.;how much money do people in the arts, entertainment, and recreation industry make?;median income of arts, entertainment, and recreation workers;what is the average salary for people in the arts, entertainment, and recreation industry?;what is the median income for people in the arts, entertainment, and recreation industry?;what is the typical income for people in the arts, entertainment, and recreation industry?"
 dc/mjqlm4q2efmvh,"Count of Mortality Event (Measured Based on Jurisdiction): Illness or Natural Cause, Female, Incarcerated;Deaths of Incarcerated Female Population Due to Illness or Natural Cause;female inmates who died of illness or natural causes;female prisoners who died of illness or natural causes;incarcerated women who died of illness or natural causes;women in prison who died of illness or natural causes"
 dc/mlf5e4m68h2k7,"Professional, Scientific and Technical Services"
 dc/mqxdr821c7kw3,"Female American Indian or Alaska Native Population With Some College or Associate's Degree;Population: Some College or Associates Degree, Female, American Indian or Alaska Native Alone;the number of american indian or alaska native women who have some college or an associate's degree;the percentage of american indian or alaska native women who have some college or an associate's degree;the proportion of american indian or alaska native women who have some college or an associate's degree;the share of american indian or alaska native women who have some college or an associate's degree"
 dc/mr1f76pb6yq98,"Population: White Alone, Not Enrolled in School;White Population Who Have Not Enrolled in School;the number of white people who are not enrolled in school;the percentage of white people who are not enrolled in school;the proportion of white people who are not enrolled in school;white people who are not enrolled in school"
+dc/msz3yy4p50yyf,"Annual Wages of Workers in Research And Development in The Physical Engineering And Life Sciences;Wages Annual of Establishment: Research And Development in The Physical, Engineering, And Life Sciences (NAICS/54171)"
 dc/mwbmxs2q9zcgd,"American Indian or Alaska Native Population Enrolled in College Undergraduate Years;Population: Enrolled in College Undergraduate Years, American Indian or Alaska Native Alone;american indian or alaska native student enrollment in college undergraduate programs;number of american indian or alaska native students enrolled in college undergraduate programs;percentage of american indian or alaska native students enrolled in college undergraduate programs;proportion of american indian or alaska native students enrolled in college undergraduate programs"
+dc/mwcnlh5bmdk63,Count of Establishment: Electric Power Transmission And Distribution (NAICS/22112);Electric Power Transmission And Distribution Establishments
 dc/n0m3e2r3pxb21,How much do pipeline transportation workers make?;How much money do pipeline transportation workers make?;The amount of money that pipeline transportation workers earn in total;The total amount of money that pipeline transportation workers earn;Total Wages for People Working in Pipeline Transportation;Total wages for people working in pipeline transportation;Wages Total of Person: Pipeline Transportation (NAICS/486);how much money do pipeline workers make?;total wages of pipeline transportation workers;what are the wages for pipeline workers?;what do pipeline workers make?;what is the average salary for a pipeline worker?
 dc/n11nnhnf54h78,"African American Female Population Who are Incarcerated;Population (Measured Based on Jurisdiction): Female, Incarcerated, Black or African American Alone;african american women in prison;african american women who are behind bars;african american women who are in jail;african american women who are incarcerated"
+dc/n18hgz310vw83,"Revenue of Establishment: Hydroelectric Power Generation (NAICS/221111), With Payroll;Revenue of Hydroelectric Power Generation Establishments With Payroll"
 dc/n5fmmhn8w641g,"Population: Separated, Born in Other State in The United States;Separated Population Born in Other States in The United States"
 dc/n87t9dkckzxc8,Number of couriers and messengers;Population of People Working as Couriers and Messengers;Population of Person: Couriers And Messengers (NAICS/492);Population of people working as couriers and messengers;number of couriers and messengers;number of couriers and messengers workers;number of people employed as couriers and messengers;number of people in the courier and messenger industry;number of people who are employed as couriers or messengers;number of people who deliver packages or messages for a living;number of people who work as couriers or messengers;number of people working as couriers and messengers
 dc/n92hgh8ned7k5,"Population (Measured Based on Jurisdiction): In-State, Privately Operated, Incarcerated;Population Incarcerated in In-State and Privately Operated Correctional Facilities;the number of people who are in prison or jail in state and private facilities;the number of people who are incarcerated in state and private correctional facilities;the number of people who are locked up in state and privately run prisons;the number of people who are serving time in state and private jails"
@@ -5753,6 +5778,7 @@ dc/rn90czcrqcv06,Mean Price of Medicare Enrollee;the average cost of medicare co
 dc/rppnrs4s3lhn9,"Population: Never Married, Born in State of Residence;Unmarried Population Based in the State of Residence;distribution of unmarried people by state;number of unmarried people in each state;percentage of unmarried people in each state;population of unmarried people by state"
 dc/ry2tnmstly7wd,"Native Population Born Outside The United States Without Income;Population: No Income, Native Born Outside The United States;people who were born outside the united states and do not have an income;people who were born outside the united states and don't have an income;people who were born outside the us and don't have any source of income;people who were born outside the us and don't make any money"
 dc/s0kcbjef3zxrc,"Foreign Born in United States Population Who are Never Married;Population: Never Married, Born in Other State in The United States;the number of people in the united states who are foreign born and never married;the percentage of the united states population that is foreign born and never married;the proportion of the united states population that is foreign born and never married;the share of the united states population that is foreign born and never married"
+dc/s9cn1zj5fv5cc,"Revenue of Electric Power Distribution Establishments With Payroll;Revenue of Establishment: Electric Power Distribution (NAICS/221122), With Payroll"
 dc/scnp6d6sv1jqd,"Native Hispanic Population;Population: Native, Hispanic or Latino"
 dc/shgj6xwg96pp3,"Count of Mortality Event (Measured Based on Jurisdiction): Intentional Self-Harm(Suicide), Female, Incarcerated;Deaths of Female Population Who are Incarcerated Caused by Intentional Self-Harm;deaths of incarcerated women by self-harm;female inmates who commit suicide;self-harm deaths of female prisoners;suicides among incarcerated women"
 dc/skv4cd74gsnpf,"Population: Bachelors Degree or Higher, Female, Some Other Race Alone;Some Other Race Female Population with Bachelor's Degree or Higher;women with a bachelor's degree or higher who are of mixed race;women with a bachelor's degree or higher who identify as some other race alone"
@@ -5762,6 +5788,7 @@ dc/t14epl3f66wn,"Incarcerated Male Population Aged 0 to 17 Years;Population (Mea
 dc/t6m99mqmqxjbc,"Median Income (Real Individual Earnings Before Deductions): Management of Companies And Enterprises (NAICS/55);Median Income for People Working in the Management of Companies and Enterprises Industry;Median income for people working in the management of companies and enterprises industry;Median salary for people working in the management of companies and enterprises sector;Number of people employed in the management of companies and enterprises industry;The median compensation of management in companies and enterprises;The median income of management in companies and enterprises;Total earnings for employees in the management of companies and enterprises sector;median income of management of companies and enterprises workers;the amount of money that half of the people working in the management of companies and enterprises industry earn, and half earn less;the average salary for people working in the management of companies and enterprises industry;the middle value of salaries for people working in the management of companies and enterprises industry;the typical salary for people working in the management of companies and enterprises industry"
 dc/t7403chwvspm,"African American Female Population With Bachelor's Degrees Or Higher;Population: Bachelors Degree or Higher, Female, Black or African American Alone;number of african american women with bachelor's degrees or higher;percentage of african american women with bachelor's degrees or higher;proportion of african american women with bachelor's degrees or higher;share of african american women with bachelor's degrees or higher"
 dc/tcqb49dvg7k53,"Prevalence of Female Population Who are Physical Inactivity;Prevalence: Female, Physical Inactivity;a large number of women are not active enough;a large percentage of women are not meeting the physical activity guidelines;a significant proportion of women are not getting the recommended amount of physical activity;many women are not getting enough exercise"
+dc/te4lvw7tlnfv9,"Revenue of Establishment: Solar Electric Power Generation (NAICS/221114), With Payroll;Revenue of Solar Electric Power Generation Industries With Payroll"
 dc/tm2h6clmndl3b,"Foreign-Born Population Who Were Never Married;Population: Never Married, Foreign Born;the number of foreign-born people who are not married, expressed as a percentage of the total foreign-born population;the number of foreign-born people who have never been married;the percentage of the foreign-born population who have never been married;the share of the foreign-born population who are not married"
 dc/tn5kxlgy0shl4,"Count of Mortality Event (Measured Based on Jurisdiction): AIDS, Incarcerated;Deaths of Incarcerated Population Caused by AIDS"
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate
@@ -5794,7 +5821,6 @@ dc/topic/Avalanche,Avalanche
 dc/topic/BachelorsMajor,Bachelors Major;college major;undergraduate major
 dc/topic/BankingAccess,Banking Access
 dc/topic/Benefits,Benefits;public benefits;social benefits
-dc/topic/BingeDrinking,Binge Drinking
 dc/topic/Births,Births
 dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age
 dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age
@@ -5812,9 +5838,12 @@ dc/topic/CausesOfDeath,Causes of death;Reasons for death;Reasons for mortality
 dc/topic/Cholesterol,High cholestrol;People with high cholestrol;bad cholestrol;good cholestrol;high cholestrol condition
 dc/topic/CitizenshipStatus,Citizenship Status
 dc/topic/ClimateChange,Climate Change;Climate Change impact;Global Warming;Impact of Climate Change
-dc/topic/Clouds,Clouds
 dc/topic/CoastalFlood,Coastal Flood
+dc/topic/ColdEvent,Cold Event;excessive cold;freezing;very cold
 dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents
+dc/topic/CommuteMode,Commute Modes;modes of commute
+dc/topic/CommuteModeByOccupation,Commute Mode By Occupation;commute options by occupation
+dc/topic/CommuteTime,Commute Time;time spend during commute;time spent traveling to work;time spent travelling from work
 dc/topic/Crime,Crime
 dc/topic/Cyclone,Cyclone
 dc/topic/Debt,Debt;Global debt
@@ -5828,20 +5857,18 @@ dc/topic/Dentists,Dentists
 dc/topic/Diabetes,Diabetes
 dc/topic/DiabetesFemalePopulationByAge,Female Population With Diabetes By Age
 dc/topic/DiabetesMalePopulationByAge,Male Population With Diabetes By Age
+dc/topic/DieselPM,Diesel PM;Diesel pollutant;diesel particulate matter
 dc/topic/Disabilities,Disabilities
 dc/topic/DisabilitiesByGender,Disabilities by gender;Disabilities split by gender;disabilities breakdown by gender
 dc/topic/DisabilitiesByRace,Disabilities by race;Disabilities split by race;disabilities breakdown by race
-dc/topic/Disasters,Disasters
-dc/topic/Disease,Disease
 dc/topic/DiseasesOfHeartFemalePopulationByAge,Female Population With Heart Disease By Age
 dc/topic/DiseasesOfHeartMalePopulationByAge,Male Population With Heart Disease By Age
 dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age
 dc/topic/DivorcedMalePopulationByAge,Divorced Male Population By Age
 dc/topic/DivorcedPopulationByAge,Divorced Population By Age
 dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic;demographics of the divorced population
-dc/topic/Drought,Drought
-dc/topic/Dust,Dust
-dc/topic/Earthquake,Earthquake
+dc/topic/Drought,Droughts;drought
+dc/topic/Earthquake,Earthquakes;earthquake
 dc/topic/EconomicActivity,Economic Activity;Economic activity overview;Summary of economic activity
 dc/topic/EconomicEquity,Economic Equity;economic fairness;economic oppoortunities
 dc/topic/Economy,Condition of the economy;Economic overview;Economy;State of the economy;Status of the economy;Summary of the economy
@@ -5852,30 +5879,40 @@ dc/topic/EducationFaculty,Education Faculty
 dc/topic/EducationalAttainment,Educational Attainment
 dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level;education attainment by gender and level
 dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level;level of education by gender and race;race and gender breakdown of education attainment;race and gender breakdown of education level
+dc/topic/Electricity_Consumption,Electricity Consumption;consumption of electricity
+dc/topic/Emissions,Emissions
+dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source;flourinated gas emissions by source;source of flourinated gas emissions
+dc/topic/Emissions_Methane_EmissionsbySource,CH4 emissions by source;Methane Emissions by Source;source of CH4 emissions;source of methane emissions
+dc/topic/Emissions_NitrousOxide_EmissionsbySource,Nitrous Oxide Emissions by Source;nitrous oxide emissions by source;source of nitrous oxide emissions
+dc/topic/Emissions_PM2.5_EmissionsbySource,Emissions of PM2.5 By Source;particulate matter 2.5 emissions by source;source of PM2.5 emissions
+dc/topic/Emissions_SulfurDioxide_EmissionsbySource,SO2 emissions by source;Sulfur Dioxide Emissions by Source;source of SO2 emissions;source of sulfur dioxide emissions;source of sulphur dioxide emissions
 dc/topic/Employment,Employement;Employment
-dc/topic/EmploymentByIndustry,Employment By Industry;breakdown of employment by industry;people employed by industry
 dc/topic/EmploymentEquity,Employment Equity;equity in employment;fairness in employment
+dc/topic/Energy,Energy
+dc/topic/Energy_Consumption_FossilFuels,Energy Consumption From Fossil Fuels;energy consumed from fossil fuels;energy consumed which is generated by fossil fuels
+dc/topic/Energy_Fraction,Energy Fractions;energy percentages;fraction of energy producton and consumption
+dc/topic/Energy_Generation,Energy Generation;generation of energy
+dc/topic/Energy_Generation_FossilFuels,Energy Generation From Fossil Fuels;energy produced from fossil fuels
+dc/topic/Energy_Generation_NonFossilFuel,Energy Generation From Non-Fossil Fuels;energy generated without fossil fuels;energy produced from non fossil fuels
+dc/topic/Energy_Renewables,Energy Renewables;renewable energy
 dc/topic/EnglishSpeakers,English language speakers;English speakers
-dc/topic/Environment,Environment
 dc/topic/Equity,Equity;equality;fairness
-dc/topic/ExcessiveColdEvent,Excessive Cold Event
-dc/topic/ExcessiveHeatEvent,Excessive Heat Event
 dc/topic/ExportSubsidies,Export Subsidies
-dc/topic/ExtremeTide,Extreme Tide
 dc/topic/FemaleMortality,Female deaths;Female mortality
-dc/topic/Fire,Fire
-dc/topic/Flood,Flood
-dc/topic/Fog,Fog
+dc/topic/Fire,Fires;fire;fire event;wild fires
+dc/topic/Flood,Floods;flood
 dc/topic/Forest,Forest
 dc/topic/FossilFuelOperationsEmissionsByGas,Amount of gases emitted in fossil fuel operations;Emissions from fossil fuel operations;Quantity of greenhouse gases emitted by the burning of fossil fuels;The sum of all gases released by the use of fossil fuels;The volume of emissions produced by the use of fossil fuels;Total amount of gas emissions from fossil fuel operations;Total quantity of gases released by fossil fuel operations
-dc/topic/FossilFuelSubsidies,Fossil Fuel Subsidies
 dc/topic/GDP,gross domestic production
+dc/topic/GDPByIndustry,GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
+dc/topic/Gender,Gender
 dc/topic/GlobalEconomicActivity,Global Economic Activity
 dc/topic/GlobalHealth,Global health;World health;health conditions in the world;health in the world
+dc/topic/GreenJobs,Green Jobs;environmentally friendly jobs;sustainable jobs
+dc/topic/GreenhouseGasEmissions,GHG emissions;Greenhouse Gas Emission;greenhouse gasses emissions
 dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source;Greenhouse gas emissions by source;sources of greenhouse gases
 dc/topic/GroupQuartersResidents,Group Quarters Residents
 dc/topic/HIV,HIV
-dc/topic/Hail,Hail
 dc/topic/HateCrimes,Hate Crimes
 dc/topic/Health,Health
 dc/topic/HealthBehavior,Health behavior;Health behaviors;Healthy behaviors;Unhealthy behaviors
@@ -5888,11 +5925,9 @@ dc/topic/HealthInsuranceType,Health Insurance types;Health insurance by types;ty
 dc/topic/HealthWorkerDensity,Health Worker Density
 dc/topic/HealthcareExpenditure,Healthcare Expenditure;amount spent on health;health expenses
 dc/topic/HeartDisease,Heart Disease;cardiovascular disease;disease of the heart
-dc/topic/HeatEvent,Heat Event;high temperature event
 dc/topic/HeatIllnesses,Heat Illnesses;Heat related health conditions;Heat related maladies;Heat-related health problems;Medical conditions caused by heat Heat syncope
 dc/topic/HeatWave,Heat Wave
 dc/topic/HeightStunting,Height Stunting
-dc/topic/HighWind,High Wind
 dc/topic/HispanicOrLatinoFemalePopulationByAge,Hispanic Or Latino Female Population By Age
 dc/topic/HispanicOrLatinoMalePopulationByAge,Hispanic Or Latino Male Population By Age
 dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age
@@ -5930,7 +5965,6 @@ dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePo
 dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age"
 dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age"
 dc/topic/HomeOwnership,Home Ownership;house ownership;housing owners;owners of houses
-dc/topic/HomeValue,Home Value;housing unit cost;how expensive are homes in;how much do houses cost in;value of homes
 dc/topic/HouseFeatures,House Features;features in a home;features of a house
 dc/topic/HouseOccupants,House Occupants;home occupants;people living in the house
 dc/topic/HouseholdIncomeDistribution,Household Income Distribution;income distribution for households
@@ -5966,6 +6000,7 @@ dc/topic/KidneyDisease,Kidney Disease
 dc/topic/KidneyDiseaseFemalePopulationByAge,Female Population With Kidney Disease By Age
 dc/topic/KidneyDiseaseMalePopulationByAge,Male Population With Kidney Disease By Age
 dc/topic/LandCover,Land Cover
+dc/topic/LandUseAndCoverage,Land Use And Coverage;land use
 dc/topic/Landslide,Landslide
 dc/topic/Language,Language
 dc/topic/LanguageSpokenAtHome,Language Spoken at Home
@@ -5977,7 +6012,6 @@ dc/topic/LungConditionMalePopulationByAge,Male Population With Lung Condition By
 dc/topic/Malaria,Malaria
 dc/topic/Malnutrition,Malnutrition
 dc/topic/ManufacturingEmissionsByGas,Amount of gases emitted by the manufacturing sector;Emissions from manufacturing;Quantity of greenhouse gases emitted by factories and production processes;The sum of all gases released by manufacturing activities;The volume of emissions produced by manufacturing activities;Total amount of gas emissions from the manufacturing sector;Total quantity of gases released by the manufacturing industry
-dc/topic/MarineEvents,Marine Events
 dc/topic/MaritalStatus,Marital Status
 dc/topic/MaritalStatusBreakdown,Martial Status Breakdown;breakdown of marital status
 dc/topic/MarriedPopulationByDemographic,Married Population by Demographic;demographics of married people;demographics of the married population
@@ -5988,7 +6022,6 @@ dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade,Max Temperature Likely
 dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year;max temperature likely in the year at five percent chance;maximum temperature once per year 5%
 dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender;gender breakdown of household income;household income by gender
 dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race;household income by race;racial breakdown of household income
-dc/topic/MedicalConditions,Bodily afflictions;Diseases: Medical disorders;Health problems;Maladies;Medical Conditions;Medical ailments;Medical infirmities;health issues
 dc/topic/MentalHealth,Mental Health
 dc/topic/MentalHealthNotGoodFemalePopulationByAge,Female Population With Poor Mental Health By Age
 dc/topic/MentalHealthNotGoodMalePopulationByAge,Male Population With Poor Mental Health By Age
@@ -6009,6 +6042,7 @@ dc/topic/Nationality,Nationality
 dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age
 dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age
 dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age
+dc/topic/NaturalDisasters,Natural Disasters;disasters
 dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases
 dc/topic/NeverMarriedFemalePopulationByAge,Never Married Female Population By Age
 dc/topic/NeverMarriedMalePopulationByAge,Never Married Male Population By Age
@@ -6062,6 +6096,7 @@ dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry;disributi
 dc/topic/NumberOfBusinessesByOwnership,Number Of Businesses By Ownership;disribution of number of business by ownership
 dc/topic/NursesAndMidwives,Nurses And Midwives
 dc/topic/NursingFacilitiesResidents,Nursing Facilities Residents
+dc/topic/OceanHealth,Ocean Health;ocean condition
 dc/topic/Ozone,O3;O3 pollutant;Ozone;Ozone pollutant
 dc/topic/PM10,PM10;pm10 pollutant
 dc/topic/PM2.5,PM2.5;pm2.5 pollutant
@@ -6069,24 +6104,14 @@ dc/topic/Parents,Parents
 dc/topic/ParentsEducationalAttainment,Parents Educational Attainment;level of education attainment of parents
 dc/topic/Parliament,Parliament
 dc/topic/PhysicalActivity,Physical Activity
-dc/topic/PhysicalInactivity,Physical Inactivity
 dc/topic/Physicians,Physicians
 dc/topic/PlaceOfBirth,Place of Birth
-dc/topic/PollutantConcentration,Pollutant Concentration;concentration of pollutant
-dc/topic/Pollution,Pollution
-dc/topic/Population,Population
+dc/topic/Pollutants,Pollutants
 dc/topic/PopulationByAgeDistribution,Population By Age Distribution;population distribution by age
 dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race;students enrolled in school type by race
 dc/topic/PopulationFormerSmoker,Population Former Smoker
 dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User
 dc/topic/PopulationNormalWeight,Population Normal Weight
-dc/topic/PopulationObese,Population Obese
-dc/topic/PopulationOverweight,Population Overweight
-dc/topic/PopulationPreObese,Population Pre Obese
-dc/topic/PopulationSmoker,Population Smoker
-dc/topic/PopulationUndersleeping,Population Undersleeping
-dc/topic/PopulationUnderweight,Population Underweight
-dc/topic/PopulationWeight,Population Weight
 dc/topic/PopulationWithArthritisByAge,Population With Arthritis By Age
 dc/topic/PopulationWithAsthmaByAge,Population With Asthma By Age
 dc/topic/PopulationWithCancerByAge,Population With Cancer By Age
@@ -6104,14 +6129,15 @@ dc/topic/PovertyByRace,Poverty By Race;poverty breakdown by race
 dc/topic/PovertyByResidency,Poverty By Residency;poverty breakdown by residency
 dc/topic/PovertyLevels,Poverty Levels;levels of poverty
 dc/topic/PowerEmissionsByGas,Amount of gases emitted by the power sector;Emissions from power;Quantity of greenhouse gases emitted by power plants and energy production processes;The sum of all gases released by power generation activities;The volume of emissions produced by electricity generation activities;Total amount of gas emissions from the power sector;Total quantity of gases released by the power industry
-dc/topic/Precipitation,Precipitation
+dc/topic/Precipitation,Precipitation;high rainfall;major precipitation;major snow event
 dc/topic/PreventativeHealth,Preventative Health
 dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior
 dc/topic/PrivateHealthInsuranceType,Private health insurance;health insurance private type;people with private health insurance
+dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste;Waste due to production and consumption
 dc/topic/ProjectedClimateExtremes,Climate Extremes;Projected Climate Extremes;What are the projected temperature extremes across;how crazy is the climate supposed to get in the future;projected temperature;projected temperature extremes;tell me about projecte temperature extremes for;what are predicted extreme temperatures for
 dc/topic/PublicHealthInsuranceType,Public health insurance;health insurance public type;people with public health insurance
-dc/topic/RacialBreakdown,Racial Breakdown;demographic breakdown;demographic distribution;ethnic breakdown;ethnicity;how diverse are the demographics;i want to know about the racial makeup;population race;racial breakdown of a population;racial diversity of population;tell me about the demographics
-dc/topic/Rainfall,Rainfall
+dc/topic/Race,Race;racial breakdown
+dc/topic/Rainfall,Rainfall;rain
 dc/topic/Religion,Religion
 dc/topic/Remittance,Remittance;remittances
 dc/topic/RentalHouses,Rental Houses;Rental Housing;housing rentals;rental housing units
@@ -6120,6 +6146,8 @@ dc/topic/RoadTrafficDeaths,Road Traffic Deaths
 dc/topic/RuralFemalePopulationByAge,Rural Female Population By Age
 dc/topic/RuralMalePopulationByAge,Rural Male Population By Age
 dc/topic/RuralPopulationByAge,Rural Population By Age
+dc/topic/SDGBiodiversity,Biodiversity;SDG bio diversity;SDG biodiversity;bio diversity
+dc/topic/SDGReforestations,Reforestation;SDG reforestation;reforesting
 dc/topic/SDG_1,End poverty;End poverty in all its forms;SDG end poverty;SDG poverty
 dc/topic/SDG_10,Reduced inequalities;SDG inequalities;SDG reduce inequalities
 dc/topic/SDG_13,Climate action;SDG climate;SDG climate action;SDG combat climate change;combat climate change
@@ -6157,16 +6185,14 @@ dc/topic/StudentsInMiddleSchool,Students in Middle School
 dc/topic/StudentsInPrimarySchool,Students in Primary School;students enrolled in primary school
 dc/topic/Subsidies,Subsidies
 dc/topic/Suicide,Suicide
-dc/topic/SulfurDioxide,SO2;SO2 pollutant;Sulfur Dioxide;Sulphur dioxide pollutant;Suphur dioxide
 dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools
+dc/topic/Sustainability,Sustainability;green;sustainable
 dc/topic/Tariffs,Tariffs
 dc/topic/Teacher,Teacher;teachers
-dc/topic/Temperature,tell me about the weather;what's the climate here;what's the temperature like
-dc/topic/TemperaturePredictions,Temperature Predicitions;max temp forecast;min temp forecast;temp forecast;temperature forecasts
-dc/topic/Thunderstorm,Thunderstorm
+dc/topic/TemperaturePredictions,Temperature Predicitions;max temp forecast;min temp forecast;predict temperature;temp forecast;temperature forecasts;temperature prediction
+dc/topic/Temperatures,max temp;maximum temperature;min temp;temperatures
 dc/topic/Tornado,Tornado
 dc/topic/TransportationEmissionsByGas,Amount of gases emitted by the transportation sector;Emissions from transportation;Quantity of greenhouse gases emitted by vehicles and transportation systems;The sum of all gases released by transportation activities;The volume of emissions produced by transportation activities;Total amount of gas emissions from the transportation industry;Total quantity of gases released by the transportation sector
-dc/topic/TropicalWeatherEvents,Tropical Weather Events
 dc/topic/Tsunami,Tsunami
 dc/topic/Tuberculosis,Tuberculosis
 dc/topic/TwoOrMoreRacesFemalePopulationByAge,Two Or More Races Female Population By Age
@@ -6197,9 +6223,7 @@ dc/topic/WHOMortalityCauses,Global Mortality Causes;WHO Mortality causes;causes 
 dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
 dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths;Non communicable disease deaths;WHO deaths due to non communicable diseases;deaths due to non communicable disease
 dc/topic/WHONonCommunicableDiseases,Global Non communicable diseases;Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
-dc/topic/Weather,Weather
-dc/topic/WetBulbEvent,Wet Bulb Event;wet-bulb event;wetbulb event
-dc/topic/WetBulbTemperature,Wet Bulb Temperature;for this area what is the temperature at which the human body can't cool itself anymore;give me the degree of the wetbulb temperature;how high or low is the wet bulb temperature predicted to be;wet bulb temperature prediction range;what is the wet bulb temperature
+dc/topic/WetBulbEvent,Wet-Bulb Events;high humidity and high heat;wet bulb events;wetbulb
 dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age
 dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age
 dc/topic/WhiteAloneNotHispanicOrLatinoFemalePopulationByAge,White Alone Not Hispanic Or Latino Female Population By Age
@@ -6210,7 +6234,6 @@ dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age
 dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age
 dc/topic/WidowedPopulationByAge,Widowed Population By Age
 dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic;demographics of people who are widowed;demographics of the widowed population
-dc/topic/Wildfire,Wildfire
 dc/topic/WithHealthInsuranceByGender,Having Health Insurance by gender;People with health insurance split by gender
 dc/topic/WithHealthInsuranceByRace,Having Health Insurance by race;People with health insurance split by race;racial breakdown of people with health insurance
 dc/topic/WorkCommute,Work Commute;Work commute;commute mode;journey to work;travel to work
@@ -6231,6 +6254,7 @@ dc/w1tfjz3h6138,How many people work in warehousing and storage?;Number of Wareh
 dc/w8gp902jnk426,Accommodation and Food Services Establishments
 dc/wbjmvkyqf6dm3,"Native Population That Speaks Asian and Pacific Island Languages;Population: Asian And Pacific Island Languages, Native;languages spoken by indigenous peoples of asia and the pacific;languages spoken by indigenous peoples of the asia-pacific region;native asian and pacific islander languages;people who speak asian and pacific island languages as their first language"
 dc/wd5g31pcj0zr3,"Population: Bachelors Degree or Higher, Female, White Alone Not Hispanic or Latino;White Non Hispanic Female Population with Bachelor's Degrees or Higher;females with a bachelor's degree or higher who are white alone and not hispanic or latino;women who are white alone and not hispanic or latino with a bachelor's degree or higher;women with a bachelor's degree or higher who are white alone and not hispanic or latino"
+dc/wfktw3b5c50h1,"Count of Establishment: Privately Owned, Solar Electric Power Generation (NAICS/221114);Privately Owned Solar Electric Power Generation Establishments"
 dc/whn99h1l0xgth,"Asian Female Population with Some College or Associate's Degrees;Population: Some College or Associates Degree, Female, Asian Alone;women who identify as asian alone and have some college or an associate's degree;women with some college or an associate's degree who identify as asian alone"
 dc/wj5l0n6wkep45,"Foreign-Born Population Speaking Other Indo-European Languages;Population: Other Indo European Languages, Foreign Born;foreign-born people who speak languages from the indo-european language family;people who were born in other countries and speak indo-european languages;people who were born outside the us and speak indo-european languages;population of foreign-born people who speak indo-european languages"
 dc/wjtdrd9wq4m2g,"African American Population Enrolled in College Undergraduate Years;Population: Enrolled in College Undergraduate Years, Black or African American Alone;african american college undergraduate enrollment;number of african americans enrolled in college undergraduate programs;percentage of african americans enrolled in college undergraduate programs;proportion of african americans enrolled in college undergraduate programs"
@@ -6252,6 +6276,7 @@ dc/xefh58ckxwk7b,"Incarcerated Asian Female Population;Population (Measured Base
 dc/xewq6n5r3nzch,"Count of Mortality Event (Measured Based on Jurisdiction): Judicial Execution, Incarcerated;Incarcerated Population Deaths From Judicial Execution;number of people in detention who died from being put to death by the justice system;number of people in jail who died from being put to death by the state;number of people in prison who died from being executed by the courts;number of people in prison who died from being executed by the government"
 dc/xj2nk2bg60fg,Median Income (Real Individual Earnings Before Deductions): Information (NAICS/51);Median Income for People Working in the Information Industry;Median income for people working in the information industry;Middle income for those working in the information sector;Number of people employed in the information industry;Total pay earned by those working in the information sector;how much money do people in the information industry make on average?;median income of information workers;the median salary for information workers;the middle ground of income for information workers;the typical income of information workers;what is the median income for information workers;what is the median income for people working in the information industry?;what is the typical income for people working in the information industry?;what is the usual income for people working in the information industry?
 dc/xmpy89x1nh8cg,"Percent of Males That Have Diabetes;Prevalence: Male, Diabetes;What is the percentage of males diagnosed with diabetes;What is the percentage of males who have diabetes;What is the prevalence of diabetes in males;What percentage of males have diabetes;What proportion of males have diabetes;percent of males that have diabetes;what is the percentage of males with diabetes?;what is the proportion of males with diabetes?;what is the rate of diabetes among males?;what percentage of males have diabetes?"
+dc/xx3v7dmqp95h3,"Revenue Of Biomass Electric Power Generation Industries With Payroll;Revenue of Establishment: Biomass Electric Power Generation (NAICS/221117), With Payroll"
 dc/ye0f3ej72hhj7,"Count of Housing Unit: Without Mortgage, 2,000 - 2,999 USD;Housing Units Without Mortgage Earning 2,000 to 2,999 USD"
 dc/yf4jd2tbl49cc,"Male Population Who Did Not Work Full Time;Population: Male, Not Worked Full Time;the male population who did not work full time;the number of men who did not work full time;the percentage of men who did not work full time;the proportion of men who did not work full time"
 dc/yfk47wfg2dqh7,Annual Stock of Coal For Other Industrial Use;Annual Stock of Coal: Other Industrial;coal inventory for other industrial use;coal reserves for other industrial use;coal stockpile for other industrial use;coal supply for other industrial use

@@ -407,10 +407,6 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "Physical Health Issues",
-            "nlQuery": "Physical Health Issues Earth"
-          },
-          {
             "displayName": "People With VA Health Care",
             "nlQuery": "People With VA Health Care Earth"
           },
@@ -421,6 +417,10 @@
           {
             "displayName": "People With Only VA Health Care",
             "nlQuery": "People With Only VA Health Care Earth"
+          },
+          {
+            "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
+            "nlQuery": "Count of Establishment: Health Care And Social Assistance (NAICS/62) Earth"
           }
         ]
       }

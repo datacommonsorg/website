@@ -799,6 +799,31 @@
     },
     {
       "dcid": [
+        "dc/svpg/ComparisonOfHealthPrevalence"
+      ],
+      "memberList": [
+        "Percent_Person_WithArthritis",
+        "Percent_Person_WithAsthma",
+        "Percent_Person_WithCancerExcludingSkinCancer",
+        "Percent_Person_WithChronicKidneyDisease",
+        "Percent_Person_WithChronicObstructivePulmonaryDisease",
+        "Percent_Person_WithCoronaryHeartDisease",
+        "Percent_Person_WithDiabetes",
+        "Percent_Person_WithHighBloodPressure",
+        "Percent_Person_WithHighCholesterol",
+        "Percent_Person_WithMentalHealthNotGood",
+        "Percent_Person_WithPhysicalHealthNotGood",
+        "Percent_Person_WithStroke"
+      ],
+      "name": [
+        "Prevalence of Health Conditions"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/CountOfFarmInventoryByType"
       ],
       "memberList": [
@@ -11080,7 +11105,8 @@
         "dc/topic/MentalHealth",
         "dc/topic/KidneyDisease",
         "dc/topic/Stroke",
-        "dc/topic/HeatIllnesses"
+        "dc/topic/HeatIllnesses",
+        "dc/svpg/ComparisonOfHealthPrevalence"
       ],
       "typeOf": [
         "Topic"
@@ -14441,7 +14467,6 @@
         "dc/topic/Health",
         "dc/topic/Economy",
         "dc/topic/EducationHousingAndCommute",
-        "dc/topic/Environment",
         "dc/topic/Equity",
         "dc/topic/Sustainability"
       ],
@@ -14927,21 +14952,6 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/StudentsInPrimarySchool_StudentsInPrimarySchoolByRace"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Subsidies"
-      ],
-      "name": [
-        "Subsidies"
-      ],
-      "relevantVariableList": [
-        "dc/topic/ExportSubsidies",
-        "dc/topic/FossilFuelSubsidies"
       ],
       "typeOf": [
         "Topic"
