@@ -26,7 +26,7 @@ bp = Blueprint('explore', __name__, url_prefix='/explore')
 @bp.route('/')
 def page():
   # No production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
+  if current_app.config["HIDE_REVAMP_CHANGES"]:
     flask.abort(404)
 
   return render_template('/explore.html',
@@ -37,7 +37,7 @@ def page():
 @bp.route('/<string:topic>')
 def landing(topic):
   # No production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
+  if current_app.config["HIDE_REVAMP_CHANGES"]:
     flask.abort(404)
 
   return render_template('/explore_landing.html',
