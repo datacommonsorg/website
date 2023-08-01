@@ -24,6 +24,7 @@
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   locale: string, value for html lang attr
+  brand_logo_path: string, if set, use this path for the src for the brand logo in the footer
 
   Blocks to override:
   head - additional head elements
@@ -232,8 +233,12 @@
           <div id="sub-footer" class="col-12">
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
             {# TRANSLATORS: The label for the Google branding byline. #}
-            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span><img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
-
+            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
+            {% if brand_logo_path %}
+            <img class="brand-logo" src="{{ brand_logo_path }}" /></span>
+            {% else %}
+            <img class="brand-logo" src="/images/google-logo.svg" /></span>
+            {% endif %}
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
               {# TRANSLATORS: The label for a link to site terms and conditions. #}
