@@ -41,11 +41,11 @@
           },
           {
             "title": "Cities with the highest number of women PhDs",
-            "url": "oq=Cities+with+the+highest+number+of+women+PhDs&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainment&p=country/USA&pt=City"
+            "url": "oq=Cities+with+the+highest+number+of+women+PhDs&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=country/USA&pt=City"
           },
           {
             "title": "Countries with the lowest Gini index",
-            "url": "oq=Countries+with+the+lowest+Gini+index&t=GiniIndex_EconomicActivity&p=Earth&pt=Country"
+            "url": "oq=Countries+with+the+lowest+Gini+index&t=dc/svpg/dc/topic/EconomicEquity_GiniIndex&p=Earth&pt=Country"
           }
         ],
         "comparison": [
@@ -57,8 +57,33 @@
       },
       "meta": {
         "dataPointCount": 0,
-        "variableCount": 0,
-        "sources": ["Test source 1", "Test source 2"]
+        "variableCount": 35472,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
+          "World Bank"
+        ]
       }
     },
     "economics": {
@@ -344,7 +369,7 @@
       }
     },
     "schools-housing-commute": {
-      "title": "Schools, Housing, and Commute",
+      "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
@@ -587,30 +612,42 @@
       "examples": {
         "general": [
           {
+            "title": "Which counties emit the most greenhouse gases",
+            "url": "oq=Which+counties+emit+the+most+greenhouse+gases&p=country/USA&pt=County&t=dc/topic/GreenhouseGases"
+          },
+          {
             "title": "Emissions in Harris County, Texas",
-            "url": "q=Emissions+in+Harris+County,+Texas&p=geoId/48201"
+            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
           },
           {
             "title": "Pollution in Los Angeles County",
-            "url": "q=Pollution+in+Los+Angeles+County&t=dc/topic/Pollution&p=geoId/06037"
+            "url": "oq=Pollution+in+Los+Angeles+County&t=dc/topic/Pollution&p=geoId/06037"
           },
           {
             "title": "Projected temperature extremes in US counties",
-            "url": "q=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
+            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
           },
           {
             "title": "Energy use in the US",
-            "url": "q=Energy+use+in+the+US&p=country/USA"
+            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
+          },
+          {
+            "title": "Green jobs in the US",
+            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
           }
         ],
         "specific": [
           {
             "title": "Electronic Waste generated in different countries",
-            "url": "q=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country"
+            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV&t=sdg/EN_EWT_GENCAP"
           },
           {
             "title": "Floods in Pakistan",
             "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
+          },
+          {
+            "title": "Solar installations across across states in the US",
+            "url": "oq=Solar+installations+across+states+in+the+US&p=country/USA&pt=State&t=dc/svpg/dc/topic/Count_SolarInstallation"
           },
           {
             "title": "Drought events across different countries",
@@ -618,7 +655,7 @@
           },
           {
             "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/topic/SmokePM2.5&t=dc/topic/SmokeConcentration2.5"
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/svpg/dc/topic/Smoke_SmokeDays"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
