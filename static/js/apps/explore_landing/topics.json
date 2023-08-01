@@ -29,7 +29,7 @@
         "specific": [
           {
             "title": "Number of poor hispanic women in Santa Clara County",
-            "url": "q=Number+of+poor+hispanic+women+in+Santa+Clara+County"
+            "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County"
           },
           {
             "title": "Counties with the highest unemployment rate in the US",
@@ -613,71 +613,71 @@
         "general": [
           {
             "title": "Which counties emit the most greenhouse gasses",
-            "url": "q=Which+counties+emit+the+most+greenhouse+gasses"
+            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses"
           },
           {
             "title": "Emissions in Harris County, Texas",
-            "url": "q=Emissions+in+Harris+County,+Texas"
+            "url": "oq=Emissions+in+Harris+County,+Texas"
           },
           {
             "title": "Pollution in Los Angeles County",
-            "url": "q=Pollution+in+Los+Angeles+County"
+            "url": "oq=Pollution+in+Los+Angeles+County"
           },
           {
             "title": "Projected temperature extremes in US counties",
-            "url": "q=Projected+temperature+extremes+in+USA"
+            "url": "oq=Projected+temperature+extremes+in+USA"
           },
           {
             "title": "Energy use in the US",
-            "url": "q=Energy+use+in+the+US"
+            "url": "oq=Energy+use+in+the+US"
           },
           {
             "title": "Green jobs in the US",
-            "url": "q=Green+jobs+in+the+US"
+            "url": "oq=Green+jobs+in+the+US"
           }
         ],
         "specific": [
           {
             "title": "Electronic Waste generated in different countries",
-            "url": "q=Electronic+Waste+generated+in+different+countries"
+            "url": "oq=Electronic+Waste+generated+in+different+countries"
           },
           {
             "title": "Floods in Pakistan",
-            "url": "q=Floods+in+Pakistan"
+            "url": "oq=Floods+in+Pakistan"
           },
           {
             "title": "Solar installations across across states in the US",
-            "url": "q=Solar+installations+across+states+in+the+US"
+            "url": "oq=Solar+installations+across+states+in+the+US"
           },
           {
             "title": "Drought events across different countries",
-            "url": "q=Drought+events+across+different+countries"
+            "url": "oq=Drought+events+across+different+countries"
           },
           {
             "title": "Counties in the US with the most smoke days",
-            "url": "q=Counties+in+the+US+with+the+most+smoke+days"
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+days"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
-            "url": "q=Top+sources+of+CO2+emissions+in+the+US"
+            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
           },
           {
             "title": "Which countries have the greatest increase in greenhouse gas emissions",
-            "url": "q=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
+            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
           }
         ],
         "comparison": [
           {
             "title": "How does PM 2.5 correlate with asthma across US counties",
-            "url": "q=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
+            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
           },
           {
             "title": "How does solar energy generation correlate with median income across US states",
-            "url": "q=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
+            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
-            "url": "q=AQI+vs+blood+pressure+in+New+Jersey"
+            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey"
           }
         ]
       },
