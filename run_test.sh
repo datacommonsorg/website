@@ -172,7 +172,7 @@ function update_integration_test_golden {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=write
   python3 -m pytest -vv server/integration_tests/topic_cache
-  python3 -m pytest -vv server/integration_tests/
+  python3 -m pytest -vv -n 3 server/integration_tests/
 }
 
 function run_all_tests {

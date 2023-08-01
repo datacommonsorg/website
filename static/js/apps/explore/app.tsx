@@ -257,9 +257,9 @@ export function App(): JSX.Element {
             </>
           )}
         </div>
-        <div className="row col-md-10x col-lg-10">
+        <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
-            <div id="insight-rhs">
+            <>
               <div className="search-section">
                 <div className="search-box-section">
                   <TextSearchBar
@@ -292,7 +292,7 @@ export function App(): JSX.Element {
                   showExploreMore={true}
                 />
               </NlSessionContext.Provider>
-            </div>
+            </>
           )}
         </div>
       </div>

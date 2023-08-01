@@ -1,11 +1,11 @@
 {
   "allTopics": [
-    "equity",
-    "sustainability",
-    "demographics",
     "economics",
+    "demographics",
+    "health",
+    "sustainability",
     "schools-housing-commute",
-    "health"
+    "equity"
   ],
   "topics": {
     "equity": {
@@ -261,12 +261,12 @@
             "url": "oq=Mental+health+in+Mercer+County+vs+Arlington+County"
           },
           {
-            "title": "Mortality in the US vs Spain vs Nigera",
+            "title": "Mortality in the US vs Spain vs Nigeria",
             "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
           },
           {
-            "title": "Life Expectancy of countries in Africa",
-            "url": "oq=life+expectancy+of+countries+in+Africa"
+            "title": "Life Expectancy in countries in Africa",
+            "url": "oq=life+expectancy+in+countries+in+Africa"
           },
           {
             "title": "Causes of Death in Louisiana ",
@@ -307,12 +307,12 @@
             "url": "oq=Highest+rates+of+infant+mortality+in+the+world"
           },
           {
-            "title": "Worst states in the US for life expectancy",
-            "url": "oq=worst+maternal+mortality+in+the+world"
+            "title": "Life expectancy across counties in the US",
+            "url": "oq=Life+expectancy+across+counties+in+the+US"
           },
           {
-            "title": "Worst maternal mortality in the world",
-            "url": "oq=Worst+maternal+mortality+in+the+world"
+            "title": "Maternal mortality across countries in the world",
+            "url": "oq=Maternal+mortality+across+countries+in+the+world"
           }
         ]
       },
@@ -345,7 +345,11 @@
     },
     "schools-housing-commute": {
       "title": "Schools, Housing, and Commute",
+<<<<<<< HEAD
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
+=======
+      "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
+>>>>>>> 08c3bcec8ec084b0627cbd7404f90f8fa91616d1
       "examples": {
         "general": [
           {

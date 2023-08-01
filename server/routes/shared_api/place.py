@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -636,7 +636,7 @@ def placeid2dcid():
   result = {}
   for place_id, dcids in resp.items():
     if dcids:
-      dcid = dcids[0]
+      dcid = dcids[0]['dcid']
       if dcid in PLACE_OVERRIDE:
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid
