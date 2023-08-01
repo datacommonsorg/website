@@ -612,8 +612,8 @@
       "examples": {
         "general": [
           {
-            "title": "Which counties emit the most greenhouse gases",
-            "url": "oq=Which+counties+emit+the+most+greenhouse+gases&p=country/USA&pt=County&t=dc/topic/GreenhouseGases"
+            "title": "Which counties emit the most greenhouse gasses",
+            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses&p=country/USA&pt=County&t=dc/topic/GreenhouseGasses"
           },
           {
             "title": "Emissions in Harris County, Texas",
