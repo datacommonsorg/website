@@ -613,71 +613,71 @@
         "general": [
           {
             "title": "Which counties emit the most greenhouse gasses",
-            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses"
+            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
           },
           {
             "title": "Emissions in Harris County, Texas",
-            "url": "oq=Emissions+in+Harris+County,+Texas"
+            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
           },
           {
             "title": "Pollution in Los Angeles County",
-            "url": "oq=Pollution+in+Los+Angeles+County"
+            "url": "oq=Pollution+in+Los+Angeles+County&p=geoId/06037&t=dc/topic/Pollutants"
           },
           {
             "title": "Projected temperature extremes in US counties",
-            "url": "oq=Projected+temperature+extremes+in+USA"
+            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
           },
           {
             "title": "Energy use in the US",
-            "url": "oq=Energy+use+in+the+US"
+            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
           },
           {
             "title": "Green jobs in the US",
-            "url": "oq=Green+jobs+in+the+US"
+            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
           }
         ],
         "specific": [
           {
             "title": "Electronic Waste generated in different countries",
-            "url": "oq=Electronic+Waste+generated+in+different+countries"
+            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENPCAP&t=sdg/EN_EWT_GENV"
           },
           {
             "title": "Floods in Pakistan",
-            "url": "oq=Floods+in+Pakistan"
+            "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
           },
           {
             "title": "Solar installations across across states in the US",
-            "url": "oq=Solar+installations+across+states+in+the+US"
+            "url": "oq=Solar+installations+across+states+in+the+US&p=country/USA&t=Count_SolarInstallation"
           },
           {
             "title": "Drought events across different countries",
-            "url": "oq=Drought+events+across+different+countries"
+            "url": "oq=Drought+events+across+different+countries&p=Earth&pt=Country&t=dc/topic/Drought"
           },
           {
             "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days"
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
-            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
+            "url": "oq=Top+sources+of+CO2+emissions+in+the+US&p=country/USA&t=dc/topic/CO2EmissionsbySource"
           },
           {
             "title": "Which countries have the greatest increase in greenhouse gas emissions",
-            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
+            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
           }
         ],
         "comparison": [
           {
             "title": "How does PM 2.5 correlate with asthma across US counties",
-            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
+            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
           },
           {
             "title": "How does solar energy generation correlate with median income across US states",
-            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
+            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states&p=country/USA&pt=State&t=Count_SolarInstallation&tcmp=dc/topic/Income"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
-            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey"
+            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure"
           }
         ]
       },
