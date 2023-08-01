@@ -32,9 +32,9 @@
  {% block content %}
  <section id="homepage-top">
   <div class="container">
-    <div class="header">Data tells incredible stories</div>
+    <div class="header">Data tells interesting stories</div>
     <div class="sub-header">
-      Working with data doesn't have to be painful.<br/>
+      Data Commons makes it easier to find them.<br/>
       Data Commons is a free, unified database of
       <a href="https://docs.datacommons.org/datasets/" target="_blank" rel="noopener noreferrer">
         public data.
@@ -94,7 +94,13 @@
             <div class="tool-button-img"></div>
           </div>
           <span>Place Explorer</span>
-      </a>
+        </a>
+        <a href="{{ url_for('tools.download') }}" id="download-button" class="tool-button">
+          <div class="img-container">
+            <span class="material-icons-outlined">download</span>
+          </div>
+          <span>Data Download</span>
+        </a>
   </div>
 </section>
 
