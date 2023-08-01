@@ -6885,6 +6885,35 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/EconomicEquity_GiniIndex"
+      ],
+      "memberList": [
+        "GiniIndex_EconomicActivity"
+      ],
+      "name": [
+        "Gini Index"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/EconomicEquity_LabourForceStatus"
+      ],
+      "memberList": [
+        "Count_Person_InLaborForce",
+        "Count_Person_NotInLaborForce"
+      ],
+      "name": [
+        "Labour Force Status"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/EducationExpenditure_EducationExpenditureComparedToTotalSpending"
       ],
       "memberList": [
@@ -6962,7 +6991,22 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeofhigherbyRace"
+        "dc/svpg/dc/topic/EducationalAttainmentByGenderAndLevel_PopulationwithMastersDegreeByGender"
+      ],
+      "memberList": [
+        "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
+        "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Male"
+      ],
+      "name": [
+        "Population with Masters Degree By Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeorHigherbyRace"
       ],
       "memberList": [
         "dc/06f0jf8xvzw4f",
@@ -6976,7 +7020,7 @@
         "dc/wd5g31pcj0zr3"
       ],
       "name": [
-        "Bachelors degree of higher by Race"
+        "Bachelors Degree or Higher by Race"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6984,7 +7028,7 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/Educationalattainment_CollegedegreebyRace"
+        "dc/svpg/dc/topic/Educationalattainment_CollegeDegreebyRace"
       ],
       "memberList": [
         "dc/3w039ndqy7qv1",
@@ -6997,7 +7041,7 @@
         "dc/whn99h1l0xgth"
       ],
       "name": [
-        "College degree by Race"
+        "College Degree by Race"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7707,6 +7751,44 @@
       ],
       "name": [
         "Max Temperature Likely (5%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MedianHouseholdIncomeByGender"
+      ],
+      "memberList": [
+        "Median_Earnings_Person_Female",
+        "Median_Earnings_Person_Male"
+      ],
+      "name": [
+        "Median Household Income by Gender"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MedianHouseholdIncomeByRace"
+      ],
+      "memberList": [
+        "Median_Income_Household_HouseholderRaceWhiteAlone",
+        "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+        "Median_Income_Household_HouseholderRaceAsianAlone",
+        "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+        "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+        "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+        "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
+        "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+        "Median_Income_Household_HouseholderRaceWhiteAlone",
+        "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+      ],
+      "name": [
+        "Median Household Income by Race"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10019,9 +10101,12 @@
         "Economic Equity"
       ],
       "relevantVariableList": [
+        "dc/svpg/dc/topic/EconomicEquity_GiniIndex",
         "dc/topic/PovertyByGender",
         "dc/topic/PovertyByRace",
-        "dc/topic/Benefits"
+        "dc/topic/Benefits",
+        "dc/topic/IncomeEquity",
+        "dc/topic/EmploymentEquity"
       ],
       "typeOf": [
         "Topic"
@@ -10071,11 +10156,8 @@
         "Education Equity"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeofhigherbyRace",
-        "dc/svpg/dc/topic/Educationalattainment_CollegedegreebyRace",
-        "dc/svpg/dc/topic/Educationalattainment_DoctoratedegreebyGender",
-        "dc/svpg/dc/topic/Educationalattainment_MastersdegreebyGender",
-        "dc/svpg/dc/topic/Educationalattainment_collegeorprofessionaldegreebyGender"
+        "dc/topic/EducationalAttainmentByGenderAndLevel",
+        "dc/topic/EducationalAttainmentByRaceAndLevel"
       ],
       "typeOf": [
         "Topic"
@@ -10135,7 +10217,23 @@
       "relevantVariableList": [
         "dc/svpg/dc/topic/EducationalAttainmentByGenderAndLevel_PopulationwithAssociatesDegreeByGender",
         "dc/svpg/dc/topic/EducationalAttainmentByGenderAndLevel_PopulationwithBachelorsDegreeByGender",
+        "dc/svpg/dc/topic/EducationalAttainmentByGenderAndLevel_PopulationwithMastersDegreeByGender",
         "dc/svpg/dc/topic/EducationalAttainmentByGenderAndLevel_PopulationwithDoctorateDegreeByGender"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/EducationalAttainmentByRaceAndLevel"
+      ],
+      "name": [
+        "Educational Attainment by Race"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Educationalattainment_BachelorsdegreeorHigherbyRace",
+        "dc/svpg/dc/topic/Educationalattainment_CollegeDegreebyRace"
       ],
       "typeOf": [
         "Topic"
@@ -10167,6 +10265,21 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/EmploymentEquity"
+      ],
+      "name": [
+        "Employment Equity"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/EconomicEquity_LabourForceStatus",
+        "dc/topic/UnemploymentRate"
       ],
       "typeOf": [
         "Topic"
@@ -11564,6 +11677,22 @@
     },
     {
       "dcid": [
+        "dc/topic/IncomeEquity"
+      ],
+      "name": [
+        "Income Equity"
+      ],
+      "relevantVariableList": [
+        "dc/topic/IndividualIncomeDistribution",
+        "dc/topic/MedianHouseholdIncomeByRace",
+        "dc/topic/MedianHouseholdIncomeByGender"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/IndividualIncomeByIndustry"
       ],
       "name": [
@@ -12125,6 +12254,34 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MedianHouseholdIncomeByGender"
+      ],
+      "name": [
+        "Median Household Income by Gender"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MedianHouseholdIncomeByGender"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MedianHouseholdIncomeByRace"
+      ],
+      "name": [
+        "Median Household Income by Race"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MedianHouseholdIncomeByRace"
       ],
       "typeOf": [
         "Topic"
