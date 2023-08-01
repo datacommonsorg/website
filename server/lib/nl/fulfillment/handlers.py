@@ -16,7 +16,6 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
@@ -59,13 +58,16 @@ QUERY_HANDLERS = {
                            rank=1,
                            direct_fallback=QueryType.OVERVIEW),
 
-    # Comparison has a more complex fallback logic captured in next_query_type().
-    QueryType.COMPARISON_ACROSS_PLACES:
-        QueryHandlerConfig(module=comparison, rank=2),
+    # Important to have CONTAINED_IN be right after SIMPLE.
+    # Because we often promote SIMPLE to CONTAINED_IN, and
+    # for larger places they are very similar.
     QueryType.CONTAINED_IN:
         QueryHandlerConfig(module=containedin,
-                           rank=3,
+                           rank=2,
                            direct_fallback=QueryType.SIMPLE),
+    # Comparison has a more complex fallback logic captured in next_query_type().
+    QueryType.COMPARISON_ACROSS_PLACES:
+        QueryHandlerConfig(module=comparison, rank=3),
     QueryType.RANKING_ACROSS_VARS:
         QueryHandlerConfig(module=ranking_across_vars,
                            rank=4,
@@ -118,20 +120,19 @@ def first_query_type(uttr: Utterance):
   query_types = [QueryType.SIMPLE]
   for cl in uttr.classifications:
     qtype = _classification_to_query_type(cl, uttr)
-    if qtype != None:
+    if qtype != None and qtype not in query_types:
       query_types.append(qtype)
 
   default_config = QueryHandlerConfig(module=None, rank=-1)  # Ranks the lowest
   query_types = sorted(
       query_types, key=(lambda q: QUERY_HANDLERS.get(q, default_config).rank))
   if query_types:
-    _maybe_promote_simple(uttr, query_types)
     return query_types[-1]
   return None
 
 
-def _maybe_promote_simple(uttr: Utterance, query_types: List[QueryType]):
-  remapped_type = None
+def _maybe_remap_simple(uttr: Utterance) -> QueryType:
+  remapped_type = QueryType.SIMPLE
   if (uttr.detection and uttr.detection.places_detected and
       not uttr.detection.places_detected.query_without_place_substr):
     # If there are no words beyond place names, do OVERVIEW
@@ -139,23 +140,21 @@ def _maybe_promote_simple(uttr: Utterance, query_types: List[QueryType]):
   elif len(uttr.places) > 1:
     # Promote to place comparison.
     remapped_type = QueryType.COMPARISON_ACROSS_PLACES
-  elif _should_promote_simple_to_containedin(query_types[-1], uttr.places):
+  elif _maybe_add_containedin(uttr):
+    remapped_type = QueryType.CONTAINED_IN
+  return remapped_type
+
+
+def _maybe_add_containedin(uttr: Utterance) -> bool:
+  if (len(uttr.places) == 1 and (uttr.places[0].place_type == 'Continent' or
+                                 uttr.places[0].dcid == 'Earth')):
     uttr.classifications.append(
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
                 contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
-    remapped_type = QueryType.CONTAINED_IN
-  if remapped_type != None:
-    if remapped_type in query_types:
-      query_types.remove(remapped_type)
-    query_types[-1] = remapped_type
-
-
-def _should_promote_simple_to_containedin(query_type: QueryType,
-                                          places: List[Place]) -> bool:
-  return (query_type == QueryType.SIMPLE and len(places) == 1 and
-          (places[0].place_type == 'Continent' or places[0].dcid == 'Earth'))
+    return True
+  return False
 
 
 def _classification_to_query_type(cl: NLClassifier,
@@ -176,6 +175,7 @@ def _classification_to_query_type(cl: NLClassifier,
     else:
       query_type = QueryType.SIMPLE
   elif cl.type == ClassificationType.RANKING:
+    _maybe_add_containedin(uttr)
     classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
@@ -183,6 +183,7 @@ def _classification_to_query_type(cl: NLClassifier,
     else:
       query_type = QueryType.RANKING_ACROSS_VARS
   elif cl.type == ClassificationType.TIME_DELTA:
+    _maybe_add_containedin(uttr)
     classification = context.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
@@ -201,6 +202,9 @@ def _classification_to_query_type(cl: NLClassifier,
     # For any unsupported type, fallback to SIMPLE
     # TODO: Handle this better.
     query_type = QueryType.SIMPLE
+
+  if query_type == QueryType.SIMPLE:
+    query_type = _maybe_remap_simple(uttr)
 
   return query_type
 
