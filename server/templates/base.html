@@ -24,7 +24,7 @@
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   locale: string, value for html lang attr
-  brand_logo_path: string, if set, use this path for the src for the brand logo in the footer
+  brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
 
   Blocks to override:
   head - additional head elements
@@ -234,8 +234,8 @@
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
             {# TRANSLATORS: The label for the Google branding byline. #}
             <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
-            {% if brand_logo_path %}
-            <img class="brand-logo" src="{{ brand_logo_path }}" /></span>
+            {% if brand_logo_light %}
+            <img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
             {% else %}
             <img class="brand-logo" src="/images/google-logo.svg" /></span>
             {% endif %}
