@@ -126,10 +126,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "UnemploymentRate_Person_scatter",
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Unemployment Rate of a Population (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -145,10 +145,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "UnemploymentRate_Person_scatter",
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Unemployment Rate of a Population (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -164,10 +164,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone_scatter",
+                      "Count_Person_IncomeOf25000To34999USDollar_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "American Indian or Alaska Native Monoracial Households With Food Stamps in the Past Year Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Earners Between $25,000 and $34,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -183,10 +183,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone_scatter",
+                      "Count_Person_IncomeOf25000To34999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "American Indian or Alaska Native Monoracial Households With Food Stamps in the Past Year Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Between $25,000 and $34,999 Per Capita (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -195,10 +195,16 @@
           }
         ],
         "statVarSpec": {
-          "Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone_scatter": {
+          "Count_Person_IncomeOf10000To14999USDollar_scatter": {
             "denom": "Count_Person",
-            "name": "American Indian or Alaska Native Monoracial Households With Food Stamps in the Past Year Per Capita",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
+            "name": "Earners Between $10,000 and $14,999 Per Capita",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar",
+            "unit": "%"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar_scatter": {
+            "denom": "Count_Person",
+            "name": "Earners Between $25,000 and $34,999 Per Capita",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar",
             "unit": "%"
           },
           "Median_Earnings_Person_scatter": {
@@ -222,10 +228,6 @@
             "name": "High Bood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
-          },
-          "UnemploymentRate_Person_scatter": {
-            "name": "Unemployment Rate of a Population",
-            "statVar": "UnemploymentRate_Person"
           }
         }
       }
