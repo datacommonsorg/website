@@ -12,10 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_scatter",
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Households Receiving Food Stamps in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Family Households Below the Poverty Level in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -50,6 +50,25 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Household_WithFoodStampsInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Households Receiving Food Stamps in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
@@ -69,29 +88,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Females In Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
-                      "Percent_Person_Obesity_scatter"
-                    ],
-                    "title": "Males in Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Black or African Americans Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -100,10 +100,22 @@
           }
         ],
         "statVarSpec": {
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Family Households Below the Poverty Level in the Past Year Per Capita",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
           "Count_Household_WithFoodStampsInThePast12Months_scatter": {
             "denom": "Count_Person",
             "name": "Households Receiving Food Stamps in the Past Year Per Capita",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
+            "denom": "Count_Person",
+            "name": "Black or African Americans Below Poverty Level Status in Past Year Per Capita",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
             "unit": "%"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
@@ -116,18 +128,6 @@
             "denom": "Count_Person",
             "name": "Population: Civilian, Non Institutionalized, Poverty Status Determined Per Capita",
             "statVar": "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined",
-            "unit": "%"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Females In Poverty (in last year) Per Capita",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Males in Poverty (in last year) Per Capita",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
           "Percent_Person_Obesity_scatter": {
