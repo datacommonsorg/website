@@ -38,6 +38,9 @@
   }
 
   .explore-search {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
     margin: 2rem 0;
 
     .btn {
@@ -45,7 +48,26 @@
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
+
+    .experiment-tag {
+      border-radius: 10px;
+      border-style: solid;
+      border-width: 3px;
+      color: var(--blue);
+      display: flex;
+      float: left;
+      font: normal 1em monospace;
+      padding: 4px 6px;
+      height: 80%;
+      margin-right: 20px;
+    }
+
+    .input-query {
+      width: 100%;
+    }
   }
+
+
 
   .topic-queries {
     margin-bottom: 2rem;
