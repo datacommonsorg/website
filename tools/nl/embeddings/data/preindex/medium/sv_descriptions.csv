@@ -5851,8 +5851,10 @@ dc/topic/EducationExpenditure,Education Expenditure
 dc/topic/EducationFaculty,Education Faculty
 dc/topic/EducationalAttainment,Educational Attainment
 dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level;education attainment by gender and level
+dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level;level of education by gender and race;race and gender breakdown of education attainment;race and gender breakdown of education level
 dc/topic/Employment,Employement;Employment
 dc/topic/EmploymentByIndustry,Employment By Industry;breakdown of employment by industry;people employed by industry
+dc/topic/EmploymentEquity,Employment Equity;equity in employment;fairness in employment
 dc/topic/EnglishSpeakers,English language speakers;English speakers
 dc/topic/Environment,Environment
 dc/topic/Equity,Equity;equality;fairness
@@ -5946,6 +5948,7 @@ dc/topic/Hurricane,Hurricane
 dc/topic/Immigration,Immigration
 dc/topic/Incarceration,Incarceration
 dc/topic/Income,Earnings;Income;Income from Earnings;Salary;compensation;monetary status;pay;wealth;what are the wealthy neighborhoods
+dc/topic/IncomeEquity,Income Equity;equity of income distribution;fairness of income distribution;fariness in income
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry;individual income across industries
 dc/topic/IndividualIncomeDistribution,Individual Income Distribution
 dc/topic/IndustriesByNumberOfWorkers,Industries By Number Of Workers;Number of workers by industry;number of workers across industries
@@ -5983,6 +5986,8 @@ dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade,Max Temperature Likely
 dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year;max temperature likely in the year at one percent chance;maximum temperature once per year 1%
 dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade;max temperature likely in the decade at five percent chance;maximum temperature once per decade 5%
 dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year;max temperature likely in the year at five percent chance;maximum temperature once per year 5%
+dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender;gender breakdown of household income;household income by gender
+dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race;household income by race;racial breakdown of household income
 dc/topic/MedicalConditions,Bodily afflictions;Diseases: Medical disorders;Health problems;Maladies;Medical Conditions;Medical ailments;Medical infirmities;health issues
 dc/topic/MentalHealth,Mental Health
 dc/topic/MentalHealthNotGoodFemalePopulationByAge,Female Population With Poor Mental Health By Age
