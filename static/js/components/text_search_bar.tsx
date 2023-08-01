@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import React, { createRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, InputGroup } from "reactstrap";
 
 interface TextSearchBarPropType {
   allowEmptySearch?: boolean;
   inputId: string;
-  onSearch: (string) => void;
+  onSearch: (q: string) => void;
   initialValue: string;
   placeholder: string;
   shouldAutoFocus?: boolean;

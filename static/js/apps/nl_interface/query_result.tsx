@@ -19,8 +19,7 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
-import React, { createRef, memo, useEffect, useRef, useState } from "react";
+import React, { createRef, memo, useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
