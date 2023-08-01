@@ -345,11 +345,7 @@
     },
     "schools-housing-commute": {
       "title": "Schools, Housing, and Commute",
-<<<<<<< HEAD
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
-=======
-      "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
->>>>>>> 08c3bcec8ec084b0627cbd7404f90f8fa91616d1
       "examples": {
         "general": [
           {
