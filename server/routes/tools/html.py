@@ -94,7 +94,7 @@ def download():
 
 @bp.route('/visualization')
 def visualization():
-  if (not os.environ.get('FLASK_ENV') in ['autopush', 'local']):
+  if current_app.config['HIDE_REVAMP_CHANGES']:
     flask.abort(404)
 
   with open(get_example_file('visualization')) as f:

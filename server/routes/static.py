@@ -30,14 +30,14 @@ bp = Blueprint('static', __name__)
 
 @bp.route('/')
 def homepage():
-  # Return new homepage in autopush
-  if (os.environ.get('FLASK_ENV') in ['autopush', 'local']):
-    return lib_render.render_page(
-        "static/homepage.html",
-        "homepage.html",
-        topics=current_app.config.get('HOMEPAGE_TOPICS', []),
-        partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
-  return lib_render.render_page("static/homepage_old.html", "homepage.html")
+  # Return old homepage if hiding revamp changes
+  if (current_app.config.get('HIDE_REVAMP_CHANGES')):
+    return lib_render.render_page("static/homepage_old.html", "homepage.html")
+  return lib_render.render_page(
+      "static/homepage.html",
+      "homepage.html",
+      topics=current_app.config.get('HOMEPAGE_TOPICS', []),
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
 @bp.route('/old')
