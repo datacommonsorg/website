@@ -166,7 +166,7 @@ export function AppContextProvider(
 
   // When child place types updates, update the selected enclosed place type
   useEffect(() => {
-    if (isContextLoading) {
+    if (isContextLoading || childPlaceTypes === null) {
       return;
     }
     let newEnclosedPlaceType = "";
@@ -225,18 +225,15 @@ export function AppContextProvider(
       .then((resp) => {
         const availableSVs = new Set();
         for (const sv of statVars) {
-          // sv is used if there is even one entity(place) has observations.
-          // This is apparently very loose and can be tightened by making this
-          // a percentage of all entities.
-          let available = false;
+          let numAvailable = 0;
           for (const entity in resp.data[sv.dcid]) {
             if (resp.data[sv.dcid][entity]) {
-              available = true;
+              numAvailable += 1;
+            }
+            if (numAvailable >= (visTypeConfig.svHierarchyNumExistence || 1)) {
+              availableSVs.add(sv.dcid);
               break;
             }
-          }
-          if (available) {
-            availableSVs.add(sv.dcid);
           }
         }
         const filteredStatVars = statVars.filter((sv) =>

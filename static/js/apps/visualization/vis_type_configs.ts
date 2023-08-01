@@ -61,6 +61,9 @@ export interface VisTypeConfig {
   ) => string[];
   // number of stat vars this vis type can display
   numSv?: number;
+  // the min number of entities that should have data for a stat var to be
+  // shown in the hierarchy. Default is 1.
+  svHierarchyNumExistence?: number;
 }
 
 export const VIS_TYPE_CONFIG: Record<string, VisTypeConfig> = {
