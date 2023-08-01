@@ -597,27 +597,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/BingeDrinking_PrevalenceOfBingeDrinkingByAmount"
-      ],
-      "memberList": [
-        "Percent_AtLeastOnceAWeek_BingeDrinking_In_Count_Person",
-        "Percent_Daily_BingeDrinking_In_Count_Person",
-        "Percent_EveryMonth_BingeDrinking_In_Count_Person",
-        "Percent_EveryWeek_BingeDrinking_In_Count_Person",
-        "Percent_LessThanOnceAMonth_BingeDrinking_In_Count_Person",
-        "Percent_NeverOrNotInTheLast12Months_BingeDrinking_In_Count_Person",
-        "Percent_NeverOrOccasional_BingeDrinking_In_Count_Person",
-        "Percent_Never_BingeDrinking_In_Count_Person"
-      ],
-      "name": [
-        "Prevalence of Binge Drinking by Amount"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/BlackOrAfricanAmericanAloneFemalePopulationByAge_BlackOrAfricanAmericanAloneFemalePopulationByAge"
       ],
       "memberList": [
@@ -952,14 +931,14 @@
         "dc/svpg/Count_Person_RacesMonoracial"
       ],
       "memberList": [
-        "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-        "Count_Person_AsianAlone",
-        "Count_Person_AsianOrPacificIslander",
+        "Count_Person_WhiteAlone",
         "Count_Person_BlackOrAfricanAmericanAlone",
         "Count_Person_HispanicOrLatino",
+        "Count_Person_AsianAlone",
+        "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+        "Count_Person_AsianOrPacificIslander",
         "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_SomeOtherRaceAlone",
-        "Count_Person_WhiteAlone"
+        "Count_Person_SomeOtherRaceAlone"
       ],
       "name": [
         "Monoracial Breakdown"
@@ -2708,46 +2687,6 @@
       ],
       "name": [
         "Hispanic Or Latino_ White Alone Population By Age"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/HomeValueInUSDollar"
-      ],
-      "memberList": [
-        "Count_HousingUnit_HomeValueUpto10000USDollar",
-        "Count_HousingUnit_HomeValue10000To14999USDollar",
-        "Count_HousingUnit_HomeValue15000To19999USDollar",
-        "Count_HousingUnit_HomeValue20000To24999USDollar",
-        "Count_HousingUnit_HomeValue25000To29999USDollar",
-        "Count_HousingUnit_HomeValue30000To34999USDollar",
-        "Count_HousingUnit_HomeValue35000To39999USDollar",
-        "Count_HousingUnit_HomeValue40000To49999USDollar",
-        "Count_HousingUnit_HomeValue50000To59999USDollar",
-        "Count_HousingUnit_HomeValue60000To69999USDollar",
-        "Count_HousingUnit_HomeValue70000To79999USDollar",
-        "Count_HousingUnit_HomeValue80000To89999USDollar",
-        "Count_HousingUnit_HomeValue90000To99999USDollar",
-        "Count_HousingUnit_HomeValue100000To124999USDollar",
-        "Count_HousingUnit_HomeValue125000To149999USDollar",
-        "Count_HousingUnit_HomeValue150000To174999USDollar",
-        "Count_HousingUnit_HomeValue175000To199999USDollar",
-        "Count_HousingUnit_HomeValue200000To249999USDollar",
-        "Count_HousingUnit_HomeValue250000To299999USDollar",
-        "Count_HousingUnit_HomeValue300000To399999USDollar",
-        "Count_HousingUnit_HomeValue400000To499999USDollar",
-        "Count_HousingUnit_HomeValue500000To749999USDollar",
-        "Count_HousingUnit_HomeValue750000To999999USDollar",
-        "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-        "Count_HousingUnit_HomeValue1500000To1999999USDollar",
-        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
-        "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-      ],
-      "name": [
-        "Home Value In US Dollars"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -4578,54 +4517,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MaxRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MaxRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MaxRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MaxRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Max Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MeanRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MeanRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MeanRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MeanRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Mean Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MinRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MinRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MinRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MinRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Min Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/NursesAndMidwives_PopulationofNursingWorkers"
       ],
       "memberList": [
@@ -4781,21 +4672,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/PhysicalInactivity_InactivePopulationbyGender"
-      ],
-      "memberList": [
-        "dc/tcqb49dvg7k53",
-        "dc/ty7pq88d26963"
-      ],
-      "name": [
-        "Inactive Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/Physicians_PhysiciansbyTupe"
       ],
       "memberList": [
@@ -4897,142 +4773,6 @@
       ],
       "name": [
         "Prevalance of normal weight population by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByGender"
-      ],
-      "memberList": [
-        "Count_Person_18OrMoreYears_Female_Obesity_AsAFractionOf_Count_Person_18OrMoreYears_Female",
-        "Count_Person_18OrMoreYears_Male_Obesity_AsAFractionOf_Count_Person_18OrMoreYears_Male"
-      ],
-      "name": [
-        "Prevalance of Obesity in Adult Population By Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByResidency"
-      ],
-      "memberList": [
-        "Count_Person_18OrMoreYears_Obesity_Rural_AsAFractionOf_Count_Person_18OrMoreYears_Rural",
-        "Count_Person_18OrMoreYears_Obesity_Urban_AsAFractionOf_Count_Person_18OrMoreYears_Urban"
-      ],
-      "name": [
-        "Prevalance of Obesity in Adult Population By Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_Prevalanceofoverweightpopulationbygender"
-      ],
-      "memberList": [
-        "Percent_Overweight_In_Count_Person_Female",
-        "Percent_Overweight_In_Count_Person_Male"
-      ],
-      "name": [
-        "Prevalance of overweight population by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightPopulationunder4yearsoldbygender"
-      ],
-      "memberList": [
-        "Count_Person_Upto4Years_Female_Overweight_AsFractionOf_Count_Person_Upto4Years_Female",
-        "Count_Person_Upto4Years_Male_Overweight_AsFractionOf_Count_Person_Upto4Years_Male"
-      ],
-      "name": [
-        "Prevalence of Overweight Population under 4 years old by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightpopulationwithsevereactivitylimitationbygender"
-      ],
-      "memberList": [
-        "Percent_Overweight_In_Count_Person_Female_SevereActivityLimitation",
-        "Percent_Overweight_In_Count_Person_Male_SevereActivityLimitation"
-      ],
-      "name": [
-        "Prevalence of Overweight population with severe activity limitation by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObeseAdultPopulationByResidency"
-      ],
-      "memberList": [
-        "Percent_PreObese_In_Count_Person_Rural",
-        "Percent_PreObese_In_Count_Person_SemiUrban",
-        "Percent_PreObese_In_Count_Person_Urban"
-      ],
-      "name": [
-        "Prevalance of Pre Obese Adult Population By Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObesityinAdultPopulationByGender"
-      ],
-      "memberList": [
-        "Percent_PreObese_In_Count_Person_Female",
-        "Percent_PreObese_In_Count_Person_Male"
-      ],
-      "name": [
-        "Prevalance of Pre Obesity in Adult Population By Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationSmoker_Prelalenceofadultsmokersbygender"
-      ],
-      "memberList": [
-        "Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female",
-        "Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male"
-      ],
-      "name": [
-        "Prelalence of adult smokers by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationUnderweight_UnderweightPopulationbyGender"
-      ],
-      "memberList": [
-        "Percent_Underweight_In_Count_Person_Female",
-        "Percent_Underweight_In_Count_Person_Male"
-      ],
-      "name": [
-        "Underweight Population by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -5350,21 +5090,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/Population_MedianAgeofPopulationbyGender"
-      ],
-      "memberList": [
-        "Median_Age_Person_Female",
-        "Median_Age_Person_Male"
-      ],
-      "name": [
-        "Median Age of Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/Population_PopulationbyGender"
       ],
       "memberList": [
@@ -5373,42 +5098,6 @@
       ],
       "name": [
         "Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Population_PopulationbyRace"
-      ],
-      "memberList": [
-        "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-        "Count_Person_AsianAlone",
-        "Count_Person_BlackOrAfricanAmericanAlone",
-        "Count_Person_HispanicOrLatino",
-        "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_SomeOtherRaceAlone",
-        "Count_Person_TwoOrMoreRaces",
-        "Count_Person_WhiteAlone"
-      ],
-      "name": [
-        "Population by Race"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Population_PopulationwithDiasbilitiesbyGender"
-      ],
-      "memberList": [
-        "Count_Person_WithDisability_Female",
-        "Count_Person_WithDisability_Male"
-      ],
-      "name": [
-        "Population with Diasbilities by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6854,6 +6543,178 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations"
+      ],
+      "memberList": [
+        "dc/nfdf9rt7kbggb",
+        "dc/v33p7mwnpe9vb",
+        "dc/4xklqxfc27w1f",
+        "dc/80q8jrnkvwtt3",
+        "dc/jszfr5wd4f7pb",
+        "dc/y9yb58snpfzw5"
+      ],
+      "name": [
+        "Management, Business, Science and Arts Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_MilitarySpecificOccupation"
+      ],
+      "memberList": [
+        "dc/zf0wjwwyddbj4",
+        "dc/2r1c78wzvbq58",
+        "dc/9vlv8l9dbgsk7",
+        "dc/m54m06x6r5xm9",
+        "dc/wqbf0ppbmly7",
+        "dc/bhc16vntggjyd"
+      ],
+      "name": [
+        "Military Specific Occupation"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_NaturalResourcesConstructionandMaintenanceOccupations"
+      ],
+      "memberList": [
+        "dc/vh36nvvkwxz5g",
+        "dc/n99t0lnl3fch6",
+        "dc/2hhr4qp4b4r0b",
+        "dc/j7pej9wer7lkd",
+        "dc/b9plt3q5k6gyb",
+        "dc/06m8j6xz3h0wf"
+      ],
+      "name": [
+        "Natural Resources, Construction and Maintenance Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ProductionTransportationandMaterialMovingOccupations"
+      ],
+      "memberList": [
+        "dc/cs8fvwkmpmlpg",
+        "dc/fgt7thnws9vx9",
+        "dc/j7lkt2ww5qsn5",
+        "dc/dj7khl7q78412",
+        "dc/r0delcsw86kc6",
+        "dc/e27c5t4tbplg"
+      ],
+      "name": [
+        "Production Transportation and Material Moving Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_SalesandOfficeOccupations"
+      ],
+      "memberList": [
+        "dc/7wt44yv38rew",
+        "dc/zcth2y8fqte1f",
+        "dc/nvrxn11yxlen2",
+        "dc/jxsx1rb4xg84f",
+        "dc/kt900ezddrf79",
+        "dc/slp5hywj7b9c1"
+      ],
+      "name": [
+        "Sales and Office Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ServiceOccupations"
+      ],
+      "memberList": [
+        "dc/dn2h9yfcgbkg2",
+        "dc/bre4whrdn7pt7",
+        "dc/n2vhkpw0slkv5",
+        "dc/m615rq99fwf2c",
+        "dc/k33ngtzpqxql6",
+        "dc/6zrlr86zt61yg"
+      ],
+      "name": [
+        "Service Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteMode_ModesofCommute"
+      ],
+      "memberList": [
+        "dc/0gettc3bc60cb",
+        "dc/6rltk4kf75612",
+        "dc/hbkh95kc7pkb6",
+        "dc/vp8cbt6k79t94",
+        "dc/vt2q292eme79f",
+        "dc/wc8q05drd74bd"
+      ],
+      "name": [
+        "Modes of Commute"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteTime_BreakdownbyCommuteTime"
+      ],
+      "memberList": [
+        "dc/fyc3yvjy0xw6g",
+        "dc/dbe0drezxrpv6",
+        "dc/1fw0t5m6459gb",
+        "dc/vgwx3kjjzz8wf",
+        "dc/7ykp70f9rtck9",
+        "dc/exr9t81en1h34",
+        "dc/62gn48xpbqew9",
+        "dc/vfs5dgtzhp4j4",
+        "dc/pplpj0y0mzd3g",
+        "dc/t0hh9jhx104k7",
+        "dc/kfr6chpkw90e3",
+        "dc/h7ft916g93ys2"
+      ],
+      "name": [
+        "Commuters by Commute Time"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Count_SolarInstallation"
+      ],
+      "memberList": [
+        "Count_SolarInstallation"
+      ],
+      "name": [
+        "Number of Solar Installations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByGender"
       ],
       "memberList": [
@@ -7094,27 +6955,273 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
+        "dc/svpg/dc/topic/Electricity_Consumption_BySector"
       ],
       "memberList": [
-        "Count_Worker_NAICSAccommodationFoodServices",
-        "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-        "Count_Worker_NAICSAgricultureForestryFishingHunting",
-        "Count_Worker_NAICSArtsEntertainmentRecreation",
-        "Count_Worker_NAICSEducationalServices",
-        "Count_Worker_NAICSFinanceInsurance",
-        "Count_Worker_NAICSHealthCareSocialAssistance",
-        "Count_Worker_NAICSInformation",
-        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-        "Count_Worker_NAICSOtherServices",
-        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "Count_Worker_NAICSUtilities",
-        "Count_Worker_NAICSWholesaleTrade",
-        "dc/8p97n7l96lgg8",
-        "dc/p69tpsldf99h7"
+        "Annual_Consumption_Electricity",
+        "Annual_Consumption_Electricity_Agriculture",
+        "Annual_Consumption_Electricity_CommerceAndPublicServices",
+        "Annual_Consumption_Electricity_ConstructionIndustry",
+        "Annual_Consumption_Electricity_Households",
+        "Annual_Consumption_Electricity_Manufacturing",
+        "Annual_Consumption_Electricity_TransportIndustry"
       ],
       "name": [
-        "Number Of Workers By Industry"
+        "Electricity Consumption by Sector"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
+      ],
+      "memberList": [
+        "Amount_Consumption_Electricity_PerCapita"
+      ],
+      "name": [
+        "Per capita Electicity Consumption"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_FlourinatedGases"
+      ],
+      "memberList": [
+        "Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic",
+        "Annual_Emissions_Hydrofluorocarbon_NonBiogenic",
+        "Annual_Emissions_Hydrofluoroether_NonBiogenic",
+        "Annual_Emissions_NitrogenTrifluoride_NonBiogenic",
+        "Annual_Emissions_Perfluorocarbon_NonBiogenic",
+        "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+      ],
+      "name": [
+        "Flourinated Gase Emissions"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_Methane_Agriculture",
+        "Annual_Emissions_Methane_FossilFuelOperations",
+        "Annual_Emissions_Methane_NonBiogenic",
+        "Annual_Emissions_Methane_OpenBurningWaste",
+        "Annual_Emissions_Methane_WasteManagement"
+      ],
+      "name": [
+        "Methane Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_NitrousOxide_Agriculture",
+        "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating",
+        "Annual_Emissions_NitrousOxide_Manufacturing",
+        "Annual_Emissions_NitrousOxide_NonBiogenic",
+        "Annual_Emissions_NitrousOxide_Transportation",
+        "Annual_Emissions_NitrousOxide_WasteManagement",
+        "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
+      ],
+      "name": [
+        "Nitrous Oxide Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "memberList": [
+        "member: Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
+      ],
+      "name": [
+        "PM 2.5 Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "memberList": [
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_6_MACTSourceCategories",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
+        "member: Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+      ],
+      "name": [
+        "Sulfur Dioxide Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "memberList": [
+        "Annual_Consumption_Fuel_HardCoal",
+        "Annual_Consumption_Fuel_NaturalGas",
+        "Annual_Consumption_Fuel_PetroleumCoke"
+      ],
+      "name": [
+        "Energy Consumption_by Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP"
+      ],
+      "memberList": [
+        "sdg/ER_FFS_CMPT_GDP"
+      ],
+      "name": [
+        "Fossil fuel as fraction of GDP"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP_PC"
+      ],
+      "memberList": [
+        "sdg/ER_FFS_CMPT_PC_CD"
+      ],
+      "name": [
+        "Fossil fuel per capita"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Fraction"
+      ],
+      "memberList": [
+        "Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy",
+        "Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy",
+        "Amount_Consumption_RenewableEnergy_AsFractionOf_Amount_Consumption_Energy"
+      ],
+      "name": [
+        "Energy Percentages"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Generation_FossilFuels"
+      ],
+      "memberList": [
+        "Annual_Generation_Energy_NaturalGas",
+        "Annual_Generation_Energy_Coal",
+        "Annual_Generation_Fuel_HardCoal",
+        "Annual_Generation_Energy_NaturalGas",
+        "Annual_Generation_Energy_OilProducts",
+        "Annual_Generation_Fuel_PetroleumCoke",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy Generation by Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "memberList": [
+        "Annual_Generation_Electricity_Households",
+        "Annual_Generation_Energy_Geothermal",
+        "Annual_Generation_Energy_Solar",
+        "Annual_Generation_Energy_Water",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy Generation by non-Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Renewables"
+      ],
+      "memberList": [
+        "Annual_Consumption_Energy_Geothermal",
+        "Annual_Generation_Energy_Geothermal",
+        "Annual_Generation_Energy_Solar",
+        "Annual_Generation_Energy_Water",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy from Renewables"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Renewables_Fraction"
+      ],
+      "memberList": [
+        "sdg/EG_FEC_RNEW"
+      ],
+      "name": [
+        "Renewables share"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7205,6 +7312,139 @@
       ],
       "name": [
         "Food stamps by household type"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages"
+      ],
+      "memberList": [
+        "dc/ck1ksqd8rgps6",
+        "dc/j5fv028n7nhe4",
+        "dc/msz3yy4p50yyf"
+      ],
+      "name": [
+        "Green building / construction Wages"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses"
+      ],
+      "memberList": [
+        "dc/51h3g4mcgj3w4",
+        "dc/61t0et409x8ch",
+        "dc/ltwqwtxcq9l23"
+      ],
+      "name": [
+        "Green building / construction businesses"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergybusinesses"
+      ],
+      "memberList": [
+        "dc/00dyzp11kk35g",
+        "dc/eptfljlz7bgbg",
+        "dc/evcytmdmc9xgd",
+        "dc/lsf00jqxjp9r8",
+        "dc/mbn7jcx896cd8",
+        "dc/wfktw3b5c50h1"
+      ],
+      "name": [
+        "Renewable energy businesses"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergyrevenue"
+      ],
+      "memberList": [
+        "dc/96b2ddmlpvq7f",
+        "dc/b6z2v4t8cvcd5",
+        "dc/ktmr6ngnsqxmf",
+        "dc/n18hgz310vw83",
+        "dc/te4lvw7tlnfv9",
+        "dc/xx3v7dmqp95h3"
+      ],
+      "name": [
+        "Renewable energy revenue"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems"
+      ],
+      "memberList": [
+        "dc/mwcnlh5bmdk63",
+        "dc/s9cn1zj5fv5cc"
+      ],
+      "name": [
+        "Renewable energy systems"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenhouseGasses_GreenhouseGasEmissionsBySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_GreenhouseGas_Agriculture",
+        "Annual_Emissions_GreenhouseGas_AluminumProduction",
+        "Annual_Emissions_GreenhouseGas_BauxiteMining",
+        "Annual_Emissions_GreenhouseGas_CementProduction",
+        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
+        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
+        "Annual_Emissions_GreenhouseGas_CopperMining",
+        "Annual_Emissions_GreenhouseGas_CroplandFire",
+        "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+        "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
+        "Annual_Emissions_GreenhouseGas_EntericFermentation",
+        "Annual_Emissions_GreenhouseGas_ForestClearing",
+        "Annual_Emissions_GreenhouseGas_ForestFire",
+        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+        "Annual_Emissions_GreenhouseGas_IronMining",
+        "Annual_Emissions_GreenhouseGas_ManagedSoils",
+        "Annual_Emissions_GreenhouseGas_Manufacturing",
+        "Annual_Emissions_GreenhouseGas_ManureManagement",
+        "Annual_Emissions_GreenhouseGas_MaritimeShipping",
+        "Annual_Emissions_GreenhouseGas_MaritimeTransport",
+        "Annual_Emissions_GreenhouseGas_MineralExtraction",
+        "Annual_Emissions_GreenhouseGas_OilAndGas",
+        "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
+        "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
+        "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
+        "Annual_Emissions_GreenhouseGas_RiceCultivation",
+        "Annual_Emissions_GreenhouseGas_RockQuarry",
+        "Annual_Emissions_GreenhouseGas_SandQuarry",
+        "Annual_Emissions_GreenhouseGas_SavannaFire",
+        "Annual_Emissions_GreenhouseGas_ShrublandFire",
+        "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+      ],
+      "name": [
+        "Greenhouse Gas Emissions By Source"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7614,6 +7854,65 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_LandUse"
+      ],
+      "memberList": [
+        "LandCoverFraction_BareSparseVegetation",
+        "LandCoverFraction_BuiltUp",
+        "LandCoverFraction_Cropland",
+        "LandCoverFraction_Forest",
+        "LandCoverFraction_HerbaceousVegetation",
+        "LandCoverFraction_PermanentWater",
+        "LandCoverFraction_SeasonalWater",
+        "LandCoverFraction_Shrubland",
+        "LandCoverFraction_SnowIce"
+      ],
+      "name": [
+        "Land Use"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity"
+      ],
+      "memberList": [
+        "sdg/DC_ODA_BDVDL",
+        "sdg/ER_PTD_FRHWTR",
+        "sdg/ER_PTD_MTN",
+        "sdg/ER_PTD_TERR",
+        "sdg/ER_RSK_LST"
+      ],
+      "name": [
+        "SDG Biodiversity"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+      ],
+      "memberList": [
+        "sdg/AG_LND_FRST",
+        "sdg/AG_LND_FRSTBIOPHA",
+        "sdg/AG_LND_FRSTCERT",
+        "sdg/AG_LND_FRSTCHG",
+        "sdg/AG_LND_FRSTN",
+        "sdg/AG_LND_FRSTPRCT"
+      ],
+      "name": [
+        "SDG Reforestations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/LevelOfEducationalAttainment_PopulationByLevelofEducationalAttainment"
       ],
       "memberList": [
@@ -7898,6 +8197,155 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
+      ],
+      "memberList": [
+        "Count_DroughtEvent"
+      ],
+      "name": [
+        "Droughts"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "memberList": [
+        "Count_EarthquakeEvent_M5To6",
+        "Count_EarthquakeEvent_M6To7",
+        "Count_EarthquakeEvent_M7To8",
+        "Count_EarthquakeEvent_M8To9",
+        "Count_EarthquakeEvent_M9Onwards"
+      ],
+      "name": [
+        "Earthquakes by Intensities"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Fires"
+      ],
+      "memberList": [
+        "Count_FireEvent",
+        "Count_WildlandFireEvent"
+      ],
+      "name": [
+        "Fires"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Floods"
+      ],
+      "memberList": [
+        "Count_CoastalFloodEvent",
+        "Count_FloodEvent"
+      ],
+      "name": [
+        "Floods"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts"
+      ],
+      "memberList": [
+        "Count_HeatWaveEvent"
+      ],
+      "name": [
+        "Number of Heat Wave Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
+      ],
+      "memberList": [
+        "NumberOfDays_HeatWaveEvent"
+      ],
+      "name": [
+        "Heat Wave Durations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity"
+      ],
+      "memberList": [
+        "Intensity_HeatWaveEvent"
+      ],
+      "name": [
+        "Heat Wave Intensities"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Precipitation"
+      ],
+      "memberList": [
+        "Max_Rainfall",
+        "Mean_Rainfall",
+        "Min_Rainfall"
+      ],
+      "name": [
+        "Precipitation"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
+      ],
+      "memberList": [
+        "PrecipitationRate"
+      ],
+      "name": [
+        "Precipitation Rate"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
+      ],
+      "memberList": [
+        "Area_WetBulbTemperatureEvent",
+        "Count_WetBulbTemperatureEvent"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/NeverMarriedPopulationByDemographic_NeverMarriedPopulationByGender"
       ],
       "memberList": [
@@ -8048,6 +8496,52 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_Fishing"
+      ],
+      "memberList": [
+        "sdg/EN_SCP_FSHGDP",
+        "sdg/ER_H2O_FWTL"
+      ],
+      "name": [
+        "Fishing"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_LitterandPollution"
+      ],
+      "memberList": [
+        "sdg/EN_MAR_BEALITSQ",
+        "sdg/EN_MAR_BEALIT_BP",
+        "sdg/EN_MAR_BEALIT_OP",
+        "sdg/EN_MAR_PLASDD"
+      ],
+      "name": [
+        "Litter and Pollution"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_ProtectedMarineArea"
+      ],
+      "memberList": [
+        "sdg/ER_MRN_MPA"
+      ],
+      "name": [
+        "Protected Marine Area"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/PM10_PM10ConcentrationStats"
       ],
       "memberList": [
@@ -8097,6 +8591,145 @@
       ],
       "name": [
         "Population By Birth Place"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_AQI"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant"
+      ],
+      "name": [
+        "AQI"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_CO",
+        "Max_Concentration_AirPollutant_CO",
+        "Mean_Concentration_AirPollutant_CO",
+        "Median_Concentration_AirPollutant_CO"
+      ],
+      "name": [
+        "Carbon Monoxide"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Diesel"
+      ],
+      "memberList": [
+        "Mean_Concentration_AirPollutant_DieselPM"
+      ],
+      "name": [
+        "Diesel"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_NitrogenDioxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_NO2",
+        "Max_Concentration_AirPollutant_NO2",
+        "Mean_Concentration_AirPollutant_NO2"
+      ],
+      "name": [
+        "Nitrogen Dioxide"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Ozone"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_Ozone",
+        "Max_Concentration_AirPollutant_Ozone",
+        "Mean_Concentration_AirPollutant_Ozone",
+        "Median_Concentration_AirPollutant_Ozone"
+      ],
+      "name": [
+        "Ozone"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_PM10"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_PM10",
+        "Max_Concentration_AirPollutant_PM10",
+        "Mean_Concentration_AirPollutant_PM10"
+      ],
+      "name": [
+        "PM10"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_PM2.5"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_PM2.5",
+        "Max_Concentration_AirPollutant_PM2.5",
+        "Mean_Concentration_AirPollutant_PM2.5",
+        "Median_Concentration_AirPollutant_PM2.5"
+      ],
+      "name": [
+        "PM2.5"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Smoke"
+      ],
+      "memberList": [],
+      "name": [
+        "Smoke"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_SulfurDioxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_SO2",
+        "Max_Concentration_AirPollutant_SO2",
+        "Mean_Concentration_AirPollutant_SO2"
+      ],
+      "name": [
+        "Sulfur Dioxide"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8223,6 +8856,58 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Consumption"
+      ],
+      "memberList": [
+        "sdg/EN_MAT_DOMCMPG",
+        "sdg/EN_MAT_DOMCMPT",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF1",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF11",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF13",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF14",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF2",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF3"
+      ],
+      "name": [
+        "Consumption"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Production"
+      ],
+      "memberList": [
+        "sdg/EN_SCP_FRMN"
+      ],
+      "name": [
+        "Production"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Waste"
+      ],
+      "memberList": [
+        "sdg/AG_FOOD_WST",
+        "sdg/AG_FOOD_WST_PC",
+        "sdg/EN_EWT_GENPCAP",
+        "sdg/EN_EWT_GENV"
+      ],
+      "name": [
+        "Waste"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/PublicHealthInsuranceType_TypeofPublicHealthInsuranceCoverage"
       ],
       "memberList": [
@@ -8307,6 +8992,40 @@
       ],
       "name": [
         "Smoke Concentration 2.5"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Smoke_SmokeDays"
+      ],
+      "memberList": [
+        "NumberOfDays_Concentration_SmokePM25_Above12PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above150PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above250PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above35PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above55PPM"
+      ],
+      "name": [
+        "Smoke Days"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
+      ],
+      "memberList": [
+        "Max_Concentration_AirPollutant_SmokePM25",
+        "Mean_Concentration_AirPollutant_SmokePM25",
+        "Concentration_AirPollutant_SmokePM25"
+      ],
+      "name": [
+        "Smoke PM 2.5"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8569,6 +9288,123 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct"
+      ],
+      "memberList": [
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Decadal Projected Temperature Lows 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Decadal Projected Temperature Highs 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMaximumTemperature"
+      ],
+      "memberList": [
+        "Max_Temperature"
+      ],
+      "name": [
+        "Historical Maximum Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMeanTemperature"
+      ],
+      "memberList": [
+        "Mean_Temperature"
+      ],
+      "name": [
+        "Historical Mean Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMinimumTemperature"
+      ],
+      "memberList": [
+        "Min_Temperature"
+      ],
+      "name": [
+        "Historical Minimum Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_WetBulbEvents"
+      ],
+      "memberList": [
+        "Area_WetBulbTemperatureEvent",
+        "Count_WetBulbTemperatureEvent"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Yearly Projected Temperature Highs 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
+      ],
+      "memberList": [
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Yearly Projected Temperature Lows 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/VeryOldAndVeryYoungPopulation_CountPersonVeryOldGender"
       ],
       "memberList": [
@@ -8609,7 +9445,7 @@
         "WHO/poliov_Female"
       ],
       "name": [
-        "Global Child Immunizations for Females"
+        "Child Immunizations for Females"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8627,7 +9463,7 @@
         "WHO/poliov_Male"
       ],
       "name": [
-        "Global Child Immunizations for Males"
+        "Child Immunizations for Males"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8645,7 +9481,7 @@
         "WHO/poliov_Rural"
       ],
       "name": [
-        "Global Child Immunizations in Rural Area"
+        "Child Immunizations in Rural Area"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8679,7 +9515,7 @@
         "WHO/CM_03"
       ],
       "name": [
-        "Global Child Mortality"
+        "Child Mortality"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8699,7 +9535,7 @@
         "WHO/NUTSTUNTINGPREV"
       ],
       "name": [
-        "Global Non-communicable Diseases Among Children"
+        "Non-communicable Diseases Among Children"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8731,7 +9567,7 @@
         "WHO/SA_0000001689"
       ],
       "name": [
-        "Global Disability-Adjusted Life-Years"
+        "Disability-Adjusted Life-Years"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8749,7 +9585,7 @@
         "WHO/NCD_PAC"
       ],
       "name": [
-        "Global Health Behaviors"
+        "Health Behaviors"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8804,7 +9640,7 @@
         "WHO/NTD_YAWSNUM"
       ],
       "name": [
-        "Global Cases of Neglected Troplical Diseases"
+        "Cases of Neglected Troplical Diseases"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8822,7 +9658,7 @@
         "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
       ],
       "name": [
-        "Global Deaths Due To Non-communicable Diseases"
+        "Deaths Due To Non-communicable Diseases"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9333,21 +10169,6 @@
     },
     {
       "dcid": [
-        "dc/topic/BingeDrinking"
-      ],
-      "name": [
-        "BingeDrinking"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_BingeDrinking",
-        "dc/svpg/BingeDrinking_PrevalenceOfBingeDrinkingByAmount"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Births"
       ],
       "name": [
@@ -9663,6 +10484,70 @@
     },
     {
       "dcid": [
+        "dc/topic/Commute"
+      ],
+      "name": [
+        "Commute"
+      ],
+      "relevantVariableList": [
+        "dc/topic/CommuteMode",
+        "dc/topic/CommuteTime"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteMode"
+      ],
+      "name": [
+        "Commute Mode"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CommuteMode_ModesofCommute",
+        "dc/topic/CommuteModeByOccupation"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteModeByOccupation"
+      ],
+      "name": [
+        "Commute Mode By Occupation"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_SalesandOfficeOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ServiceOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ProductionTransportationandMaterialMovingOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_NaturalResourcesConstructionandMaintenanceOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_MilitarySpecificOccupation"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteTime"
+      ],
+      "name": [
+        "Commute Time"
+      ],
+      "relevantVariableList": [
+        "dc/e9gftzl2hm8h9",
+        "dc/svpg/dc/topic/CommuteTime_BreakdownbyCommuteTime"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Crime"
       ],
       "name": [
@@ -9773,7 +10658,12 @@
         "Demographics"
       ],
       "relevantVariableList": [
+        "Count_Person",
+        "Count_Person_PerArea",
+        "GrowthRate_Count_Person",
         "dc/topic/Age",
+        "dc/topic/Gender",
+        "dc/topic/Race",
         "dc/topic/Language",
         "dc/topic/MaritalStatus",
         "dc/topic/Nationality"
@@ -10019,7 +10909,7 @@
         "Divorced Population By Demographic"
       ],
       "relevantVariableList": [
-        "Count_Person_InLaborForce_Divorced",
+        "Count_Person_Divorced",
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByGender",
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByRace"
       ],
@@ -10125,7 +11015,8 @@
         "dc/topic/Employment",
         "dc/topic/GlobalEconomicActivity",
         "dc/topic/Income",
-        "dc/topic/Poverty"
+        "dc/topic/Poverty",
+        "dc/topic/Agriculture"
       ],
       "typeOf": [
         "Topic"
@@ -10193,6 +11084,22 @@
     },
     {
       "dcid": [
+        "dc/topic/EducationHousingAndCommute"
+      ],
+      "name": [
+        "Education, Housing and Commute"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Education",
+        "dc/topic/Housing",
+        "dc/topic/Commute"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/EducationalAttainment"
       ],
       "name": [
@@ -10241,6 +11148,109 @@
     },
     {
       "dcid": [
+        "dc/topic/Electricity_Consumption"
+      ],
+      "name": [
+        "Electricity Consumption"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Electricity_Consumption_BySector",
+        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions"
+      ],
+      "name": [
+        "Emissions"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Emissions_FlourinatedGases",
+        "dc/topic/Emissions_Methane_EmissionsbySource",
+        "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
+        "dc/topic/Emissions_PM2.5_EmissionsbySource",
+        "dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_FlourinatedGases"
+      ],
+      "name": [
+        "Flourinated Gase Emissions"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_FlourinatedGases"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "name": [
+        "Methane Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "name": [
+        "Nitrous Oxide Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "name": [
+        "PM 2.5 Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "name": [
+        "Sulfur Dioxide Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Employment"
       ],
       "name": [
@@ -10258,20 +11268,6 @@
     },
     {
       "dcid": [
-        "dc/topic/EmploymentByIndustry"
-      ],
-      "name": [
-        "Employment By Industry"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/EmploymentEquity"
       ],
       "name": [
@@ -10280,6 +11276,113 @@
       "relevantVariableList": [
         "dc/svpg/dc/topic/EconomicEquity_LabourForceStatus",
         "dc/topic/UnemploymentRate"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy"
+      ],
+      "name": [
+        "Energy"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Energy_Consumption_FossilFuels",
+        "dc/topic/Energy_Generation",
+        "dc/topic/Energy_Renewables",
+        "dc/topic/Electricity_Consumption",
+        "dc/topic/Energy_Fraction"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "name": [
+        "Energy Consumption by Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Fraction"
+      ],
+      "name": [
+        "Energy Percentages"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Fraction"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation"
+      ],
+      "name": [
+        "Energy Generation"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Energy_Generation_FossilFuels",
+        "dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation_FossilFuels"
+      ],
+      "name": [
+        "Energy Generation by Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Generation_FossilFuels",
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP",
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP_PC"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "name": [
+        "Energy Generation by non-Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Renewables"
+      ],
+      "name": [
+        "Renewables"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Renewables",
+        "dc/svpg/dc/topic/Count_SolarInstallation",
+        "dc/svpg/dc/topic/Energy_Renewables_Fraction"
       ],
       "typeOf": [
         "Topic"
@@ -10318,29 +11421,18 @@
     },
     {
       "dcid": [
-        "dc/topic/Equity",
         "dc/topic/Equity"
       ],
       "name": [
-        "Equity",
         "Equity"
       ],
       "relevantVariableList": [
-        "GiniIndex_EconomicActivity",
-        "GenderIncomeInequality_Person_15OrMoreYears_WithIncome",
-        "Median_Income_Household_HouseholderRaceAsianAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-        "Count_Person_WithDisability_WhiteAlone",
-        "Count_Person_AsianAlone_ResidesInJuvenileFacilities",
-        "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities",
-        "Count_Death_AmericanIndianAndAlaskaNativeAlone",
         "dc/topic/EconomicEquity",
         "dc/topic/EducationEquity",
         "dc/topic/HealthEquity",
         "dc/topic/JusticeSystemEquity"
       ],
       "typeOf": [
-        "Topic",
         "Topic"
       ]
     },
@@ -10368,8 +11460,7 @@
       ],
       "relevantVariableList": [
         "Count_ExcessiveHeatEvent",
-        "dc/topic/HeatWave",
-        "dc/topic/WetBulbTemperature"
+        "dc/topic/HeatWave"
       ],
       "typeOf": [
         "Topic"
@@ -10514,7 +11605,36 @@
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
         "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+        "dc/topic/GDPByIndustry",
         "dc/topic/InflationAdjustedGDP"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GDPByIndustry"
+      ],
+      "name": [
+        "GDP By Industry"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/RealGDPByIndustry"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Gender"
+      ],
+      "name": [
+        "Gender"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/Population_PopulationbyGender"
       ],
       "typeOf": [
         "Topic"
@@ -10528,9 +11648,9 @@
         "Global Economic Activity"
       ],
       "relevantVariableList": [
+        "dc/topic/GDP",
         "dc/topic/Debt",
         "dc/topic/EducationExpenditure",
-        "dc/topic/GDP",
         "dc/topic/HealthcareExpenditure",
         "dc/topic/Remittance"
       ],
@@ -10551,6 +11671,38 @@
         "dc/topic/WHOMortality",
         "dc/topic/WHONeglectedTropicalDiseases",
         "dc/topic/WHONonCommunicableDiseases"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GreenJobs"
+      ],
+      "name": [
+        "Green Jobs"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages",
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergybusinesses",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergyrevenue",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GreenhouseGasses"
+      ],
+      "name": [
+        "Greenhouse Gasses"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/GreenhouseGasses_GreenhouseGasEmissionsBySource"
       ],
       "typeOf": [
         "Topic"
@@ -10672,7 +11824,8 @@
         "dc/topic/HeartDisease",
         "dc/topic/MentalHealth",
         "dc/topic/KidneyDisease",
-        "dc/topic/Stroke"
+        "dc/topic/Stroke",
+        "dc/topic/HeatIllnesses"
       ],
       "typeOf": [
         "Topic"
@@ -11405,21 +12558,6 @@
     },
     {
       "dcid": [
-        "dc/topic/HomeValue"
-      ],
-      "name": [
-        "Home Value"
-      ],
-      "relevantVariableList": [
-        "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied",
-        "dc/svpg/HomeValueInUSDollar"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/HouseFeatures"
       ],
       "name": [
@@ -11988,6 +13126,22 @@
     },
     {
       "dcid": [
+        "dc/topic/LandUse/Coverage"
+      ],
+      "name": [
+        "Land Use / Coverage"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/LandUse/Coverage_LandUse",
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity",
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Landslide"
       ],
       "name": [
@@ -12057,8 +13211,7 @@
       ],
       "relevantVariableList": [
         "LifeExpectancy_Person",
-        "dc/svpg/LifeExpectancy_LifeExpectancybyGender",
-        "Median_Age_Person"
+        "dc/svpg/LifeExpectancy_LifeExpectancybyGender"
       ],
       "typeOf": [
         "Topic"
@@ -12488,7 +13641,7 @@
         "Mortality"
       ],
       "relevantVariableList": [
-        "LifeExpectancy_Person",
+        "dc/topic/LifeExpectancy",
         "dc/topic/CausesOfDeath",
         "dc/topic/FemaleMortality",
         "dc/topic/InfantMortality",
@@ -12614,6 +13767,127 @@
       ],
       "relevantVariableList": [
         "dc/svpg/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters"
+      ],
+      "name": [
+        "Natural Disasters"
+      ],
+      "relevantVariableList": [
+        "dc/topic/NaturalDisasters_Droughts",
+        "dc/topic/NaturalDisasters_Floods",
+        "dc/topic/NaturalDisasters_Fires",
+        "dc/topic/NaturalDisasters_HeatWaveEvents",
+        "dc/topic/NaturalDisasters_Precipitation",
+        "dc/topic/NaturalDisasters_WetBulbEvents",
+        "dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Droughts"
+      ],
+      "name": [
+        "Droughts"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "name": [
+        "Earthquakes"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Fires"
+      ],
+      "name": [
+        "Fires"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Fires"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Floods"
+      ],
+      "name": [
+        "Floods"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Floods"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_HeatWaveEvents"
+      ],
+      "name": [
+        "HeatWave Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts",
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity",
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Precipitation"
+      ],
+      "name": [
+        "Precipitation"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Precipitation",
+        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_WetBulbEvents"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
       ],
       "typeOf": [
         "Topic"
@@ -13381,6 +14655,22 @@
     },
     {
       "dcid": [
+        "dc/topic/OceanHealth"
+      ],
+      "name": [
+        "Ocean Health"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/OceanHealth_Fishing",
+        "dc/svpg/dc/topic/OceanHealth_LitterandPollution",
+        "dc/svpg/dc/topic/OceanHealth_ProtectedMarineArea"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Ozone"
       ],
       "name": [
@@ -13504,21 +14794,6 @@
     },
     {
       "dcid": [
-        "dc/topic/PhysicalInactivity"
-      ],
-      "name": [
-        "PhysicalInactivity"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_PhysicalInactivity",
-        "dc/svpg/PhysicalInactivity_InactivePopulationbyGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Physicians"
       ],
       "name": [
@@ -13567,6 +14842,43 @@
     },
     {
       "dcid": [
+        "dc/topic/Pollutants"
+      ],
+      "name": [
+        "Pollutants"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Pollutants_AQI",
+        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide",
+        "dc/svpg/dc/topic/Pollutants_Diesel",
+        "dc/svpg/dc/topic/Pollutants_NitrogenDioxide",
+        "dc/svpg/dc/topic/Pollutants_Ozone",
+        "dc/svpg/dc/topic/Pollutants_PM10",
+        "dc/svpg/dc/topic/Pollutants_PM2.5",
+        "dc/svpg/dc/topic/Pollutants_SulfurDioxide",
+        "dc/topic/Pollutants_Smoke"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Pollutants_Smoke"
+      ],
+      "name": [
+        "Smoke"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Smoke_SmokeDays",
+        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Pollution"
       ],
       "name": [
@@ -13575,29 +14887,6 @@
       "relevantVariableList": [
         "dc/topic/AirQualityIndex",
         "dc/topic/PollutantConcentration"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Population"
-      ],
-      "name": [
-        "Population"
-      ],
-      "relevantVariableList": [
-        "Count_Person",
-        "Count_Person_PerArea",
-        "Count_Person_WithDisability",
-        "GrowthRate_Count_Person",
-        "IncrementalCount_Person",
-        "Median_Age_Person",
-        "dc/svpg/Population_MedianAgeofPopulationbyGender",
-        "dc/svpg/Population_PopulationbyGender",
-        "dc/svpg/Population_PopulationbyRace",
-        "dc/svpg/Population_PopulationwithDiasbilitiesbyGender"
       ],
       "typeOf": [
         "Topic"
@@ -13683,119 +14972,6 @@
         "Percent_Normalweight_In_Count_Person",
         "dc/svpg/PopulationNormalWeight_PrevalanceofNormalWeightAdultPopulationByResidency",
         "dc/svpg/PopulationNormalWeight_Prevalanceofnormalweightpopulationbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationObese"
-      ],
-      "name": [
-        "PopulationObese"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_Obesity",
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByGender",
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByResidency"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationOverweight"
-      ],
-      "name": [
-        "PopulationOverweight"
-      ],
-      "relevantVariableList": [
-        "Percent_Overweight_In_Count_Person",
-        "Percent_Overweight_In_Count_Person_SevereActivityLimitation",
-        "dc/svpg/PopulationOverweight_Prevalanceofoverweightpopulationbygender",
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightPopulationunder4yearsoldbygender",
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightpopulationwithsevereactivitylimitationbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationPreObese"
-      ],
-      "name": [
-        "PopulationPreObese"
-      ],
-      "relevantVariableList": [
-        "Percent_PreObese_In_Count_Person",
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObeseAdultPopulationByResidency",
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObesityinAdultPopulationByGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationSmoker"
-      ],
-      "name": [
-        "PopulationSmoker"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_Smoking",
-        "dc/svpg/PopulationSmoker_Prelalenceofadultsmokersbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationUndersleeping"
-      ],
-      "name": [
-        "PopulationUndersleeping"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_SleepLessThan7Hours"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationUnderweight"
-      ],
-      "name": [
-        "PopulationUnderweight"
-      ],
-      "relevantVariableList": [
-        "Percent_Underweight_In_Count_Person",
-        "dc/svpg/PopulationUnderweight_UnderweightPopulationbyGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationWeight"
-      ],
-      "name": [
-        "PopulationWeight"
-      ],
-      "relevantVariableList": [
-        "dc/topic/PopulationNormalWeight",
-        "dc/topic/PopulationObese",
-        "dc/topic/PopulationOverweight",
-        "dc/topic/PopulationPreObese",
-        "dc/topic/PopulationUnderweight",
-        "dc/topic/PopulationUnderweight"
       ],
       "typeOf": [
         "Topic"
@@ -14102,6 +15278,22 @@
     },
     {
       "dcid": [
+        "dc/topic/ProductionConsumptionandWaste"
+      ],
+      "name": [
+        "Production Consumption and Waste"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Consumption",
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Production",
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Waste"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/PublicHealthInsuranceType"
       ],
       "name": [
@@ -14116,10 +15308,10 @@
     },
     {
       "dcid": [
-        "dc/topic/RacialBreakdown"
+        "dc/topic/Race"
       ],
       "name": [
-        "Racial Breakdown"
+        "Population by Race"
       ],
       "relevantVariableList": [
         "dc/svpg/Count_Person_RacesMonoracial",
@@ -14236,10 +15428,10 @@
         "dc/topic/Demographics",
         "dc/topic/Health",
         "dc/topic/Economy",
-        "dc/topic/Education",
-        "dc/topic/Housing",
+        "dc/topic/EducationHousingAndCommute",
         "dc/topic/Environment",
-        "dc/topic/Equity"
+        "dc/topic/Equity",
+        "dc/topic/Sustainability"
       ],
       "typeOf": [
         "Topic"
@@ -14757,6 +15949,30 @@
     },
     {
       "dcid": [
+        "dc/topic/Sustainability"
+      ],
+      "name": [
+        "Sustainability"
+      ],
+      "relevantVariableList": [
+        "dc/topic/GreenhouseGasses",
+        "dc/topic/Emissions",
+        "dc/topic/Pollutants",
+        "dc/topic/Energy",
+        "dc/topic/GreenJobs",
+        "dc/topic/LandUse/Coverage",
+        "dc/topic/Temperatures",
+        "dc/topic/NaturalDisasters",
+        "dc/topic/OceanHealth",
+        "dc/topic/ProductionConsumptionandWaste",
+        "dc/topic/Agriculture"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Tariffs"
       ],
       "name": [
@@ -14818,6 +16034,27 @@
         "dc/topic/DecadeProjectedTemperatureLows",
         "dc/topic/YearlyProjectedTemperatureHighs",
         "dc/topic/YearlyProjectedTemperatureLows"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Temperatures"
+      ],
+      "name": [
+        "Temperatures"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct",
+        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMaximumTemperature",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMeanTemperature",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMinimumTemperature",
+        "dc/svpg/dc/topic/Temperatures_WetBulbEvents",
+        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct",
+        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
       ],
       "typeOf": [
         "Topic"
@@ -15114,7 +16351,7 @@
         "dc/topic/WHOChildImmunization"
       ],
       "name": [
-        "Global Child Immunization"
+        "Child Immunization"
       ],
       "relevantVariableList": [
         "WHO/WHS4_117",
@@ -15132,7 +16369,7 @@
         "dc/topic/WHOChildImmunizationsByGender"
       ],
       "name": [
-        "Global Child Immunizations By Gender"
+        "Child Immunizations By Gender"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildImmunizationsByGender_ChildImmunizationsforFemales",
@@ -15147,7 +16384,7 @@
         "dc/topic/WHOChildImmunizationsByUrbanRural"
       ],
       "name": [
-        "Global Child Immunizations By Residency"
+        "Child Immunizations By Residency"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildImmunizationsByUrbanRural_ChildImmunizationsinRuralarea",
@@ -15162,7 +16399,7 @@
         "dc/topic/WHOChildMortality"
       ],
       "name": [
-        "Global Child Mortality"
+        "Child Mortality"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildMortality_ChildMortality"
@@ -15176,7 +16413,7 @@
         "dc/topic/WHOChildrenNonCommunicableDiseases"
       ],
       "name": [
-        "Global Non-Communicable Diseases Among Children"
+        "Non-Communicable Diseases Among Children"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildrenNonCommunicableDiseases_Noncommunicablediseasesamongchildren"
@@ -15190,7 +16427,7 @@
         "dc/topic/WHODALYByCauses"
       ],
       "name": [
-        "Global DALY Causes"
+        "DALY Causes"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHODALYByCauses_DisabilityAdjustedLifeYears"
@@ -15204,7 +16441,7 @@
         "dc/topic/WHOHealthBehavior"
       ],
       "name": [
-        "Global Health Behavior"
+        "Health Behavior"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOHealthBehavior_HealthBehavior"
@@ -15218,7 +16455,7 @@
         "dc/topic/WHOImmunization"
       ],
       "name": [
-        "Global Immunization"
+        "Immunization"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildImmunization",
@@ -15234,7 +16471,7 @@
         "dc/topic/WHOMaternalMortality"
       ],
       "name": [
-        "Global Maternal Mortality"
+        "Maternal Mortality"
       ],
       "relevantVariableList": [
         "WHO/MORT_MATERNALNUM",
@@ -15249,7 +16486,7 @@
         "dc/topic/WHOMortality"
       ],
       "name": [
-        "Global Mortality"
+        "Mortality"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildMortality",
@@ -15266,7 +16503,7 @@
         "dc/topic/WHOMortalityCauses"
       ],
       "name": [
-        "Global Mortality Causes"
+        "Mortality Causes"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOMortalityCauses_Mortalityratesbycauses"
@@ -15280,7 +16517,7 @@
         "dc/topic/WHONeglectedTropicalDiseases"
       ],
       "name": [
-        "Global Neglected Tropical Diseases"
+        "Neglected Tropical Diseases"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHONeglectedTropicalDiseases_CasesofNeglectedTroplicalDiseases"
@@ -15294,7 +16531,7 @@
         "dc/topic/WHONonCommunicableDiseaseDeaths"
       ],
       "name": [
-        "Global Non-Communicable Disease Deaths"
+        "Non-Communicable Disease Deaths"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHONonCommunicableDiseaseDeaths_DeathsduetoNoncommunicabledeaths"
@@ -15308,7 +16545,7 @@
         "dc/topic/WHONonCommunicableDiseases"
       ],
       "name": [
-        "Global Non-Communicable Diseases"
+        "Non-Communicable Diseases"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildrenNonCommunicableDiseases",
@@ -15345,24 +16582,6 @@
       "relevantVariableList": [
         "Area_WetBulbTemperatureEvent",
         "Count_WetBulbTemperatureEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WetBulbTemperature"
-      ],
-      "name": [
-        "Wet Bulb Temperature"
-      ],
-      "relevantVariableList": [
-        "Count_WetBulbTemperatureEvent",
-        "Area_WetBulbTemperatureEvent",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MaxRelativeHumidityByRCPScenario",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MinRelativeHumidityByRCPScenario",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MeanRelativeHumidityByRCPScenario"
       ],
       "typeOf": [
         "Topic"

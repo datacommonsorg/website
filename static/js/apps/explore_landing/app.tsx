@@ -66,6 +66,7 @@ export function App(): JSX.Element {
         <h1>{currentTopic.title}</h1>
         <p>{currentTopic.description}</p>
         <div className="explore-search">
+          <div className="experiment-tag">Experiment</div>
           <TextSearchBar
             inputId="query-search-input"
             onSearch={(q) => {
