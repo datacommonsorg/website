@@ -118,8 +118,8 @@ const multiVarPartsElement = (c: MultiSVCandidate): JSX.Element => {
 };
 
 const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
-  const monovar_scores = Object.values(svScores.CosineScore);
-  const max_monovar_score = monovar_scores.length > 0 ? monovar_scores[0] : 0;
+  const monovarScores = Object.values(svScores.CosineScore);
+  const maxMonovarScore = monovarScores.length > 0 ? monovarScores[0] : 0;
   const candidates = svScores.MultiSV.Candidates;
   return (
     <div id="multi-sv-scores-list">
@@ -142,7 +142,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
                   </td>
                   <td>
                     {c.AggCosineScore}{" "}
-                    {c.AggCosineScore > max_monovar_score
+                    {c.AggCosineScore > maxMonovarScore
                       ? " (> best single var)"
                       : ""}
                   </td>
