@@ -37,7 +37,6 @@ import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { AppContext } from "./app_context";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
-const NUM_ENTITIES_EXISTENCE = 10;
 interface StatVarSelectorPropType {
   selectOnContinue?: boolean;
 }
@@ -72,11 +71,10 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
           selectSV={addSv}
           searchLabel={""}
           deselectSV={removeSv}
-          numEntitiesExistence={
-            visTypeConfig.skipEnclosedPlaceType
-              ? 1
-              : Math.min(samplePlaces.length, NUM_ENTITIES_EXISTENCE)
-          }
+          numEntitiesExistence={Math.min(
+            samplePlaces.length,
+            visTypeConfig.svHierarchyNumExistence || 1
+          )}
         />
       </div>
       {props.selectOnContinue && (

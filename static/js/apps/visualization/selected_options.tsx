@@ -111,7 +111,7 @@ export function SelectedOptions(): JSX.Element {
                             className="material-icons-outlined action"
                             onClick={() => setShowPlaceSelector(false)}
                           >
-                            remove
+                            close
                           </span>
                         </div>
                         <PlaceSelector

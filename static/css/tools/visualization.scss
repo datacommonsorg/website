@@ -39,6 +39,11 @@ $selector-footer-height: 40px;
   cursor: pointer;
 }
 
+.context-loading-spinner {
+  position: relative;
+  height: 100%;
+}
+
 /* Vis type selector */
 .vis-type-selector {
   display: flex;
