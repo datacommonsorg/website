@@ -32,11 +32,11 @@
     "icon": "eco"
   },
   {
-    "id": "schools-housing-commute",
-    "title": "Schools, Housing, and Commute",
+    "id": "education-housing-commute",
+    "title": "Education, Housing, and Commute",
     "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
-    "url": "/nl#topic=schools-housing-commute",
-    "browseUrl": "/explore/schools-housing-commute",
+    "url": "/nl#topic=education-housing-commute",
+    "browseUrl": "/explore/education-housing-commute",
     "icon": "school"
   },
   {

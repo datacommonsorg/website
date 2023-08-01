@@ -4,7 +4,7 @@
     "demographics",
     "health",
     "sustainability",
-    "schools-housing-commute",
+    "education-housing-commute",
     "equity"
   ],
   "topics": {
@@ -317,8 +317,8 @@
         ]
       }
     },
-    "schools-housing-commute": {
-      "title": "Schools, Housing, and Commute",
+    "education-housing-commute": {
+      "title": "Education, Housing, and Commute",
       "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
