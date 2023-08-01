@@ -24,7 +24,12 @@ import { Container } from "reactstrap";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { useStoreActions, useStoreState } from "./app_state";
 
-export function QuerySearch(): JSX.Element {
+interface QuerySearchProps {
+  query: string;
+}
+
+export function QuerySearch(props: QuerySearchProps): JSX.Element {
+  const { query } = props;
   const config = useStoreState((s) => s.config);
   const nlQueryContext = useStoreState(
     (s) => s.nlQueryContexts[config.currentNlQueryContextId]
@@ -36,6 +41,7 @@ export function QuerySearch(): JSX.Element {
     return nlQueryContext.nlQueryIds.map((nlQueryId) => s.nlQueries[nlQueryId]);
   });
   const search = useStoreActions((a) => a.search);
+  const updateConfig = useStoreActions((a) => a.updateConfig);
 
   return (
     <div id="search-container">
@@ -43,8 +49,27 @@ export function QuerySearch(): JSX.Element {
         <div className="search-section">
           <div className="search-box-section">
             <TextSearchBar
+              allowEmptySearch={
+                /**
+                 * If we're in auto-run manual mode, when a query runs an "empty search" (hits enter in a blank prompt),
+                 * use this as a cue that we want to show the next URL prompt
+                 */
+                config.autoPlayCurrentQueryIndex < config.urlPrompts.length &&
+                config.autoPlayManuallyShowQuery
+              }
               inputId="query-search-input"
-              onSearch={(q) => {
+              onSearch={(q: string) => {
+                /**
+                 * Handle auto-play manual mode:
+                 * Show the next url prompt when user hits enter in blank search bar
+                 */
+                if (config.autoPlayManuallyShowQuery && !q.trim()) {
+                  updateConfig({
+                    autoPlayCurrentQueryIndex:
+                      config.autoPlayCurrentQueryIndex + 1,
+                  });
+                  return;
+                }
                 search({
                   config,
                   nlQueryContext,
@@ -52,7 +77,7 @@ export function QuerySearch(): JSX.Element {
                   query: q,
                 });
               }}
-              initialValue=""
+              initialValue={query}
               placeholder={
                 nlQueryHistory.length > 0
                   ? ""
