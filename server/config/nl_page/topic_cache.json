@@ -6543,6 +6543,164 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations"
+      ],
+      "memberList": [
+        "dc/nfdf9rt7kbggb",
+        "dc/v33p7mwnpe9vb",
+        "dc/4xklqxfc27w1f",
+        "dc/80q8jrnkvwtt3",
+        "dc/jszfr5wd4f7pb",
+        "dc/y9yb58snpfzw5"
+      ],
+      "name": [
+        "Management, Business, Science and Arts Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_MilitarySpecificOccupation"
+      ],
+      "memberList": [
+        "dc/zf0wjwwyddbj4",
+        "dc/2r1c78wzvbq58",
+        "dc/9vlv8l9dbgsk7",
+        "dc/m54m06x6r5xm9",
+        "dc/wqbf0ppbmly7",
+        "dc/bhc16vntggjyd"
+      ],
+      "name": [
+        "Military Specific Occupation"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_NaturalResourcesConstructionandMaintenanceOccupations"
+      ],
+      "memberList": [
+        "dc/vh36nvvkwxz5g",
+        "dc/n99t0lnl3fch6",
+        "dc/2hhr4qp4b4r0b",
+        "dc/j7pej9wer7lkd",
+        "dc/b9plt3q5k6gyb",
+        "dc/06m8j6xz3h0wf"
+      ],
+      "name": [
+        "Natural Resources, Construction and Maintenance Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ProductionTransportationandMaterialMovingOccupations"
+      ],
+      "memberList": [
+        "dc/cs8fvwkmpmlpg",
+        "dc/fgt7thnws9vx9",
+        "dc/j7lkt2ww5qsn5",
+        "dc/dj7khl7q78412",
+        "dc/r0delcsw86kc6",
+        "dc/e27c5t4tbplg"
+      ],
+      "name": [
+        "Production Transportation and Material Moving Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_SalesandOfficeOccupations"
+      ],
+      "memberList": [
+        "dc/7wt44yv38rew",
+        "dc/zcth2y8fqte1f",
+        "dc/nvrxn11yxlen2",
+        "dc/jxsx1rb4xg84f",
+        "dc/kt900ezddrf79",
+        "dc/slp5hywj7b9c1"
+      ],
+      "name": [
+        "Sales and Office Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ServiceOccupations"
+      ],
+      "memberList": [
+        "dc/dn2h9yfcgbkg2",
+        "dc/bre4whrdn7pt7",
+        "dc/n2vhkpw0slkv5",
+        "dc/m615rq99fwf2c",
+        "dc/k33ngtzpqxql6",
+        "dc/6zrlr86zt61yg"
+      ],
+      "name": [
+        "Service Occupations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteMode_ModesofCommute"
+      ],
+      "memberList": [
+        "dc/0gettc3bc60cb",
+        "dc/6rltk4kf75612",
+        "dc/hbkh95kc7pkb6",
+        "dc/vp8cbt6k79t94",
+        "dc/vt2q292eme79f",
+        "dc/wc8q05drd74bd"
+      ],
+      "name": [
+        "Modes of Commute"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/CommuteTime_BreakdownbyCommuteTime"
+      ],
+      "memberList": [
+        "dc/fyc3yvjy0xw6g",
+        "dc/dbe0drezxrpv6",
+        "dc/1fw0t5m6459gb",
+        "dc/vgwx3kjjzz8wf",
+        "dc/7ykp70f9rtck9",
+        "dc/exr9t81en1h34",
+        "dc/62gn48xpbqew9",
+        "dc/vfs5dgtzhp4j4",
+        "dc/pplpj0y0mzd3g",
+        "dc/t0hh9jhx104k7",
+        "dc/kfr6chpkw90e3",
+        "dc/h7ft916g93ys2"
+      ],
+      "name": [
+        "Commuters by Commute Time"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByGender"
       ],
       "memberList": [
@@ -9309,6 +9467,70 @@
     },
     {
       "dcid": [
+        "dc/topic/Commute"
+      ],
+      "name": [
+        "Commute"
+      ],
+      "relevantVariableList": [
+        "dc/topic/CommuteMode",
+        "dc/topic/CommuteTime"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteMode"
+      ],
+      "name": [
+        "Commute Mode"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CommuteMode_ModesofCommute",
+        "dc/topic/CommuteModeByOccupation"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteModeByOccupation"
+      ],
+      "name": [
+        "Commute Mode By Occupation"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_SalesandOfficeOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ServiceOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_ProductionTransportationandMaterialMovingOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_NaturalResourcesConstructionandMaintenanceOccupations",
+        "dc/svpg/dc/topic/CommuteModeByOccupation_MilitarySpecificOccupation"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/CommuteTime"
+      ],
+      "name": [
+        "Commute Time"
+      ],
+      "relevantVariableList": [
+        "dc/e9gftzl2hm8h9",
+        "dc/svpg/dc/topic/CommuteTime_BreakdownbyCommuteTime"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Crime"
       ],
       "name": [
@@ -9838,6 +10060,22 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/EducationFaculty_NumberofTeachersByFacultyType"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/EducationHousingAndCommute"
+      ],
+      "name": [
+        "Education, Housing and Commute"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Education",
+        "dc/topic/Housing",
+        "dc/topic/Commute"
       ],
       "typeOf": [
         "Topic"
@@ -13726,8 +13964,7 @@
         "dc/topic/Demographics",
         "dc/topic/Health",
         "dc/topic/Economy",
-        "dc/topic/Education",
-        "dc/topic/Housing",
+        "dc/topic/EducationHousingAndCommute",
         "dc/topic/Environment",
         "dc/topic/Equity"
       ],

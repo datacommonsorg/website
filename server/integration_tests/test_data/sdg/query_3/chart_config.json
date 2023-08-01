@@ -58,16 +58,16 @@
                   },
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Life Expectancy in the World (${date})",
+                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+                      "LifeExpectancy_Person"
                     ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
+                    "title": "Life Expectancy in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -109,7 +109,7 @@
                 ]
               }
             ],
-            "title": "Global Health Behaviors"
+            "title": "Health Behaviors"
           },
           {
             "columns": [
@@ -153,7 +153,7 @@
                 ]
               }
             ],
-            "title": "Global Child Immunizations for Females"
+            "title": "Child Immunizations for Females"
           },
           {
             "columns": [
@@ -197,7 +197,7 @@
                 ]
               }
             ],
-            "title": "Global Child Immunizations for Males"
+            "title": "Child Immunizations for Males"
           },
           {
             "columns": [
@@ -241,7 +241,7 @@
                 ]
               }
             ],
-            "title": "Global Child Immunizations in Rural Area"
+            "title": "Child Immunizations in Rural Area"
           },
           {
             "columns": [
@@ -315,7 +315,7 @@
                 ]
               }
             ],
-            "title": "Global Child Mortality"
+            "title": "Child Mortality"
           }
         ],
         "statVarSpec": {
