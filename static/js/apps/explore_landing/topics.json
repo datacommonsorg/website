@@ -29,7 +29,7 @@
         "specific": [
           {
             "title": "Number of poor hispanic women in Santa Clara County",
-            "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County&p=geoId/06085"
+            "url": "q=Number+of+poor+hispanic+women+in+Santa+Clara+County"
           },
           {
             "title": "Counties with the highest unemployment rate in the US",
@@ -45,7 +45,7 @@
           },
           {
             "title": "Countries with the lowest Gini index",
-            "url": "oq=Countries+with+the+lowest+Gini+index&t=dc/svpg/dc/topic/EconomicEquity_GiniIndex&p=Earth&pt=Country"
+            "url": "oq=Countries+with+the+lowest+Gini+index&t=GiniIndex_EconomicActivity&p=Earth&pt=Country"
           }
         ],
         "comparison": [
@@ -613,71 +613,71 @@
         "general": [
           {
             "title": "Which counties emit the most greenhouse gasses",
-            "url": "oq=Which+counties+emit+the+most+greenhouse+gasses&p=country/USA&pt=County&t=dc/topic/GreenhouseGasses"
+            "url": "q=Which+counties+emit+the+most+greenhouse+gasses"
           },
           {
             "title": "Emissions in Harris County, Texas",
-            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
+            "url": "q=Emissions+in+Harris+County,+Texas"
           },
           {
             "title": "Pollution in Los Angeles County",
-            "url": "oq=Pollution+in+Los+Angeles+County&t=dc/topic/Pollution&p=geoId/06037"
+            "url": "q=Pollution+in+Los+Angeles+County"
           },
           {
             "title": "Projected temperature extremes in US counties",
-            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
+            "url": "q=Projected+temperature+extremes+in+USA"
           },
           {
             "title": "Energy use in the US",
-            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
+            "url": "q=Energy+use+in+the+US"
           },
           {
             "title": "Green jobs in the US",
-            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
+            "url": "q=Green+jobs+in+the+US"
           }
         ],
         "specific": [
           {
             "title": "Electronic Waste generated in different countries",
-            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV&t=sdg/EN_EWT_GENCAP"
+            "url": "q=Electronic+Waste+generated+in+different+countries"
           },
           {
             "title": "Floods in Pakistan",
-            "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
+            "url": "q=Floods+in+Pakistan"
           },
           {
             "title": "Solar installations across across states in the US",
-            "url": "oq=Solar+installations+across+states+in+the+US&p=country/USA&pt=State&t=dc/svpg/dc/topic/Count_SolarInstallation"
+            "url": "q=Solar+installations+across+states+in+the+US"
           },
           {
             "title": "Drought events across different countries",
-            "url": "oq=Drought+events+across+different+countries&p=Earth&pt=Country&t=dc/topic/Drought"
+            "url": "q=Drought+events+across+different+countries"
           },
           {
             "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/svpg/dc/topic/Smoke_SmokeDays"
+            "url": "q=Counties+in+the+US+with+the+most+smoke+days"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
-            "url": "oq=Top+sources+of+CO2+emissions+in+the+US&p=country/USA&t=dc=topic=CO2Emissions"
+            "url": "q=Top+sources+of+CO2+emissions+in+the+US"
           },
           {
             "title": "Which countries have the greatest increase in greenhouse gas emissions",
-            "url": "q=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/PollutantConcentration"
+            "url": "q=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
           }
         ],
         "comparison": [
           {
             "title": "How does PM 2.5 correlate with asthma across US counties",
-            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
+            "url": "q=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
           },
           {
             "title": "How does solar energy generation correlate with median income across US states",
-            "url": "q=How+does+solar+energy+generation+correlate+with+median+income+across+US+states&p=country/USA&pt=State&t=dc/topic/SolarPotential&tcmp=dc/topic/Income"
+            "url": "q=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
-            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure"
+            "url": "q=AQI+vs+blood+pressure+in+New+Jersey"
           }
         ]
       },
