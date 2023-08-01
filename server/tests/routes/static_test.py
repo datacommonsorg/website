@@ -22,13 +22,13 @@ class TestStaticPages(unittest.TestCase):
   def test_homepage(self):
     response = app.test_client().get('/')
     assert response.status_code == 200
-    assert b"Data Commons aggregates data" in response.data
+    assert b"Data tells interesting stories" in response.data
 
   def test_homepage_i18n(self):
     response = app.test_client().get('/?hl=es')
     assert response.status_code == 200
     # TODO: add i18n
-    assert b"Data Commons aggregates data" in response.data
+    assert b"Data tells interesting stories" in response.data
 
   def test_about(self):
     response = app.test_client().get('/about')
