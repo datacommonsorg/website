@@ -24,6 +24,7 @@
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   locale: string, value for html lang attr
+  brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
 
   Blocks to override:
   head - additional head elements
@@ -108,11 +109,14 @@
                   <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-                  {% if config['SHOW_DISASTER'] %}
-                    <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
-                  {% endif %}
-                  {% if config['SHOW_SUSTAINABILITY'] %}
-                    <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
+                  {# hide disaster dashboard and sustainability explorer for now #}
+                  {% if false %}
+                    {% if config['SHOW_DISASTER'] %}
+                      <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+                    {% endif %}
+                    {% if config['SHOW_SUSTAINABILITY'] %}
+                      <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
+                    {% endif %}
                   {% endif %}
                 </div>
               </li>
@@ -185,13 +189,16 @@
             <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool that allows users to download data. #}
             <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-            {# TRANSLATORS: The name of a dashboard that shows information about
-            natural disasters. #}
-            {% if config['SHOW_DISASTER'] %}
-              <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
-            {% endif %}
-            {% if config['SHOW_SUSTAINABILITY'] %}
-              <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+            {# hide disaster dashboard and sustainability explorer for now #}
+            {% if false %}
+              {# TRANSLATORS: The name of a dashboard that shows information about
+              natural disasters. #}
+              {% if config['SHOW_DISASTER'] %}
+                <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+              {% endif %}
+              {% if config['SHOW_SUSTAINABILITY'] %}
+                <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+              {% endif %}
             {% endif %}
           </section>
           <section class="col-12 col-sm-6 col-md-4">
@@ -232,8 +239,12 @@
           <div id="sub-footer" class="col-12">
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
             {# TRANSLATORS: The label for the Google branding byline. #}
-            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span><img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
-
+            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
+            {% if brand_logo_light %}
+            <img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
+            {% else %}
+            <img class="brand-logo" src="/images/google-logo.svg" /></span>
+            {% endif %}
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
               {# TRANSLATORS: The label for a link to site terms and conditions. #}
