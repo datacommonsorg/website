@@ -45,14 +45,36 @@
 }
 
 .search-section {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
   margin: 20px 0;
+
   .btn {
     height: 2.5rem;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
+
+  .experiment-tag {
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 3px;
+    color: var(--blue);
+    display: flex;
+    float: left;
+    font: normal 0.85em monospace;
+    padding: 4px 6px;
+    height: 80%;
+    margin-right: 20px;
+  }
+
   .history-button {
     margin-left: 0.5rem;
+  }
+
+  .search-box-section {
+    width: 100%;
   }
 }
 
