@@ -1,35 +1,19 @@
 [
   {
-    "id": "economy",
-    "title": "Economy",
-    "description": "Discover the intricate interplay between economic forces and societal well-being.",
-    "url": "/nl#topic=economy",
-    "browseUrl": "/explore/economy",
-    "icon": "area_chart"
-  },
-  {
-    "id": "health",
-    "title": "Health",
-    "description": "Dive into the realm of human well-being and explore the profound impact of health on individuals, communities, and global societies.",
-    "url": "/nl#topic=health",
-    "browseUrl": "/explore/health",
-    "icon": "area_chart"
-  },
-  {
-    "id": "education",
-    "title": "Education",
-    "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
-    "url": "/nl#topic=education",
-    "browseUrl": "/explore/education",
-    "icon": "school"
-  },
-  {
-    "id": "environment",
-    "title": "Environment",
-    "description": "Embark on a journey to understand the intricate relationship between human activities and the environment.",
-    "url": "/nl#topic=environment",
-    "browseUrl": "/explore/environment",
+    "id": "equity",
+    "title": "Equity",
+    "description": "Wield the power of data to create a more just and equitable world.",
+    "url": "/nl#topic=equity",
+    "browseUrl": "/explore/equity",
     "icon": "public"
+  },
+  {
+    "id": "sustainability",
+    "title": "Sustainability",
+    "description": "Embark on a journey towards a sustainable future.",
+    "url": "/nl#topic=sustainability",
+    "browseUrl": "/explore/sustainability",
+    "icon": "eco"
   },
   {
     "id": "demographics",
@@ -40,11 +24,27 @@
     "icon": "family_restroom"
   },
   {
-    "id": "sustainability",
-    "title": "Sustainability",
-    "description": "Embark on a journey towards a sustainable future.",
-    "url": "/nl#topic=sustainability",
-    "browseUrl": "/explore/sustainability",
-    "icon": "eco"
+    "id": "economics",
+    "title": "Economics",
+    "description": "Discover the intricate interplay between economic forces and societal well-being.",
+    "url": "/nl#topic=economics",
+    "browseUrl": "/explore/economics",
+    "icon": "area_chart"
+  },
+  {
+    "id": "schools-housing-commute",
+    "title": "Schools, housing, and commute",
+    "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
+    "url": "/nl#topic=schools-housing-commute",
+    "browseUrl": "/explore/schools-housing-commute",
+    "icon": "school"
+  },
+  {
+    "id": "health",
+    "title": "Health",
+    "description": "Dive into the realm of human well-being and explore the profound impact of health on individuals, communities, and global societies.",
+    "url": "/nl#topic=health",
+    "browseUrl": "/explore/health",
+    "icon": "area_chart"
   }
 ]

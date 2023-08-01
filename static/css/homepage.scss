@@ -166,7 +166,13 @@ $color-font-dark: #3c4043;
 #homepage .topics-container {
   display: grid;
   gap: 16px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
   .topic-card {
     color: $color-font-dark;
