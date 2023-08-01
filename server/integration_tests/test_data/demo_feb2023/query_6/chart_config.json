@@ -468,47 +468,6 @@
               }
             ],
             "title": "Type of Health Insurance Coverage"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block"
-                    ],
-                    "title": "Uninsured By Income in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Uninsured By Income in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Uninsured By Income"
           }
         ],
         "statVarSpec": {
@@ -592,69 +551,6 @@
             "denom": "Count_Person",
             "name": "Mortality Events: Years 85 (Neoplasms)",
             "statVar": "Count_Death_85Years_Neoplasms"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 15,000 - 24,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 15,000 - 24,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 50,000 - 74,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 50,000 - 74,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 5,000 - 14,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 5,000 - 14,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 75,000 USD or More",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings"
-          },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 75,000 USD or More",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings"
           },
           "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
             "name": "Women With No Health Insurance",
@@ -975,6 +871,66 @@
           "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
             "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis_multiple_place_bar_block": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma_multiple_place_bar_block": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block": {
+            "name": "Cancer (excluding skin cancer)",
+            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block": {
+            "name": "Chronic Kidney Disease",
+            "statVar": "Percent_Person_WithChronicKidneyDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
+            "name": "Chronic Obstructive Pulmonary Disease",
+            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block": {
+            "name": "Coronary Heart Disease",
+            "statVar": "Percent_Person_WithCoronaryHeartDisease",
+            "unit": "%"
+          },
+          "Percent_Person_WithDiabetes_multiple_place_bar_block": {
+            "name": "Diabetes",
+            "statVar": "Percent_Person_WithDiabetes",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
+            "name": "High Bood Pressure",
+            "statVar": "Percent_Person_WithHighBloodPressure",
+            "unit": "%"
+          },
+          "Percent_Person_WithHighCholesterol_multiple_place_bar_block": {
+            "name": "High Cholesterol",
+            "statVar": "Percent_Person_WithHighCholesterol",
+            "unit": "%"
+          },
+          "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
+            "name": "Mental Health Issues",
+            "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithStroke_multiple_place_bar_block": {
+            "name": "Stroke",
+            "statVar": "Percent_Person_WithStroke",
             "unit": "%"
           },
           "dc/nh3s4skee5483_multiple_place_bar_block": {
