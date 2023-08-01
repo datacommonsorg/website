@@ -1558,3 +1558,8 @@ dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarte
 dc/topic/JusticeSystemEquity,Justice System Equity,Justice System Equity,,Equity of the justice system; equity in the justice system; fariness in the justice system; 
 dc/topic/HousesByHouseholderAge,Houses by Age of Residents,Houses by Age of Residents,,age distribution of house residents; home residents age distribution;
 dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduate students; undergrad students; undergrads; college students;
+dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level,Education Attainment by Race and Level,,level of education by gender and race; race and gender breakdown of education level; race and gender breakdown of education attainment;
+dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender,Median Household Income by Gender,,household income by gender; gender breakdown of household income;
+dc/topic/EmploymentEquity,Employment Equity,Employment Equity,,fairness in employment; equity in employment;
+dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
+dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race,Median Household Income by Race,,household income by race; racial breakdown of household income;

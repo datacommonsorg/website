@@ -1,15 +1,42 @@
 {
   "allTopics": [
-    "economy",
-    "health",
-    "education",
-    "environment",
+    "equity",
+    "sustainability",
     "demographics",
-    "sustainability"
+    "economics",
+    "schools-housing-commute",
+    "health"
   ],
   "topics": {
-    "economy": {
-      "title": "Economy",
+    "equity": {
+      "title": "Equity",
+      "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Economic equity in California",
+            "url": "oq=Economic+equity+in+California&t=dc/topic/EconomicEquity&p=geoId/06"
+          },
+          {
+            "title": "Incarceration rates by race in the US",
+            "url": "oq=Incarceration+rates+by+race+in+the+US&t=dc/topic/JusticeSystemEquity&p=country/USA"
+          },
+          {
+            "title": "Health equity in Santa Clara County",
+            "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
+          }
+        ],
+        "specific": [],
+        "comparison": []
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 0,
+        "sources": ["Test source 1", "Test source 2"]
+      }
+    },
+    "economics": {
+      "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
@@ -212,8 +239,8 @@
             "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
           },
           {
-            "title": "Life Expectancy of countries in Africa",
-            "url": "oq=life+expectancy+of+countries+in+Africa"
+            "title": "Life Expectancy in countries in Africa",
+            "url": "oq=life+expectancy+in+countries+in+Africa"
           },
           {
             "title": "Causes of Death in Louisiana ",
@@ -254,12 +281,12 @@
             "url": "oq=Highest+rates+of+infant+mortality+in+the+world"
           },
           {
-            "title": "Worst states in the US for life expectancy",
-            "url": "oq=worst+maternal+mortality+in+the+world"
+            "title": "Life expectancy across counties in the US",
+            "url": "oq=Life+expectancy+across+counties+in+the+US"
           },
           {
-            "title": "Worst maternal mortality in the world",
-            "url": "oq=Worst+maternal+mortality+in+the+world"
+            "title": "Maternal mortality across countries in the world",
+            "url": "oq=Maternal+mortality+across+countries+in+the+world"
           }
         ]
       },
@@ -290,8 +317,8 @@
         ]
       }
     },
-    "education": {
-      "title": "Education",
+    "schools-housing-commute": {
+      "title": "Schools, Housing, and Commute",
       "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
@@ -398,137 +425,6 @@
         ]
       }
     },
-    "environment": {
-      "title": "Environment",
-      "description": "Environment data serves as the critical compass to understand, monitor, and address the complex interplay between human activities and the natural world, enabling informed decisions towards mitigating environmental challenges and promoting ecological balance. Search for some environment data or click around on one of the suggested searches below to get started.",
-      "examples": {
-        "general": [
-          {
-            "title": "Natural disasters in the US",
-            "url": "p=country/USA&t=dc/topic/Disasters&oq=Natural+disasters+in+the+US"
-          },
-          {
-            "title": "Land cover New Jersey",
-            "url": "p=geoId/34&t=dc/topic/LandCover&oq=Land+cover+New+Jersey"
-          },
-          {
-            "title": "Pollution in New Jersey",
-            "url": "p=geoId/34&t=dc/topic/Pollution&oq=Pollution+in+New+Jersey"
-          },
-          {
-            "title": "Temperature predictions for Italy",
-            "url": "p=country/ITA&t=dc/topic/TemperaturePredictions&oq=Temperature+predictions+for+Italy"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Floods in Pakistan",
-            "url": "p=country/PAK&t=dc/topic/Flood&oq=Floods+in+Pakistan"
-          },
-          {
-            "title": "Major earthquakes in Chile vs Japan",
-            "url": "oq=Major+Earthquakes+in+Chile+vs+Japan&oq=Major+earthquakes+in+Chile+vs+Japan"
-          },
-          {
-            "title": "Heat events in Nevada",
-            "url": "p=geoId/32&t=dc/topic/HeatEvent&oq=Heat+events+in+Nevada"
-          },
-          {
-            "title": "Droughts in Ethiopia",
-            "url": "p=country/ETH&t=dc/topic/Drought&oq=Droughts+in+Ethiopia"
-          },
-          {
-            "title": "Forested areas in King County vs Mercer County",
-            "url": "oq=forested+areas+in+King+county+vs+Mercer+County&oq=Forested+areas+in+King+County+vs+Mercer+County"
-          },
-          {
-            "title": "Vegetation in California",
-            "url": "oq=vegetation+in+California&oq=Vegetation+in+California"
-          },
-          {
-            "title": "Pollution in Texas vs Massachusetts",
-            "url": "oq=Pollution+in+Texas+vs+Massachusetts&oq=Pollution+in+Texas+vs+Massachusetts"
-          },
-          {
-            "title": "Air Quality in Los Angeles County vs Alameda County",
-            "url": "oq=air+quality+in+los+angeles+county+vs+alameda+county&oq=Air+Quality+in+Los+Angeles+County+vs+Alameda+County"
-          },
-          {
-            "title": "Pollutant concentration in Los Angeles County",
-            "url": "p=geoId/06037&t=dc/topic/PollutantConcentration&oq=Pollutant+concentration+in+Los+Angeles+County"
-          },
-          {
-            "title": "Sulfer dioxide in Dallas County",
-            "url": "oq=sulfur+dioxide+in+Dallas+County"
-          },
-          {
-            "title": "Once a decade projected temperature highs in Sicily",
-            "url": "p=nuts/ITG1&t=dc/topic/DecadeProjectedTemperatureHighs&oq=Once+a+decade+projected+temperature+highs+in+Sicily"
-          },
-          {
-            "title": "Once a decade projected temperature highs in West Bengal, India",
-            "url": "p=wikidataId/Q1356&t=dc/topic/DecadeProjectedTemperatureHighs&oq=Once+a+decade+projected+temperature+highs+in+West+Bengal,+India"
-          }
-        ],
-        "comparison": [
-          {
-            "title": "Heat waves vs Floods in California",
-            "url": "oq=heat+waves+vs+floods+in+California"
-          },
-          {
-            "title": "Most forested areas in Georgia",
-            "url": "oq=most+forested+areas+in+Georgia"
-          },
-          {
-            "title": "Heat waves vs maximum temperature in California",
-            "url": "oq=heat+waves+vs+maximum+temperature+in+California"
-          },
-          {
-            "title": "Vegetation vs Pollution in Texas",
-            "url": "oq=vegetation+vs+pollution+in+Texas"
-          },
-          {
-            "title": "Projected temperature for the decade in Kern County vs Orange County",
-            "url": "oq=projected+temperature+for+the+decade+in+Kern+County+vs+Orange+County"
-          },
-          {
-            "title": "AQI vs heat waves in California",
-            "url": "oq=AQI+vs+heat+waves+in+California"
-          },
-          {
-            "title": "Ozone vs Insurance in Texas",
-            "url": "oq=ozone+vs+insurance+in+Texas"
-          },
-          {
-            "title": "AQI vs blood pressure in New Jersey",
-            "url": "oq=AQI+vs+blood+pressure+in+new+jersey"
-          }
-        ]
-      },
-      "meta": {
-        "dataPointCount": 0,
-        "variableCount": 2992,
-        "sources": [
-          "Climate Trace",
-          "Data Commons",
-          "Dynamic World Project",
-          "European Union (EU) Copernicus",
-          "Federal Emergency Management Agency (FEMA)",
-          "Global Land Ice Measurements from Space (GLIMS)",
-          "India Central Pollution Control Board",
-          "India Water Resources Information System",
-          "Resources for the Future (RFF)",
-          "U.S. Bureau of Transportation Statistics",
-          "U.S. Center for Disease Control and Prevention (CDC)",
-          "U.S. Environmental Protection Agency (EPA)",
-          "U.S. National Aeronautics and Space Administration (NASA)",
-          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
-          "U.S. National Wildlife Coordinating Group",
-          "United States Geological Service (USGS)",
-          "Wildland Fire Interagency Geospatial Services"
-        ]
-      }
-    },
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
@@ -546,7 +442,7 @@
             "title": "Citizenship and immigration in Florida",
             "url": "p=geoId/12&t=dc/topic/Nationality&oq=Citizenship+and+immigration+in+Florida"
           },
-	        {
+          {
             "title": "Racial Diversity in California",
             "url": "p=geoId/06&oq=Racial+diversity+in+California"
           },
@@ -665,35 +561,76 @@
       "examples": {
         "general": [
           {
-            "title": "Excessive heat events in Texas"
+            "title": "Which countries emit the most greenhouse gases",
+            "url": "oq=Which+countries+emit+the+most+greenhouse+gases"
           },
           {
-            "title": "Land Usage in USA"
+            "title": "Emissions in Harris County, Texas",
+            "url": "oq=Emissions+in+Harris+County,+Texas"
           },
           {
-            "title": "USA forest health"
+            "title": "Pollution in Los Angeles County",
+            "url": "oq=Pollution+in+Los+Angeles+County"
           },
           {
-            "title": "Commutes in San Francisco Bay Area"
+            "title": "Projected temperature extremes in India",
+            "url": "oq=Projected+temperature+extremes+in+India"
           },
           {
-            "title": "Carbon emissions in US"
+            "title": "Energy use in the US",
+            "url": "oq=Energy+use+in+the+US"
+          },
+          {
+            "title": "Green jobs in the US",
+            "url": "oq=Green+jobs+in+the+US"
           }
         ],
         "specific": [
           {
-            "title": "How much of US energy is renewable?"
+            "title": "Electronic Waste generated in different countries ",
+            "url": "oq=Electronic+Waste+generated+in+different+countries+"
           },
           {
-            "title": "How many people take public transit in Washington?"
+            "title": "Floods in Pakistan",
+            "url": "oq=Floods+in+Pakistan"
           },
           {
-            "title": "US CO2 emissions by source"
+            "title": "Revenue of solar companies across states in the US",
+            "url": "oq=Revenue+of+solar+companies+across+states+in+the+US"
+          },
+          {
+            "title": "Drought events across different countries",
+            "url": "oq=Drought+events+across+different+countries"
+          },
+          {
+            "title": "Counties in the US with the most smoke days",
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+days"
+          },
+          {
+            "title": "Top sources of CO2 emissions in the US",
+            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
+          },
+          {
+            "title": "Which countries have the greatest increase in greenhouse gas emissions",
+            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
           }
         ],
         "comparison": [
           {
-            "title": "Number of farms vs droughts in California"
+            "title": "How does PM 2.5 correlate with asthma across US counties",
+            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
+          },
+          {
+            "title": "How does solar energy generation correlate with median income across US states",
+            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
+          },
+          {
+            "title": "How does coal energy generation correlate with life expectancy across US states",
+            "url": "oq=How+does+coal+energy+generation+correlate+with+life+expectancy+across+US+states"
+          },
+          {
+            "title": "AQI vs blood pressure in New Jersey",
+            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey"
           }
         ]
       },

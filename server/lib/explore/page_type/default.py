@@ -45,11 +45,10 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   has_main_place = (place.dcid in state.exist_checks.get(sv, {}))
   if has_main_place:
     has_single_point = state.exist_checks[sv][place.dcid]
-    if has_single_point:
-      sv_spec.update(
-          highlight.higlight_block(builder.new_column(chart_vars), place, sv,
-                                   builder.sv2thing))
-    else:
+    sv_spec.update(
+        highlight.higlight_block(builder.new_column(chart_vars), place, sv,
+                                 builder.sv2thing))
+    if not has_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
               builder.new_column(chart_vars), place, sv, builder.sv2thing, attr,
@@ -70,15 +69,15 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   builder.new_block(enable_pc=enable_pc)
 
-  sv_spec.update(
-      map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                          builder.sv2thing, attr, builder.nopc()))
   attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   for rt in [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]:
     attr['ranking_types'] = [rt]
     sv_spec.update(
         ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
                                          sv, builder.sv2thing, attr))
+  sv_spec.update(
+      map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                          builder.sv2thing, attr, builder.nopc()))
   return sv_spec
 
 
