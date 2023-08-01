@@ -4,7 +4,7 @@
     "demographics",
     "health",
     "sustainability",
-    "schools-housing-commute",
+    "education-housing-commute",
     "equity"
   ],
   "topics": {
@@ -368,7 +368,7 @@
         ]
       }
     },
-    "schools-housing-commute": {
+    "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
       "examples": {
