@@ -1,11 +1,11 @@
 {
   "allTopics": [
-    "equity",
-    "sustainability",
-    "demographics",
     "economics",
+    "demographics",
+    "health",
+    "sustainability",
     "schools-housing-commute",
-    "health"
+    "equity"
   ],
   "topics": {
     "equity": {
