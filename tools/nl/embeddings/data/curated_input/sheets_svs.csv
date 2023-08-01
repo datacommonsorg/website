@@ -1140,7 +1140,6 @@ dc/topic/Births,Births,Births,,
 dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,
 dc/topic/COVID19,COVID 19,COVID 19,,
 dc/topic/Cancer,Cancer,Cancer,,
-dc/topic/CardiovascularDisease,Cardiovascular Disease,Cardiovascular Disease,,
 dc/topic/Clouds,Clouds,Clouds,,
 dc/topic/CoastalFlood,Coastal Flood,Coastal Flood,,
 dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents,College Or University Student Housing Residents,,
@@ -1451,7 +1450,6 @@ dc/topic/EconomicActivity,Economic Activity,Economic Activity,,Economic activity
 dc/topic/Employment,Employement,Employment,,
 dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
 dc/topic/Debt,Debt,Debt,,Global debt;
-dc/topic/Economics,Economics,Economics,,
 dc/topic/EducationExpenditure,Education Expenditure,Education Expenditure,,
 dc/topic/EmploymentByIndustry,Employment By Industry,Employment By Industry,,people employed by industry; breakdown of employment by industry;
 dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,amount spent on health; health expenses;
@@ -1495,14 +1493,14 @@ dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade
 dc/topic/Environment,Environment,Environment,,
 dc/topic/Fire,Fire,Fire,,fires
 dc/topic/HeatEvent,Heat Event,Heat Event,,high temperature event;
-dc/topic/MaxTemperatureLikely1PctAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
-dc/topic/MaxTemperatureLikely1PctAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
-dc/topic/MaxTemperatureLikely5PctAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
-dc/topic/MaxTemperatureLikely5PctAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
-dc/topic/MinTemperatureLikely1PctAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
-dc/topic/MinTemperatureLikely1PctAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
-dc/topic/MinTemperatureLikely5PctAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
-dc/topic/MinTemperatureLikely5PctAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
 dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
 dc/topic/Ozone,Ozone,Ozone,,O3; Ozone pollutant; O3 pollutant;
 dc/topic/PM10,PM10,PM10,,pm10 pollutant;
@@ -1531,3 +1529,37 @@ dc/topic/PlaceOfBirth,Place of Birth,Place of Birth,,
 dc/topic/PopulationByAgeDistribution,Population By Age Distribution,Population By Age Distribution,,population distribution by age;
 dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population,Very Old and Very Young Population,,young children and old people; very old and very young;
 dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic,Widowed Population by Demographic,,demographics of the widowed population; demographics of people who are widowed;
+dc/topic/KidneyDisease,Kidney Disease,Kidney Disease,,
+dc/topic/Equity,Equity,Equity,,fairness;equality;
+dc/topic/EconomicEquity,Economic Equity,Economic Equity,,economic fairness; economic oppoortunities;
+dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
+dc/topic/Arthritis,Arthritis,Arthritis,,
+dc/topic/HousesByFacilities,Houses by Facilities,Houses by Facilities,,facilities in houses;
+dc/topic/HousesByHomeValue,Houses by Home Value,Houses by Home Value,,home value of houses;
+dc/topic/EducationEquity,Education Equity,Education Equity,,education fairness; education opportunities;
+dc/topic/HousesByTaxAmount,Houses by Tax Amount,Houses by Tax Amount,,tax amount of houses; tax on houses;
+dc/topic/RentalHouses,Rental Houses,Rental Housing,,housing rentals; rental housing units;
+dc/topic/SmokePM2.5,Smoke PM2.5,Smoke PM2.5,,smoke particulate matter 2.5; particulate matter 2.5;
+dc/topic/StudentsInPrimarySchool,Students in Primary School,Students in Primary School,,students enrolled in primary school; primary school students;
+dc/topic/HomeOwnership,Home Ownership,Home Ownership,,owners of houses; housing owners; house ownership;
+dc/topic/HouseOccupants,House Occupants,House Occupants,,people living in the house; home occupants;
+dc/topic/HousesByRoomCount,Houses by Room Count,Houses by Room Count,,number of rooms in houses;
+dc/topic/StudentsInGraduateOrProfessionalSchool,Students in Graduate or Professional School,Students in Graduate or Professional School,,students in graduate school; students in professional school; students enrolled in grad school; PE students; grad students;
+dc/topic/Benefits,Benefits,Benefits,,social benefits; public benefits;
+dc/topic/HousesByDateofBuild,Houses by Date Built,Houses by Date Built,,date built of houses; houses by date build; build date of houses;
+dc/topic/HousesByHouseholderEducationalAttainment,Houses by Educational Attainment of Owner,Houses by Educational Attainment of Owner,,education level of home owner; home owner's education; education attainment of home owners; houses by home owner's education level;
+dc/topic/HousesByOwnershipCost,Houses by Ownership Cost,Houses by Ownership Cost,,cost of home ownership; housing cost; cost of owning a home; cost of owning a house;
+dc/topic/HouseFeatures,House Features,House Features,,features of a house; features in a home;
+dc/topic/HeartDisease,Heart Disease,Heart Disease,,disease of the heart; cardiovascular disease;
+dc/topic/HousesByHouseholderRace,Houses by Race of Occupants,Houses by Race of Occupants,,home residents race; houses by resident race; racial breakdown of house residents;
+dc/topic/Stroke,Stroke,Stroke,,stroke attack; heart attack;
+dc/topic/StudentsInMiddleSchool,Students in Middle School,Students in Middle School,,middle school students;
+dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
+dc/topic/JusticeSystemEquity,Justice System Equity,Justice System Equity,,Equity of the justice system; equity in the justice system; fariness in the justice system; 
+dc/topic/HousesByHouseholderAge,Houses by Age of Residents,Houses by Age of Residents,,age distribution of house residents; home residents age distribution;
+dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduate students; undergrad students; undergrads; college students;
+dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level,Education Attainment by Race and Level,,level of education by gender and race; race and gender breakdown of education level; race and gender breakdown of education attainment;
+dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender,Median Household Income by Gender,,household income by gender; gender breakdown of household income;
+dc/topic/EmploymentEquity,Employment Equity,Employment Equity,,fairness in employment; equity in employment;
+dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
+dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race,Median Household Income by Race,,household income by race; racial breakdown of household income;

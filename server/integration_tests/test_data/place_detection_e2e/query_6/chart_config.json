@@ -1248,112 +1248,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
-                    ],
-                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
-                    ],
-                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -1402,15 +1296,6 @@
             "name": "Households Receiving Food Stamps in the Past Year",
             "statVar": "Count_Household_WithFoodStampsInThePast12Months"
           },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-          },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
@@ -1419,15 +1304,6 @@
             "denom": "Count_Person",
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad": {
-            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
@@ -1602,10 +1478,6 @@
       "NL_RELATED_VAR": {
         "items": [
           {
-            "displayName": "dc/topic/SDG_1",
-            "nlQuery": "dc/topic/SDG_1 United States"
-          },
-          {
             "displayName": "Population Above Poverty Level Status in Past Year",
             "nlQuery": "Population Above Poverty Level Status in Past Year United States"
           },
@@ -1632,14 +1504,6 @@
           {
             "displayName": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
             "nlQuery": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months United States"
-          },
-          {
-            "displayName": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "nlQuery": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County United States"
-          },
-          {
-            "displayName": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "nlQuery": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad United States"
           }
         ]
       }

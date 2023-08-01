@@ -222,14 +222,64 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "title": "Homes Valued Between $1,000,000 and $1,499,999 in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue100000To199999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 100,000 - 199,999 USD in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+                    ],
+                    "title": "Homes Valued Between $1,500,000 and $1,999,999 in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 200,000 - 299,999 USD in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue300000To499999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 300,000 - 499,999 USD in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue500000To999999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 500,000 - 999,999 USD in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue50000To99999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 50,000 - 99,999 USD in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Home Value of Houses"
           },
           {
             "columns": [
@@ -241,10 +291,18 @@
                     ],
                     "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
                     "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Ownership Cost by Mortgage Status"
           },
           {
             "columns": [
@@ -289,124 +347,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
-                    ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_NoCashRent"
-                    ],
-                    "title": "Count of Housing Unit: No Cash Rent in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_NoCashRent_pc"
-                    ],
-                    "title": "Per Capita Count of Housing Unit: No Cash Rent in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit"
-                    ],
-                    "title": "Vacant Housing Units in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit_pc"
-                    ],
-                    "title": "Per Capita Vacant Housing Units in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
-                    ],
-                    "title": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc"
-                    ],
-                    "title": "Per Capita Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_ResidesInHousehold"
-                    ],
-                    "title": "Population: Household in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_ResidesInHousehold_pc"
-                    ],
-                    "title": "Per Capita Population: Household in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_Income_Household"
-                    ],
-                    "title": "Average Income for Households in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -421,6 +361,10 @@
           "Count_HousingUnit_HomeValue100000To124999USDollar": {
             "name": "Homes Valued Between $100,000 and $124,999",
             "statVar": "Count_HousingUnit_HomeValue100000To124999USDollar"
+          },
+          "Count_HousingUnit_HomeValue100000To199999USDollar": {
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
           "Count_HousingUnit_HomeValue10000To14999USDollar": {
             "name": "Homes Valued Between $10,000 and $14,999",
@@ -454,6 +398,10 @@
             "name": "Homes Valued Between $200,000 to $249,999",
             "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
           },
+          "Count_HousingUnit_HomeValue200000To299999USDollar": {
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
           "Count_HousingUnit_HomeValue20000To24999USDollar": {
             "name": "Homes Valued Between $20,000 to $24,999",
             "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
@@ -469,6 +417,10 @@
           "Count_HousingUnit_HomeValue300000To399999USDollar": {
             "name": "Housing Units Valued at $300,000-$399,999",
             "statVar": "Count_HousingUnit_HomeValue300000To399999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar": {
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
           "Count_HousingUnit_HomeValue30000To34999USDollar": {
             "name": "Homes Valued Between $30,000 to $34,999",
@@ -490,9 +442,17 @@
             "name": "Housing Units Valued at $500,000-$749,999",
             "statVar": "Count_HousingUnit_HomeValue500000To749999USDollar"
           },
+          "Count_HousingUnit_HomeValue500000To999999USDollar": {
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
           "Count_HousingUnit_HomeValue50000To59999USDollar": {
             "name": "Homes Valued Between $50,000 to $59,999",
             "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar": {
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
           "Count_HousingUnit_HomeValue60000To69999USDollar": {
             "name": "Homes Valued Between $60,000 to $69,999",
@@ -518,32 +478,9 @@
             "name": "Homes Valued at $10,000 or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
           },
-          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied": {
-            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
-          },
-          "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
-            "statVar": "Count_HousingUnit_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_RenterOccupied"
-          },
-          "Count_HousingUnit_NoCashRent": {
-            "name": "Count of Housing Unit: No Cash Rent",
-            "statVar": "Count_HousingUnit_NoCashRent"
-          },
-          "Count_HousingUnit_NoCashRent_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Housing Unit: No Cash Rent",
-            "statVar": "Count_HousingUnit_NoCashRent"
-          },
-          "Count_HousingUnit_VacantHousingUnit": {
-            "name": "Vacant Housing Units",
-            "statVar": "Count_HousingUnit_VacantHousingUnit"
-          },
-          "Count_HousingUnit_VacantHousingUnit_pc": {
-            "denom": "Count_Person",
-            "name": "Vacant Housing Units",
-            "statVar": "Count_HousingUnit_VacantHousingUnit"
+          "Count_HousingUnit_HomeValueUpto49999USDollar": {
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Count of Housing Unit: With Mortgage",
@@ -562,23 +499,6 @@
             "denom": "Count_Person",
             "name": "Count of Housing Unit: Without Mortgage",
             "statVar": "Count_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied"
-          },
-          "Count_Person_ResidesInHousehold": {
-            "name": "Population: Household",
-            "statVar": "Count_Person_ResidesInHousehold"
-          },
-          "Count_Person_ResidesInHousehold_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Household",
-            "statVar": "Count_Person_ResidesInHousehold"
-          },
-          "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
-            "statVar": "Median_Cost_HousingUnit_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
@@ -617,34 +537,7 @@
           }
         ]
       },
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied",
-            "nlQuery": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Occupied Housing Unit, Owner Occupied United States"
-          },
-          {
-            "displayName": "Count of Housing Unit: No Cash Rent",
-            "nlQuery": "Count of Housing Unit: No Cash Rent United States"
-          },
-          {
-            "displayName": "Vacant Housing Units",
-            "nlQuery": "Vacant Housing Units United States"
-          },
-          {
-            "displayName": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied",
-            "nlQuery": "Count of Housing Unit: Less Than High School Graduate, Occupied Housing Unit, Renter Occupied United States"
-          },
-          {
-            "displayName": "Population: Household",
-            "nlQuery": "Population: Household United States"
-          },
-          {
-            "displayName": "Average Income for Households",
-            "nlQuery": "Average Income for Households United States"
-          }
-        ]
-      }
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
