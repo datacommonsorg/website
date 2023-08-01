@@ -690,60 +690,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/CO2Emissions_AnnualCO2EmissionsbySource"
-      ],
-      "memberList": [
-        "eia/TOTAL.AVTCE.A",
-        "eia/TOTAL.CKTCE.A",
-        "eia/TOTAL.DMTCE.A",
-        "eia/TOTAL.HLTCE.A",
-        "eia/TOTAL.JFTCE.A",
-        "eia/TOTAL.KSTCE.A",
-        "eia/TOTAL.LUTCE.A",
-        "eia/TOTAL.MMTCE.A",
-        "eia/TOTAL.NNTCE.A",
-        "eia/TOTAL.OPTCE.A",
-        "eia/TOTAL.PCTCE.A",
-        "eia/TOTAL.PMTCE.A",
-        "eia/TOTAL.RFTCE.A",
-        "eia/TOTAL.TETCE.A"
-      ],
-      "name": [
-        "Annual CO2 Emissions by Source"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/CO2Emissions_MonthlyCO2EmissionsbySource"
-      ],
-      "memberList": [
-        "eia/TOTAL.AVTCE.M",
-        "eia/TOTAL.CKTCE.M",
-        "eia/TOTAL.DMTCE.M",
-        "eia/TOTAL.HLTCE.M",
-        "eia/TOTAL.JFTCE.M",
-        "eia/TOTAL.KSTCE.M",
-        "eia/TOTAL.LUTCE.M",
-        "eia/TOTAL.MMTCE.M",
-        "eia/TOTAL.NNTCE.M",
-        "eia/TOTAL.OPTCE.M",
-        "eia/TOTAL.PCTCE.M",
-        "eia/TOTAL.PMTCE.M",
-        "eia/TOTAL.RFTCE.M",
-        "eia/TOTAL.TETCE.M"
-      ],
-      "name": [
-        "Monthly CO2 Emissions by Source"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/COVID19_COVID19Cases"
       ],
       "memberList": [
@@ -831,43 +777,6 @@
       ],
       "name": [
         "Male Population With Cancer By Age"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/CardiovascularDisease_CardiovascularDiseasePerCapitaByAge"
-      ],
-      "memberList": [
-        "Count_MedicalConditionIncident_0To4Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_15To29Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_30To44Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_45To59Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_5To14Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_60OrMoreYears_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_60To69Years_ConditionCardiovascularDisease_AsAFractionOf_Count_Person",
-        "Count_MedicalConditionIncident_70OrMoreYears_ConditionCardiovascularDisease_AsAFractionOf_Count_Person"
-      ],
-      "name": [
-        "Cardiovascular Disease Per Capita By Age"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Clouds_CloudCover"
-      ],
-      "memberList": [
-        "Max_CloudCover",
-        "Mean_CloudCover",
-        "Min_CloudCover"
-      ],
-      "name": [
-        "Cloud Cover"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -1029,7 +938,7 @@
         "Count_CycloneEvent_TropicalStorm"
       ],
       "name": [
-        "Cyclone events by type"
+        "Cyclones by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -1417,33 +1326,21 @@
     },
     {
       "dcid": [
-        "dc/svpg/ExcessiveColdEvent_ExcessiveColdEventbyType"
+        "dc/svpg/Emissions_CO2_EmissionsbySource"
       ],
       "memberList": [
-        "Count_ColdWindChillEvent",
-        "Count_ExtremeColdWindChillEvent",
-        "Count_FreezingFogEvent",
-        "Count_FrostFreezeEvent",
-        "Count_WinterWeatherEvent"
+        "Annual_Emissions_CarbonDioxide_Agriculture",
+        "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings",
+        "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
+        "Annual_Emissions_CarbonDioxide_ForestryAndLandUse",
+        "Annual_Emissions_CarbonDioxide_Manufacturing",
+        "Annual_Emissions_CarbonDioxide_MineralExtraction",
+        "Annual_Emissions_CarbonDioxide_Power",
+        "Annual_Emissions_CarbonDioxide_Transportation",
+        "Annual_Emissions_CarbonDioxide_WasteManagement"
       ],
       "name": [
-        "Excessive Cold Event by Type"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Fog_Fogeventsbytype"
-      ],
-      "memberList": [
-        "Count_DenseFogEvent",
-        "Count_FreezingFogEvent",
-        "Count_FreezingFogEvent"
-      ],
-      "name": [
-        "Fog events by type"
+        "CO2 Emissions by Source"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -2976,28 +2873,6 @@
       ],
       "name": [
         "Underweight Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/MarineEvents_MarineEventsbyType"
-      ],
-      "memberList": [
-        "Count_MarineDenseFogEvent",
-        "Count_MarineHailEvent",
-        "Count_MarineHighWindEvent",
-        "Count_MarineHurricaneTyphoonEvent",
-        "Count_MarineLightningEvent",
-        "Count_MarineStrongWindEvent",
-        "Count_MarineThunderstormWindEvent",
-        "Count_MarineTropicalDepressionEvent",
-        "Count_MarineTropicalStormEvent"
-      ],
-      "name": [
-        "Marine Events by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -5122,22 +4997,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/Rainfall_RainfallAmount"
-      ],
-      "memberList": [
-        "Max_Rainfall",
-        "Mean_Rainfall",
-        "Min_Rainfall"
-      ],
-      "name": [
-        "Rainfall Amount"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/RealGDPByIndustry"
       ],
       "memberList": [
@@ -5612,15 +5471,15 @@
       ],
       "memberList": [
         "Count_DustStormEvent",
-        "Count_IceStormEvent",
-        "Count_MarineThunderstormWindEvent",
-        "Count_MarineTropicalStormEvent",
         "Count_ThunderstormWindEvent",
         "Count_TropicalStormEvent",
-        "Count_WinterStormEvent"
+        "Count_WinterStormEvent",
+        "Count_IceStormEvent",
+        "Count_MarineThunderstormWindEvent",
+        "Count_MarineTropicalStormEvent"
       ],
       "name": [
-        "Storm Event by type"
+        "Storms by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -5755,38 +5614,6 @@
       ],
       "name": [
         "World weighted tariff average by product type"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/TropicalWeatherEvents_TropicalCycloneEventsbyType"
-      ],
-      "memberList": [
-        "Count_CycloneEvent_TropicalDisturbance",
-        "Count_CycloneEvent_TropicalStorm"
-      ],
-      "name": [
-        "Tropical Cyclone Events by Type"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/TropicalWeatherEvents_TropicalWeatherEventsbyType"
-      ],
-      "memberList": [
-        "Count_MarineTropicalDepressionEvent",
-        "Count_MarineTropicalStormEvent",
-        "Count_TropicalDepressionEvent",
-        "Count_TropicalStormEvent"
-      ],
-      "name": [
-        "Tropical Weather Events by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6394,7 +6221,7 @@
         "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound"
       ],
       "name": [
-        "Annual amount of wildfire emissions by source"
+        "Wildfire Emissions by Pollutant"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6420,7 +6247,6 @@
         "dc/svpg/dc/topic/AirQualityIndex_AQIByPollutant"
       ],
       "memberList": [
-        "AirQualityIndex_AirPollutant",
         "AirQualityIndex_AirPollutant_CO",
         "AirQualityIndex_AirPollutant_NO2",
         "AirQualityIndex_AirPollutant_Ozone",
@@ -6473,17 +6299,17 @@
         "dc/svpg/dc/topic/Cancer_DeathsbyAge"
       ],
       "memberList": [
-        "Count_Death_15To24Years_Neoplasms",
+        "Count_Death_Upto1Years_Neoplasms",
         "Count_Death_1To4Years_Neoplasms",
+        "Count_Death_5To14Years_Neoplasms",
+        "Count_Death_15To24Years_Neoplasms",
         "Count_Death_25To34Years_Neoplasms",
         "Count_Death_35To44Years_Neoplasms",
         "Count_Death_45To54Years_Neoplasms",
         "Count_Death_55To64Years_Neoplasms",
-        "Count_Death_5To14Years_Neoplasms",
         "Count_Death_65To74Years_Neoplasms",
         "Count_Death_75To84Years_Neoplasms",
-        "Count_Death_85Years_Neoplasms",
-        "Count_Death_Upto1Years_Neoplasms"
+        "Count_Death_85Years_Neoplasms"
       ],
       "name": [
         "Cancer Deaths by Age"
@@ -6519,7 +6345,7 @@
         "Min_Concentration_AirPollutant_CO"
       ],
       "name": [
-        "Carbon Monoxide Concentration Stats"
+        "Carbon Monoxide Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6535,7 +6361,7 @@
         "Count_Person_USCitizenByNaturalization"
       ],
       "name": [
-        "US Citizenship by Status Type"
+        "Population by US Citizenship"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7000,7 +6826,7 @@
         "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
       ],
       "name": [
-        "Flourinated Gase Emissions"
+        "Flourinated Gas Emissions by Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7167,8 +6993,7 @@
         "Annual_Generation_Fuel_HardCoal",
         "Annual_Generation_Energy_NaturalGas",
         "Annual_Generation_Energy_OilProducts",
-        "Annual_Generation_Fuel_PetroleumCoke",
-        "Annual_Generation_Fuel_Nuclear"
+        "Annual_Generation_Fuel_PetroleumCoke"
       ],
       "name": [
         "Energy Generation by Fossil Fuels"
@@ -7237,7 +7062,7 @@
         "Count_Person_SpeakEnglishWell"
       ],
       "name": [
-        "English Speaking Population by Language Level"
+        "Ability to Speak English"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7408,40 +7233,17 @@
       ],
       "memberList": [
         "Annual_Emissions_GreenhouseGas_Agriculture",
-        "Annual_Emissions_GreenhouseGas_AluminumProduction",
-        "Annual_Emissions_GreenhouseGas_BauxiteMining",
-        "Annual_Emissions_GreenhouseGas_CementProduction",
-        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
-        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
-        "Annual_Emissions_GreenhouseGas_CopperMining",
-        "Annual_Emissions_GreenhouseGas_CroplandFire",
         "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-        "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
-        "Annual_Emissions_GreenhouseGas_EntericFermentation",
-        "Annual_Emissions_GreenhouseGas_ForestClearing",
-        "Annual_Emissions_GreenhouseGas_ForestFire",
-        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-        "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
-        "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
-        "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
         "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-        "Annual_Emissions_GreenhouseGas_IronMining",
-        "Annual_Emissions_GreenhouseGas_ManagedSoils",
+        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
         "Annual_Emissions_GreenhouseGas_Manufacturing",
-        "Annual_Emissions_GreenhouseGas_ManureManagement",
-        "Annual_Emissions_GreenhouseGas_MaritimeShipping",
-        "Annual_Emissions_GreenhouseGas_MaritimeTransport",
         "Annual_Emissions_GreenhouseGas_MineralExtraction",
         "Annual_Emissions_GreenhouseGas_OilAndGas",
-        "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
-        "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
-        "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
-        "Annual_Emissions_GreenhouseGas_RiceCultivation",
-        "Annual_Emissions_GreenhouseGas_RockQuarry",
-        "Annual_Emissions_GreenhouseGas_SandQuarry",
-        "Annual_Emissions_GreenhouseGas_SavannaFire",
-        "Annual_Emissions_GreenhouseGas_ShrublandFire",
-        "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+        "Annual_Emissions_GreenhouseGas_Transportation",
+        "Annual_Emissions_GreenhouseGas_WasteManagement",
+        "Annual_Emissions_GreenhouseGas_CementProduction",
+        "Annual_Emissions_GreenhouseGas_SteelManufacturing",
+        "Annual_Emissions_GreenhouseGas_ForestFire"
       ],
       "name": [
         "Greenhouse Gas Emissions By Source"
@@ -7839,14 +7641,13 @@
         "LandCoverFraction_Cropland",
         "LandCoverFraction_Forest",
         "LandCoverFraction_HerbaceousVegetation",
-        "LandCoverFraction_MossAndLichen",
         "LandCoverFraction_PermanentWater",
         "LandCoverFraction_SeasonalWater",
         "LandCoverFraction_Shrubland",
         "LandCoverFraction_SnowIce"
       ],
       "name": [
-        "Percent Of Land Cover By Type"
+        "Percent of Land Cover by Type of Area"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7854,29 +7655,7 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/LandUse/Coverage_LandUse"
-      ],
-      "memberList": [
-        "LandCoverFraction_BareSparseVegetation",
-        "LandCoverFraction_BuiltUp",
-        "LandCoverFraction_Cropland",
-        "LandCoverFraction_Forest",
-        "LandCoverFraction_HerbaceousVegetation",
-        "LandCoverFraction_PermanentWater",
-        "LandCoverFraction_SeasonalWater",
-        "LandCoverFraction_Shrubland",
-        "LandCoverFraction_SnowIce"
-      ],
-      "name": [
-        "Land Use"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity"
+        "dc/svpg/dc/topic/LandUseAndCoverage_SDGBiodiversity"
       ],
       "memberList": [
         "sdg/DC_ODA_BDVDL",
@@ -7886,7 +7665,7 @@
         "sdg/ER_RSK_LST"
       ],
       "name": [
-        "SDG Biodiversity"
+        "Biodiversity"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7894,7 +7673,7 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+        "dc/svpg/dc/topic/LandUseAndCoverage_SDGReforestations"
       ],
       "memberList": [
         "sdg/AG_LND_FRST",
@@ -7905,7 +7684,7 @@
         "sdg/AG_LND_FRSTPRCT"
       ],
       "name": [
-        "SDG Reforestations"
+        "Reforestations"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8197,20 +7976,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
-      ],
-      "memberList": [
-        "Count_DroughtEvent"
-      ],
-      "name": [
-        "Droughts"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
       ],
       "memberList": [
@@ -8221,124 +7986,7 @@
         "Count_EarthquakeEvent_M9Onwards"
       ],
       "name": [
-        "Earthquakes by Intensities"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_Fires"
-      ],
-      "memberList": [
-        "Count_FireEvent",
-        "Count_WildlandFireEvent"
-      ],
-      "name": [
-        "Fires"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_Floods"
-      ],
-      "memberList": [
-        "Count_CoastalFloodEvent",
-        "Count_FloodEvent"
-      ],
-      "name": [
-        "Floods"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts"
-      ],
-      "memberList": [
-        "Count_HeatWaveEvent"
-      ],
-      "name": [
-        "Number of Heat Wave Events"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
-      ],
-      "memberList": [
-        "NumberOfDays_HeatWaveEvent"
-      ],
-      "name": [
-        "Heat Wave Durations"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity"
-      ],
-      "memberList": [
-        "Intensity_HeatWaveEvent"
-      ],
-      "name": [
-        "Heat Wave Intensities"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_Precipitation"
-      ],
-      "memberList": [
-        "Max_Rainfall",
-        "Mean_Rainfall",
-        "Min_Rainfall"
-      ],
-      "name": [
-        "Precipitation"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
-      ],
-      "memberList": [
-        "PrecipitationRate"
-      ],
-      "name": [
-        "Precipitation Rate"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
-      ],
-      "memberList": [
-        "Area_WetBulbTemperatureEvent",
-        "Count_WetBulbTemperatureEvent"
-      ],
-      "name": [
-        "Wet Bulb Events"
+        "Earthquakes by Intensity"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8381,12 +8029,10 @@
       ],
       "memberList": [
         "Max_Concentration_AirPollutant_NO2",
-        "Mean_Concentration_AirPollutant_NO2",
-        "Median_Concentration_AirPollutant_NO2",
-        "Min_Concentration_AirPollutant_NO2"
+        "Mean_Concentration_AirPollutant_NO2"
       ],
       "name": [
-        "Nitrogen Dioxide Concentration Stats"
+        "Nitrogen Dioxide Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8412,12 +8058,12 @@
         "dc/svpg/dc/topic/NoHealthInsuranceByIncome_UninsuredByIncome"
       ],
       "memberList": [
+        "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings",
+        "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings",
         "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings",
         "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings",
         "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings",
-        "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings",
         "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings",
-        "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings",
         "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings"
       ],
       "name": [
@@ -8432,12 +8078,12 @@
         "dc/svpg/dc/topic/NoHealthInsuranceByRace_UninsuredByRace"
       ],
       "memberList": [
-        "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
-        "Count_Person_NoHealthInsurance_AsianAlone",
+        "Count_Person_NoHealthInsurance_WhiteAlone",
         "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone",
         "Count_Person_NoHealthInsurance_HispanicOrLatino",
-        "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_NoHealthInsurance_WhiteAlone"
+        "Count_Person_NoHealthInsurance_AsianAlone",
+        "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
+        "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
       ],
       "name": [
         "Uninsured By Race"
@@ -8546,12 +8192,10 @@
       ],
       "memberList": [
         "Max_Concentration_AirPollutant_PM10",
-        "Mean_Concentration_AirPollutant_PM10",
-        "Median_Concentration_AirPollutant_PM10",
-        "Min_Concentration_AirPollutant_PM10"
+        "Mean_Concentration_AirPollutant_PM10"
       ],
       "name": [
-        "PM10 ConcentrationStats"
+        "PM10 Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8564,11 +8208,10 @@
       "memberList": [
         "Max_Concentration_AirPollutant_PM2.5",
         "Mean_Concentration_AirPollutant_PM2.5",
-        "Median_Concentration_AirPollutant_PM2.5",
-        "Min_Concentration_AirPollutant_PM2.5"
+        "Median_Concentration_AirPollutant_PM2.5"
       ],
       "name": [
-        "PM2.5ConcentrationStats"
+        "PM 2.5 Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8598,57 +8241,12 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/Pollutants_AQI"
-      ],
-      "memberList": [
-        "AirQualityIndex_AirPollutant"
-      ],
-      "name": [
-        "AQI"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide"
-      ],
-      "memberList": [
-        "AirQualityIndex_AirPollutant_CO",
-        "Max_Concentration_AirPollutant_CO",
-        "Mean_Concentration_AirPollutant_CO",
-        "Median_Concentration_AirPollutant_CO"
-      ],
-      "name": [
-        "Carbon Monoxide"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_Diesel"
-      ],
-      "memberList": [
-        "Mean_Concentration_AirPollutant_DieselPM"
-      ],
-      "name": [
-        "Diesel"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/Pollutants_NitrogenDioxide"
       ],
       "memberList": [
-        "AirQualityIndex_AirPollutant_NO2",
         "Max_Concentration_AirPollutant_NO2",
-        "Mean_Concentration_AirPollutant_NO2"
+        "Mean_Concentration_AirPollutant_NO2",
+        "AirQualityIndex_AirPollutant_NO2"
       ],
       "name": [
         "Nitrogen Dioxide"
@@ -8662,74 +8260,13 @@
         "dc/svpg/dc/topic/Pollutants_Ozone"
       ],
       "memberList": [
-        "AirQualityIndex_AirPollutant_Ozone",
         "Max_Concentration_AirPollutant_Ozone",
         "Mean_Concentration_AirPollutant_Ozone",
-        "Median_Concentration_AirPollutant_Ozone"
+        "Median_Concentration_AirPollutant_Ozone",
+        "AirQualityIndex_AirPollutant_Ozone"
       ],
       "name": [
-        "Ozone"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_PM10"
-      ],
-      "memberList": [
-        "AirQualityIndex_AirPollutant_PM10",
-        "Max_Concentration_AirPollutant_PM10",
-        "Mean_Concentration_AirPollutant_PM10"
-      ],
-      "name": [
-        "PM10"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_PM2.5"
-      ],
-      "memberList": [
-        "AirQualityIndex_AirPollutant_PM2.5",
-        "Max_Concentration_AirPollutant_PM2.5",
-        "Mean_Concentration_AirPollutant_PM2.5",
-        "Median_Concentration_AirPollutant_PM2.5"
-      ],
-      "name": [
-        "PM2.5"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_Smoke"
-      ],
-      "memberList": [],
-      "name": [
-        "Smoke"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Pollutants_SulfurDioxide"
-      ],
-      "memberList": [
-        "AirQualityIndex_AirPollutant_SO2",
-        "Max_Concentration_AirPollutant_SO2",
-        "Mean_Concentration_AirPollutant_SO2"
-      ],
-      "name": [
-        "Sulfur Dioxide"
+        "Ozone Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8927,6 +8464,22 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Rainfall_Amount"
+      ],
+      "memberList": [
+        "Max_Rainfall",
+        "Mean_Rainfall",
+        "Min_Rainfall"
+      ],
+      "name": [
+        "Rainfall Amount"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/RentalHouses_HousesbyRentalAmount"
       ],
       "memberList": [
@@ -8975,7 +8528,7 @@
         "NumberOfDays_Concentration_SmokePM25_Above55PPM"
       ],
       "name": [
-        "Number of Days with Smoke PM 2.5 Pollution by Pollution Level"
+        "Number of Days with Smoke PM 2.5 Pollution by Level"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8991,41 +8544,7 @@
         "Mean_Concentration_AirPollutant_SmokePM25"
       ],
       "name": [
-        "Smoke Concentration 2.5"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Smoke_SmokeDays"
-      ],
-      "memberList": [
-        "NumberOfDays_Concentration_SmokePM25_Above12PPM",
-        "NumberOfDays_Concentration_SmokePM25_Above150PPM",
-        "NumberOfDays_Concentration_SmokePM25_Above250PPM",
-        "NumberOfDays_Concentration_SmokePM25_Above35PPM",
-        "NumberOfDays_Concentration_SmokePM25_Above55PPM"
-      ],
-      "name": [
-        "Smoke Days"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
-      ],
-      "memberList": [
-        "Max_Concentration_AirPollutant_SmokePM25",
-        "Mean_Concentration_AirPollutant_SmokePM25",
-        "Concentration_AirPollutant_SmokePM25"
-      ],
-      "name": [
-        "Smoke PM 2.5"
+        "Smoke PM 2.5 Concentration"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9248,23 +8767,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/SulfurDioxide_SulfurDioxideConcentrationStats"
-      ],
-      "memberList": [
-        "Max_Concentration_AirPollutant_SO2",
-        "Mean_Concentration_AirPollutant_SO2",
-        "Median_Concentration_AirPollutant_SO2",
-        "Min_Concentration_AirPollutant_SO2"
-      ],
-      "name": [
-        "Sulfur Dioxide Concentration Stats"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/SupportServicesStaffInSchools_NumberofFacultySupportStaffByRole"
       ],
       "memberList": [
@@ -9281,36 +8783,6 @@
       ],
       "name": [
         "Number of Faculty Support Staff By Role"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct"
-      ],
-      "memberList": [
-        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
-        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-      ],
-      "name": [
-        "Decadal Projected Temperature Lows 5 Percent"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct"
-      ],
-      "memberList": [
-        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
-        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-      ],
-      "name": [
-        "Decadal Projected Temperature Highs 5 Percent"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9360,51 +8832,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/Temperatures_WetBulbEvents"
-      ],
-      "memberList": [
-        "Area_WetBulbTemperatureEvent",
-        "Count_WetBulbTemperatureEvent"
-      ],
-      "name": [
-        "Wet Bulb Events"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct"
-      ],
-      "memberList": [
-        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
-        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-      ],
-      "name": [
-        "Yearly Projected Temperature Highs 5 Percent"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
-      ],
-      "memberList": [
-        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
-        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-      ],
-      "name": [
-        "Yearly Projected Temperature Lows 5 Percent"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/VeryOldAndVeryYoungPopulation_CountPersonVeryOldGender"
       ],
       "memberList": [
@@ -9412,7 +8839,7 @@
         "Count_Person_85OrMoreYears_Male"
       ],
       "name": [
-        "CountPersonVeryOldGender"
+        "Population 85 or over by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9427,7 +8854,7 @@
         "Count_Person_0To4Years_Male"
       ],
       "name": [
-        "CountPersonVeryYoungGender"
+        "Children Population by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9854,6 +9281,7 @@
         "Air Quality Index"
       ],
       "relevantVariableList": [
+        "AirQualityIndex_AirPollutant",
         "dc/svpg/dc/topic/AirQualityIndex_AQIByPollutant"
       ],
       "typeOf": [
@@ -10112,8 +9540,8 @@
         "Avalanche"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_AvalancheEvent",
         "Count_AvalancheEvent",
+        "Annual_ExpectedLoss_NaturalHazardImpact_AvalancheEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent"
       ],
       "typeOf": [
@@ -10263,12 +9691,12 @@
         "dc/topic/CO2Emissions"
       ],
       "name": [
-        "CO2 Emissions"
+        "Carbondioxide (CO2)"
       ],
       "relevantVariableList": [
         "eia/INTL.4008-8-MMTCD.A",
-        "dc/svpg/CO2Emissions_AnnualCO2EmissionsbySource",
-        "dc/svpg/CO2Emissions_MonthlyCO2EmissionsbySource"
+        "Amount_Emissions_CarbonDioxide_PerCapita",
+        "dc/svpg/Emissions_CO2_EmissionsbySource"
       ],
       "typeOf": [
         "Topic"
@@ -10301,8 +9729,8 @@
         "Cancer"
       ],
       "relevantVariableList": [
-        "Count_Death_Neoplasms",
         "Percent_Person_WithCancerExcludingSkinCancer",
+        "Count_Death_Neoplasms",
         "dc/svpg/dc/topic/Cancer_DeathsbyAge",
         "dc/svpg/dc/topic/Cancer_PreventativeHealth"
       ],
@@ -10354,20 +9782,6 @@
     },
     {
       "dcid": [
-        "dc/topic/CardiovascularDisease"
-      ],
-      "name": [
-        "CardiovascularDisease"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/CardiovascularDisease_CardiovascularDiseasePerCapitaByAge"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/CausesOfDeath"
       ],
       "name": [
@@ -10411,8 +9825,8 @@
         "Cholesterol"
       ],
       "relevantVariableList": [
-        "Percent_Person_ReceivedCholesterolScreening",
-        "Percent_Person_WithHighCholesterol"
+        "Percent_Person_WithHighCholesterol",
+        "Percent_Person_ReceivedCholesterolScreening"
       ],
       "typeOf": [
         "Topic"
@@ -10434,15 +9848,14 @@
     },
     {
       "dcid": [
-        "dc/topic/Clouds"
+        "dc/topic/CoastalFlood"
       ],
       "name": [
-        "Clouds"
+        "Coastal Flood"
       ],
       "relevantVariableList": [
-        "Count_FunnelCloudEvent",
-        "dc/topic/Visibility",
-        "dc/svpg/Clouds_CloudCover"
+        "Annual_ExpectedLoss_NaturalHazardImpact_CoastalFloodEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_CoastalFloodEvent"
       ],
       "typeOf": [
         "Topic"
@@ -10450,15 +9863,17 @@
     },
     {
       "dcid": [
-        "dc/topic/CoastalFlood"
+        "dc/topic/ColdEvent"
       ],
       "name": [
-        "CoastalFlood"
+        "Cold Events"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_CoastalFloodEvent",
-        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_CoastalFloodEvent",
-        "NaturalHazardRiskScore_SuperfundSite_CoastalFloodEvent"
+        "Count_ColdWindChillEvent",
+        "Count_ExtremeColdWindChillEvent",
+        "Count_FreezingFogEvent",
+        "Count_FrostFreezeEvent",
+        "Count_WinterWeatherEvent"
       ],
       "typeOf": [
         "Topic"
@@ -10477,21 +9892,6 @@
         "Count_Person_WithFoodStampsInThePast12Months_ResidesInCollegeOrUniversityStudentHousing",
         "Median_Age_Person_ResidesInCollegeOrUniversityStudentHousing",
         "dc/svpg/CollegeOrUniversityStudentHousingResidents_CollegeOrUniversityStudentHousingPopulationbyGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Commute"
-      ],
-      "name": [
-        "Commute"
-      ],
-      "relevantVariableList": [
-        "dc/topic/CommuteMode",
-        "dc/topic/CommuteTime"
       ],
       "typeOf": [
         "Topic"
@@ -10567,7 +9967,7 @@
         "dc/topic/Cyclone"
       ],
       "name": [
-        "Cyclone"
+        "Cyclones"
       ],
       "relevantVariableList": [
         "Count_CycloneEvent",
@@ -10749,6 +10149,20 @@
     },
     {
       "dcid": [
+        "dc/topic/DieselPM"
+      ],
+      "name": [
+        "Diesel PM"
+      ],
+      "relevantVariableList": [
+        "Mean_Concentration_AirPollutant_DieselPM"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Disabilities"
       ],
       "name": [
@@ -10787,45 +10201,6 @@
       ],
       "relevantVariableList": [
         "dc/svpg/Disabilities_DisabledPopulationbyRace"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Disasters"
-      ],
-      "name": [
-        "Disasters"
-      ],
-      "relevantVariableList": [
-        "dc/topic/Drought",
-        "dc/topic/Fire",
-        "dc/topic/Flood",
-        "dc/topic/HeatEvent",
-        "dc/topic/Storm",
-        "dc/topic/WetBulbEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Disease"
-      ],
-      "name": [
-        "Disease"
-      ],
-      "relevantVariableList": [
-        "dc/topic/CardiovascularDisease",
-        "dc/topic/Dengue",
-        "dc/topic/Diabetes",
-        "dc/topic/HIV",
-        "dc/topic/Malaria",
-        "dc/topic/NeglectedTropicalDiseases",
-        "dc/topic/Tuberculosis"
       ],
       "typeOf": [
         "Topic"
@@ -10906,7 +10281,7 @@
         "dc/topic/DivorcedPopulationByDemographic"
       ],
       "name": [
-        "Divorced Population By Demographic"
+        "Divorced Population"
       ],
       "relevantVariableList": [
         "Count_Person_Divorced",
@@ -10938,31 +10313,16 @@
     },
     {
       "dcid": [
-        "dc/topic/Dust"
-      ],
-      "name": [
-        "Dust"
-      ],
-      "relevantVariableList": [
-        "Count_DustDevilEvent",
-        "Count_DustStormEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Earthquake"
       ],
       "name": [
         "Earthquake"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_EarthquakeEvent",
         "Count_EarthquakeEvent",
+        "Annual_ExpectedLoss_NaturalHazardImpact_EarthquakeEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_EarthquakeEvent",
-        "NaturalHazardRiskScore_SuperfundSite_EarthquakeEvent"
+        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
       ],
       "typeOf": [
         "Topic"
@@ -11092,7 +10452,7 @@
       "relevantVariableList": [
         "dc/topic/Education",
         "dc/topic/Housing",
-        "dc/topic/Commute"
+        "dc/topic/WorkCommute"
       ],
       "typeOf": [
         "Topic"
@@ -11169,6 +10529,9 @@
         "Emissions"
       ],
       "relevantVariableList": [
+        "Annual_Emissions_GreenhouseGas",
+        "dc/topic/GreenhouseGasEmissions",
+        "dc/topic/CO2Emissions",
         "dc/topic/Emissions_FlourinatedGases",
         "dc/topic/Emissions_Methane_EmissionsbySource",
         "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
@@ -11184,7 +10547,7 @@
         "dc/topic/Emissions_FlourinatedGases"
       ],
       "name": [
-        "Flourinated Gase Emissions"
+        "Flourinated Gas"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/Emissions_FlourinatedGases"
@@ -11198,7 +10561,7 @@
         "dc/topic/Emissions_Methane_EmissionsbySource"
       ],
       "name": [
-        "Methane Emissions by Source"
+        "Methane"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/Emissions_Methane_EmissionsbySource"
@@ -11212,7 +10575,7 @@
         "dc/topic/Emissions_NitrousOxide_EmissionsbySource"
       ],
       "name": [
-        "Nitrous Oxide Emissions by Source"
+        "Nitrous Oxide"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/Emissions_NitrousOxide_EmissionsbySource"
@@ -11226,7 +10589,7 @@
         "dc/topic/Emissions_PM2.5_EmissionsbySource"
       ],
       "name": [
-        "PM 2.5 Emissions by Source"
+        "PM 2.5"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
@@ -11240,7 +10603,7 @@
         "dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
       ],
       "name": [
-        "Sulfur Dioxide Emissions by Source"
+        "Sulfur Dioxide"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
@@ -11404,23 +10767,6 @@
     },
     {
       "dcid": [
-        "dc/topic/Environment"
-      ],
-      "name": [
-        "Environment"
-      ],
-      "relevantVariableList": [
-        "dc/topic/Disasters",
-        "dc/topic/LandCover",
-        "dc/topic/Pollution",
-        "dc/topic/TemperaturePredictions"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Equity"
       ],
       "name": [
@@ -11438,36 +10784,6 @@
     },
     {
       "dcid": [
-        "dc/topic/ExcessiveColdEvent"
-      ],
-      "name": [
-        "ExcessiveColdEvent"
-      ],
-      "relevantVariableList": [
-        "NaturalHazardRiskScore_SuperfundSite_ExtremeColdWindChillEvent",
-        "dc/svpg/ExcessiveColdEvent_ExcessiveColdEventbyType"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/ExcessiveHeatEvent"
-      ],
-      "name": [
-        "ExcessiveHeatEvent"
-      ],
-      "relevantVariableList": [
-        "Count_ExcessiveHeatEvent",
-        "dc/topic/HeatWave"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/ExportSubsidies"
       ],
       "name": [
@@ -11475,22 +10791,6 @@
       ],
       "relevantVariableList": [
         "sdg/AG_PRD_XSUBDY"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/ExtremeTide"
-      ],
-      "name": [
-        "ExtremeTide"
-      ],
-      "relevantVariableList": [
-        "Count_AstronomicalLowTideEvent",
-        "Count_RipCurrentEvent",
-        "Count_StormSurgeTideEvent"
       ],
       "typeOf": [
         "Topic"
@@ -11519,10 +10819,12 @@
         "Fire"
       ],
       "relevantVariableList": [
-        "BurnedArea_FireEvent",
         "Count_FireEvent",
+        "Count_WildlandFireEvent",
+        "BurnedArea_FireEvent",
         "Percent_BurnedArea_FireEvent",
-        "Percent_BurnedArea_FireEvent_Forest_HighSeverity"
+        "Percent_BurnedArea_FireEvent_Forest_HighSeverity",
+        "dc/svpg/Wildfire_Annualamountofwildfireemissionsbysource"
       ],
       "typeOf": [
         "Topic"
@@ -11537,25 +10839,10 @@
       ],
       "relevantVariableList": [
         "Area_FloodEvent",
-        "Count_FlashFloodEvent",
         "Count_FloodEvent",
+        "Count_FlashFloodEvent",
         "dc/topic/CoastalFlood",
         "dc/topic/RiverineFlood"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Fog"
-      ],
-      "name": [
-        "Fog"
-      ],
-      "relevantVariableList": [
-        "dc/topic/Visibility",
-        "dc/svpg/Fog_Fogeventsbytype"
       ],
       "typeOf": [
         "Topic"
@@ -11573,22 +10860,6 @@
         "Mean_MaxTemperature_Forest",
         "Mean_PalmerDroughtSeverityIndex_Forest",
         "Mean_VaporPressureDeficit_Forest"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/FossilFuelSubsidies"
-      ],
-      "name": [
-        "FossilFuelSubsidies"
-      ],
-      "relevantVariableList": [
-        "sdg/ER_FFS_CMPT_CD",
-        "sdg/ER_FFS_CMPT_GDP",
-        "sdg/ER_FFS_CMPT_PC_CD"
       ],
       "typeOf": [
         "Topic"
@@ -11696,7 +10967,7 @@
     },
     {
       "dcid": [
-        "dc/topic/GreenhouseGasses"
+        "dc/topic/GreenhouseGasEmissions"
       ],
       "name": [
         "Greenhouse Gasses"
@@ -11738,22 +11009,6 @@
         "dc/svpg/HIV_HIVCasesByAge",
         "dc/svpg/HIV_HIVCasesByGender",
         "dc/svpg/HIV_HIVCasesByRace"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Hail"
-      ],
-      "name": [
-        "Hail"
-      ],
-      "relevantVariableList": [
-        "Count_HailEvent",
-        "Count_MarineHailEvent",
-        "NaturalHazardRiskScore_SuperfundSite_HailEvent"
       ],
       "typeOf": [
         "Topic"
@@ -11955,21 +11210,6 @@
     },
     {
       "dcid": [
-        "dc/topic/HeatEvent"
-      ],
-      "name": [
-        "Heat Event"
-      ],
-      "relevantVariableList": [
-        "Count_ExcessiveHeatEvent",
-        "dc/topic/HeatEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/HeatIllnesses"
       ],
       "name": [
@@ -11997,7 +11237,8 @@
         "NumberOfDays_HeatWaveEvent",
         "PopulationWeighted_Count_HeatWaveEvent",
         "PopulationWeighted_Intensity_HeatWaveEvent",
-        "PopulationWeighted_NumerOfDays_HeatWaveEvent"
+        "PopulationWeighted_NumerOfDays_HeatWaveEvent",
+        "Count_ExcessiveHeatEvent"
       ],
       "typeOf": [
         "Topic"
@@ -12013,23 +11254,6 @@
       "relevantVariableList": [
         "sdg/SH_STA_STNTN.AGE--Y0T4",
         "sdg/SH_STA_STNT.AGE--Y0T4"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/HighWind"
-      ],
-      "name": [
-        "HighWind"
-      ],
-      "relevantVariableList": [
-        "Count_HighWindEvent",
-        "Count_MarineHighWindEvent",
-        "Count_MarineStrongWindEvent",
-        "NaturalHazardRiskScore_SuperfundSite_HighWindEvent"
       ],
       "typeOf": [
         "Topic"
@@ -12755,14 +11979,13 @@
         "dc/topic/Hurricane"
       ],
       "name": [
-        "Hurricane"
+        "Hurricanes"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_HurricaneEvent",
         "Count_HurricaneEvent",
         "Count_HurricaneTyphoonEvent",
-        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HurricaneEvent",
-        "NaturalHazardRiskScore_SuperfundSite_HurricaneEvent"
+        "Annual_ExpectedLoss_NaturalHazardImpact_HurricaneEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_HurricaneEvent"
       ],
       "typeOf": [
         "Topic"
@@ -13126,15 +12349,15 @@
     },
     {
       "dcid": [
-        "dc/topic/LandUse/Coverage"
+        "dc/topic/LandUseAndCoverage"
       ],
       "name": [
-        "Land Use / Coverage"
+        "Land Use and Coverage"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/LandUse/Coverage_LandUse",
-        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity",
-        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+        "dc/topic/LandCover",
+        "dc/topic/SDGBiodiversity",
+        "dc/topic/SDGReforestations"
       ],
       "typeOf": [
         "Topic"
@@ -13148,10 +12371,9 @@
         "Landslide"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_LandslideEvent",
         "Count_LandslideEvent",
-        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LandslideEvent",
-        "NaturalHazardRiskScore_SuperfundSite_LandslideEvent"
+        "Annual_ExpectedLoss_NaturalHazardImpact_LandslideEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_LandslideEvent"
       ],
       "typeOf": [
         "Topic"
@@ -13296,28 +12518,14 @@
     },
     {
       "dcid": [
-        "dc/topic/MarineEvents"
-      ],
-      "name": [
-        "MarineEvents"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/MarineEvents_MarineEventsbyType"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/MaritalStatus"
       ],
       "name": [
         "Marital Status"
       ],
       "relevantVariableList": [
-        "dc/topic/DivorcedPopulationByDemographic",
         "dc/topic/MaritalStatusBreakdown",
+        "dc/topic/DivorcedPopulationByDemographic",
         "dc/topic/MarriedPopulationByDemographic",
         "dc/topic/NeverMarriedPopulationByDemographic",
         "dc/topic/WidowedPopulationByDemographic"
@@ -13345,10 +12553,10 @@
         "dc/topic/MarriedPopulationByDemographic"
       ],
       "name": [
-        "Married Population By Demographic"
+        "Married Population"
       ],
       "relevantVariableList": [
-        "Count_Person_InLaborForce_MarriedAndNotSeparated",
+        "Count_Person_MarriedAndNotSeparated",
         "dc/svpg/dc/topic/MarriedPopulationByDemographic_MarriedPopulationByGender",
         "dc/svpg/dc/topic/MarriedPopulationByDemographic_MarriedPopulationByRace"
       ],
@@ -13435,31 +12643,6 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/MedianHouseholdIncomeByRace"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/MedicalConditions"
-      ],
-      "name": [
-        "Medical Conditions"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_WithArthritis",
-        "Percent_Person_WithAsthma",
-        "Percent_Person_WithCancerExcludingSkinCancer",
-        "Percent_Person_WithChronicKidneyDisease",
-        "Percent_Person_WithChronicObstructivePulmonaryDisease",
-        "Percent_Person_WithCoronaryHeartDisease",
-        "Percent_Person_WithDiabetes",
-        "Percent_Person_WithHighBloodPressure",
-        "Percent_Person_WithHighCholesterol",
-        "Percent_Person_WithMentalHealthNotGood",
-        "Percent_Person_WithPhysicalHealthNotGood",
-        "Percent_Person_WithStroke"
       ],
       "typeOf": [
         "Topic"
@@ -13780,114 +12963,16 @@
         "Natural Disasters"
       ],
       "relevantVariableList": [
-        "dc/topic/NaturalDisasters_Droughts",
-        "dc/topic/NaturalDisasters_Floods",
-        "dc/topic/NaturalDisasters_Fires",
-        "dc/topic/NaturalDisasters_HeatWaveEvents",
-        "dc/topic/NaturalDisasters_Precipitation",
-        "dc/topic/NaturalDisasters_WetBulbEvents",
-        "dc/topic/NaturalDisasters_Earthquake"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_Droughts"
-      ],
-      "name": [
-        "Droughts"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_Earthquake"
-      ],
-      "name": [
-        "Earthquakes"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_Fires"
-      ],
-      "name": [
-        "Fires"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_Fires"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_Floods"
-      ],
-      "name": [
-        "Floods"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_Floods"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_HeatWaveEvents"
-      ],
-      "name": [
-        "HeatWave Events"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts",
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity",
-        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_Precipitation"
-      ],
-      "name": [
-        "Precipitation"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_Precipitation",
-        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/NaturalDisasters_WetBulbEvents"
-      ],
-      "name": [
-        "Wet Bulb Events"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
+        "dc/topic/Drought",
+        "dc/topic/Flood",
+        "dc/topic/Fire",
+        "dc/topic/HeatWave",
+        "dc/topic/WetBulbEvent",
+        "dc/topic/Storm",
+        "dc/topic/Earthquake",
+        "dc/topic/Avalanche",
+        "dc/topic/Landslide",
+        "dc/topic/Tsunami"
       ],
       "typeOf": [
         "Topic"
@@ -13956,10 +13041,10 @@
         "dc/topic/NeverMarriedPopulationByDemographic"
       ],
       "name": [
-        "Never Married Population By Demographic"
+        "Never Married Population"
       ],
       "relevantVariableList": [
-        "Count_Person_InLaborForce_NeverMarried",
+        "Count_Person_NeverMarried",
         "dc/svpg/dc/topic/NeverMarriedPopulationByDemographic_NeverMarriedPopulationByGender",
         "dc/svpg/dc/topic/NeverMarriedPopulationByDemographic_NeverMarriedPopulationByRace"
       ],
@@ -14677,10 +13762,7 @@
         "Ozone"
       ],
       "relevantVariableList": [
-        "Max_Concentration_AirPollutant_Ozone",
-        "Mean_Concentration_AirPollutant_Ozone",
-        "Median_Concentration_AirPollutant_Ozone",
-        "Min_Concentration_AirPollutant_Ozone"
+        "dc/svpg/dc/topic/Pollutants_Ozone"
       ],
       "typeOf": [
         "Topic"
@@ -14691,7 +13773,7 @@
         "dc/topic/PM10"
       ],
       "name": [
-        "PM 10"
+        "PM10"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/PM10_PM10ConcentrationStats"
@@ -14709,22 +13791,6 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/PM2.5_PM2.5ConcentrationStats"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PalmerDroughtSeverityIndex"
-      ],
-      "name": [
-        "PalmerDroughtSeverityIndex"
-      ],
-      "relevantVariableList": [
-        "Mean_PalmerDroughtSeverityIndex",
-        "Mean_PalmerDroughtSeverityIndex_Forest",
-        "PalmerDroughtSeverityIndex_Atmosphere"
       ],
       "typeOf": [
         "Topic"
@@ -14823,70 +13889,20 @@
     },
     {
       "dcid": [
-        "dc/topic/PollutantConcentration"
+        "dc/topic/Pollutants"
       ],
       "name": [
-        "Pollutant Concentration"
+        "Air Pollutants"
       ],
       "relevantVariableList": [
+        "dc/topic/AirQualityIndex",
         "dc/topic/CarbonMonoxide",
         "dc/topic/NitrogenDioxide",
         "dc/topic/Ozone",
         "dc/topic/PM10",
         "dc/topic/PM2.5",
-        "dc/topic/SulfurDioxide"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Pollutants"
-      ],
-      "name": [
-        "Pollutants"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/Pollutants_AQI",
-        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide",
-        "dc/svpg/dc/topic/Pollutants_Diesel",
-        "dc/svpg/dc/topic/Pollutants_NitrogenDioxide",
-        "dc/svpg/dc/topic/Pollutants_Ozone",
-        "dc/svpg/dc/topic/Pollutants_PM10",
-        "dc/svpg/dc/topic/Pollutants_PM2.5",
-        "dc/svpg/dc/topic/Pollutants_SulfurDioxide",
-        "dc/topic/Pollutants_Smoke"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Pollutants_Smoke"
-      ],
-      "name": [
-        "Smoke"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/Smoke_SmokeDays",
-        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Pollution"
-      ],
-      "name": [
-        "Pollution"
-      ],
-      "relevantVariableList": [
-        "dc/topic/AirQualityIndex",
-        "dc/topic/PollutantConcentration"
+        "dc/topic/SmokePM2.5",
+        "dc/topic/DieselPM"
       ],
       "typeOf": [
         "Topic"
@@ -15221,9 +14237,6 @@
       "relevantVariableList": [
         "HeavyPrecipitationIndex",
         "InterannualRange_Monthly_Precipitation",
-        "Max_PrecipitableWater_Atmosphere",
-        "Mean_PrecipitableWater_Atmosphere",
-        "Min_PrecipitableWater_Atmosphere",
         "PrecipitationRate",
         "dc/topic/Rainfall",
         "dc/topic/Snowfall"
@@ -15331,9 +14344,8 @@
         "Rainfall"
       ],
       "relevantVariableList": [
-        "Count_FloodEvent",
-        "Count_HeavyRainEvent",
-        "dc/svpg/Rainfall_RainfallAmount"
+        "dc/svpg/dc/topic/Rainfall_Amount",
+        "Count_HeavyRainEvent"
       ],
       "typeOf": [
         "Topic"
@@ -15392,7 +14404,7 @@
         "dc/topic/RiverineFlood"
       ],
       "name": [
-        "RiverineFlood"
+        "Riverine Flood"
       ],
       "relevantVariableList": [
         "Annual_ExpectedLoss_NaturalHazardImpact_RiverineFloodingEvent",
@@ -15474,6 +14486,34 @@
       ],
       "relevantVariableList": [
         "dc/svpg/RuralPopulationByAge_RuralPopulationByAge"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/SDGBiodiversity"
+      ],
+      "name": [
+        "Biodiversity"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/LandUseAndCoverage_SDGBiodiversity"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/SDGReforestations"
+      ],
+      "name": [
+        "Reforestations"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/LandUseAndCoverage_SDGReforestations"
       ],
       "typeOf": [
         "Topic"
@@ -15576,8 +14616,8 @@
         "Smoke PM 2.5"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/SmokePM2.5_NumberofDayswithSmokePM2.5PollutionbyPollutionLevel",
-        "dc/svpg/dc/topic/SmokePM2.5_SmokeConcentration2.5"
+        "dc/svpg/dc/topic/SmokePM2.5_SmokeConcentration2.5",
+        "dc/svpg/dc/topic/SmokePM2.5_NumberofDayswithSmokePM2.5PollutionbyPollutionLevel"
       ],
       "typeOf": [
         "Topic"
@@ -15591,11 +14631,11 @@
         "Snowfall"
       ],
       "relevantVariableList": [
+        "dc/svpg/Snowfall_SnowfallAmount",
         "Count_BlizzardEvent",
         "Count_HeavySnowEvent",
         "Count_LakeEffectSnowEvent",
-        "Count_WinterStormEvent",
-        "dc/svpg/Snowfall_SnowfallAmount"
+        "Count_WinterStormEvent"
       ],
       "typeOf": [
         "Topic"
@@ -15672,10 +14712,13 @@
         "dc/topic/Storm"
       ],
       "name": [
-        "Storm"
+        "Storms"
       ],
       "relevantVariableList": [
-        "dc/svpg/Storm_StormEventbytype"
+        "dc/svpg/Storm_StormEventbytype",
+        "dc/topic/Cyclone",
+        "dc/topic/Hurricane",
+        "dc/topic/Tornado"
       ],
       "typeOf": [
         "Topic"
@@ -15921,20 +14964,6 @@
     },
     {
       "dcid": [
-        "dc/topic/SulfurDioxide"
-      ],
-      "name": [
-        "Sulfur Dioxide"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/SulfurDioxide_SulfurDioxideConcentrationStats"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/SupportServicesStaffInSchools"
       ],
       "name": [
@@ -15955,17 +14984,17 @@
         "Sustainability"
       ],
       "relevantVariableList": [
-        "dc/topic/GreenhouseGasses",
         "dc/topic/Emissions",
         "dc/topic/Pollutants",
+        "dc/topic/Temperatures",
+        "dc/topic/Precipitation",
+        "dc/topic/NaturalDisasters",
+        "dc/topic/Agriculture",
         "dc/topic/Energy",
         "dc/topic/GreenJobs",
-        "dc/topic/LandUse/Coverage",
-        "dc/topic/Temperatures",
-        "dc/topic/NaturalDisasters",
+        "dc/topic/LandUseAndCoverage",
         "dc/topic/OceanHealth",
-        "dc/topic/ProductionConsumptionandWaste",
-        "dc/topic/Agriculture"
+        "dc/topic/ProductionConsumptionandWaste"
       ],
       "typeOf": [
         "Topic"
@@ -16008,22 +15037,6 @@
     },
     {
       "dcid": [
-        "dc/topic/Temperature"
-      ],
-      "name": [
-        "Temperature"
-      ],
-      "relevantVariableList": [
-        "Mean_Temperature",
-        "Max_Temperature",
-        "Min_Temperature"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/TemperaturePredictions"
       ],
       "name": [
@@ -16044,32 +15057,14 @@
         "dc/topic/Temperatures"
       ],
       "name": [
-        "Temperatures"
+        "Temperature"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct",
-        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct",
         "dc/svpg/dc/topic/Temperatures_HistoricalMaximumTemperature",
         "dc/svpg/dc/topic/Temperatures_HistoricalMeanTemperature",
         "dc/svpg/dc/topic/Temperatures_HistoricalMinimumTemperature",
-        "dc/svpg/dc/topic/Temperatures_WetBulbEvents",
-        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct",
-        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Thunderstorm"
-      ],
-      "name": [
-        "Thunderstorm"
-      ],
-      "relevantVariableList": [
-        "Count_MarineThunderstormWindEvent",
-        "Count_ThunderstormWindEvent"
+        "dc/topic/WetBulbEvent",
+        "dc/topic/TemperaturePredictions"
       ],
       "typeOf": [
         "Topic"
@@ -16083,25 +15078,9 @@
         "Tornado"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_TornadoEvent",
         "Count_TornadoEvent",
-        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TornadoEvent",
-        "NaturalHazardRiskScore_SuperfundSite_TornadoEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/TropicalWeatherEvents"
-      ],
-      "name": [
-        "TropicalWeatherEvents"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/TropicalWeatherEvents_TropicalCycloneEventsbyType",
-        "dc/svpg/TropicalWeatherEvents_TropicalWeatherEventsbyType"
+        "Annual_ExpectedLoss_NaturalHazardImpact_TornadoEvent",
+        "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TornadoEvent"
       ],
       "typeOf": [
         "Topic"
@@ -16115,8 +15094,8 @@
         "Tsunami"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_TsunamiEvent",
         "Count_TsunamiEvent",
+        "Annual_ExpectedLoss_NaturalHazardImpact_TsunamiEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_TsunamiEvent"
       ],
       "typeOf": [
@@ -16323,9 +15302,9 @@
         "Volcano"
       ],
       "relevantVariableList": [
-        "Annual_ExpectedLoss_NaturalHazardImpact_VolcanicActivityEvent",
         "Count_VolcanicAshEvent",
         "Count_VolcanicAshfallEvent",
+        "Annual_ExpectedLoss_NaturalHazardImpact_VolcanicActivityEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_VolcanicActivityEvent"
       ],
       "typeOf": [
@@ -16557,23 +15536,6 @@
     },
     {
       "dcid": [
-        "dc/topic/Weather"
-      ],
-      "name": [
-        "Weather"
-      ],
-      "relevantVariableList": [
-        "ConsecutiveDryDays",
-        "HeavyPrecipitationIndex",
-        "Max_BarometricPressure",
-        "dc/topic/Temperature"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/WetBulbEvent"
       ],
       "name": [
@@ -16718,31 +15680,12 @@
         "dc/topic/WidowedPopulationByDemographic"
       ],
       "name": [
-        "Widowed Population By Demographic"
+        "Widowed Population"
       ],
       "relevantVariableList": [
-        "Count_Person_InLaborForce_Widowed",
+        "Count_Person_Widowed",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByGender",
         "dc/svpg/dc/topic/WidowedPopulationByDemographic_WidowedPopulationByRace"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Wildfire"
-      ],
-      "name": [
-        "Wildfire"
-      ],
-      "relevantVariableList": [
-        "BurnedArea_FireEvent",
-        "Count_FireEvent",
-        "NaturalHazardRiskScore_SuperfundSite_WildfireEvent",
-        "Percent_BurnedArea_FireEvent",
-        "Percent_BurnedArea_FireEvent_Forest_HighSeverity",
-        "dc/svpg/Wildfire_Annualamountofwildfireemissionsbysource"
       ],
       "typeOf": [
         "Topic"
@@ -16771,6 +15714,21 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WithHealthInsuranceByRace_WithHealthInsuranceByRace"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/WorkCommute"
+      ],
+      "name": [
+        "Commute"
+      ],
+      "relevantVariableList": [
+        "dc/topic/CommuteMode",
+        "dc/topic/CommuteTime"
       ],
       "typeOf": [
         "Topic"
