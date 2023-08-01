@@ -597,27 +597,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/BingeDrinking_PrevalenceOfBingeDrinkingByAmount"
-      ],
-      "memberList": [
-        "Percent_AtLeastOnceAWeek_BingeDrinking_In_Count_Person",
-        "Percent_Daily_BingeDrinking_In_Count_Person",
-        "Percent_EveryMonth_BingeDrinking_In_Count_Person",
-        "Percent_EveryWeek_BingeDrinking_In_Count_Person",
-        "Percent_LessThanOnceAMonth_BingeDrinking_In_Count_Person",
-        "Percent_NeverOrNotInTheLast12Months_BingeDrinking_In_Count_Person",
-        "Percent_NeverOrOccasional_BingeDrinking_In_Count_Person",
-        "Percent_Never_BingeDrinking_In_Count_Person"
-      ],
-      "name": [
-        "Prevalence of Binge Drinking by Amount"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/BlackOrAfricanAmericanAloneFemalePopulationByAge_BlackOrAfricanAmericanAloneFemalePopulationByAge"
       ],
       "memberList": [
@@ -952,14 +931,14 @@
         "dc/svpg/Count_Person_RacesMonoracial"
       ],
       "memberList": [
-        "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-        "Count_Person_AsianAlone",
-        "Count_Person_AsianOrPacificIslander",
+        "Count_Person_WhiteAlone",
         "Count_Person_BlackOrAfricanAmericanAlone",
         "Count_Person_HispanicOrLatino",
+        "Count_Person_AsianAlone",
+        "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+        "Count_Person_AsianOrPacificIslander",
         "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_SomeOtherRaceAlone",
-        "Count_Person_WhiteAlone"
+        "Count_Person_SomeOtherRaceAlone"
       ],
       "name": [
         "Monoracial Breakdown"
@@ -2708,46 +2687,6 @@
       ],
       "name": [
         "Hispanic Or Latino_ White Alone Population By Age"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/HomeValueInUSDollar"
-      ],
-      "memberList": [
-        "Count_HousingUnit_HomeValueUpto10000USDollar",
-        "Count_HousingUnit_HomeValue10000To14999USDollar",
-        "Count_HousingUnit_HomeValue15000To19999USDollar",
-        "Count_HousingUnit_HomeValue20000To24999USDollar",
-        "Count_HousingUnit_HomeValue25000To29999USDollar",
-        "Count_HousingUnit_HomeValue30000To34999USDollar",
-        "Count_HousingUnit_HomeValue35000To39999USDollar",
-        "Count_HousingUnit_HomeValue40000To49999USDollar",
-        "Count_HousingUnit_HomeValue50000To59999USDollar",
-        "Count_HousingUnit_HomeValue60000To69999USDollar",
-        "Count_HousingUnit_HomeValue70000To79999USDollar",
-        "Count_HousingUnit_HomeValue80000To89999USDollar",
-        "Count_HousingUnit_HomeValue90000To99999USDollar",
-        "Count_HousingUnit_HomeValue100000To124999USDollar",
-        "Count_HousingUnit_HomeValue125000To149999USDollar",
-        "Count_HousingUnit_HomeValue150000To174999USDollar",
-        "Count_HousingUnit_HomeValue175000To199999USDollar",
-        "Count_HousingUnit_HomeValue200000To249999USDollar",
-        "Count_HousingUnit_HomeValue250000To299999USDollar",
-        "Count_HousingUnit_HomeValue300000To399999USDollar",
-        "Count_HousingUnit_HomeValue400000To499999USDollar",
-        "Count_HousingUnit_HomeValue500000To749999USDollar",
-        "Count_HousingUnit_HomeValue750000To999999USDollar",
-        "Count_HousingUnit_HomeValue1000000To1499999USDollar",
-        "Count_HousingUnit_HomeValue1500000To1999999USDollar",
-        "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
-        "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-      ],
-      "name": [
-        "Home Value In US Dollars"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -4578,54 +4517,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MaxRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MaxRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MaxRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MaxRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Max Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MeanRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MeanRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MeanRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MeanRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Mean Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MinRelativeHumidityByRCPScenario"
-      ],
-      "memberList": [
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP45_MinRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP60_MinRelativeHumidity",
-        "NumberOfMonths_WetBulbTemperature_35COrMore_RCP85_MinRelativeHumidity"
-      ],
-      "name": [
-        "Number of Months Reaching Wet Bulb Temperature based on Min Relative Humidity"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/NursesAndMidwives_PopulationofNursingWorkers"
       ],
       "memberList": [
@@ -4781,21 +4672,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/PhysicalInactivity_InactivePopulationbyGender"
-      ],
-      "memberList": [
-        "dc/tcqb49dvg7k53",
-        "dc/ty7pq88d26963"
-      ],
-      "name": [
-        "Inactive Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/Physicians_PhysiciansbyTupe"
       ],
       "memberList": [
@@ -4897,142 +4773,6 @@
       ],
       "name": [
         "Prevalance of normal weight population by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByGender"
-      ],
-      "memberList": [
-        "Count_Person_18OrMoreYears_Female_Obesity_AsAFractionOf_Count_Person_18OrMoreYears_Female",
-        "Count_Person_18OrMoreYears_Male_Obesity_AsAFractionOf_Count_Person_18OrMoreYears_Male"
-      ],
-      "name": [
-        "Prevalance of Obesity in Adult Population By Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByResidency"
-      ],
-      "memberList": [
-        "Count_Person_18OrMoreYears_Obesity_Rural_AsAFractionOf_Count_Person_18OrMoreYears_Rural",
-        "Count_Person_18OrMoreYears_Obesity_Urban_AsAFractionOf_Count_Person_18OrMoreYears_Urban"
-      ],
-      "name": [
-        "Prevalance of Obesity in Adult Population By Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_Prevalanceofoverweightpopulationbygender"
-      ],
-      "memberList": [
-        "Percent_Overweight_In_Count_Person_Female",
-        "Percent_Overweight_In_Count_Person_Male"
-      ],
-      "name": [
-        "Prevalance of overweight population by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightPopulationunder4yearsoldbygender"
-      ],
-      "memberList": [
-        "Count_Person_Upto4Years_Female_Overweight_AsFractionOf_Count_Person_Upto4Years_Female",
-        "Count_Person_Upto4Years_Male_Overweight_AsFractionOf_Count_Person_Upto4Years_Male"
-      ],
-      "name": [
-        "Prevalence of Overweight Population under 4 years old by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightpopulationwithsevereactivitylimitationbygender"
-      ],
-      "memberList": [
-        "Percent_Overweight_In_Count_Person_Female_SevereActivityLimitation",
-        "Percent_Overweight_In_Count_Person_Male_SevereActivityLimitation"
-      ],
-      "name": [
-        "Prevalence of Overweight population with severe activity limitation by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObeseAdultPopulationByResidency"
-      ],
-      "memberList": [
-        "Percent_PreObese_In_Count_Person_Rural",
-        "Percent_PreObese_In_Count_Person_SemiUrban",
-        "Percent_PreObese_In_Count_Person_Urban"
-      ],
-      "name": [
-        "Prevalance of Pre Obese Adult Population By Residency"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObesityinAdultPopulationByGender"
-      ],
-      "memberList": [
-        "Percent_PreObese_In_Count_Person_Female",
-        "Percent_PreObese_In_Count_Person_Male"
-      ],
-      "name": [
-        "Prevalance of Pre Obesity in Adult Population By Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationSmoker_Prelalenceofadultsmokersbygender"
-      ],
-      "memberList": [
-        "Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female",
-        "Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male"
-      ],
-      "name": [
-        "Prelalence of adult smokers by gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/PopulationUnderweight_UnderweightPopulationbyGender"
-      ],
-      "memberList": [
-        "Percent_Underweight_In_Count_Person_Female",
-        "Percent_Underweight_In_Count_Person_Male"
-      ],
-      "name": [
-        "Underweight Population by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -5350,21 +5090,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/Population_MedianAgeofPopulationbyGender"
-      ],
-      "memberList": [
-        "Median_Age_Person_Female",
-        "Median_Age_Person_Male"
-      ],
-      "name": [
-        "Median Age of Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/Population_PopulationbyGender"
       ],
       "memberList": [
@@ -5373,42 +5098,6 @@
       ],
       "name": [
         "Population by Gender"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Population_PopulationbyRace"
-      ],
-      "memberList": [
-        "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-        "Count_Person_AsianAlone",
-        "Count_Person_BlackOrAfricanAmericanAlone",
-        "Count_Person_HispanicOrLatino",
-        "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
-        "Count_Person_SomeOtherRaceAlone",
-        "Count_Person_TwoOrMoreRaces",
-        "Count_Person_WhiteAlone"
-      ],
-      "name": [
-        "Population by Race"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/Population_PopulationwithDiasbilitiesbyGender"
-      ],
-      "memberList": [
-        "Count_Person_WithDisability_Female",
-        "Count_Person_WithDisability_Male"
-      ],
-      "name": [
-        "Population with Diasbilities by Gender"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7094,34 +6783,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
-      ],
-      "memberList": [
-        "Count_Worker_NAICSAccommodationFoodServices",
-        "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-        "Count_Worker_NAICSAgricultureForestryFishingHunting",
-        "Count_Worker_NAICSArtsEntertainmentRecreation",
-        "Count_Worker_NAICSEducationalServices",
-        "Count_Worker_NAICSFinanceInsurance",
-        "Count_Worker_NAICSHealthCareSocialAssistance",
-        "Count_Worker_NAICSInformation",
-        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-        "Count_Worker_NAICSOtherServices",
-        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "Count_Worker_NAICSUtilities",
-        "Count_Worker_NAICSWholesaleTrade",
-        "dc/8p97n7l96lgg8",
-        "dc/p69tpsldf99h7"
-      ],
-      "name": [
-        "Number Of Workers By Industry"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/EnglishSpeakers_EnglishSpeakingPopulationbyLanguageLevel"
       ],
       "memberList": [
@@ -8609,7 +8270,7 @@
         "WHO/poliov_Female"
       ],
       "name": [
-        "Global Child Immunizations for Females"
+        "Child Immunizations for Females"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8627,7 +8288,7 @@
         "WHO/poliov_Male"
       ],
       "name": [
-        "Global Child Immunizations for Males"
+        "Child Immunizations for Males"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8645,7 +8306,7 @@
         "WHO/poliov_Rural"
       ],
       "name": [
-        "Global Child Immunizations in Rural Area"
+        "Child Immunizations in Rural Area"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8679,7 +8340,7 @@
         "WHO/CM_03"
       ],
       "name": [
-        "Global Child Mortality"
+        "Child Mortality"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8699,7 +8360,7 @@
         "WHO/NUTSTUNTINGPREV"
       ],
       "name": [
-        "Global Non-communicable Diseases Among Children"
+        "Non-communicable Diseases Among Children"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8731,7 +8392,7 @@
         "WHO/SA_0000001689"
       ],
       "name": [
-        "Global Disability-Adjusted Life-Years"
+        "Disability-Adjusted Life-Years"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8749,7 +8410,7 @@
         "WHO/NCD_PAC"
       ],
       "name": [
-        "Global Health Behaviors"
+        "Health Behaviors"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8804,7 +8465,7 @@
         "WHO/NTD_YAWSNUM"
       ],
       "name": [
-        "Global Cases of Neglected Troplical Diseases"
+        "Cases of Neglected Troplical Diseases"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8822,7 +8483,7 @@
         "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
       ],
       "name": [
-        "Global Deaths Due To Non-communicable Diseases"
+        "Deaths Due To Non-communicable Diseases"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9333,21 +8994,6 @@
     },
     {
       "dcid": [
-        "dc/topic/BingeDrinking"
-      ],
-      "name": [
-        "BingeDrinking"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_BingeDrinking",
-        "dc/svpg/BingeDrinking_PrevalenceOfBingeDrinkingByAmount"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Births"
       ],
       "name": [
@@ -9773,7 +9419,12 @@
         "Demographics"
       ],
       "relevantVariableList": [
+        "Count_Person",
+        "Count_Person_PerArea",
+        "GrowthRate_Count_Person",
         "dc/topic/Age",
+        "dc/topic/Gender",
+        "dc/topic/Race",
         "dc/topic/Language",
         "dc/topic/MaritalStatus",
         "dc/topic/Nationality"
@@ -10019,7 +9670,7 @@
         "Divorced Population By Demographic"
       ],
       "relevantVariableList": [
-        "Count_Person_InLaborForce_Divorced",
+        "Count_Person_Divorced",
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByGender",
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByRace"
       ],
@@ -10125,7 +9776,8 @@
         "dc/topic/Employment",
         "dc/topic/GlobalEconomicActivity",
         "dc/topic/Income",
-        "dc/topic/Poverty"
+        "dc/topic/Poverty",
+        "dc/topic/Agriculture"
       ],
       "typeOf": [
         "Topic"
@@ -10258,20 +9910,6 @@
     },
     {
       "dcid": [
-        "dc/topic/EmploymentByIndustry"
-      ],
-      "name": [
-        "Employment By Industry"
-      ],
-      "relevantVariableList": [
-        "dc/svpg/dc/topic/EmploymentByIndustry_NumberOfWorkersByIndustry"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/EmploymentEquity"
       ],
       "name": [
@@ -10318,29 +9956,18 @@
     },
     {
       "dcid": [
-        "dc/topic/Equity",
         "dc/topic/Equity"
       ],
       "name": [
-        "Equity",
         "Equity"
       ],
       "relevantVariableList": [
-        "GiniIndex_EconomicActivity",
-        "GenderIncomeInequality_Person_15OrMoreYears_WithIncome",
-        "Median_Income_Household_HouseholderRaceAsianAlone",
-        "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-        "Count_Person_WithDisability_WhiteAlone",
-        "Count_Person_AsianAlone_ResidesInJuvenileFacilities",
-        "Count_Person_AsianAlone_ResidesInAdultCorrectionalFacilities",
-        "Count_Death_AmericanIndianAndAlaskaNativeAlone",
         "dc/topic/EconomicEquity",
         "dc/topic/EducationEquity",
         "dc/topic/HealthEquity",
         "dc/topic/JusticeSystemEquity"
       ],
       "typeOf": [
-        "Topic",
         "Topic"
       ]
     },
@@ -10514,7 +10141,36 @@
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
         "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
         "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+        "dc/topic/GDPByIndustry",
         "dc/topic/InflationAdjustedGDP"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GDPByIndustry"
+      ],
+      "name": [
+        "GDP By Industry"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/RealGDPByIndustry"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Gender"
+      ],
+      "name": [
+        "Gender"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/Population_PopulationbyGender"
       ],
       "typeOf": [
         "Topic"
@@ -10528,9 +10184,9 @@
         "Global Economic Activity"
       ],
       "relevantVariableList": [
+        "dc/topic/GDP",
         "dc/topic/Debt",
         "dc/topic/EducationExpenditure",
-        "dc/topic/GDP",
         "dc/topic/HealthcareExpenditure",
         "dc/topic/Remittance"
       ],
@@ -10672,7 +10328,8 @@
         "dc/topic/HeartDisease",
         "dc/topic/MentalHealth",
         "dc/topic/KidneyDisease",
-        "dc/topic/Stroke"
+        "dc/topic/Stroke",
+        "dc/topic/HeatIllnesses"
       ],
       "typeOf": [
         "Topic"
@@ -11405,21 +11062,6 @@
     },
     {
       "dcid": [
-        "dc/topic/HomeValue"
-      ],
-      "name": [
-        "Home Value"
-      ],
-      "relevantVariableList": [
-        "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied",
-        "dc/svpg/HomeValueInUSDollar"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/HouseFeatures"
       ],
       "name": [
@@ -12057,8 +11699,7 @@
       ],
       "relevantVariableList": [
         "LifeExpectancy_Person",
-        "dc/svpg/LifeExpectancy_LifeExpectancybyGender",
-        "Median_Age_Person"
+        "dc/svpg/LifeExpectancy_LifeExpectancybyGender"
       ],
       "typeOf": [
         "Topic"
@@ -12488,7 +12129,7 @@
         "Mortality"
       ],
       "relevantVariableList": [
-        "LifeExpectancy_Person",
+        "dc/topic/LifeExpectancy",
         "dc/topic/CausesOfDeath",
         "dc/topic/FemaleMortality",
         "dc/topic/InfantMortality",
@@ -13504,21 +13145,6 @@
     },
     {
       "dcid": [
-        "dc/topic/PhysicalInactivity"
-      ],
-      "name": [
-        "PhysicalInactivity"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_PhysicalInactivity",
-        "dc/svpg/PhysicalInactivity_InactivePopulationbyGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
         "dc/topic/Physicians"
       ],
       "name": [
@@ -13575,29 +13201,6 @@
       "relevantVariableList": [
         "dc/topic/AirQualityIndex",
         "dc/topic/PollutantConcentration"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/Population"
-      ],
-      "name": [
-        "Population"
-      ],
-      "relevantVariableList": [
-        "Count_Person",
-        "Count_Person_PerArea",
-        "Count_Person_WithDisability",
-        "GrowthRate_Count_Person",
-        "IncrementalCount_Person",
-        "Median_Age_Person",
-        "dc/svpg/Population_MedianAgeofPopulationbyGender",
-        "dc/svpg/Population_PopulationbyGender",
-        "dc/svpg/Population_PopulationbyRace",
-        "dc/svpg/Population_PopulationwithDiasbilitiesbyGender"
       ],
       "typeOf": [
         "Topic"
@@ -13683,119 +13286,6 @@
         "Percent_Normalweight_In_Count_Person",
         "dc/svpg/PopulationNormalWeight_PrevalanceofNormalWeightAdultPopulationByResidency",
         "dc/svpg/PopulationNormalWeight_Prevalanceofnormalweightpopulationbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationObese"
-      ],
-      "name": [
-        "PopulationObese"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_Obesity",
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByGender",
-        "dc/svpg/PopulationObese_PrevalanceofObesityinAdultPopulationByResidency"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationOverweight"
-      ],
-      "name": [
-        "PopulationOverweight"
-      ],
-      "relevantVariableList": [
-        "Percent_Overweight_In_Count_Person",
-        "Percent_Overweight_In_Count_Person_SevereActivityLimitation",
-        "dc/svpg/PopulationOverweight_Prevalanceofoverweightpopulationbygender",
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightPopulationunder4yearsoldbygender",
-        "dc/svpg/PopulationOverweight_PrevalenceofOverweightpopulationwithsevereactivitylimitationbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationPreObese"
-      ],
-      "name": [
-        "PopulationPreObese"
-      ],
-      "relevantVariableList": [
-        "Percent_PreObese_In_Count_Person",
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObeseAdultPopulationByResidency",
-        "dc/svpg/PopulationPreObese_PrevalanceofPreObesityinAdultPopulationByGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationSmoker"
-      ],
-      "name": [
-        "PopulationSmoker"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_Smoking",
-        "dc/svpg/PopulationSmoker_Prelalenceofadultsmokersbygender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationUndersleeping"
-      ],
-      "name": [
-        "PopulationUndersleeping"
-      ],
-      "relevantVariableList": [
-        "Percent_Person_SleepLessThan7Hours"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationUnderweight"
-      ],
-      "name": [
-        "PopulationUnderweight"
-      ],
-      "relevantVariableList": [
-        "Percent_Underweight_In_Count_Person",
-        "dc/svpg/PopulationUnderweight_UnderweightPopulationbyGender"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationWeight"
-      ],
-      "name": [
-        "PopulationWeight"
-      ],
-      "relevantVariableList": [
-        "dc/topic/PopulationNormalWeight",
-        "dc/topic/PopulationObese",
-        "dc/topic/PopulationOverweight",
-        "dc/topic/PopulationPreObese",
-        "dc/topic/PopulationUnderweight",
-        "dc/topic/PopulationUnderweight"
       ],
       "typeOf": [
         "Topic"
@@ -14116,10 +13606,10 @@
     },
     {
       "dcid": [
-        "dc/topic/RacialBreakdown"
+        "dc/topic/Race"
       ],
       "name": [
-        "Racial Breakdown"
+        "Population by Race"
       ],
       "relevantVariableList": [
         "dc/svpg/Count_Person_RacesMonoracial",
@@ -15114,7 +14604,7 @@
         "dc/topic/WHOChildImmunization"
       ],
       "name": [
-        "Global Child Immunization"
+        "Child Immunization"
       ],
       "relevantVariableList": [
         "WHO/WHS4_117",
@@ -15132,7 +14622,7 @@
         "dc/topic/WHOChildImmunizationsByGender"
       ],
       "name": [
-        "Global Child Immunizations By Gender"
+        "Child Immunizations By Gender"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildImmunizationsByGender_ChildImmunizationsforFemales",
@@ -15147,7 +14637,7 @@
         "dc/topic/WHOChildImmunizationsByUrbanRural"
       ],
       "name": [
-        "Global Child Immunizations By Residency"
+        "Child Immunizations By Residency"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildImmunizationsByUrbanRural_ChildImmunizationsinRuralarea",
@@ -15162,7 +14652,7 @@
         "dc/topic/WHOChildMortality"
       ],
       "name": [
-        "Global Child Mortality"
+        "Child Mortality"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildMortality_ChildMortality"
@@ -15176,7 +14666,7 @@
         "dc/topic/WHOChildrenNonCommunicableDiseases"
       ],
       "name": [
-        "Global Non-Communicable Diseases Among Children"
+        "Non-Communicable Diseases Among Children"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOChildrenNonCommunicableDiseases_Noncommunicablediseasesamongchildren"
@@ -15190,7 +14680,7 @@
         "dc/topic/WHODALYByCauses"
       ],
       "name": [
-        "Global DALY Causes"
+        "DALY Causes"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHODALYByCauses_DisabilityAdjustedLifeYears"
@@ -15204,7 +14694,7 @@
         "dc/topic/WHOHealthBehavior"
       ],
       "name": [
-        "Global Health Behavior"
+        "Health Behavior"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOHealthBehavior_HealthBehavior"
@@ -15218,7 +14708,7 @@
         "dc/topic/WHOImmunization"
       ],
       "name": [
-        "Global Immunization"
+        "Immunization"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildImmunization",
@@ -15234,7 +14724,7 @@
         "dc/topic/WHOMaternalMortality"
       ],
       "name": [
-        "Global Maternal Mortality"
+        "Maternal Mortality"
       ],
       "relevantVariableList": [
         "WHO/MORT_MATERNALNUM",
@@ -15249,7 +14739,7 @@
         "dc/topic/WHOMortality"
       ],
       "name": [
-        "Global Mortality"
+        "Mortality"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildMortality",
@@ -15266,7 +14756,7 @@
         "dc/topic/WHOMortalityCauses"
       ],
       "name": [
-        "Global Mortality Causes"
+        "Mortality Causes"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHOMortalityCauses_Mortalityratesbycauses"
@@ -15280,7 +14770,7 @@
         "dc/topic/WHONeglectedTropicalDiseases"
       ],
       "name": [
-        "Global Neglected Tropical Diseases"
+        "Neglected Tropical Diseases"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHONeglectedTropicalDiseases_CasesofNeglectedTroplicalDiseases"
@@ -15294,7 +14784,7 @@
         "dc/topic/WHONonCommunicableDiseaseDeaths"
       ],
       "name": [
-        "Global Non-Communicable Disease Deaths"
+        "Non-Communicable Disease Deaths"
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/WHONonCommunicableDiseaseDeaths_DeathsduetoNoncommunicabledeaths"
@@ -15308,7 +14798,7 @@
         "dc/topic/WHONonCommunicableDiseases"
       ],
       "name": [
-        "Global Non-Communicable Diseases"
+        "Non-Communicable Diseases"
       ],
       "relevantVariableList": [
         "dc/topic/WHOChildrenNonCommunicableDiseases",
@@ -15345,24 +14835,6 @@
       "relevantVariableList": [
         "Area_WetBulbTemperatureEvent",
         "Count_WetBulbTemperatureEvent"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/WetBulbTemperature"
-      ],
-      "name": [
-        "Wet Bulb Temperature"
-      ],
-      "relevantVariableList": [
-        "Count_WetBulbTemperatureEvent",
-        "Area_WetBulbTemperatureEvent",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MaxRelativeHumidityByRCPScenario",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MinRelativeHumidityByRCPScenario",
-        "dc/svpg/NumberOfMonths_WetBulbTemperature_35CorMore_MeanRelativeHumidityByRCPScenario"
       ],
       "typeOf": [
         "Topic"
