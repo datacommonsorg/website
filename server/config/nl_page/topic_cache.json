@@ -6701,6 +6701,20 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Count_SolarInstallation"
+      ],
+      "memberList": [
+        "Count_SolarInstallation"
+      ],
+      "name": [
+        "Number of Solar Installations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/DivorcedPopulationByDemographic_DivorcedPopulationByGender"
       ],
       "memberList": [
@@ -6941,6 +6955,280 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Electricity_Consumption_BySector"
+      ],
+      "memberList": [
+        "Annual_Consumption_Electricity",
+        "Annual_Consumption_Electricity_Agriculture",
+        "Annual_Consumption_Electricity_CommerceAndPublicServices",
+        "Annual_Consumption_Electricity_ConstructionIndustry",
+        "Annual_Consumption_Electricity_Households",
+        "Annual_Consumption_Electricity_Manufacturing",
+        "Annual_Consumption_Electricity_TransportIndustry"
+      ],
+      "name": [
+        "Electricity Consumption by Sector"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
+      ],
+      "memberList": [
+        "Amount_Consumption_Electricity_PerCapita"
+      ],
+      "name": [
+        "Per capita Electicity Consumption"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_FlourinatedGases"
+      ],
+      "memberList": [
+        "Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic",
+        "Annual_Emissions_Hydrofluorocarbon_NonBiogenic",
+        "Annual_Emissions_Hydrofluoroether_NonBiogenic",
+        "Annual_Emissions_NitrogenTrifluoride_NonBiogenic",
+        "Annual_Emissions_Perfluorocarbon_NonBiogenic",
+        "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+      ],
+      "name": [
+        "Flourinated Gase Emissions"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_Methane_Agriculture",
+        "Annual_Emissions_Methane_FossilFuelOperations",
+        "Annual_Emissions_Methane_NonBiogenic",
+        "Annual_Emissions_Methane_OpenBurningWaste",
+        "Annual_Emissions_Methane_WasteManagement"
+      ],
+      "name": [
+        "Methane Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_NitrousOxide_Agriculture",
+        "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating",
+        "Annual_Emissions_NitrousOxide_Manufacturing",
+        "Annual_Emissions_NitrousOxide_NonBiogenic",
+        "Annual_Emissions_NitrousOxide_Transportation",
+        "Annual_Emissions_NitrousOxide_WasteManagement",
+        "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
+      ],
+      "name": [
+        "Nitrous Oxide Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "memberList": [
+        "member: Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "member: Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
+      ],
+      "name": [
+        "PM 2.5 Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "memberList": [
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_6_MACTSourceCategories",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
+        "member: Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+      ],
+      "name": [
+        "Sulfur Dioxide Emissions by Source"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "memberList": [
+        "Annual_Consumption_Fuel_HardCoal",
+        "Annual_Consumption_Fuel_NaturalGas",
+        "Annual_Consumption_Fuel_PetroleumCoke"
+      ],
+      "name": [
+        "Energy Consumption_by Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP"
+      ],
+      "memberList": [
+        "sdg/ER_FFS_CMPT_GDP"
+      ],
+      "name": [
+        "Fossil fuel as fraction of GDP"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP_PC"
+      ],
+      "memberList": [
+        "sdg/ER_FFS_CMPT_PC_CD"
+      ],
+      "name": [
+        "Fossil fuel per capita"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Fraction"
+      ],
+      "memberList": [
+        "Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy",
+        "Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy",
+        "Amount_Consumption_RenewableEnergy_AsFractionOf_Amount_Consumption_Energy"
+      ],
+      "name": [
+        "Energy Percentages"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Generation_FossilFuels"
+      ],
+      "memberList": [
+        "Annual_Generation_Energy_NaturalGas",
+        "Annual_Generation_Energy_Coal",
+        "Annual_Generation_Fuel_HardCoal",
+        "Annual_Generation_Energy_NaturalGas",
+        "Annual_Generation_Energy_OilProducts",
+        "Annual_Generation_Fuel_PetroleumCoke",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy Generation by Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "memberList": [
+        "Annual_Generation_Electricity_Households",
+        "Annual_Generation_Energy_Geothermal",
+        "Annual_Generation_Energy_Solar",
+        "Annual_Generation_Energy_Water",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy Generation by non-Fossil Fuels"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Renewables"
+      ],
+      "memberList": [
+        "Annual_Consumption_Energy_Geothermal",
+        "Annual_Generation_Energy_Geothermal",
+        "Annual_Generation_Energy_Solar",
+        "Annual_Generation_Energy_Water",
+        "Annual_Generation_Fuel_Nuclear"
+      ],
+      "name": [
+        "Energy from Renewables"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Energy_Renewables_Fraction"
+      ],
+      "memberList": [
+        "sdg/EG_FEC_RNEW"
+      ],
+      "name": [
+        "Renewables share"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/EnglishSpeakers_EnglishSpeakingPopulationbyLanguageLevel"
       ],
       "memberList": [
@@ -7024,6 +7312,139 @@
       ],
       "name": [
         "Food stamps by household type"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages"
+      ],
+      "memberList": [
+        "dc/ck1ksqd8rgps6",
+        "dc/j5fv028n7nhe4",
+        "dc/msz3yy4p50yyf"
+      ],
+      "name": [
+        "Green building / construction Wages"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses"
+      ],
+      "memberList": [
+        "dc/51h3g4mcgj3w4",
+        "dc/61t0et409x8ch",
+        "dc/ltwqwtxcq9l23"
+      ],
+      "name": [
+        "Green building / construction businesses"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergybusinesses"
+      ],
+      "memberList": [
+        "dc/00dyzp11kk35g",
+        "dc/eptfljlz7bgbg",
+        "dc/evcytmdmc9xgd",
+        "dc/lsf00jqxjp9r8",
+        "dc/mbn7jcx896cd8",
+        "dc/wfktw3b5c50h1"
+      ],
+      "name": [
+        "Renewable energy businesses"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergyrevenue"
+      ],
+      "memberList": [
+        "dc/96b2ddmlpvq7f",
+        "dc/b6z2v4t8cvcd5",
+        "dc/ktmr6ngnsqxmf",
+        "dc/n18hgz310vw83",
+        "dc/te4lvw7tlnfv9",
+        "dc/xx3v7dmqp95h3"
+      ],
+      "name": [
+        "Renewable energy revenue"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems"
+      ],
+      "memberList": [
+        "dc/mwcnlh5bmdk63",
+        "dc/s9cn1zj5fv5cc"
+      ],
+      "name": [
+        "Renewable energy systems"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/GreenhouseGasses_GreenhouseGasEmissionsBySource"
+      ],
+      "memberList": [
+        "Annual_Emissions_GreenhouseGas_Agriculture",
+        "Annual_Emissions_GreenhouseGas_AluminumProduction",
+        "Annual_Emissions_GreenhouseGas_BauxiteMining",
+        "Annual_Emissions_GreenhouseGas_CementProduction",
+        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
+        "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
+        "Annual_Emissions_GreenhouseGas_CopperMining",
+        "Annual_Emissions_GreenhouseGas_CroplandFire",
+        "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+        "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
+        "Annual_Emissions_GreenhouseGas_EntericFermentation",
+        "Annual_Emissions_GreenhouseGas_ForestClearing",
+        "Annual_Emissions_GreenhouseGas_ForestFire",
+        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
+        "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+        "Annual_Emissions_GreenhouseGas_IronMining",
+        "Annual_Emissions_GreenhouseGas_ManagedSoils",
+        "Annual_Emissions_GreenhouseGas_Manufacturing",
+        "Annual_Emissions_GreenhouseGas_ManureManagement",
+        "Annual_Emissions_GreenhouseGas_MaritimeShipping",
+        "Annual_Emissions_GreenhouseGas_MaritimeTransport",
+        "Annual_Emissions_GreenhouseGas_MineralExtraction",
+        "Annual_Emissions_GreenhouseGas_OilAndGas",
+        "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
+        "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
+        "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
+        "Annual_Emissions_GreenhouseGas_RiceCultivation",
+        "Annual_Emissions_GreenhouseGas_RockQuarry",
+        "Annual_Emissions_GreenhouseGas_SandQuarry",
+        "Annual_Emissions_GreenhouseGas_SavannaFire",
+        "Annual_Emissions_GreenhouseGas_ShrublandFire",
+        "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+      ],
+      "name": [
+        "Greenhouse Gas Emissions By Source"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -7433,6 +7854,65 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_LandUse"
+      ],
+      "memberList": [
+        "LandCoverFraction_BareSparseVegetation",
+        "LandCoverFraction_BuiltUp",
+        "LandCoverFraction_Cropland",
+        "LandCoverFraction_Forest",
+        "LandCoverFraction_HerbaceousVegetation",
+        "LandCoverFraction_PermanentWater",
+        "LandCoverFraction_SeasonalWater",
+        "LandCoverFraction_Shrubland",
+        "LandCoverFraction_SnowIce"
+      ],
+      "name": [
+        "Land Use"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity"
+      ],
+      "memberList": [
+        "sdg/DC_ODA_BDVDL",
+        "sdg/ER_PTD_FRHWTR",
+        "sdg/ER_PTD_MTN",
+        "sdg/ER_PTD_TERR",
+        "sdg/ER_RSK_LST"
+      ],
+      "name": [
+        "SDG Biodiversity"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+      ],
+      "memberList": [
+        "sdg/AG_LND_FRST",
+        "sdg/AG_LND_FRSTBIOPHA",
+        "sdg/AG_LND_FRSTCERT",
+        "sdg/AG_LND_FRSTCHG",
+        "sdg/AG_LND_FRSTN",
+        "sdg/AG_LND_FRSTPRCT"
+      ],
+      "name": [
+        "SDG Reforestations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/LevelOfEducationalAttainment_PopulationByLevelofEducationalAttainment"
       ],
       "memberList": [
@@ -7717,6 +8197,155 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
+      ],
+      "memberList": [
+        "Count_DroughtEvent"
+      ],
+      "name": [
+        "Droughts"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "memberList": [
+        "Count_EarthquakeEvent_M5To6",
+        "Count_EarthquakeEvent_M6To7",
+        "Count_EarthquakeEvent_M7To8",
+        "Count_EarthquakeEvent_M8To9",
+        "Count_EarthquakeEvent_M9Onwards"
+      ],
+      "name": [
+        "Earthquakes by Intensities"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Fires"
+      ],
+      "memberList": [
+        "Count_FireEvent",
+        "Count_WildlandFireEvent"
+      ],
+      "name": [
+        "Fires"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Floods"
+      ],
+      "memberList": [
+        "Count_CoastalFloodEvent",
+        "Count_FloodEvent"
+      ],
+      "name": [
+        "Floods"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts"
+      ],
+      "memberList": [
+        "Count_HeatWaveEvent"
+      ],
+      "name": [
+        "Number of Heat Wave Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
+      ],
+      "memberList": [
+        "NumberOfDays_HeatWaveEvent"
+      ],
+      "name": [
+        "Heat Wave Durations"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity"
+      ],
+      "memberList": [
+        "Intensity_HeatWaveEvent"
+      ],
+      "name": [
+        "Heat Wave Intensities"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_Precipitation"
+      ],
+      "memberList": [
+        "Max_Rainfall",
+        "Mean_Rainfall",
+        "Min_Rainfall"
+      ],
+      "name": [
+        "Precipitation"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
+      ],
+      "memberList": [
+        "PrecipitationRate"
+      ],
+      "name": [
+        "Precipitation Rate"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
+      ],
+      "memberList": [
+        "Area_WetBulbTemperatureEvent",
+        "Count_WetBulbTemperatureEvent"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/NeverMarriedPopulationByDemographic_NeverMarriedPopulationByGender"
       ],
       "memberList": [
@@ -7867,6 +8496,52 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_Fishing"
+      ],
+      "memberList": [
+        "sdg/EN_SCP_FSHGDP",
+        "sdg/ER_H2O_FWTL"
+      ],
+      "name": [
+        "Fishing"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_LitterandPollution"
+      ],
+      "memberList": [
+        "sdg/EN_MAR_BEALITSQ",
+        "sdg/EN_MAR_BEALIT_BP",
+        "sdg/EN_MAR_BEALIT_OP",
+        "sdg/EN_MAR_PLASDD"
+      ],
+      "name": [
+        "Litter and Pollution"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/OceanHealth_ProtectedMarineArea"
+      ],
+      "memberList": [
+        "sdg/ER_MRN_MPA"
+      ],
+      "name": [
+        "Protected Marine Area"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/PM10_PM10ConcentrationStats"
       ],
       "memberList": [
@@ -7916,6 +8591,145 @@
       ],
       "name": [
         "Population By Birth Place"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_AQI"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant"
+      ],
+      "name": [
+        "AQI"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_CO",
+        "Max_Concentration_AirPollutant_CO",
+        "Mean_Concentration_AirPollutant_CO",
+        "Median_Concentration_AirPollutant_CO"
+      ],
+      "name": [
+        "Carbon Monoxide"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Diesel"
+      ],
+      "memberList": [
+        "Mean_Concentration_AirPollutant_DieselPM"
+      ],
+      "name": [
+        "Diesel"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_NitrogenDioxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_NO2",
+        "Max_Concentration_AirPollutant_NO2",
+        "Mean_Concentration_AirPollutant_NO2"
+      ],
+      "name": [
+        "Nitrogen Dioxide"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Ozone"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_Ozone",
+        "Max_Concentration_AirPollutant_Ozone",
+        "Mean_Concentration_AirPollutant_Ozone",
+        "Median_Concentration_AirPollutant_Ozone"
+      ],
+      "name": [
+        "Ozone"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_PM10"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_PM10",
+        "Max_Concentration_AirPollutant_PM10",
+        "Mean_Concentration_AirPollutant_PM10"
+      ],
+      "name": [
+        "PM10"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_PM2.5"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_PM2.5",
+        "Max_Concentration_AirPollutant_PM2.5",
+        "Mean_Concentration_AirPollutant_PM2.5",
+        "Median_Concentration_AirPollutant_PM2.5"
+      ],
+      "name": [
+        "PM2.5"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_Smoke"
+      ],
+      "memberList": [],
+      "name": [
+        "Smoke"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Pollutants_SulfurDioxide"
+      ],
+      "memberList": [
+        "AirQualityIndex_AirPollutant_SO2",
+        "Max_Concentration_AirPollutant_SO2",
+        "Mean_Concentration_AirPollutant_SO2"
+      ],
+      "name": [
+        "Sulfur Dioxide"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8042,6 +8856,58 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Consumption"
+      ],
+      "memberList": [
+        "sdg/EN_MAT_DOMCMPG",
+        "sdg/EN_MAT_DOMCMPT",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF1",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF11",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF13",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF14",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF2",
+        "sdg/EN_MAT_DOMCMPT.PRODUCT--MF3"
+      ],
+      "name": [
+        "Consumption"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Production"
+      ],
+      "memberList": [
+        "sdg/EN_SCP_FRMN"
+      ],
+      "name": [
+        "Production"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Waste"
+      ],
+      "memberList": [
+        "sdg/AG_FOOD_WST",
+        "sdg/AG_FOOD_WST_PC",
+        "sdg/EN_EWT_GENPCAP",
+        "sdg/EN_EWT_GENV"
+      ],
+      "name": [
+        "Waste"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/PublicHealthInsuranceType_TypeofPublicHealthInsuranceCoverage"
       ],
       "memberList": [
@@ -8126,6 +8992,40 @@
       ],
       "name": [
         "Smoke Concentration 2.5"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Smoke_SmokeDays"
+      ],
+      "memberList": [
+        "NumberOfDays_Concentration_SmokePM25_Above12PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above150PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above250PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above35PPM",
+        "NumberOfDays_Concentration_SmokePM25_Above55PPM"
+      ],
+      "name": [
+        "Smoke Days"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
+      ],
+      "memberList": [
+        "Max_Concentration_AirPollutant_SmokePM25",
+        "Mean_Concentration_AirPollutant_SmokePM25",
+        "Concentration_AirPollutant_SmokePM25"
+      ],
+      "name": [
+        "Smoke PM 2.5"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8381,6 +9281,123 @@
       ],
       "name": [
         "Number of Faculty Support Staff By Role"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct"
+      ],
+      "memberList": [
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Decadal Projected Temperature Lows 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Decadal Projected Temperature Highs 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMaximumTemperature"
+      ],
+      "memberList": [
+        "Max_Temperature"
+      ],
+      "name": [
+        "Historical Maximum Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMeanTemperature"
+      ],
+      "memberList": [
+        "Mean_Temperature"
+      ],
+      "name": [
+        "Historical Mean Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_HistoricalMinimumTemperature"
+      ],
+      "memberList": [
+        "Min_Temperature"
+      ],
+      "name": [
+        "Historical Minimum Temperature"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_WetBulbEvents"
+      ],
+      "memberList": [
+        "Area_WetBulbTemperatureEvent",
+        "Count_WetBulbTemperatureEvent"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Yearly Projected Temperature Highs 5 Percent"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
+      ],
+      "memberList": [
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Yearly Projected Temperature Lows 5 Percent"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10131,6 +11148,109 @@
     },
     {
       "dcid": [
+        "dc/topic/Electricity_Consumption"
+      ],
+      "name": [
+        "Electricity Consumption"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Electricity_Consumption_BySector",
+        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions"
+      ],
+      "name": [
+        "Emissions"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Emissions_FlourinatedGases",
+        "dc/topic/Emissions_Methane_EmissionsbySource",
+        "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
+        "dc/topic/Emissions_PM2.5_EmissionsbySource",
+        "dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_FlourinatedGases"
+      ],
+      "name": [
+        "Flourinated Gase Emissions"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_FlourinatedGases"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "name": [
+        "Methane Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_Methane_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "name": [
+        "Nitrous Oxide Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_NitrousOxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "name": [
+        "PM 2.5 Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "name": [
+        "Sulfur Dioxide Emissions by Source"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Employment"
       ],
       "name": [
@@ -10156,6 +11276,113 @@
       "relevantVariableList": [
         "dc/svpg/dc/topic/EconomicEquity_LabourForceStatus",
         "dc/topic/UnemploymentRate"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy"
+      ],
+      "name": [
+        "Energy"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Energy_Consumption_FossilFuels",
+        "dc/topic/Energy_Generation",
+        "dc/topic/Energy_Renewables",
+        "dc/topic/Electricity_Consumption",
+        "dc/topic/Energy_Fraction"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "name": [
+        "Energy Consumption by Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Consumption_FossilFuels"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Fraction"
+      ],
+      "name": [
+        "Energy Percentages"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Fraction"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation"
+      ],
+      "name": [
+        "Energy Generation"
+      ],
+      "relevantVariableList": [
+        "dc/topic/Energy_Generation_FossilFuels",
+        "dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation_FossilFuels"
+      ],
+      "name": [
+        "Energy Generation by Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Generation_FossilFuels",
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP",
+        "dc/svpg/dc/topic/Energy_FossilFuels_SDG_GDP_PC"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "name": [
+        "Energy Generation by non-Fossil Fuels"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Generation_NonFossilFuel"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Energy_Renewables"
+      ],
+      "name": [
+        "Renewables"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Energy_Renewables",
+        "dc/svpg/dc/topic/Count_SolarInstallation",
+        "dc/svpg/dc/topic/Energy_Renewables_Fraction"
       ],
       "typeOf": [
         "Topic"
@@ -10233,8 +11460,7 @@
       ],
       "relevantVariableList": [
         "Count_ExcessiveHeatEvent",
-        "dc/topic/HeatWave",
-        "dc/topic/WetBulbTemperature"
+        "dc/topic/HeatWave"
       ],
       "typeOf": [
         "Topic"
@@ -10445,6 +11671,38 @@
         "dc/topic/WHOMortality",
         "dc/topic/WHONeglectedTropicalDiseases",
         "dc/topic/WHONonCommunicableDiseases"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GreenJobs"
+      ],
+      "name": [
+        "Green Jobs"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages",
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergybusinesses",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergyrevenue",
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GreenhouseGasses"
+      ],
+      "name": [
+        "Greenhouse Gasses"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/GreenhouseGasses_GreenhouseGasEmissionsBySource"
       ],
       "typeOf": [
         "Topic"
@@ -11868,6 +13126,22 @@
     },
     {
       "dcid": [
+        "dc/topic/LandUse/Coverage"
+      ],
+      "name": [
+        "Land Use / Coverage"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/LandUse/Coverage_LandUse",
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGBiodiversity",
+        "dc/svpg/dc/topic/LandUse/Coverage_SDGReforestations"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Landslide"
       ],
       "name": [
@@ -12493,6 +13767,127 @@
       ],
       "relevantVariableList": [
         "dc/svpg/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters"
+      ],
+      "name": [
+        "Natural Disasters"
+      ],
+      "relevantVariableList": [
+        "dc/topic/NaturalDisasters_Droughts",
+        "dc/topic/NaturalDisasters_Floods",
+        "dc/topic/NaturalDisasters_Fires",
+        "dc/topic/NaturalDisasters_HeatWaveEvents",
+        "dc/topic/NaturalDisasters_Precipitation",
+        "dc/topic/NaturalDisasters_WetBulbEvents",
+        "dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Droughts"
+      ],
+      "name": [
+        "Droughts"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Droughts"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "name": [
+        "Earthquakes"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Earthquake"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Fires"
+      ],
+      "name": [
+        "Fires"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Fires"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Floods"
+      ],
+      "name": [
+        "Floods"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Floods"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_HeatWaveEvents"
+      ],
+      "name": [
+        "HeatWave Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Counts",
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Intensity",
+        "dc/svpg/dc/topic/NaturalDisasters_HeatWaveEvents_Duration"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_Precipitation"
+      ],
+      "name": [
+        "Precipitation"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_Precipitation",
+        "dc/svpg/dc/topic/NaturalDisasters_PrecipitationRate"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NaturalDisasters_WetBulbEvents"
+      ],
+      "name": [
+        "Wet Bulb Events"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/NaturalDisasters_WetBulbEvents"
       ],
       "typeOf": [
         "Topic"
@@ -13260,6 +14655,22 @@
     },
     {
       "dcid": [
+        "dc/topic/OceanHealth"
+      ],
+      "name": [
+        "Ocean Health"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/OceanHealth_Fishing",
+        "dc/svpg/dc/topic/OceanHealth_LitterandPollution",
+        "dc/svpg/dc/topic/OceanHealth_ProtectedMarineArea"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Ozone"
       ],
       "name": [
@@ -13424,6 +14835,43 @@
         "dc/topic/PM10",
         "dc/topic/PM2.5",
         "dc/topic/SulfurDioxide"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Pollutants"
+      ],
+      "name": [
+        "Pollutants"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Pollutants_AQI",
+        "dc/svpg/dc/topic/Pollutants_CarbonMonoxide",
+        "dc/svpg/dc/topic/Pollutants_Diesel",
+        "dc/svpg/dc/topic/Pollutants_NitrogenDioxide",
+        "dc/svpg/dc/topic/Pollutants_Ozone",
+        "dc/svpg/dc/topic/Pollutants_PM10",
+        "dc/svpg/dc/topic/Pollutants_PM2.5",
+        "dc/svpg/dc/topic/Pollutants_SulfurDioxide",
+        "dc/topic/Pollutants_Smoke"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Pollutants_Smoke"
+      ],
+      "name": [
+        "Smoke"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Smoke_SmokeDays",
+        "dc/svpg/dc/topic/Smoke_SmokePM2.5"
       ],
       "typeOf": [
         "Topic"
@@ -13830,6 +15278,22 @@
     },
     {
       "dcid": [
+        "dc/topic/ProductionConsumptionandWaste"
+      ],
+      "name": [
+        "Production Consumption and Waste"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Consumption",
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Production",
+        "dc/svpg/dc/topic/ProductionConsumptionandWaste_Waste"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/PublicHealthInsuranceType"
       ],
       "name": [
@@ -13966,7 +15430,8 @@
         "dc/topic/Economy",
         "dc/topic/EducationHousingAndCommute",
         "dc/topic/Environment",
-        "dc/topic/Equity"
+        "dc/topic/Equity",
+        "dc/topic/Sustainability"
       ],
       "typeOf": [
         "Topic"
@@ -14484,6 +15949,30 @@
     },
     {
       "dcid": [
+        "dc/topic/Sustainability"
+      ],
+      "name": [
+        "Sustainability"
+      ],
+      "relevantVariableList": [
+        "dc/topic/GreenhouseGasses",
+        "dc/topic/Emissions",
+        "dc/topic/Pollutants",
+        "dc/topic/Energy",
+        "dc/topic/GreenJobs",
+        "dc/topic/LandUse/Coverage",
+        "dc/topic/Temperatures",
+        "dc/topic/NaturalDisasters",
+        "dc/topic/OceanHealth",
+        "dc/topic/ProductionConsumptionandWaste",
+        "dc/topic/Agriculture"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/Tariffs"
       ],
       "name": [
@@ -14545,6 +16034,27 @@
         "dc/topic/DecadeProjectedTemperatureLows",
         "dc/topic/YearlyProjectedTemperatureHighs",
         "dc/topic/YearlyProjectedTemperatureLows"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/Temperatures"
+      ],
+      "name": [
+        "Temperatures"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/Temperatures_DecadalLows5Pct",
+        "dc/svpg/dc/topic/Temperatures_Decadalhighs5Pct",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMaximumTemperature",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMeanTemperature",
+        "dc/svpg/dc/topic/Temperatures_HistoricalMinimumTemperature",
+        "dc/svpg/dc/topic/Temperatures_WetBulbEvents",
+        "dc/svpg/dc/topic/Temperatures_YearlyHighs5Pct",
+        "dc/svpg/dc/topic/Temperatures_Yearlylows5Pct"
       ],
       "typeOf": [
         "Topic"
