@@ -26,13 +26,64 @@
             "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
           }
         ],
-        "specific": [],
-        "comparison": []
+        "specific": [
+          {
+            "title": "Number of poor hispanic women in Santa Clara County",
+            "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County"
+          },
+          {
+            "title": "Counties with the highest unemployment rate in the US",
+            "url": "oq=Counties+with+the+highest+unemployment+rate+in+the+US&t=dc/topic/UnemploymentRate&p=country/USA&pt=County"
+          },
+          {
+            "title": "Counties with the highest rates of uninsured",
+            "url": "oq=Counties+with+the+highest+rates+of+uninsured&t=dc/topic/NoHealthInsurance&p=country/USA&pt=County"
+          },
+          {
+            "title": "Cities with the highest number of women PhDs",
+            "url": "oq=Cities+with+the+highest+number+of+women+PhDs&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=country/USA&pt=City"
+          },
+          {
+            "title": "Countries with the lowest Gini index",
+            "url": "oq=Countries+with+the+lowest+Gini+index&t=GiniIndex_EconomicActivity&p=Earth&pt=Country"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Correlation between diabetes and poverty across US counties",
+            "url": "oq=Correlation+between+diabetes+and+poverty+across+US+counties&t=dc/topic/Diabetes&tcmp=dc/topic/Poverty&p=country/USA&pt=County"
+          }
+        ]
       },
       "meta": {
         "dataPointCount": 0,
-        "variableCount": 0,
-        "sources": ["Test source 1", "Test source 2"]
+        "variableCount": 35472,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
+          "World Bank"
+        ]
       }
     },
     "economics": {
@@ -317,9 +368,9 @@
         ]
       }
     },
-    "education-housing-commute": {
+    "schools-housing-commute": {
       "title": "Education, Housing, and Commute",
-      "description": "Education is the cornerstone of personal growth and societal progress, empowering individuals with knowledge, skills, and critical thinking abilities to navigate and shape the world around them. Search for some education data or click around on one of the suggested searches below to get started.",
+      "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
       "examples": {
         "general": [
           {
@@ -365,7 +416,7 @@
             "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool"
           },
           {
-            "title": "Students in Graduate School in California vs Massahusetts",
+            "title": "Students in Graduate School in California vs Massachusetts",
             "url": "oq=Students+in+Graduate+School+in+California+vs+Massachusetts"
           },
           {
@@ -561,76 +612,72 @@
       "examples": {
         "general": [
           {
-            "title": "Which countries emit the most greenhouse gases",
-            "url": "oq=Which+countries+emit+the+most+greenhouse+gases"
+            "title": "What are the sources of greenhouse gas emissions in the US",
+            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissionsBySource"
           },
           {
             "title": "Emissions in Harris County, Texas",
-            "url": "oq=Emissions+in+Harris+County,+Texas"
+            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
           },
           {
             "title": "Pollution in Los Angeles County",
-            "url": "oq=Pollution+in+Los+Angeles+County"
+            "url": "oq=Pollution+in+Los+Angeles+County&p=geoId/06037&t=dc/topic/Pollutants"
           },
           {
-            "title": "Projected temperature extremes in India",
-            "url": "oq=Projected+temperature+extremes+in+India"
+            "title": "Projected temperature extremes in US counties",
+            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
           },
           {
             "title": "Energy use in the US",
-            "url": "oq=Energy+use+in+the+US"
+            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
           },
           {
             "title": "Green jobs in the US",
-            "url": "oq=Green+jobs+in+the+US"
+            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
           }
         ],
         "specific": [
           {
-            "title": "Electronic Waste generated in different countries ",
-            "url": "oq=Electronic+Waste+generated+in+different+countries+"
+            "title": "Electronic Waste generated in different countries",
+            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV___sdg/EN_EWT_GENPCAP"
           },
           {
             "title": "Floods in Pakistan",
-            "url": "oq=Floods+in+Pakistan"
+            "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
           },
           {
-            "title": "Revenue of solar companies across states in the US",
-            "url": "oq=Revenue+of+solar+companies+across+states+in+the+US"
+            "title": "Solar energy consumption across across states in the US",
+            "url": "oq=Solar+energy+consumption+across+states+in+the+US"
           },
           {
             "title": "Drought events across different countries",
-            "url": "oq=Drought+events+across+different+countries"
+            "url": "oq=Drought+events+across+different+countries&p=Earth&pt=Country&t=dc/topic/Drought"
           },
           {
             "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days"
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
             "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
           },
           {
-            "title": "Which countries have the greatest increase in greenhouse gas emissions",
-            "url": "oq=Which+countries+have+the+greatest+increase+in+greenhouse+gas+emissions"
+            "title": "Which countries have the most greenhouse gas emissions",
+            "url": "oq=Which+countries+have+the+most+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissionsBySource"
           }
         ],
         "comparison": [
           {
             "title": "How does PM 2.5 correlate with asthma across US counties",
-            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties"
+            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
           },
           {
-            "title": "How does solar energy generation correlate with median income across US states",
-            "url": "oq=How+does+solar+energy+generation+correlate+with+median+income+across+US+states"
-          },
-          {
-            "title": "How does coal energy generation correlate with life expectancy across US states",
-            "url": "oq=How+does+coal+energy+generation+correlate+with+life+expectancy+across+US+states"
+            "title": "How do solar installations correlate with median income across US counties",
+            "url": "oq=How+does+renewable+energy+usage+correlate+with+median+income+across+US+counties&p=country/USA&pt=County&t=Count_SolarInstallation&tcmp=dc/topic/Income"
           },
           {
             "title": "AQI vs blood pressure in New Jersey",
-            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey"
+            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure"
           }
         ]
       },

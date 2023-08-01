@@ -9,6 +9,27 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+                    ],
+                    "title": "Cumulative Count of COVID-19 Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "CumulativeCount_Vaccine_COVID_19_Administered"
+                    ],
+                    "title": "Total COVID-19 Vaccines Administered in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
                       "WHO/WHS4_117"
                     ],
                     "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
@@ -61,13 +82,6 @@
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
                     "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -242,80 +256,6 @@
               }
             ],
             "title": "Child Immunizations in Rural Area"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/bcgv_Urban"
-                    ],
-                    "title": "% Bcg Immunization Coverage, Urban One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/dptv_Urban"
-                    ],
-                    "title": "% Dtp3 Immunization Coverage, Urban One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/fullv_Urban"
-                    ],
-                    "title": "% Full Immunization Coverage, Urban One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/mslv_Urban"
-                    ],
-                    "title": "% Measles Immunization Coverage, Urban One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/poliov_Urban"
-                    ],
-                    "title": "% Polio Immunization Coverage, Urban One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Global \"Child Immunizations In Urban Area\""
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/CM_01"
-                    ],
-                    "title": "Number Of Under-Five Deaths in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/CM_02"
-                    ],
-                    "title": "Number Of Infant Deaths in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "WHO/CM_03"
-                    ],
-                    "title": "Number Of Neonatal Deaths in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Child Mortality"
           }
         ],
         "statVarSpec": {
@@ -323,21 +263,17 @@
             "name": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita)",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
+          "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased": {
+            "name": "Cumulative Count of COVID-19 Deaths",
+            "statVar": "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+          },
+          "CumulativeCount_Vaccine_COVID_19_Administered": {
+            "name": "Total COVID-19 Vaccines Administered",
+            "statVar": "CumulativeCount_Vaccine_COVID_19_Administered"
+          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
-          },
-          "WHO/CM_01": {
-            "name": "Number Of Under-Five Deaths",
-            "statVar": "WHO/CM_01"
-          },
-          "WHO/CM_02": {
-            "name": "Number Of Infant Deaths",
-            "statVar": "WHO/CM_02"
-          },
-          "WHO/CM_03": {
-            "name": "Number Of Neonatal Deaths",
-            "statVar": "WHO/CM_03"
           },
           "WHO/MORT_MATERNALNUM": {
             "name": "Number Of Maternal Deaths",
@@ -391,10 +327,6 @@
             "name": "% Bcg Immunization Coverage, Rural One-Year-Olds",
             "statVar": "WHO/bcgv_Rural"
           },
-          "WHO/bcgv_Urban": {
-            "name": "% Bcg Immunization Coverage, Urban One-Year-Olds",
-            "statVar": "WHO/bcgv_Urban"
-          },
           "WHO/dptv_Female": {
             "name": "% Dtp3 Immunization, Female One-Year-Olds",
             "statVar": "WHO/dptv_Female"
@@ -406,10 +338,6 @@
           "WHO/dptv_Rural": {
             "name": "% Dtp3 Immunization Coverage, Rural One-Year-Olds",
             "statVar": "WHO/dptv_Rural"
-          },
-          "WHO/dptv_Urban": {
-            "name": "% Dtp3 Immunization Coverage, Urban One-Year-Olds",
-            "statVar": "WHO/dptv_Urban"
           },
           "WHO/fullv_Female": {
             "name": "% Full Immunization Coverage, Female One-Year-Olds",
@@ -423,10 +351,6 @@
             "name": "% Full Immunization Coverage, Rural One-Year-Olds",
             "statVar": "WHO/fullv_Rural"
           },
-          "WHO/fullv_Urban": {
-            "name": "% Full Immunization Coverage, Urban One-Year-Olds",
-            "statVar": "WHO/fullv_Urban"
-          },
           "WHO/mslv_Female": {
             "name": "% Measles Immunization Coverage, Female One-Year-Olds",
             "statVar": "WHO/mslv_Female"
@@ -439,10 +363,6 @@
             "name": "% Measles Immunization Coverage, Rural One-Year-Olds",
             "statVar": "WHO/mslv_Rural"
           },
-          "WHO/mslv_Urban": {
-            "name": "% Measles Immunization Coverage, Urban One-Year-Olds",
-            "statVar": "WHO/mslv_Urban"
-          },
           "WHO/poliov_Female": {
             "name": "% Polio Immunization Coverage, Female One-Year-Olds",
             "statVar": "WHO/poliov_Female"
@@ -454,10 +374,6 @@
           "WHO/poliov_Rural": {
             "name": "% Polio Immunization Coverage, Rural One-Year-Olds",
             "statVar": "WHO/poliov_Rural"
-          },
-          "WHO/poliov_Urban": {
-            "name": "% Polio Immunization Coverage, Urban One-Year-Olds",
-            "statVar": "WHO/poliov_Urban"
           },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",

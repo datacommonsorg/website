@@ -228,10 +228,6 @@
             "nlQuery": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line Africa"
           },
           {
-            "displayName": "Family Households Below the Poverty Level in the Past Year",
-            "nlQuery": "Family Households Below the Poverty Level in the Past Year Africa"
-          },
-          {
             "displayName": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
             "nlQuery": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months Africa"
           },

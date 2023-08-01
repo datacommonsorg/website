@@ -25,8 +25,6 @@ import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
 
-const NUM_FRACTION_DIGITS = 2;
-
 interface RankingUnitPropType {
   title: string;
   points: RankingPoint[];
@@ -133,8 +131,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                           ? point.value * props.scaling[0]
                           : point.value,
                         props.unit && props.unit.length ? props.unit[0] : "",
-                        false,
-                        NUM_FRACTION_DIGITS
+                        false
                       )}
                     </span>
                   </td>
@@ -155,8 +152,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                             ? v * props.scaling[i]
                             : v,
                           props.unit && props.unit.length ? props.unit[i] : "",
-                          false,
-                          NUM_FRACTION_DIGITS
+                          false
                         )}
                       </span>
                     </td>
