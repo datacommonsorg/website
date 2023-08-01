@@ -13,113 +13,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas"
-                    ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas"
-                    ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
-            "title": "Greenhouse Gas Emissions"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
-                    ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
-                    ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
                     "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
@@ -174,23 +67,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                      "Annual_Emissions_GreenhouseGas_CementProduction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                      "Annual_Emissions_GreenhouseGas_CementProduction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
+            "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas"
           },
           {
             "columns": [
@@ -202,16 +94,123 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+                    ],
+                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+                    ],
+                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "description": "Greenhouse gas emissions from electricity generation (measured in tonnes of CO\u2082 equivalents).",
+            "title": "Greenhouse Gas Emissions from Electricity Generation"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                    ],
+                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                    ],
+                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -266,6 +265,60 @@
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
                     ],
                     "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                    ],
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+                    ],
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
+            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -390,23 +443,22 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+                      "Annual_Emissions_GreenhouseGas_OilAndGas"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+                      "Annual_Emissions_GreenhouseGas_OilAndGas"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "description": "Greenhouse gas emissions from electricity generation (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Electricity Generation"
+            "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas"
           },
           {
             "columns": [
@@ -418,16 +470,69 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
+                      "Annual_Emissions_GreenhouseGas_OilAndGas_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_pc"
+                      "Annual_Emissions_GreenhouseGas_OilAndGas_pc"
                     ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Per Capita Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -536,6 +641,113 @@
                       "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
                     ],
                     "title": "Per Capita Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas"
+                    ],
+                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas"
+                    ],
+                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
+            "title": "Greenhouse Gas Emissions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_pc"
+                    ],
+                    "title": "Per Capita Greenhouse Gas Emissions in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
+                    ],
+                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -965,6 +1177,15 @@
             "name": "Greenhouse Gas Emissions from Agriculture",
             "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
           },
+          "Annual_Emissions_GreenhouseGas_CementProduction": {
+            "name": "Annual Amount of Emissions: Cement Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_CementProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_CementProduction_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Cement Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_CementProduction"
+          },
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse": {
             "name": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
@@ -982,6 +1203,15 @@
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Electricity Generation",
             "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+          },
+          "Annual_Emissions_GreenhouseGas_ForestFire": {
+            "name": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestFire"
+          },
+          "Annual_Emissions_GreenhouseGas_ForestFire_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestFire"
           },
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse": {
             "name": "Greenhouse Gas Emissions from Forestry and Land Use",
@@ -1027,6 +1257,24 @@
             "denom": "Count_Person",
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGas": {
+            "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGas_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
+          },
+          "Annual_Emissions_GreenhouseGas_SteelManufacturing": {
+            "name": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+          },
+          "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc": {
+            "denom": "Count_Person",
+            "name": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SteelManufacturing"
           },
           "Annual_Emissions_GreenhouseGas_Transportation": {
             "name": "Greenhouse Gas Emissions from Transportation",

@@ -38,7 +38,7 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/HouseholdIncome",
     ],
     "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
-    "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
+    "dc/topic/HealthConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
     "dc/topic/ProjectedClimateExtremes": [
         "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
         "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",

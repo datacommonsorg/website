@@ -9,29 +9,31 @@
     "Count_Person_Male_ResidesInGroupQuarters",
     "Count_Person_Female_TwoOrMoreRaces",
     "Count_Person_Male_SomeOtherRaceAlone",
+    "dc/topic/Gender",
     "Median_Age_Person_Male",
     "dc/topic/SeparatedFemalePopulationByAge",
+    "Count_Person_Male_MarriedAndNotSeparated",
     "dc/topic/SeparatedMalePopulationByAge",
     "Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters",
-    "Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters",
-    "Count_Person_Female_SomeOtherRaceAlone"
+    "Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters"
   ],
   "CosineScore": [
     0.9062607288360596,
     0.8737514615058899,
-    0.8090390563011169,
+    0.8090391159057617,
     0.7960466146469116,
     0.7867253422737122,
     0.7852922081947327,
     0.7835091352462769,
     0.7825151681900024,
     0.777784526348114,
+    0.7757350206375122,
     0.7714362144470215,
     0.7709808945655823,
+    0.7709603905677795,
     0.7669979333877563,
     0.7647125720977783,
-    0.7572100162506104,
-    0.7561885118484497
+    0.7572100162506104
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -74,10 +76,10 @@
           {
             "QueryPart": "population",
             "SV": [
-              "dc/topic/Population"
+              "Count_Person"
             ],
             "CosineScore": [
-              1.0000003576278687
+              0.901258111000061
             ]
           },
           {
@@ -90,7 +92,7 @@
             ]
           }
         ],
-        "AggCosineScore": 0.9543,
+        "AggCosineScore": 0.9214,
         "DelimBased": false
       },
       {
@@ -116,14 +118,14 @@
           {
             "QueryPart": "population",
             "SV": [
-              "dc/topic/Population"
+              "Count_Person"
             ],
             "CosineScore": [
-              1.0000003576278687
+              0.901258111000061
             ]
           }
         ],
-        "AggCosineScore": 0.9472,
+        "AggCosineScore": 0.9143,
         "DelimBased": false
       },
       {
@@ -145,20 +147,20 @@
             ],
             "CosineScore": [
               0.8139935731887817,
-              0.7725143432617188
+              0.7725144624710083
             ]
           },
           {
             "QueryPart": "population",
             "SV": [
-              "dc/topic/Population"
+              "Count_Person"
             ],
             "CosineScore": [
-              1.0000003576278687
+              0.901258111000061
             ]
           }
         ],
-        "AggCosineScore": 0.938,
+        "AggCosineScore": 0.9051,
         "DelimBased": false
       },
       {
@@ -175,10 +177,10 @@
           {
             "QueryPart": "population",
             "SV": [
-              "dc/topic/Population"
+              "Count_Person"
             ],
             "CosineScore": [
-              1.0000003576278687
+              0.901258111000061
             ]
           },
           {
@@ -189,20 +191,20 @@
             ],
             "CosineScore": [
               0.8139935731887817,
-              0.7725143432617188
+              0.7725144624710083
             ]
           },
           {
             "QueryPart": "population",
             "SV": [
-              "dc/topic/Population"
+              "Count_Person"
             ],
             "CosineScore": [
-              1.0000003576278687
+              0.901258111000061
             ]
           }
         ],
-        "AggCosineScore": 0.9192,
+        "AggCosineScore": 0.8699,
         "DelimBased": false
       }
     ]

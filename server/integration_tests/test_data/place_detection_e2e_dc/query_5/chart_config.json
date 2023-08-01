@@ -13,7 +13,15 @@
                     ],
                     "title": "Population in Mexico City",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_PerArea"
@@ -23,16 +31,9 @@
                   },
                   {
                     "statVarKey": [
-                      "GrowthRate_Count_Person"
+                      "Count_Person_PerArea_pc"
                     ],
-                    "title": "Rate of Population Growth in Mexico City",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Mexico City",
+                    "title": "Per Capita Population Density in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -45,24 +46,14 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female",
-                      "Count_Person_Male"
+                      "GrowthRate_Count_Person"
                     ],
-                    "title": "Population by Gender in Mexico City",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_pc",
-                      "Count_Person_Male_pc"
-                    ],
-                    "title": "Per Capita Population by Gender in Mexico City",
+                    "title": "Rate of Population Growth in Mexico City",
                     "type": "LINE"
                   }
                 ]
               }
-            ],
-            "title": "Population by Gender"
+            ]
           }
         ],
         "statVarSpec": {
@@ -70,35 +61,18 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
-          "Count_Person_Female": {
-            "name": "Female Population",
-            "statVar": "Count_Person_Female"
-          },
-          "Count_Person_Female_pc": {
-            "denom": "Count_Person",
-            "name": "Female Population",
-            "statVar": "Count_Person_Female"
-          },
-          "Count_Person_Male": {
-            "name": "Male Population",
-            "statVar": "Count_Person_Male"
-          },
-          "Count_Person_Male_pc": {
-            "denom": "Count_Person",
-            "name": "Male Population",
-            "statVar": "Count_Person_Male"
-          },
           "Count_Person_PerArea": {
+            "name": "Population Density",
+            "statVar": "Count_Person_PerArea"
+          },
+          "Count_Person_PerArea_pc": {
+            "denom": "Count_Person",
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
           "GrowthRate_Count_Person": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
-          },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
           }
         }
       }
