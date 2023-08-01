@@ -402,7 +402,7 @@ def resolve_id(nodes, in_prop, out_prop):
   resp = dc.resolve(nodes, '<-{}->{}'.format(in_prop, out_prop))
   result = {}
   for entity in resp.get('entities', []):
-    result[entity['node']] = entity['resolvedIds']
+    result[entity['node']] = entity['candidates']
   return result
 
 
@@ -423,7 +423,7 @@ def resolve_coordinates(coordinates):
   resp = dc.resolve(nodes, '<-geoCoordinate->dcid')
   result = {}
   for entity in resp.get('entities', []):
-    result[entity['node']] = entity.get('resolvedIds', [])
+    result[entity['node']] = entity.get('candidates', [])
   return result
 
 
