@@ -31,7 +31,7 @@ class TestPlaceLanding(WebdriverBaseTest):
         (By.XPATH, '//*[@id="main-nav"]/div/div[1]/a'), 'Data Commons')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'lead')[0]
+    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'header')[0]
     self.assertTrue(hero_msg.text.startswith('Data tells interesting stories'))
 
   def test_homepage_it(self):
@@ -43,7 +43,7 @@ class TestPlaceLanding(WebdriverBaseTest):
         (By.XPATH, '//*[@id="main-nav"]/div/div[1]/a'), 'Data Commons')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'lead')[0]
+    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'header')[0]
     self.assertTrue(hero_msg.text.startswith('Data tells interesting stories'))
 
   # def test_hero_all_langs(self):
