@@ -93,8 +93,30 @@
         ]
       }
     ],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerTopics": [
+      {
+        "dcid": "dc/topic/Education",
+        "name": "Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Housing",
+        "name": "Housing",
+        "types": [
+          "Topic"
+        ]
+      },
       {
         "dcid": "dc/topic/WorkCommute",
         "name": "Commute",
