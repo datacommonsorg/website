@@ -67,59 +67,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_CementProduction"
-                    ],
-                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_CementProduction"
-                    ],
-                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
                     "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
@@ -174,22 +121,23 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas"
+            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
+            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
           },
           {
             "columns": [
@@ -201,16 +149,16 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
                     ],
-                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
                     ],
-                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -265,60 +213,6 @@
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_pc"
                     ],
                     "title": "Per Capita Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
-                    ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
-                    ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_pc"
-                    ],
-                    "title": "Per Capita Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -496,59 +390,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
-                    ],
-                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
-                    ],
-                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
-                    ],
-                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
                     "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
@@ -641,6 +482,165 @@
                       "Annual_Emissions_GreenhouseGas_WasteManagement_pc"
                     ],
                     "title": "Per Capita Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_CementProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_CementProduction"
+                    ],
+                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_CementProduction_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+                    ],
+                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                    ],
+                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire"
+                    ],
+                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ForestFire_pc"
+                    ],
+                    "title": "Per Capita Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
                     "type": "MAP"
                   }
                 ]

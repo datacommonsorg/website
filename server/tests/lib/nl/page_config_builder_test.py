@@ -779,19 +779,16 @@ class TestPageConfigNext(unittest.TestCase):
   ])
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
-  @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(variable, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_topic_name, mock_sv_footnote,
-                mock_sv_unit):
+                mock_parent_place_names, mock_sv_footnote, mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs, _: {
         sv: "{}-name".format(sv) for sv in svs
     })
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
-    mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
     mock_sv_footnote.side_effect = (lambda svs: {
         sv: "{}-footnote".format(sv) for sv in svs
     })

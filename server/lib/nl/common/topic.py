@@ -23,6 +23,7 @@ from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
 TOPIC_RANK_LIMIT = 3
+MAX_TOPIC_SVS = 30
 
 _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/Agriculture": [
@@ -428,18 +429,17 @@ TOPIC_NAMES_OVERRIDE = {
 # TODO: Consider having a default max limit.
 def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
-                            ordered: bool = False,
-                            max_svs: int = 0,
+                            max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable', ordered)
+    svs = _members(topic, 'relevantVariable')
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, ordered, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, max_svs, cur_svs)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -450,12 +450,12 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str, ordered: bool = False):
+def get_topic_vars(topic: str):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable', ordered)
+    svs = _members(topic, 'relevantVariable')
   return svs
 
 
@@ -491,32 +491,26 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str], ordered: bool = False):
+def get_topic_peergroups(sv_dcids: List[str]):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
-      ret[sv] = _get_svpg_vars(sv, ordered)
+      ret[sv] = _get_svpg_vars(sv)
     else:
       ret[sv] = []
   return ret
 
 
-def get_topic_name(topic_dcid: str) -> str:
-  if topic_dcid in TOPIC_NAMES_OVERRIDE:
-    return TOPIC_NAMES_OVERRIDE[topic_dcid]
-  resp = fetch.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
-  if resp:
-    return resp[0]
-  return topic_dcid.split('/')[-1]
-
-
 def svpg_name(sv: str):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    resp = fetch.property_values(nodes=[sv], prop='name')[sv]
-    if resp:
-      name = resp[0]
+    if 'TOPIC_CACHE' in current_app.config:
+      name = current_app.config['TOPIC_CACHE'].get_name(sv)
+    if not name:
+      resp = fetch.property_values(nodes=[sv], prop='name')[sv]
+      if resp:
+        name = resp[0]
   return name
 
 
@@ -529,10 +523,10 @@ def svpg_description(sv: str):
   return name
 
 
-def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
+def _get_svpg_vars(svpg: str) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _members(svpg, 'member', ordered)
+    svs = _members(svpg, 'member')
   return svs
 
 
@@ -585,17 +579,13 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str, ordered: bool = False) -> List[str]:
+def _members(node: str, prop: str) -> List[str]:
   val_list = []
-  if ordered:
-    if 'TOPIC_CACHE' in current_app.config:
-      resp = current_app.config['TOPIC_CACHE'].get_members(node)
-      val_list = [v['dcid'] for v in resp]
-    else:
-      val_list = _prop_val_ordered(node, prop + 'List')
+  if 'TOPIC_CACHE' in current_app.config:
+    resp = current_app.config['TOPIC_CACHE'].get_members(node)
+    val_list = [v['dcid'] for v in resp]
   else:
-    # TODO: Once the caller stops using it, deprecate it.
-    val_list = fetch.property_values(nodes=[node], prop=prop)[node]
+    val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
