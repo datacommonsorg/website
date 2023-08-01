@@ -51,11 +51,11 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
+                      "dc/nfdf9rt7kbggb_multiple_place_bar_block",
+                      "dc/v33p7mwnpe9vb_multiple_place_bar_block",
                       "dc/4xklqxfc27w1f_multiple_place_bar_block",
                       "dc/80q8jrnkvwtt3_multiple_place_bar_block",
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
-                      "dc/nfdf9rt7kbggb_multiple_place_bar_block",
-                      "dc/v33p7mwnpe9vb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
                     "title": "Management, Business, Science and Arts Occupations in Sunnyvale (${date})",
@@ -66,11 +66,11 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
+                      "dc/nfdf9rt7kbggb_multiple_place_bar_block_pc",
+                      "dc/v33p7mwnpe9vb_multiple_place_bar_block_pc",
                       "dc/4xklqxfc27w1f_multiple_place_bar_block_pc",
                       "dc/80q8jrnkvwtt3_multiple_place_bar_block_pc",
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block_pc",
-                      "dc/nfdf9rt7kbggb_multiple_place_bar_block_pc",
-                      "dc/v33p7mwnpe9vb_multiple_place_bar_block_pc",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Management, Business, Science and Arts Occupations in Sunnyvale (${date})",
@@ -90,129 +90,12 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/2r1c78wzvbq58_multiple_place_bar_block",
-                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block",
-                      "dc/bhc16vntggjyd_multiple_place_bar_block",
-                      "dc/m54m06x6r5xm9_multiple_place_bar_block",
-                      "dc/wqbf0ppbmly7_multiple_place_bar_block",
-                      "dc/zf0wjwwyddbj4_multiple_place_bar_block"
-                    ],
-                    "title": "Military Specific Occupation in Sunnyvale (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/2r1c78wzvbq58_multiple_place_bar_block_pc",
-                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block_pc",
-                      "dc/bhc16vntggjyd_multiple_place_bar_block_pc",
-                      "dc/m54m06x6r5xm9_multiple_place_bar_block_pc",
-                      "dc/wqbf0ppbmly7_multiple_place_bar_block_pc",
-                      "dc/zf0wjwwyddbj4_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Military Specific Occupation in Sunnyvale (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Military Specific Occupation"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/06m8j6xz3h0wf_multiple_place_bar_block",
-                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block",
-                      "dc/b9plt3q5k6gyb_multiple_place_bar_block",
-                      "dc/j7pej9wer7lkd_multiple_place_bar_block",
-                      "dc/n99t0lnl3fch6_multiple_place_bar_block",
-                      "dc/vh36nvvkwxz5g_multiple_place_bar_block"
-                    ],
-                    "title": "Natural Resources, Construction and Maintenance Occupations in Sunnyvale (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/06m8j6xz3h0wf_multiple_place_bar_block_pc",
-                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block_pc",
-                      "dc/b9plt3q5k6gyb_multiple_place_bar_block_pc",
-                      "dc/j7pej9wer7lkd_multiple_place_bar_block_pc",
-                      "dc/n99t0lnl3fch6_multiple_place_bar_block_pc",
-                      "dc/vh36nvvkwxz5g_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Natural Resources, Construction and Maintenance Occupations in Sunnyvale (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Natural Resources, Construction and Maintenance Occupations"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block",
-                      "dc/dj7khl7q78412_multiple_place_bar_block",
-                      "dc/e27c5t4tbplg_multiple_place_bar_block",
-                      "dc/fgt7thnws9vx9_multiple_place_bar_block",
-                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block",
-                      "dc/r0delcsw86kc6_multiple_place_bar_block"
-                    ],
-                    "title": "Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block_pc",
-                      "dc/dj7khl7q78412_multiple_place_bar_block_pc",
-                      "dc/e27c5t4tbplg_multiple_place_bar_block_pc",
-                      "dc/fgt7thnws9vx9_multiple_place_bar_block_pc",
-                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block_pc",
-                      "dc/r0delcsw86kc6_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Production Transportation and Material Moving Occupations"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
                       "dc/7wt44yv38rew_multiple_place_bar_block",
+                      "dc/zcth2y8fqte1f_multiple_place_bar_block",
+                      "dc/nvrxn11yxlen2_multiple_place_bar_block",
                       "dc/jxsx1rb4xg84f_multiple_place_bar_block",
                       "dc/kt900ezddrf79_multiple_place_bar_block",
-                      "dc/nvrxn11yxlen2_multiple_place_bar_block",
-                      "dc/slp5hywj7b9c1_multiple_place_bar_block",
-                      "dc/zcth2y8fqte1f_multiple_place_bar_block"
+                      "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
                     "title": "Sales and Office Occupations in Sunnyvale (${date})",
                     "type": "BAR"
@@ -223,11 +106,11 @@
                     ],
                     "statVarKey": [
                       "dc/7wt44yv38rew_multiple_place_bar_block_pc",
+                      "dc/zcth2y8fqte1f_multiple_place_bar_block_pc",
+                      "dc/nvrxn11yxlen2_multiple_place_bar_block_pc",
                       "dc/jxsx1rb4xg84f_multiple_place_bar_block_pc",
                       "dc/kt900ezddrf79_multiple_place_bar_block_pc",
-                      "dc/nvrxn11yxlen2_multiple_place_bar_block_pc",
-                      "dc/slp5hywj7b9c1_multiple_place_bar_block_pc",
-                      "dc/zcth2y8fqte1f_multiple_place_bar_block_pc"
+                      "dc/slp5hywj7b9c1_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Sales and Office Occupations in Sunnyvale (${date})",
                     "type": "BAR"
@@ -246,12 +129,12 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/6zrlr86zt61yg_multiple_place_bar_block",
-                      "dc/bre4whrdn7pt7_multiple_place_bar_block",
                       "dc/dn2h9yfcgbkg2_multiple_place_bar_block",
-                      "dc/k33ngtzpqxql6_multiple_place_bar_block",
+                      "dc/bre4whrdn7pt7_multiple_place_bar_block",
+                      "dc/n2vhkpw0slkv5_multiple_place_bar_block",
                       "dc/m615rq99fwf2c_multiple_place_bar_block",
-                      "dc/n2vhkpw0slkv5_multiple_place_bar_block"
+                      "dc/k33ngtzpqxql6_multiple_place_bar_block",
+                      "dc/6zrlr86zt61yg_multiple_place_bar_block"
                     ],
                     "title": "Service Occupations in Sunnyvale (${date})",
                     "type": "BAR"
@@ -261,12 +144,12 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/6zrlr86zt61yg_multiple_place_bar_block_pc",
-                      "dc/bre4whrdn7pt7_multiple_place_bar_block_pc",
                       "dc/dn2h9yfcgbkg2_multiple_place_bar_block_pc",
-                      "dc/k33ngtzpqxql6_multiple_place_bar_block_pc",
+                      "dc/bre4whrdn7pt7_multiple_place_bar_block_pc",
+                      "dc/n2vhkpw0slkv5_multiple_place_bar_block_pc",
                       "dc/m615rq99fwf2c_multiple_place_bar_block_pc",
-                      "dc/n2vhkpw0slkv5_multiple_place_bar_block_pc"
+                      "dc/k33ngtzpqxql6_multiple_place_bar_block_pc",
+                      "dc/6zrlr86zt61yg_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Service Occupations in Sunnyvale (${date})",
                     "type": "BAR"
@@ -275,6 +158,123 @@
               }
             ],
             "title": "Service Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block",
+                      "dc/fgt7thnws9vx9_multiple_place_bar_block",
+                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block",
+                      "dc/dj7khl7q78412_multiple_place_bar_block",
+                      "dc/r0delcsw86kc6_multiple_place_bar_block",
+                      "dc/e27c5t4tbplg_multiple_place_bar_block"
+                    ],
+                    "title": "Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block_pc",
+                      "dc/fgt7thnws9vx9_multiple_place_bar_block_pc",
+                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block_pc",
+                      "dc/dj7khl7q78412_multiple_place_bar_block_pc",
+                      "dc/r0delcsw86kc6_multiple_place_bar_block_pc",
+                      "dc/e27c5t4tbplg_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Production Transportation and Material Moving Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/vh36nvvkwxz5g_multiple_place_bar_block",
+                      "dc/n99t0lnl3fch6_multiple_place_bar_block",
+                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block",
+                      "dc/j7pej9wer7lkd_multiple_place_bar_block",
+                      "dc/b9plt3q5k6gyb_multiple_place_bar_block",
+                      "dc/06m8j6xz3h0wf_multiple_place_bar_block"
+                    ],
+                    "title": "Natural Resources, Construction and Maintenance Occupations in Sunnyvale (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/vh36nvvkwxz5g_multiple_place_bar_block_pc",
+                      "dc/n99t0lnl3fch6_multiple_place_bar_block_pc",
+                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block_pc",
+                      "dc/j7pej9wer7lkd_multiple_place_bar_block_pc",
+                      "dc/b9plt3q5k6gyb_multiple_place_bar_block_pc",
+                      "dc/06m8j6xz3h0wf_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Natural Resources, Construction and Maintenance Occupations in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Natural Resources, Construction and Maintenance Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/zf0wjwwyddbj4_multiple_place_bar_block",
+                      "dc/2r1c78wzvbq58_multiple_place_bar_block",
+                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block",
+                      "dc/m54m06x6r5xm9_multiple_place_bar_block",
+                      "dc/wqbf0ppbmly7_multiple_place_bar_block",
+                      "dc/bhc16vntggjyd_multiple_place_bar_block"
+                    ],
+                    "title": "Military Specific Occupation in Sunnyvale (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/zf0wjwwyddbj4_multiple_place_bar_block_pc",
+                      "dc/2r1c78wzvbq58_multiple_place_bar_block_pc",
+                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block_pc",
+                      "dc/m54m06x6r5xm9_multiple_place_bar_block_pc",
+                      "dc/wqbf0ppbmly7_multiple_place_bar_block_pc",
+                      "dc/bhc16vntggjyd_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Military Specific Occupation in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Military Specific Occupation"
           }
         ],
         "statVarSpec": {
