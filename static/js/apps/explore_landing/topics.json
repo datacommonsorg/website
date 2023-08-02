@@ -40,8 +40,8 @@
             "url": "oq=Counties+with+the+highest+rates+of+uninsured&t=dc/topic/NoHealthInsurance&p=country/USA&pt=County"
           },
           {
-            "title": "Cities with the highest number of women PhDs",
-            "url": "oq=Cities+with+the+highest+number+of+women+PhDs&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=country/USA&pt=City"
+            "title": "Cities with the highest number of women PhDs in Pennsylvania",
+            "url": "oq=Cities+with+the+highest+number+of+women+PhDs+in+Pennsylvania&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=geoId/42&pt=City"
           },
           {
             "title": "Countries with the lowest Gini index",
