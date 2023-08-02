@@ -34,6 +34,7 @@ import {
 
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
+import { getFilteredStatVarPromise } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
@@ -60,6 +61,21 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
       setSelectedStatVars(statVars);
     }
   }, [statVars]);
+
+  useEffect(() => {
+    if (!props.selectOnContinue) {
+      return;
+    }
+    getFilteredStatVarPromise(
+      samplePlaces,
+      selectedStatVars,
+      visTypeConfig
+    ).then((filteredStatVars) => {
+      if (!_.isEqual(filteredStatVars, selectedStatVars)) {
+        setSelectedStatVars(filteredStatVars);
+      }
+    });
+  }, [samplePlaces]);
 
   return (
     <div className="stat-var-selector">

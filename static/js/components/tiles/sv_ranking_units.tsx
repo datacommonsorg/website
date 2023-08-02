@@ -17,7 +17,6 @@
 /**
  * Component for rendering a ranking tile.
  */
-import _ from "lodash";
 import React, { RefObject, useRef } from "react";
 
 import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";

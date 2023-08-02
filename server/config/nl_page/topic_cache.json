@@ -784,6 +784,43 @@
     },
     {
       "dcid": [
+        "dc/svpg/CausesOfDeathBreakdown"
+      ],
+      "memberList": [
+        "Count_Death_DiseasesOfTheNervousSystem",
+        "Count_Death_DiseasesOfTheRespiratorySystem",
+        "Count_Death_DiseasesOfTheCirculatorySystem",
+        "Count_Death_MentalBehaviouralDisorders",
+        "Count_Death_ExternalCauses",
+        "Count_Death_DiseasesOfTheGenitourinarySystem",
+        "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue",
+        "Count_Death_DiseasesOfTheSkinSubcutaneousTissue",
+        "Count_Death_EndocrineNutritionalMetabolicDiseases",
+        "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
+        "Count_Death_SpecialCases",
+        "Count_Death_PregnancyChildbirthThePuerperium",
+        "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
+        "Count_Death_CertainInfectiousParasiticDiseases",
+        "Count_Death_DiseasesOfTheDigestiveSystem",
+        "Count_Death_Neoplasms",
+        "Count_Death_AbnormalNotClassfied",
+        "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+        "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
+        "Count_MortalityEvent_Assault(Homicide)",
+        "Count_MortalityEvent_Diabetes",
+        "Count_MortalityEvent_HeartDiseaseExcludingHypertension",
+        "Count_MortalityEvent_IntentionalSelf-Harm(Suicide)",
+        "Count_MortalityEvent_Suicide"
+      ],
+      "name": [
+        "Causes Of Death"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/CollegeOrUniversityStudentHousingResidents_CollegeOrUniversityStudentHousingPopulationbyGender"
       ],
       "memberList": [
@@ -6966,19 +7003,19 @@
         "dc/svpg/dc/topic/Emissions_PM2.5_EmissionsbySource"
       ],
       "memberList": [
-        "member: Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery",
-        "member: Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
+        "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion",
+        "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
+        "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses",
+        "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation",
+        "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal",
+        "Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories",
+        "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion",
+        "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources",
+        "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
+        "Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization",
+        "Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport",
+        "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
       ],
       "name": [
         "PM 2.5 Emissions by Source"
@@ -6992,20 +7029,20 @@
         "dc/svpg/dc/topic/Emissions_SulfurDioxide_EmissionsbySource"
       ],
       "memberList": [
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_6_MACTSourceCategories",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery",
-        "member: Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
-        "member: Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_6_MACTSourceCategories",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery",
+        "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
+        "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
       ],
       "name": [
         "Sulfur Dioxide Emissions by Source"
@@ -7641,6 +7678,57 @@
       ],
       "name": [
         "Population By Income Level"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/IndustriesByRevenue_IndustryType"
+      ],
+      "memberList": [
+        "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll",
+        "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll",
+        "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll",
+        "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+        "Sales_Establishment_NAICSWholesaleTrade_WithPayroll",
+        "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll",
+        "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll",
+        "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll",
+        "Revenue_Establishment_NAICSUtilities_WithPayroll",
+        "dc/2hl1yfxglmq0c",
+        "dc/2kz6b9kvps8c9",
+        "dc/31hbegrgs0x05",
+        "dc/3wx4hzg5p6zdb",
+        "dc/41s8qer7mpew9",
+        "dc/4fbqq2v75fwbc",
+        "dc/8mty3dlrx26e5",
+        "dc/8vcbgqlfzwvtf",
+        "dc/9bcetmhgnge5f",
+        "dc/c0zdt686eek05",
+        "dc/d796515q44h02",
+        "dc/ekrg82bjht898",
+        "dc/f2g63f2rjbdyh",
+        "dc/g8sxhs8lzmb15",
+        "dc/gf47xlzfbd3t8",
+        "dc/ghk2rsfpsnc29",
+        "dc/gy5fk764jzhvd",
+        "dc/jxwhv6vc0rye7",
+        "dc/m46wj1egm7j56",
+        "dc/rw3t3r74kv7mc",
+        "dc/sythffk3c3ne7",
+        "dc/sz9ckd47e35b4",
+        "dc/zkmdz1rhlt7q8"
+      ],
+      "name": [
+        "Revenue By Industry Type"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8630,12 +8718,12 @@
         "dc/svpg/dc/topic/StudentEnrollmentLevels_StudentPopulationByEnrollmentLevel"
       ],
       "memberList": [
-        "member: Count_Person_EnrolledInKindergarten",
-        "member: Count_Person_DetailedPrimarySchool",
-        "member: Count_Person_DetailedMiddleSchool",
-        "member: Count_Person_DetailedHighSchool",
-        "member: Count_Person_EnrolledInCollegeUndergraduateYears",
-        "member: Count_Person_EnrolledInCollegeOrGraduateSchool"
+        "Count_Person_EnrolledInKindergarten",
+        "Count_Person_DetailedPrimarySchool",
+        "Count_Person_DetailedMiddleSchool",
+        "Count_Person_DetailedHighSchool",
+        "Count_Person_EnrolledInCollegeUndergraduateYears",
+        "Count_Person_EnrolledInCollegeOrGraduateSchool"
       ],
       "name": [
         "Student Population By Enrollment Level"
@@ -9863,30 +9951,7 @@
         "Causes Of Death"
       ],
       "relevantVariableList": [
-        "Count_Death_DiseasesOfTheNervousSystem",
-        "Count_Death_DiseasesOfTheRespiratorySystem",
-        "Count_Death_DiseasesOfTheCirculatorySystem",
-        "Count_Death_MentalBehaviouralDisorders",
-        "Count_Death_ExternalCauses",
-        "Count_Death_DiseasesOfTheGenitourinarySystem",
-        "Count_Death_DiseasesOfTheMusculoskeletalSystemConnectiveTissue",
-        "Count_Death_DiseasesOfTheSkinSubcutaneousTissue",
-        "Count_Death_EndocrineNutritionalMetabolicDiseases",
-        "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
-        "Count_Death_SpecialCases",
-        "Count_Death_PregnancyChildbirthThePuerperium",
-        "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
-        "Count_Death_CertainInfectiousParasiticDiseases",
-        "Count_Death_DiseasesOfTheDigestiveSystem",
-        "Count_Death_Neoplasms",
-        "Count_Death_AbnormalNotClassfied",
-        "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-        "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
-        "Count_MortalityEvent_Assault(Homicide)",
-        "Count_MortalityEvent_Diabetes",
-        "Count_MortalityEvent_HeartDiseaseExcludingHypertension",
-        "Count_MortalityEvent_IntentionalSelf-Harm(Suicide)",
-        "Count_MortalityEvent_Suicide"
+        "dc/svpg/CausesOfDeathBreakdown"
       ],
       "typeOf": [
         "Topic"
@@ -10411,7 +10476,7 @@
         "Economic Activity"
       ],
       "relevantVariableList": [
-        "dc/topic/IndustriesByNumberOfWorkers",
+        "dc/topic/IndustriesByGDP",
         "dc/topic/IndustriesByRevenue"
       ],
       "typeOf": [
@@ -12158,13 +12223,13 @@
     },
     {
       "dcid": [
-        "dc/topic/IndustriesByNumberOfWorkers"
+        "dc/topic/IndustriesByGDP"
       ],
       "name": [
-        "Industries By Number Of Workers"
+        "Industries By GDP"
       ],
       "relevantVariableList": [
-        "dc/rydmsxhz7pxh1"
+        "dc/svpg/RealGDPByIndustry"
       ],
       "typeOf": [
         "Topic"
@@ -12178,44 +12243,7 @@
         "Industries By Revenue"
       ],
       "relevantVariableList": [
-        "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll",
-        "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll",
-        "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll",
-        "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll",
-        "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll",
-        "Revenue_Establishment_NAICSUtilities_WithPayroll",
-        "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll",
-        "Sales_Establishment_NAICSWholesaleTrade_WithPayroll",
-        "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll",
-        "dc/2hl1yfxglmq0c",
-        "dc/2kz6b9kvps8c9",
-        "dc/31hbegrgs0x05",
-        "dc/3wx4hzg5p6zdb",
-        "dc/41s8qer7mpew9",
-        "dc/4fbqq2v75fwbc",
-        "dc/8mty3dlrx26e5",
-        "dc/8vcbgqlfzwvtf",
-        "dc/9bcetmhgnge5f",
-        "dc/c0zdt686eek05",
-        "dc/d796515q44h02",
-        "dc/ekrg82bjht898",
-        "dc/f2g63f2rjbdyh",
-        "dc/g8sxhs8lzmb15",
-        "dc/gf47xlzfbd3t8",
-        "dc/ghk2rsfpsnc29",
-        "dc/gy5fk764jzhvd",
-        "dc/jxwhv6vc0rye7",
-        "dc/m46wj1egm7j56",
-        "dc/rw3t3r74kv7mc",
-        "dc/sythffk3c3ne7",
-        "dc/sz9ckd47e35b4",
-        "dc/zkmdz1rhlt7q8"
+        "dc/svpg/dc/topic/IndustriesByRevenue_IndustryType"
       ],
       "typeOf": [
         "Topic"
@@ -12244,7 +12272,7 @@
         "Inflation Adjusted GDP"
       ],
       "relevantVariableList": [
-        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        "InflationAdjustedGDP"
       ],
       "typeOf": [
         "Topic"

@@ -18,6 +18,7 @@
  * Util functions used by the visualization tool.
  */
 
+import axios from "axios";
 import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
@@ -26,6 +27,7 @@ import { ContextStatVar } from "../../apps/visualization/app_context";
 import {
   VIS_TYPE_CONFIG,
   VisType,
+  VisTypeConfig,
 } from "../../apps/visualization/vis_type_configs";
 import {
   EARTH_NAMED_TYPED_PLACE,
@@ -39,7 +41,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { StatVarInfo } from "../../shared/stat_var";
-import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 
 const USA_CITY_CHILD_TYPES = ["CensusZipCodeTabulationArea", "City"];
@@ -242,4 +244,44 @@ export function getStatVarSpec(
     statVar: sv.dcid,
     unit: "",
   };
+}
+
+/**
+ * Gets a promise to return a filtered list of stat vars
+ * @param samplePlaces sample places used for the stat var hierarchy
+ * @param statVars full list of stat vars
+ * @param visTypeConfig the vis type config being used
+ */
+export function getFilteredStatVarPromise(
+  samplePlaces: NamedNode[],
+  statVars: ContextStatVar[],
+  visTypeConfig: VisTypeConfig
+): Promise<ContextStatVar[]> {
+  if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
+    return Promise.resolve([]);
+  }
+  return axios
+    .post("/api/observation/existence", {
+      entities: samplePlaces.map((place) => place.dcid),
+      variables: statVars.map((sv) => sv.dcid),
+    })
+    .then((resp) => {
+      const availableSVs = new Set();
+      for (const sv of statVars) {
+        let numAvailable = 0;
+        for (const entity in resp.data[sv.dcid]) {
+          if (resp.data[sv.dcid][entity]) {
+            numAvailable += 1;
+          }
+          if (numAvailable >= (visTypeConfig.svHierarchyNumExistence || 1)) {
+            availableSVs.add(sv.dcid);
+            break;
+          }
+        }
+      }
+      return statVars.filter((sv) => availableSVs.has(sv.dcid));
+    })
+    .catch(() => {
+      return Promise.resolve(statVars);
+    });
 }

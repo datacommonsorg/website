@@ -204,9 +204,31 @@ export function App(): JSX.Element {
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
+
+  const searchSection = (
+    <div className="search-section">
+      <div className="experiment-tag">Experiment</div>
+      <div className="search-box-section">
+        <TextSearchBar
+          inputId="query-search-input"
+          onSearch={(q) => {
+            updateHash({ q, oq: "", t: "", p: "" });
+          }}
+          placeholder={query}
+          initialValue={query}
+          shouldAutoFocus={false}
+          clearValueOnSearch={true}
+        />
+      </div>
+    </div>
+  );
+
   if (loadingStatus == "fail") {
     mainSection = (
-      <div id="user-message">Sorry, could not complete your request.</div>
+      <div>
+        <div id="user-message">Sorry, could not complete your request.</div>
+        {query && searchSection}
+      </div>
     );
   } else if (loadingStatus == "loaded" && chartData) {
     // Don't set placeType here since it gets passed into child places.
@@ -263,21 +285,7 @@ export function App(): JSX.Element {
         <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
             <>
-              <div className="search-section">
-                <div className="experiment-tag">Experiment</div>
-                <div className="search-box-section">
-                  <TextSearchBar
-                    inputId="query-search-input"
-                    onSearch={(q) => {
-                      updateHash({ q, oq: "", t: "", p: "" });
-                    }}
-                    placeholder={query}
-                    initialValue={query}
-                    shouldAutoFocus={true}
-                    clearValueOnSearch={true}
-                  />
-                </div>
-              </div>
+              {searchSection}
               <div id="place-callout">{chartData.place.name}</div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace

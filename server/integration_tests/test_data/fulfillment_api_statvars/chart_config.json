@@ -299,7 +299,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Wages Annual of Establishment: Information (NAICS/51)"
           }
         ],
         "statVarSpec": {

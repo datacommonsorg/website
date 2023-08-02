@@ -32,6 +32,7 @@ export interface Observation {
   date: string;
   value: number;
   facet?: string;
+  unitDisplayName?: string;
 }
 
 export interface EntityObservation {
