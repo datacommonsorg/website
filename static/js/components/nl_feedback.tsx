@@ -28,13 +28,13 @@ import {
   getNlChartId,
 } from "../utils/nl_interface_utils";
 
-interface NlChartFeedbackPropType {
-  // This is a fixed ID format string
-  // e.g., "pg0_cat_1_blk_2_col_3_tile_4"
-  id: string;
+class Option {
+  content: JSX.Element;
+  sentiment: string;
+  tooltip: string;
 }
 
-const FEEDBACK_OPTIONS = [
+const FEEDBACK_OPTIONS: Option[] = [
   {
     content: <>&#128077;</>,
     sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_UP,
@@ -62,12 +62,93 @@ const FEEDBACK_OPTIONS = [
   },
 ];
 
+interface EmojiPropType {
+  id: string;
+  option: Option;
+  saved: boolean;
+  action: (sentiment: string, comment: string) => void;
+}
+
+function Emoji(props: EmojiPropType): JSX.Element {
+  const [isPopUpVisible, setPopUpVisible] = useState(false);
+  const [textInput, setTextInput] = useState("");
+
+  const handleElementClick = () => {
+    if (props.saved) {
+      return;
+    }
+    setPopUpVisible(true);
+  };
+
+  const handlePopUpClose = () => {
+    setPopUpVisible(false);
+  };
+
+  const handleInputChange = (event) => {
+    setTextInput(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // Do something with the submitted text, for example, send it to a server.
+    props.action(props.option.sentiment, textInput);
+    // Close the pop-up after submission
+    setPopUpVisible(false);
+  };
+
+  return (
+    <div>
+      <span
+        className={`feedback-emoji ${props.saved ? "feedback-emoji-dim" : ""}`}
+        id={`${props.id}-${props.option.sentiment}`}
+        onClick={() => handleElementClick()}
+      >
+        {props.option.content}
+      </span>
+      {!props.saved && (
+        <UncontrolledTooltip
+          boundariesElement="window"
+          delay={200}
+          placement="top"
+          target={`${props.id}-${props.option.sentiment}`}
+        >
+          {props.option.tooltip}
+        </UncontrolledTooltip>
+      )}
+
+      {isPopUpVisible && (
+        <div className="backdrop" onClick={handlePopUpClose}></div>
+      )}
+
+      {/* Pop-up text box */}
+      {isPopUpVisible && (
+        <div className="popup-box">
+          <textarea
+            value={textInput}
+            onChange={handleInputChange}
+            placeholder="Enter your feedback here..."
+            rows={5}
+            cols={30}
+          />
+          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handlePopUpClose}>Close</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+interface NlChartFeedbackPropType {
+  // This is a fixed ID format string
+  // e.g., "pg0_cat_1_blk_2_col_3_tile_4"
+  id: string;
+}
+
 export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
   const nlSessionId = useContext(NlSessionContext);
   const [saved, setSaved] = useState(false);
 
   const saveFeedback = useCallback(
-    (sentiment: string) => {
+    (sentiment: string, comment: string) => {
       if (saved) {
         return;
       }
@@ -76,6 +157,7 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
         feedbackData: {
           chartId: getNlChartId(props.id),
           sentiment,
+          comment,
         },
         sessionId: nlSessionId,
       });
@@ -93,25 +175,13 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
       </span>
       <div className="nl-feedback-actions">
         {FEEDBACK_OPTIONS.map((option, i) => (
-          <React.Fragment key={i}>
-            <span
-              className={`feedback-emoji ${saved ? "feedback-emoji-dim" : ""}`}
-              id={`${props.id}-${option.sentiment}`}
-              onClick={() => saveFeedback(option.sentiment)}
-            >
-              {option.content}
-            </span>
-            {!saved && (
-              <UncontrolledTooltip
-                boundariesElement="window"
-                delay={400}
-                placement="top"
-                target={`${props.id}-${option.sentiment}`}
-              >
-                {option.tooltip}
-              </UncontrolledTooltip>
-            )}
-          </React.Fragment>
+          <Emoji
+            key={i}
+            id={props.id}
+            option={option}
+            saved={saved}
+            action={saveFeedback}
+          ></Emoji>
         ))}
       </div>
     </div>
