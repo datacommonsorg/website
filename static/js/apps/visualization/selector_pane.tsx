@@ -19,9 +19,8 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
@@ -29,23 +28,22 @@ import { SelectorWrapper } from "./selector_wrapper";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
+enum SelectorType {
+  PLACE = "place",
+  PLACE_TYPE = "placeType",
+  STAT_VARS = "statVars",
+}
+
 export function SelectorPane(): JSX.Element {
   const { visType, places, enclosedPlaceType, statVars } =
     useContext(AppContext);
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
-  const [placeCollapsed, setPlaceCollapsed] = useState(!_.isEmpty(places));
-  const [placeTypeCollapsed, setPlaceTypeCollapsed] = useState(
-    _.isEmpty(places) || !_.isEmpty(enclosedPlaceType)
-  );
-  const [variableCollapsed, setVariableCollapsed] = useState(
-    (!visTypeConfig.skipEnclosedPlaceType && _.isEmpty(enclosedPlaceType)) ||
-      _.isEmpty(places)
-  );
-  const placeHeaderTitle = `1. Select${
+  const [availableSelectors, setAvailableSelectors] = useState(getSelectors());
+  const placeHeaderTitle = `Select${
     visTypeConfig.singlePlace ? " a" : ""
   } place${visTypeConfig.singlePlace ? "" : "s"}`;
   // Header title for the stat var selector
-  let svHeaderTitle = visTypeConfig.skipEnclosedPlaceType ? "2. " : "3. ";
+  let svHeaderTitle = "";
   if (!visTypeConfig.numSv) {
     svHeaderTitle += "Select variables";
   } else if (visTypeConfig.numSv === 1) {
@@ -57,59 +55,68 @@ export function SelectorPane(): JSX.Element {
     } variable${numSvMissing > 1 ? "s" : ""}`;
   }
 
-  if (isSelectionComplete(visType, places, enclosedPlaceType, statVars)) {
-    return null;
-  }
+  useEffect(() => {
+    const newSelectors = getSelectors();
+    if (!_.isEqual(newSelectors, availableSelectors)) {
+      setAvailableSelectors(newSelectors);
+    }
+  }, [visType, places, enclosedPlaceType, statVars]);
 
   return (
     <div className="selector-pane">
-      <SelectorWrapper
-        headerTitle={placeHeaderTitle}
-        selectedValues={places.map((place) => place.name || place.dcid)}
-        collapsed={placeCollapsed}
-        setCollapsed={setPlaceCollapsed}
-        disabled={false}
-      >
-        <PlaceSelector
-          selectOnContinue={true}
-          onNewSelection={() => {
-            setPlaceCollapsed(true);
-            if (visTypeConfig.skipEnclosedPlaceType) {
-              setVariableCollapsed(false);
-            } else {
-              setPlaceTypeCollapsed(false);
-            }
-          }}
-        />
-      </SelectorWrapper>
-      {!visTypeConfig.skipEnclosedPlaceType && (
+      {availableSelectors.findIndex(
+        (selector) => selector == SelectorType.PLACE
+      ) >= 0 && (
         <SelectorWrapper
-          headerTitle="2. Select a place type"
-          selectedValues={[enclosedPlaceType]}
-          collapsed={placeTypeCollapsed}
-          setCollapsed={setPlaceTypeCollapsed}
-          disabled={_.isEmpty(places)}
+          headerTitle={placeHeaderTitle}
+          selectedValues={places.map((place) => place.name || place.dcid)}
+          disabled={false}
         >
-          <PlaceTypeSelector
-            onContinueClicked={() => {
-              setPlaceTypeCollapsed(true);
-              setVariableCollapsed(false);
-            }}
-          />
+          <PlaceSelector selectOnContinue={true} />
         </SelectorWrapper>
       )}
-      <SelectorWrapper
-        headerTitle={svHeaderTitle}
-        selectedValues={statVars.map((sv) => sv.info.title || sv.dcid)}
-        collapsed={variableCollapsed}
-        setCollapsed={setVariableCollapsed}
-        disabled={
-          _.isEmpty(places) ||
-          (!visTypeConfig.skipEnclosedPlaceType && !enclosedPlaceType)
-        }
-      >
-        <StatVarSelector selectOnContinue={true} />
-      </SelectorWrapper>
+      {availableSelectors.findIndex(
+        (selector) => selector == SelectorType.PLACE_TYPE
+      ) >= 0 && (
+        <SelectorWrapper
+          headerTitle="Select a place type"
+          selectedValues={[enclosedPlaceType]}
+          disabled={
+            _.isEmpty(availableSelectors) ||
+            availableSelectors[0] !== SelectorType.PLACE_TYPE
+          }
+        >
+          <PlaceTypeSelector selectOnContinue={true} />
+        </SelectorWrapper>
+      )}
+      {availableSelectors.findIndex(
+        (selector) => selector == SelectorType.STAT_VARS
+      ) >= 0 && (
+        <SelectorWrapper
+          headerTitle={svHeaderTitle}
+          selectedValues={statVars.map((sv) => sv.info.title || sv.dcid)}
+          disabled={
+            _.isEmpty(availableSelectors) ||
+            availableSelectors[0] !== SelectorType.STAT_VARS
+          }
+        >
+          <StatVarSelector selectOnContinue={true} />
+        </SelectorWrapper>
+      )}
     </div>
   );
+
+  function getSelectors(): SelectorType[] {
+    const selectorList = [];
+    if (statVars.length < (visTypeConfig.numSv || 1)) {
+      selectorList.push(SelectorType.STAT_VARS);
+    }
+    if (!visTypeConfig.skipEnclosedPlaceType && _.isEmpty(enclosedPlaceType)) {
+      selectorList.push(SelectorType.PLACE_TYPE);
+    }
+    if (_.isEmpty(places)) {
+      selectorList.push(SelectorType.PLACE);
+    }
+    return selectorList.reverse();
+  }
 }
