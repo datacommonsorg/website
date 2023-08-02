@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { Spinner } from "../../components/spinner";
+import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext, AppContextProvider } from "./app_context";
 import { Chart } from "./chart";
 import { Info } from "./info";
@@ -41,7 +42,7 @@ export function App(): JSX.Element {
 }
 
 function MainPane(): JSX.Element {
-  const { places, statVars, enclosedPlaceType, isContextLoading } =
+  const { visType, places, statVars, enclosedPlaceType, isContextLoading } =
     useContext(AppContext);
   const [showInfo, setShowInfo] = useState(
     _.isEmpty(places) && _.isEmpty(statVars) && _.isEmpty(enclosedPlaceType)
@@ -73,8 +74,11 @@ function MainPane(): JSX.Element {
       {!showInfo && (
         <>
           <SelectedOptions />
-          <SelectorPane />
-          <Chart />
+          {isSelectionComplete(visType, places, enclosedPlaceType, statVars) ? (
+            <Chart />
+          ) : (
+            <SelectorPane />
+          )}
         </>
       )}
     </>
