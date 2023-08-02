@@ -258,7 +258,7 @@ export function getFilteredStatVarPromise(
   visTypeConfig: VisTypeConfig
 ): Promise<ContextStatVar[]> {
   if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
-    return Promise.resolve(statVars);
+    return Promise.resolve([]);
   }
   return axios
     .post("/api/observation/existence", {
