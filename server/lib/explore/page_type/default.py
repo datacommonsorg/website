@@ -17,6 +17,7 @@
 from typing import Dict, List
 
 from server.lib.explore.page_type.builder import Builder
+from server.lib.nl.common import utils
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
@@ -65,7 +66,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   attr['child_type'] = state.place_type.value
   attr['skip_map_for_ranking'] = True
-  attr['ranking_count'] = 0
+  attr['ranking_count'] = 5
 
   builder.new_block(enable_pc=enable_pc)
 
@@ -75,9 +76,10 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     sv_spec.update(
         ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
                                          sv, builder.sv2thing, attr))
-  sv_spec.update(
-      map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                          builder.sv2thing, attr, builder.nopc()))
+  if utils.has_map(state.place_type, [place]):
+    sv_spec.update(
+        map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                            builder.sv2thing, attr, builder.nopc()))
   return sv_spec
 
 
@@ -132,9 +134,10 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
       sv_spec.update(
           ranking.ranking_chart_block_nopc(builder.new_column(chart_vars),
                                            place, sv, builder.sv2thing, attr))
-    sv_spec.update(
-        map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                            builder.sv2thing, attr, builder.nopc()))
+    if utils.has_map(state.place_type, [place]):
+      sv_spec.update(
+          map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                              builder.sv2thing, attr, builder.nopc()))
 
   return sv_spec
 

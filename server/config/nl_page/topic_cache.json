@@ -1373,6 +1373,21 @@
     },
     {
       "dcid": [
+        "dc/svpg/EnglishLanguageAtHomeBreakdown"
+      ],
+      "memberList": [
+        "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome",
+        "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+      ],
+      "name": [
+        "Spoken English at Home"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/GroupQuartersResidents_GroupQuartersPopulationbyGender"
       ],
       "memberList": [
@@ -3223,6 +3238,57 @@
       ],
       "name": [
         "Never Married Population By Age"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/NonEnglishLanguageAtHomeBreakdown"
+      ],
+      "memberList": [
+        "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome",
+        "Count_Person_5OrMoreYears_ArabicSpokenAtHome",
+        "Count_Person_5OrMoreYears_ArmenianSpokenAtHome",
+        "Count_Person_5OrMoreYears_BengaliSpokenAtHome",
+        "Count_Person_5OrMoreYears_ChineseSpokenAtHome",
+        "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome",
+        "Count_Person_5OrMoreYears_GermanSpokenAtHome",
+        "Count_Person_5OrMoreYears_GreekSpokenAtHome",
+        "Count_Person_5OrMoreYears_GujaratiSpokenAtHome",
+        "Count_Person_5OrMoreYears_HaitianSpokenAtHome",
+        "Count_Person_5OrMoreYears_HebrewSpokenAtHome",
+        "Count_Person_5OrMoreYears_HindiSpokenAtHome",
+        "Count_Person_5OrMoreYears_HungarianSpokenAtHome",
+        "Count_Person_5OrMoreYears_ItalianSpokenAtHome",
+        "Count_Person_5OrMoreYears_JapaneseSpokenAtHome",
+        "Count_Person_5OrMoreYears_KhmerSpokenAtHome",
+        "Count_Person_5OrMoreYears_KoreanSpokenAtHome",
+        "Count_Person_5OrMoreYears_LaotianSpokenAtHome",
+        "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome",
+        "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome",
+        "Count_Person_5OrMoreYears_NavajoSpokenAtHome",
+        "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome",
+        "Count_Person_5OrMoreYears_PersianSpokenAtHome",
+        "Count_Person_5OrMoreYears_PolishSpokenAtHome",
+        "Count_Person_5OrMoreYears_PortugueseSpokenAtHome",
+        "Count_Person_5OrMoreYears_PunjabiSpokenAtHome",
+        "Count_Person_5OrMoreYears_RussianSpokenAtHome",
+        "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome",
+        "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome",
+        "Count_Person_5OrMoreYears_SpanishSpokenAtHome",
+        "Count_Person_5OrMoreYears_TagalogSpokenAtHome",
+        "Count_Person_5OrMoreYears_TamilSpokenAtHome",
+        "Count_Person_5OrMoreYears_TeluguSpokenAtHome",
+        "Count_Person_5OrMoreYears_ThaiSpokenAtHome",
+        "Count_Person_5OrMoreYears_UkrainianOrOtherSlavicLanguagesSpokenAtHome",
+        "Count_Person_5OrMoreYears_UrduSpokenAtHome",
+        "Count_Person_5OrMoreYears_VietnameseSpokenAtHome",
+        "Count_Person_5OrMoreYears_YiddishSpokenAtHome"
+      ],
+      "name": [
+        "Non-English Languages Spoken at Home"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -6843,12 +6909,12 @@
         "dc/svpg/dc/topic/Emissions_FlourinatedGases"
       ],
       "memberList": [
-        "Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic",
         "Annual_Emissions_Hydrofluorocarbon_NonBiogenic",
         "Annual_Emissions_Hydrofluoroether_NonBiogenic",
         "Annual_Emissions_NitrogenTrifluoride_NonBiogenic",
         "Annual_Emissions_Perfluorocarbon_NonBiogenic",
-        "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+        "Annual_Emissions_SulfurHexafluoride_NonBiogenic",
+        "Annual_Emissions_EPA_OtherFullyFluorinatedCompound_NonBiogenic"
       ],
       "name": [
         "Flourinated Gas Emissions by Type"
@@ -7072,22 +7138,6 @@
       ],
       "name": [
         "Renewables share"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/EnglishSpeakers_EnglishSpeakingPopulationbyLanguageLevel"
-      ],
-      "memberList": [
-        "Count_Person_SpeakEnglishNotAtAll",
-        "Count_Person_SpeakEnglishNotWell",
-        "Count_Person_SpeakEnglishWell"
-      ],
-      "name": [
-        "Ability to Speak English"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10778,13 +10828,13 @@
     },
     {
       "dcid": [
-        "dc/topic/EnglishSpeakers"
+        "dc/topic/EnglishLanguageAtHome"
       ],
       "name": [
-        "English Speakers"
+        "English Language"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/EnglishSpeakers_EnglishSpeakingPopulationbyLanguageLevel"
+        "dc/svpg/EnglishLanguageAtHomeBreakdown"
       ],
       "typeOf": [
         "Topic"
@@ -11095,6 +11145,7 @@
         "Health Conditions"
       ],
       "relevantVariableList": [
+        "dc/svpg/ComparisonOfHealthPrevalence",
         "dc/topic/Arthritis",
         "dc/topic/Asthma",
         "dc/topic/BloodPressure",
@@ -11105,8 +11156,7 @@
         "dc/topic/MentalHealth",
         "dc/topic/KidneyDisease",
         "dc/topic/Stroke",
-        "dc/topic/HeatIllnesses",
-        "dc/svpg/ComparisonOfHealthPrevalence"
+        "dc/topic/HeatIllnesses"
       ],
       "typeOf": [
         "Topic"
@@ -12410,10 +12460,11 @@
         "dc/topic/Language"
       ],
       "name": [
-        "Language"
+        "Language Spoken At Home"
       ],
       "relevantVariableList": [
-        "dc/topic/EnglishSpeakers"
+        "dc/topic/EnglishLanguageAtHome",
+        "dc/topic/NonEnglishLanguageAtHome"
       ],
       "typeOf": [
         "Topic"
@@ -12421,7 +12472,7 @@
     },
     {
       "dcid": [
-        "dc/topic/LanguageSpokenAtHome"
+        "dc/topic/LanguageSpokenAtHome_ForeignBorn"
       ],
       "name": [
         "Language Spoken At Home"
@@ -12932,7 +12983,7 @@
       "relevantVariableList": [
         "dc/topic/CitizenshipStatus",
         "dc/topic/Immigration",
-        "dc/topic/LanguageSpokenAtHome",
+        "dc/topic/LanguageSpokenAtHome_ForeignBorn",
         "dc/topic/PlaceOfBirth"
       ],
       "typeOf": [
@@ -13146,6 +13197,20 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/NoHealthInsuranceByRace_UninsuredByRace"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/NonEnglishLanguageAtHome"
+      ],
+      "name": [
+        "Non-English Languages"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/NonEnglishLanguageAtHomeBreakdown"
       ],
       "typeOf": [
         "Topic"

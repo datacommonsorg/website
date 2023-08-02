@@ -29,6 +29,7 @@ interface SidebarPropType {
   currentTopicDcid: string;
   place: string;
   cmpPlace: string;
+  placeType: string;
   /**
    * Categories from the page config.
    */
@@ -41,7 +42,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
+          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}`;
           const isCurrentTopic = topic.dcid == props.currentTopicDcid;
           // Do not display itself for "root".
           const isRootTopic = topic.dcid == "dc/topic/Root";
@@ -70,7 +71,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                     if (!category.dcid || category.dcid === topic.dcid) {
                       return;
                     }
-                    const url = `/explore/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}`;
+                    const url = `/explore/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}`;
                     return (
                       <a
                         key={randDomId()}

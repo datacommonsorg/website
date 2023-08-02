@@ -25,14 +25,106 @@
                       "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Medical Conditions in Placer County (${date})",
+                    "title": "Prevalence of Health Conditions in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-            "title": "Medical Conditions"
+            "title": "Prevalence of Health Conditions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Cancer Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer Deaths by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Preventive Health in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer Preventive Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block",
+                      "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block"
+                    ],
+                    "title": "Mental Health Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc",
+                      "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc",
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Mental Health Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Mental Health Deaths by Age"
           },
           {
             "columns": [
@@ -208,186 +300,89 @@
               }
             ],
             "title": "Uninsured By Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
-                    ],
-                    "title": "With Health Insurance By Race in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita With Health Insurance By Race in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "With Health Insurance By Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
-                    ],
-                    "title": "Type of Health Insurance Coverage in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc",
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Type of Health Insurance Coverage in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Type of Health Insurance Coverage"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block"
-                    ],
-                    "title": "Uninsured By Income in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block_pc",
-                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Uninsured By Income in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Uninsured By Income"
           }
         ],
         "statVarSpec": {
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 15,000 - 24,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings"
+          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: 35 - 44 Years (Neoplasms)",
+            "statVar": "Count_Death_35To44Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 15,000 - 24,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings"
+            "name": "Mortality Events: 35 - 44 Years (Neoplasms)",
+            "statVar": "Count_Death_35To44Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings"
+          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: 45 - 54 Years (Neoplasms)",
+            "statVar": "Count_Death_45To54Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings"
+            "name": "Mortality Events: 45 - 54 Years (Neoplasms)",
+            "statVar": "Count_Death_45To54Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings"
+          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: 55 - 64 Years (Neoplasms)",
+            "statVar": "Count_Death_55To64Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 25,000 - 34,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings"
+            "name": "Mortality Events: 55 - 64 Years (Neoplasms)",
+            "statVar": "Count_Death_55To64Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+          "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
+            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 50,000 - 74,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings"
+          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: 65 - 74 Years (Neoplasms)",
+            "statVar": "Count_Death_65To74Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 50,000 - 74,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings"
+            "name": "Mortality Events: 65 - 74 Years (Neoplasms)",
+            "statVar": "Count_Death_65To74Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 5,000 - 14,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings"
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 5,000 - 14,999 USD",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings"
+            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block": {
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 75,000 USD or More",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings"
+          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: 75 - 84 Years (Neoplasms)",
+            "statVar": "Count_Death_75To84Years_Neoplasms"
           },
-          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block_pc": {
+          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 75,000 USD or More",
-            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings"
+            "name": "Mortality Events: 75 - 84 Years (Neoplasms)",
+            "statVar": "Count_Death_75To84Years_Neoplasms"
+          },
+          "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_85Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Mortality Events: Years 85 (Neoplasms)",
+            "statVar": "Count_Death_85Years_Neoplasms"
+          },
+          "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Mortality Events: Years 85 (Neoplasms)",
+            "statVar": "Count_Death_85Years_Neoplasms"
           },
           "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
             "name": "Women With No Health Insurance",
@@ -569,95 +564,20 @@
             "name": "White Disbabled Population",
             "statVar": "Count_Person_WithDisability_WhiteAlone"
           },
-          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian or Alaska Native Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
           },
-          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "American Indian or Alaska Native Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
+          "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block": {
+            "name": "Women 50 - 74 Years, Who Received Mammography",
+            "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
+            "unit": "%"
           },
-          "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block": {
-            "name": "Asian Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AsianAlone"
-          },
-          "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Asian Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AsianAlone"
-          },
-          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black or African American Alone Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Black or African American Alone Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic or Latino Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_HispanicOrLatino"
-          },
-          "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Hispanic or Latino Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_HispanicOrLatino"
-          },
-          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Native Hawaiian or Other Pacific Islander Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Native Hawaiian or Other Pacific Islander Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
-          },
-          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "White Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
-          },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
-          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
-            "name": "People With Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsurance"
-          },
-          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsurance"
-          },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
-          },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
-          },
-          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
-            "name": "People With Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsurance"
-          },
-          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsurance"
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
+            "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
+            "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
+            "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
             "name": "Arthritis",
@@ -695,7 +615,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
