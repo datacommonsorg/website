@@ -85,8 +85,8 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       (async () => {
         const data = await fetchData(props);
         if (_.isEqual(data.props, props)) {
-          setChartData(data)
-        };
+          setChartData(data);
+        }
       })();
     }
   }, [props, chartData]);
