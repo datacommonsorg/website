@@ -709,33 +709,23 @@ $loading-dot-color: #999;
   }
 }
 
-.backdrop {
-  position: fixed;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
-
 /* Styles for the pop-up box */
 .popup-box {
-  position: fixed;
-  top: 25%;
-  left: 25%;
-  width: 50%;
-  height: 50%;
-  padding: 20px; /* Add padding for the pop-up content */
+  position: absolute;
+  top: 100%;
+  padding: 5px; /* Add padding for the pop-up content */
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
   z-index: 2;
+  background-color: gray;
 
   textarea {
-    display: flex;
     width: 100%; /* Set the width to 100% of the parent (pop-up box) */
     height: 95%; /* Set the height to 100% of the parent (pop-up box) */
     margin: 0;
-    padding: 10px; /* Add padding for the textarea content */
+    padding: 5px; /* Add padding for the textarea content */
     resize: none; /* Disable textarea resizing */
+    height: auto; /* Allow the height to adjust based on the content */
+    max-height: 3.6em; /* Limit the maximum height to two lines (2 lines x 1.8em) */
+    line-height: 1.8em; /* Set the line height to match the desired line height */
   }
 }
