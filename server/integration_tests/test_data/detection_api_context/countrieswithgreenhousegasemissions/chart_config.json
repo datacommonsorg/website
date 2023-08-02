@@ -1,0 +1,23 @@
+{
+  "childEntityType": "Country",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "Earth"
+  ],
+  "sessionId": "007_999999999",
+  "variables": [
+    "dc/topic/GreenhouseGasEmissions",
+    "Annual_Emissions_GreenhouseGas",
+    "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
+    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse",
+    "Annual_Emissions_GreenhouseGas_OilAndGas",
+    "Annual_Emissions_CarbonDioxide_Power",
+    "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
+    "Annual_Emissions_GreenhouseGas_WasteManagement",
+    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherFossilFuelOperations",
+    "Annual_Emissions_GreenhouseGas_Agriculture"
+  ]
+}
