@@ -160,14 +160,16 @@ export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
             for {props.chartsData.placeFallback.newStr}.
           </>
         )}
-      {showMode === MODES.FALLBACK_PAST_PLACE_OR_SV && (
-        <>
-          Tried looking up relevant statistics for{" "}
-          {props.chartsData.placeFallback.origStr} based on your prior queries,
-          but found no results.&nbsp; Displaying results for{" "}
-          {props.chartsData.placeFallback.newStr}.
-        </>
-      )}
+      {showMode === MODES.FALLBACK_PAST_PLACE_OR_SV &&
+        props.chartsData.placeFallback.origStr !==
+          props.chartsData.placeFallback.newStr && (
+          <>
+            Tried looking up relevant statistics for{" "}
+            {props.chartsData.placeFallback.origStr} based on your prior
+            queries, but found no results.&nbsp; Displaying results for{" "}
+            {props.chartsData.placeFallback.newStr}.
+          </>
+        )}
     </div>
   );
 
