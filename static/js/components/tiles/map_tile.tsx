@@ -122,7 +122,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
-        setMapChartData(data);
+        if (_.isEqual(data.props, props)) {
+          setMapChartData(data);
+        }
       })();
     } else if (_.isEqual(mapChartData.props, props)) {
       draw(

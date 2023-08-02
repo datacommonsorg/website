@@ -39,7 +39,7 @@ export function PlaceTypeSelector(
     <div className="place-type-selector">
       <div className="selector-body place-type">
         {!_.isNull(childPlaceTypes) && _.isEmpty(childPlaceTypes) && (
-          <span>
+          <span className="info-message">
             Sorry, we don&apos;t support {places[0].name}. Please select a
             different place.
           </span>

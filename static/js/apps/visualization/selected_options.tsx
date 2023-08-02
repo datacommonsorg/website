@@ -19,9 +19,8 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
-import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
 import { PlaceTypeSelector } from "./place_type_selector";
@@ -35,17 +34,31 @@ export function SelectedOptions(): JSX.Element {
     enclosedPlaceType && !visTypeConfig.skipEnclosedPlaceType;
   const [showPlaceSelector, setShowPlaceSelector] = useState(false);
   const [showPlaceTypeSelector, setShowPlaceTypeSelector] = useState(false);
-  const allowEdit = isSelectionComplete(
-    visType,
-    places,
-    enclosedPlaceType,
-    statVars
-  );
+  const placeSelectorRef = useRef(null);
+  const placeTypeSelectorRef = useRef(null);
 
   useEffect(() => {
-    setShowPlaceSelector(false);
-    setShowPlaceTypeSelector(false);
-  }, [visType, allowEdit]);
+    // collapse dropdowns when click outside the dropdown
+    function handleClickEvent(e: MouseEvent) {
+      if (
+        placeSelectorRef.current &&
+        !placeSelectorRef.current.contains(e.target)
+      ) {
+        setShowPlaceSelector(false);
+      }
+      if (
+        placeTypeSelectorRef.current &&
+        !placeTypeSelectorRef.current.contains(e.target)
+      ) {
+        setShowPlaceTypeSelector(false);
+      }
+    }
+
+    window.addEventListener("click", handleClickEvent);
+    return () => {
+      window.removeEventListener("click", handleClickEvent);
+    };
+  }, []);
 
   return (
     <div
@@ -72,40 +85,38 @@ export function SelectedOptions(): JSX.Element {
                       </span>
                     )}
                     <span>{place.name || place.dcid}</span>
-                    {allowEdit && (
-                      <>
-                        {visTypeConfig.singlePlace ? (
-                          <span
-                            className="material-icons-outlined action"
-                            onClick={() => {
-                              setShowPlaceSelector(!showPlaceSelector);
-                              setShowPlaceTypeSelector(false);
-                            }}
-                          >
-                            edit
-                          </span>
-                        ) : (
-                          <span
-                            className="material-icons-outlined action"
-                            onClick={() =>
-                              setPlaces(
-                                places.filter((p) => p.dcid !== place.dcid)
-                              )
-                            }
-                          >
-                            close
-                          </span>
-                        )}
-                      </>
+                    {visTypeConfig.singlePlace ? (
+                      <span
+                        className="material-icons-outlined action"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowPlaceSelector(!showPlaceSelector);
+                          setShowPlaceTypeSelector(false);
+                        }}
+                      >
+                        edit
+                      </span>
+                    ) : (
+                      <span
+                        className="material-icons-outlined action"
+                        onClick={() =>
+                          setPlaces(places.filter((p) => p.dcid !== place.dcid))
+                        }
+                      >
+                        close
+                      </span>
                     )}
                   </div>
                 );
               })}
-              {!visTypeConfig.singlePlace && allowEdit && (
+              {!visTypeConfig.singlePlace && (
                 <div className="add-place-container">
                   {showPlaceSelector ? (
                     <div className="selector-dropdown-anchor">
-                      <div className="place-selector-dropdown">
+                      <div
+                        className="place-selector-dropdown"
+                        ref={placeSelectorRef}
+                      >
                         <div className="header-controls">
                           <span
                             className="material-icons-outlined action"
@@ -123,7 +134,8 @@ export function SelectedOptions(): JSX.Element {
                   ) : (
                     <span
                       className="material-icons-outlined action"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setShowPlaceSelector(true);
                         setShowPlaceTypeSelector(false);
                       }}
@@ -136,7 +148,7 @@ export function SelectedOptions(): JSX.Element {
             </div>
             {visTypeConfig.singlePlace && showPlaceSelector && (
               <div className="selector-dropdown-anchor">
-                <div className="place-selector-dropdown">
+                <div className="place-selector-dropdown" ref={placeSelectorRef}>
                   <PlaceSelector
                     hideSelections={true}
                     onNewSelection={() => setShowPlaceSelector(false)}
@@ -153,22 +165,24 @@ export function SelectedOptions(): JSX.Element {
               <div className="selected-option-chip">
                 <span className="material-icons-outlined">straighten</span>
                 <span>{enclosedPlaceType}</span>
-                {allowEdit && (
-                  <span
-                    className="material-icons-outlined action"
-                    onClick={() => {
-                      setShowPlaceTypeSelector(!showPlaceTypeSelector);
-                      setShowPlaceSelector(false);
-                    }}
-                  >
-                    edit
-                  </span>
-                )}
+                <span
+                  className="material-icons-outlined action"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowPlaceTypeSelector(!showPlaceTypeSelector);
+                    setShowPlaceSelector(false);
+                  }}
+                >
+                  edit
+                </span>
               </div>
             </div>
             {showPlaceTypeSelector && (
               <div className="selector-dropdown-anchor">
-                <div className="place-selector-dropdown">
+                <div
+                  className="place-selector-dropdown"
+                  ref={placeTypeSelectorRef}
+                >
                   <PlaceTypeSelector
                     onNewSelection={() => setShowPlaceTypeSelector(false)}
                   />
