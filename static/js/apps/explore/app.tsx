@@ -188,7 +188,7 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
           }
         }
       }
@@ -203,11 +203,35 @@ export function App(): JSX.Element {
   const place = getSingleParam(hashParams["p"]);
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
+  const placeType = getSingleParam(hashParams["pt"]);
+
+  const searchSection = (
+    <div className="search-section">
+      <div className="experiment-tag">Experiment</div>
+      <div className="search-box-section">
+        <TextSearchBar
+          inputId="query-search-input"
+          onSearch={(q) => {
+            updateHash({ q, oq: "", t: "", p: "" });
+          }}
+          placeholder={query}
+          initialValue={query}
+          shouldAutoFocus={false}
+          clearValueOnSearch={true}
+        />
+      </div>
+    </div>
+  );
+
   if (loadingStatus == "fail") {
     mainSection = (
-      <div id="user-message">Sorry, could not complete your request.</div>
+      <div>
+        <div id="user-message">Sorry, could not complete your request.</div>
+        {query && searchSection}
+      </div>
     );
   } else if (loadingStatus == "loaded" && chartData) {
+    // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
     urlString += `&t=${topic}`;
     mainSection = (
@@ -226,6 +250,7 @@ export function App(): JSX.Element {
                 categories={chartData.pageConfig.categories}
                 peerTopics={chartData.peerTopics}
                 setQuery={setQuery}
+                placeType={placeType}
               />
               {chartData &&
                 chartData.parentTopics.length > 0 &&
@@ -233,7 +258,7 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}`;
+                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
                       return (
                         <a
                           className="topic-link"
@@ -260,21 +285,7 @@ export function App(): JSX.Element {
         <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
             <>
-              <div className="search-section">
-                <div className="experiment-tag">Experiment</div>
-                <div className="search-box-section">
-                  <TextSearchBar
-                    inputId="query-search-input"
-                    onSearch={(q) => {
-                      updateHash({ q, oq: "", t: "", p: "" });
-                    }}
-                    placeholder={query}
-                    initialValue={query}
-                    shouldAutoFocus={true}
-                    clearValueOnSearch={true}
-                  />
-                </div>
-              </div>
+              {searchSection}
               <div id="place-callout">{chartData.place.name}</div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace

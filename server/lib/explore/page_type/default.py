@@ -17,6 +17,7 @@
 from typing import Dict, List
 
 from server.lib.explore.page_type.builder import Builder
+from server.lib.nl.common import utils
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
@@ -65,19 +66,19 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   attr['child_type'] = state.place_type.value
   attr['skip_map_for_ranking'] = True
-  attr['ranking_count'] = 0
+  attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
 
-  builder.new_block(enable_pc=enable_pc)
+  builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
 
-  attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   for rt in [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]:
     attr['ranking_types'] = [rt]
     sv_spec.update(
         ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
                                          sv, builder.sv2thing, attr))
-  sv_spec.update(
-      map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                          builder.sv2thing, attr, builder.nopc()))
+  if utils.has_map(state.place_type, [place]):
+    sv_spec.update(
+        map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                            builder.sv2thing, attr, builder.nopc()))
   return sv_spec
 
 
@@ -116,7 +117,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   attr['skip_map_for_ranking'] = True
   attr['child_type'] = state.place_type.value
-  attr['ranking_count'] = 5
+  attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
 
   if builder.num_chart_vars > 3:
     max_charts = _MAX_MAPS_PER_SUBTOPIC_LOWER
@@ -126,15 +127,16 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   # TODO: Perform data lookups and pick the top value SVs.
   for sv in sorted_child_svs:
-    builder.new_block(enable_pc=enable_pc)
+    builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
     for rt in [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]:
       attr['ranking_types'] = [rt]
       sv_spec.update(
           ranking.ranking_chart_block_nopc(builder.new_column(chart_vars),
                                            place, sv, builder.sv2thing, attr))
-    sv_spec.update(
-        map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                            builder.sv2thing, attr, builder.nopc()))
+    if utils.has_map(state.place_type, [place]):
+      sv_spec.update(
+          map.map_chart_block(builder.new_column(chart_vars), place, sv,
+                              builder.sv2thing, attr, builder.nopc()))
 
   return sv_spec
 
@@ -153,3 +155,16 @@ def _add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
         bar.multiple_place_bar_block(builder.new_column(chart_vars),
                                      state.uttr.places, svs, builder.sv2thing,
                                      attr, builder.nopc()))
+
+
+def _get_ranking_count_by_type(t: dtypes.Place):
+  if t.value.endswith('School'):
+    return 20
+  return 5
+
+
+def _get_block_title(builder: Builder):
+  # If there is a prior empty block title, inherit it.
+  if builder.block and not builder.block.columns and builder.block.title:
+    return builder.block.title
+  return ''

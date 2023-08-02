@@ -25,14 +25,13 @@
                       "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Medical Conditions in Placer County (${date})",
+                    "title": "Prevalence of Health Conditions in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-            "title": "Medical Conditions"
+            "title": "Prevalence of Health Conditions"
           },
           {
             "columns": [
@@ -93,37 +92,6 @@
               }
             ],
             "title": "Cancer Preventive Health"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "dc/nh3s4skee5483_multiple_place_bar_block",
-                      "dc/xmpy89x1nh8cg_multiple_place_bar_block"
-                    ],
-                    "title": "Prevalence of Diabetes by Gender in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "dc/nh3s4skee5483_multiple_place_bar_block_pc",
-                      "dc/xmpy89x1nh8cg_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Prevalence of Diabetes by Gender in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Diabetes by Gender"
           },
           {
             "columns": [
@@ -332,173 +300,6 @@
               }
             ],
             "title": "Uninsured By Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
-                    ],
-                    "title": "With Health Insurance By Race in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
-                      "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita With Health Insurance By Race in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "With Health Insurance By Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_NoHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "HealthInsurancePrevalence in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_NoHealthInsurance_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita HealthInsurancePrevalence in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "HealthInsurancePrevalence"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
-                    ],
-                    "title": "IndividualHealthInsuranceByPrivacyType in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita IndividualHealthInsuranceByPrivacyType in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "IndividualHealthInsuranceByPrivacyType"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block"
-                    ],
-                    "title": "IndividualHealthInsuranceByPurchaseType in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita IndividualHealthInsuranceByPurchaseType in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "IndividualHealthInsuranceByPurchaseType"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
-                    ],
-                    "title": "Type of Health Insurance Coverage in Placer County (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc",
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block_pc",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Type of Health Insurance Coverage in Placer County (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Type of Health Insurance Coverage"
           }
         ],
         "statVarSpec": {
@@ -673,24 +474,6 @@
             "name": "White With No Health Insurance",
             "statVar": "Count_Person_NoHealthInsurance_WhiteAlone"
           },
-          "Count_Person_NoHealthInsurance_multiple_place_bar_block": {
-            "name": "Population Without Health Insurance",
-            "statVar": "Count_Person_NoHealthInsurance"
-          },
-          "Count_Person_NoHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population Without Health Insurance",
-            "statVar": "Count_Person_NoHealthInsurance"
-          },
-          "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block": {
-            "name": "Direct Purchasers of Health Insurance",
-            "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
-          },
-          "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Direct Purchasers of Health Insurance",
-            "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
-          },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "American Indian/Alaska Native Population With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
@@ -781,114 +564,6 @@
             "name": "White Disbabled Population",
             "statVar": "Count_Person_WithDisability_WhiteAlone"
           },
-          "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block": {
-            "name": "People With Employer-Based Health Insurance",
-            "statVar": "Count_Person_WithEmployerBasedHealthInsurance"
-          },
-          "Count_Person_WithEmployerBasedHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Employer-Based Health Insurance",
-            "statVar": "Count_Person_WithEmployerBasedHealthInsurance"
-          },
-          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian or Alaska Native Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "American Indian or Alaska Native Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block": {
-            "name": "Asian Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AsianAlone"
-          },
-          "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Asian Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_AsianAlone"
-          },
-          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black or African American Alone Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Black or African American Alone Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic or Latino Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_HispanicOrLatino"
-          },
-          "Count_Person_WithHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Hispanic or Latino Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_HispanicOrLatino"
-          },
-          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Native Hawaiian or Other Pacific Islander Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Native Hawaiian or Other Pacific Islander Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
-          },
-          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "White Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
-          },
-          "Count_Person_WithHealthInsurance_multiple_place_bar_block": {
-            "name": "Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance"
-          },
-          "Count_Person_WithHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population With Health Insurance",
-            "statVar": "Count_Person_WithHealthInsurance"
-          },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
-          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
-            "name": "People With Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsurance"
-          },
-          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsurance"
-          },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
-          },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
-          },
-          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
-            "name": "People With Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsurance"
-          },
-          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "People With Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsurance"
-          },
           "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
             "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
             "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
@@ -940,7 +615,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
@@ -963,24 +638,6 @@
             "name": "Stroke",
             "statVar": "Percent_Person_WithStroke",
             "unit": "%"
-          },
-          "dc/nh3s4skee5483_multiple_place_bar_block": {
-            "name": "Percent of Female Population That Have Diabetes",
-            "statVar": "dc/nh3s4skee5483"
-          },
-          "dc/nh3s4skee5483_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Percent of Female Population That Have Diabetes",
-            "statVar": "dc/nh3s4skee5483"
-          },
-          "dc/xmpy89x1nh8cg_multiple_place_bar_block": {
-            "name": "Percent of Male Population That Have Diabetes",
-            "statVar": "dc/xmpy89x1nh8cg"
-          },
-          "dc/xmpy89x1nh8cg_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Percent of Male Population That Have Diabetes",
-            "statVar": "dc/xmpy89x1nh8cg"
           }
         }
       }

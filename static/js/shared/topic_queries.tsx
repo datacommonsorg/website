@@ -36,7 +36,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
       <div className="topic-queries">
         <div className="topic-queries">
           <div>
-            <b>Here are some examples to get you started:</b>
+            <b>Here are some examples to get started:</b>
           </div>
           <ul>
             {props.currentTopic.examples.general.map((query, i) => (
@@ -60,10 +60,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
         </div>
         <div className="topic-queries">
           <div>
-            <b>
-              And the real power of Data Commons is creating one common
-              Knowledge Graph:
-            </b>
+            <b>Combine and compare data from different Data Commons:</b>
           </div>
           <ul>
             {props.currentTopic.examples.comparison.map((query, i) => (

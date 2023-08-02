@@ -13,12 +13,12 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/6rltk4kf75612_multiple_place_bar_block",
-                      "dc/vp8cbt6k79t94_multiple_place_bar_block",
-                      "dc/hbkh95kc7pkb6_multiple_place_bar_block",
-                      "dc/wc8q05drd74bd_multiple_place_bar_block",
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
-                      "dc/vt2q292eme79f_multiple_place_bar_block"
+                      "dc/6rltk4kf75612_multiple_place_bar_block",
+                      "dc/hbkh95kc7pkb6_multiple_place_bar_block",
+                      "dc/vp8cbt6k79t94_multiple_place_bar_block",
+                      "dc/vt2q292eme79f_multiple_place_bar_block",
+                      "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
                     "title": "Modes of Commute (${date})",
                     "type": "BAR"
@@ -29,12 +29,12 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/6rltk4kf75612_multiple_place_bar_block_pc",
-                      "dc/vp8cbt6k79t94_multiple_place_bar_block_pc",
-                      "dc/hbkh95kc7pkb6_multiple_place_bar_block_pc",
-                      "dc/wc8q05drd74bd_multiple_place_bar_block_pc",
                       "dc/0gettc3bc60cb_multiple_place_bar_block_pc",
-                      "dc/vt2q292eme79f_multiple_place_bar_block_pc"
+                      "dc/6rltk4kf75612_multiple_place_bar_block_pc",
+                      "dc/hbkh95kc7pkb6_multiple_place_bar_block_pc",
+                      "dc/vp8cbt6k79t94_multiple_place_bar_block_pc",
+                      "dc/vt2q292eme79f_multiple_place_bar_block_pc",
+                      "dc/wc8q05drd74bd_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Modes of Commute (${date})",
                     "type": "BAR"
@@ -43,9 +43,347 @@
               }
             ],
             "title": "Modes of Commute"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb_multiple_place_bar_block",
+                      "dc/v33p7mwnpe9vb_multiple_place_bar_block",
+                      "dc/4xklqxfc27w1f_multiple_place_bar_block",
+                      "dc/80q8jrnkvwtt3_multiple_place_bar_block",
+                      "dc/jszfr5wd4f7pb_multiple_place_bar_block",
+                      "dc/y9yb58snpfzw5_multiple_place_bar_block"
+                    ],
+                    "title": "Management, Business, Science and Arts Occupations (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb_multiple_place_bar_block_pc",
+                      "dc/v33p7mwnpe9vb_multiple_place_bar_block_pc",
+                      "dc/4xklqxfc27w1f_multiple_place_bar_block_pc",
+                      "dc/80q8jrnkvwtt3_multiple_place_bar_block_pc",
+                      "dc/jszfr5wd4f7pb_multiple_place_bar_block_pc",
+                      "dc/y9yb58snpfzw5_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Management, Business, Science and Arts Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Management, Business, Science and Arts Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/7wt44yv38rew_multiple_place_bar_block",
+                      "dc/zcth2y8fqte1f_multiple_place_bar_block",
+                      "dc/nvrxn11yxlen2_multiple_place_bar_block",
+                      "dc/jxsx1rb4xg84f_multiple_place_bar_block",
+                      "dc/kt900ezddrf79_multiple_place_bar_block",
+                      "dc/slp5hywj7b9c1_multiple_place_bar_block"
+                    ],
+                    "title": "Sales and Office Occupations (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/7wt44yv38rew_multiple_place_bar_block_pc",
+                      "dc/zcth2y8fqte1f_multiple_place_bar_block_pc",
+                      "dc/nvrxn11yxlen2_multiple_place_bar_block_pc",
+                      "dc/jxsx1rb4xg84f_multiple_place_bar_block_pc",
+                      "dc/kt900ezddrf79_multiple_place_bar_block_pc",
+                      "dc/slp5hywj7b9c1_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Sales and Office Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Sales and Office Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2_multiple_place_bar_block",
+                      "dc/bre4whrdn7pt7_multiple_place_bar_block",
+                      "dc/n2vhkpw0slkv5_multiple_place_bar_block",
+                      "dc/m615rq99fwf2c_multiple_place_bar_block",
+                      "dc/k33ngtzpqxql6_multiple_place_bar_block",
+                      "dc/6zrlr86zt61yg_multiple_place_bar_block"
+                    ],
+                    "title": "Service Occupations (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2_multiple_place_bar_block_pc",
+                      "dc/bre4whrdn7pt7_multiple_place_bar_block_pc",
+                      "dc/n2vhkpw0slkv5_multiple_place_bar_block_pc",
+                      "dc/m615rq99fwf2c_multiple_place_bar_block_pc",
+                      "dc/k33ngtzpqxql6_multiple_place_bar_block_pc",
+                      "dc/6zrlr86zt61yg_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Service Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Service Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block",
+                      "dc/fgt7thnws9vx9_multiple_place_bar_block",
+                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block",
+                      "dc/dj7khl7q78412_multiple_place_bar_block",
+                      "dc/r0delcsw86kc6_multiple_place_bar_block",
+                      "dc/e27c5t4tbplg_multiple_place_bar_block"
+                    ],
+                    "title": "Production Transportation and Material Moving Occupations (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg_multiple_place_bar_block_pc",
+                      "dc/fgt7thnws9vx9_multiple_place_bar_block_pc",
+                      "dc/j7lkt2ww5qsn5_multiple_place_bar_block_pc",
+                      "dc/dj7khl7q78412_multiple_place_bar_block_pc",
+                      "dc/r0delcsw86kc6_multiple_place_bar_block_pc",
+                      "dc/e27c5t4tbplg_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Production Transportation and Material Moving Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Production Transportation and Material Moving Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/vh36nvvkwxz5g_multiple_place_bar_block",
+                      "dc/n99t0lnl3fch6_multiple_place_bar_block",
+                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block",
+                      "dc/j7pej9wer7lkd_multiple_place_bar_block",
+                      "dc/b9plt3q5k6gyb_multiple_place_bar_block",
+                      "dc/06m8j6xz3h0wf_multiple_place_bar_block"
+                    ],
+                    "title": "Natural Resources, Construction and Maintenance Occupations (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/vh36nvvkwxz5g_multiple_place_bar_block_pc",
+                      "dc/n99t0lnl3fch6_multiple_place_bar_block_pc",
+                      "dc/2hhr4qp4b4r0b_multiple_place_bar_block_pc",
+                      "dc/j7pej9wer7lkd_multiple_place_bar_block_pc",
+                      "dc/b9plt3q5k6gyb_multiple_place_bar_block_pc",
+                      "dc/06m8j6xz3h0wf_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Natural Resources, Construction and Maintenance Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Natural Resources, Construction and Maintenance Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/zf0wjwwyddbj4_multiple_place_bar_block",
+                      "dc/2r1c78wzvbq58_multiple_place_bar_block",
+                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block",
+                      "dc/m54m06x6r5xm9_multiple_place_bar_block",
+                      "dc/wqbf0ppbmly7_multiple_place_bar_block",
+                      "dc/bhc16vntggjyd_multiple_place_bar_block"
+                    ],
+                    "title": "Military Specific Occupation (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/zf0wjwwyddbj4_multiple_place_bar_block_pc",
+                      "dc/2r1c78wzvbq58_multiple_place_bar_block_pc",
+                      "dc/9vlv8l9dbgsk7_multiple_place_bar_block_pc",
+                      "dc/m54m06x6r5xm9_multiple_place_bar_block_pc",
+                      "dc/wqbf0ppbmly7_multiple_place_bar_block_pc",
+                      "dc/bhc16vntggjyd_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Military Specific Occupation (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Military Specific Occupation"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/e9gftzl2hm8h9_multiple_place_bar_block"
+                    ],
+                    "title": "Commute Time (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/e9gftzl2hm8h9_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Commute Time (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
+                      "dc/dbe0drezxrpv6_multiple_place_bar_block",
+                      "dc/1fw0t5m6459gb_multiple_place_bar_block",
+                      "dc/vgwx3kjjzz8wf_multiple_place_bar_block",
+                      "dc/7ykp70f9rtck9_multiple_place_bar_block",
+                      "dc/exr9t81en1h34_multiple_place_bar_block",
+                      "dc/62gn48xpbqew9_multiple_place_bar_block",
+                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block",
+                      "dc/pplpj0y0mzd3g_multiple_place_bar_block",
+                      "dc/t0hh9jhx104k7_multiple_place_bar_block",
+                      "dc/kfr6chpkw90e3_multiple_place_bar_block",
+                      "dc/h7ft916g93ys2_multiple_place_bar_block"
+                    ],
+                    "title": "Commuters by Commute Time (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/0665028",
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block_pc",
+                      "dc/dbe0drezxrpv6_multiple_place_bar_block_pc",
+                      "dc/1fw0t5m6459gb_multiple_place_bar_block_pc",
+                      "dc/vgwx3kjjzz8wf_multiple_place_bar_block_pc",
+                      "dc/7ykp70f9rtck9_multiple_place_bar_block_pc",
+                      "dc/exr9t81en1h34_multiple_place_bar_block_pc",
+                      "dc/62gn48xpbqew9_multiple_place_bar_block_pc",
+                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block_pc",
+                      "dc/pplpj0y0mzd3g_multiple_place_bar_block_pc",
+                      "dc/t0hh9jhx104k7_multiple_place_bar_block_pc",
+                      "dc/kfr6chpkw90e3_multiple_place_bar_block_pc",
+                      "dc/h7ft916g93ys2_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Commuters by Commute Time (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Commuters by Commute Time"
           }
         ],
         "statVarSpec": {
+          "dc/06m8j6xz3h0wf_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/06m8j6xz3h0wf"
+          },
+          "dc/06m8j6xz3h0wf_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/06m8j6xz3h0wf"
+          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
@@ -54,6 +392,51 @@
             "denom": "Count_Person",
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
+          },
+          "dc/1fw0t5m6459gb_multiple_place_bar_block": {
+            "name": "Population: 10 - 14 Minute",
+            "statVar": "dc/1fw0t5m6459gb"
+          },
+          "dc/1fw0t5m6459gb_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 10 - 14 Minute",
+            "statVar": "dc/1fw0t5m6459gb"
+          },
+          "dc/2hhr4qp4b4r0b_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/2hhr4qp4b4r0b"
+          },
+          "dc/2hhr4qp4b4r0b_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/2hhr4qp4b4r0b"
+          },
+          "dc/2r1c78wzvbq58_multiple_place_bar_block": {
+            "name": "Population: Walked, Military Specific Occupations",
+            "statVar": "dc/2r1c78wzvbq58"
+          },
+          "dc/2r1c78wzvbq58_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Military Specific Occupations",
+            "statVar": "dc/2r1c78wzvbq58"
+          },
+          "dc/4xklqxfc27w1f_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/4xklqxfc27w1f"
+          },
+          "dc/4xklqxfc27w1f_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/4xklqxfc27w1f"
+          },
+          "dc/62gn48xpbqew9_multiple_place_bar_block": {
+            "name": "Population: 30 - 34 Minute",
+            "statVar": "dc/62gn48xpbqew9"
+          },
+          "dc/62gn48xpbqew9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 30 - 34 Minute",
+            "statVar": "dc/62gn48xpbqew9"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -64,6 +447,168 @@
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
+          "dc/6zrlr86zt61yg_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations",
+            "statVar": "dc/6zrlr86zt61yg"
+          },
+          "dc/6zrlr86zt61yg_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations",
+            "statVar": "dc/6zrlr86zt61yg"
+          },
+          "dc/7wt44yv38rew_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
+          },
+          "dc/7wt44yv38rew_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
+          },
+          "dc/7ykp70f9rtck9_multiple_place_bar_block": {
+            "name": "Population: 20 - 24 Minute",
+            "statVar": "dc/7ykp70f9rtck9"
+          },
+          "dc/7ykp70f9rtck9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 20 - 24 Minute",
+            "statVar": "dc/7ykp70f9rtck9"
+          },
+          "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/80q8jrnkvwtt3"
+          },
+          "dc/80q8jrnkvwtt3_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/80q8jrnkvwtt3"
+          },
+          "dc/9vlv8l9dbgsk7_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Military Specific Occupations",
+            "statVar": "dc/9vlv8l9dbgsk7"
+          },
+          "dc/9vlv8l9dbgsk7_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Military Specific Occupations",
+            "statVar": "dc/9vlv8l9dbgsk7"
+          },
+          "dc/b9plt3q5k6gyb_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/b9plt3q5k6gyb"
+          },
+          "dc/b9plt3q5k6gyb_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/b9plt3q5k6gyb"
+          },
+          "dc/bhc16vntggjyd_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Military Specific Occupations",
+            "statVar": "dc/bhc16vntggjyd"
+          },
+          "dc/bhc16vntggjyd_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Military Specific Occupations",
+            "statVar": "dc/bhc16vntggjyd"
+          },
+          "dc/bre4whrdn7pt7_multiple_place_bar_block": {
+            "name": "Population: Walked, Service Occupations",
+            "statVar": "dc/bre4whrdn7pt7"
+          },
+          "dc/bre4whrdn7pt7_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Service Occupations",
+            "statVar": "dc/bre4whrdn7pt7"
+          },
+          "dc/cs8fvwkmpmlpg_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/cs8fvwkmpmlpg_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/dbe0drezxrpv6_multiple_place_bar_block": {
+            "name": "Population: 5 - 9 Minute",
+            "statVar": "dc/dbe0drezxrpv6"
+          },
+          "dc/dbe0drezxrpv6_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 5 - 9 Minute",
+            "statVar": "dc/dbe0drezxrpv6"
+          },
+          "dc/dj7khl7q78412_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/dj7khl7q78412"
+          },
+          "dc/dj7khl7q78412_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/dj7khl7q78412"
+          },
+          "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
+          },
+          "dc/dn2h9yfcgbkg2_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
+          },
+          "dc/e27c5t4tbplg_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/e27c5t4tbplg"
+          },
+          "dc/e27c5t4tbplg_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/e27c5t4tbplg"
+          },
+          "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
+            "name": "Commute Time",
+            "statVar": "dc/e9gftzl2hm8h9"
+          },
+          "dc/e9gftzl2hm8h9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Commute Time",
+            "statVar": "dc/e9gftzl2hm8h9"
+          },
+          "dc/exr9t81en1h34_multiple_place_bar_block": {
+            "name": "Population: 25 - 29 Minute",
+            "statVar": "dc/exr9t81en1h34"
+          },
+          "dc/exr9t81en1h34_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 25 - 29 Minute",
+            "statVar": "dc/exr9t81en1h34"
+          },
+          "dc/fgt7thnws9vx9_multiple_place_bar_block": {
+            "name": "Population: Walked, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/fgt7thnws9vx9"
+          },
+          "dc/fgt7thnws9vx9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/fgt7thnws9vx9"
+          },
+          "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
+            "name": "Population: 5 Minute or Less",
+            "statVar": "dc/fyc3yvjy0xw6g"
+          },
+          "dc/fyc3yvjy0xw6g_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 5 Minute or Less",
+            "statVar": "dc/fyc3yvjy0xw6g"
+          },
+          "dc/h7ft916g93ys2_multiple_place_bar_block": {
+            "name": "Population: 90 Minute or More",
+            "statVar": "dc/h7ft916g93ys2"
+          },
+          "dc/h7ft916g93ys2_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 90 Minute or More",
+            "statVar": "dc/h7ft916g93ys2"
+          },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
@@ -72,6 +617,195 @@
             "denom": "Count_Person",
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
+          },
+          "dc/j7lkt2ww5qsn5_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/j7lkt2ww5qsn5"
+          },
+          "dc/j7lkt2ww5qsn5_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/j7lkt2ww5qsn5"
+          },
+          "dc/j7pej9wer7lkd_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/j7pej9wer7lkd"
+          },
+          "dc/j7pej9wer7lkd_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/j7pej9wer7lkd"
+          },
+          "dc/jszfr5wd4f7pb_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/jszfr5wd4f7pb"
+          },
+          "dc/jszfr5wd4f7pb_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/jszfr5wd4f7pb"
+          },
+          "dc/jxsx1rb4xg84f_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Sales And Office Occupations",
+            "statVar": "dc/jxsx1rb4xg84f"
+          },
+          "dc/jxsx1rb4xg84f_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Sales And Office Occupations",
+            "statVar": "dc/jxsx1rb4xg84f"
+          },
+          "dc/k33ngtzpqxql6_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Service Occupations",
+            "statVar": "dc/k33ngtzpqxql6"
+          },
+          "dc/k33ngtzpqxql6_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Service Occupations",
+            "statVar": "dc/k33ngtzpqxql6"
+          },
+          "dc/kfr6chpkw90e3_multiple_place_bar_block": {
+            "name": "Population: 60 - 89 Minute",
+            "statVar": "dc/kfr6chpkw90e3"
+          },
+          "dc/kfr6chpkw90e3_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 60 - 89 Minute",
+            "statVar": "dc/kfr6chpkw90e3"
+          },
+          "dc/kt900ezddrf79_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Sales And Office Occupations",
+            "statVar": "dc/kt900ezddrf79"
+          },
+          "dc/kt900ezddrf79_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Sales And Office Occupations",
+            "statVar": "dc/kt900ezddrf79"
+          },
+          "dc/m54m06x6r5xm9_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Military Specific Occupations",
+            "statVar": "dc/m54m06x6r5xm9"
+          },
+          "dc/m54m06x6r5xm9_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Military Specific Occupations",
+            "statVar": "dc/m54m06x6r5xm9"
+          },
+          "dc/m615rq99fwf2c_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Service Occupations",
+            "statVar": "dc/m615rq99fwf2c"
+          },
+          "dc/m615rq99fwf2c_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Service Occupations",
+            "statVar": "dc/m615rq99fwf2c"
+          },
+          "dc/n2vhkpw0slkv5_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Service Occupations",
+            "statVar": "dc/n2vhkpw0slkv5"
+          },
+          "dc/n2vhkpw0slkv5_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Service Occupations",
+            "statVar": "dc/n2vhkpw0slkv5"
+          },
+          "dc/n99t0lnl3fch6_multiple_place_bar_block": {
+            "name": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/n99t0lnl3fch6"
+          },
+          "dc/n99t0lnl3fch6_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/n99t0lnl3fch6"
+          },
+          "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
+          },
+          "dc/nfdf9rt7kbggb_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
+          },
+          "dc/nvrxn11yxlen2_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Sales And Office Occupations",
+            "statVar": "dc/nvrxn11yxlen2"
+          },
+          "dc/nvrxn11yxlen2_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Public Transportation Excluding Taxicab, Sales And Office Occupations",
+            "statVar": "dc/nvrxn11yxlen2"
+          },
+          "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
+            "name": "Population: 40 - 44 Minute",
+            "statVar": "dc/pplpj0y0mzd3g"
+          },
+          "dc/pplpj0y0mzd3g_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 40 - 44 Minute",
+            "statVar": "dc/pplpj0y0mzd3g"
+          },
+          "dc/r0delcsw86kc6_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/r0delcsw86kc6"
+          },
+          "dc/r0delcsw86kc6_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/r0delcsw86kc6"
+          },
+          "dc/slp5hywj7b9c1_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Sales And Office Occupations",
+            "statVar": "dc/slp5hywj7b9c1"
+          },
+          "dc/slp5hywj7b9c1_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Sales And Office Occupations",
+            "statVar": "dc/slp5hywj7b9c1"
+          },
+          "dc/t0hh9jhx104k7_multiple_place_bar_block": {
+            "name": "Population: 45 - 59 Minute",
+            "statVar": "dc/t0hh9jhx104k7"
+          },
+          "dc/t0hh9jhx104k7_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 45 - 59 Minute",
+            "statVar": "dc/t0hh9jhx104k7"
+          },
+          "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
+            "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/v33p7mwnpe9vb"
+          },
+          "dc/v33p7mwnpe9vb_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/v33p7mwnpe9vb"
+          },
+          "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
+            "name": "Population: 35 - 39 Minute",
+            "statVar": "dc/vfs5dgtzhp4j4"
+          },
+          "dc/vfs5dgtzhp4j4_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 35 - 39 Minute",
+            "statVar": "dc/vfs5dgtzhp4j4"
+          },
+          "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
+            "name": "Population: 15 - 19 Minute",
+            "statVar": "dc/vgwx3kjjzz8wf"
+          },
+          "dc/vgwx3kjjzz8wf_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 15 - 19 Minute",
+            "statVar": "dc/vgwx3kjjzz8wf"
+          },
+          "dc/vh36nvvkwxz5g_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/vh36nvvkwxz5g"
+          },
+          "dc/vh36nvvkwxz5g_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/vh36nvvkwxz5g"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
@@ -99,6 +833,42 @@
             "denom": "Count_Person",
             "name": "Carpool",
             "statVar": "dc/wc8q05drd74bd"
+          },
+          "dc/wqbf0ppbmly7_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Military Specific Occupations",
+            "statVar": "dc/wqbf0ppbmly7"
+          },
+          "dc/wqbf0ppbmly7_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Drove Alone, Military Specific Occupations",
+            "statVar": "dc/wqbf0ppbmly7"
+          },
+          "dc/y9yb58snpfzw5_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/y9yb58snpfzw5"
+          },
+          "dc/y9yb58snpfzw5_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/y9yb58snpfzw5"
+          },
+          "dc/zcth2y8fqte1f_multiple_place_bar_block": {
+            "name": "Population: Walked, Sales And Office Occupations",
+            "statVar": "dc/zcth2y8fqte1f"
+          },
+          "dc/zcth2y8fqte1f_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Sales And Office Occupations",
+            "statVar": "dc/zcth2y8fqte1f"
+          },
+          "dc/zf0wjwwyddbj4_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Military Specific Occupations",
+            "statVar": "dc/zf0wjwwyddbj4"
+          },
+          "dc/zf0wjwwyddbj4_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Military Specific Occupations",
+            "statVar": "dc/zf0wjwwyddbj4"
           }
         }
       }

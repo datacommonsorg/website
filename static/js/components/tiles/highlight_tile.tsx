@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,10 +42,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   );
 
   useEffect(() => {
-    (async () => {
-      const data = await fetchData(props);
+    fetchData(props).then((data) => {
       setHighlightData(data);
-    })();
+    });
   }, [props]);
 
   if (!highlightData) {
@@ -67,7 +66,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         <span className="stat">
           {formatNumber(
             highlightData.value,
-            props.statVarSpec.unit,
+            props.statVarSpec.unit || highlightData.unitDisplayName,
             false,
             NUM_FRACTION_DIGITS
           )}
@@ -78,7 +77,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   );
 }
 
-export const fetchData = async (props: HighlightTilePropType) => {
+const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarSpec.statVar;
   const denomStatVar = props.statVarSpec.denom;
@@ -86,27 +85,32 @@ export const fetchData = async (props: HighlightTilePropType) => {
   if (denomStatVar) {
     statVars.push(denomStatVar);
   }
-  try {
-    const resp = await axios.get<PointApiResponse>("/api/observations/point", {
+  return axios
+    .get<PointApiResponse>("/api/observations/point", {
       params: {
         entities: [props.place.dcid],
         variables: statVars,
       },
       paramsSerializer: stringifyFn,
+    })
+    .then((resp) => {
+      const statData = resp.data.data;
+      const mainStatData = statData[mainStatVar][props.place.dcid];
+      let value = mainStatData.value;
+      const facet = resp.data.facets[mainStatData.facet];
+      if (denomStatVar) {
+        value /= statData[denomStatVar][props.place.dcid].value;
+      }
+      if (props.statVarSpec.scaling) {
+        value *= props.statVarSpec.scaling;
+      }
+      const result = { value, date: mainStatData.date };
+      if (facet && facet.unitDisplayName) {
+        result["unitDisplayName"] = facet.unitDisplayName;
+      }
+      return result;
+    })
+    .catch(() => {
+      return null;
     });
-
-    const statData = resp.data.data;
-    const mainStatData = statData[mainStatVar][props.place.dcid];
-    let value = mainStatData.value;
-    if (denomStatVar) {
-      value /= statData[denomStatVar][props.place.dcid].value;
-    }
-    if (props.statVarSpec.scaling) {
-      value *= props.statVarSpec.scaling;
-    }
-    return { value, date: mainStatData.date };
-  } catch (error) {
-    // TODO: add error message
-    return null;
-  }
 };

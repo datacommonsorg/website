@@ -32,9 +32,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "title": "Households Receiving Food Stamps in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -43,9 +43,9 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
+                    "title": "Per Capita Households Receiving Food Stamps in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -68,28 +68,6 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Population Below Poverty Level Status in Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Households Receiving Food Stamps in the Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Households Receiving Food Stamps in the Past Year (${date})",
                     "type": "BAR"
                   },
                   {
@@ -183,43 +161,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block"
-                    ],
-                    "title": "Population Below Poverty Line by Race (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population Below Poverty Line by Race (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line by Race"
           },
           {
             "columns": [
@@ -406,6 +347,36 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Population Above Poverty Level Status in Past Year (${date})",
@@ -420,6 +391,25 @@
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Population Above Poverty Level Status in Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Accommodation And Food Services (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -648,6 +638,10 @@
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
+          },
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
+            "name": "Median Incomes in Accommodation And Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }

@@ -37,6 +37,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showHighest": true
                     },
                     "statVarKey": [
@@ -51,6 +52,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -109,6 +111,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showHighest": true
                     },
                     "statVarKey": [
@@ -123,6 +126,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -182,6 +186,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showHighest": true
                     },
                     "statVarKey": [
@@ -196,6 +201,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -255,6 +261,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showHighest": true
                     },
                     "statVarKey": [
@@ -269,6 +276,7 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
@@ -291,7 +299,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Wages Annual of Establishment: Information (NAICS/51)"
           }
         ],
         "statVarSpec": {

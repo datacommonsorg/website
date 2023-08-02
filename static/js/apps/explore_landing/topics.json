@@ -4,7 +4,7 @@
     "demographics",
     "health",
     "sustainability",
-    "schools-housing-commute",
+    "education-housing-commute",
     "equity"
   ],
   "topics": {
@@ -40,8 +40,8 @@
             "url": "oq=Counties+with+the+highest+rates+of+uninsured&t=dc/topic/NoHealthInsurance&p=country/USA&pt=County"
           },
           {
-            "title": "Cities with the highest number of women PhDs",
-            "url": "oq=Cities+with+the+highest+number+of+women+PhDs&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=country/USA&pt=City"
+            "title": "Cities with the highest number of women PhDs in Pennsylvania",
+            "url": "oq=Cities+with+the+highest+number+of+women+PhDs+in+Pennsylvania&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=geoId/42&pt=City"
           },
           {
             "title": "Countries with the lowest Gini index",
@@ -173,7 +173,7 @@
           },
           {
             "title": "Countries with the most incoming remittances in the world",
-            "url": "oq=countries+with+the+most+incoming+remittances"
+            "url": "oq=countries+with+the+most+incoming+remittances+in+the+world"
           },
           {
             "title": "Median income vs unemployment rate in California",
@@ -267,11 +267,11 @@
           },
           {
             "title": "Immunization in Pakistan",
-            "url": "p=country/PAK&t=dc/topic/WHOImmunization"
+            "url": "p=country/PAK&t=dc/topic/WHOImmunization&oq=Immunization+in+Pakistan"
           },
           {
             "title": "Immunizations by gender in Pakistan",
-            "url": "p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender"
+            "url": "p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender&oq=Immunizations+by+gender+in+Pakistan"
           },
           {
             "title": "Cancer in Illinois",
@@ -368,7 +368,7 @@
         ]
       }
     },
-    "schools-housing-commute": {
+    "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
       "examples": {
@@ -405,7 +405,7 @@
           },
           {
             "title": "Student enrollment levels in San Francisco",
-            "url": "p=geoId/060667000&t=dc/topic/StudentEnrollmentLevels&oq=Student+enrollment+levels+in+San+Francisco"
+            "url": "p=geoId/0667000&t=dc/topic/StudentEnrollmentLevels&oq=Student+enrollment+levels+in+San+Francisco"
           },
           {
             "title": "Students in College in Berkeley vs Cambridge, MA",
@@ -413,7 +413,7 @@
           },
           {
             "title": "Students in High School in Miami",
-            "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool"
+            "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool&oq=Students+in+High+School+in+Miami"
           },
           {
             "title": "Students in Graduate School in California vs Massachusetts",
@@ -495,7 +495,7 @@
           },
           {
             "title": "Racial Diversity in California",
-            "url": "p=geoId/06&oq=Racial+diversity+in+California"
+            "url": "p=geoId/06&t=dc/topic/Race&oq=Racial+diversity+in+California"
           },
           {
             "title": "Marriage and divorce in New York",
@@ -533,7 +533,7 @@
           },
           {
             "title": "Immigration in Texas vs California",
-            "url": "oq=immigration+in+the+California+vs+Texas&oq=Immigration+in+Texas+vs+California"
+            "url": "oq=Immigration+in+Texas+vs+California"
           }
         ],
         "comparison": [
@@ -543,7 +543,7 @@
           },
           {
             "title": "Median age vs income in Florida",
-            "url": "oq=median+age+vs+income+in+Florida&oq=Median+age+vs+income+in+Florida"
+            "url": "oq=Median+age+vs+income+in+Florida"
           },
           {
             "title": "Median age vs marital status in New York State",
@@ -566,8 +566,8 @@
             "url": "oq=racial+breakdown+of+population+in+Texas+vs+New+York+State"
           },
           {
-            "title": "Counties in the US with most Tamil speakers",
-            "url": "oq=Counties in the US with most Tamil Speakers"
+            "title": "States in the US with the most Tamil speakers",
+            "url": "oq=States in the US with the most Tamil Speakers"
           },
           {
             "title": "Which counties in the US have most immigrants",
@@ -613,7 +613,7 @@
         "general": [
           {
             "title": "What are the sources of greenhouse gas emissions in the US",
-            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissionsBySource"
+            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissions"
           },
           {
             "title": "Emissions in Harris County, Texas",
@@ -650,8 +650,8 @@
             "url": "oq=Solar+energy+consumption+across+states+in+the+US"
           },
           {
-            "title": "Drought events across different countries",
-            "url": "oq=Drought+events+across+different+countries&p=Earth&pt=Country&t=dc/topic/Drought"
+            "title": "Drought events around the world",
+            "url": "oq=Drought+events+around+the+world&p=Earth&pt=Country&t=dc/topic/Drought"
           },
           {
             "title": "Counties in the US with the most smoke days",
@@ -663,7 +663,7 @@
           },
           {
             "title": "Which countries have the most greenhouse gas emissions",
-            "url": "oq=Which+countries+have+the+most+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissionsBySource"
+            "url": "oq=Which+countries+have+the+most+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
           }
         ],
         "comparison": [
