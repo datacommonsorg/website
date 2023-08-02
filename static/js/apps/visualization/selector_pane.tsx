@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { AppContext } from "./app_context";
 import { PlaceSelector } from "./place_selector";
@@ -55,6 +55,13 @@ export function SelectorPane(): JSX.Element {
     } variable${numSvMissing > 1 ? "s" : ""}`;
   }
 
+  useEffect(() => {
+    const newSelectors = getSelectors();
+    if (!_.isEqual(newSelectors, availableSelectors)) {
+      setAvailableSelectors(newSelectors);
+    }
+  }, [visType, places, enclosedPlaceType, statVars])
+
   return (
     <div className="selector-pane">
       {availableSelectors.findIndex(
@@ -67,9 +74,6 @@ export function SelectorPane(): JSX.Element {
         >
           <PlaceSelector
             selectOnContinue={true}
-            onNewSelection={() => {
-              setAvailableSelectors(availableSelectors.slice(1));
-            }}
           />
         </SelectorWrapper>
       )}
@@ -85,9 +89,7 @@ export function SelectorPane(): JSX.Element {
           }
         >
           <PlaceTypeSelector
-            onContinueClicked={() => {
-              setAvailableSelectors(availableSelectors.slice(1));
-            }}
+            selectOnContinue={true}
           />
         </SelectorWrapper>
       )}

@@ -173,7 +173,9 @@ export function AppContextProvider(
       return;
     }
     let newEnclosedPlaceType = "";
-    if (!_.isEmpty(childPlaceTypes)) {
+    // skip auto-magically selecting enclosed place type if there wasn't already
+    // an enclosed place type selected
+    if (!_.isEmpty(childPlaceTypes) && !!enclosedPlaceType) {
       newEnclosedPlaceType =
         childPlaceTypes.findIndex((type) => type === enclosedPlaceType) >= 0
           ? enclosedPlaceType
