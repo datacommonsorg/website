@@ -51,9 +51,11 @@
   <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   {% if config['HIDE_REVAMP_CHANGES'] %}
   <link rel="icon" href="old_favicon.ico" type="image/png">
+  {% elif config['LOCAL'] %}
+  <link rel="icon" href="/images/favicon-local.png" type="image/png">
   {% else %}
   <link rel="icon" href="/images/favicon.png" type="image/png">
   {% endif %}
