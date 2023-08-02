@@ -220,6 +220,9 @@ def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
       if ('TOPIC_CACHE' in current_app.config and
           (utils.is_svpg(sv) or utils.is_topic(sv))):
         sv_name_map[sv] = current_app.config['TOPIC_CACHE'].get_name(sv)
+        if not sv_name_map[sv]:
+          # Very rare edge case.
+          sv_name_map[sv] = sv.replace('dc/topic/', '').replace('dc/svpg/', '')
       else:
         sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 

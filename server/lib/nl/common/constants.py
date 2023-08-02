@@ -325,7 +325,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "Percent_Person_WithDiabetes":
         "Diabetes",
     "Percent_Person_WithHighBloodPressure":
-        "High Bood Pressure",
+        "High Blood Pressure",
     "Percent_Person_WithHighCholesterol":
         "High Cholesterol",
     "Percent_Person_WithMentalHealthNotGood":

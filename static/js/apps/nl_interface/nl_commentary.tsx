@@ -151,13 +151,15 @@ export function NLCommentary(props: NLCommentaryPropType): JSX.Element {
           statistics for the default place{maybeGetCtx("of")}.
         </>
       )}
-      {showMode === MODES.FALLBACK_SIMPLE && (
-        <>
-          Sorry, there were no relevant statistics on this topic for{" "}
-          {props.chartsData.placeFallback.origStr}.&nbsp; Displaying results for{" "}
-          {props.chartsData.placeFallback.newStr}.
-        </>
-      )}
+      {showMode === MODES.FALLBACK_SIMPLE &&
+        props.chartsData.placeFallback.origStr !==
+          props.chartsData.placeFallback.newStr && (
+          <>
+            Sorry, there were no relevant statistics on this topic for{" "}
+            {props.chartsData.placeFallback.origStr}.&nbsp; Displaying results
+            for {props.chartsData.placeFallback.newStr}.
+          </>
+        )}
       {showMode === MODES.FALLBACK_PAST_PLACE_OR_SV && (
         <>
           Tried looking up relevant statistics for{" "}
