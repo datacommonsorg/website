@@ -125,7 +125,7 @@ function Emoji(props: EmojiPropType): JSX.Element {
           <textarea
             value={textInput}
             onChange={handleInputChange}
-            placeholder="Enter your feedback here..."
+            placeholder="Enter your feedback here"
             rows={5}
             cols={30}
           />
@@ -156,8 +156,8 @@ export function NlChartFeedback(props: NlChartFeedbackPropType): JSX.Element {
       axios.post("/api/nl/feedback", {
         feedbackData: {
           chartId: getNlChartId(props.id),
-          sentiment,
           comment,
+          sentiment,
         },
         sessionId: nlSessionId,
       });
