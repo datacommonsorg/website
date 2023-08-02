@@ -108,11 +108,12 @@ export function App(): JSX.Element {
         }
         setQuery(query);
         const detectResp = await fetchDetectData(query, savedContext);
+        if (!detectResp) {
+          setLoadingStatus("fail");
+          return;
+        }
         setSavedContext(detectResp["context"] || {});
-        if (
-          _.isEmpty(detectResp["entities"]) ||
-          _.isEmpty(detectResp["variables"])
-        ) {
+        if (_.isEmpty(detectResp["entities"])) {
           setLoadingStatus("fail");
           return;
         }
@@ -212,7 +213,7 @@ export function App(): JSX.Element {
         <TextSearchBar
           inputId="query-search-input"
           onSearch={(q) => {
-            updateHash({ q, oq: "", t: "", p: "" });
+            updateHash({ q, oq: "", t: "", p: "", pt: "", pcmp: "", tcmp: "" });
           }}
           placeholder={query}
           initialValue={query}
