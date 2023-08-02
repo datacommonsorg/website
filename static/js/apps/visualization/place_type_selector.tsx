@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -40,7 +40,7 @@ export function PlaceTypeSelector(
     if (selectedPlaceType !== enclosedPlaceType) {
       setSelectedPlaceType(enclosedPlaceType);
     }
-  }, [enclosedPlaceType])
+  }, [enclosedPlaceType]);
 
   return (
     <div className="place-type-selector">
@@ -81,7 +81,7 @@ export function PlaceTypeSelector(
           <div
             className="primary-button continue-button"
             onClick={() => {
-              setEnclosedPlaceType(selectedPlaceType)
+              setEnclosedPlaceType(selectedPlaceType);
               props.onNewSelection();
             }}
           >

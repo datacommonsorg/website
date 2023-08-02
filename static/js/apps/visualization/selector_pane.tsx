@@ -60,7 +60,7 @@ export function SelectorPane(): JSX.Element {
     if (!_.isEqual(newSelectors, availableSelectors)) {
       setAvailableSelectors(newSelectors);
     }
-  }, [visType, places, enclosedPlaceType, statVars])
+  }, [visType, places, enclosedPlaceType, statVars]);
 
   return (
     <div className="selector-pane">
@@ -72,9 +72,7 @@ export function SelectorPane(): JSX.Element {
           selectedValues={places.map((place) => place.name || place.dcid)}
           disabled={false}
         >
-          <PlaceSelector
-            selectOnContinue={true}
-          />
+          <PlaceSelector selectOnContinue={true} />
         </SelectorWrapper>
       )}
       {availableSelectors.findIndex(
@@ -88,9 +86,7 @@ export function SelectorPane(): JSX.Element {
             availableSelectors[0] !== SelectorType.PLACE_TYPE
           }
         >
-          <PlaceTypeSelector
-            selectOnContinue={true}
-          />
+          <PlaceTypeSelector selectOnContinue={true} />
         </SelectorWrapper>
       )}
       {availableSelectors.findIndex(
