@@ -7648,6 +7648,57 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/IndustriesByRevenue_IndustryType"
+      ],
+      "memberList": [
+        "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll",
+        "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll",
+        "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll",
+        "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+        "Sales_Establishment_NAICSWholesaleTrade_WithPayroll",
+        "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll",
+        "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll",
+        "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll",
+        "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll",
+        "Revenue_Establishment_NAICSUtilities_WithPayroll",
+        "dc/2hl1yfxglmq0c",
+        "dc/2kz6b9kvps8c9",
+        "dc/31hbegrgs0x05",
+        "dc/3wx4hzg5p6zdb",
+        "dc/41s8qer7mpew9",
+        "dc/4fbqq2v75fwbc",
+        "dc/8mty3dlrx26e5",
+        "dc/8vcbgqlfzwvtf",
+        "dc/9bcetmhgnge5f",
+        "dc/c0zdt686eek05",
+        "dc/d796515q44h02",
+        "dc/ekrg82bjht898",
+        "dc/f2g63f2rjbdyh",
+        "dc/g8sxhs8lzmb15",
+        "dc/gf47xlzfbd3t8",
+        "dc/ghk2rsfpsnc29",
+        "dc/gy5fk764jzhvd",
+        "dc/jxwhv6vc0rye7",
+        "dc/m46wj1egm7j56",
+        "dc/rw3t3r74kv7mc",
+        "dc/sythffk3c3ne7",
+        "dc/sz9ckd47e35b4",
+        "dc/zkmdz1rhlt7q8"
+      ],
+      "name": [
+        "Revenue By Industry Type"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/InfantMortality_CausesOfDeath"
       ],
       "memberList": [
@@ -10411,7 +10462,7 @@
         "Economic Activity"
       ],
       "relevantVariableList": [
-        "dc/topic/IndustriesByNumberOfWorkers",
+        "dc/topic/IndustriesByGDP",
         "dc/topic/IndustriesByRevenue"
       ],
       "typeOf": [
@@ -12158,13 +12209,13 @@
     },
     {
       "dcid": [
-        "dc/topic/IndustriesByNumberOfWorkers"
+        "dc/topic/IndustriesByGDP"
       ],
       "name": [
-        "Industries By Number Of Workers"
+        "Industries By GDP"
       ],
       "relevantVariableList": [
-        "dc/rydmsxhz7pxh1"
+        "dc/svpg/RealGDPByIndustry"
       ],
       "typeOf": [
         "Topic"
@@ -12178,44 +12229,7 @@
         "Industries By Revenue"
       ],
       "relevantVariableList": [
-        "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll",
-        "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll",
-        "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll",
-        "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll",
-        "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll",
-        "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll",
-        "Revenue_Establishment_NAICSUtilities_WithPayroll",
-        "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll",
-        "Sales_Establishment_NAICSWholesaleTrade_WithPayroll",
-        "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll",
-        "dc/2hl1yfxglmq0c",
-        "dc/2kz6b9kvps8c9",
-        "dc/31hbegrgs0x05",
-        "dc/3wx4hzg5p6zdb",
-        "dc/41s8qer7mpew9",
-        "dc/4fbqq2v75fwbc",
-        "dc/8mty3dlrx26e5",
-        "dc/8vcbgqlfzwvtf",
-        "dc/9bcetmhgnge5f",
-        "dc/c0zdt686eek05",
-        "dc/d796515q44h02",
-        "dc/ekrg82bjht898",
-        "dc/f2g63f2rjbdyh",
-        "dc/g8sxhs8lzmb15",
-        "dc/gf47xlzfbd3t8",
-        "dc/ghk2rsfpsnc29",
-        "dc/gy5fk764jzhvd",
-        "dc/jxwhv6vc0rye7",
-        "dc/m46wj1egm7j56",
-        "dc/rw3t3r74kv7mc",
-        "dc/sythffk3c3ne7",
-        "dc/sz9ckd47e35b4",
-        "dc/zkmdz1rhlt7q8"
+        "dc/svpg/dc/topic/IndustriesByRevenue_IndustryType"
       ],
       "typeOf": [
         "Topic"
@@ -12244,7 +12258,7 @@
         "Inflation Adjusted GDP"
       ],
       "relevantVariableList": [
-        "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+        "InflationAdjustedGDP"
       ],
       "typeOf": [
         "Topic"
