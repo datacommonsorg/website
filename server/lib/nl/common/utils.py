@@ -136,16 +136,11 @@ def sv_existence_for_places_check_single_point(
 def _get_sample_child_places(main_place_dcid: str,
                              contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
-  logging.info('_sample_child_place: for %s - %s', main_place_dcid,
-               contained_place_type)
   if not contained_place_type:
     return []
   child_places = fetch.descendent_places([main_place_dcid],
                                          contained_place_type)
   if child_places.get(main_place_dcid):
-    logging.info(
-        '_sample_child_place returning %s', ', '.join(
-            child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]))
     return child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
@@ -158,10 +153,7 @@ def _get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info('_sample_child_place returning %s',
-                       ', '.join(child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]))
           return child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]
-  logging.info('_sample_child_place returning empty')
   return []
 
 

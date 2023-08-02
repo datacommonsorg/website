@@ -13,12 +13,12 @@
                       "geoId/32"
                     ],
                     "statVarKey": [
-                      "dc/6rltk4kf75612_multiple_place_bar_block",
-                      "dc/vp8cbt6k79t94_multiple_place_bar_block",
-                      "dc/hbkh95kc7pkb6_multiple_place_bar_block",
-                      "dc/wc8q05drd74bd_multiple_place_bar_block",
                       "dc/0gettc3bc60cb_multiple_place_bar_block",
-                      "dc/vt2q292eme79f_multiple_place_bar_block"
+                      "dc/6rltk4kf75612_multiple_place_bar_block",
+                      "dc/hbkh95kc7pkb6_multiple_place_bar_block",
+                      "dc/vp8cbt6k79t94_multiple_place_bar_block",
+                      "dc/vt2q292eme79f_multiple_place_bar_block",
+                      "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
                     "title": "Modes of Commute (${date})",
                     "type": "BAR"
@@ -28,21 +28,163 @@
             ],
             "denom": "Count_Person",
             "title": "Modes of Commute"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/32"
+                    ],
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb_multiple_place_bar_block",
+                      "dc/v33p7mwnpe9vb_multiple_place_bar_block",
+                      "dc/4xklqxfc27w1f_multiple_place_bar_block",
+                      "dc/80q8jrnkvwtt3_multiple_place_bar_block",
+                      "dc/jszfr5wd4f7pb_multiple_place_bar_block",
+                      "dc/y9yb58snpfzw5_multiple_place_bar_block"
+                    ],
+                    "title": "Management, Business, Science and Arts Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Management, Business, Science and Arts Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/32"
+                    ],
+                    "statVarKey": [
+                      "dc/7wt44yv38rew_multiple_place_bar_block",
+                      "dc/zcth2y8fqte1f_multiple_place_bar_block",
+                      "dc/nvrxn11yxlen2_multiple_place_bar_block",
+                      "dc/jxsx1rb4xg84f_multiple_place_bar_block",
+                      "dc/kt900ezddrf79_multiple_place_bar_block",
+                      "dc/slp5hywj7b9c1_multiple_place_bar_block"
+                    ],
+                    "title": "Sales and Office Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Sales and Office Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/32"
+                    ],
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2_multiple_place_bar_block",
+                      "dc/bre4whrdn7pt7_multiple_place_bar_block",
+                      "dc/n2vhkpw0slkv5_multiple_place_bar_block",
+                      "dc/m615rq99fwf2c_multiple_place_bar_block",
+                      "dc/k33ngtzpqxql6_multiple_place_bar_block",
+                      "dc/6zrlr86zt61yg_multiple_place_bar_block"
+                    ],
+                    "title": "Service Occupations (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Service Occupations"
           }
         ],
-        "dcid": "dc/topic/WorkCommute",
+        "dcid": "dc/topic/CommuteMode",
         "statVarSpec": {
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
           },
+          "dc/4xklqxfc27w1f_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/4xklqxfc27w1f"
+          },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
+          "dc/6zrlr86zt61yg_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations",
+            "statVar": "dc/6zrlr86zt61yg"
+          },
+          "dc/7wt44yv38rew_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
+          },
+          "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/80q8jrnkvwtt3"
+          },
+          "dc/bre4whrdn7pt7_multiple_place_bar_block": {
+            "name": "Population: Walked, Service Occupations",
+            "statVar": "dc/bre4whrdn7pt7"
+          },
+          "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
+          },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
+          },
+          "dc/jszfr5wd4f7pb_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/jszfr5wd4f7pb"
+          },
+          "dc/jxsx1rb4xg84f_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Sales And Office Occupations",
+            "statVar": "dc/jxsx1rb4xg84f"
+          },
+          "dc/k33ngtzpqxql6_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Service Occupations",
+            "statVar": "dc/k33ngtzpqxql6"
+          },
+          "dc/kt900ezddrf79_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Drove Alone, Sales And Office Occupations",
+            "statVar": "dc/kt900ezddrf79"
+          },
+          "dc/m615rq99fwf2c_multiple_place_bar_block": {
+            "name": "Population: Car Truck or Van Carpooled, Service Occupations",
+            "statVar": "dc/m615rq99fwf2c"
+          },
+          "dc/n2vhkpw0slkv5_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Service Occupations",
+            "statVar": "dc/n2vhkpw0slkv5"
+          },
+          "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
+          },
+          "dc/nvrxn11yxlen2_multiple_place_bar_block": {
+            "name": "Population: Public Transportation Excluding Taxicab, Sales And Office Occupations",
+            "statVar": "dc/nvrxn11yxlen2"
+          },
+          "dc/slp5hywj7b9c1_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Sales And Office Occupations",
+            "statVar": "dc/slp5hywj7b9c1"
+          },
+          "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
+            "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/v33p7mwnpe9vb"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",
@@ -55,8 +197,130 @@
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
             "name": "Carpool",
             "statVar": "dc/wc8q05drd74bd"
+          },
+          "dc/y9yb58snpfzw5_multiple_place_bar_block": {
+            "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/y9yb58snpfzw5"
+          },
+          "dc/zcth2y8fqte1f_multiple_place_bar_block": {
+            "name": "Population: Walked, Sales And Office Occupations",
+            "statVar": "dc/zcth2y8fqte1f"
           }
-        }
+        },
+        "title": "Commute Mode"
+      },
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/32"
+                    ],
+                    "statVarKey": [
+                      "dc/e9gftzl2hm8h9_multiple_place_bar_block"
+                    ],
+                    "title": "Commute Time (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Commute Time"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/32"
+                    ],
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
+                      "dc/dbe0drezxrpv6_multiple_place_bar_block",
+                      "dc/1fw0t5m6459gb_multiple_place_bar_block",
+                      "dc/vgwx3kjjzz8wf_multiple_place_bar_block",
+                      "dc/7ykp70f9rtck9_multiple_place_bar_block",
+                      "dc/exr9t81en1h34_multiple_place_bar_block",
+                      "dc/62gn48xpbqew9_multiple_place_bar_block",
+                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block",
+                      "dc/pplpj0y0mzd3g_multiple_place_bar_block",
+                      "dc/t0hh9jhx104k7_multiple_place_bar_block",
+                      "dc/kfr6chpkw90e3_multiple_place_bar_block",
+                      "dc/h7ft916g93ys2_multiple_place_bar_block"
+                    ],
+                    "title": "Commuters by Commute Time (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Commuters by Commute Time"
+          }
+        ],
+        "dcid": "dc/topic/CommuteTime",
+        "statVarSpec": {
+          "dc/1fw0t5m6459gb_multiple_place_bar_block": {
+            "name": "Population: 10 - 14 Minute",
+            "statVar": "dc/1fw0t5m6459gb"
+          },
+          "dc/62gn48xpbqew9_multiple_place_bar_block": {
+            "name": "Population: 30 - 34 Minute",
+            "statVar": "dc/62gn48xpbqew9"
+          },
+          "dc/7ykp70f9rtck9_multiple_place_bar_block": {
+            "name": "Population: 20 - 24 Minute",
+            "statVar": "dc/7ykp70f9rtck9"
+          },
+          "dc/dbe0drezxrpv6_multiple_place_bar_block": {
+            "name": "Population: 5 - 9 Minute",
+            "statVar": "dc/dbe0drezxrpv6"
+          },
+          "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
+            "name": "Commute Time",
+            "statVar": "dc/e9gftzl2hm8h9"
+          },
+          "dc/exr9t81en1h34_multiple_place_bar_block": {
+            "name": "Population: 25 - 29 Minute",
+            "statVar": "dc/exr9t81en1h34"
+          },
+          "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
+            "name": "Population: 5 Minute or Less",
+            "statVar": "dc/fyc3yvjy0xw6g"
+          },
+          "dc/h7ft916g93ys2_multiple_place_bar_block": {
+            "name": "Population: 90 Minute or More",
+            "statVar": "dc/h7ft916g93ys2"
+          },
+          "dc/kfr6chpkw90e3_multiple_place_bar_block": {
+            "name": "Population: 60 - 89 Minute",
+            "statVar": "dc/kfr6chpkw90e3"
+          },
+          "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
+            "name": "Population: 40 - 44 Minute",
+            "statVar": "dc/pplpj0y0mzd3g"
+          },
+          "dc/t0hh9jhx104k7_multiple_place_bar_block": {
+            "name": "Population: 45 - 59 Minute",
+            "statVar": "dc/t0hh9jhx104k7"
+          },
+          "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
+            "name": "Population: 35 - 39 Minute",
+            "statVar": "dc/vfs5dgtzhp4j4"
+          },
+          "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
+            "name": "Population: 15 - 19 Minute",
+            "statVar": "dc/vgwx3kjjzz8wf"
+          }
+        },
+        "title": "Commute Time"
       }
     ],
     "metadata": {
