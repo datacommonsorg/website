@@ -72,7 +72,11 @@ def compute_related_things(state: ftypes.PopulateState,
       pt = topic.get_parent_topics(t['dcid'])
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
-      related_things['peerTopics'] = topic.get_child_topics(pt)
+      # Pick only one parent topic deterministically!
+      pt.sort()
+      if not pt:
+        continue
+      related_things['peerTopics'] = topic.get_child_topics([pt[0]])
       if not related_things['peerTopics']:
         related_things['peerTopics'] = [t]
       # We found a topic, so break!
