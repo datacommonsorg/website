@@ -1,0 +1,228 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "dc2_2"
+  topic_name: "Health Factors"
+  place_dcid: "country/NGA"
+  contained_place_types {
+    key: "Country"
+    value: "AdministrativeArea1"
+  }
+}
+
+
+categories {
+    title: "Life Expectancy"
+    description: "The life expectancy in Nigeria is at an all time high of 52.9 years as at 2022 , the highest since 1960 when the country gained  independence. At independence life expectancy was 37.4 years. Into the millennium (200) it was 47.2 years. What is driving this increment? Could it be as a result of a healthier lifestyle?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Life Expectancy in ${placeName}"
+                stat_var_key: "lifeExpectancy"
+            }
+        }
+        columns {
+            tiles {
+                type: LINE
+                title: "Mortality Rates for Common Conditions in ${placeName}"
+                stat_var_key: "mortalityRates"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "lifeExpectancy"
+        value {
+            stat_var: "LifeExpectancy_Person"
+            name: "Life Expectancy"
+        }
+    }
+
+    stat_var_spec {
+        key: "mortalityRates"
+        value {
+            stat_var: "sdg/SH_DTH_NCOM_30-70"
+            name: "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease: 30 to 70 years old"
+        }
+    }
+}
+
+categories {
+    title: "COVID Impact"
+    description: "Covid deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases in 2023. For countries with high populations such as Nigeria, confirmed cases remained high including deaths. For example the United States has 103 million confirmed cases and  1,135,343 deaths. Could the numbers be attributed to the growing population which is known to increase the risk of pandemics?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Deaths in ${placeName} due to COVID-19"
+                stat_var_key: "covidDeaths"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "covidDeaths"
+        value {
+            stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            name: "Cumulative Count of COVID-19 Deaths"
+        }
+    }
+}
+
+categories {
+    title: "Fertility and Education"
+    description: "At independence (1960) fertility rate in NIgeria was 6.36, into the millennium there was a decrease, settling at 6.12 in 2000 and continued to witness a decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an increasing population growth (Globally the average fertility rate is 2.3.) Could the decline be as a result of education?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Fertility Rate in ${placeName}"
+                stat_var_key: "fertilityRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Lower Secondary Education in ${placeName}"
+                stat_var_key: "completionRate"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "fertilityRate"
+        value {
+            stat_var: "FertilityRate_Person_Female"
+            name: "Fertility Rate"
+        }
+    }
+
+    stat_var_spec {
+        key: "completionRate"
+        value {
+            stat_var: "sdg/SE_TOT_CPLR_LOWSEC"
+            name: "Completion rate: Lower secondary"
+        }
+    }
+}
+
+categories {
+    title: "Population Growth"
+    description: "National population growth rate peaked in 1980 at 3.06, but after a period of  fast population growth during this time, rates have continued to  decline  up until 1985 when there was a steep rise (2.73) and has fallen further to 2.41 in 2021."
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth in ${placeName}"
+                stat_var_key: "population"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth Rate in ${placeName}"
+                stat_var_key: "populationGrowthRate"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "population"
+        value {
+            stat_var: "Count_Person"
+            name: "Total Population"
+        }
+    }
+
+    stat_var_spec {
+        key: "populationGrowthRate"
+        value {
+            stat_var: "GrowthRate_Count_Person"
+            name: "Rate of Population Growth"
+        }
+    }
+}
+
+categories {
+    title: "GDP and Consumption"
+    description: "At a Gross Domestic Product (GDP) growth rate of 3.65 in 2021 and a population growth of 2.41 the same year, More recent data indicates that population is now rising faster than GDP. The country is in an uncomfortable pattern of a population that may soon rise faster than its economy since population growth leads to increase in human activity, consumption and scramble for resources.  How does this affect consumption?"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "GDP Growth Rate in ${placeName}"
+                stat_var_key: "gdpGrowthRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Domestic Material Consumption in ${placeName}"
+                stat_var_key: "domesticMaterialConsumption"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "gdpGrowthRate"
+        value {
+            stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+            name: "Growth Rate of GDP"
+        }
+    }
+
+    stat_var_spec {
+        key: "domesticMaterialConsumption"
+        value {
+            stat_var: "sdg/EN_MAT_DOMCMPT"
+            name: "Domestic material consumption"
+        }
+    }
+}
+
+
+#categories {
+#    title: "Category_Title_Goes_Here"
+#    description: "Category_Description_Goes_Here"
+#    
+#    blocks {
+#        columns {
+#            tiles {
+#                type: LINE
+#                title: "TILE_TITLE_GOES_HERE"
+#                stat_var_key: "STAT_VAR_KEY_GOES_HERE"
+#            }
+#        }
+#    }
+#
+#    stat_var_spec {
+#        key: "STAT_VAR_KEY_GOES_HERE"
+#        value {
+#            stat_var: "STAT_VAR_GOES_HERE"
+#            name: "STAT_VAR_NAME_GOES_HERE"
+#        }
+#    }
+#}
