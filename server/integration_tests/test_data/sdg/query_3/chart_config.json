@@ -954,8 +954,8 @@
             "nlQuery": "Count of Establishment: Health Care And Social Assistance (NAICS/62) Earth"
           },
           {
-            "displayName": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism)",
-            "nlQuery": "Count of Mortality Event: D50-D89 (Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism) Earth"
+            "displayName": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "nlQuery": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism Earth"
           }
         ]
       }
