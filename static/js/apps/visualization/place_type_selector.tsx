@@ -19,27 +19,34 @@
  */
 
 import _ from "lodash";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
 import { AppContext } from "./app_context";
 
 interface PlaceTypeSelectorPropType {
-  onContinueClicked?: () => void;
   onNewSelection?: () => void;
+  selectOnContinue?: boolean;
 }
 export function PlaceTypeSelector(
   props: PlaceTypeSelectorPropType
 ): JSX.Element {
   const { enclosedPlaceType, setEnclosedPlaceType, childPlaceTypes, places } =
     useContext(AppContext);
+  const [selectedPlaceType, setSelectedPlaceType] = useState(enclosedPlaceType);
+
+  useEffect(() => {
+    if (selectedPlaceType !== enclosedPlaceType) {
+      setSelectedPlaceType(enclosedPlaceType);
+    }
+  }, [enclosedPlaceType]);
 
   return (
     <div className="place-type-selector">
       <div className="selector-body place-type">
         {!_.isNull(childPlaceTypes) && _.isEmpty(childPlaceTypes) && (
-          <span>
+          <span className="info-message">
             Sorry, we don&apos;t support {places[0].name}. Please select a
             different place.
           </span>
@@ -52,10 +59,12 @@ export function PlaceTypeSelector(
                   <Input
                     type="radio"
                     name="childPlaceType"
-                    checked={type === enclosedPlaceType}
+                    checked={type === selectedPlaceType}
                     onChange={() => {
-                      setEnclosedPlaceType(type);
-                      if (props.onNewSelection) {
+                      if (props.selectOnContinue) {
+                        setSelectedPlaceType(type);
+                      } else {
+                        setEnclosedPlaceType(type);
                         props.onNewSelection();
                       }
                     }}
@@ -67,12 +76,13 @@ export function PlaceTypeSelector(
           })}
         <Spinner isOpen={_.isNull(childPlaceTypes)} />
       </div>
-      {props.onContinueClicked && !_.isEmpty(enclosedPlaceType) && (
+      {props.selectOnContinue && !_.isEmpty(selectedPlaceType) && (
         <div className="selector-footer">
           <div
             className="primary-button continue-button"
             onClick={() => {
-              props.onContinueClicked();
+              setEnclosedPlaceType(selectedPlaceType);
+              props.onNewSelection();
             }}
           >
             Continue

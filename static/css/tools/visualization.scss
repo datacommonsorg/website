@@ -22,6 +22,32 @@
 
 $selector-footer-height: 40px;
 
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
+
+#main-header, #main-footer {
+  flex: 0 0;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  position: relative;
+}
+
+#main-pane {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .visualization-app {
   width: 100%;
   display: flex;
@@ -171,7 +197,7 @@ $selector-footer-height: 40px;
   background: white;
   border: solid 1px #747775;
   border-radius: 8px;
-  z-index: 2;
+  z-index: 101;
   top: 0;
 
   .header-controls {
@@ -206,11 +232,8 @@ $selector-footer-height: 40px;
   cursor: default;
 }
 
-.selector-container.collapsed {
-  height: fit-content;
-}
-
 .selector-container.disabled {
+  height: fit-content;
   opacity: 30%;
 }
 
@@ -237,17 +260,8 @@ $selector-footer-height: 40px;
     font-size: 16px;
   }
 
-  .header-subtitle {
-    font-size: 14px;
-  }
-
   span {
     height: fit-content;
-  }
-
-  .material-icons-outlined {
-    border-radius: 1rem;
-    padding: 5px;
   }
 }
 
@@ -256,6 +270,7 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  margin-top: 16px;
 }
 
 .selector-footer {
@@ -336,6 +351,14 @@ $selector-footer-height: 40px;
 
   .selector-body {
     margin-left: 16px;
+  }
+
+  .info-message {
+    max-width: 225px;  
+    
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+    }
   }
 
   label {
@@ -452,7 +475,7 @@ $selector-footer-height: 40px;
 /* Info pane */
 
 .info-pane {
-  margin-top: 2rem;
+  margin: 2rem auto;
 
   .info-content {
     gap: 1rem;

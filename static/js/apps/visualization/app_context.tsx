@@ -19,12 +19,15 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
+import _, { sample } from "lodash";
 import React, { createContext, useEffect, useRef, useState } from "react";
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
-import { getEnclosedPlaceTypes } from "../../utils/app/visualization_utils";
+import {
+  getEnclosedPlaceTypes,
+  getFilteredStatVarPromise,
+} from "../../utils/app/visualization_utils";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
@@ -170,7 +173,9 @@ export function AppContextProvider(
       return;
     }
     let newEnclosedPlaceType = "";
-    if (!_.isEmpty(childPlaceTypes)) {
+    // skip auto-magically selecting enclosed place type if there wasn't already
+    // an enclosed place type selected
+    if (!_.isEmpty(childPlaceTypes) && !!enclosedPlaceType) {
       newEnclosedPlaceType =
         childPlaceTypes.findIndex((type) => type === enclosedPlaceType) >= 0
           ? enclosedPlaceType
@@ -214,37 +219,15 @@ export function AppContextProvider(
     if (statVars !== prevStatVars.current) {
       prevStatVars.current = statVars;
     }
-    if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
-      return;
-    }
-    axios
-      .post("/api/observation/existence", {
-        entities: samplePlaces.map((place) => place.dcid),
-        variables: statVars.map((sv) => sv.dcid),
-      })
-      .then((resp) => {
-        const availableSVs = new Set();
-        for (const sv of statVars) {
-          let numAvailable = 0;
-          for (const entity in resp.data[sv.dcid]) {
-            if (resp.data[sv.dcid][entity]) {
-              numAvailable += 1;
-            }
-            if (numAvailable >= (visTypeConfig.svHierarchyNumExistence || 1)) {
-              availableSVs.add(sv.dcid);
-              break;
-            }
-          }
-        }
-        const filteredStatVars = statVars.filter((sv) =>
-          availableSVs.has(sv.dcid)
-        );
+    getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig).then(
+      (filteredStatVars) => {
         if (!_.isEqual(filteredStatVars, statVars)) {
           shouldUpdateHash.current.push(false);
           setStatVars(filteredStatVars);
         }
-      });
-  }, [samplePlaces, statVars, isContextLoading]);
+      }
+    );
+  }, [samplePlaces, statVars]);
 
   // when the vis type changes, update the list of places and list of stat vars
   // according to the config for that vis type.
@@ -260,7 +243,7 @@ export function AppContextProvider(
       shouldUpdateHash.current.push(false);
       setStatVars(statVars.slice(0, visTypeConfig.numSv));
     }
-  }, [visTypeConfig, isContextLoading]);
+  }, [visTypeConfig]);
 
   // when values in the context changes, update the url hash.
   useEffect(() => {
@@ -311,17 +294,19 @@ export function AppContextProvider(
   // Updates context values based off URL params
   function updateContextValue(): void {
     setIsContextLoading(true);
-    const visType =
-      getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf();
-    const enclosedPlaceType =
-      getParamValue(URL_PARAMS.ENCLOSED_PLACE_TYPE) || "";
     const placeDcidsValue = getParamValue(URL_PARAMS.PLACE);
     const svDcidsValue = getParamValue(URL_PARAMS.STAT_VAR);
+    const enclosedPlaceTypeValue = getParamValue(
+      URL_PARAMS.ENCLOSED_PLACE_TYPE || ""
+    );
     let placesPromise = Promise.resolve([]);
     let statVarsPromise = Promise.resolve([]);
     let childTypesPromise = Promise.resolve(null);
     let samplePlacesPromise = Promise.resolve([]);
+    let enclosedPlaceTypePromise = Promise.resolve(enclosedPlaceTypeValue);
     if (!_.isEmpty(placeDcidsValue)) {
+      // place promise gets the NamedTypedPlace for each place dcid from
+      // the URL
       const placeDcids = placeDcidsValue.split(PARAM_VALUE_SEP);
       placesPromise = Promise.all(
         placeDcids.map((place) => getNamedTypedPlace(place))
@@ -329,25 +314,42 @@ export function AppContextProvider(
         return places;
       });
       if (!visTypeConfig.skipEnclosedPlaceType) {
+        // childTypesPromise gets getChildTypes after place promise completes
         const getChildTypesFn =
           visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
         childTypesPromise = placesPromise.then((places) => {
           return getChildTypesPromise(places[0], getChildTypesFn);
         });
+        // enclosedPlaceTypePromise gets the enclosed place type once
+        // childTypesPromise completes
+        enclosedPlaceTypePromise = childTypesPromise.then((childTypes) => {
+          let enclosedPlaceType = "";
+          if (!_.isEmpty(childTypes)) {
+            enclosedPlaceType =
+              childTypes.findIndex((type) => type === enclosedPlaceTypeValue) >=
+              0
+                ? enclosedPlaceTypeValue
+                : childTypes[0];
+          }
+          return enclosedPlaceType;
+        });
       }
-      if (!visTypeConfig.skipEnclosedPlaceType && !!enclosedPlaceType) {
-        samplePlacesPromise = getSamplePlacesPromise(
-          placeDcids[0],
-          enclosedPlaceType
-        );
-      }
+      // if this vis type skips enclosed place type, samplePlacesPromise is the
+      // same as the placesPromise. otherwise, get sample places after
+      // enclosedPlaceTypePromise completes
+      samplePlacesPromise = visTypeConfig.skipEnclosedPlaceType
+        ? placesPromise
+        : enclosedPlaceTypePromise.then((enclosedPlaceType) => {
+            return getSamplePlacesPromise(placeDcids[0], enclosedPlaceType);
+          });
     }
     if (!_.isEmpty(svDcidsValue)) {
       const svValues = svDcidsValue
         .split(PARAM_VALUE_SEP)
         .map((sv) => JSON.parse(sv));
       const svDcids = svValues.map((sv) => sv.dcid);
-      statVarsPromise = getStatVarInfo(svDcids).then((resp) => {
+      // allStatVarsPromise gets the stat var info for every dcid in the URL
+      const allStatVarsPromise = getStatVarInfo(svDcids).then((resp) => {
         const statVars = svValues.map((sv) => {
           if (sv.dcid in resp) {
             return {
@@ -361,22 +363,39 @@ export function AppContextProvider(
         });
         return statVars;
       });
+      // statVarsPromise gets the filtered stat vars once both
+      // allStatVarsPromise and samplePlacesPromise completes
+      statVarsPromise = Promise.all([
+        allStatVarsPromise,
+        samplePlacesPromise,
+      ]).then(([statVars, samplePlaces]) => {
+        return getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig);
+      });
     }
+    // once every promise completes, set the values to the context
     Promise.all([
       placesPromise,
       statVarsPromise,
       childTypesPromise,
       samplePlacesPromise,
+      enclosedPlaceTypePromise,
     ])
-      .then(([places, statVars, childTypes, samplePlaces]) => {
-        setVisType(visType);
-        setEnclosedPlaceType(enclosedPlaceType);
-        setPlaces(places);
-        setStatVars(statVars);
-        setChildPlaceTypes(childTypes);
-        setSamplePlaces(samplePlaces);
-        setIsContextLoading(false);
-      })
+      .then(
+        ([places, statVars, childTypes, samplePlaces, enclosedPlaceType]) => {
+          const slicedPlaces = visTypeConfig.singlePlace
+            ? places.slice(0, 1)
+            : places;
+          const slicedSv = visTypeConfig.numSv
+            ? statVars.slice(0, visTypeConfig.numSv)
+            : statVars;
+          setEnclosedPlaceType(enclosedPlaceType);
+          setPlaces(slicedPlaces);
+          setStatVars(slicedSv);
+          setChildPlaceTypes(childTypes);
+          setSamplePlaces(samplePlaces);
+          setIsContextLoading(false);
+        }
+      )
       .catch(() => {
         setIsContextLoading(false);
       });
@@ -399,10 +418,14 @@ function getChildTypesPromise(
     });
 }
 
+// Gets a promise that returns sample places for a place and enclosed place type
 function getSamplePlacesPromise(
   placeDcid: string,
   enclosedPlaceType: string
 ): Promise<NamedNode[]> {
+  if (!placeDcid || !enclosedPlaceType) {
+    return Promise.resolve([]);
+  }
   return getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
     .then((enclosedPlaces) => {
       const samplePlaces = getSamplePlaces(
