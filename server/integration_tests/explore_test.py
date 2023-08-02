@@ -114,7 +114,8 @@ class IntegrationTest(NLWebServerTestCase):
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
         'Commute in tracts of California', 'Compare with Nevada',
-        'Correlate with asthma'
+        'Correlate with asthma', 'countries with greenhouse gas emissions',
+        'median income in Santa Clara county and Alameda county'
     ])
 
   def test_detection_statvars(self):
