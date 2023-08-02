@@ -96,44 +96,44 @@ function Emoji(props: EmojiPropType): JSX.Element {
   };
 
   return (
-    <div>
-      <span
-        className={`feedback-emoji ${props.saved ? "feedback-emoji-dim" : ""}`}
-        id={`${props.id}-${props.option.sentiment}`}
-        onClick={() => handleElementClick()}
-      >
-        {props.option.content}
-      </span>
-      {!props.saved && (
-        <UncontrolledTooltip
-          boundariesElement="window"
-          delay={200}
-          placement="top"
-          target={`${props.id}-${props.option.sentiment}`}
+    <>
+      <div>
+        <span
+          className={`feedback-emoji ${
+            props.saved ? "feedback-emoji-dim" : ""
+          }`}
+          id={`${props.id}-${props.option.sentiment}`}
+          onClick={() => handleElementClick()}
         >
-          {props.option.tooltip}
-        </UncontrolledTooltip>
-      )}
-
+          {props.option.content}
+        </span>
+        {!props.saved && (
+          <UncontrolledTooltip
+            boundariesElement="window"
+            delay={200}
+            placement="top"
+            target={`${props.id}-${props.option.sentiment}`}
+          >
+            {props.option.tooltip}
+          </UncontrolledTooltip>
+        )}
+      </div>
       {isPopUpVisible && (
-        <div className="backdrop" onClick={handlePopUpClose}></div>
+        <>
+          <div className="popup-box">
+            <textarea
+              value={textInput}
+              onChange={handleInputChange}
+              placeholder="Enter your feedback here"
+              rows={5}
+              cols={30}
+            />
+            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handlePopUpClose}>Close</button>
+          </div>
+        </>
       )}
-
-      {/* Pop-up text box */}
-      {isPopUpVisible && (
-        <div className="popup-box">
-          <textarea
-            value={textInput}
-            onChange={handleInputChange}
-            placeholder="Enter your feedback here"
-            rows={5}
-            cols={30}
-          />
-          <button onClick={handleSubmit}>Submit</button>
-          <button onClick={handlePopUpClose}>Close</button>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
