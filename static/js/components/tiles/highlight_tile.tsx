@@ -70,6 +70,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
             false,
             NUM_FRACTION_DIGITS
           )}
+          {` (${highlightData.date})`}
         </span>
       )}
       <span className="desc">{description}</span>
