@@ -165,7 +165,7 @@
           },
           {
             "title": "GDP vs Remittances across countries in Africa",
-            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa"
+            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa&t=dc/topic/GDP&tcmp=dc/topic/Remittance&p=africa&pt=Country"
           },
           {
             "title": "Highest Gini Index in the World",
@@ -296,10 +296,6 @@
           {
             "title": "Causes of Death in Louisiana ",
             "url": "p=geoId/22&t=dc/topic/CausesOfDeath&oq=Causes+of+Death+in+Louisiana+"
-          },
-          {
-            "title": "Mortality by Race in Orange County, CA",
-            "url": "p=geoId/06059&t=dc/topic/MortalityByRace&oq=Mortality+by+Race+in+Orange+County,+CA"
           }
         ],
         "comparison": [
@@ -396,8 +392,8 @@
             "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
           },
           {
-            "title": "Education Attainment by Level and Gender in New York City",
-            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Level+and+Gender+in+New+York+City"
+            "title": "Education Attainment by Gender in New York City",
+            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Gender+in+New+York+City"
           },
           {
             "title": "Level of Education Attainment in King County",
@@ -490,16 +486,16 @@
             "url": "p=geoId/06&t=dc/topic/Language&oq=Languages+spoken+in+California"
           },
           {
-            "title": "Citizenship and immigration in Florida",
-            "url": "p=geoId/12&t=dc/topic/Nationality&oq=Citizenship+and+immigration+in+Florida"
+            "title": "Citizenship in Florida",
+            "url": "p=geoId/12&t=dc/topic/CitizenshipStatus&oq=Citizenship+in+Florida"
           },
           {
             "title": "Racial Diversity in California",
             "url": "p=geoId/06&t=dc/topic/Race&oq=Racial+diversity+in+California"
           },
           {
-            "title": "Marriage and divorce in New York",
-            "url": "p=geoId/36&t=dc/topic/MaritalStatus&oq=Marriage+and+divorce+in+New+York"
+            "title": "Statistics on Married people in New York State",
+            "url": "p=geoId/36&t=dc/topic/MarriedPopulationByDemographic&oq=Statistics+on+Married+people+in+New+York+State"
           }
         ],
         "specific": [
@@ -646,16 +642,16 @@
             "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
           },
           {
-            "title": "Solar energy consumption across across states in the US",
-            "url": "oq=Solar+energy+consumption+across+states+in+the+US"
+            "title": "Solar energy consumption in the US",
+            "url": "oq=Solar+energy+consumption+in+the+US"
           },
           {
             "title": "Drought events around the world",
             "url": "oq=Drought+events+around+the+world&p=Earth&pt=Country&t=dc/topic/Drought"
           },
           {
-            "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
+            "title": "Counties in the US with the most smoke pollution",
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+pollution&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
