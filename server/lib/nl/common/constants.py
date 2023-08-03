@@ -334,6 +334,8 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "Physical Health Issues",
     "Percent_Person_WithStroke":
         "Stroke",
+    "Percent_Person_18OrMoreYears_WithDepression":
+        "Depression",
     "Median_Income_Person":
         "Individual Median Income",
     "Median_Income_Household":
