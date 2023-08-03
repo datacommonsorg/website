@@ -146,6 +146,12 @@ def _add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
                           attr: Dict, builder: Builder, sv_spec: Dict):
   # Add timeline and/or bar charts.
   if (len(svs) <= _MAX_VARS_PER_TIMELINE_CHART and not has_single_point):
+    if len(svs) == 1:
+      # If there is only 1 SV, add highlight.
+      sv_spec.update(
+          highlight.higlight_block(builder.new_column(chart_vars),
+                                   state.uttr.places[0], svs[0],
+                                   builder.sv2thing))
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
             builder.new_column(chart_vars), state.uttr.places[0], svs,
