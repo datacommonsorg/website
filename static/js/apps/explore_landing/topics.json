@@ -165,7 +165,7 @@
           },
           {
             "title": "GDP vs Remittances across countries in Africa",
-            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa"
+            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa&t=dc/topic/GDP&tcmp=dc/topic/Remittance&p=africa&pt=Country"
           },
           {
             "title": "Highest Gini Index in the World",
@@ -188,8 +188,8 @@
             "url": "oq=worst+states+for+poverty+in+the+US"
           },
           {
-            "title": "Obesity vs Unemployment in the US",
-            "url": "oq=Obesity+vs+Unemployment+in+the+US"
+            "title": "Obesity vs Unemployment in the US counties",
+            "url": "oq=Obesity+vs+Unemployment+in+the+US+counties"
           },
           {
             "title": "Debt vs GDP for countries in Europe",
@@ -224,7 +224,7 @@
       "examples": {
         "general": [
           {
-            "title": "Health issues in Arizona",
+            "title": "Top health issues in Arizona",
             "url": "p=geoId/04&t=dc/topic/HealthConditions&oq=Health+issues+in+Arizona"
           },
           {
@@ -296,16 +296,12 @@
           {
             "title": "Causes of Death in Louisiana ",
             "url": "p=geoId/22&t=dc/topic/CausesOfDeath&oq=Causes+of+Death+in+Louisiana+"
-          },
-          {
-            "title": "Mortality by Race in Orange County, CA",
-            "url": "p=geoId/06059&t=dc/topic/MortalityByRace&oq=Mortality+by+Race+in+Orange+County,+CA"
           }
         ],
         "comparison": [
           {
-            "title": "Obesity vs Unemployment in the US",
-            "url": "oq=Obesity+vs+Unemployment+in+the+US&oq=Obesity+vs+Unemployment+in+the+US"
+            "title": "Obesity vs Unemployment in the US counties",
+            "url": "oq=Obesity+vs+Unemployment+in+the+US+counties"
           },
           {
             "title": "High blood pressure vs Asthma in Alabama",
@@ -320,8 +316,8 @@
             "url": "oq=health+conditions+vs+median+age+in+alameda+county"
           },
           {
-            "title": "Obesity vs lack of sleep in the US",
-            "url": "oq=obesity+vs+lack+of+sleep+in+the+US"
+            "title": "Obesity vs lack of sleep in US counties",
+            "url": "oq=obesity+vs+lack+of+sleep+in+the+US+counties"
           },
           {
             "title": "Best immunization rates in the world",
@@ -332,8 +328,8 @@
             "url": "oq=Highest+rates+of+infant+mortality+in+the+world"
           },
           {
-            "title": "Life expectancy across counties in the US",
-            "url": "oq=Life+expectancy+across+counties+in+the+US"
+            "title": "Life expectancy across US states",
+            "url": "oq=Life+expectancy+across+US+states"
           },
           {
             "title": "Maternal mortality across countries in the world",
@@ -382,8 +378,12 @@
             "url": "p=geoId/06&t=dc/topic/Schools&oq=School+Enrollment+in+California"
           },
           {
-            "title": "School Types in New York State",
-            "url": "p=geoId/36&t=dc/topic/SchoolType&oq=School+Types+in+New+York+State"
+            "title": "Housing in Oakland",
+            "url": "p=geoId/0653000&t=dc/topic/Housing&oq=Housing+in+Oakland"
+          },
+          {
+            "title": "Commute in New York State",
+            "url": "p=geoId/36&t=dc/topic/WorkCommute&oq=Commute+times+in+New+York+State"
           }
         ],
         "specific": [
@@ -396,40 +396,48 @@
             "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
           },
           {
-            "title": "Education Attainment by Level and Gender in New York City",
-            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Level+and+Gender+in+New+York+City"
+            "title": "Student demographics among schools in Sunnyvale",
+            "url": "oq=Student+demographics+among+schools+in+Sunnyvale"
           },
           {
-            "title": "Level of Education Attainment in King County",
-            "url": "p=geoId/53033&t=dc/topic/LevelOfEducationalAttainment&oq=Level+of+Education+Attainment+in+King+County"
+            "title": "Education Attainment by Gender in New York City",
+            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Gender+in+New+York+City"
           },
           {
-            "title": "Student enrollment levels in San Francisco",
-            "url": "p=geoId/0667000&t=dc/topic/StudentEnrollmentLevels&oq=Student+enrollment+levels+in+San+Francisco"
+            "title": "Bachelor's degree holders in California counties",
+            "url": "p=geoId/06&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&oq=Bachelors+degree+holders+in+California+counties"
           },
           {
-            "title": "Students in College in Berkeley vs Cambridge, MA",
-            "url": "oq=students+enrolled+in+college+in+Berkeley+vs+Cambridge,+MA"
+            "title": "US counties with the most number of PhDs",
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=US+counties+with+the+most+number+of+PhDs"
           },
           {
-            "title": "Students in High School in Miami",
-            "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool&oq=Students+in+High+School+in+Miami"
+            "title": "Home value in Detroit",
+            "url": "p=geoId/2622000&t=dc/topic/HousesByHomeValue&oq=Home+value+in+Detroit"
           },
           {
-            "title": "Students in Graduate School in California vs Massachusetts",
-            "url": "oq=Students+in+Graduate+School+in+California+vs+Massachusetts"
+            "title": "Mortgage costs in Providence",
+            "url": "oq=Mortgage+costs+in+Providence"
           },
           {
-            "title": "Students in School Type By Race in Florida",
-            "url": "p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace&oq=Students+in+School+Type+By+Race+in+Florida"
+            "title": "Rental prices in Oakland vs Berkeley",
+            "url": "p=geoId/0606000&pcmp=geoId/0653000&t=dc/topic/RentalHouses&oq=Rental+prices+in+Oakland+vs+Berkeley"
           },
           {
-            "title": "Students in School Type By Race in Alameda County vs Santa Clara County",
-            "url": "oq=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
+            "title": "When were the houses in NYC built?",
+            "url": "oq=When+were+the+houses+in+NYC+built?"
           },
           {
-            "title": "Bachelor's degree in US counties",
-            "url": "p=country/USA&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&oq=Bachelors+degree+in+US+counties"
+            "title": "Educational attainment of homeowners in Boston",
+            "url": "p=geoId/2507000&t=dc/topic/HousesByHouseholderEducationalAttainment&oq=Educational+attainment+of+homeowners+in+Boston"
+          },
+          {
+            "title": "Compare modes of commute between NYC and Chicago",
+            "url": "p=geoId/1714000&pcmp=geoId/3651000&t=dc/topic/CommuteMode&oq=Compare+modes+of+commute+between+NYC+and+Chicago"
+          },
+          {
+            "title": "Counties in California with the highest work-from-home population",
+            "url": "oq=Counties+in+California+with+the+highest+work-from-home+population"
           }
         ],
         "comparison": [
@@ -438,24 +446,20 @@
             "url": "oq=educational+attainment+vs+poverty+in+Florida"
           },
           {
-            "title": "Bachelor Majors vs Median Income in the US",
-            "url": "oq=bachelor+majors+vs+median+income+in+the+US"
+            "title": "Median rent vs. Median Income in US counties",
+            "url": "oq=Median+rent+vs.+Median+Income+in+US+counties"
           },
           {
-            "title": "Popular bachelors majors in the US",
-            "url": "oq=popular+bachelor+majors+in+the+US"
+            "title": "Median rent vs. Masters degree holders in California counties",
+            "url": "oq=Median+rent+vs.+Masters+degree+holders+in+California+counties"
           },
           {
-            "title": "Level of Education Attainment vs Median Income in California",
-            "url": "oq=Level+of+Education+Attainment+vs+Median+Income+in+California"
+            "title": "Median home value vs. hypertension in US counties",
+            "url": "oq=Median+home+value+vs.+hypertension+in+US+counties"
           },
           {
-            "title": "Most students in college in the US",
-            "url": "oq=most+students+in+college+in+the+US"
-          },
-          {
-            "title": "Most number of PhDs in US counties",
-            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=Most+number+of+PhDs+in+US+counties"
+            "title": "Median home value vs. Work from home population in US counties",
+            "url": "oq=Median+home+value+vs.+Work+from+home+populationin+US+counties"
           }
         ]
       },
@@ -482,24 +486,24 @@
       "examples": {
         "general": [
           {
-            "title": "Age distribution in the US",
-            "url": "p=country/USA&t=dc/topic/Age&oq=Age+distribution+in+the+US"
+            "title": "Gender distribution in the US",
+            "url": "p=country/USA&t=dc/topic/Gender&oq=Gender+distribution+in+the+US"
           },
           {
             "title": "Languages spoken in California",
             "url": "p=geoId/06&t=dc/topic/Language&oq=Languages+spoken+in+California"
           },
           {
-            "title": "Citizenship and immigration in Florida",
-            "url": "p=geoId/12&t=dc/topic/Nationality&oq=Citizenship+and+immigration+in+Florida"
+            "title": "Citizenship in Florida",
+            "url": "p=geoId/12&t=dc/topic/CitizenshipStatus&oq=Citizenship+in+Florida"
           },
           {
             "title": "Racial Diversity in California",
             "url": "p=geoId/06&t=dc/topic/Race&oq=Racial+diversity+in+California"
           },
           {
-            "title": "Marriage and divorce in New York",
-            "url": "p=geoId/36&t=dc/topic/MaritalStatus&oq=Marriage+and+divorce+in+New+York"
+            "title": "Statistics on Married people in New York State",
+            "url": "p=geoId/36&t=dc/topic/MarriedPopulationByDemographic&oq=Statistics+on+Married+people+in+New+York+State"
           }
         ],
         "specific": [
@@ -520,42 +524,20 @@
             "url": "oq=citizenship+for+people+in+California+vs+Georgia"
           },
           {
-            "title": "Those who have never married in New York City",
-            "url": "p=geoId/3651000&t=dc/topic/NeverMarriedPopulationByDemographic&oq=Those+who+have+never+married+in+New+York+City"
+            "title": "People of Caribbean origin in Florida",
+            "url": "oq=People+of+Caribbean+origin+in+Florida"
           },
           {
             "title": "Demographics of divorced people in California",
             "url": "p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic&oq=Divorced+people+demographics+in+California"
           },
           {
-            "title": "Immigration in Texas",
-            "url": "p=geoId/48&t=dc/topic/Immigration&oq=Immigration+in+Texas"
+            "title": "Foreign born population in Texas",
+            "url": "oq=Foreign+born+population+in+Texas"
           },
           {
             "title": "Immigration in Texas vs California",
             "url": "oq=Immigration+in+Texas+vs+California"
-          }
-        ],
-        "comparison": [
-          {
-            "title": "Immigration vs median age in the US",
-            "url": "oq=immigration+vs+median+age+in+the+US"
-          },
-          {
-            "title": "Median age vs income in Florida",
-            "url": "oq=Median+age+vs+income+in+Florida"
-          },
-          {
-            "title": "Median age vs marital status in New York State",
-            "url": "oq=median+age+vs+marital+status+in+New+York+state"
-          },
-          {
-            "title": "Countries in the world with the highest life expectancy",
-            "url": "oq=countries+in+the+world+with+the+highest+life+expectancy"
-          },
-          {
-            "title": "Counties in the US with the most widows",
-            "url": "oq=counties+in+the+US+with+the+most+widows"
           },
           {
             "title": "Counties with the most Spanish speakers in California",
@@ -572,6 +554,24 @@
           {
             "title": "Which counties in the US have most immigrants",
             "url": "oq=Which+counties+in+the+US+have+most+immigrants"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "US citizenship vs. income across counties",
+            "url": "oq=US+citizenship+vs+income+across+counties"
+          },
+          {
+            "title": "Racial breakdown of population vs. obesity prevalence in Alabama counties",
+            "url": "oq=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties"
+          },
+          {
+            "title": "Foreign born population vs. PhD holders in California counties",
+            "url": "oq=Foreign+born+population+vs.+PhD+holders+in+California+counties"
+          },
+          {
+            "title": "Hispanic population vs. Green Jobs in Texas counties",
+            "url": "oq=Hispanic+population+vs.+Green+Jobs+in+Texas+counties"
           }
         ]
       },
@@ -628,8 +628,8 @@
             "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
           },
           {
-            "title": "Energy use in the US",
-            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
+            "title": "Electricity usage in the US",
+            "url": "oq=Electricity+usage+in+the+US&p=country/USA&t=dc/topic/Electricity_Consumption"
           },
           {
             "title": "Green jobs in the US",
@@ -646,16 +646,16 @@
             "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
           },
           {
-            "title": "Solar energy consumption across across states in the US",
-            "url": "oq=Solar+energy+consumption+across+states+in+the+US"
+            "title": "Solar energy consumption in the US",
+            "url": "oq=Solar+energy+consumption+in+the+US"
           },
           {
             "title": "Drought events around the world",
             "url": "oq=Drought+events+around+the+world&p=Earth&pt=Country&t=dc/topic/Drought"
           },
           {
-            "title": "Counties in the US with the most smoke days",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+days&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
+            "title": "Counties in the US with the most smoke pollution",
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+pollution&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
           },
           {
             "title": "Top sources of CO2 emissions in the US",
@@ -668,8 +668,8 @@
         ],
         "comparison": [
           {
-            "title": "How does PM 2.5 correlate with asthma across US counties",
-            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
+            "title": "How does PM2.5 correlate with asthma across US counties",
+            "url": "oq=How+does+PM2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
           },
           {
             "title": "How do solar installations correlate with median income across US counties",

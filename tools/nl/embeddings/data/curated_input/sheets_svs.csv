@@ -1096,8 +1096,6 @@ dc/topic/WorkCommute,Work Commute,journey to work; travel to work; commute mode,
 MapFacts/Count_park,Number of Parks,count of parks; recreational parks,,Number of parks;
 MapFacts/Count_hiking_area,Number of hiking areas,hiking trails; trekking area,,Number of hiking areas;
 Annual_Emissions_GreenhouseGas,Greenhouse Gas Emissions,emissions from greenhouse gases; ghg emissions,,Greenhouse Gas Emissions;
-dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source,sources of greenhouse gases,,Greenhouse gas emissions by source;
-dc/topic/CarbonDioxideEmissionsBySource,Breakdown of co2 emissions by source,sources of carbon dioxide emissions; source of co2 emissions,,Carbon dioxide emissions by source;
 dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,Emissions from agriculture,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;;
 dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,Emissions from fossil fuel operations,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;;
 dc/topic/TransportationEmissionsByGas,Emissions from transportation,Emissions from transportation,,Amount of gases emitted by the transportation sector;Total quantity of gases released by the transportation sector; The volume of emissions produced by transportation activities; Quantity of greenhouse gases emitted by vehicles and transportation systems; Total amount of gas emissions from the transportation industry; The sum of all gases released by transportation activities;;
@@ -1132,7 +1130,7 @@ dc/topic/AmbientAirPollution,Ambient Air Pollution,Ambient Air Pollution,,
 dc/topic/Avalanche,Avalanche,Avalanche,,
 dc/topic/BankingAccess,Banking Access,Banking Access,,
 dc/topic/Births,Births,Births,,
-dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,
+dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,sources of carbon dioxide emissions; source of co2 emissions; Carbon dioxide emissions by source; 
 dc/topic/COVID19,COVID 19,COVID 19,,
 dc/topic/Cancer,Cancer,Cancer,,
 dc/topic/CoastalFlood,Coastal Flood,Coastal Flood,,
@@ -1193,7 +1191,6 @@ dc/topic/Snowfall,Snowfall,Snowfall,,
 dc/topic/SocialSupport,Social Support,Social Support,,
 dc/topic/SolarConsumption,Solar Consumption,Solar Consumption,,
 dc/topic/Storm,Storm,Storm,,
-dc/topic/Subsidies,Subsidies,Subsidies,,
 dc/topic/Suicide,Suicide,Suicide,,
 dc/topic/Tariffs,Tariffs,Tariffs,,
 dc/topic/Tornado,Tornado,Tornado,,
@@ -1412,7 +1409,6 @@ dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,am
 dc/topic/HouseholdIncomeDistribution,Household Income Distribution,Household Income Distribution,,income distribution for households; 
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
 dc/topic/IndividualIncomeDistribution,Individual Income Distribution,Individual Income Distribution,,
-dc/topic/IndustriesByNumberOfWorkers,Industries By Number Of Workers,Industries By Number Of Workers,,Number of workers by industry; number of workers across industries;
 dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
 dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP,Inflation Adjusted GDP,,inflation adjusted gross domestic production;
 dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry,Number Of Businesses By Industry,,disribution of number of business across industries;
@@ -1427,15 +1423,15 @@ dc/topic/UnemploymentRate,Unemployment Rate,Unemployment Rate,,rate of unemploym
 dc/topic/UnpaidFamilyWorkers,Unpaid Family Workers,Unpaid Family Workers,,
 dc/topic/BachelorsMajor,Bachelors Major,Bachelors Major,,undergraduate major; college major;
 dc/topic/EducationFaculty,Education Faculty,Education Faculty,,
-dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,
-dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level;
-dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level;
+dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,education attainment level; highest level of education; highest qualification; highest education attained;
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level; level and gender of education; level and gender of qualification;
+dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level; level of qualification;
 dc/topic/Parents,Parents,Parents,,
 dc/topic/ParentsEducationalAttainment,Parents Educational Attainment,Parents Educational Attainment,,level of education attainment of parents;
 dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race,Population Enrolled In School Type By Race,,students enrolled in school type by race;
 dc/topic/SchoolType,School Type,School Type,,type of school; types of schools;
 dc/topic/Schools,Schools,Schools,,school
-dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students;
+dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students; number of students enrolled; students currently enrolled;
 dc/topic/StudentLunchEligibility,Student Lunch Eligibility,Student Lunch Eligibility,,lunch eligibility of students; students eligible for lunch;
 dc/topic/StudentPopulation,Student Population,Student Population,,Students
 dc/topic/StudentPopulationDemographics,Student Population Demographics,Student Population Demographics,,Student demographics;
@@ -1456,8 +1452,8 @@ dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade,Min Temperature Likely
 dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
 dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
 dc/topic/Ozone,Ozone,Ozone,,O3; Ozone pollutant; O3 pollutant;
-dc/topic/PM10,PM10,PM10,,pm10 pollutant;
-dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant;
+dc/topic/PM10,PM10,PM10,,pm10 pollutant; pm 10; pm 10 pollutant; 10 pm pollutant;
+dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant; pm 2.5; pm 2.5 pollutant; 2.5 pm pollutant;
 dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast; temperature prediction; predict temperature;
 dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year,Projected max temperature for the year,,yearly projected max temperature; maximum temperature projected year; temperature highs for the year;
 dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year,Projected min temperature for the year,,yearly projected min temperature; minimum temperature projected year; temperature lows for the year;
@@ -1466,10 +1462,8 @@ dc/topic/AgeMedians,Age Medians,Age Medians,,
 dc/topic/CitizenshipStatus,Citizenship Status,Citizenship Status,,
 dc/topic/Demographics,Demographics,Demographics,,
 dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic,Divorced Population By Demographic,,demographics of the divorced population;
-dc/topic/EnglishSpeakers,English speakers,English speakers,,English language speakers;
 dc/topic/Immigration,Immigration,Immigration,,
 dc/topic/Language,Language,Language,,
-dc/topic/LanguageSpokenAtHome,Language Spoken at Home,Language Spoken at Home,,
 dc/topic/MaritalStatusBreakdown,Martial Status Breakdown,Martial Status Breakdown,,breakdown of marital status;
 dc/topic/MarriedPopulationByDemographic,Married Population by Demographic,Married Population by Demographic,,demographics of the married population; demographics of married people;
 dc/topic/Nationality,Nationality,Nationality,,
@@ -1522,7 +1516,7 @@ dc/topic/CommuteTime,Commute Time,Commute Time,,time spend during commute; time 
 dc/topic/Emissions_PM2.5_EmissionsbySource,Emissions of PM2.5 By Source,Emissions of PM2.5 By Source,,particulate matter 2.5 emissions by source; source of PM2.5 emissions;
 dc/topic/Energy_Generation_FossilFuels,Energy Generation From Fossil Fuels,Energy Generation From Fossil Fuels,,energy produced from fossil fuels;
 dc/topic/Fire,Fires,Fires,,fire; fire event; wild fires;
-dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions;
+dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions; sources of greenhouse gas emissions; sources of GHG emissions;
 dc/topic/Gender,Gender,Gender,,
 dc/topic/CommuteModeByOccupation,Commute Mode By Occupation,Commute Mode By Occupation,,commute options by occupation;
 dc/topic/Race,Race,Race,,racial breakdown;
@@ -1552,3 +1546,7 @@ dc/topic/SDGBiodiversity,Biodiversity,Biodiversity,,SDG biodiversity; bio divers
 dc/topic/SDGReforestations,Reforestation,Reforestation,,SDG reforestation; reforesting;
 dc/topic/DieselPM,Diesel PM,Diesel PM,,Diesel pollutant; diesel particulate matter;
 dc/topic/Temperatures,Temperature,Temperature,,temperatures; max temp; min temp; maximum temperature; minimum temperature;
+dc/topic/EnglishLanguageAtHome,English Language Spoken At Home,English Language Spoken At Home,,english at home; english language at home; spoken language at home is English;
+dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,Language Spoken At Home By Immigrants,,immigrants language at home; language at home for foreign born;
+dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
+dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;

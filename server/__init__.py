@@ -341,6 +341,7 @@ def create_app():
 
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    app.config['LOCAL'] = True
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:

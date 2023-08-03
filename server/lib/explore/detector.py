@@ -21,11 +21,14 @@ import copy
 from enum import Enum
 from typing import Dict, List
 
+from server.lib.nl.common import constants
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInPlaceType
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
 _MAX_RETURNED_VARS = 10
@@ -58,25 +61,32 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
   if cl_type != None:
     query_type = route_comparison_or_correlation(cl_type, uttr)
 
-  # 3. Detect places (and comparison type) leveraging context.
-  places, cmp_places = _detect_places(
-      uttr, past_ctx, query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
+  # 3. Get place-type.
+  place_type = utils.get_contained_in_type(uttr)
+  if place_type:
+    if place_type == ContainedInPlaceType.SCHOOL:
+      # HACK: Promote school to public school since we don't have data
+      # for just School.
+      place_type = ContainedInPlaceType.PUBLIC_SCHOOL
 
-  # 4. Detect SVs leveraging context.
+  # 4. Detect places (and comparison type) leveraging context.
+  places, cmp_places = _detect_places(
+      uttr, place_type, past_ctx,
+      query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
+
+  # 5. Detect SVs leveraging context.
   vars, cmp_vars = _detect_vars(
       uttr, past_ctx, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
-  # 5. Populate the returned dict
+  # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value: places,
       Params.VARS.value: vars[:_MAX_RETURNED_VARS],
       Params.SESSION_ID: uttr.session_id,
       Params.CMP_ENTITIES.value: cmp_places,
       Params.CMP_VARS.value: cmp_vars[:_MAX_RETURNED_VARS],
+      Params.CHILD_TYPE: '' if not place_type else place_type.value,
   })
-  place_type = utils.get_contained_in_type(uttr)
-  if place_type:
-    data_dict[Params.CHILD_TYPE.value] = place_type.value
 
   # 6. Set the detected params in uttr ctx and clear past contexts.
   uttr.insight_ctx = copy.deepcopy(data_dict)
@@ -117,6 +127,9 @@ def _get_comparison_or_correlation(
         ClassificationType.COMPARISON, ClassificationType.CORRELATION
     ]:
       return cl.type
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
   return None
 
 
@@ -146,8 +159,8 @@ def _hoist_topic(svs: List[str]):
       return
 
 
-def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
-                   is_cmp: bool) -> List[str]:
+def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
+                   past_ctx: Dict, is_cmp: bool) -> List[str]:
   places = []
   cmp_places = []
   if is_cmp:
@@ -180,8 +193,20 @@ def _detect_places(uttr: nl_uttr.Utterance, past_ctx: Dict,
       # words earlier in the query interpreted incorrectly as a place
       places.reverse()
     else:
-      # Find place from context.
-      places = past_ctx.get(Params.ENTITIES.value, [])
-      uttr.counters.info('insight_place_ctx', places)
+      # Match NL behavior in `populate_charts()` by not using context
+      # when the place-type is country.
+      if child_type == ContainedInPlaceType.COUNTRY:
+        places = [constants.EARTH_DCID]
+        uttr.counters.info('insight_place_earth', places)
+      else:
+        # Find place from context.
+        places = past_ctx.get(Params.ENTITIES.value, [])
+        uttr.counters.info('insight_place_ctx', places)
+    # Match NL behavior: if there was a child type and no context place,
+    # use a default place.
+    if not places and child_type:
+      default_place = get_default_contained_in_place(places, child_type)
+      if default_place:
+        places = [default_place.dcid]
 
   return places, cmp_places
