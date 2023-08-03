@@ -19,16 +19,25 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint } from "../../chart/base";
-import { drawGroupBarChart } from "../../chart/draw";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
+import {
+  drawGroupBarChart,
+  drawHorizontalBarChart,
+  drawStackBarChart,
+} from "../../chart/draw";
+import { SortType } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  placeSep,
+  statVarSep,
+  TIMELINE_URL_PARAM_KEYS,
+} from "../../tools/timeline/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { BarTileSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
@@ -36,7 +45,7 @@ import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -44,43 +53,60 @@ const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
+const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
-interface BarTilePropType {
-  id: string;
-  title: string;
-  // The primary place of the page (disaster, topic, nl)
-  place: NamedTypedPlace;
+export interface BarTilePropType {
+  // API root
+  apiRoot?: string;
+  // Bar height for horizontal bar charts
+  barHeight?: number;
+  // Extra classes to add to the container.
+  className?: string;
   // A list of related places to show comparison with the main place.
   comparisonPlaces: string[];
+  // A list of specific colors to use
+  colors?: string[];
   enclosedPlaceType: string;
+  horizontal?: boolean;
+  id: string;
+  // Maximum number of places to display
+  maxPlaces?: number;
+  // The primary place of the page (disaster, topic, nl)
+  place: NamedTypedPlace;
+  // sort order
+  sort?: SortType;
+  // Set to true to draw as a stacked chart instead of a grouped chart
+  stacked?: boolean;
   statVarSpec: StatVarSpec[];
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
+  title: string;
   // Tile spec with additional information about what to show on this tile
   tileSpec?: BarTileSpec;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
-  // API root
-  apiRoot?: string;
+  // Whether to draw as a lollipop chart instead
+  useLollipop?: boolean;
+  // Y-axis margin / text width
+  yAxisMargin?: number;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
-interface BarChartData {
+export interface BarChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
   dateRange: string;
+  props: BarTilePropType;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
-  const chartContainerRef = useRef(null);
+  const chartContainerRef = useRef<HTMLDivElement>(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
 
   useEffect(() => {
-    if (!barChartData) {
+    if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setBarChartData(data);
@@ -92,33 +118,25 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     if (_.isEmpty(barChartData)) {
       return;
     }
-    draw(props, barChartData);
+    draw(props, barChartData, chartContainerRef.current);
   }, [props, barChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
 
-  const rs: ReplacementStrings = {
-    placeName: props.place ? props.place.name : "",
-    date: barChartData && barChartData.dateRange,
-  };
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={barChartData && barChartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props, barChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
       getDataCsv={
         barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(barChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
-      {props.isDataTile && barChartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={dataGroupsToCsv(barChartData.dataGroup)}
-        />
-      )}
       <div
         id={props.id}
         className="svg-container"
@@ -127,6 +145,17 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       ></div>
     </ChartTileContainer>
   );
+}
+
+// Get the ReplacementStrings object used for formatting the title
+export function getReplacementStrings(
+  props: BarTilePropType,
+  chartData: BarChartData
+): ReplacementStrings {
+  return {
+    placeName: props.place ? props.place.name : "",
+    date: chartData && chartData.dateRange,
+  };
 }
 
 export const fetchData = async (props: BarTilePropType) => {
@@ -141,7 +170,7 @@ export const fetchData = async (props: BarTilePropType) => {
   statVars.push(FILTER_STAT_VAR);
   let url: string;
   let params;
-  if (props.comparisonPlaces) {
+  if (!_.isEmpty(props.comparisonPlaces)) {
     url = `${props.apiRoot || ""}/api/observations/point`;
     params = {
       entities: props.comparisonPlaces,
@@ -162,21 +191,35 @@ export const fetchData = async (props: BarTilePropType) => {
     });
 
     // Find the most populated places.
-    let popPoints: RankingPoint[] = [];
+    const popPoints: RankingPoint[] = [];
     for (const place in resp.data.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
         value: resp.data.data[FILTER_STAT_VAR][place].value,
       });
     }
-    // Take the most populated places.
-    popPoints.sort((a, b) => a.value - b.value);
-    popPoints = popPoints.slice(0, NUM_PLACES);
+    // Optionally sort by ascending/descending population
+    if (!props.sort || props.sort === "descendingPopulation") {
+      popPoints.sort((a, b) => b.value - a.value);
+    } else if (props.sort === "ascendingPopulation") {
+      popPoints.sort((a, b) => a.value - b.value);
+    }
+
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
       props.apiRoot
     );
-    return rawToChart(props, resp.data, popPoints, placeNames);
+    const statVarDcidToName = await getStatVarNames(
+      props.statVarSpec,
+      props.apiRoot
+    );
+    return rawToChart(
+      props,
+      resp.data,
+      popPoints,
+      placeNames,
+      statVarDcidToName
+    );
   } catch (error) {
     return null;
   }
@@ -186,7 +229,8 @@ function rawToChart(
   props: BarTilePropType,
   rawData: PointApiResponse,
   popPoints: RankingPoint[],
-  placeNames: Record<string, string>
+  placeNames: Record<string, string>,
+  statVarNames: Record<string, string>
 ): BarChartData {
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
@@ -204,7 +248,7 @@ function rawToChart(
       }
       const stat = raw.data[statVar][placeDcid];
       const dataPoint = {
-        label: getStatVarName(statVar, props.statVarSpec),
+        label: statVarNames[statVar],
         value: stat.value || 0,
         dcid: placeDcid,
       };
@@ -233,40 +277,94 @@ function rawToChart(
   if (!_.isEmpty(props.statVarSpec)) {
     unit = props.statVarSpec[0].unit || unit;
   }
+  // Optionally sort ascending/descending by value
+  if (props.sort === "ascending" || props.sort === "descending") {
+    dataGroups.sort(
+      (a, b) =>
+        (d3.sum(a.value.map((v) => v.value)) -
+          d3.sum(b.value.map((v) => v.value))) *
+        (props.sort === "ascending" ? 1 : -1)
+    );
+  }
   return {
-    dataGroup: dataGroups,
+    dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
+    props,
   };
 }
 
 export function draw(
   props: BarTilePropType,
   chartData: BarChartData,
+  svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
-  const elem = document.getElementById(props.id);
-  // TODO: Remove all cases of setting innerHTML directly.
-  elem.innerHTML = "";
-  drawGroupBarChart(
-    props.id,
-    svgWidth || elem.offsetWidth,
-    props.svgChartHeight,
-    chartData.dataGroup,
-    formatNumber,
-    chartData.unit
-  );
+  if (props.horizontal) {
+    drawHorizontalBarChart(
+      svgContainer,
+      svgWidth || svgContainer.offsetWidth,
+      chartData.dataGroup,
+      formatNumber,
+      {
+        colors: props.colors,
+        lollipop: props.useLollipop,
+        stacked: props.stacked,
+        style: {
+          barHeight: props.barHeight,
+          yAxisMargin: props.yAxisMargin,
+        },
+        unit: chartData.unit,
+      }
+    );
+  } else {
+    if (props.stacked) {
+      drawStackBarChart(
+        svgContainer,
+        props.id,
+        svgWidth || svgContainer.offsetWidth,
+        props.svgChartHeight,
+        chartData.dataGroup,
+        formatNumber,
+        {
+          colors: props.colors,
+          lollipop: props.useLollipop,
+          unit: chartData.unit,
+        }
+      );
+    } else {
+      drawGroupBarChart(
+        svgContainer,
+        props.id,
+        svgWidth || svgContainer.offsetWidth,
+        props.svgChartHeight,
+        chartData.dataGroup,
+        formatNumber,
+        {
+          colors: props.colors,
+          lollipop: props.useLollipop,
+          unit: chartData.unit,
+        }
+      );
+    }
+  }
 }
 
-/**
- * Renders bar chart tile component in the given HTML element
- * @param element DOM element to render the chart
- * @param props bar chart tile component properties
- */
-export const renderBarComponent = (
-  element: HTMLElement,
-  props: BarTilePropType
-): void => {
-  ReactDOM.render(React.createElement(BarTile, props), element);
-};
+function getExploreMoreUrl(props: BarTilePropType): string {
+  const params = {
+    [TIMELINE_URL_PARAM_KEYS.PLACE]: [
+      ...props.comparisonPlaces,
+      props.place.dcid,
+    ].join(placeSep),
+    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
+      .map((spec) => spec.statVar)
+      .join(statVarSep),
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
+    "&"
+  )}`;
+}

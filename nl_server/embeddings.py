@@ -14,6 +14,7 @@
 """Managing the embeddings."""
 from dataclasses import dataclass
 import logging
+import os
 from typing import Dict, List, Union
 
 from datasets import load_dataset
@@ -44,8 +45,14 @@ _NUM_SV_INDEX_MATCHES = 40
 class Embeddings:
   """Manages the embeddings."""
 
-  def __init__(self, embeddings_path: str) -> None:
-    self.model = SentenceTransformer(MODEL_NAME)
+  def __init__(self,
+               embeddings_path: str,
+               existing_model_path: str = "") -> None:
+    if existing_model_path:
+      assert os.path.exists(existing_model_path)
+      self.model = SentenceTransformer(existing_model_path)
+    else:
+      self.model = SentenceTransformer(MODEL_NAME)
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
     self.sentences: List[str] = []
@@ -76,7 +83,7 @@ class Embeddings:
   #
   def _search_embeddings(self,
                          queries: List[str]) -> Dict[str, vars.VarCandidates]:
-    query_embeddings = self.model.encode(queries)
+    query_embeddings = self.model.encode(queries, show_progress_bar=False)
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=_NUM_SV_INDEX_MATCHES)
@@ -134,7 +141,9 @@ class Embeddings:
   #
   # The main entry point to detect SVs.
   #
-  def detect_svs(self, orig_query: str) -> Dict[str, Union[Dict, List]]:
+  def detect_svs(self,
+                 orig_query: str,
+                 skip_multi_sv: bool = False) -> Dict[str, Union[Dict, List]]:
     # Remove all stop-words.
     query_monovar = utils.remove_stop_words(orig_query,
                                             query_util.ALL_STOP_WORDS)
@@ -142,17 +151,20 @@ class Embeddings:
     # Search embeddings for a single SV.
     result_monovar = self._search_embeddings([query_monovar])[query_monovar]
 
-    # Try to detect multiple SVs.  Use the original query so that
-    # the logic can rely on stop-words like `vs`, `and`, etc as hints
-    # for SV delimiters.
-    result_multivar = self._detect_multiple_svs(orig_query)
+    multi_sv = {}
+    if not skip_multi_sv:
+      # Try to detect multiple SVs.  Use the original query so that
+      # the logic can rely on stop-words like `vs`, `and`, etc as hints
+      # for SV delimiters.
+      result_multivar = self._detect_multiple_svs(orig_query)
+      multi_sv = vars.multivar_candidates_to_dict(result_multivar)
 
     # TODO: Rename SV_to_Sentences for consistency.
     return {
         'SV': result_monovar.svs,
         'CosineScore': result_monovar.scores,
         'SV_to_Sentences': result_monovar.sv2sentences,
-        'MultiSV': vars.multivar_candidates_to_dict(result_multivar)
+        'MultiSV': multi_sv
     }
 
   #

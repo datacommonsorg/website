@@ -11,163 +11,203 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Detection entry point for Datacommons NL"""
+"""Router for detection."""
 
-import logging
-from typing import Dict
+from typing import Dict, List
 
 from flask import current_app
+from markupsafe import escape
 
-import server.lib.nl.common.counters as ctr
-from server.lib.nl.detection.place import get_place_from_dcids
-from server.lib.nl.detection.place import infer_place_dcids
-from server.lib.nl.detection.place import remove_places
-from server.lib.nl.detection.types import ClassificationType
-from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.common import utils
+from server.lib.nl.common.counters import Counters
+from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import heuristic_detector
+from server.lib.nl.detection import llm_detector
+from server.lib.nl.detection import llm_fallback
+from server.lib.nl.detection import place
+from server.lib.nl.detection import types
+from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import PlaceDetection
-from server.lib.nl.detection.types import SimpleClassificationAttributes
-from server.lib.nl.detection.types import SVDetection
+from server.lib.nl.detection.types import PlaceDetectorType
+from server.lib.nl.detection.types import RequestedDetectorType
+import shared.lib.detected_variables as dutils
+
+_PALM_API_DETECTORS = [
+    RequestedDetectorType.LLM.value,
+    RequestedDetectorType.Hybrid.value,
+]
+
+MAX_CHILD_LIMIT = 50
 
 
-def _empty_svs_score_dict():
-  return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}}
+#
+# The main function that routes across Heuristic and LLM detectors.
+#
+# For `hybrid` detection, it first calls Heuristic detector, and
+# based on `need_llm()`, decides to call the LLM detector.
+#
+def detect(detector_type: str, place_detector_type: PlaceDetectorType,
+           original_query: str, no_punct_query: str, prev_utterance: Utterance,
+           embeddings_index_type: str, query_detection_debug_logs: Dict,
+           counters: Counters) -> types.Detection:
+  #
+  # In the absence of the PALM API key, fallback to heuristic.
+  #
+  if (detector_type in _PALM_API_DETECTORS and
+      'PALM_API_KEY' not in current_app.config):
+    counters.err('failed_palm_keynotfound', '')
+    detector_type = RequestedDetectorType.Heuristic.value
+
+  #
+  # LLM Detection.
+  #
+  if detector_type == RequestedDetectorType.LLM.value:
+    llm_detection = llm_detector.detect(original_query, prev_utterance,
+                                        embeddings_index_type,
+                                        query_detection_debug_logs, counters)
+    return llm_detection
+
+  #
+  # Heuristic detection.
+  #
+  heuristic_detection = heuristic_detector.detect(place_detector_type,
+                                                  str(escape(original_query)),
+                                                  no_punct_query,
+                                                  embeddings_index_type,
+                                                  query_detection_debug_logs,
+                                                  counters)
+  if detector_type == RequestedDetectorType.Heuristic.value:
+    return heuristic_detection
+
+  #
+  # This is Hybrid flow now.  First check if need LLM fallback.
+  #
+  llm_type = llm_fallback.need_llm(heuristic_detection, prev_utterance,
+                                   counters)
+  if llm_type == llm_fallback.NeedLLM.No:
+    heuristic_detection.detector = ActualDetectorType.HybridHeuristic
+    return heuristic_detection
+
+  counters.err('warning_llm_fallback', '')
+  llm_detection = llm_detector.detect(original_query, prev_utterance,
+                                      embeddings_index_type,
+                                      query_detection_debug_logs, counters)
+
+  if llm_type == llm_fallback.NeedLLM.Fully:
+    # Completely use LLM's detections.
+    detection = llm_detection
+    detection.detector = ActualDetectorType.HybridLLMFull
+  elif llm_type == llm_fallback.NeedLLM.ForVar:
+    # Use place stuff from heuristics
+    detection = llm_detection
+    detection.places_detected = heuristic_detection.places_detected
+    detection.detector = ActualDetectorType.HybridLLMVar
+  elif llm_type == llm_fallback.NeedLLM.ForPlace:
+    # Use place stuff from LLM
+    detection = heuristic_detection
+    detection.places_detected = llm_detection.places_detected
+    detection.detector = ActualDetectorType.HybridLLMPlace
+
+  return detection
 
 
-def detect(orig_query: str, cleaned_query: str, index_type: str,
-           query_detection_debug_logs: Dict,
-           counters: ctr.Counters) -> Detection:
-  model = current_app.config['NL_MODEL']
+#
+# Constructor a Detection object given DCID inputs.
+#
+def construct(entities: List[str], vars: List[str], child_type: str,
+              cmp_entities: List[str], cmp_vars: List[str], debug_logs: Dict,
+              counters: Counters) -> types.Detection:
+  all_entities = entities + cmp_entities
+  parent_map = {p: [] for p in all_entities}
+  places = place.get_place_from_dcids(all_entities, debug_logs, parent_map)
+  if not places:
+    counters.err('failed_detection_unabletofinddcids', all_entities)
+    return None, 'No places found!'
 
-  # Step 1: find all relevant places and the name/type of the main place found.
-  places_str_found = model.detect_place(cleaned_query)
+  # Unused fillers.
+  var_query = ';'.join(vars)
+  place_query = ';'.join(entities)
+  query = var_query + (f' {child_type} ' if child_type else ' ') + place_query
 
-  if not places_str_found:
-    logging.info("Place detection failed.")
-
-  logging.info("Found places in query: {}".format(places_str_found))
-
-  query = cleaned_query
-  place_dcids = []
-  main_place = None
-  resolved_places = []
-
-  # Start updating the query_detection_debug_logs. Create space for place dcid inference
-  # and place resolution. If they remain empty, the function belows were never triggered.
-  query_detection_debug_logs["place_dcid_inference"] = {}
-  query_detection_debug_logs["place_resolution"] = {}
-  # Look to find place DCIDs.
-  if places_str_found:
-    place_dcids = infer_place_dcids(
-        places_str_found, query_detection_debug_logs["place_dcid_inference"])
-    logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
-
-  if place_dcids:
-    resolved_places = get_place_from_dcids(
-        place_dcids.values(), query_detection_debug_logs["place_resolution"])
-    logging.info(
-        f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
-
-    # Step 2: replace the place strings with "" if place_dcids were found.
-    # Typically, this could also be done under the check for resolved_places
-    # but we don't expected the resolution from place dcids to fail (typically).
-    # Also, even if the resolution fails, if there is a place dcid found, it should
-    # be considered good enough to remove the place strings.
-    query = remove_places(cleaned_query.lower(), place_dcids)
-
-  if resolved_places:
-    main_place = resolved_places[0]
-    logging.info(f"Using main_place as: {main_place}")
-
-  # Set PlaceDetection.
-  place_detection = PlaceDetection(query_original=orig_query,
-                                   query_without_place_substr=query,
-                                   query_places_mentioned=places_str_found,
-                                   places_found=resolved_places,
-                                   main_place=main_place)
-
-  # Update the various place detection and query transformation debug logs dict.
-  query_detection_debug_logs["places_found_str"] = places_str_found
-  query_detection_debug_logs["main_place_inferred"] = main_place
-  query_detection_debug_logs["query_transformations"] = {
-      "place_detection_input": cleaned_query.lower(),
-      "place_detection_with_places_removed": query,
-  }
-  if not query_detection_debug_logs["place_dcid_inference"]:
-    query_detection_debug_logs[
-        "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."
-  if not query_detection_debug_logs["place_resolution"]:
-    query_detection_debug_logs[
-        "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
-
-  # Step 3: Identify the SV matched based on the query.
-  svs_scores_dict = _empty_svs_score_dict()
-  try:
-    svs_scores_dict = model.detect_svs(
-        query, index_type, query_detection_debug_logs["query_transformations"])
-  except ValueError as e:
-    logging.info(e)
-    logging.info("Using an empty svs_scores_dict")
-
-  # Set the SVDetection.
-  sv_detection = SVDetection(
-      query=query,
-      sv_dcids=svs_scores_dict['SV'],
-      sv_scores=svs_scores_dict['CosineScore'],
-      svs_to_sentences=svs_scores_dict['SV_to_Sentences'],
-      multi_sv=svs_scores_dict['MultiSV'])
-
-  # Step 4: find query classifiers.
-  ranking_classification = model.heuristic_ranking_classification(query)
-  comparison_classification = model.heuristic_comparison_classification(query)
-  correlation_classification = model.heuristic_correlation_classification(query)
-  overview_classification = model.heuristic_overview_classification(query)
-  size_type_classification = model.heuristic_size_type_classification(query)
-  time_delta_classification = model.heuristic_time_delta_classification(query)
-  contained_in_classification = model.heuristic_containedin_classification(
-      query)
-  event_classification = model.heuristic_event_classification(query)
-  quantity_classification = \
-    model.heuristic_quantity_classification(query, counters)
-  logging.info(f'Ranking classification: {ranking_classification}')
-  logging.info(f'Comparison classification: {comparison_classification}')
-  logging.info(f'Correlation classification: {correlation_classification}')
-  logging.info(f'SizeType classification: {size_type_classification}')
-  logging.info(f'TimeDelta classification: {time_delta_classification}')
-  logging.info(f'ContainedIn classification: {contained_in_classification}')
-  logging.info(f'Event Classification: {event_classification}')
-  logging.info(f'Overview classification: {overview_classification}')
-  logging.info(f'Quantity classification: {quantity_classification}')
-
-  # Set the Classifications list.
   classifications = []
-  if ranking_classification is not None:
-    classifications.append(ranking_classification)
-  if comparison_classification is not None:
-    classifications.append(comparison_classification)
-  if contained_in_classification is not None:
-    classifications.append(contained_in_classification)
-  if size_type_classification is not None:
-    classifications.append(size_type_classification)
-  if time_delta_classification is not None:
-    classifications.append(time_delta_classification)
-  if event_classification is not None:
-    classifications.append(event_classification)
-  if overview_classification is not None:
-    classifications.append(overview_classification)
-  if quantity_classification is not None:
-    classifications.append(quantity_classification)
-  if correlation_classification is not None:
-    classifications.append(correlation_classification)
 
-  if not classifications:
-    # if not classification is found, it should default to UNKNOWN (not SIMPLE)
-    classifications.append(
-        NLClassifier(type=ClassificationType.UNKNOWN,
-                     attributes=SimpleClassificationAttributes()))
+  # For place-comparison (bar charts only), we don't need child places.
+  # So we can save on the existence checks, etc.
+  if not cmp_entities:
+    if child_type:
+      if not any([child_type == x.value for x in types.ContainedInPlaceType]):
+        counters.err('failed_detection_badChildEntityType', child_type)
+        return None, f'Bad childEntityType value {child_type}!'
+      child_type = types.ContainedInPlaceType(child_type)
+    else:
+      child_type = utils.get_default_child_place_type(places[0], is_nl=False)
+  else:
+    child_type = None
+  if child_type:
+    c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
+                           attributes=types.ContainedInClassificationAttributes(
+                               contained_in_place_type=child_type))
+    classifications.append(c)
 
-  return Detection(original_query=orig_query,
-                   cleaned_query=cleaned_query,
-                   places_detected=place_detection,
-                   svs_detected=sv_detection,
-                   classifications=classifications)
+  if cmp_entities:
+    c = types.NLClassifier(type=types.ClassificationType.COMPARISON,
+                           attributes=types.ComparisonClassificationAttributes(
+                               comparison_trigger_words=[]))
+    classifications.append(c)
+  elif cmp_vars:
+    c = types.NLClassifier(type=types.ClassificationType.CORRELATION,
+                           attributes=types.ComparisonClassificationAttributes(
+                               comparison_trigger_words=[]))
+    classifications.append(c)
+
+  main_dcid = places[0].dcid
+  child_places = []
+  if child_type:
+    child_places = utils.get_all_child_places(main_dcid, child_type.value,
+                                              counters)
+    child_places = child_places[:MAX_CHILD_LIMIT]
+
+  place_detection = PlaceDetection(query_original=query,
+                                   query_without_place_substr=var_query,
+                                   query_places_mentioned=all_entities,
+                                   places_found=places,
+                                   main_place=places[0],
+                                   parent_places=parent_map.get(main_dcid, []),
+                                   child_places=child_places)
+
+  if not cmp_entities and cmp_vars:
+    # Multi SV case.
+    sv_detection = types.SVDetection(query='',
+                                     single_sv=dutils.VarCandidates(
+                                         svs=vars,
+                                         scores=[0.51] * len(vars),
+                                         sv2sentences={}),
+                                     multi_sv=_get_multi_sv(vars, cmp_vars))
+  else:
+    sv_detection = types.SVDetection(query='',
+                                     single_sv=dutils.VarCandidates(
+                                         svs=vars,
+                                         scores=[1.0] * len(vars),
+                                         sv2sentences={}),
+                                     multi_sv=None)
+  return types.Detection(original_query=query,
+                         cleaned_query=query,
+                         places_detected=place_detection,
+                         svs_detected=sv_detection,
+                         classifications=classifications,
+                         detector=ActualDetectorType.NOP,
+                         place_detector=PlaceDetectorType.NOP), None
+
+
+def _get_multi_sv(vars: List[str],
+                  cmp_vars: List[str]) -> dutils.MultiVarCandidates:
+  return dutils.MultiVarCandidates(candidates=[
+      dutils.MultiVarCandidate(parts=[
+          dutils.MultiVarCandidatePart(
+              query_part='var1', svs=vars, scores=[1.0] * len(vars)),
+          dutils.MultiVarCandidatePart(
+              query_part='var2', svs=cmp_vars, scores=[1.0] * len(cmp_vars))
+      ],
+                               aggregate_score=1.0,
+                               delim_based=True)
+  ])

@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
 import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -39,6 +40,7 @@ import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName } from "../../utils/tile_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
@@ -46,7 +48,7 @@ const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
 
-interface RankingTilePropType {
+export interface RankingTilePropType {
   id: string;
   place: NamedTypedPlace;
   enclosedPlaceType: string;
@@ -54,10 +56,11 @@ interface RankingTilePropType {
   statVarSpec: StatVarSpec[];
   rankingMetadata: RankingTileSpec;
   className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
+  apiRoot?: string;
+  showExploreMore?: boolean;
 }
 
+// TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
@@ -75,8 +78,6 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     props.statVarSpec
   );
   const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
-  const isMultiColumn = props.rankingMetadata.showMultiColumn;
-  const svNames = props.statVarSpec.map((sv) => sv.name);
   // TODO: have a better way of calculating the loading placeholder height
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
@@ -90,7 +91,8 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     chartHeight: number,
     chartHtml: string,
     rankingPoints: RankingPoint[],
-    sources: string[]
+    sources: string[],
+    svNames: string[]
   ): void {
     embedModalElement.current.show(
       "",
@@ -106,7 +108,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
       ref={chartContainer}
       style={{
         gridTemplateColumns:
@@ -127,20 +129,18 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         Object.keys(rankingData).map((statVar) => {
           return (
             <SvRankingUnits
-              isMultiColumn={isMultiColumn}
               key={statVar}
-              rankingCount={rankingCount}
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
               statVar={statVar}
-              svName={getStatVarName(statVar, props.statVarSpec)}
-              svNames={svNames}
               title={props.title}
-              isDataTile={props.isDataTile}
+              showExploreMore={props.showExploreMore}
+              apiRoot={props.apiRoot}
             />
           );
         })}
+      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );
@@ -157,14 +157,17 @@ export async function fetchData(
     }
   }
   return axios
-    .get<PointApiResponse>("/api/observations/point/within", {
-      params: {
-        parentEntity: props.place.dcid,
-        childType: props.enclosedPlaceType,
-        variables,
-      },
-      paramsSerializer: stringifyFn,
-    })
+    .get<PointApiResponse>(
+      `${props.apiRoot || ""}/api/observations/point/within`,
+      {
+        params: {
+          parentEntity: props.place.dcid,
+          childType: props.enclosedPlaceType,
+          variables,
+        },
+        paramsSerializer: stringifyFn,
+      }
+    )
     .then((resp) => {
       const rankingData = pointApiToPerSvRankingData(
         resp.data,
@@ -192,8 +195,8 @@ export async function fetchData(
         props.place.dcid,
         USA_NAMED_TYPED_PLACE.dcid
       )
-        ? getPlaceDisplayNames(Array.from(places))
-        : getPlaceNames(Array.from(places));
+        ? getPlaceDisplayNames(Array.from(places), props.apiRoot)
+        : getPlaceNames(Array.from(places), props.apiRoot);
       return placeNamesPromise.then((placeNames) => {
         for (const statVar in rankingData) {
           for (const point of rankingData[statVar].points) {
@@ -227,6 +230,9 @@ function transformRankingDataForMultiColumn(
   }
   rankingData[sortSv].unit = statVarSpecs.map((spec) => spec.unit);
   rankingData[sortSv].scaling = statVarSpecs.map((spec) => spec.scaling);
+  rankingData[sortSv].svName = statVarSpecs.map((spec) =>
+    getStatVarName(spec.statVar, [spec])
+  );
   return { [sortSv]: rankingData[sortSv] };
 }
 
@@ -296,6 +302,7 @@ function pointApiToPerSvRankingData(
       numDataPoints,
       sources,
       dateRange: getDateRange(Array.from(dates)),
+      svName: [getStatVarName(spec.statVar, [spec])],
     };
   }
   return rankingData;

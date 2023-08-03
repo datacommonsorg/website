@@ -67,7 +67,7 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
 
 
 def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
-                                           attr):
+                                           attr, nopc_vars):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -82,7 +82,8 @@ def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  if attr['include_percapita'] and variable.is_percapita_relevant(sv_dcid):
+  if attr['include_percapita'] and variable.is_percapita_relevant(
+      sv_dcid, nopc_vars):
     title = base.decorate_chart_title(title=sv2thing.name[sv_dcid],
                                       place=place,
                                       do_pc=True)
@@ -95,15 +96,15 @@ def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
   return stat_var_spec_map
 
 
-def single_place_multiple_var_timeline_block(column, place, svs, sv2thing,
-                                             attr):
+def single_place_multiple_var_timeline_block(column, place, svs, sv2thing, attr,
+                                             nopc_vars):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
   if attr.get('title'):
     orig_title = attr['title']
   elif attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
-      'orig_sv'):
+      'orig_sv') and sv2thing.name.get(attr['orig_sv']):
     orig_sv_name = sv2thing.name[attr['orig_sv']]
     orig_title = f'{orig_sv_name} compared with other variables'
   else:
@@ -121,7 +122,8 @@ def single_place_multiple_var_timeline_block(column, place, svs, sv2thing,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  svs_pc = list(filter(lambda x: variable.is_percapita_relevant(x), svs))
+  svs_pc = list(
+      filter(lambda x: variable.is_percapita_relevant(x, nopc_vars), svs))
   if attr['include_percapita'] and len(svs_pc) > 0:
     title = base.decorate_chart_title(title=orig_title, place=place, do_pc=True)
     tile = Tile(type=Tile.TileType.LINE, title=title)

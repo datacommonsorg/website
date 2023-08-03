@@ -1,6 +1,0 @@
-instance: dc-graph
-project: techsoup-data-commons
-tables:
-  - freemeals_2023_04_11_14_09_49
-  - mealsites_2023_04_21_08_55_43
-  - usda_grocery_access_2023_04_21_08_55_43

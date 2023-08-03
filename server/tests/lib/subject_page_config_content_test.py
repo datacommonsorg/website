@@ -30,6 +30,7 @@ BLOCK_TYPE_ALLOWED_TILES = {
         TileType.HIGHLIGHT: "",
         TileType.DESCRIPTION: "",
         TileType.PLACE_OVERVIEW: "",
+        TileType.GAUGE: "",
     },
     BlockType.DISASTER_EVENT: {
         TileType.DISASTER_EVENT_MAP: "",
@@ -71,6 +72,9 @@ class TestSubjectPageConfigs(unittest.TestCase):
 
     if tile.type == TileType.RANKING:
       self.assertIsNotNone(tile.ranking_tile_spec, msg)
+
+    if tile.type == TileType.GAUGE:
+      self.assertIsNotNone(tile.gauge_tile_spec, msg)
 
     if tile.type == TileType.DISASTER_EVENT_MAP:
       self.assertIsNotNone(tile.disaster_event_map_tile_spec, msg)
@@ -114,7 +118,9 @@ class TestSubjectPageConfigs(unittest.TestCase):
         page_msg = f"{id}[config={page_i}]"
         self.assertNotEqual(page.metadata.topic_id, '', page_msg)
         self.assertNotEqual(page.metadata.topic_name, '', page_msg)
-        self.assertGreater(len(page.metadata.place_dcid), 0, page_msg)
+        self.assertGreater(
+            len(page.metadata.place_dcid) + len(page.metadata.place_group), 0,
+            page_msg)
         self.assertGreater(len(page.metadata.contained_place_types), 0,
                            page_msg)
         event_type_specs = self.verify_event_type_specs(page, page_msg)

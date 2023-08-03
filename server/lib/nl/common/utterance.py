@@ -17,6 +17,8 @@
 #
 
 from dataclasses import dataclass
+from dataclasses import field
+from enum import Enum
 from enum import IntEnum
 import logging
 from typing import Dict, List
@@ -33,6 +35,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
+from server.lib.nl.detection.types import SizeType
+from server.lib.nl.detection.types import SizeTypeClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 from shared.lib.detected_variables import MultiVarCandidates
@@ -88,6 +92,27 @@ class ChartType(IntEnum):
   RANKED_TIMELINE_COLLECTION = 7
 
 
+class FulfillmentResult(str, Enum):
+  """Where is a variable or place from?"""
+  # From the current user provided query.
+  CURRENT_QUERY = "CURRENT_QUERY"
+  # From a past user query in the context.
+  # Importantly, no place/variable was recognized in the current query.
+  PAST_QUERY = "PAST_QUERY"
+  # Subset of the places used are from a past query.
+  # (Not used for variables)
+  PARTIAL_PAST_QUERY = "PARTIAL_PAST_QUERY"
+  # Place is from a preset default.  Importantly, no place
+  # was recognized in the current / past query.
+  # (Not used for variables)
+  DEFAULT = "DEFAULT"
+  # The thing was recognized but we couldn't fulfill it.
+  # (Not used with places)
+  UNFULFILLED = "UNFULFILLED"
+  # The thing was recognized in current / past query.
+  UNRECOGNIZED = "UNRECOGNIZED"
+
+
 # Enough of a spec per chart to create the chart config proto.
 @dataclass
 class ChartSpec:
@@ -98,6 +123,23 @@ class ChartSpec:
   event: EventType
   # A list of key-value attributes interpreted per chart_type
   attr: Dict
+
+
+@dataclass
+class PlaceFallback:
+  """Has details on place fallback if there is one."""
+  # The user provided place
+  origPlace: Place
+  # The user provided place type.
+  origType: ContainedInPlaceType
+  # A display string with user-provided place + type
+  origStr: str
+  # The new fallback place
+  newPlace: Place
+  # The new fallback type
+  newType: ContainedInPlaceType
+  # A display string with the new fallback place + type
+  newStr: str
 
 
 # The main Utterance data structure that represents all state
@@ -137,6 +179,22 @@ class Utterance:
   counters: ctr.Counters
   # Includes top candidates of multi-SV detection.
   multi_svs: MultiVarCandidates
+  # Response from LLM.  Relevant only when LLM is used.
+  llm_resp: Dict
+  sv_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
+  place_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
+  # This is more details on the *_source if it is from PAST query.
+  # This is important for knowing the original place for a query
+  # like [poverty across africa] -> [which countries have shown the greatest increase].
+  # Because the chart-config of the 2nd query has many places (top countries),
+  # but not Africa.
+  past_source_context: str = ''
+  place_fallback: PlaceFallback = None
+  # A subset of `svs` that have passed existence check and haven't been
+  # added to the charts.
+  extra_success_svs: List[str] = field(default_factory=list)
+  # Past complete context for insight flow.
+  insight_ctx: Dict = field(default_factory=dict)
 
 
 #
@@ -167,7 +225,7 @@ def _dict_to_place(places_dict: List[Dict]) -> List[Place]:
   return places
 
 
-def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
+def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
   classifications_dict = []
   for c in classifications:
     cdict = {}
@@ -186,12 +244,14 @@ def _classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['ranking_type'] = c.attributes.ranking_type
     elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
       cdict['time_delta_type'] = c.attributes.time_delta_types
+    elif isinstance(c.attributes, SizeTypeClassificationAttributes):
+      cdict['size_type'] = c.attributes.size_types
 
     classifications_dict.append(cdict)
   return classifications_dict
 
 
-def _dict_to_classification(
+def dict_to_classification(
     classifications_dict: List[Dict]) -> List[NLClassifier]:
   classifications = []
   for cdict in classifications_dict:
@@ -212,6 +272,10 @@ def _dict_to_classification(
       attributes = TimeDeltaClassificationAttributes(
           time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
           time_delta_trigger_words=[])
+    elif 'size_type' in cdict:
+      attributes = SizeTypeClassificationAttributes(
+          size_types=[SizeType(t) for t in cdict['size_type']],
+          size_types_trigger_words=[])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
@@ -244,6 +308,44 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
   return charts
 
 
+def _place_fallback_to_dict(pfb: PlaceFallback) -> Dict:
+  if not pfb:
+    return {}
+  pfb_dict = {}
+  if pfb.origType:
+    pfb_dict['origType'] = pfb.origType.value
+  if pfb.newType:
+    pfb_dict['newType'] = pfb.newType.value
+  pfb_dict['origPlace'] = _place_to_dict([pfb.origPlace])[0]
+  pfb_dict['newPlace'] = _place_to_dict([pfb.newPlace])[0]
+  pfb_dict['origStr'] = pfb.origStr
+  pfb_dict['newStr'] = pfb.newStr
+  return pfb_dict
+
+
+def _dict_to_place_fallback(pfb_dict: Dict) -> PlaceFallback:
+  if 'origPlace' not in pfb_dict or 'newPlace' not in pfb_dict:
+    return None
+
+  ot = None
+  if 'origType' in pfb_dict:
+    ot = ContainedInPlaceType(pfb_dict['origType'])
+
+  nt = None
+  if 'newType' in pfb_dict:
+    nt = ContainedInPlaceType(pfb_dict['newType'])
+
+  op = _dict_to_place([pfb_dict['origPlace']])[0]
+  np = _dict_to_place([pfb_dict['newPlace']])[0]
+
+  return PlaceFallback(origPlace=op,
+                       origType=ot,
+                       origStr=pfb_dict['origStr'],
+                       newPlace=np,
+                       newType=nt,
+                       newStr=pfb_dict['newStr'])
+
+
 # Given the latest Utterance, saves the full list of utterances into a
 # dict.  The latest utterance is in the front.
 def save_utterance(uttr: Utterance) -> List[Dict]:
@@ -256,9 +358,12 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['query_type'] = u.query_type
     udict['svs'] = u.svs
     udict['places'] = _place_to_dict(u.places)
-    udict['classifications'] = _classification_to_dict(u.classifications)
+    udict['classifications'] = classification_to_dict(u.classifications)
     udict['ranked_charts'] = _chart_spec_to_dict(u.rankedCharts)
     udict['session_id'] = u.session_id
+    udict['llm_resp'] = u.llm_resp
+    udict['placeFallback'] = _place_fallback_to_dict(u.place_fallback)
+    udict['insightCtx'] = u.insight_ctx
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -276,19 +381,22 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
   prev_uttr = None
   for i in range(len(uttr_dicts)):
     udict = uttr_dicts[len(uttr_dicts) - 1 - i]
-    uttr = Utterance(prev_utterance=prev_uttr,
-                     query=udict['query'],
-                     query_type=QueryType(udict['query_type']),
-                     svs=udict['svs'],
-                     places=_dict_to_place(udict['places']),
-                     classifications=_dict_to_classification(
-                         udict['classifications']),
-                     rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
-                     detection=None,
-                     chartCandidates=None,
-                     answerPlaces=None,
-                     counters=None,
-                     session_id=udict['session_id'],
-                     multi_svs=None)
+    uttr = Utterance(
+        prev_utterance=prev_uttr,
+        query=udict['query'],
+        query_type=QueryType(udict['query_type']),
+        svs=udict['svs'],
+        places=_dict_to_place(udict['places']),
+        classifications=dict_to_classification(udict['classifications']),
+        rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
+        detection=None,
+        chartCandidates=None,
+        answerPlaces=None,
+        counters=None,
+        session_id=udict['session_id'],
+        multi_svs=None,
+        llm_resp=udict.get('llm_resp', {}),
+        place_fallback=_dict_to_place_fallback(udict['placeFallback']),
+        insight_ctx=udict.get('insightCtx', {}))
     prev_uttr = uttr
   return uttr

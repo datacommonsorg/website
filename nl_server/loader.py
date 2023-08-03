@@ -23,8 +23,9 @@ nl_embeddings_cache_key_base = 'nl_embeddings'
 nl_ner_cache_key = 'nl_ner'
 nl_cache_path = '~/.datacommons/'
 nl_cache_expire = 3600 * 24  # Cache for 1 day
+nl_cache_size_limit = 16e9  # 16Gb local cache size
 
-DEFAULT_INDEX_TYPE = 'small'
+DEFAULT_INDEX_TYPE = 'medium_ft'
 
 
 def nl_embeddings_cache_key(index_type=DEFAULT_INDEX_TYPE):
@@ -36,28 +37,46 @@ def embeddings_config_key(index_type):
 
 
 def _use_cache(flask_env):
-  return flask_env == 'local' or flask_env == 'integration_test'
+  return flask_env in ['local', 'integration_test', 'webdriver']
 
 
-def load_model(app, model_map):
+def download_models(models_map):
+  # Download existing models (if not already downloaded).
+  models_downloaded_paths = {}
+  for m in models_map:
+    # Only downloads if not already done so.
+    download_path = gcs.download_model_folder(models_map[m])
+    models_downloaded_paths[models_map[m]] = download_path
+
+  return models_downloaded_paths
+
+
+def load_embeddings(app, embeddings_map, models_downloaded_paths):
   flask_env = os.environ.get('FLASK_ENV')
 
   # Sanity check that file names aren't mispresented
-  for sz in model_map.keys():
-    assert sz in model_map[sz], f'{sz} not found in {model_map[sz]}'
+  for sz in embeddings_map.keys():
+    if '_ft' in sz:
+      assert '.ft_final' in embeddings_map[
+          sz], f'ft_final not found {embeddings_map[sz]}'
+      size_str = sz.split("_ft")[0]
+      assert size_str in embeddings_map[
+          sz], f'{size_str} not found {embeddings_map[sz]}'
+    else:
+      assert sz in embeddings_map[sz], f'{sz} not found in {embeddings_map[sz]}'
 
-  # In local dev, cache the model in disk so each hot reload won't download
-  # the model again.
+  # In local dev, cache the embeddings on disk so each hot reload won't download
+  # the embeddings again.
   if _use_cache(flask_env):
     from diskcache import Cache
-    cache = Cache(nl_cache_path)
+    cache = Cache(nl_cache_path, size_limit=nl_cache_size_limit)
     cache.expire()
 
     nl_ner_places = cache.get(nl_ner_cache_key)
     app.config['NL_NER_PLACES'] = nl_ner_places
 
     missing_embeddings = False
-    for sz in model_map.keys():
+    for sz in embeddings_map.keys():
       nl_embeddings = cache.get(nl_embeddings_cache_key(sz))
       if not nl_embeddings:
         missing_embeddings = True
@@ -65,22 +84,39 @@ def load_model(app, model_map):
       app.config[embeddings_config_key(sz)] = nl_embeddings
 
     if nl_ner_places and not missing_embeddings:
-      logging.info("Using cached model for embeddings and NER in: " +
-                   cache.directory)
+      logging.info("Using cached embeddings and NER in: " + cache.directory)
       return
 
-  # Download the model from GCS
-  for sz in sorted(model_map.keys()):
-    assert sz in model_map, f'{sz} missing from {model_map}'
-    nl_embeddings = Embeddings(gcs.download_embeddings(model_map[sz]))
+  # Download the embeddings from GCS
+  for sz in sorted(embeddings_map.keys()):
+    assert sz in embeddings_map, f'{sz} missing from {embeddings_map}'
+
+    existing_model_path = ""
+    for model_key, model_path in models_downloaded_paths.items():
+      if model_key in embeddings_map[sz]:
+        existing_model_path = model_path
+        print(
+            f"Using existing model {model_key} for embeddings ({sz}) version: {embeddings_map[sz]}"
+        )
+        break
+
+    # Checking that the finetuned embeddings have the finetuned model.
+    if "_ft" in sz:
+      assert existing_model_path, f"Could not find a finetuned model for finetuned embeddings ({sz}) version: {embeddings_map[sz]}"
+
+    print(
+        f"Building an Embeddings object with the model: {existing_model_path} (empty means default) and embeddings file ({sz}) version: {embeddings_map[sz]}."
+    )
+    nl_embeddings = Embeddings(gcs.download_embeddings(embeddings_map[sz]),
+                               existing_model_path)
     app.config[embeddings_config_key(sz)] = nl_embeddings
 
   nl_ner_places = NERPlaces()
   app.config["NL_NER_PLACES"] = nl_ner_places
 
   if _use_cache(flask_env):
-    with Cache(cache.directory) as reference:
-      for sz in model_map.keys():
+    with Cache(cache.directory, size_limit=nl_cache_size_limit) as reference:
+      for sz in embeddings_map.keys():
         reference.set(nl_embeddings_cache_key(sz),
                       app.config[embeddings_config_key(sz)],
                       expire=nl_cache_expire)

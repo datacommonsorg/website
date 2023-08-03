@@ -32,6 +32,7 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
+from server.lib.nl.detection.utils import create_utterance
 from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import existence
 from server.lib.nl.fulfillment import fulfiller
@@ -49,6 +50,7 @@ from server.tests.lib.nl.test_utterance import SIMPLE_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_SV_EXT_UTTR
 from server.tests.lib.nl.test_utterance import SIMPLE_WITH_TOPIC_UTTR
 from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
+from shared.lib import detected_variables as dvars
 
 
 #
@@ -56,7 +58,7 @@ from server.tests.lib.nl.test_utterance import TIME_DELTA_ACROSS_VARS_UTTR
 # - variable.extend_svs
 # - utils.sv_existence_for_places | utils.sv_existence_for_places_check_single_point
 # - utils.get_sample_child_places
-# - fulfillment.existence._build_chart_vars
+# - fulfillment.existence.build_chart_vars
 # - fulfillment.base.open_topics_ordered
 #
 class TestDataSpecNext(unittest.TestCase):
@@ -87,10 +89,10 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs exist.  There are 2 calls for base SVs + extensions.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -126,10 +128,10 @@ class TestDataSpecNext(unittest.TestCase):
     # MOCK:
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': True,
         'Count_Person_Female': True
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -153,7 +155,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm']]
+    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {})]
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -177,8 +179,8 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Farm', 'Income_Farm'],
-                                     ['Mean_Precipitation']]
+    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {}),
+                                     (['Mean_Precipitation'], {})]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR])
@@ -196,7 +198,7 @@ class TestDataSpecNext(unittest.TestCase):
     # Detect a single SV for rainfall.
     detection = _detection('geoId/06', ['Mean_Precipitation'], [0.6],
                            ClassificationType.CORRELATION)
-    detection.svs_detected.multi_sv = {
+    detection.svs_detected.multi_sv = dvars.dict_to_multivar_candidates({
         'Candidates': [{
             'Parts': [{
                 'QueryPart': 'obesity',
@@ -210,7 +212,7 @@ class TestDataSpecNext(unittest.TestCase):
             'AggCosineScore': 0.8,
             'DelimBased': True,
         }]
-    }
+    })
 
     # MOCK:
     # - Do no SV extensions
@@ -218,7 +220,8 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Prevalence_Obesity'], ['Count_Poverty']]
+    mock_sv_existence.side_effect = [(['Prevalence_Obesity'], {}),
+                                     (['Count_Poverty'], {})]
 
     got = _run(detection, [])
     self.maxDiff = None
@@ -246,7 +249,7 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [['Count_Agricultural_Workers']]
+    mock_sv_existence.side_effect = [(['Count_Agricultural_Workers'], {})]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR])
@@ -266,9 +269,9 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs (from context) exist
-    mock_sv_existence.side_effect = [[
-        'Count_Person_Male', 'Count_Person_Female'
-    ]]
+    mock_sv_existence.side_effect = [
+        (['Count_Person_Male', 'Count_Person_Female'], {})
+    ]
 
     # Pass in the simple SV utterance as context
     got = _run(detection, [SIMPLE_UTTR])
@@ -289,12 +292,12 @@ class TestDataSpecNext(unittest.TestCase):
         'Count_Person_Male': ['Count_Person_Male', 'Count_Person_Female']
     }
     # - Make SVs exist. Importantly, the second call is for both male + female.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False
-    }, {
+    }, {}), ({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -303,7 +306,7 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places_check_single_point')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
@@ -333,12 +336,12 @@ class TestDataSpecNext(unittest.TestCase):
     ]
     # - Make SVs exist. The order doesn't matter.
     #   Make Wheat inventory fail existence check.
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Farm': False,
         'Area_Farm': False,
         'FarmInventory_Rice': False,
         'FarmInventory_Barley': False
-    }]
+    }, {})]
 
     got = _run(detection, [])
 
@@ -349,7 +352,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_latest_value')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
                               mock_rank_svs, mock_extend_svs):
@@ -375,12 +378,12 @@ class TestDataSpecNext(unittest.TestCase):
                        source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Farm': False,
         'FarmInventory_Rice': False,
         'FarmInventory_Wheat': False,
         'FarmInventory_Barley': False
-    }]
+    }, {})]
     # Differently order result
     mock_rank_svs.return_value = [
         'FarmInventory_Barley',
@@ -398,7 +401,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_series_growth')
-  @patch.object(existence, '_build_chart_vars')
+  @patch.object(existence, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
                       mock_extend_svs):
@@ -419,9 +422,10 @@ class TestDataSpecNext(unittest.TestCase):
                        source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
-    mock_sv_existence.side_effect = [[
-        'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
-    ]]
+    mock_sv_existence.side_effect = [
+        (['FarmInventory_Rice', 'FarmInventory_Wheat',
+          'FarmInventory_Barley'], {})
+    ]
     # Differently order result
     mock_rank_svs.return_value = rank_utils.GrowthRankedLists(
         pct=[
@@ -467,13 +471,14 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     # - Make SVs exist
-    mock_sv_existence.side_effect = [{
+    mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }]
+    }, {})]
 
     counters = ctr.Counters()
-    fulfiller.fulfill(detection, None, counters, constants.TEST_SESSION_ID)
+    fulfiller.fulfill(
+        create_utterance(detection, None, counters, constants.TEST_SESSION_ID))
     got = counters.get()
 
     self.maxDiff = None
@@ -514,9 +519,10 @@ def _detection(place: str,
                         classifications=[],
                         places_detected=places_detected,
                         svs_detected=SVDetection(query='foo sv',
-                                                 svs_to_sentences={},
-                                                 sv_dcids=svs,
-                                                 sv_scores=scores,
+                                                 single_sv=dvars.VarCandidates(
+                                                     svs=svs,
+                                                     scores=scores,
+                                                     sv2sentences={}),
                                                  multi_sv=None))
   if query_type == ClassificationType.COMPARISON:
     # Set comparison classifier
@@ -581,5 +587,6 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
     prev_uttr = utterance.load_utterance(uttr_dict)
   counters = ctr.Counters()
   return utterance.save_utterance(
-      fulfiller.fulfill(detection, prev_uttr, counters,
-                        constants.TEST_SESSION_ID))[0]
+      fulfiller.fulfill(
+          create_utterance(detection, prev_uttr, counters,
+                           constants.TEST_SESSION_ID)))[0]

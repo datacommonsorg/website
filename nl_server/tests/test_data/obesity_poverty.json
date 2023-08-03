@@ -1,43 +1,39 @@
 {
   "SV": [
-    "dc/topic/SDG_1",
-    "Count_Person_BelowPovertyLevelInThePast12Months",
     "Percent_Person_Obesity",
-    "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-    "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
-    "Count_Person_AbovePovertyLevelInThePast12Months",
-    "Count_Person_Male_AbovePovertyLevelInThePast12Months",
-    "Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone",
-    "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-    "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-    "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-    "Count_Person_Female_AbovePovertyLevelInThePast12Months",
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-    "Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-    "Count_Person_Male_AbovePovertyLevelInThePast12Months_WhiteAlone",
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months_WhiteAlone",
-    "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+    "dc/topic/Poverty",
+    "dc/topic/PopulationUnderweight",
+    "dc/topic/Malnutrition",
+    "dc/topic/PopulationOverweight",
+    "Count_Person_BelowPovertyLevelInThePast12Months",
+    "dc/topic/PopulationObese",
+    "dc/topic/SDG_1",
+    "dc/topic/PopulationPreObese",
+    "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
+    "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+    "Percent_Person_WithPhysicalHealthNotGood",
+    "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine",
+    "dc/9pmyhk89dj3pf",
+    "Median_Income_Household_NoHealthInsurance",
+    "Count_Person_AbovePovertyLevelInThePast12Months"
   ],
   "CosineScore": [
-    0.6437395811080933,
-    0.6432796716690063,
-    0.6103522777557373,
-    0.569182276725769,
-    0.5655236840248108,
-    0.5649966597557068,
-    0.5634604096412659,
-    0.5611600875854492,
-    0.5605365037918091,
-    0.5582886934280396,
-    0.5575057864189148,
-    0.5569222569465637,
-    0.5542783141136169,
-    0.5528734922409058,
-    0.5500161647796631,
-    0.5498252511024475,
-    0.5498132109642029,
-    0.5491044521331787
+    0.7822206020355225,
+    0.7565393447875977,
+    0.7514524459838867,
+    0.7293387055397034,
+    0.7265007495880127,
+    0.7226099967956543,
+    0.6997338533401489,
+    0.6942383050918579,
+    0.681108295917511,
+    0.6619626879692078,
+    0.6618671417236328,
+    0.6570671796798706,
+    0.6534703373908997,
+    0.6534618735313416,
+    0.6500980854034424,
+    0.6451299786567688
   ],
   "SV_to_Sentences": {},
   "MultiSV": {
@@ -45,27 +41,27 @@
       {
         "Parts": [
           {
-            "QueryPart": "compare obesity",
+            "QueryPart": "obesity",
             "SV": [
-              "Percent_Person_Obesity"
+              "Percent_Person_Obesity",
+              "dc/topic/PopulationObese"
             ],
             "CosineScore": [
-              0.7295880913734436
+              0.9060235619544983,
+              0.8619530200958252
             ]
           },
           {
             "QueryPart": "poverty",
             "SV": [
-              "Count_Person_BelowPovertyLevelInThePast12Months",
-              "dc/topic/SDG_1"
+              "dc/topic/Poverty"
             ],
             "CosineScore": [
-              0.8156672716140747,
-              0.814606785774231
+              0.9999999403953552
             ]
           }
         ],
-        "AggCosineScore": 0.7726,
+        "AggCosineScore": 0.953,
         "DelimBased": true
       }
     ]

@@ -27,6 +27,15 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
 
+        # Bundle container with website, esp and mixer.
+        docker build -f build/web_server/Dockerfile \
+          --target website-compose \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
+        docker push gcr.io/datcom-ci/datacommons-website-compose:latest
+
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -40,6 +49,21 @@ steps:
           .
         docker push gcr.io/datcom-ci/datacommons-nl:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-nl:latest
+    waitFor: ["-"]
+
+  - id: push-nodejs-server
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        docker build -f build/nodejs_server/Dockerfile \
+          -t gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA \
+          -t gcr.io/datcom-ci/datacommons-nodejs:latest \
+          .
+        docker push gcr.io/datcom-ci/datacommons-nodejs:$SHORT_SHA
+        docker push gcr.io/datcom-ci/datacommons-nodejs:latest
     waitFor: ["-"]
 
   - id: update version

@@ -34,7 +34,7 @@
   }
 
   .col-12 {
-    padding: 1em 0 2em 0;
+    padding: 1em 0 1em 0;
   }
 }
 
@@ -85,12 +85,27 @@ article.category {
   display: flex;
 }
 
+.block-per-capita-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .material-icons-outlined {
+    cursor: pointer;
+  }
+
+  .toggle-on,
+  .toggle-off:hover {
+    color: var(--dc-primary);
+  }
+}
+
 .disaster-event-map-selectors-section {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .disaster-event-map-date-selector {
@@ -102,11 +117,11 @@ article.category {
 #disaster-event-map-date-selector-input {
   width: 12rem;
   margin-left: 0.5rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .disaster-event-map-severity-filters {
-  font-size: .9rem;
+  font-size: 0.9rem;
   padding: 1rem 1.5rem 0;
   overflow-y: auto;
   border: 1px solid rgba(0, 0, 0, 0.125);
@@ -123,7 +138,7 @@ article.category {
   }
 
   .prop-filter {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 
   .prop-filter-input {
@@ -136,12 +151,11 @@ article.category {
     }
 
     input {
-      font-size: .9rem;
+      font-size: 0.9rem;
       margin-left: 0.5rem;
       width: 5rem;
-      padding: .125rem .5rem;
+      padding: 0.125rem 0.5rem;
       line-height: 1;
-
     }
   }
 }
@@ -164,13 +178,13 @@ article.category {
 
 #subject-page-sidebar {
   padding-top: 100px;
-  padding-right: 30px;
+  padding-right: 10px;
   margin-left: -0.5rem;
 
   .nav-item {
     font-weight: 300;
     color: var(--dc-gray);
-    display: inline-block;
+    display: block;
     font-size: 0.9rem;
     line-height: 1.2rem;
     padding: 0.3rem 0.5rem;
@@ -185,6 +199,47 @@ article.category {
 
   .nav-item.category {
     font-weight: 600;
-    margin-top: 1em;
+    margin-top: 0.5rem;
   }
+}
+
+.sidebar-link {
+  align-items: center;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+  color: #333;
+  border: 1px solid #999;
+}
+
+.sidebar-link.selected,
+.sidebar-link.selected:hover {
+  background: #e0eafa;
+}
+
+.sidebar-link:hover {
+  background: #f2f6fd;
+}
+
+.sidebar-link-icon {
+  background-color: #f5f5f5;
+  border-radius: 0.25rem;
+  margin-right: 0.75rem;
+}
+
+.sidebar-link .sidebar-link-icon img {
+  width: 60px;
+  height: 60px;
+  border-radius: 0.25rem;
+}
+
+.sidebar-link .sidebar-link-text {
+  font-size: 15px;
+}
+
+.accordion-item li {
+  font-size: 12px;
+  padding: 2px;
 }

@@ -13,7 +13,6 @@ You should have owner/editor role to perform the following tasks.
   - `domain`: domain of the the website
   - `region.primary`: region for Kubernetes cluster
   - `storage-project`: base Data Commons project (set this to `datcom-store`)
-  - `tmcf_csv_bucket`: GCS bucket which contains the TMCF and CSV files for the instance
 
 - Install the following tools:
 
@@ -90,5 +89,16 @@ If new cluster is needed to scale, then run:
 
 If the instance uses Redis as memcache, then should follow this [instruction](../docs/redis.md)
 to create a new Redis instance.
+
+where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
+
+# Update cluster config
+
+If multi-cluster ingress and service needs to be updated, then for each region that needs to be updated, run:
+
+```bash
+gcloud config set project <PROJECT>
+./update_config_cluster.sh -e <ENV> -l <REGION>
+```
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.

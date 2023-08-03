@@ -12,29 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Person_scatter",
+                      "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -51,9 +32,9 @@
                     },
                     "statVarKey": [
                       "Median_Income_Household_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -72,7 +53,7 @@
                       "Median_Income_Household_FamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Median Income for Family Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Median Family Household Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -88,10 +69,124 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_scatter",
+                      "Median_Income_Household_FamilyHousehold_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Median Family Household Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Median Married Couple Family Household Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Median Married Couple Family Household Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NoHealthInsurance_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Households Without Health Insurance Median Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NoHealthInsurance_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Households Without Health Insurance Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Nonfamily Household Median Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Nonfamily Household Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -100,28 +195,33 @@
           }
         ],
         "statVarSpec": {
-          "Mean_Income_Household_scatter": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Median_Earnings_Person_scatter": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
-          },
           "Median_Income_Household_FamilyHousehold_scatter": {
-            "name": "Median Income for Family Households",
+            "name": "Median Family Household Income",
             "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NoHealthInsurance_scatter": {
+            "name": "Households Without Health Insurance Median Income",
+            "statVar": "Median_Income_Household_NoHealthInsurance"
+          },
+          "Median_Income_Household_NonfamilyHousehold_scatter": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
           },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
           },
-          "Median_Income_Person_scatter": {
-            "name": "Individual Median Income",
-            "statVar": "Median_Income_Person"
+          "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter": {
+            "name": "Percent of Adults with Blood Pressure Who Take Medication",
+            "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
+            "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }
@@ -139,9 +239,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "United States",
   "place": {
     "dcid": "country/USA",
     "name": "United States",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

@@ -21,24 +21,39 @@
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { computeRatio } from "../../tools/shared_util";
+import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
-interface LineTilePropType {
+const EXPLORE_MORE_BASE_URL = "/tools/timeline";
+
+export interface LineTilePropType {
+  // API root
+  apiRoot?: string;
+  // Extra classes to add to the container.
+  className?: string;
+  // colors to use
+  colors?: string[];
+  // List of place DCIDs to plot, instead of enclosedPlaceType in place
+  comparisonPlaces?: string[];
+  // Type of child places to plot
+  enclosedPlaceType?: string;
   id: string;
+  // Whether or not to render the data version of this tile
+  isDataTile?: boolean;
   title: string;
   place: NamedTypedPlace;
   statVarSpec: StatVarSpec[];
@@ -46,18 +61,18 @@ interface LineTilePropType {
   svgChartHeight: number;
   // Width, in px, for the SVG chart.
   svgChartWidth?: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // API root
-  apiRoot?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
+  // Whether or not to show a loading spinner when fetching data.
+  showLoadingSpinner?: boolean;
 }
 
-interface LineChartData {
+export interface LineChartData {
   dataGroup: DataGroup[];
   sources: Set<string>;
   unit: string;
+  // props used when fetching this data
+  props: LineTilePropType;
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
@@ -65,10 +80,13 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   const [chartData, setChartData] = useState<LineChartData | undefined>(null);
 
   useEffect(() => {
-    if (!chartData) {
+    if (!chartData || !_.isEqual(chartData.props, props)) {
+      loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
-        setChartData(data);
+        if (_.isEqual(data.props, props)) {
+          setChartData(data);
+        }
       })();
     }
   }, [props, chartData]);
@@ -78,37 +96,45 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       return;
     }
     draw(props, chartData, svgContainer.current);
+    removeSpinner(props.id);
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
-
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-  };
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={chartData && chartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props)}
       className={`${props.className} line-chart`}
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
-      {props.isDataTile && chartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={dataGroupsToCsv(chartData.dataGroup)}
-        />
-      )}
       <div
         id={props.id}
         className="svg-container"
         ref={svgContainer}
         style={{ minHeight: props.svgChartHeight }}
-      ></div>
+      >
+        {props.showLoadingSpinner && (
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        )}
+      </div>
     </ChartTileContainer>
   );
+}
+
+// Get the ReplacementStrings object used for formatting the title
+export function getReplacementStrings(
+  props: LineTilePropType
+): ReplacementStrings {
+  return {
+    placeName: props.place.name,
+  };
 }
 
 export const fetchData = async (props: LineTilePropType) => {
@@ -119,38 +145,70 @@ export const fetchData = async (props: LineTilePropType) => {
       statVars.push(spec.denom);
     }
   }
-  let endpoint = "/api/observations/series";
-  if (props.apiRoot) {
-    endpoint = props.apiRoot + endpoint;
-  }
-  const resp = await axios.get(endpoint, {
-    // Fetch both numerator stat vars and denominator stat vars
-    params: {
+
+  let params;
+  let endpoint;
+  if (!_.isEmpty(props.comparisonPlaces)) {
+    endpoint = `${props.apiRoot || ""}/api/observations/series`;
+    params = {
+      entities: props.comparisonPlaces,
+      variables: statVars,
+    };
+  } else if (props.enclosedPlaceType) {
+    endpoint = `${props.apiRoot || ""}/api/observations/series/within`;
+    params = {
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
+      variables: statVars,
+    };
+  } else {
+    endpoint = `${props.apiRoot || ""}/api/observations/series`;
+    params = {
       variables: statVars,
       entities: [props.place.dcid],
-    },
+    };
+  }
+
+  const resp = await axios.get(endpoint, {
+    // Fetch both numerator stat vars and denominator stat vars
+    params,
     paramsSerializer: stringifyFn,
   });
-  return rawToChart(resp.data, props);
+
+  // get place names from dcids
+  const placeDcids = Object.keys(resp.data.data[statVars[0]]);
+  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot);
+  const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
+  // How legend labels should be set
+  // If neither options are set, default to showing stat vars in legend labels
+  const options = {
+    // If many places and one stat var, legend should show only place labels
+    usePlaceLabels: statVars.length == 1 && placeDcids.length > 1,
+    // If many places and many stat vars, legends need to show both
+    useBothLabels: statVars.length > 1 && placeDcids.length > 1,
+  };
+  return rawToChart(resp.data, props, placeNames, statVarNames, options);
 };
 
 export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
-  svgContainer: HTMLElement
+  svgContainer: HTMLDivElement
 ): void {
-  const elem = document.getElementById(props.id);
   // TODO: Remove all cases of setting innerHTML directly.
-  elem.innerHTML = "";
+  svgContainer.innerHTML = "";
   const isCompleteLine = drawLineChart(
-    props.id,
-    props.svgChartWidth || elem.offsetWidth,
+    svgContainer,
+    props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
     false,
     false,
     formatNumber,
-    chartData.unit
+    {
+      colors: props.colors,
+      unit: chartData.unit,
+    }
   );
   if (!isCompleteLine) {
     svgContainer.querySelectorAll(".dotted-warning")[0].className +=
@@ -160,7 +218,10 @@ export function draw(
 
 function rawToChart(
   rawData: SeriesApiResponse,
-  props: LineTilePropType
+  props: LineTilePropType,
+  placeDcidToName: Record<string, string>,
+  statVarDcidToName: Record<string, string>,
+  options: { usePlaceLabels: boolean; useBothLabels: boolean }
 ): LineChartData {
   // (TODO): We assume the index of numerator and denominator matches.
   // This is brittle and should be updated in the protobuf that binds both
@@ -172,31 +233,36 @@ function rawToChart(
   let unit = "";
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
-    const series = raw.data[spec.statVar][props.place.dcid];
-    let obsList = series.series;
-    if (spec.denom) {
-      const denomSeries = raw.data[spec.denom][props.place.dcid];
-      obsList = computeRatio(obsList, denomSeries.series);
-    }
-    if (obsList.length > 0) {
-      const dataPoints: DataPoint[] = [];
-      for (const obs of obsList) {
-        dataPoints.push({
-          label: obs.date,
-          time: new Date(obs.date).getTime(),
-          value: spec.scaling ? obs.value * spec.scaling : obs.value,
-        });
-        allDates.add(obs.date);
+    const entityToSeries = raw.data[spec.statVar];
+    for (const placeDcid in entityToSeries) {
+      const series = raw.data[spec.statVar][placeDcid];
+      let obsList = series.series;
+      if (spec.denom) {
+        const denomSeries = raw.data[spec.denom][placeDcid];
+        obsList = computeRatio(obsList, denomSeries.series);
       }
-      dataGroups.push(
-        new DataGroup(
-          getStatVarName(spec.statVar, props.statVarSpec),
-          dataPoints
-        )
-      );
-      const svUnit = getUnit(raw.facets[series.facet]);
-      unit = unit || svUnit;
-      sources.add(raw.facets[series.facet].provenanceUrl);
+      if (obsList.length > 0) {
+        const dataPoints: DataPoint[] = [];
+        for (const obs of obsList) {
+          dataPoints.push({
+            label: obs.date,
+            time: new Date(obs.date).getTime(),
+            value: spec.scaling ? obs.value * spec.scaling : obs.value,
+          });
+          allDates.add(obs.date);
+        }
+        const label = options.useBothLabels
+          ? `${statVarDcidToName[spec.statVar]} for ${
+              placeDcidToName[placeDcid]
+            }`
+          : options.usePlaceLabels
+          ? placeDcidToName[placeDcid]
+          : statVarDcidToName[spec.statVar];
+        dataGroups.push(new DataGroup(label, dataPoints));
+        const svUnit = getUnit(raw.facets[series.facet]);
+        unit = unit || svUnit;
+        sources.add(raw.facets[series.facet].provenanceUrl);
+      }
     }
   }
   for (let i = 0; i < dataGroups.length; i++) {
@@ -209,17 +275,21 @@ function rawToChart(
     dataGroup: dataGroups,
     sources,
     unit,
+    props,
   };
 }
 
-/**
- * Renders line chart tile component in the given HTML element
- * @param element DOM element to render the chart
- * @param props line chart tile component properties
- */
-export const renderLineComponent = (
-  element: HTMLElement,
-  props: LineTilePropType
-): void => {
-  ReactDOM.render(React.createElement(LineTile, props), element);
-};
+function getExploreMoreUrl(props: LineTilePropType): string {
+  const params = {
+    [TIMELINE_URL_PARAM_KEYS.PLACE]: props.place.dcid,
+    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
+      .map((spec) => spec.statVar)
+      .join(statVarSep),
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
+    "&"
+  )}`;
+}

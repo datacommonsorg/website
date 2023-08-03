@@ -25,16 +25,15 @@ export interface NamedNode {
   dcid: string;
 }
 
-export type NamedPlace = NamedNode;
-
-/**
- * Place with name and its types.
- */
-export interface NamedTypedPlace {
-  dcid: string;
+export interface NamedTypedNode {
   name: string;
+  dcid: string;
   types: Array<string>;
+  provenanceId?: string;
 }
+
+export type NamedPlace = NamedNode;
+export type NamedTypedPlace = NamedTypedNode;
 
 /**
  * Place with name and population.
@@ -45,7 +44,7 @@ export interface NamedPopPlace {
   pop: number;
 }
 
-export type ChildPlacesByType = Record<string, Array<NamedPopPlace>>;
+export type ChildPlacesByType = Record<string, Array<NamedTypedPlace>>;
 
 /**
  * Enum type of the stat var hierarchy wizard.

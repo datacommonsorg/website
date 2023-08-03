@@ -14,10 +14,12 @@
 # limitations under the License.
 
 # Must provide the test index file.
-if [ $# -ne 1 ]; then
-  echo "Usage: $0 <test-index-file>"
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 (small | medium_ft) <test-index-file>"
   exit 1
 fi
+
+SIZE="$1"
 
 # Install all the requirements. Need `nl_server` too since the tool uses it.
 cd ../../..
@@ -29,7 +31,7 @@ pip3 install -r nl_server/requirements.txt
 pip3 install -r tools/nl/svindex_differ/requirements.txt
 
 # Get the production embeddings.
-PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/base/model.yaml | awk '{ print $2; }')
+PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/embeddings.yaml | awk '$1=="'$SIZE':"{ print $2; }')
 
 # Diff production embeddings against test.
-python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$1" --queryset=tools/nl/svindex_differ/queryset_vars.csv
+python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$2" --queryset=tools/nl/svindex_differ/queryset_vars.csv

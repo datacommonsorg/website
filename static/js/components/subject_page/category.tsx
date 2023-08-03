@@ -22,7 +22,7 @@ import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -31,6 +31,7 @@ import { getId } from "../../utils/subject_page_utils";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Block } from "./block";
+import { BlockContainer } from "./block_container";
 import { DisasterEventBlock } from "./disaster_event_block";
 import { StatVarProvider } from "./stat_var_provider";
 
@@ -45,7 +46,9 @@ export interface CategoryPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
-  showData?: boolean;
+  parentPlaces?: NamedPlace[];
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
 export const Category = memo(function Category(
@@ -62,7 +65,12 @@ export const Category = memo(function Category(
     : "";
   return (
     <article className="category col-12" id={props.id}>
-      {title && <h2 className="block-title">{title}</h2>}
+      {title && (
+        <h2 className="block-title">
+          {props.config.url && <a href={props.config.url}>{title}</a>}
+          {!props.config.url && <span>{title}</span>}
+        </h2>
+      )}
       {globalThis.viaGoogle && (
         <p>
           This data was imported by the Google DataCommons team. For more info,
@@ -88,34 +96,53 @@ function renderBlocks(
       case "DISASTER_EVENT":
         return (
           <ErrorBoundary key={id}>
-            <DisasterEventBlock
+            <BlockContainer
               id={id}
-              place={props.place}
-              enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
               footnote={block.footnote}
-              columns={block.columns}
-              eventTypeSpec={props.eventTypeSpec}
-              showData={props.showData}
-            />
+              place={props.place}
+            >
+              <DisasterEventBlock
+                id={id}
+                place={props.place}
+                enclosedPlaceType={props.enclosedPlaceType}
+                title={block.title}
+                description={block.description}
+                footnote={block.footnote}
+                columns={block.columns}
+                eventTypeSpec={props.eventTypeSpec}
+                showExploreMore={props.showExploreMore}
+              />
+            </BlockContainer>
           </ErrorBoundary>
         );
       default:
         return (
           <ErrorBoundary key={id}>
-            <Block
+            <BlockContainer
               id={id}
-              place={props.place}
-              enclosedPlaceType={props.enclosedPlaceType}
               title={block.title}
               description={block.description}
               footnote={block.footnote}
-              columns={block.columns}
-              statVarProvider={svProvider}
-              svgChartHeight={props.svgChartHeight}
-              showData={props.showData}
-            />
+              place={props.place}
+            >
+              <Block
+                id={id}
+                place={props.place}
+                enclosedPlaceType={props.enclosedPlaceType}
+                title={block.title}
+                description={block.description}
+                footnote={block.footnote}
+                columns={block.columns}
+                statVarProvider={svProvider}
+                svgChartHeight={props.svgChartHeight}
+                showExploreMore={props.showExploreMore}
+                parentPlaces={props.parentPlaces}
+                denom={block.denom}
+                startWithDenom={block.startWithDenom}
+              />
+            </BlockContainer>
           </ErrorBoundary>
         );
     }

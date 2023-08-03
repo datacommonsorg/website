@@ -62,6 +62,7 @@ kgStoreConfig:
     instance: dc-graph
     tables:
       - magic-lab_2023_04_12_22_22_43
+      - s3l_2023_06_09_10_45_33
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG", "oecd/g/OECD"]

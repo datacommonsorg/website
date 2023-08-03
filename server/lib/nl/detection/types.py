@@ -15,9 +15,12 @@
 # The following classes are used for the NL Detection.
 from abc import ABC
 from dataclasses import dataclass
+from dataclasses import field
 from enum import Enum
 from enum import IntEnum
 from typing import Dict, List
+
+from shared.lib import detected_variables as dvars
 
 
 @dataclass
@@ -39,22 +42,22 @@ class PlaceDetection:
   query_places_mentioned: List[str]
   places_found: List[Place]
   main_place: Place
-  using_default_place: bool = False
-  using_from_context: bool = False
+  # List of places with same name as main place and similar to main place.
+  identical_name_as_main_place: List[Place] = field(default_factory=list)
+  similar_to_main_place: List[Place] = field(default_factory=list)
+  parent_places: List[Place] = field(default_factory=list)
+  # This is only of the `child_type` requested.
+  child_places: List[Place] = field(default_factory=list)
 
 
 @dataclass
 class SVDetection:
   """Various attributes of SV detection."""
   query: str
-  # The two lists below are assumed to be ordered.
-  sv_dcids: List[str]
-  sv_scores: List[float]
-
-  # Helpful to have all svs to sentences.
-  svs_to_sentences: Dict[str, List[str]]
+  # Single SV detection.
+  single_sv: dvars.VarCandidates
   # Multi SV detection.
-  multi_sv: Dict
+  multi_sv: dvars.MultiVarCandidates
 
 
 class RankingType(IntEnum):
@@ -89,12 +92,6 @@ class RankingType(IntEnum):
   EXTREME = 5
 
 
-class BinaryClassificationResultType(IntEnum):
-  """Generic result of binary classification: Success/Failure."""
-  FAILURE = 0
-  SUCCESS = 1
-
-
 # Note: Inherit from `str` so that if the enum gets logged as json the serializer
 # will not complain.
 class ContainedInPlaceType(str, Enum):
@@ -114,6 +111,7 @@ class ContainedInPlaceType(str, Enum):
   CONTINENT = "Continent"
 
   ZIP = "CensusZipCodeTabulationArea"
+  CENSUS_TRACT = "CensusTract"
   SCHOOL = "School"
   PUBLIC_SCHOOL = "PublicSchool"
   PRIVATE_SCHOOL = "PrivateSchool"
@@ -347,6 +345,38 @@ class NLClassifier:
   attributes: List[ClassificationAttributes]
 
 
+class ActualDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "Heuristic Based"
+  LLM = "LLM Based"
+  # No fallback
+  HybridHeuristic = "Hybrid - Heuristic Based"
+  # Fallback to LLM fully
+  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
+  # Fallback to LLM for place detection only
+  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
+  # Fallback to LLM for variable detection only
+  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  # The case of no detector involved.
+  NOP = "Detector unnecessary"
+
+
+class RequestedDetectorType(str, Enum):
+  """Enum to represent detector types"""
+  Heuristic = "heuristic"
+  LLM = "llm"
+  Hybrid = "hybrid"
+
+
+class PlaceDetectorType(str, Enum):
+  # Represents the open-source NER implementation
+  NER = "ner"
+  # Represents the home-grown RecognizePlaces Recon API
+  DC = "dc"
+  # The case of no detector involved
+  NOP = "nop"
+
+
 @dataclass
 class Detection:
   """Detection attributes."""
@@ -355,3 +385,6 @@ class Detection:
   places_detected: PlaceDetection
   svs_detected: SVDetection
   classifications: List[NLClassifier]
+  llm_resp: Dict = field(default_factory=dict)
+  detector: ActualDetectorType = ActualDetectorType.Heuristic
+  place_detector: PlaceDetectorType = PlaceDetectorType.NER

@@ -21,7 +21,7 @@ import urllib.parse
 from flask import current_app
 import requests
 
-from server.cache import cache
+from server import cache
 import server.lib.config as libconfig
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
@@ -29,8 +29,7 @@ from server.services.discovery import get_service_url
 cfg = libconfig.get_config()
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   mixer_api_key = current_app.config.get('MIXER_API_KEY', '')
@@ -54,8 +53,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-# Cache for one day.
-@cache.memoize(timeout=3600 * 24)
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}
@@ -293,6 +291,10 @@ def nl_detect_place_ner(query):
   return get(url).get('places', [])
 
 
+def nl_embeddings_version_map():
+  return get(f'{cfg.NL_ROOT}/api/embeddings_version_map')
+
+
 # =======================   V0 V0 V0 ================================
 def search(query_text, max_results):
   url = get_service_url('/search')
@@ -349,6 +351,12 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
   return post(url, req_json)
 
 
+def recognize_places(query):
+  url = get_service_url('/v1/recognize/places')
+  resp = post(url, {'queries': [query]})
+  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+
+
 def search_statvar(query, places, sv_only):
   url = get_service_url('/v1/variable/search')
   return post(url, {
@@ -358,8 +366,8 @@ def search_statvar(query, places, sv_only):
   })
 
 
-def get_landing_page_data(dcid, category: str, new_stat_vars: List):
-  req = {'node': dcid, 'category': category}
+def get_landing_page_data(dcid, category: str, new_stat_vars: List, seed=0):
+  req = {'node': dcid, 'category': category, 'seed': seed}
   if new_stat_vars:
     req['newStatVars'] = new_stat_vars
   url = get_service_url('/v1/internal/page/place')

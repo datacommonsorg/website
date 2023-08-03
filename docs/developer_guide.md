@@ -153,6 +153,92 @@ us-central1 (which is the default) and us-west1.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
+## Run Website in Docker
+
+Website, mixer, esp can be bundled in one container and running as separate
+processes.
+
+This can be used to bring up a custom Data Commons intance in local machine or
+different cloud enviornment.
+
+### Obtain API Key
+
+- Get API key for mixer by sending an email to [Data Commons Support](support@datacommons.org).
+- [Optional] Provision a Google Maps API key from your GCP project. This is
+  optional and used for place search in various visualization tools.
+
+Set the keys in the following `docker run` commands.
+
+### Prepare Custom Data
+
+Make a folder under $HOME via `mkdir $HOME/dc-data` and store a CSV file
+"stats1.csv" with stats data in the following format:
+
+```csv
+geoId,observationDate,test_stat_var_1,test_stat_var_2
+06,2021,555,666
+08,2021,10,10
+09,2021,11,11
+10,2021,12,12
+11,2021,13,13
+12,2021,15,15
+13,2021,18,18
+15,2021,20,20
+06085,2022,333,444
+```
+
+### Test run a custom Data Commons instance
+
+```bash
+docker run -it --pull=always \
+-e mixer_api_key= \
+-e maps_api_key= \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-e USE_SQLITE=true \
+-e SQLITE_PATH=/sqlite
+-p 8080:8080 \
+-p 8081:8081 \
+-v $HOME/dc-data:/sqlite \
+gcr.io/datcom-ci/datacommons-website-compose:latest
+```
+
+Now you can access a custom Data Commons site via
+[localhost](http://localhost:8080). For example, the data from the sample data
+can be viewed in [Timeline Chart](http://localhost:8080/tools/timeline#place=geoId%2F06&statsVar=test_stat_var_1).
+
+### Update Data
+
+Just update the csv file made in the previous step, and run
+`curl -X POST localhost:8081/import`. The website should be updated with the new data.
+
+### Run custom Data Commons with UI modifications
+
+Make code changes and build the image:
+
+```bash
+docker build \
+  --tag datacommons-website/compose \
+  -f build/web_server/Dockerfile \
+  -t website-compose .
+```
+
+Then run the instance:
+
+```bash
+docker run -it \
+-e mixer_api_key= \
+-e maps_api_key= \
+-e FLASK_ENV=custom \
+-e ENV_PREFIX=Compose \
+-e USE_LOCAL_MIXER=true \
+-p 8080:8080 \
+datacommons-website/compose:latest
+```
+
+Now you can access a custom Data Commons site via [localhost](http://localhost:8080).
+
 ## Run Tests
 
 ### Install web browser and webdriver
@@ -202,7 +288,7 @@ sudo chmod +x /usr/bin/chromedriver
 
 ```bash
 cd static
-npm test testfilename -- -u
+npm test . -- -u
 ```
 
 ## Other Developing Tips
@@ -294,8 +380,7 @@ A full tutorial of debugging Flask app in Visual Studio Code is in
 - Disable headless mode in webdriver to follow the test in Chrome. Chrome
   features like the dev inspector are available in this mode which is useful
   combined with `sleep()` to give you time to inspect the page. To enter this
-  mode, comment out this line in
-  [base_test.py](../server/webdriver_tests/base_test.py):
+  mode, comment out this line in [base.py](../server/webdriver/base.py):
 
   ```python
   chrome_options.add_argument('--headless')
@@ -322,14 +407,6 @@ rm -rf ~/.datacommons/cache.*
 ### GKE config
 
 The GKE configuration is stored [here](../deploy/overlays).
-
-### Custom Instance
-
-Create a pub/sub topic for mixer to listen to data change.
-
-```bash
-gsutil notification create -t tmcf-csv-reload -f json gs://<BUCKET_NAME>
-```
 
 ### Redis memcache
 

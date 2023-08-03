@@ -13,11 +13,12 @@
 # limitations under the License.
 """Utility functions for use by the NL modules."""
 
+import dataclasses
 import datetime
 import logging
 import random
 import time
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -28,7 +29,7 @@ import server.lib.nl.fulfillment.context as ctx
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
-_NUM_CHILD_PLACES_FOR_EXISTENCE = 15
+NUM_CHILD_PLACES_FOR_EXISTENCE = 15
 
 
 def is_topic(sv):
@@ -73,27 +74,30 @@ def event_existence_for_place(place: str, event: types.EventType,
 def sv_existence_for_places(places: List[str], svs: List[str],
                             counters: ctr.Counters) -> List[str]:
   if not svs:
-    return []
+    return [], {}
 
   start = time.time()
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
     logging.error("Existence checks for SVs failed.")
-    return []
+    return [], {}
 
   existing_svs = []
+  existsv2places = {}
   for sv in svs:
     exists = False
-    for _, exist_bit in sv_existence.get(sv, {}).items():
+    for pl, exist_bit in sv_existence.get(sv, {}).items():
       if not exist_bit:
         continue
       exists = True
-      break
+      if sv not in existsv2places:
+        existsv2places[sv] = set()
+      existsv2places[sv].add(pl)
     if exists:
       existing_svs.append(sv)
 
-  return existing_svs
+  return existing_svs, existsv2places
 
 
 # Returns a map of existing SVs (as a union across places)
@@ -103,7 +107,7 @@ def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str],
     counters: ctr.Counters) -> Dict[str, bool]:
   if not svs:
-    return {}
+    return {}, {}
 
   start = time.time()
   series_data = fetch.series_core(entities=places,
@@ -112,13 +116,17 @@ def sv_existence_for_places_check_single_point(
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
+  existsv2places = {}
   for sv, sv_data in series_data.get('data', {}).items():
-    for _, place_data in sv_data.items():
+    for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
       num_series = len(place_data['series'])
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
-  return existing_svs
+      if sv not in existsv2places:
+        existsv2places[sv] = {}
+      existsv2places[sv][pl] = (num_series == 1)
+  return existing_svs, existsv2places
 
 
 #
@@ -128,17 +136,12 @@ def sv_existence_for_places_check_single_point(
 def _get_sample_child_places(main_place_dcid: str,
                              contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
-  logging.info('_sample_child_place: for %s - %s', main_place_dcid,
-               contained_place_type)
   if not contained_place_type:
     return []
   child_places = fetch.descendent_places([main_place_dcid],
                                          contained_place_type)
   if child_places.get(main_place_dcid):
-    logging.info(
-        '_sample_child_place returning %s', ', '.join(
-            child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-    return child_places[main_place_dcid][:_NUM_CHILD_PLACES_FOR_EXISTENCE]
+    return child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
     if arcs:
@@ -150,11 +153,7 @@ def _get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info(
-              '_sample_child_place returning %s',
-              ', '.join(child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]))
-          return child_places[:_NUM_CHILD_PLACES_FOR_EXISTENCE]
-  logging.info('_sample_child_place returning empty')
+          return child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]
   return []
 
 
@@ -223,9 +222,13 @@ def parent_place_names(dcid: str) -> List[str]:
 
 
 def get_contained_in_type(
-    uttr: nl_uttr.Utterance) -> types.ContainedInPlaceType:
-  classification = ctx.classifications_of_type_from_utterance(
-      uttr, types.ClassificationType.CONTAINED_IN)
+    uttr_or_classifications: Any) -> types.ContainedInPlaceType:
+  if isinstance(uttr_or_classifications, nl_uttr.Utterance):
+    classification = ctx.classifications_of_type_from_utterance(
+        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
+  else:
+    classification = ctx.classifications_of_type(
+        uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
   place_type = None
   if (classification and isinstance(classification[0].attributes,
                                     types.ContainedInClassificationAttributes)):
@@ -288,20 +291,35 @@ def has_map(place_type: any, places: List[types.Place]) -> bool:
     place_type = types.ContainedInPlaceType(place_type)
   if place_type == types.ContainedInPlaceType.COUNTRY:
     return True
-  ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
-  if not ptype or not places:
-    # Either not an equivalent type or places is empty, no map!
+
+  if not places:
     return False
-  return places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES
+
+  aatype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
+  if aatype and places[0].country in constants.ADMIN_AREA_MAP_COUNTRIES:
+    return True
+
+  # If the parent place is in USA, check that the child type +
+  # parent type combination supports map.
+  if (places[0].country == constants.USA.dcid and
+      places[0].place_type in constants.USA_ONLY_MAP_TYPES.get(place_type, [])):
+    return True
+
+  return False
 
 
-def new_session_id() -> str:
+def is_us_place(place: types.Place) -> bool:
+  return (place.dcid == constants.USA.dcid or
+          place.country == constants.USA.dcid)
+
+
+def new_session_id(app: str) -> str:
   # Convert seconds to microseconds
   micros = int(datetime.datetime.now().timestamp() * 1000000)
   # Add some randomness to avoid clashes
-  rand = random.randrange(1000)
+  rand = random.randrange(10000)
   # Prefix randomness since session_id gets used as BT key
-  return str(rand) + '_' + str(micros)
+  return str(rand) + '_' + str(micros) + '_' + app
 
 
 def get_time_delta_title(direction: types.TimeDeltaType,
@@ -313,8 +331,9 @@ def get_time_delta_title(direction: types.TimeDeltaType,
   ])
 
 
-def get_default_child_place_type(
-    place: types.Place) -> types.ContainedInPlaceType:
+def get_default_child_place_type(place: types.Place,
+                                 is_nl: bool = True
+                                ) -> types.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return types.ContainedInPlaceType.COUNTRY
   # Canonicalize the type.
@@ -323,6 +342,12 @@ def get_default_child_place_type(
   ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
+
+    if is_nl and place.dcid == constants.USA.dcid:
+      # NL has fallback, so if for country we preferred AA1, downgrade
+      # to AA2 since if data doesn't exist it will fallback to AA1.
+      ptype = types.ContainedInPlaceType.COUNTY
+
   # TODO: Since most queries/data tends to be US specific and we have
   # maps for it, we pick County as default, but reconsider in future.
   if not ptype:
@@ -338,6 +363,43 @@ def get_parent_place_type(place_type: types.ContainedInPlaceType,
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
   return ptype
+
+
+def is_non_geo_place_type(pt: types.ContainedInPlaceType) -> bool:
+  return pt.value.lower() in shared_constants.NON_GEO_PLACE_TYPES
+
+
+#
+# Checks whether two types are a direct match or are equivalents purely
+# for place type fallback purposes.  If we return false here, then
+# we may report falling back from:
+#    "pt1 in place" -> "pt2 in place" or "pt1 in place" -> "place"
+#
+# We account for AA1/AA2 equivalents.
+#
+# Subtly enough, we also ignore non-geo place-types which can also be
+# legitimate SVs.
+#
+def is_place_type_match_for_fallback(pt1: types.ContainedInPlaceType,
+                                     pt2: types.ContainedInPlaceType) -> bool:
+  if pt1 == pt2:
+    return True
+
+  # SCHOOL, for example, is both a place-type and occurs as a stat-var too.
+  # For "school students in CA", if we say we fallback from attempting
+  # to fulfill "schools in CA" to showing results about "CA", which
+  # contains school-related charts, that's quite confusing.
+  if ((pt1 != None and is_non_geo_place_type(pt1)) or
+      (pt2 != None and is_non_geo_place_type(pt2))):
+    return True
+
+  if pt1 != None and pt2 != None:
+    pt1_eq = constants.ADMIN_DIVISION_EQUIVALENTS.get(pt1, pt1)
+    pt2_eq = constants.ADMIN_DIVISION_EQUIVALENTS.get(pt2, pt2)
+    if pt1_eq == pt2 or pt1 == pt2_eq or pt1_eq == pt2_eq:
+      return True
+
+  return False
 
 
 # Given a place-type and a corresponding (contained-in) place,
@@ -363,27 +425,18 @@ def admin_area_equiv_for_place(
   return custom_remap.get(ptype, ptype)
 
 
-# Returns true if the score of multi-sv detection exceeds the single
-# SV detection.
-def is_multi_sv(uttr: nl_uttr.Utterance) -> bool:
-  if (not uttr.detection.svs_detected.sv_scores or not uttr.multi_svs or
-      not uttr.multi_svs.candidates):
-    return False
-  # Get the top single-sv and multi-sv scores.
-  top_sv_score = uttr.detection.svs_detected.sv_scores[0]
-  top_multi_sv_score = uttr.multi_svs.candidates[0].aggregate_score
-
-  # Prefer multi-sv when the scores are higher or up to a score differential.
-  if (top_multi_sv_score > top_sv_score or top_sv_score - top_multi_sv_score
-      <= shared_constants.MULTI_SV_SCORE_DIFFERENTIAL):
-    return True
-  return False
-
-
-def has_dual_sv(uttr: nl_uttr.Utterance) -> bool:
-  if not is_multi_sv(uttr):
-    return False
-  for c in uttr.multi_svs.candidates:
-    if len(c.parts) == 2:
-      return True
-  return False
+# Convert the passed in dict or list or dataclass to dict
+# recursively.
+def to_dict(data):
+  if isinstance(data, dict):
+    for key, value in data.items():
+      data[key] = to_dict(value)
+    return data
+  elif dataclasses.is_dataclass(data) and not isinstance(data, type):
+    return to_dict(dataclasses.asdict(data))
+  elif isinstance(data, list):
+    for i, item in enumerate(data):
+      data[i] = to_dict(item)
+    return data
+  else:
+    return data

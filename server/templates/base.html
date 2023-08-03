@@ -1,33 +1,34 @@
 {#-
-Copyright 2020 Google LLC
+  Copyright 2020 Google LLC
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--#}
-{#-
-Required variables:
-title: page title
-main_id: DOM Element ID for the main content block
-page_id: DOM Element ID for the html element
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -#}
+  {#-
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
 
-Optional variables:
-is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
-is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
-subpage_title: string, if specified, will be displayed in the header next to Data Commons
-locale: string, value for html lang attr
+  Optional variables:
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
+  brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
 
-Blocks to override:
-head - additional head elements
-content - main page content
+  Blocks to override:
+  head - additional head elements
+  content - main page content
 -#}
 <!DOCTYPE html>
 
@@ -44,13 +45,20 @@ content - main page content
     gtag('config', '{{ GA_ACCOUNT }}', {
       client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
     });
-
   </script>
   {% endif %}
-  <title>{{ title }} - Data Commons</title>
+
+  <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  {% if config['HIDE_REVAMP_CHANGES'] %}
+  <link rel="icon" href="old_favicon.ico" type="image/png">
+  {% elif config['LOCAL'] %}
+  <link rel="icon" href="/images/favicon-local.png" type="image/png">
+  {% else %}
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  {% endif %}
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
   {% block head %}
@@ -58,6 +66,12 @@ content - main page content
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  {% if config['HIDE_REVAMP_CHANGES'] %}
+  <link href="/css/base_old.css" rel="stylesheet">
+  {% endif %}
+  <script>
+    globalThis.is_custom_datacommons = {{ config['CUSTOM']|int }};
+  </script>
 </head>
 
 <body>
@@ -98,18 +112,29 @@ content - main page content
                     %}</a>
                   <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{%
+                  {% if config['HIDE_REVAMP_CHANGES'] %}
+                  <a class="dropdown-item" href="{{ url_for('tools.timeline')}}">{% trans %}Timelines Explorer{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{%
+                  <a class="dropdown-item" href="{{ url_for('tools.scatter')}}">{% trans %}Scatter Plot Explorer{%
                     endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.map')}}">{% trans %}Map Explorer{% endtrans %}</a>
+                  {% else %}
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{%
+                    endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{%
+                    endtrans %}</a>
+                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
+                  {% endif %}
                   <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-                  {% if config['SHOW_DISASTER'] %}
-                    <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
-                  {% endif %}
-                  {% if config['SHOW_SUSTAINABILITY'] %}
-                    <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
+                  {# hide disaster dashboard and sustainability explorer for now #}
+                  {% if false %}
+                    {% if config['SHOW_DISASTER'] %}
+                      <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+                    {% endif %}
+                    {% if config['SHOW_SUSTAINABILITY'] %}
+                      <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
+                    {% endif %}
                   {% endif %}
                 </div>
               </li>
@@ -171,24 +196,36 @@ content - main page content
             <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
             <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+            {% if config['HIDE_REVAMP_CHANGES'] %}
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.timeline')}}">{% trans %}Timelines Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.scatter')}}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.map')}}">{% trans %}Map Explorer{% endtrans %}</a>
+            {% else %}
+            {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
+            <a href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
+            <a href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+            {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
+            <a href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
+            {% endif %}
             {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
             variables. #}
             <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool that allows users to download data. #}
             <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-            {# TRANSLATORS: The name of a dashboard that shows information about
-            natural disasters. #}
-            {% if config['SHOW_DISASTER'] %}
-              <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
-            {% endif %}
-            {% if config['SHOW_SUSTAINABILITY'] %}
-              <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+            {# hide disaster dashboard and sustainability explorer for now #}
+            {% if false %}
+              {# TRANSLATORS: The name of a dashboard that shows information about
+              natural disasters. #}
+              {% if config['SHOW_DISASTER'] %}
+                <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+              {% endif %}
+              {% if config['SHOW_SUSTAINABILITY'] %}
+                <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+              {% endif %}
             {% endif %}
           </section>
           <section class="col-12 col-sm-6 col-md-4">
@@ -228,9 +265,13 @@ content - main page content
         <div class="row">
           <div id="sub-footer" class="col-12">
             <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-            {# TRANSLATORS: The label for a link to project homepage. #}
-            <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
-
+            {# TRANSLATORS: The label for the Google branding byline. #}
+            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
+            {% if brand_logo_light %}
+            <img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
+            {% else %}
+            <img class="brand-logo" src="/images/google-logo.svg" /></span>
+            {% endif %}
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
               {# TRANSLATORS: The label for a link to site terms and conditions. #}

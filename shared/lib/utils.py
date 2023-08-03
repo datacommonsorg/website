@@ -31,19 +31,16 @@ def _add_to_set_from_list(set_strings: Set[str],
     set_strings.add(v_str.lower())
 
 
-def _add_to_set_from_nested_dict(
-    set_strings: Set[str],
-    nested_dict: Dict[str, Union[List[str], Dict[str, List[str]]]]) -> None:
-  """Adds (in place) every word/string (in lower case) to a Set of strings.
+def _add_classification_heuristics(set_strings: Set[str]) -> None:
+  """Adds (in place) relevant stop words in QUERY_CLASSIFICATION_HEURISTICS.
 
     Args:
         set_strings: the set of Strings to add to.
-        nested_dict: the dictionary from which to get the words. The keys are expected to be
-            strings but the values can either be a List of strings OR another dictionary with
-            string keys and values to be a List of strings. For ane example, see the constant
-            QUERY_CLASSIFICATION_HEURISTICS in lib/nl/nl_utils.py
     """
-  for (_, v) in nested_dict.items():
+  for (ctype, v) in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
+    # Skip events since we want those to match SVs too!
+    if ctype == "Event":
+      continue
     if isinstance(v, list):
       # If 'v' is a list, add all the words.
       _add_to_set_from_list(set_strings, v)
@@ -77,20 +74,35 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   return input_str.strip()
 
 
+def list_place_type_stopwords() -> List[str]:
+  # Get plurals correspnding to stop-word exclusion place-types.
+  #
+  # This also helps validate that NON_GEO_PLACE_TYPES has the right keys,
+  stopword_exclusion_place_type_plurals = set([
+      constants.PLACE_TYPE_TO_PLURALS[x] for x in constants.NON_GEO_PLACE_TYPES
+  ])
+  # Get singular stop-words skipping exclusion.
+  place_type_stop_words = [
+      it for it in constants.PLACE_TYPE_TO_PLURALS.keys()
+      if it not in constants.NON_GEO_PLACE_TYPES
+  ]
+  # Get plural stop-words skipping exclusion.
+  place_type_stop_words.extend([
+      it for it in constants.PLACE_TYPE_TO_PLURALS.values()
+      if it not in stopword_exclusion_place_type_plurals
+  ])
+  return place_type_stop_words
+
+
 def combine_stop_words() -> Set[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
   stop_words = copy.deepcopy(constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
-  _add_to_set_from_nested_dict(stop_words,
-                               constants.QUERY_CLASSIFICATION_HEURISTICS)
+  _add_classification_heuristics(stop_words)
 
-  # Also add the plurals.
-  _add_to_set_from_list(stop_words,
-                        list(constants.PLACE_TYPE_TO_PLURALS.keys()))
-  _add_to_set_from_list(stop_words,
-                        list(constants.PLACE_TYPE_TO_PLURALS.values()))
+  _add_to_set_from_list(stop_words, list_place_type_stopwords())
 
   # Sort stop_words by the length (longer strings should come first) so that the
   # longer sentences can be removed first.
@@ -98,9 +110,12 @@ def combine_stop_words() -> Set[str]:
   return stop_words
 
 
-def remove_punctuations(s):
+def remove_punctuations(s, include_comma=False):
   s = s.replace('\'s', '')
-  s = re.sub(r'[^\w\s]', ' ', s)
+  if include_comma:
+    s = re.sub(r'[^\w\s,]', ' ', s)
+  else:
+    s = re.sub(r'[^\w\s]', ' ', s)
   return " ".join(s.split())
 
 

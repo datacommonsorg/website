@@ -13,6 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+#
+# An optional "opt" parameter runs the NL server without debug mode, for
+# use in local e2e tests.
+#
+
 set -e
 
 python3 -m venv .env
@@ -29,4 +34,4 @@ ltt install torch --cpuonly
 pip3 install -r requirements.txt -q
 cd ..
 
-python3 nl_app.py $PORT
+python3 nl_app.py $PORT $1

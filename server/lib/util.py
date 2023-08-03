@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import csv
 from datetime import datetime
 import gzip
 import hashlib
@@ -46,7 +47,7 @@ PLACE_EXPLORER_CATEGORIES = [
 # key is topic_id, which should match the folder name under config/topic_page
 # property is the list of filenames in that folder to load.
 TOPIC_PAGE_CONFIGS = {
-    'equity': ['USA', 'CA'],
+    'equity': ['USA', 'US_Places'],
     'poverty': ['USA', 'India'],
     'dev': ['CA'],
     'sdg': ['sdg'],
@@ -84,7 +85,19 @@ CACHED_GEOJSON_FILES = {
     },
     "southamerica": {
         "Country": "southamerica_country_dp10"
-    }
+    },
+    "geoId/06": {
+        "CensusTract": "california_censustract"
+    },
+    "geoId/12": {
+        "CensusTract": "florida_censustract"
+    },
+    "geoId/36": {
+        "CensusTract": "newyorkstate_censustract"
+    },
+    "geoId/48": {
+        "CensusTract": "texas_censustract"
+    },
 }
 
 
@@ -144,6 +157,15 @@ def get_disaster_event_config():
   return get_subject_page_config(filepath)
 
 
+# Returns LLM prompt text
+def get_llm_prompt_text():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "palm_prompt.txt")
+  with open(filepath, 'r') as f:
+    data = f.read()
+  return data
+
+
 # Returns disaster sustainability config loaded as SubjectPageConfig protos
 def get_disaster_sustainability_config():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
@@ -159,6 +181,30 @@ def get_nl_disaster_config():
   filepath = os.path.join(get_repo_root(), "config", "nl_page",
                           "disasters.textproto")
   return get_subject_page_config(filepath)
+
+
+# Returns chart titles for NL
+def get_nl_chart_titles():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "chart_titles_by_sv.json")
+  with open(filepath, 'r') as f:
+    return json.load(f)
+
+
+# Returns a set of SVs that should not have Per-capita.
+# TODO: Eventually read this from KG.
+def get_nl_no_percapita_vars():
+  # NOTE: This is a checked-in version of https://shorturl.at/afpMY
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "nl_vars_percapita_ranking.csv")
+  nopc_vars = set()
+  with open(filepath, 'r') as f:
+    for row in csv.DictReader(f):
+      sv = row['DCID'].strip()
+      yn = row['isPerCapitaValid'].strip().lower()
+      if sv and yn in ['n', 'no']:
+        nopc_vars.add(sv)
+    return nopc_vars
 
 
 # Returns common event_type_spec for all disaster event related pages.
@@ -186,6 +232,14 @@ def get_cached_geojsons():
       with open(filepath, 'r') as f:
         geojsons[place][place_type] = json.load(f)
   return geojsons
+
+
+# Returns a json object given the path (relative to root) to the json file
+def get_json(path_relative_to_root):
+  filepath = os.path.join(get_repo_root(), path_relative_to_root)
+  with open(filepath, 'r') as f:
+    data = json.load(f)
+  return data
 
 
 # Returns a summary of the available topic page summaries as an object:

@@ -18,10 +18,13 @@
  * Util functions used by tile components.
  */
 
+import axios from "axios";
 import _ from "lodash";
 
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
+import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
+import { stringifyFn } from "./axios";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -74,6 +77,65 @@ export function getStatVarName(
   return label;
 }
 
+/**
+ * Gets the stat var names to display via node/propvals api call for all stat
+ * vars in a statVarSpec collection.
+ * Different from getStatVarName() in that if a stat var's name is not provided
+ * in its spec, will try to query the name though an api call.
+ * @param statVarSpecs specs of stat vars to get names for
+ * @param apiRoot api root to use for api
+ */
+export async function getStatVarNames(
+  statVarSpec: StatVarSpec[],
+  apiRoot?: string
+): Promise<{ [key: string]: string }> {
+  if (_.isEmpty(statVarSpec)) {
+    return Promise.resolve({});
+  }
+  const statVarDcids: string[] = [];
+  const statVarNames: Record<string, string> = {};
+  // If a name is already provided by statVarSpec, use that name
+  statVarSpec.forEach((spec) => {
+    if (spec.name) {
+      statVarNames[spec.statVar] = spec.name;
+    } else {
+      // See if a label is provided in
+      // /static/js/i18n/strings/en/stats_var_labels.json
+      const label = getStatsVarLabel(spec.statVar);
+      statVarNames[spec.statVar] = label;
+      if (label === spec.statVar) {
+        statVarDcids.push(spec.statVar);
+      }
+    }
+  });
+
+  // If all names were provided by statVarSpec or stats_var_labels.json
+  // skip propval api call
+  if (_.isEmpty(statVarDcids)) {
+    return Promise.resolve(statVarNames);
+  }
+
+  try {
+    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
+      params: {
+        dcids: statVarDcids,
+        prop: "name",
+      },
+      paramsSerializer: stringifyFn,
+    });
+    for (const statVar in resp.data) {
+      // If the api call can't find a name for the stat var (api returns []),
+      // default to using its dcid
+      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+        ? statVar
+        : resp.data[statVar][0].value;
+    }
+    return statVarNames;
+  } catch (error) {
+    return await Promise.reject(error);
+  }
+}
+
 interface SVGInfo {
   // the svg as an xml string
   svgXml: string;
@@ -121,4 +183,50 @@ export function getMergedSvg(svgContainer: HTMLDivElement): SVGInfo {
   const s = new XMLSerializer();
   const svgXml = !_.isEmpty(svgElemList) ? s.serializeToString(mergedSvg) : "";
   return { svgXml, height, width };
+}
+
+/**
+ * Gets the chart title for a tile
+ * @param title the title from the tile config
+ * @param rs replacement strings to use to format the title
+ */
+export function getChartTitle(title: string, rs: ReplacementStrings): string {
+  return title ? formatString(title, rs) : "";
+}
+
+/**
+ * Gets the relevant event type specs for a disaster event tile (a tile that is
+ * rendered in a disaster event block)
+ * @param eventTypeSpec the full collection of event type specs
+ * @param tile tile to get the event type specs for
+ */
+export function getTileEventTypeSpecs(
+  eventTypeSpec: Record<string, EventTypeSpec>,
+  tile: TileConfig
+): Record<string, EventTypeSpec> {
+  const relevantEventSpecs = {};
+  if (tile.disasterEventMapTileSpec) {
+    const pointEventTypeKeys =
+      tile.disasterEventMapTileSpec.pointEventTypeKey || [];
+    const polygonEventTypeKeys =
+      tile.disasterEventMapTileSpec.polygonEventTypeKey || [];
+    const pathEventTypeKeys =
+      tile.disasterEventMapTileSpec.pathEventTypeKey || [];
+    [
+      ...pointEventTypeKeys,
+      ...polygonEventTypeKeys,
+      ...pathEventTypeKeys,
+    ].forEach((specId) => {
+      relevantEventSpecs[specId] = eventTypeSpec[specId];
+    });
+  }
+  if (tile.topEventTileSpec) {
+    const specId = tile.topEventTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = eventTypeSpec[specId];
+  }
+  if (tile.histogramTileSpec) {
+    const specId = tile.histogramTileSpec.eventTypeKey;
+    relevantEventSpecs[specId] = eventTypeSpec[specId];
+  }
+  return relevantEventSpecs;
 }

@@ -17,6 +17,8 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { GaugeChartData } from "../components/tiles/gauge_tile";
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -34,7 +36,13 @@ import {
   Style,
   wrap,
 } from "./base";
-import { DotDataPoint } from "./types";
+import {
+  ChartOptions,
+  GroupLineChartOptions,
+  HistogramOptions,
+  HorizontalBarChartOptions,
+  LineChartOptions,
+} from "./types";
 
 const NUM_X_TICKS = 5;
 const NUM_Y_TICKS = 5;
@@ -59,6 +67,15 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+
+// Horizontal bar chart default style
+const HORIZONTAL_BAR_CHART = {
+  barHeight: 30,
+  marginBottom: 10,
+  marginLeft: 80,
+  marginRight: 30,
+  marginTop: 30,
+};
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
@@ -80,24 +97,47 @@ const HIGHLIGHTING_DOT_R = 5;
 const DATAGROUP_UNKNOWN_PLACE = "unknown";
 const TICK_SIZE = 6;
 
+/**
+ * Adds a legend to the parent element
+ * @param elem parent element
+ * @param color d3 color scale
+ * @param key legend items
+ * @param marginLeft [optional] legend offset
+ */
 function appendLegendElem(
-  elem: string,
+  elem: HTMLElement,
   color: d3.ScaleOrdinal<string, string>,
   keys: {
+    dcid?: string;
     label: string;
     link?: string;
-  }[]
+  }[],
+  apiRoot?: string
 ): void {
-  d3.select("#" + elem)
+  const legendContainer = d3
+    .select(elem)
     .append("div")
-    .attr("class", "legend")
+    .attr("part", "legend")
+    .attr("class", "legend-basic");
+
+  const legendItem = legendContainer
     .selectAll("div")
     .data(keys)
     .join("div")
-    .attr("style", (d) => `background: ${color(d.label)}`)
+    .attr("class", "legend-item");
+
+  legendItem
+    .append("div")
+    .attr("class", "legend-color")
+    .attr("part", (d) => `legend-color legend-color-${d.dcid || d.label}`)
+    .attr("style", (d) => `background: ${color(d.label)}`);
+
+  legendItem
     .append("a")
+    .attr("class", "legend-link")
+    .attr("title", (d) => d.label)
     .text((d) => d.label)
-    .attr("href", (d) => d.link || null)
+    .attr("href", (d) => (d.link ? `${apiRoot || ""}${d.link}` : null))
     // Triggered when stat var legend chip is clicked: sends data to google analytics.
     .on("click", () =>
       triggerGAEvent(GA_EVENT_PLACE_CHART_CLICK, {
@@ -408,7 +448,8 @@ function addXAxis(
   xScale: d3.AxisScale<any>,
   shouldRotate?: boolean,
   labelToLink?: { [label: string]: string },
-  singlePointLabel?: string
+  singlePointLabel?: string,
+  apiRoot?: string
 ): number {
   let d3Axis = d3
     .axisBottom(xScale)
@@ -449,7 +490,10 @@ function addXAxis(
       .style("cursor", "pointer")
       .style("text-decoration", "underline")
       .on("click", function () {
-        window.open((<SVGElement>this).dataset.link, "_blank");
+        window.open(
+          `${apiRoot || ""}${(<SVGElement>this).dataset.link}`,
+          "_blank"
+        );
       });
   }
 
@@ -511,6 +555,12 @@ function addXAxis(
   } else {
     axisHeight = MARGIN.bottom;
   }
+
+  // Add "part" attributes for web component styling
+  axis.selectAll(".domain").attr("part", "x-axis");
+  axis.selectAll("text").attr("part", "x-axis-text");
+  axis.selectAll(".tick line").attr("part", "x-axis-tick");
+
   return axisHeight;
 }
 
@@ -610,6 +660,9 @@ function addYAxis(
     g.selectAll("text").attr("transform", `translate(${maxLabelWidth}, 0)`)
   );
 
+  // Add "part" attributes for web component styling
+  axis.selectAll("text").attr("part", "y-axis-text");
+  axis.selectAll(".tick line").attr("part", "y-axis-tick");
   return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
 
@@ -628,8 +681,7 @@ function drawHistogram(
   chartHeight: number,
   dataPoints: DataPoint[],
   formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string,
-  fillColor?: string
+  options?: HistogramOptions
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
   const values = dataPoints.map((dataPoint) => dataPoint.value);
@@ -661,8 +713,8 @@ function drawHistogram(
     chartWidth,
     y,
     formatNumberFn,
-    undefined,
-    unit
+    null,
+    options?.unit
   );
 
   const x = d3
@@ -672,7 +724,15 @@ function drawHistogram(
     .paddingInner(0.1)
     .paddingOuter(0.5);
 
-  const bottomHeight = addXAxis(xAxis, chartHeight, x, true);
+  const bottomHeight = addXAxis(
+    xAxis,
+    chartHeight,
+    x,
+    true,
+    null,
+    null,
+    options?.apiRoot
+  );
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
@@ -680,10 +740,10 @@ function drawHistogram(
   // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
   // of axis labels that results in the labels being cut-off.
   // TODO (juliawu): identify why this is and fix root cause.
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, undefined, unit);
+  addYAxis(yAxis, chartWidth, y, formatNumberFn, undefined, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = fillColor ? fillColor : getColorFn(["A"])("A"); // we only need one color
+  const color = options?.fillColor ? options.fillColor : getColorFn(["A"])("A"); // we only need one color
 
   chart
     .append("g")
@@ -701,6 +761,8 @@ function drawHistogram(
     .attr("width", Math.min(x.bandwidth(), MAX_HISTOGRAM_BAR_WIDTH))
     .attr("height", (d) => Math.abs(y(0) - y(d.value)))
     .attr("fill", color);
+
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
 /**
@@ -714,20 +776,23 @@ function drawHistogram(
  * @param unit
  */
 function drawStackBarChart(
+  containerElement: HTMLDivElement,
   id: string,
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string
+  options?: ChartOptions
 ): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
   const labelToLink = {};
   for (const dataGroup of dataGroups) {
     labelToLink[dataGroup.label] = dataGroup.link;
   }
 
   const keys = dataGroups[0].value.map((dp) => dp.label);
-
   const data = [];
   for (const dataGroup of dataGroups) {
     const curr: { [property: string]: any } = { label: dataGroup.label };
@@ -739,9 +804,12 @@ function drawStackBarChart(
   }
 
   const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
 
   const svg = d3
-    .select("#" + id)
+    .select(containerElement)
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -768,7 +836,7 @@ function drawStackBarChart(
     y,
     formatNumberFn,
     TEXT_FONT_FAMILY,
-    unit
+    options?.unit
   );
 
   const x = d3
@@ -778,59 +846,523 @@ function drawStackBarChart(
     .paddingInner(0.1)
     .paddingOuter(0.1);
 
-  const bottomHeight = addXAxis(xAxis, chartHeight, x, false, labelToLink);
+  const bottomHeight = addXAxis(
+    xAxis,
+    chartHeight,
+    x,
+    false,
+    labelToLink,
+    null,
+    options?.apiRoot
+  );
 
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
+  addYAxis(
+    yAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    options?.unit
+  );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const color = getColorFn(keys);
+  const colorFn = getColorFn(keys, options?.colors);
 
-  chart
-    .selectAll("g")
-    .data(series)
-    .enter()
-    .append("g")
-    .attr("fill", (d) => color(d.key))
-    .selectAll("rect")
-    .data((d) => d)
-    .join("rect")
-    .classed("g-bar", true)
-    .attr("data-dcid", (d) => d.data.dcid)
-    .attr("x", (d) => x(String(d.data.label)))
-    .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+  if (options?.lollipop) {
+    // How much to shift stems so they plot at center of band
+    const xShift = x.bandwidth() / 2;
+
+    // draw lollipop stems
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("stroke", (d) => colorFn(d.key))
+      .selectAll("line")
+      .data((d) =>
+        d.map((item) => ({
+          key: d.key,
+          ...item,
+        }))
+      )
+      .join("line")
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("stroke-width", 2)
+      .attr("x1", (d) => x(String(d.data.label)) + xShift)
+      .attr("x2", (d) => x(String(d.data.label)) + xShift)
+      .attr("y1", (d) => y(d[0]))
+      .attr("y2", (d) => y(d[1]));
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("circle")
+      .data((d) =>
+        d.map((item) => ({
+          key: d.key,
+          ...item,
+        }))
+      )
+      .join("circle")
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("r", 6)
+      .attr("cx", (d) => x(String(d.data.label)) + xShift)
+      .attr("cy", (d) => y(d[1]));
+  } else {
+    // draw bars
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("rect")
+      .data((d) =>
+        d.map((item) => ({
+          key: d.key,
+          ...item,
+        }))
+      )
+      .join("rect")
+      .classed("g-bar", true)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("x", (d) => x(String(d.data.label)))
+      .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
+      .attr("width", x.bandwidth())
+      .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+  }
 
   appendLegendElem(
-    id,
-    color,
+    containerElement,
+    colorFn,
     dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
-    }))
+    })),
+    options?.apiRoot
   );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+}
+
+/**
+ * Helper function for plotting dataGroups with rectangular bars.
+ * Used by bar charts to render data in classic bar style.
+ * @param chart SVG element to draw bars in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of bars
+ * @param yScale  scale for y-axis values
+ */
+function drawBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleBand<string>,
+  xSubScale: d3.ScaleBand<string>,
+  yScale: d3.ScaleLinear<number, number, never>
+): void {
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("rect")
+    .data((dg) =>
+      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+    )
+    .join("rect")
+    .classed("g-bar", true)
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.key}`,
+        `series-place-${d.dcid}-variable-${d.key}`,
+      ].join(" ")
+    )
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("x", (d) => xSubScale(d.key))
+    .attr("y", (d) => yScale(Math.max(0, d.value)))
+    .attr("width", xSubScale.bandwidth())
+    .attr("height", (d) => Math.abs(yScale(0) - yScale(d.value)))
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.key));
+}
+
+/**
+ * Helper function for horizontally plotting dataGroups in a set of axes.
+ *
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ * @param useLollipop whether to use lollipop style
+ */
+function drawHorizontalGroupedBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleBand<string>,
+  useLollipop?: boolean
+): void {
+  const numGroups = dataGroups[0].value.length;
+
+  if (useLollipop) {
+    // Max allowable stem spacing
+    const maxStemSpacing = yScale.bandwidth() / (numGroups + 1);
+    // How far apart each stem should be
+    const stemSpacing = Math.min(15, maxStemSpacing);
+    // How far down bandwidth to start drawing stems
+    const bandwidthPadding =
+      ((numGroups + 1) * (maxStemSpacing - stemSpacing)) / 2;
+    // draw lollipop stems
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(dataGroups)
+      .join("g")
+      .selectAll("line")
+      .data((dg) =>
+        dg.value.map((dgv) => ({
+          dataGroupValue: dgv,
+          label: dg.label,
+        }))
+      )
+      .join("line")
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
+      .attr("stroke", (item) => colorFn(item.dataGroupValue.label))
+      .attr("stroke-width", 2)
+      .attr("x1", xScale(0))
+      .attr("x2", (item) => xScale(item.dataGroupValue.value))
+      .attr(
+        "y1",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      )
+      .attr(
+        "y2",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      );
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(dataGroups)
+      .join("g")
+      .selectAll("line")
+      .data((dg) =>
+        dg.value.map((dgv) => ({
+          dataGroupValue: dgv,
+          label: dg.label,
+        }))
+      )
+      .join("circle")
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
+      .attr("fill", (item) => colorFn(item.dataGroupValue.label))
+      .attr("cx", (item) => xScale(item.dataGroupValue.value))
+      .attr(
+        "cy",
+        (item, i) =>
+          yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      )
+      .attr("r", Math.min(6, stemSpacing));
+  } else {
+    // Draw grouped horizontal bars
+
+    const barHeight = yScale.bandwidth() / numGroups;
+    chart
+      .selectAll("g")
+      .data(dataGroups)
+      .enter()
+      .append("g")
+      .selectAll("rect")
+      .data((dg) =>
+        dg.value.map((dgv) => ({ dataGroupValue: dgv, label: dg.label }))
+      )
+      .join("rect")
+      .attr("fill", (item) => colorFn(item.dataGroupValue.label))
+      .classed("g-bar", true)
+      .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("part", (item) =>
+        [
+          "series",
+          `series-place-${item.dataGroupValue.dcid}`,
+          `series-variable-${item.label}`,
+          `series-place-${item.dataGroupValue.dcid}-variable-${item.label}`,
+        ].join(" ")
+      )
+      .attr("x", xScale(0))
+      .attr("y", (item, i) => yScale(item.label) + i * barHeight)
+      .attr("width", (item) => xScale(item.dataGroupValue.value))
+      .attr("height", barHeight);
+  }
+}
+
+/**
+ * Helper function for horizontally stacking dataGroups in a set of axes.
+ *
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param series data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ * @param useLollipop whether to use lollipop style
+ */
+function drawHorizontalStackedBars(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  series: d3.Series<{ [key: string]: number }, string>[],
+  xScale: d3.ScaleLinear<number, number>,
+  yScale: d3.ScaleBand<string>,
+  useLollipop?: boolean
+): void {
+  if (useLollipop) {
+    // How much to shift stems so they plot at center of band
+    const yShift = yScale.bandwidth() / 2;
+
+    // draw lollipop stems
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("stroke", (d) => colorFn(d.key))
+      .selectAll("line")
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .join("line")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("stroke-width", 2)
+      .attr("x1", (d) => xScale(d[0]))
+      .attr("x2", (d) => xScale(d[1]))
+      .attr("y1", (d) => yScale(String(d.data.label)) + yShift)
+      .attr("y2", (d) => yScale(String(d.data.label)) + yShift);
+
+    // draw circles
+    chart
+      .append("g")
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("circle")
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .join("circle")
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("cx", (d) => xScale(d[1]))
+      .attr("cy", (d) => yScale(String(d.data.label)) + yShift)
+      .attr("r", 6);
+  } else {
+    // Draw horizontal bars, stacked
+    chart
+      .selectAll("g")
+      .data(series)
+      .enter()
+      .append("g")
+      .attr("fill", (d) => colorFn(d.key))
+      .selectAll("rect")
+      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .join("rect")
+      .classed("g-bar", true)
+      .attr("data-dcid", (d) => d.data.dcid)
+      .attr("part", (d) =>
+        [
+          "series",
+          `series-place-${d.data.dcid}`,
+          `series-variable-${d.key}`,
+          `series-place-${d.data.dcid}-variable-${d.key}`,
+        ].join(" ")
+      )
+      .attr("x", (d) => xScale(d[0]))
+      .attr("y", (d) => yScale(String(d.data.label)))
+      .attr("width", (d) => xScale(d[1]) - xScale(d[0]))
+      .attr("height", yScale.bandwidth());
+  }
+}
+
+/**
+ * Helper function for plotting dataGroups with lollipops (stem and circle).
+ * Used by bar charts to render data in lollipop style.
+ * @param chart SVG element to draw lollipops in
+ * @param colorFn color scale mapping legend labels to colors
+ * @param dataGroups grouped data values to plot
+ * @param xScale main scale for x-axis values
+ * @param xSubScale sub-scale for a single group of lollipops
+ * @param yScale  scale for y-axis values
+ */
+function drawLollipops(
+  chart: d3.Selection<SVGElement, unknown, null, undefined>,
+  colorFn: d3.ScaleOrdinal<string, string, never>,
+  dataGroups: DataGroup[],
+  xScale: d3.ScaleBand<string>,
+  xSubScale: d3.ScaleBand<string>,
+  yScale: d3.ScaleLinear<number, number, never>
+): void {
+  // draw lollipop stems
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("line")
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
+    .join("line")
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.statVar}`,
+        `series-place-${d.dcid}-variable-${d.statVar}`,
+      ].join(" ")
+    )
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("data-d", (d) => d.value)
+    .attr("stroke", (d) => colorFn(d.statVar))
+    .attr("stroke-width", 2)
+    .attr("x1", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("x2", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("y1", yScale(0))
+    .attr("y2", (d) => yScale(d.value));
+
+  // draw circles
+  chart
+    .append("g")
+    .selectAll("g")
+    .data(dataGroups)
+    .join("g")
+    .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
+    .selectAll("circle")
+    .data((dg) =>
+      dg.value.map((dp) => ({
+        statVar: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+      }))
+    )
+    .join("circle")
+    .attr("part", (d) =>
+      [
+        "series",
+        `series-place-${d.dcid}`,
+        `series-variable-${d.statVar}`,
+        `series-place-${d.dcid}-variable-${d.statVar}`,
+      ].join(" ")
+    )
+    .attr("data-dcid", (d) => d.dcid)
+    .attr("data-d", (d) => d.value)
+    .attr("fill", (d) => colorFn(d.statVar))
+    .attr("cx", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
+    .attr("cy", (d) => yScale(d.value))
+    .attr("r", 6);
 }
 
 /**
  * Draw group bar chart.
- *
- * @param id
- * @param chartWidth
- * @param chartHeight
- * @param dataGroups
- * @param formatNumberFn
- * @param unit
+ * @param containerElement Div element chart will be drawn in
+ * @param id id of the chart
+ * @param chartWidth width of chart
+ * @param chartHeight height of chart
+ * @param dataGroups data values to plot
+ * @param formatNumberFn function to format y-axis values
+ * @param options chart options
+ * @param useLollipop whether to use lollipops instead of bars
  */
 function drawGroupBarChart(
+  containerElement: HTMLDivElement,
   id: string,
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
   formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string
+  options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
     return;
@@ -849,8 +1381,11 @@ function drawGroupBarChart(
     return;
   }
 
-  const svg = d3
-    .select("#" + id)
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  const svg = container
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -873,7 +1408,7 @@ function drawGroupBarChart(
     y,
     formatNumberFn,
     TEXT_FONT_FAMILY,
-    unit
+    options?.unit
   );
 
   const x0 = d3
@@ -882,7 +1417,15 @@ function drawGroupBarChart(
     .rangeRound([leftWidth, chartWidth - MARGIN.right])
     .paddingInner(0.1)
     .paddingOuter(0.1);
-  const bottomHeight = addXAxis(xAxis, chartHeight, x0, false, labelToLink);
+  const bottomHeight = addXAxis(
+    xAxis,
+    chartHeight,
+    x0,
+    false,
+    labelToLink,
+    null,
+    options?.apiRoot
+  );
 
   const x1 = d3
     .scaleBand()
@@ -893,44 +1436,325 @@ function drawGroupBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, TEXT_FONT_FAMILY, unit);
+  addYAxis(
+    yAxis,
+    chartWidth,
+    y,
+    formatNumberFn,
+    TEXT_FONT_FAMILY,
+    options?.unit
+  );
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys);
+  const colorFn = getColorFn(keys, options.colors);
 
-  chart
-    .append("g")
-    .selectAll("g")
-    .data(dataGroups)
-    .join("g")
-    .attr("transform", (dg) => `translate(${x0(dg.label)},0)`)
-    .selectAll("rect")
-    .data((dg) =>
-      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
-    )
-    .join("rect")
-    .classed("g-bar", true)
-    .attr("data-dcid", (d) => d.dcid)
-    .attr("x", (d) => x1(d.key))
-    .attr("y", (d) => y(Math.max(0, d.value)))
-    .attr("width", x1.bandwidth())
-    .attr("height", (d) => Math.abs(y(0) - y(d.value)))
-    .attr("data-d", (d) => d.value)
-    .attr("fill", (d) => colorFn(d.key));
+  if (options?.lollipop) {
+    drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
+  } else {
+    drawBars(chart, colorFn, dataGroups, x0, x1, y);
+  }
 
   appendLegendElem(
-    id,
+    containerElement,
     colorFn,
     dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
-    }))
+    })),
+    options?.apiRoot
+  );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+}
+
+/**
+ * Draw gauge chart.
+ * @param containerElement HTML div to draw chart in
+ * @param chartWidth width of the chart area
+ * @param data data to plot
+ * @param formatNumberFn function to format the value's label
+ * @param minChartHeight minimum height of the chart area
+ */
+function drawGaugeChart(
+  containerElement: HTMLDivElement,
+  chartWidth: number,
+  data: GaugeChartData,
+  formatNumberFn: (value: number, unit?: string) => string,
+  minChartHeight: number,
+  options?: ChartOptions
+): void {
+  if (_.isEmpty(data)) {
+    return;
+  }
+
+  /**
+   * Chart settings
+   * TODO(juliawu): Allow these constants to be set with an optional argument
+   */
+  // Angles, in radians, arc should cover
+  const arcMin = -Math.PI / 2;
+  const arcMax = Math.PI / 2;
+  // color to use for unfilled portion of the arc
+  const backgroundArcColor = "#ddd";
+  // color scale for [low, med, high] values
+  const colorOptions = options?.colors
+    ? options?.colors
+    : ["#d63031", "#fdcb6e", "#00b894"]; // red, yellow, green
+
+  // minimum thickness of the arc, in px
+  const minArcThickness = 10;
+  // how thickness of arc should scale with chart's width
+  // The larger the number, the thicker the arc
+  const arcThicknessRatio = 0.05;
+  // 0 to 1, compared to chart width, how wide should the arc be
+  const arcWidthRatio = 2 / 3;
+
+  // Compute arc and label text sizes based on settings
+  const arcStrokeWidth = Math.max(
+    chartWidth * arcThicknessRatio,
+    minArcThickness
+  );
+  const outerRadius = 0.5 * arcWidthRatio * chartWidth;
+  const innerRadius = outerRadius - arcStrokeWidth;
+  const chartHeight = Math.max(outerRadius, minChartHeight);
+  const labelTextSize = innerRadius / 3;
+  const dataDomain = [
+    data.range.min,
+    (data.range.max - data.range.min) / 2,
+    data.range.max,
+  ];
+  const arcScale = d3
+    .scaleLinear()
+    .domain(dataDomain)
+    .range([arcMin, 0, arcMax]);
+  const colorScale = d3
+    .scaleLinear<string>()
+    .domain(dataDomain)
+    .range(colorOptions);
+  const arc = d3
+    .arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .startAngle(arcMin);
+
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  // create svg container
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", chartWidth)
+    .attr("height", chartHeight)
+    .attr("class", ASYNC_ELEMENT_CLASS);
+
+  // draw chart and center in svg container
+  const chart = svg
+    .append("g")
+    .attr("class", "arc")
+    .attr(
+      "transform",
+      `translate(${chartWidth / 2}, ${(chartHeight + outerRadius) / 2})`
+    );
+
+  // create background arc
+  chart
+    .append("path")
+    .attr("class", "bg-arc")
+    .datum({ endAngle: arcMax })
+    .style("fill", backgroundArcColor)
+    .attr("d", arc);
+
+  // create data arc
+  chart
+    .append("path")
+    .attr("class", "data-arc")
+    .datum({
+      endAngle: arcScale(data.value),
+      startAngle: arcMin,
+    })
+    .attr("d", arc)
+    .style("fill", colorScale(data.value));
+
+  // add label in middle, under arc
+  const arcCentroid = arc.centroid({
+    endAngle: arcMax,
+    startAngle: arcMin,
+    innerRadius,
+    outerRadius,
+  });
+  chart
+    .append("text")
+    .attr("class", "arc-label")
+    .datum({ value: data.value })
+    .attr("x", arcCentroid[0])
+    .attr("y", -1 * labelTextSize)
+    .style("alignment-baseline", "central")
+    .style("text-anchor", "middle")
+    .style("font-size", `${labelTextSize}px`)
+    .text((d) => formatNumberFn(d.value));
+
+  appendLegendElem(
+    containerElement,
+    d3
+      .scaleOrdinal<string, string>()
+      .domain([data.statVar])
+      .range([colorScale(data.value)]),
+    [
+      {
+        label: data.statVarName,
+      },
+    ],
+    options?.apiRoot
+  );
+}
+
+/**
+ * Draw horizontally stacked bar chart.
+ * @param containerElement
+ * @param chartWidth
+ * @param dataGroups
+ * @param formatNumberFn
+ * @param options
+ */
+function drawHorizontalBarChart(
+  containerElement: HTMLDivElement,
+  chartWidth: number,
+  dataGroups: DataGroup[],
+  formatNumberFn: (value: number, unit?: string) => string,
+  options?: HorizontalBarChartOptions
+): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+
+  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const data = [];
+  for (const dataGroup of dataGroups) {
+    const curr: { [property: string]: any } = { label: dataGroup.label };
+    for (const dataPoint of dataGroup.value) {
+      curr[dataPoint.label] = dataPoint.value;
+      curr.dcid = dataPoint.dcid;
+    }
+    data.push(curr);
+  }
+
+  const series = d3.stack().keys(keys).offset(d3.stackOffsetDiverging)(data);
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  // Specify the chart’s dimensions based on a bar’s height.
+  const barHeight = options?.style?.barHeight || HORIZONTAL_BAR_CHART.barHeight;
+  const marginTop = HORIZONTAL_BAR_CHART.marginTop;
+  const marginRight = HORIZONTAL_BAR_CHART.marginRight;
+  const marginBottom = HORIZONTAL_BAR_CHART.marginBottom;
+  const marginLeft =
+    options?.style?.yAxisMargin || HORIZONTAL_BAR_CHART.marginLeft;
+  const numGroups = dataGroups[0].value.length;
+  const height = options?.stacked
+    ? Math.ceil((dataGroups.length + 0.1) * barHeight) +
+      marginTop +
+      marginBottom
+    : Math.ceil((dataGroups.length + 0.1) * barHeight * numGroups) +
+      marginTop +
+      marginBottom;
+
+  const x = d3
+    .scaleLinear()
+    .domain([
+      0,
+      options?.stacked
+        ? d3.max(series, (d) => d3.max(d, (d) => d[1]))
+        : d3.max(dataGroups, (dg) => d3.max(dg.value, (dgv) => dgv.value)),
+    ])
+    .nice()
+    .rangeRound([marginLeft, chartWidth - marginRight]);
+
+  const y = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([marginTop, height - marginBottom])
+    .padding(0.15);
+
+  const color = getColorFn(keys, options?.colors);
+
+  // Create the SVG container.
+  const svg = d3
+    .create("svg")
+    .attr("width", chartWidth)
+    .attr("height", height)
+    .attr("viewBox", `0, 0, ${chartWidth}, ${height}`)
+    .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;");
+
+  if (options?.stacked) {
+    // Stacked bar chart
+    drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
+  } else {
+    drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
+  }
+
+  // x axis
+  svg
+    .append("g")
+    .attr("transform", `translate(0,${marginTop})`)
+    .call(
+      d3
+        .axisTop(x)
+        .ticks(NUM_Y_TICKS)
+        .tickFormat((d) => {
+          return formatNumberFn(d.valueOf(), options?.unit);
+        })
+    )
+    .call((g) =>
+      g
+        .selectAll("text")
+        .style("fill", AXIS_TEXT_FILL)
+        .style("shape-rendering", "crispEdges")
+    )
+    .call((g) => g.select(".domain").remove());
+
+  // y axis
+  svg
+    .append("g")
+    .attr("transform", `translate(${marginLeft},0)`)
+    .call(d3.axisLeft(y).tickSizeOuter(0))
+    .call((g) =>
+      g
+        .selectAll("text")
+        .style("fill", AXIS_TEXT_FILL)
+        .style("shape-rendering", "crispEdges")
+    );
+
+  // Class for render verification in test cases
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+
+  // Attach SVG node to the parent container
+  containerElement.append(svg.node());
+
+  // Legend
+  appendLegendElem(
+    containerElement,
+    color,
+    dataGroups[0].value.map((dp) => ({
+      dcid: dp.dcid,
+      label: dp.label,
+      link: dp.link,
+    })),
+    options?.apiRoot
   );
 }
 
 /**
  * Draw line chart.
- * @param id
+ * @param svgContainer
  * @param width
  * @param height
  * @param dataGroups
@@ -943,15 +1767,14 @@ function drawGroupBarChart(
  * @return false if any series in the chart was filled in
  */
 function drawLineChart(
-  id: string,
+  svgContainer: HTMLDivElement,
   width: number,
   height: number,
   dataGroups: DataGroup[],
   showAllDots: boolean,
   highlightOnHover: boolean,
   formatNumberFn: (value: number, unit?: string) => string,
-  unit?: string,
-  handleDotClick?: (dotData: DotDataPoint) => void
+  options?: LineChartOptions
 ): boolean {
   if (_.isEmpty(dataGroups)) {
     return true;
@@ -964,9 +1787,8 @@ function drawLineChart(
   if (maxV == 0) {
     maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
-
   const svg = d3
-    .select("#" + id)
+    .select(svgContainer)
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -989,7 +1811,7 @@ function drawLineChart(
     yScale,
     formatNumberFn,
     TEXT_FONT_FAMILY,
-    unit
+    options?.unit
   );
 
   const xScale = d3
@@ -1012,14 +1834,15 @@ function drawLineChart(
     xScale,
     null,
     null,
-    singlePointLabel
+    singlePointLabel,
+    options?.apiRoot
   );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
   );
-  const colorFn = getColorFn(legendText);
+  const colorFn = getColorFn(legendText, options?.colors);
 
   let hasFilledInValues = false;
   const timePoints = new Set<number>();
@@ -1048,19 +1871,23 @@ function drawLineChart(
         .datum(dataset.filter(line.defined())) // Only plot points that are defined
         .attr("class", "line fill")
         .attr("d", line)
+        .attr("part", () =>
+          ["series-fill", `series-fill-variable-${dataGroup.label}`].join(" ")
+        )
         .style("fill", "none")
         .style("stroke-width", "2.5px")
         .style("stroke", colorFn(dataGroup.label))
         .style("opacity", 0.4)
         .style("stroke-dasharray", 2);
     }
-
     chart
       .append("path")
       .datum(dataset)
       .attr("class", "line")
-      .style("stroke", colorFn(dataGroup.label))
       .attr("d", line)
+      .attr("part", (d) =>
+        ["series", `series-variable-${dataGroup.label}`].join(" ")
+      )
       .style("fill", "none")
       .style("stroke-width", "2.5px")
       .style("stroke", colorFn(dataGroup.label));
@@ -1075,11 +1902,14 @@ function drawLineChart(
         .attr("class", "dot")
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
+        .attr("part", (d) =>
+          ["series-point", `series-point-variable-${dataGroup.label}`].join(" ")
+        )
         .attr("r", (d) => (d.value === null ? 0 : 3))
         .style("fill", colorFn(dataGroup.label))
         .style("stroke", "#fff");
-      if (handleDotClick) {
-        dots.on("click", handleDotClick);
+      if (options?.handleDotClick) {
+        dots.on("click", options?.handleDotClick);
       }
     }
   }
@@ -1092,9 +1922,8 @@ function drawLineChart(
       top: 0,
     };
     const dataGroupsDict = { [DATAGROUP_UNKNOWN_PLACE]: dataGroups };
-    const container: d3.Selection<HTMLDivElement, any, any, any> = d3.select(
-      `#${id}`
-    );
+    const container: d3.Selection<HTMLDivElement, any, any, any> =
+      d3.select(svgContainer);
     const highlightColorFn = (_: string, dataGroup: DataGroup) => {
       return colorFn(dataGroup.label);
     };
@@ -1109,18 +1938,20 @@ function drawLineChart(
       highlight,
       chartAreaBoundary,
       formatNumberFn,
-      unit
+      options?.unit
     );
   }
 
   appendLegendElem(
-    id,
+    svgContainer,
     colorFn,
     dataGroups.map((dg) => ({
       label: dg.label,
       link: dg.link,
-    }))
+    })),
+    options?.apiRoot
   );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
   return !hasFilledInValues;
 }
 
@@ -1169,9 +2000,7 @@ function drawGroupLineChart(
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
   formatNumberFn: (value: number, unit?: string) => string,
-  ylabel?: string,
-  unit?: string,
-  modelsDataGroupsDict?: { [place: string]: DataGroup[] }
+  options?: GroupLineChartOptions
 ): void {
   // Get a non-empty array as dataGroups
   const dataGroupsAll = Object.values(dataGroupsDict).filter(
@@ -1209,8 +2038,8 @@ function drawGroupLineChart(
 
   // Adjust the width of in-chart legends.
   let yRange = computeRanges(dataGroupsDict);
-  if (!_.isEmpty(modelsDataGroupsDict)) {
-    const modelsRange = computeRanges(modelsDataGroupsDict);
+  if (!_.isEmpty(options?.modelsDataGroupsDict)) {
+    const modelsRange = computeRanges(options?.modelsDataGroupsDict);
     yRange = [
       Math.min(yRange[0], modelsRange[0]),
       Math.max(yRange[1], modelsRange[1]),
@@ -1241,7 +2070,7 @@ function drawGroupLineChart(
     yScale,
     formatNumberFn,
     TEXT_FONT_FAMILY,
-    unit
+    options?.unit
   );
 
   const chartWidth = width - MARGIN.right - legendWidth;
@@ -1265,7 +2094,8 @@ function drawGroupLineChart(
     xScale,
     null,
     null,
-    singlePointLabel
+    singlePointLabel,
+    options?.apiRoot
   );
 
   // Update and redraw the y-axis based on the new x-axis height.
@@ -1279,7 +2109,7 @@ function drawGroupLineChart(
     yScale,
     formatNumberFn,
     TEXT_FONT_FAMILY,
-    unit
+    options?.unit
   );
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
@@ -1291,11 +2121,11 @@ function drawGroupLineChart(
     .attr("transform", `translate(${MARGIN.left}, ${YLABEL.topMargin})`)
     .style("font-size", "12px")
     .style("text-rendering", "optimizedLegibility")
-    .text(ylabel);
+    .text(options?.ylabel);
 
-  if (!_.isEmpty(modelsDataGroupsDict)) {
-    for (const place in modelsDataGroupsDict) {
-      const dGroups = modelsDataGroupsDict[place];
+  if (!_.isEmpty(options?.modelsDataGroupsDict)) {
+    for (const place in options?.modelsDataGroupsDict) {
+      const dGroups = options?.modelsDataGroupsDict[place];
       for (const dataGroup of dGroups) {
         const dataset = dataGroup.value
           .map((dp) => {
@@ -1404,9 +2234,104 @@ function drawGroupLineChart(
     highlight,
     chartAreaBoundary,
     formatNumberFn,
-    unit,
+    options?.unit,
     statVarInfos
   );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
+}
+
+/**
+ * Draw donut chart.
+ * @param containerElement Div element to draw chart in
+ * @param chartWidth width of chart
+ * @param chartHeight height of chart
+ * @param dataGroups data to plot
+ * @param drawAsPie whether to draw as full pie chart instead of donut
+ */
+function drawDonutChart(
+  containerElement: HTMLDivElement,
+  chartWidth: number,
+  chartHeight: number,
+  dataGroups: DataGroup[],
+  drawAsPie: boolean,
+  options?: ChartOptions
+): void {
+  if (_.isEmpty(dataGroups)) {
+    return;
+  }
+  const labelToLink = {};
+  for (const dataGroup of dataGroups) {
+    labelToLink[dataGroup.label] = dataGroup.link;
+  }
+  const keys = dataGroups[0].value.map((dp) => dp.label);
+  const colorFn = getColorFn(keys, options?.colors);
+  // minimum thickness of the donut, in px
+  const minArcThickness = 10;
+  // how thickness of donut should scale with donut's radius
+  // The larger the number, the thicker the donut
+  const arcThicknessRatio = 0.15;
+  // how much space to leave on each side of donut, in px
+  const margin = 20;
+
+  // Compute donut size based on settings
+  const outerRadius = Math.min(chartWidth, chartHeight) / 2 - margin;
+  const arcStrokeWidth = Math.max(
+    outerRadius * arcThicknessRatio,
+    minArcThickness
+  );
+  const innerRadius = drawAsPie ? 0 : outerRadius - arcStrokeWidth;
+  const arc = d3
+    .arc<d3.PieArcDatum<DataPoint>>()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+
+  // Compute position of each group on the donut
+  const pie = d3.pie<void, DataPoint>().value((d) => {
+    return d.value;
+  });
+  const donutData = pie(dataGroups[0].value);
+
+  // clear old chart to redraw over
+  const container = d3.select(containerElement);
+  container.selectAll("*").remove();
+
+  // create svg container
+  const svg = container
+    .append("svg")
+    .attr("xmlns", SVGNS)
+    .attr("xmlns:xlink", XLINKNS)
+    .attr("width", chartWidth)
+    .attr("height", chartHeight);
+
+  // draw donut and center in svg container
+  const chart = svg
+    .append("g")
+    .attr("class", "arc")
+    .attr("transform", `translate(${chartWidth / 2}, ${chartHeight / 2})`);
+
+  // plot data
+  chart
+    .selectAll("g")
+    .data(donutData)
+    .enter()
+    .append("path")
+    .attr("d", arc)
+    .attr("fill", (d) => {
+      return colorFn(d.data.label);
+    })
+    .attr("part", (d) =>
+      ["series", `series-variable-${d.data.label}`].join(" ")
+    );
+
+  appendLegendElem(
+    containerElement,
+    colorFn,
+    dataGroups[0].value.map((dp) => ({
+      label: dp.label,
+      link: dp.link,
+    }))
+  );
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
 /**
@@ -1462,11 +2387,15 @@ function buildInChartLegend(
 }
 
 export {
+  addXAxis,
+  addYAxis,
   appendLegendElem,
+  drawDonutChart,
+  drawGaugeChart,
   drawGroupBarChart,
   drawGroupLineChart,
   drawHistogram,
+  drawHorizontalBarChart,
   drawLineChart,
   drawStackBarChart,
-  wrap,
 };

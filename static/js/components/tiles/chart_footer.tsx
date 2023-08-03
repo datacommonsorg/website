@@ -29,6 +29,9 @@ interface ChartFooterPropType {
   // set of full urls of sources of the data in the chart
   sources: Set<string>;
   handleEmbed?: () => void;
+  // Url for the explore more button. Only show explore more button if this url
+  // is non-empty.
+  exploreMoreUrl?: string;
 }
 
 /**
@@ -67,7 +70,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
   return (
     <footer id="chart-container-footer">
       {!_.isEmpty(props.sources) && (
-        <div className="sources">Data from {getSourcesJsx(props.sources)}</div>
+        <div className="sources">Data from {getSourcesJsx(props.sources)}.</div>
       )}
       <div className="outlinks">
         {props.handleEmbed && (
@@ -79,6 +82,15 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             }}
           >
             Export
+          </a>
+        )}
+        {props.exploreMoreUrl && (
+          <a
+            href={props.exploreMoreUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Explore More ›
           </a>
         )}
       </div>

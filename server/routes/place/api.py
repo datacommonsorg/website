@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ from flask import Response
 from flask import url_for
 from flask_babel import gettext
 
-from server.cache import cache
+from server import cache
 import server.lib.range as lib_range
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
@@ -394,7 +394,7 @@ def has_data(data):
 
 
 @bp.route('/data/<path:dcid>')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def data(dcid):
   """Get chart spec and stats data of the landing page for a given place.
   """
@@ -407,7 +407,14 @@ def data(dcid):
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']
 
-  raw_page_data = dc.get_landing_page_data(dcid, target_category, new_stat_vars)
+  # Place landing page mixer API takes a parameter "seed" to randomly pick
+  # related places. When "seed" is 0, mixer creates a new time based seed.
+  # Otherwise the passed "seed" is used, and results is stable.
+  seed = request.args.get("seed", 0)
+  raw_page_data = dc.get_landing_page_data(dcid,
+                                           target_category,
+                                           new_stat_vars,
+                                           seed=seed)
 
   if 'statVarSeries' not in raw_page_data:
     logging.info("Landing Page: No data for %s", dcid)

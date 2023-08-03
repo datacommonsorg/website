@@ -71,39 +71,39 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
-            "name": "Accommodation and Food Services Industry",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Accommodation and Food Services Industry",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
-            "name": "Administrative and Support and Waste Management Services Industry",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Administrative and Support and Waste Management Services Industry",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block": {
-            "name": "Agriculture, Forestry, Fishing, and Hunting Industry",
+            "name": "Agriculture, Forestry, Fishing, Hunting",
             "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Agriculture, Forestry, Fishing, and Hunting Industry",
+            "name": "Agriculture, Forestry, Fishing, Hunting",
             "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block": {
-            "name": "Arts, Entertainment, and Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Arts, Entertainment, and Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block": {
@@ -152,21 +152,21 @@
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block": {
-            "name": "Mining, Quarrying, and Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mining, Quarrying, and Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block": {
-            "name": "Other Services, Except Public Administration",
+            "name": "Other Services (except Public Admin)",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Other Services, Except Public Administration",
+            "name": "Other Services (except Public Admin)",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block": {
@@ -215,12 +215,12 @@
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "dc/8p97n7l96lgg8_multiple_place_bar_block": {
-            "name": "Transportation and Warehousing",
+            "name": "Transportation And Warehousing",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/8p97n7l96lgg8_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Transportation and Warehousing",
+            "name": "Transportation And Warehousing",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
@@ -252,9 +252,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Placer County",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

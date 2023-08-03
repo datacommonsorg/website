@@ -16,26 +16,569 @@
                       "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithDiabetes_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
                       "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithStroke_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block"
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Medical Conditions in Placer County (${date})",
+                    "title": "Prevalence of Health Conditions in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "description": "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
-            "title": "Medical Conditions"
+            "title": "Prevalence of Health Conditions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Cancer Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer Deaths by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Preventive Health in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer Preventive Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block",
+                      "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block"
+                    ],
+                    "title": "Mental Health Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc",
+                      "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc",
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Mental Health Deaths by Age in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Mental Health Deaths by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male_multiple_place_bar_block",
+                      "Count_Person_WithDisability_Female_multiple_place_bar_block"
+                    ],
+                    "title": "Disabled Population by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_Female_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Disabled Population by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Disabled Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_OneRace_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Disabled Population by Race in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_OneRace_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Disabled Population by Race in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Disabled Population by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Uninsured By Gender in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block_pc",
+                      "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Uninsured By Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Uninsured By Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "With Health Insurance By Gender in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block_pc",
+                      "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita With Health Insurance By Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "With Health Insurance By Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Uninsured By Race in Placer County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc",
+                      "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Uninsured By Race in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Uninsured By Race"
           }
         ],
         "statVarSpec": {
+          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
+            "statVar": "Count_Death_35To44Years_Neoplasms"
+          },
+          "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
+            "statVar": "Count_Death_35To44Years_Neoplasms"
+          },
+          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
+            "statVar": "Count_Death_45To54Years_Neoplasms"
+          },
+          "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
+            "statVar": "Count_Death_45To54Years_Neoplasms"
+          },
+          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
+            "statVar": "Count_Death_55To64Years_Neoplasms"
+          },
+          "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
+            "statVar": "Count_Death_55To64Years_Neoplasms"
+          },
+          "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
+            "statVar": "Count_Death_65To74Years_Neoplasms"
+          },
+          "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
+            "statVar": "Count_Death_65To74Years_Neoplasms"
+          },
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
+            "statVar": "Count_Death_75To84Years_Neoplasms"
+          },
+          "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
+            "statVar": "Count_Death_75To84Years_Neoplasms"
+          },
+          "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
+          },
+          "Count_Death_85Years_Neoplasms_multiple_place_bar_block": {
+            "name": "Neoplasms Deaths Among  85+ Years Olds",
+            "statVar": "Count_Death_85Years_Neoplasms"
+          },
+          "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Neoplasms Deaths Among  85+ Years Olds",
+            "statVar": "Count_Death_85Years_Neoplasms"
+          },
+          "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian or Alaska Native With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "American Indian or Alaska Native With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block": {
+            "name": "Asian With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AsianAlone"
+          },
+          "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Asian With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AsianAlone"
+          },
+          "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African American With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Black or African American With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic or Latino With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_HispanicOrLatino"
+          },
+          "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Hispanic or Latino With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_HispanicOrLatino"
+          },
+          "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Native Hawaiian or Other Pacific Islander With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Native Hawaiian or Other Pacific Islander With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block": {
+            "name": "White With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_WhiteAlone"
+          },
+          "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "White With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_WhiteAlone"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian/Alaska Native Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "American Indian/Alaska Native Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black/African American Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Black/African American Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_Female_multiple_place_bar_block": {
+            "name": "Female Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_Female_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Female Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic/Latino Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_HispanicOrLatino"
+          },
+          "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Hispanic/Latino Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_HispanicOrLatino"
+          },
+          "Count_Person_WithDisability_Male_multiple_place_bar_block": {
+            "name": "Male Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_Male"
+          },
+          "Count_Person_WithDisability_Male_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Male Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_Male"
+          },
+          "Count_Person_WithDisability_OneRace_multiple_place_bar_block": {
+            "name": "Single-Race Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_OneRace"
+          },
+          "Count_Person_WithDisability_OneRace_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Single-Race Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_OneRace"
+          },
+          "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Disabled Population of Some Other Race",
+            "statVar": "Count_Person_WithDisability_SomeOtherRaceAlone"
+          },
+          "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Disabled Population of Some Other Race",
+            "statVar": "Count_Person_WithDisability_SomeOtherRaceAlone"
+          },
+          "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Disabled Population of Two or More Races",
+            "statVar": "Count_Person_WithDisability_TwoOrMoreRaces"
+          },
+          "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Disabled Population of Two or More Races",
+            "statVar": "Count_Person_WithDisability_TwoOrMoreRaces"
+          },
+          "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Non Hispanic or Latino White Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Non Hispanic or Latino White Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Disbabled Population",
+            "statVar": "Count_Person_WithDisability_WhiteAlone"
+          },
+          "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "White Disbabled Population",
+            "statVar": "Count_Person_WithDisability_WhiteAlone"
+          },
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
+          },
+          "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block": {
+            "name": "Women 50 - 74 Years, Who Received Mammography",
+            "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
+            "unit": "%"
+          },
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
+            "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
+            "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
+            "unit": "%"
+          },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
             "name": "Arthritis",
             "statVar": "Percent_Person_WithArthritis",
@@ -72,7 +615,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
@@ -107,9 +650,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Placer County",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

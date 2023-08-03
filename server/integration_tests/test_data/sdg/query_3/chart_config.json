@@ -9,36 +9,56 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_STA_MORT_FEMALE"
+                      "WHO/WHS4_117"
+                    ],
+                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_128"
+                    ],
+                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_129"
+                    ],
+                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_543"
+                    ],
+                    "title": "Bcg Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS8_110"
+                    ],
+                    "title": "Measles-Containing-Vaccine First-Dose (Mcv1) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM"
+                    ],
+                    "title": "Number Of Maternal Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
                     ],
                     "title": "Maternal mortality ratio in the World (${date})",
                     "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SH_FPL_MTMM_15-49_FEMALE"
-                    ],
-                    "title": "Access to modern family planning for women in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SP_DYN_ADKL_15-19_FEMALE"
-                    ],
-                    "title": "Birth rate for adolescent women in the World (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_ANEM_15-49_FEMALE"
-                    ],
-                    "title": "Prevalence on anaemia in women in the World (${date})",
-                    "type": "MAP"
                   }
                 ]
               }
-            ],
-            "title": "Women's health"
+            ]
           },
           {
             "columns": [
@@ -46,29 +66,36 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_IMRT_LT1Y"
+                      "WHO/M_Est_smk_daily"
                     ],
-                    "title": "Infant mortality rate in the World (${date})",
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_MORT_LT5Y"
+                      "WHO/NCD_BMI_18A"
                     ],
-                    "title": "Mortality rate for children under 5 years in the World (${date})",
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_DYN_NMRT_LT1M"
+                      "WHO/NCD_BMI_30A"
                     ],
-                    "title": "Neonatal mortality rate in the World (${date})",
+                    "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_PAC"
+                    ],
+                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Preventable newborn and children deaths"
+            "title": "Health Behaviors"
           },
           {
             "columns": [
@@ -76,36 +103,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_HIV_INCD"
+                      "WHO/bcgv_Female"
                     ],
-                    "title": "Incidence of HIV infections in the World (${date})",
+                    "title": "% Bcg Immunization, Female One-Year-Old in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_TBS_INCD"
+                      "WHO/dptv_Female"
                     ],
-                    "title": "Incidence of Tuberculosis in the World (${date})",
+                    "title": "% Dtp3 Immunization, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_HAP_HBSAG_LT5Y"
+                      "WHO/fullv_Female"
                     ],
-                    "title": "Prevalence of hepatitis B in children under 5 years in the World (${date})",
+                    "title": "% Full Immunization Coverage, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_TRP_INTVN"
+                      "WHO/mslv_Female"
                     ],
-                    "title": "Need for intervention against neglected tropical diseases in the World (${date})",
+                    "title": "% Measles Immunization Coverage, Female One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Female"
+                    ],
+                    "title": "% Polio Immunization Coverage, Female One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Ending epidemics"
+            "title": "Child Immunizations for Females"
           },
           {
             "columns": [
@@ -113,29 +147,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_ACS_UNHC"
+                      "WHO/bcgv_Male"
                     ],
-                    "title": "Universal health coverage index in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_XPD_EARN10"
+                      "WHO/dptv_Male"
                     ],
-                    "title": "Population with health spending over 10% of household expenditure or income in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_XPD_EARN25"
+                      "WHO/fullv_Male"
                     ],
-                    "title": "Population with health spending over 25% of household expenditure or income in the World (${date})",
+                    "title": "% Full Immunization Coverage, Male One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/mslv_Male"
+                    ],
+                    "title": "% Measles Immunization Coverage, Male One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Male"
+                    ],
+                    "title": "% Polio Immunization Coverage, Male One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Health coverage and financial risk"
+            "title": "Child Immunizations for Males"
           },
           {
             "columns": [
@@ -143,22 +191,43 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_PRV_SMOK_15GEQ"
+                      "WHO/bcgv_Rural"
                     ],
-                    "title": "Prevalence of tobacco use in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Rural One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_SUD_ALCOL_15GEQ"
+                      "WHO/dptv_Rural"
                     ],
-                    "title": "Prevalence of alcohol use disorder in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/fullv_Rural"
+                    ],
+                    "title": "% Full Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/mslv_Rural"
+                    ],
+                    "title": "% Measles Immunization Coverage, Rural One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Rural"
+                    ],
+                    "title": "% Polio Immunization Coverage, Rural One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Tobacco and alcohol"
+            "title": "Child Immunizations in Rural Area"
           },
           {
             "columns": [
@@ -166,118 +235,680 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN_PHYS"
+                      "WHO/bcgv_Urban"
                     ],
-                    "title": "Density of medical doctors in the World (${date})",
+                    "title": "% Bcg Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN_NURSMID"
+                      "WHO/dptv_Urban"
                     ],
-                    "title": "Density of nurses and midwives in the World (${date})",
+                    "title": "% Dtp3 Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN_PHAR"
+                      "WHO/fullv_Urban"
                     ],
-                    "title": "Density of pharmacists in the World (${date})",
+                    "title": "% Full Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "sdg/SH_MED_DEN_DENT"
+                      "WHO/mslv_Urban"
                     ],
-                    "title": "Density of dentists in the World (${date})",
+                    "title": "% Measles Immunization Coverage, Urban One-Year-Olds in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/poliov_Urban"
+                    ],
+                    "title": "% Polio Immunization Coverage, Urban One-Year-Olds in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Health worker density"
+            "title": "Global \"Child Immunizations In Urban Area\""
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/CM_01"
+                    ],
+                    "title": "Number Of Under-Five Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/CM_02"
+                    ],
+                    "title": "Number Of Infant Deaths in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/CM_03"
+                    ],
+                    "title": "Number Of Neonatal Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Child Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001418"
+                    ],
+                    "title": "Alcohol Use Disorders, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001419"
+                    ],
+                    "title": "Breast Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001420"
+                    ],
+                    "title": "Colon And Rectum Cancers, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001421"
+                    ],
+                    "title": "Diabetes Mellitus, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001422"
+                    ],
+                    "title": "Drownings, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001423"
+                    ],
+                    "title": "Falls, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001424"
+                    ],
+                    "title": "Fires, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001425"
+                    ],
+                    "title": "Ischaemic Heart Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001426"
+                    ],
+                    "title": "Liver Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001427"
+                    ],
+                    "title": "Liver Cirrhosis, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001429"
+                    ],
+                    "title": "Mouth And Oropharynx Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001430"
+                    ],
+                    "title": "Oesophagus Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001431"
+                    ],
+                    "title": "Poisoning, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001432"
+                    ],
+                    "title": "Prematurity And Low Birth Rate, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001433"
+                    ],
+                    "title": "Road Traffic Accidents, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001434"
+                    ],
+                    "title": "Self-Inflicted Injury, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001435"
+                    ],
+                    "title": "Other Unintentional Injuries, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001436"
+                    ],
+                    "title": "Violence, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001689"
+                    ],
+                    "title": "Cerebrovascular Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Disability-Adjusted Life-Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001437"
+                    ],
+                    "title": "Age-Standardized Death Rates, Alcohol Use Disorders, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001438"
+                    ],
+                    "title": "Age-Standardized Death Rates, Breast Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001439"
+                    ],
+                    "title": "Age-Standardized Death Rates, Colon And Rectum Cancers, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001440"
+                    ],
+                    "title": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001441"
+                    ],
+                    "title": "Age-Standardized Death Rates, Drownings, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001442"
+                    ],
+                    "title": "Age-Standardized Death Rates, Falls, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001443"
+                    ],
+                    "title": "Age-Standardized Death Rates, Fires, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001444"
+                    ],
+                    "title": "Age-Standardized Death Rates, Ischaemic Heart Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001445"
+                    ],
+                    "title": "Age-Standardized Death Rates, Liver Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001446"
+                    ],
+                    "title": "Age-Standardized Death Rates, Liver Cirrhosis, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001448"
+                    ],
+                    "title": "Age-Standardized Death Rates, Mouth And Oropharynx Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001449"
+                    ],
+                    "title": "Age-Standardized Death Rates, Oesophagus Cancer, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001450"
+                    ],
+                    "title": "Age-Standardized Death Rates, Poisoning, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001451"
+                    ],
+                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001452"
+                    ],
+                    "title": "Age-Standardized Death Rates, Road Traffic Accidents, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001453"
+                    ],
+                    "title": "Age-Standardized Death Rates, Self-Inflicted Injury, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001454"
+                    ],
+                    "title": "Age-Standardized Death Rates, Other Unintentional Injuries, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001455"
+                    ],
+                    "title": "Age-Standardized Death Rates, Violence, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001456"
+                    ],
+                    "title": "Age-Standardized Death Rates (15+ Years), Alcoholic Liver Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001458"
+                    ],
+                    "title": "Age-Standardized Death Rates (15+ Years), Poisoning, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001460"
+                    ],
+                    "title": "Age-Standardized Death Rates (15+ Years), Violence, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001690"
+                    ],
+                    "title": "Age-Standardized Death Rates, Cerebrovascular Disease, Per 100,000 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Global \"Mortality Rates By Causes\""
           }
         ],
         "statVarSpec": {
-          "sdg/SH_ACS_UNHC": {
-            "name": "Universal health coverage index",
-            "statVar": "sdg/SH_ACS_UNHC"
+          "WHO/CM_01": {
+            "name": "Number Of Under-Five Deaths",
+            "statVar": "WHO/CM_01"
           },
-          "sdg/SH_DYN_IMRT_LT1Y": {
-            "name": "Infant mortality rate",
-            "statVar": "sdg/SH_DYN_IMRT_LT1Y"
+          "WHO/CM_02": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
           },
-          "sdg/SH_DYN_MORT_LT5Y": {
-            "name": "Mortality rate for children under 5 years",
-            "statVar": "sdg/SH_DYN_MORT_LT5Y"
+          "WHO/CM_03": {
+            "name": "Number Of Neonatal Deaths",
+            "statVar": "WHO/CM_03"
           },
-          "sdg/SH_DYN_NMRT_LT1M": {
-            "name": "Neonatal mortality rate",
-            "statVar": "sdg/SH_DYN_NMRT_LT1M"
+          "WHO/MORT_MATERNALNUM": {
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
           },
-          "sdg/SH_FPL_MTMM_15-49_FEMALE": {
-            "name": "Access to modern family planning for women",
-            "statVar": "sdg/SH_FPL_MTMM_15-49_FEMALE"
+          "WHO/M_Est_smk_daily": {
+            "name": "% Daily Tobacco Smokers (Estimate)",
+            "statVar": "WHO/M_Est_smk_daily"
           },
-          "sdg/SH_HAP_HBSAG_LT5Y": {
-            "name": "Prevalence of hepatitis B in children under 5 years",
-            "statVar": "sdg/SH_HAP_HBSAG_LT5Y"
+          "WHO/NCD_BMI_18A": {
+            "name": "% Underweight Among Adults, BMI < 18",
+            "statVar": "WHO/NCD_BMI_18A"
           },
-          "sdg/SH_HIV_INCD": {
-            "name": "Incidence of HIV infections",
-            "statVar": "sdg/SH_HIV_INCD"
+          "WHO/NCD_BMI_30A": {
+            "name": "% Obesity Among Adults, BMI >= 30",
+            "statVar": "WHO/NCD_BMI_30A"
           },
-          "sdg/SH_MED_DEN_DENT": {
-            "name": "Density of dentists",
-            "statVar": "sdg/SH_MED_DEN_DENT"
+          "WHO/NCD_PAC": {
+            "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
+            "statVar": "WHO/NCD_PAC"
           },
-          "sdg/SH_MED_DEN_NURSMID": {
-            "name": "Density of nurses and midwives",
-            "statVar": "sdg/SH_MED_DEN_NURSMID"
+          "WHO/SA_0000001418": {
+            "name": "Alcohol Use Disorders, Per 100,000",
+            "statVar": "WHO/SA_0000001418"
           },
-          "sdg/SH_MED_DEN_PHAR": {
-            "name": "Density of pharmacists",
-            "statVar": "sdg/SH_MED_DEN_PHAR"
+          "WHO/SA_0000001419": {
+            "name": "Breast Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001419"
           },
-          "sdg/SH_MED_DEN_PHYS": {
-            "name": "Density of medical doctors",
-            "statVar": "sdg/SH_MED_DEN_PHYS"
+          "WHO/SA_0000001420": {
+            "name": "Colon And Rectum Cancers, Per 100,000",
+            "statVar": "WHO/SA_0000001420"
           },
-          "sdg/SH_PRV_SMOK_15GEQ": {
-            "name": "Prevalence of tobacco use",
-            "statVar": "sdg/SH_PRV_SMOK_15GEQ"
+          "WHO/SA_0000001421": {
+            "name": "Diabetes Mellitus, Per 100,000",
+            "statVar": "WHO/SA_0000001421"
           },
-          "sdg/SH_STA_ANEM_15-49_FEMALE": {
-            "name": "Prevalence on anaemia in women",
-            "statVar": "sdg/SH_STA_ANEM_15-49_FEMALE"
+          "WHO/SA_0000001422": {
+            "name": "Drownings, Per 100,000",
+            "statVar": "WHO/SA_0000001422"
           },
-          "sdg/SH_STA_MORT_FEMALE": {
+          "WHO/SA_0000001423": {
+            "name": "Falls, Per 100,000",
+            "statVar": "WHO/SA_0000001423"
+          },
+          "WHO/SA_0000001424": {
+            "name": "Fires, Per 100,000",
+            "statVar": "WHO/SA_0000001424"
+          },
+          "WHO/SA_0000001425": {
+            "name": "Ischaemic Heart Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001425"
+          },
+          "WHO/SA_0000001426": {
+            "name": "Liver Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001426"
+          },
+          "WHO/SA_0000001427": {
+            "name": "Liver Cirrhosis, Per 100,000",
+            "statVar": "WHO/SA_0000001427"
+          },
+          "WHO/SA_0000001429": {
+            "name": "Mouth And Oropharynx Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001429"
+          },
+          "WHO/SA_0000001430": {
+            "name": "Oesophagus Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001430"
+          },
+          "WHO/SA_0000001431": {
+            "name": "Poisoning, Per 100,000",
+            "statVar": "WHO/SA_0000001431"
+          },
+          "WHO/SA_0000001432": {
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
+          },
+          "WHO/SA_0000001433": {
+            "name": "Road Traffic Accidents, Per 100,000",
+            "statVar": "WHO/SA_0000001433"
+          },
+          "WHO/SA_0000001434": {
+            "name": "Self-Inflicted Injury, Per 100,000",
+            "statVar": "WHO/SA_0000001434"
+          },
+          "WHO/SA_0000001435": {
+            "name": "Other Unintentional Injuries, Per 100,000",
+            "statVar": "WHO/SA_0000001435"
+          },
+          "WHO/SA_0000001436": {
+            "name": "Violence, Per 100,000",
+            "statVar": "WHO/SA_0000001436"
+          },
+          "WHO/SA_0000001437": {
+            "name": "Age-Standardized Death Rates, Alcohol Use Disorders, Per 100,000",
+            "statVar": "WHO/SA_0000001437"
+          },
+          "WHO/SA_0000001438": {
+            "name": "Age-Standardized Death Rates, Breast Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001438"
+          },
+          "WHO/SA_0000001439": {
+            "name": "Age-Standardized Death Rates, Colon And Rectum Cancers, Per 100,000",
+            "statVar": "WHO/SA_0000001439"
+          },
+          "WHO/SA_0000001440": {
+            "name": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000",
+            "statVar": "WHO/SA_0000001440"
+          },
+          "WHO/SA_0000001441": {
+            "name": "Age-Standardized Death Rates, Drownings, Per 100,000",
+            "statVar": "WHO/SA_0000001441"
+          },
+          "WHO/SA_0000001442": {
+            "name": "Age-Standardized Death Rates, Falls, Per 100,000",
+            "statVar": "WHO/SA_0000001442"
+          },
+          "WHO/SA_0000001443": {
+            "name": "Age-Standardized Death Rates, Fires, Per 100,000",
+            "statVar": "WHO/SA_0000001443"
+          },
+          "WHO/SA_0000001444": {
+            "name": "Age-Standardized Death Rates, Ischaemic Heart Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001444"
+          },
+          "WHO/SA_0000001445": {
+            "name": "Age-Standardized Death Rates, Liver Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001445"
+          },
+          "WHO/SA_0000001446": {
+            "name": "Age-Standardized Death Rates, Liver Cirrhosis, Per 100,000",
+            "statVar": "WHO/SA_0000001446"
+          },
+          "WHO/SA_0000001448": {
+            "name": "Age-Standardized Death Rates, Mouth And Oropharynx Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001448"
+          },
+          "WHO/SA_0000001449": {
+            "name": "Age-Standardized Death Rates, Oesophagus Cancer, Per 100,000",
+            "statVar": "WHO/SA_0000001449"
+          },
+          "WHO/SA_0000001450": {
+            "name": "Age-Standardized Death Rates, Poisoning, Per 100,000",
+            "statVar": "WHO/SA_0000001450"
+          },
+          "WHO/SA_0000001451": {
+            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001451"
+          },
+          "WHO/SA_0000001452": {
+            "name": "Age-Standardized Death Rates, Road Traffic Accidents, Per 100,000",
+            "statVar": "WHO/SA_0000001452"
+          },
+          "WHO/SA_0000001453": {
+            "name": "Age-Standardized Death Rates, Self-Inflicted Injury, Per 100,000",
+            "statVar": "WHO/SA_0000001453"
+          },
+          "WHO/SA_0000001454": {
+            "name": "Age-Standardized Death Rates, Other Unintentional Injuries, Per 100,000",
+            "statVar": "WHO/SA_0000001454"
+          },
+          "WHO/SA_0000001455": {
+            "name": "Age-Standardized Death Rates, Violence, Per 100,000",
+            "statVar": "WHO/SA_0000001455"
+          },
+          "WHO/SA_0000001456": {
+            "name": "Age-Standardized Death Rates (15+ Years), Alcoholic Liver Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001456"
+          },
+          "WHO/SA_0000001458": {
+            "name": "Age-Standardized Death Rates (15+ Years), Poisoning, Per 100,000",
+            "statVar": "WHO/SA_0000001458"
+          },
+          "WHO/SA_0000001460": {
+            "name": "Age-Standardized Death Rates (15+ Years), Violence, Per 100,000",
+            "statVar": "WHO/SA_0000001460"
+          },
+          "WHO/SA_0000001689": {
+            "name": "Cerebrovascular Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001689"
+          },
+          "WHO/SA_0000001690": {
+            "name": "Age-Standardized Death Rates, Cerebrovascular Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001690"
+          },
+          "WHO/WHS4_117": {
+            "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_117"
+          },
+          "WHO/WHS4_128": {
+            "name": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)",
+            "statVar": "WHO/WHS4_128"
+          },
+          "WHO/WHS4_129": {
+            "name": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_129"
+          },
+          "WHO/WHS4_543": {
+            "name": "Bcg Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_543"
+          },
+          "WHO/WHS8_110": {
+            "name": "Measles-Containing-Vaccine First-Dose (Mcv1) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS8_110"
+          },
+          "WHO/bcgv_Female": {
+            "name": "% Bcg Immunization, Female One-Year-Old",
+            "statVar": "WHO/bcgv_Female"
+          },
+          "WHO/bcgv_Male": {
+            "name": "% Bcg Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/bcgv_Male"
+          },
+          "WHO/bcgv_Rural": {
+            "name": "% Bcg Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/bcgv_Rural"
+          },
+          "WHO/bcgv_Urban": {
+            "name": "% Bcg Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/bcgv_Urban"
+          },
+          "WHO/dptv_Female": {
+            "name": "% Dtp3 Immunization, Female One-Year-Olds",
+            "statVar": "WHO/dptv_Female"
+          },
+          "WHO/dptv_Male": {
+            "name": "% Dtp3 Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/dptv_Male"
+          },
+          "WHO/dptv_Rural": {
+            "name": "% Dtp3 Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/dptv_Rural"
+          },
+          "WHO/dptv_Urban": {
+            "name": "% Dtp3 Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/dptv_Urban"
+          },
+          "WHO/fullv_Female": {
+            "name": "% Full Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/fullv_Female"
+          },
+          "WHO/fullv_Male": {
+            "name": "% Full Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/fullv_Male"
+          },
+          "WHO/fullv_Rural": {
+            "name": "% Full Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/fullv_Rural"
+          },
+          "WHO/fullv_Urban": {
+            "name": "% Full Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/fullv_Urban"
+          },
+          "WHO/mslv_Female": {
+            "name": "% Measles Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/mslv_Female"
+          },
+          "WHO/mslv_Male": {
+            "name": "% Measles Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/mslv_Male"
+          },
+          "WHO/mslv_Rural": {
+            "name": "% Measles Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/mslv_Rural"
+          },
+          "WHO/mslv_Urban": {
+            "name": "% Measles Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/mslv_Urban"
+          },
+          "WHO/poliov_Female": {
+            "name": "% Polio Immunization Coverage, Female One-Year-Olds",
+            "statVar": "WHO/poliov_Female"
+          },
+          "WHO/poliov_Male": {
+            "name": "% Polio Immunization Coverage, Male One-Year-Olds",
+            "statVar": "WHO/poliov_Male"
+          },
+          "WHO/poliov_Rural": {
+            "name": "% Polio Immunization Coverage, Rural One-Year-Olds",
+            "statVar": "WHO/poliov_Rural"
+          },
+          "WHO/poliov_Urban": {
+            "name": "% Polio Immunization Coverage, Urban One-Year-Olds",
+            "statVar": "WHO/poliov_Urban"
+          },
+          "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",
-            "statVar": "sdg/SH_STA_MORT_FEMALE"
-          },
-          "sdg/SH_SUD_ALCOL_15GEQ": {
-            "name": "Prevalence of alcohol use disorder",
-            "statVar": "sdg/SH_SUD_ALCOL_15GEQ"
-          },
-          "sdg/SH_TBS_INCD": {
-            "name": "Incidence of Tuberculosis",
-            "statVar": "sdg/SH_TBS_INCD"
-          },
-          "sdg/SH_TRP_INTVN": {
-            "name": "Need for intervention against neglected tropical diseases",
-            "statVar": "sdg/SH_TRP_INTVN"
-          },
-          "sdg/SH_XPD_EARN10": {
-            "name": "Population with health spending over 10% of household expenditure or income",
-            "statVar": "sdg/SH_XPD_EARN10"
-          },
-          "sdg/SH_XPD_EARN25": {
-            "name": "Population with health spending over 25% of household expenditure or income",
-            "statVar": "sdg/SH_XPD_EARN25"
-          },
-          "sdg/SP_DYN_ADKL_15-19_FEMALE": {
-            "name": "Birth rate for adolescent women",
-            "statVar": "sdg/SP_DYN_ADKL_15-19_FEMALE"
+            "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
       }
@@ -289,13 +920,56 @@
       "placeDcid": [
         "Earth"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "health in the world - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "health in the world - show lowest"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "People With VA Health Care",
+            "nlQuery": "People With VA Health Care Earth"
+          },
+          {
+            "displayName": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode",
+            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode Earth"
+          },
+          {
+            "displayName": "People With Only VA Health Care",
+            "nlQuery": "People With Only VA Health Care Earth"
+          },
+          {
+            "displayName": "Count of Establishment: Health Care And Social Assistance (NAICS/62)",
+            "nlQuery": "Count of Establishment: Health Care And Social Assistance (NAICS/62) Earth"
+          },
+          {
+            "displayName": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "nlQuery": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism Earth"
+          }
+        ]
+      }
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
     "name": "Earth",
     "place_type": "Place"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

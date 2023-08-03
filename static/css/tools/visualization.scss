@@ -1,0 +1,497 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "base_tools";
+@import "stat_var_widget";
+@import "../place_selector";
+@import "../tiles.scss";
+@import "../draw_scatter.scss";
+
+$selector-footer-height: 40px;
+
+#main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: stretch;
+}
+
+#main-header, #main-footer {
+  flex: 0 0;
+}
+
+.main-content {
+  flex: 1 1 auto;
+  position: relative;
+}
+
+#main-pane {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.visualization-app {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.primary-button {
+  width: fit-content;
+  padding: 10px 24px 10px 24px;
+  border-radius: 100px;
+  background-color: #0B57D0;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.context-loading-spinner {
+  position: relative;
+  height: 100%;
+}
+
+/* Vis type selector */
+.vis-type-selector {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.vis-type-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin: 10px 16px 0 16px;
+  cursor: pointer;
+  padding-bottom: 10px;
+  font-weight: 500;
+
+  .label {
+    font-size: 14px;
+  }
+
+  .material-icons-outlined {
+    font-size: 24px;
+  }
+}
+
+.vis-type-option:hover {
+  color: #0B57D0;
+  border-bottom: 3px solid #0B57D0;
+}
+
+.vis-type-option.selected {
+  color: #0B57D0;
+  border-bottom: 3px solid #0B57D0;
+}
+
+/* Selected options section */
+
+.selected-options-container {
+  display: flex;
+  min-height: 85px;
+  background-color: #FAF9F9;
+  padding: 12px 32px 12px 32px;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  .material-icons-outlined.action {
+    cursor: pointer;
+    border-radius: 1rem;
+    padding: 5px;
+  }
+  
+  .material-icons-outlined.action:hover {
+    background-color: #dee2e6;
+  }
+}
+
+.selected-options-container.column {
+  flex-direction: column;
+  gap: 8px;
+}
+
+.selected-options-places, .selected-option-values {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.selected-options-places .selected-option-values {
+  align-items: flex-start;
+}
+
+.selected-option {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected-option-label {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 7px;
+}
+
+.selected-option-chip {
+  border: solid 1px #747775;
+  border-radius: 8px;
+  padding: 6px 8px 6px 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  min-height: 42px;
+
+  .material-icons-outlined {
+    font-size: 18px;
+    height: fit-content;
+  }
+}
+
+.add-place-container {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+
+  .selector-dropdown-anchor {
+    margin-top: -42px;
+  }
+
+  .material-icons-outlined {
+    margin-left: 4px;
+  }
+}
+
+.selector-dropdown-anchor {
+  position: relative;
+}
+
+// place selector
+
+.place-selector-dropdown {
+  position: absolute;
+  border-radius: 8px;
+  border: solid 1px #C7C7C7;
+  padding: 16px;
+  background: white;
+  border: solid 1px #747775;
+  border-radius: 8px;
+  z-index: 101;
+  top: 0;
+
+  .header-controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -10px;
+    padding-bottom: 5px;
+  }
+}
+
+/* Selector pane */
+
+.selector-pane {
+  display: flex;
+  gap: 8px;
+  padding: 32px;
+  justify-content: center;
+  flex-grow: 1;
+
+  @include media-breakpoint-down(md) {
+    flex-direction: column;
+  }
+}
+
+.selector-container {
+  border-radius: 8px;
+  border: solid 1px #C7C7C7;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+}
+
+.selector-container.disabled {
+  height: fit-content;
+  opacity: 30%;
+}
+
+.selector-container.opened .selector-header {
+  padding-bottom: 16px;
+}
+
+.selector-container.enabled .selector-header .material-icons-outlined:hover {
+  background-color: #dee2e6;
+  cursor: pointer;
+}
+
+.selector-header {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  min-width: 250px;
+
+  .header-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  span {
+    height: fit-content;
+  }
+}
+
+.selector-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-top: 16px;
+}
+
+.selector-footer {
+  height: $selector-footer-height;
+  flex-shrink: 0;
+  
+  .continue-button {
+    font-size: 14px;
+  }
+}
+
+.place-selector, .place-type-selector, .stat-var-selector {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 16px;
+}
+
+// Place selector
+
+.place-selector {
+  min-width: 250px;
+
+  #search {
+    border-color: #C7C7C7;
+    flex-grow: 0;
+
+    #search-icon {
+      display: none;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0;
+    }
+
+    #location-field {
+      #place-list {
+        margin-left: 8px;
+      }
+
+      #ac {
+        margin-left: 36px;
+      }
+    }
+  }
+
+  .place-selector-selections {
+    padding-bottom: 5px;
+    width: 100%;
+  
+    .selected-place {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-left: 5px;
+    
+      .material-icons-outlined {
+        cursor: pointer;
+        border-radius: 1rem;
+        padding: 5px;
+        font-size: 20px;
+      }
+    
+      .material-icons-outlined:hover {
+        background-color: #dee2e6;
+      }
+    }
+  }
+}
+
+
+// Place type selector
+
+.place-type-selector {
+  min-width: 225px;
+
+  .selector-body {
+    margin-left: 16px;
+  }
+
+  .info-message {
+    max-width: 225px;  
+    
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+    }
+  }
+
+  label {
+    margin-left: 1.25rem;
+  }
+}
+
+// Stat var selector
+
+.stat-var-selector {
+  min-width: 400px;
+
+  .selector-body {
+    min-height: 350px;
+  }
+
+  .show-sv-toggle {
+    color: #1F1F1F;
+  }
+
+  #stat-var-hierarchy-section {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  #hierarchy-section {
+    color: #1F1F1F
+  }
+  
+  .statvar-hierarchy-search-section {
+    padding-top: 0;
+  }
+
+  #tree-widget-info i {
+    display: none;
+  }
+}
+
+#statvar-modal {
+  .radio-selection-label {
+    padding-top: 1rem;
+  }
+
+  .radio-selection-section {
+    margin-left: 2.5rem;
+    padding-top: 0.5rem;
+
+    .form-group {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Chart section
+
+.chart-section {
+  display: flex;
+  background-color: #FAF9F9;
+  flex-grow: 1;
+
+  .stat-var-selector-area {
+    padding: 16px 0 0 16px;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+  }
+
+  .chart-area {
+    flex-grow: 1;
+    margin: 32px;
+
+    .chart {
+      border: 0.5px solid #dee2e6;
+      background-color: white;
+      margin: 1rem 0;
+    }
+
+    .timeline-chip-section {
+      padding: 1rem;
+    }
+
+    .chart-container {
+      background-color: white;
+      margin-top: 0;
+      border: none;
+    }
+
+    .chart-footer-options {
+      background-color: white;
+      border-top: 0.5px solid #dee2e6;
+      padding: 1rem;
+      font-size: 14px;
+
+      .option-section {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .chart-option {
+        width: 125px;
+      }
+    }
+  }
+}
+
+/* Info pane */
+
+.info-pane {
+  margin: 2rem auto;
+
+  .info-content {
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    b {
+      font-weight: 600;
+    };
+  }
+
+  .start-button {
+    font-size: 16px;
+  }
+}

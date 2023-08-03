@@ -32,14 +32,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accommodation and Food Services Industry in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Administrative and Support and Waste Management Services Industry in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -67,14 +67,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices"
                     ],
-                    "title": "Other Services, Except Public Administration in Placer County",
+                    "title": "Other Services (except Public Admin) in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation"
                     ],
-                    "title": "Arts, Entertainment, and Recreation Industry in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -109,7 +109,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
-                    "title": "Mining, Quarrying, and Oil and Gas Extraction Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -125,7 +125,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Administrative and Support and Waste Management Services Industry in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -167,7 +167,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation"
                     ],
-                    "title": "Arts, Entertainment, and Recreation Industry in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -188,14 +188,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accommodation and Food Services Industry in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices"
                     ],
-                    "title": "Other Services, Except Public Administration in Placer County",
+                    "title": "Other Services (except Public Admin) in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -223,7 +223,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
-                    "title": "Mining, Quarrying, and Oil and Gas Extraction Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -260,14 +260,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices"
                     ],
-                    "title": "Accommodation and Food Services Industry in Placer County",
+                    "title": "Accomodation/Food Industry in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
                     ],
-                    "title": "Administrative and Support and Waste Management Services Industry in Placer County",
+                    "title": "Admin / Waste Management Service Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -295,14 +295,14 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices"
                     ],
-                    "title": "Other Services, Except Public Administration in Placer County",
+                    "title": "Other Services (except Public Admin) in Placer County",
                     "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation"
                     ],
-                    "title": "Arts, Entertainment, and Recreation Industry in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
                     "type": "LINE"
                   },
                   {
@@ -337,7 +337,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
-                    "title": "Mining, Quarrying, and Oil and Gas Extraction Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -348,15 +348,15 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accommodation and Food Services Industry",
+            "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
-            "name": "Administrative and Support and Waste Management Services Industry",
+            "name": "Admin / Waste Management Service Industry",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation": {
-            "name": "Arts, Entertainment, and Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction": {
@@ -380,11 +380,11 @@
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
-            "name": "Mining, Quarrying, and Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSOtherServices": {
-            "name": "Other Services, Except Public Administration",
+            "name": "Other Services (except Public Admin)",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
@@ -418,9 +418,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Placer County",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
     "place_type": "County"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

@@ -42,7 +42,7 @@ function Info(): JSX.Element {
       </ol>
       <p>Or you can start your exploration from these interesting points ...</p>
 
-      <MemoizedInfoExamples />
+      <MemoizedInfoExamples configKey="scatter" />
 
       <p>Take the data and use it on your site!</p>
       <p>

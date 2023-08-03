@@ -55,13 +55,21 @@
       "placeDcid": [
         "wikidataId/Q213205"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q213205",
     "name": "San Francisco Bay Area",
     "place_type": "AdministrativeArea"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

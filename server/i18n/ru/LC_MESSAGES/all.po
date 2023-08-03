@@ -1,5 +1,5 @@
-msgid "%(project)s is a Google supported project"
-msgstr "Проект %(project)s поддерживается Google"
+msgid "%(project)s is a Google project"
+msgstr "Проект %(project)s - это проект Google"
 
 msgid "APIs"
 msgstr "APIs"

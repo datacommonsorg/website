@@ -23,10 +23,14 @@ from server.lib.nl.config_builder import map
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 
+_DEFAULT_RANKING_COUNT = 10
+
 
 def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
-                           ranking_tile_spec: RankingTileSpec):
-  ranking_tile_spec.ranking_count = 10
+                           ranking_tile_spec: RankingTileSpec,
+                           ranking_count: int):
+  if ranking_count > 0:
+    ranking_tile_spec.ranking_count = ranking_count
   # TODO: Add more robust checks.
   if "CriminalActivities" in pri_sv or 'UnemploymentRate' in pri_sv:
     # first check if "best" or "worst"
@@ -43,9 +47,9 @@ def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
   else:
     if RankingType.HIGH in ranking_types:
       ranking_tile_spec.show_highest = True
-    elif RankingType.LOW in ranking_types:
+    if RankingType.LOW in ranking_types:
       ranking_tile_spec.show_lowest = True
-    elif RankingType.EXTREME in ranking_types:
+    if RankingType.EXTREME in ranking_types:
       if _does_extreme_mean_low(pri_sv):
         ranking_tile_spec.show_lowest = True
       else:
@@ -71,9 +75,11 @@ def ranking_chart_block_climate_extremes(builder, pri_place: Place,
   ranking_tile = ranking_column.tiles.add()
   ranking_tile.type = Tile.TileType.RANKING
 
+  ranking_count = attr.get('ranking_count', _DEFAULT_RANKING_COUNT)
+
   for _, sv in enumerate(pri_svs):
     _set_ranking_tile_spec(attr['ranking_types'], sv,
-                           ranking_tile.ranking_tile_spec)
+                           ranking_tile.ranking_tile_spec, ranking_count)
     sv_key = "ranking-" + sv
     ranking_tile.stat_var_key.append(sv_key)
     stat_var_spec_map[sv_key] = StatVarSpec(
@@ -107,7 +113,9 @@ def ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
   tile.type = Tile.TileType.RANKING
-  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
+  ranking_count = attr.get('ranking_count', _DEFAULT_RANKING_COUNT)
+  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec,
+                         ranking_count)
   tile.title = base.decorate_chart_title(title=sv2thing.name[pri_sv],
                                          place=pri_place,
                                          add_date=True,
@@ -134,7 +142,9 @@ def ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
   sv_key = pri_sv + "_pc"
   tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.RANKING
-  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec)
+  ranking_count = attr.get('ranking_count', _DEFAULT_RANKING_COUNT)
+  _set_ranking_tile_spec(attr['ranking_types'], pri_sv, tile.ranking_tile_spec,
+                         ranking_count)
   tile.title = base.decorate_chart_title(title=sv2thing.name[pri_sv],
                                          place=pri_place,
                                          add_date=True,
@@ -153,7 +163,7 @@ def ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
     tile.stat_var_key.append(sv_key)
     tile.type = Tile.TileType.RANKING
     _set_ranking_tile_spec(attr['ranking_types'], pri_sv,
-                           tile.ranking_tile_spec)
+                           tile.ranking_tile_spec, ranking_count)
     sv_title = sv2thing.name[pri_sv] + " " + name_suffix
     tile.title = base.decorate_chart_title(title=sv_title,
                                            place=pri_place,
@@ -172,4 +182,19 @@ def ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
     stat_var_spec_map.update(
         map.map_chart_block_pc(column, pri_place, pri_sv, sv2thing, attr))
 
+  return stat_var_spec_map
+
+
+def ranking_chart_multivar(column, svs: str, sv2thing: Dict, attr: Dict):
+  tile = column.tiles.add()
+  tile.type = Tile.TileType.RANKING
+  ranking_count = attr.get('ranking_count', _DEFAULT_RANKING_COUNT)
+  _set_ranking_tile_spec(attr['ranking_types'], svs[0], tile.ranking_tile_spec,
+                         ranking_count)
+  stat_var_spec_map = {}
+  for sv in svs:
+    tile.stat_var_key.append(sv)
+    stat_var_spec_map[sv] = StatVarSpec(stat_var=sv,
+                                        name=sv2thing.name[sv],
+                                        unit=sv2thing.unit[sv])
   return stat_var_spec_map

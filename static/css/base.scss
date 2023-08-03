@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-$dc-primary-color: #660000;
+$dc-primary-color: #467bd5;
 
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
@@ -194,6 +194,21 @@ $theme-colors: (
   padding-top: 1.5rem;
   padding-bottom: 3rem;
   line-height: 2.5rem;
+}
+
+.brand-byline {
+  .brand-text {
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .brand-logo {
+    margin-left: 0.3em;
+    margin-top: -0.2em;
+    height: 1.4em;
+  }
 }
 
 #sub-footer .btn,

@@ -17,11 +17,11 @@ import unittest
 
 from parameterized import parameterized
 
+from server.lib.nl.detection import heuristic_classifiers
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import TimeDeltaType
-from server.services.nl import Model
 
 # TODO: This should probably live in tests/services/nl_test.py
 # NOTE: Quantity classifier is tested in quantity_parser.
@@ -29,10 +29,6 @@ from server.services.nl import Model
 
 class TestHeuristicEventClassifier(unittest.TestCase):
   """Test heuristic-based ranking classifier"""
-
-  @classmethod
-  def setUpClass(cls) -> None:
-    cls._classifier = Model.heuristic_event_classification
 
   @parameterized.expand([
       ("What is the deadliest tropical storm in history?"),
@@ -44,7 +40,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_cyclone(self, query):
     expected = [EventType.CYCLONE]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -54,7 +50,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_drought(self, query):
     expected = [EventType.DROUGHT]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -67,7 +63,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_earthquake(self, query):
     expected = [EventType.EARTHQUAKE]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -77,7 +73,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_extreme_cold(self, query):
     expected = [EventType.COLD]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -87,7 +83,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_extreme_heat(self, query):
     expected = [EventType.HEAT]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -98,7 +94,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_fire(self, query):
     expected = [EventType.FIRE]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -108,7 +104,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_flood(self, query):
     expected = [EventType.FLOOD]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -120,7 +116,7 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_detect_wet_bulb(self, query):
     expected = [EventType.WETBULB]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.event(query)
     result = classification.attributes.event_types
     self.assertCountEqual(result, expected)
 
@@ -137,15 +133,11 @@ class TestHeuristicEventClassifier(unittest.TestCase):
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
-    result = self._classifier(query)
+    result = heuristic_classifiers.event(query)
     self.assertIsNone(result)
 
 
 class TestHeuristicOverviewClassifier(unittest.TestCase):
-
-  @classmethod
-  def setUpClass(cls) -> None:
-    cls._classifier = Model.heuristic_overview_classification
 
   @parameterized.expand([
       ("Tell me about palo alto"),
@@ -153,7 +145,7 @@ class TestHeuristicOverviewClassifier(unittest.TestCase):
   ])
   def test_detect_overview(self, query):
     expected = ClassificationType.OVERVIEW
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.overview(query)
     result = classification.type
     self.assertEqual(result, expected)
 
@@ -172,16 +164,12 @@ class TestHeuristicOverviewClassifier(unittest.TestCase):
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
-    result = self._classifier(query)
+    result = heuristic_classifiers.overview(query)
     self.assertIsNone(result)
 
 
 class TestHeuristicRankingClassifier(unittest.TestCase):
   """Test heuristic-based ranking classifier"""
-
-  @classmethod
-  def setUpClass(cls) -> None:
-    cls._classifier = Model.heuristic_ranking_classification
 
   @parameterized.expand([
       ("States with highest GINI index"),
@@ -207,7 +195,7 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_detect_highs(self, query: str):
     expected = [RankingType.HIGH]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.ranking(query)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
@@ -231,7 +219,7 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_detect_lows(self, query: str):
     expected = [RankingType.LOW]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.ranking(query)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
@@ -242,7 +230,7 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_detect_best(self, query: str):
     expected = [RankingType.BEST, RankingType.HIGH]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.ranking(query)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
@@ -253,7 +241,7 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_detect_worst(self, query: str):
     expected = [RankingType.WORST, RankingType.LOW]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.ranking(query)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
@@ -263,7 +251,7 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_detect_extreme(self, query):
     expected = [RankingType.EXTREME]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.ranking(query)
     result = classification.attributes.ranking_type
     self.assertCountEqual(result, expected)
 
@@ -287,16 +275,12 @@ class TestHeuristicRankingClassifier(unittest.TestCase):
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
-    result = self._classifier(query)
+    result = heuristic_classifiers.ranking(query)
     self.assertIsNone(result)
 
 
 class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
   """Test heuristic-based time-delta classifier"""
-
-  @classmethod
-  def setUpClass(cls) -> None:
-    cls._classifier = Model.heuristic_time_delta_classification
 
   @parameterized.expand([
       ("What countries have seen the greatest increase in median income"),
@@ -315,7 +299,7 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
   ])
   def test_detect_increasing(self, query):
     expected = [TimeDeltaType.INCREASE]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.time_delta(query)
     result = classification.attributes.time_delta_types
     self.assertCountEqual(result, expected)
 
@@ -344,7 +328,7 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
   ])
   def test_detect_decreasing(self, query):
     expected = [TimeDeltaType.DECREASE]
-    classification = self._classifier(query)
+    classification = heuristic_classifiers.time_delta(query)
     result = classification.attributes.time_delta_types
     self.assertCountEqual(result, expected)
 
@@ -375,5 +359,18 @@ class TestHeuristicTimeDeltaClassifier(unittest.TestCase):
   ])
   def test_no_false_positives(self, query):
     # If no matches, classifier returns None
-    result = self._classifier(query)
+    result = heuristic_classifiers.time_delta(query)
     self.assertIsNone(result)
+
+
+# TODO: Need unit-tests for containedin.
+class TestHeuristicContainedInClassifier(unittest.TestCase):
+
+  @parameterized.expand([
+      ("electricity in california"),
+      ("how tractable in poverty in santa clara?"),
+      ("how many housing contracts in san jose?"),
+      ("corporate publicities in utah"),
+  ])
+  def test_no_false_positives(self, query):
+    self.assertIsNone(heuristic_classifiers.containedin(query))

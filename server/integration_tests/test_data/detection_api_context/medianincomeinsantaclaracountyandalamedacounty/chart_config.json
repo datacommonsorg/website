@@ -1,0 +1,25 @@
+{
+  "childEntityType": "",
+  "comparisonEntities": [
+    "geoId/06085"
+  ],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06001"
+  ],
+  "sessionId": "007_999999999",
+  "variables": [
+    "Median_Income_Person",
+    "Median_Income_Household",
+    "Median_Earnings_Person",
+    "Median_Income_Household_NonfamilyHousehold",
+    "Median_Income_Household_FamilyHousehold",
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
+    "Mean_Income_Household",
+    "dc/x3gghqtglpr59",
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_WithIncome",
+    "dc/topic/IncomeEquity"
+  ]
+}

@@ -72,21 +72,3 @@ categories {
     }
   }
 }
-
-categories {
-  title: "test filtering for other charts using child places"
-  blocks {
-    columns {
-      tiles {
-        type: SCATTER
-        stat_var_key: "sv_child_exists_1"
-      }
-    }
-  }
-  stat_var_spec {
-    key: "sv_child_exists_1"
-    value {
-      stat_var: "sv_child_exists_1"
-    }
-  }
-}

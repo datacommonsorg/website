@@ -17,6 +17,11 @@ import os
 import google.auth
 from werkzeug.utils import import_string
 
+#
+# This is a global config bucket shared by all website instances.
+#
+GLOBAL_CONFIG_BUCKET = 'datcom-website-config'
+
 
 def get_config():
   env = os.environ.get('FLASK_ENV')
@@ -37,3 +42,8 @@ def get_config():
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)
+
+
+def is_test_env():
+  env = os.environ.get('FLASK_ENV')
+  return env in ['integration_test', 'test']

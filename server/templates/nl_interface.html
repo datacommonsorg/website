@@ -19,8 +19,8 @@
 {% set is_hide_sub_footer = true %}
 {% set main_id = 'nl-interface' %}
 {% set page_id = 'nl-interface-page' %}
-{% set title = 'NL Explorer' %}
-{% set subpage_title = 'NL Explorer' %}
+{% set title = '' %}
+{% set subpage_title = '' %}
 {% set subpage_url = url_for('nl.page') %}
 
 {% block head %}
@@ -29,7 +29,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="metadata" class="d-none" data-website-hash="{{ website_hash }}" data-placeholder-query="{{ placeholder_query }}"></div>
+<div id="metadata" class="d-none" data-website-hash="{{ website_hash }}" data-placeholder-query="{{ placeholder_query }}" data-index="{{ index_type }}"></div>
 <div id="dc-nl-interface"></div>
 {% endblock %}
 {% block footer %}

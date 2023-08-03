@@ -46,7 +46,7 @@ serviceGroups:
   node: null
   default:
     replicas: 1
-    useSearch: true # No svg service, this needs to use search
+    useSearch: true
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"
@@ -64,4 +64,4 @@ kgStoreConfig:
       - techsoup_served_nonp_2023_06_07_13_27_15
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "dc/g/SDG", "sdg/g/SDG"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

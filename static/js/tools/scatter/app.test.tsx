@@ -17,10 +17,10 @@
 jest.mock("axios");
 
 import { act, waitFor } from "@testing-library/react";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
 import Cheerio from "cheerio";
-import Enzyme, { mount } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import Enzyme, { mount, ReactWrapper } from "enzyme";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
@@ -69,7 +69,7 @@ declare global {
 
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
-  window.infoConfig = [];
+  window.infoConfig = {};
 
   // Stub getComputedTextLength and getBBox in SVGElement as they do not exist in d3node
   SVGElement.prototype.getComputedTextLength = () => 100;
@@ -459,7 +459,7 @@ function mockAxios(): void {
     });
 
   when(axios.get)
-    .calledWith("/api/place/parent/geoId/10")
+    .calledWith("/api/place/parent?dcid=geoId/10")
     .mockResolvedValue({
       data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });

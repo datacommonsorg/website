@@ -24,8 +24,10 @@ website:
   replicas: 4
 
 mixer:
+  useBaseBigtable: false
   useBranchBigtable: false
   useCustomBigtable: true
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa
@@ -49,7 +51,7 @@ kgStoreConfig:
     project: datcom-mixer-encode
     instance: dc-graph
     tables:
-      - climatetrace_2023_02_24_02_50_42
+      - climatetrace_2023_06_03_11_32_41
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

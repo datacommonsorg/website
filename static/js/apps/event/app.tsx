@@ -26,10 +26,16 @@ import { Container } from "reactstrap";
 import { ArcTableRow } from "../../browser/arc_table_row";
 import { GoogleMap } from "../../components/google_map";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { formatNumber, intl } from "../../i18n/i18n";
-import { Node, PropertyValues } from "../../shared/api_response_types";
+import { intl } from "../../i18n/i18n";
+import { PropertyValues } from "../../shared/api_response_types";
 import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import {
+  findProperty,
+  formatPropertyNodeValue,
+  getValue,
+  parseLatLong,
+} from "../../utils/property_value_utils";
 
 const _START_DATE_PROPERTIES = ["startDate", "discoveryDate"];
 const _END_DATE_PROPERTIES = ["endDate", "containmentDate", "controlledDate"];
@@ -120,7 +126,7 @@ export function App(props: AppPropsType): JSX.Element {
         <div className="head-section">
           <h1>{props.name}</h1>
           <h3>
-            <span>{_.startCase(typeOf[0].name)}</span>
+            <span>{_.startCase(typeOf[0].name || typeOf[0].dcid)}</span>
             {placeBreadcrumbsJsx && <> in {placeBreadcrumbsJsx}</>}
           </h3>
           <h4 className="clearfix">
@@ -158,7 +164,9 @@ export function App(props: AppPropsType): JSX.Element {
                       propertyLabel={_.startCase(property)}
                       values={[
                         {
-                          text: formatNumericValue(props.properties[property]),
+                          text: formatPropertyNodeValue(
+                            props.properties[property]
+                          ),
                         },
                       ]}
                       noPropLink={true}
@@ -183,52 +191,6 @@ export function App(props: AppPropsType): JSX.Element {
 }
 
 /**
- * Returns the first property in the list with any of the given dcids.
- */
-function findProperty(dcids: string[], properties: PropertyValues): Node[] {
-  for (const k of dcids) {
-    if (k in properties) {
-      return properties[k];
-    }
-  }
-  return undefined;
-}
-
-/**
- * Returns the first display value of the property.
- */
-function getValue(property: Node[]): string {
-  if (!property || !property.length) {
-    return "";
-  }
-  return property[0].dcid || property[0].value;
-}
-
-/**
- * Formats the first display value of the property as a number with unit.
- */
-function formatNumericValue(property: Node[]): string {
-  const val = getValue(property);
-  if (!val) {
-    return "";
-  }
-  // If value is a date, pass through without a unit.
-  if (!isNaN(Date.parse(val))) {
-    return val;
-  }
-  const numIndex = val.search(/-?[0-9]/);
-  if (numIndex < 0) {
-    return val;
-  }
-  let unit = val.substring(0, numIndex);
-  if (unit) {
-    unit = unit.trim();
-  }
-  const num = Number.parseFloat(val.substring(numIndex));
-  return formatNumber(num, unit);
-}
-
-/**
  * Formats the date range for the event.
  */
 function getDateDisplay(properties: PropertyValues): string {
@@ -246,18 +208,4 @@ function getDateDisplay(properties: PropertyValues): string {
     ret += endDate;
   }
   return ret;
-}
-
-/**
- * Parses a lat,long pair from the first value of the property.
- */
-function parseLatLong(property: Node[]): [number, number] {
-  if (!property || !property.length) return null;
-  const val = property[0];
-  if (val.name) {
-    const latLong = val.name.split(",").map((f) => parseFloat(f));
-    console.assert(latLong.length == 2);
-    return [latLong[0], latLong[1]];
-  }
-  return null;
 }

@@ -9,17 +9,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "GDP of Other Services, Except Public Administration Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "GDP (Nominal Value) in United States",
+                    "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc"
                     ],
-                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Per Capita GDP (Nominal Value) in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -31,17 +31,10 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "GDP of the Information Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Information Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Nominal GDP Per Capita in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -53,17 +46,10 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Professional, Scientific, and Technical Services Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Growth Rate of GDP in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -77,15 +63,15 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
                     ],
-                    "title": "GDP of the Finance and Insurance Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "GDP of the Finance and Insurance Industry in United States",
+                    "type": "LINE"
                   },
                   {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Finance and Insurance Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Per Capita GDP of the Finance and Insurance Industry in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -97,17 +83,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "GDP of the Arts, Entertainment, and Recreation Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "GDP (Real Value) in United States",
+                    "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Arts, Entertainment, and Recreation Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Per Capita GDP (Real Value) in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -119,61 +105,19 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "GDP of the Utilities Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "GDP (Nominal Value) compared with other variables in United States",
+                    "type": "LINE"
                   },
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_pc"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc",
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc"
                     ],
-                    "title": "Per Capita GDP of the Utilities Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
-                    ],
-                    "title": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Agriculture, Forestry, Fishing and Hunting Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
-                    ],
-                    "title": "GDP of the Wholesale Trade Industry in Counties of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Wholesale Trade Industry in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Per Capita GDP (Nominal Value) compared with other variables in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -181,24 +125,6 @@
           }
         ],
         "statVarSpec": {
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue": {
-            "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue": {
-            "name": "GDP of the Arts, Entertainment, and Recreation Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Arts, Entertainment, and Recreation Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": {
             "name": "GDP of the Finance and Insurance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
@@ -208,68 +134,54 @@
             "name": "GDP of the Finance and Insurance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue": {
-            "name": "GDP of the Information Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "GDP (Nominal Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_pc": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+            "name": "Nominal GDP Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
             "denom": "Count_Person",
-            "name": "GDP of the Information Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+            "name": "GDP (Nominal Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue": {
-            "name": "GDP of Other Services, Except Public Administration Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
+          "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
+            "name": "GDP (Real Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc": {
+          "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc": {
             "denom": "Count_Person",
-            "name": "GDP of Other Services, Except Public Administration Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
+            "name": "GDP (Real Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue": {
-            "name": "GDP of the Professional, Scientific, and Technical Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Professional, Scientific, and Technical Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue": {
-            "name": "GDP of the Utilities Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Utilities Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue": {
-            "name": "GDP of the Wholesale Trade Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Wholesale Trade Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
+            "name": "Growth Rate of GDP",
+            "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           }
         }
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "Country": "County"
-      },
       "placeDcid": [
         "country/USA"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
     "name": "United States",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

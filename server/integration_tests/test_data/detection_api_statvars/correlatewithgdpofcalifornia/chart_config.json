@@ -1,0 +1,30 @@
+{
+  "childEntityType": "",
+  "comparisonEntities": [],
+  "comparisonVariables": [
+    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+    "dc/xj2nk2bg60fg",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+    "WagesTotal_Worker_NAICSInformation",
+    "USStateQuarterlyIndustryGDP_NAICS_51",
+    "WagesAnnual_Establishment_NAICSInformation"
+  ],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06"
+  ],
+  "sessionId": "007_999999999",
+  "variables": [
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+    "InflationAdjustedGDP",
+    "USStateQuarterlyIndustryGDP_NAICS_81",
+    "dc/topic/IndustriesByGDP",
+    "USStateQuarterlyIndustryGDP_NAICS_55",
+    "dc/topic/GDPByIndustry",
+    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+    "USStateQuarterlyIndustryGDP_NAICS_44_45"
+  ]
+}

@@ -24,36 +24,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Percentage of Population That Smokes in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
                     "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
@@ -72,9 +42,11 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
+                      "Percent_Person_WithAsthma_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
                       "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
                       "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
@@ -92,61 +64,22 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_BingeDrinking",
-                      "Percent_Person_Obesity",
-                      "Percent_Person_PhysicalInactivity",
-                      "Percent_Person_SleepLessThan7Hours",
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Percentage of Population That Smokes compared with other variables in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Percent_Person_BingeDrinking": {
-            "name": "Percentage of Population Who Binge Drink",
-            "statVar": "Percent_Person_BingeDrinking",
+          "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithDepression",
             "unit": "%"
           },
-          "Percent_Person_Obesity": {
-            "name": "Percentage of Population That Is Obese",
-            "statVar": "Percent_Person_Obesity",
-            "unit": "%"
-          },
-          "Percent_Person_PhysicalInactivity": {
-            "name": "Percentage of Population Who Are Physically Inactive",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking": {
-            "name": "Percentage of Population That Smokes",
-            "statVar": "Percent_Person_Smoking",
+          "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithPoorGeneralHealth",
             "unit": "%"
           },
           "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
             "name": "Prevalance of Complete Tooth Loss in the Population",
             "statVar": "Percent_Person_WithAllTeethLoss",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
@@ -195,7 +128,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
@@ -230,9 +163,13 @@
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Sunnyvale",
   "place": {
     "dcid": "geoId/0677000",
     "name": "Sunnyvale",
     "place_type": "City"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

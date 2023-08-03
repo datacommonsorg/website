@@ -19,6 +19,10 @@ import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../chart/base";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
 import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 
@@ -191,7 +195,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
-
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";
@@ -272,7 +275,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
-
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";
@@ -299,6 +301,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
       imageElement.src = chartBase64;
       this.svgContainerElement.current.append(imageElement);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
       this.setState({ chartDownloadXml });
     }
 
@@ -308,6 +311,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       const chartBase64 =
         "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
       imageElement.src = chartBase64;
+      imageElement.className = ASYNC_ELEMENT_CLASS;
       this.svgContainerElement.current.append(imageElement);
       this.setState({ chartDownloadXml });
     }
@@ -358,7 +362,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         <ModalBody>
           <div
             ref={this.svgContainerElement}
-            className="modal-chart-container"
+            className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
           ></div>
           <textarea
             className="copy-svg mt-3"

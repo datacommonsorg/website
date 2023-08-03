@@ -26,12 +26,22 @@ import ReactDOMServer from "react-dom/server";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { StatVarSpec } from "../../shared/types";
-import { getStatWithinPlace } from "../../tools/scatter/util";
+import {
+  EmptyAxis,
+  EmptyPlace,
+  FieldToAbbreviation,
+} from "../../tools/scatter/context";
+import {
+  getStatWithinPlace,
+  SCATTER_URL_PATH,
+  updateHashAxis,
+  updateHashBoolean,
+  updateHashPlace,
+} from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -53,8 +63,10 @@ interface BivariateTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
+  // API root
+  apiRoot?: string;
 }
 
 interface RawData {
@@ -73,6 +85,7 @@ interface BivariateChartData {
   sources: Set<string>;
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
+  props: BivariateTilePropType;
 }
 
 export function BivariateTile(props: BivariateTilePropType): JSX.Element {
@@ -83,13 +96,9 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   >(null);
 
   useEffect(() => {
-    if (!bivariateChartData) {
+    if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
       (async () => {
-        const data = await fetchData(
-          props.place,
-          props.enclosedPlaceType,
-          props.statVarSpec
-        );
+        const data = await fetchData(props);
         setBivariateChartData(data);
       })();
     }
@@ -109,6 +118,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   };
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
@@ -127,19 +137,8 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(bivariateChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
-      {props.isDataTile && bivariateChartData && (
-        <div
-          className={DATA_CSS_CLASS}
-          data-csv={scatterDataToCsv(
-            bivariateChartData.xStatVar.statVar,
-            bivariateChartData.xStatVar.denom,
-            bivariateChartData.yStatVar.statVar,
-            bivariateChartData.yStatVar.denom,
-            bivariateChartData.points
-          )}
-        />
-      )}
       <div
         id={props.id}
         className="bivariate-svg-container"
@@ -178,40 +177,36 @@ function getPopulationPromise(
   }
 }
 
-export const fetchData = async (
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[]
-) => {
-  if (statVarSpec.length < 2) {
+export const fetchData = async (props: BivariateTilePropType) => {
+  if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${place.dcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${props.place.dcid}&placeType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
-    place.dcid,
-    enclosedPlaceType,
+    props.place.dcid,
+    props.enclosedPlaceType,
     [
-      { statVarDcid: statVarSpec[0].statVar },
-      { statVarDcid: statVarSpec[1].statVar },
+      { statVarDcid: props.statVarSpec[0].statVar },
+      { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
-    place.dcid,
-    enclosedPlaceType,
-    statVarSpec
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.statVarSpec
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/descendent/name?dcid=${place.dcid}&descendentType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${props.place.dcid}&descendentType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${place.dcid}`)
+    .get(`/api/place/parent?dcid=${props.place.dcid}`)
     .then((resp) => resp.data);
   try {
     const [placeStats, population, placeNames, geoJson, parentPlaces] =
@@ -229,13 +224,20 @@ export const fetchData = async (
       geoJson,
       parentPlaces,
     };
-    return rawToChart(rawData, statVarSpec, place, enclosedPlaceType);
+    return rawToChart(
+      props,
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
   } catch (error) {
     return null;
   }
 };
 
 function rawToChart(
+  props: BivariateTilePropType,
   rawData: RawData,
   statVarSpec: StatVarSpec[],
   place: NamedTypedPlace,
@@ -290,6 +292,7 @@ function rawToChart(
       rawData.parentPlaces
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
+    props,
   };
 }
 
@@ -357,4 +360,33 @@ function draw(
     _.noop,
     getTooltipHtml(chartData.points, xLabel, yLabel)
   );
+}
+
+function getExploreMoreUrl(props: BivariateTilePropType): string {
+  const yStatVar = props.statVarSpec[0];
+  const xStatVar = props.statVarSpec[1];
+  const xAxis = {
+    ...EmptyAxis,
+    statVarDcid: xStatVar.statVar,
+    log: xStatVar.log,
+    perCapita: !!xStatVar.denom,
+    denom: xStatVar.denom,
+  };
+  const yAxis = {
+    ...EmptyAxis,
+    statVarDcid: yStatVar.statVar,
+    log: yStatVar.log,
+    perCapita: !!yStatVar.denom,
+    denom: yStatVar.denom,
+  };
+  const place = {
+    ...EmptyPlace,
+    enclosingPlace: props.place,
+    enclosedPlaceType: props.enclosedPlaceType,
+  };
+  let hash = updateHashAxis("", xAxis, true);
+  hash = updateHashAxis(hash, yAxis, false);
+  hash = updateHashPlace(hash, place);
+  hash = updateHashBoolean(hash, FieldToAbbreviation.chartType, true);
+  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
 }
