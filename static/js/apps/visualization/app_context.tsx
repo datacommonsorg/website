@@ -18,8 +18,7 @@
  * Context to hold the global state of the visualization app.
  */
 
-import axios from "axios";
-import _, { sample } from "lodash";
+import _ from "lodash";
 import React, { createContext, useEffect, useRef, useState } from "react";
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
@@ -85,8 +84,9 @@ export function AppContextProvider(
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
+  // for childPlaceTypes and samplePlaces, null means they haven't been fetched
   const [childPlaceTypes, setChildPlaceTypes] = useState(null);
-  const [samplePlaces, setSamplePlaces] = useState([]);
+  const [samplePlaces, setSamplePlaces] = useState(null);
   const [isContextLoading, setIsContextLoading] = useState(true);
   const prevSamplePlaces = useRef(samplePlaces);
   const prevStatVars = useRef(statVars);
@@ -106,10 +106,13 @@ export function AppContextProvider(
     isContextLoading,
     setPlaces: (places) => {
       shouldUpdateHash.current.push(true);
+      setChildPlaceTypes(null);
+      setSamplePlaces(null);
       setPlaces(places);
     },
     setEnclosedPlaceType: (placeType) => {
       shouldUpdateHash.current.push(true);
+      setSamplePlaces(null);
       setEnclosedPlaceType(placeType);
     },
     setStatVars: (statVars) => {
@@ -118,6 +121,8 @@ export function AppContextProvider(
     },
     setVisType: (visType) => {
       shouldUpdateHash.current.push(true);
+      setChildPlaceTypes(null);
+      setSamplePlaces(null);
       setVisType(visType);
     },
   };
@@ -147,12 +152,7 @@ export function AppContextProvider(
 
   // when list of places or vistype changes, re-fetch child place types
   useEffect(() => {
-    if (isContextLoading) {
-      return;
-    }
-    if (_.isEmpty(places) || visTypeConfig.skipEnclosedPlaceType) {
-      setChildPlaceTypes(null);
-      setSamplePlaces([]);
+    if (isContextLoading || _.isEmpty(places)) {
       return;
     }
     const getChildTypesFn =
@@ -173,9 +173,13 @@ export function AppContextProvider(
       return;
     }
     let newEnclosedPlaceType = "";
-    // skip auto-magically selecting enclosed place type if there wasn't already
-    // an enclosed place type selected
-    if (!_.isEmpty(childPlaceTypes) && !!enclosedPlaceType) {
+    // auto-magically select enclosed place type if there was already an
+    // enclosed place type selected previously or if the enclosed place type
+    // selector gets skipped.
+    if (
+      !_.isEmpty(childPlaceTypes) &&
+      (!!enclosedPlaceType || visTypeConfig.skipEnclosedPlaceType)
+    ) {
       newEnclosedPlaceType =
         childPlaceTypes.findIndex((type) => type === enclosedPlaceType) >= 0
           ? enclosedPlaceType
@@ -210,15 +214,17 @@ export function AppContextProvider(
   // when list of sample places used in the sv hierarchy changes, update the
   // list of selected stat vars
   useEffect(() => {
-    if (isContextLoading) {
+    if (isContextLoading || samplePlaces === null) {
       return;
     }
-    if (samplePlaces !== prevSamplePlaces.current) {
-      prevSamplePlaces.current = samplePlaces;
+    if (
+      _.isEqual(prevSamplePlaces.current, samplePlaces) &&
+      _.isEqual(prevStatVars.current, statVars)
+    ) {
+      return;
     }
-    if (statVars !== prevStatVars.current) {
-      prevStatVars.current = statVars;
-    }
+    prevSamplePlaces.current = samplePlaces;
+    prevStatVars.current = statVars;
     getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig).then(
       (filteredStatVars) => {
         if (!_.isEqual(filteredStatVars, statVars)) {
@@ -299,6 +305,9 @@ export function AppContextProvider(
     const enclosedPlaceTypeValue = getParamValue(
       URL_PARAMS.ENCLOSED_PLACE_TYPE || ""
     );
+    const visType =
+      getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf();
+    const visTypeConfig = VIS_TYPE_CONFIG[visType];
     let placesPromise = Promise.resolve([]);
     let statVarsPromise = Promise.resolve([]);
     let childTypesPromise = Promise.resolve(null);
@@ -313,27 +322,24 @@ export function AppContextProvider(
       ).then((places) => {
         return places;
       });
-      if (!visTypeConfig.skipEnclosedPlaceType) {
-        // childTypesPromise gets getChildTypes after place promise completes
-        const getChildTypesFn =
-          visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
-        childTypesPromise = placesPromise.then((places) => {
-          return getChildTypesPromise(places[0], getChildTypesFn);
-        });
-        // enclosedPlaceTypePromise gets the enclosed place type once
-        // childTypesPromise completes
-        enclosedPlaceTypePromise = childTypesPromise.then((childTypes) => {
-          let enclosedPlaceType = "";
-          if (!_.isEmpty(childTypes)) {
-            enclosedPlaceType =
-              childTypes.findIndex((type) => type === enclosedPlaceTypeValue) >=
-              0
-                ? enclosedPlaceTypeValue
-                : childTypes[0];
-          }
-          return enclosedPlaceType;
-        });
-      }
+      // childTypesPromise gets getChildTypes after place promise completes
+      const getChildTypesFn =
+        visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
+      childTypesPromise = placesPromise.then((places) => {
+        return getChildTypesPromise(places[0], getChildTypesFn);
+      });
+      // enclosedPlaceTypePromise gets the enclosed place type once
+      // childTypesPromise completes
+      enclosedPlaceTypePromise = childTypesPromise.then((childTypes) => {
+        let enclosedPlaceType = "";
+        if (!_.isEmpty(childTypes)) {
+          enclosedPlaceType =
+            childTypes.findIndex((type) => type === enclosedPlaceTypeValue) >= 0
+              ? enclosedPlaceTypeValue
+              : childTypes[0];
+        }
+        return enclosedPlaceType;
+      });
       // if this vis type skips enclosed place type, samplePlacesPromise is the
       // same as the placesPromise. otherwise, get sample places after
       // enclosedPlaceTypePromise completes
@@ -393,6 +399,7 @@ export function AppContextProvider(
           setStatVars(slicedSv);
           setChildPlaceTypes(childTypes);
           setSamplePlaces(samplePlaces);
+          setVisType(visType);
           setIsContextLoading(false);
         }
       )
