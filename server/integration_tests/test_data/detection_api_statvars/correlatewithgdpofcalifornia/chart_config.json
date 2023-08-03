@@ -20,11 +20,11 @@
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
     "InflationAdjustedGDP",
     "USStateQuarterlyIndustryGDP_NAICS_81",
+    "dc/topic/IndustriesByGDP",
     "USStateQuarterlyIndustryGDP_NAICS_55",
     "dc/topic/GDPByIndustry",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
-    "USStateQuarterlyIndustryGDP_NAICS_44_45",
-    "dc/topic/Economy"
+    "USStateQuarterlyIndustryGDP_NAICS_44_45"
   ]
 }

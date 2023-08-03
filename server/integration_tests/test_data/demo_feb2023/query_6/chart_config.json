@@ -304,30 +304,30 @@
         ],
         "statVarSpec": {
           "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: 35 - 44 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
             "statVar": "Count_Death_35To44Years_Neoplasms"
           },
           "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: 35 - 44 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
             "statVar": "Count_Death_35To44Years_Neoplasms"
           },
           "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: 45 - 54 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
             "statVar": "Count_Death_45To54Years_Neoplasms"
           },
           "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: 45 - 54 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among 45 - 54 Years Olds",
             "statVar": "Count_Death_45To54Years_Neoplasms"
           },
           "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: 55 - 64 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
           "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: 55 - 64 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
           "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
@@ -340,12 +340,12 @@
             "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
           "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: 65 - 74 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
             "statVar": "Count_Death_65To74Years_Neoplasms"
           },
           "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: 65 - 74 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
             "statVar": "Count_Death_65To74Years_Neoplasms"
           },
           "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
@@ -358,12 +358,12 @@
             "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
           "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: 75 - 84 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
           },
           "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: 75 - 84 Years (Neoplasms)",
+            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
           },
           "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
@@ -376,12 +376,12 @@
             "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
           },
           "Count_Death_85Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Mortality Events: Years 85 (Neoplasms)",
+            "name": "Neoplasms Deaths Among  85+ Years Olds",
             "statVar": "Count_Death_85Years_Neoplasms"
           },
           "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events: Years 85 (Neoplasms)",
+            "name": "Neoplasms Deaths Among  85+ Years Olds",
             "statVar": "Count_Death_85Years_Neoplasms"
           },
           "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
