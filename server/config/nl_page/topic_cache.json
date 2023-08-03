@@ -7667,13 +7667,13 @@
         "dc/svpg/dc/topic/IndividualIncomeDistribution_PopulationByIncomeLevel"
       ],
       "memberList": [
+        "Count_Person_IncomeOfUpto9999USDollar",
         "Count_Person_IncomeOf10000To14999USDollar",
         "Count_Person_IncomeOf25000To34999USDollar",
         "Count_Person_IncomeOf35000To49999USDollar",
         "Count_Person_IncomeOf50000To64999USDollar",
         "Count_Person_IncomeOf65000To74999USDollar",
-        "Count_Person_IncomeOf75000OrMoreUSDollar",
-        "Count_Person_IncomeOfUpto9999USDollar"
+        "Count_Person_IncomeOf75000OrMoreUSDollar"
       ],
       "name": [
         "Population By Income Level"
@@ -7857,9 +7857,9 @@
         "dc/svpg/dc/topic/LevelOfEducationalAttainment_PopulationByLevelofEducationalAttainment"
       ],
       "memberList": [
-        "Count_Person_EducationalAttainment10ThGrade",
-        "Count_Person_EducationalAttainment11ThGrade",
-        "Count_Person_EducationalAttainment12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainmentKindergarten",
+        "Count_Person_EducationalAttainmentNurserySchool",
+        "Count_Person_EducationalAttainmentPrimarySchool",
         "Count_Person_EducationalAttainment1StGrade",
         "Count_Person_EducationalAttainment2NdGrade",
         "Count_Person_EducationalAttainment3RdGrade",
@@ -7869,17 +7869,17 @@
         "Count_Person_EducationalAttainment7ThGrade",
         "Count_Person_EducationalAttainment8ThGrade",
         "Count_Person_EducationalAttainment9ThGrade",
+        "Count_Person_EducationalAttainment10ThGrade",
+        "Count_Person_EducationalAttainment11ThGrade",
+        "Count_Person_EducationalAttainment12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+        "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency",
         "Count_Person_EducationalAttainmentAssociatesDegree",
         "Count_Person_EducationalAttainmentBachelorsDegree",
-        "Count_Person_EducationalAttainmentDoctorateDegree",
         "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree",
-        "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency",
-        "Count_Person_EducationalAttainmentKindergarten",
         "Count_Person_EducationalAttainmentMastersDegree",
-        "Count_Person_EducationalAttainmentNurserySchool",
-        "Count_Person_EducationalAttainmentPrimarySchool",
-        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-        "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma"
+        "Count_Person_EducationalAttainmentDoctorateDegree"
       ],
       "name": [
         "Population By Level of Educational Attainment"
