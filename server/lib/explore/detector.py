@@ -28,6 +28,7 @@ import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
 _MAX_RETURNED_VARS = 10
@@ -201,5 +202,11 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
         # Find place from context.
         places = past_ctx.get(Params.ENTITIES.value, [])
         uttr.counters.info('insight_place_ctx', places)
+    # Match NL behavior: if there was a child type and no context place,
+    # use a default place.
+    if not places and child_type:
+      default_place = get_default_contained_in_place(places, child_type)
+      if default_place:
+        places = [default_place.dcid]
 
   return places, cmp_places
