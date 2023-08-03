@@ -112,7 +112,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
           this.getPlaceAndRender(customPlace)
         )
       );
-      this.ac.addListener("place_changed", this.getPlaceAndRender);
+      this.ac.addListener("place_changed", (e) => this.getPlaceAndRender(null));
     }
     this.setPlaceholder();
   }
@@ -158,6 +158,11 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
   }
 
   private getPlaceAndRender(customPlace: { name: string; place_id?: string }) {
+    // Unmount all the custom items
+    const containers = document.getElementsByClassName("pac-container");
+    Array.from(containers).forEach((container) => {
+      ReactDOM.unmountComponentAtNode(container);
+    });
     // Get the place details from the autocomplete object.
     const place = customPlace || this.ac.getPlace();
     if ("place_id" in place) {
