@@ -35,8 +35,14 @@ flags.DEFINE_bool('all_rows', False, 'Process all rows')
 
 _CHART_IDX_THRESHOLD = 15
 _SUPPORTED_ENV = {
-    'datcom-website-autopush': 'https://autopush.datacommons.org/',
-    'datcom-website-dev': 'https://dev.datacommons.org/',
+    'datcom-website-autopush': {
+        'name': 'autopush',
+        'url': 'https://autopush.datacommons.org/'
+    },
+    'datcom-website-dev': {
+        'name': 'dev',
+        'url': 'https://dev.datacommons.org/'
+    }
 }
 _COL_SESSION = 'session_info'
 _COL_DATA = 'data'
@@ -113,7 +119,7 @@ def _url(ditem, base_url, app):
   return url
 
 
-def _write_all_rows(key, data, base_url, out_rows):
+def _write_all_rows(key, data, env, out_rows):
   for i, it in enumerate(data[_COL_SESSION]['items']):
     time, app = _key_parse(key)
 
@@ -131,17 +137,18 @@ def _write_all_rows(key, data, base_url, out_rows):
         'Time': time,
         'Query': it['query'],
         'Application': app,
+        'Env': env['name'],
         'Detection': detection,
         'EmbeddingsIndex':  # The index type is nested...
             index,
         'SessionId': key,
-        'URL': _url(ditem, base_url, app),
+        'URL': _url(ditem, env['url'], app),
         'Status': it['status']
     }
     out_rows.append(output_row)
 
 
-def _write_feedback_rows(key, data, base_url, out_rows):
+def _write_feedback_rows(key, data, env, out_rows):
   for fb in data[_COL_FEEDBACK]:
     if 'queryId' in fb:
       # Query-level feedback
@@ -195,6 +202,8 @@ def _write_feedback_rows(key, data, base_url, out_rows):
             time,
         'Application':
             app,
+        'Env':
+            env['name'],
         'Query':
             query,
         'ChartIndex':
@@ -216,7 +225,7 @@ def _write_feedback_rows(key, data, base_url, out_rows):
         'SessionId':
             key,
         'URL':
-            _url(ditem, base_url, app)
+            _url(ditem, env['url'], app)
     }
     out_rows.append(output_row)
 
@@ -285,12 +294,12 @@ def main(_):
   with open(output_csv, 'w') as fp:
     if FLAGS.all_rows:
       fieldnames = [
-          'Time', 'Application', 'Query', 'Detection', 'EmbeddingsIndex',
+          'Time', 'Application', 'Env', 'Query', 'Detection', 'EmbeddingsIndex',
           'SessionId', 'URL', 'Status'
       ]
     else:
       fieldnames = [
-          'Time', 'Application', 'Query', 'ChartIndex', 'Feedback',
+          'Time', 'Application', 'Env', 'Query', 'ChartIndex', 'Feedback',
           'UserComment', 'Detection', 'ChartTitle', 'ChartType', 'ChartVarKeys',
           'EmbeddingsIndex', 'SessionId', 'URL', 'Status'
       ]
