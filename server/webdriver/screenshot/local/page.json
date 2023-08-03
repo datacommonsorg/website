@@ -80,42 +80,42 @@
     "async": true
   },
   {
-    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=true",
+    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=True&d=True",
     "height": 2000,
     "async": true
   },
   {
-    "url": "/nl/#q=family+earnings+in+california&a=true",
+    "url": "/nl/#q=family+earnings+in+california&a=True&d=True",
     "height": 2000,
     "async": true
   },
   {
-    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=true",
+    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=True&d=True",
     "height": 1000,
     "async": true
   },
   {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=true",
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True",
     "height": 1000,
     "async": true
   },
   {
-    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=true",
+    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=True&d=True",
     "height": 2000,
     "async": true
   },
   {
-    "url": "/nl/#q=fires+in+california&a=true",
+    "url": "/nl/#q=fires+in+california&a=True&d=True",
     "height": 1000,
     "async": true
   },
   {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=true",
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True",
     "height": 2000,
     "async": true
   },
   {
-    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=true",
+    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=True&d=True",
     "height": 1000,
     "async": true
   },
@@ -131,6 +131,166 @@
   },
   {
     "url": "/browser/fire/irwinId/04745f7c-3f8b-47a4-8efe-c8f3c84742d9",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Obesity+vs+Unemployment+in+the+US+counties",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&oq=Businesses+by+industry+in+New+York+State",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Incarceration+rates+by+race+in+the+US&t=dc/topic/JusticeSystemEquity&p=country/USA",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=health+behaviors+in+India+vs+Norway",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=High+blood+pressure+vs+Asthma+in+Alabama",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=geoId/06&t=dc/topic/Schools&oq=School+Enrollment+in+California",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Student+demographics+among+schools+in+Sunnyvale",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=geoId/0653000&t=dc/topic/Housing&oq=Housing+in+Oakland",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=geoId/1714000&pcmp=geoId/3651000&t=dc/topic/CommuteMode&oq=Compare+modes+of+commute+between+NYC+and+Chicago",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=geoId/0606000&pcmp=geoId/0653000&t=dc/topic/RentalHouses&oq=Rental+prices+in+Oakland+vs+Berkeley",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Median+home+value+vs.+hypertension+in+US+counties",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#p=country/USA&t=dc/topic/Gender&oq=Gender+distribution+in+the+US",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Foreign+born+population+vs.+PhD+holders+in+California+counties",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore#oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#a=Obesity+vs+Unemployment+in+the+US+counties&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Businesses+by+industry+in+New+York+State&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Health+equity+in+Santa+Clara+County&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Incarceration+rates+by+race+in+the+US&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=health+behaviors+in+India+vs+Norway&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=High+blood+pressure+vs+Asthma+in+Alabama&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=School+Enrollment+in+California&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Student+demographics+among+schools+in+Sunnyvale&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Housing+in+Oakland&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Compare+modes+of+commute+between+NYC+and+Chicago&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Rental+prices+in+Oakland+vs+Berkeley&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Median+home+value+vs.+hypertension+in+US+counties&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Gender+distribution+in+the+US&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=Green+jobs+in+the+US&a=True&d=True",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/nl#q=AQI+vs+blood+pressure+in+New+Jersey&a=True&d=True",
     "height": 1080,
     "async": true
   }
