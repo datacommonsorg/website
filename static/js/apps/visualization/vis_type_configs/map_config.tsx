@@ -23,11 +23,13 @@ import React from "react";
 
 import { MapTile } from "../../../components/tiles/map_tile";
 import { StatVarHierarchyType } from "../../../shared/types";
+import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import {
   getFooterOptions,
   getStatVarSpec,
+  isSelectionComplete,
 } from "../../../utils/app/visualization_utils";
 import { AppContextType } from "../app_context";
 import { VisType } from "../vis_type_configs";
@@ -90,6 +92,41 @@ function getInfoContent(): JSX.Element {
   );
 }
 
+function getSqlQueryFn(appContext: AppContextType): () => string {
+  return () => {
+    if (
+      !isSelectionComplete(
+        VisType.MAP,
+        appContext.places,
+        appContext.enclosedPlaceType,
+        appContext.statVars
+      )
+    ) {
+      return "";
+    }
+    const contextStatVar = appContext.statVars[0]
+    const statVarSpec = getStatVarSpec(contextStatVar, VisType.MAP);
+    if (statVarSpec.denom) {
+      return getPcQuery(
+        statVarSpec.statVar,
+        statVarSpec.denom,
+        appContext.places[0].dcid,
+        appContext.enclosedPlaceType,
+        contextStatVar.date,
+        {}
+      );
+    } else {
+      return getNonPcQuery(
+        statVarSpec.statVar,
+        appContext.places[0].dcid,
+        appContext.enclosedPlaceType,
+        contextStatVar.date,
+        {}
+      );
+    }
+  };
+}
+
 export const MAP_CONFIG = {
   displayName: "Map Explorer",
   icon: "public",
@@ -100,4 +137,5 @@ export const MAP_CONFIG = {
   numSv: 1,
   getChartArea,
   getInfoContent,
+  getSqlQueryFn,
 };
