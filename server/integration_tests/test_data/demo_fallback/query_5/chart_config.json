@@ -105,28 +105,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
-                    ],
-                    "title": "GDP of Other Services, Except Public Administration Industry in United States",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of Other Services, Except Public Administration Industry in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
@@ -155,15 +133,6 @@
             "denom": "Count_Person",
             "name": "GDP of the Finance and Insurance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue": {
-            "name": "GDP of Other Services, Except Public Administration Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of Other Services, Except Public Administration Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
