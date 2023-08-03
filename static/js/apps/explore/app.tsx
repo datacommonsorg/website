@@ -116,7 +116,7 @@ export function App(): JSX.Element {
           setLoadingStatus("fail");
           return;
         }
-        setSavedContext(detectResp["context"] || {});
+        setSavedContext(detectResp["context"] || []);
         if (_.isEmpty(detectResp["entities"])) {
           setLoadingStatus("fail");
           return;
