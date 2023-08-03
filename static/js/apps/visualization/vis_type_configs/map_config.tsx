@@ -61,6 +61,7 @@ export function getChartArea(
         svgChartHeight={chartHeight}
         title={statVarLabel + " (${date})"}
         showLoadingSpinner={true}
+        date={appContext.statVars[0].date || ""}
       />
       {getFooterOptions(perCapitaInputs, [])}
     </div>
