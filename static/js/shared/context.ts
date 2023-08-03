@@ -33,6 +33,10 @@ export const Context = createContext({} as ContextType);
 
 export const NlSessionContext = createContext("");
 
+export const RankingUnitUrlFuncContext = createContext((dcid: string) => {
+  return "/place/" + dcid;
+});
+
 export const SdgContext = createContext({
   sdgIndex: null,
   setSdgIndex: (i: number) => {

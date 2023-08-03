@@ -29,7 +29,10 @@ import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
-import { NlSessionContext } from "../../shared/context";
+import {
+  NlSessionContext,
+  RankingUnitUrlFuncContext,
+} from "../../shared/context";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
@@ -301,15 +304,21 @@ export function App(): JSX.Element {
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
-              <NlSessionContext.Provider value={chartData.sessionId}>
-                <SubjectPageMainPane
-                  id={PAGE_ID}
-                  place={chartData.place}
-                  pageConfig={chartData.pageConfig}
-                  svgChartHeight={SVG_CHART_HEIGHT}
-                  showExploreMore={true}
-                />
-              </NlSessionContext.Provider>
+              <RankingUnitUrlFuncContext.Provider
+                value={(dcid: string) => {
+                  return `/explore/#p=${dcid}&t=${topic}`;
+                }}
+              >
+                <NlSessionContext.Provider value={chartData.sessionId}>
+                  <SubjectPageMainPane
+                    id={PAGE_ID}
+                    place={chartData.place}
+                    pageConfig={chartData.pageConfig}
+                    svgChartHeight={SVG_CHART_HEIGHT}
+                    showExploreMore={true}
+                  />
+                </NlSessionContext.Provider>
+              </RankingUnitUrlFuncContext.Provider>
             </>
           )}
         </div>

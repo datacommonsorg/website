@@ -19,8 +19,9 @@
  */
 
 import _ from "lodash";
-import React, { RefObject } from "react";
+import React, { RefObject, useContext } from "react";
 
+import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
@@ -60,20 +61,20 @@ interface RankingUnitPropType {
   svNames?: string[];
 }
 
-export function RankingUnit(props: RankingUnitPropType): JSX.Element {
-  // Calculates ranks based on the order of data if no rank is provided.
-  function getRank(
-    isHighest: boolean,
-    index: number,
-    numberOfTotalDataPoints?: number
-  ): number {
-    if (isHighest) {
-      return index + 1;
-    }
-    return numberOfTotalDataPoints
-      ? numberOfTotalDataPoints - index
-      : index + 1;
+// Calculates ranks based on the order of data if no rank is provided.
+function getRank(
+  isHighest: boolean,
+  index: number,
+  numberOfTotalDataPoints?: number
+): number {
+  if (isHighest) {
+    return index + 1;
   }
+  return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1;
+}
+
+export function RankingUnit(props: RankingUnitPropType): JSX.Element {
+  const urlFunc = useContext(RankingUnitUrlFuncContext);
 
   return (
     <div
@@ -115,7 +116,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                   }`}
                 >
                   <LocalizedLink
-                    href={`/place/${point.placeDcid}`}
+                    href={urlFunc(point.placeDcid)}
                     text={point.placeName || point.placeDcid}
                   />
                 </td>
