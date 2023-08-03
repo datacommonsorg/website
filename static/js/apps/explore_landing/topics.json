@@ -404,16 +404,12 @@
             "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Gender+in+New+York+City"
           },
           {
-            "title": "Students in School Type By Race in Florida",
-            "url": "p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace&oq=Students+in+School+Type+By+Race+in+Florida"
-          },
-          {
             "title": "Bachelor's degree holders in California counties",
             "url": "p=geoId/06&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&oq=Bachelors+degree+holders+in+California+counties"
           },
           {
-            "title": "Most number of PhDs in US counties",
-            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=Most+number+of+PhDs+in+US+counties"
+            "title": "US counties with the most number of PhDs",
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=US+counties+with+the+most+number+of+PhDs"
           },
           {
             "title": "Home value in Detroit",
