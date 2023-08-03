@@ -31,6 +31,7 @@ import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import { NlSessionContext } from "../../shared/context";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { Sidebar } from "./sidebar";
@@ -38,6 +39,8 @@ import { Sidebar } from "./sidebar";
 const PAGE_ID = "explore";
 const DEFAULT_PLACE = "geoId/06";
 const DEFAULT_TOPIC = "dc/topic/Root";
+const FEEDBACK_LINK =
+  "https://docs.google.com/forms/d/14oXA39Il7f20Rvtqkx_KZNn2NXTi7D_ag_hiX8oH2vc/viewform?usp=pp_url";
 
 const getSingleParam = (input: string | string[]): string => {
   // If the input is an array, convert it to a single string
@@ -68,8 +71,9 @@ export function App(): JSX.Element {
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>(
     queryString.parse(window.location.hash)
   );
-  const [savedContext, setSavedContext] = useState<any>({});
+  const [savedContext, setSavedContext] = useState<any>([]);
   const [query, setQuery] = useState<string>("");
+  const [debugData, setDebugData] = useState<any>({});
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -112,11 +116,12 @@ export function App(): JSX.Element {
           setLoadingStatus("fail");
           return;
         }
-        setSavedContext(detectResp["context"] || {});
+        setSavedContext(detectResp["context"] || []);
         if (_.isEmpty(detectResp["entities"])) {
           setLoadingStatus("fail");
           return;
         }
+        setDebugData(detectResp["debug"]);
 
         place = detectResp["entities"].join(DELIM);
         cmpPlace = (detectResp["comparisonEntities"] || []).join(DELIM);
@@ -200,7 +205,7 @@ export function App(): JSX.Element {
     })();
   }, [hashParams]);
 
-  let mainSection;
+  let mainSection: JSX.Element;
   const place = getSingleParam(hashParams["p"]);
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
@@ -319,8 +324,23 @@ export function App(): JSX.Element {
   } else {
     mainSection = <></>;
   }
+  const feedbackLink = getFeedbackLink(
+    FEEDBACK_LINK,
+    query || "",
+    debugData,
+    _.isEmpty(savedContext) ? null : savedContext[0]["insightCtx"]
+  );
 
-  return <Container className="explore-container">{mainSection}</Container>;
+  return (
+    <Container className="explore-container">
+      <div className="feedback-link">
+        <a href={feedbackLink} target="_blank" rel="noreferrer">
+          Feedback
+        </a>
+      </div>
+      {mainSection}
+    </Container>
+  );
 }
 
 const fetchFulfillData = async (
