@@ -32,6 +32,7 @@ import {
   ModalHeader,
 } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { getFilteredStatVarPromise } from "../../utils/app/visualization_utils";
@@ -43,8 +44,14 @@ interface StatVarSelectorPropType {
 }
 
 export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
-  const { visType, samplePlaces, statVars, setStatVars } =
-    useContext(AppContext);
+  const {
+    visType,
+    places,
+    enclosedPlaceType,
+    samplePlaces,
+    statVars,
+    setStatVars,
+  } = useContext(AppContext);
   const [extraSv, setExtraSv] = useState(null);
   const [modalSelection, setModalSelection] = useState(0);
   const [selectedStatVars, setSelectedStatVars] = useState(statVars);
@@ -63,7 +70,7 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
   }, [statVars]);
 
   useEffect(() => {
-    if (!props.selectOnContinue) {
+    if (!props.selectOnContinue || samplePlaces === null) {
       return;
     }
     getFilteredStatVarPromise(
@@ -80,18 +87,28 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
   return (
     <div className="stat-var-selector">
       <div className="selector-body">
-        <StatVarHierarchy
-          type={visTypeConfig.svHierarchyType}
-          entities={samplePlaces}
-          selectedSVs={selectedStatVars.map((sv) => sv.dcid)}
-          selectSV={addSv}
-          searchLabel={""}
-          deselectSV={removeSv}
-          numEntitiesExistence={Math.min(
-            samplePlaces.length,
-            visTypeConfig.svHierarchyNumExistence || 1
-          )}
-        />
+        {!_.isNull(samplePlaces) && _.isEmpty(samplePlaces) && (
+          <span className="info-message">
+            Sorry, we don&apos;t have any variables available for{" "}
+            {enclosedPlaceType}s in {places[0].name}. Please select different
+            place options.
+          </span>
+        )}
+        {!_.isEmpty(samplePlaces) && (
+          <StatVarHierarchy
+            type={visTypeConfig.svHierarchyType}
+            entities={samplePlaces}
+            selectedSVs={selectedStatVars.map((sv) => sv.dcid)}
+            selectSV={addSv}
+            searchLabel={""}
+            deselectSV={removeSv}
+            numEntitiesExistence={Math.min(
+              Math.max(samplePlaces.length, 1),
+              visTypeConfig.svHierarchyNumExistence || 1
+            )}
+          />
+        )}
+        <Spinner isOpen={_.isNull(samplePlaces)} />
       </div>
       {props.selectOnContinue && (
         <div className="selector-footer">

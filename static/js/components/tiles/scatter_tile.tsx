@@ -106,7 +106,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       loadSpinner(getSpinnerId());
       (async () => {
         const data = await fetchData(props);
-        if (_.isEqual(data.props, props)) {
+        if (props && _.isEqual(data.props, props)) {
           setScatterChartData(data);
         }
       })();
