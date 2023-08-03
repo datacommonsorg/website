@@ -36,6 +36,8 @@ export function SelectedOptions(): JSX.Element {
   const [showPlaceTypeSelector, setShowPlaceTypeSelector] = useState(false);
   const placeSelectorRef = useRef(null);
   const placeTypeSelectorRef = useRef(null);
+  const emptySelections =
+    _.isEmpty(places) && _.isEmpty(enclosedPlaceType) && _.isEmpty(statVars);
 
   useEffect(() => {
     // collapse dropdowns when click outside the dropdown
@@ -64,11 +66,15 @@ export function SelectedOptions(): JSX.Element {
     <div
       className={`selected-options-container ${
         visTypeConfig.singlePlace ? "row" : "column"
-      }`}
+      }${emptySelections ? " empty" : ""}`}
     >
       <div className="selected-options-places">
         {!_.isEmpty(places) && (
-          <div className="selected-option">
+          <div
+            className={`selected-option${
+              showPlaceSelector && visTypeConfig.singlePlace ? " open" : ""
+            }`}
+          >
             <span className="selected-option-label">
               Plot places{visTypeConfig.skipEnclosedPlaceType ? "" : " in"}
             </span>
@@ -79,33 +85,42 @@ export function SelectedOptions(): JSX.Element {
                     className="selected-option-chip"
                     key={`selected-chip-${place.dcid}`}
                   >
-                    {visTypeConfig.singlePlace && (
-                      <span className="material-icons-outlined">
-                        location_on
-                      </span>
-                    )}
-                    <span>{place.name || place.dcid}</span>
-                    {visTypeConfig.singlePlace ? (
-                      <span
-                        className="material-icons-outlined action"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setShowPlaceSelector(!showPlaceSelector);
-                          setShowPlaceTypeSelector(false);
-                        }}
-                      >
-                        edit
-                      </span>
-                    ) : (
-                      <span
-                        className="material-icons-outlined action"
-                        onClick={() =>
-                          setPlaces(places.filter((p) => p.dcid !== place.dcid))
-                        }
-                      >
-                        close
-                      </span>
-                    )}
+                    <div className="chip-content">
+                      {visTypeConfig.singlePlace && (
+                        <span className="material-icons-outlined">
+                          location_on
+                        </span>
+                      )}
+                      <span>{place.name || place.dcid}</span>
+                      {visTypeConfig.singlePlace ? (
+                        <span
+                          className="material-icons-outlined action"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowPlaceSelector(!showPlaceSelector);
+                            setShowPlaceTypeSelector(false);
+                          }}
+                        >
+                          edit
+                        </span>
+                      ) : (
+                        <span
+                          className="material-icons-outlined action"
+                          onClick={() =>
+                            setPlaces(
+                              places.filter(
+                                (p) =>
+                                  !!p.dcid &&
+                                  !!place.dcid &&
+                                  p.dcid !== place.dcid
+                              )
+                            )
+                          }
+                        >
+                          close
+                        </span>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -159,22 +174,26 @@ export function SelectedOptions(): JSX.Element {
           </div>
         )}
         {showEnclosedPlaceType && (
-          <div className="selected-option">
+          <div
+            className={`selected-option${showPlaceTypeSelector ? " open" : ""}`}
+          >
             <span className="selected-option-label">by</span>
             <div className="selected-option-values">
               <div className="selected-option-chip">
-                <span className="material-icons-outlined">straighten</span>
-                <span>{enclosedPlaceType}</span>
-                <span
-                  className="material-icons-outlined action"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowPlaceTypeSelector(!showPlaceTypeSelector);
-                    setShowPlaceSelector(false);
-                  }}
-                >
-                  edit
-                </span>
+                <div className="chip-content">
+                  <span className="material-icons-outlined">straighten</span>
+                  <span>{enclosedPlaceType}</span>
+                  <span
+                    className="material-icons-outlined action"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPlaceTypeSelector(!showPlaceTypeSelector);
+                      setShowPlaceSelector(false);
+                    }}
+                  >
+                    edit
+                  </span>
+                </div>
               </div>
             </div>
             {showPlaceTypeSelector && (
@@ -202,7 +221,9 @@ export function SelectedOptions(): JSX.Element {
                   className="selected-option-chip"
                   key={`selected-chip-${sv.dcid}`}
                 >
-                  <span>{sv.info.title || sv.dcid}</span>
+                  <div className="chip-content">
+                    <span>{sv.info.title || sv.dcid}</span>
+                  </div>
                 </div>
               );
             })}

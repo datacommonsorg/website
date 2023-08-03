@@ -33,6 +33,9 @@ import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
 import { NLCommentary } from "./nl_commentary";
 
+const FEEDBACK_LINK =
+  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
+
 export interface QueryResultProps {
   queryIdx: number;
   nlQueryId: string;
@@ -89,7 +92,11 @@ export const QueryResult = memo(function QueryResult(
     props.queryIdx,
   ]);
 
-  const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
+  const feedbackLink = getFeedbackLink(
+    FEEDBACK_LINK,
+    nlQuery.query || "",
+    nlQuery.debugData
+  );
   return (
     <>
       <div className="nl-query" ref={scrollRef}>
