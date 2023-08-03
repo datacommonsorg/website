@@ -14,55 +14,20 @@
 """Module for NL page data spec"""
 
 import logging
-from typing import List
 
-from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
-from shared.lib import detected_variables as vars
-
-# We will ignore SV detections that are below this threshold
-_SV_THRESHOLD = 0.5
 
 
 #
-# Compute a new Utterance given the classifications for a user query
-# and past utterances.
+# Populate chart candidates in the utterance.
 #
-def fulfill(query_detection: Detection, currentUtterance: Utterance,
-            counters: ctr.Counters, session_id: str) -> Utterance:
-
-  filtered_svs = filter_svs(query_detection.svs_detected.sv_dcids,
-                            query_detection.svs_detected.sv_scores, counters)
-
-  multi_svs = vars.dict_to_multivar_candidates(
-      query_detection.svs_detected.multi_sv)
-
-  # Construct Utterance datastructure.
-  uttr = Utterance(prev_utterance=currentUtterance,
-                   query=query_detection.original_query,
-                   query_type=QueryType.UNKNOWN,
-                   detection=query_detection,
-                   places=[],
-                   classifications=query_detection.classifications,
-                   svs=filtered_svs,
-                   chartCandidates=[],
-                   rankedCharts=[],
-                   answerPlaces=[],
-                   counters=counters,
-                   session_id=session_id,
-                   multi_svs=multi_svs)
-  uttr.counters.info('filtered_svs', filtered_svs)
-
-  # Add detected places.
-  if (query_detection.places_detected) and (
-      query_detection.places_detected.places_found):
-    uttr.places.extend(query_detection.places_detected.places_found)
-
+def fulfill(uttr: Utterance) -> Utterance:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     if fulfill_query_type(uttr, query_types[-1]):
@@ -103,31 +68,3 @@ def rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
-
-
-#
-# Filter out SVs that are below a score.
-#
-def filter_svs(sv_list: List[str], sv_score: List[float],
-               counters: ctr.Counters) -> List[str]:
-  # this functionality should be moved to detection.
-  i = 0
-  ans = []
-  blocked_vars = set()
-  while (i < len(sv_list)):
-    if (sv_score[i] >= _SV_THRESHOLD):
-      var = sv_list[i]
-
-      # Check if an earlier var blocks this var.
-      if var in blocked_vars:
-        counters.info("blocked_vars", var)
-        i += 1
-        continue
-      ans.append(var)
-
-      # If this var should block some vars,
-      # add them to the blocked_vars set.
-      if var in constants.SV_BLOCKS_MAP:
-        blocked_vars.update(constants.SV_BLOCKS_MAP[var])
-    i += 1
-  return ans

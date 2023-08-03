@@ -22,6 +22,10 @@ import axios from "axios";
 import _ from "lodash";
 import React, { memo, useEffect, useRef, useState } from "react";
 
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
@@ -38,10 +42,13 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
+import { formatPropertyValue } from "../../utils/property_value_utils";
+import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
 const DEFAULT_RANKING_COUNT = 10;
 const MIN_PERCENT_PLACE_NAMES = 0.4;
+const EXPLORE_MORE_BASE_URL = "/disasters/";
 
 interface TopEventTilePropType {
   id: string;
@@ -53,8 +60,11 @@ interface TopEventTilePropType {
   // Place type to show the event map for
   enclosedPlaceType: string;
   className?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
 }
 
+// TODO: Use ChartTileContainer like other tiles.
 export const TopEventTile = memo(function TopEventTile(
   props: TopEventTilePropType
 ): JSX.Element {
@@ -77,7 +87,6 @@ export const TopEventTile = memo(function TopEventTile(
   }, [props]);
 
   const displayPropNames = {};
-  const displayPropUnits = {};
   if (props.topEventMetadata.displayProp) {
     for (const dp of props.topEventMetadata.displayProp) {
       if (_.isEmpty(props.eventTypeSpec.displayProp)) {
@@ -86,7 +95,6 @@ export const TopEventTile = memo(function TopEventTile(
       for (const edp of props.eventTypeSpec.displayProp) {
         if (edp.prop == dp) {
           displayPropNames[dp] = edp.displayName;
-          displayPropUnits[dp] = edp.unit;
           break;
         }
       }
@@ -113,11 +121,11 @@ export const TopEventTile = memo(function TopEventTile(
 
   return (
     <div
-      className={`chart-container ranking-tile ${props.className}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
       ref={chartContainer}
     >
       <div
-        className={`ranking-unit-container ${
+        className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} ${
           isInitialLoading ? INITAL_LOADING_CLASS : ""
         }`}
       >
@@ -182,11 +190,7 @@ export const TopEventTile = memo(function TopEventTile(
                         props.topEventMetadata.displayProp.map((dp, i) => {
                           return (
                             <td key={i} className="stat">
-                              {formatNumber(
-                                event.displayProps[dp],
-                                displayPropUnits[dp],
-                                false
-                              )}
+                              {formatPropertyValue(event.displayProps[dp])}
                             </td>
                           );
                         })}
@@ -208,9 +212,15 @@ export const TopEventTile = memo(function TopEventTile(
           <ChartFooter
             sources={sources}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+            exploreMoreUrl={
+              props.showExploreMore
+                ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
+                : ""
+            }
           />
         </div>
       </div>
+      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
     </div>
   );

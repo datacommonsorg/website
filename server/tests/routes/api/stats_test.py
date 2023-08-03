@@ -24,7 +24,7 @@ class TestApiStatsProperty(unittest.TestCase):
   @mock.patch('server.services.datacommons.post')
   def test_api_get_stats_property(self, mock_post):
 
-    def side_effect(url, req_json):
+    def side_effect(url, req_json, _=None):
       if req_json == {
           'nodes': ['DifferenceRelativeToBaseDate1990_Temperature'],
           'property': '->*'
@@ -142,7 +142,9 @@ class TestApiStatsProperty(unittest.TestCase):
             "st":
                 "measuredValue",
             "title":
-                "Temperature (Difference Relative To Base Date): Relative To 1990"
+                "Temperature (Difference Relative To Base Date): Relative To 1990",
+            "pcAllowed":
+                False
         }
     }
 

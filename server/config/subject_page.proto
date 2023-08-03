@@ -72,6 +72,14 @@ message PageMetadata {
   // Event type information to be used by this config. The key is the event
   // type id and the value is the spec for that event type.
   map<string, EventTypeSpec> event_type_spec = 5;
+
+  // A group of places characterized by place type and parent place
+  message PlaceGroup {
+    string parent_place = 1;
+    string place_type = 2;
+  }
+  // List of place groups supported by this config.
+  repeated PlaceGroup place_group = 6;
 }
 
 message StatVarSpec {
@@ -151,6 +159,15 @@ message BarTileSpec {
   string x_label_link_root = 1;
 }
 
+message GaugeTileSpec {
+  message Range {
+    double min = 1;
+    double max = 2;
+  }
+  // Range of values represented by the gauge
+  Range range = 1;
+}
+
 message Tile {
   // When adding a new TileType:
   // - make sure to update verify_tile in subject_page_configs_test.py with any
@@ -175,6 +192,8 @@ message Tile {
     HIGHLIGHT = 7;
     // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
+    // allowed in BlockTypes: TYPE_NONE
+    GAUGE = 13;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: DISASTER_EVENT
@@ -207,6 +226,7 @@ message Tile {
     ScatterTileSpec scatter_tile_spec = 9;
     HistogramTileSpec histogram_tile_spec = 10;
     BarTileSpec bar_tile_spec = 12;
+    GaugeTileSpec gauge_tile_spec = 13;
   }
 }
 
@@ -231,6 +251,13 @@ message Block {
     DISASTER_EVENT = 1;
   }
   BlockType type = 4;
+  // If denom is set, adds a per capita toggle on the block. If per capita is
+  // toggled on, all tiles in the block will use this denom to calculate per
+  // capita.
+  string denom = 6;
+  // Whether or not the block should use the denom when first rendered. Only
+  // used if denom is set. Defaults to false.
+  bool start_with_denom = 7;
 }
 
 message Category {
@@ -240,9 +267,44 @@ message Category {
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
+  // If the category corresponds to an entity (like topic) this includes the dcid.
+  string dcid = 5;
+}
+
+message Suggestion {
+  enum Type {
+    // [crime in NY]
+    //    "Did you mean New York State?"
+    NL_PLACE_DISAMBIGUATION = 0;
+
+    // [asthma in sunnyvale]
+    //    "See results for Mountain View"
+    NL_RELATED_PLACE = 1;
+
+    // [women earnings in california]
+    //   "See results for Male Earnings"
+    //   "Compare with Male Earnings?"
+    NL_RELATED_VAR = 2;
+
+    // [women earnings in california counties]
+    //   "See ranking among the counties"
+    // [number of schools in california]
+    //   "See california schools per capita"
+    NL_RELATED_QUERY_TYPE = 3;
+  }
+
+  message Item {
+    string display_name = 1;
+    string nl_query = 2;
+  }
+  repeated Item items = 1;
 }
 
 message SubjectPageConfig {
   PageMetadata metadata = 1;
   repeated Category categories = 2;
+
+  // Various suggestions to present to the user. Currently used for NL.
+  // Keyed by Suggestion::Type (keys have to be strings).
+  map<string, Suggestion> suggestions = 3;
 }

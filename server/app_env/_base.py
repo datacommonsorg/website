@@ -41,6 +41,8 @@ class Config:
   SHOW_DISASTER = True
   # Whether to show sustainability page
   SHOW_SUSTAINABILITY = False
+  # Whether to use PaLM API
+  USE_PALM = False
 
   # Environment name of the config.
   ENV = ''
@@ -63,3 +65,5 @@ class Config:
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
+  # Hide changes made for the website revamp.
+  HIDE_REVAMP_CHANGES = False

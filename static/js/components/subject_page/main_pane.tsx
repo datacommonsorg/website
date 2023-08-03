@@ -19,18 +19,16 @@
  */
 
 import _ from "lodash";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext } from "react";
 
 import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
+import { SdgContext } from "../../shared/context";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
-import { fetchNodeGeoJson } from "../../utils/geojson_utils";
-import { getParentPlacesPromise } from "../../utils/place_utils";
-import { fetchGeoJsonData, getId } from "../../utils/subject_page_utils";
+import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
-import { DataContext, DataContextType } from "./data_context";
 import { DataFetchContextProvider } from "./data_fetch_context";
 
 interface SubjectPageMainPanePropType {
@@ -44,25 +42,15 @@ interface SubjectPageMainPanePropType {
   svgChartHeight?: number;
   // parent places of the place to show the page for.
   parentPlaces?: NamedPlace[];
-  showData?: boolean;
+  // Whether or not to show the explore more button on tiles.
+  showExploreMore?: boolean;
 }
-
-const PLACE_TYPE_GEOJSON_PROP = {
-  City: "geoJsonCoordinates",
-  Country: "geoJsonCoordinatesDP3",
-  State: "geoJsonCoordinatesDP3",
-  AdministrativeArea1: "geoJsonCoordinatesDP3",
-  County: "geoJsonCoordinatesDP1",
-  AdministrativeArea2: "geoJsonCoordinatesDP1",
-  AdministrativeArea3: "geoJsonCoordinatesDP1",
-  EurostatNUTS1: "geoJsonCoordinatesDP2",
-  EurostatNUTS2: "geoJsonCoordinatesDP2",
-  EurostatNUTS3: "geoJsonCoordinatesDP1",
-};
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
 ): JSX.Element {
+  const { sdgIndex } = useContext(SdgContext);
+
   // TODO(shifucun): Further clean up default place type, child place type etc
   // from subject page client components. The component should respect whatever
   // the input prop is.
@@ -77,78 +65,40 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
         props.pageConfig.metadata.containedPlaceTypes[placeType];
     }
   }
-  const [contextData, setContextData] = useState<DataContextType>({
-    geoJsonData: null,
-    parentPlaces: null,
-  });
-
-  useEffect(() => {
-    // re-fetch geojson data if props change
-    const childrenGeoJsonPromise = fetchGeoJsonData(
-      props.place,
-      enclosedPlaceType,
-      props.parentPlaces
-    );
-    let placeGeoJsonProp = "";
-    for (const type of props.place.types) {
-      if (type in PLACE_TYPE_GEOJSON_PROP) {
-        placeGeoJsonProp = PLACE_TYPE_GEOJSON_PROP[type];
-        break;
-      }
-    }
-    const placeGeoJsonPromise = fetchNodeGeoJson(
-      [props.place.dcid],
-      placeGeoJsonProp
-    );
-    const parentPlacesPromise = !_.isUndefined(props.parentPlaces)
-      ? Promise.resolve(props.parentPlaces)
-      : getParentPlacesPromise(props.place.dcid);
-    Promise.all([
-      childrenGeoJsonPromise,
-      placeGeoJsonPromise,
-      parentPlacesPromise,
-    ]).then(([childrenGeoJson, placeGeoJson, parentPlaces]) => {
-      setContextData({
-        geoJsonData: { placeGeoJson, childrenGeoJson },
-        parentPlaces,
-      });
-    });
-  }, [props]);
+  let data = null;
+  if (!_.isEmpty(props.pageConfig) && !_.isEmpty(props.pageConfig.categories)) {
+    data = props.pageConfig.categories;
+  }
+  if (sdgIndex != null) {
+    data = data.slice(sdgIndex, sdgIndex + 1);
+  }
 
   return (
     <div id="subject-page-main-pane">
       <DataFetchContextProvider id={props.id}>
-        {!_.isEmpty(props.pageConfig) &&
-          !_.isEmpty(props.pageConfig.categories) &&
-          props.pageConfig.categories.map((category, idx) => {
+        {data &&
+          data.map((category, idx) => {
             const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
             // TODO: just use DataFetchContextProvider for fetching data and
             // remove DataContext.
             return (
-              <DataContext.Provider
-                key={id}
-                value={{
-                  geoJsonData: contextData.geoJsonData,
-                  parentPlaces: contextData.parentPlaces,
-                }}
-              >
-                <ErrorBoundary>
-                  <Category
-                    id={id}
-                    place={props.place}
-                    enclosedPlaceType={enclosedPlaceType}
-                    config={category}
-                    eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                    svgChartHeight={
-                      // TODO: Unroll this for NL and use container offset from CSS instead.
-                      props.svgChartHeight
-                        ? props.svgChartHeight
-                        : SVG_CHART_HEIGHT
-                    }
-                    showData={props.showData}
-                  />
-                </ErrorBoundary>
-              </DataContext.Provider>
+              <ErrorBoundary key={id}>
+                <Category
+                  id={id}
+                  place={props.place}
+                  enclosedPlaceType={enclosedPlaceType}
+                  config={category}
+                  eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
+                  svgChartHeight={
+                    // TODO: Unroll this for NL and use container offset from CSS instead.
+                    props.svgChartHeight
+                      ? props.svgChartHeight
+                      : SVG_CHART_HEIGHT
+                  }
+                  showExploreMore={props.showExploreMore}
+                  parentPlaces={props.parentPlaces}
+                />
+              </ErrorBoundary>
             );
           })}
       </DataFetchContextProvider>

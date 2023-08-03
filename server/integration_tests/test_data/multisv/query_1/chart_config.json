@@ -12,10 +12,86 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Household_WithFoodStampsInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Households Receiving Food Stamps in the Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Percentage of Population That Is Obese (${xDate}) in Counties of California",
+                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Population: Civilian, Non Institutionalized, Poverty Status Determined Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Females In Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
+                    ],
+                    "title": "Males in Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -24,14 +100,38 @@
           }
         ],
         "statVarSpec": {
+          "Count_Household_WithFoodStampsInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Households Receiving Food Stamps in the Past Year Per Capita",
+            "statVar": "Count_Household_WithFoodStampsInThePast12Months",
+            "unit": "%"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
             "name": "Population Below Poverty Level Status in Past Year Per Capita",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
+          "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_scatter": {
+            "denom": "Count_Person",
+            "name": "Population: Civilian, Non Institutionalized, Poverty Status Determined Per Capita",
+            "statVar": "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined",
+            "unit": "%"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Females In Poverty (in last year) Per Capita",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Males in Poverty (in last year) Per Capita",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
           "Percent_Person_Obesity_scatter": {
-            "name": "Percentage of Population That Is Obese",
+            "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           }
@@ -45,13 +145,22 @@
       "placeDcid": [
         "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
     "name": "California",
     "place_type": "State"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

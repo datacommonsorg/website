@@ -22,6 +22,7 @@ import * as d3 from "d3";
 import * as geo from "geo-albers-usa-territories";
 import _ from "lodash";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import {
   ASIA_NAMED_TYPED_PLACE,
   EUROPE_NAMED_TYPED_PLACE,
@@ -46,6 +47,11 @@ import {
 export interface MapZoomParams {
   zoomInButtonId: string;
   zoomOutButtonId: string;
+}
+
+interface MapStyleParams {
+  strokeColor?: string;
+  noDataFill?: string;
 }
 
 const MISSING_DATA_COLOR = "#999";
@@ -375,6 +381,7 @@ function addGeoJsonLayer(
     .data(geoJson.features)
     .enter()
     .append("path")
+    .attr("part", (d) => `place-path place-path-${d.id.toString()}`)
     .attr("d", geomap);
 }
 
@@ -409,7 +416,8 @@ export function drawD3Map(
   shouldShowBoundaryLines: boolean,
   projection: d3.GeoProjection,
   zoomDcid?: string,
-  zoomParams?: MapZoomParams
+  zoomParams?: MapZoomParams,
+  styleParams?: MapStyleParams
 ): void {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
@@ -442,7 +450,10 @@ export function drawD3Map(
     })
     .attr("fill", (d: GeoJsonFeature) => {
       const value = getValue(d, dataValues);
-      return value === undefined ? MISSING_DATA_COLOR : colorScale(value);
+      if (value !== undefined) {
+        return colorScale(value);
+      }
+      return styleParams?.noDataFill || MISSING_DATA_COLOR;
     })
     .attr("id", (d: GeoJsonFeature) => {
       return getPlacePathId(d.properties.geoDcid);
@@ -456,7 +467,12 @@ export function drawD3Map(
   if (shouldShowBoundaryLines) {
     mapObjects
       .attr("stroke-width", STROKE_WIDTH)
-      .attr("stroke", GEO_STROKE_COLOR);
+      .attr(
+        "stroke",
+        styleParams
+          ? styleParams.strokeColor || GEO_STROKE_COLOR
+          : GEO_STROKE_COLOR
+      );
   }
   mapObjects.on(
     "click",
@@ -507,6 +523,7 @@ export function drawD3Map(
       });
     }
   }
+  svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
 
 /**

@@ -22,6 +22,7 @@ from google.protobuf import text_format
 from parameterized import parameterized
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib import util as libutil
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import topic
 from server.lib.nl.common import utils
@@ -288,7 +289,7 @@ SIMPLE_WITH_TOPIC_CONFIG = """
 
 COMPARISON_CONFIG = """
  metadata {
-   place_dcid: "geoId/06"
+   place_dcid: "geoId/32"
  }
  categories {
   description: "Here are some comparison charts about Count_Person_Male-name in Foo Place and Foo Place."
@@ -298,15 +299,15 @@ COMPARISON_CONFIG = """
          title: "Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
        tiles {
          title: "Per Capita Count_Person_Male-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Male_multiple_place_bar_block_pc"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
      }
    }
@@ -316,15 +317,15 @@ COMPARISON_CONFIG = """
          title: "Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
        tiles {
          title: "Per Capita Count_Person_Female-name (${date})"
          type: BAR
          stat_var_key: "Count_Person_Female_multiple_place_bar_block_pc"
-         comparison_places: "geoId/06"
          comparison_places: "geoId/32"
+         comparison_places: "geoId/06"
        }
      }
    }
@@ -751,6 +752,10 @@ categories {
 }
 """
 
+SV_CHART_TITLES = libutil.get_nl_chart_titles()
+
+NOPC_VARS = libutil.get_nl_no_percapita_vars()
+
 
 # This has a set of similar tests to the ones in fulfillment_next_test.py.
 class TestPageConfigNext(unittest.TestCase):
@@ -774,19 +779,16 @@ class TestPageConfigNext(unittest.TestCase):
   ])
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
-  @patch.object(topic, 'get_topic_name')
   @patch.object(utils, 'parent_place_names')
   @patch.object(variable, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_topic_name, mock_sv_footnote,
-                mock_sv_unit):
+                mock_parent_place_names, mock_sv_footnote, mock_sv_unit):
     random.seed(1)
-    mock_sv_name.side_effect = (lambda svs: {
+    mock_sv_name.side_effect = (lambda svs, _: {
         sv: "{}-name".format(sv) for sv in svs
     })
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
-    mock_topic_name.side_effect = (lambda dcid: dcid.split('/')[-1])
     mock_sv_footnote.side_effect = (lambda svs: {
         sv: "{}-footnote".format(sv) for sv in svs
     })
@@ -803,7 +805,7 @@ class TestPageConfigNext(unittest.TestCase):
   @patch.object(variable, 'get_sv_name')
   def test_event(self, mock_sv_name, mock_sv_footnote, mock_sv_unit):
     random.seed(1)
-    mock_sv_name.side_effect = (lambda svs: {sv: sv for sv in svs})
+    mock_sv_name.side_effect = (lambda svs, _: {sv: sv for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
     mock_sv_unit.side_effect = (lambda svs: {sv: '' for sv in svs})
 
@@ -824,7 +826,10 @@ def _textproto(s):
 
 
 def _run(uttr_dict: Dict,
-         config: SubjectPageConfig = None) -> SubjectPageConfig:
+         event_config: SubjectPageConfig = None) -> SubjectPageConfig:
   uttr = utterance.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  return text_format.MessageToString(builder.build(uttr, config))
+  cfg = builder.Config(event_config=event_config,
+                       sv_chart_titles=SV_CHART_TITLES,
+                       nopc_vars=NOPC_VARS)
+  return text_format.MessageToString(builder.build(uttr, cfg))

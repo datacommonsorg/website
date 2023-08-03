@@ -23,7 +23,8 @@ metadata:
   name: nl-config
   namespace: {{ .Values.namespace.name }}
 data:
-  model.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
+  embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
+  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
 {{- end }}
 
 

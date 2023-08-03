@@ -69,13 +69,22 @@
       "placeDcid": [
         "geoId/0677000"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
     "name": "Sunnyvale",
     "place_type": "City"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

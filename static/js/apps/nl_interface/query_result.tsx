@@ -19,114 +19,87 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
-import React, { createRef, memo, useEffect, useState } from "react";
+import React, { createRef, memo, useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SearchResult } from "../../types/app/nl_interface_types";
-import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
+import { NlSessionContext } from "../../shared/context";
+import {
+  CHART_FEEDBACK_SENTIMENT,
+  getFeedbackLink,
+} from "../../utils/nl_interface_utils";
+import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
-
-const SVG_CHART_HEIGHT = 160;
+import { NLCommentary } from "./nl_commentary";
 
 export interface QueryResultProps {
-  query: string;
-  indexType: string;
   queryIdx: number;
-  contextHistory: any[];
-  addContextCallback: (any, number) => void;
-  showData: boolean;
+  nlQueryId: string;
 }
 
 export const QueryResult = memo(function QueryResult(
   props: QueryResultProps
 ): JSX.Element {
-  const [chartsData, setChartsData] = useState<SearchResult | undefined>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [debugData, setDebugData] = useState<any>();
+  const currentNlQueryContextId = useStoreState(
+    (s) => s.config.currentNlQueryContextId
+  );
+  const prevCurrentNlQueryContextId = useRef<string>(currentNlQueryContextId);
+  const numQueries = useStoreState(
+    (s) => s.nlQueryContexts[currentNlQueryContextId].nlQueryIds.length
+  );
+  const { nlQueryId } = props;
+  const nlQuery = useStoreState((s) => s.nlQueries[nlQueryId]);
+  const updateNlQuery = useStoreActions((a) => a.updateNlQuery);
   const scrollRef = createRef<HTMLDivElement>();
-  const [errorMsg, setErrorMsg] = useState<string | undefined>();
 
+  /**
+   * Scroll this query result into view once it starts loading
+   */
   useEffect(() => {
-    // Scroll to the top (assuming this is the last query to render, and other queries are memoized).
-    // HACK: use a longer timeout to correct scroll errors after charts have rendered.
-    const timer = setTimeout(() => {
+    if (nlQuery.isLoading) {
       scrollRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "start",
       });
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [isLoading]);
-
-  useEffect(() => {
-    fetchData(props.query);
-  }, [props.query]);
-
-  function fetchData(query: string): void {
-    setIsLoading(true);
-    console.log("context:", props.query, props.contextHistory);
-    let indexType = "";
-    if (props.indexType !== null) {
-      indexType = props.indexType;
     }
+  }, [nlQuery.isLoading, scrollRef]);
 
-    axios
-      .post(`/api/nl/data?q=${query}&idx=${indexType}`, {
-        contextHistory: props.contextHistory,
-      })
-      .then((resp) => {
-        if (
-          resp.data["context"] === undefined ||
-          resp.data["config"] === undefined
-        ) {
-          setIsLoading(false);
-          props.addContextCallback(undefined, props.queryIdx);
-          return;
-        }
-        const context: any = resp.data["context"];
-        props.addContextCallback(context, props.queryIdx);
+  /**
+   * When changing query contexts, scroll the last query result into view
+   */
+  useEffect(() => {
+    if (currentNlQueryContextId === prevCurrentNlQueryContextId.current) {
+      return;
+    }
+    if (props.queryIdx !== numQueries - 1) {
+      return;
+    }
+    scrollRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "start",
+    });
+  }, [
+    currentNlQueryContextId,
+    prevCurrentNlQueryContextId,
+    scrollRef,
+    numQueries,
+    props.queryIdx,
+  ]);
 
-        // Filter out empty categories.
-        const categories = _.get(resp, ["data", "config", "categories"], []);
-        _.remove(categories, (c) => _.isEmpty(c));
-        if (categories.length > 0) {
-          let main_place = {};
-          // For NL Next, context does not contain the "main place".
-          main_place = resp.data["place"];
-          setChartsData({
-            place: {
-              dcid: main_place["dcid"],
-              name: main_place["name"],
-              types: [main_place["place_type"]],
-            },
-            config: resp.data["config"],
-          });
-        } else {
-          setErrorMsg("Sorry, we couldn't answer your question.");
-        }
-        // For NL Next, debug info is outside the context.
-        const debugData = resp.data["debug"];
-        if (debugData !== undefined) {
-          setDebugData(debugData);
-        }
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        props.addContextCallback(undefined, props.queryIdx);
-        console.error("Error fetching data for", props.query, error);
-        setIsLoading(false);
-        setErrorMsg("Sorry, we didn’t understand your question.");
-      });
-  }
-  const feedbackLink = getFeedbackLink(props.query || "", debugData);
+  const feedbackLink = getFeedbackLink(nlQuery.query || "", nlQuery.debugData);
   return (
     <>
       <div className="nl-query" ref={scrollRef}>
         <Container>
-          <h2>Q: {props.query}</h2>
+          <div className="nl-user-query">
+            <div className="nl-user-query-icon">
+              <span className="material-icons">search_icon</span>
+            </div>
+            <div className="nl-user-query-text">{nlQuery.query}</div>
+          </div>
         </Container>
       </div>
       <div className="nl-result">
@@ -134,35 +107,55 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
+          {nlQuery.chartData && nlQuery.chartData.sessionId && (
+            <span
+              className={`feedback-emoji ${
+                nlQuery.feedbackGiven ? "feedback-emoji-dim" : ""
+              }`}
+              onClick={() => {
+                onEmojiClick(CHART_FEEDBACK_SENTIMENT.WARNING);
+              }}
+            >
+              &#9888;
+            </span>
+          )}
         </Container>
-        <Container>
-          {debugData && (
+        <Container className="nl-result-content">
+          {nlQuery.debugData && (
             <DebugInfo
-              debugData={debugData}
-              pageConfig={chartsData ? chartsData.config : null}
+              debugData={nlQuery.debugData}
+              chartsData={nlQuery.chartData}
             ></DebugInfo>
           )}
-          {chartsData && chartsData.config && (
-            <SubjectPageMainPane
-              id={`pg${props.queryIdx}`}
-              place={chartsData.place}
-              pageConfig={chartsData.config}
-              svgChartHeight={SVG_CHART_HEIGHT}
-              showData={props.showData}
-            />
+          {nlQuery.chartData && <NLCommentary chartsData={nlQuery.chartData} />}
+          {nlQuery.chartData && nlQuery.chartData.config && (
+            <NlSessionContext.Provider value={nlQuery.chartData.sessionId}>
+              <SubjectPageMainPane
+                id={`pg${props.queryIdx}`}
+                place={nlQuery.chartData.place}
+                pageConfig={nlQuery.chartData.config}
+                svgChartHeight={SVG_CHART_HEIGHT}
+                showExploreMore={true}
+              />
+            </NlSessionContext.Provider>
           )}
-          {errorMsg && (
+          {nlQuery.errorMsg && (
             <div className="nl-query-error">
               <p>
-                {errorMsg} Would you like to try{" "}
-                <a href={`https://google.com/?q=${props.query}`}>
-                  searching on Google
-                </a>
-                ?
+                {nlQuery.errorMsg}
+                {redirectToGoogle() && (
+                  <>
+                    Would you like to try{" "}
+                    <a href={`https://google.com/?q=${nlQuery.query}`}>
+                      searching on Google
+                    </a>
+                    ?
+                  </>
+                )}
               </p>
             </div>
           )}
-          {isLoading && (
+          {nlQuery.isLoading && (
             <div className="dot-loading-stage">
               <div className="dot-flashing"></div>
             </div>
@@ -171,4 +164,30 @@ export const QueryResult = memo(function QueryResult(
       </div>
     </>
   );
+
+  function onEmojiClick(sentiment: string): void {
+    if (nlQuery.feedbackGiven) {
+      return;
+    }
+    updateNlQuery({
+      feedbackGiven: true,
+      id: nlQuery.id,
+    });
+    axios.post("/api/nl/feedback", {
+      sessionId: nlQuery.chartData.sessionId,
+      feedbackData: {
+        queryId: props.queryIdx,
+        sentiment,
+      },
+    });
+  }
+
+  function redirectToGoogle(): boolean {
+    if (!nlQuery.errorMsg) {
+      return false;
+    }
+    return (
+      nlQuery.errorMsg.includes("Sorry") || nlQuery.errorMsg.includes("sorry")
+    );
+  }
 });

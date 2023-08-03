@@ -1,0 +1,642 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Home Value of Houses in Florida (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Home Value of Houses in Florida (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Home Value of Houses"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts",
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Ownership Cost by Mortgage Status in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Ownership Cost by Mortgage Status"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue250000To299999USDollar"
+                    ],
+                    "title": "Homes Valued Between $250,000 to $299,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue250000To299999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $250,000 to $299,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue40000To49999USDollar"
+                    ],
+                    "title": "Homes Valued Between $40,000 to $49,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue40000To49999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $40,000 to $49,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue35000To39999USDollar"
+                    ],
+                    "title": "Homes Valued Between $35,000 to $39,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue35000To39999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $35,000 to $39,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To249999USDollar"
+                    ],
+                    "title": "Homes Valued Between $200,000 to $249,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To249999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $200,000 to $249,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue175000To199999USDollar"
+                    ],
+                    "title": "Homes Valued Between $175,000 to $199,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue175000To199999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $175,000 to $199,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue25000To29999USDollar"
+                    ],
+                    "title": "Homes Valued Between $25,000 to $29,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue25000To29999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $25,000 to $29,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $90,000 to $99,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto10000USDollar"
+                    ],
+                    "title": "Homes Valued at $10,000 or Less in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto10000USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued at $10,000 or Less in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue50000To59999USDollar"
+                    ],
+                    "title": "Homes Valued Between $50,000 to $59,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue50000To59999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $50,000 to $59,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar"
+                    ],
+                    "title": "Homes Valued Between $20,000 to $24,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $20,000 to $24,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar"
+                    ],
+                    "title": "Homes Valued Between $30,000 to $34,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $30,000 to $34,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue60000To69999USDollar"
+                    ],
+                    "title": "Homes Valued Between $60,000 to $69,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue60000To69999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $60,000 to $69,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar"
+                    ],
+                    "title": "Homes Valued Between $15,000 to $19,999 in Florida",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar_pc"
+                    ],
+                    "title": "Per Capita Homes Valued Between $15,000 to $19,999 in Florida",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $1,000,000 and $1,499,999",
+            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $1,000,000 and $1,499,999",
+            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $1,500,000 and $1,999,999",
+            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $1,500,000 and $1,999,999",
+            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue15000To19999USDollar": {
+            "name": "Homes Valued Between $15,000 to $19,999",
+            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
+          },
+          "Count_HousingUnit_HomeValue15000To19999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $15,000 to $19,999",
+            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar": {
+            "name": "Homes Valued Between $175,000 to $199,999",
+            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $175,000 to $199,999",
+            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To249999USDollar": {
+            "name": "Homes Valued Between $200,000 to $249,999",
+            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To249999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $200,000 to $249,999",
+            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue20000To24999USDollar": {
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue20000To24999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue250000To299999USDollar": {
+            "name": "Homes Valued Between $250,000 to $299,999",
+            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue250000To299999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $250,000 to $299,999",
+            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar": {
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar": {
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue30000To34999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue35000To39999USDollar": {
+            "name": "Homes Valued Between $35,000 to $39,999",
+            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
+          },
+          "Count_HousingUnit_HomeValue35000To39999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $35,000 to $39,999",
+            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
+          },
+          "Count_HousingUnit_HomeValue40000To49999USDollar": {
+            "name": "Homes Valued Between $40,000 to $49,999",
+            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
+          },
+          "Count_HousingUnit_HomeValue40000To49999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $40,000 to $49,999",
+            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
+          },
+          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To59999USDollar": {
+            "name": "Homes Valued Between $50,000 to $59,999",
+            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To59999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $50,000 to $59,999",
+            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue60000To69999USDollar": {
+            "name": "Homes Valued Between $60,000 to $69,999",
+            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
+          },
+          "Count_HousingUnit_HomeValue60000To69999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $60,000 to $69,999",
+            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar": {
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto10000USDollar": {
+            "name": "Homes Valued at $10,000 or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto10000USDollar_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued at $10,000 or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/12"
+      ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {
+        "items": [
+          {
+            "displayName": "AdministrativeArea2 in Valle del Cauca Department",
+            "nlQuery": "what about in Florida Valle del Cauca Department"
+          },
+          {
+            "displayName": "City in Florida Department",
+            "nlQuery": "what about in Florida Florida Department"
+          },
+          {
+            "displayName": "City in City of Johannesburg Metropolitan Municipality",
+            "nlQuery": "what about in Florida City of Johannesburg Metropolitan Municipality"
+          },
+          {
+            "displayName": "County in Puerto Rico",
+            "nlQuery": "what about in Florida Puerto Rico"
+          },
+          {
+            "displayName": "City in New York",
+            "nlQuery": "what about in Florida New York"
+          }
+        ]
+      },
+      "NL_RELATED_PLACE": {
+        "items": [
+          {
+            "displayName": "Alabama",
+            "nlQuery": "what about in Alabama"
+          },
+          {
+            "displayName": "Alaska",
+            "nlQuery": "what about in Alaska"
+          },
+          {
+            "displayName": "Arizona",
+            "nlQuery": "what about in Arizona"
+          },
+          {
+            "displayName": "Arkansas",
+            "nlQuery": "what about in Arkansas"
+          },
+          {
+            "displayName": "California",
+            "nlQuery": "what about in California"
+          },
+          {
+            "displayName": "Colorado",
+            "nlQuery": "what about in Colorado"
+          },
+          {
+            "displayName": "Connecticut",
+            "nlQuery": "what about in Connecticut"
+          },
+          {
+            "displayName": "Delaware",
+            "nlQuery": "what about in Delaware"
+          },
+          {
+            "displayName": "District of Columbia",
+            "nlQuery": "what about in District of Columbia"
+          },
+          {
+            "displayName": "Florida",
+            "nlQuery": "what about in Florida"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {}
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/12",
+    "name": "Florida",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "PAST_QUERY"
+}

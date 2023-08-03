@@ -3,7 +3,7 @@ __pycache__/
 .pytest_cache
 *.pyc
 .env/
-test_screenshots/
+screenshots/*.png
 
 # Production static files
 **/dist/**
@@ -62,3 +62,10 @@ tools/sdg/subject_page_pb2.py
 experimental/sdg-static/datacommons/datacommons.js
 experimental/sdg-static/datacommons/ranking.min.css
 experimental/sdg-static/datacommons/nl_interface.min.css
+
+# Custom DC data
+data/
+
+# Topic cache
+gen_ordered_list_for_topics.mcf
+mcf_parser.py

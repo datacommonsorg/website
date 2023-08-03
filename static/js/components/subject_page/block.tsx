@@ -27,7 +27,7 @@ import {
   SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
@@ -39,13 +39,13 @@ import {
 } from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
+import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
 import { MapTile } from "../tiles/map_tile";
 import { PlaceOverviewTile } from "../tiles/place_overview_tile";
 import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
-import { BlockContainer } from "./block_container";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 
@@ -61,7 +61,11 @@ export interface BlockPropType {
   statVarProvider: StatVarProvider;
   // Height, in px, for the tile SVG charts.
   svgChartHeight: number;
-  showData?: boolean;
+  parentPlaces?: NamedPlace[];
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
+  denom?: string;
+  startWithDenom?: boolean;
 }
 
 export function Block(props: BlockPropType): JSX.Element {
@@ -69,6 +73,7 @@ export function Block(props: BlockPropType): JSX.Element {
   const columnWidth = getColumnWidth(props.columns);
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
+  const [useDenom, setUseDenom] = useState(props.startWithDenom);
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -95,13 +100,20 @@ export function Block(props: BlockPropType): JSX.Element {
   }, [props]);
 
   return (
-    <BlockContainer
-      id={props.id}
-      title={props.title}
-      description={props.description}
-      footnote={props.footnote}
-      place={props.place}
-    >
+    <>
+      {props.denom && (
+        <div className="block-per-capita-toggle">
+          <span
+            className={`material-icons-outlined ${
+              useDenom ? "toggle-on" : "toggle-off"
+            }`}
+            onClick={() => setUseDenom(!useDenom)}
+          >
+            {useDenom ? "toggle_on" : "toggle_off"}
+          </span>
+          <span>Per Capita</span>
+        </div>
+      )}
       <div className="block-body row">
         {props.columns &&
           props.columns.map((column, idx) => {
@@ -119,13 +131,14 @@ export function Block(props: BlockPropType): JSX.Element {
                   id,
                   minIdxToHide,
                   overridePlaceTypes,
-                  columnTileClassName
+                  columnTileClassName,
+                  useDenom ? props.denom : ""
                 )}
               />
             );
           })}
       </div>
-    </BlockContainer>
+    </>
   );
 }
 
@@ -135,7 +148,8 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
-  tileClassName?: string
+  tileClassName?: string,
+  blockDenom?: string
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -166,7 +180,10 @@ function renderTiles(
             key={id}
             description={tile.description}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
           />
         );
       case "MAP":
@@ -177,10 +194,14 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0])}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
+            parentPlaces={props.parentPlaces}
           />
         );
       case "LINE":
@@ -190,10 +211,13 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "RANKING":
@@ -204,10 +228,13 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "BAR":
@@ -219,11 +246,14 @@ function renderTiles(
             place={place}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
             tileSpec={tile.barTileSpec}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "SCATTER":
@@ -234,13 +264,16 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
             className={className}
             scatterTileSpec={tile.scatterTileSpec}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
         );
       case "BIVARIATE":
@@ -251,11 +284,28 @@ function renderTiles(
             title={tile.title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey)}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
             svgChartHeight={props.svgChartHeight}
             className={className}
-            isDataTile={props.showData}
+            showExploreMore={props.showExploreMore}
           />
+        );
+      case "GAUGE":
+        return (
+          <GaugeTile
+            id={id}
+            minSvgChartHeight={props.svgChartHeight}
+            place={place}
+            range={tile.gaugeTileSpec.range}
+            statVarSpec={props.statVarProvider.getSpec(
+              tile.statVarKey[0],
+              blockDenom
+            )}
+            title={tile.title}
+          ></GaugeTile>
         );
       case "DESCRIPTION":
         return (

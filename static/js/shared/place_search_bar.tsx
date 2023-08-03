@@ -133,7 +133,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
       const containers = document.getElementsByClassName("pac-container");
       const displayResult = toTitleCase(inputVal);
       if (containers && containers.length) {
-        const container = containers[0];
+        const container = containers[containers.length - 1];
         // Keep this in sync with the Maps API results DOM.
         const result = (
           <div className="pac-item">

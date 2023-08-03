@@ -16,6 +16,7 @@ from typing import Dict, List
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
+from shared.lib import detected_variables as dvars
 
 
 def _empty_svs_score_dict():
@@ -23,17 +24,21 @@ def _empty_svs_score_dict():
 
 
 def result_with_debug_info(data_dict: Dict, status: str,
-                           query_detection: Detection, uttr_history: List[Dict],
-                           debug_counters: Dict,
+                           query_detection: Detection, debug_counters: Dict,
                            query_detection_debug_logs: str) -> Dict:
   """Using data_dict and query_detection, format the dictionary response."""
   svs_dict = {
-      'SV': query_detection.svs_detected.sv_dcids,
-      'CosineScore': query_detection.svs_detected.sv_scores,
-      'SV_to_Sentences': query_detection.svs_detected.svs_to_sentences,
-      'MultiSV': query_detection.svs_detected.multi_sv,
+      'SV':
+          query_detection.svs_detected.single_sv.svs,
+      'CosineScore':
+          query_detection.svs_detected.single_sv.scores,
+      'SV_to_Sentences':
+          query_detection.svs_detected.single_sv.sv2sentences,
+      'MultiSV':
+          dvars.multivar_candidates_to_dict(
+              query_detection.svs_detected.multi_sv),
   }
-  svs_to_sentences = query_detection.svs_detected.svs_to_sentences
+  svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -53,7 +58,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
     if classification.type == ClassificationType.RANKING:
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.OVERVIEW:
-      overview_classification = str(classification.type)
+      overview_classification = 'DETECTED'
     elif classification.type == ClassificationType.SIZE_TYPE:
       size_type_classification = str(classification.attributes.size_types)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -62,19 +67,20 @@ def result_with_debug_info(data_dict: Dict, status: str,
     elif classification.type == ClassificationType.EVENT:
       event_classification = str(classification.attributes.event_types)
     elif classification.type == ClassificationType.COMPARISON:
-      comparison_classification = str(classification.type)
+      comparison_classification = 'DETECTED'
     elif classification.type == ClassificationType.CONTAINED_IN:
-      contained_in_classification = str(classification.type)
       contained_in_classification = \
           str(classification.attributes.contained_in_place_type)
     elif classification.type == ClassificationType.CORRELATION:
-      correlation_classification = str(classification.type)
+      correlation_classification = 'DETECTED'
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
 
   debug_info = {
       'status': status,
       'original_query': query_detection.original_query,
+      'detection_type': query_detection.detector,
+      'place_detection_type': query_detection.place_detector,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
@@ -88,7 +94,6 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'event_classification': event_classification,
       'quantity_classification': quantity_classification,
       'counters': debug_counters,
-      'data_spec': uttr_history,
   }
 
   places_found_formatted = ""

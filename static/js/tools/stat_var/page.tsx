@@ -29,11 +29,12 @@ import {
   StatVarSummary,
 } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
+import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
-import { getUrlToken, SV_URL_PARAMS, updateHash } from "./util";
+import { SV_URL_PARAMS } from "./stat_var_constants";
 
 const SVG_URL_PREFIX = "/api/variable-group/info?dcid=dc/g/Root&entities=";
 
@@ -352,17 +353,23 @@ class Page extends Component<unknown, PageStateType> {
             paramsSerializer: stringifyFn,
           })
           .then((resp) => {
-            const urlData = resp.data["url"];
             const urlMap = {};
-            for (const dcid in urlData) {
-              urlMap[dcid] = urlData[dcid][0].value;
+            for (const dcid in resp.data) {
+              urlMap[dcid] =
+                resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
             }
+            const description =
+              descriptionResult[sv].length > 0
+                ? descriptionResult[sv][0].value
+                : "";
+            let displayName =
+              displayNameResult[sv].length > 0
+                ? displayNameResult[sv][0].value
+                : "";
+            displayName = displayName || description;
             this.setState({
-              description:
-                descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]["value"]
-                  : "",
-              displayName: displayNameResult[sv][0]["value"],
+              description,
+              displayName,
               error: false,
               statVar: sv,
               summary: summaryResult[sv],

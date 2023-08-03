@@ -1,4 +1,4 @@
-[
+{"map": [
   {
     "header": "Projected Temperature Rise (RCP 4.5)",
     "preposition": "across",
@@ -17,7 +17,7 @@
       "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
     }, {
       "text": "facilities in Texas",
-      "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3DgeoId%2F48%26ppt%3DEpaReportingFacility%26mp%3D1"
+      "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3DgeoId%2F48%26ept%3DCounty%26ppt%3DEpaReportingFacility%26mp%3D1"
     }]
   }, {
     "header": "Water Withdrawal Rate",
@@ -120,4 +120,4 @@
       "url": "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&ept=County&ppt=EpaReportingFacility&mp=1"
     }]
   }
-]
+]}

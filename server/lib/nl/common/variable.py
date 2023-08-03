@@ -15,17 +15,21 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-import json
-import os
-from typing import Dict, List
+from typing import Dict, List, Set
+
+from flask import current_app
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
+import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
+import server.lib.shared as shared
 import server.services.datacommons as dc
 
-# TODO: This is reading the file on every call.  Improve it!
-_CHART_TITLE_CONFIG_RELATIVE_PATH = "../../../config/nl_page/chart_titles_by_sv.json"
+# Have an upper limit so we don't do too many existence checks.
+EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT = 50
+# This is the number that we want to fit in a bar chart.
+EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT = 15
 
 
 @dataclass
@@ -76,6 +80,35 @@ def parse_svg(svg_dcid: str) -> SVG:
       res.pvs[p_lower] = v
     else:
       res.p = part.replace(part[0], part[0].lower(), 1)
+  return res
+
+
+# Given an SV object and SV info from DC API, check whether
+# their definitions are compatible.
+def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
+  if 'definition' not in new_sv:
+    return False
+  new_sv_obj = parse_sv(new_sv['definition'])
+  if new_sv_obj.mp != sv_obj.mp:
+    return False
+  if new_sv_obj.st != sv_obj.st:
+    return False
+  if new_sv_obj.pt != sv_obj.pt:
+    return False
+  if new_sv_obj.md != sv_obj.md:
+    return False
+  if len(new_sv_obj.pvs) != len(sv_obj.pvs):
+    return False
+  return True
+
+
+# Limit to up to `limit` extended SVs.
+def limit_extended_svs(sv: str, ext_svs: Set[str], limit: int) -> Dict:
+  # Put the main SV first.
+  res = [sv]
+  if sv in ext_svs:
+    ext_svs.remove(sv)
+  res.extend(sorted(ext_svs)[:limit])
   return res
 
 
@@ -142,53 +175,56 @@ def extend_svs(svs: List[str]):
       svg_siblings_info = dc.get_variable_group_info(svg_siblings, [])
       for item in svg_siblings_info['data']:
         for sv_info in item['info'].get('childStatVars', []):
-          if 'definition' not in sv_info:
-            continue
-          curr_sv_obj = parse_sv(sv_info['definition'])
-          if curr_sv_obj.mp != sv_obj.mp:
-            continue
-          if curr_sv_obj.st != sv_obj.st:
-            continue
-          if curr_sv_obj.pt != sv_obj.pt:
-            continue
-          if curr_sv_obj.md != sv_obj.md:
-            continue
-          if len(curr_sv_obj.pvs) != len(sv_obj.pvs):
-            continue
-          res[sv].append(sv_info['id'])
+          if _is_compatible(sv_obj, sv_info):
+            res[sv].append(sv_info['id'])
     else:
-      # Can use the direct siblings of this sv
-      res[sv] = list(map(lambda x: x['id'], svg2childsvs[svg]))
+      # Can use the direct siblings of this sv, nevertheless perform
+      # SV compatibility check!
+      for new_sv_info in svg2childsvs[svg]:
+        if _is_compatible(sv_obj, new_sv_info):
+          res[sv].append(new_sv_info['id'])
     for sv2 in res[sv]:
       if sv2 == sv:
         continue
       reverse_map[sv2] = res[sv]
-  res_ordered = {sv: sorted(ext_svs) for sv, ext_svs in res.items()}
+
+  # Limit the number of extended SVs.
+  res_ordered = {}
+  for sv, ext_svs in res.items():
+    res_ordered[sv] = limit_extended_svs(
+        sv, set(ext_svs), EXTENSION_SV_PRE_EXISTENCE_CHECK_LIMIT)
   return res_ordered
 
 
-def get_sv_name(all_svs: List[str]) -> Dict:
+def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
   sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
-  basepath = os.path.dirname(__file__)
-  title_config_path = os.path.abspath(
-      os.path.join(basepath, _CHART_TITLE_CONFIG_RELATIVE_PATH))
-  title_by_sv_dcid = {}
-  with open(title_config_path) as f:
-    title_by_sv_dcid = json.load(f)
 
   sv_name_map = {}
-  # If a curated name is found return that,
-  # Else return the name property for SV.
+  # If a curated name is found (key exists + value non-empty)
+  # return that, Else return the name property for SV.
   for sv in all_svs:
-    if sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+    if topic.TOPIC_NAMES_OVERRIDE.get(sv):
+      sv_name_map[sv] = topic.TOPIC_NAMES_OVERRIDE[sv]
+    elif topic.SVPG_NAMES_OVERRIDE.get(sv):
+      sv_name_map[sv] = topic.SVPG_NAMES_OVERRIDE[sv]
+    elif constants.SV_DISPLAY_NAME_OVERRIDE.get(sv):
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
-    elif sv in title_by_sv_dcid:
-      sv_name_map[sv] = clean_sv_name(title_by_sv_dcid[sv])
+    elif sv_chart_titles.get(sv):
+      sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
     else:
-      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
+      # Topic and SVPG have a cache, so lookup name from there if its
+      # fresher.
+      if ('TOPIC_CACHE' in current_app.config and
+          (utils.is_svpg(sv) or utils.is_topic(sv))):
+        sv_name_map[sv] = current_app.config['TOPIC_CACHE'].get_name(sv)
+        if not sv_name_map[sv]:
+          # Very rare edge case.
+          sv_name_map[sv] = sv.replace('dc/topic/', '').replace('dc/svpg/', '')
+      else:
+        sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
 
@@ -207,7 +243,10 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
 def get_sv_description(all_svs: List[str]) -> Dict:
   sv_desc_map = {}
   for sv in all_svs:
-    sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+    if sv in topic.SVPG_DESC_OVERRIDE:
+      sv_desc_map[sv] = topic.SVPG_DESC_OVERRIDE[sv]
+    else:
+      sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
   return sv_desc_map
 
 
@@ -261,39 +300,6 @@ def get_only_svs(svs: List[str]) -> List[str]:
 # Per-capita handling
 #
 
-_SV_PARTIAL_DCID_NO_PC = [
-    'Temperature',
-    'Precipitation',
-    "BarometricPressure",
-    "CloudCover",
-    "PrecipitableWater",
-    "Rainfall",
-    "Snowfall",
-    "Visibility",
-    "WindSpeed",
-    "ConsecutiveDryDays",
-    "Percent",
-    "Area_",
-    "Median_",
-    "LifeExpectancy_",
-    "AsFractionOf",
-    "AsAFractionOfCount",
-    "UnemploymentRate_",
-    "Mean_Income_",
-    "GenderIncomeInequality_",
-    "FertilityRate_",
-    "GrowthRate_",
-    "sdg/",
-]
 
-_SV_FULL_DCID_NO_PC = ["Count_Person"]
-
-
-def is_percapita_relevant(sv_dcid: str) -> bool:
-  for skip_phrase in _SV_PARTIAL_DCID_NO_PC:
-    if skip_phrase in sv_dcid:
-      return False
-  for skip_sv in _SV_FULL_DCID_NO_PC:
-    if skip_sv == sv_dcid:
-      return False
-  return True
+def is_percapita_relevant(sv_dcid: str, nopc_svs: Set[str]) -> bool:
+  return shared.is_percapita_relevant(sv_dcid, nopc_svs)

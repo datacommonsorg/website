@@ -195,12 +195,26 @@ PAK_PLACE_TYPE_REMAP = {
 
 USA = Place('country/USA', 'USA', 'Country', 'country/USA')
 
+# Key is US-only map type.
+# Value is a list of corresponding parent place types.
+USA_ONLY_MAP_TYPES = {
+    ContainedInPlaceType.CITY: [
+        ContainedInPlaceType.COUNTY,
+        ContainedInPlaceType.STATE,
+    ],
+    ContainedInPlaceType.ZIP: [
+        ContainedInPlaceType.COUNTY,
+        ContainedInPlaceType.STATE,
+    ],
+    ContainedInPlaceType.CENSUS_TRACT: [ContainedInPlaceType.COUNTY,]
+}
+
 # This is only for US.
+# Avoid `CITY` -> `USA` since loading maps, etc. takes a really long time.
 DEFAULT_PARENT_PLACES = {
     ContainedInPlaceType.COUNTRY: Place('Earth', 'Earth', 'Place'),
     ContainedInPlaceType.COUNTY: USA,
     ContainedInPlaceType.STATE: USA,
-    ContainedInPlaceType.CITY: USA,
 }
 
 EU_COUNTRIES = frozenset([
@@ -311,7 +325,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "Percent_Person_WithDiabetes":
         "Diabetes",
     "Percent_Person_WithHighBloodPressure":
-        "High Bood Pressure",
+        "High Blood Pressure",
     "Percent_Person_WithHighCholesterol":
         "High Cholesterol",
     "Percent_Person_WithMentalHealthNotGood":

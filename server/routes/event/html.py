@@ -16,22 +16,19 @@
 import copy
 import json
 import logging
-import os
 from typing import Dict, List
 
-from flask import abort
 from flask import Blueprint
 from flask import current_app
 from flask import render_template
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
-import server.services.datacommons as dc
 
 DEFAULT_EVENT_DCID = ""
 
@@ -44,11 +41,11 @@ DEFAULT_CONTAINED_PLACE_TYPES = {
 }
 
 EMPTY_SUBJECT_PAGE_ARGS = {
-    "place_type": "{}",
+    "place_types": "[]",
     "place_name": "",
     "place_dcid": "",
     "parent_places": "[]",
-    "config": "{}",
+    "subject_config": "{}",
 }
 
 LOCATION_PROPERTIES = ['location', 'startLocation']
@@ -121,7 +118,7 @@ def get_places(properties) -> Dict[str, List[str]]:
       place_coordinates = fetch.resolve_coordinates(coordinates)
       dcids_to_get_type = set()
       for _, place_dcids in place_coordinates.items():
-        dcids_to_get_type.update(place_dcids)
+        dcids_to_get_type.update([x['dcid'] for x in place_dcids])
       place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
       return place_types
 
@@ -140,7 +137,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def event_node(dcid=DEFAULT_EVENT_DCID):
   # Get node properties
   node_name = escape(dcid)
@@ -183,7 +180,7 @@ def event_node(dcid=DEFAULT_EVENT_DCID):
 
       # TODO: If not enough charts from the current place, add from the next place up and so on.
       subject_page_args = {
-          "place_type": place_metadata.place_type,
+          "place_types": json.dumps([place_metadata.place_type]),
           "place_name": place_metadata.place_name,
           "place_dcid": place_dcid,
           "parent_places": json.dumps(place_metadata.parent_places),

@@ -1,0 +1,382 @@
+{#
+ Copyright 2020 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'homepage' %}
+{% set page_id = 'page-homepage' %}
+{% set title = 'Home' %}
+
+{% macro external_icon() -%}
+<svg class="icon"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="12px" fill="#660000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+{%- endmacro %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+{% endblock %}
+
+{% block content %}
+<section id="homepage-top">
+  <div class="container">
+    <div class="row">
+      <div class="lead-col col-12">
+        <p class="lead">
+          Data Commons aggregates data from a <a href="https://docs.datacommons.org/datasets/">wide range of sources</a> into a unified database to make it more accessible and useful.
+          More on <a href="{{ url_for('static.about') }}">why we are building Data Commons</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Explore the data</h2>
+    <div class="row">
+      <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ url_for('tools.scatter') }}" id="scatter-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Scatter Plots</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ url_for('tools.map') }}" id="map-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Map Explorer</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ url_for('tools.timeline') }}" id="timeline-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Timelines</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3">
+        <a href="{{ url_for('place.place') }}" id="place-button" class="card text-center">
+          <div class="card-body">
+            <div class="tool-button-img"></div>
+            <span>Place Explorer</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <p>
+          Explore the data using one of our visualization tools (<a href="{{ url_for('tools.scatter') }}">Scatter</a>, <a href="{{ url_for('tools.map') }}">Map</a>,
+          <a href="{{ url_for('tools.timeline') }}">Timeline</a>), the <a href="{{ url_for('place.place') }}">Place Explorer</a>, or use the <a href="https://docs.datacommons.org/api">APIs</a> via Python notebooks or build your own
+          REST based application. Explore the thousands of variables in the <a href="{{ url_for('tools.stat_var') }}">Statistical Variable Explorer</a>. Contribute to the project on <a target="blank" href="https://docs.datacommons.org/contributing">Github {{ external_icon() }}</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="new-update">
+  <div class="container">
+    <div class="highlight">
+      <h3>New update</h3>
+      <p>We have launched a new <a href="{{ url_for('tools.download') }}">Data Download Tool</a> that allows you to easily download statistical data for a large number of places with just a few button clicks.</p>
+      <a href="https://docs.datacommons.org/2022/09/14/download-tool.html">Read our blog post for more details</a>.
+    </div>
+  </div>
+</section>
+
+<section id="by-the-numbers">
+  <div class="container">
+    <h3>By the numbers</h3>
+    <p>We have continuously added data to the Data Commons graph over the last 4 years. As of April 2022, the graph contains:</p>
+    <ul>
+      <li>1.4 trillion triples</li>
+      <li>3 billion time series</li>
+      <li>2.9 million places</li>
+      <li>100,000 variables</li>
+    </ul>
+    <p>Separately, the Biomedical Data Commons includes 200,000 variables and 850 billion triples.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Building connections</h2>
+    <p>
+      Data Commons covers many topics, from Demographics and Economics to
+      Emissions and the Climate. The benefit of aggregated data from across multiple data sets is that it now becomes much easier to build connections across these data sets. Here are some of our favorite data excursions …
+      some alarming, some sad, but always illuminating.
+    </p>
+
+    <article>
+      <h3>Climate change</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&pd=country/USA&pt=Country&ept=County' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-us_max_temp.png" />
+          </a>
+          <small class="caption"><a href="{{chart_link}}">Max projected summer temperatures for US counties (RCP 4.5)</a> (source: NASA)</small>
+        </span>
+        Climate change is not just about reducing carbon emissions. It is also
+        about adaptation to the change that is already happening. The change in
+        temperature is not as simple as 1.5°C vs 2°C vs 2.5°C. These are global
+        averages aggregated over a period of time. At every one of those levels,
+        there will be places that become much hotter and places that become
+        colder. The timing of peak temperatures also changes.
+      </p>
+      <p>
+        Explore what temperatures might be according to the <a target="blank" href="https://en.wikipedia.org/wiki/Community_Climate_System_Model">CCSM4 model {{ external_icon() }}</a>:
+        <ul>
+          <li>
+            In the US in 2050 (<a
+            href="/tools/map#dt=2050-06&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&pd=country/USA&pt=Country&ept=County">optimistic</a>,
+            <a
+            href="/tools/map#dt=2050-06&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&pd=country/USA&pt=Country&ept=County">pessimistic</a>)<a href="#fn-rcp"><sup>1</sup></a>
+          </li>
+          <li>
+            In Europe in 2050 (<a
+            href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&pd=europe&pt=Continent&ept=IPCCPlace_50">optimistic</a>,
+            <a
+            href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP85&pc=0&pd=europe&pt=Continent&ept=IPCCPlace_50">pessimistic</a>)<a href="#fn-rcp"></a>
+          </li>
+          <li>
+            The progression in Europe over time (<a
+            href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&dt=2040-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2040</a>,
+            <a
+            href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&dt=2045-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2045</a>,
+            <a
+            href="/tools/map#&sv=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&pc=0&dt=2050-06&pd=europe&pt=Continent&ept=IPCCPlace_50">2050</a>)
+          </li>
+        </ul>
+        <span class="clearfix"></span>
+      </p>
+      <p class="clearfix">
+        <span class="img-card float-md-left" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D10000%26dd%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-us_heart_disease_temp.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Heart condition vs. max projected summer temperature for US counties (RCP 4.5)</a> (source: CDC, NASA)</small>
+        </span>
+        Climate change is not just about reducing carbon emissions. It is also
+        about adaptation to the change that is already happening. The <a
+        href="{{ chart_link }}">heart
+        condition and temperature scatter</a> is a scatter plot of the expected
+        peak temperatures (in 30 years) in a county with the fraction of people
+        suffering from coronary ailments. Note the outliers in the upper right
+        quadrant: counties like <a href="{{ url_for('place.place',
+        place_dcid='geoId/46121') }}">Todd County, SD</a> and <a href="{{
+        url_for('place.place', place_dcid='geoId/46102') }}">Oglala Lakota
+        County, SD</a> with high incidence of coronary disease can also expect
+        some of the highest temperature rises<a href="#fn-cardiac-heat"><sup>2</sup></a>, something we need to prepare for.
+      </p>
+    </article>
+
+    <article>
+      <h3>Emissions</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&pd=country/USA&pt=Country&ept=State&ppt=EpaReportingFacility' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-us_emissions.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Annual non-biogenic CO<sub>2</sub> emissions from large facilities across US states</a> (source: EPA)</small>
+        </span>
+        Emissions are responsible for the climate crisis. If we look at <a
+        href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&pd=country/USA&ept=State">large industrial emissions</a>, we see that Texas is the
+        highest emitter, at almost four times more than the next. In fact Texas
+        emits as much as both <a href="/tools/timeline#place=country/TUR,country/GBR,geoId/48&statsVar=Annual_Emissions_CarbonDioxide_NonBiogenic__eia/INTL.4008-8-MMTCD.A">Turkey and the UK</a>. In Texas,
+        we see that  <a href="/place/geoId/48201">Harris County</a> has one of the highest
+        concentrations of <a href="/tools/map#&sv=Annual_Emissions_CarbonDioxide_NonBiogenic&pc=0&pd=geoId/48&ept=County&ppt=EpaReportingFacility&mp=1">petrochemical refineries</a>.
+      </p>
+
+      <p>
+        Emissions are responsible not just for climate change, but are also
+        correlated<a href="#fn-correlation"><sup>3</sup></a>
+         with a range of health conditions -- from <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">cardiac
+        conditions</a> and <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithHighBloodPressure&epd=country/USA&ept=County&lb=10000&dd=1">hypertension</a>
+        to <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=Percent_Person_WithMentalHealthNotGood&epd=country/USA&ept=County&lb=10000&dd=1">mental
+        unhealthiness</a>. If we look at <a href="/tools/map#&sv=AirPollutant_Cancer_Risk&pc=0&pd=country/USA&ept=County&ppt=AirQualitySite">lifetime cancer risks</a>
+        across different counties, we find <a
+        href="/place/geoId/22095?category=Climate">St John Parish, LA</a> to be
+        one of the most dangerous counties from a cancer perspective.
+      </p>
+
+      <p class="clearfix">
+        <span class="img-card float-md-left" style="width: 312px">
+          {% set chart_link='/tools/map#&sv=Annual_Emissions_CarbonDioxide_Biogenic&pc=0&pd=country/USA&ept=State' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-us_biogenic_emissions.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Annual biogenic CO<sub>2</sub> emissions from large facilities across US states</a> (source: EPA)</small>
+        </span>
+        Biogenic emissions, i.e., emissions from biological sources, are also a
+        big contributor to climate change. Interestingly, <a href="/place/geoId/12?category=Climate">Florida</a> and
+        <a href="/place/geoId/13?category=Climate">Georgia</a> are the biggest
+        emitters of <a href="/tools/timeline#place=geoId/48,geoId/12,geoId/13&statsVar=Annual_Emissions_CarbonDioxide_Biogenic">biogenic
+        greenhouse gases</a>, thanks to the sugar and paper mills. Florida is also the
+        <a href="{{ url_for('ranking.ranking', stat_var='Annual_Emissions_NitrousOxide_NonBiogenic', place_type='State', place_dcid='country/USA') }}?h=geoId/12&unit=MTCO2e">biggest producer of industrial Nitrous Oxide (NO<sub>2</sub>)</a>, thanks to
+        the production of industrial chemicals in <a href="/place/geoId/12033?category=Climate">Escambia County</a>.
+        This is followed closely by <a href="place/geoId/22005?category=Climate">Ascension Parish</a> in
+        Louisiana. These two counties produce more NO<sub>2</sub> than most other states!
+      </p>
+    </article>
+
+    <article>
+      <h3>Water</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/timeline#place=geoId/06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Aquaculture' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-ca_water_utilization.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Water withdrawal trends in California</a> (source: USGS)</small>
+        </span>
+        Scarcity of water, for crops, animals and humans, could well be one of
+        the things most at risk from climate change. <a href="/tools/map#&sv=WithdrawalRate_Water&pc=0&pd=country/USA&ept=State">California and
+        the Southwest</a> are some of the biggest consumers of water. However,
+        we can see that utilization is improving. <a href="/tools/timeline#place=geoId/06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Aquaculture">California</a> in
+        particular, has seen irrigation water consumption go down, while
+        increasing <a href="/tools/timeline#place=geoId/06&statsVar=USStateQuarterlyIndustryGDP_NAICS_11">agriculture yields</a>. Household water
+        consumption has stayed flat over the last 30+ years, while <a
+        href="/tools/timeline#place=geoId/06&statsVar=Count_Person">population</a> has gone up substantially.
+      </p>
+      <p>
+        However, digging deeper we find that in <a href="/place/geoId/06025?category=Climate">Imperial County</a> (the <a href="/ranking/WithdrawalRate_Water/County/geoId/06?h=geoId/06025&unit=mgd">third highest county</a> in terms of water
+        consumption), the use of groundwater has risen sharply even though overall water consumption, including surface water
+        use, has gone down.
+      </p>
+      <p class="clearfix">
+        <span class="img-card float-md-left" style="width: 312px">
+          {% set chart_link='/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-water_withdrawal_temp.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Water withdrawal for irrigation vs. projected temperature rise across US counties</a> (source: USGS, NASA)</small>
+        </span>
+        Which are the places that might be most impacted by temperature
+        changes? While a temperature rise does not immediately imply it, <a
+        href="/tools/scatter#&svx=DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45&svy=WithdrawalRate_Water_Irrigation&epd=country/USA&ept=County&ct=1">this bivariate map</a> shows places that use the most water for
+        irrigation, correlated<a href="#fn-correlation"><sup>3</sup></a>
+        with the places that might have the highest
+        temperature increases.
+      </p>
+    </article>
+
+    <article class="clearfix">
+      <h3>Covid-19</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_NoHealthInsurance%26pcx%3D1%26dx%3DCount_Person%26svy%3DCumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase%26pcy%3D1%26datey%3D2022-04-10%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D10000%26dd%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-covid_uninsured.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Fraction of positive Covid-19 cases vs. Fraction of uninsured across US counties</a> (source: US Census, New York Times)</small>
+        </span>
+        As many insightful articles from the <a href="https://www.nytimes.com/news-event/coronavirus">New York Times</a> and others pointed
+        out, Covid-19 affected African American communities much more.
+        Unfortunately, Covid-19 prevalence is correlated<a href="#fn-correlation"><sup>3</sup></a> with many other
+        indicators. For example, we see that Covid-19 infection rates are highly
+        correlated with the fraction of the population that is <a
+        href="/tools/scatter#&svx=Count_Person_NoHealthInsurance&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">uninsured</a>, with the fraction of the population <a
+        href="/tools/scatter#&svx=Count_Person_BelowPovertyLevelInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">in poverty</a>, the fraction of the population on
+        <a href="/tools/scatter#&svx=Count_Household_WithFoodStampsInThePast12Months&lx=1&pcx=1&svy=CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase&pcy=1&epd=country/USA&ept=County&lb=1000&qd=1&dd=1">food stamps</a>, etc.
+      </p>
+      <p>
+        Of course, these are just correlations. This <a target="blank" href="https://colab.research.google.com/drive/1LLteGjXifwSsD-YsGwBnI-i96G777Q7j">Colab
+        notebook {{ external_icon() }}</a> digs deeper, performing a causal analysis to discover the
+        most variables most causally predictive of Covid-19 occurrence and
+        morbidity.
+      </p>
+    </article>
+
+    <article class="clearfix">
+      <h3>Income and other inequalities</h3>
+      <p>
+        <span class="img-card float-md-left" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3DPercent_Person_Obesity%26dy%3DCount_Person%26epd%3Dcountry%2FUSA%26ept%3DCounty%26lb%3D1000%26dd%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-obesity_poverty.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Prevalence of obesity vs. Fraction of population in poverty</a> (source: US Census, CDC)</small>
+        </span>
+        Studies from <a
+        target="blank" href="https://www.cdc.gov/pcd/issues/2018/18_0217.htm">CDC {{ external_icon() }}</a> and
+        others have shown a correlation<a href="#fn-correlation"><sup>3</sup></a> between obesity and poverty. In this <a
+        target="blank" href="https://colab.research.google.com/drive/1_oZYWrrwO80DBaW0rIirTYHlfHCibXxY">Colab
+        notebook {{ external_icon() }}</a>, we explore the relation between poverty, unemployment and
+        obesity.  Unfortunately, many other medical conditions are inversely
+        correlated with economic well being.
+      </p>
+      <p>Explore the relation between these variables for counties across the US:
+        <ul>
+          <li>
+            <a href="/tools/scatter#&svx=Median_Income_Person&svy=Percent_Person_WithDiabetes&epd=country/USA&ept=County&lb=10000&dd=1">Diabetes and Median Income</a>
+          </li>
+          <li>
+            <a href="/tools/scatter#&svx=Median_Income_Person&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">Coronary Heart Disease and Median Income</a>
+          </li>
+          <li>
+            <a href="/tools/scatter#&svx=Amount_EconomicActivity_GrossDomesticProduction_RealValue&lx=1&svy=Percent_Person_WithCoronaryHeartDisease&epd=country/USA&ept=County&lb=10000&dd=1">Coronary Heart Disease and GDP</a>
+          </li>
+        </ul>
+      </p>
+    </article>
+
+    <article>
+      <h3>Demographics (Europe)</h3>
+      <p class="clearfix">
+        <span class="img-card float-md-right" style="width: 300px">
+          {% set chart_link = '/tools/map#&sv=LifeExpectancy_Person&pc=0&pd=Earth&ept=Country' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/images/home-europe_life_expectancy.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link }}">Life expectancy across Europe</a> (source: World Bank)</small>
+        </span>
+        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=LifeExpectancy_Person__Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person">Life is getting better</a> in Europe, with high life expectancy in addition to decreasing crime.
+        People are living healthier as well and <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA,country/IDN&statsVar=Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male">smoking less</a>.  However, some
+        economies just have <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=UnemploymentRate_Person">more ups and downs than others</a>.  Additionally,
+        <a href="/tools/timeline#place=country/ESP,country/DEU,country/FRA&statsVar=FertilityRate_Person_Female">fertility rates</a> have come down quite a bit, though not as much as in
+        <a href="/tools/timeline#place=country/IND,country/BGD,country/IDN,country/CHN&statsVar=FertilityRate_Person_Female">these places</a>.
+      </p>
+    </article>
+
+    <hr />
+    <p id="fn-rcp">
+      <small>1. RCP 2.6 (optimistic), represents a stringent mitigation scenario, while RCP 8.5 (pessimistic) represents a scenario with very high Greenhouse Gas emissions. Source: <a target="blank" href="https://ar5-syr.ipcc.ch/topic_futurechanges.php#box_2_2">IPCC {{ external_icon() }}</a></small>
+    </p>
+    <p id="fn-cardiac-heat">
+      <small>2. Ponjoan, Anna et al. <a target="blank" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5379535/">“Effects of extreme temperatures on cardiovascular emergency hospitalizations in a Mediterranean region: a self-controlled case series study.” {{ external_icon() }}</a> Environmental health : a global access science source vol. 16,1 32. 4 Apr. 2017, doi:10.1186/s12940-017-0238-0</small>
+    </p>
+    <p id="fn-correlation">
+      <small>3. Correlation does not imply causation. See <a target="blank" href="https://en.wikipedia.org/wiki/Correlation">this guide {{ external_icon() }}</a> for more on correlation.</small>
+    </p>
+
+
+
+  </div>
+</section>
+
+<section>
+</section>
+
+{% endblock %}

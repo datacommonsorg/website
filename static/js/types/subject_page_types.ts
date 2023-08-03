@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NamedTypedPlace } from "../shared/types";
+import { NamedTypedNode } from "../shared/types";
 import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { ChildPlacesByType } from "./../shared/types";
 
@@ -21,7 +21,7 @@ export interface SubjectPageMetadata {
   /**
    * The place to show the dashboard for.
    */
-  place: NamedTypedPlace;
+  place: NamedTypedNode;
   /**
    * Config of the page
    */
@@ -29,9 +29,16 @@ export interface SubjectPageMetadata {
   /**
    * parent places of the place we are showing the dashboard for.
    */
-  parentPlaces: NamedTypedPlace[];
+  parentPlaces?: NamedTypedNode[];
   /**
    * child places of the place we are showing the dashboard for.
    */
-  childPlaces: ChildPlacesByType;
+  childPlaces?: ChildPlacesByType;
+
+  parentTopics?: NamedTypedNode[];
+
+  peerTopics?: NamedTypedNode[];
+
+  topic?: string;
+  sessionId?: string;
 }

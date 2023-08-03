@@ -33,6 +33,7 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
@@ -169,7 +170,9 @@ export function Chart(props: ChartPropsType): JSX.Element {
           <span>vs</span>
           <h3>{xTitle}</h3>
         </div>
-        <div className="scatter-chart-container">
+        <div
+          className={`scatter-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        >
           <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
           <div id={MAP_LEGEND_CONTAINER_ID} ref={mapLegendRef}></div>
           <div id="scatter-tooltip" ref={tooltipRef} />

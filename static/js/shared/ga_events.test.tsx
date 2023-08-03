@@ -177,7 +177,7 @@ const MAP_PROPS = {
 const TIMELINE_PROPS = {
   denom: "",
   delta: false,
-  mprop: "",
+  chartId: "",
   onDataUpdate: () => null,
   onMetadataMapUpdate: () => null,
   placeNameMap: { [PLACE_DCID]: PLACE_NAME },
@@ -579,7 +579,9 @@ describe("test ga event place chart click", () => {
 
     //Render the component.
     const statVarChip = render(<div id={ID} />);
-    appendLegendElem(ID, getColorFn([""]), [{ label: STAT_VAR_1 }]);
+    appendLegendElem(statVarChip.baseElement, getColorFn([""]), [
+      { label: STAT_VAR_1 },
+    ]);
     // Prevent window navigation.
     const chartStatVarChip = statVarChip.getByText(STAT_VAR_1);
     chartStatVarChip.addEventListener(

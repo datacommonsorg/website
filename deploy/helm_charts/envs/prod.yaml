@@ -36,10 +36,6 @@ website:
         }
       }
 
-mixer:
-  hostProject:
-  serviceName:
-
 serviceAccount:
   name: website-ksa
 

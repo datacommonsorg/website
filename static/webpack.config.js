@@ -52,6 +52,14 @@ const config = {
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
     ],
+    explore_landing: [
+      __dirname + "/js/apps/explore_landing/main.ts",
+      __dirname + "/css/explore_landing.scss",
+    ],
+    explore: [
+      __dirname + "/js/apps/explore/main.ts",
+      __dirname + "/css/explore.scss",
+    ],
     nl_interface: [
       __dirname + "/js/apps/nl_interface/main.ts",
       __dirname + "/css/nl_interface.scss",
@@ -73,6 +81,7 @@ const config = {
       __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
+    screenshot: __dirname + "/css/screenshot.scss",
     translator: [
       __dirname + "/js/translator/translator.ts",
       __dirname + "/css/translator.scss",
@@ -106,8 +115,18 @@ const config = {
       __dirname + "/js/apps/sustainability/main.ts",
       __dirname + "/css/sustainability.scss",
     ],
-    nl_interface_data: [__dirname + "/js/apps/nl_interface/data_app/main.ts"],
-    datacommons: [__dirname + "/library/index.ts"],
+    datacommons: [
+      __dirname + "/library/index.ts",
+      __dirname + "/css/datacommons.scss",
+    ],
+    homepage: [
+      __dirname + "/js/homepage/main.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    visualization: [
+      __dirname + "/js/apps/visualization/main.ts",
+      __dirname + "/css/tools/visualization.scss",
+    ],
   },
   output: {
     path: path.resolve(__dirname, "../") + "/server/dist",

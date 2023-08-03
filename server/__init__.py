@@ -29,13 +29,14 @@ import flask_cors
 from google.cloud import secretmanager
 from google_auth_oauthlib.flow import Flow
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
 from opencensus.trace.propagation import google_cloud_format
 from opencensus.trace.samplers import AlwaysOnSampler
 
+from server.lib import topic_cache
 import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
+from server.lib.nl.common import bad_words
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -75,6 +76,9 @@ def register_routes_base_dc(app):
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
+
+  from server.routes.screenshot import html as screenshot_html
+  app.register_blueprint(screenshot_html.bp)
 
   from server.routes.special_announcement import \
       html as special_announcement_html
@@ -158,6 +162,9 @@ def register_routes_common(app):
   from server.routes.factcheck import html as factcheck_html
   app.register_blueprint(factcheck_html.bp)
 
+  from server.routes.explore import html as explore_html
+  app.register_blueprint(explore_html.bp)
+
   from server.routes.nl import html as nl_html
   app.register_blueprint(nl_html.bp)
 
@@ -188,6 +195,9 @@ def register_routes_common(app):
 
   from server.routes.nl import api as nl_api
   app.register_blueprint(nl_api.bp)
+
+  from server.routes.explore import api as explore_api
+  app.register_blueprint(explore_api.bp)
 
   from server.routes.shared_api import choropleth as shared_choropleth
   app.register_blueprint(shared_choropleth.bp)
@@ -225,6 +235,13 @@ def register_routes_common(app):
 
   from server.routes.shared_api.observation import series as observation_series
   app.register_blueprint(observation_series.bp)
+
+  # register OEmbed blueprints
+  from server.routes.oembed import chart as oembed_chart
+  app.register_blueprint(oembed_chart.bp)
+
+  from server.routes.oembed import oembed as oembed
+  app.register_blueprint(oembed.bp)
 
 
 def create_app():
@@ -283,6 +300,10 @@ def create_app():
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
   app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
+  app.config['HOMEPAGE_TOPICS'] = libutil.get_json(
+      "config/home_page/topics.json")
+  app.config['HOMEPAGE_PARTNERS'] = libutil.get_json(
+      "config/home_page/partners.json")
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''
@@ -290,6 +311,8 @@ def create_app():
     # Get the API key from environment first.
     if os.environ.get('MAPS_API_KEY'):
       app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    elif os.environ.get('maps_api_key'):
+      app.config['MAPS_API_KEY'] = os.environ.get('maps_api_key')
     else:
       secret_client = secretmanager.SecretManagerServiceClient()
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
@@ -319,12 +342,15 @@ def create_app():
 
   if cfg.LOCAL:
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    app.config['LOCAL'] = True
 
   # Need to fetch the API key for non gcp environment.
   if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
     # Get the API key from environment first.
     if os.environ.get('MIXER_API_KEY'):
       app.config['MIXER_API_KEY'] = os.environ.get('MIXER_API_KEY')
+    elif os.environ.get('mixer_api_key'):
+      app.config['MIXER_API_KEY'] = os.environ.get('mixer_api_key')
     else:
       secret_client = secretmanager.SecretManagerServiceClient()
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
@@ -340,17 +366,33 @@ def create_app():
   # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
     libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
-    # Some specific imports for the NL Interface.
-    import server.services.nl as nl
 
-    nl_model = nl.Model()
-    app.config['NL_MODEL'] = nl_model
     # This also requires disaster and event routes.
     app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
     if app.config['LOG_QUERY']:
       app.config['NL_TABLE'] = bt.get_nl_table()
     else:
       app.config['NL_TABLE'] = None
+
+    # Get the API key from environment first.
+    if cfg.USE_PALM:
+      app.config['PALM_PROMPT_TEXT'] = libutil.get_llm_prompt_text()
+      if os.environ.get('PALM_API_KEY'):
+        app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
+      else:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'palm-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['PALM_API_KEY'] = secret_response.payload.data.decode(
+            'UTF-8')
+    app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
+    app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
+    app.config['TOPIC_CACHE'] = topic_cache.load()
+
+  # Get and save the list of variables that we should not allow per capita for.
+  app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []

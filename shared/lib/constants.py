@@ -342,12 +342,17 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "state": "states",
     "province": "provinces",
     "county": "counties",
+    "district": "districts",
     "division": "divisions",
     "department": "departments",
     "municipality": "municipalities",
     "parish": "parishes",
     "city": "cities",
+    "censustract": "census tracts",
+    "tract": "tracts",
     "censuszipcodetabulationarea": "census zip code tabulation areas",
+    "zip": "zips",
+    "zipcode": "zip codes",
     "town": "towns",
     "village": "villages",
     "censusdivision": "census divisions",
@@ -370,6 +375,23 @@ PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "privateschool": "private schools",
     "school": "schools",
 }
+
+#
+# Non-geo place types are listed here.  These typically are part
+# of the SV name as well.  The list here are the keys of
+# PLACE_TYPE_TO_PLURALS and they are not considered for stop-word
+# removal (i.e., they are fed to the SV query index).
+#
+NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
+    # Schools are part of many SVs.
+    "highschool",
+    "middleschool",
+    "elementaryschool",
+    "primaryschool",
+    "publicschool",
+    "privateschool",
+    "school",
+])
 
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.

@@ -39,6 +39,10 @@ import {
 import { RankingUnit } from "../components/ranking_unit";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../constants/css_constants";
+import {
   formatNumber,
   intl,
   LocalizedLink,
@@ -222,6 +226,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    sources.sort();
     const sourcesJsx = sources.map((source, index) => {
       const domain = urlToDomain(source);
       return (
@@ -243,7 +248,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     });
     return (
       <div className="col">
-        <div className="chart-container" ref={this.chartElement}>
+        <div
+          className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+          ref={this.chartElement}
+        >
           <h4>
             {this.props.title}
             <span className="sub-title">{dateString}</span>
@@ -261,7 +269,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             )}
             {this.props.chartType === chartTypeEnum.RANKING &&
               this.state.rankingGroup && (
-                <div className="ranking-chart-container">
+                <div
+                  className={"ranking-chart-container " + ASYNC_ELEMENT_CLASS}
+                >
                   <h4>{this.getRankingChartContainerTitle()}</h4>
                   <div className="ranking-chart">
                     <RankingUnit
@@ -273,7 +283,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
-                      formatNumberFn={formatNumber}
                     />
                     <RankingUnit
                       title="Lowest"
@@ -285,7 +294,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
                       }
-                      formatNumberFn={formatNumber}
                     />
                   </div>
                 </div>
@@ -455,20 +463,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   drawChart(): void {
     const chartType = this.props.chartType;
-    const elem = document.getElementById(this.props.id);
+    const elem = document.getElementById(this.props.id) as HTMLDivElement;
     if (chartType !== chartTypeEnum.CHOROPLETH) {
       elem.innerHTML = "";
     }
     if (chartType === chartTypeEnum.LINE) {
       const isCompleteLine = drawLineChart(
-        this.props.id,
+        elem,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         false,
         false,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
       if (!isCompleteLine) {
         this.chartElement.current.querySelectorAll(
@@ -477,21 +487,27 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
     } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
+        this.svgContainerElement.current,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
+        elem,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         formatNumber,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (
       chartType === chartTypeEnum.CHOROPLETH &&

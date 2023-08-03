@@ -25,7 +25,7 @@
 $page-vertical-padding: 2rem;
 $query-vertical-padding: 2rem 0 1rem 0;
 $page-background-color: #fff;
-$answer-background-color: #f5f5f5;
+$answer-background-color: #ffffff;
 $answer-background-color-transparent: #f5f5f500;
 $answer-border-radius: 1rem;
 $container-horizontal-padding: 2rem;
@@ -43,6 +43,11 @@ $feedback-link-font-color: #70757a;
   align-items: stretch;
 }
 
+#main-header {
+  background-color: #467bd5;
+  height: 72px;
+}
+
 #nl-interface {
   margin: 0;
   padding: 0;
@@ -52,67 +57,166 @@ $feedback-link-font-color: #70757a;
 }
 
 #dc-nl-interface {
-  overflow-y: scroll;
-  overflow-x: hidden;;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 72px);
+  overflow-y: hidden;
+  font-size: 0.75rem;
 
-#results-thread-container {
-  padding: 0;
-  margin-bottom: $search-section-bottom-height;
-}
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    width: 295px;
+    @media (max-width: 768px) {
+      width: 0px;
+      padding: 0;
+    }
+    .context-link {
+      .material-icons {
+        flex-grow: 0;
+        font-size: 0.9rem;
+        font-weight: 900;
+        height: 0.9rem;
+        margin-right: 0.25rem;
+        width: 0.9rem;
+      }
+      .context-link-text {
+        flex-grow: 0;
+      }
+      &.disabled {
+        cursor: default;
+        color: #a5a5a5;
+        &:hover {
+          background: #f1f2f1;
+        }
+      }
+      display: inline-flex;
+      flex-direction: row;
+      flex-grow: 0;
+      align-items: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      border: unset;
+      color: var(--dark);
+      text-decoration: none;
+      background: #f1f2f1;
+      &:hover {
+        background: #ecedec;
+      }
+    }
+    .sidebar-header {
+      margin-bottom: 1rem;
+    }
+    .sidebar-recent {
+      flex-grow: 1;
+      overflow: auto;
+      h5 {
+        font-size: 0.85rem;
+        margin: 0 0 1rem;
+        font-weight: 600;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        li a {
+          align-items: center;
+          background: #f1f2f1;
+          border-radius: 2rem;
+          color: var(--dark);
+          display: flex;
+          font-size: 0.9rem;
+          margin-bottom: 0.5rem;
+          padding: 0.5rem 1rem;
+          text-decoration: none;
+          .material-icons {
+            color: var(--dark);
+            font-size: 0.9rem;
+            font-weight: 900;
+            height: 0.9rem;
+            margin-right: 0.25rem;
+            width: 0.9rem;
+          }
+          .text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          &:hover {
+            background: #e9e9e9;
+          }
+          &.selected {
+            background: #c2d3f1;
+            &:hover {
+              background: #c2d3f1;
+            }
+          }
+        }
+      }
+    }
+    .sidebar-footer {
+      margin: 0 auto;
+      font-size: 14px;
+    }
+  }
+  .context-container {
+    background: #f9faf9;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 72px);
+    width: 100%;
 
-#search-section-container-center {
-  position: absolute;
-  top: calc(50% - #{$search-section-bottom-height});
-}
+    .context-body {
+      flex-grow: 1;
+      overflow: auto;
+      width: 100%;
+      padding: 0 2rem 2rem;
+    }
 
-#search-section-container-bottom {
-  position: fixed;
-  top: calc(100% - #{$search-section-bottom-height});
-  height: $search-section-bottom-height;
-  transition: top 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
-  background-image: linear-gradient(
-    180deg,
-    $answer-background-color-transparent,
-    $page-background-color 25%
-  );
+    .context-search {
+      flex-grow: 0;
+      border-top: 1px solid #e9e9e9;
+      padding: 2rem;
+    }
+  }
 }
 
 #search-container {
   font-size: 0.9rem;
-  width: 100vw;
-  padding-top: $page-vertical-padding;
 
   .search-section {
-    align-items: flex-end;
-    padding-bottom: $page-vertical-padding;
-    // HACK: account for scrollbar differences
-    margin-left: -7px;
-    padding-right: 7px;
-    display: flex;
-  }
-
-  .search-box-section {
-    flex-grow: 1;
-  }
-
-  .input-group {
     align-items: center;
-  }
+    display: flex;
+    flex-direction: row;
 
-  .btn {
-    height: 2.5rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  .history-button {
-    margin-left: 0.5rem;
+    .btn {
+      height: 2.5rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .experiment-tag {
+      border-radius: 10px;
+      border-style: solid;
+      border-width: 3px;
+      color: var(--blue);
+      display: flex;
+      float: left;
+      font: normal 1em monospace;
+      padding: 4px 6px;
+      height: 80%;
+      margin-right: 20px;
+    }
+    .history-button {
+      margin-left: 0.5rem;
+    }
+    .search-box-section {
+      flex-grow: 1;
+    }
   }
 
   .search-history-container {
@@ -140,14 +244,60 @@ $feedback-link-font-color: #70757a;
   .input-query {
     flex-grow: 1;
   }
+
+  .nl-options-row {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .nl-options-input {
+    padding: 0.1rem 1rem;
+  }
+
+  .nl-options-input-radio {
+    display: flex;
+    padding: 0.1rem 1rem;
+
+    input[type="radio"] {
+      margin-top: 3px;
+    }
+  }
+
+  .nl-options-input-radio .form-group {
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  .nl-options-input-radio .form-group label {
+    display: flex;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    padding-left: 10px;
+    padding-right: 20px;
+  }
 }
 
 .nl-query {
- padding-top: 2rem; 
+  padding-top: 2.5rem;
+  padding-bottom: 1rem;
 }
 
 .nl-query-error {
   padding: $query-vertical-padding;
+}
+
+.nl-query-info {
+  padding: $query-vertical-padding;
+
+  .nl-query-info-click {
+    cursor: pointer;
+    font-style: italic;
+    text-decoration: underline;
+  }
 }
 
 .nl-history {
@@ -158,18 +308,76 @@ $feedback-link-font-color: #70757a;
 .nl-history.container,
 .nl-query .container,
 .nl-result .container,
-#search-container .container {
+.nl-welcome .container,
+#search-container .container,
+.nl-examples .container {
   padding-left: $container-horizontal-padding;
   padding-right: $container-horizontal-padding;
 }
 
-.nl-result {
-  min-height: $answer-min-height;
+.nl-result-icon {
+  align-items: center;
+  border-radius: 2rem;
+  box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.02), 0px 1px 6px rgba(3, 7, 18, 0.04),
+    1px 3px 14px rgba(3, 7, 18, 0.06), 1px 5px 24px rgba(3, 7, 18, 0.08);
+  display: flex-inline;
+  height: 2rem;
+  justify-content: center;
+  margin-right: 0.5rem;
+  width: 2rem;
 
+  svg,
+  img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.nl-welcome {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+
+  h1 {
+    font-size: 1.95rem;
+    margin: 1rem 0;
+    font-weight: 200;
+  }
+
+  .topic-queries {
+    margin-bottom: 2rem;
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .topic-more {
+    margin: 2rem 0;
+  }
+
+  .topic-sources {
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
+  }
+}
+
+.nl-result {
   .container {
-    position: relative;
     background: $answer-background-color;
     border-radius: $answer-border-radius;
+    position: relative;
+    &.nl-result-content {
+      box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.02),
+        0px 1px 6px rgba(3, 7, 18, 0.04), 1px 3px 14px rgba(3, 7, 18, 0.06),
+        1px 5px 24px rgba(3, 7, 18, 0.08);
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
   }
 
   .container.feedback-link {
@@ -267,7 +475,37 @@ $feedback-link-font-color: #70757a;
   }
 }
 
-.nl-query h2 {
+.nl-query {
+  .nl-user-query {
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+    .nl-user-query-icon {
+      align-items: center;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.02),
+        0px 1px 6px rgba(3, 7, 18, 0.04), 1px 3px 14px rgba(3, 7, 18, 0.06),
+        1px 5px 24px rgba(3, 7, 18, 0.08);
+      display: flex;
+      height: 2rem;
+      justify-content: center;
+      margin-right: 1rem;
+      width: 2rem;
+
+      .material-icons {
+        align-items: center;
+        display: inline-flex;
+        font-size: 1.5rem;
+        height: 1.5rem;
+        text-align: center;
+        width: 1.5rem;
+      }
+    }
+    .nl-user-query-text {
+      font-size: 1.25rem;
+    }
+  }
   color: $question-text-color;
 }
 
@@ -305,7 +543,7 @@ h3,
   margin-bottom: -1em;
   position: absolute;
   top: 0.5rem;
-  right: -2.5rem;
+  right: 2rem;
 }
 
 .debug-info-toggle.hide {
@@ -449,4 +687,45 @@ $loading-dot-color: #999;
 
 #subject-page-main-pane .col-12 {
   padding-bottom: 1em;
+}
+
+.examples-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1rem;
+
+  .example-item {
+    padding: 5px 10px;
+    background: var(--dc-red-fade);
+    display: inline-block;
+    border-radius: 1rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+
+  .example-item:hover {
+    box-shadow: $hover-box-shadow;
+  }
+}
+
+/* Styles for the pop-up box */
+.popup-box {
+  position: absolute;
+  top: 100%;
+  padding: 5px; /* Add padding for the pop-up content */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  background-color: gray;
+
+  textarea {
+    width: 100%; /* Set the width to 100% of the parent (pop-up box) */
+    height: 95%; /* Set the height to 100% of the parent (pop-up box) */
+    margin: 0;
+    padding: 5px; /* Add padding for the textarea content */
+    resize: none; /* Disable textarea resizing */
+    height: auto; /* Allow the height to adjust based on the content */
+    max-height: 3.6em; /* Limit the maximum height to two lines (2 lines x 1.8em) */
+    line-height: 1.8em; /* Set the line height to match the desired line height */
+  }
 }

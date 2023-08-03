@@ -26,7 +26,7 @@ from flask import send_file
 from flask import url_for
 from geojson_rewind import rewind
 
-from server.cache import cache
+from server import cache
 import server.lib.fetch as fetch
 from server.lib.shared import is_float
 import server.lib.shared as shared
@@ -34,7 +34,6 @@ import server.lib.util as lib_util
 import server.routes.place.api as landing_page_api
 from server.routes.shared_api.place import EQUIVALENT_PLACE_TYPES
 import server.routes.shared_api.place as place_api
-import server.services.datacommons as dc
 
 # Define blueprint
 bp = Blueprint("choropleth", __name__, url_prefix='/api/choropleth')
@@ -82,7 +81,7 @@ MULTIPOLYGON_GEOJSON_TYPE = "MultiPolygon"
 POLYGON_GEOJSON_TYPE = "Polygon"
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def get_choropleth_display_level(geoDcid):
   """ Get the display level of places to show on a choropleth chart for a
   given place.
@@ -113,7 +112,7 @@ def get_choropleth_display_level(geoDcid):
     return None, None
 
   if place_type == display_level:
-    parents_places = place_api.parent_places(geoDcid)
+    parents_places = place_api.parent_places([geoDcid])
     # Multiple place types can be equivalent (eg. County and AA2) and we
     # want to find the parent who's display level is equivalent to the
     # geoDcid display_level
@@ -124,15 +123,14 @@ def get_choropleth_display_level(geoDcid):
       parent_dcid = parent.get('dcid', None)
       if not parent_dcid:
         continue
-      parent_place_types = parent.get('types', [])
-      for parent_place_type in parent_place_types:
+      parent_place_type = parent.get('type', '')
+      parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
+          parent_place_type, None)
+      if not parent_display_level:
         parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
-            parent_place_type, None)
-        if not parent_display_level:
-          parent_display_level = CHOROPLETH_DISPLAY_LEVEL_MAP.get(
-              EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
-        if parent_display_level in target_display_levels:
-          return parent_dcid, display_level
+            EQUIVALENT_PLACE_TYPES.get(parent_place_type, ''))
+      if parent_display_level in target_display_levels:
+        return parent_dcid, display_level
     return None, None
   else:
     return geoDcid, display_level
@@ -202,7 +200,7 @@ def get_geojson_feature(geo_id: str, geo_name: str, json_text: List[str]):
 
 
 @bp.route('/geojson')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def geojson():
   """Get geoJson data for places enclosed within the given dcid"""
   place_dcid = request.args.get("placeDcid")
@@ -433,7 +431,7 @@ def choropleth_data(dcid):
 
 
 @bp.route('/map-points')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def get_map_points():
   """Get map point data for the given place type enclosed within the given dcid
   """

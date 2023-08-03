@@ -116,6 +116,15 @@ function deploy_cloud_esp() {
 }
 # Release website helm chart
 function deploy_website() {
+  NODEJS_API_ROOT=""
+  # Find the service name for website-app
+  for service in `kubectl get services -n website -o name`
+  do
+    app=`kubectl get $service -n website --output=jsonpath="{.spec.selector.app}"`
+    if [[ $app == "website-app" ]]; then
+      NODEJS_API_ROOT="http://${service#"service/"}:8080"
+    fi
+  done
   helm upgrade --install dc-website deploy/helm_charts/dc_website \
   -f "deploy/helm_charts/envs/$ENV.yaml" \
   --atomic \
@@ -123,11 +132,13 @@ function deploy_website() {
   --timeout 10m \
   --set website.image.tag="$WEBSITE_HASH" \
   --set website.githash="$WEBSITE_HASH" \
-  --set-file nl.embeddings=deploy/base/model.yaml
+  --set nodejs.apiRoot="$NODEJS_API_ROOT" \
+  --set-file nl.embeddings=deploy/nl/embeddings.yaml \
+  --set-file nl.models=deploy/nl/models.yaml
 }
 
 cd $ROOT
 get_gke_credentials
+deploy_cloud_esp
 deploy_mixer
 deploy_website
-deploy_cloud_esp

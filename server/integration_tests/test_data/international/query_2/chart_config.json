@@ -24,6 +24,13 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
                     "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
@@ -31,44 +38,11 @@
                   }
                 ]
               }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
+            ],
+            "title": "Life Expectancy by Gender"
           }
         ],
         "statVarSpec": {
-          "Count_Death_AsAFractionOfCount_Person": {
-            "name": "Deaths Per Capita",
-            "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
@@ -91,13 +65,34 @@
       "placeDcid": [
         "country/CHN"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_QUERY_TYPE": {
+        "items": [
+          {
+            "displayName": "Show highest",
+            "nlQuery": "Life expectancy across provinces of China - show highest"
+          },
+          {
+            "displayName": "Show lowest",
+            "nlQuery": "Life expectancy across provinces of China - show lowest"
+          }
+        ]
+      },
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/CHN",
     "name": "China",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

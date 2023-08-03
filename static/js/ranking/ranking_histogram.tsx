@@ -18,6 +18,7 @@ import React from "react";
 
 import { DataPoint } from "../chart/base";
 import { drawHistogram } from "../chart/draw";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
@@ -64,7 +65,7 @@ class RankingHistogram extends React.Component<
         key={this.id}
         id={this.id}
         ref={this.chartElementRef}
-        className="chart-container"
+        className={`chart-container  ${ASYNC_ELEMENT_HOLDER_CLASS}`}
       ></div>
     );
   }
@@ -83,7 +84,9 @@ class RankingHistogram extends React.Component<
       this.chartElementRef.current.offsetHeight,
       dataPoints,
       formatNumber,
-      this.props.unit
+      {
+        unit: this.props.unit,
+      }
     );
   }
 

@@ -19,7 +19,9 @@ from server.lib.nl.common import utils
 from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
@@ -46,6 +48,8 @@ _MAX_MAIN_SVS = 5
 
 def populate(uttr: Utterance) -> bool:
   # Get the list of CONTAINED_IN classifications in order from current to past.
+  # Past is useful for demo queries, and also a correlation detection is a
+  # strong indication that child-place-type should be there.
   classifications = classifications_of_type_from_context(
       uttr, ClassificationType.CONTAINED_IN)
   if not classifications:
@@ -69,21 +73,50 @@ def populate(uttr: Utterance) -> bool:
 
 
 def _populate_correlation_for_place_type(state: PopulateState) -> bool:
-  for pl in state.uttr.places:
-    if (_populate_correlation_for_place(state, pl)):
-      return True
-    else:
-      state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
-  for pl in places_from_context(state.uttr):
-    if (_populate_correlation_for_place(state, pl)):
-      return True
-    else:
-      state.uttr.counters.err('correlation_failed_populate_context_place',
-                              pl.dcid)
+  populate_attempted = False
 
-  default_place = get_default_contained_in_place(state)
+  if state.uttr.places:
+    for pl in state.uttr.places:
+      populate_attempted = True
+      if (_populate_correlation_for_place(state, pl)):
+        state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
+        return True
+      else:
+        state.uttr.counters.err('correlation_failed_populate_main_place',
+                                pl.dcid)
+  else:
+    # Only if user has not provided a place, seek a place from the context.
+    # Otherwise the result seems unexpected to them.
+
+    # Special case: if we didn't find a place *and* the place-type is
+    # COUNTRY we will not look in the context!  Since most often
+    # [countries with X] refers to "Earth", the default place.
+    if state.place_type == ContainedInPlaceType.COUNTRY:
+      context_places = []
+    else:
+      context_places = places_from_context(state.uttr)
+
+    for pl in context_places:
+      populate_attempted = True
+      if (_populate_correlation_for_place(state, pl)):
+        state.uttr.place_source = FulfillmentResult.PAST_QUERY
+        state.uttr.past_source_context = pl.name
+        return True
+      else:
+        state.uttr.counters.err('correlation_failed_populate_context_place',
+                                pl.dcid)
+
+  if populate_attempted:
+    return False
+
+  default_place = get_default_contained_in_place(state.uttr.places,
+                                                 state.place_type)
   if default_place:
-    return _populate_correlation_for_place(state, default_place)
+    result = _populate_correlation_for_place(state, default_place)
+    if result:
+      state.uttr.place_source = FulfillmentResult.DEFAULT
+      state.uttr.past_source_context = default_place.name
+    return result
 
   return False
 
@@ -103,7 +136,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # When multi-sv has a higher score than single-sv prefer that.
   # See discussion in _route_comparison_or_correlation().
-  if utils.is_multi_sv(state.uttr):
+  if detection_utils.is_multi_sv(state.uttr.detection):
     lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
   else:
     lhs_svs, rhs_svs = _handle_svs_from_context(state.uttr, places_to_check)
@@ -125,8 +158,8 @@ def _handle_svs_from_context(uttr: Utterance,
   # For the main SV of correlation, we expect a variable to
   # be detected in this `uttr`
   main_svs = open_top_topics_ordered(uttr.svs, uttr.counters)
-  main_svs = utils.sv_existence_for_places(places_to_check, main_svs,
-                                           uttr.counters)
+  main_svs, _ = utils.sv_existence_for_places(places_to_check, main_svs,
+                                              uttr.counters)
   if not main_svs:
     uttr.counters.err('correlation_failed_existence_check_main_sv', main_svs)
     uttr.counters.err('correlation_failed_missing_main_sv', 1)
@@ -137,8 +170,8 @@ def _handle_svs_from_context(uttr: Utterance,
   context_svs = []
   for c_svs in svs_from_context(uttr):
     opened_svs = open_top_topics_ordered(c_svs, uttr.counters)
-    context_svs = utils.sv_existence_for_places(places_to_check, opened_svs,
-                                                uttr.counters)
+    context_svs, _ = utils.sv_existence_for_places(places_to_check, opened_svs,
+                                                   uttr.counters)
     if context_svs:
       break
     else:
@@ -153,27 +186,19 @@ def _handle_svs_from_context(uttr: Utterance,
   context_svs = context_svs[:_MAX_CONTEXT_SVS]
   uttr.counters.info('correlation_main_svs', main_svs)
   uttr.counters.info('correlation_context_svs', context_svs)
-  logging.info('Correlation Main SVs: %s', ', '.join(main_svs))
-  logging.info('Correlation Context SVs: %s', ', '.join(context_svs))
   return (main_svs, context_svs)
 
 
 def _handle_multi_sv_in_uttr(uttr: Utterance,
                              places_to_check: List[str]) -> tuple:
-  # Loop over the candidates and find the one with 2 parts.
-  parts: List[vars.MultiVarCandidatePart] = None
-  for c in uttr.multi_svs.candidates:
-    if len(c.parts) == 2:
-      parts = c.parts
-      break
-
+  parts = detection_utils.get_multi_sv_pair(uttr.detection)
   if not parts:
     return (None, None)
 
   final_svs: List[List[str]] = []
   for i, p in enumerate(parts):
     svs = open_top_topics_ordered(p.svs, uttr.counters)
-    svs = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
+    svs, _ = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
     if not svs:
       uttr.counters.err(f'multisv_correlation_failed_existence_check_{i}_sv',
                         svs)
@@ -185,8 +210,6 @@ def _handle_multi_sv_in_uttr(uttr: Utterance,
   rhs_svs = final_svs[1][:_MAX_MAIN_SVS]
   uttr.counters.info(f'multisv_correlation_lhs_svs', lhs_svs)
   uttr.counters.info(f'multisv_correlation_rhs_svs', rhs_svs)
-  logging.info('[MultiSV] Correlation LHS SVs: %s', ', '.join(lhs_svs))
-  logging.info('[MultiSV] Correlation RHS SVs: %s', ', '.join(rhs_svs))
   return (lhs_svs, rhs_svs)
 
 

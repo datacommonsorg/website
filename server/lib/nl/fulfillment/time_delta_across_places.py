@@ -13,8 +13,12 @@
 # limitations under the License.
 
 import logging
+import os
 from typing import List
 
+from flask import current_app
+
+from server.lib import util as libutil
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
@@ -85,13 +89,19 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())
 
+  if os.environ.get('FLASK_ENV') == 'test':
+    nopc_vars = libutil.get_nl_no_percapita_vars()
+  else:
+    nopc_vars = current_app.config['NOPC_VARS']
+
   direction = state.time_delta_types[0]
   ranked_children = rank_utils.rank_places_by_series_growth(
       places=dcids,
       sv=chart_vars.svs[0],
       growth_direction=direction,
       rank_order=rank_order,
-      counters=state.uttr.counters)
+      counters=state.uttr.counters,
+      nopc_vars=nopc_vars)
 
   state.uttr.counters.info(
       'time-delta_reranked_places', {

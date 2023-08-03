@@ -1,0 +1,711 @@
+{
+  "allTopics": [
+    "economics",
+    "demographics",
+    "health",
+    "sustainability",
+    "education-housing-commute",
+    "equity"
+  ],
+  "topics": {
+    "equity": {
+      "title": "Equity",
+      "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Economic equity in California",
+            "url": "oq=Economic+equity+in+California&t=dc/topic/EconomicEquity&p=geoId/06"
+          },
+          {
+            "title": "Incarceration rates by race in the US",
+            "url": "oq=Incarceration+rates+by+race+in+the+US&t=dc/topic/JusticeSystemEquity&p=country/USA"
+          },
+          {
+            "title": "Health equity in Santa Clara County",
+            "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
+          }
+        ],
+        "specific": [
+          {
+            "title": "Number of poor hispanic women in Santa Clara County",
+            "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County"
+          },
+          {
+            "title": "Counties with the highest unemployment rate in the US",
+            "url": "oq=Counties+with+the+highest+unemployment+rate+in+the+US&t=dc/topic/UnemploymentRate&p=country/USA&pt=County"
+          },
+          {
+            "title": "Counties with the highest rates of uninsured",
+            "url": "oq=Counties+with+the+highest+rates+of+uninsured&t=dc/topic/NoHealthInsurance&p=country/USA&pt=County"
+          },
+          {
+            "title": "Cities with the highest number of women PhDs in Pennsylvania",
+            "url": "oq=Cities+with+the+highest+number+of+women+PhDs+in+Pennsylvania&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=geoId/42&pt=City"
+          },
+          {
+            "title": "Countries with the lowest Gini index",
+            "url": "oq=Countries+with+the+lowest+Gini+index&t=GiniIndex_EconomicActivity&p=Earth&pt=Country"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Correlation between diabetes and poverty across US counties",
+            "url": "oq=Correlation+between+diabetes+and+poverty+across+US+counties&t=dc/topic/Diabetes&tcmp=dc/topic/Poverty&p=country/USA&pt=County"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 35472,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
+          "World Bank"
+        ]
+      }
+    },
+    "economics": {
+      "title": "Economics",
+      "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Jobs in Texas",
+            "url": "p=geoId/48&t=dc/topic/Jobs&oq=Jobs+in+Texas"
+          },
+          {
+            "title": "Businesses by type in the US",
+            "url": "p=country/USA&t=dc/topic/Businesses&oq=Businesses+by+type+in+the+US"
+          },
+          {
+            "title": "Median income in Santa Clara County",
+            "url": "p=geoId/06085&t=dc/topic/Income&oq=Median+income+in+Santa+Clara+County"
+          },
+          {
+            "title": "Employment in Florida",
+            "url": "p=geoId/12&t=dc/topic/Employment&oq=Employment+in+Florida"
+          },
+          {
+            "title": "Poverty in Louisiana",
+            "url": "p=geoId/22&t=dc/topic/Poverty&oq=Poverty+in+Louisiana"
+          },
+          {
+            "title": "Industries in Dallas County, TX",
+            "url": "p=geoId/48113&t=dc/topic/EconomicActivity&oq=Industries+in+Dallas+County,+TX"
+          },
+          {
+            "title": "Economy in Brazil",
+            "url": "p=country/BRA&t=dc/topic/GlobalEconomicActivity&oq=Economy+in+Brazil"
+          }
+        ],
+        "specific": [
+          {
+            "title": "Businesses by industry in New York State",
+            "url": "p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&oq=Businesses+by+industry+in+New+York+State"
+          },
+          {
+            "title": "Number of People Employed in New York City vs Boston",
+            "url": "oq=Number+of+People+Employed+in+New+York+City+vs+Boston"
+          },
+          {
+            "title": "Number of privately owned businesses in California",
+            "url": "oq=Number+of+privately+owned+businesses+in+California"
+          },
+          {
+            "title": "Education expenditure in the US vs Canada",
+            "url": "oq=Education+expenditure+in+the+US+vs+Canada"
+          },
+          {
+            "title": "GDP of Iran",
+            "url": "p=country/IRN&t=dc/topic/GDP&oq=GDP+of+Iran"
+          },
+          {
+            "title": "GDP of USA vs China vs India",
+            "url": "oq=compare+GDP+of+USA+vs+China+vs+India"
+          },
+          {
+            "title": "Remittances in Lebanon",
+            "url": "p=country/LBN&t=dc/topic/Remittance&oq=Remittances+in+Lebanon"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Income vs Health Insurance in the US",
+            "url": "oq=Income+vs+health+insurance+rates+in+USA"
+          },
+          {
+            "title": "Richest counties in CA",
+            "url": "oq=richest+counties+in+CA"
+          },
+          {
+            "title": "Richest and Poorest countries in the world by GDP",
+            "url": "oq=richest+and+poorest+countries+in+the+world+by+GDP"
+          },
+          {
+            "title": "GDP vs Remittances across countries in Africa",
+            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa&t=dc/topic/GDP&tcmp=dc/topic/Remittance&p=africa&pt=Country"
+          },
+          {
+            "title": "Highest Gini Index in the World",
+            "url": "oq=highest+Gini+index+in+the+world"
+          },
+          {
+            "title": "Countries with the most incoming remittances in the world",
+            "url": "oq=countries+with+the+most+incoming+remittances+in+the+world"
+          },
+          {
+            "title": "Median income vs unemployment rate in California",
+            "url": "oq=median+income+vs+unemployment+in+California&t=Median_Income_Person&tcmp=UnemploymentRate_Person&p=geoId%2F06&pcmp=&pt="
+          },
+          {
+            "title": "Poverty vs Unemployment in the US",
+            "url": "oq=Poverty+vs+Unemployment+in+the+US"
+          },
+          {
+            "title": "Poorest states in the US",
+            "url": "oq=worst+states+for+poverty+in+the+US"
+          },
+          {
+            "title": "Obesity vs Unemployment in the US",
+            "url": "oq=Obesity+vs+Unemployment+in+the+US"
+          },
+          {
+            "title": "Debt vs GDP for countries in Europe",
+            "url": "oq=Debt+vs+GDP+in+countries+in+countries+in+Europe"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 67486,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "EU Eurostat",
+          "Food and Agriculture Organization of the United States",
+          "India Ministry of Statistics and Programme Implementation",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Reserve Bank of India",
+          "U.S. Bureau of Economic Analysis (BEA)",
+          "U.S. Bureau of Labor Statistics (BLS)",
+          "U.S. Census Bureau",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Department of Labor (DOL)",
+          "U.S. Federal Reserve",
+          "World Bank"
+        ]
+      }
+    },
+    "health": {
+      "title": "Health",
+      "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Health issues in Arizona",
+            "url": "p=geoId/04&t=dc/topic/HealthConditions&oq=Health+issues+in+Arizona"
+          },
+          {
+            "title": "Health Equity in California",
+            "url": "p=geoId/06&t=dc/topic/HealthEquity&oq=Health+Equity+in+California"
+          },
+          {
+            "title": "Uninsured in Kansas",
+            "url": "p=geoId/20&t=dc/topic/NoHealthInsurance&oq=Uninsured+in+Kansas"
+          },
+          {
+            "title": "Health behaviors in Bangladesh",
+            "url": "p=country/BGD&t=dc/topic/GlobalHealth&oq=Health+behaviors+in+Bangladesh"
+          },
+          {
+            "title": "Mortality in the US",
+            "url": "p=country/USA&t=dc/topic/Mortality&oq=Mortality+in+the+US"
+          }
+        ],
+        "specific": [
+          {
+            "title": "People with Asthma in Phoenix",
+            "url": "p=geoId/0455000&t=dc/topic/Asthma&oq=People+with+Asthma+in+Phoenix"
+          },
+          {
+            "title": "High blood pressure in Jackson, MS",
+            "url": "p=geoId/2836000&t=dc/topic/BloodPressure&oq=High+blood+pressure+in+Jackson,+MS"
+          },
+          {
+            "title": "Most obese cities in Kansas",
+            "url": "oq=most+obese+cities+in+Kansas&oq=Most+obese+cities+in+Kansas"
+          },
+          {
+            "title": "Diabetes in Atlanta",
+            "url": "p=geoId/1304000&t=dc/topic/Diabetes&oq=Diabetes+in+Atlanta"
+          },
+          {
+            "title": "Health behaviors in India vs Norway",
+            "url": "oq=health+behaviors+in+India+vs+Norway"
+          },
+          {
+            "title": "Immunization in Pakistan",
+            "url": "p=country/PAK&t=dc/topic/WHOImmunization&oq=Immunization+in+Pakistan"
+          },
+          {
+            "title": "Immunizations by gender in Pakistan",
+            "url": "p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender&oq=Immunizations+by+gender+in+Pakistan"
+          },
+          {
+            "title": "Cancer in Illinois",
+            "url": "p=geoId/17&t=dc/topic/Cancer&oq=Cancer+in+Illinois"
+          },
+          {
+            "title": "Mental health in Massachusetts",
+            "url": "p=geoId/25&t=dc/topic/MentalHealth&oq=Mental+health+in+Massachusetts"
+          },
+          {
+            "title": "Mental health in Mercer County vs Arlington County",
+            "url": "oq=Mental+health+in+Mercer+County+vs+Arlington+County"
+          },
+          {
+            "title": "Mortality in the US vs Spain vs Nigeria",
+            "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
+          },
+          {
+            "title": "Life Expectancy in countries in Africa",
+            "url": "oq=life+expectancy+in+countries+in+Africa"
+          },
+          {
+            "title": "Causes of Death in Louisiana ",
+            "url": "p=geoId/22&t=dc/topic/CausesOfDeath&oq=Causes+of+Death+in+Louisiana+"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Obesity vs Unemployment in the US",
+            "url": "oq=Obesity+vs+Unemployment+in+the+US&oq=Obesity+vs+Unemployment+in+the+US"
+          },
+          {
+            "title": "High blood pressure vs Asthma in Alabama",
+            "url": "oq=high+blood+pressure+vs+asthma+in+Alabama&oq=High+blood+pressure+vs+Asthma+in+Alabama"
+          },
+          {
+            "title": "Child immunizations vs life expectancy in Asia",
+            "url": "oq=child+Immunizations+vs+Life+expectancy+in+Asia"
+          },
+          {
+            "title": "Health conditions vs median age in Alameda County",
+            "url": "oq=health+conditions+vs+median+age+in+alameda+county"
+          },
+          {
+            "title": "Obesity vs lack of sleep in the US",
+            "url": "oq=obesity+vs+lack+of+sleep+in+the+US"
+          },
+          {
+            "title": "Best immunization rates in the world",
+            "url": "oq=best+immunizations+rates+in+the+world"
+          },
+          {
+            "title": "Highest rates of infant mortality in the world",
+            "url": "oq=Highest+rates+of+infant+mortality+in+the+world"
+          },
+          {
+            "title": "Life expectancy across counties in the US",
+            "url": "oq=Life+expectancy+across+counties+in+the+US"
+          },
+          {
+            "title": "Maternal mortality across countries in the world",
+            "url": "oq=Maternal+mortality+across+countries+in+the+world"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 20531,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "City Controller, City of Los Angeles",
+          "Colombia DANE National Administrative Department of Statistics",
+          "Dartmouth Atlas Project",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Health Mission",
+          "India National Sample Survey",
+          "National Institute of Statistics and Censuses",
+          "Open Data for Africa",
+          "Our World in Data",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "The Central Bureau of Statistics, Indonesia",
+          "The New York Times",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Drug Enforcement Agency (DEA)",
+          "World Bank",
+          "World Health Organization (WHO)"
+        ]
+      }
+    },
+    "education-housing-commute": {
+      "title": "Education, Housing, and Commute",
+      "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Educational Attainment in the US",
+            "url": "p=country/USA&t=dc/topic/EducationalAttainment&oq=Educational+Attainment+in+the+US"
+          },
+          {
+            "title": "School Enrollment in California",
+            "url": "p=geoId/06&t=dc/topic/Schools&oq=School+Enrollment+in+California"
+          },
+          {
+            "title": "School Types in New York State",
+            "url": "p=geoId/36&t=dc/topic/SchoolType&oq=School+Types+in+New+York+State"
+          }
+        ],
+        "specific": [
+          {
+            "title": "Bachelors major types in Texas",
+            "url": "p=geoId/48&t=dc/topic/BachelorsMajor&oq=Bachelors+major+types+in+Texas"
+          },
+          {
+            "title": "Bachelors majors in Berkeley vs Austin",
+            "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
+          },
+          {
+            "title": "Education Attainment by Gender in New York City",
+            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Gender+in+New+York+City"
+          },
+          {
+            "title": "Level of Education Attainment in King County",
+            "url": "p=geoId/53033&t=dc/topic/LevelOfEducationalAttainment&oq=Level+of+Education+Attainment+in+King+County"
+          },
+          {
+            "title": "Student enrollment levels in San Francisco",
+            "url": "p=geoId/0667000&t=dc/topic/StudentEnrollmentLevels&oq=Student+enrollment+levels+in+San+Francisco"
+          },
+          {
+            "title": "Students in College in Berkeley vs Cambridge, MA",
+            "url": "oq=students+enrolled+in+college+in+Berkeley+vs+Cambridge,+MA"
+          },
+          {
+            "title": "Students in High School in Miami",
+            "url": "p=geoId/1245000&t=dc/topic/StudentsInHighSchool&oq=Students+in+High+School+in+Miami"
+          },
+          {
+            "title": "Students in Graduate School in California vs Massachusetts",
+            "url": "oq=Students+in+Graduate+School+in+California+vs+Massachusetts"
+          },
+          {
+            "title": "Students in School Type By Race in Florida",
+            "url": "p=geoId/12&t=dc/topic/PopulationEnrolledInSchoolTypeByRace&oq=Students+in+School+Type+By+Race+in+Florida"
+          },
+          {
+            "title": "Students in School Type By Race in Alameda County vs Santa Clara County",
+            "url": "oq=Students+in+School+Type+By+Race+in+Alameda+County+vs+Santa+Clara+County"
+          },
+          {
+            "title": "Bachelor's degree in US counties",
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&oq=Bachelors+degree+in+US+counties"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Educational Attainment vs Poverty in Florida",
+            "url": "oq=educational+attainment+vs+poverty+in+Florida"
+          },
+          {
+            "title": "Bachelor Majors vs Median Income in the US",
+            "url": "oq=bachelor+majors+vs+median+income+in+the+US"
+          },
+          {
+            "title": "Popular bachelors majors in the US",
+            "url": "oq=popular+bachelor+majors+in+the+US"
+          },
+          {
+            "title": "Level of Education Attainment vs Median Income in California",
+            "url": "oq=Level+of+Education+Attainment+vs+Median+Income+in+California"
+          },
+          {
+            "title": "Most students in college in the US",
+            "url": "oq=most+students+in+college+in+the+US"
+          },
+          {
+            "title": "Most number of PhDs in US counties",
+            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=Most+number+of+PhDs+in+US+counties"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 42422,
+        "sources": [
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "California Assessment of Student Performance and Progress",
+          "Colombia DANE National Administrative Department of Statistics",
+          "EU Eurostat",
+          "India Ministry of Education",
+          "Open Data for Africa",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "U.S. Census Bureau",
+          "U.S. Department of Education (ED)",
+          "U.S. National Center for Education Statistics"
+        ]
+      }
+    },
+    "demographics": {
+      "title": "Demographics",
+      "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "Age distribution in the US",
+            "url": "p=country/USA&t=dc/topic/Age&oq=Age+distribution+in+the+US"
+          },
+          {
+            "title": "Languages spoken in California",
+            "url": "p=geoId/06&t=dc/topic/Language&oq=Languages+spoken+in+California"
+          },
+          {
+            "title": "Citizenship in Florida",
+            "url": "p=geoId/12&t=dc/topic/CitizenshipStatus&oq=Citizenship+in+Florida"
+          },
+          {
+            "title": "Racial Diversity in California",
+            "url": "p=geoId/06&t=dc/topic/Race&oq=Racial+diversity+in+California"
+          },
+          {
+            "title": "Statistics on Married people in New York State",
+            "url": "p=geoId/36&t=dc/topic/MarriedPopulationByDemographic&oq=Statistics+on+Married+people+in+New+York+State"
+          }
+        ],
+        "specific": [
+          {
+            "title": "Median age in Texas",
+            "url": "p=geoId/48&t=dc/topic/AgeMedians&oq=Median+age+in+Texas"
+          },
+          {
+            "title": "Young and Old people in Florida",
+            "url": "p=geoId/12&t=dc/topic/VeryOldAndVeryYoungPopulation&oq=Young+and+Old+people+in+Florida"
+          },
+          {
+            "title": "Widowed population in San Francisco",
+            "url": "p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic&oq=Widowed+population+in+San+Francisco"
+          },
+          {
+            "title": "Citizenship in California vs Georgia",
+            "url": "oq=citizenship+for+people+in+California+vs+Georgia"
+          },
+          {
+            "title": "Those who have never married in New York City",
+            "url": "p=geoId/3651000&t=dc/topic/NeverMarriedPopulationByDemographic&oq=Those+who+have+never+married+in+New+York+City"
+          },
+          {
+            "title": "Demographics of divorced people in California",
+            "url": "p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic&oq=Divorced+people+demographics+in+California"
+          },
+          {
+            "title": "Immigration in Texas",
+            "url": "p=geoId/48&t=dc/topic/Immigration&oq=Immigration+in+Texas"
+          },
+          {
+            "title": "Immigration in Texas vs California",
+            "url": "oq=Immigration+in+Texas+vs+California"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Immigration vs median age in the US",
+            "url": "oq=immigration+vs+median+age+in+the+US"
+          },
+          {
+            "title": "Median age vs income in Florida",
+            "url": "oq=Median+age+vs+income+in+Florida"
+          },
+          {
+            "title": "Median age vs marital status in New York State",
+            "url": "oq=median+age+vs+marital+status+in+New+York+state"
+          },
+          {
+            "title": "Countries in the world with the highest life expectancy",
+            "url": "oq=countries+in+the+world+with+the+highest+life+expectancy"
+          },
+          {
+            "title": "Counties in the US with the most widows",
+            "url": "oq=counties+in+the+US+with+the+most+widows"
+          },
+          {
+            "title": "Counties with the most Spanish speakers in California",
+            "url": "oq=counties+with+the+most+Spanish+speakers+in+California"
+          },
+          {
+            "title": "Racial breakdown of population in Texas vs New York State",
+            "url": "oq=racial+breakdown+of+population+in+Texas+vs+New+York+State"
+          },
+          {
+            "title": "States in the US with the most Tamil speakers",
+            "url": "oq=States+in+the+US+with+the+most+Tamil+Speakers"
+          },
+          {
+            "title": "Which counties in the US have most immigrants",
+            "url": "oq=Which+counties+in+the+US+have+most+immigrants"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 35472,
+        "sources": [
+          "Australian Bureau of Statistics",
+          "Brazilian Institute of Geography and Statistics (IBGE)",
+          "Census of India",
+          "Colombia DANE National Administrative Department of Statistics",
+          "DataMeet",
+          "EU Eurostat",
+          "Google",
+          "India National Informatics Centre",
+          "National Institute of Statistics and Censuses (INDEC)",
+          "Open Data for Africa",
+          "Opportunity Insights",
+          "Organization for Economic Co-operation and Development (OECD)",
+          "Portal Site of Official Statistics of Japan (e-Stat)",
+          "Statistics Canada",
+          "The Central Bureau of Statistics, Indonesia",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Census Bureau",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Department of Housing and Urban Development (HUD)",
+          "U.S. Federal Election Commission (FEC)",
+          "U.S. National Center for Education Statistics",
+          "United Nations (UN)",
+          "Wikimedia Foundation",
+          "World Bank"
+        ]
+      }
+    },
+    "sustainability": {
+      "title": "Sustainability",
+      "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
+      "examples": {
+        "general": [
+          {
+            "title": "What are the sources of greenhouse gas emissions in the US",
+            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissions"
+          },
+          {
+            "title": "Emissions in Harris County, Texas",
+            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
+          },
+          {
+            "title": "Pollution in Los Angeles County",
+            "url": "oq=Pollution+in+Los+Angeles+County&p=geoId/06037&t=dc/topic/Pollutants"
+          },
+          {
+            "title": "Projected temperature extremes in US counties",
+            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
+          },
+          {
+            "title": "Energy use in the US",
+            "url": "oq=Energy+use+in+the+US&p=country/USA&t=dc/topic/Energy"
+          },
+          {
+            "title": "Green jobs in the US",
+            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
+          }
+        ],
+        "specific": [
+          {
+            "title": "Electronic Waste generated in different countries",
+            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV___sdg/EN_EWT_GENPCAP"
+          },
+          {
+            "title": "Floods in Pakistan",
+            "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
+          },
+          {
+            "title": "Solar energy consumption in the US",
+            "url": "oq=Solar+energy+consumption+in+the+US"
+          },
+          {
+            "title": "Drought events around the world",
+            "url": "oq=Drought+events+around+the+world&p=Earth&pt=Country&t=dc/topic/Drought"
+          },
+          {
+            "title": "Counties in the US with the most smoke pollution",
+            "url": "oq=Counties+in+the+US+with+the+most+smoke+pollution&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
+          },
+          {
+            "title": "Top sources of CO2 emissions in the US",
+            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
+          },
+          {
+            "title": "Which countries have the most greenhouse gas emissions",
+            "url": "oq=Which+countries+have+the+most+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "How does PM 2.5 correlate with asthma across US counties",
+            "url": "oq=How+does+PM+2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
+          },
+          {
+            "title": "How do solar installations correlate with median income across US counties",
+            "url": "oq=How+does+renewable+energy+usage+correlate+with+median+income+across+US+counties&p=country/USA&pt=County&t=Count_SolarInstallation&tcmp=dc/topic/Income"
+          },
+          {
+            "title": "AQI vs blood pressure in New Jersey",
+            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 12746,
+        "sources": [
+          "Climate Trace",
+          "Data Commons",
+          "Dynamic World Project",
+          "European Union (EU) Copernicus",
+          "Federal Emergency Management Agency (FEMA)",
+          "Global Land Ice Measurements from Space (GLIMS)",
+          "India Central Pollution Control Board",
+          "India Energy Dashboard",
+          "India Water Resources Information System",
+          "Resources for the Future (RFF)",
+          "Stanford University",
+          "U.S. Bureau of Transportation Statistics",
+          "U.S. Center for Disease Control and Prevention (CDC)",
+          "U.S. Energy Information Administration (EIA)",
+          "U.S. Environmental Protection Agency (EPA)",
+          "U.S. National Aeronautics and Space Administration (NASA)",
+          "U.S. National Oceanic and Atmospheric Administration (NOAA)",
+          "U.S. National Renewable Energy Laboratory (NREL)",
+          "U.S. National Wildlife Coordinating Group",
+          "United Nations (UN)",
+          "United States Geological Service (USGS)",
+          "Wildland Fire Interagency Geospatial Services",
+          "World Bank"
+        ]
+      }
+    }
+  }
+}

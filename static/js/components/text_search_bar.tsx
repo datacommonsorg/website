@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import React, { createRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, InputGroup } from "reactstrap";
 
 interface TextSearchBarPropType {
+  allowEmptySearch?: boolean;
   inputId: string;
-  onSearch: (string) => void;
+  onSearch: (q: string) => void;
   initialValue: string;
   placeholder: string;
   shouldAutoFocus?: boolean;
@@ -33,16 +34,15 @@ interface TextSearchBarPropType {
 export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
   const [invalid, setInvalid] = useState(false);
   const [value, setValue] = useState<string>("");
-  const inputRef = createRef<HTMLInputElement>();
   useEffect(() => {
     setValue(props.initialValue);
+    setInvalid(false);
   }, [props.initialValue]);
   return (
     <div className="input-query">
       <InputGroup>
         <Input
           id={props.inputId}
-          innerRef={inputRef}
           invalid={invalid}
           placeholder={props.placeholder}
           value={value}
@@ -50,7 +50,7 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
             setValue(e.target.value);
             setInvalid(false);
           }}
-          onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           className="pac-target-input"
           autoFocus={props.shouldAutoFocus}
         />
@@ -62,15 +62,14 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
   );
 
   function handleSearch(): void {
-    // TODO(beets): Undo the reliance on 'value' state and use the input's directly.
-    const inputVal = value || inputRef.current.value;
-    if (inputVal) {
-      props.onSearch(inputVal);
-      if (props.clearValueOnSearch) {
-        setValue("");
-      }
-    } else {
+    if (!props.allowEmptySearch && !value) {
       setInvalid(true);
+      return;
+    }
+
+    props.onSearch(value);
+    if (props.clearValueOnSearch) {
+      setValue("");
     }
   }
 }

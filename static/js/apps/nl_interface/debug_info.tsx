@@ -25,6 +25,7 @@ import { Col, Row } from "reactstrap";
 import {
   DebugInfo,
   MultiSVCandidate,
+  SearchResult,
   SVScores,
 } from "../../types/app/nl_interface_types";
 
@@ -117,8 +118,8 @@ const multiVarPartsElement = (c: MultiSVCandidate): JSX.Element => {
 };
 
 const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
-  const monovar_scores = Object.values(svScores.CosineScore);
-  const max_monovar_score = monovar_scores.length > 0 ? monovar_scores[0] : 0;
+  const monovarScores = Object.values(svScores.CosineScore);
+  const maxMonovarScore = monovarScores.length > 0 ? monovarScores[0] : 0;
   const candidates = svScores.MultiSV.Candidates;
   return (
     <div id="multi-sv-scores-list">
@@ -131,7 +132,8 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
           </tr>
         </thead>
         <tbody>
-          {candidates.length > 0 &&
+          {candidates &&
+            candidates.length > 0 &&
             candidates.map((c, i) => {
               return (
                 <tr key={i}>
@@ -140,7 +142,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
                   </td>
                   <td>
                     {c.AggCosineScore}{" "}
-                    {c.AggCosineScore > max_monovar_score
+                    {c.AggCosineScore > maxMonovarScore
                       ? " (> best single var)"
                       : ""}
                   </td>
@@ -156,7 +158,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
 
 export interface DebugInfoProps {
   debugData: any; // from the server response
-  pageConfig: any;
+  chartsData: SearchResult;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -169,6 +171,8 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const debugInfo = {
     status: props.debugData["status"],
     originalQuery: props.debugData["original_query"],
+    detectionType: props.debugData["detection_type"],
+    placeDetectionType: props.debugData["place_detection_type"],
     placesDetected: props.debugData["places_detected"],
     placesResolved: props.debugData["places_resolved"],
     mainPlaceDCID: props.debugData["main_place_dcid"],
@@ -211,6 +215,13 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <b>Execution Status: </b> {debugInfo.status}
+          </Row>
+          <Row>
+            <b>Detection Type: </b> {debugInfo.detectionType}
+          </Row>
+          <Row>
+            <b>Place Detection Type: </b>{" "}
+            {debugInfo.placeDetectionType.toUpperCase()}
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}
@@ -313,8 +324,32 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>Query Fulfillment:</b>
           </Row>
+          {props.chartsData && (
+            <Row>
+              <Col>
+                Place Query Source: {props.chartsData.placeSource}
+                {props.chartsData.pastSourceContext
+                  ? "(" + props.chartsData.pastSourceContext + ")"
+                  : ""}
+              </Col>
+            </Row>
+          )}
+          {props.chartsData && (
+            <Row>
+              <Col>Variable Query Source: {props.chartsData.svSource}</Col>
+            </Row>
+          )}
+          {props.chartsData && props.chartsData.placeFallback && (
+            <Row>
+              <Col>
+                Place Fallback: &quot;{props.chartsData.placeFallback.origStr}
+                &quot; to &quot;{props.chartsData.placeFallback.newStr}&quot;
+              </Col>
+            </Row>
+          )}
           <Row>
             <Col>
+              <b>Counters:</b>
               <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
             </Col>
           </Row>
@@ -323,7 +358,13 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <Col>
-              <pre>{JSON.stringify(props.pageConfig, null, 2)}</pre>
+              <pre>
+                {JSON.stringify(
+                  props.chartsData ? props.chartsData.config : null,
+                  null,
+                  2
+                )}
+              </pre>
             </Col>
           </Row>
         </div>

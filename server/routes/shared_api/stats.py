@@ -19,8 +19,9 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
+from server.lib import shared
 import server.services.datacommons as dc
 
 # TODO(shifucun): add unittest for this module
@@ -73,20 +74,30 @@ def stat_var_property():
         pvs[pred] = objId if objId else objVal
 
     result[dcid] = {
-        'mprop': mprop,
-        'pt': pt,
-        'md': md,
-        'st': st,
-        'mq': mq,
-        'pvs': pvs,
-        'title': name,
-        'ranked': dcid in ranked_statvars
+        'mprop':
+            mprop,
+        'pt':
+            pt,
+        'md':
+            md,
+        'st':
+            st,
+        'mq':
+            mq,
+        'pvs':
+            pvs,
+        'title':
+            name,
+        'ranked':
+            dcid in ranked_statvars,
+        'pcAllowed':
+            shared.is_percapita_relevant(dcid, current_app.config['NOPC_VARS'])
     }
   return result
 
 
 @bp.route('/stat-var-search')
-@cache.cached(timeout=3600 * 24, query_string=True)
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   query = request.args.get("query")

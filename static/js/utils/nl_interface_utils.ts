@@ -19,14 +19,56 @@
  */
 
 const FEEDBACK_LINK =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfqndIayVhN1bN5oeZT0Te-MhhBMBR1hn97Lgr77QTOpga8Iw/viewform?usp=pp_url";
+  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
 // Param prefixes found when following the instructions here to get a prefilled
 // link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
-const QUERY_PARAM_PREFIX = "&entry.1322830239=";
-const SOURCE_PARAM_PREFIX = "&entry.1070482700=";
-const VERSION_PARAM_PREFIX = "&entry.1420739572=";
-const QUERY_CHAIN_PARAM_PREFIX = "&entry.1836374054=";
-const DEBUG_INFO_PARAM_PREFIX = "&entry.1280679042=";
+const QUERY_PARAM_PREFIX = "&entry.1606762999=";
+const SOURCE_PARAM_PREFIX = "&entry.1274521740=";
+const VERSION_PARAM_PREFIX = "&entry.137463700=";
+const QUERY_CHAIN_PARAM_PREFIX = "&entry.2133108642=";
+const DEBUG_INFO_PARAM_PREFIX = "&entry.1116448950=";
+
+export const CHART_FEEDBACK_SENTIMENT = {
+  // The chart is relevant for the query
+  THUMBS_UP: "THUMBS_UP",
+  // The chart is not relevant for the query
+  THUMBS_DOWN: "THUMBS_DOWN",
+  // Somewhat relevant but not quite right (eg wrong place type)
+  WARNING: "WARNING",
+  // Chart should be promoted up
+  PROMOTE: "PROMOTE",
+  // Chart should be demoted
+  DEMOTE: "DEMOTE",
+  // This is an embarrassing result
+  FACE_PALM: "FACE_PALM",
+};
+
+interface ChartId {
+  queryIdx: number;
+  categoryIdx: number;
+  blockIdx: number;
+  columnIdx: number;
+  tileIdx: number;
+}
+
+// Given the dom ID of a chart, extract its relevant indexes in
+// the query session and SubjectPageConfig proto.
+// TODO: Add an integration test to make sure the ID format doesn't change.
+export function getNlChartId(idStr: string): ChartId {
+  // Format: pg0_cat_1_blk_2_col_3_tile_4
+  let numbers: number[] = idStr.match(/\d+/g)?.map(Number);
+  if (numbers.length !== 5) {
+    numbers = [-1, -1, -1, -1, -1];
+  }
+  const chartId: ChartId = {
+    queryIdx: numbers[0],
+    categoryIdx: numbers[1],
+    blockIdx: numbers[2],
+    columnIdx: numbers[3],
+    tileIdx: numbers[4],
+  };
+  return chartId;
+}
 
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
@@ -72,8 +114,8 @@ export function getFeedbackLink(query: string, debugData: any): string {
         ? debugData["counters"]["processed_fulfillment_types"]
         : [],
     };
-    if (Array.isArray(debugData["data_spec"])) {
-      queryChain = debugData["data_spec"].map(
+    if (Array.isArray(debugData["context"])) {
+      queryChain = debugData["context"].map(
         (utterance) => utterance["query"] || ""
       );
     }

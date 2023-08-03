@@ -91,11 +91,11 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
   }
 
   private mouseMoveAction = (e) => {
-    const left = e.pageX;
-    const containerY = (
+    const containerClientRect = (
       d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
-    ).getBoundingClientRect().y;
-    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
+    ).getBoundingClientRect();
+    const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
+    const left = e.pageX - containerClientRect.x;
     const tooltipHtml = `<b>${this.props.title}</b></br><span>dcid: ${this.props.nodeDcid}</span>`;
     showTooltip(tooltipHtml, { left, top });
   };

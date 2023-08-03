@@ -34,3 +34,7 @@ class LocalConfig(Config, local.Config):
   #    `printf "<API_KEY>" | gcloud secrets create mixer-api-key --data-file=-`
   # 3. Update SECRET_PROJECT to be the custom GCP project id.
   SECRET_PROJECT = 'techsoup-data-commons'
+
+
+class ComposeConfig(Config, local.Config):
+  pass

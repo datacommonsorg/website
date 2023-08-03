@@ -54,7 +54,7 @@ done
 cd $ROOT
 
 # Deploy in primary region
-PRIMARY_REGION=$(yq eval '.region.primary' deploy/gke/autopush.yaml)
+PRIMARY_REGION=$(yq eval '.region.primary' deploy/gke/"$ENV".yaml)
 $ROOT/scripts/deploy_gke_helm.sh -e $ENV -l $PRIMARY_REGION
 
 # Deploy in other regions

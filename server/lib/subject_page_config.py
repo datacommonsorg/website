@@ -56,6 +56,7 @@ PLACE_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.TYPE_NONE,
     subject_page_pb2.Tile.TileType.HIGHLIGHT,
     subject_page_pb2.Tile.TileType.LINE,
+    subject_page_pb2.Tile.TileType.GAUGE,
 ]
 CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.MAP,
@@ -64,7 +65,8 @@ CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.BAR,
     subject_page_pb2.Tile.TileType.RANKING,
 ]
-
+# Map of Tile type to the minimum number of stat var keys the tile should have.
+TILE_MIN_SV_KEYS = {subject_page_pb2.Tile.TileType.SCATTER: 2}
 # Placeholder allowed in config that should be interpreted as the main place dcid.
 SELF_PLACE_DCID_PLACEHOLDER = "self"
 
@@ -173,8 +175,10 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
     return page_config
 
   # TODO: find child places only if there are maps, etc.
-  sample_child_places = [] if contained_place_type == None else nl_utils.get_sample_child_places(
-      place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
+  sample_child_places = []
+  if contained_place_type:
+    sample_child_places = nl_utils.get_sample_child_places(
+        place_dcid, contained_place_type, ctr)[::SAMPLE_PLACE_STEP]
   bar_comparison_places = _bar_comparison_places(page_config, place_dcid)
   all_places = sample_child_places + bar_comparison_places + [place_dcid]
   stat_vars_existence = fetch.observation_existence(all_stat_vars, all_places)
@@ -197,10 +201,13 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
             if not t.comparison_places:
               filtered_keys = [k for k in t.stat_var_key if child_exist_keys[k]]
             else:
-              # Should be the comparison places.
-              comparison_exist_keys = _exist_keys_category(
-                  t.comparison_places, category, stat_vars_existence,
-                  place_dcid)
+              # Check data existence only on current place, since SDG data is
+              # sparse. Reglying data exist in countries will result in very
+              # few stat vars (even 0) in some category.
+              comparison_exist_keys = _exist_keys_category([place_dcid],
+                                                           category,
+                                                           stat_vars_existence,
+                                                           place_dcid)
               filtered_keys = [
                   k for k in t.stat_var_key if comparison_exist_keys[k]
               ]
@@ -215,7 +222,7 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
           else:
             new_tiles.append(t)
             continue
-          if len(filtered_keys):
+          if len(filtered_keys) >= TILE_MIN_SV_KEYS.get(t.type, 1):
             del t.stat_var_key[:]
             t.stat_var_key.extend(filtered_keys)
             new_tiles.append(t)
@@ -237,14 +244,20 @@ def remove_empty_charts(page_config, place_dcid, contained_place_type=None):
   return page_config
 
 
-def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
+def place_metadata(place_dcid,
+                   get_child_places=True,
+                   arg_place_type=None,
+                   arg_place_name=None) -> PlaceMetadata:
   """
   Returns place metadata needed to render a subject page config for a given dcid.
   """
   place_types = [DEFAULT_PLACE_TYPE]
   parent_places = []
   if place_dcid != DEFAULT_PLACE_DCID:
-    place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
+    if arg_place_type:
+      place_types = [arg_place_type]
+    else:
+      place_types = fetch.property_values([place_dcid], 'typeOf')[place_dcid]
     if not place_types:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     wanted_place_types = [
@@ -254,10 +267,18 @@ def place_metadata(place_dcid, get_child_places=True) -> PlaceMetadata:
       return PlaceMetadata(place_dcid=escape(place_dcid), is_error=True)
     place_types = wanted_place_types
 
-    parent_places = place_api.parent_places(place_dcid).get(place_dcid, [])
+    for place in place_api.parent_places([place_dcid]).get(place_dcid, []):
+      parent_places.append({
+          'dcid': place.get('dcid', ''),
+          'name': place.get('name', ''),
+          'types': [place.get('type', '')]
+      })
 
-  place_name = place_api.get_i18n_name([place_dcid
-                                       ]).get(place_dcid, escape(place_dcid))
+  if arg_place_name:
+    place_name = arg_place_name
+  else:
+    place_name = place_api.get_i18n_name([place_dcid
+                                         ]).get(place_dcid, escape(place_dcid))
 
   # If this is a European place, update the contained_place_types in the page
   # metadata to use a custom dict instead.

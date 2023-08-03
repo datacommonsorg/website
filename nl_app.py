@@ -13,6 +13,8 @@
 # limitations under the License.
 """Main entry module for NL app."""
 
+import sys
+
 import logging
 
 from nl_server.__init__ import create_app
@@ -30,4 +32,10 @@ if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,
   # a webserver process such as Gunicorn will serve the app.
   logging.info("Run nl server in local mode")
-  app.run(host='127.0.0.1', port=6060, debug=True)
+
+  if len(sys.argv) == 3 and sys.argv[2] == 'opt':
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
+    app.run(host='127.0.0.1', port=int(sys.argv[1]))
+  else:
+    app.run(host='127.0.0.1', port=int(sys.argv[1]), debug=True)

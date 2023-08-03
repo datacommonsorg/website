@@ -8,14 +8,45 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_Obesity_multiple_place_bar_block"
+                      "Percent_Person_Obesity"
                     ],
-                    "title": "Percentage of Population That Is Obese in United States (${date})",
-                    "type": "BAR"
+                    "title": "Prevalence of Obesity in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood"
+                    ],
+                    "title": "Physical Health Issues in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Obesity",
+                      "Percent_Person_BingeDrinking",
+                      "Percent_Person_PhysicalInactivity",
+                      "Percent_Person_SleepLessThan7Hours",
+                      "Percent_Person_Smoking"
+                    ],
+                    "title": "Prevalence of Obesity compared with other variables in California",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -27,49 +58,12 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "country/USA"
+                      "geoId/06"
                     ],
                     "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
-                    ],
-                    "title": "Physical Health Issues in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_BingeDrinking_multiple_place_bar_block",
-                      "Percent_Person_Obesity_multiple_place_bar_block",
-                      "Percent_Person_PhysicalInactivity_multiple_place_bar_block",
-                      "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block",
-                      "Percent_Person_Smoking_multiple_place_bar_block"
-                    ],
-                    "title": "Percentage of Population That Is Obese compared with other variables in United States (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
+                      "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
@@ -80,10 +74,9 @@
                       "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Physical Health Issues compared with other variables in United States (${date})",
+                    "title": "Physical Health Issues compared with other variables in California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -92,28 +85,38 @@
           }
         ],
         "statVarSpec": {
-          "Percent_Person_BingeDrinking_multiple_place_bar_block": {
-            "name": "Percentage of Population Who Binge Drink",
+          "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithDepression",
+            "unit": "%"
+          },
+          "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block": {
+            "name": "Percentage of Population With Poor General Health",
+            "statVar": "Percent_Person_18OrMoreYears_WithPoorGeneralHealth",
+            "unit": "%"
+          },
+          "Percent_Person_BingeDrinking": {
+            "name": "Prevalence of Binge Drinking",
             "statVar": "Percent_Person_BingeDrinking",
             "unit": "%"
           },
-          "Percent_Person_Obesity_multiple_place_bar_block": {
-            "name": "Percentage of Population That Is Obese",
+          "Percent_Person_Obesity": {
+            "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           },
-          "Percent_Person_PhysicalInactivity_multiple_place_bar_block": {
-            "name": "Percentage of Population Who Are Physically Inactive",
+          "Percent_Person_PhysicalInactivity": {
+            "name": "Prevalence of Physical Inactivity",
             "statVar": "Percent_Person_PhysicalInactivity",
             "unit": "%"
           },
-          "Percent_Person_SleepLessThan7Hours_multiple_place_bar_block": {
-            "name": "Percentage of Population That Sleeps Less Than 7 Hours Per Night",
+          "Percent_Person_SleepLessThan7Hours": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
           },
-          "Percent_Person_Smoking_multiple_place_bar_block": {
-            "name": "Percentage of Population That Smokes",
+          "Percent_Person_Smoking": {
+            "name": "Prevalence of Smoking",
             "statVar": "Percent_Person_Smoking",
             "unit": "%"
           },
@@ -153,7 +156,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
@@ -165,6 +168,11 @@
           "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block": {
             "name": "Mental Health Issues",
             "statVar": "Percent_Person_WithMentalHealthNotGood",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
             "unit": "%"
           },
           "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
@@ -182,15 +190,24 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/USA"
+        "geoId/06"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "",
   "place": {
-    "dcid": "country/USA",
-    "name": "United States",
-    "place_type": "Country"
-  }
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
 }

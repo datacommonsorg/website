@@ -29,8 +29,10 @@ website:
   flaskEnv: custom
 
 mixer:
+  useBaseBigtable: false
   useBranchBigtable: false
   useCustomBigtable: true
+  remoteMixerDomain: https://api.datacommons.org
 
 ingress:
   enabled: true

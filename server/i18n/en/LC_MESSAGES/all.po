@@ -1,7 +1,7 @@
 #. The label for a link to project homepage.
 #, python-format
-msgid "%(project)s is a Google supported project"
-msgstr "%(project)s is a Google supported project"
+msgid "%(project)s is a Google project"
+msgstr "%(project)s is a Google project"
 
 #. The label for a link to our API documentation.
 msgid "APIs"

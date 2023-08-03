@@ -18,8 +18,8 @@ jest.mock("axios");
 jest.mock("../../chart/draw");
 
 import { waitFor } from "@testing-library/react";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { mount, ReactWrapper } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
 
@@ -32,7 +32,7 @@ const globalAny: any = global;
 
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
-  window.infoConfig = [];
+  window.infoConfig = {};
 });
 
 async function waitForComponentUpdates(wrapper: ReactWrapper) {
@@ -171,18 +171,18 @@ test("chart options", async () => {
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
   // Set per capita to true
-  wrapper.find("#count-ratio").at(0).simulate("change");
+  wrapper.find("#count-none-ratio").at(0).simulate("change");
   await waitForComponentUpdates(wrapper);
   // Check that url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
   // Hack to trigger hashchange event to fire
   window.dispatchEvent(
     new HashChangeEvent("hashchange", {
       newURL:
-        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D",
+        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
       oldURL: "#&place=geoId/05&statsVar=Count_Person",
     })
   );
@@ -206,6 +206,6 @@ test("chart options", async () => {
   // Check that the url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
 });

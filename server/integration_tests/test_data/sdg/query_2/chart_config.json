@@ -8,11 +8,35 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/TJK",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Gambia",
+                    "title": "Tajikistan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLB",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Solomon Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NPL",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Nepal",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GUY",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Guyana",
                     "type": "LINE"
                   },
                   {
@@ -53,6 +77,22 @@
                       "sdg/SI_POV_DAY1"
                     ],
                     "title": "Congo [DRC]",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GMB",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CHN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "China",
                     "type": "LINE"
                   },
                   {
@@ -104,67 +144,27 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/TCD",
+                    "placeDcidOverride": "country/MMR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Chad",
+                    "title": "Myanmar [Burma]",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/NAM",
+                    "placeDcidOverride": "country/PAK",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Namibia",
+                    "title": "Pakistan",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/IDN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Ghana",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SLE",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Sierra Leone",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/CMR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Cameroon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MRT",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Mauritania",
+                    "title": "Indonesia",
                     "type": "LINE"
                   }
                 ]
@@ -177,11 +177,123 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/MMR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Myanmar [Burma]",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/SYC",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
                     "title": "Seychelles",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/AZE",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Azerbaijan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GUY",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Guyana",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SRB",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Serbia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SYR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Syria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MKD",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Macedonia [FYROM]",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BGR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Bulgaria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SLB",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Solomon Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/KIR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Kiribati",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BIH",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Bosnia and Herzegovina",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BTN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Bhutan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/POL",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Poland",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CYP",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Cyprus",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/HRV",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Croatia",
                     "type": "LINE"
                   },
                   {
@@ -193,147 +305,35 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/CPV",
+                    "placeDcidOverride": "country/MDV",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Cape Verde",
+                    "title": "Maldives",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/LBR",
+                    "placeDcidOverride": "country/ROU",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Liberia",
+                    "title": "Romania",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/LTU",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Gambia",
+                    "title": "Lithuania",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/COG",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Congo [Republic]",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NAM",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Namibia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GAB",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Gabon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TGO",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Togo",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Benin",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/DZA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Algeria",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SDN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MLI",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Mali",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TUN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Tunisia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MRT",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Mauritania",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TCD",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Chad",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/MAR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Morocco",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/COD",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1"
-                    ],
-                    "title": "Congo [DRC]",
+                    "title": "Nepal",
                     "type": "LINE"
                   }
                 ]
@@ -362,11 +362,19 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/BFA",
+                    "placeDcidOverride": "country/SLB",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Burkina Faso",
+                    "title": "Solomon Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/POL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Poland",
                     "type": "LINE"
                   },
                   {
@@ -378,6 +386,78 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/PRK",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "North Korea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MHL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Marshall Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/UKR",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Ukraine",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/VEN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Venezuela",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COD",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Congo [DRC]",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SXM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Sint Maarten",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/JAM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Jamaica",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NIU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Niue",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/MYT",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
@@ -386,35 +466,43 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/CIV",
+                    "placeDcidOverride": "country/NRU",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "C\u00f4te d'Ivoire",
+                    "title": "Nauru",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/REU",
+                    "placeDcidOverride": "country/FSM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "R\u00e9union",
+                    "title": "Federated States of Micronesia",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SHN",
+                    "placeDcidOverride": "country/CYM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Saint Helena",
+                    "title": "Cayman Islands",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SSD",
+                    "placeDcidOverride": "country/BGR",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "South Sudan",
+                    "title": "Bulgaria",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BIH",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Bosnia and Herzegovina",
                     "type": "LINE"
                   }
                 ]
@@ -435,11 +523,11 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/BFA",
+                    "placeDcidOverride": "country/SLB",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Burkina Faso",
+                    "title": "Solomon Islands",
                     "type": "LINE"
                   },
                   {
@@ -459,6 +547,86 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/BFA",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Burkina Faso",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/POL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Poland",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COD",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Congo [DRC]",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/PRK",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "North Korea",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MHL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Marshall Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/VEN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Venezuela",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/UKR",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Ukraine",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SXM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Sint Maarten",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/JAM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Jamaica",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NIU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Niue",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/MYT",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
@@ -467,35 +635,43 @@
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/CIV",
+                    "placeDcidOverride": "country/FSM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "C\u00f4te d'Ivoire",
+                    "title": "Federated States of Micronesia",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/REU",
+                    "placeDcidOverride": "country/NRU",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "R\u00e9union",
+                    "title": "Nauru",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SHN",
+                    "placeDcidOverride": "country/CYM",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Saint Helena",
+                    "title": "Cayman Islands",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SSD",
+                    "placeDcidOverride": "country/BIH",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "South Sudan",
+                    "title": "Bosnia and Herzegovina",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/IRL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Ireland",
                     "type": "LINE"
                   }
                 ]
@@ -508,11 +684,27 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/ASM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "American Samoa",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/ZWE",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Zimbabwe",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/VUT",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Vanuatu",
                     "type": "LINE"
                   },
                   {
@@ -532,11 +724,123 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/MHL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Marshall Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GEO",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NIU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Niue",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/HRV",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Croatia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SVK",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Slovakia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LCA",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Saint Lucia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/JOR",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Jordan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/WLF",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Wallis and Futuna",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/IRL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Ireland",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CAN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Canada",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/PYF",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "French Polynesia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SVN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Slovenia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CYM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Cayman Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/EST",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Estonia",
                     "type": "LINE"
                   }
                 ]
@@ -549,19 +853,19 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/COD",
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Congo [DRC]",
-                    "type": "LINE"
-                  },
-                  {
                     "placeDcidOverride": "country/CAF",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Central African Republic",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/COD",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Congo [DRC]",
                     "type": "LINE"
                   },
                   {
@@ -573,11 +877,139 @@
                     "type": "LINE"
                   },
                   {
+                    "placeDcidOverride": "country/ASM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "American Samoa",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/VUT",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Vanuatu",
+                    "type": "LINE"
+                  },
+                  {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Gambia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/MHL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Marshall Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/GEO",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Georgia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NIU",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Niue",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/HRV",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Croatia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SVK",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Slovakia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/LCA",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Saint Lucia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/JOR",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Jordan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/IRL",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Ireland",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/WLF",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Wallis and Futuna",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CAN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Canada",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/PYF",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "French Polynesia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CYM",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Cayman Islands",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/SVN",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Slovenia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/EST",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Estonia",
                     "type": "LINE"
                   }
                 ]
@@ -590,163 +1022,163 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Gambia",
+                    "title": "Myanmar [Burma]",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/BFA",
+                    "placeDcidOverride": "country/KHM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Burkina Faso",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TZA",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Tanzania",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SLE",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Sierra Leone",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/RWA",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Rwanda",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Uganda",
+                    "title": "Cambodia",
                     "type": "LINE"
                   },
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
                     "title": "Mali",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/LSO",
+                    "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Lesotho",
+                    "title": "Gambia",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/TCD",
+                    "placeDcidOverride": "country/UZB",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Chad",
+                    "title": "Uzbekistan",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/COD",
+                    "placeDcidOverride": "country/BFA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Congo [DRC]",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Nigeria",
+                    "title": "Burkina Faso",
                     "type": "LINE"
                   },
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/TZA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Ghana",
+                    "title": "Tanzania",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/MOZ",
+                    "placeDcidOverride": "country/NPL",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Mozambique",
+                    "title": "Nepal",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SWZ",
+                    "placeDcidOverride": "country/GIN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Eswatini",
+                    "title": "Guinea",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/NAM",
+                    "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Namibia",
+                    "title": "Sierra Leone",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SDN",
+                    "placeDcidOverride": "country/TJK",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Sudan",
+                    "title": "Tajikistan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/NER",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Niger",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/BEN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Benin",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/CHN",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "China",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Ethiopia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/IND",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "India",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/VNM",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Vietnam",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/TCD",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Chad",
                     "type": "LINE"
                   }
                 ]
@@ -759,163 +1191,163 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/CPV",
+                    "placeDcidOverride": "country/CHN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Cape Verde",
+                    "title": "China",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/TUN",
+                    "placeDcidOverride": "country/MNG",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Tunisia",
+                    "title": "Mongolia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/KGZ",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Kyrgyzstan",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/RUS",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Russia",
+                    "type": "LINE"
+                  },
+                  {
+                    "placeDcidOverride": "country/KAZ",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Kazakhstan",
                     "type": "LINE"
                   },
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/DZA",
+                    "placeDcidOverride": "country/MMR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Algeria",
+                    "title": "Myanmar [Burma]",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/TKM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Gambia",
+                    "title": "Turkmenistan",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/MRT",
+                    "placeDcidOverride": "country/MDV",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Mauritania",
+                    "title": "Maldives",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GHA",
+                    "placeDcidOverride": "country/BLR",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Ghana",
+                    "title": "Belarus",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GAB",
+                    "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Gabon",
+                    "title": "Tunisia",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/MUS",
+                    "placeDcidOverride": "country/ARM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Mauritius",
+                    "title": "Armenia",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/ETH",
+                    "placeDcidOverride": "country/VNM",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Ethiopia",
+                    "title": "Vietnam",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/TJK",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Guinea",
+                    "title": "Tajikistan",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/LSO",
+                    "placeDcidOverride": "country/MDA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Lesotho",
+                    "title": "Moldova",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/NAM",
+                    "placeDcidOverride": "country/BTN",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Namibia",
+                    "title": "Bhutan",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/BFA",
+                    "placeDcidOverride": "country/THA",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Burkina Faso",
+                    "title": "Thailand",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/ZAF",
+                    "placeDcidOverride": "country/MKD",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "South Africa",
+                    "title": "Macedonia [FYROM]",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/SDN",
+                    "placeDcidOverride": "country/PRY",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Sudan",
+                    "title": "Paraguay",
                     "type": "LINE"
                   },
                   {
-                    "placeDcidOverride": "country/BWA",
+                    "placeDcidOverride": "country/SLV",
                     "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/UGA",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Uganda",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1_15GEQ"
-                    ],
-                    "title": "Eswatini",
+                    "title": "El Salvador",
                     "type": "LINE"
                   }
                 ]
@@ -929,9 +1361,9 @@
             "name": "Population living below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_EMP1_15GEQ": {
+          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
             "name": "Employed population below international poverty line",
-            "statVar": "sdg/SI_POV_EMP1_15GEQ"
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Access to basic drinking water services",
@@ -946,15 +1378,19 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/GMB"
+        "country/TJK"
       ]
     }
   },
   "context": {},
   "debug": {},
+  "pastSourceContext": "Earth",
   "place": {
-    "dcid": "country/GMB",
-    "name": "Gambia",
+    "dcid": "country/TJK",
+    "name": "Tajikistan",
     "place_type": "Country"
-  }
+  },
+  "placeFallback": {},
+  "placeSource": "DEFAULT",
+  "svSource": "PAST_QUERY"
 }

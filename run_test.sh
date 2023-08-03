@@ -19,9 +19,14 @@ set -e
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
+  pip3 install -r server/requirements.txt
+}
+
+function setup_python_nl {
+  python3 -m venv .env
+  source .env/bin/activate
   python3 -m pip install --upgrade pip setuptools light-the-torch
   ltt install torch --cpuonly
-  pip3 install -r server/requirements.txt
   pip3 install -r nl_server/requirements.txt
 }
 
@@ -82,6 +87,7 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   setup_python
+  setup_python_nl
   export FLASK_ENV=test
   python3 -m pytest server/tests/ -s --ignore=sustainability
 
@@ -112,6 +118,7 @@ function run_py_test {
 function run_webdriver_test {
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   setup_python
+  setup_python_nl
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -119,12 +126,31 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 2 server/webdriver_tests/tests/
+  python3 -m pytest -n 10 --reruns 2 server/webdriver/tests/
+}
+
+# Run test for screenshot test codes.
+function run_screenshot_test {
+  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
+  setup_python
+  setup_python_nl
+  if [ ! -d server/dist  ]
+  then
+    echo "no dist folder, please run ./run_test.sh -b to build js first."
+    exit 1
+  fi
+  export FLASK_ENV=webdriver
+  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export ENABLE_MODEL=true
+  export MIXER_API_KEY=
+  export PALM_API_KEY=
+  python3 -m pytest server/webdriver/screenshot/
 }
 
 # Run integration test for NL interface
 function run_integration_test {
   setup_python
+  setup_python_nl
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
@@ -140,11 +166,13 @@ function run_integration_test {
 
 function update_integration_test_golden {
   setup_python
+  setup_python_nl
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=write
-  python3 -m pytest -vv server/integration_tests/
+  python3 -m pytest -vv server/integration_tests/topic_cache
+  python3 -m pytest -vv -n 3 server/integration_tests/
 }
 
 function run_all_tests {

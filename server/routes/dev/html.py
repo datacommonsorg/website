@@ -16,10 +16,6 @@ import os
 
 import flask
 
-from server.lib.gcs import list_png
-
-SCREENSHOT_BUCKET = 'datcom-browser-screenshot'
-
 # Define blueprint
 bp = flask.Blueprint("dev", __name__, url_prefix='/dev')
 
@@ -29,11 +25,3 @@ def dev():
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return flask.render_template('dev/dev.html')
-
-
-@bp.route('/screenshot/<path:folder>')
-def screenshot(folder):
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-  images = list_png(SCREENSHOT_BUCKET, folder)
-  return flask.render_template('dev/screenshot.html', images=images)

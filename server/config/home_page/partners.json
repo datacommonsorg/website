@@ -1,0 +1,32 @@
+[
+  {
+    "id": "feedingAmerica",
+    "title": "Feeding America",
+    "imgUrl": "/images/partners/feeding-america-old.png",
+    "url": "https://datacommons.feedingamerica.org"
+  },
+  {
+    "id": "iit",
+    "title": "Indian Institute of Technology",
+    "imgUrl": "/images/partners/iit-madras.png",
+    "url": "https://datacommons.iitm.ac.in/"
+  },
+  {
+    "id": "rff",
+    "title": "Resources for the Future",
+    "imgUrl": "/images/partners/rff.png",
+    "url": "https://datacommons.rff.org"
+  },
+  {
+    "id": "stanford",
+    "title": "Stanford University",
+    "imgUrl": "/images/partners/stanford.png",
+    "url": "https://datacommons.stanford.edu"
+  },
+  {
+    "id": "techsoup",
+    "title": "TechSoup",
+    "imgUrl": "/images/partners/techsoup.png",
+    "url": "https://blog.techsoup.org/posts/introducing-data-commons-to-civil-society"
+  }
+]

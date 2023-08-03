@@ -18,10 +18,14 @@
  * Main component for topic pages.
  */
 
-import React from "react";
+import React, { useState } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { SubjectPageSidebar } from "../../components/subject_page/sidebar";
+import {
+  SdgSubjectPageSidebar,
+  SubjectPageSidebar,
+} from "../../components/subject_page/sidebar";
+import { SdgContext } from "../../shared/context";
 import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
@@ -53,16 +57,31 @@ interface AppPropType {
 const PAGE_ID = "topic";
 
 export function App(props: AppPropType): JSX.Element {
+  const [sdgIndex, setSdgIndex] = useState(props.topic === "sdg" ? 0 : null);
+  const value = { sdgIndex, setSdgIndex };
   return (
-    <>
+    <SdgContext.Provider value={value}>
       <div className="row">
-        <div className="col-md-3x col-lg-2 order-last order-lg-0">
-          <SubjectPageSidebar
-            id={PAGE_ID}
-            categories={props.pageConfig.categories}
-          />
+        {props.topic === "sdg" && (
+          <div>
+            <img src="/images/un.jpg" className="col-12" />
+          </div>
+        )}
+        <div className="col-md-3x col-lg-3 order-last order-lg-0">
+          {props.topic === "sdg" && (
+            <SdgSubjectPageSidebar
+              id={PAGE_ID}
+              categories={props.pageConfig.categories}
+            />
+          )}
+          {props.topic !== "sdg" && (
+            <SubjectPageSidebar
+              id={PAGE_ID}
+              categories={props.pageConfig.categories}
+            />
+          )}
         </div>
-        <div className="row col-md-9x col-lg-10">
+        <div className="row col-md-9x col-lg-9">
           <PageSelector
             selectedPlace={props.place}
             morePlaces={props.morePlaces}
@@ -76,6 +95,6 @@ export function App(props: AppPropType): JSX.Element {
           />
         </div>
       </div>
-    </>
+    </SdgContext.Provider>
   );
 }

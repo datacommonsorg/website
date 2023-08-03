@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ from flask import url_for
 from flask_babel import gettext
 from markupsafe import escape
 
-from server.cache import cache
+from server import cache
 from server.lib import fetch
 import server.lib.i18n as i18n
 from server.lib.shared import names
@@ -133,7 +133,7 @@ def get_place_types(place_dcids):
 
 
 @bp.route('/type/<path:place_dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def get_place_type(place_dcid):
   return get_place_types([place_dcid])[place_dcid]
 
@@ -269,7 +269,7 @@ def get_place_variable_count():
 
 
 @bp.route('/child/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def child(dcid):
   """Get top child places for a place."""
   child_places = child_fetch(dcid)
@@ -279,7 +279,7 @@ def child(dcid):
   return Response(json.dumps(child_places), 200, mimetype='application/json')
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 def child_fetch(parent_dcid):
   # Get contained places
   contained_response = fetch.property_values([parent_dcid], 'containedInPlace',
@@ -339,9 +339,10 @@ def child_fetch(parent_dcid):
   return result
 
 
-@bp.route('/parent/<path:dcid>')
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
-def api_parent_places(dcid):
+@bp.route('/parent')
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+def api_parent_places():
+  dcid = request.args.get("dcid")
   result = parent_places([dcid])[dcid]
   return Response(json.dumps(result), 200, mimetype='application/json')
 
@@ -370,7 +371,7 @@ def parent_places(dcids):
   return result
 
 
-@cache.memoize(timeout=3600 * 24)  # Cache for one day.
+@cache.cache.memoize(timeout=cache.TIMEOUT)
 @bp.route('/mapinfo/<path:dcid>')
 def api_mapinfo(dcid):
   """
@@ -436,7 +437,7 @@ def get_ranking_url(containing_dcid,
   return url
 
 
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 @bp.route('/ranking/<path:dcid>')
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
@@ -608,7 +609,7 @@ def descendent():
 
 
 @bp.route('/descendent/name')
-@cache.cached(timeout=3600 * 24, query_string=True)  # Cache for one day.
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 def descendent_names():
   """Gets names of places of a certain type contained in a place.
 
@@ -635,7 +636,7 @@ def placeid2dcid():
   result = {}
   for place_id, dcids in resp.items():
     if dcids:
-      dcid = dcids[0]
+      dcid = dcids[0]['dcid']
       if dcid in PLACE_OVERRIDE:
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid

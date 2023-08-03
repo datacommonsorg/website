@@ -198,7 +198,7 @@ class TestApiSeriesWithin(unittest.TestCase):
         },
     }
 
-    def side_effect(url, data):
+    def side_effect(url, data, _=None):
       if url.endswith('/v2/observation') and data == {
           'select': ['date', 'value', 'variable', 'entity'],
           'entity': {

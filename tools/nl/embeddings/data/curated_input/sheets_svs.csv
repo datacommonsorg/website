@@ -1,25 +1,25 @@
 dcid,Name,Description,Override_Alternatives,Curated_Alternatives
 AmountFarmInventory_WinterWheatForGrain,Amount of Farm Inventory: Winter Wheat for Grain,Amount of Winter Wheat for Grain Grown,,Total Farm Inventory of Winter Wheat for Grain;Total inventory of winter wheat for grain on farms; Total winter wheat grain held by farms; Quantity of winter wheat grain in farm inventory; Amount of winter wheat for grain in farm inventory; Farm inventory of winter wheat for grain;;
-Amount_FarmInventory_BarleyForGrain,Amount of Farm Inventory: Barley for Grain,Amount of Barley Grown,,Amount of Barley Grown;Amount of barley cultivated; Total barley grown; Quantity of barley produced; Amount of barley harvested; Total barley output;
-Amount_FarmInventory_CornForSilageOrGreenchop,Amount of Farm Inventory: Corn for Silage or Greenchop,Amount of Silage Produced,,Amount of Silage produced;Total silage production; Amount of silage made; Quantity of silage produced; Total silage output; Farm silage production;
+Amount_FarmInventory_BarleyForGrain,Amount of Farm Inventory: Barley for Grain,Amount of Barley for Grain Grown,,Amount of Barley Grown;Amount of barley cultivated; Total barley grown; Quantity of barley produced; Amount of barley harvested; Total barley output;
+Amount_FarmInventory_CornForSilageOrGreenchop,Amount of Farm Inventory: Corn for Silage or Greenchop,Amount of Corn for Silage or Greenchop Grown,,Amount of Silage produced;Total silage production; Amount of silage made; Quantity of silage produced; Total silage output; Farm silage production;
 Amount_FarmInventory_Cotton,Amount of Farm Inventory: Cotton,Amount of Cotton Grown,,Amount of Cotton Grown;Total cotton grown; Amount of cotton harvested; Quantity of cotton grown; Total cotton output; Cotton production;
 Amount_FarmInventory_DryEdibleBeans,Amount of Farm Inventory: Dry Edible Beans,Amount of Beans Grown,,Amount of Beans Grown;Total bean production; Quantity of beans grown; Amount of beans harvested; Total beans grown; Bean output;
-Amount_FarmInventory_DurumWheatForGrain,Amount of Farm Inventory: Durum Wheat for Grain,Amount of Durum Wheat Grown,,Amount of Durum Wheat Grown;Total durum wheat production; Quantity of durum wheat grown; Amount of durum wheat harvested; Total durum wheat grown; Durum wheat output;
+Amount_FarmInventory_DurumWheatForGrain,Amount of Farm Inventory: Durum Wheat for Grain,Amount of Durum Wheat for Grain Grown,,Amount of Durum Wheat Grown;Total durum wheat production; Quantity of durum wheat grown; Amount of durum wheat harvested; Total durum wheat grown; Durum wheat output;
 Amount_FarmInventory_Forage,Amount of Farm Inventory: Forage,Amount of Forage Produced,,Amount of Forage produced;Total forage production; Amount of forage made; Quantity of forage produced; Total forage output; Farm forage production;
 Amount_FarmInventory_OatsForGrain,Amount of Farm Inventory: Oats for Grain,Amount of Oats Grown,,Amount of Oats Grown;Total oat production; Quantity of oats grown; Amount of oats harvested; Total oats grown; Oat output;
-Amount_FarmInventory_OtherSpringWheatForGrain,Amount of Farm Inventory: Other Spring Wheat for Grain,Amount of Spring Wheat Grown,,Amount of Spring Wheat Grown;Total spring wheat production; Quantity of spring wheat grown; Amount of spring wheat harvested; Total spring wheat grown; Spring wheat output;
-Amount_FarmInventory_PeanutsForNuts,Amount of Farm Inventory: Peanuts for Nuts,Amount of Peanuts Grown,,Amount of Peanuts Grown;Total peanut production; Quantity of peanuts grown; Amount of peanuts harvested; Total peanuts grown; Peanut output;
+Amount_FarmInventory_OtherSpringWheatForGrain,Amount of Farm Inventory: Other Spring Wheat for Grain,Amount of Other Spring Wheat for Grain Grown,,Amount of Spring Wheat Grown;Total spring wheat production; Quantity of spring wheat grown; Amount of spring wheat harvested; Total spring wheat grown; Spring wheat output;
+Amount_FarmInventory_PeanutsForNuts,Amount of Farm Inventory: Peanuts for Nuts,Amount of Peanuts for Nuts Grown,,Amount of Peanuts Grown;Total peanut production; Quantity of peanuts grown; Amount of peanuts harvested; Total peanuts grown; Peanut output;
 Amount_FarmInventory_PimaCotton,Amount of Farm Inventory: Pima Cotton,Amount of Pima Cotton Grown,,Amount of Pima Cotton Grown;Total Pima cotton production; Quantity of Pima cotton grown; Amount of Pima cotton harvested; Total Pima cotton grown; Pima cotton output;
 Amount_FarmInventory_Rice,Total rice production; Quantity of rice grown;,Amount of Rice Grown,,Amount of Rice Grown;Total rice production; Quantity of rice grown; Amount of rice harvested; Total rice grown; Rice output;;
 Amount_FarmInventory_SorghumForGrain,Amount of Farm Inventory: Sorghum for Grain,Amount of Sorghum Grown,,Amount of Sorghum Grown;Total sorghum production; Quantity of sorghum grown; Amount of sorghum harvested; Total sorghum grown; Sorghum output;
-Amount_FarmInventory_SorghumForSilageOrGreenchop,Amount of Farm Inventory: Sorghum for Silage or Greenchop,Amount of Sorghum for Silage or Greenchop grown,,Total Farm Inventory of Sorghum for Silage or Greenchop;Total inventory of sorghum for silage or greenchop on farms; Total sorghum for silage or greenchop held by farms; Quantity of sorghum for silage or greenchop in farm inventory; Amount of sorghum for silage or greenchop in farm inventory; Farm inventory of sorghum for silage or greenchop;
+Amount_FarmInventory_SorghumForSilageOrGreenchop,Amount of Farm Inventory: Sorghum for Silage or Greenchop,Amount of Sorghum for Silage or Greenchop Grown,,Total Farm Inventory of Sorghum for Silage or Greenchop;Total inventory of sorghum for silage or greenchop on farms; Total sorghum for silage or greenchop held by farms; Quantity of sorghum for silage or greenchop in farm inventory; Amount of sorghum for silage or greenchop in farm inventory; Farm inventory of sorghum for silage or greenchop;
 Amount_FarmInventory_SugarbeetsForSugar,Amount of Farm Inventory: Sugarbeets for Sugar,Amount of Sugarbeets Grown,,Amount of Sugarbeets grown;Amount of sugarbeets grown on farms; Total sugarbeet production; Total amount of sugarbeets grown; Quantity of sugarbeets grown; Amount of sugarbeets harvested;
-Amount_FarmInventory_SunflowerSeed,Amount of Farm Inventory: Sunflower Seed,Amount of Sunflowerseed Grown,,Amount of Sunflowerseed grown;Amount of sunflowerseed grown on farms; Total sunflowerseed production; Total amount of sunflowerseed grown; Quantity of sunflowerseed grown; Amount of sunflowerseed harvested;
+Amount_FarmInventory_SunflowerSeed,Amount of Farm Inventory: Sunflower Seed,Amount of Sunflower Seed Grown,,Amount of Sunflowerseed grown;Amount of sunflowerseed grown on farms; Total sunflowerseed production; Total amount of sunflowerseed grown; Quantity of sunflowerseed grown; Amount of sunflowerseed harvested;
 Amount_FarmInventory_UplandCotton,Amount of Farm Inventory: Upland Cotton,Amount of Upland Cotton Grown,,Total Farm Inventory of Upland Cotton;Total inventory of upland cotton on farms; Total upland cotton held by farms; Quantity of upland cotton in farm inventory; Amount of upland cotton in farm inventory; Farm inventory of upland cotton;
-Amount_FarmInventory_WheatForGrain,Amount of Farm Inventory: Wheat for Grain,Amount of Wheat Grown,,Amount of Wheat Grown;Total wheat grown; Amount of wheat harvested; Quantity of wheat grown; Total wheat production; Wheat output;
-Amout_FarmInventory_CornForGrain,Amount of Farm Inventory: Corn for Grain,Amount of Corn Grown,,Amount of Corn Grown;Total corn grown; Amount of corn harvested; Quantity of corn grown; Total corn production; Corn output;
+Amount_FarmInventory_WheatForGrain,Amount of Farm Inventory: Wheat for Grain,Amount of Wheat for Grain Grown,,Amount of Wheat Grown;Total wheat grown; Amount of wheat harvested; Quantity of wheat grown; Total wheat production; Wheat output;
+Amout_FarmInventory_CornForGrain,Amount of Farm Inventory: Corn for Grain,Amount of Corn for Grain Grown,,Amount of Corn Grown;Total corn grown; Amount of corn harvested; Quantity of corn grown; Total corn production; Corn output;
 Count_CriminalActivities_AggravatedAssault,Count of Criminal Activities: Aggravated Assault,Number of Aggravated Assault Cases,,Number of crimes counted as Aggravated Assault;Number of aggravated assault crimes; Total number of aggravated assault cases; Number of aggravated assault incidents; Total number of aggravated assault offenses; Number of aggravated assault charges;
-Count_CriminalActivities_Arson,Count of Criminal Activities: Arson,Number of Arson Crimes,,Number of crimes counted as Arson;Number of arson crimes; Total number of arson cases; Number of arson incidents; Total number of arson offenses; Number of arson charges;
+Count_CriminalActivities_Arson,Count of Criminal Activities: Arson,Number of Arson Cases,,Number of crimes counted as Arson;Number of arson crimes; Total number of arson cases; Number of arson incidents; Total number of arson offenses; Number of arson charges;
 Count_CriminalActivities_Burglary,Count of Criminal Activities: Burglary,Number of Burglaries,,Number of crimes counted as Burglary;Number of burglary crimes; Total number of burglary cases; Number of burglary incidents; Total number of burglary offenses; Number of burglary charges;
 Count_CriminalActivities_ForcibleRape,Count of Criminal Activities: Forcible Rape,Number of Forcible Rapes,,Number of crimes counted as Forcible Rape;Number of forcible rape crimes; Total number of forcible rape cases; Number of forcible rape incidents; Total number of forcible rape offenses; Number of forcible rape charges;
 Count_CriminalActivities_LarcenyTheft,Count of Criminal Activities: Larceny Theft,Number of Larceny Theft Cases,,Number of crimes counted as Larceny Theft;Number of larceny theft crimes; Total number of larceny theft cases; Number of larceny theft incidents; Total number of larceny theft offenses; Number of larceny theft charges;
@@ -123,7 +123,7 @@ Count_Household_WithoutFoodStampsInThePast12Months_NonfamilyHousehold,"Count of 
 Count_Household_WithoutFoodStampsInThePast12Months_OtherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Other Family Household",Number of Other Family Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Other in a family household;
 Count_Household_WithoutFoodStampsInThePast12Months_SingleFatherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Father Family Household",Number of Single Father Family Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Father in a family household;
 Count_Household_WithoutFoodStampsInThePast12Months_SingleMotherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Mother Family Household",Number of Single Mother Family Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Mother in a family household;
-Count_Household_WithoutFoodStampsInThePast12Months_SomeOtherRaceAlone,"Count of Household: Without Food Stamps in The Past 12 Months, Some Other Race Alone",Number of Single Race Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Some Other Race Alone;
+Count_Household_WithoutFoodStampsInThePast12Months_SomeOtherRaceAlone,"Count of Household: Without Food Stamps in The Past 12 Months, Some Other Race Alone",Number of Solely Other Race Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Some Other Race Alone;
 Count_Household_WithoutFoodStampsInThePast12Months_TwoOrMoreRaces,"Count of Household: Without Food Stamps in The Past 12 Months, Two or More Races",Number of Multi Racial Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Two or More Races;
 Count_Household_WithoutFoodStampsInThePast12Months_WhiteAlone,"Count of Household: Without Food Stamps in The Past 12 Months, White Alone",Number of White Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are White Alone;
 Count_Household_WithoutFoodStampsInThePast12Months_WhiteAloneNotHispanicOrLatino,"Count of Household: Without Food Stamps in The Past 12 Months, White Alone Not Hispanic or Latino",Number of Non Hispanic White Households Not Receiving Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are White Alone Not Hispanic or Latino;
@@ -134,21 +134,21 @@ Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18_OtherFami
 Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18_SingleFatherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Father Family Household, With Children Under 18",Number of Single Father Households With Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Father family household with Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18_SingleMotherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Mother Family Household, With Children Under 18",Number of Single Mother Households With Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Mother family household with Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithDisability,"Count of Household: Without Food Stamps in The Past 12 Months, With Disability",Number of Disabled Households With Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are With Disability;
-Count_Household_WithoutFoodStampsInThePast12Months_WithPeopleOver60,"Count of Household: Without Food Stamps in The Past 12 Months, With People Over 60",Number of Households Without People Over 60 Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are With People Over 60;
+Count_Household_WithoutFoodStampsInThePast12Months_WithPeopleOver60,"Count of Household: Without Food Stamps in The Past 12 Months, With People Over 60",Number of Households With People Over 60 Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are With People Over 60;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18,"Count of Household: Without Food Stamps in The Past 12 Months, Without Children Under 18",Number of Households Without Children Who Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Without Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_MarriedCoupleFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Married Couple Family Household, Without Children Under 18",Number of Married Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Married Couple in a family household without Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Nonfamily Household, Without Children Under 18",Number of Nonfamily Households Without Children Which Have Not Received Food Stamps Over the Last Year,,"Number of households not receiving Food Stamps over the last year who are a Nonfamily Household, Without Children;"
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_OtherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Other Family Household, Without Children Under 18",Number of Other Family Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are in an Other family household without Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_SingleFatherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Father Family Household, Without Children Under 18",Number of Single Father Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Father family household without Children;
 Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18_SingleMotherFamilyHousehold,"Count of Household: Without Food Stamps in The Past 12 Months, Single Mother Family Household, Without Children Under 18",Number of Single Mother Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are a Single Mother family household without Children;
-Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60,"Count of Household: Without Food Stamps in The Past 12 Months, Without People Over 60",Number of Disabled Households Without Children Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Without People Over 60;
+Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60,"Count of Household: Without Food Stamps in The Past 12 Months, Without People Over 60",Number of Households Without People Over 60 Which Have Not Received Food Stamps Over the Last Year,,Number of households not receiving Food Stamps over the last year who are Without People Over 60;
 Count_HousingUnit,Count of Housing Unit,Number of Housing Units,,Count of Housing Unit;Total number of housing units in the area; Total number of homes in the area; Total number of houses in the area; Total number of properties in the area; Total number of living spaces in the area;
-Count_Person,Population,Total Number of People in a Population,,Population;Total number of people in the population; Size of the population; Population count; Number of residents; Number of inhabitants;
+Count_Person,Number of People in a Population,Total Number of People in a Population,,Number of People in a Population;Total number of people in the population; Size of the population; Population count; Number of residents; Number of inhabitants;
 Count_Person_AbovePovertyLevelInThePast12Months,Population: Above Poverty Level in The Past 12 Months,Number of People Who Are Above Poverty Level Status in the Past 12 Months,,Number of people who are Above Poverty Level Status in The Past 12 Months;Number of people who haven't been living in poverty in the past year; How many residents were above the poverty line in the last 12 months; People who have been financially stable in the past year; Quantity of individuals who were not living in poverty; The number of people who have been able to meet their basic needs in the past year;
 Count_Person_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone,"Population: Above Poverty Level in The Past 12 Months, American Indian or Alaska Native Alone",Number of Native American People Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are American Indian or Alaska Native Alone;Amount of American Indian or Alaska Native individuals who were not living in poverty in the past year; Number of individuals who were above poverty line in last 12 months and are American Indian or Alaska Native; People who were financially stable and are American Indian or Alaska Native in the past year; The number of American Indian or Alaska Native individuals who have been able to meet their basic needs in the past year; How many American Indian or Alaska Native individuals were not living in poverty in the past year;
 Count_Person_AbovePovertyLevelInThePast12Months_AsianAlone,"Population: Above Poverty Level in The Past 12 Months, Asian Alone",Number of Asians Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Asian Alone;Number of Asian individuals who were not living in poverty in the past year; People who were financially stable and are Asian in the past year; The number of Asian individuals who have been able to meet their basic needs in the past year; Amount of Asian individuals who were above poverty line in last 12 months; How many Asian individuals were not living in poverty in the past year;
 Count_Person_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone,"Population: Above Poverty Level in The Past 12 Months, Black or African American Alone",Number of African Americans Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Black or African American Alone;Number of Black or African American individuals who were not living in poverty in the past year; People who were financially stable and are Black or African American in the past year; The number of Black or African American individuals who have been able to meet their basic needs in the past year; Amount of Black or African American individuals who were above poverty line in last 12 months; How many Black or African American individuals were not living in poverty in the past year;
-Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino,"Population: Above Poverty Level in The Past 12 Months, Hispanic or Latino",Number of Hisapnics Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Hispanic or Latino;Number of Hispanic or Latino individuals who were not living in poverty in the past year; People who were financially stable and are Hispanic or Latino in the past year; The number of Hispanic or Latino individuals who have been able to meet their basic needs in the past year; Amount of Hispanic or Latino individuals who were above poverty line in last 12 months; How many Hispanic or Latino individuals were not living in poverty in the past year.;
+Count_Person_AbovePovertyLevelInThePast12Months_HispanicOrLatino,"Population: Above Poverty Level in The Past 12 Months, Hispanic or Latino",Number of Hispanics Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Hispanic or Latino;Number of Hispanic or Latino individuals who were not living in poverty in the past year; People who were financially stable and are Hispanic or Latino in the past year; The number of Hispanic or Latino individuals who have been able to meet their basic needs in the past year; Amount of Hispanic or Latino individuals who were above poverty line in last 12 months; How many Hispanic or Latino individuals were not living in poverty in the past year.;
 Count_Person_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone,"Population: Above Poverty Level in The Past 12 Months, Native Hawaiian or Other Pacific Islander Alone",Number of People Who Are Above Poverty Level Status in the Last Year Who Are Native Hawaiian or Other Pacific Islander Alone,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Native Hawaiian or Other Pacific Islander Alone;Number of Native Hawaiian or Other Pacific Islander individuals who were not living in poverty in the past year; People who were financially stable and are Native Hawaiian or Other Pacific Islander in the past year; The number of Native Hawaiian or Other Pacific Islander individuals who have been able to meet their basic needs in the past year; Amount of Native Hawaiian or Other Pacific Islander individuals who were above poverty line in last 12 months; How many Native Hawaiian or Other Pacific Islander individuals were not living in poverty in the past year.;
 Count_Person_AbovePovertyLevelInThePast12Months_SomeOtherRaceAlone,"Population: Above Poverty Level in The Past 12 Months, Some Other Race Alone",Number of People Who Are Some Other Race Alone and Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Some Other Race Alone;
 Count_Person_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces,"Population: Above Poverty Level in The Past 12 Months, Two or More Races",Number of Multi Racial People Who Are Above Poverty Level Status in the Past Year,,Number of people who are Above Poverty Level Status in The Past 12 Months and who are Two or More Races;
@@ -327,7 +327,7 @@ Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone,Population: Hisp
 Count_Person_HispanicOrLatino_AsianAlone,Population: Hispanic or Latino & Asian Alone,Number of Hispanic People Who Identify as Asian Alone,,Number of people who are Hispanic or Latino & Asian Alone;
 Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces,Population: Hispanic or Latino & Asian Alone or In Combination With One or More Other Races,Number of Hispanic People Who Identify as Asian Alone or in Combination With Other Races,,Number of people who are Hispanic or Latino & Asian Alone or In Combination With One or More Other Races;
 Count_Person_HispanicOrLatino_AsianOrPacificIslander,Population: Hispanic or Latino & Asian or Pacific Islander,Number of Hispanic People Who Identify as Asian or Pacific Islander,,Number of people who are Hispanic or Latino & Asian or Pacific Islander;
-Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone,Population: Hispanic or Latino & Black or African American Alone,Humber of Hispanic People Who Identify as African American,,Number of people who are Hispanic or Latino & Black or African American Alone;
+Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone,Population: Hispanic or Latino & Black or African American Alone,Humber of People Who Identify as Hispanic or  as African American,,Number of people who are Hispanic or Latino & Black or African American Alone;
 Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces,Population: Hispanic or Latino & Black or African American Alone or In Combination With One or More Other Races,Number of Hispanic People Who Identify as Black or African American Alone or in Combination With One or More Other Races,,Number of people who are Hispanic or Latino & Black or African American Alone or In Combination With One or More Other Races;
 Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces,Population: Hispanic or Latino & Native Hawaiian And Other Pacific Islander Alone or In Combination With One or More Other Races,Number of Hispanic People Who Identify as Native Hawaiian and Other Pacific Islander Alone or in Combination With One or More Other Races,,Number of people who are Hispanic or Latino & Native Hawaiian And Other Pacific Islander Alone or In Combination With One or More Other Races;
 Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone,Population: Hispanic or Latino & Native Hawaiian or Other Pacific Islander Alone,Number of Hispanic People Who Identify as Native Hawaiian or Other Pacific Islander Alone,,Number of people who are Hispanic or Latino & Native Hawaiian or Other Pacific Islander Alone;
@@ -513,7 +513,7 @@ Count_Person_Producer_AsianAlone,"Population: Producer, Asian Alone",Number of A
 Count_Person_Producer_BlackOrAfricanAmericanAlone,"Population: Producer, Black or African American Alone",Number of African American Farmers,,Number of African American farmers;
 Count_Person_Producer_HispanicOrLatino,"Population: Producer, Hispanic or Latino",Number of Hispanic Farmers,,Number of hispanic farmers;
 Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone,"Population: Producer, Native Hawaiian or Other Pacific Islander Alone",Number of Native Hawaiian Farmers,,Number of native hawaiian farmers;
-Count_Person_Producer_TwoOrMoreRaces,"Population: Producer, Two or More Races",Number of Farmers of Mixed Race Farmers,,number of farmers of mixed race farmers;
+Count_Person_Producer_TwoOrMoreRaces,"Population: Producer, Two or More Races",Number of Farmers of Mixed Race,,number of farmers of mixed race farmers;
 Count_Person_Producer_WhiteAlone,"Population: Producer, White Alone",Number of White Farmers,,number of white farmers;
 Count_Person_SelfCareDifficulty,Population: Self Care Difficulty,Number of People With Self Care Difficulty,,Number of people who are with Self Care Difficulty;
 Count_Person_SomeOtherRaceAlone,Population: Some Other Race Alone,Number of People Who Identify as Some Other Race Alone,,Number of people who are Some Other Race Alone;
@@ -601,7 +601,7 @@ Count_Person_WithVAHealthCare,Population: With VAHealth Care,Number of People Wi
 Count_Person_WithVAHealthCareOnly,Population: With VAHealth Care Only,Number of People With Only VA Health Care,,Number of people who are With VAHealth Care Only;
 FertilityRate_Person_Female,Fertility Rate,Fertility Rate,,Fertility Rate;;Birth rate of the population; Fertility of the population; Number of children born per woman; how often do women become mother;
 GrowthRate_Count_Person,Population Growth Rate,Rate of Population Growth,,Population Growth Rate;Rate of population growth; Population increase rate; Population growth rate; Increase in population; Rate of increase in population;
-LifeExpectancy_Person,Life Expectancy,Average Lifespan of a Population,,Life Expectancy; how long do people live;Average lifespan of the population; Mean lifespan of the population; Median lifespan of the population; Typical lifespan of the population; Average life expectancy of the population;
+LifeExpectancy_Person,Life Expectancy of a Population,Average Lifespan of a Population,,Life Expectancy of a population; how long do people live;Average lifespan of the population; Mean lifespan of the population; Median lifespan of the population; Typical lifespan of the population; Average life expectancy of the population;
 LifeExpectancy_Person_Female,"Life expectancy at birth, female (years)",Female Life Expectancy,,Life expectancy of females at birth; life expectancy of women; how long do women live;
 LifeExpectancy_Person_Male,Life Expectancy: Male,Male Life Expectancy,,Life Expectancy of Males at birth; life expectancy of men; how long do men live;
 Mean_Earnings_Person_Female,"Mean Earnings: Female, With Earnings",Average Earnings for Females,,Average income for females With Earnings;
@@ -882,7 +882,7 @@ dc/8p97n7l96lgg8,Population of Person: Transportation And Warehousing (NAICS/48-
 dc/84czmnc1b6sp5,Wages Total of Person: Transportation And Warehousing (NAICS/48-49),Total Wages Paid to Transportation and Warehousing Workers,,total wages of transportation and warehousing workers;Total wages paid to transportation and warehousing workers; How much money workers in the transportation and warehousing make; Earnings of those employed in transportation and warehousing; Income for workers in the transportation and warehousing sector; Wages for employees in the transportation and warehousing field;
 dc/k3hehk50ch012,Population of Person: Truck Transportation (NAICS/484),Number of Truck Transportation Workers,,number of truck transportation workers;
 dc/h77bt8rxcjve3,Wages Total of Person: Truck Transportation (NAICS/484),Total Wages Paid to Truck Transportation Workers,,total wages of truck transportation workers;
-Count_Worker_NAICSNonclassifiable,Population of Person: Unclassified (NAICS/99),Number of Unclassified Workers,,number of unclassified workers;Number of unclassified workers; Individuals employed in unclassified sectors; Workforce size for unclassified industries; People working in unclassified fields; Employment numbers in unclassified industries;
+Count_Worker_NAICSNonclassifiable,Population of Person: Unclassified (NAICS/99),Number of Workers Whose Industry is Non-Classifiable,,number of unclassified workers;Number of unclassified workers; Individuals employed in unclassified sectors; Workforce size for unclassified industries; People working in unclassified fields; Employment numbers in unclassified industries;
 WagesTotal_Worker_NAICSNonclassifiable,Wages Total of Person: Unclassified (NAICS/99),Total Wages Paid to Unclassified Workers,,total wages of unclassified workers;Total wages paid to unclassified workers; How much money workers in unclassified industries make; Earnings of those employed in unclassified industries; Income for workers in unclassified sectors; Wages for employees in unclassified fields;
 dc/x95kmng969n42,Median Income (Real Individual Earnings Before Deductions): Utilities (NAICS/22),Median Income of Utilities Workers,,median income of utilities workers;Median income of utilities workers; Average salary for workers in the utilities field; Income in the middle for the utilities sector; Median pay for utilities industry; Typical earnings for utilities workers;
 Count_Worker_NAICSUtilities,Population of Person: Utilities (NAICS/22),Number of Utilities Workers,,number of utilities workers;Number of utilities workers; Individuals employed in the utilities sector; Workforce size for the utilities industry; People working in the utilities field; Employment numbers in the utilities industry;
@@ -923,7 +923,7 @@ Count_Death,Count of Mortality Event,Number of Deaths,,Number of people dead; Nu
 Count_Death_AsAFractionOfCount_Person,Count of Mortality Event (Per Capita),Number of Deaths Per Capita,,"Death rate; Mortality rate;Number of deaths per person in the population; Mortality rate; Death rate; Number of fatalities per capita; Number of deaths per 100,000 people;"
 Count_Person_EnrolledInSchool,Population: Enrolled in School,Number of People Currently Enrolled in School,,Number of people in school;Number of people currently enrolled in school; Number of students in school; Number of people in education; Number of children in school; Number of people in higher education;
 Count_Person_NotEnrolledInSchool,Population: Not Enrolled in School,Number of People Not Currently Enrolled in School,,Number of people not in school;Number of people not currently enrolled in school; Number of individuals not in school; Number of people not in education; Number of non-students; Number of people not in higher education;
-AirQualityIndex_AirPollutant,Air Quality Index,Air Quality Index,,Air quality index;Air quality index; AQI; Air pollution level; Air pollution measure; Air quality measurement;
+AirQualityIndex_AirPollutant,Air Quality Index Pollutant,Air Quality Index Pollutant,,Air quality index pollutant;Air quality index pollutant; AQI pollutant; Air pollution level; Air pollution measure; Air quality measurement;
 Count_MedicalConditionIncident_COVID_19_PatientInICU,"Count of Medical Condition Incident: COVID-19, Patient in ICU",Number of COVID-19 Patients in the Intensive Care Unit,,Number of covid patients in ICU;Number of COVID-19 patients in the intensive care unit; Number of severe COVID-19 cases; Number of critically ill COVID-19 patients; Number of COVID-19 patients on ventilators; Number of COVID-19 patients in critical condition;
 CumulativeCount_Vaccine_COVID_19_Administered,"Cumulative Count of Vaccine: COVID-19, Vaccine Administered",Total Number of COVID-19 Vaccines Administered,,Total number of covid vaccines administered;Total number of COVID-19 vaccinations given out; Number of people vaccinated against COVID-19; Number of doses administered; Number of COVID-19 shots given; Number of people who have received the COVID-19 vaccine;
 IncrementalCount_Vaccine_COVID_19_Administered,"Incremental Count of Vaccine: COVID-19, Vaccine Administered",Number of COVID-19 Vaccines Administered Daily,,Daily number of covid vaccines administered;Number of COVID-19 vaccinations given out each day; Number of daily COVID-19 vaccinations; Number of doses administered daily; Number of COVID-19 shots given each day; Number of people vaccinated against COVID-19 daily;
@@ -967,7 +967,7 @@ Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFr
 Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,,Percent of Nominal Gross Domestic Production (GDP) Spent on Education,,
 Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government,,Government Expenditure on Military Activities,,
 Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,,Percent of Total Government Expenditure Spent on Military Activities,,
-Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,,Nominal Gross Domestic Production (GDP) Per Capita; GDP per capita;,,
+Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita,,GDP per capita,,Nominal Gross Domestic Production (GDP) Per Capita; GDP per capita;
 Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity,,Gross National Income Based on Purchasing Power Parity,,
 Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita,,Gross National Income Based on Purchasing Power Parity Per Capita,,
 Amount_Remittance_InwardRemittance,,Total Amount of Inward Remittances,,
@@ -1072,7 +1072,6 @@ Amount_EconomicActivity_GrossDomesticProduction_Nominal,,Nominal Gross Domestic 
 dc/topic/Economy,,Economy,,Economic overview; Summary of the economy; State of the economy; Condition of the economy; Status of the economy;
 dc/topic/Agriculture,,Agriculture,,Agriculture; Farming;Farming information; Agriculture data; Agriculture statistics; Data related to agriculture; Information on farming;
 dc/topic/AgriculturalProduction,,Agricultural Output,,Agricultural Production; Agricultural Output; Output from agricultural activities;
-dc/topic/MedicalConditions,Medical Conditions,Medical Conditions,,Health conditions; Medical ailments; Diseases: Medical disorders; Maladies; Bodily afflictions; health issues; Medical infirmities; Health problems;
 dc/topic/HeatIllnesses,Heat Illnesses,Heat Illnesses,,Heat-related health problems; Heat related maladies; Medical conditions caused by heat Heat syncope; Heat related health conditions;
 dc/topic/Jobs,Jobs,Jobs,, Careers; Professions; Work Occupations; Employment Positions; Job Roles; Occupational professions; distribution of jobs; distribution of workers;
 dc/hlxvn1t8b9bhh,Population of Person: Cattle Ranching And Farming,Number of Farmers and Cattle Ranchers,,number of agriculture workers; number of workers in agriculture; number of farmers; number of cattle ranchers; number of farmers and cattle ranchers; farmers; cattle ranchers; people who are farming and cattle ranching; number of agricultural workers; agriculture workers; agricultural workers; workers in agriculture;;
@@ -1087,23 +1086,21 @@ Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female,"Populati
 Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Male,"Population: Bachelors Degree, Male",Number of Males With a Bachelors Degree,,Number of Males With a Bachelors Degree;population of men with bachelors degrees; number of males with bachelors degrees; boys with bachelors degrees;;
 Count_Person_EducationalAttainmentLessThanHighSchoolGraduate,Population: Less Than High School Graduate,Number of People Without a High School Degree,,Number of People Without a High School Degree;population with less than high school graduation; population with education level less than high school; number of people with lower than high school graduation;;
 Count_Person_EducationalAttainmentSomeCollegeOrAssociatesDegree,Population: Some College or Associates Degree,Number of People With a College Degree or Associates Degree,,Number of People With a College Degree or Associates Degree;population with college degrees; population with college or associates degree; number of people with college degrees; number of people with associated degrees; people who have college degrees;;
-Count_Person_15To50Years_EducationalAttainmentSomeCollegeOrAssociatesDegree_Female,"Population: 15 - 50 Years, Some College or Associates Degree, Female",Number of Females With a College Degree or Associates Degree,,Number of Females With a College Degree or Associates Degree;population of women with college degrees; female population with college or associates degree; number of women with college degrees; number of females with associated degrees; females who have college degrees;;
-Percent_TreeCanopy,Percent of Tree Canopy,,,Percent of land with tree canopy;
-dc/topic/SolarPotential,Solar Potential,,,Solar potential;
-dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,,,Climate Extremes;
-dc/topic/ClimateChange,Impact of Climate Change,Global warming,,Climate Change;
-dc/topic/Income,Income,Earnings; Salary; pay; compensation; wealth; what are the wealthy neighborhoods; monetary status,,Income;
+Count_Person_15To50Years_EducationalAttainmentSomeCollegeOrAssociatesDegree_Female,"Population: 15 - 50 Years, Some College or Associates Degree, Female",Number of Females Age 15-50 With a College Degree or Associates Degree,,Number of Females With a College Degree or Associates Degree;population of women with college degrees; female population with college or associates degree; number of women with college degrees; number of females with associated degrees; females who have college degrees;;
+Percent_TreeCanopy,Percent of Tree Canopy,Percent of Tree Canopy,,Percent of land with tree canopy;
+dc/topic/SolarPotential,Solar Potential,Solar Potential,,Solar potential;
+dc/topic/ProjectedClimateExtremes,Projected Climate Extremes,Projected Climate Extremes,,Climate Extremes;
+dc/topic/ClimateChange,Impact of Climate Change,Climate Change impact,,Climate Change; Global Warming
+dc/topic/Income,Income,Income from Earnings,,Earnings; Salary; pay; compensation; wealth; what are the wealthy neighborhoods; monetary status
 dc/topic/WorkCommute,Work Commute,journey to work; travel to work; commute mode,,Work commute;
 MapFacts/Count_park,Number of Parks,count of parks; recreational parks,,Number of parks;
 MapFacts/Count_hiking_area,Number of hiking areas,hiking trails; trekking area,,Number of hiking areas;
 Annual_Emissions_GreenhouseGas,Greenhouse Gas Emissions,emissions from greenhouse gases; ghg emissions,,Greenhouse Gas Emissions;
-dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source,sources of greenhouse gases,,Greenhouse gas emissions by source;
-dc/topic/CarbonDioxideEmissionsBySource,Breakdown of co2 emissions by source,sources of carbon dioxide emissions; source of co2 emissions,,Carbon dioxide emissions by source;
-dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;;
-dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;;
-dc/topic/TransportationEmissionsByGas,Emissions from transportation,,,Amount of gases emitted by the transportation sector;Total quantity of gases released by the transportation sector; The volume of emissions produced by transportation activities; Quantity of greenhouse gases emitted by vehicles and transportation systems; Total amount of gas emissions from the transportation industry; The sum of all gases released by transportation activities;;
-dc/topic/ManufacturingEmissionsByGas,Emissions from manufacturing,,,Amount of gases emitted by the manufacturing sector;Total quantity of gases released by the manufacturing industry; The volume of emissions produced by manufacturing activities; Quantity of greenhouse gases emitted by factories and production processes; Total amount of gas emissions from the manufacturing sector; The sum of all gases released by manufacturing activities;;
-dc/topic/PowerEmissionsByGas,Emissions from power,,,Amount of gases emitted by the power sector;Total quantity of gases released by the power industry; The volume of emissions produced by electricity generation activities; Quantity of greenhouse gases emitted by power plants and energy production processes; Total amount of gas emissions from the power sector; The sum of all gases released by power generation activities;;
+dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,Emissions from agriculture,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;;
+dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,Emissions from fossil fuel operations,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;;
+dc/topic/TransportationEmissionsByGas,Emissions from transportation,Emissions from transportation,,Amount of gases emitted by the transportation sector;Total quantity of gases released by the transportation sector; The volume of emissions produced by transportation activities; Quantity of greenhouse gases emitted by vehicles and transportation systems; Total amount of gas emissions from the transportation industry; The sum of all gases released by transportation activities;;
+dc/topic/ManufacturingEmissionsByGas,Emissions from manufacturing,Emissions from manufacturing,,Amount of gases emitted by the manufacturing sector;Total quantity of gases released by the manufacturing industry; The volume of emissions produced by manufacturing activities; Quantity of greenhouse gases emitted by factories and production processes; Total amount of gas emissions from the manufacturing sector; The sum of all gases released by manufacturing activities;;
+dc/topic/PowerEmissionsByGas,Emissions from power,Emissions from power,,Amount of gases emitted by the power sector;Total quantity of gases released by the power industry; The volume of emissions produced by electricity generation activities; Quantity of greenhouse gases emitted by power plants and energy production processes; Total amount of gas emissions from the power sector; The sum of all gases released by power generation activities;;
 Percent_Student_AsAFractionOf_Count_Teacher ,,Teacher to Student Ratio,,
 Count_Teacher,,Teachers,,
 dc/c58mvty4nhxdb,About: Mean Cohort Scale Achievement of Student,Mean Cohort Scale Achievement of Students,,
@@ -1115,7 +1112,6 @@ dc/3jr0p7yjw06z9,Count of BLS Establishment: Gambling Industries,Gambling Establ
 dc/5br285q68be6,Population of Person: Gambling Industries,Employees in Gambling Industry,,
 Count_VolcanicAshEvent,,Volcano Events,,
 dc/topic/Literacy,,Literacy,,
-dc/topic/RacialBreakdown,,Racial Breakdown,,
 dc/topic/SDG_1,,,,End poverty; End poverty in all its forms; SDG end poverty; SDG poverty;;
 dc/topic/SDG_2,,,,Zero hunger; End hunger; Eradicate hunger; food security; sustainable agriculture; SDG hunger; SDG food; SDG sustainable agriculture;;
 dc/topic/SDG_3,,,,Good health and well being; healthy lives; SDG good health; SDG healthy life; SDG health; SDG well being;;
@@ -1123,9 +1119,434 @@ dc/topic/SDG_4,,,,Quality education; inclusive education; life long learning; SD
 dc/topic/SDG_5,,,,Gender equality; empower women and girls; female empowerment; SDG gender equality; SDG women; SDG female empowerment;
 dc/topic/SDG_10,,,,Reduced inequalities; SDG inequalities; SDG reduce inequalities;;
 dc/topic/SDG_13,,,,Climate action; combat climate change; SDG climate action; SDG combat climate change; SDG climate;;
-dc/topic/MaternalHealth,,,,Maternal health; womens health; health of mothers;;
-Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,,,,Birth rate; rate at which children are born;
-dc/topic/HomeValue,,Home Value,,how much do houses cost in; value of homes; housing unit cost; how expensive are homes in;
-dc/topic/WetBulbTemperature,,Wet Bulb Temperature,,
-dc/topic/Temperature,,Temperature,,
-dc/235cmp60ywm46,,Population Working in Legal Services,,number of law industry workers; people working in law; how many legal service workers are there; population working in legal services; population of legal service workers;
+dc/topic/MaternalHealth,,Maternal Health,,Maternal health; womens health; health of mothers;;
+Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,,Birth rate,,Birth rate; rate at which children are born;
+Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal Percent of Nominal Gross Domestic Production (GDP) Spent on Education,,Population Working in Legal Services,,number of law industry workers; people working in law; how many legal service workers are there; population working in legal services; population of legal service workers;
+dc/topic/AdolescentBirthRate,Adolescent Birth Rate,Adolescent Birth Rate,,
+dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents,Adult Correctional Facilities Residents,,
+dc/topic/Age,Age,Age,,
+dc/topic/AlcoholIndustry,Alcohol Industry,Alcohol Industry,,
+dc/topic/AmbientAirPollution,Ambient Air Pollution,Ambient Air Pollution,,
+dc/topic/Avalanche,Avalanche,Avalanche,,
+dc/topic/BankingAccess,Banking Access,Banking Access,,
+dc/topic/Births,Births,Births,,
+dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,sources of carbon dioxide emissions; source of co2 emissions; Carbon dioxide emissions by source; 
+dc/topic/COVID19,COVID 19,COVID 19,,
+dc/topic/Cancer,Cancer,Cancer,,
+dc/topic/CoastalFlood,Coastal Flood,Coastal Flood,,
+dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents,College Or University Student Housing Residents,,
+dc/topic/Crime,Crime,Crime,,
+dc/topic/Cyclone,Cyclone,Cyclone,,
+dc/topic/Dengue,Dengue,Dengue,,
+dc/topic/Dentists,Dentists,Dentists,,
+dc/topic/Diabetes,Diabetes,Diabetes,,
+dc/topic/Disabilities,Disabilities,Disabilities,,
+dc/topic/Education,Education,Education,,
+dc/topic/ExportSubsidies,Export Subsidies,Export Subsidies,,
+dc/topic/Forest,Forest,Forest,,
+dc/topic/GDP,GDP,GDP,,gross domestic production;
+dc/topic/GroupQuartersResidents,Group Quarters Residents,Group Quarters Residents,,
+dc/topic/HIV,HIV,HIV,,
+dc/topic/HateCrimes,Hate Crimes,Hate Crimes,,
+dc/topic/HealthInsurance,Health Insurance,Health Insurance,,
+dc/topic/HealthWorkerDensity,Health Worker Density,Health Worker Density,,
+dc/topic/HeatWave,Heat Wave,Heat Wave,,
+dc/topic/HeightStunting,Height Stunting,Height Stunting,,
+dc/topic/Housing,Housing,Housing,,
+dc/topic/Hurricane,Hurricane,Hurricane,,
+dc/topic/Incarceration,Incarceration,Incarceration,,
+dc/topic/InstitutionalizedGroupQuartersResidents,Institutionalized Group Quarters Residents,Institutionalized Group Quarters Residents,,
+dc/topic/Internet,Internet,Internet,,
+dc/topic/InternetAccess,Internet Access,Internet Access,,
+dc/topic/InternetPublishingAndBroadcastingIndustry,Internet Publishing And Broadcasting Industry,Internet Publishing And Broadcasting Industry,,
+dc/topic/JuvenileFacilitiesResidents,Juvenile Facilities Residents,Juvenile Facilities Residents,,
+dc/topic/LandCover,Land Cover,Land Cover,,
+dc/topic/Landslide,Landslide,Landslide,,
+dc/topic/LifeExpectancy,Life Expectancy,Life Expectancy,,
+dc/topic/Malaria,Malaria,Malaria,,
+dc/topic/Malnutrition,Malnutrition,Malnutrition,,
+dc/topic/MaritalStatus,Marital Status,Marital Status,,
+dc/topic/Military,Military,Military,,
+dc/topic/MilitaryShipsResidents,Military Ships Residents,Military Ships Residents,,
+dc/topic/MobilePhoneOwnership,Mobile Phone Ownership,Mobile Phone Ownership,,
+dc/topic/MobilePhoneUsage,Mobile Phone Usage,Mobile Phone Usage,,
+dc/topic/MortalityRate,Mortality Rate,Mortality Rate,,
+dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases,Neglected Tropical Diseases,,
+dc/topic/NoninstitutionalizedGroupQuartersResidents,Noninstitutionalized Group Quarters Residents,Noninstitutionalized Group Quarters Residents,,
+dc/topic/NursesAndMidwives,Nurses And Midwives,Nurses And Midwives,,
+dc/topic/NursingFacilitiesResidents,Nursing Facilities Residents,Nursing Facilities Residents,,
+dc/topic/Parliament,Parliament,Parliament,,
+dc/topic/PhysicalActivity,Physical Activity,Physical Activity,,
+dc/topic/Physicians,Physicians,Physicians,,
+dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
+dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User,Population Nonsmoking Tobacco User,,
+dc/topic/PopulationNormalWeight,Population Normal Weight,Population Normal Weight,,
+dc/topic/Poverty,Poverty,Poverty,,
+dc/topic/PreventativeHealth,Preventative Health,Preventative Health,,
+dc/topic/Religion,Religion,Religion,,
+dc/topic/RiverineFlood,Riverine Flood,Riverine Flood,,
+dc/topic/RoadTrafficDeaths,Road Traffic Deaths,Road Traffic Deaths,,
+dc/topic/Sanitation,Sanitation,Sanitation,,
+dc/topic/Snowfall,Snowfall,Snowfall,,
+dc/topic/SocialSupport,Social Support,Social Support,,
+dc/topic/SolarConsumption,Solar Consumption,Solar Consumption,,
+dc/topic/Storm,Storm,Storm,,
+dc/topic/Suicide,Suicide,Suicide,,
+dc/topic/Tariffs,Tariffs,Tariffs,,
+dc/topic/Tornado,Tornado,Tornado,,
+dc/topic/Tsunami,Tsunami,Tsunami,,
+dc/topic/Tuberculosis,Tuberculosis,Tuberculosis,,
+dc/topic/UnintentionalPoisonings,Unintentional Poisonings,Unintentional Poisonings,,
+dc/topic/Vaccines,Vaccines,Vaccines,,
+dc/topic/Visibility,Visibility,Visibility,,
+dc/topic/Volcano,Volcano,Volcano,,
+dc/topic/Voting,Voting,Voting,,
+dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age,Divorced Female Population By Age,,
+dc/topic/DivorcedMalePopulationByAge,Divorced Male Population By Age,Divorced Male Population By Age,,
+dc/topic/DivorcedPopulationByAge,Divorced Population By Age,Divorced Population By Age,,
+dc/topic/HeightStunting,Height Stunting,Height Stunting,,
+dc/topic/Malnutrition,Malnutrition,Malnutrition,,
+dc/topic/NeverMarriedFemalePopulationByAge,Never Married Female Population By Age,Never Married Female Population By Age,,
+dc/topic/NeverMarriedMalePopulationByAge,Never Married Male Population By Age,Never Married Male Population By Age,,
+dc/topic/NeverMarriedPopulationByAge,Never Married Population By Age,Never Married Population By Age,,
+dc/topic/NowMarriedFemalePopulationByAge,Now Married Female Population By Age,Now Married Female Population By Age,,
+dc/topic/NowMarriedMalePopulationByAge,Now Married Male Population By Age,Now Married Male Population By Age,,
+dc/topic/NowMarriedPopulationByAge,Now Married Population By Age,Now Married Population By Age,,
+dc/topic/PhysicalActivity,Physical Activity,Physical Activity,,
+dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
+dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User,Population Nonsmoking Tobacco User,,
+dc/topic/PopulationNormalWeight,Population Normal Weight,Population Normal Weight,,
+dc/topic/RuralFemalePopulationByAge,Rural Female Population By Age,Rural Female Population By Age,,
+dc/topic/RuralMalePopulationByAge,Rural Male Population By Age,Rural Male Population By Age,,
+dc/topic/RuralPopulationByAge,Rural Population By Age,Rural Population By Age,,
+dc/topic/SeparatedFemalePopulationByAge,Separated Female Population By Age,Separated Female Population By Age,,
+dc/topic/SeparatedMalePopulationByAge,Separated Male Population By Age,Separated Male Population By Age,,
+dc/topic/SeparatedPopulationByAge,Separated Population By Age,Separated Population By Age,,
+dc/topic/UrbanFemalePopulationByAge,Urban Female Population By Age,Urban Female Population By Age,,
+dc/topic/UrbanMalePopulationByAge,Urban Male Population By Age,Urban Male Population By Age,,
+dc/topic/UrbanPopulationByAge,Urban Population By Age,Urban Population By Age,,
+dc/topic/WidowedFemalePopulationByAge,Widowed Female Population By Age,Widowed Female Population By Age,,
+dc/topic/WidowedMalePopulationByAge,Widowed Male Population By Age,Widowed Male Population By Age,,
+dc/topic/WidowedPopulationByAge,Widowed Population By Age,Widowed Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAlonePopulationByAge,American Indian And Alaska Native Alone Population By Age,American Indian And Alaska Native Alone Population By Age,,
+dc/topic/AsianAlonePopulationByAge,Asian Alone Population By Age,Asian Alone Population By Age,,
+dc/topic/AsianOrPacificIslanderPopulationByAge,Asian Or Pacific Islander Population By Age,Asian Or Pacific Islander Population By Age,,
+dc/topic/BlackOrAfricanAmericanAlonePopulationByAge,Black Or African American Alone Population By Age,Black Or African American Alone Population By Age,,
+dc/topic/HispanicOrLatinoPopulationByAge,Hispanic Or Latino Population By Age,Hispanic Or Latino Population By Age,,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age",,
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/HispanicOrLatino_AsianAlonePopulationByAge,"Hispanic Or Latino, Asian Alone Population By Age","Hispanic Or Latino, Asian Alone Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Population By Age","Hispanic Or Latino, Black Or African American Alone Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age",,
+dc/topic/HispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Hispanic Or Latino, Two Or More Races Population By Age","Hispanic Or Latino, Two Or More Races Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAlonePopulationByAge,"Hispanic Or Latino, White Alone Population By Age","Hispanic Or Latino, White Alone Population By Age",,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Population By Age,Native Hawaiian And Other Pacific Islander Alone Population By Age,,
+dc/topic/NotHispanicOrLatinoPopulationByAge,Not Hispanic Or Latino Population By Age,Not Hispanic Or Latino Population By Age,,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlonePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAlonePopulationByAge,"Not Hispanic Or Latino, Asian Alone Population By Age","Not Hispanic Or Latino, Asian Alone Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAlonePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Population By Age","Not Hispanic Or Latino, Black Or African American Alone Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlonePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Population By Age",,
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesPopulationByAge,"Not Hispanic Or Latino, Two Or More Races Population By Age","Not Hispanic Or Latino, Two Or More Races Population By Age",,
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesPopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Population By Age",,
+dc/topic/TwoOrMoreRacesPopulationByAge,Two Or More Races Population By Age,Two Or More Races Population By Age,,
+dc/topic/WhiteAloneNotHispanicOrLatinoPopulationByAge,White Alone Not Hispanic Or Latino Population By Age,White Alone Not Hispanic Or Latino Population By Age,,
+dc/topic/WhiteAlonePopulationByAge,White Alone Population By Age,White Alone Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,American Indian And Alaska Native Alone Female Population By Age,American Indian And Alaska Native Alone Female Population By Age,,
+dc/topic/AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,American Indian And Alaska Native Alone Male Population By Age,American Indian And Alaska Native Alone Male Population By Age,,
+dc/topic/AsianAloneFemalePopulationByAge,Asian Alone Female Population By Age,Asian Alone Female Population By Age,,
+dc/topic/AsianAloneMalePopulationByAge,Asian Alone Male Population By Age,Asian Alone Male Population By Age,,
+dc/topic/AsianOrPacificIslanderFemalePopulationByAge,Asian Or Pacific Islander Female Population By Age,Asian Or Pacific Islander Female Population By Age,,
+dc/topic/AsianOrPacificIslanderMalePopulationByAge,Asian Or Pacific Islander Male Population By Age,Asian Or Pacific Islander Male Population By Age,,
+dc/topic/BlackOrAfricanAmericanAloneFemalePopulationByAge,Black Or African American Alone Female Population By Age,Black Or African American Alone Female Population By Age,,
+dc/topic/BlackOrAfricanAmericanAloneMalePopulationByAge,Black Or African American Alone Male Population By Age,Black Or African American Alone Male Population By Age,,
+dc/topic/HispanicOrLatinoFemalePopulationByAge,Hispanic Or Latino Female Population By Age,Hispanic Or Latino Female Population By Age,,
+dc/topic/HispanicOrLatinoMalePopulationByAge,Hispanic Or Latino Male Population By Age,Hispanic Or Latino Male Population By Age,,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age",,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age",,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/HispanicOrLatino_AsianAloneFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Female Population By Age","Hispanic Or Latino, Asian Alone Female Population By Age",,
+dc/topic/HispanicOrLatino_AsianAloneMalePopulationByAge,"Hispanic Or Latino, Asian Alone Male Population By Age","Hispanic Or Latino, Asian Alone Male Population By Age",,
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Female Population By Age","Hispanic Or Latino, Black Or African American Alone Female Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Male Population By Age","Hispanic Or Latino, Black Or African American Alone Male Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/HispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/HispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Hispanic Or Latino, Two Or More Races Female Population By Age","Hispanic Or Latino, Two Or More Races Female Population By Age",,
+dc/topic/HispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Hispanic Or Latino, Two Or More Races Male Population By Age","Hispanic Or Latino, Two Or More Races Male Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAloneFemalePopulationByAge,"Hispanic Or Latino, White Alone Female Population By Age","Hispanic Or Latino, White Alone Female Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAloneMalePopulationByAge,"Hispanic Or Latino, White Alone Male Population By Age","Hispanic Or Latino, White Alone Male Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age","Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Female Population By Age,Native Hawaiian And Other Pacific Islander Alone Female Population By Age,,
+dc/topic/NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,Native Hawaiian And Other Pacific Islander Alone Male Population By Age,Native Hawaiian And Other Pacific Islander Alone Male Population By Age,,
+dc/topic/NotHispanicOrLatinoFemalePopulationByAge,Not Hispanic Or Latino Female Population By Age,Not Hispanic Or Latino Female Population By Age,,
+dc/topic/NotHispanicOrLatinoMalePopulationByAge,Not Hispanic Or Latino Male Population By Age,Not Hispanic Or Latino Male Population By Age,,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Female Population By Age",,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Male Population By Age",,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, American Indian And Alaska Native Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAloneFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Female Population By Age","Not Hispanic Or Latino, Asian Alone Female Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAloneMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Male Population By Age","Not Hispanic Or Latino, Asian Alone Male Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Asian Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderFemalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age","Not Hispanic Or Latino, Asian Or Pacific Islander Female Population By Age",,
+dc/topic/NotHispanicOrLatino_AsianOrPacificIslanderMalePopulationByAge,"Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age","Not Hispanic Or Latino, Asian Or Pacific Islander Male Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Female Population By Age","Not Hispanic Or Latino, Black Or African American Alone Female Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Male Population By Age","Not Hispanic Or Latino, Black Or African American Alone Male Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Black Or African American Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Female Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Male Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, Native Hawaiian And Other Pacific Islander Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesFemalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Female Population By Age","Not Hispanic Or Latino, Two Or More Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_TwoOrMoreRacesMalePopulationByAge,"Not Hispanic Or Latino, Two Or More Races Male Population By Age","Not Hispanic Or Latino, Two Or More Races Male Population By Age",,
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesFemalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Female Population By Age",,
+dc/topic/NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRacesMalePopulationByAge,"Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age","Not Hispanic Or Latino, White Alone Or In Combination With One Or More Other Races Male Population By Age",,
+dc/topic/SomeOtherRaceAloneFemalePopulationByAge,Some Other Race Alone Female Population By Age,Some Other Race Alone Female Population By Age,,
+dc/topic/SomeOtherRaceAloneMalePopulationByAge,Some Other Race Alone Male Population By Age,Some Other Race Alone Male Population By Age,,
+dc/topic/TwoOrMoreRacesFemalePopulationByAge,Two Or More Races Female Population By Age,Two Or More Races Female Population By Age,,
+dc/topic/TwoOrMoreRacesMalePopulationByAge,Two Or More Races Male Population By Age,Two Or More Races Male Population By Age,,
+dc/topic/WhiteAloneFemalePopulationByAge,White Alone Female Population By Age,White Alone Female Population By Age,,
+dc/topic/WhiteAloneMalePopulationByAge,White Alone Male Population By Age,White Alone Male Population By Age,,
+dc/topic/WhiteAloneNotHispanicOrLatinoFemalePopulationByAge,White Alone Not Hispanic Or Latino Female Population By Age,White Alone Not Hispanic Or Latino Female Population By Age,,
+dc/topic/WhiteAloneNotHispanicOrLatinoMalePopulationByAge,White Alone Not Hispanic Or Latino Male Population By Age,White Alone Not Hispanic Or Latino Male Population By Age,,
+dc/topic/ArthritisFemalePopulationByAge,Female Population With Arthritis By Age,Female Population With Arthritis By Age,,
+dc/topic/ArthritisMalePopulationByAge,Male Population With Arthritis By Age,Male Population With Arthritis By Age,,
+dc/topic/AsthmaFemalePopulationByAge,Female Population With Asthma By Age,Female Population With Asthma By Age,,
+dc/topic/AsthmaMalePopulationByAge,Male Population With Asthma By Age,Male Population With Asthma By Age,,
+dc/topic/CancerFemalePopulationByAge,Female Population With Cancer By Age,Female Population With Cancer By Age,,
+dc/topic/CancerMalePopulationByAge,Male Population With Cancer By Age,Male Population With Cancer By Age,,
+dc/topic/DementiaFemalePopulationByAge,Female Population With Dementia By Age,Female Population With Dementia By Age,,
+dc/topic/DementiaMalePopulationByAge,Male Population With Dementia By Age,Male Population With Dementia By Age,,
+dc/topic/DiabetesFemalePopulationByAge,Female Population With Diabetes By Age,Female Population With Diabetes By Age,,
+dc/topic/DiabetesMalePopulationByAge,Male Population With Diabetes By Age,Male Population With Diabetes By Age,,
+dc/topic/DiseasesOfHeartFemalePopulationByAge,Female Population With Heart Disease By Age,Female Population With Heart Disease By Age,,
+dc/topic/DiseasesOfHeartMalePopulationByAge,Male Population With Heart Disease By Age,Male Population With Heart Disease By Age,,
+dc/topic/KidneyDiseaseFemalePopulationByAge,Female Population With Kidney Disease By Age,Female Population With Kidney Disease By Age,,
+dc/topic/KidneyDiseaseMalePopulationByAge,Male Population With Kidney Disease By Age,Male Population With Kidney Disease By Age,,
+dc/topic/LungConditionFemalePopulationByAge,Female Population With Lung Condition By Age,Female Population With Lung Condition By Age,,
+dc/topic/LungConditionMalePopulationByAge,Male Population With Lung Condition By Age,Male Population With Lung Condition By Age,,
+dc/topic/MentalHealthNotGoodFemalePopulationByAge,Female Population With Poor Mental Health By Age,Female Population With Poor Mental Health By Age,,
+dc/topic/MentalHealthNotGoodMalePopulationByAge,Male Population With Poor Mental Health By Age,Male Population With Poor Mental Health By Age,,
+dc/topic/PopulationWithArthritisByAge,Population With Arthritis By Age,Population With Arthritis By Age,,
+dc/topic/PopulationWithAsthmaByAge,Population With Asthma By Age,Population With Asthma By Age,,
+dc/topic/PopulationWithCancerByAge,Population With Cancer By Age,Population With Cancer By Age,,
+dc/topic/PopulationWithDementiaByAge,Population With Dementia By Age,Population With Dementia By Age,,
+dc/topic/PopulationWithDiabetesByAge,Population With Diabetes By Age,Population With Diabetes By Age,,
+dc/topic/PopulationWithDiseasesOfHeartByAge,Population With Heart Disease By Age,Population With Heart Disease By Age,,
+dc/topic/PopulationWithKidneyDiseaseByAge,Population With Kidney Disease By Age,Population With Kidney Disease By Age,,
+dc/topic/PopulationWithLungConditionByAge,Population With Lung Condition By Age,Population With Lung Condition By Age,,
+dc/topic/PopulationWithMentalHealthNotGoodByAge,Population With Poor Mental Health By Age,Population With Poor Mental Health By Age,,
+dc/topic/PopulationWithStrokeByAge,Population With Stroke By Age,Population With Stroke By Age,,
+dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age,Female Population With Stroke By Age,,
+dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age,Male Population With Stroke By Age,,
+dc/topic/Asthma,Asthma,People with Asthma,,Diagnosed with Asthma; Asthma Disease;
+dc/topic/BloodPressure,Blood Pressure,People with high blood pressure,,High blood pressure condition; People with high blood pressure;
+dc/topic/CausesOfDeath,Causes of death,Reasons for death,,Reasons for mortality;
+dc/topic/Cholesterol,High cholestrol,People with high cholestrol,,high cholestrol condition; good cholestrol; bad cholestrol;
+dc/topic/FemaleMortality,Female mortality,Female deaths,,
+dc/topic/GlobalHealth,Global health,World health,,health in the world; health conditions in the world;
+dc/topic/Health,Health,Health,,
+dc/topic/HealthBehavior,Health behaviors,Health behavior,,Healthy behaviors; Unhealthy behaviors;
+dc/topic/HealthConditions,Health conditions,Health conditions,,
+dc/topic/HealthEquity,Health equity,Health equity,,fairness in health; fairness of health conditions;
+dc/topic/HealthInsuranceByGender,Health Insurance by gender,Health Insurance split by gender,,health insurance distribution by gender; health insurance breakdown by gender;
+dc/topic/HealthInsuranceByRace,Health Insurance by race,Health insurance split by race,,health insurance distribution by race; health insurance breakdown by race;
+dc/topic/HealthInsuranceType,Health Insurance types,Health insurance by types,,types of health insurance;
+dc/topic/InfantMortality,Infant Mortality,Infant Mortality,,mortality among infants; death among infants; infant deaths;
+dc/topic/MentalHealth,Mental Health,Mental Health,,
+dc/topic/Mortality,Mortality,Mortality,,Death; Issues relating to death;
+dc/topic/MortalityAmongIncarcerated,Mortality among incarcerated,Mortality among those in jail,,deaths among those in jail; deaths of incarcerated; incarcerated deaths;
+dc/topic/MortalityByGender,Mortality by gender,Mortality by gender,,Mortality split by gender; mortality distribution by gender; mortality breakdown by gender;
+dc/topic/MortalityByRace,Mortality by race,Mortality by race,,racial breakdown of mortality; deaths by race; mortality breakdown by race;
+dc/topic/NoHealthInsurance,No Health Insurance,No Health Insurance,,people with no health insurance; people without access to health insurance; without health insurance;
+dc/topic/NoHealthInsuranceByGender,No Health Insurance by gender,No Health Insurance by gender,,distribution of no health insurance by gender; without health insurnace for gender;
+dc/topic/NoHealthInsuranceByIncome,No Health Insurance by income,No Health Insurance by income,,no health insurance split by income; no health insurance across income levels;
+dc/topic/NoHealthInsuranceByRace,No Health Insurance by race,No Health Insurance by race,,racial breakdown of those without health insurance; no health insurance across race; no health insurance by race;
+dc/topic/PreventativeHealthAndBehavior,Preventative health and behavior,Preventative health and behavior,,
+dc/topic/PrivateHealthInsuranceType,Private health insurance,Private health insurance,,people with private health insurance; health insurance private type;
+dc/topic/PublicHealthInsuranceType,Public health insurance,Public health insurance,,people with public health insurance; health insurance public type;
+dc/topic/WHOChildImmunization,Global Child Immunization,Child immunization rates,,WHO child immunization
+dc/topic/WHOChildImmunizationsByGender,Global Child Immunization by gender,Child Immunization by gender,,WHO child immunization by gender; child immunization split by gender;
+dc/topic/WHOChildImmunizationsByUrbanRural,Global  Child Immunization by urban or rural,Child Immunization by urban or rural,,WHO child immunization across urban or rural; rural or urban child immunization; child immunizations across rural and urban;
+dc/topic/WHOChildMortality,Global Child Mortality,Child Mortality,,WHO child mortality; deaths among children;
+dc/topic/WHOChildrenNonCommunicableDiseases,Global Childen with Non Communicable Diseases,Childen with Non Communicable Diseases,,WHO Childen with Non Communicable Diseases
+dc/topic/WHODALYByCauses,Global DALY causes,Disability adjusted life years by causes,,WHO DALY causes; WHO Disability adjusted life years by causes
+dc/topic/WHOHealthBehavior,Global Health behaviors,WHO Health behaviors,,Health behaviors WHO
+dc/topic/WHOImmunization,Global Immunizations,Immunizations,,WHO immunizations; immunization rates
+dc/topic/WHOMaternalMortality,Global Maternal Mortality,Deaths among mothers,,WHO maternal mortality; death rates of mothers;
+dc/topic/WHOMortality,Global Mortality,WHO Mortality,,mortality WHO; death rates WHO;
+dc/topic/WHOMortalityCauses,Global Mortality Causes,WHO Mortality causes,,mortality causes by WHO; causes of death WHO;
+dc/topic/WHONeglectedTropicalDiseases,Global Neglected Tropical Diseases,Ignored Tropical Diseases,,WHO neglected tropical diseases; tropical diseases ignored WHO;
+dc/topic/WHONonCommunicableDiseaseDeaths,Global Non communicable disease deaths,Non communicable disease deaths,,deaths due to non communicable disease; WHO deaths due to non communicable diseases;
+dc/topic/WHONonCommunicableDiseases,Global Non communicable diseases,Non communicable diseases,,WHO non communicable diseases; non communicable diseases WHO;
+dc/topic/WithHealthInsuranceByGender,Having Health Insurance by gender,Having Health Insurance by gender,,People with health insurance split by gender;
+dc/topic/WithHealthInsuranceByRace,Having Health Insurance by race,Having Health Insurance by race,,People with health insurance split by race; racial breakdown of people with health insurance;
+dc/topic/DisabilitiesByGender,Disabilities by gender,Disabilities by gender,,Disabilities split by gender; disabilities breakdown by gender;
+dc/topic/DisabilitiesByRace,Disabilities by race,Disabilities by race,,Disabilities split by race; disabilities breakdown by race;
+dc/topic/Businesses,Business,Businesses,,Business economy
+dc/topic/EconomicActivity,Economic Activity,Economic Activity,,Economic activity overview; Summary of economic activity;
+dc/topic/Employment,Employement,Employment,,
+dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
+dc/topic/Debt,Debt,Debt,,Global debt;
+dc/topic/EducationExpenditure,Education Expenditure,Education Expenditure,,
+dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,amount spent on health; health expenses;
+dc/topic/HouseholdIncomeDistribution,Household Income Distribution,Household Income Distribution,,income distribution for households; 
+dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
+dc/topic/IndividualIncomeDistribution,Individual Income Distribution,Individual Income Distribution,,
+dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
+dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP,Inflation Adjusted GDP,,inflation adjusted gross domestic production;
+dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry,Number Of Businesses By Industry,,disribution of number of business across industries;
+dc/topic/NumberOfBusinessesByOwnership,Number Of Businesses By Ownership,Number Of Businesses By Ownership,,disribution of number of business by ownership;
+dc/topic/PovertyByGender,Poverty By Gender,Poverty By Gender,,poverty across genders; poverty breakdown by gender;
+dc/topic/PovertyByLanguageSpokenAtHome,Poverty By Language Spoken At Home,Poverty By Language Spoken At Home,,poverty breakdown by language spoken at home;
+dc/topic/PovertyByRace,Poverty By Race,Poverty By Race,,poverty breakdown by race;
+dc/topic/PovertyByResidency,Poverty By Residency,Poverty By Residency,,poverty breakdown by residency;
+dc/topic/PovertyLevels,Poverty Levels,Poverty Levels,,levels of poverty;
+dc/topic/Remittance,Remittance,Remittance,,remittances;
+dc/topic/UnemploymentRate,Unemployment Rate,Unemployment Rate,,rate of unemployment;
+dc/topic/UnpaidFamilyWorkers,Unpaid Family Workers,Unpaid Family Workers,,
+dc/topic/BachelorsMajor,Bachelors Major,Bachelors Major,,undergraduate major; college major;
+dc/topic/EducationFaculty,Education Faculty,Education Faculty,,
+dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,education attainment level; highest level of education; highest qualification; highest education attained;
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level; level and gender of education; level and gender of qualification;
+dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level; level of qualification;
+dc/topic/Parents,Parents,Parents,,
+dc/topic/ParentsEducationalAttainment,Parents Educational Attainment,Parents Educational Attainment,,level of education attainment of parents;
+dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race,Population Enrolled In School Type By Race,,students enrolled in school type by race;
+dc/topic/SchoolType,School Type,School Type,,type of school; types of schools;
+dc/topic/Schools,Schools,Schools,,school
+dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students; number of students enrolled; students currently enrolled;
+dc/topic/StudentLunchEligibility,Student Lunch Eligibility,Student Lunch Eligibility,,lunch eligibility of students; students eligible for lunch;
+dc/topic/StudentPopulation,Student Population,Student Population,,Students
+dc/topic/StudentPopulationDemographics,Student Population Demographics,Student Population Demographics,,Student demographics;
+dc/topic/StudentTeacherRatio,Student Teacher Ratio,Student Teacher Ratio,,ratio of students to teachers;
+dc/topic/SupportServicesStaffInSchools,Support Services Staff In Schools,Support Services Staff In Schools,,
+dc/topic/Teacher,Teacher,Teacher,,teachers;
+dc/topic/AirQualityIndex,Air Quality Index,Air Quality Index,,AQI; air quality level;
+dc/topic/CarbonMonoxide,Carbon Monoxide,Carbon Monoxide,,CO; CO pollutant;
+dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decade,Projected max temperature for the decade,,decadal projected max temperature; maximum temperature projected decade; temperature highs for the decade;
+dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade,Projected min temperature for the decade,,decadal projected min temperature; minimum temperature projected decade; temperature lows for the decade;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
+dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
+dc/topic/Ozone,Ozone,Ozone,,O3; Ozone pollutant; O3 pollutant;
+dc/topic/PM10,PM10,PM10,,pm10 pollutant; pm 10; pm 10 pollutant; 10 pm pollutant;
+dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant; pm 2.5; pm 2.5 pollutant; 2.5 pm pollutant;
+dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast; temperature prediction; predict temperature;
+dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year,Projected max temperature for the year,,yearly projected max temperature; maximum temperature projected year; temperature highs for the year;
+dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year,Projected min temperature for the year,,yearly projected min temperature; minimum temperature projected year; temperature lows for the year;
+dc/topic/AgeDistribution,Age Distribution,Age Distribution,,
+dc/topic/AgeMedians,Age Medians,Age Medians,,
+dc/topic/CitizenshipStatus,Citizenship Status,Citizenship Status,,
+dc/topic/Demographics,Demographics,Demographics,,
+dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic,Divorced Population By Demographic,,demographics of the divorced population;
+dc/topic/Immigration,Immigration,Immigration,,
+dc/topic/Language,Language,Language,,
+dc/topic/MaritalStatusBreakdown,Martial Status Breakdown,Martial Status Breakdown,,breakdown of marital status;
+dc/topic/MarriedPopulationByDemographic,Married Population by Demographic,Married Population by Demographic,,demographics of the married population; demographics of married people;
+dc/topic/Nationality,Nationality,Nationality,,
+dc/topic/NeverMarriedPopulationByDemographic,Never Married Population by Demographic,Never Married Population by Demographic,,demographics of the never married population; demographics of people who never married;
+dc/topic/PlaceOfBirth,Place of Birth,Place of Birth,,
+dc/topic/PopulationByAgeDistribution,Population By Age Distribution,Population By Age Distribution,,population distribution by age;
+dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population,Very Old and Very Young Population,,young children and old people; very old and very young;
+dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic,Widowed Population by Demographic,,demographics of the widowed population; demographics of people who are widowed;
+dc/topic/KidneyDisease,Kidney Disease,Kidney Disease,,
+dc/topic/Equity,Equity,Equity,,fairness;equality;
+dc/topic/EconomicEquity,Economic Equity,Economic Equity,,economic fairness; economic oppoortunities;
+dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
+dc/topic/Arthritis,Arthritis,Arthritis,,
+dc/topic/HousesByFacilities,Houses by Facilities,Houses by Facilities,,facilities in houses;
+dc/topic/HousesByHomeValue,Houses by Home Value,Houses by Home Value,,home value of houses;
+dc/topic/EducationEquity,Education Equity,Education Equity,,education fairness; education opportunities;
+dc/topic/HousesByTaxAmount,Houses by Tax Amount,Houses by Tax Amount,,tax amount of houses; tax on houses;
+dc/topic/RentalHouses,Rental Houses,Rental Housing,,housing rentals; rental housing units;
+dc/topic/SmokePM2.5,Smoke PM2.5,Smoke PM2.5,,smoke particulate matter 2.5; particulate matter 2.5;
+dc/topic/StudentsInPrimarySchool,Students in Primary School,Students in Primary School,,students enrolled in primary school; primary school students;
+dc/topic/HomeOwnership,Home Ownership,Home Ownership,,owners of houses; housing owners; house ownership;
+dc/topic/HouseOccupants,House Occupants,House Occupants,,people living in the house; home occupants;
+dc/topic/HousesByRoomCount,Houses by Room Count,Houses by Room Count,,number of rooms in houses;
+dc/topic/StudentsInGraduateOrProfessionalSchool,Students in Graduate or Professional School,Students in Graduate or Professional School,,students in graduate school; students in professional school; students enrolled in grad school; PE students; grad students;
+dc/topic/Benefits,Benefits,Benefits,,social benefits; public benefits;
+dc/topic/HousesByDateofBuild,Houses by Date Built,Houses by Date Built,,date built of houses; houses by date build; build date of houses;
+dc/topic/HousesByHouseholderEducationalAttainment,Houses by Educational Attainment of Owner,Houses by Educational Attainment of Owner,,education level of home owner; home owner's education; education attainment of home owners; houses by home owner's education level;
+dc/topic/HousesByOwnershipCost,Houses by Ownership Cost,Houses by Ownership Cost,,cost of home ownership; housing cost; cost of owning a home; cost of owning a house;
+dc/topic/HouseFeatures,House Features,House Features,,features of a house; features in a home;
+dc/topic/HeartDisease,Heart Disease,Heart Disease,,disease of the heart; cardiovascular disease;
+dc/topic/HousesByHouseholderRace,Houses by Race of Occupants,Houses by Race of Occupants,,home residents race; houses by resident race; racial breakdown of house residents;
+dc/topic/Stroke,Stroke,Stroke,,stroke attack; heart attack;
+dc/topic/StudentsInMiddleSchool,Students in Middle School,Students in Middle School,,middle school students;
+dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
+dc/topic/JusticeSystemEquity,Justice System Equity,Justice System Equity,,Equity of the justice system; equity in the justice system; fariness in the justice system; 
+dc/topic/HousesByHouseholderAge,Houses by Age of Residents,Houses by Age of Residents,,age distribution of house residents; home residents age distribution;
+dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduate students; undergrad students; undergrads; college students;
+dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level,Education Attainment by Race and Level,,level of education by gender and race; race and gender breakdown of education level; race and gender breakdown of education attainment;
+dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender,Median Household Income by Gender,,household income by gender; gender breakdown of household income;
+dc/topic/EmploymentEquity,Employment Equity,Employment Equity,,fairness in employment; equity in employment;
+dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
+dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race,Median Household Income by Race,,household income by race; racial breakdown of household income;
+dc/topic/Energy_Fraction,Energy Fractions,Energy Fractions,,energy percentages; fraction of energy producton and consumption;
+dc/topic/GreenJobs,Green Jobs,Green Jobs,,sustainable jobs; environmentally friendly jobs;
+dc/topic/Energy_Generation,Energy Generation,Energy Generation,,generation of energy;
+dc/topic/Emissions_SulfurDioxide_EmissionsbySource,Sulfur Dioxide Emissions by Source,Sulfur Dioxide Emissions by Source,,source of SO2 emissions; SO2 emissions by source; source of sulfur dioxide emissions; source of sulphur dioxide emissions;
+dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste,Production and Consumption Waste,,Waste due to production and consumption;
+dc/topic/Pollutants,Pollutants,Pollutants,,
+dc/topic/CommuteTime,Commute Time,Commute Time,,time spend during commute; time spent traveling to work; time spent travelling from work;
+dc/topic/Emissions_PM2.5_EmissionsbySource,Emissions of PM2.5 By Source,Emissions of PM2.5 By Source,,particulate matter 2.5 emissions by source; source of PM2.5 emissions;
+dc/topic/Energy_Generation_FossilFuels,Energy Generation From Fossil Fuels,Energy Generation From Fossil Fuels,,energy produced from fossil fuels;
+dc/topic/Fire,Fires,Fires,,fire; fire event; wild fires;
+dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions; sources of greenhouse gas emissions; sources of GHG emissions;
+dc/topic/Gender,Gender,Gender,,
+dc/topic/CommuteModeByOccupation,Commute Mode By Occupation,Commute Mode By Occupation,,commute options by occupation;
+dc/topic/Race,Race,Race,,racial breakdown;
+dc/topic/Emissions_NitrousOxide_EmissionsbySource,Nitrous Oxide Emissions by Source,Nitrous Oxide Emissions by Source,,source of nitrous oxide emissions; nitrous oxide emissions by source;
+dc/topic/Earthquake,Earthquakes,Earthquakes,,earthquake;
+dc/topic/NaturalDisasters,Natural Disasters,Natural Disasters,,disasters;
+dc/topic/Flood,Floods,Floods,,flood;
+dc/topic/CommuteMode,Commute Modes,Commute Modes,,modes of commute;
+dc/topic/Emissions,Emissions,Emissions,,
+dc/topic/OceanHealth,Ocean Health,Ocean Health,,ocean condition;
+dc/topic/Drought,Droughts,Droughts,,drought;
+dc/topic/WetBulbEvent,Wet-Bulb Events,Wet-Bulb Events,,wetbulb; wet bulb events; high humidity and high heat;
+dc/topic/Energy_Consumption_FossilFuels,Energy Consumption From Fossil Fuels,Energy Consumption From Fossil Fuels,,energy consumed from fossil fuels; energy consumed which is generated by fossil fuels;
+dc/topic/GDPByIndustry,GDP By Industry,GDP By Industry,,gross domestic product breakdown by industry; gross domestic product by industry;
+dc/topic/Precipitation,Precipitation,Precipitation,,high rainfall; major snow event; major precipitation;
+dc/topic/Rainfall,Rainfall,Rainfall,,rain;
+dc/topic/Energy_Generation_NonFossilFuel,Energy Generation From Non-Fossil Fuels,Energy Generation From Non-Fossil Fuels,,energy produced from non fossil fuels; energy generated without fossil fuels;
+dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source,Flourinated Gasses Emissions by Source,,source of flourinated gas emissions; flourinated gas emissions by source;
+dc/topic/Electricity_Consumption,Electricity Consumption,Electricity Consumption,,consumption of electricity;
+dc/topic/Energy,Energy,Energy,,
+dc/topic/LandUseAndCoverage,Land Use And Coverage,Land Use And Coverage,,land use;
+dc/topic/Emissions_Methane_EmissionsbySource,Methane Emissions by Source,Methane Emissions by Source,,source of CH4 emissions; CH4 emissions by source; source of methane emissions; source of methane emissions;
+dc/topic/Energy_Renewables,Energy Renewables,Energy Renewables,,renewable energy;
+dc/topic/Sustainability,Sustainability,Sustainability,,green; sustainable;
+dc/topic/ColdEvent,Cold Event,Cold Event,,excessive cold; very cold; freezing;
+dc/topic/SDGBiodiversity,Biodiversity,Biodiversity,,SDG biodiversity; bio diversity; SDG bio diversity;
+dc/topic/SDGReforestations,Reforestation,Reforestation,,SDG reforestation; reforesting;
+dc/topic/DieselPM,Diesel PM,Diesel PM,,Diesel pollutant; diesel particulate matter;
+dc/topic/Temperatures,Temperature,Temperature,,temperatures; max temp; min temp; maximum temperature; minimum temperature;
+dc/topic/EnglishLanguageAtHome,English Language Spoken At Home,English Language Spoken At Home,,english at home; english language at home; spoken language at home is English;
+dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,Language Spoken At Home By Immigrants,,immigrants language at home; language at home for foreign born;
+dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
+dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;

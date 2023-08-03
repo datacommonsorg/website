@@ -28,19 +28,40 @@ def create_app():
 
   flask_env = os.environ.get('FLASK_ENV')
 
-  model_config_path = '/datacommons/nl/model.yaml'
-  if flask_env == 'local' or flask_env == 'test' or flask_env == 'integration_test':
-    model_config_path = os.path.join(
+  # Download existing finetuned models (if not already downloaded).
+  models_downloaded_paths = {}
+  models_config_path = '/datacommons/nl/models.yaml'
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+    models_config_path = os.path.join(
         os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-        'deploy/base/model.yaml')
-  app.config['MODEL_CONFIG_PATH'] = model_config_path
-
-  # Initialize the NL module.
-  with open(app.config['MODEL_CONFIG_PATH']) as f:
-    model = yaml.full_load(f)
-    if not model:
+        'deploy/nl/models.yaml')
+  app.config['MODELS_CONFIG_PATH'] = models_config_path
+  with open(app.config['MODELS_CONFIG_PATH']) as f:
+    models_map = yaml.full_load(f)
+    if not models_map:
       logging.error("No configuration found for model")
       return
-    loader.load_model(app, model)
+
+    models_downloaded_paths = loader.download_models(models_map)
+
+  assert models_downloaded_paths, "No models were found/downloaded. Check deploy/nl/models.yaml"
+
+  # Download existing embeddings (if not already downloaded).
+  embeddings_config_path = '/datacommons/nl/embeddings.yaml'
+  if flask_env in ['local', 'test', 'integration_test', 'webdriver']:
+    embeddings_config_path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        'deploy/nl/embeddings.yaml')
+  app.config['EMBEDDINGS_CONFIG_PATH'] = embeddings_config_path
+
+  # Initialize the NL module.
+  with open(app.config['EMBEDDINGS_CONFIG_PATH']) as f:
+    embeddings_map = yaml.full_load(f)
+    if not embeddings_map:
+      logging.error("No configuration found for embeddings")
+      return
+
+    app.config['EMBEDDINGS_VERSION_MAP'] = embeddings_map
+    loader.load_embeddings(app, embeddings_map, models_downloaded_paths)
 
   return app

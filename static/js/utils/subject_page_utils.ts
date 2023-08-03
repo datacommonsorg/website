@@ -52,7 +52,7 @@ export function getId(
   componentIdPrefix: string,
   componentIdx: number
 ): string {
-  return `${parentId}${componentIdPrefix}${componentIdx}`;
+  return `${parentId}_${componentIdPrefix}_${componentIdx}`;
 }
 
 /**
@@ -101,7 +101,8 @@ export function getColumnTileClassName(column: ColumnConfig): string {
 export function fetchGeoJsonData(
   selectedPlace: NamedTypedPlace,
   placeType: string,
-  parentPlaces?: NamedPlace[]
+  parentPlaces?: NamedPlace[],
+  apiRoot?: string
 ): Promise<GeoJsonData> {
   let enclosingPlace = selectedPlace.dcid;
   let enclosedPlaceType = placeType;
@@ -116,7 +117,7 @@ export function fetchGeoJsonData(
     enclosedPlaceType = selectedPlace.types[0];
   }
   return axios
-    .get<GeoJsonData>("/api/choropleth/geojson", {
+    .get<GeoJsonData>(`${apiRoot || ""}/api/choropleth/geojson`, {
       params: {
         placeDcid: enclosingPlace,
         placeType: enclosedPlaceType,

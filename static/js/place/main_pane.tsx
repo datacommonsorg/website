@@ -77,7 +77,7 @@ class MainPane extends React.Component<MainPanePropType> {
     super(props);
   }
 
-  showOverview(): boolean {
+  private showOverview(): boolean {
     // Only Show map and ranking for US places.
     return (
       this.props.isUsaPlace &&
@@ -89,7 +89,7 @@ class MainPane extends React.Component<MainPanePropType> {
   renderChartBlock(data: ChartBlockData, category: string): JSX.Element {
     return (
       <ChartBlock
-        key={data.title + randDomId()}
+        key={data.title + "-" + randDomId()}
         dcid={this.props.dcid}
         placeName={this.props.placeName}
         placeType={this.props.placeType}

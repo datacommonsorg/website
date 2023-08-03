@@ -21,8 +21,7 @@
 import axios from "axios";
 import * as d3 from "d3";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   addPolygonLayer,
@@ -32,7 +31,6 @@ import {
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
-import { DATA_CSS_CLASS } from "../../constants/tile_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
@@ -42,8 +40,17 @@ import {
   NamedTypedPlace,
   StatVarSpec,
 } from "../../shared/types";
-import { getCappedStatVarDate } from "../../shared/util";
-import { getPlaceChartData, shouldShowBorder } from "../../tools/map/util";
+import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
+import {
+  getPlaceChartData,
+  MAP_URL_PATH,
+  shouldShowBorder,
+  URL_PARAM_KEYS,
+} from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
@@ -51,23 +58,32 @@ import {
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getMergedSvg, ReplacementStrings } from "../../utils/tile_utils";
+import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
-interface MapTilePropType {
-  id: string;
-  title: string;
-  place: NamedTypedPlace;
+export interface MapTilePropType {
+  // API root
+  apiRoot?: string;
+  // Colors to use
+  colors?: string[];
+  // Extra classes to add to the container.
+  className?: string;
+  date?: string;
   enclosedPlaceType: string;
+  id: string;
+  // Parent places of the current place showing map for
+  parentPlaces?: NamedPlace[];
+  // Specific date to show data for
+  place: NamedTypedPlace;
   statVarSpec: StatVarSpec;
   // Height, in px, for the SVG chart.
   svgChartHeight: number;
-  // Extra classes to add to the container.
-  className?: string;
-  // Whether or not to render the data version of this tile
-  isDataTile?: boolean;
-  // API root
-  apiRoot?: string;
+  title: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
+  // Whether or not to show a loading spinner when fetching data.
+  showLoadingSpinner?: boolean;
 }
 
 interface RawData {
@@ -78,7 +94,7 @@ interface RawData {
   borderGeoJson?: GeoJsonData;
 }
 
-interface MapChartData {
+export interface MapChartData {
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -88,6 +104,8 @@ interface MapChartData {
   showMapBoundaries: boolean;
   unit: string;
   borderGeoJson?: GeoJsonData;
+  // props used when fetching this data
+  props: MapTilePropType;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
@@ -99,22 +117,16 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   );
   const [svgHeight, setSvgHeight] = useState(null);
 
-  function addSvgDataAttribute(): void {
-    const { svgXml } = getMergedSvg(svgContainer.current);
-    const dataDiv = svgContainer.current.getElementsByClassName(DATA_CSS_CLASS);
-    if (_.isEmpty(dataDiv)) {
-      return;
-    }
-    dataDiv[0].setAttribute("data-svg", svgXml);
-  }
-
   useEffect(() => {
-    if (!mapChartData) {
+    if (!mapChartData || !_.isEqual(mapChartData.props, props)) {
+      loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
-        setMapChartData(data);
+        if (_.isEqual(data.props, props)) {
+          setMapChartData(data);
+        }
       })();
-    } else {
+    } else if (_.isEqual(mapChartData.props, props)) {
       draw(
         mapChartData,
         props,
@@ -122,11 +134,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         legendContainer.current,
         mapContainer.current
       );
-      if (props.isDataTile) {
-        addSvgDataAttribute();
-      }
+      removeSpinner(props.id);
     }
-  }, [mapChartData, props]);
+  }, [mapChartData, props, svgContainer, legendContainer, mapContainer]);
 
   useEffect(() => {
     let svgHeight = props.svgChartHeight;
@@ -139,15 +149,26 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     setSvgHeight(svgHeight);
   }, [props]);
 
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-    date: mapChartData && mapChartData.dateRange,
-  };
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(mapChartData) || !_.isEqual(mapChartData.props, props)) {
+      return;
+    }
+    draw(
+      mapChartData,
+      props,
+      svgContainer.current,
+      legendContainer.current,
+      mapContainer.current
+    );
+  }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
+  useDrawOnResize(drawFn, svgContainer.current);
+
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
       sources={mapChartData && mapChartData.sources}
-      replacementStrings={rs}
+      replacementStrings={getReplacementStrings(props, mapChartData)}
       className={`${props.className} map-chart`}
       allowEmbed={true}
       getDataCsv={
@@ -156,26 +177,39 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(mapChartData)}
+      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
       <div
+        id={props.id}
         className="svg-container"
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
       >
-        {props.isDataTile && mapChartData && (
-          <div
-            className={DATA_CSS_CLASS}
-            data-csv={mapDataToCsv(
-              mapChartData.geoJson,
-              mapChartData.dataValues
-            )}
-          />
-        )}
         <div className="map" ref={mapContainer}></div>
-        <div className="legend" ref={legendContainer}></div>
+        <div
+          className="legend"
+          {...{ part: "legend" }}
+          ref={legendContainer}
+        ></div>
+        {props.showLoadingSpinner && (
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        )}
       </div>
     </ChartTileContainer>
   );
+}
+
+// Get the ReplacementStrings object used for formatting the title
+export function getReplacementStrings(
+  props: MapTilePropType,
+  chartData: MapChartData
+): ReplacementStrings {
+  return {
+    placeName: props.place.name,
+    date: chartData && chartData.dateRange,
+  };
 }
 
 export const fetchData = async (
@@ -196,7 +230,9 @@ export const fetchData = async (
       nodes: [props.place.dcid],
     })
     .then((resp) => resp.data);
-  const dataDate = getCappedStatVarDate(props.statVarSpec.statVar);
+  const dataDate = props.date
+    ? props.date
+    : getCappedStatVarDate(props.statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get(`${props.apiRoot || ""}/api/observations/point/within`, {
       params: {
@@ -220,9 +256,11 @@ export const fetchData = async (
         })
         .then((resp) => resp.data)
     : Promise.resolve({});
-  const parentPlacesPromise = axios
-    .get(`${props.apiRoot || ""}/api/place/parent/${props.place.dcid}`)
-    .then((resp) => resp.data);
+  const parentPlacesPromise = props.parentPlaces
+    ? Promise.resolve(props.parentPlaces)
+    : axios
+        .get(`${props.apiRoot || ""}/api/place/parent?dcid=${props.place.dcid}`)
+        .then((resp) => resp.data);
   try {
     const [geoJson, placeStat, population, parentPlaces, borderGeoJsonData] =
       await Promise.all([
@@ -247,9 +285,11 @@ export const fetchData = async (
       rawData,
       props.statVarSpec,
       props.place,
-      props.enclosedPlaceType
+      props.enclosedPlaceType,
+      props
     );
   } catch (error) {
+    removeSpinner(props.id);
     return null;
   }
 };
@@ -258,7 +298,8 @@ function rawToChart(
   rawData: RawData,
   statVarSpec: StatVarSpec,
   place: NamedTypedPlace,
-  enclosedPlaceType: string
+  enclosedPlaceType: string,
+  props: MapTilePropType
 ): MapChartData {
   const metadataMap = rawData.placeStat.facets || {};
   if (!_.isEmpty(rawData.population.facets)) {
@@ -327,6 +368,7 @@ function rawToChart(
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     unit: statVarSpec.unit || unit,
     borderGeoJson: rawData.borderGeoJson,
+    props,
   };
 }
 
@@ -339,16 +381,16 @@ export function draw(
   svgWidth?: number
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
-  let height = props.svgChartHeight;
-  if (svgContainer) {
-    height = Math.max(props.svgChartHeight, svgContainer.offsetHeight);
-  }
+  const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
   const colorScale = getColorScale(
     mainStatVar,
     d3.min(dataValues),
     d3.mean(dataValues),
-    d3.max(dataValues)
+    d3.max(dataValues),
+    undefined,
+    undefined,
+    props.colors
   );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
@@ -400,6 +442,7 @@ export function draw(
     height,
     projectionData
   );
+
   drawD3Map(
     mapContainer,
     chartData.geoJson,
@@ -426,14 +469,16 @@ export function draw(
   }
 }
 
-/**
- * Renders map chart tile component in the given HTML element
- * @param element DOM element to render the chart
- * @param props map chart tile component properties
- */
-export const renderMapComponent = (
-  element: HTMLElement,
-  props: MapTilePropType
-): void => {
-  ReactDOM.render(React.createElement(MapTile, props), element);
-};
+function getExploreMoreUrl(props: MapTilePropType): string {
+  const params = {
+    [URL_PARAM_KEYS.SELECTED_PLACE_DCID]: props.place.dcid,
+    [URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE]: props.enclosedPlaceType,
+    [URL_PARAM_KEYS.PER_CAPITA]: props.statVarSpec.denom ? "1" : "",
+    [URL_PARAM_KEYS.STAT_VAR_DCID]: props.statVarSpec.statVar,
+    [URL_PARAM_KEYS.DENOM]: props.statVarSpec.denom,
+  };
+  const hashParams = Object.keys(params)
+    .sort()
+    .map((key) => `${key}=${params[key]}`);
+  return `${props.apiRoot || ""}${MAP_URL_PATH}#${hashParams.join("&")}`;
+}

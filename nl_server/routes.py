@@ -14,7 +14,6 @@
 
 import json
 import logging
-from typing import List, Tuple
 
 from flask import Blueprint
 from flask import current_app
@@ -45,9 +44,12 @@ def search_sv():
   sz = str(escape(request.args.get('sz', ld.DEFAULT_INDEX_TYPE)))
   if not sz:
     sz = ld.DEFAULT_INDEX_TYPE
+  skip_multi_sv = False
+  if request.args.get('skip_multi_sv'):
+    skip_multi_sv = True
   try:
     nl_embeddings = current_app.config[ld.embeddings_config_key(sz)]
-    return json.dumps(nl_embeddings.detect_svs(query))
+    return json.dumps(nl_embeddings.detect_svs(query, skip_multi_sv))
   except Exception as e:
     logging.error(f'Embeddings-based SV detection failed with error: {e}')
     return json.dumps({
@@ -74,3 +76,8 @@ def search_places():
   except Exception as e:
     logging.error(f'NER place detection failed with error: {e}')
     return json.dumps({'places': []})
+
+
+@bp.route('/api/embeddings_version_map/', methods=['GET'])
+def embeddings_version_map():
+  return json.dumps(current_app.config['EMBEDDINGS_VERSION_MAP'])

@@ -14,15 +14,32 @@
  * limitations under the License.
  */
 
-import { renderBarComponent } from "../js/components/tiles/bar_tile";
-import { renderLineComponent } from "../js/components/tiles/line_tile";
-import { renderMapComponent } from "../js/components/tiles/map_tile";
-import { renderRankingComponent } from "../js/ranking/ranking";
+import { renderRankingComponent } from "../js/ranking/component";
+import { DatacommonsBarComponent } from "./bar_component";
+import {
+  renderBarComponent,
+  renderLineComponent,
+  renderMapComponent,
+} from "./components";
+import { DEFAULT_API_ENDPOINT } from "./constants";
+import { DatacommonsGaugeComponent } from "./gauge_component";
+import { DatacommonsLineComponent } from "./line_chart_component";
+import { DatacommonsMapComponent } from "./map_component";
+import { DatacommonsPieComponent } from "./pie_component";
+import { DatacommonsRankingComponent } from "./ranking_component";
+import { DatacommonsSliderComponent } from "./slider_component";
 
 globalThis.datacommons = {
+  DatacommonsBarComponent,
+  DatacommonsGaugeComponent,
+  DatacommonsLineComponent,
+  DatacommonsMapComponent,
+  DatacommonsPieComponent,
+  DatacommonsRankingComponent,
+  DatacommonsSliderComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
   drawRanking: renderRankingComponent,
-  root: "https://datacommons.org",
+  root: DEFAULT_API_ENDPOINT,
 };

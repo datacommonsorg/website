@@ -29,3 +29,29 @@ export const NL_SOURCE_REPLACEMENTS = {
   "https://www.datacommons.org": "https://www.google.com",
   "https://datacommons.org": "https://www.google.com",
 };
+
+export const NL_URL_PARAMS = {
+  DETECTOR: "detector",
+  IDX: "idx",
+  PLACE_DETECTOR: "place_detector",
+};
+
+export const NL_INDEX_VALS = {
+  SMALL: "small",
+  MEDIUM_FT: "medium_ft",
+};
+
+export const NL_DETECTOR_VALS = {
+  HEURISTIC: "heuristic",
+  HYBRID: "hybrid",
+  LLM: "llm",
+};
+
+export const NL_PLACE_DETECTOR_VALS = {
+  NER: "ner",
+  DC: "dc",
+};
+
+export const MAX_QUERY_COUNT = 10;
+
+export const SVG_CHART_HEIGHT = 200;
