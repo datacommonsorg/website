@@ -48,8 +48,6 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Url to use for the explore more button.
   exploreMoreUrl?: string;
-  // Whether to use custom footer slot. Use default ChartFooter if false.
-  useCustomFooter?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
