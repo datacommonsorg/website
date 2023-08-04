@@ -64,6 +64,7 @@ export function getChartArea(
         title={statVarLabel + " (${date})"}
         showLoadingSpinner={true}
         date={appContext.statVars[0].date || ""}
+        allowZoom={true}
       />
       {getFooterOptions(perCapitaInputs, [])}
     </div>
@@ -104,7 +105,7 @@ function getSqlQueryFn(appContext: AppContextType): () => string {
     ) {
       return "";
     }
-    const contextStatVar = appContext.statVars[0]
+    const contextStatVar = appContext.statVars[0];
     const statVarSpec = getStatVarSpec(contextStatVar, VisType.MAP);
     if (statVarSpec.denom) {
       return getPcQuery(

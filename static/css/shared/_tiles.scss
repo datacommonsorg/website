@@ -177,6 +177,27 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   }
 }
 
+.map-zoom-button-section {
+  width: fit-content;
+  position: absolute;
+  bottom: 16px;
+  border: $border;
+  z-index: 2;
+}
+
+.map-zoom-button {
+  cursor: pointer;
+  border: $border;
+  padding: 0.1rem;
+  display: flex;
+  width: fit-content;
+  background-color: white;
+}
+
+.map-zoom-button:hover {
+  background-color: var(--dc-gray-lite);
+}
+
 /**
  * disaster event map tile
  */

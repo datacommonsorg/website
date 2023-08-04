@@ -27,6 +27,7 @@ import {
   addPolygonLayer,
   drawD3Map,
   getProjection,
+  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
@@ -62,6 +63,9 @@ import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
+const ZOOM_IN_BUTTON_ID = "zoom-in-button";
+const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
+
 export interface MapTilePropType {
   // API root
   apiRoot?: string;
@@ -84,6 +88,8 @@ export interface MapTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // Whether or not to allow zoom in and out of the map
+  allowZoom?: boolean;
 }
 
 interface RawData {
@@ -116,6 +122,14 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     null
   );
   const [svgHeight, setSvgHeight] = useState(null);
+  const zoomParams = props.allowZoom
+    ? {
+        zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
+        zoomOutButtonId: `${ZOOM_OUT_BUTTON_ID}-${props.id}`,
+      }
+    : null;
+  const showZoomButtons =
+    !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
 
   useEffect(() => {
     if (!mapChartData || !_.isEqual(mapChartData.props, props)) {
@@ -158,7 +172,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       props,
       svgContainer.current,
       legendContainer.current,
-      mapContainer.current
+      mapContainer.current,
+      null,
+      zoomParams
     );
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
@@ -179,6 +195,16 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       isInitialLoading={_.isNull(mapChartData)}
       exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
     >
+      {showZoomButtons && (
+        <div className="map-zoom-button-section">
+          <div id={zoomParams.zoomInButtonId} className="map-zoom-button">
+            <i className="material-icons">add</i>
+          </div>
+          <div id={zoomParams.zoomOutButtonId} className="map-zoom-button">
+            <i className="material-icons">remove</i>
+          </div>
+        </div>
+      )}
       <div
         id={props.id}
         className="svg-container"
@@ -378,7 +404,8 @@ export function draw(
   svgContainer: HTMLDivElement,
   legendContainer: HTMLDivElement,
   mapContainer: HTMLDivElement,
-  svgWidth?: number
+  svgWidth?: number,
+  zoomParams?: MapZoomParams
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
   const height = props.svgChartHeight;
@@ -454,7 +481,9 @@ export function draw(
     getTooltipHtml,
     () => false,
     chartData.showMapBoundaries,
-    projection
+    projection,
+    undefined,
+    zoomParams
   );
   if (shouldUseBorderData) {
     addPolygonLayer(
