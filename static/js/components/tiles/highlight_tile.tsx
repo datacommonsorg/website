@@ -30,9 +30,16 @@ import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
 
-interface HighlightTilePropType {
+export interface HighlightTilePropType {
+  // API root for data fetch
+  apiRoot?: string;
+  // Date to fetch data for
+  date?: string;
+  // Text to accompany the stat var value highlighted
   description: string;
+  // Place to get data for
   place: NamedTypedPlace;
+  // Variable to get data for
   statVarSpec: StatVarSpec;
 }
 
@@ -87,10 +94,11 @@ const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
     statVars.push(denomStatVar);
   }
   return axios
-    .get<PointApiResponse>("/api/observations/point", {
+    .get<PointApiResponse>(`${props.apiRoot || ""}/api/observations/point`, {
       params: {
         entities: [props.place.dcid],
         variables: statVars,
+        date: props.date,
       },
       paramsSerializer: stringifyFn,
     })
