@@ -68,6 +68,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+      {...{ part: "container" }}
     >
       {highlightData && (
         <span className="stat">
