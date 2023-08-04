@@ -1,11 +1,16 @@
 <html>
   <head>
     <!-- https://gist.github.com/dwnoble/822ce6018bb41113c866d703760c1def -->
-    <link
+    <!-- <link
       rel="stylesheet"
       href="https://datacommons.org/css/datacommons.min.css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="http://localhost:8080/css/datacommons.min.css"
     />
-    <script src="https://datacommons.org/datacommons.js"></script>
+    <!-- <script src="https://datacommons.org/datacommons.js"></script> -->
+    <script src="http://localhost:8080/datacommons.js"></script>
     <style>
       /**
        * Example component styling using shadow part identifiers
@@ -76,7 +81,9 @@
       childPlaceType="State"
       variables="Count_Person"
       maxPlaces="15"
-    ></datacommons-bar>
+    >
+      <p slot="footer">Override. This is a very long override. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </datacommons-bar>
     <datacommons-bar
       title="Population of select US states"
       variables="Count_Person"
@@ -140,7 +147,14 @@
       title="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
-    ></datacommons-pie>
+    >
+      <div slot="footer">
+        <ul>
+            <li>custom footer item 1</li>
+            <li>custom footer item 2</li>
+        </ul>
+      </div>
+    </datacommons-pie>
     <datacommons-pie
       title="California Farms by Size"
       place="geoId/06"
