@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: dev
-  replicas: 6
+  replicas: 20
 
 serviceAccount:
   name: website-ksa
@@ -29,13 +29,13 @@ serviceAccount:
 serviceGroups:
   recon: null
   svg:
-    replicas: 1
+    replicas: 5
   observation:
-    replicas: 2
+    replicas: 20
   node:
-    replicas: 2
+    replicas: 10
   default:
-    replicas: 2
+    replicas: 10
 
 nl:
   enabled: true

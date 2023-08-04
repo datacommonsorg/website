@@ -88,6 +88,44 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Earners Up to $9,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Up to $9,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
@@ -154,44 +192,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_IncomeOf35000To49999USDollar_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Earners Between $35,000 and $49,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_IncomeOf35000To49999USDollar_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Earners Between $35,000 and $49,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -207,10 +207,10 @@
             "statVar": "Count_Person_IncomeOf25000To34999USDollar",
             "unit": "%"
           },
-          "Count_Person_IncomeOf35000To49999USDollar_scatter": {
+          "Count_Person_IncomeOfUpto9999USDollar_scatter": {
             "denom": "Count_Person",
-            "name": "Earners Between $35,000 and $49,999 Per Capita",
-            "statVar": "Count_Person_IncomeOf35000To49999USDollar",
+            "name": "Earners Up to $9,999 Per Capita",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar",
             "unit": "%"
           },
           "Median_Income_Household_scatter": {

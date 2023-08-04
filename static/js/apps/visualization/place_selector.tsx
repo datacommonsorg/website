@@ -95,7 +95,9 @@ export function PlaceSelector(props: {
               className="primary-button continue-button"
               onClick={() => {
                 setPlaces(selectedPlaces);
-                props.onNewSelection();
+                if (props.onNewSelection) {
+                  props.onNewSelection();
+                }
               }}
             >
               Continue
@@ -118,7 +120,9 @@ export function PlaceSelector(props: {
         setSelectedPlaces(newPlaceList);
       } else {
         setPlaces(newPlaceList);
-        props.onNewSelection();
+        if (props.onNewSelection) {
+          props.onNewSelection();
+        }
       }
     });
     triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
@@ -127,12 +131,16 @@ export function PlaceSelector(props: {
   }
 
   function removePlace(dcid: string): void {
-    const newPlaceList = selectedPlaces.filter((place) => place.dcid !== dcid);
+    const newPlaceList = selectedPlaces.filter((place) => {
+      !!place.dcid && !!dcid && place.dcid !== dcid;
+    });
     if (props.selectOnContinue) {
       setSelectedPlaces(newPlaceList);
     } else {
       setPlaces(newPlaceList);
-      props.onNewSelection();
+      if (props.onNewSelection) {
+        props.onNewSelection();
+      }
     }
   }
 }

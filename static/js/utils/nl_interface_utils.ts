@@ -18,8 +18,6 @@
  * Utils used for the nl interface
  */
 
-const FEEDBACK_LINK =
-  "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
 // Param prefixes found when following the instructions here to get a prefilled
 // link: https://support.google.com/docs/answer/2839588?hl=en&ref_topic=6063592#zippy=%2Csend-a-form-with-pre-filled-answers
 const QUERY_PARAM_PREFIX = "&entry.1606762999=";
@@ -27,6 +25,7 @@ const SOURCE_PARAM_PREFIX = "&entry.1274521740=";
 const VERSION_PARAM_PREFIX = "&entry.137463700=";
 const QUERY_CHAIN_PARAM_PREFIX = "&entry.2133108642=";
 const DEBUG_INFO_PARAM_PREFIX = "&entry.1116448950=";
+const EXPLORE_CONTEXT_PARAM_PREFIX = "&entry.1142623554=";
 
 export const CHART_FEEDBACK_SENTIMENT = {
   // The chart is relevant for the query
@@ -81,7 +80,12 @@ export function isNlInterface(): boolean {
  * @param query the query the user is submitting feedback for
  * @param debugData the debug data from server response
  */
-export function getFeedbackLink(query: string, debugData: any): string {
+export function getFeedbackLink(
+  formUrl: string,
+  query: string,
+  debugData: any,
+  exploreContext?: any
+): string {
   let debugInfo = {};
   let queryChain = [];
   if (debugData) {
@@ -133,7 +137,10 @@ export function getFeedbackLink(query: string, debugData: any): string {
     [QUERY_CHAIN_PARAM_PREFIX]: JSON.stringify(queryChain) + queryChainUrl,
     [DEBUG_INFO_PARAM_PREFIX]: JSON.stringify(debugInfo),
   };
-  let link = FEEDBACK_LINK;
+  if (exploreContext) {
+    paramMap[EXPLORE_CONTEXT_PARAM_PREFIX] = JSON.stringify(exploreContext);
+  }
+  let link = formUrl;
   Object.keys(paramMap).forEach((prefix) => {
     const value = paramMap[prefix];
     if (value) {

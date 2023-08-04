@@ -271,13 +271,17 @@ export function getFilteredStatVarPromise(
     })
     .then((resp) => {
       const availableSVs = new Set();
+      const numRequired = Math.min(
+        samplePlaces.length,
+        visTypeConfig.svHierarchyNumExistence || 1
+      );
       for (const sv of statVars) {
         let numAvailable = 0;
         for (const entity in resp.data[sv.dcid]) {
           if (resp.data[sv.dcid][entity]) {
             numAvailable += 1;
           }
-          if (numAvailable >= (visTypeConfig.svHierarchyNumExistence || 1)) {
+          if (numAvailable >= numRequired) {
             availableSVs.add(sv.dcid);
             break;
           }

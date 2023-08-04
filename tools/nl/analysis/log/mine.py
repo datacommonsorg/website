@@ -34,8 +34,16 @@ flags.DEFINE_string('output_dir', '/tmp/', 'Output dir for CSV')
 flags.DEFINE_bool('all_rows', False, 'Process all rows')
 
 _CHART_IDX_THRESHOLD = 15
-_AUTOPUSH_URL = 'https://autopush.datacommons.org/nl#a=True&d=True&'
-_AUTOPUSH_PROJ = 'datcom-website-autopush'
+_SUPPORTED_ENV = {
+    'datcom-website-autopush': {
+        'name': 'autopush',
+        'url': 'https://autopush.datacommons.org/'
+    },
+    'datcom-website-dev': {
+        'name': 'dev',
+        'url': 'https://dev.datacommons.org/'
+    }
+}
 _COL_SESSION = 'session_info'
 _COL_DATA = 'data'
 _COL_FEEDBACK = 'feedback'
@@ -87,34 +95,33 @@ def _fname(start, now):
     now.strftime('%Y%m%d%H') + '.csv'
 
 
-def _url(ditem, detection, index):
+def _key_parse(key: str):
+  # Format xxx_yyyyyyyy_<app>#<project>
+  prefix = key.split('#')[0]
+  parts = prefix.split('_')
+  ts = int(parts[1])
+  time = datetime.fromtimestamp(ts / 1000000.0).strftime('%Y-%m-%d %H:%M:%S')
+  app = parts[2] if len(parts) > 2 else 'nl'
+  return time, app
+
+
+# TODO: Support special Explore params for url.
+def _url(ditem, base_url, app):
   parts = []
 
   queries = [it['query'] for it in ditem['session']['items']]
-  parts.append('q=' + ';'.join(queries))
 
-  if index:
-    parts.append('idx=' + index)
+  if app == 'explore':
+    url = f'{base_url}/explore#oq={queries[0]}'
+  else:
+    url = f'{base_url}/nl#a=True&d=True&q=' + ';'.join(queries)
 
-  detector = ''
-  if detection.startswith('Heuristic'):
-    detector = 'heuristic'
-  elif detection.startswith('LLM'):
-    detector = 'llm'
-  elif detection.startswith('Hybrid'):
-    detector = 'hybrid'
-
-  if detector:
-    parts.append('detector=' + detector)
-
-  return _AUTOPUSH_URL + '&'.join(parts)
+  return url
 
 
-def _write_all_rows(key, data, out_rows):
+def _write_all_rows(key, data, env, out_rows):
   for i, it in enumerate(data[_COL_SESSION]['items']):
-    # Format xxx_yyyyyyyy#<project>
-    ts = int(key.split('#')[0].split('_')[1])
-    time = datetime.fromtimestamp(ts / 1000000.0).strftime('%Y-%m-%d %H:%M:%S')
+    time, app = _key_parse(key)
 
     if i < len(data[_COL_DATA]):
       ditem = data[_COL_DATA][i]
@@ -129,17 +136,19 @@ def _write_all_rows(key, data, out_rows):
     output_row = {
         'Time': time,
         'Query': it['query'],
+        'Application': app,
+        'Env': env['name'],
         'Detection': detection,
         'EmbeddingsIndex':  # The index type is nested...
             index,
         'SessionId': key,
-        'URL': _url(ditem, detection, index),
+        'URL': _url(ditem, env['url'], app),
         'Status': it['status']
     }
     out_rows.append(output_row)
 
 
-def _write_feedback_rows(key, data, out_rows):
+def _write_feedback_rows(key, data, env, out_rows):
   for fb in data[_COL_FEEDBACK]:
     if 'queryId' in fb:
       # Query-level feedback
@@ -178,10 +187,10 @@ def _write_feedback_rows(key, data, out_rows):
         continue
 
     sentiment = fb['sentiment']
+    comment = fb.get('comment', '')
 
-    # Format xxx_yyyyyyyy#<project>
-    ts = int(key.split('#')[0].split('_')[1])
-    time = datetime.fromtimestamp(ts / 1000000.0).strftime('%Y-%m-%d %H:%M:%S')
+    # Format xxx_yyyyyyyy_<app>#<project>
+    time, app = _key_parse(key)
 
     detection = _midx(ditem, ['debug', 'detection_type'])
     index = _midx(ditem, [
@@ -191,14 +200,20 @@ def _write_feedback_rows(key, data, out_rows):
     output_row = {
         'Time':
             time,
+        'Application':
+            app,
+        'Env':
+            env['name'],
         'Query':
             query,
         'ChartIndex':
             abs_chart_idx,
-        'Detection':
-            detection,
         'Feedback':
             sentiment,
+        'UserComment':
+            comment,
+        'Detection':
+            detection,
         'ChartTitle':
             config.get('title'),
         'ChartType':
@@ -210,7 +225,7 @@ def _write_feedback_rows(key, data, out_rows):
         'SessionId':
             key,
         'URL':
-            _url(ditem, detection, index)
+            _url(ditem, env['url'], app)
     }
     out_rows.append(output_row)
 
@@ -222,7 +237,7 @@ def mine(table, start, out_rows, all_rows):
     key = row.row_key.decode('utf-8')
     # Format xxx_yyyyyyyy#<project>
     project = key.split('#')[1].strip()
-    if project != _AUTOPUSH_PROJ:
+    if project not in _SUPPORTED_ENV:
       continue
     data = {
         _COL_DATA: [],
@@ -258,9 +273,9 @@ def mine(table, start, out_rows, all_rows):
     data[_COL_DATA].sort(key=lambda x: len(x['session']['items']))
 
     if all_rows:
-      _write_all_rows(key, data, out_rows)
+      _write_all_rows(key, data, _SUPPORTED_ENV[project], out_rows)
     else:
-      _write_feedback_rows(key, data, out_rows)
+      _write_feedback_rows(key, data, _SUPPORTED_ENV[project], out_rows)
 
 
 def main(_):
@@ -279,14 +294,14 @@ def main(_):
   with open(output_csv, 'w') as fp:
     if FLAGS.all_rows:
       fieldnames = [
-          'Time', 'Query', 'Detection', 'EmbeddingsIndex', 'SessionId', 'URL',
-          'Status'
+          'Time', 'Application', 'Env', 'Query', 'Detection', 'EmbeddingsIndex',
+          'SessionId', 'URL', 'Status'
       ]
     else:
       fieldnames = [
-          'Time', 'Query', 'ChartIndex', 'Detection', 'Feedback', 'ChartTitle',
-          'ChartType', 'ChartVarKeys', 'EmbeddingsIndex', 'SessionId', 'URL',
-          'Status'
+          'Time', 'Application', 'Env', 'Query', 'ChartIndex', 'Feedback',
+          'UserComment', 'Detection', 'ChartTitle', 'ChartType', 'ChartVarKeys',
+          'EmbeddingsIndex', 'SessionId', 'URL', 'Status'
       ]
     csvw = csv.DictWriter(fp, fieldnames=fieldnames)
     csvw.writeheader()
