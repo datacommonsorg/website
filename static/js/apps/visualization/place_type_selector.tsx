@@ -65,7 +65,9 @@ export function PlaceTypeSelector(
                         setSelectedPlaceType(type);
                       } else {
                         setEnclosedPlaceType(type);
-                        props.onNewSelection();
+                        if (props.onNewSelection) {
+                          props.onNewSelection();
+                        }
                       }
                     }}
                   />
@@ -82,7 +84,9 @@ export function PlaceTypeSelector(
             className="primary-button continue-button"
             onClick={() => {
               setEnclosedPlaceType(selectedPlaceType);
-              props.onNewSelection();
+              if (props.onNewSelection) {
+                props.onNewSelection();
+              }
             }}
           >
             Continue

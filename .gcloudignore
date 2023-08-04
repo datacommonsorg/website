@@ -24,9 +24,6 @@
 
 .env/
 
-# Ignore tests
-tests/
-
 screenshots/*.png
 
 .env/

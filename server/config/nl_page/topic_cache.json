@@ -6929,20 +6929,6 @@
     },
     {
       "dcid": [
-        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
-      ],
-      "memberList": [
-        "Amount_Consumption_Electricity_PerCapita"
-      ],
-      "name": [
-        "Per capita Electicity Consumption"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
         "dc/svpg/dc/topic/Emissions_FlourinatedGases"
       ],
       "memberList": [
@@ -7419,10 +7405,8 @@
         "dc/svpg/dc/topic/HouseholdIncomeDistribution_MedianIncomeByHouseholdType"
       ],
       "memberList": [
-        "Median_Income_Household",
         "Median_Income_Household_FamilyHousehold",
         "Median_Income_Household_MarriedCoupleFamilyHousehold",
-        "Median_Income_Household_NoHealthInsurance",
         "Median_Income_Household_NonfamilyHousehold"
       ],
       "name": [
@@ -7437,6 +7421,7 @@
         "dc/svpg/dc/topic/HousesByDateofBuild_AgeofHouse"
       ],
       "memberList": [
+        "Count_HousingUnit_Before1939DateBuilt",
         "Count_HousingUnit_1940To1949DateBuilt",
         "Count_HousingUnit_1950To1959DateBuilt",
         "Count_HousingUnit_1960To1969DateBuilt",
@@ -7448,8 +7433,7 @@
         "Count_HousingUnit_2005OrLaterDateBuilt",
         "Count_HousingUnit_2010OrLaterDateBuilt",
         "Count_HousingUnit_2010To2013DateBuilt",
-        "Count_HousingUnit_2014OrLaterDateBuilt",
-        "Count_HousingUnit_Before1939DateBuilt"
+        "Count_HousingUnit_2014OrLaterDateBuilt"
       ],
       "name": [
         "Age of House"
@@ -7493,14 +7477,14 @@
         "dc/svpg/dc/topic/HousesByHomeValue_HomeValueofHouses"
       ],
       "memberList": [
-        "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+        "Count_HousingUnit_HomeValueUpto49999USDollar",
+        "Count_HousingUnit_HomeValue50000To99999USDollar",
         "Count_HousingUnit_HomeValue100000To199999USDollar",
-        "Count_HousingUnit_HomeValue1500000To1999999USDollar",
         "Count_HousingUnit_HomeValue200000To299999USDollar",
         "Count_HousingUnit_HomeValue300000To499999USDollar",
         "Count_HousingUnit_HomeValue500000To999999USDollar",
-        "Count_HousingUnit_HomeValue50000To99999USDollar",
-        "Count_HousingUnit_HomeValueUpto49999USDollar"
+        "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+        "Count_HousingUnit_HomeValue1500000To1999999USDollar"
       ],
       "name": [
         "Home Value of Houses"
@@ -7620,6 +7604,21 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/Immigration_NativeVsForeign"
+      ],
+      "memberList": [
+        "Count_Person_Native",
+        "Count_Person_ForeignBorn"
+      ],
+      "name": [
+        "Population by Nativity"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/Immigration_USImmigrationByDateOfEntry"
       ],
       "memberList": [
@@ -7668,13 +7667,13 @@
         "dc/svpg/dc/topic/IndividualIncomeDistribution_PopulationByIncomeLevel"
       ],
       "memberList": [
+        "Count_Person_IncomeOfUpto9999USDollar",
         "Count_Person_IncomeOf10000To14999USDollar",
         "Count_Person_IncomeOf25000To34999USDollar",
         "Count_Person_IncomeOf35000To49999USDollar",
         "Count_Person_IncomeOf50000To64999USDollar",
         "Count_Person_IncomeOf65000To74999USDollar",
-        "Count_Person_IncomeOf75000OrMoreUSDollar",
-        "Count_Person_IncomeOfUpto9999USDollar"
+        "Count_Person_IncomeOf75000OrMoreUSDollar"
       ],
       "name": [
         "Population By Income Level"
@@ -7858,9 +7857,9 @@
         "dc/svpg/dc/topic/LevelOfEducationalAttainment_PopulationByLevelofEducationalAttainment"
       ],
       "memberList": [
-        "Count_Person_EducationalAttainment10ThGrade",
-        "Count_Person_EducationalAttainment11ThGrade",
-        "Count_Person_EducationalAttainment12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainmentKindergarten",
+        "Count_Person_EducationalAttainmentNurserySchool",
+        "Count_Person_EducationalAttainmentPrimarySchool",
         "Count_Person_EducationalAttainment1StGrade",
         "Count_Person_EducationalAttainment2NdGrade",
         "Count_Person_EducationalAttainment3RdGrade",
@@ -7870,17 +7869,17 @@
         "Count_Person_EducationalAttainment7ThGrade",
         "Count_Person_EducationalAttainment8ThGrade",
         "Count_Person_EducationalAttainment9ThGrade",
+        "Count_Person_EducationalAttainment10ThGrade",
+        "Count_Person_EducationalAttainment11ThGrade",
+        "Count_Person_EducationalAttainment12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma",
+        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+        "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency",
         "Count_Person_EducationalAttainmentAssociatesDegree",
         "Count_Person_EducationalAttainmentBachelorsDegree",
-        "Count_Person_EducationalAttainmentDoctorateDegree",
         "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree",
-        "Count_Person_EducationalAttainmentHighSchoolGraduateIncludesEquivalency",
-        "Count_Person_EducationalAttainmentKindergarten",
         "Count_Person_EducationalAttainmentMastersDegree",
-        "Count_Person_EducationalAttainmentNurserySchool",
-        "Count_Person_EducationalAttainmentPrimarySchool",
-        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-        "Count_Person_EducationalAttainment_9ThTo12ThGradeNoDiploma"
+        "Count_Person_EducationalAttainmentDoctorateDegree"
       ],
       "name": [
         "Population By Level of Educational Attainment"
@@ -8280,7 +8279,7 @@
         "dc/x52jxxbwspczh"
       ],
       "name": [
-        "Number of Establishements By Industry"
+        "Number of Establishments By Industry"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8646,19 +8645,12 @@
         "dc/svpg/dc/topic/RentalHouses_HousesbyRentalAmount"
       ],
       "memberList": [
-        "Count_HousingUnit_WithRent_1000To1249USDollar",
+        "Count_HousingUnit_WithRent_Upto100USDollar",
         "Count_HousingUnit_WithRent_100To149USDollar",
-        "Count_HousingUnit_WithRent_1250To1499USDollar",
-        "Count_HousingUnit_WithRent_1500To1999USDollar",
         "Count_HousingUnit_WithRent_150To199USDollar",
-        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
-        "Count_HousingUnit_WithRent_2000To2499USDollar",
         "Count_HousingUnit_WithRent_200To249USDollar",
-        "Count_HousingUnit_WithRent_2500To2999USDollar",
         "Count_HousingUnit_WithRent_250To299USDollar",
-        "Count_HousingUnit_WithRent_3000To3499USDollar",
         "Count_HousingUnit_WithRent_300To349USDollar",
-        "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
         "Count_HousingUnit_WithRent_350To399USDollar",
         "Count_HousingUnit_WithRent_400To449USDollar",
         "Count_HousingUnit_WithRent_450To499USDollar",
@@ -8670,7 +8662,14 @@
         "Count_HousingUnit_WithRent_750To799USDollar",
         "Count_HousingUnit_WithRent_800To899USDollar",
         "Count_HousingUnit_WithRent_900To999USDollar",
-        "Count_HousingUnit_WithRent_Upto100USDollar"
+        "Count_HousingUnit_WithRent_1000To1249USDollar",
+        "Count_HousingUnit_WithRent_1250To1499USDollar",
+        "Count_HousingUnit_WithRent_1500To1999USDollar",
+        "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+        "Count_HousingUnit_WithRent_2000To2499USDollar",
+        "Count_HousingUnit_WithRent_2500To2999USDollar",
+        "Count_HousingUnit_WithRent_3000To3499USDollar",
+        "Count_HousingUnit_WithRent_3500OrMoreUSDollar"
       ],
       "name": [
         "Houses by Rental Amount"
@@ -10654,8 +10653,8 @@
         "Electricity Consumption"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/Electricity_Consumption_BySector",
-        "dc/svpg/dc/topic/Electricity_Consumption_PerCapita"
+        "Amount_Consumption_Electricity_PerCapita",
+        "dc/svpg/dc/topic/Electricity_Consumption_BySector"
       ],
       "typeOf": [
         "Topic"
@@ -10792,8 +10791,8 @@
         "Energy"
       ],
       "relevantVariableList": [
-        "dc/topic/Energy_Consumption_FossilFuels",
         "dc/topic/Energy_Generation",
+        "dc/topic/Energy_Consumption_FossilFuels",
         "dc/topic/Energy_Renewables",
         "dc/topic/Electricity_Consumption",
         "dc/topic/Energy_Fraction"
@@ -11254,6 +11253,8 @@
         "Health Insurance"
       ],
       "relevantVariableList": [
+        "Count_Person_NoHealthInsurance",
+        "Count_Person_WithHealthInsurance",
         "dc/topic/HealthInsuranceType",
         "dc/topic/NoHealthInsurance"
       ],
@@ -12140,6 +12141,9 @@
         "Immigration"
       ],
       "relevantVariableList": [
+        "dc/svpg/dc/topic/Immigration_NativeVsForeign",
+        "dc/topic/PlaceOfBirth",
+        "dc/topic/LanguageSpokenAtHome_ForeignBorn",
         "dc/svpg/dc/topic/Immigration_USImmigrationByDateOfEntry"
       ],
       "typeOf": [
@@ -12169,9 +12173,11 @@
         "Income"
       ],
       "relevantVariableList": [
-        "dc/topic/HouseholdIncomeDistribution",
+        "Median_Income_Household",
+        "Median_Income_Person",
+        "dc/topic/IndividualIncomeDistribution",
         "dc/topic/IndividualIncomeByIndustry",
-        "dc/topic/IndividualIncomeDistribution"
+        "dc/topic/HouseholdIncomeDistribution"
       ],
       "typeOf": [
         "Topic"
@@ -12503,7 +12509,7 @@
         "dc/topic/LanguageSpokenAtHome_ForeignBorn"
       ],
       "name": [
-        "Language Spoken At Home"
+        "Language Spoken by Foreign Born Population"
       ],
       "relevantVariableList": [
         "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn",
@@ -12761,9 +12767,9 @@
         "Mental Health"
       ],
       "relevantVariableList": [
-        "Count_Death_MentalBehaviouralDisorders",
-        "Percent_Person_18OrMoreYears_WithDepression",
         "Percent_Person_WithMentalHealthNotGood",
+        "Percent_Person_18OrMoreYears_WithDepression",
+        "Count_Death_MentalBehaviouralDisorders",
         "dc/svpg/dc/topic/MentalHealth_DeathsbyAge"
       ],
       "typeOf": [
@@ -13009,10 +13015,8 @@
         "Nationality"
       ],
       "relevantVariableList": [
-        "dc/topic/CitizenshipStatus",
         "dc/topic/Immigration",
-        "dc/topic/LanguageSpokenAtHome_ForeignBorn",
-        "dc/topic/PlaceOfBirth"
+        "dc/topic/CitizenshipStatus"
       ],
       "typeOf": [
         "Topic"
@@ -14260,11 +14264,11 @@
         "Poverty"
       ],
       "relevantVariableList": [
+        "Count_Person_BelowPovertyLevelInThePast12Months",
         "dc/topic/PovertyByGender",
-        "dc/topic/PovertyByLanguageSpokenAtHome",
         "dc/topic/PovertyByRace",
         "dc/topic/PovertyByResidency",
-        "dc/topic/PovertyLevels",
+        "dc/topic/PovertyByLanguageSpokenAtHome",
         "dc/topic/SDG_1"
       ],
       "typeOf": [
@@ -14322,25 +14326,6 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/PovertyByResidency_ImpoverishedPopulationByResidency"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PovertyLevels"
-      ],
-      "name": [
-        "Poverty Levels"
-      ],
-      "relevantVariableList": [
-        "Count_Household_WithFoodStampsInThePast12Months",
-        "Count_Person_BelowPovertyLevelInThePast12Months",
-        "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined",
-        "Count_Person_PovertyStatusDetermined",
-        "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters",
-        "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters"
       ],
       "typeOf": [
         "Topic"

@@ -28,7 +28,6 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import context
-from server.lib.nl.fulfillment.existence import build_chart_vars
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import update_extra_success_svs
@@ -141,7 +140,8 @@ def populate_charts(state: PopulateState) -> bool:
 
   # If this query did not have a place, but had a contained-in attribute, we
   # might try specific default places.
-  default_place = get_default_contained_in_place(state)
+  default_place = get_default_contained_in_place(state.uttr.places,
+                                                 state.place_type)
   if default_place:
     # No fallback when using default-place
     result = populate_charts_for_places(state, [default_place],
@@ -460,13 +460,14 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
   return True
 
 
-def get_default_contained_in_place(state: PopulateState) -> Place:
-  if state.uttr.places:
+def get_default_contained_in_place(places: List[Place],
+                                   place_type: ContainedInPlaceType) -> Place:
+  if places:
     return None
-  if not state.place_type:
+  if not place_type:
     # For a non-contained-in-place query, default to USA.
     return constants.USA
-  ptype = state.place_type
+  ptype = place_type
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)

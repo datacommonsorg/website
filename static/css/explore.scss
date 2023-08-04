@@ -173,3 +173,21 @@
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
 }
+
+.feedback-link {
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-end;
+  min-height: 1rem;
+  margin-top: 5px;
+  margin-bottom: -5px;
+
+  a {
+    color: $feedback-link-font-color;
+    font-style: italic;
+    text-align: right;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bolder;
+  }
+}

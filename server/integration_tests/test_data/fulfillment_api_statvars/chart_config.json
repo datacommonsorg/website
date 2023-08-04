@@ -728,8 +728,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
         "types": [
           "Topic"
         ]
@@ -742,8 +742,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
         "types": [
           "Topic"
         ]

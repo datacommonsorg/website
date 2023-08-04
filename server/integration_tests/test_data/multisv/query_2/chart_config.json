@@ -32,28 +32,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Households Receiving Food Stamps in the Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Households Receiving Food Stamps in the Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Population Below Poverty Level Status in Past Year (${date})",
@@ -68,94 +46,6 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Population Below Poverty Level Status in Past Year (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Civilian, Non Institutionalized, Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: Civilian, Non Institutionalized, Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_multiple_place_bar_block"
-                    ],
-                    "title": "Population With Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population With Poverty Status Determined (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block"
-                    ],
-                    "title": "Population in Group Quarters With Determined Poverty Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population in Group Quarters With Determined Poverty Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block"
-                    ],
-                    "title": "Population in Non Institutionalized Group Quarters With Determined Poverty Status (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population in Non Institutionalized Group Quarters With Determined Poverty Status (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -205,43 +95,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Impoverished Population By By Language Spoken At Home (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Impoverished Population By By Language Spoken At Home (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Impoverished Population By By Language Spoken At Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
@@ -276,6 +129,43 @@
               }
             ],
             "title": "Impoverished Population By Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Impoverished Population By By Language Spoken At Home (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Impoverished Population By By Language Spoken At Home (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Impoverished Population By By Language Spoken At Home"
           },
           {
             "columns": [
@@ -415,6 +305,66 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block"
+                    ],
+                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block"
+                    ],
+                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
@@ -427,14 +377,23 @@
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block": {
-            "name": "Households Receiving Food Stamps in the Past Year",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months"
+          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block": {
+            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
+            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
           },
-          "Count_Household_WithFoodStampsInThePast12Months_multiple_place_bar_block_pc": {
+          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Households Receiving Food Stamps in the Past Year",
-            "statVar": "Count_Household_WithFoodStampsInThePast12Months"
+            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
+            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
+          },
+          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block": {
+            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
+            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
+          },
+          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
+            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
@@ -580,15 +539,6 @@
             "name": "Population Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_multiple_place_bar_block": {
-            "name": "Population: Civilian, Non Institutionalized, Poverty Status Determined",
-            "statVar": "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined"
-          },
-          "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Civilian, Non Institutionalized, Poverty Status Determined",
-            "statVar": "Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined"
-          },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Females In Poverty (in last year)",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
@@ -606,33 +556,6 @@
             "denom": "Count_Person",
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block": {
-            "name": "Population in Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population in Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block": {
-            "name": "Population in Non Institutionalized Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population in Non Institutionalized Group Quarters With Determined Poverty Status",
-            "statVar": "Count_Person_PovertyStatusDetermined_ResidesInNoninstitutionalizedGroupQuarters"
-          },
-          "Count_Person_PovertyStatusDetermined_multiple_place_bar_block": {
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
-          },
-          "Count_Person_PovertyStatusDetermined_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "Percent_Person_Obesity_multiple_place_bar_block": {
             "name": "Prevalence of Obesity",
