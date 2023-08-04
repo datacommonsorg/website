@@ -47,6 +47,8 @@ const STAT_VAR_PARAM_KEYS = {
   DCID: "dcid",
   PER_CAPITA: "pc",
   LOG: "log",
+  DATE: "date",
+  DENOM: "denom",
 };
 
 export interface ContextStatVar {
@@ -54,6 +56,8 @@ export interface ContextStatVar {
   info: StatVarInfo;
   isPerCapita?: boolean;
   isLog?: boolean;
+  date?: string;
+  denom?: string;
 }
 export interface AppContextType {
   visType: string;
@@ -271,6 +275,12 @@ export function AppContextProvider(
           if (sv.isLog) {
             svValue[STAT_VAR_PARAM_KEYS.LOG] = PARAM_VALUE_TRUE;
           }
+          if (sv.date) {
+            svValue[STAT_VAR_PARAM_KEYS.DATE] = sv.date;
+          }
+          if (sv.denom) {
+            svValue[STAT_VAR_PARAM_KEYS.DENOM] = sv.denom;
+          }
           return JSON.stringify(svValue);
         })
         .join(PARAM_VALUE_SEP),
@@ -364,6 +374,8 @@ export function AppContextProvider(
               isPerCapita:
                 sv[STAT_VAR_PARAM_KEYS.PER_CAPITA] === PARAM_VALUE_TRUE,
               isLog: sv[STAT_VAR_PARAM_KEYS.LOG] === PARAM_VALUE_TRUE,
+              date: sv[STAT_VAR_PARAM_KEYS.DATE] || "",
+              denom: sv[STAT_VAR_PARAM_KEYS.DENOM] || "",
             };
           }
         });

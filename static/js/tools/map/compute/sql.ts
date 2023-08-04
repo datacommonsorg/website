@@ -38,9 +38,22 @@ export function useGetSqlQuery(chartStore: ChartStore) {
       metadata = chartStore.allStat.data.facets[statVar.value.metahash];
     }
     if (statVar.value.perCapita) {
-      return getPcQuery(statVar.value, placeInfo.value, date, metadata);
+      return getPcQuery(
+        statVar.value.dcid,
+        statVar.value.denom,
+        placeInfo.value.enclosingPlace.dcid,
+        placeInfo.value.enclosedPlaceType,
+        date,
+        metadata
+      );
     } else {
-      return getNonPcQuery(statVar.value, placeInfo.value, date, metadata);
+      return getNonPcQuery(
+        statVar.value.dcid,
+        placeInfo.value.enclosingPlace.dcid,
+        placeInfo.value.enclosedPlaceType,
+        date,
+        metadata
+      );
     }
   }, [
     dateCtx.value,
