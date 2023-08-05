@@ -16,7 +16,6 @@
 
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 

@@ -97,9 +97,9 @@ const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
   return axios
     .get<PointApiResponse>(`${props.apiRoot || ""}/api/observations/point`, {
       params: {
+        date: props.date,
         entities: [props.place.dcid],
         variables: statVars,
-        date: props.date,
       },
       paramsSerializer: stringifyFn,
     })
