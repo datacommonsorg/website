@@ -74,8 +74,8 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
       >
         <div className="chart-headers">
           {
-            /* If props.title is not empty, we want to render this header element
-                even if title is empty to keep the space on the page */
+            /* We want to render this header element even if title is empty
+            to keep the space on the page */
             props.title && <h4 {...{ part: "title" }}>{title}</h4>
           }
           <slot name="subtitle"></slot>
