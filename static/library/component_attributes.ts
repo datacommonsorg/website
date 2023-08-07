@@ -54,6 +54,18 @@ export interface GaugeComponentProps
   variable: string;
 }
 
+export interface HighlightComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  apiRoot?: string;
+  date?: string;
+  description: string;
+  place: string;
+  variable: string;
+}
+
 export interface LineComponentProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLElement>,
