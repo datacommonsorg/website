@@ -40,7 +40,6 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 
@@ -133,7 +132,7 @@ export function isSelectionComplete(
   visType: string,
   places: NamedTypedPlace[],
   enclosedPlaceType: string,
-  statVars: { dcid: string; info: StatVarInfo }[]
+  statVars: ContextStatVar[]
 ): boolean {
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
   if (_.isEmpty(places)) {
@@ -236,8 +235,13 @@ export function getStatVarSpec(
   sv: ContextStatVar,
   visType: string
 ): StatVarSpec {
+  // If timeline, don't allow using specified denoms.
+  // TODO: allow using specified denoms for timeline. Need to handle how we
+  // group the charts.
+  const denom =
+    visType === VisType.TIMELINE ? DEFAULT_DENOM : sv.denom || DEFAULT_DENOM;
   return {
-    denom: sv.isPerCapita ? DEFAULT_DENOM : "",
+    denom: sv.isPerCapita ? denom : "",
     log: visType === VisType.SCATTER && sv.isLog,
     name: sv.info.title || sv.dcid,
     scaling: 1,

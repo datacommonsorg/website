@@ -19,6 +19,7 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
+@import "../bq_modal";
 
 $selector-footer-height: 40px;
 
@@ -68,6 +69,10 @@ $selector-footer-height: 40px;
 .context-loading-spinner {
   position: relative;
   height: 100%;
+}
+
+#bq-link.btn-subfooter {
+  font-size: 0.9rem;
 }
 
 /* Vis type selector */
@@ -502,6 +507,11 @@ $selector-footer-height: 40px;
       }
     }
   }
+}
+
+.big-query-sql-instructions {
+  font-size: 1rem;
+  width: 100%;
 }
 
 /* Info pane */
