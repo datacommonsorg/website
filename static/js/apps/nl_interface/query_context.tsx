@@ -111,10 +111,11 @@ export function QueryContext(): JSX.Element {
       }, nextPromptDelay);
     },
     [
-      autoPlayCurrentQueryIndex,
-      autoPlayDisableTypingAnimation,
       autoPlayAutoShowQueryDelay,
       autoPlayAutoRunQuery,
+      autoPlayCurrentQueryIndex,
+      autoPlayDisableTypingAnimation,
+      autoPlayManuallyShowQuery,
       config,
       currentNlQueryContext,
       nlQueryHistory,

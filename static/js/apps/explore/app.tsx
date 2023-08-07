@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import queryString, { ParsedQuery } from "query-string";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -74,9 +74,9 @@ export function App(): JSX.Element {
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>(
     queryString.parse(window.location.hash)
   );
-  const [savedContext, setSavedContext] = useState<any>([]);
   const [query, setQuery] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
+  const savedContext = useRef([]);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -114,12 +114,12 @@ export function App(): JSX.Element {
           query = origQuery;
         }
         setQuery(query);
-        const detectResp = await fetchDetectData(query, savedContext);
+        const detectResp = await fetchDetectData(query, savedContext.current);
         if (!detectResp) {
           setLoadingStatus("fail");
           return;
         }
-        setSavedContext(detectResp["context"] || []);
+        savedContext.current = detectResp["context"] || [];
         if (_.isEmpty(detectResp["entities"])) {
           setLoadingStatus("fail");
           return;
@@ -201,7 +201,7 @@ export function App(): JSX.Element {
           }
         }
       }
-      setSavedContext(resp["context"] || {});
+      savedContext.current = resp["context"] || [];
       setLoadingStatus("loaded");
       setChartData(chartData);
       setUserMessage(resp["userMessage"]);
@@ -213,6 +213,7 @@ export function App(): JSX.Element {
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
+  const sdg = getSingleParam(hashParams["sdg"]);
 
   const searchSection = (
     <div className="search-section">
@@ -283,18 +284,20 @@ export function App(): JSX.Element {
                     })}
                   </div>
                 )}
-              <ChildPlaces
-                childPlaces={chartData.childPlaces}
-                parentPlace={chartData.place}
-                urlFormatString={urlString}
-              ></ChildPlaces>
+              {sdg !== "True" && (
+                <ChildPlaces
+                  childPlaces={chartData.childPlaces}
+                  parentPlace={chartData.place}
+                  urlFormatString={urlString}
+                ></ChildPlaces>
+              )}
             </>
           )}
         </div>
         <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
             <>
-              {searchSection}
+              {sdg !== "True" && searchSection}
               <div id="place-callout">{chartData.place.name}</div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace
@@ -337,7 +340,9 @@ export function App(): JSX.Element {
     FEEDBACK_LINK,
     query || "",
     debugData,
-    _.isEmpty(savedContext) ? null : savedContext[0]["insightCtx"]
+    _.isEmpty(savedContext.current)
+      ? null
+      : savedContext.current[0]["insightCtx"]
   );
 
   return (
