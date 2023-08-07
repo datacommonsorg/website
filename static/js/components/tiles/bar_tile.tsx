@@ -289,7 +289,6 @@ function rawToChart(
         (props.sort === "ascending" ? 1 : -1)
     );
   }
-  console.log(dataGroups.slice(0, props.maxPlaces || NUM_PLACES));
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
