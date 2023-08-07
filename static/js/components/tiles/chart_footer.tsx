@@ -69,9 +69,13 @@ function getSourcesJsx(sources: Set<string>): JSX.Element[] {
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
   return (
     <footer id="chart-container-footer">
-      {!_.isEmpty(props.sources) && (
-        <div className="sources">Data from {getSourcesJsx(props.sources)}.</div>
-      )}
+      <slot name="footer">
+        {!_.isEmpty(props.sources) && (
+          <div className="sources">
+            Data from {getSourcesJsx(props.sources)}.
+          </div>
+        )}
+      </slot>
       <div className="outlinks">
         {props.handleEmbed && (
           <a
