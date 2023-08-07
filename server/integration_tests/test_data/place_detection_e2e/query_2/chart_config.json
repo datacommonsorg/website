@@ -9,9 +9,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Homes Valued Between $1,000,000 and $1,499,999 in States of United States (${date})",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue50000To99999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 50,000 - 99,999 USD in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
@@ -19,13 +26,6 @@
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
                     "title": "Count of Housing Unit: 100,000 - 199,999 USD in States of United States (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar"
-                    ],
-                    "title": "Homes Valued Between $1,500,000 and $1,999,999 in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
@@ -51,16 +51,16 @@
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To99999USDollar"
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000 - 99,999 USD in States of United States (${date})",
+                    "title": "Homes Valued Between $1,000,000 and $1,499,999 in States of United States (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValueUpto49999USDollar"
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 49,999 USD or Less in States of United States (${date})",
+                    "title": "Homes Valued Between $1,500,000 and $1,999,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
