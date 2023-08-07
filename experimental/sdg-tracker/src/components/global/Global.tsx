@@ -1,9 +1,3 @@
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import type { MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
@@ -15,7 +9,7 @@ import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 import GlobalContent from "./GlobalContent";
 
-const { Content, Sider } = Layout;
+const { Sider } = Layout;
 
 /**
  * Regex for matching SDG variable group names
@@ -36,68 +30,6 @@ const MenuTitle = styled.div`
   font-weight: 500;
   padding: 0.5rem 1.5rem;
 `;
-
-const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
-const items2: MenuProps["items"] = [
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-].map((icon, index) => {
-  const key = String(index + 1);
-
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
-
-const items3 = [
-  {
-    key: "1",
-    label: "No Poverty",
-    children: [
-      {
-        key: "1.1",
-        label:
-          "By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day(17)",
-      },
-      {
-        key: "1.2",
-        label:
-          "By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day(17)",
-      },
-    ],
-  },
-  {
-    key: "2",
-    label: "No Poverty",
-    children: [
-      {
-        key: "2.1",
-        label:
-          "By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day(17)",
-      },
-      {
-        key: "2.2",
-        label:
-          "By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day(17)",
-      },
-    ],
-  },
-];
 
 interface MenuItemType {
   key: string;
