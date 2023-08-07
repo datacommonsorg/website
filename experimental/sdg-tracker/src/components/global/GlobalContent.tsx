@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
 
-const StyledLayoutContent = styled(Layout.Content)`
+const InnerContent = styled.div`
   margin: 0;
   min-height: 280px;
-  overflow: auto;
   padding: 24px;
+  background: white;
 `;
 
 interface ChartConfig {
@@ -26,7 +26,6 @@ const DataCommonsChart: React.FC<{
       <datacommons-bar
         childPlaceType="Country"
         sort="descending"
-        horizontal
         maxPlaces={10}
         parentPlace="Earth"
         title={`${config.title} (DESCENDING)`}
@@ -38,7 +37,6 @@ const DataCommonsChart: React.FC<{
       <datacommons-bar
         childPlaceType="Country"
         sort="ascending"
-        horizontal
         maxPlaces={10}
         parentPlace="Earth"
         title={`${config.title} (ASCENDING)`}
@@ -88,28 +86,32 @@ const GlobalContent: React.FC<{
 
   if (!selectedVariableGroup) {
     return (
-      <StyledLayoutContent
+      <Layout.Content
         style={{
           background: colorBgContainer,
         }}
       >
-        <h2>SDG Global Overview</h2>
-        <p>Select a topic from the menu on the left to get started.</p>
-      </StyledLayoutContent>
+        <InnerContent>
+          <h2>SDG Global Overview</h2>
+          <p>Select a topic from the menu on the left to get started.</p>
+        </InnerContent>
+      </Layout.Content>
     );
   }
   return (
-    <StyledLayoutContent
+    <Layout.Content
       style={{
         background: colorBgContainer,
       }}
     >
-      <h2>{selectedVariableGroup.name}</h2>
-      {chartConfigs &&
-        chartConfigs.map((config, i) => (
-          <DataCommonsChart config={config} key={i} />
-        ))}
-    </StyledLayoutContent>
+      <InnerContent>
+        <h2>{selectedVariableGroup.name}</h2>
+        {chartConfigs &&
+          chartConfigs.map((config, i) => (
+            <DataCommonsChart config={config} key={i} />
+          ))}
+      </InnerContent>
+    </Layout.Content>
   );
 };
 

@@ -114,6 +114,7 @@ const Global: React.FC = () => {
   const variablesByDcid = useStoreState((s) => s.variables.byDcid);
   const [selectedVariableGroupDcid, setSelectedVariableGroupDcid] =
     useState<string>();
+  const [siderHidden, setSiderHidden] = useState<boolean>(false);
 
   /** Build SDG Hierarchy */
   const items = useMemo(() => {
@@ -178,10 +179,15 @@ const Global: React.FC = () => {
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
         <Layout style={{ height: "100%", flexGrow: 1 }}>
           <Sider
-            width={400}
+            breakpoint="lg"
+            collapsedWidth="0"
+            width={320}
+            onBreakpoint={(broken) => {
+              setSiderHidden(broken);
+            }}
             style={{
               background: colorBgContainer,
-              overflow: "auto",
+              overflow: !siderHidden ? "auto" : undefined,
             }}
           >
             <MenuTitle>Goals</MenuTitle>
@@ -196,7 +202,7 @@ const Global: React.FC = () => {
               }}
             />
           </Sider>
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout style={{ padding: "0 24px 24px", overflow: "auto" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>
                 <Link to="/global">Global Overview</Link>

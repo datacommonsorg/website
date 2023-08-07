@@ -170,8 +170,13 @@ def fetch_sdgs(outfile):
 @click.option('--infile', required=True)
 @click.option('--outfile', default=None)
 def enrich_sdgs(infile, outfile):
+  client = DataCommonsClient()
+  # get top-level sdgs
+  result = fetch_variable_groups(client, SDG_GROUP_ROOT, recursive=False)
+
+
+  sdg_groups = [g["id"] for g in result[0]["info"]["childStatVarGroups"]]
   sdg_result_set = json.loads(open(infile).read())
-  print(len(sdg_result_set))
 
 
 @cli.command()
