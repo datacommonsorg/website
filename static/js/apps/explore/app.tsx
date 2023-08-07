@@ -105,6 +105,7 @@ export function App(): JSX.Element {
       let placeType = getSingleParam(hashParams["pt"]);
       let query = getSingleParam(hashParams["q"]);
       const origQuery = getSingleParam(hashParams["oq"]);
+      const dc = getSingleParam(hashParams["dc"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -114,7 +115,11 @@ export function App(): JSX.Element {
           query = origQuery;
         }
         setQuery(query);
-        const detectResp = await fetchDetectData(query, savedContext.current);
+        const detectResp = await fetchDetectData(
+          query,
+          savedContext.current,
+          dc
+        );
         if (!detectResp) {
           setLoadingStatus("fail");
           return;
@@ -168,7 +173,8 @@ export function App(): JSX.Element {
         topics,
         placeType,
         cmpPlaces,
-        cmpTopics
+        cmpTopics,
+        dc
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -213,7 +219,7 @@ export function App(): JSX.Element {
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
-  const sdg = getSingleParam(hashParams["sdg"]);
+  const dc = getSingleParam(hashParams["dc"]);
 
   const searchSection = (
     <div className="search-section">
@@ -284,7 +290,7 @@ export function App(): JSX.Element {
                     })}
                   </div>
                 )}
-              {sdg !== "True" && (
+              {dc !== "sdg" && (
                 <ChildPlaces
                   childPlaces={chartData.childPlaces}
                   parentPlace={chartData.place}
@@ -297,7 +303,7 @@ export function App(): JSX.Element {
         <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
             <>
-              {sdg !== "True" && searchSection}
+              {dc !== "sdg" && searchSection}
               <div id="place-callout">{chartData.place.name}</div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace
@@ -362,10 +368,12 @@ const fetchFulfillData = async (
   topics: string[],
   placeType: string,
   cmpPlaces: string[],
-  cmpTopics: string[]
+  cmpTopics: string[],
+  dc: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
+      dc,
       entities: places,
       variables: topics,
       childEntityType: placeType,
@@ -379,10 +387,15 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (query: string, savedContext: any) => {
+const fetchDetectData = async (
+  query: string,
+  savedContext: any,
+  dc: string
+) => {
   try {
     const resp = await axios.post(`/api/explore/detect?q=${query}`, {
       contextHistory: savedContext,
+      dc,
     });
     return resp.data;
   } catch (error) {
