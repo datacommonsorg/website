@@ -1,4 +1,4 @@
-# Data Commons Gauge Chart Web Component
+# Data Commons Highlight Chart Web Component
 
 [Data Commons Web Component](../../README.md) for highlighting a specific
 variable value from a specific variable about a single place.
@@ -15,7 +15,7 @@ variable value from a specific variable about a single place.
 ></datacommons-highlight>
 ```
 
-<img src="../assets/gauge.png" width="620"/>
+<img src="../assets/highlight.png" width="620"/>
 
 ### Attributes
 
@@ -42,3 +42,7 @@ Optional:
   Note: Ensure your variable has data available at the specified date using the [Stat Var Explorer](https://datacommons.org/tools/statvar)
 
   Default: Most recent data available.
+
+- `unit` _string_
+  
+  Unit the variable is measured in.

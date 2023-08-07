@@ -63,6 +63,10 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property()
   place!: string;
 
+  // Optional: Unit of the variable
+  @property()
+  unit?: string;
+
   // List of DCIDs of the statistical variable(s) to plot values for
   @property()
   variable!: string;
@@ -83,7 +87,7 @@ export class DatacommonsHighlightComponent extends LitElement {
         name: "",
         scaling: 1,
         statVar: this.variable,
-        unit: "",
+        unit: this.unit || "",
       },
     };
     const mountPoint = document.createElement("div");
