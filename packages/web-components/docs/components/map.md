@@ -23,14 +23,6 @@ Required:
 
   Child place types to plot. Example: `State`.
 
-- `date` _string_
-
-  Specific date to show data for. ISO 8601 format (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD").
-
-  Note: Ensure your variable has data available at the specified date using the [Stat Var Explorer](https://datacommons.org/tools/statvar)
-
-  Default: Most recent data available.
-
 - `parentPlace` _string_
 
   Parent place DCID to plot. Example: `country/USA`.
@@ -54,6 +46,14 @@ Optional:
   - If one color is given: a luminance based color scale will be used
   - If two colors are given: a divergent color scale will be used, with the first color corresponding to the min value, and the second color corresponding to the max value.
   - If three colors are given: a color scale with the first three colors corresponding to [min, mean, max] values will be used.
+
+- `date` _string_
+
+  Specific date to show data for. ISO 8601 format (e.g. "YYYY", "YYYY-MM", "YYYY-MM-DD").
+
+  Note: Ensure your variable has data available at the specified date using the [Stat Var Explorer](https://datacommons.org/tools/statvar)
+
+  Default: Most recent data available.
 
 - `subscribe` _string_
 
