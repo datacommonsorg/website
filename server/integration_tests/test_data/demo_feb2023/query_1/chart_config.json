@@ -164,32 +164,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -206,32 +180,6 @@
               }
             ],
             "title": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -270,32 +218,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -312,32 +234,6 @@
               }
             ],
             "title": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -376,32 +272,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -418,32 +288,6 @@
               }
             ],
             "title": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -482,32 +326,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -524,32 +342,6 @@
               }
             ],
             "title": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -588,32 +380,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -630,32 +396,6 @@
               }
             ],
             "title": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -694,32 +434,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -736,32 +450,6 @@
               }
             ],
             "title": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -800,32 +488,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -842,32 +504,6 @@
               }
             ],
             "title": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -906,32 +542,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
                     "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
@@ -948,32 +558,6 @@
               }
             ],
             "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -1120,17 +704,7 @@
             "name": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245",
             "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245",
-            "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
           "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585",
-            "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Max Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585",
             "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
@@ -1138,17 +712,7 @@
             "name": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245",
             "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
           },
-          "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245",
-            "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
           "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585",
-            "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Max Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585",
             "statVar": "MaxTemp_Daily_GaussianMixture_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
@@ -1156,17 +720,7 @@
             "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
             "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
-            "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
           "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585",
-            "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585",
             "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
@@ -1174,17 +728,7 @@
             "name": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245",
             "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
           },
-          "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245",
-            "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
           "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
-            "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
             "statVar": "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
@@ -1200,17 +744,7 @@
             "name": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245",
             "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP245",
-            "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
           "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585",
-            "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Min Temperature With 1% Chance Once In Decade: CMIP6 Ensemble, SSP585",
             "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
@@ -1218,17 +752,7 @@
             "name": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245",
             "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
           },
-          "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP245",
-            "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
           "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585",
-            "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Min Temperature With 1% Chance Once In Year: CMIP6 Ensemble, SSP585",
             "statVar": "MinTemp_Daily_GaussianMixture_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
@@ -1236,17 +760,7 @@
             "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
             "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
-            "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
           "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585",
-            "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585",
             "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
@@ -1254,17 +768,7 @@
             "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245",
             "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
           },
-          "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245",
-            "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
           "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
-            "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
             "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
             "statVar": "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },

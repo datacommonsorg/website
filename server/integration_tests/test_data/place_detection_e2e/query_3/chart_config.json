@@ -12,14 +12,14 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block",
                       "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block",
                       "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block",
-                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block"
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block"
                     ],
                     "title": "Home Value of Houses in Florida (${date})",
                     "type": "BAR"
@@ -29,14 +29,14 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_pc",
                       "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_pc",
                       "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc",
-                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc"
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc"
                     ],
                     "title": "Per Capita Home Value of Houses in Florida (${date})",
                     "type": "BAR"
