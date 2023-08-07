@@ -17,10 +17,21 @@
 metadata {
   topic_id: "foodsecurity"
   topic_name: "Food Security"
-  place_dcid: "geoId/06"
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
   contained_place_types {
     key: "State"
     value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "CensusTract"
   }
 }
 

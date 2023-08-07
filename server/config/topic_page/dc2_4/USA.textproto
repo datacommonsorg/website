@@ -1,0 +1,75 @@
+# Copyright 2023 TechSoup Global
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "dc2_4"
+  topic_name: "Food Security"
+  place_dcid: "country/USA"
+  contained_place_types {
+    key: "Country"
+    value: "County"
+  }
+}
+
+categories {
+  title: "Poverty in the United States"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Supplemental Nutrition Assistance Program (SNAP) per capita"
+    columns {
+      tiles {
+        type: MAP
+        title: "Households Receiving Food Stamps in the Past Year Per Capita ${date}"
+        stat_var_key: "Count_Household_WithFoodStampsInThePast12Months"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Household_WithFoodStampsInThePast12Months"
+    value {
+      stat_var: "Count_Household_WithFoodStampsInThePast12Months"
+      name: "Count_Household_WithFoodStampsInThePast12Months"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Number of people living in poverty"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "People below the poverty line in ${placeName} ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        description: "Number of People Below the Poverty Line ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Count_Person_BelowPovertyLevelInThePast12Months"
+    }
+  }
+
+}
