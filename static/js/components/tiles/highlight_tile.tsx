@@ -65,6 +65,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   if (props.description) {
     description = formatString(props.description, rs);
   }
+  // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
+  // workaround to add a "part" attribute to a React element without npm errors.
+  // This hack should be cleaned up.
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
