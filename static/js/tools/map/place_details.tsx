@@ -23,8 +23,7 @@ import _ from "lodash";
 import React, { useContext } from "react";
 import { Card } from "reactstrap";
 
-import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_d3_map";
-import { getPlacePathId } from "../../chart/draw_map_utils";
+import { highlightPlaceToggle } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -137,27 +136,24 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
-function highlightPlaceToggle(
-  target: HTMLAnchorElement,
-  shouldHighlight: boolean
-) {
-  const geoDcid = target.dataset.geodcid;
-  const container = d3.select(`#${MAP_CONTAINER_ID}`);
-  const region = container
-    .select(`#${getPlacePathId(geoDcid)}`)
-    .raise()
-    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
-  if (region.size()) {
-    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
-  }
-}
-
 function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
-  highlightPlaceToggle(e.target as HTMLAnchorElement, true);
+  const target = e.target as HTMLAnchorElement;
+  const placeDcid = target.dataset.geodcid;
+  highlightPlaceToggle(
+    document.getElementById(MAP_CONTAINER_ID),
+    placeDcid,
+    true
+  );
 }
 
 function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
-  highlightPlaceToggle(e.target as HTMLAnchorElement, false);
+  const target = e.target as HTMLAnchorElement;
+  const placeDcid = target.dataset.geodcid;
+  highlightPlaceToggle(
+    document.getElementById(MAP_CONTAINER_ID),
+    placeDcid,
+    false
+  );
 }
 
 function getListItemElement(
