@@ -17,6 +17,7 @@ import time
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore.detector import Params
 from server.lib.explore.page_type import default
 from server.lib.explore.page_type import fallback
 from server.lib.explore.page_type import place_comparison
@@ -39,9 +40,10 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
                  env_config: builder.Config) -> ConfigResp:
   # Get names of all SVs
+  dc = state.uttr.insight_ctx[Params.DC.value]
   start = time.time()
   sv2thing = base.SV2Thing(
-      name=variable.get_sv_name(all_svs, env_config.sv_chart_titles),
+      name=variable.get_sv_name(all_svs, env_config.sv_chart_titles, dc),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),

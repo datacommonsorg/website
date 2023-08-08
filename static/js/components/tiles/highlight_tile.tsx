@@ -30,9 +30,16 @@ import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
 
-interface HighlightTilePropType {
+export interface HighlightTilePropType {
+  // API root for data fetch
+  apiRoot?: string;
+  // Date to fetch data for
+  date?: string;
+  // Text to accompany the stat var value highlighted
   description: string;
+  // Place to get data for
   place: NamedTypedPlace;
+  // Variable to get data for
   statVarSpec: StatVarSpec;
 }
 
@@ -58,9 +65,13 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   if (props.description) {
     description = formatString(props.description, rs);
   }
+  // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
+  // workaround to add a "part" attribute to a React element without npm errors.
+  // This hack should be cleaned up.
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+      {...{ part: "container" }}
     >
       {highlightData && (
         <span className="stat">
@@ -87,8 +98,9 @@ const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
     statVars.push(denomStatVar);
   }
   return axios
-    .get<PointApiResponse>("/api/observations/point", {
+    .get<PointApiResponse>(`${props.apiRoot || ""}/api/observations/point`, {
       params: {
+        date: props.date,
         entities: [props.place.dcid],
         variables: statVars,
       },
