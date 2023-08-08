@@ -15,7 +15,7 @@
  */
 
 import { getColorFn, getDashes } from "./base";
-import { appendLegendElem } from "./draw";
+import { appendLegendElem } from "./draw_utils";
 
 test("svg test", () => {
   const rootEl = document.createElement("div");
