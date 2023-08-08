@@ -233,7 +233,11 @@ docker run -it \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
+-e USE_SQLITE=true \
+-e SQLITE_PATH=/sqlite \
 -p 8080:8080 \
+-p 8081:8081 \
+-v $HOME/dc-data:/sqlite \
 datacommons-website/compose:latest
 ```
 
