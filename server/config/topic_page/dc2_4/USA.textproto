@@ -17,10 +17,29 @@
 metadata {
   topic_id: "dc2_4"
   topic_name: "Food Security"
-  place_dcid: "country/USA"
+  place_group {
+    parent_place: "Earth"
+    place_type: "Country"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
   contained_place_types {
     key: "Country"
+    value: "State"
+  }
+  contained_place_types {
+    key: "State"
     value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "CensusTract"
   }
 }
 
@@ -55,6 +74,14 @@ categories {
         description: "People below the poverty line in ${placeName} ${date}"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: false
+        }
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
     }
     columns {
       tiles {
@@ -68,8 +95,154 @@ categories {
     key: "Count_Person_BelowPovertyLevelInThePast12Months"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      name: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population below poverty line"
     }
   }
 
+  ### NEW BLOCK ###
+  blocks {
+    title: "Poverty per capita"
+    columns {
+      tiles {
+        title: "Population Living In Poverty Per Capita ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      name: "Population below poverty line"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Median Income"
+    columns {
+      tiles {
+        title: "Median Income for All Households ${date}"
+        type: MAP
+        stat_var_key: "Median_Income_Household"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Household"
+    value {
+      stat_var: "Median_Income_Household"
+      name: "Median Income for All Households"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Unemployment Rate"
+    columns {
+      tiles {
+        title: "Unemployment Rate of a Population ${date}"
+        type: MAP
+        stat_var_key: "UnemploymentRate_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "UnemploymentRate_Person"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      name: "Unemployment Rate"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Language Spoken At Home"
+    columns {
+      tiles {
+        title: "Working Age Adults Who Do Not Speak English At Home Per Capita ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+    value {
+      stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      name: "Population: 18-64 Years, Language Other Than English Per Capita"
+      denom: "Count_Person"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Single Mother Households"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Households in ${placeName} are single mother households"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold_pct"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        description: "Number of Single Mother Households ${date}"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold"
+        stat_var_key: "Count_Household_FamilyHousehold"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold_pct"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Family Household rate"
+      denom: "Count_Household_FamilyHousehold"
+      unit: "Percent"
+      scaling: 100
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Mother Family Households"
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_FamilyHousehold"
+    value {
+      stat_var: "Count_Household_FamilyHousehold"
+      name: "Family Households"
+    }
+  }
+
+}
+
+categories {
+  title: "Explore More"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "See data for your state"
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "* [Alabama](../geoId/01)\n* [Alaska](../geoId/02)\n* [Arizona](../geoId/04)\n* [Arkansas](../geoId/05)\n* [California](../geoId/06)\n* [Colorado](../geoId/08)\n* [Connecticut](../geoId/09)\n* [Delaware](../geoId/10)\n* [Florida](../geoId/12)\n* [Georgia](../geoId/13)\n* [Hawaii](../geoId/15)\n* [Idaho](../geoId/16)\n* [Illinois](../geoId/17)\n* [Indiana](../geoId/18)\n* [Iowa](../geoId/19)\n* [Kansas](../geoId/20)\n* [Kentucky](../geoId/21)\n* [Louisiana](../geoId/22)\n* [Maine](../geoId/23)\n* [Maryland](../geoId/24)\n* [Massachusetts](../geoId/25)\n* [Michigan](../geoId/26)\n* [Minnesota](../geoId/27)\n* [Mississippi](../geoId/28)\n* [Missouri](../geoId/29)"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "* [Montana](../geoId/30)\n* [Nebraska](../geoId/31)\n* [Nevada](../geoId/32)\n* [New Hampshire	](../geoId/33)\n* [New Jersey	](../geoId/34)\n* [New Mexico	](../geoId/35)\n* [New York	](../geoId/36)\n* [North Carolina	](../geoId/37)\n* [North Dakota	](../geoId/38)\n* [Ohio](../geoId/39)\n* [Oklahoma	](../geoId/40)\n* [Oregon](../geoId/41)\n* [Pennsylvania](../geoId/42)\n* [Rhode Island](../geoId/44)\n* [South Carolina](../geoId/45)\n* [South Dakota	](../geoId/46)\n* [Tennessee](../geoId/47)\n* [Texas](../geoId/48)\n* [Utah](../geoId/49)\n* [Vermont](../geoId/50)\n* [Virginia](../geoId/51)\n* [Washington](../geoId/53)\n* [West Virginia	](../geoId/54)\n* [Wisconsin](../geoId/55)\n* [Wyoming](../geoId/56)"
+      }
+    }
+    
+  }
 }
