@@ -507,6 +507,41 @@ $selector-footer-height: 40px;
       }
     }
   }
+
+  .ranking-tile {
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+
+    h4 {
+      text-align: left;
+    }
+
+    td.place-name {
+      color: var(--dc-primary);
+      cursor: default;
+      padding-right: 1.5rem;
+    }
+
+    .ranking-unit-container {
+      flex-grow: 1;
+      z-index: 2;
+    }
+
+    table {
+      min-width: 50%;
+      width: fit-content;
+    }
+
+    td.rank {
+      width: 0;
+      padding-right: 8px;
+    }
+
+    td.stat {
+      text-align: left;
+    }
+  }
 }
 
 .big-query-sql-instructions {
