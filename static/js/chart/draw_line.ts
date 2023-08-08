@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,6 @@ import {
   buildInChartLegend,
   computeRanges,
   getRowLabels,
-  getTooltipContent,
   showTooltip,
   updateXAxis,
 } from "./draw_utils";
@@ -59,6 +58,56 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+
+/**
+ * Gets the html content of a tooltip
+ *
+ * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
+ * @param highlightedTime the timepoint we are showing a tooltip for.
+ * @param dataLabels: mapping of place to mapping of datagroup to row label
+ * @param formatNumberFn function to use to format numbers
+ * @param unit units for the data.
+ */
+function getTooltipContent(
+  dataGroupsDict: { [place: string]: DataGroup[] },
+  highlightedTime: number,
+  rowLabels: { [place: string]: { [dataGroup: string]: string } },
+  formatNumberFn: (value: number, unit?: string) => string,
+  unit?: string
+): string {
+  let tooltipDate = "";
+  let tooltipContent = "";
+  const places = Object.keys(dataGroupsDict);
+  for (const place of places) {
+    for (const dataGroupLabel in rowLabels[place]) {
+      const dataGroup = dataGroupsDict[place].find(
+        (datagroup) => datagroup.label === dataGroupLabel
+      );
+      const rowLabel = rowLabels[place][dataGroupLabel];
+      let displayValue = "N/A";
+      if (!dataGroup) {
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+        continue;
+      }
+      const dataPoint = dataGroup.value.find(
+        (val) => val.time === highlightedTime
+      );
+      if (dataPoint) {
+        tooltipDate = dataPoint.label;
+        displayValue = !_.isNull(dataPoint.value)
+          ? `${formatNumberFn(dataPoint.value)} ${unit}`
+          : "N/A";
+        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+      }
+    }
+  }
+  if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
+    return tooltipDate + tooltipContent;
+  } else {
+    return `${tooltipDate}<br/>` + tooltipContent;
+  }
+}
+
 /**
  * Gets the timepoint that the mouse is hovering at. Calculation from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
  *

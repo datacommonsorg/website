@@ -18,8 +18,6 @@
  * Shared constants used in the draw functions for chart tiles
  */
 
-export const AXIS_GRID_FILL = "#999";
-
 export const AXIS_TEXT_FILL = "#2b2929";
 
 export const LEGEND = {
@@ -40,20 +38,11 @@ export const MARGIN = {
   grid: 10, // margin between y-axis and chart content
 };
 
-export const NUM_X_TICKS = 5;
-
 export const NUM_Y_TICKS = 5;
-
-export const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
 
 export const SVGNS = "http://www.w3.org/2000/svg";
 
 export const TEXT_FONT_FAMILY = "Roboto";
-
-export const TICK_SIZE = 6;
-
-// min distance between bottom of the tooltip and a datapoint
-export const TOOLTIP_BOTTOM_OFFSET = 5;
 
 export const TOOLTIP_ID = "draw-tooltip";
 
