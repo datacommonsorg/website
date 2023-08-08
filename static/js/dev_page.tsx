@@ -22,13 +22,9 @@ import {
   DataPoint,
   PlotParams,
 } from "./chart/base";
-import {
-  drawGroupBarChart,
-  drawGroupLineChart,
-  drawHistogram,
-  drawLineChart,
-  drawStackBarChart,
-} from "./chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "./chart/draw_bar";
+import { drawHistogram } from "./chart/draw_histogram";
+import { drawGroupLineChart, drawLineChart } from "./chart/draw_line";
 import { chartTypeEnum } from "./chart/types";
 import { formatNumber } from "./i18n/i18n";
 import { StatVarInfo } from "./shared/stat_var";
