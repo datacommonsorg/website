@@ -34,7 +34,8 @@ jest.mock("../chart/draw_histogram", () => {
     __esModule: true,
     ...originalModule,
     drawHistogram: jest.fn(),
-  };);
+  };
+});
 jest.mock("../chart/draw_line", () => {
   const originalModule = jest.requireActual("../chart/draw_line");
   return {
@@ -42,7 +43,8 @@ jest.mock("../chart/draw_line", () => {
     ...originalModule,
     drawLineChart: jest.fn(),
     wrap: jest.fn(),
-  };);
+  };
+});
 jest.mock("../chart/draw_utils", () => {
   const originalModule = jest.requireActual("../chart/draw_utils");
   return {
