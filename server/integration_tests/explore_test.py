@@ -129,6 +129,14 @@ class IntegrationTest(NLWebServerTestCase):
     req = {'entities': ['geoId/06085'], 'variables': ['dc/topic/WorkCommute']}
     self.run_fulfillment('fulfillment_api_basic', req)
 
+  def test_fulfillment_sdg(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/sdg_1'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg', req)
+
   def test_fulfillment_comparison(self):
     req = {
         'entities': ['geoId/06'],
