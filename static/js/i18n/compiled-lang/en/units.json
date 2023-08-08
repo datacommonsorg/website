@@ -255,6 +255,22 @@
       "value": "/million"
     }
   ],
+  "percent": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " %"
+    }
+  ],
+  "percent-display": [
+    {
+      "type": 0,
+      "value": "%"
+    }
+  ],
   "ppb": [
     {
       "type": 1,

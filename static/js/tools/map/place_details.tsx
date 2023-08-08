@@ -18,7 +18,6 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
-import * as d3 from "d3";
 import _ from "lodash";
 import React, { useContext } from "react";
 import { Card } from "reactstrap";

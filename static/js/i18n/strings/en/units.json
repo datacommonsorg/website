@@ -100,5 +100,11 @@
   },
   "SquareKilometer-display": {
     "defaultMessage": "km²"
+  },
+  "percent": {
+    "defaultMessage": "{0} %"
+  },
+  "percent-display": {
+    "defaultMessage": "%"
   }
 }

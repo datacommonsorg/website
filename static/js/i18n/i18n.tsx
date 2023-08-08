@@ -254,6 +254,11 @@ export function formatUnit(unit: string): string {
     case "mgd":
       unitKey = "million-gallon-per-day";
       break;
+    case "%":
+    case "Percent":
+    case "Percentage":
+      unitKey = "percent";
+      break;
     default:
       unitKey = unit;
   }
