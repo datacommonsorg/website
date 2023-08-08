@@ -16,6 +16,7 @@
 import time
 from typing import Dict, List
 
+from server.lib.explore.detector import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
@@ -43,6 +44,8 @@ def compute_related_things(state: ftypes.PopulateState,
         state.place_type.value: _get_json_places(pd.child_places)
     }
 
+  dc = state.uttr.insight_ctx[Params.DC.value]
+
   # Expand to parent and peer topics.
   # Do this only for one topic, otherwise it gets
   # weird to show multiple sets of parents / peers, but we need
@@ -59,7 +62,7 @@ def compute_related_things(state: ftypes.PopulateState,
     t = {}
     # If this is an SV attached to SVPG, get the topic first.
     if utils.is_sv(sv_dcid):
-      t = topic.get_parent_topics(sv_dcid)
+      t = topic.get_parent_topics(sv_dcid, dc)
       if t:
         # Pick one.
         t = t[0]
@@ -69,13 +72,13 @@ def compute_related_things(state: ftypes.PopulateState,
     if t:
       related_things['mainTopic'] = t
       # Get parent topics.
-      pt = topic.get_parent_topics(t['dcid'])
+      pt = topic.get_parent_topics(t['dcid'], dc)
       related_things['parentTopics'] = pt
       pt = [p['dcid'] for p in pt]
       if pt:
         # Pick only one parent topic deterministically!
         pt.sort()
-        related_things['peerTopics'] = topic.get_child_topics([pt[0]])
+        related_things['peerTopics'] = topic.get_child_topics([pt[0]], dc)
       if not related_things['peerTopics']:
         related_things['peerTopics'] = [t]
       # We found a topic, so break!

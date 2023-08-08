@@ -144,6 +144,7 @@ export function App(): JSX.Element {
           p: place,
           pcmp: cmpPlace,
           pt: placeType,
+          dc,
         });
         return;
       } else if (origQuery) {
@@ -154,6 +155,7 @@ export function App(): JSX.Element {
       if (!topic) {
         updateHash({
           t: DEFAULT_TOPIC,
+          dc,
         });
         return;
       }
@@ -161,6 +163,7 @@ export function App(): JSX.Element {
       if (!place) {
         updateHash({
           p: DEFAULT_PLACE,
+          dc,
         });
         return;
       }
@@ -203,7 +206,7 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
           }
         }
       }
@@ -228,7 +231,16 @@ export function App(): JSX.Element {
         <TextSearchBar
           inputId="query-search-input"
           onSearch={(q) => {
-            updateHash({ q, oq: "", t: "", p: "", pt: "", pcmp: "", tcmp: "" });
+            updateHash({
+              q,
+              oq: "",
+              t: "",
+              p: "",
+              pt: "",
+              pcmp: "",
+              tcmp: "",
+              dc,
+            });
           }}
           placeholder={query}
           initialValue={query}
@@ -249,7 +261,7 @@ export function App(): JSX.Element {
   } else if (loadingStatus == "loaded" && chartData) {
     // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
-    urlString += `&t=${topic}`;
+    urlString += `&t=${topic}&dc=${dc}`;
     mainSection = (
       <div className="row explore-charts">
         <div
@@ -267,6 +279,7 @@ export function App(): JSX.Element {
                 peerTopics={chartData.peerTopics}
                 setQuery={setQuery}
                 placeType={placeType}
+                dc={dc}
               />
               {chartData &&
                 chartData.parentTopics.length > 0 &&
@@ -274,7 +287,7 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
+                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
                       return (
                         <a
                           className="topic-link"
@@ -310,12 +323,13 @@ export function App(): JSX.Element {
                   parentPlaces={chartData.parentPlaces}
                   placeType={chartData.place.types[0]}
                   topic={topic}
+                  dc={dc}
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}`;
+                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}`;
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
