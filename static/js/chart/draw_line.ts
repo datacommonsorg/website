@@ -26,17 +26,13 @@ import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn, PlotParams, shouldFillInValues } from "./base";
 import {
-  DATAGROUP_UNKNOWN_PLACE,
-  HIGHLIGHTING_DOT_R,
   LEGEND,
   MARGIN,
-  MAX_Y_FOR_ZERO_CHARTS,
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
   TOOLTIP_ID,
   XLINKNS,
-  YLABEL,
 } from "./draw_constants";
 import {
   addTooltip,
@@ -52,8 +48,17 @@ import {
 } from "./draw_utils";
 import { GroupLineChartOptions, LineChartOptions } from "./types";
 
+// if building a datagroup dictionary and the place for a datagroup is
+// unknown, use this as the place.
+const DATAGROUP_UNKNOWN_PLACE = "unknown";
+const HIGHLIGHTING_DOT_R = 5;
+// Max Y value used for y domains for charts that have only 0 values.
+const MAX_Y_FOR_ZERO_CHARTS = 10;
 const MIN_POINTS_FOR_DOTS_ON_LINE_CHART = 12;
-
+const YLABEL = {
+  topMargin: 10,
+  height: 15,
+};
 /**
  * Gets the timepoint that the mouse is hovering at. Calculation from https://bl.ocks.org/Qizly/8f6ba236b79d9bb03a80.
  *

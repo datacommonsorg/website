@@ -18,16 +18,10 @@
  * Shared constants used in the draw functions for chart tiles
  */
 
-export const NUM_X_TICKS = 5;
-export const NUM_Y_TICKS = 5;
-export const MARGIN = {
-  top: 20, // margin between chart and top edge
-  right: 10, // margin between chart and right edge
-  bottom: 30, // margin between chart and bottom edge
-  left: 0, // margin between chart and left edge
-  grid: 10, // margin between y-axis and chart content
-};
-export const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
+export const AXIS_GRID_FILL = "#999";
+
+export const AXIS_TEXT_FILL = "#2b2929";
+
 export const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -37,26 +31,30 @@ export const LEGEND = {
   marginTop: 40,
   defaultColor: "#000",
 };
-export const YLABEL = {
-  topMargin: 10,
-  height: 15,
+
+export const MARGIN = {
+  top: 20, // margin between chart and top edge
+  right: 10, // margin between chart and right edge
+  bottom: 30, // margin between chart and bottom edge
+  left: 0, // margin between chart and left edge
+  grid: 10, // margin between y-axis and chart content
 };
 
+export const NUM_X_TICKS = 5;
+
+export const NUM_Y_TICKS = 5;
+
+export const ROTATE_MARGIN_BOTTOM = 75; // margin bottom to use for histogram
+
 export const SVGNS = "http://www.w3.org/2000/svg";
-export const XLINKNS = "http://www.w3.org/1999/xlink";
 
 export const TEXT_FONT_FAMILY = "Roboto";
-export const AXIS_TEXT_FILL = "#2b2929";
-export const AXIS_GRID_FILL = "#999";
 
-// Max Y value used for y domains for charts that have only 0 values.
-export const MAX_Y_FOR_ZERO_CHARTS = 10;
+export const TICK_SIZE = 6;
 
-export const TOOLTIP_ID = "draw-tooltip";
 // min distance between bottom of the tooltip and a datapoint
 export const TOOLTIP_BOTTOM_OFFSET = 5;
-export const HIGHLIGHTING_DOT_R = 5;
-// if building a datagroup dictionary and the place for a datagroup is
-// unknown, use this as the place.
-export const DATAGROUP_UNKNOWN_PLACE = "unknown";
-export const TICK_SIZE = 6;
+
+export const TOOLTIP_ID = "draw-tooltip";
+
+export const XLINKNS = "http://www.w3.org/1999/xlink";

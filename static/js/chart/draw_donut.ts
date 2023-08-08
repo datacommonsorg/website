@@ -21,57 +21,11 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { GaugeChartData } from "../components/tiles/gauge_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
-import {
-  GA_EVENT_PLACE_CHART_CLICK,
-  GA_PARAM_PLACE_CHART_CLICK,
-  GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
-  triggerGAEvent,
-} from "../shared/ga_events";
-import { StatVarInfo } from "../shared/stat_var";
-import { Boundary } from "../shared/types";
-import {
-  DataGroup,
-  DataPoint,
-  getColorFn,
-  PlotParams,
-  shouldFillInValues,
-  Style,
-  wrap,
-} from "./base";
-import {
-  AXIS_GRID_FILL,
-  AXIS_TEXT_FILL,
-  DATAGROUP_UNKNOWN_PLACE,
-  HIGHLIGHTING_DOT_R,
-  LEGEND,
-  MARGIN,
-  MAX_Y_FOR_ZERO_CHARTS,
-  NUM_X_TICKS,
-  NUM_Y_TICKS,
-  ROTATE_MARGIN_BOTTOM,
-  SVGNS,
-  TEXT_FONT_FAMILY,
-  TICK_SIZE,
-  TOOLTIP_BOTTOM_OFFSET,
-  TOOLTIP_ID,
-  XLINKNS,
-  YLABEL,
-} from "./draw_constants";
-import {
-  addTooltip,
-  addXAxis,
-  addYAxis,
-  appendLegendElem,
-  buildInChartLegend,
-  computeRanges,
-  getRowLabels,
-  getTooltipContent,
-  showTooltip,
-  updateXAxis,
-} from "./draw_utils";
-import { ChartOptions, GroupLineChartOptions, LineChartOptions } from "./types";
+import { DataGroup, DataPoint, getColorFn } from "./base";
+import { SVGNS, XLINKNS } from "./draw_constants";
+import { appendLegendElem } from "./draw_utils";
+import { ChartOptions } from "./types";
 
 /**
  * Draw donut chart.
