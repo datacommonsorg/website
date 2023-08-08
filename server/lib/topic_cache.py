@@ -35,6 +35,7 @@ class Node:
 TOPIC_CACHE_FILES = {
     DCNames.MAIN_DC.value: 'server/config/nl_page/topic_cache.json',
     DCNames.SDG_DC.value: 'server/config/nl_page/sdg_topic_cache.json',
+    DCNames.SDG_MINI_DC.value: 'server/config/nl_page/sdgmini_topic_cache.json',
 }
 
 
