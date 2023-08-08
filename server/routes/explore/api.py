@@ -99,7 +99,9 @@ def fulfill():
   child_type = req_json.get(Params.CHILD_TYPE.value, '')
   session_id = req_json.get(Params.SESSION_ID.value, '')
 
-  dc_name = req_json.get(Params.DC.value, DCNames.MAIN_DC.value)
+  dc_name = req_json.get(Params.DC.value)
+  if not dc_name:
+    dc_name = DCNames.MAIN_DC.value
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
 
