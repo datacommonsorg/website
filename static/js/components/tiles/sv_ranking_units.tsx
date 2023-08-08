@@ -50,6 +50,8 @@ interface SvRankingUnitsProps {
   title?: string;
   showExploreMore?: boolean;
   apiRoot?: string;
+  hideFooter?: boolean;
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
 }
 
 /**
@@ -103,15 +105,18 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             rankingGroup,
             rankingMetadata,
             true,
-            highestRankingUnitRef
+            highestRankingUnitRef,
+            props.onHoverToggled
           )}
-          <ChartFooter
-            sources={rankingGroup.sources}
-            handleEmbed={() => handleEmbed(true)}
-            exploreMoreUrl={
-              props.showExploreMore ? getExploreMoreUrl(props, true) : ""
-            }
-          />
+          {!props.hideFooter && (
+            <ChartFooter
+              sources={rankingGroup.sources}
+              handleEmbed={() => handleEmbed(true)}
+              exploreMoreUrl={
+                props.showExploreMore ? getExploreMoreUrl(props, true) : ""
+              }
+            />
+          )}
         </div>
       )}
       {rankingMetadata.showLowest && (
@@ -124,15 +129,18 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             rankingGroup,
             rankingMetadata,
             false,
-            lowestRankingUnitRef
+            lowestRankingUnitRef,
+            props.onHoverToggled
           )}
-          <ChartFooter
-            sources={rankingGroup.sources}
-            handleEmbed={() => handleEmbed(false)}
-            exploreMoreUrl={
-              props.showExploreMore ? getExploreMoreUrl(props, false) : ""
-            }
-          />
+          {!props.hideFooter && (
+            <ChartFooter
+              sources={rankingGroup.sources}
+              handleEmbed={() => handleEmbed(false)}
+              exploreMoreUrl={
+                props.showExploreMore ? getExploreMoreUrl(props, false) : ""
+              }
+            />
+          )}
         </div>
       )}
     </React.Fragment>
@@ -186,7 +194,8 @@ export function getRankingUnit(
   rankingGroup: RankingGroup,
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
-  rankingUnitRef?: RefObject<HTMLDivElement>
+  rankingUnitRef?: RefObject<HTMLDivElement>,
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void
 ): JSX.Element {
   const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
   const points = isHighest
@@ -212,6 +221,7 @@ export function getRankingUnit(
       svNames={
         rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
       }
+      onHoverToggled={onHoverToggled}
     />
   );
 }
