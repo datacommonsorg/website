@@ -21,6 +21,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { formatNumberAndUnit } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
@@ -207,15 +208,13 @@ const genScaleImg = (
  * @param height height of the legend
  * @param color color scale to use for the legend
  * @param unit unit for the values on the legend
- * @param formatNumberFn function to use to format numbers
  * @returns
  */
 export function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string,
-  formatNumberFn: (value: number, unit?: string) => string
+  unit: string
 ): number {
   // Build a scale from color.domain() to the canvas height (from [height, 0]).
   // NOTE: This assumes the color domain is linear.
@@ -245,11 +244,11 @@ export function generateLegend(
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
   const formattedTickValues = tickValues.map((tick) =>
-    formatNumberFn(tick, unit)
+    formatNumberAndUnit(tick, unit)
   );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTick = formatNumberFn(tick, unit);
+      const formattedTick = formatNumberAndUnit(tick, unit);
       const tickHeight = yScale(tick);
       return (
         formattedTickValues.indexOf(formattedTick) === -1 &&
@@ -266,7 +265,7 @@ export function generateLegend(
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
         .tickFormat((d) => {
-          return formatNumberFn(d.valueOf(), unit);
+          return formatNumberAndUnit(d.valueOf(), unit);
         })
         .tickValues(tickValues)
     )
@@ -298,7 +297,6 @@ export function generateLegend(
  * @param colorScale the color scale to use for the legend
  * @param unit unit of measurement
  * @param marginLeft left margin of the legend
- * @param formatNumberFn function to use to format numbers
  *
  * @return width of the svg including the margins
  */
@@ -307,14 +305,13 @@ export function generateLegendSvg(
   height: number,
   colorScale: d3.ScaleLinear<number, number>,
   unit: string,
-  marginLeft: number,
-  formatNumberFn: (value: number, unit?: string) => string
+  marginLeft: number
 ): number {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
   const svg = container.append("svg");
   const legendWidth =
-    generateLegend(svg, height, colorScale, unit, formatNumberFn) + marginLeft;
+    generateLegend(svg, height, colorScale, unit) + marginLeft;
   svg
     .attr("width", legendWidth)
     .attr("height", height + LEGEND_MARGIN_VERTICAL * 2)

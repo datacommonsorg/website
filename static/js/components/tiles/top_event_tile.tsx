@@ -27,7 +27,7 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
-import { formatNumber } from "../../i18n/i18n";
+import { formatNumberAndUnit } from "../../i18n/i18n";
 import { ChartEmbed } from "../../place/chart_embed";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import {
@@ -196,10 +196,9 @@ export const TopEventTile = memo(function TopEventTile(
                         })}
                       <td className="stat">
                         <span className="num-value">
-                          {formatNumber(
+                          {formatNumberAndUnit(
                             event.severity[severityProp],
-                            props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false
+                            props.eventTypeSpec.defaultSeverityFilter.unit
                           )}
                         </span>
                       </td>

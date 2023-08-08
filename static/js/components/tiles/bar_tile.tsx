@@ -30,7 +30,6 @@ import {
   drawStackBarChart,
 } from "../../chart/draw";
 import { SortType } from "../../chart/types";
-import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
@@ -309,7 +308,6 @@ export function draw(
       svgContainer,
       svgWidth || svgContainer.offsetWidth,
       chartData.dataGroup,
-      formatNumber,
       {
         colors: props.colors,
         lollipop: props.useLollipop,
@@ -329,7 +327,6 @@ export function draw(
         svgWidth || svgContainer.offsetWidth,
         props.svgChartHeight,
         chartData.dataGroup,
-        formatNumber,
         {
           colors: props.colors,
           lollipop: props.useLollipop,
@@ -343,7 +340,6 @@ export function draw(
         svgWidth || svgContainer.offsetWidth,
         props.svgChartHeight,
         chartData.dataGroup,
-        formatNumber,
         {
           colors: props.colors,
           lollipop: props.useLollipop,

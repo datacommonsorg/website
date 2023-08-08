@@ -43,7 +43,7 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import {
-  formatNumber,
+  formatNumberAndUnit,
   intl,
   LocalizedLink,
   localizeSearchParams,
@@ -475,7 +475,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         false,
         false,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -492,7 +491,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -504,7 +502,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -520,7 +517,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
-          value = formatNumber(
+          value = formatNumberAndUnit(
             Math.round(
               (this.state.choroplethDataGroup.data[place.dcid] +
                 Number.EPSILON) *
@@ -543,8 +540,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         colorScale,
         this.props.unit,
-        0,
-        formatNumber
+        0
       );
       const mapWidth = elem.offsetWidth - legendWidth;
       const projection = getProjection(
@@ -793,10 +789,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     for (let i = 0; i < this.state.rankingGroup.points.length; i++) {
       const item = this.state.rankingGroup.points[i];
       if (item.placeDcid === this.props.dcid) {
-        const value = formatNumber(
+        const value = formatNumberAndUnit(
           item.value,
           this.props.unit,
-          false,
           NUM_FRACTION_DIGITS
         );
         return `${placeName} ranks ${i + 1} (${value})`;

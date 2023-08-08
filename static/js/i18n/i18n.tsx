@@ -169,9 +169,10 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
  */
 function formatNumber(
   value: number,
-  unit?: string,
   useDefaultFormat?: boolean,
-  numFractionDigits?: number
+  numFractionDigits?: number,
+  style?: string,
+  currency?: string
 ): string {
   if (isNaN(value)) {
     return "-";
@@ -186,34 +187,34 @@ function formatNumber(
     notation: "compact",
     style: "decimal",
   };
+  if (style) {
+    formatOptions.style = style;
+  }
+  if (currency) {
+    formatOptions.currency = currency;
+    formatOptions.currencyDisplay = "code";
+  }
 
   if (numFractionDigits !== undefined) {
     formatOptions.maximumFractionDigits = numFractionDigits;
     formatOptions.minimumFractionDigits = numFractionDigits;
     delete formatOptions.maximumSignificantDigits;
   }
+  return Intl.NumberFormat(intl.locale, formatOptions).format(value);
+}
 
+export function formatUnit(unit: string): string {
+  if (!unit) {
+    return "";
+  }
   let unitKey: string;
   switch (unit) {
-    case "₹":
-      formatOptions.style = "currency";
-      formatOptions.currency = "INR";
-      formatOptions.currencyDisplay = "code";
-      break;
-    case "$":
-    case "USDollar":
-      formatOptions.style = "currency";
-      formatOptions.currency = "USD";
-      formatOptions.currencyDisplay = "code";
-      break;
-    case "%":
-    case "Percent":
-      formatOptions.style = "percent";
-      value = value / 100; // Values are scaled by formatter for percent display
-      break;
     case "MetricTon":
     case "t":
       unitKey = "metric-ton";
+      break;
+    case "Millions of tonnes":
+      unitKey = "mega-ton";
       break;
     case "kWh":
       unitKey = "kilowatt-hour";
@@ -256,17 +257,51 @@ function formatNumber(
     default:
       unitKey = unit;
   }
-  let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
-  if (unitKey) {
-    returnText = intl.formatMessage(
-      {
-        id: unitKey,
-        defaultMessage: `{0} {unit}`,
-      },
-      { 0: returnText, unit }
-    );
+  return intl.formatMessage(
+    {
+      id: unitKey,
+      defaultMessage: "{unit}",
+    },
+    { 0: "", unit }
+  );
+}
+
+export function formatNumberAndUnit(
+  value: number,
+  unit: string,
+  numFractionDigits?: number
+): string {
+  let style: string;
+  let currency: string;
+  // Whether to use custom unit formating.
+  let customUnit = true;
+  switch (unit) {
+    case "₹":
+      style = "currency";
+      currency = "INR";
+      customUnit = false;
+      break;
+    case "$":
+    case "USDollar":
+      style = "currency";
+      currency = "USD";
+      customUnit = false;
+      break;
+    case "%":
+    case "Percent":
+    case "Percentage":
+      value = value / 100; // Values are scaled by formatter for percent display
+      style = "percent";
+      customUnit = false;
+      break;
+    default:
+      break;
   }
-  return returnText;
+  let text = formatNumber(value, false, numFractionDigits, style, currency);
+  if (customUnit) {
+    text += " " + formatUnit(unit);
+  }
+  return text;
 }
 
 /**
@@ -282,7 +317,7 @@ function formatNumber(
  * @return localized display string for the number
  */
 function translateUnit(unit: string): string {
-  let messageId;
+  let messageId: string;
   switch (unit) {
     case "$":
       return "USD";

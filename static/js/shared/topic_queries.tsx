@@ -86,11 +86,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
       <div className="topic-sources">
         Our {props.currentTopic.title.toLocaleLowerCase()} data spans over{" "}
         <span
-          title={`${formatNumber(
-            props.currentTopic.meta.variableCount,
-            undefined,
-            true
-          )}`}
+          title={`${formatNumber(props.currentTopic.meta.variableCount, true)}`}
         >
           {formatNumber(props.currentTopic.meta.variableCount)}
         </span>{" "}

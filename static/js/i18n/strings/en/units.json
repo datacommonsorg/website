@@ -5,6 +5,12 @@
   "metric-ton-display": {
     "defaultMessage": "metric tons"
   },
+  "mega-ton": {
+    "defaultMessage": "{0} Mt"
+  },
+  "mega-ton-display": {
+    "defaultMessage": "mega-tons"
+  },
   "kilowatt-hour": {
     "defaultMessage": "{0} kWh"
   },

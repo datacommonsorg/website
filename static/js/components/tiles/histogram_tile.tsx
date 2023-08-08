@@ -24,7 +24,6 @@ import React, { memo, useCallback, useRef } from "react";
 import { DataPoint } from "../../chart/base";
 import { drawHistogram } from "../../chart/draw";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -352,7 +351,6 @@ export const HistogramTile = memo(function HistogramTile(
         elem.clientWidth,
         elem.clientHeight,
         histogramData,
-        formatNumber,
         {
           fillColor: props.eventTypeSpec.color,
           unit,

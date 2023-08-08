@@ -159,6 +159,22 @@
       "value": "liters"
     }
   ],
+  "mega-ton": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " Mt"
+    }
+  ],
+  "mega-ton-display": [
+    {
+      "type": 0,
+      "value": "mega-tons"
+    }
+  ],
   "metric-ton": [
     {
       "type": 1,

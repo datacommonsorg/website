@@ -41,7 +41,7 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
-import { formatNumber } from "../../i18n/i18n";
+import { formatNumberAndUnit } from "../../i18n/i18n";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
@@ -138,8 +138,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
       legendHeight,
       colorScale,
       "",
-      LEGEND_MARGIN_LEFT,
-      formatNumber
+      LEGEND_MARGIN_LEFT
     );
     const zoomParams = {
       zoomInButtonId: ZOOM_IN_BUTTON_ID,
@@ -350,7 +349,7 @@ const getTooltipHtml =
       dataValues[place.dcid] !== null &&
       dataValues[place.dcid] !== undefined
     ) {
-      value = formatNumber(dataValues[place.dcid], unit);
+      value = formatNumberAndUnit(dataValues[place.dcid], unit);
       hasValue = true;
     }
     const metadata = metadataMapping[place.dcid];

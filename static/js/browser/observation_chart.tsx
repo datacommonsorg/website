@@ -23,7 +23,6 @@ import React from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { drawLineChart } from "../chart/draw";
-import { formatNumber } from "../i18n/i18n";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
@@ -200,7 +199,6 @@ export class ObservationChart extends React.Component<
       dataGroups,
       true,
       true,
-      formatNumber,
       {
         handleDotClick: this.props.canClickObs ? this.handleDotClick : null,
         unit: getUnit(this.props.metadata),

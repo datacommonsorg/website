@@ -24,7 +24,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw";
-import { formatNumber } from "../../i18n/i18n";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -204,7 +203,6 @@ export function draw(
     chartData.dataGroup,
     false,
     false,
-    formatNumber,
     {
       colors: props.colors,
       unit: chartData.unit,
