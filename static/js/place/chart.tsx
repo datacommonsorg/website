@@ -20,12 +20,9 @@ import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
-import {
-  drawGroupBarChart,
-  drawLineChart,
-  drawStackBarChart,
-} from "../chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "../chart/draw_bar";
 import { drawD3Map, getProjection } from "../chart/draw_d3_map";
+import { drawLineChart } from "../chart/draw_line";
 import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
   ChartBlockData,

@@ -22,7 +22,7 @@ import _ from "lodash";
 import React, { memo, useCallback, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
-import { drawHistogram } from "../../chart/draw";
+import { drawHistogram } from "../../chart/draw_histogram";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import {

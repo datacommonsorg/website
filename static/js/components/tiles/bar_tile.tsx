@@ -28,7 +28,7 @@ import {
   drawGroupBarChart,
   drawHorizontalBarChart,
   drawStackBarChart,
-} from "../../chart/draw";
+} from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";

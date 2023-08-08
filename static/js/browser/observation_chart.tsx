@@ -22,7 +22,7 @@ import axios from "axios";
 import React from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
-import { drawLineChart } from "../chart/draw";
+import { drawLineChart } from "../chart/draw_line";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
 import { stringifyFn } from "../utils/axios";

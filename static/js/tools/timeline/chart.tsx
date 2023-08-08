@@ -18,7 +18,7 @@ import React, { Component } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
-import { drawGroupLineChart } from "../../chart/draw";
+import { drawGroupLineChart } from "../../chart/draw_line";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { Chip } from "../../shared/chip";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
