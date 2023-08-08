@@ -323,9 +323,34 @@ export function generateLegendSvg(
   return legendWidth;
 }
 
+/**
+ * Gets the id to use for the path for a specific place
+ * @param placeDcid the dcid of the place the path is drawing
+ */
 export function getPlacePathId(placeDcid: string): string {
   if (_.isEmpty(placeDcid)) {
     return "";
   }
   return placeDcid.replaceAll("/", "-");
+}
+
+/**
+ * Toggles the highlight for a place
+ * @param containerElement the container element to do the toggle on
+ * @param placeDcid the place to toggle the highlight for
+ * @param shouldHighlight to toggle on or off
+ */
+export function highlightPlaceToggle(
+  containerElement: HTMLElement,
+  placeDcid: string,
+  shouldHighlight: boolean
+) {
+  const container = d3.select(containerElement);
+  const region = container
+    .select(`#${getPlacePathId(placeDcid)}`)
+    .raise()
+    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+  if (region.size()) {
+    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
+  }
 }

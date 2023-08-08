@@ -22,6 +22,7 @@ import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
 import { Spinner } from "../../components/spinner";
+import { RankingUnitUrlFuncContext } from "../../shared/context";
 import { isSelectionComplete } from "../../utils/app/visualization_utils";
 import { AppContext, AppContextProvider } from "./app_context";
 import { Chart } from "./chart";
@@ -75,7 +76,9 @@ function MainPane(): JSX.Element {
         <>
           <SelectedOptions />
           {isSelectionComplete(visType, places, enclosedPlaceType, statVars) ? (
-            <Chart />
+            <RankingUnitUrlFuncContext.Provider value={() => null}>
+              <Chart />
+            </RankingUnitUrlFuncContext.Provider>
           ) : (
             <SelectorPane />
           )}

@@ -228,6 +228,10 @@ $color-font-dark: #3c4043;
   }
 }
 
+.topic-card.clickable:hover {
+  cursor: pointer;
+}
+
 // Styling for the partners carousel
 #homepage .carousel-container {
   position: relative;

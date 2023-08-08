@@ -59,6 +59,11 @@ interface RankingUnitPropType {
    *       columns: { unt: string; scaling: number; name: string }[];
    */
   svNames?: string[];
+  /**
+   * Callback function to handle when mouse hovers over an item or when it stops
+   * hovering over the item.
+   */
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -118,6 +123,12 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                   <LocalizedLink
                     href={urlFunc(point.placeDcid)}
                     text={point.placeName || point.placeDcid}
+                    onMouseEnter={() =>
+                      props.onHoverToggled(point.placeDcid, true)
+                    }
+                    onMouseLeave={() =>
+                      props.onHoverToggled(point.placeDcid, false)
+                    }
                   />
                 </td>
                 {!props.hideValue && _.isEmpty(point.values) && (
