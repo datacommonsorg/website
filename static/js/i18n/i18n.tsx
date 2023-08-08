@@ -127,6 +127,8 @@ interface LocalizedLinkProps {
   text: string;
   // Callback function when a link is clicked.
   handleClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 /**
@@ -137,12 +139,14 @@ interface LocalizedLinkProps {
  * @return An <a> tag JSX element.
  */
 function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
-  const href = localizeLink(props.href);
+  const href = props.href ? localizeLink(props.href) : null;
   return (
     <a
       href={href}
       className={props.className ? props.className : null}
       onClick={props.handleClick}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     >
       {props.text}
     </a>

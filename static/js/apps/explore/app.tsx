@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import queryString, { ParsedQuery } from "query-string";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
@@ -74,9 +74,9 @@ export function App(): JSX.Element {
   const [hashParams, setHashParams] = useState<ParsedQuery<string>>(
     queryString.parse(window.location.hash)
   );
-  const [savedContext, setSavedContext] = useState<any>([]);
   const [query, setQuery] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
+  const savedContext = useRef([]);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -105,6 +105,7 @@ export function App(): JSX.Element {
       let placeType = getSingleParam(hashParams["pt"]);
       let query = getSingleParam(hashParams["q"]);
       const origQuery = getSingleParam(hashParams["oq"]);
+      const dc = getSingleParam(hashParams["dc"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -114,12 +115,16 @@ export function App(): JSX.Element {
           query = origQuery;
         }
         setQuery(query);
-        const detectResp = await fetchDetectData(query, savedContext);
+        const detectResp = await fetchDetectData(
+          query,
+          savedContext.current,
+          dc
+        );
         if (!detectResp) {
           setLoadingStatus("fail");
           return;
         }
-        setSavedContext(detectResp["context"] || []);
+        savedContext.current = detectResp["context"] || [];
         if (_.isEmpty(detectResp["entities"])) {
           setLoadingStatus("fail");
           return;
@@ -139,6 +144,7 @@ export function App(): JSX.Element {
           p: place,
           pcmp: cmpPlace,
           pt: placeType,
+          dc,
         });
         return;
       } else if (origQuery) {
@@ -149,6 +155,7 @@ export function App(): JSX.Element {
       if (!topic) {
         updateHash({
           t: DEFAULT_TOPIC,
+          dc,
         });
         return;
       }
@@ -156,6 +163,7 @@ export function App(): JSX.Element {
       if (!place) {
         updateHash({
           p: DEFAULT_PLACE,
+          dc,
         });
         return;
       }
@@ -168,7 +176,8 @@ export function App(): JSX.Element {
         topics,
         placeType,
         cmpPlaces,
-        cmpTopics
+        cmpTopics,
+        dc
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -197,11 +206,11 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
           }
         }
       }
-      setSavedContext(resp["context"] || {});
+      savedContext.current = resp["context"] || [];
       setLoadingStatus("loaded");
       setChartData(chartData);
       setUserMessage(resp["userMessage"]);
@@ -213,6 +222,7 @@ export function App(): JSX.Element {
   const cmpPlace = getSingleParam(hashParams["pcmp"]);
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
+  const dc = getSingleParam(hashParams["dc"]);
 
   const searchSection = (
     <div className="search-section">
@@ -221,7 +231,16 @@ export function App(): JSX.Element {
         <TextSearchBar
           inputId="query-search-input"
           onSearch={(q) => {
-            updateHash({ q, oq: "", t: "", p: "", pt: "", pcmp: "", tcmp: "" });
+            updateHash({
+              q,
+              oq: "",
+              t: "",
+              p: "",
+              pt: "",
+              pcmp: "",
+              tcmp: "",
+              dc,
+            });
           }}
           placeholder={query}
           initialValue={query}
@@ -242,7 +261,7 @@ export function App(): JSX.Element {
   } else if (loadingStatus == "loaded" && chartData) {
     // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
-    urlString += `&t=${topic}`;
+    urlString += `&t=${topic}&dc=${dc}`;
     mainSection = (
       <div className="row explore-charts">
         <div
@@ -260,6 +279,7 @@ export function App(): JSX.Element {
                 peerTopics={chartData.peerTopics}
                 setQuery={setQuery}
                 placeType={placeType}
+                dc={dc}
               />
               {chartData &&
                 chartData.parentTopics.length > 0 &&
@@ -267,7 +287,7 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}`;
+                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
                       return (
                         <a
                           className="topic-link"
@@ -283,30 +303,33 @@ export function App(): JSX.Element {
                     })}
                   </div>
                 )}
-              <ChildPlaces
-                childPlaces={chartData.childPlaces}
-                parentPlace={chartData.place}
-                urlFormatString={urlString}
-              ></ChildPlaces>
+              {dc !== "sdg" && (
+                <ChildPlaces
+                  childPlaces={chartData.childPlaces}
+                  parentPlace={chartData.place}
+                  urlFormatString={urlString}
+                ></ChildPlaces>
+              )}
             </>
           )}
         </div>
         <div className="col-md-10x col-lg-10">
           {chartData && chartData.pageConfig && (
             <>
-              {searchSection}
+              {dc !== "sdg" && searchSection}
               <div id="place-callout">{chartData.place.name}</div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace
                   parentPlaces={chartData.parentPlaces}
                   placeType={chartData.place.types[0]}
                   topic={topic}
+                  dc={dc}
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}`;
+                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}`;
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
@@ -337,7 +360,9 @@ export function App(): JSX.Element {
     FEEDBACK_LINK,
     query || "",
     debugData,
-    _.isEmpty(savedContext) ? null : savedContext[0]["insightCtx"]
+    _.isEmpty(savedContext.current)
+      ? null
+      : savedContext.current[0]["insightCtx"]
   );
 
   return (
@@ -357,10 +382,12 @@ const fetchFulfillData = async (
   topics: string[],
   placeType: string,
   cmpPlaces: string[],
-  cmpTopics: string[]
+  cmpTopics: string[],
+  dc: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
+      dc,
       entities: places,
       variables: topics,
       childEntityType: placeType,
@@ -374,10 +401,15 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (query: string, savedContext: any) => {
+const fetchDetectData = async (
+  query: string,
+  savedContext: any,
+  dc: string
+) => {
   try {
     const resp = await axios.post(`/api/explore/detect?q=${query}`, {
       contextHistory: savedContext,
+      dc,
     });
     return resp.data;
   } catch (error) {

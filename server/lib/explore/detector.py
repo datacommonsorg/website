@@ -42,6 +42,7 @@ class Params(str, Enum):
   CMP_VARS = 'comparisonVariables'
   SESSION_ID = 'sessionId'
   CTX = 'context'
+  DC = 'dc'
 
 
 def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:

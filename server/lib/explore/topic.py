@@ -17,6 +17,7 @@ from dataclasses import dataclass
 import time
 from typing import Dict, List
 
+from server.lib.explore.detector import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.fulfillment.types as ftypes
@@ -36,6 +37,7 @@ def compute_chart_vars(
   # Have a slightly higher limit for non-US places since there are fewer vars.
   num_topics_limit = 1 if cutils.is_us_place(state.uttr.places[0]) else 2
 
+  dc = state.uttr.insight_ctx[Params.DC.value]
   chart_vars_map = {}
   num_topics_opened = 0
   for sv in state.uttr.svs:
@@ -44,7 +46,11 @@ def compute_chart_vars(
       cv = [ftypes.ChartVars(svs=[sv], orig_sv=sv)]
     elif num_topics_opened < num_topics_limit:
       start = time.time()
-      cv = _topic_chart_vars(state=state, sv=sv, source_topic=sv, orig_sv=sv)
+      cv = _topic_chart_vars(state=state,
+                             sv=sv,
+                             source_topic=sv,
+                             orig_sv=sv,
+                             dc=dc)
       state.uttr.counters.timeit('topic_calls', start)
       num_topics_opened += 1
     if cv:
@@ -81,13 +87,15 @@ def compute_correlation_chart_vars(
 #
 def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
                                              lhs_orig: str, rhs_orig: str):
+  dc = state.uttr.insight_ctx[Params.DC.value]
+
   # Get vars.
   def _vars(v):
     if cutils.is_sv(v):
       return [v]
     else:
       svs = []
-      _open_topic_lite(state, v, svs)
+      _open_topic_lite(state, v, dc, svs)
       return svs[:_MAX_CORRELATION_SVS_PER_TOPIC]
 
   lhs_svs = _vars(lhs_orig)
@@ -122,15 +130,16 @@ def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
 #
 def _open_topic_lite(state: ftypes.PopulateState,
                      sv: str,
+                     dc: str,
                      ret_svs: List[str],
                      lvl: int = 0):
   if lvl == 0:
-    topic_vars = topic.get_topic_vars(sv)
+    topic_vars = topic.get_topic_vars(sv, dc)
   else:
     assert lvl < 2, "Must never recurse past 2 levels"
-    topic_vars = topic.get_topic_vars_recurive(sv, rank=0, max_svs=1)
+    topic_vars = topic.get_topic_vars_recurive(sv, rank=0, dc=dc, max_svs=1)
 
-  members = _classify_topic_members(topic_vars)
+  members = _classify_topic_members(topic_vars, dc)
 
   if members.svs or members.svpgs:
     ret_svs.extend(members.svs)
@@ -141,7 +150,7 @@ def _open_topic_lite(state: ftypes.PopulateState,
 
   # We need to open up topics.
   for t in members.topics:
-    _open_topic_lite(state, t, ret_svs, lvl + 1)
+    _open_topic_lite(state, t, dc, ret_svs, lvl + 1)
     if len(ret_svs) >= _MAX_CORRELATION_SVS_PER_TOPIC:
       return
 
@@ -154,10 +163,11 @@ def _topic_chart_vars(state: ftypes.PopulateState,
                       sv: str,
                       source_topic: str,
                       orig_sv: str,
+                      dc: str,
                       lvl: int = 0) -> List[ftypes.ChartVars]:
   if lvl == 0:
     # This is the requested topic, just get the immediate members.
-    topic_vars = topic.get_topic_vars(sv)
+    topic_vars = topic.get_topic_vars(sv, dc)
   else:
     # This is an immediate sub-topic of the parent topic. Here,
     # we recurse along the topic-descendents to get a limited
@@ -165,10 +175,11 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     assert lvl < 2, "Must never recurse past 2 levels"
     topic_vars = topic.get_topic_vars_recurive(sv,
                                                rank=0,
+                                               dc=dc,
                                                max_svs=_MAX_SUBTOPIC_SV_LIMIT)
 
   # Classify the members into `TopicMembers` struct.
-  topic_members = _classify_topic_members(topic_vars)
+  topic_members = _classify_topic_members(topic_vars, dc)
 
   charts = []
 
@@ -187,7 +198,8 @@ def _topic_chart_vars(state: ftypes.PopulateState,
                           sv=t,
                           source_topic=t,
                           orig_sv=orig_sv,
-                          lvl=lvl + 1))
+                          lvl=lvl + 1,
+                          dc=dc))
 
   state.uttr.counters.info(
       'topics_processed', {
@@ -200,8 +212,8 @@ def _topic_chart_vars(state: ftypes.PopulateState,
   return charts
 
 
-def _classify_topic_members(topic_vars: List[str]) -> TopicMembers:
-  peer_groups = topic.get_topic_peergroups(topic_vars)
+def _classify_topic_members(topic_vars: List[str], dc: str) -> TopicMembers:
+  peer_groups = topic.get_topic_peergroups(topic_vars, dc)
 
   just_svs = []
   svpgs = []

@@ -36,6 +36,7 @@ import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
+from server.lib.topic_cache import DCNames
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 
@@ -98,6 +99,12 @@ def fulfill():
   child_type = req_json.get(Params.CHILD_TYPE.value, '')
   session_id = req_json.get(Params.SESSION_ID.value, '')
 
+  dc_name = req_json.get(Params.DC.value)
+  if not dc_name:
+    dc_name = DCNames.MAIN_DC.value
+  if dc_name not in set([it.value for it in DCNames]):
+    return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
+
   counters = ctr.Counters()
   debug_logs = {}
 
@@ -120,6 +127,7 @@ def fulfill():
 
   utterance = create_utterance(query_detection, None, counters, session_id)
   utterance.insight_ctx = req_json
+  utterance.insight_ctx[Params.DC.value] = dc_name
   return _fulfill_with_chart_config(utterance, debug_logs)
 
 
