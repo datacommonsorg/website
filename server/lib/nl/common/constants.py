@@ -24,6 +24,7 @@ from server.lib.nl.detection.types import Place
 class DCNames(str, Enum):
   MAIN_DC = 'main'
   SDG_DC = 'sdg'
+  SDG_MINI_DC = 'sdgmini'
 
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}

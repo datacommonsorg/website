@@ -59,7 +59,9 @@ class Builder:
     self.column = None
 
   def is_sdg(self):
-    return self.uttr.insight_ctx[Params.DC.value] == DCNames.SDG_DC.value
+    return self.uttr.insight_ctx[Params.DC.value] in [
+        DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value
+    ]
 
   def nopc(self):
     return self.env_config.nopc_vars
