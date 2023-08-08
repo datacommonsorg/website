@@ -13,7 +13,9 @@
 # limitations under the License.
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore.detector import Params
 from server.lib.nl.common import utils
+from server.lib.nl.common.constants import DCNames
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
@@ -55,6 +57,9 @@ class Builder:
     self.category = None
     self.block = None
     self.column = None
+
+  def is_sdg(self):
+    return self.uttr.insight_ctx[Params.DC.value] == DCNames.SDG_DC.value
 
   def nopc(self):
     return self.env_config.nopc_vars
