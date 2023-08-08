@@ -38,7 +38,7 @@ import React from "react";
 import { IntlProvider } from "react-intl";
 
 import { getColorFn } from "../chart/base";
-import { appendLegendElem } from "../chart/draw";
+import { appendLegendElem } from "../chart/draw_utils";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
