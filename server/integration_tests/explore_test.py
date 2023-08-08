@@ -130,7 +130,11 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_fulfillment('fulfillment_api_basic', req)
 
   def test_fulfillment_sdg(self):
-    req = {'entities': ['country/USA'], 'variables': ['dc/topic/sdg_1'], 'dc': 'sdg'}
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/sdg_1'],
+        'dc': 'sdg'
+    }
     self.run_fulfillment('fulfillment_api_sdg', req)
 
   def test_fulfillment_comparison(self):
