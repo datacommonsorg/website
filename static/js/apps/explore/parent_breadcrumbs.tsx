@@ -22,6 +22,7 @@ interface ParentPlacePropsType {
   parentPlaces: NamedTypedPlace[];
   placeType: string;
   topic: string;
+  dc: string;
 }
 
 class ParentPlace extends React.Component<ParentPlacePropsType> {
@@ -44,7 +45,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
                 <a
                   className="parent-place-link"
                   key={parent.dcid}
-                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}`}
+                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
                 >
                   {parent.name}
                 </a>
@@ -54,7 +55,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
               <React.Fragment key={parent.dcid}>
                 <a
                   className="parent-place-link"
-                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}`}
+                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
                 >
                   {parent.name}
                 </a>

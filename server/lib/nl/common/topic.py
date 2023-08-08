@@ -20,6 +20,7 @@ from flask import current_app
 
 from server.lib import fetch
 from server.lib.nl.common import utils
+from server.lib.nl.common.constants import DCNames
 import server.lib.nl.common.counters as ctr
 
 TOPIC_RANK_LIMIT = 3
@@ -294,17 +295,18 @@ TOPIC_NAMES_OVERRIDE = {
 # TODO: Consider having a default max limit.
 def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
+                            dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable')
+    svs = _members(topic, 'relevantVariable', dc)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -315,19 +317,19 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str):
+def get_topic_vars(topic: str, dc: str):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable')
+    svs = _members(topic, 'relevantVariable', dc)
   return svs
 
 
-def get_parent_topics(topic_or_sv: str):
+def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
-    psvpg = _parents_raw([topic_or_sv], 'member')
+    psvpg = _parents_raw([topic_or_sv], 'member', dc)
     psvpg_ids = [p['dcid'] for p in psvpg]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
@@ -335,12 +337,12 @@ def get_parent_topics(topic_or_sv: str):
     topics = [topic_or_sv]
   if not topics:
     return []
-  parents = _parents_raw(topics, 'relevantVariable')
+  parents = _parents_raw(topics, 'relevantVariable', dc)
   return parents
 
 
-def get_child_topics(topics: List[str]):
-  children = _members_raw(topics, 'relevantVariable')
+def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
+  children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
     for p in pvals:
@@ -356,22 +358,22 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str]):
+def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
-      ret[sv] = _get_svpg_vars(sv)
+      ret[sv] = _get_svpg_vars(sv, dc)
     else:
       ret[sv] = []
   return ret
 
 
-def svpg_name(sv: str):
+def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     if 'TOPIC_CACHE' in current_app.config:
-      name = current_app.config['TOPIC_CACHE'].get_name(sv)
+      name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
     if not name:
       resp = fetch.property_values(nodes=[sv], prop='name')[sv]
       if resp:
@@ -388,10 +390,10 @@ def svpg_description(sv: str):
   return name
 
 
-def _get_svpg_vars(svpg: str) -> List[str]:
+def _get_svpg_vars(svpg: str, dc: str) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _members(svpg, 'member')
+    svs = _members(svpg, 'member', dc)
   return svs
 
 
@@ -444,31 +446,31 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str) -> List[str]:
+def _members(node: str, prop: str, dc: str) -> List[str]:
   val_list = []
   if 'TOPIC_CACHE' in current_app.config:
-    resp = current_app.config['TOPIC_CACHE'].get_members(node)
+    resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
     val_list = [v['dcid'] for v in resp]
   else:
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
-def _members_raw(nodes: List[str], prop: str) -> Dict[str, List[str]]:
+def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
   val_map = {}
   if 'TOPIC_CACHE' in current_app.config:
     for n in nodes:
-      val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+      val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
   else:
     val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
   return val_map
 
 
-def _parents_raw(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
+def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
   parent_list = []
   if 'TOPIC_CACHE' in current_app.config:
     for n in nodes:
-      plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
+      plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
       parent_list.extend(plist)
   else:
     parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)
