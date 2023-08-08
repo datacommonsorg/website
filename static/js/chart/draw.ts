@@ -618,9 +618,6 @@ function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(tickLength)
         .tickFormat((d) => {
-          if (unit == "L") {
-            console.log(unit);
-          }
           return formatNumberAndUnit(d.valueOf(), unit);
         })
     )

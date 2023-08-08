@@ -75,7 +75,6 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     >
       {highlightData && (
         <>
-          {" "}
           <span className="stat">
             {formatNumber(highlightData.value, false, NUM_FRACTION_DIGITS)}
           </span>
