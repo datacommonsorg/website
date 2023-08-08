@@ -15,7 +15,11 @@
  */
 
 jest.mock("axios");
-jest.mock("../../chart/draw");
+// jest.mock("../../chart/draw");
+jest.mock("../../chart/draw_bar");
+jest.mock("../../chart/draw_histogram");
+jest.mock("../../chart/draw_line");
+jest.mock("../../chart/draw_utils");
 
 import { waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
