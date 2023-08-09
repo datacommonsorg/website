@@ -18,16 +18,38 @@ jest.mock("axios");
 jest.mock("../chart/draw_d3_map");
 jest.mock("../chart/draw_map_utils");
 jest.mock("../chart/draw_scatter");
-jest.mock("../chart/draw", () => {
-  const originalModule = jest.requireActual("../chart/draw");
+jest.mock("../chart/draw_bar", () => {
+  const originalModule = jest.requireActual("../chart/draw_bar");
   return {
     __esModule: true,
     ...originalModule,
     drawGroupBarChart: jest.fn(),
     drawGroupLineChart: jest.fn(),
-    drawHistogram: jest.fn(),
-    drawLineChart: jest.fn(),
     drawStackBarChart: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_histogram", () => {
+  const originalModule = jest.requireActual("../chart/draw_histogram");
+  return {
+    __esModule: true,
+    ...originalModule,
+    drawHistogram: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_line", () => {
+  const originalModule = jest.requireActual("../chart/draw_line");
+  return {
+    __esModule: true,
+    ...originalModule,
+    drawLineChart: jest.fn(),
+    wrap: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_utils", () => {
+  const originalModule = jest.requireActual("../chart/draw_utils");
+  return {
+    __esModule: true,
+    ...originalModule,
     wrap: jest.fn(),
   };
 });
@@ -38,7 +60,7 @@ import React from "react";
 import { IntlProvider } from "react-intl";
 
 import { getColorFn } from "../chart/base";
-import { appendLegendElem } from "../chart/draw";
+import { appendLegendElem } from "../chart/draw_utils";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";

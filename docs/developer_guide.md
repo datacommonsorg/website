@@ -410,7 +410,7 @@ rm -rf ~/.datacommons/cache.*
 
 ### GKE config
 
-The GKE configuration is stored [here](../deploy/overlays).
+The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
 
 ### Redis memcache
 

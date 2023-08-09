@@ -17,9 +17,8 @@
 import React from "react";
 
 import { DataPoint } from "../chart/base";
-import { drawHistogram } from "../chart/draw";
+import { drawHistogram } from "../chart/draw_histogram";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
-import { formatNumber } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { RankInfo, Ranking } from "./ranking_types";
 
@@ -83,7 +82,6 @@ class RankingHistogram extends React.Component<
       this.chartElementRef.current.offsetWidth,
       this.chartElementRef.current.offsetHeight,
       dataPoints,
-      formatNumber,
       {
         unit: this.props.unit,
       }
