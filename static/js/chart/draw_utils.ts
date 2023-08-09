@@ -40,6 +40,9 @@ import {
 } from "./draw_constants";
 
 const AXIS_GRID_FILL = "#999";
+// max number of characters a unit can have and still be shown next to ticks
+// When a unit is longer, we show the unit as an axes label instead
+export const MAX_UNIT_LENGTH = 5;
 const NUM_X_TICKS = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
@@ -209,12 +212,13 @@ export function addXAxis(
 export function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
-  yScale: d3.ScaleLinear<any, any>,
+  yScale: d3.ScaleLinear<number, any>,
   formatNumberFn: (value: number, unit?: string) => string,
   textFontFamily?: string,
   unit?: string
 ) {
   const tickLength = chartWidth - MARGIN.right - MARGIN.left;
+  const [displayUnit, label] = getDisplayUnitAndLabel(unit);
   axis
     .attr("transform", `translate(${tickLength}, 0)`)
     .call(
@@ -223,7 +227,7 @@ export function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(tickLength)
         .tickFormat((d) => {
-          return formatNumberFn(d.valueOf(), unit);
+          return formatNumberFn(d.valueOf(), displayUnit);
         })
     )
     .call((g) => g.select(".domain").remove())
@@ -239,29 +243,54 @@ export function addYAxis(
     .call((g) =>
       g
         .selectAll("text")
+        .attr("class", "tick-label")
         .attr("x", -tickLength)
         .attr("dy", -4)
         .style("fill", AXIS_TEXT_FILL)
         .style("shape-rendering", "crispEdges")
     );
 
-  if (textFontFamily) {
-    axis.call((g) => g.selectAll("text").style("font-family", textFontFamily));
-  }
-  let maxLabelWidth = 0;
+  // Add "part" attributes for web component styling
+  axis.selectAll("text").attr("part", "y-axis-text");
+  axis.selectAll(".tick line").attr("part", "y-axis-tick");
+
+  // Get maximum length of tick labels
+  let maxLabelWidth = MARGIN.left;
   axis.selectAll("text").each(function () {
     maxLabelWidth = Math.max(
       (<SVGSVGElement>this).getBBox().width,
       maxLabelWidth
     );
   });
+
+  // Add an axis label when units are long
+  if (label) {
+    const yAxisHeight = Math.max(...yScale.range());
+    const yAxisLabel = axis
+      .append("text")
+      .attr("part", "y-axis-label")
+      .attr("transform", "rotate(-90)") // rotation swaps x and y attributes
+      .attr("x", -yAxisHeight / 2)
+      .attr("y", -tickLength)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "hanging")
+      .style("fill", AXIS_TEXT_FILL)
+      .text(label);
+    const axisLabelBBox = yAxisLabel.node().getBBox();
+    maxLabelWidth += axisLabelBBox.height;
+  }
+
+  // shift tick labels by max length so tick labels don't get cut off
   axis.call((g) =>
-    g.selectAll("text").attr("transform", `translate(${maxLabelWidth}, 0)`)
+    g
+      .selectAll(".tick-label")
+      .attr("transform", `translate(${maxLabelWidth}, 0)`)
   );
 
-  // Add "part" attributes for web component styling
-  axis.selectAll("text").attr("part", "y-axis-text");
-  axis.selectAll(".tick line").attr("part", "y-axis-tick");
+  if (textFontFamily) {
+    axis.call((g) => g.selectAll("text").style("font-family", textFontFamily));
+  }
+
   return maxLabelWidth + MARGIN.left + MARGIN.grid;
 }
 
@@ -425,6 +454,34 @@ export function getRowLabels(
     }
   }
   return labels;
+}
+
+/**
+ * Get the display strings for units and axes labels, based on the unit provided
+ * in the KG.
+ *
+ * If the raw unit from the KG is too long, the unit is instead used as an axes
+ * label which helps avoid overly long or overlapping tick labels.
+ *
+ * @param unit measurement unit of the variable to plot, from the KG.
+ * @returns a string to display next to each value, and a string to use as an
+ *          axes label, in that order.
+ */
+export function getDisplayUnitAndLabel(
+  unit: string | undefined
+): [string, string] {
+  let label = "";
+  let displayUnit = unit;
+  if (unit && unit.length > MAX_UNIT_LENGTH) {
+    if (unit.startsWith("% of ")) {
+      label = unit.slice("% of ".length);
+      displayUnit = "%"; //leave percent sign with the number
+    } else {
+      label = unit;
+      displayUnit = "";
+    }
+  }
+  return [displayUnit, label];
 }
 
 /**
