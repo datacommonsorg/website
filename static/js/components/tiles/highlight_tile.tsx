@@ -22,7 +22,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { formatNumber, formatUnit } from "../../i18n/i18n";
+import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
@@ -76,10 +76,10 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            {formatNumber(highlightData.value, false, NUM_FRACTION_DIGITS)}
+            {formatNumber(highlightData.value, "", false, NUM_FRACTION_DIGITS)}
           </span>
           <span className="metadata">
-            {formatUnit(
+            {translateUnit(
               props.statVarSpec.unit || highlightData.unitDisplayName
             )}
             {` (${highlightData.date})`}

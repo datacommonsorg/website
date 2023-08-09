@@ -24,7 +24,7 @@ import { Card } from "reactstrap";
 
 import { highlightPlaceToggle } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
-import { formatNumberAndUnit } from "../../i18n/i18n";
+import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
 import {
   DataPointMetadata,
@@ -54,10 +54,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const selectedPlaceValue =
     props.breadcrumbDataValues &&
     selectedPlace.dcid in props.breadcrumbDataValues
-      ? formatNumberAndUnit(
-          props.breadcrumbDataValues[selectedPlace.dcid],
-          props.unit
-        )
+      ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], props.unit)
       : "N/A";
   const selectedPlaceDate =
     selectedPlace.dcid in props.metadata
@@ -167,9 +164,9 @@ function getListItemElement(
 ): JSX.Element {
   let value = "N/A";
   if (props.breadcrumbDataValues && place.dcid in props.breadcrumbDataValues) {
-    value = formatNumberAndUnit(props.breadcrumbDataValues[place.dcid], unit);
+    value = formatNumber(props.breadcrumbDataValues[place.dcid], unit);
   } else if (place.dcid in props.mapDataValues) {
-    value = formatNumberAndUnit(props.mapDataValues[place.dcid], unit);
+    value = formatNumber(props.mapDataValues[place.dcid], unit);
   }
   const date =
     place.dcid in props.metadata

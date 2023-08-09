@@ -21,7 +21,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
-import { formatNumberAndUnit } from "../i18n/i18n";
+import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
@@ -244,11 +244,11 @@ export function generateLegend(
   // at the very bottom of the legend.
   let tickValues = [yScale.invert(0), yScale.invert(height)];
   const formattedTickValues = tickValues.map((tick) =>
-    formatNumberAndUnit(tick, unit)
+    formatNumber(tick, unit)
   );
   tickValues = tickValues.concat(
     color.ticks(NUM_TICKS).filter((tick) => {
-      const formattedTick = formatNumberAndUnit(tick, unit);
+      const formattedTick = formatNumber(tick, unit);
       const tickHeight = yScale(tick);
       return (
         formattedTickValues.indexOf(formattedTick) === -1 &&
@@ -265,7 +265,7 @@ export function generateLegend(
         .axisRight(yScale)
         .tickSize(TICK_SIZE)
         .tickFormat((d) => {
-          return formatNumberAndUnit(d.valueOf(), unit);
+          return formatNumber(d.valueOf(), unit);
         })
         .tickValues(tickValues)
     )

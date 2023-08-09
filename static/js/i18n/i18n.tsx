@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -169,10 +169,9 @@ function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
  */
 function formatNumber(
   value: number,
+  unit?: string,
   useDefaultFormat?: boolean,
-  numFractionDigits?: number,
-  style?: string,
-  currency?: string
+  numFractionDigits?: number
 ): string {
   if (isNaN(value)) {
     return "-";
@@ -187,28 +186,32 @@ function formatNumber(
     notation: "compact",
     style: "decimal",
   };
-  if (style) {
-    formatOptions.style = style;
-  }
-  if (currency) {
-    formatOptions.currency = currency;
-    formatOptions.currencyDisplay = "code";
-  }
 
   if (numFractionDigits !== undefined) {
     formatOptions.maximumFractionDigits = numFractionDigits;
     formatOptions.minimumFractionDigits = numFractionDigits;
     delete formatOptions.maximumSignificantDigits;
   }
-  return Intl.NumberFormat(intl.locale, formatOptions).format(value);
-}
 
-export function formatUnit(unit: string): string {
-  if (!unit) {
-    return "";
-  }
   let unitKey: string;
   switch (unit) {
+    case "₹":
+      formatOptions.style = "currency";
+      formatOptions.currency = "INR";
+      formatOptions.currencyDisplay = "code";
+      break;
+    case "$":
+    case "USDollar":
+      formatOptions.style = "currency";
+      formatOptions.currency = "USD";
+      formatOptions.currencyDisplay = "code";
+      break;
+    case "%":
+    case "Percent":
+    case "Percentage":
+      formatOptions.style = "percent";
+      value = value / 100; // Values are scaled by formatter for percent display
+      break;
     case "MetricTon":
     case "t":
       unitKey = "metric-ton";
@@ -254,59 +257,20 @@ export function formatUnit(unit: string): string {
     case "mgd":
       unitKey = "million-gallon-per-day";
       break;
-    case "%":
-    case "Percent":
-    case "Percentage":
-      unitKey = "percent";
-      break;
     default:
       unitKey = unit;
   }
-  return intl.formatMessage(
-    {
-      id: unitKey,
-      defaultMessage: "{unit}",
-    },
-    { 0: "", unit }
-  );
-}
-
-export function formatNumberAndUnit(
-  value: number,
-  unit: string,
-  numFractionDigits?: number
-): string {
-  let style: string;
-  let currency: string;
-  // Whether to use custom unit formating.
-  let customUnit = true;
-  switch (unit) {
-    case "₹":
-      style = "currency";
-      currency = "INR";
-      customUnit = false;
-      break;
-    case "$":
-    case "USDollar":
-      style = "currency";
-      currency = "USD";
-      customUnit = false;
-      break;
-    case "%":
-    case "Percent":
-    case "Percentage":
-      value = value / 100; // Values are scaled by formatter for percent display
-      style = "percent";
-      customUnit = false;
-      break;
-    default:
-      break;
+  let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
+  if (unitKey) {
+    returnText = intl.formatMessage(
+      {
+        id: unitKey,
+        defaultMessage: `{0} {unit}`,
+      },
+      { 0: returnText, unit }
+    );
   }
-  let text = formatNumber(value, false, numFractionDigits, style, currency);
-  if (customUnit) {
-    text += " " + formatUnit(unit);
-  }
-  return text;
+  return returnText;
 }
 
 /**
@@ -326,10 +290,15 @@ function translateUnit(unit: string): string {
   switch (unit) {
     case "$":
       return "USD";
+    case "Percent":
+    case "Percentage":
     case "%":
       return "%";
     case "t":
       messageId = "metric-ton-display";
+      break;
+    case "Millions of tonnes":
+      messageId = "mega-ton-display";
       break;
     case "kWh":
       messageId = "kilowatt-hour-display";

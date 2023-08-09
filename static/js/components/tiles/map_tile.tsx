@@ -32,7 +32,7 @@ import {
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
-import { formatNumberAndUnit } from "../../i18n/i18n";
+import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
@@ -428,12 +428,12 @@ export function draw(
         Math.abs(chartData.dataValues[place.dcid]) > 0
       ) {
         const chartDatavalue = chartData.dataValues[place.dcid];
-        value = formatNumberAndUnit(
+        value = formatNumber(
           Number(chartDatavalue.toPrecision(2)),
           chartData.unit
         );
       } else {
-        value = formatNumberAndUnit(
+        value = formatNumber(
           Math.round(
             (chartData.dataValues[place.dcid] + Number.EPSILON) * 100
           ) / 100,

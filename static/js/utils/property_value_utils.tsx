@@ -18,7 +18,7 @@
  * Utils for processing and formatting property values from API calls.
  */
 
-import { formatNumberAndUnit } from "../i18n/i18n";
+import { formatNumber } from "../i18n/i18n";
 import { Node, PropertyValues } from "../shared/api_response_types";
 
 /**
@@ -70,7 +70,7 @@ export function formatPropertyValue(val: string): string {
     unit = unit.trim();
   }
   const num = Number.parseFloat(val.substring(numIndex));
-  return formatNumberAndUnit(num, unit);
+  return formatNumber(num, unit);
 }
 
 /**

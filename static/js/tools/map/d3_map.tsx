@@ -41,7 +41,7 @@ import {
   MapPoint,
 } from "../../chart/types";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
-import { formatNumberAndUnit } from "../../i18n/i18n";
+import { formatNumber } from "../../i18n/i18n";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
@@ -349,7 +349,7 @@ const getTooltipHtml =
       dataValues[place.dcid] !== null &&
       dataValues[place.dcid] !== undefined
     ) {
-      value = formatNumberAndUnit(dataValues[place.dcid], unit);
+      value = formatNumber(dataValues[place.dcid], unit);
       hasValue = true;
     }
     const metadata = metadataMapping[place.dcid];

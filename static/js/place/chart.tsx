@@ -40,7 +40,7 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import {
-  formatNumberAndUnit,
+  formatNumber,
   intl,
   LocalizedLink,
   localizeSearchParams,
@@ -514,7 +514,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const getTooltipHtml = (place: NamedPlace) => {
         let value = "Data Unavailable";
         if (this.state.choroplethDataGroup.data[place.dcid]) {
-          value = formatNumberAndUnit(
+          value = formatNumber(
             Math.round(
               (this.state.choroplethDataGroup.data[place.dcid] +
                 Number.EPSILON) *
@@ -786,9 +786,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     for (let i = 0; i < this.state.rankingGroup.points.length; i++) {
       const item = this.state.rankingGroup.points[i];
       if (item.placeDcid === this.props.dcid) {
-        const value = formatNumberAndUnit(
+        const value = formatNumber(
           item.value,
           this.props.unit,
+          false,
           NUM_FRACTION_DIGITS
         );
         return `${placeName} ranks ${i + 1} (${value})`;

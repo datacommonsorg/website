@@ -57,13 +57,13 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         {this.props.summary?.placeTypeSummary && (
           <h4 className="highlight-text">
             Total number of places:{" "}
-            {formatNumber(this.getNumberOfPlaces(), true)}
+            {formatNumber(this.getNumberOfPlaces(), "", true)}
           </h4>
         )}
         {this.props.summary?.provenanceSummary && (
           <h4 className="highlight-text">
             Total number of sources:{" "}
-            {formatNumber(provenanceSummaryList.length, true)}
+            {formatNumber(provenanceSummaryList.length, "", true)}
           </h4>
         )}
         {/* The only children passed in should be the stat var explorer button */}
