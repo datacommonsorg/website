@@ -472,7 +472,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         this.state.dataGroups,
         false,
         false,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -489,7 +488,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -501,7 +499,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -540,8 +537,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         colorScale,
         this.props.unit,
-        0,
-        formatNumber
+        0
       );
       const mapWidth = elem.offsetWidth - legendWidth;
       const projection = getProjection(

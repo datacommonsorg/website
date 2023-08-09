@@ -23,6 +23,7 @@ import _ from "lodash";
 
 import { GaugeChartData } from "../components/tiles/gauge_tile";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
+import { formatNumber } from "../i18n/i18n";
 import { SVGNS, XLINKNS } from "./draw_constants";
 import { appendLegendElem } from "./draw_utils";
 import { ChartOptions } from "./types";
@@ -32,14 +33,12 @@ import { ChartOptions } from "./types";
  * @param containerElement HTML div to draw chart in
  * @param chartWidth width of the chart area
  * @param data data to plot
- * @param formatNumberFn function to format the value's label
  * @param minChartHeight minimum height of the chart area
  */
 export function drawGaugeChart(
   containerElement: HTMLDivElement,
   chartWidth: number,
   data: GaugeChartData,
-  formatNumberFn: (value: number, unit?: string) => string,
   minChartHeight: number,
   options?: ChartOptions
 ): void {
@@ -154,7 +153,7 @@ export function drawGaugeChart(
     .style("alignment-baseline", "central")
     .style("text-anchor", "middle")
     .style("font-size", `${labelTextSize}px`)
-    .text((d) => formatNumberFn(d.value));
+    .text((d) => formatNumber(d.value));
 
   appendLegendElem(
     containerElement,

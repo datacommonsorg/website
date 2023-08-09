@@ -14,10 +14,11 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bfl <embeddings-size> # 'small' or 'medium'"
+  echo "Usage: -bflc <embeddings-size>"
   echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
+  echo "$0 -c <embeddings-size> <sheets_url> <worksheet_name> <local_file_for_sheets_data_download> # This option creates custom embeddings (using the finetuned model in PROD)."
 }
 
 if [[ $# -le 1 ]]; then
@@ -25,7 +26,7 @@ if [[ $# -le 1 ]]; then
   exit 1
 fi
 
-while getopts bfl OPTION; do
+while getopts bflc OPTION; do
   case $OPTION in
     b)
         echo -e "### Using the base default sentence_transformer model"
@@ -52,7 +53,37 @@ while getopts bfl OPTION; do
         fi
         ;;
 
-
+    c) 
+      echo -e "### Using the finetuned model from prod with custom embeddings-size"
+      SHEETS_URL="$3"
+      if [ "$SHEETS_URL" == "" ]; then
+        help
+        exit 1
+      else  
+        echo "Using the sheets url: $SHEETS_URL"
+      fi  
+      WORKSHEET_NAME="$4"
+      if [ "$WORKSHEET_NAME" == "" ]; then
+        help  
+        exit 1
+      else 
+        echo "Using the worksheet name: $WORKSHEET_NAME"
+      fi
+      LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD="$5"
+      if [ "$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD" == "" ]; then
+        help  
+        exit 1
+      else 
+        echo "Using the following local filename to download the latest sheets data to: $LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD"
+      fi
+      FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
+      if [ "$FINETUNED_MODEL" == "" ]; then
+        echo "Using option -c but could not retrieve an existing finetuned model from prod."
+        exit 1
+      else
+        echo "Found finetuned model on prod: $FINETUNED_MODEL"
+      fi
+      ;;
     *)
         help
     esac
@@ -64,7 +95,9 @@ python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
-if [ "$FINETUNED_MODEL" != "" ]; then
+if [ "$SHEETS_URL" != "" ]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_name=$WORKSHEET_NAME --local_sheets_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
+elif [ "$FINETUNED_MODEL" != "" ]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 elif [ "$LOCAL_MODEL_PATH" != "" ]; then
   python3 build_embeddings.py --embeddings_size=$2 --existing_model_path=$LOCAL_MODEL_PATH

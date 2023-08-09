@@ -21,6 +21,7 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { formatNumber } from "../i18n/i18n";
 import {
   GA_EVENT_PLACE_CHART_CLICK,
   GA_PARAM_PLACE_CHART_CLICK,
@@ -203,7 +204,6 @@ export function addXAxis(
  * @param axis: d3-selection with an SVG element to add the y-axis to
  * @param chartWidth: The width of the SVG chart
  * @param yScale: d3-scale for the y-ayis
- * @param formatNumberFn function to use to format numbers
  * @param textFontFamily name of font-family to set axes-labels to
  * @param unit: optional unit for the tick values
  *
@@ -212,8 +212,8 @@ export function addXAxis(
 export function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
-  yScale: d3.ScaleLinear<number, any>,
   formatNumberFn: (value: number, unit?: string) => string,
+  yScale: d3.ScaleLinear<number, any>,
   textFontFamily?: string,
   unit?: string
 ) {

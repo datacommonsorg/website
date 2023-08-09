@@ -496,8 +496,16 @@ $selector-footer-height: 40px;
       border-top: 0.5px solid #dee2e6;
       padding: 1rem;
       font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
 
       .option-section {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .option-inputs {
         display: flex;
         gap: 2rem;
       }
@@ -505,6 +513,12 @@ $selector-footer-height: 40px;
       .chart-option {
         width: 125px;
       }
+    }
+  }
+
+  .chart.scatter {
+    .option-label {
+      width: 5rem;
     }
   }
 

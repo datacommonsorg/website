@@ -18,7 +18,6 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
-import * as d3 from "d3";
 import _ from "lodash";
 import React, { useContext } from "react";
 import { Card } from "reactstrap";
@@ -52,12 +51,10 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const selectedPlace = placeInfo.value.selectedPlace;
-  const unitString = _.isEmpty(props.unit) ? "" : ` ${props.unit}`;
   const selectedPlaceValue =
     props.breadcrumbDataValues &&
     selectedPlace.dcid in props.breadcrumbDataValues
-      ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], "") +
-        unitString
+      ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], props.unit)
       : "N/A";
   const selectedPlaceDate =
     selectedPlace.dcid in props.metadata
@@ -91,7 +88,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
                 placeInfo.value,
                 statVar.value,
                 display.value,
-                unitString,
+                props.unit,
                 index + 1
               )
             )}
@@ -109,7 +106,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               placeInfo.value,
               statVar.value,
               display.value,
-              unitString,
+              props.unit,
               Math.max(0, rankedPlaces.length - 5) + index + 1
             )
           )}
@@ -127,7 +124,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               placeInfo.value,
               statVar.value,
               display.value,
-              unitString
+              props.unit
             )
           )}
         </div>
@@ -162,15 +159,14 @@ function getListItemElement(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   display: DisplayOptions,
-  unitString: string,
+  unit: string,
   itemNumber?: number
 ): JSX.Element {
   let value = "N/A";
   if (props.breadcrumbDataValues && place.dcid in props.breadcrumbDataValues) {
-    value =
-      formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString;
+    value = formatNumber(props.breadcrumbDataValues[place.dcid], unit);
   } else if (place.dcid in props.mapDataValues) {
-    value = formatNumber(props.mapDataValues[place.dcid], "") + unitString;
+    value = formatNumber(props.mapDataValues[place.dcid], unit);
   }
   const date =
     place.dcid in props.metadata
