@@ -28,6 +28,7 @@ python sdg_helper.py enrich-sdgs --infile ../config/sdgs.new.json --outfile ../c
 """
 
 import json
+import os
 import sys
 from dataclasses import asdict, dataclass, is_dataclass
 from typing import Dict, List
@@ -46,7 +47,7 @@ requests_session.mount('https://', HTTPAdapter(max_retries=retries))
 
 API_HOST = 'api.datacommons.org'
 API_SCHEME = 'https'
-API_KEY = 'AIzaSyCTI4Xz-UW_G2Q2RfknhcfdAnTHq5X5XuI'
+API_KEY = os.environ.get('DC_API_KEY', '')
 SDG_GROUP_ROOT = 'dc/g/SDG'
 
 @dataclass
@@ -86,6 +87,8 @@ def json_dumps_dataclass(o, **options):
 
 class DataCommonsClient:
   def __init__(self, api_host=API_HOST, api_scheme=API_SCHEME, api_key=API_KEY):
+    if not api_key:
+      raise(Exception("No API key found. Please set your Data Commons API key with the environment variable DC_API_KEY"))
     self.api_host = api_host
     self.api_scheme = api_scheme
     self.api_key = api_key
