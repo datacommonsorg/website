@@ -318,7 +318,12 @@ export function App(): JSX.Element {
           {chartData && chartData.pageConfig && (
             <>
               {dc !== "sdg" && searchSection}
-              <div id="place-callout">{chartData.place.name}</div>
+              <div id="place-callout">
+                {chartData.pageConfig.metadata.topicName && (
+                  <>{chartData.pageConfig.metadata.topicName} in </>
+                )}
+                {chartData.place.name}
+              </div>
               {chartData.parentPlaces.length > 0 && (
                 <ParentPlace
                   parentPlaces={chartData.parentPlaces}
