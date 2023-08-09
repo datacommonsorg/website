@@ -19,8 +19,8 @@ from dataclasses import dataclass
 import json
 from typing import Dict, List, Set
 
+from server.lib.explore.params import DCNames
 from server.lib.nl.common import utils
-from server.lib.nl.common.constants import DCNames
 
 
 # This might be a topic or svpg

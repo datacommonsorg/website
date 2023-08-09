@@ -142,8 +142,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                         !_.isEmpty(props.scaling) && props.scaling[0]
                           ? point.value * props.scaling[0]
                           : point.value,
-                        props.unit && props.unit.length ? props.unit[0] : "",
-                        false
+                        props.unit && props.unit.length ? props.unit[0] : ""
                       )}
                     </span>
                   </td>
@@ -163,8 +162,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                           !_.isEmpty(props.scaling) && props.scaling[i]
                             ? v * props.scaling[i]
                             : v,
-                          props.unit && props.unit.length ? props.unit[i] : "",
-                          false
+                          props.unit && props.unit.length ? props.unit[i] : ""
                         )}
                       </span>
                     </td>

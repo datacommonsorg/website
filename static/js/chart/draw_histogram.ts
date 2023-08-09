@@ -35,7 +35,6 @@ const MAX_HISTOGRAM_BAR_WIDTH = 75;
  * @param chartWidth
  * @param chartHeight
  * @param dataPoints
- * @param formatNumberFn
  * @param unit
  */
 export function drawHistogram(
@@ -43,7 +42,6 @@ export function drawHistogram(
   chartWidth: number,
   chartHeight: number,
   dataPoints: DataPoint[],
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: HistogramOptions
 ): void {
   const textList = dataPoints.map((dataPoint) => dataPoint.label);
@@ -71,14 +69,7 @@ export function drawHistogram(
   // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
   // of axis labels that results in the labels being cut-off.
   // TODO (juliawu): identify why this is and fix root cause.
-  const leftWidth = addYAxis(
-    tempYAxis,
-    chartWidth,
-    y,
-    formatNumberFn,
-    null,
-    options?.unit
-  );
+  const leftWidth = addYAxis(tempYAxis, chartWidth, y, null, options?.unit);
 
   const x = d3
     .scaleBand()
@@ -103,7 +94,7 @@ export function drawHistogram(
   // Don't set TEXT_FONT_FAMILY for histograms, this causes some resizing
   // of axis labels that results in the labels being cut-off.
   // TODO (juliawu): identify why this is and fix root cause.
-  addYAxis(yAxis, chartWidth, y, formatNumberFn, undefined, options?.unit);
+  addYAxis(yAxis, chartWidth, y, undefined, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const color = options?.fillColor ? options.fillColor : getColorFn(["A"])("A"); // we only need one color

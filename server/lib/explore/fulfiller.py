@@ -18,7 +18,9 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore import page
+from server.lib.explore import page_main
+from server.lib.explore import page_sdg
+from server.lib.explore.params import is_sdg
 import server.lib.explore.related as related
 import server.lib.explore.topic as topic
 import server.lib.nl.common.utils as cutils
@@ -76,8 +78,11 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     return None, {}
 
   # Perform existence checks for all the SVs!
-  tracker = ext.MainExistenceCheckTracker(state, places_to_check, uttr.svs,
-                                          chart_vars_map)
+  tracker = ext.MainExistenceCheckTracker(state,
+                                          places_to_check,
+                                          uttr.svs,
+                                          prep_chart_vars=False,
+                                          sv2chartvarslist=chart_vars_map)
   tracker.perform_existence_check()
 
   existing_svs = set(state.uttr.svs)
@@ -95,8 +100,14 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
       if chart_vars.orig_sv:
         existing_svs.add(chart_vars.orig_sv)
 
-  config_resp = page.build_config(chart_vars_list, state, existing_svs,
-                                  cb_config)
+  # Route to an appropriate page generator.
+  if is_sdg(state.uttr.insight_ctx):
+    config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
+                                        cb_config)
+  else:
+    config_resp = page_main.build_config(chart_vars_list, state, existing_svs,
+                                         cb_config)
+
   related_things = related.compute_related_things(state,
                                                   config_resp.plotted_orig_vars)
 
