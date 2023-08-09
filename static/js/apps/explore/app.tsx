@@ -194,6 +194,7 @@ export function App(): JSX.Element {
         childPlaces: resp["relatedThings"]["childPlaces"],
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
+        childTopics: resp["relatedThings"]["childTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
         topic: resp["relatedThings"]["mainTopic"]["dcid"] || "",
         sessionId: "session" in resp ? resp["session"]["id"] : "",
@@ -275,7 +276,7 @@ export function App(): JSX.Element {
                 currentTopicDcid={chartData.topic}
                 place={place}
                 cmpPlace={cmpPlace}
-                categories={chartData.pageConfig.categories}
+                childTopics={chartData.childTopics}
                 peerTopics={chartData.peerTopics}
                 setQuery={setQuery}
                 placeType={placeType}

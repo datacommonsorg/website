@@ -4690,6 +4690,28 @@
     },
     {
       "dcid": [
+        "dc/svpg/PopulationByAgeDistribution"
+      ],
+      "memberList": [
+        "Count_Person_1To4Years",
+        "Count_Person_5To17Years",
+        "Count_Person_18To24Years",
+        "Count_Person_25To34Years",
+        "Count_Person_35To44Years",
+        "Count_Person_45To54Years",
+        "Count_Person_55To64Years",
+        "Count_Person_65To74Years",
+        "Count_Person_75OrMoreYears"
+      ],
+      "name": [
+        "Age Distribution"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/PopulationFormerSmoker_Prevalenceofformerdailysmokersbygender"
       ],
       "memberList": [
@@ -9088,7 +9110,7 @@
         "WHO/poliov_Urban"
       ],
       "name": [
-        "Global \"Child Immunizations In Urban Area\""
+        "Child Immunizations In Urban Area"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9209,7 +9231,7 @@
         "WHO/SA_0000001690"
       ],
       "name": [
-        "Global \"Mortality Rates By Causes\""
+        "Mortality Rates By Causes"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -9358,8 +9380,8 @@
         "Age"
       ],
       "relevantVariableList": [
-        "dc/topic/AgeDistribution",
         "dc/topic/AgeMedians",
+        "dc/topic/AgeDistribution",
         "dc/topic/VeryOldAndVeryYoungPopulation"
       ],
       "typeOf": [
@@ -9373,7 +9395,9 @@
       "name": [
         "Age Distribution"
       ],
-      "relevantVariableList": [],
+      "relevantVariableList": [
+        "dc/svpg/PopulationByAgeDistribution"
+      ],
       "typeOf": [
         "Topic"
       ]
@@ -14026,28 +14050,6 @@
         "dc/topic/PM2.5",
         "dc/topic/SmokePM2.5",
         "dc/topic/DieselPM"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/PopulationByAgeDistribution"
-      ],
-      "name": [
-        "Population By Age Distribution"
-      ],
-      "relevantVariableList": [
-        "Count_Person_18To24Years",
-        "Count_Person_1To4Years",
-        "Count_Person_25To34Years",
-        "Count_Person_35To44Years",
-        "Count_Person_45To54Years",
-        "Count_Person_55To64Years",
-        "Count_Person_5To17Years",
-        "Count_Person_65To74Years",
-        "Count_Person_75OrMoreYears"
       ],
       "typeOf": [
         "Topic"
