@@ -5,7 +5,8 @@
     "health",
     "sustainability",
     "education-housing-commute",
-    "equity"
+    "equity",
+    "sdg"
   ],
   "topics": {
     "equity": {
@@ -708,6 +709,52 @@
           "United States Geological Service (USGS)",
           "Wildland Fire Interagency Geospatial Services",
           "World Bank"
+        ]
+      }
+    },
+    "sdg": {
+      "title": "Sustainability Development Goals",
+      "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs)",
+      "examples": {
+        "general": [
+          {
+            "title": "Hunger in Nigeria",
+            "url": "oq=Hunger+in+Nigeria&dc=sdg"
+          },
+          {
+            "title": "Poverty in Mexico",
+            "url": "oq=Poverty+in+Mexico&dc=sdg"
+          },
+          {
+            "title": "Progress on health related goals in Pakistan",
+            "url": "oq=Progress+on+health+related+goals+in+Pakistan&dc=sdg"
+          },
+          {
+            "title": "SDG goals on gender equality across the world",
+            "url": "oq=SDG+goals+on+gender+equality+across+the+world&dc=sdg"
+          }
+        ],
+        "specific": [],
+        "comparison": [
+          {
+            "title": "Compare progress on poverty in Mexico, Nigeria and Pakistan",
+            "url": "oq=Compare+progress+on+poverty+in+Mexico,+Nigeria+and+Pakistan&dc=sdg"
+          },
+          {
+            "title": "Compare SDG goals on climate change between Brazil, China and India",
+            "url": "oq=Compare+progress+on+poverty+in+Mexico,+Nigeria+and+Pakistan&dc=sdg"
+          },
+          {
+            "title": "Violence vs poverty across the world",
+            "url": "oq=Violence+vs+poverty+across+the+world&dc=sdg"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 3786,
+        "sources": [
+          "United Nations (UN)"
         ]
       }
     }
