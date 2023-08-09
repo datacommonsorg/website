@@ -94,6 +94,7 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      showTooltipOnHover: true,
       statVarSpec: this.variables.map((variable) => ({
         denom: "",
         log: false,

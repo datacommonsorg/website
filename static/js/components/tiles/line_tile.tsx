@@ -64,6 +64,8 @@ export interface LineTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // Whether to show tooltip on hover
+  showTooltipOnHover?: boolean;
 }
 
 export interface LineChartData {
@@ -202,7 +204,7 @@ export function draw(
     props.svgChartHeight,
     chartData.dataGroup,
     false,
-    false,
+    props.showTooltipOnHover,
     {
       colors: props.colors,
       unit: chartData.unit,
