@@ -19,6 +19,7 @@ from typing import Dict, List, Set
 
 from flask import current_app
 
+from server.lib.explore.params import DCNames
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -198,7 +199,7 @@ def extend_svs(svs: List[str]):
 
 def get_sv_name(all_svs: List[str],
                 sv_chart_titles: Dict,
-                dc: str = constants.DCNames.MAIN_DC.value) -> Dict:
+                dc: str = DCNames.MAIN_DC.value) -> Dict:
   sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()

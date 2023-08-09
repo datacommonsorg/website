@@ -24,16 +24,17 @@ import React from "react";
 import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
 import { RankingTile } from "../../../components/tiles/ranking_tile";
+import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import {
-  getFooterOptions,
   getStatVarSpec,
   isSelectionComplete,
 } from "../../../utils/app/visualization_utils";
 import { AppContextType } from "../app_context";
+import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
 
 export function getChartArea(
@@ -50,6 +51,7 @@ export function getChartArea(
             appContext.setStatVars(newStatVars);
           },
           label: "Per Capita",
+          gaEventParam: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
         },
       ]
     : [];
@@ -71,7 +73,7 @@ export function getChartArea(
           date={date}
           allowZoom={true}
         />
-        {getFooterOptions(perCapitaInputs, [])}
+        <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
       </div>
       <div className="chart">
         <RankingTile

@@ -22,6 +22,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
+import { formatNumber } from "../i18n/i18n";
 import { StatVarInfo } from "../shared/stat_var";
 import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn, PlotParams, shouldFillInValues } from "./base";
@@ -65,14 +66,12 @@ const YLABEL = {
  * @param dataGroupsDict mapping of place to datagroups from which the html content will be generated from.
  * @param highlightedTime the timepoint we are showing a tooltip for.
  * @param dataLabels: mapping of place to mapping of datagroup to row label
- * @param formatNumberFn function to use to format numbers
  * @param unit units for the data.
  */
 function getTooltipContent(
   dataGroupsDict: { [place: string]: DataGroup[] },
   highlightedTime: number,
   rowLabels: { [place: string]: { [dataGroup: string]: string } },
-  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string
 ): string {
   let tooltipDate = "";
@@ -95,7 +94,7 @@ function getTooltipContent(
       if (dataPoint) {
         tooltipDate = dataPoint.label;
         displayValue = !_.isNull(dataPoint.value)
-          ? `${formatNumberFn(dataPoint.value)} ${unit}`
+          ? formatNumber(dataPoint.value, unit)
           : "N/A";
         tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
       }
@@ -145,7 +144,6 @@ function getHighlightedTime(
  * @param setOfTimePoints all the timepoints in the dataGroupsDict.
  * @param highlightArea svg element to hold the elements for highlighting points.
  * @param chartAreaBoundary boundary of the chart of interest relative to its container.
- * @param formatNumberFn function to use to format numbers
  * @param unit units of the data of the chart of interest.
  */
 function addHighlightOnHover(
@@ -157,7 +155,6 @@ function addHighlightOnHover(
   setOfTimePoints: Set<number>,
   highlightArea: d3.Selection<SVGGElement, any, any, any>,
   chartAreaBoundary: Boundary,
-  formatNumberFn: (value: number, unit?: string) => string,
   unit?: string,
   statVarInfo?: { [key: string]: StatVarInfo }
 ): void {
@@ -244,7 +241,6 @@ function addHighlightOnHover(
         dataGroupsDict,
         highlightedTime,
         rowLabels,
-        formatNumberFn,
         unit
       );
       showTooltip(
@@ -265,7 +261,6 @@ function addHighlightOnHover(
  * @param dataGroups
  * @param showAllDots
  * @param highlightOnHover
- * @param formatNumberFn
  * @param unit
  * @param handleDotClick
  *
@@ -278,7 +273,6 @@ export function drawLineChart(
   dataGroups: DataGroup[],
   showAllDots: boolean,
   highlightOnHover: boolean,
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: LineChartOptions
 ): boolean {
   if (_.isEmpty(dataGroups)) {
@@ -314,7 +308,6 @@ export function drawLineChart(
     yAxis,
     width,
     yScale,
-    formatNumberFn,
     TEXT_FONT_FAMILY,
     options?.unit
   );
@@ -442,7 +435,6 @@ export function drawLineChart(
       timePoints,
       highlight,
       chartAreaBoundary,
-      formatNumberFn,
       options?.unit
     );
   }
@@ -469,7 +461,6 @@ export function drawLineChart(
  * @param statVarInfos: object from stat var dcid to its info struct.
  * @param dataGroupsDict: data groups for plotting.
  * @param plotParams: contains all plot params for chart.
- * @param formatNumberFn function to use to format numbers
  * @param yLabel label for the y axis
  * @param unit the unit of the measurement.
  * @param modelsDataGroupsDict dict of place to data groups for model datagroups
@@ -481,7 +472,6 @@ export function drawGroupLineChart(
   statVarInfos: { [key: string]: StatVarInfo },
   dataGroupsDict: { [place: string]: DataGroup[] },
   plotParams: PlotParams,
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: GroupLineChartOptions
 ): void {
   // Get a non-empty array as dataGroups
@@ -550,7 +540,6 @@ export function drawGroupLineChart(
     tempYAxis,
     width - legendWidth,
     yScale,
-    formatNumberFn,
     TEXT_FONT_FAMILY,
     options?.unit
   );
@@ -585,14 +574,7 @@ export function drawGroupLineChart(
   const yPosTop = MARGIN.top + YLABEL.height;
   yScale.rangeRound([yPosBottom, yPosTop]);
   tempYAxis.remove();
-  addYAxis(
-    yAxis,
-    width - legendWidth,
-    yScale,
-    formatNumberFn,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  addYAxis(yAxis, width - legendWidth, yScale, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, height, yScale);
 
   // add ylabel
@@ -715,7 +697,6 @@ export function drawGroupLineChart(
     timePoints,
     highlight,
     chartAreaBoundary,
-    formatNumberFn,
     options?.unit,
     statVarInfos
   );

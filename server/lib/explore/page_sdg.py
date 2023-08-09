@@ -17,30 +17,42 @@ import time
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore.detector import Params
-from server.lib.explore.page_type import default
+from server.lib.explore import params
+from server.lib.explore.page_type import default_sdg
 from server.lib.explore.page_type import fallback
 from server.lib.explore.page_type import place_comparison
 from server.lib.explore.page_type import var_correlation
 from server.lib.explore.page_type.builder import Builder
+from server.lib.explore.page_type.builder import ConfigResp
+from server.lib.nl.common import topic
+from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
+# This class identifies the hierarchy of topics under which
+# the main topic falls.
+#
+# If category/block is empty, then the sub-topics of the
+# main topic will be filled up.  Otherwise, the sub-topics
+# will not appear in the title.
 @dataclass
-class ConfigResp:
-  config_pb: SubjectPageConfig
-  user_message: str
-  plotted_orig_vars: List[Dict]
+class TopicTree:
+  # Topic for page-level title
+  page: Dict = None
+  # Topic for category-level title
+  category: Dict = None
+  # Topic for block-level title.
+  block: Dict = None
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
                  env_config: builder.Config) -> ConfigResp:
   # Get names of all SVs
-  dc = state.uttr.insight_ctx[Params.DC.value]
+  dc = state.uttr.insight_ctx[params.Params.DC.value]
   start = time.time()
   sv2thing = base.SV2Thing(
       name=variable.get_sv_name(all_svs, env_config.sv_chart_titles, dc),
@@ -50,7 +62,21 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   )
   state.uttr.counters.timeit('get_sv_details', start)
 
+  # Decide on the levels of the hierarchy!
+  topic_tree = _get_topic_tree(chart_vars_list, sv2thing, dc)
+
   builder = Builder(state, env_config, sv2thing, len(chart_vars_list))
+
+  if topic_tree.page:
+    builder.page_config.metadata.topic_id = topic_tree.page['dcid']
+    builder.page_config.metadata.topic_name = topic_tree.page['name']
+
+  if topic_tree.category:
+    builder.new_category(topic_tree.category['name'],
+                         topic_tree.category['dcid'])
+
+  if topic_tree.block:
+    builder.new_block(topic_tree.block['name'])
 
   prev_topic = None
   for i, chart_vars in enumerate(chart_vars_list):
@@ -59,12 +85,20 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
     if i == 0 or prev_topic != chart_vars.source_topic:
       title = ''
       dcid = ''
-      if chart_vars.title:
-        title = chart_vars.title
-      elif chart_vars.source_topic:
+      if chart_vars.source_topic:
         title = sv2thing.name.get(chart_vars.source_topic, '')
         dcid = chart_vars.source_topic
-      builder.new_category(title, dcid)
+      if not topic_tree.category:
+        if topic_tree.page and topic_tree.page[
+            'dcid'] == chart_vars.source_topic:
+          builder.new_category('', '')
+        else:
+          # There was no category, make sub-topic a category.
+          builder.new_category(title, dcid)
+        builder.new_block('')
+      elif not topic_tree.block:
+        # There was a category, but no block, so make sub-topic a block.
+        builder.new_block(title)
       prev_topic = chart_vars.source_topic
     _add_charts(chart_vars, state, builder)
 
@@ -82,32 +116,61 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                 builder: Builder) -> Dict:
   sv_spec = {}
 
-  enable_pc = builder.enable_pc(chart_vars)
   if builder.is_var_comparison:
-    builder.new_block(title='', enable_pc=enable_pc)
     sv_spec.update(var_correlation.add_chart(chart_vars, state, builder))
     builder.update_sv_spec(sv_spec)
     return
 
   if not chart_vars.is_topic_peer_group:
-    # This is going to be a new section with a list of specific charts.
-    # They should not be compared.
     for sv in chart_vars.svs:
-      builder.new_block(title=builder.sv2thing.name.get(sv),
-                        enable_pc=enable_pc)
       if builder.is_place_comparison:
         sv_spec.update(place_comparison.add_sv(sv, chart_vars, state, builder))
       else:
-        sv_spec.update(default.add_sv(sv, chart_vars, state, builder,
-                                      enable_pc))
+        sv_spec.update(default_sdg.add_sv(sv, chart_vars, state, builder))
   else:
-    if not chart_vars.title and chart_vars.svpg_id:
-      # If there was an SVPG, we may not have gotten its name before, so get it now.
-      chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
-    builder.new_block(title=chart_vars.title, enable_pc=enable_pc)
     if builder.is_place_comparison:
       sv_spec.update(place_comparison.add_svpg(chart_vars, state, builder))
     else:
-      sv_spec.update(default.add_svpg(chart_vars, state, builder, enable_pc))
+      sv_spec.update(default_sdg.add_svpg(chart_vars, state, builder))
 
   builder.update_sv_spec(sv_spec)
+
+
+def _get_topic_tree(chart_vars_list: List[ftypes.ChartVars],
+                    sv2thing: base.SV2Thing, dc: str) -> TopicTree:
+  tree = TopicTree()
+  ancestors = []
+  topics = set(
+      [cv.orig_sv for cv in chart_vars_list if utils.is_topic(cv.orig_sv)])
+  if len(topics) != 1:
+    return tree
+
+  main_id = list(topics)[0]
+  main_topic = {
+      'dcid': main_id,
+      'name': sv2thing.name.get(main_id),
+      'types': ['Topic']
+  }
+  ancestors = topic.get_ancestors(main_id, dc)
+
+  if len(ancestors) < 2:
+    # main_topic => SDG root or GOAL-x
+    tree.page = main_topic
+  elif len(ancestors) == 2:
+    # main_topic => TARGET-x
+    # ancestors => [GOAL-x, ROOT]
+    tree.page = ancestors[0]
+    tree.category = main_topic
+  elif len(ancestors) == 3:
+    # main_topic => INDICATOR
+    # ancestors => [TARGET-x, GOAL-y, ROOT]
+    tree.page = ancestors[1]
+    tree.category = ancestors[0]
+    tree.block = main_topic
+  else:
+    # main_topic => sub-indicator topic.
+    # ancestors => [..., INDICATOR-x, TARGET-y, GOAL-z, ROOT]
+    tree.page = ancestors[-2]
+    tree.category = ancestors[-3]
+    tree.block = ancestors[-4]
+  return tree

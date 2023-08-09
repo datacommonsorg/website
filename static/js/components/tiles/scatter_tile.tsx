@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import _, { remove } from "lodash";
+import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
@@ -102,19 +102,21 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   >(null);
 
   useEffect(() => {
-    if (!scatterChartData || !_.isEqual(scatterChartData.props, props)) {
-      loadSpinner(getSpinnerId());
-      (async () => {
-        const data = await fetchData(props);
-        if (props && _.isEqual(data.props, props)) {
-          setScatterChartData(data);
-        }
-      })();
+    if (scatterChartData && areDataPropsEqual()) {
+      // only re-fetch if the props that affect data fetch are not equal
+      return;
     }
+    loadSpinner(getSpinnerId());
+    (async () => {
+      const data = await fetchData(props);
+      if (props && _.isEqual(data.props, props)) {
+        setScatterChartData(data);
+      }
+    })();
   }, [props, scatterChartData]);
 
   const drawFn = useCallback(() => {
-    if (!scatterChartData || !_.isEqual(scatterChartData.props, props)) {
+    if (!scatterChartData || !areDataPropsEqual()) {
       return;
     }
     if (_.isEmpty(scatterChartData.points)) {
@@ -187,6 +189,20 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
 
   function getSpinnerId(): string {
     return `scatter-spinner-${props.id}`;
+  }
+
+  function areDataPropsEqual(): boolean {
+    const oldDataProps = [
+      scatterChartData.props.place,
+      scatterChartData.props.enclosedPlaceType,
+      scatterChartData.props.statVarSpec,
+    ];
+    const newDataProps = [
+      props.place,
+      props.enclosedPlaceType,
+      props.statVarSpec,
+    ];
+    return _.isEqual(oldDataProps, newDataProps);
   }
 }
 
@@ -384,10 +400,10 @@ export function draw(
     yPerCapita: !_.isEmpty(chartData.yStatVar.denom),
     xLog: chartData.xStatVar.log,
     yLog: chartData.yStatVar.log,
-    showQuadrants: false,
+    showQuadrants: scatterTileSpec.showQuadrants,
     showDensity: true,
     showPopulation: SHOW_POPULATION_OFF,
-    showLabels: false,
+    showLabels: scatterTileSpec.showPlaceLabels,
     showRegression: false,
     highlightPoints,
   };

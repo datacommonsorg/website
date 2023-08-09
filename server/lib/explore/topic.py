@@ -17,7 +17,7 @@ from dataclasses import dataclass
 import time
 from typing import Dict, List
 
-from server.lib.explore.detector import Params
+from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.fulfillment.types as ftypes

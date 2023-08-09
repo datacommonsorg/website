@@ -151,6 +151,8 @@ message ScatterTileSpec {
   bool highlight_top_left = 2;
   bool highlight_bottom_right = 3;
   bool highlight_bottom_left = 4;
+  bool show_place_labels = 5;
+  bool show_quadrants = 6;
 }
 
 message BarTileSpec {
