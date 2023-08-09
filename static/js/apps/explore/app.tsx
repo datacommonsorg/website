@@ -309,6 +309,7 @@ export function App(): JSX.Element {
                   childPlaces={chartData.childPlaces}
                   parentPlace={chartData.place}
                   urlFormatString={urlString}
+                  onClick={() => setQuery("")}
                 ></ChildPlaces>
               )}
             </>
