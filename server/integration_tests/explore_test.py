@@ -33,12 +33,13 @@ class IntegrationTest(NLWebServerTestCase):
                          json=req_json).json()
     self.handle_response(json.dumps(req_json), resp, test_dir, '', failure)
 
-  def run_detection(self, test_dir, queries, failure=''):
+  def run_detection(self, test_dir, queries, dc='', failure=''):
     ctx = {}
     for q in queries:
       resp = requests.post(self.get_server_url() + f'/api/explore/detect?q={q}',
                            json={
-                               'contextHistory': ctx
+                               'contextHistory': ctx,
+                               'dc': dc,
                            }).json()
       ctx = resp['context']
       if len(queries) == 1:
@@ -110,6 +111,9 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'])
+
+  def test_detection_sdg(self):
+    self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
 
   def test_detection_context(self):
     self.run_detection('detection_api_context', [
