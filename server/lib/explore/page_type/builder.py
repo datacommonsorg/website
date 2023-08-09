@@ -12,10 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+from typing import Dict, List
+
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore.detector import Params
+from server.lib.explore.params import is_sdg
 from server.lib.nl.common import utils
-from server.lib.nl.common.constants import DCNames
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
@@ -57,11 +59,6 @@ class Builder:
     self.category = None
     self.block = None
     self.column = None
-
-  def is_sdg(self):
-    return self.uttr.insight_ctx[Params.DC.value] in [
-        DCNames.SDG_DC.value, DCNames.SDG_MINI_DC.value
-    ]
 
   def nopc(self):
     return self.env_config.nopc_vars
@@ -145,6 +142,10 @@ class Builder:
     if out_cats:
       self.page_config.categories.extend(out_cats)
 
+    # Nothing more to do (like resetting title) if SDG.
+    if is_sdg(self.uttr.insight_ctx):
+      return
+
     for cat in self.page_config.categories:
       # TODO: Check if we need more work here.
       if self.plotted_orig_vars and self.plotted_orig_vars[0][
@@ -157,3 +158,10 @@ class Builder:
         # will be SVPG.  The latter is better curated, so for now
         # use that.
         cat.blocks[0].title = ''
+
+
+@dataclass
+class ConfigResp:
+  config_pb: SubjectPageConfig
+  user_message: str
+  plotted_orig_vars: List[Dict]
