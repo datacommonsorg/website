@@ -21,13 +21,17 @@
 import _ from "lodash";
 import React from "react";
 
+import { highlightPlaceToggle } from "../../../chart/draw_map_utils";
 import { MapTile } from "../../../components/tiles/map_tile";
+import { RankingTile } from "../../../components/tiles/ranking_tile";
 import { StatVarHierarchyType } from "../../../shared/types";
+import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import {
   getFooterOptions,
   getStatVarSpec,
+  isSelectionComplete,
 } from "../../../utils/app/visualization_utils";
 import { AppContextType } from "../app_context";
 import { VisType } from "../vis_type_configs";
@@ -51,19 +55,52 @@ export function getChartArea(
     : [];
   const statVarLabel =
     appContext.statVars[0].info.title || appContext.statVars[0].dcid;
+  const statVarSpec = getStatVarSpec(appContext.statVars[0], VisType.MAP);
+  const date = appContext.statVars[0].date || "";
   return (
-    <div className="chart">
-      <MapTile
-        id="vis-tool-map"
-        place={appContext.places[0]}
-        statVarSpec={getStatVarSpec(appContext.statVars[0], VisType.MAP)}
-        enclosedPlaceType={appContext.enclosedPlaceType}
-        svgChartHeight={chartHeight}
-        title={statVarLabel + " (${date})"}
-        showLoadingSpinner={true}
-      />
-      {getFooterOptions(perCapitaInputs, [])}
-    </div>
+    <>
+      <div className="chart">
+        <MapTile
+          id="vis-tool-map"
+          place={appContext.places[0]}
+          statVarSpec={statVarSpec}
+          enclosedPlaceType={appContext.enclosedPlaceType}
+          svgChartHeight={chartHeight}
+          title={statVarLabel + " (${date})"}
+          showLoadingSpinner={true}
+          date={date}
+          allowZoom={true}
+        />
+        {getFooterOptions(perCapitaInputs, [])}
+      </div>
+      <div className="chart">
+        <RankingTile
+          id="vis-tool-ranking"
+          place={appContext.places[0]}
+          enclosedPlaceType={appContext.enclosedPlaceType}
+          title=""
+          statVarSpec={[statVarSpec]}
+          rankingMetadata={{
+            showHighest: true,
+            showLowest: true,
+            diffBaseDate: "",
+            showMultiColumn: false,
+            highestTitle: "Top Places",
+            lowestTitle: "Bottom Places",
+          }}
+          hideFooter={true}
+          onHoverToggled={(placeDcid, hover) => {
+            highlightPlaceToggle(
+              document.getElementById("vis-tool-map"),
+              placeDcid,
+              hover
+            );
+          }}
+          date={date}
+          showLoadingSpinner={true}
+        />
+      </div>
+    </>
   );
 }
 
@@ -89,6 +126,41 @@ function getInfoContent(): JSX.Element {
   );
 }
 
+function getSqlQueryFn(appContext: AppContextType): () => string {
+  return () => {
+    if (
+      !isSelectionComplete(
+        VisType.MAP,
+        appContext.places,
+        appContext.enclosedPlaceType,
+        appContext.statVars
+      )
+    ) {
+      return "";
+    }
+    const contextStatVar = appContext.statVars[0];
+    const statVarSpec = getStatVarSpec(contextStatVar, VisType.MAP);
+    if (statVarSpec.denom) {
+      return getPcQuery(
+        statVarSpec.statVar,
+        statVarSpec.denom,
+        appContext.places[0].dcid,
+        appContext.enclosedPlaceType,
+        contextStatVar.date,
+        {}
+      );
+    } else {
+      return getNonPcQuery(
+        statVarSpec.statVar,
+        appContext.places[0].dcid,
+        appContext.enclosedPlaceType,
+        contextStatVar.date,
+        {}
+      );
+    }
+  };
+}
+
 export const MAP_CONFIG = {
   displayName: "Map Explorer",
   icon: "public",
@@ -99,4 +171,5 @@ export const MAP_CONFIG = {
   numSv: 1,
   getChartArea,
   getInfoContent,
+  getSqlQueryFn,
 };

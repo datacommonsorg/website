@@ -53,19 +53,20 @@ function getOptionalPredicates(
   return predicates;
 }
 
-function getChildPlaceView(place: PlaceInfo): string {
+function getChildPlaceView(place: string, enclosedPlaceType: string): string {
   return (
     `WITH ${CHILD_PLACE_VIEW_NAME} AS (` +
     `
       SELECT id AS PlaceId FROM \`data_commons.Place\`
-      WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${place.enclosedPlaceType}') AND
-            EXISTS(SELECT * FROM UNNEST(linked_contained_in_place) AS C WHERE C = '${place.enclosingPlace.dcid}')`
+      WHERE EXISTS(SELECT * FROM UNNEST(all_types) AS T WHERE T = '${enclosedPlaceType}') AND
+            EXISTS(SELECT * FROM UNNEST(linked_contained_in_place) AS C WHERE C = '${place}')`
   );
 }
 
 function getLatestObsDateView(
-  sv: StatVar,
-  place: PlaceInfo,
+  svDcid: string,
+  place: string,
+  enclosedPlaceType: string,
   metadata: StatMetadata
 ): string {
   let provJoin = "";
@@ -79,14 +80,14 @@ function getLatestObsDateView(
   return (
     `WITH ${LATEST_OBS_DATE_VIEW_NAME} AS (` +
     `
-    ${getChildPlaceView(place)}
+    ${getChildPlaceView(place, enclosedPlaceType)}
     )
     SELECT O.variable_measured as StatVarId,
            O.observation_about as PlaceId,
            MAX(O.Observation_date) as LatestDate
     FROM \`data_commons.Observation\` as O
     JOIN ${CHILD_PLACE_VIEW_NAME} ON TRUE${provJoin}
-    WHERE O.variable_measured = '${sv.dcid}' AND${provPredicate}
+    WHERE O.variable_measured = '${svDcid}' AND${provPredicate}
           O.observation_about = ${CHILD_PLACE_VIEW_NAME}.PlaceId AND
           ${getSvMetadataPredicates("O", "I", metadata).join(
             " AND\n          "
@@ -96,8 +97,10 @@ function getLatestObsDateView(
 }
 
 function getPlaceObsDatesAndDenomRankView(
-  sv: StatVar,
-  place: PlaceInfo,
+  sv: string,
+  denom: string,
+  place: string,
+  enclosedPlaceType,
   date: string,
   metadata: StatMetadata
 ): string {
@@ -107,8 +110,8 @@ function getPlaceObsDatesAndDenomRankView(
       : CHILD_PLACE_VIEW_NAME;
   const tempView =
     tempViewName === LATEST_OBS_DATE_VIEW_NAME
-      ? getLatestObsDateView(sv, place, metadata)
-      : getChildPlaceView(place);
+      ? getLatestObsDateView(sv, place, enclosedPlaceType, metadata)
+      : getChildPlaceView(place, enclosedPlaceType);
   const optionalPredicates = getOptionalPredicates(
     "ONum",
     "I",
@@ -139,9 +142,9 @@ function getPlaceObsDatesAndDenomRankView(
   JOIN \`data_commons.Observation\` AS ODenom ON TRUE
   JOIN ${tempViewName} ON TRUE${provJoin}
   WHERE ONum.observation_about = ${tempViewName}.PlaceId AND
-        ONum.variable_measured = '${sv.dcid}' AND${numProvPredicate}
+        ONum.variable_measured = '${sv}' AND${numProvPredicate}
         ODenom.observation_about = ONum.observation_about AND
-        ODenom.variable_measured = '${sv.denom}' AND
+        ODenom.variable_measured = '${denom}' AND
         ODenom.observation_date = SUBSTR(ONum.observation_date, 0, 4) AND
         ${optionalPredicates.join(" AND\n        ")}
   GROUP BY PlaceId, NumVariableId, NumDate, DenomVariableId, DenomDate
@@ -180,8 +183,10 @@ function getBaseWhereClause(
 }
 
 export function getPcQuery(
-  sv: StatVar,
-  place: PlaceInfo,
+  sv: string,
+  denom: string,
+  place: string,
+  enclosedPlaceType: string,
   date: string,
   metadata: StatMetadata
 ): string {
@@ -193,7 +198,14 @@ export function getPcQuery(
     true
   );
   let query =
-    getPlaceObsDatesAndDenomRankView(sv, place, date, metadata) +
+    getPlaceObsDatesAndDenomRankView(
+      sv,
+      denom,
+      place,
+      enclosedPlaceType,
+      date,
+      metadata
+    ) +
     `
 ${getBaseSelectClause("ONum")},
       IF(ODenom.value IS NOT NULL AND CAST(ODenom.value AS FLOAT64) > 0,
@@ -204,7 +216,7 @@ ${getBaseSelectClause("ONum")},
 ${getBaseTableJoins("ONum")}
 JOIN \`data_commons.Observation\` AS ODenom ON TRUE
 JOIN PlaceObsDatesAndDenomRank AS PODDR ON TRUE
-${getBaseWhereClause("ONum", sv.dcid, "PODDR", optionalPredicates)} AND
+${getBaseWhereClause("ONum", sv, "PODDR", optionalPredicates)} AND
       PODDR.NumVariableId = ONum.variable_measured AND
       PODDR.NumDate = ONum.observation_date AND
       PODDR.PlaceId = ODenom.observation_about AND
@@ -216,8 +228,9 @@ ${getBaseWhereClause("ONum", sv.dcid, "PODDR", optionalPredicates)} AND
 }
 
 export function getNonPcQuery(
-  sv: StatVar,
-  place: PlaceInfo,
+  sv: string,
+  place: string,
+  enclosedPlaceType: string,
   date: string,
   metadata: StatMetadata
 ): string {
@@ -227,8 +240,8 @@ export function getNonPcQuery(
       : CHILD_PLACE_VIEW_NAME;
   const tempView =
     tempViewName === LATEST_OBS_DATE_VIEW_NAME
-      ? getLatestObsDateView(sv, place, metadata)
-      : getChildPlaceView(place);
+      ? getLatestObsDateView(sv, place, enclosedPlaceType, metadata)
+      : getChildPlaceView(place, enclosedPlaceType);
   const optionalPredicates = getOptionalPredicates(
     "O",
     "I",
@@ -244,7 +257,7 @@ ${getBaseSelectClause("O")},
       CAST(O.value AS FLOAT64) AS Value
 ${getBaseTableJoins("O")}
 JOIN ${tempViewName} ON TRUE
-${getBaseWhereClause("O", sv.dcid, tempViewName, optionalPredicates)}
+${getBaseWhereClause("O", sv, tempViewName, optionalPredicates)}
 ORDER BY PlaceName`
   );
 }

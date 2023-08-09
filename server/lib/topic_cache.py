@@ -20,6 +20,7 @@ import json
 from typing import Dict, List, Set
 
 from server.lib.nl.common import utils
+from server.lib.nl.common.constants import DCNames
 
 
 # This might be a topic or svpg
@@ -30,7 +31,12 @@ class Node:
   vars: List[str]
 
 
-TOPIC_CACHE_JSON = 'server/config/nl_page/topic_cache.json'
+# Keyed by DC.
+TOPIC_CACHE_FILES = {
+    DCNames.MAIN_DC.value: 'server/config/nl_page/topic_cache.json',
+    DCNames.SDG_DC.value: 'server/config/nl_page/sdg_topic_cache.json',
+    DCNames.SDG_MINI_DC.value: 'server/config/nl_page/sdgmini_topic_cache.json',
+}
 
 
 class TopicCache:
@@ -76,8 +82,8 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load() -> TopicCache:
-  with open(TOPIC_CACHE_JSON, 'r') as fp:
+def load_file(fpath: str) -> TopicCache:
+  with open(fpath, 'r') as fp:
     cache = json.load(fp)
 
   out_map = {}
@@ -104,3 +110,10 @@ def load() -> TopicCache:
       in_map[m][new_prop].add(dcid)
 
   return TopicCache(out_map=out_map, in_map=in_map)
+
+
+def load() -> Dict[str, TopicCache]:
+  topic_cache_map = {}
+  for dc, fpath in TOPIC_CACHE_FILES.items():
+    topic_cache_map[dc] = load_file(fpath)
+  return topic_cache_map
