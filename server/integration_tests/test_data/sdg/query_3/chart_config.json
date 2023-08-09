@@ -271,7 +271,7 @@
                 ]
               }
             ],
-            "title": "Global Child Immunizations In Urban Area\"\""
+            "title": "Child Immunizations In Urban Area"
           },
           {
             "columns": [
@@ -606,7 +606,7 @@
                 ]
               }
             ],
-            "title": "Global Mortality Rates By Causes\"\""
+            "title": "Mortality Rates By Causes"
           }
         ],
         "statVarSpec": {
