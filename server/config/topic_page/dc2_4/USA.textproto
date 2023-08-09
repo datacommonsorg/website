@@ -590,6 +590,88 @@ categories {
 }
 
 categories {
+  title: "Climate and Agriculture"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Temperature"
+    columns {
+      tiles {
+        title: "Population-weighted Number of Heat Waves ${date}"
+        type: MAP
+        stat_var_key: "PopulationWeighted_Count_HeatWaveEvent"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "PopulationWeighted_Count_HeatWaveEvent"
+    value {
+      stat_var: "PopulationWeighted_Count_HeatWaveEvent"
+      name: "Population-weighted Number of Heat Waves"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Droughts"
+    columns {
+      tiles {
+        title: "Droughts ${date}"
+        type: MAP
+        stat_var_key: "Count_DroughtEvent"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "Count_DroughtEvent"
+    value {
+      stat_var: "Count_DroughtEvent"
+      name: "Droughts"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Water for Farms"
+    columns {
+      tiles {
+        title: "Area of Irrigated Lands on Farms ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_IrrigatedLand"
+      }
+      tiles: {
+        type: LINE
+        title: "Withdrawal Rate of Water for Livestock in ${placeName}"
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+      tiles {
+        title: "Withdrawal Rate of Water for Livestock ${date}"
+        type: MAP
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_IrrigatedLand"
+    value {
+      stat_var: "Area_Farm_IrrigatedLand"
+      name: "Area of Irrigated Lands on Farms"
+    }
+  } 
+  stat_var_spec {
+    key: "WithdrawalRate_Water_Livestock"
+    value {
+      stat_var: "WithdrawalRate_Water_Livestock"
+      name: "Withdrawal Rate of Water for Livestock"
+    }
+  } 
+
+}
+
+
+categories {
   title: "Explore More"
 
   ### NEW BLOCK ###
@@ -610,3 +692,4 @@ categories {
     
   }
 }
+
