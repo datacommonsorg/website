@@ -331,6 +331,7 @@ export function App(): JSX.Element {
                   placeType={chartData.place.types[0]}
                   topic={topic}
                   dc={dc}
+                  onClick={() => setQuery("")}
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
