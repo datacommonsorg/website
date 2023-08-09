@@ -107,11 +107,12 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
         this.inputElem.current,
         options
       );
-      this.inputElem.current.addEventListener(
-        "keyup",
-        this.onAutocompleteKeyUp
+      this.inputElem.current.addEventListener("keyup", (e) =>
+        this.onAutocompleteKeyUp(e, (customPlace) =>
+          this.getPlaceAndRender(customPlace)
+        )
       );
-      this.ac.addListener("place_changed", this.getPlaceAndRender);
+      this.ac.addListener("place_changed", (e) => this.getPlaceAndRender(null));
     }
     this.setPlaceholder();
   }
@@ -125,7 +126,10 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     return HARDCODED_RESULTS[inputVal.toLowerCase()];
   }
 
-  private onAutocompleteKeyUp(e) {
+  private onAutocompleteKeyUp(
+    e,
+    onMouseDown: (customPlace: { name: string; place_id?: string }) => void
+  ) {
     // Test for, and respond to, a few hardcoded results.
     const inputVal = (e.target as HTMLInputElement).value;
     const dcid = PlaceSearchBar.getHardcodedResultDcid(inputVal);
@@ -136,7 +140,10 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
         const container = containers[containers.length - 1];
         // Keep this in sync with the Maps API results DOM.
         const result = (
-          <div className="pac-item">
+          <div
+            className="pac-item"
+            onMouseDown={() => onMouseDown({ name: dcid })}
+          >
             <span className="pac-icon pac-icon-marker"></span>
             <span className="pac-item-query">
               <span className="pac-matched">{displayResult}</span>
@@ -150,9 +157,14 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     }
   }
 
-  private getPlaceAndRender() {
+  private getPlaceAndRender(customPlace: { name: string; place_id?: string }) {
+    // Unmount all the custom items
+    const containers = document.getElementsByClassName("pac-container");
+    Array.from(containers).forEach((container) => {
+      ReactDOM.unmountComponentAtNode(container);
+    });
     // Get the place details from the autocomplete object.
-    const place = this.ac.getPlace();
+    const place = customPlace || this.ac.getPlace();
     if ("place_id" in place) {
       getPlaceDcids([place.place_id])
         .then((data) => {

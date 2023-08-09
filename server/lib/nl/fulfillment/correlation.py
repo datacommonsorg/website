@@ -109,7 +109,8 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
   if populate_attempted:
     return False
 
-  default_place = get_default_contained_in_place(state)
+  default_place = get_default_contained_in_place(state.uttr.places,
+                                                 state.place_type)
   if default_place:
     result = _populate_correlation_for_place(state, default_place)
     if result:

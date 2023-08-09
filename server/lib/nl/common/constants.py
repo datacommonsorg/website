@@ -13,11 +13,19 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
+from enum import Enum
 from typing import Dict, List
 
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
+
+
+class DCNames(str, Enum):
+  MAIN_DC = 'main'
+  SDG_DC = 'sdg'
+  SDG_MINI_DC = 'sdgmini'
+
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 
@@ -325,7 +333,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "Percent_Person_WithDiabetes":
         "Diabetes",
     "Percent_Person_WithHighBloodPressure":
-        "High Bood Pressure",
+        "High Blood Pressure",
     "Percent_Person_WithHighCholesterol":
         "High Cholesterol",
     "Percent_Person_WithMentalHealthNotGood":
@@ -334,6 +342,8 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "Physical Health Issues",
     "Percent_Person_WithStroke":
         "Stroke",
+    "Percent_Person_18OrMoreYears_WithDepression":
+        "Depression",
     "Median_Income_Person":
         "Individual Median Income",
     "Median_Income_Household":

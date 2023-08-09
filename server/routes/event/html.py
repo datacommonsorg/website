@@ -118,7 +118,7 @@ def get_places(properties) -> Dict[str, List[str]]:
       place_coordinates = fetch.resolve_coordinates(coordinates)
       dcids_to_get_type = set()
       for _, place_dcids in place_coordinates.items():
-        dcids_to_get_type.update(place_dcids)
+        dcids_to_get_type.update([x['dcid'] for x in place_dcids])
       place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
       return place_types
 

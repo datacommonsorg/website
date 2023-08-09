@@ -19,13 +19,12 @@
  */
 
 import _ from "lodash";
-import React, { RefObject } from "react";
+import React, { RefObject, useContext } from "react";
 
+import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
-
-const NUM_FRACTION_DIGITS = 2;
 
 interface RankingUnitPropType {
   title: string;
@@ -60,22 +59,27 @@ interface RankingUnitPropType {
    *       columns: { unt: string; scaling: number; name: string }[];
    */
   svNames?: string[];
+  /**
+   * Callback function to handle when mouse hovers over an item or when it stops
+   * hovering over the item.
+   */
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+}
+
+// Calculates ranks based on the order of data if no rank is provided.
+function getRank(
+  isHighest: boolean,
+  index: number,
+  numberOfTotalDataPoints?: number
+): number {
+  if (isHighest) {
+    return index + 1;
+  }
+  return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1;
 }
 
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
-  // Calculates ranks based on the order of data if no rank is provided.
-  function getRank(
-    isHighest: boolean,
-    index: number,
-    numberOfTotalDataPoints?: number
-  ): number {
-    if (isHighest) {
-      return index + 1;
-    }
-    return numberOfTotalDataPoints
-      ? numberOfTotalDataPoints - index
-      : index + 1;
-  }
+  const urlFunc = useContext(RankingUnitUrlFuncContext);
 
   return (
     <div
@@ -117,8 +121,14 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                   }`}
                 >
                   <LocalizedLink
-                    href={`/place/${point.placeDcid}`}
+                    href={urlFunc(point.placeDcid)}
                     text={point.placeName || point.placeDcid}
+                    onMouseEnter={() =>
+                      props.onHoverToggled(point.placeDcid, true)
+                    }
+                    onMouseLeave={() =>
+                      props.onHoverToggled(point.placeDcid, false)
+                    }
                   />
                 </td>
                 {!props.hideValue && _.isEmpty(point.values) && (
@@ -133,8 +143,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                           ? point.value * props.scaling[0]
                           : point.value,
                         props.unit && props.unit.length ? props.unit[0] : "",
-                        false,
-                        NUM_FRACTION_DIGITS
+                        false
                       )}
                     </span>
                   </td>
@@ -155,8 +164,7 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                             ? v * props.scaling[i]
                             : v,
                           props.unit && props.unit.length ? props.unit[i] : "",
-                          false,
-                          NUM_FRACTION_DIGITS
+                          false
                         )}
                       </span>
                     </td>

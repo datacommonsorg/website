@@ -26,6 +26,7 @@ declare namespace JSX {
   interface IntrinsicElements {
     "datacommons-bar": import("./library/component_attributes").BarComponentProps;
     "datacommons-gauge": import("./library/component_attributes").GaugeComponentProps;
+    "datacommons-highlight": import("./library/component_attributes").HighlightComponentProps;
     "datacommons-line": import("./library/component_attributes").LineComponentProps;
     "datacommons-map": import("./library/component_attributes").MapComponentProps;
     "datacommons-pie": import("./library/component_attributes").PieComponentProps;

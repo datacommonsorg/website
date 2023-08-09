@@ -8,11 +8,58 @@
               {
                 "tiles": [
                   {
+                    "description": "Median Incomes in Information industry in California",
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
                     "title": "Median Incomes in Information industry in California",
                     "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Information industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/xj2nk2bg60fg"
+                    ],
+                    "title": "Median Incomes in Information industry in California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
@@ -26,27 +73,23 @@
                     "type": "MAP"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/xj2nk2bg60fg"
-                    ],
-                    "type": "RANKING"
-                  }
-                ]
               }
-            ],
-            "denom": "Count_Person",
-            "title": "Median Incomes in Information industry"
+            ]
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "GDP of the Information Industry in California",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -55,6 +98,42 @@
                     ],
                     "title": "GDP of the Information Industry in California",
                     "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "GDP of the Information Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
+                    ],
+                    "title": "GDP of the Information Industry in California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
@@ -68,27 +147,24 @@
                     "type": "MAP"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
-                    ],
-                    "type": "RANKING"
-                  }
-                ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP of the Information Industry"
+            "denom": "Count_Person"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Total Wages for Population Working in the Information Industry in California",
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -97,6 +173,42 @@
                     ],
                     "title": "Total Wages for Population Working in the Information Industry in California",
                     "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Total Wages for Population Working in the Information Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showLowest": true
+                    },
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSInformation"
+                    ],
+                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
@@ -110,27 +222,24 @@
                     "type": "MAP"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "showHighest": true,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "WagesTotal_Worker_NAICSInformation"
-                    ],
-                    "type": "RANKING"
-                  }
-                ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Total Wages for Population Working in the Information Industry"
+            "denom": "Count_Person"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "statVarKey": [
+                      "USStateQuarterlyIndustryGDP_NAICS_51"
+                    ],
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -151,11 +260,15 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighest": true
+                    },
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
                     "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               },
@@ -163,13 +276,25 @@
                 "tiles": [
                   {
                     "rankingTileSpec": {
-                      "showHighest": true,
+                      "rankingCount": 5,
                       "showLowest": true
                     },
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
                     "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesAnnual_Establishment_NAICSInformation"
+                    ],
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -576,6 +701,13 @@
         }
       ]
     },
+    "mainTopic": {
+      "dcid": "dc/topic/IndividualIncomeByIndustry",
+      "name": "Individual Income By Industry",
+      "types": [
+        "Topic"
+      ]
+    },
     "parentPlaces": [
       {
         "dcid": "country/USA",
@@ -585,8 +717,38 @@
         ]
       }
     ],
-    "parentTopics": [],
-    "peerTopics": []
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income By Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": ""

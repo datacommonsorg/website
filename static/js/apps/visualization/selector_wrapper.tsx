@@ -24,8 +24,6 @@ import React from "react";
 interface SelectorWrapperPropType {
   headerTitle: string;
   selectedValues: string[];
-  collapsed: boolean;
-  setCollapsed: (collapsed: boolean) => void;
   disabled: boolean;
   children: React.ReactNode;
 }
@@ -33,7 +31,6 @@ interface SelectorWrapperPropType {
 export function SelectorWrapper(props: SelectorWrapperPropType): JSX.Element {
   const divClasses = [
     "selector-container",
-    props.collapsed ? "collapsed" : "opened",
     props.disabled ? "disabled" : "enabled",
   ];
   return (
@@ -41,20 +38,9 @@ export function SelectorWrapper(props: SelectorWrapperPropType): JSX.Element {
       <div className="selector-header">
         <div className="header-title">
           <span>{props.headerTitle}</span>
-          <span
-            className="material-icons-outlined"
-            onClick={() =>
-              props.disabled ? null : props.setCollapsed(!props.collapsed)
-            }
-          >
-            {props.collapsed ? "expand_more" : "expand_less"}
-          </span>
-        </div>
-        <div className="header-subtitle">
-          {props.collapsed && props.selectedValues.join(", ")}
         </div>
       </div>
-      {!props.collapsed && <>{props.children}</>}
+      {!props.disabled && <>{props.children}</>}
     </div>
   );
 }

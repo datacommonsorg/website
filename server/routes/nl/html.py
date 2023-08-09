@@ -27,7 +27,7 @@ bp = Blueprint('nl', __name__, url_prefix='/nl')
 @bp.route('/')
 def page():
   # No production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
+  if current_app.config['HIDE_REVAMP_CHANGES']:
     flask.abort(404)
 
   placeholder_query = ''
@@ -44,7 +44,7 @@ def page():
 @bp.route('/sdg')
 def sdg_page():
   # No production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
+  if current_app.config['HIDE_REVAMP_CHANGES']:
     flask.abort(404)
 
   placeholder_query = ''

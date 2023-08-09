@@ -15,7 +15,11 @@
  */
 
 jest.mock("axios");
-jest.mock("../../chart/draw");
+// jest.mock("../../chart/draw");
+jest.mock("../../chart/draw_bar");
+jest.mock("../../chart/draw_histogram");
+jest.mock("../../chart/draw_line");
+jest.mock("../../chart/draw_utils");
 
 import { waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
@@ -32,7 +36,7 @@ const globalAny: any = global;
 
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
-  window.infoConfig = [];
+  window.infoConfig = {};
 });
 
 async function waitForComponentUpdates(wrapper: ReactWrapper) {

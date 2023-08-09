@@ -12,10 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/6rltk4kf75612_scatter",
+                      "dc/0gettc3bc60cb_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Work at home Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
+                    "title": "Drive alone Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
                     "type": "SCATTER"
                   }
                 ]
@@ -31,10 +31,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/vp8cbt6k79t94_scatter",
+                      "dc/6rltk4kf75612_scatter",
                       "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Walk to work Per Capita (${yDate}) vs. Asthma (${xDate}) in California",
+                    "title": "Work at home Per Capita (${yDate}) vs. Asthma (${xDate}) in California",
                     "type": "SCATTER"
                   }
                 ]
@@ -69,10 +69,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/wc8q05drd74bd_scatter",
+                      "dc/vp8cbt6k79t94_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Carpool Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
+                    "title": "Walk to work Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in California",
                     "type": "SCATTER"
                   }
                 ]
@@ -91,6 +91,12 @@
             "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
           },
+          "dc/0gettc3bc60cb_scatter": {
+            "denom": "Count_Person",
+            "name": "Drive alone Per Capita",
+            "statVar": "dc/0gettc3bc60cb",
+            "unit": "%"
+          },
           "dc/6rltk4kf75612_scatter": {
             "denom": "Count_Person",
             "name": "Work at home Per Capita",
@@ -107,12 +113,6 @@
             "denom": "Count_Person",
             "name": "Walk to work Per Capita",
             "statVar": "dc/vp8cbt6k79t94",
-            "unit": "%"
-          },
-          "dc/wc8q05drd74bd_scatter": {
-            "denom": "Count_Person",
-            "name": "Carpool Per Capita",
-            "statVar": "dc/wc8q05drd74bd",
             "unit": "%"
           }
         }
@@ -492,6 +492,13 @@
         }
       ]
     },
+    "mainTopic": {
+      "dcid": "dc/topic/WorkCommute",
+      "name": "Commute",
+      "types": [
+        "Topic"
+      ]
+    },
     "parentPlaces": [
       {
         "dcid": "country/USA",
@@ -501,8 +508,38 @@
         ]
       }
     ],
-    "parentTopics": [],
-    "peerTopics": []
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Education",
+        "name": "Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Housing",
+        "name": "Housing",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": ""

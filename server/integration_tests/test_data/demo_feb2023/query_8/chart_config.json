@@ -13,6 +13,33 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Blood Pressure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
                     "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
@@ -29,33 +56,6 @@
               }
             ],
             "title": "Percent of Adults with Blood Pressure Who Take Medication"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Bood Pressure in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Bood Pressure in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "High Bood Pressure"
           }
         ],
         "statVarSpec": {
@@ -65,7 +65,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }

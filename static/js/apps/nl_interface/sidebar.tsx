@@ -95,14 +95,10 @@ export function Sidebar(): JSX.Element {
       </div>
 
       <div className="sidebar-footer">
-        Powered by{" "}
-        <a
-          href="https://datacommons.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          datacommons.org
-        </a>
+        <span className="brand-byline">
+          <span className="brand-text">An initiative from</span>
+          <img className="brand-logo" src="/images/google-logo.svg" />
+        </span>
       </div>
     </div>
   );

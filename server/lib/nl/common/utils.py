@@ -136,16 +136,11 @@ def sv_existence_for_places_check_single_point(
 def _get_sample_child_places(main_place_dcid: str,
                              contained_place_type: str) -> List[str]:
   """Find a sampled child place"""
-  logging.info('_sample_child_place: for %s - %s', main_place_dcid,
-               contained_place_type)
   if not contained_place_type:
     return []
   child_places = fetch.descendent_places([main_place_dcid],
                                          contained_place_type)
   if child_places.get(main_place_dcid):
-    logging.info(
-        '_sample_child_place returning %s', ', '.join(
-            child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]))
     return child_places[main_place_dcid][:NUM_CHILD_PLACES_FOR_EXISTENCE]
   else:
     arcs = fetch.triples([main_place_dcid], False).get(main_place_dcid)
@@ -158,10 +153,7 @@ def _get_sample_child_places(main_place_dcid: str,
           if contained_place_type in node['types']:
             child_places.append(node['dcid'])
         if child_places:
-          logging.info('_sample_child_place returning %s',
-                       ', '.join(child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]))
           return child_places[:NUM_CHILD_PLACES_FOR_EXISTENCE]
-  logging.info('_sample_child_place returning empty')
   return []
 
 
@@ -321,13 +313,13 @@ def is_us_place(place: types.Place) -> bool:
           place.country == constants.USA.dcid)
 
 
-def new_session_id() -> str:
+def new_session_id(app: str) -> str:
   # Convert seconds to microseconds
   micros = int(datetime.datetime.now().timestamp() * 1000000)
   # Add some randomness to avoid clashes
   rand = random.randrange(10000)
   # Prefix randomness since session_id gets used as BT key
-  return str(rand) + '_' + str(micros)
+  return str(rand) + '_' + str(micros) + '_' + app
 
 
 def get_time_delta_title(direction: types.TimeDeltaType,

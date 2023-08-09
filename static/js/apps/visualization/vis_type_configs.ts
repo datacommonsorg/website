@@ -48,6 +48,8 @@ export interface VisTypeConfig {
     appContext: AppContextType,
     chartHeight: number
   ) => JSX.Element;
+  // function to get the component that gives information about the vis type
+  getInfoContent: () => JSX.Element;
   // whether this vis type takes a single place or multiple places
   singlePlace?: boolean;
   // whether or not to skip setting enclosed place type
@@ -59,6 +61,11 @@ export interface VisTypeConfig {
   ) => string[];
   // number of stat vars this vis type can display
   numSv?: number;
+  // the min number of entities that should have data for a stat var to be
+  // shown in the hierarchy. Default is 1.
+  svHierarchyNumExistence?: number;
+  // the function to use to get the BQ SQL query.
+  getSqlQueryFn?: (appContext: AppContextType) => () => string;
 }
 
 export const VIS_TYPE_CONFIG: Record<string, VisTypeConfig> = {

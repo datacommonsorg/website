@@ -144,7 +144,7 @@ def classifications_of_type(classifications: List[NLClassifier],
 
 
 # `context_history` contains utterances in a given session.
-def get_session_info(context_history: List[Dict]) -> Dict:
+def get_session_info(context_history: List[Dict], has_data: bool) -> Dict:
   session_info = {'items': []}
   # The first entry in context_history is the most recent.
   # Reverse the order for session_info.
@@ -152,12 +152,13 @@ def get_session_info(context_history: List[Dict]) -> Dict:
     u = context_history[len(context_history) - 1 - i]
     if 'id' not in session_info:
       session_info['id'] = u['session_id']
-    if u['ranked_charts']:
+    if has_data:
       s = constants.QUERY_OK
     else:
       s = constants.QUERY_FAILED
     session_info['items'].append({
-        'query': u['query'],
+        'query': u.get('query', ''),
+        'insightCtx': u.get('insightCtx', {}),
         'status': s,
     })
   return session_info

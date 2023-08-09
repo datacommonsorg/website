@@ -1072,7 +1072,6 @@ Amount_EconomicActivity_GrossDomesticProduction_Nominal,,Nominal Gross Domestic 
 dc/topic/Economy,,Economy,,Economic overview; Summary of the economy; State of the economy; Condition of the economy; Status of the economy;
 dc/topic/Agriculture,,Agriculture,,Agriculture; Farming;Farming information; Agriculture data; Agriculture statistics; Data related to agriculture; Information on farming;
 dc/topic/AgriculturalProduction,,Agricultural Output,,Agricultural Production; Agricultural Output; Output from agricultural activities;
-dc/topic/MedicalConditions,Medical Conditions,Medical Conditions,,Health conditions; Medical ailments; Diseases: Medical disorders; Maladies; Bodily afflictions; health issues; Medical infirmities; Health problems;
 dc/topic/HeatIllnesses,Heat Illnesses,Heat Illnesses,,Heat-related health problems; Heat related maladies; Medical conditions caused by heat Heat syncope; Heat related health conditions;
 dc/topic/Jobs,Jobs,Jobs,, Careers; Professions; Work Occupations; Employment Positions; Job Roles; Occupational professions; distribution of jobs; distribution of workers;
 dc/hlxvn1t8b9bhh,Population of Person: Cattle Ranching And Farming,Number of Farmers and Cattle Ranchers,,number of agriculture workers; number of workers in agriculture; number of farmers; number of cattle ranchers; number of farmers and cattle ranchers; farmers; cattle ranchers; people who are farming and cattle ranching; number of agricultural workers; agriculture workers; agricultural workers; workers in agriculture;;
@@ -1097,8 +1096,6 @@ dc/topic/WorkCommute,Work Commute,journey to work; travel to work; commute mode,
 MapFacts/Count_park,Number of Parks,count of parks; recreational parks,,Number of parks;
 MapFacts/Count_hiking_area,Number of hiking areas,hiking trails; trekking area,,Number of hiking areas;
 Annual_Emissions_GreenhouseGas,Greenhouse Gas Emissions,emissions from greenhouse gases; ghg emissions,,Greenhouse Gas Emissions;
-dc/topic/GreenhouseGasEmissionsBySource,Breakdown of greenhouse gas emissions by source,sources of greenhouse gases,,Greenhouse gas emissions by source;
-dc/topic/CarbonDioxideEmissionsBySource,Breakdown of co2 emissions by source,sources of carbon dioxide emissions; source of co2 emissions,,Carbon dioxide emissions by source;
 dc/topic/AgricultureEmissionsByGas,Emissions from agriculture,Emissions from agriculture,,Amount of gases emitted by agricultural sector;Total quantity of gases released by the farming industry; The volume of emissions produced by agriculture; Quantity of greenhouse gases emitted by the agricultural sector; Total amount of gas emissions from farming practices; The sum of all gases released by the agricultural industry;;
 dc/topic/FossilFuelOperationsEmissionsByGas,Emissions from fossil fuel operations,Emissions from fossil fuel operations,,Amount of gases emitted in fossil fuel operations;Total quantity of gases released by fossil fuel operations; The volume of emissions produced by the use of fossil fuels; Quantity of greenhouse gases emitted by the burning of fossil fuels; Total amount of gas emissions from fossil fuel operations; The sum of all gases released by the use of fossil fuels;;
 dc/topic/TransportationEmissionsByGas,Emissions from transportation,Emissions from transportation,,Amount of gases emitted by the transportation sector;Total quantity of gases released by the transportation sector; The volume of emissions produced by transportation activities; Quantity of greenhouse gases emitted by vehicles and transportation systems; Total amount of gas emissions from the transportation industry; The sum of all gases released by transportation activities;;
@@ -1115,7 +1112,6 @@ dc/3jr0p7yjw06z9,Count of BLS Establishment: Gambling Industries,Gambling Establ
 dc/5br285q68be6,Population of Person: Gambling Industries,Employees in Gambling Industry,,
 Count_VolcanicAshEvent,,Volcano Events,,
 dc/topic/Literacy,,Literacy,,
-dc/topic/RacialBreakdown,,Racial Breakdown,,
 dc/topic/SDG_1,,,,End poverty; End poverty in all its forms; SDG end poverty; SDG poverty;;
 dc/topic/SDG_2,,,,Zero hunger; End hunger; Eradicate hunger; food security; sustainable agriculture; SDG hunger; SDG food; SDG sustainable agriculture;;
 dc/topic/SDG_3,,,,Good health and well being; healthy lives; SDG good health; SDG healthy life; SDG health; SDG well being;;
@@ -1125,9 +1121,6 @@ dc/topic/SDG_10,,,,Reduced inequalities; SDG inequalities; SDG reduce inequaliti
 dc/topic/SDG_13,,,,Climate action; combat climate change; SDG climate action; SDG combat climate change; SDG climate;;
 dc/topic/MaternalHealth,,Maternal Health,,Maternal health; womens health; health of mothers;;
 Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person,,Birth rate,,Birth rate; rate at which children are born;
-dc/topic/HomeValue,,Home Value,,how much do houses cost in; value of homes; housing unit cost; how expensive are homes in;
-dc/topic/WetBulbTemperature,,Wet Bulb Temperature,,
-dc/topic/Temperature,,Temperature,,
 Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal Percent of Nominal Gross Domestic Production (GDP) Spent on Education,,Population Working in Legal Services,,number of law industry workers; people working in law; how many legal service workers are there; population working in legal services; population of legal service workers;
 dc/topic/AdolescentBirthRate,Adolescent Birth Rate,Adolescent Birth Rate,,
 dc/topic/AdultCorrectionalFacilitiesResidents,Adult Correctional Facilities Residents,Adult Correctional Facilities Residents,,
@@ -1137,11 +1130,9 @@ dc/topic/AmbientAirPollution,Ambient Air Pollution,Ambient Air Pollution,,
 dc/topic/Avalanche,Avalanche,Avalanche,,
 dc/topic/BankingAccess,Banking Access,Banking Access,,
 dc/topic/Births,Births,Births,,
-dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,
+dc/topic/CO2Emissions,CO2 Emissions,CO2 Emissions,,sources of carbon dioxide emissions; source of co2 emissions; Carbon dioxide emissions by source; 
 dc/topic/COVID19,COVID 19,COVID 19,,
 dc/topic/Cancer,Cancer,Cancer,,
-dc/topic/CardiovascularDisease,Cardiovascular Disease,Cardiovascular Disease,,
-dc/topic/Clouds,Clouds,Clouds,,
 dc/topic/CoastalFlood,Coastal Flood,Coastal Flood,,
 dc/topic/CollegeOrUniversityStudentHousingResidents,College Or University Student Housing Residents,College Or University Student Housing Residents,,
 dc/topic/Crime,Crime,Crime,,
@@ -1150,30 +1141,17 @@ dc/topic/Dengue,Dengue,Dengue,,
 dc/topic/Dentists,Dentists,Dentists,,
 dc/topic/Diabetes,Diabetes,Diabetes,,
 dc/topic/Disabilities,Disabilities,Disabilities,,
-dc/topic/Disasters,Disasters,Disasters,,
-dc/topic/Disease,Disease,Disease,,
-dc/topic/Drought,Drought,Drought,,
-dc/topic/Dust,Dust,Dust,,
-dc/topic/Earthquake,Earthquake,Earthquake,,
 dc/topic/Education,Education,Education,,
-dc/topic/ExcessiveColdEvent,Excessive Cold Event,Excessive Cold Event,,
-dc/topic/ExcessiveHeatEvent,Excessive Heat Event,Excessive Heat Event,,
 dc/topic/ExportSubsidies,Export Subsidies,Export Subsidies,,
-dc/topic/ExtremeTide,Extreme Tide,Extreme Tide,,
-dc/topic/Flood,Flood,Flood,,
-dc/topic/Fog,Fog,Fog,,
 dc/topic/Forest,Forest,Forest,,
-dc/topic/FossilFuelSubsidies,Fossil Fuel Subsidies,Fossil Fuel Subsidies,,
 dc/topic/GDP,GDP,GDP,,gross domestic production;
 dc/topic/GroupQuartersResidents,Group Quarters Residents,Group Quarters Residents,,
 dc/topic/HIV,HIV,HIV,,
-dc/topic/Hail,Hail,Hail,,
 dc/topic/HateCrimes,Hate Crimes,Hate Crimes,,
 dc/topic/HealthInsurance,Health Insurance,Health Insurance,,
 dc/topic/HealthWorkerDensity,Health Worker Density,Health Worker Density,,
 dc/topic/HeatWave,Heat Wave,Heat Wave,,
 dc/topic/HeightStunting,Height Stunting,Height Stunting,,
-dc/topic/HighWind,High Wind,High Wind,,
 dc/topic/Housing,Housing,Housing,,
 dc/topic/Hurricane,Hurricane,Hurricane,,
 dc/topic/Incarceration,Incarceration,Incarceration,,
@@ -1187,7 +1165,6 @@ dc/topic/Landslide,Landslide,Landslide,,
 dc/topic/LifeExpectancy,Life Expectancy,Life Expectancy,,
 dc/topic/Malaria,Malaria,Malaria,,
 dc/topic/Malnutrition,Malnutrition,Malnutrition,,
-dc/topic/MarineEvents,Marine Events,Marine Events,,
 dc/topic/MaritalStatus,Marital Status,Marital Status,,
 dc/topic/Military,Military,Military,,
 dc/topic/MilitaryShipsResidents,Military Ships Residents,Military Ships Residents,,
@@ -1198,25 +1175,14 @@ dc/topic/NeglectedTropicalDiseases,Neglected Tropical Diseases,Neglected Tropica
 dc/topic/NoninstitutionalizedGroupQuartersResidents,Noninstitutionalized Group Quarters Residents,Noninstitutionalized Group Quarters Residents,,
 dc/topic/NursesAndMidwives,Nurses And Midwives,Nurses And Midwives,,
 dc/topic/NursingFacilitiesResidents,Nursing Facilities Residents,Nursing Facilities Residents,,
-dc/topic/PalmerDroughtSeverityIndex,Palmer Drought Severity Index,Palmer Drought Severity Index,,
 dc/topic/Parliament,Parliament,Parliament,,
 dc/topic/PhysicalActivity,Physical Activity,Physical Activity,,
-dc/topic/PhysicalInactivity,Physical Inactivity,Physical Inactivity,,
 dc/topic/Physicians,Physicians,Physicians,,
-dc/topic/Population,Population,Population,,
 dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
 dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User,Population Nonsmoking Tobacco User,,
 dc/topic/PopulationNormalWeight,Population Normal Weight,Population Normal Weight,,
-dc/topic/PopulationObese,Population Obese,Population Obese,,
-dc/topic/PopulationOverweight,Population Overweight,Population Overweight,,
-dc/topic/PopulationPreObese,Population Pre Obese,Population Pre Obese,,
-dc/topic/PopulationSmoker,Population Smoker,Population Smoker,,
-dc/topic/PopulationUnderweight,Population Underweight,Population Underweight,,
-dc/topic/PopulationWeight,Population Weight,Population Weight,,
 dc/topic/Poverty,Poverty,Poverty,,
-dc/topic/Precipitation,Precipitation,Precipitation,,
 dc/topic/PreventativeHealth,Preventative Health,Preventative Health,,
-dc/topic/Rainfall,Rainfall,Rainfall,,
 dc/topic/Religion,Religion,Religion,,
 dc/topic/RiverineFlood,Riverine Flood,Riverine Flood,,
 dc/topic/RoadTrafficDeaths,Road Traffic Deaths,Road Traffic Deaths,,
@@ -1225,12 +1191,9 @@ dc/topic/Snowfall,Snowfall,Snowfall,,
 dc/topic/SocialSupport,Social Support,Social Support,,
 dc/topic/SolarConsumption,Solar Consumption,Solar Consumption,,
 dc/topic/Storm,Storm,Storm,,
-dc/topic/Subsidies,Subsidies,Subsidies,,
 dc/topic/Suicide,Suicide,Suicide,,
 dc/topic/Tariffs,Tariffs,Tariffs,,
-dc/topic/Thunderstorm,Thunderstorm,Thunderstorm,,
 dc/topic/Tornado,Tornado,Tornado,,
-dc/topic/TropicalWeatherEvents,Tropical Weather Events,Tropical Weather Events,,
 dc/topic/Tsunami,Tsunami,Tsunami,,
 dc/topic/Tuberculosis,Tuberculosis,Tuberculosis,,
 dc/topic/UnintentionalPoisonings,Unintentional Poisonings,Unintentional Poisonings,,
@@ -1238,9 +1201,6 @@ dc/topic/Vaccines,Vaccines,Vaccines,,
 dc/topic/Visibility,Visibility,Visibility,,
 dc/topic/Volcano,Volcano,Volcano,,
 dc/topic/Voting,Voting,Voting,,
-dc/topic/Weather,Weather,Weather,,
-dc/topic/Wildfire,Wildfire,Wildfire,,
-dc/topic/BingeDrinking,Binge Drinking,Binge Drinking,,
 dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age,Divorced Female Population By Age,,
 dc/topic/DivorcedMalePopulationByAge,Divorced Male Population By Age,Divorced Male Population By Age,,
 dc/topic/DivorcedPopulationByAge,Divorced Population By Age,Divorced Population By Age,,
@@ -1256,13 +1216,6 @@ dc/topic/PhysicalActivity,Physical Activity,Physical Activity,,
 dc/topic/PopulationFormerSmoker,Population Former Smoker,Population Former Smoker,,
 dc/topic/PopulationNonsmokingTobaccoUser,Population Nonsmoking Tobacco User,Population Nonsmoking Tobacco User,,
 dc/topic/PopulationNormalWeight,Population Normal Weight,Population Normal Weight,,
-dc/topic/PopulationObese,Population Obese,Population Obese,,
-dc/topic/PopulationOverweight,Population Overweight,Population Overweight,,
-dc/topic/PopulationPreObese,Population Pre Obese,Population Pre Obese,,
-dc/topic/PopulationSmoker,Population Smoker,Population Smoker,,
-dc/topic/PopulationUndersleeping,Population Undersleeping,Population Undersleeping,,
-dc/topic/PopulationUnderweight,Population Underweight,Population Underweight,,
-dc/topic/PopulationWeight,Population Weight,Population Weight,,
 dc/topic/RuralFemalePopulationByAge,Rural Female Population By Age,Rural Female Population By Age,,
 dc/topic/RuralMalePopulationByAge,Rural Male Population By Age,Rural Male Population By Age,,
 dc/topic/RuralPopulationByAge,Rural Population By Age,Rural Population By Age,,
@@ -1451,14 +1404,11 @@ dc/topic/EconomicActivity,Economic Activity,Economic Activity,,Economic activity
 dc/topic/Employment,Employement,Employment,,
 dc/topic/GlobalEconomicActivity,Global Economic Activity,Economic Activity,,
 dc/topic/Debt,Debt,Debt,,Global debt;
-dc/topic/Economics,Economics,Economics,,
 dc/topic/EducationExpenditure,Education Expenditure,Education Expenditure,,
-dc/topic/EmploymentByIndustry,Employment By Industry,Employment By Industry,,people employed by industry; breakdown of employment by industry;
 dc/topic/HealthcareExpenditure,Healthcare Expenditure,Healthcare Expenditure,,amount spent on health; health expenses;
 dc/topic/HouseholdIncomeDistribution,Household Income Distribution,Household Income Distribution,,income distribution for households; 
 dc/topic/IndividualIncomeByIndustry,Individual Income By Industry,Individual Income By Industry,,individual income across industries;
 dc/topic/IndividualIncomeDistribution,Individual Income Distribution,Individual Income Distribution,,
-dc/topic/IndustriesByNumberOfWorkers,Industries By Number Of Workers,Industries By Number Of Workers,,Number of workers by industry; number of workers across industries;
 dc/topic/IndustriesByRevenue,Industries By Revenue,Industries By Revenue,,revenue across industries; revenue breakdown by industries;
 dc/topic/InflationAdjustedGDP,Inflation Adjusted GDP,Inflation Adjusted GDP,,inflation adjusted gross domestic production;
 dc/topic/NumberOfBusinessesByIndustry,Number Of Businesses By Industry,Number Of Businesses By Industry,,disribution of number of business across industries;
@@ -1473,15 +1423,15 @@ dc/topic/UnemploymentRate,Unemployment Rate,Unemployment Rate,,rate of unemploym
 dc/topic/UnpaidFamilyWorkers,Unpaid Family Workers,Unpaid Family Workers,,
 dc/topic/BachelorsMajor,Bachelors Major,Bachelors Major,,undergraduate major; college major;
 dc/topic/EducationFaculty,Education Faculty,Education Faculty,,
-dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,
-dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level;
-dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level;
+dc/topic/EducationalAttainment,Educational Attainment,Educational Attainment,,education attainment level; highest level of education; highest qualification; highest education attained;
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational Attainment By Gender And Level,Educational Attainment By Gender And Level,,education attainment by gender and level; level and gender of education; level and gender of qualification;
+dc/topic/LevelOfEducationalAttainment,Level Of Educational Attainment,Level Of Educational Attainment,,education attainment level; level of qualification;
 dc/topic/Parents,Parents,Parents,,
 dc/topic/ParentsEducationalAttainment,Parents Educational Attainment,Parents Educational Attainment,,level of education attainment of parents;
 dc/topic/PopulationEnrolledInSchoolTypeByRace,Population Enrolled In School Type By Race,Population Enrolled In School Type By Race,,students enrolled in school type by race;
 dc/topic/SchoolType,School Type,School Type,,type of school; types of schools;
 dc/topic/Schools,Schools,Schools,,school
-dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students;
+dc/topic/StudentEnrollmentLevels,Student Enrollment Levels,Student Enrollment Levels,,enrollement levels of students; number of students enrolled; students currently enrolled;
 dc/topic/StudentLunchEligibility,Student Lunch Eligibility,Student Lunch Eligibility,,lunch eligibility of students; students eligible for lunch;
 dc/topic/StudentPopulation,Student Population,Student Population,,Students
 dc/topic/StudentPopulationDemographics,Student Population Demographics,Student Population Demographics,,Student demographics;
@@ -1492,26 +1442,19 @@ dc/topic/AirQualityIndex,Air Quality Index,Air Quality Index,,AQI; air quality l
 dc/topic/CarbonMonoxide,Carbon Monoxide,Carbon Monoxide,,CO; CO pollutant;
 dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decade,Projected max temperature for the decade,,decadal projected max temperature; maximum temperature projected decade; temperature highs for the decade;
 dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade,Projected min temperature for the decade,,decadal projected min temperature; minimum temperature projected decade; temperature lows for the decade;
-dc/topic/Environment,Environment,Environment,,
-dc/topic/Fire,Fire,Fire,,fires
-dc/topic/HeatEvent,Heat Event,Heat Event,,high temperature event;
-dc/topic/MaxTemperatureLikely1PctAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
-dc/topic/MaxTemperatureLikely1PctAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
-dc/topic/MaxTemperatureLikely5PctAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
-dc/topic/MaxTemperatureLikely5PctAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
-dc/topic/MinTemperatureLikely1PctAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
-dc/topic/MinTemperatureLikely1PctAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
-dc/topic/MinTemperatureLikely5PctAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
-dc/topic/MinTemperatureLikely5PctAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (1%) At Least Once Per Decade,Max Temperature Likely (1%) At Least Once Per Decade,,max temperature likely in the decade at one percent chance; maximum temperature once per decade 1%;
+dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear,Max Temperature Likely (1%) At Least Once Per Year,Max Temperature Likely (1%) At Least Once Per Year,,max temperature likely in the year at one percent chance; maximum temperature once per year 1%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade,Max Temperature Likely (5%) At Least Once Per Decade,Max Temperature Likely (5%) At Least Once Per Decade,,max temperature likely in the decade at five percent chance; maximum temperature once per decade 5%;
+dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear,Max Temperature Likely (5%) At Least Once Per Year,Max Temperature Likely (5%) At Least Once Per Year,,max temperature likely in the year at five percent chance; maximum temperature once per year 5%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (1%) At Least Once Per Decade,Min Temperature Likely (1%) At Least Once Per Decade,,min temperature likely in the decade at one percent chance; minimum temperature once per decade 1%;
+dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear,Min Temperature Likely (1%) At Least Once Per Year,Min Temperature Likely (1%) At Least Once Per Year,,min temperature likely in the year at one percent chance; minimum temperature once per year 1%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade,Min Temperature Likely (5%) At Least Once Per Decade,Min Temperature Likely (5%) At Least Once Per Decade,,min temperature likely in the decade at five percent chance; minimum temperature once per decade 5%;
+dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear,Min Temperature Likely (5%) At Least Once Per Year,Min Temperature Likely (5%) At Least Once Per Year,,min temperature likely in the year at five percent chance; minimum temperature once per year 5%;
 dc/topic/NitrogenDioxide,Nitrogen Dioxide,Nitrogen Dioxide,,NO2; NO2 pollutant;
 dc/topic/Ozone,Ozone,Ozone,,O3; Ozone pollutant; O3 pollutant;
-dc/topic/PM10,PM10,PM10,,pm10 pollutant;
-dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant;
-dc/topic/PollutantConcentration,Pollutant Concentration,Pollutant Concentration,,concentration of pollutant;
-dc/topic/Pollution,Pollution,Pollution,,
-dc/topic/SulfurDioxide,Sulfur Dioxide,Sulfur Dioxide,,SO2; Suphur dioxide; SO2 pollutant; Sulphur dioxide pollutant;
-dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast;
-dc/topic/WetBulbEvent,Wet Bulb Event,Wet Bulb Event,,wetbulb event; wet-bulb event;
+dc/topic/PM10,PM10,PM10,,pm10 pollutant; pm 10; pm 10 pollutant; 10 pm pollutant;
+dc/topic/PM2.5,PM2.5,PM2.5,,pm2.5 pollutant; pm 2.5; pm 2.5 pollutant; 2.5 pm pollutant;
+dc/topic/TemperaturePredictions,Temperature Predicitions,Temperature Predicitions,,temperature forecasts; temp forecast; max temp forecast; min temp forecast; temperature prediction; predict temperature;
 dc/topic/YearlyProjectedTemperatureHighs,Projected max temperature for the year,Projected max temperature for the year,,yearly projected max temperature; maximum temperature projected year; temperature highs for the year;
 dc/topic/YearlyProjectedTemperatureLows,Projected min temperature for the year,Projected min temperature for the year,,yearly projected min temperature; minimum temperature projected year; temperature lows for the year;
 dc/topic/AgeDistribution,Age Distribution,Age Distribution,,
@@ -1519,10 +1462,8 @@ dc/topic/AgeMedians,Age Medians,Age Medians,,
 dc/topic/CitizenshipStatus,Citizenship Status,Citizenship Status,,
 dc/topic/Demographics,Demographics,Demographics,,
 dc/topic/DivorcedPopulationByDemographic,Divorced Population By Demographic,Divorced Population By Demographic,,demographics of the divorced population;
-dc/topic/EnglishSpeakers,English speakers,English speakers,,English language speakers;
 dc/topic/Immigration,Immigration,Immigration,,
 dc/topic/Language,Language,Language,,
-dc/topic/LanguageSpokenAtHome,Language Spoken at Home,Language Spoken at Home,,
 dc/topic/MaritalStatusBreakdown,Martial Status Breakdown,Martial Status Breakdown,,breakdown of marital status;
 dc/topic/MarriedPopulationByDemographic,Married Population by Demographic,Married Population by Demographic,,demographics of the married population; demographics of married people;
 dc/topic/Nationality,Nationality,Nationality,,
@@ -1531,3 +1472,81 @@ dc/topic/PlaceOfBirth,Place of Birth,Place of Birth,,
 dc/topic/PopulationByAgeDistribution,Population By Age Distribution,Population By Age Distribution,,population distribution by age;
 dc/topic/VeryOldAndVeryYoungPopulation,Very Old and Very Young Population,Very Old and Very Young Population,,young children and old people; very old and very young;
 dc/topic/WidowedPopulationByDemographic,Widowed Population by Demographic,Widowed Population by Demographic,,demographics of the widowed population; demographics of people who are widowed;
+dc/topic/KidneyDisease,Kidney Disease,Kidney Disease,,
+dc/topic/Equity,Equity,Equity,,fairness;equality;
+dc/topic/EconomicEquity,Economic Equity,Economic Equity,,economic fairness; economic oppoortunities;
+dc/topic/StudentsInHighSchool,Student in High School,Student in High School,,students enrolled in high schools; high school students;
+dc/topic/Arthritis,Arthritis,Arthritis,,
+dc/topic/HousesByFacilities,Houses by Facilities,Houses by Facilities,,facilities in houses;
+dc/topic/HousesByHomeValue,Houses by Home Value,Houses by Home Value,,home value of houses;
+dc/topic/EducationEquity,Education Equity,Education Equity,,education fairness; education opportunities;
+dc/topic/HousesByTaxAmount,Houses by Tax Amount,Houses by Tax Amount,,tax amount of houses; tax on houses;
+dc/topic/RentalHouses,Rental Houses,Rental Housing,,housing rentals; rental housing units;
+dc/topic/SmokePM2.5,Smoke PM2.5,Smoke PM2.5,,smoke particulate matter 2.5; particulate matter 2.5;
+dc/topic/StudentsInPrimarySchool,Students in Primary School,Students in Primary School,,students enrolled in primary school; primary school students;
+dc/topic/HomeOwnership,Home Ownership,Home Ownership,,owners of houses; housing owners; house ownership;
+dc/topic/HouseOccupants,House Occupants,House Occupants,,people living in the house; home occupants;
+dc/topic/HousesByRoomCount,Houses by Room Count,Houses by Room Count,,number of rooms in houses;
+dc/topic/StudentsInGraduateOrProfessionalSchool,Students in Graduate or Professional School,Students in Graduate or Professional School,,students in graduate school; students in professional school; students enrolled in grad school; PE students; grad students;
+dc/topic/Benefits,Benefits,Benefits,,social benefits; public benefits;
+dc/topic/HousesByDateofBuild,Houses by Date Built,Houses by Date Built,,date built of houses; houses by date build; build date of houses;
+dc/topic/HousesByHouseholderEducationalAttainment,Houses by Educational Attainment of Owner,Houses by Educational Attainment of Owner,,education level of home owner; home owner's education; education attainment of home owners; houses by home owner's education level;
+dc/topic/HousesByOwnershipCost,Houses by Ownership Cost,Houses by Ownership Cost,,cost of home ownership; housing cost; cost of owning a home; cost of owning a house;
+dc/topic/HouseFeatures,House Features,House Features,,features of a house; features in a home;
+dc/topic/HeartDisease,Heart Disease,Heart Disease,,disease of the heart; cardiovascular disease;
+dc/topic/HousesByHouseholderRace,Houses by Race of Occupants,Houses by Race of Occupants,,home residents race; houses by resident race; racial breakdown of house residents;
+dc/topic/Stroke,Stroke,Stroke,,stroke attack; heart attack;
+dc/topic/StudentsInMiddleSchool,Students in Middle School,Students in Middle School,,middle school students;
+dc/topic/StudentsInKindergarten,Students in Kindergarten,Students in Kindergarten,,students in KG; KG students; kindergarten students;
+dc/topic/JusticeSystemEquity,Justice System Equity,Justice System Equity,,Equity of the justice system; equity in the justice system; fariness in the justice system; 
+dc/topic/HousesByHouseholderAge,Houses by Age of Residents,Houses by Age of Residents,,age distribution of house residents; home residents age distribution;
+dc/topic/StudentsInCollege,Students in College,Students in College,,undergraduate students; undergrad students; undergrads; college students;
+dc/topic/EducationalAttainmentByRaceAndLevel,Education Attainment by Race and Level,Education Attainment by Race and Level,,level of education by gender and race; race and gender breakdown of education level; race and gender breakdown of education attainment;
+dc/topic/MedianHouseholdIncomeByGender,Median Household Income by Gender,Median Household Income by Gender,,household income by gender; gender breakdown of household income;
+dc/topic/EmploymentEquity,Employment Equity,Employment Equity,,fairness in employment; equity in employment;
+dc/topic/IncomeEquity,Income Equity,Income Equity,,fariness in income; fairness of income distribution; equity of income distribution;
+dc/topic/MedianHouseholdIncomeByRace,Median Household Income by Race,Median Household Income by Race,,household income by race; racial breakdown of household income;
+dc/topic/Energy_Fraction,Energy Fractions,Energy Fractions,,energy percentages; fraction of energy producton and consumption;
+dc/topic/GreenJobs,Green Jobs,Green Jobs,,sustainable jobs; environmentally friendly jobs;
+dc/topic/Energy_Generation,Energy Generation,Energy Generation,,generation of energy;
+dc/topic/Emissions_SulfurDioxide_EmissionsbySource,Sulfur Dioxide Emissions by Source,Sulfur Dioxide Emissions by Source,,source of SO2 emissions; SO2 emissions by source; source of sulfur dioxide emissions; source of sulphur dioxide emissions;
+dc/topic/ProductionConsumptionandWaste,Production and Consumption Waste,Production and Consumption Waste,,Waste due to production and consumption;
+dc/topic/Pollutants,Pollutants,Pollutants,,
+dc/topic/CommuteTime,Commute Time,Commute Time,,time spend during commute; time spent traveling to work; time spent travelling from work;
+dc/topic/Emissions_PM2.5_EmissionsbySource,Emissions of PM2.5 By Source,Emissions of PM2.5 By Source,,particulate matter 2.5 emissions by source; source of PM2.5 emissions;
+dc/topic/Energy_Generation_FossilFuels,Energy Generation From Fossil Fuels,Energy Generation From Fossil Fuels,,energy produced from fossil fuels;
+dc/topic/Fire,Fires,Fires,,fire; fire event; wild fires;
+dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emission,Greenhouse Gas Emissions,,GHG emissions; greenhouse gasses emissions; sources of greenhouse gas emissions; sources of GHG emissions;
+dc/topic/Gender,Gender,Gender,,
+dc/topic/CommuteModeByOccupation,Commute Mode By Occupation,Commute Mode By Occupation,,commute options by occupation;
+dc/topic/Race,Race,Race,,racial breakdown;
+dc/topic/Emissions_NitrousOxide_EmissionsbySource,Nitrous Oxide Emissions by Source,Nitrous Oxide Emissions by Source,,source of nitrous oxide emissions; nitrous oxide emissions by source;
+dc/topic/Earthquake,Earthquakes,Earthquakes,,earthquake;
+dc/topic/NaturalDisasters,Natural Disasters,Natural Disasters,,disasters;
+dc/topic/Flood,Floods,Floods,,flood;
+dc/topic/CommuteMode,Commute Modes,Commute Modes,,modes of commute;
+dc/topic/Emissions,Emissions,Emissions,,
+dc/topic/OceanHealth,Ocean Health,Ocean Health,,ocean condition;
+dc/topic/Drought,Droughts,Droughts,,drought;
+dc/topic/WetBulbEvent,Wet-Bulb Events,Wet-Bulb Events,,wetbulb; wet bulb events; high humidity and high heat;
+dc/topic/Energy_Consumption_FossilFuels,Energy Consumption From Fossil Fuels,Energy Consumption From Fossil Fuels,,energy consumed from fossil fuels; energy consumed which is generated by fossil fuels;
+dc/topic/GDPByIndustry,GDP By Industry,GDP By Industry,,gross domestic product breakdown by industry; gross domestic product by industry;
+dc/topic/Precipitation,Precipitation,Precipitation,,high rainfall; major snow event; major precipitation;
+dc/topic/Rainfall,Rainfall,Rainfall,,rain;
+dc/topic/Energy_Generation_NonFossilFuel,Energy Generation From Non-Fossil Fuels,Energy Generation From Non-Fossil Fuels,,energy produced from non fossil fuels; energy generated without fossil fuels;
+dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source,Flourinated Gasses Emissions by Source,,source of flourinated gas emissions; flourinated gas emissions by source;
+dc/topic/Electricity_Consumption,Electricity Consumption,Electricity Consumption,,consumption of electricity;
+dc/topic/Energy,Energy,Energy,,
+dc/topic/LandUseAndCoverage,Land Use And Coverage,Land Use And Coverage,,land use;
+dc/topic/Emissions_Methane_EmissionsbySource,Methane Emissions by Source,Methane Emissions by Source,,source of CH4 emissions; CH4 emissions by source; source of methane emissions; source of methane emissions;
+dc/topic/Energy_Renewables,Energy Renewables,Energy Renewables,,renewable energy;
+dc/topic/Sustainability,Sustainability,Sustainability,,green; sustainable;
+dc/topic/ColdEvent,Cold Event,Cold Event,,excessive cold; very cold; freezing;
+dc/topic/SDGBiodiversity,Biodiversity,Biodiversity,,SDG biodiversity; bio diversity; SDG bio diversity;
+dc/topic/SDGReforestations,Reforestation,Reforestation,,SDG reforestation; reforesting;
+dc/topic/DieselPM,Diesel PM,Diesel PM,,Diesel pollutant; diesel particulate matter;
+dc/topic/Temperatures,Temperature,Temperature,,temperatures; max temp; min temp; maximum temperature; minimum temperature;
+dc/topic/EnglishLanguageAtHome,English Language Spoken At Home,English Language Spoken At Home,,english at home; english language at home; spoken language at home is English;
+dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,Language Spoken At Home By Immigrants,,immigrants language at home; language at home for foreign born;
+dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
+dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;

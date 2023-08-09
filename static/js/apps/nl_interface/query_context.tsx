@@ -18,37 +18,47 @@
  * NL Query context panel
  */
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { useStoreState } from "./app_state";
+import { useStoreActions, useStoreState } from "./app_state";
 import { QueryResult } from "./query_result";
 import { QuerySearch } from "./query_search";
 import { QueryWelcome } from "./query_welcome";
 
 const CHARACTER_INPUT_INTERVAL = 50;
 const PROMPT_SEARCH_DELAY = 1000;
-const NEXT_PROMPT_DELAY = 5000;
 
 export function QueryContext(): JSX.Element {
-  const currentNlQueryContextId = useStoreState(
-    (s) => s.config.currentNlQueryContextId
-  );
+  const config = useStoreState((s) => s.config);
+  const {
+    autoPlayAutoRunQuery,
+    autoPlayAutoShowQueryDelay,
+    autoPlayCurrentQueryIndex,
+    autoPlayManuallyShowQuery,
+    autoPlayDisableTypingAnimation,
+    urlPrompts,
+    currentNlQueryContextId,
+  } = config;
+  const [executingAutoPlayQueryIndex, setExecutingAutoPlayQueryIndex] =
+    useState<number>(-1);
   const currentNlQueryContext = useStoreState(
     (s) => s.nlQueryContexts[currentNlQueryContextId]
   );
+  const nlQueryHistory = useStoreState((s) => {
+    if (!currentNlQueryContext) {
+      return [];
+    }
+    return currentNlQueryContext.nlQueryIds.map(
+      (nlQueryId) => s.nlQueries[nlQueryId]
+    );
+  });
   const currentNlQueries = useStoreState((s) =>
     (currentNlQueryContext?.nlQueryIds || []).map(
       (nlQueryId) => s.nlQueries[nlQueryId]
     )
   );
-  // If autoRun is enabled, runs every prompt (';' separated) from the url.
-  const autoRun = useStoreState((s) => s.config.autoRun);
-  const delayDisabled = useStoreState((s) => s.config.delayDisabled);
-  const urlPrompts = useStoreState((s) => s.config.urlPrompts);
-  const latestNlQuery =
-    currentNlQueries.length > 0
-      ? currentNlQueries[currentNlQueries.length - 1]
-      : null;
+  const search = useStoreActions((a) => a.search);
+  const [autoRunQuery, setAutoRunQuery] = useState("");
 
   // Timer used to input characters from a single prompt with
   // CHARACTER_INPUT_INTERVAL ms between each character.
@@ -59,67 +69,94 @@ export function QueryContext(): JSX.Element {
   // prompt.
   const searchDelayTimer = useRef(null);
 
-  // Updates the query search input box value.
-  function updateSearchInput(input: string): void {
-    (document.getElementById("query-search-input") as HTMLInputElement).value =
-      input;
-  }
-
-  // Searches for the query in the query search box.
-  function executeSearch(): void {
-    (
-      document.getElementById("rich-search-button") as HTMLButtonElement
-    ).click();
-  }
-
-  function inputNextPrompt(delayStart: boolean): void {
-    const prompt = urlPrompts.shift();
-    if (!prompt) {
-      return;
-    }
-    const nextPromptDelay =
-      delayStart && !delayDisabled ? NEXT_PROMPT_DELAY : 0;
-    const promptSearchDelay = delayDisabled ? 0 : PROMPT_SEARCH_DELAY;
-    nextPromptDelayTimer.current = setTimeout(() => {
-      // If delay is disabled, input the whole prompt at once
-      let inputLength = delayDisabled ? prompt.length : 1;
-      inputIntervalTimer.current = setInterval(() => {
-        if (inputLength <= prompt.length) {
-          updateSearchInput(prompt.substring(0, inputLength));
-        }
-        if (inputLength === prompt.length) {
-          clearInterval(inputIntervalTimer.current);
-          // If on autorun, search for the current input after
-          // PROMPT_SEARCH_DELAY ms.
-          if (autoRun) {
-            searchDelayTimer.current = setTimeout(() => {
-              executeSearch();
-            }, promptSearchDelay);
+  const inputNextPrompt = useCallback(
+    (delayStart: boolean): void => {
+      const prompt = urlPrompts[autoPlayCurrentQueryIndex];
+      //const nextPromptDelay = 0;
+      const promptSearchDelay = autoPlayDisableTypingAnimation
+        ? 0
+        : PROMPT_SEARCH_DELAY;
+      const nextPromptDelay =
+        delayStart &&
+        !autoPlayDisableTypingAnimation &&
+        !autoPlayManuallyShowQuery
+          ? autoPlayAutoShowQueryDelay
+          : 0;
+      nextPromptDelayTimer.current = setTimeout(() => {
+        // If delay is disabled, input the whole prompt at once
+        let inputLength = autoPlayDisableTypingAnimation ? prompt.length : 1;
+        inputIntervalTimer.current = setInterval(() => {
+          if (inputLength <= prompt.length) {
+            setAutoRunQuery(prompt.substring(0, inputLength));
           }
-          return;
-        }
-        inputLength++;
-      }, CHARACTER_INPUT_INTERVAL);
-    }, nextPromptDelay);
-  }
+          if (inputLength === prompt.length) {
+            clearInterval(inputIntervalTimer.current);
+            // If on autoPlayAutoRunQuery, search for the current input after
+            // PROMPT_SEARCH_DELAY ms.
+            if (autoPlayAutoRunQuery) {
+              searchDelayTimer.current = setTimeout(() => {
+                setAutoRunQuery("");
+                search({
+                  config,
+                  nlQueryContext: currentNlQueryContext,
+                  nlQueryHistory,
+                  query: prompt,
+                });
+              }, promptSearchDelay);
+            }
+            return;
+          }
+          inputLength++;
+        }, CHARACTER_INPUT_INTERVAL);
+      }, nextPromptDelay);
+    },
+    [
+      autoPlayAutoShowQueryDelay,
+      autoPlayAutoRunQuery,
+      autoPlayCurrentQueryIndex,
+      autoPlayDisableTypingAnimation,
+      autoPlayManuallyShowQuery,
+      config,
+      currentNlQueryContext,
+      nlQueryHistory,
+      urlPrompts,
+      search,
+      setAutoRunQuery,
+    ]
+  );
 
   useEffect(() => {
     // If there are url prompts that have not been searched, input the next
     // url prompt into the search box when the last query's data fetch has
     // completed.
-    // TODO: Do this by going through state/props instead of directly
-    // manipulating the DOM.
-    if (urlPrompts.length && (!latestNlQuery || !latestNlQuery.isLoading)) {
-      // delay inputting the prompt if it's not the first query.
-      inputNextPrompt(latestNlQuery !== null /* delayStart */);
+    if (executingAutoPlayQueryIndex === autoPlayCurrentQueryIndex) {
+      return;
     }
+    if (autoPlayCurrentQueryIndex < urlPrompts.length) {
+      // delay inputting the prompt if it's not the first query.
+      setExecutingAutoPlayQueryIndex(autoPlayCurrentQueryIndex);
+      inputNextPrompt(
+        autoPlayCurrentQueryIndex !== 0 &&
+          !autoPlayManuallyShowQuery /* delayStart */ // TODO
+      );
+    }
+  }, [
+    autoPlayCurrentQueryIndex,
+    autoPlayManuallyShowQuery,
+    executingAutoPlayQueryIndex,
+    urlPrompts,
+    inputNextPrompt,
+  ]);
+
+  // Clean up on unmount
+  useEffect(() => {
     return () => {
       // When component unmounts, clear all timers
       clearInterval(inputIntervalTimer.current);
       clearTimeout(searchDelayTimer.current);
       clearTimeout(nextPromptDelayTimer.current);
     };
-  }, [latestNlQuery, urlPrompts]);
+  }, [inputIntervalTimer, searchDelayTimer, nextPromptDelayTimer]);
 
   return (
     <>
@@ -134,7 +171,7 @@ export function QueryContext(): JSX.Element {
           className="context-search"
           id={`search-section-container-bottom"}`}
         >
-          <QuerySearch />
+          <QuerySearch query={autoRunQuery} />
         </div>
       </div>
     </>

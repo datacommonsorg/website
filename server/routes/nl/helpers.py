@@ -50,7 +50,7 @@ import shared.lib.utils as shared_utils
 # Given a request parses the query and other params and
 # detects stuff into a Detection object.
 #
-def parse_query_and_detect(request: Dict, debug_logs: Dict):
+def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   # NO production support yet.
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
@@ -110,7 +110,7 @@ def parse_query_and_detect(request: Dict, debug_logs: Dict):
     session_id = prev_utterance.session_id
   else:
     if current_app.config['LOG_QUERY']:
-      session_id = utils.new_session_id()
+      session_id = utils.new_session_id(app)
     else:
       session_id = constants.TEST_SESSION_ID
 
@@ -193,25 +193,26 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       status_str += '**No Place Found**.'
     if not utterance.svs:
       status_str += '**No SVs Found**.'
-
+  has_charts = len(utterance.rankedCharts) > 0
   return prepare_response(data_dict,
                           status_str,
                           utterance.detection,
                           dbg_counters,
                           debug_logs,
-                          is_nl=True)
+                          has_data=has_charts)
 
 
 def prepare_response(data_dict: Dict, status_str: str, detection: Detection,
-                     dbg_counters: Dict, debug_logs: Dict, is_nl: bool) -> Dict:
+                     dbg_counters: Dict, debug_logs: Dict,
+                     has_data: bool) -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
   data_dict = utils.to_dict(data_dict)
-  if current_app.config['LOG_QUERY'] and is_nl:
+  if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
-    session_info = context.get_session_info(data_dict['context'])
+    session_info = context.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
     loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 

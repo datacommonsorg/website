@@ -160,6 +160,8 @@ $feedback-link-font-color: #70757a;
       }
     }
     .sidebar-footer {
+      margin: 0 auto;
+      font-size: 14px;
     }
   }
   .context-container {
@@ -184,20 +186,30 @@ $feedback-link-font-color: #70757a;
   }
 }
 
-#search-section-container-center {
-  // position: absolute;
-  // top: calc(50% - #{$search-section-bottom-height});
-}
-
 #search-container {
   font-size: 0.9rem;
 
   .search-section {
+    align-items: center;
     display: flex;
+    flex-direction: row;
+
     .btn {
       height: 2.5rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+    }
+    .experiment-tag {
+      border-radius: 10px;
+      border-style: solid;
+      border-width: 3px;
+      color: var(--blue);
+      display: flex;
+      float: left;
+      font: normal 1em monospace;
+      padding: 4px 6px;
+      height: 80%;
+      margin-right: 20px;
     }
     .history-button {
       margin-left: 0.5rem;
@@ -322,23 +334,35 @@ $feedback-link-font-color: #70757a;
 }
 
 .nl-welcome {
-  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
 
-  .container {
-    background: $answer-background-color;
-    border-radius: $answer-border-radius;
-    box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.02),
-      0px 1px 6px rgba(3, 7, 18, 0.04), 1px 3px 14px rgba(3, 7, 18, 0.06),
-      1px 5px 24px rgba(3, 7, 18, 0.08);
-    font-size: 1.15rem;
-    line-height: 1.75rem;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
+  h1 {
+    font-size: 1.95rem;
+    margin: 1rem 0;
+    font-weight: 200;
   }
 
-  .sample-queries {
-    line-height: 1.85rem;
-    margin-top: 0.5rem;
+  .topic-queries {
+    margin-bottom: 2rem;
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .topic-more {
+    margin: 2rem 0;
+  }
+
+  .topic-sources {
+    margin: 2rem 0;
+    font-size: 0.9rem;
+    color: var(--gray);
+    font-style: italic;
   }
 }
 
@@ -682,5 +706,26 @@ $loading-dot-color: #999;
 
   .example-item:hover {
     box-shadow: $hover-box-shadow;
+  }
+}
+
+/* Styles for the pop-up box */
+.popup-box {
+  position: absolute;
+  top: 100%;
+  padding: 5px; /* Add padding for the pop-up content */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  background-color: gray;
+
+  textarea {
+    width: 100%; /* Set the width to 100% of the parent (pop-up box) */
+    height: 95%; /* Set the height to 100% of the parent (pop-up box) */
+    margin: 0;
+    padding: 5px; /* Add padding for the textarea content */
+    resize: none; /* Disable textarea resizing */
+    height: auto; /* Allow the height to adjust based on the content */
+    max-height: 3.6em; /* Limit the maximum height to two lines (2 lines x 1.8em) */
+    line-height: 1.8em; /* Set the line height to match the desired line height */
   }
 }

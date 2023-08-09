@@ -14,29 +14,19 @@
 """Module for NL topics"""
 
 import time
-from typing import List
+from typing import Dict, List
+
+from flask import current_app
 
 from server.lib import fetch
 from server.lib.nl.common import utils
+from server.lib.nl.common.constants import DCNames
 import server.lib.nl.common.counters as ctr
 
 TOPIC_RANK_LIMIT = 3
+MAX_TOPIC_SVS = 30
 
 _TOPIC_DCID_TO_SV_OVERRIDE = {
-    "dc/topic/Agriculture": [
-        "Area_Farm",
-        "Count_Farm",
-        "Income_Farm",
-        # Number of works in Crop production
-        "dc/15lrzqkb6n0y7",
-        "dc/svpg/AmountOfFarmInventoryByType",
-    ],
-    "dc/topic/Income": [
-        "dc/svpg/IndividualIncome",
-        "dc/svpg/HouseholdIncome",
-    ],
-    "dc/topic/Jobs": ["dc/svpg/JobsPeerGroup"],
-    "dc/topic/MedicalConditions": ["dc/svpg/MedicalConditionsPeerGroup"],
     "dc/topic/ProjectedClimateExtremes": [
         "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp",
         "dc/svpg/ProjectedClimateExtremes_LowestMinTemp",
@@ -62,13 +52,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "dc/svpg/SolarPanelPotential",
         "Amount_CarbonDioxideAbatement",
         "Count_SolarPanel",
-    ],
-    "dc/topic/WorkCommute": ["dc/svpg/WorkCommutePeerGroup"],
-    "dc/topic/GreenhouseGasEmissionsBySource": [
-        "dc/svpg/GreenhouseGasEmissionsBySource"
-    ],
-    "dc/topic/CarbonDioxideEmissionsBySource": [
-        "dc/svpg/CarbonDioxideEmissionsBySource"
     ],
     "dc/topic/AgricultureEmissionsByGas": ["dc/svpg/AgricultureEmissionsByGas"],
     "dc/topic/FossilFuelOperationsEmissionsByGas": [
@@ -112,72 +95,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
 }
 
 _PEER_GROUP_TO_OVERRIDE = {
-    "dc/svpg/AmountOfFarmInventoryByType": [
-        "AmountFarmInventory_WinterWheatForGrain",
-        "Amount_FarmInventory_BarleyForGrain",
-        "Amount_FarmInventory_CornForSilageOrGreenchop",
-        "Amount_FarmInventory_Cotton",
-        "Amount_FarmInventory_DurumWheatForGrain",
-        "Amount_FarmInventory_Forage",
-        "Amount_FarmInventory_OatsForGrain",
-        "Amount_FarmInventory_OtherSpringWheatForGrain",
-        "Amount_FarmInventory_PeanutsForNuts",
-        "Amount_FarmInventory_PimaCotton",
-        "Amount_FarmInventory_Rice",
-        "Amount_FarmInventory_SorghumForGrain",
-        "Amount_FarmInventory_SorghumForSilageOrGreenchop",
-        "Amount_FarmInventory_SugarbeetsForSugar",
-        "Amount_FarmInventory_SunflowerSeed",
-        "Amount_FarmInventory_UplandCotton",
-        "Amount_FarmInventory_WheatForGrain",
-        "Amout_FarmInventory_CornForGrain",
-    ],
-    "dc/svpg/JobsPeerGroup": [
-        "Count_Worker_NAICSAccommodationFoodServices",
-        "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
-        "Count_Worker_NAICSAgricultureForestryFishingHunting",
-        "Count_Worker_NAICSConstruction",
-        "Count_Worker_NAICSEducationalServices",
-        "Count_Worker_NAICSHealthCareSocialAssistance",
-        # Manufacturing
-        "dc/ndg1xk1e9frc2",
-        "Count_Worker_NAICSFinanceInsurance",
-        "Count_Worker_NAICSInformation",
-        "Count_Worker_NAICSArtsEntertainmentRecreation",
-        "Count_Worker_NAICSMiningQuarryingOilGasExtraction",
-        "Count_Worker_NAICSOtherServices",
-        # Transportation and Warehousing
-        "dc/8p97n7l96lgg8",
-        "Count_Worker_NAICSUtilities",
-        # Retail Trade
-        "dc/p69tpsldf99h7",
-        "Count_Worker_NAICSRealEstateRentalLeasing",
-        "Count_Worker_NAICSPublicAdministration",
-        "Count_Worker_NAICSWholesaleTrade",
-        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-        "Count_Worker_NAICSPublicAdministration",
-
-        # This is an almost dup of
-        # Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
-        # "dc/f18sq8w498j4f",
-        # Subsumed by Retail Trade
-        # "dc/4mm2p1rxr5wz4",
-        # "Count_Worker_NAICSManagementOfCompaniesEnterprises",
-    ],
-    "dc/svpg/MedicalConditionsPeerGroup": [
-        "Percent_Person_WithArthritis",
-        "Percent_Person_WithAsthma",
-        "Percent_Person_WithCancerExcludingSkinCancer",
-        "Percent_Person_WithChronicKidneyDisease",
-        "Percent_Person_WithChronicObstructivePulmonaryDisease",
-        "Percent_Person_WithCoronaryHeartDisease",
-        "Percent_Person_WithDiabetes",
-        "Percent_Person_WithHighBloodPressure",
-        "Percent_Person_WithHighCholesterol",
-        "Percent_Person_WithMentalHealthNotGood",
-        "Percent_Person_WithPhysicalHealthNotGood",
-        "Percent_Person_WithStroke",
-    ],
     "dc/svpg/SolarEnergyGenerationPotential": [
         "Amount_SolarGenerationPotential_FlatRoofSpace",
         "Amount_SolarGenerationPotential_NorthFacingRoofSpace",
@@ -192,11 +109,6 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_SouthFacingRoofSpace",
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
-    "dc/svpg/IndividualIncome": [
-        "Median_Income_Person",
-        "Median_Earnings_Person",
-    ],
-    "dc/svpg/HouseholdIncome": ["Median_Income_Household",],
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
         "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
         "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
@@ -226,36 +138,6 @@ _PEER_GROUP_TO_OVERRIDE = {
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_VolcanicActivityEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WildfireEvent",
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_WinterWeatherEvent",
-    ],
-    "dc/svpg/WorkCommutePeerGroup": [
-        "dc/6rltk4kf75612",  # WFH
-        "dc/vp8cbt6k79t94",  # Walk
-        "dc/hbkh95kc7pkb6",  # Public Transport
-        "dc/wc8q05drd74bd",  # Carpooled car/truck/van
-        "dc/0gettc3bc60cb",  # Drove alone in car/truck/van
-        "dc/vt2q292eme79f",  # Taxicab/Motorcycle/Bicycle/etc
-    ],
-    "dc/svpg/GreenhouseGasEmissionsBySource": [
-        "Annual_Emissions_GreenhouseGas_Agriculture",
-        "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-        "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
-        "Annual_Emissions_GreenhouseGas_Manufacturing",
-        "Annual_Emissions_GreenhouseGas_MineralExtraction",
-        "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
-        "Annual_Emissions_GreenhouseGas_Transportation",
-        "Annual_Emissions_GreenhouseGas_WasteManagement",
-    ],
-    "dc/svpg/CarbonDioxideEmissionsBySource": [
-        "Annual_Emissions_CarbonDioxide_Agriculture",
-        "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings",
-        "Annual_Emissions_CarbonDioxide_FlourinatedGases",
-        "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
-        "Annual_Emissions_CarbonDioxide_ForestryAndLandUse",
-        "Annual_Emissions_CarbonDioxide_Manufacturing",
-        "Annual_Emissions_CarbonDioxide_MineralExtraction",
-        "Annual_Emissions_CarbonDioxide_Power",
-        "Annual_Emissions_CarbonDioxide_Transportation",
-        "Annual_Emissions_CarbonDioxide_WasteManagement",
     ],
     "dc/svpg/AgricultureEmissionsByGas": [
         "Annual_Emissions_CarbonDioxide_Agriculture",
@@ -343,8 +225,6 @@ _PEER_GROUP_TO_OVERRIDE = {
 }
 
 SVPG_NAMES_OVERRIDE = {
-    "dc/svpg/JobsPeerGroup":
-        "Categories of Jobs",
     "dc/svpg/MedicalConditionsPeerGroup":
         "Medical Conditions",
     "dc/svpg/SolarEnergyGenerationPotential":
@@ -357,16 +237,6 @@ SVPG_NAMES_OVERRIDE = {
         "Projected highest decrease in min temperature under different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
-    "dc/svpg/IndividualIncome":
-        "Individual Income",
-    "dc/svpg/HouseholdIncome":
-        "Houshold Income",
-    "dc/svpg/WorkCommutePeerGroup":
-        "Modes of Commute",
-    "dc/svpg/GreenhouseGasEmissionsBySource":
-        "Greenhouse Gas Emissions by Source",
-    "dc/svpg/CarbonDioxideEmissionsBySource":
-        "Carbon Dioxide Emissions by Source",
     "dc/svpg/AgricultureEmissionsByGas":
         "Emissions from Agriculture Sector",
     "dc/svpg/FossilFuelOperationsEmissionsByGas":
@@ -419,29 +289,24 @@ TOPIC_NAMES_OVERRIDE = {
     "dc/topic/ProjectedClimateExtremes": "Projected Climate Extremes",
     "dc/topic/ClimateChange": "Climate Change",
     "dc/topic/SolarPotential": "Solar Potential",
-    "dc/topic/WorkCommute": "Commute",
 }
 
 
 # TODO: Consider having a default max limit.
 def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
-                            ordered: bool = False,
-                            max_svs: int = 0,
+                            dc: str = DCNames.MAIN_DC.value,
+                            max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
-  if ordered and not svs:
-    # Lookup KG.  Use the ordered property.
-    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
-    # Lookup KG
-    svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
+    svs = _members(topic, 'relevantVariable', dc)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, ordered, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -452,45 +317,40 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str, ordered: bool = False):
+def get_topic_vars(topic: str, dc: str):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
-  if ordered and not svs:
-    # Lookup KG
-    svs = _prop_val_ordered(topic, 'relevantVariableList')
   if not svs:
-    # Lookup KG
-    svs = fetch.property_values(nodes=[topic], prop='relevantVariable')[topic]
+    svs = _members(topic, 'relevantVariable', dc)
   return svs
 
 
-def get_parent_topics(topics: List[str]):
-  # Lookup KG
-  parents = fetch.raw_property_values(nodes=topics,
-                                      prop='relevantVariable',
-                                      out=False)
-  resp = []
-  for pvals in parents.values():
-    for p in pvals:
-      if 'value' in p:
-        del p['value']
-      if 'dcid' not in p or not utils.is_topic(p['dcid']):
-        continue
-      resp.append(p)
-  return resp
+def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
+  # This is an SV, so get parent SVPGs, if any
+  if utils.is_sv(topic_or_sv):
+    psvpg = _parents_raw([topic_or_sv], 'member', dc)
+    psvpg_ids = [p['dcid'] for p in psvpg]
+    # Get its actual topic, if any.
+    topics = psvpg_ids + [topic_or_sv]
+  else:
+    topics = [topic_or_sv]
+  if not topics:
+    return []
+  parents = _parents_raw(topics, 'relevantVariable', dc)
+  return parents
 
 
-def get_child_topics(topics: List[str]):
-  children = fetch.raw_property_values(nodes=topics,
-                                       prop='relevantVariable',
-                                       out=True)
+def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
+  children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
     for p in pvals:
       if 'value' in p:
         del p['value']
-      if 'dcid' not in p or not utils.is_topic(p['dcid']):
+      if 'dcid' not in p:
+        continue
+      if not utils.is_topic(p['dcid']):
         continue
       if p['dcid'] in topics:
         continue
@@ -498,32 +358,26 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str], ordered: bool = False):
+def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
-      ret[sv] = _get_svpg_vars(sv, ordered)
+      ret[sv] = _get_svpg_vars(sv, dc)
     else:
       ret[sv] = []
   return ret
 
 
-def get_topic_name(topic_dcid: str) -> str:
-  if topic_dcid in TOPIC_NAMES_OVERRIDE:
-    return TOPIC_NAMES_OVERRIDE[topic_dcid]
-  resp = fetch.property_values(nodes=[topic_dcid], prop='name')[topic_dcid]
-  if resp:
-    return resp[0]
-  return topic_dcid.split('/')[-1]
-
-
-def svpg_name(sv: str):
+def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
-    resp = fetch.property_values(nodes=[sv], prop='name')[sv]
-    if resp:
-      name = resp[0]
+    if 'TOPIC_CACHE' in current_app.config:
+      name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
+    if not name:
+      resp = fetch.property_values(nodes=[sv], prop='name')[sv]
+      if resp:
+        name = resp[0]
   return name
 
 
@@ -536,12 +390,10 @@ def svpg_description(sv: str):
   return name
 
 
-def _get_svpg_vars(svpg: str, ordered: bool) -> List[str]:
+def _get_svpg_vars(svpg: str, dc: str) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
-  if not svs and ordered:
-    svs = _prop_val_ordered(svpg, 'memberList')
   if not svs:
-    svs = fetch.property_values(nodes=[svpg], prop='member')[svpg]
+    svs = _members(svpg, 'member', dc)
   return svs
 
 
@@ -592,6 +444,49 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
     return svs
 
   return []
+
+
+def _members(node: str, prop: str, dc: str) -> List[str]:
+  val_list = []
+  if 'TOPIC_CACHE' in current_app.config:
+    resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
+    val_list = [v['dcid'] for v in resp]
+  else:
+    val_list = _prop_val_ordered(node, prop + 'List')
+  return val_list
+
+
+def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
+  val_map = {}
+  if 'TOPIC_CACHE' in current_app.config:
+    for n in nodes:
+      val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
+  else:
+    val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
+  return val_map
+
+
+def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
+  parent_list = []
+  if 'TOPIC_CACHE' in current_app.config:
+    for n in nodes:
+      plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
+      parent_list.extend(plist)
+  else:
+    parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)
+    for pvals in parents.values():
+      for p in pvals:
+        if 'value' in p:
+          del p['value']
+        if 'dcid' not in p:
+          continue
+        id = p['dcid']
+        if prop == 'relevantVariable' and not utils.is_topic(id):
+          continue
+        if prop == 'member' and not utils.is_svpg(id):
+          continue
+        parent_list.append(p)
+  return parent_list
 
 
 # Reads Props that are strings encoding ordered DCIDs.

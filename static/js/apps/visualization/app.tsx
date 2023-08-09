@@ -18,10 +18,15 @@
  * Main component for Visualization Tool.
  */
 
-import React from "react";
+import _ from "lodash";
+import React, { useContext, useEffect, useState } from "react";
 
-import { AppContextProvider } from "./app_context";
+import { Spinner } from "../../components/spinner";
+import { RankingUnitUrlFuncContext } from "../../shared/context";
+import { isSelectionComplete } from "../../utils/app/visualization_utils";
+import { AppContext, AppContextProvider } from "./app_context";
 import { Chart } from "./chart";
+import { Info } from "./info";
 import { SelectedOptions } from "./selected_options";
 import { SelectorPane } from "./selector_pane";
 import { VisTypeSelector } from "./vis_type_selector";
@@ -31,10 +36,54 @@ export function App(): JSX.Element {
     <AppContextProvider>
       <div className="visualization-app">
         <VisTypeSelector />
-        <SelectedOptions />
-        <SelectorPane />
-        <Chart />
+        <MainPane />
       </div>
     </AppContextProvider>
+  );
+}
+
+function MainPane(): JSX.Element {
+  const { visType, places, statVars, enclosedPlaceType, isContextLoading } =
+    useContext(AppContext);
+  const [showInfo, setShowInfo] = useState(
+    _.isEmpty(places) && _.isEmpty(statVars) && _.isEmpty(enclosedPlaceType)
+  );
+
+  useEffect(() => {
+    // When places, statVars, or enclosedPlaceType changes, check if we should
+    // remove the info page.
+    if (
+      !_.isEmpty(places) ||
+      !_.isEmpty(statVars) ||
+      !_.isEmpty(enclosedPlaceType)
+    ) {
+      setShowInfo(false);
+    }
+  }, [places, statVars, enclosedPlaceType]);
+
+  if (isContextLoading) {
+    return (
+      <div className="context-loading-spinner">
+        <Spinner isOpen={true} />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {showInfo && <Info onStartClicked={() => setShowInfo(false)} />}
+      {!showInfo && (
+        <>
+          <SelectedOptions />
+          {isSelectionComplete(visType, places, enclosedPlaceType, statVars) ? (
+            <RankingUnitUrlFuncContext.Provider value={() => null}>
+              <Chart />
+            </RankingUnitUrlFuncContext.Provider>
+          ) : (
+            <SelectorPane />
+          )}
+        </>
+      )}
+    </>
   );
 }

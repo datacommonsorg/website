@@ -312,7 +312,7 @@ def property_values(nodes, prop, out=True, constraints=''):
     for v in node_arcs.get('arcs', {}).get(prop, {}).get('nodes', []):
       if 'dcid' in v:
         result[node].append(v['dcid'])
-      else:
+      elif 'value' in v:
         result[node].append(v['value'])
   return result
 
@@ -402,7 +402,7 @@ def resolve_id(nodes, in_prop, out_prop):
   resp = dc.resolve(nodes, '<-{}->{}'.format(in_prop, out_prop))
   result = {}
   for entity in resp.get('entities', []):
-    result[entity['node']] = entity['resolvedIds']
+    result[entity['node']] = entity['candidates']
   return result
 
 
@@ -423,7 +423,7 @@ def resolve_coordinates(coordinates):
   resp = dc.resolve(nodes, '<-geoCoordinate->dcid')
   result = {}
   for entity in resp.get('entities', []):
-    result[entity['node']] = entity.get('resolvedIds', [])
+    result[entity['node']] = entity.get('candidates', [])
   return result
 
 

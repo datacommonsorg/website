@@ -20,19 +20,16 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
-import { isSelectionComplete } from "../../utils/app/visualization_utils";
+import { BqModal } from "../../tools/shared/bq_modal";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function Chart(): JSX.Element {
   const appContext = useContext(AppContext);
-  const { visType, places, statVars, enclosedPlaceType } = appContext;
 
-  if (!isSelectionComplete(visType, places, enclosedPlaceType, statVars)) {
-    return null;
-  }
   const chartHeight = window.innerHeight * 0.45;
+  const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
   return (
     <div className="chart-section">
       <div className="stat-var-selector-area">
@@ -40,8 +37,19 @@ export function Chart(): JSX.Element {
         <StatVarSelector />
       </div>
       <div className="chart-area">
-        {VIS_TYPE_CONFIG[visType].getChartArea(appContext, chartHeight)}
+        {VIS_TYPE_CONFIG[appContext.visType].getChartArea(
+          appContext,
+          chartHeight
+        )}
       </div>
+      {showBqButton && (
+        <BqModal
+          getSqlQuery={VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn(
+            appContext
+          )}
+          showButton={true}
+        />
+      )}
     </div>
   );
 }

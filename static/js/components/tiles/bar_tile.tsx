@@ -28,7 +28,7 @@ import {
   drawGroupBarChart,
   drawHorizontalBarChart,
   drawStackBarChart,
-} from "../../chart/draw";
+} from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
@@ -270,9 +270,12 @@ function rawToChart(
     }
     const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
     const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
-    dataGroups.push(
-      new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
-    );
+    if (!_.isEmpty(dataPoints)) {
+      // Only add to dataGroups if data is present
+      dataGroups.push(
+        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
+      );
+    }
   }
   if (!_.isEmpty(props.statVarSpec)) {
     unit = props.statVarSpec[0].unit || unit;

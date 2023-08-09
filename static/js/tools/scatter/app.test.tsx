@@ -69,7 +69,7 @@ declare global {
 
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
-  window.infoConfig = [];
+  window.infoConfig = {};
 
   // Stub getComputedTextLength and getBBox in SVGElement as they do not exist in d3node
   SVGElement.prototype.getComputedTextLength = () => 100;

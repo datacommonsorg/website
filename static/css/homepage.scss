@@ -19,6 +19,7 @@
 @import "base";
 
 $color-scatter: #ff8e6b;
+$color-download: #7791c3;
 $color-map: #a0dcb0;
 $color-timeline: #fcbf71;
 $color-place: #6bc8dd;
@@ -104,9 +105,11 @@ $color-font-dark: #3c4043;
 }
 
 @include media-breakpoint-up(lg) {
-  #homepage .interact-buttons-container,
+  #homepage .interact-buttons-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
   #homepage .tool-buttons-container {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -166,7 +169,13 @@ $color-font-dark: #3c4043;
 #homepage .topics-container {
   display: grid;
   gap: 16px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include media-breakpoint-up(lg) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
   .topic-card {
     color: $color-font-dark;
@@ -219,6 +228,10 @@ $color-font-dark: #3c4043;
   }
 }
 
+.topic-card.clickable:hover {
+  cursor: pointer;
+}
+
 // Styling for the partners carousel
 #homepage .carousel-container {
   position: relative;
@@ -244,6 +257,11 @@ $color-font-dark: #3c4043;
       justify-content: center;
       align-items: center;
       margin-top: 0.5rem;
+
+      img {
+        max-width: 100%;
+        max-height: 100px;
+      }
     }
   }
 
@@ -292,11 +310,23 @@ $color-font-dark: #3c4043;
     height: 100px;
   }
 
+  #download-button .img-container {
+    background-color: $color-download;
+
+    .material-icons-outlined {
+      color: white;
+      height: 100px;
+      width: 150px;
+      font-size: 80px;
+    }
+  }
+
   #scatter-button .img-container {
     background-color: $color-scatter;
 
     .tool-button-img {
-      background: url("/images/home-tool_icons.png") -50px 0;
+      background: url("/images/home-tool_icons.png") -25px 0;
+      width: 150px;
     }
   }
 
@@ -313,7 +343,8 @@ $color-font-dark: #3c4043;
     background-color: $color-timeline;
 
     .tool-button-img {
-      background: url("/images/home-tool_icons.png") -450px 0;
+      background: url("/images/home-tool_icons.png") -425px 0;
+      width: 150px;
     }
   }
 

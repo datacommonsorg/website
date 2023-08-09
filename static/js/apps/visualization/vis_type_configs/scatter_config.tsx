@@ -23,6 +23,7 @@ import React from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
 import { StatVarHierarchyType } from "../../../shared/types";
+import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import {
   getFooterOptions,
   getStatVarSpec,
@@ -88,11 +89,35 @@ function getChartArea(
   );
 }
 
+function getInfoContent(): JSX.Element {
+  return (
+    <div className="info-content">
+      <div>
+        <h3>Scatter Plot</h3>
+        <p>
+          The scatter plot tool helps you visualize the correlation between two
+          statistical variables.
+        </p>
+      </div>
+      <div>
+        <p>
+          You can start your exploration from one of these interesting points
+          ...
+        </p>
+        <MemoizedInfoExamples configKey="scatter" />
+      </div>
+      <p>Or click start to build your own scatter plot.</p>
+    </div>
+  );
+}
+
 export const SCATTER_CONFIG = {
   displayName: "Scatter Plot",
   icon: "scatter_plot",
   svHierarchyType: StatVarHierarchyType.SCATTER,
+  svHierarchyNumExistence: 10,
   singlePlace: true,
   numSv: 2,
   getChartArea,
+  getInfoContent,
 };

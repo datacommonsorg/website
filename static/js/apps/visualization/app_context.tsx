@@ -18,13 +18,15 @@
  * Context to hold the global state of the visualization app.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { createContext, useEffect, useRef, useState } from "react";
 
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
-import { getEnclosedPlaceTypes } from "../../utils/app/visualization_utils";
+import {
+  getEnclosedPlaceTypes,
+  getFilteredStatVarPromise,
+} from "../../utils/app/visualization_utils";
 import {
   getEnclosedPlacesPromise,
   getNamedTypedPlace,
@@ -45,6 +47,8 @@ const STAT_VAR_PARAM_KEYS = {
   DCID: "dcid",
   PER_CAPITA: "pc",
   LOG: "log",
+  DATE: "date",
+  DENOM: "denom",
 };
 
 export interface ContextStatVar {
@@ -52,6 +56,8 @@ export interface ContextStatVar {
   info: StatVarInfo;
   isPerCapita?: boolean;
   isLog?: boolean;
+  date?: string;
+  denom?: string;
 }
 export interface AppContextType {
   visType: string;
@@ -60,6 +66,7 @@ export interface AppContextType {
   statVars: ContextStatVar[];
   childPlaceTypes: string[];
   samplePlaces: NamedNode[];
+  isContextLoading: boolean;
   setVisType: (visType: string) => void;
   setPlaces: (places: NamedTypedPlace[]) => void;
   setEnclosedPlaceType: (enclosedPlaceType: string) => void;
@@ -76,17 +83,22 @@ export function AppContextProvider(
   props: AppContextProviderPropType
 ): JSX.Element {
   const [places, setPlaces] = useState([]);
-  const [enclosedPlaceType, setEnclosedPlaceType] = useState(
-    getParamValue(URL_PARAMS.ENCLOSED_PLACE_TYPE) || ""
-  );
+  const [enclosedPlaceType, setEnclosedPlaceType] = useState("");
   const [statVars, setStatVars] = useState([]);
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
+  // for childPlaceTypes and samplePlaces, null means they haven't been fetched
   const [childPlaceTypes, setChildPlaceTypes] = useState(null);
-  const [samplePlaces, setSamplePlaces] = useState([]);
+  const [samplePlaces, setSamplePlaces] = useState(null);
+  const [isContextLoading, setIsContextLoading] = useState(true);
   const prevSamplePlaces = useRef(samplePlaces);
   const prevStatVars = useRef(statVars);
+  // List of booleans to track whether or not hash should be updated when
+  // places, enclosedPlaceType, statVars, or visType changes. Hash should be
+  // updated for user selections and NOT for selections that are auto-magically
+  // made
+  const shouldUpdateHash = useRef([]);
 
   const contextValue = {
     places,
@@ -95,10 +107,28 @@ export function AppContextProvider(
     visType,
     childPlaceTypes,
     samplePlaces,
-    setPlaces,
-    setEnclosedPlaceType,
-    setStatVars,
-    setVisType,
+    isContextLoading,
+    setPlaces: (places) => {
+      shouldUpdateHash.current.push(true);
+      setChildPlaceTypes(null);
+      setSamplePlaces(null);
+      setPlaces(places);
+    },
+    setEnclosedPlaceType: (placeType) => {
+      shouldUpdateHash.current.push(true);
+      setSamplePlaces(null);
+      setEnclosedPlaceType(placeType);
+    },
+    setStatVars: (statVars) => {
+      shouldUpdateHash.current.push(true);
+      setStatVars(statVars);
+    },
+    setVisType: (visType) => {
+      shouldUpdateHash.current.push(true);
+      setChildPlaceTypes(null);
+      setSamplePlaces(null);
+      setVisType(visType);
+    },
   };
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
 
@@ -110,76 +140,65 @@ export function AppContextProvider(
     return params.get(paramKey) || "";
   }
 
-  // Initialize context values from the url parameters
   useEffect(() => {
-    const placeDcidsValue = getParamValue(URL_PARAMS.PLACE);
-    const svDcidsValue = getParamValue(URL_PARAMS.STAT_VAR);
-    if (!_.isEmpty(placeDcidsValue)) {
-      const placeDcids = placeDcidsValue.split(PARAM_VALUE_SEP);
-      Promise.all(placeDcids.map((place) => getNamedTypedPlace(place))).then(
-        (places) => setPlaces(places)
-      );
-    }
-    if (!_.isEmpty(svDcidsValue)) {
-      const svValues = svDcidsValue
-        .split(PARAM_VALUE_SEP)
-        .map((sv) => JSON.parse(sv));
-      const svDcids = svValues.map((sv) => sv.dcid);
-      getStatVarInfo(svDcids).then((resp) => {
-        const statVars = svValues.map((sv) => {
-          if (sv.dcid in resp) {
-            return {
-              dcid: sv.dcid,
-              info: resp[sv.dcid],
-              isPerCapita:
-                sv[STAT_VAR_PARAM_KEYS.PER_CAPITA] === PARAM_VALUE_TRUE,
-              isLog: sv[STAT_VAR_PARAM_KEYS.LOG] === PARAM_VALUE_TRUE,
-            };
-          }
-        });
-        setStatVars(statVars);
-      });
-    }
+    // Update context value based off url on initial load
+    updateContextValue();
+
+    // Update the context value based off the url whenever the window history
+    // state changes (i.e., forward or back buttons are clicked)
+    window.addEventListener("popstate", updateContextValue);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("popstate", updateContextValue);
+    };
   }, []);
 
   // when list of places or vistype changes, re-fetch child place types
   useEffect(() => {
-    if (_.isEmpty(places) || visTypeConfig.skipEnclosedPlaceType) {
-      setChildPlaceTypes(null);
-      setSamplePlaces([]);
+    if (isContextLoading || _.isEmpty(places)) {
       return;
     }
     const getChildTypesFn =
       visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
-    getParentPlacesPromise(places[0].dcid)
-      .then((parentPlaces) => {
-        const newChildPlaceTypes = getChildTypesFn(places[0], parentPlaces);
+    getChildTypesPromise(places[0], getChildTypesFn).then(
+      (newChildPlaceTypes) => {
         if (_.isEqual(newChildPlaceTypes, childPlaceTypes)) {
           return;
         }
         setChildPlaceTypes(newChildPlaceTypes);
-      })
-      .catch(() => {
-        setChildPlaceTypes([]);
-      });
+      }
+    );
   }, [places, visTypeConfig]);
 
   // When child place types updates, update the selected enclosed place type
   useEffect(() => {
-    if (_.isEmpty(childPlaceTypes)) {
-      setEnclosedPlaceType("");
+    if (isContextLoading || childPlaceTypes === null) {
       return;
     }
-    if (childPlaceTypes.findIndex((type) => type === enclosedPlaceType) >= 0) {
-      return;
+    let newEnclosedPlaceType = "";
+    // auto-magically select enclosed place type if there was already an
+    // enclosed place type selected previously or if the enclosed place type
+    // selector gets skipped.
+    if (
+      !_.isEmpty(childPlaceTypes) &&
+      (!!enclosedPlaceType || visTypeConfig.skipEnclosedPlaceType)
+    ) {
+      newEnclosedPlaceType =
+        childPlaceTypes.findIndex((type) => type === enclosedPlaceType) >= 0
+          ? enclosedPlaceType
+          : childPlaceTypes[0];
     }
-    setEnclosedPlaceType(childPlaceTypes[0]);
-  }, [childPlaceTypes]);
+    if (newEnclosedPlaceType !== enclosedPlaceType) {
+      shouldUpdateHash.current.push(false);
+      setEnclosedPlaceType(newEnclosedPlaceType);
+    }
+  }, [childPlaceTypes, isContextLoading]);
 
   // when list of places, enclosed place type, or vis type changes, update the
   // list of sample places to use for sv hierarchy.
   useEffect(() => {
-    if (_.isEmpty(places)) {
+    if (isContextLoading || _.isEmpty(places)) {
       return;
     }
     if (visTypeConfig.skipEnclosedPlaceType) {
@@ -188,77 +207,59 @@ export function AppContextProvider(
       if (!enclosedPlaceType) {
         return;
       }
-      getEnclosedPlacesPromise(places[0].dcid, enclosedPlaceType)
-        .then((enclosedPlaces) => {
-          const samplePlaces = getSamplePlaces(
-            places[0].dcid,
-            enclosedPlaceType,
-            enclosedPlaces
-          );
+      getSamplePlacesPromise(places[0].dcid, enclosedPlaceType).then(
+        (samplePlaces) => {
           setSamplePlaces(samplePlaces);
-        })
-        .catch(() => {
-          setSamplePlaces([]);
-        });
+        }
+      );
     }
   }, [places, enclosedPlaceType, visTypeConfig]);
 
   // when list of sample places used in the sv hierarchy changes, update the
   // list of selected stat vars
   useEffect(() => {
-    if (samplePlaces !== prevSamplePlaces.current) {
-      prevSamplePlaces.current = samplePlaces;
-    }
-    if (statVars !== prevStatVars.current) {
-      prevStatVars.current = statVars;
-    }
-    if (_.isEmpty(samplePlaces) || _.isEmpty(statVars)) {
+    if (isContextLoading || samplePlaces === null) {
       return;
     }
-    axios
-      .post("/api/observation/existence", {
-        entities: samplePlaces.map((place) => place.dcid),
-        variables: statVars.map((sv) => sv.dcid),
-      })
-      .then((resp) => {
-        const availableSVs = new Set();
-        for (const sv of statVars) {
-          // sv is used if there is even one entity(place) has observations.
-          // This is apparently very loose and can be tightened by making this
-          // a percentage of all entities.
-          let available = false;
-          for (const entity in resp.data[sv.dcid]) {
-            if (resp.data[sv.dcid][entity]) {
-              available = true;
-              break;
-            }
-          }
-          if (available) {
-            availableSVs.add(sv.dcid);
-          }
-        }
-        const filteredStatVars = statVars.filter((sv) =>
-          availableSVs.has(sv.dcid)
-        );
+    if (
+      _.isEqual(prevSamplePlaces.current, samplePlaces) &&
+      _.isEqual(prevStatVars.current, statVars)
+    ) {
+      return;
+    }
+    prevSamplePlaces.current = samplePlaces;
+    prevStatVars.current = statVars;
+    getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig).then(
+      (filteredStatVars) => {
         if (!_.isEqual(filteredStatVars, statVars)) {
-          setStatVars(statVars.filter((sv) => availableSVs.has(sv.dcid)));
+          shouldUpdateHash.current.push(false);
+          setStatVars(filteredStatVars);
         }
-      });
+      }
+    );
   }, [samplePlaces, statVars]);
 
   // when the vis type changes, update the list of places and list of stat vars
   // according to the config for that vis type.
   useEffect(() => {
+    if (isContextLoading) {
+      return;
+    }
     if (visTypeConfig.singlePlace && places.length > 1) {
+      shouldUpdateHash.current.push(false);
       setPlaces(places.slice(0, 1));
     }
     if (visTypeConfig.numSv && statVars.length > visTypeConfig.numSv) {
+      shouldUpdateHash.current.push(false);
       setStatVars(statVars.slice(0, visTypeConfig.numSv));
     }
   }, [visTypeConfig]);
 
-  // when any value in the context changes, update the url hash.
+  // when values in the context changes, update the url hash.
   useEffect(() => {
+    if (isContextLoading || !shouldUpdateHash.current.shift()) {
+      return;
+    }
     const params = {
       [URL_PARAMS.VIS_TYPE]: visType,
       [URL_PARAMS.PLACE]: places
@@ -273,6 +274,12 @@ export function AppContextProvider(
           }
           if (sv.isLog) {
             svValue[STAT_VAR_PARAM_KEYS.LOG] = PARAM_VALUE_TRUE;
+          }
+          if (sv.date) {
+            svValue[STAT_VAR_PARAM_KEYS.DATE] = sv.date;
+          }
+          if (sv.denom) {
+            svValue[STAT_VAR_PARAM_KEYS.DENOM] = sv.denom;
           }
           return JSON.stringify(svValue);
         })
@@ -290,11 +297,164 @@ export function AppContextProvider(
     if (newHash && newHash !== currentHash) {
       history.pushState({}, "", `/tools/visualization#${newHash}`);
     }
-  });
+    // For all values in this dependency array, setting the value should always
+    // be preceded by shouldUpdateHash.current.push()
+  }, [places, enclosedPlaceType, statVars, visType]);
 
   return (
     <AppContext.Provider value={contextValue}>
       {props.children}
     </AppContext.Provider>
   );
+
+  // Updates context values based off URL params
+  function updateContextValue(): void {
+    setIsContextLoading(true);
+    const placeDcidsValue = getParamValue(URL_PARAMS.PLACE);
+    const svDcidsValue = getParamValue(URL_PARAMS.STAT_VAR);
+    const enclosedPlaceTypeValue = getParamValue(
+      URL_PARAMS.ENCLOSED_PLACE_TYPE || ""
+    );
+    const visType =
+      getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf();
+    const visTypeConfig = VIS_TYPE_CONFIG[visType];
+    let placesPromise = Promise.resolve([]);
+    let statVarsPromise = Promise.resolve([]);
+    let childTypesPromise = Promise.resolve(null);
+    let samplePlacesPromise = Promise.resolve([]);
+    let enclosedPlaceTypePromise = Promise.resolve(enclosedPlaceTypeValue);
+    if (!_.isEmpty(placeDcidsValue)) {
+      // place promise gets the NamedTypedPlace for each place dcid from
+      // the URL
+      const placeDcids = placeDcidsValue.split(PARAM_VALUE_SEP);
+      placesPromise = Promise.all(
+        placeDcids.map((place) => getNamedTypedPlace(place))
+      ).then((places) => {
+        return places;
+      });
+      // childTypesPromise gets getChildTypes after place promise completes
+      const getChildTypesFn =
+        visTypeConfig.getChildTypesFn || getEnclosedPlaceTypes;
+      childTypesPromise = placesPromise.then((places) => {
+        return getChildTypesPromise(places[0], getChildTypesFn);
+      });
+      // enclosedPlaceTypePromise gets the enclosed place type once
+      // childTypesPromise completes
+      enclosedPlaceTypePromise = childTypesPromise.then((childTypes) => {
+        let enclosedPlaceType = "";
+        if (!_.isEmpty(childTypes)) {
+          enclosedPlaceType =
+            childTypes.findIndex((type) => type === enclosedPlaceTypeValue) >= 0
+              ? enclosedPlaceTypeValue
+              : childTypes[0];
+        }
+        return enclosedPlaceType;
+      });
+      // if this vis type skips enclosed place type, samplePlacesPromise is the
+      // same as the placesPromise. otherwise, get sample places after
+      // enclosedPlaceTypePromise completes
+      samplePlacesPromise = visTypeConfig.skipEnclosedPlaceType
+        ? placesPromise
+        : enclosedPlaceTypePromise.then((enclosedPlaceType) => {
+            return getSamplePlacesPromise(placeDcids[0], enclosedPlaceType);
+          });
+    }
+    if (!_.isEmpty(svDcidsValue)) {
+      const svValues = svDcidsValue
+        .split(PARAM_VALUE_SEP)
+        .map((sv) => JSON.parse(sv));
+      const svDcids = svValues.map((sv) => sv.dcid);
+      // allStatVarsPromise gets the stat var info for every dcid in the URL
+      const allStatVarsPromise = getStatVarInfo(svDcids).then((resp) => {
+        const statVars = svValues.map((sv) => {
+          if (sv.dcid in resp) {
+            return {
+              dcid: sv.dcid,
+              info: resp[sv.dcid],
+              isPerCapita:
+                sv[STAT_VAR_PARAM_KEYS.PER_CAPITA] === PARAM_VALUE_TRUE,
+              isLog: sv[STAT_VAR_PARAM_KEYS.LOG] === PARAM_VALUE_TRUE,
+              date: sv[STAT_VAR_PARAM_KEYS.DATE] || "",
+              denom: sv[STAT_VAR_PARAM_KEYS.DENOM] || "",
+            };
+          }
+        });
+        return statVars;
+      });
+      // statVarsPromise gets the filtered stat vars once both
+      // allStatVarsPromise and samplePlacesPromise completes
+      statVarsPromise = Promise.all([
+        allStatVarsPromise,
+        samplePlacesPromise,
+      ]).then(([statVars, samplePlaces]) => {
+        return getFilteredStatVarPromise(samplePlaces, statVars, visTypeConfig);
+      });
+    }
+    // once every promise completes, set the values to the context
+    Promise.all([
+      placesPromise,
+      statVarsPromise,
+      childTypesPromise,
+      samplePlacesPromise,
+      enclosedPlaceTypePromise,
+    ])
+      .then(
+        ([places, statVars, childTypes, samplePlaces, enclosedPlaceType]) => {
+          const slicedPlaces = visTypeConfig.singlePlace
+            ? places.slice(0, 1)
+            : places;
+          const slicedSv = visTypeConfig.numSv
+            ? statVars.slice(0, visTypeConfig.numSv)
+            : statVars;
+          setEnclosedPlaceType(enclosedPlaceType);
+          setPlaces(slicedPlaces);
+          setStatVars(slicedSv);
+          setChildPlaceTypes(childTypes);
+          setSamplePlaces(samplePlaces);
+          setVisType(visType);
+          setIsContextLoading(false);
+        }
+      )
+      .catch(() => {
+        setIsContextLoading(false);
+      });
+  }
+}
+
+function getChildTypesPromise(
+  place: NamedTypedPlace,
+  getChildTypesFn: (
+    place: NamedTypedPlace,
+    parentPlaces: NamedTypedPlace[]
+  ) => string[]
+): Promise<string[]> {
+  return getParentPlacesPromise(place.dcid)
+    .then((parentPlaces) => {
+      return getChildTypesFn(place, parentPlaces);
+    })
+    .catch(() => {
+      return [];
+    });
+}
+
+// Gets a promise that returns sample places for a place and enclosed place type
+function getSamplePlacesPromise(
+  placeDcid: string,
+  enclosedPlaceType: string
+): Promise<NamedNode[]> {
+  if (!placeDcid || !enclosedPlaceType) {
+    return Promise.resolve([]);
+  }
+  return getEnclosedPlacesPromise(placeDcid, enclosedPlaceType)
+    .then((enclosedPlaces) => {
+      const samplePlaces = getSamplePlaces(
+        placeDcid,
+        enclosedPlaceType,
+        enclosedPlaces
+      );
+      return samplePlaces;
+    })
+    .catch(() => {
+      return [];
+    });
 }

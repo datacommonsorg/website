@@ -12,67 +12,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Person_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Individual Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Person_scatter",
+                      "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_scatter",
-                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
-                    ],
-                    "title": "Individual Median Earnings (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Earnings_Person_scatter",
-                      "Percent_Person_WithHighBloodPressure_scatter"
-                    ],
-                    "title": "Individual Median Earnings (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -107,10 +50,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_scatter",
+                      "Median_Income_Person_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -126,10 +69,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_scatter",
+                      "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -145,10 +88,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Mean_Income_Household_scatter",
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Average Income for Households (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Up to $9,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -164,10 +107,10 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_scatter",
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Median Family Household Income (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Earners Up to $9,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -183,10 +126,67 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold_scatter",
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Median Family Household Income (${yDate}) vs. High Bood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf25000To34999USDollar_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Earners Between $25,000 and $34,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf25000To34999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Between $25,000 and $34,999 Per Capita (${yDate}) vs. Percent of Adults with Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -195,17 +195,23 @@
           }
         ],
         "statVarSpec": {
-          "Mean_Income_Household_scatter": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
+          "Count_Person_IncomeOf10000To14999USDollar_scatter": {
+            "denom": "Count_Person",
+            "name": "Earners Between $10,000 and $14,999 Per Capita",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar",
+            "unit": "%"
           },
-          "Median_Earnings_Person_scatter": {
-            "name": "Individual Median Earnings",
-            "statVar": "Median_Earnings_Person"
+          "Count_Person_IncomeOf25000To34999USDollar_scatter": {
+            "denom": "Count_Person",
+            "name": "Earners Between $25,000 and $34,999 Per Capita",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar",
+            "unit": "%"
           },
-          "Median_Income_Household_FamilyHousehold_scatter": {
-            "name": "Median Family Household Income",
-            "statVar": "Median_Income_Household_FamilyHousehold"
+          "Count_Person_IncomeOfUpto9999USDollar_scatter": {
+            "denom": "Count_Person",
+            "name": "Earners Up to $9,999 Per Capita",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar",
+            "unit": "%"
           },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
@@ -221,7 +227,7 @@
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
-            "name": "High Bood Pressure",
+            "name": "High Blood Pressure",
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }

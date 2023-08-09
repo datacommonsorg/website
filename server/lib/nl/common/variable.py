@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List, Set
 
+from flask import current_app
+
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.topic as topic
@@ -194,26 +196,37 @@ def extend_svs(svs: List[str]):
   return res_ordered
 
 
-def get_sv_name(all_svs: List[str], sv_chart_titles: Dict) -> Dict:
+def get_sv_name(all_svs: List[str],
+                sv_chart_titles: Dict,
+                dc: str = constants.DCNames.MAIN_DC.value) -> Dict:
   sv2name_raw = fetch.property_values(all_svs, 'name')
   uncurated_names = {
       sv: names[0] if names else sv for sv, names in sv2name_raw.items()
   }
 
   sv_name_map = {}
-  # If a curated name is found return that,
-  # Else return the name property for SV.
+  # If a curated name is found (key exists + value non-empty)
+  # return that, Else return the name property for SV.
   for sv in all_svs:
-    if sv in topic.TOPIC_NAMES_OVERRIDE:
+    if topic.TOPIC_NAMES_OVERRIDE.get(sv):
       sv_name_map[sv] = topic.TOPIC_NAMES_OVERRIDE[sv]
-    elif sv in topic.SVPG_NAMES_OVERRIDE:
+    elif topic.SVPG_NAMES_OVERRIDE.get(sv):
       sv_name_map[sv] = topic.SVPG_NAMES_OVERRIDE[sv]
-    elif sv in constants.SV_DISPLAY_NAME_OVERRIDE:
+    elif constants.SV_DISPLAY_NAME_OVERRIDE.get(sv):
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
-    elif sv in sv_chart_titles:
+    elif sv_chart_titles.get(sv):
       sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv])
     else:
-      sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
+      # Topic and SVPG have a cache, so lookup name from there if its
+      # fresher.
+      if ('TOPIC_CACHE' in current_app.config and
+          (utils.is_svpg(sv) or utils.is_topic(sv))):
+        sv_name_map[sv] = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
+        if not sv_name_map[sv]:
+          # Very rare edge case.
+          sv_name_map[sv] = sv.replace('dc/topic/', '').replace('dc/svpg/', '')
+      else:
+        sv_name_map[sv] = clean_sv_name(uncurated_names[sv])
 
   return sv_name_map
 
