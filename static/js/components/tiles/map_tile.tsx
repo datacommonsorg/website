@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   addPolygonLayer,
   drawD3Map,
@@ -31,6 +32,7 @@ import {
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -50,12 +52,15 @@ import {
   getPlaceChartData,
   MAP_URL_PATH,
   shouldShowBorder,
-  URL_PARAM_KEYS,
 } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -498,15 +503,12 @@ export function draw(
 }
 
 function getExploreMoreUrl(props: MapTilePropType): string {
-  const params = {
-    [URL_PARAM_KEYS.SELECTED_PLACE_DCID]: props.place.dcid,
-    [URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE]: props.enclosedPlaceType,
-    [URL_PARAM_KEYS.PER_CAPITA]: props.statVarSpec.denom ? "1" : "",
-    [URL_PARAM_KEYS.STAT_VAR_DCID]: props.statVarSpec.statVar,
-    [URL_PARAM_KEYS.DENOM]: props.statVarSpec.denom,
-  };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${MAP_URL_PATH}#${hashParams.join("&")}`;
+  const hash = getHash(
+    VisType.MAP,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    [getContextStatVar(props.statVarSpec)],
+    {}
+  );
+  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
 }

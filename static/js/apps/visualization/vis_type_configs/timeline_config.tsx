@@ -140,7 +140,9 @@ function getChartArea(
               colors={COLORS}
               showLoadingSpinner={true}
             />
-            <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
+            {!_.isEmpty(chartPCInputs) && (
+              <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
+            )}
           </div>
         );
       })}

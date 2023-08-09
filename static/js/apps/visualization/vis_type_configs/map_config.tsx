@@ -73,7 +73,9 @@ export function getChartArea(
           date={date}
           allowZoom={true}
         />
-        <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
+        {!_.isEmpty(perCapitaInputs) && (
+          <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
+        )}
       </div>
       <div className="chart">
         <RankingTile

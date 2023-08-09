@@ -22,12 +22,14 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   drawScatter,
   Point,
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
@@ -46,6 +48,10 @@ import {
   updateHashPlace,
 } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -437,30 +443,16 @@ export function draw(
 }
 
 function getExploreMoreUrl(props: ScatterTilePropType): string {
-  const yStatVar = props.statVarSpec[0];
-  const xStatVar = props.statVarSpec[1];
-  const xAxis = {
-    ...EmptyAxis,
-    statVarDcid: xStatVar.statVar,
-    log: xStatVar.log,
-    perCapita: !!xStatVar.denom,
-    denom: xStatVar.denom,
+  const displayOptions = {
+    scatterPlaceLables: props.scatterTileSpec.showPlaceLabels,
+    scatterQuadrants: props.scatterTileSpec.showQuadrants,
   };
-  const yAxis = {
-    ...EmptyAxis,
-    statVarDcid: yStatVar.statVar,
-    log: yStatVar.log,
-    perCapita: !!yStatVar.denom,
-    denom: yStatVar.denom,
-  };
-  const place = {
-    ...EmptyPlace,
-    enclosingPlace: props.place,
-    enclosedPlaceType: props.enclosedPlaceType,
-  };
-  let hash = updateHashAxis("", xAxis, true);
-  hash = updateHashAxis(hash, yAxis, false);
-  hash = updateHashPlace(hash, place);
-  hash = updateHashBoolean(hash, FieldToAbbreviation.showDensity, true);
-  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
+  const hash = getHash(
+    VisType.SCATTER,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
+    displayOptions
+  );
+  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
 }
