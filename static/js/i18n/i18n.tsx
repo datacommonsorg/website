@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -208,12 +208,16 @@ function formatNumber(
       break;
     case "%":
     case "Percent":
+    case "Percentage":
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
       break;
     case "MetricTon":
     case "t":
       unitKey = "metric-ton";
+      break;
+    case "Millions of tonnes":
+      unitKey = "mega-ton";
       break;
     case "kWh":
       unitKey = "kilowatt-hour";
@@ -282,14 +286,19 @@ function formatNumber(
  * @return localized display string for the number
  */
 function translateUnit(unit: string): string {
-  let messageId;
+  let messageId: string;
   switch (unit) {
     case "$":
       return "USD";
+    case "Percent":
+    case "Percentage":
     case "%":
       return "%";
     case "t":
       messageId = "metric-ton-display";
+      break;
+    case "Millions of tonnes":
+      messageId = "mega-ton-display";
       break;
     case "kWh":
       messageId = "kilowatt-hour-display";

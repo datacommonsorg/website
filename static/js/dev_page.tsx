@@ -22,15 +22,10 @@ import {
   DataPoint,
   PlotParams,
 } from "./chart/base";
-import {
-  drawGroupBarChart,
-  drawGroupLineChart,
-  drawHistogram,
-  drawLineChart,
-  drawStackBarChart,
-} from "./chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "./chart/draw_bar";
+import { drawHistogram } from "./chart/draw_histogram";
+import { drawGroupLineChart, drawLineChart } from "./chart/draw_line";
 import { chartTypeEnum } from "./chart/types";
-import { formatNumber } from "./i18n/i18n";
 import { StatVarInfo } from "./shared/stat_var";
 import { StatVarHierarchyType } from "./shared/types";
 import { randDomId } from "./shared/util";
@@ -80,7 +75,6 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.dataGroups,
         false,
         true,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -92,7 +86,6 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -104,7 +97,6 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
-        formatNumber,
         {
           unit: this.props.unit,
         }
@@ -116,8 +108,7 @@ class DevChart extends React.Component<DevChartPropType> {
         this.props.height,
         this.props.statVarInfo,
         this.props.dataGroupsDict,
-        this.props.plotParams,
-        formatNumber
+        this.props.plotParams
       );
     } else if (this.props.type == chartTypeEnum.HISTOGRAM) {
       drawHistogram(
@@ -125,7 +116,6 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataPoints,
-        formatNumber,
         {
           unit: this.props.unit,
         }

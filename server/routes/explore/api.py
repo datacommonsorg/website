@@ -25,9 +25,10 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-from server.lib.explore.detector import Params
 import server.lib.explore.detector as insight_detector
 import server.lib.explore.fulfiller as fulfillment
+from server.lib.explore.params import DCNames
+from server.lib.explore.params import Params
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
@@ -36,7 +37,6 @@ import server.lib.nl.config_builder.builder as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.topic_cache import DCNames
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 

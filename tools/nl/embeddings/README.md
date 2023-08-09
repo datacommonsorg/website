@@ -52,6 +52,16 @@ This is a common sheet across the different index sizes.
    ```bash
    /run.sh -l medium <path_to_local_model>
    ```
+
+   To create custom embeddings (using the finetuned model in PROD):
+   ```bash
+   ./run.sh -c <embeddings_size> <sheets_url> <worksheet_name>
+   ```
+
+   For example, to create the UN SDG embeddings: 
+   ```bash
+   ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_SVs
+   ```
    
 
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
