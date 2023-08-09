@@ -172,6 +172,7 @@ function getInfoContent(): JSX.Element {
 
 function getSqlQueryFn(appContext: AppContextType): () => string {
   const { chartOrder, groups } = groupStatVars(appContext);
+  // map of stat var dcid to the stat var object in the context.
   const svToContextSv = {};
   appContext.statVars.forEach((sv) => {
     svToContextSv[sv.dcid] = sv;
