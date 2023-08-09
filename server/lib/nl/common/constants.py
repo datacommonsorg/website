@@ -13,19 +13,11 @@
 # limitations under the License.
 """Various constants for NL detection."""
 
-from enum import Enum
 from typing import Dict, List
 
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
-
-
-class DCNames(str, Enum):
-  MAIN_DC = 'main'
-  SDG_DC = 'sdg'
-  SDG_MINI_DC = 'sdgmini'
-
 
 SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
 

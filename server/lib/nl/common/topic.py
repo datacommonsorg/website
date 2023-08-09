@@ -19,8 +19,8 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
+from server.lib.explore.params import DCNames
 from server.lib.nl.common import utils
-from server.lib.nl.common.constants import DCNames
 import server.lib.nl.common.counters as ctr
 
 TOPIC_RANK_LIMIT = 3
@@ -339,6 +339,22 @@ def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
     return []
   parents = _parents_raw(topics, 'relevantVariable', dc)
   return parents
+
+
+def _get_ancestors_recursive(topic: str, dc: str, result: List[str]):
+  resp = get_parent_topics(topic, dc)
+  if not resp:
+    return
+  resp.sort(key=lambda x: x['dcid'])
+  resp = resp[0]
+  result.append(resp)
+  _get_ancestors_recursive(resp['dcid'], dc, result)
+
+
+def get_ancestors(topic: str, dc: str = DCNames.MAIN_DC.value):
+  result = []
+  _get_ancestors_recursive(topic, dc, result)
+  return result
 
 
 def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
