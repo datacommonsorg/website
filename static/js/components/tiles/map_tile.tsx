@@ -73,7 +73,6 @@ export interface MapTilePropType {
   colors?: string[];
   // Extra classes to add to the container.
   className?: string;
-  date?: string;
   enclosedPlaceType: string;
   id: string;
   // Parent places of the current place showing map for
@@ -136,7 +135,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
-        if (props && _.isEqual(data.props, props)) {
+        if (data && props && _.isEqual(data.props, props)) {
           setMapChartData(data);
         }
       })();
@@ -256,9 +255,8 @@ export const fetchData = async (
       nodes: [props.place.dcid],
     })
     .then((resp) => resp.data);
-  const dataDate = props.date
-    ? props.date
-    : getCappedStatVarDate(props.statVarSpec.statVar);
+  const dataDate =
+    props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get(`${props.apiRoot || ""}/api/observations/point/within`, {
       params: {

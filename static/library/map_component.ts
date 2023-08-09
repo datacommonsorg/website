@@ -130,7 +130,6 @@ export class DatacommonsMapComponent extends LitElement {
     const mapTileProps: MapTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
-      date: this.date,
       enclosedPlaceType: childPlaceType,
       id: `chart-${_.uniqueId()}`,
       place: {
@@ -145,6 +144,7 @@ export class DatacommonsMapComponent extends LitElement {
         scaling: 1,
         statVar: variable,
         unit: "",
+        date: this.date,
       },
       svgChartHeight: 200,
       title: this.title,
