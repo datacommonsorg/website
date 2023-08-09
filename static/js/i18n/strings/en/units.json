@@ -1,6 +1,6 @@
 {
   "metric-ton": {
-    "defaultMessage": "{0} haha"
+    "defaultMessage": "{0} t"
   },
   "metric-ton-display": {
     "defaultMessage": "metric tons"

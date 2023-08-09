@@ -33,7 +33,7 @@ function setup_python_nl {
 # Run test for client side code.
 function run_npm_test {
   cd static
-  npm run test i18n.test.ts
+  npm run test
   cd ..
 }
 
