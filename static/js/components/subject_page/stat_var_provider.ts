@@ -37,7 +37,7 @@ export class StatVarProvider {
     if (!(key in this._statVarSpecMap)) {
       return null;
     }
-    let spec = _.cloneDeep(this._statVarSpecMap[key]);
+    const spec = _.cloneDeep(this._statVarSpecMap[key]);
     if (blockDenom) {
       spec.denom = blockDenom;
       spec.scaling = PER_CAPITA_SCALING;
