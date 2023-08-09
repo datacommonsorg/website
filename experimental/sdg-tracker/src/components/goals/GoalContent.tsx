@@ -1,13 +1,13 @@
-import { Layout, theme } from "antd";
+import { Layout } from "antd";
 import React, { useMemo } from "react";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
 
 const InnerContent = styled.div`
   margin: 0;
-  min-height: 280px;
   padding: 24px;
   background: white;
+  border-radius: 1rem;
 `;
 
 interface ChartConfig {
@@ -32,22 +32,11 @@ const DataCommonsChart: React.FC<{
         variables={config.variables.join(" ")}
         yAxisMargin={150}
       />
-
-      {/**@ts-ignore */}
-      <datacommons-bar
-        childPlaceType="Country"
-        sort="ascending"
-        maxPlaces={10}
-        parentPlace="Earth"
-        title={`${config.title} (ASCENDING)`}
-        variables={config.variables.join(" ")}
-        yAxisMargin={150}
-      />
     </div>
   );
 };
 
-const GlobalContent: React.FC<{
+const GoalContent: React.FC<{
   selectedVariableGroupDcid?: string;
 }> = (props) => {
   const { selectedVariableGroupDcid } = props;
@@ -80,30 +69,22 @@ const GlobalContent: React.FC<{
     return chartConfigsTraverse(selectedVariableGroupDcid);
   }, [selectedVariableGroupDcid]);
 
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
-
   if (!selectedVariableGroup) {
     return (
-      <Layout.Content
-        style={{
-          background: colorBgContainer,
-        }}
-      >
+      <Layout.Content>
         <InnerContent>
-          <h2>SDG Global Overview</h2>
-          <p>Select a topic from the menu on the left to get started.</p>
+          <h2>SDG Goals</h2>
+          <p>
+            Data Commons has indexed more than 3,000 statistical variables that
+            are indicators for SDG progress. Select a goal on the left to view
+            the data holdings.
+          </p>
         </InnerContent>
       </Layout.Content>
     );
   }
   return (
-    <Layout.Content
-      style={{
-        background: colorBgContainer,
-      }}
-    >
+    <Layout.Content>
       <InnerContent>
         <h2>{selectedVariableGroup.name}</h2>
         {chartConfigs &&
@@ -115,4 +96,4 @@ const GlobalContent: React.FC<{
   );
 };
 
-export default GlobalContent;
+export default GoalContent;

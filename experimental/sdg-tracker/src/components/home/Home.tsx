@@ -66,11 +66,11 @@ const Home = () => {
           </p>
           <HomeLinks>
             <Space>
-              <Link to="/global">
-                <Button size="large">Global Overview</Button>
+              <Link to="/goals">
+                <Button size="large">SDG Goals</Button>
               </Link>
-              <Link to="/country">
-                <Button size="large">Country View</Button>
+              <Link to="/explore">
+                <Button size="large">Explorer</Button>
               </Link>
             </Space>
           </HomeLinks>

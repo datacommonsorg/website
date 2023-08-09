@@ -1,8 +1,8 @@
 import { StoreProvider } from "easy-peasy";
 import { useEffect } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import Country from "./components/country/Country";
-import Global from "./components/global/Global";
+import Explore from "./components/explore/Explore";
+import Goals from "./components/goals/Goals";
 import Home from "./components/home/Home";
 import { store, useStoreActions } from "./state";
 
@@ -13,8 +13,8 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" Component={Home} />
-          <Route path="/global" Component={Global} />
-          <Route path="/country/:countryCode?" Component={Country} />
+          <Route path="/goals" Component={Goals} />
+          <Route path="/explore/:dcid?" Component={Explore} />
         </Routes>
       </HashRouter>
     </StoreProvider>

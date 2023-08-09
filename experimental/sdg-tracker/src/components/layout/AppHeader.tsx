@@ -85,7 +85,7 @@ const SubNavbarItemLink = styled.span<{ selected?: boolean }>`
       : null}
 `;
 
-const AppHeader = (props: { selected: "home" | "global" | "country" }) => {
+const AppHeader = (props: { selected: "home" | "goals" | "explore" }) => {
   const { selected } = props;
   return (
     <HeaderContainer>
@@ -118,16 +118,16 @@ const AppHeader = (props: { selected: "home" | "global" | "country" }) => {
           </Link>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/global">
-            <SubNavbarItemLink selected={selected === "global"}>
-              Global Overview
+          <Link to="/explore">
+            <SubNavbarItemLink selected={selected === "explore"}>
+              Explorer
             </SubNavbarItemLink>
           </Link>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/country">
-            <SubNavbarItemLink selected={selected === "country"}>
-              Country View
+          <Link to="/goals">
+            <SubNavbarItemLink selected={selected === "goals"}>
+              SDG Goals
             </SubNavbarItemLink>
           </Link>
         </HeaderNavItem>
