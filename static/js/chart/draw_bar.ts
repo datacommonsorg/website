@@ -48,6 +48,8 @@ export const HORIZONTAL_BAR_CHART = {
   marginRight: 30,
   marginTop: 30,
 };
+// Extra amount to shift axes tick labels by to account for the actual tick line
+const TICK_LABEL_PADDING = 10;
 
 /**
  * Draw stack bar chart.
@@ -845,7 +847,6 @@ export function drawHorizontalBarChart(
   const y = d3
     .scaleBand()
     .domain(dataGroups.map((dg) => dg.label))
-    .domain(dataGroups.map((dg) => dg.label))
     .rangeRound([marginTop, height - marginBottom])
     .padding(0.15);
 
@@ -870,8 +871,11 @@ export function drawHorizontalBarChart(
       );
     });
     // TODO (juliawu): This is set to account for tick length. We should
-    //                 calculate this instead of using a magic number.
-    maxLabelWidth += 10;
+    //                 calculate this instead of using a set number.
+    maxLabelWidth += TICK_LABEL_PADDING;
+    // Limit label width to 1/2 the width of the chart
+    // incase labels are extremely long
+    maxLabelWidth = Math.min(maxLabelWidth, chartWidth / 2);
   }
   // shift tick labels by max length so tick labels don't get cut off
   yAxis.attr("transform", `translate(${maxLabelWidth}, 0)`);

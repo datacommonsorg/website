@@ -473,11 +473,10 @@ export function getDisplayUnitAndLabel(
   let label = "";
   let displayUnit = unit;
   if (unit && unit.length > MAX_UNIT_LENGTH) {
-    if (unit.startsWith("% of ")) {
-      label = unit.slice("% of ".length);
+    label = unit;
+    if (unit.startsWith("%") || unit.toLowerCase().startsWith("percent")) {
       displayUnit = "%"; //leave percent sign with the number
     } else {
-      label = unit;
       displayUnit = "";
     }
   }
