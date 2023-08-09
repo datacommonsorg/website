@@ -88,7 +88,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
         <span
           title={`${formatNumber(
             props.currentTopic.meta.variableCount,
-            undefined,
+            "",
             true
           )}`}
         >

@@ -22,7 +22,6 @@ import React from "react";
 
 import { NamedTypedNode } from "../../shared/types";
 import { randDomId } from "../../shared/util";
-import { CategoryConfig } from "../../types/subject_page_proto_types";
 
 interface SidebarPropType {
   id: string;
@@ -34,7 +33,7 @@ interface SidebarPropType {
   /**
    * Categories from the page config.
    */
-  categories: CategoryConfig[];
+  childTopics: NamedTypedNode[];
   peerTopics: NamedTypedNode[];
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -67,12 +66,12 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
               )}
               <div className="sub-topic-group">
                 {isCurrentTopic &&
-                  props.categories &&
-                  props.categories.map((category) => {
-                    if (!category.dcid || category.dcid === topic.dcid) {
+                  props.childTopics &&
+                  props.childTopics.map((childTopic) => {
+                    if (!childTopic.dcid || childTopic.dcid === topic.dcid) {
                       return;
                     }
-                    const url = `/explore/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}`;
+                    const url = `/explore/#t=${childTopic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}`;
                     return (
                       <a
                         key={randDomId()}
@@ -82,7 +81,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                           props.setQuery("");
                         }}
                       >
-                        {category.title}
+                        {childTopic.name}
                       </a>
                     );
                   })}
