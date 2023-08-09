@@ -212,7 +212,6 @@ export function addXAxis(
 export function addYAxis(
   axis: d3.Selection<SVGGElement, any, any, any>,
   chartWidth: number,
-  formatNumberFn: (value: number, unit?: string) => string,
   yScale: d3.ScaleLinear<number, any>,
   textFontFamily?: string,
   unit?: string
@@ -227,7 +226,7 @@ export function addYAxis(
         .ticks(NUM_Y_TICKS)
         .tickSize(tickLength)
         .tickFormat((d) => {
-          return formatNumberFn(d.valueOf(), displayUnit);
+          return formatNumber(d.valueOf(), displayUnit);
         })
     )
     .call((g) => g.select(".domain").remove())
