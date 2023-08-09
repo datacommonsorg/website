@@ -198,8 +198,7 @@ export const TopEventTile = memo(function TopEventTile(
                         <span className="num-value">
                           {formatNumber(
                             event.severity[severityProp],
-                            props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false
+                            props.eventTypeSpec.defaultSeverityFilter.unit
                           )}
                         </span>
                       </td>

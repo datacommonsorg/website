@@ -448,8 +448,7 @@ export function draw(
     height,
     colorScale,
     chartData.unit,
-    0,
-    formatNumber
+    0
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
   const shouldUseBorderData =
