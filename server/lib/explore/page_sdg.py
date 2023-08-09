@@ -32,10 +32,19 @@ from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
+# This class identifies the hierarchy of topics under which
+# the main topic falls.
+#
+# If category/block is empty, then the sub-topics of the
+# main topic will be filled up.  Otherwise, the sub-topics
+# will not appear in the title.
 @dataclass
 class TopicTree:
+  # Topic for page-level title
   page: Dict = None
+  # Topic for category-level title
   category: Dict = None
+  # Topic for block-level title.
   block: Dict = None
 
 
