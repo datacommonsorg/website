@@ -283,6 +283,7 @@ function addQuadrants(
     .attr("y2", yScale(yMean))
     .attr("x1", 0)
     .attr("x2", chartWidth)
+    .attr("stroke", "red")
     .attr("class", "quadrant-line");
 
   quadrant

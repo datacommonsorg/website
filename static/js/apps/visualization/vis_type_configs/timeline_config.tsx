@@ -23,15 +23,14 @@ import React from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
+import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
 import { getTimelineSqlQuery } from "../../../tools/timeline/bq_query_utils";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
-import {
-  getFooterOptions,
-  getStatVarSpec,
-} from "../../../utils/app/visualization_utils";
+import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
+import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
 
 const COLORS = [
@@ -125,6 +124,7 @@ function getChartArea(
                   appContext.setStatVars(newStatVars);
                 },
                 label: "Per Capita",
+                gaEventParam: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
               },
             ];
         return (
@@ -140,7 +140,7 @@ function getChartArea(
               colors={COLORS}
               showLoadingSpinner={true}
             />
-            {getFooterOptions(chartPCInputs, [])}
+            <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
           </div>
         );
       })}
