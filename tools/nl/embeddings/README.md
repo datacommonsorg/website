@@ -63,6 +63,10 @@ This is a common sheet across the different index sizes.
    ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_SVs
    ```
    
+   To create the UN SDG embeddings only for the goals+indicator topics: 
+   ```bash
+   ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_GOALS_INDICATORS_ONLY
+   ```
 
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 
