@@ -94,6 +94,8 @@ export interface ScatterTileSpec {
   highlightTopLeft?: boolean;
   highlightBottomRight?: boolean;
   highlightBottomLeft?: boolean;
+  showPlaceLabels?: boolean;
+  showQuadrants?: boolean;
 }
 
 export interface BarTileSpec {

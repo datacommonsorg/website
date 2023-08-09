@@ -40,8 +40,7 @@ flags.DEFINE_string('existing_model_path', '',
                     'Path to an existing model (local)')
 flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
-flags.DEFINE_string('embeddings_size', '',
-                    'Valid values are: "small", "medium"')
+flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
 flags.DEFINE_string('local_sheets_csv_filepath',
                     'data/curated_input/sheets_svs.csv',
@@ -232,7 +231,6 @@ def build(ctx, sheets_url: str, worksheet_name: str,
 
 def main(_):
   assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
-  assert FLAGS.embeddings_size in ['small', 'medium']
 
   assert os.path.exists(os.path.join('data'))
 
@@ -249,8 +247,15 @@ def main(_):
     use_local_model = True
     model_version = os.path.basename(FLAGS.existing_model_path)
 
+  if not os.path.exists(os.path.join('data', 'preindex',
+                                     FLAGS.embeddings_size)):
+    os.mkdir(os.path.join('data', 'preindex', FLAGS.embeddings_size))
   local_merged_filepath = f'data/preindex/{FLAGS.embeddings_size}/sv_descriptions.csv'
   dup_names_filepath = f'data/preindex/{FLAGS.embeddings_size}/duplicate_names.csv'
+
+  if not os.path.exists(
+      os.path.join(FLAGS.autogen_input_basedir, FLAGS.embeddings_size)):
+    os.mkdir(os.path.join(FLAGS.autogen_input_basedir, FLAGS.embeddings_size))
   autogen_input_filepattern = f'{FLAGS.autogen_input_basedir}/{FLAGS.embeddings_size}/*.csv'
 
   gs = gspread.oauth()

@@ -313,6 +313,7 @@ const appActions: AppActions = {
       state.regions.byDcid[region.dcid] = region;
       state.regions.dcids.push(region.dcid);
     });
+
   }),
   setVariables: action((state, variables) => {
     variables.forEach((v) => {

@@ -24,7 +24,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
@@ -185,7 +184,6 @@ function draw(
     svgContainer,
     svgContainer.offsetWidth,
     chartData,
-    formatNumber,
     props.minSvgChartHeight,
     {
       colors: props.colors,

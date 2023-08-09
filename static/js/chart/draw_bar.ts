@@ -22,6 +22,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
+import { formatNumber } from "../i18n/i18n";
 import { DataGroup, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
@@ -55,7 +56,6 @@ export const HORIZONTAL_BAR_CHART = {
  * @param chartWidth
  * @param chartHeight
  * @param dataGroups
- * @param formatNumberFn
  * @param unit
  */
 export function drawStackBarChart(
@@ -64,7 +64,6 @@ export function drawStackBarChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
@@ -117,7 +116,6 @@ export function drawStackBarChart(
     tempYAxis,
     chartWidth,
     y,
-    formatNumberFn,
     TEXT_FONT_FAMILY,
     options?.unit
   );
@@ -142,14 +140,7 @@ export function drawStackBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(
-    yAxis,
-    chartWidth,
-    y,
-    formatNumberFn,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys, options?.colors);
@@ -634,7 +625,6 @@ function drawLollipops(
  * @param chartWidth width of chart
  * @param chartHeight height of chart
  * @param dataGroups data values to plot
- * @param formatNumberFn function to format y-axis values
  * @param options chart options
  * @param useLollipop whether to use lollipops instead of bars
  */
@@ -644,7 +634,6 @@ export function drawGroupBarChart(
   chartWidth: number,
   chartHeight: number,
   dataGroups: DataGroup[],
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: ChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
@@ -689,7 +678,6 @@ export function drawGroupBarChart(
     tempYAxis,
     chartWidth,
     y,
-    formatNumberFn,
     TEXT_FONT_FAMILY,
     options?.unit
   );
@@ -719,14 +707,7 @@ export function drawGroupBarChart(
   // Update and redraw the y-axis based on the new x-axis height.
   y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
   tempYAxis.remove();
-  addYAxis(
-    yAxis,
-    chartWidth,
-    y,
-    formatNumberFn,
-    TEXT_FONT_FAMILY,
-    options?.unit
-  );
+  addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
   const colorFn = getColorFn(keys, options.colors);
@@ -755,14 +736,12 @@ export function drawGroupBarChart(
  * @param containerElement
  * @param chartWidth
  * @param dataGroups
- * @param formatNumberFn
  * @param options
  */
 export function drawHorizontalBarChart(
   containerElement: HTMLDivElement,
   chartWidth: number,
   dataGroups: DataGroup[],
-  formatNumberFn: (value: number, unit?: string) => string,
   options?: HorizontalBarChartOptions
 ): void {
   if (_.isEmpty(dataGroups)) {
@@ -849,7 +828,7 @@ export function drawHorizontalBarChart(
         .axisTop(x)
         .ticks(NUM_Y_TICKS)
         .tickFormat((d) => {
-          return formatNumberFn(d.valueOf(), options?.unit);
+          return formatNumber(d.valueOf(), options?.unit);
         })
     )
     .call((g) =>

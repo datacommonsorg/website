@@ -18,9 +18,9 @@
 #
 
 import copy
-from enum import Enum
 from typing import Dict, List
 
+from server.lib.explore.params import Params
 from server.lib.nl.common import constants
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
@@ -32,17 +32,6 @@ from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
 _MAX_RETURNED_VARS = 10
-
-
-class Params(str, Enum):
-  ENTITIES = 'entities'
-  VARS = 'variables'
-  CHILD_TYPE = 'childEntityType'
-  CMP_ENTITIES = 'comparisonEntities'
-  CMP_VARS = 'comparisonVariables'
-  SESSION_ID = 'sessionId'
-  CTX = 'context'
-  DC = 'dc'
 
 
 def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:

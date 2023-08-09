@@ -341,6 +341,22 @@
   "placeSource": "CURRENT_QUERY",
   "relatedThings": {
     "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/CommuteMode",
+        "name": "Commute Mode",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/CommuteTime",
+        "name": "Commute Time",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "mainTopic": {
       "dcid": "dc/topic/WorkCommute",
       "name": "Commute",

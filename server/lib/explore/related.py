@@ -16,7 +16,7 @@
 import time
 from typing import Dict, List
 
-from server.lib.explore.detector import Params
+from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
@@ -33,6 +33,7 @@ def compute_related_things(state: ftypes.PopulateState,
       'childPlaces': {},
       'parentTopics': [],
       'peerTopics': [],
+      'childTopics': [],
       'mainTopic': {},
   }
 
@@ -71,6 +72,10 @@ def compute_related_things(state: ftypes.PopulateState,
       t = orig_var
     if t:
       related_things['mainTopic'] = t
+
+      # Get child topics.
+      related_things['childTopics'] = topic.get_child_topics([t['dcid']], dc)
+
       # Get parent topics.
       pt = topic.get_parent_topics(t['dcid'], dc)
       related_things['parentTopics'] = pt
@@ -81,6 +86,7 @@ def compute_related_things(state: ftypes.PopulateState,
         related_things['peerTopics'] = topic.get_child_topics([pt[0]], dc)
       if not related_things['peerTopics']:
         related_things['peerTopics'] = [t]
+
       # We found a topic, so break!
       break
 
