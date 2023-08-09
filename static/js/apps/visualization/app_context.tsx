@@ -40,6 +40,7 @@ const URL_PARAMS = {
   PLACE: "place",
   ENCLOSED_PLACE_TYPE: "placeType",
   STAT_VAR: "sv",
+  DISPLAY: "display",
 };
 const PARAM_VALUE_SEP = "___";
 const PARAM_VALUE_TRUE = "1";
@@ -50,6 +51,15 @@ const STAT_VAR_PARAM_KEYS = {
   DATE: "date",
   DENOM: "denom",
 };
+const DISPLAY_PARAM_KEYS = {
+  SCATTER_QUADRANTS: "q",
+  SCATTER_LABELS: "l",
+};
+
+interface DisplayOptions {
+  scatterPlaceLabels: boolean;
+  scatterQuadrants: boolean;
+}
 
 export interface ContextStatVar {
   dcid: string;
@@ -59,6 +69,7 @@ export interface ContextStatVar {
   date?: string;
   denom?: string;
 }
+
 export interface AppContextType {
   visType: string;
   places: NamedTypedPlace[];
@@ -66,11 +77,13 @@ export interface AppContextType {
   statVars: ContextStatVar[];
   childPlaceTypes: string[];
   samplePlaces: NamedNode[];
+  displayOptions: DisplayOptions;
   isContextLoading: boolean;
   setVisType: (visType: string) => void;
   setPlaces: (places: NamedTypedPlace[]) => void;
   setEnclosedPlaceType: (enclosedPlaceType: string) => void;
   setStatVars: (statVars: ContextStatVar[]) => void;
+  setDisplayOptions: (displayOptions: DisplayOptions) => void;
 }
 
 export const AppContext = createContext({} as AppContextType);
@@ -88,6 +101,7 @@ export function AppContextProvider(
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
+  const [displayOptions, setDisplayOptions] = useState(null);
   // for childPlaceTypes and samplePlaces, null means they haven't been fetched
   const [childPlaceTypes, setChildPlaceTypes] = useState(null);
   const [samplePlaces, setSamplePlaces] = useState(null);
@@ -108,6 +122,7 @@ export function AppContextProvider(
     childPlaceTypes,
     samplePlaces,
     isContextLoading,
+    displayOptions,
     setPlaces: (places) => {
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
@@ -128,6 +143,10 @@ export function AppContextProvider(
       setChildPlaceTypes(null);
       setSamplePlaces(null);
       setVisType(visType);
+    },
+    setDisplayOptions: (displayOptions) => {
+      shouldUpdateHash.current.push(true);
+      setDisplayOptions(displayOptions);
     },
   };
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
@@ -285,6 +304,16 @@ export function AppContextProvider(
         })
         .join(PARAM_VALUE_SEP),
     };
+    const displayValue = {};
+    if (displayOptions.scatterPlaceLabels) {
+      displayValue[DISPLAY_PARAM_KEYS.SCATTER_LABELS] = PARAM_VALUE_TRUE;
+    }
+    if (displayOptions.scatterQuadrants) {
+      displayValue[DISPLAY_PARAM_KEYS.SCATTER_QUADRANTS] = PARAM_VALUE_TRUE;
+    }
+    if (!_.isEmpty(displayValue)) {
+      params[URL_PARAMS.DISPLAY] = JSON.stringify(displayValue);
+    }
     let hash = "";
     Object.keys(params).forEach((key, idx) => {
       if (_.isEmpty(params[key])) {
@@ -299,7 +328,7 @@ export function AppContextProvider(
     }
     // For all values in this dependency array, setting the value should always
     // be preceded by shouldUpdateHash.current.push()
-  }, [places, enclosedPlaceType, statVars, visType]);
+  }, [places, enclosedPlaceType, statVars, visType, displayOptions]);
 
   return (
     <AppContext.Provider value={contextValue}>
@@ -318,6 +347,8 @@ export function AppContextProvider(
     const visType =
       getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf();
     const visTypeConfig = VIS_TYPE_CONFIG[visType];
+    const displayValue = getParamValue(URL_PARAMS.DISPLAY);
+    const displayParsedValue = displayValue ? JSON.parse(displayValue) : {};
     let placesPromise = Promise.resolve([]);
     let statVarsPromise = Promise.resolve([]);
     let childTypesPromise = Promise.resolve(null);
@@ -412,6 +443,14 @@ export function AppContextProvider(
           setChildPlaceTypes(childTypes);
           setSamplePlaces(samplePlaces);
           setVisType(visType);
+          setDisplayOptions({
+            scatterPlaceLabels:
+              displayParsedValue[DISPLAY_PARAM_KEYS.SCATTER_LABELS] ===
+              PARAM_VALUE_TRUE,
+            scatterQuadrants:
+              displayParsedValue[DISPLAY_PARAM_KEYS.SCATTER_QUADRANTS] ===
+              PARAM_VALUE_TRUE,
+          });
           setIsContextLoading(false);
         }
       )
