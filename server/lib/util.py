@@ -53,7 +53,9 @@ TOPIC_PAGE_CONFIGS = {
     'sdg': ['sdg'],
     'foodsecurity' : ['USA', 'CA'],
     'dc2_1' : ['COL'],
-    'dc2_2' : ['NGA']
+    'dc2_2' : ['NGA'],
+    'dc2_4' : ['USA'],
+    'playground' : ['US_Places']
 }
 
 # Levels range from 0 (fastest, least compression), to 9 (slowest, most
