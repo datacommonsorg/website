@@ -76,7 +76,7 @@ function getDisasterMapSvg(
   );
   const svg = mapContainer.querySelector("svg");
   svg.style.background = "#eee";
-  return getProcessedSvg(svg);
+  return getProcessedSvg(svg, true);
 }
 
 /**
