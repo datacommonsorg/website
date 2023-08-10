@@ -15,26 +15,88 @@
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "title": "Fertility Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_AsAFractionOfCount_Person": {
+            "name": "Count of Birth Event (Per Capita)",
+            "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
+          },
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"
+          },
+          "GrowthRate_Count_Person": {
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
           }
         }
       }
@@ -44,19 +106,24 @@
         "Country": "EurostatNUTS3"
       },
       "placeDcid": [
-        "country/GBR"
+        "country/TUR"
       ]
+    },
+    "suggestions": {
+      "NL_PLACE_DISAMBIGUATION": {},
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "United Kingdom",
+  "pastSourceContext": "",
   "place": {
-    "dcid": "country/GBR",
-    "name": "United Kingdom",
+    "dcid": "country/TUR",
+    "name": "Turkey",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "PAST_QUERY",
+  "placeSource": "CURRENT_QUERY",
   "svSource": "CURRENT_QUERY"
 }
