@@ -27,9 +27,10 @@ const MenuTitle = styled.div`
 `;
 
 const AppSidebar: React.FC<{
-  setSelectedVariableGroupDcid: (selectedVariableGroupDcid: string) => void;
+  variableDcid: string;
+  setVariableDcid: (variableDcid: string) => void;
 }> = (props) => {
-  const { setSelectedVariableGroupDcid } = props;
+  const { setVariableDcid, variableDcid } = props;
   const variableGroupHierarchy = useStoreState((s) => s.variableGroupHierarchy);
   const [siderHidden, setSiderHidden] = useState<boolean>(false);
 
@@ -52,13 +53,13 @@ const AppSidebar: React.FC<{
     >
       <MenuTitle>Goals</MenuTitle>
       <Menu
+        defaultSelectedKeys={[variableDcid]}
         mode="inline"
-        defaultSelectedKeys={["1"]}
         defaultOpenKeys={["1"]}
         style={{ borderRight: 0 }}
         items={variableGroupHierarchy}
         onClick={(item) => {
-          setSelectedVariableGroupDcid(item.key.replace("summary-", ""));
+          setVariableDcid(item.key.replace("summary-", ""));
         }}
       />
     </Sider>

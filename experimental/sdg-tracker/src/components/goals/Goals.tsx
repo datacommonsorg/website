@@ -17,6 +17,7 @@
 import { Breadcrumb, Layout } from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ROOT_SDG_VARIABLE_GROUP } from "../../utils/constants";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
 import AppLayout from "../layout/AppLayout";
@@ -26,14 +27,15 @@ import GoalContent from "./GoalContent";
 
 const Goals: React.FC = () => {
   const [selectedVariableGroupDcid, setSelectedVariableGroupDcid] =
-    useState<string>();
+    useState<string>(ROOT_SDG_VARIABLE_GROUP);
   return (
     <AppLayout>
       <AppHeader selected="goals" />
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
         <Layout style={{ height: "100%", flexGrow: 1 }}>
           <AppSidebar
-            setSelectedVariableGroupDcid={setSelectedVariableGroupDcid}
+            variableDcid={selectedVariableGroupDcid}
+            setVariableDcid={setSelectedVariableGroupDcid}
           />
           <Layout style={{ padding: "0 24px 24px", overflow: "auto" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>

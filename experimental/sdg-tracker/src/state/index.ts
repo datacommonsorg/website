@@ -25,7 +25,7 @@ import {
   Thunk,
   thunk,
 } from "easy-peasy";
-import React from "react";
+import React, { ReactNode } from "react";
 import styled from "styled-components";
 import appConfig from "../config/appConfig.json";
 import countries from "../config/countries.json";
@@ -97,7 +97,9 @@ export interface Variable {
 interface MenuItemType {
   key: string;
   label: string;
+  icon?: ReactNode;
   children?: MenuItemType[];
+  parents: string[];
 }
 
 /**
@@ -267,6 +269,7 @@ const appActions: AppActions = {
     async (actions, { rootTopics, variableGroupsByDcid, variablesByDcid }) => {
       const traverse = (
         variableGroupDcid: string,
+        parents: string[],
         summaryLevel?: string,
         iconUrl?: string
       ): any => {
@@ -285,6 +288,7 @@ const appActions: AppActions = {
                 variableGroupsByDcid[g].name.split(":")[0];
               return traverse(
                 g,
+                [g, ...parents],
                 nextSummaryLevel
                   ? `${nextSummaryLevel} ${vairableGroupNumber}`
                   : undefined
@@ -321,35 +325,40 @@ const appActions: AppActions = {
           children.unshift({
             key: `summary-${variableGroup.dcid}`,
             label: `${summaryLevel}`,
+            parents,
           });
         }
 
-        const item = {
-          key: variableGroupDcid,
-          label: variableGroup.name,
+        const item: MenuItemType = {
           children: children.length > 0 ? children : undefined,
-          _icon: iconUrl
+          icon: iconUrl
             ? React.createElement(MenuImageIcon, {
                 src: iconUrl,
               })
             : undefined,
-          get icon() {
-            return this._icon;
-          },
-          set icon(value) {
-            this._icon = value;
-          },
+          key: variableGroupDcid,
+          label: variableGroup.name,
+          parents,
         };
         return item;
       };
       const items = rootTopics.map((rootTopic, i) =>
         traverse(
           rootTopic.groupDcid,
+          [rootTopic.groupDcid],
           `Explore Goal ${i + 1}`,
           rootTopic.iconUrl
         )
       );
-      actions.setVariableGroupHierarchy(items);
+      const rootItem: MenuItemType = {
+        key: "dc/g/SDG",
+        label: "All Goals",
+        icon: React.createElement(MenuImageIcon, {
+          src: "/images/sdg-wheel-transparent.png",
+        }),
+        parents: [],
+      };
+      actions.setVariableGroupHierarchy([rootItem, ...items]);
     }
   ),
   setCountries: action((state, countries) => {

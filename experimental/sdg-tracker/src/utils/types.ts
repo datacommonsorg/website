@@ -37,8 +37,8 @@ export interface ChartConfigCategory {
   title: string;
 }
 export interface ChartConfig {
-  categories: ChartConfigCategory[];
-  metadata: {
+  categories?: ChartConfigCategory[];
+  metadata?: {
     containedPlaceTypes: {
       Place: string;
     };
