@@ -261,8 +261,14 @@ export const fetchData = async (props: ScatterTilePropType) => {
     props.place.dcid,
     props.enclosedPlaceType,
     [
-      { statVarDcid: props.statVarSpec[0].statVar },
-      { statVarDcid: props.statVarSpec[1].statVar },
+      {
+        statVarDcid: props.statVarSpec[0].statVar,
+        date: props.statVarSpec[0].date,
+      },
+      {
+        statVarDcid: props.statVarSpec[1].statVar,
+        date: props.statVarSpec[1].date,
+      },
     ],
     props.apiRoot
   );

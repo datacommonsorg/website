@@ -1,6 +1,24 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { gray } from "@ant-design/colors";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -48,11 +66,14 @@ const LogoSecondary = styled.div`
 
 const HeaderNav = styled.div`
   align-items: center;
-  border-bottom: 1px solid #f1f1f1;
   background-color: white !important;
+  border-bottom: 1px solid #f1f1f1;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  margin: auto;
+  overflow: auto;
+  /** Safe center prevents the navbar from getting cut off on small screens */
+  justify-content: safe center;
 
   &:hover {
     a {
@@ -63,6 +84,8 @@ const HeaderNav = styled.div`
 
 const HeaderNavItem = styled.div`
   padding: 0 0.85rem;
+  flex-shrink: 0;
+
   &:hover {
     background-color: #f8f8f8;
   }
@@ -85,7 +108,7 @@ const SubNavbarItemLink = styled.span<{ selected?: boolean }>`
       : null}
 `;
 
-const AppHeader = (props: { selected: "home" | "global" | "country" }) => {
+const AppHeader = (props: { selected: HeaderOptions }) => {
   const { selected } = props;
   return (
     <HeaderContainer>
@@ -118,19 +141,42 @@ const AppHeader = (props: { selected: "home" | "global" | "country" }) => {
           </Link>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/global">
-            <SubNavbarItemLink selected={selected === "global"}>
-              Global Overview
+          <Link to="/countries">
+            <SubNavbarItemLink selected={selected === "countries"}>
+              Countries / Regions
             </SubNavbarItemLink>
           </Link>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/country">
-            <SubNavbarItemLink selected={selected === "country"}>
-              Country View
+          <Link to="/goals">
+            <SubNavbarItemLink selected={selected === "goals"}>
+              Goals
             </SubNavbarItemLink>
           </Link>
         </HeaderNavItem>
+        <HeaderNavItem>
+          <Link to="/topics">
+            <SubNavbarItemLink selected={selected === "topics"}>
+              Topics
+            </SubNavbarItemLink>
+          </Link>
+        </HeaderNavItem>
+        <HeaderNavItem>
+          <Link to="/search">
+            <SubNavbarItemLink selected={selected === "search"}>
+              Search
+            </SubNavbarItemLink>
+          </Link>
+        </HeaderNavItem>
+        {/* 
+        <HeaderNavItem>
+          <Link to="/goals-legacy">
+            <SubNavbarItemLink selected={selected === "goals-legacy"}>
+              [TEST] Goals
+            </SubNavbarItemLink>
+          </Link>
+        </HeaderNavItem>
+        */}
       </HeaderNav>
     </HeaderContainer>
   );
