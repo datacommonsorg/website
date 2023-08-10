@@ -40,6 +40,10 @@ export function App(): JSX.Element {
     }))
     .filter((item) => !item.title || item.name !== topic) as Topic[];
 
+  let dc = "";
+  if (topic === "sdg") {
+    dc = "sdg";
+  }
   if (!topic) {
     return (
       <div className="explore-container">
@@ -58,8 +62,8 @@ export function App(): JSX.Element {
       ? currentTopic.examples.general[0]
       : { title: "family earnings in california" };
   const placeholderHref =
-    placeholderQuery.url ||
-    `/explore#q=${encodeURIComponent(placeholderQuery.title)}`;
+    `/explore#${placeholderQuery.url}` ||
+    `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;
   return (
     <div className="explore-container">
       <Container>
@@ -73,7 +77,7 @@ export function App(): JSX.Element {
               window.location.href =
                 q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
                   ? placeholderHref
-                  : `/explore#q=${encodeURIComponent(q)}`;
+                  : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
             }}
             placeholder={`For example, "${placeholderQuery.title}"`}
             initialValue={""}
