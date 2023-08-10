@@ -15,7 +15,7 @@
  */
 
 /**
- * Glboal state management.
+ * Global state management.
  */
 import {
   Action,
@@ -27,8 +27,15 @@ import {
 } from "easy-peasy";
 import React from "react";
 import styled from "styled-components";
+import appConfig from "../config/appConfig.json";
 import countries from "../config/countries.json";
 import rootTopics from "../config/rootTopics.json";
+import DataCommonsClient from "../utils/DataCommonsClient";
+import { FulfillResponse } from "../utils/types";
+
+const dataCommonsClient = new DataCommonsClient({
+  apiRoot: appConfig.webApiEndpoint,
+});
 
 /**
  * Regex for matching SDG variable group names
@@ -131,6 +138,11 @@ export interface AppModel {
       [dcid: string]: VariableGroup;
     };
   };
+  fulfillments: {
+    byId: {
+      [key: string]: FulfillResponse;
+    };
+  };
   variableGroupHierarchy: MenuItemType[];
   rootTopics: RootTopic[];
 }
@@ -146,8 +158,22 @@ export interface AppActions {
   setVariableGroupHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
+  setFulfillment: Action<
+    AppModel,
+    { key: string; fulfillment: FulfillResponse }
+  >;
 
   // Thunks (async methods that do not manipulate the state directly)
+  fetchTopicFulfillment: Thunk<
+    AppActions,
+    {
+      entityDcids: string[];
+      fulfillmentsById: {
+        [key: string]: FulfillResponse;
+      };
+      variableDcids: string[];
+    }
+  >;
   initializeAppState: Thunk<AppActions>;
   initializeSdgHierarchy: Thunk<
     AppActions,
@@ -181,6 +207,9 @@ const appModel: AppModel = {
   variableGroups: {
     byDcid: {},
   },
+  fulfillments: {
+    byId: {},
+  },
   rootTopics: [],
   variableGroupHierarchy: [],
 };
@@ -209,6 +238,31 @@ const appActions: AppActions = {
       variablesByDcid: sdgConfig.variablesById,
     });
   }),
+
+  fetchTopicFulfillment: thunk(
+    async (actions, { entityDcids, fulfillmentsById, variableDcids }) => {
+      const fulfillKey = [
+        ...[...entityDcids].sort(),
+        ...[...variableDcids].sort(),
+      ].join(",");
+      if (fulfillKey in fulfillmentsById) {
+        return fulfillmentsById[fulfillKey];
+      }
+      const fulfillment = await dataCommonsClient.fulfill({
+        dc: "sdg",
+        entities: entityDcids,
+        variables: variableDcids,
+        childEntityType: "",
+        comparisonEntities: [],
+        comparisonVariables: [],
+      });
+      actions.setFulfillment({
+        key: fulfillKey,
+        fulfillment,
+      });
+      return fulfillment;
+    }
+  ),
   initializeSdgHierarchy: thunk(
     async (actions, { rootTopics, variableGroupsByDcid, variablesByDcid }) => {
       const traverse = (
@@ -313,7 +367,6 @@ const appActions: AppActions = {
       state.regions.byDcid[region.dcid] = region;
       state.regions.dcids.push(region.dcid);
     });
-
   }),
   setVariables: action((state, variables) => {
     variables.forEach((v) => {
@@ -330,6 +383,9 @@ const appActions: AppActions = {
   }),
   setVariableGroupHierarchy: action((state, items) => {
     state.variableGroupHierarchy = [...items];
+  }),
+  setFulfillment: action((state, { key, fulfillment }) => {
+    state.fulfillments.byId[key] = { ...fulfillment };
   }),
 };
 
