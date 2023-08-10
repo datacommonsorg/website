@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React from "react";
 
 import { NamedTypedPlace } from "../../shared/types";
@@ -23,6 +24,7 @@ interface ParentPlacePropsType {
   placeType: string;
   topic: string;
   dc: string;
+  onClick?: () => void;
 }
 
 class ParentPlace extends React.Component<ParentPlacePropsType> {
@@ -46,6 +48,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
                   className="parent-place-link"
                   key={parent.dcid}
                   href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
+                  onClick={this.props.onClick || _.noop}
                 >
                   {parent.name}
                 </a>
@@ -56,6 +59,7 @@ class ParentPlace extends React.Component<ParentPlacePropsType> {
                 <a
                   className="parent-place-link"
                   href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
+                  onClick={this.props.onClick || _.noop}
                 >
                   {parent.name}
                 </a>

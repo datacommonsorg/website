@@ -14,11 +14,28 @@
  * limitations under the License.
  */
 
-import { Layout } from "antd";
-import styled from "styled-components";
+/**
+ * Constants used by the visualization app.
+ */
 
-const AppLayout = styled(Layout)`
-  height: 100vh;
-`;
-
-export default AppLayout;
+export const URL_PATH = "/tools/visualization";
+export const URL_PARAMS = {
+  VIS_TYPE: "visType",
+  PLACE: "place",
+  ENCLOSED_PLACE_TYPE: "placeType",
+  STAT_VAR: "sv",
+  DISPLAY: "display",
+};
+export const PARAM_VALUE_SEP = "___";
+export const PARAM_VALUE_TRUE = "1";
+export const STAT_VAR_PARAM_KEYS = {
+  DCID: "dcid",
+  PER_CAPITA: "pc",
+  LOG: "log",
+  DATE: "date",
+  DENOM: "denom",
+};
+export const DISPLAY_PARAM_KEYS = {
+  SCATTER_QUADRANTS: "q",
+  SCATTER_LABELS: "l",
+};

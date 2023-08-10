@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-import { Layout } from "antd";
-import styled from "styled-components";
+import AppFooter from "../layout/AppFooter";
+import AppHeader from "../layout/AppHeader";
+import AppLayout from "../layout/AppLayout";
+import AppLayoutContent from "../layout/AppLayoutContent";
 
-const AppLayout = styled(Layout)`
-  height: 100vh;
-`;
-
-export default AppLayout;
+const Search = () => {
+  return (
+    <AppLayout>
+      <AppHeader selected="topics" />
+      <AppLayoutContent>
+        <h3 style={{ margin: "2rem auto", textAlign: "center" }}>
+          Search coming soon...
+        </h3>
+      </AppLayoutContent>
+      <AppFooter />
+    </AppLayout>
+  );
+};
+export default Search;
