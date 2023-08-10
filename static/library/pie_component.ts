@@ -65,6 +65,10 @@ export class DatacommonsPieComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   // List of DCIDs of statistical variables to plot
   // !Important: variables provided must cover all cases (sum of values takes
   //             up the full circle)
@@ -79,10 +83,6 @@ export class DatacommonsPieComponent extends LitElement {
   // DCID of the parent place
   @property()
   place!: string;
-
-  // Title of the chart
-  @property()
-  title!: string;
 
   render(): HTMLElement {
     const statVarSpec = [];
@@ -108,7 +108,7 @@ export class DatacommonsPieComponent extends LitElement {
       },
       statVarSpec,
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(DonutTile, donutTileProps), mountPoint);

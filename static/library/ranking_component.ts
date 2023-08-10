@@ -64,7 +64,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // Title of the chart
   @property()
-  title!: string;
+  header!: string;
 
   // DCID of the parent place
   @property()
@@ -109,7 +109,7 @@ export class DatacommonsRankingComponent extends LitElement {
           unit: "",
         },
       ],
-      title: this.title,
+      title: this.header,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(

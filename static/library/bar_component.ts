@@ -106,6 +106,12 @@ export class DatacommonsBarComponent extends LitElement {
   colors?: string[];
 
   /**
+   * Title of the chart
+   */
+  @property()
+  header!: string;
+
+  /**
    * Optional: Render bars horizontally instead of vertically
    */
   @property({ type: Boolean })
@@ -151,12 +157,6 @@ export class DatacommonsBarComponent extends LitElement {
   stacked?: boolean;
 
   /**
-   * Title of the chart
-   */
-  @property()
-  title!: string;
-
-  /**
    * List of DCIDs of the statistical variable(s) to plot values for
    */
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -200,7 +200,7 @@ export class DatacommonsBarComponent extends LitElement {
       stacked: this.stacked,
       statVarSpec,
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
     };

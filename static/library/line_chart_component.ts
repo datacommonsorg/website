@@ -58,6 +58,9 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
   /**
    * @deprecated
    * DCID of the place to plot
@@ -73,10 +76,6 @@ export class DatacommonsLineComponent extends LitElement {
   // If provided, parentPlace and childPlaceType will be ignored
   @property({ type: Array<string>, converter: convertArrayAttribute })
   places!: string[];
-
-  // Title of the chart
-  @property()
-  title!: string;
 
   // Statistical variable DCIDs
   @property({ type: Array<string>, converter: convertArrayAttribute })
@@ -104,7 +103,7 @@ export class DatacommonsLineComponent extends LitElement {
         unit: "",
       })),
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(LineTile, tileProps), mountPoint);
