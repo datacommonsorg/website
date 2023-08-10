@@ -19,21 +19,21 @@
  */
 import React, { RefObject, useRef } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ASYNC_ELEMENT_CLASS } from "../../constants/css_constants";
-import { TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
-import { placeSep } from "../../tools/timeline/util";
 import {
   RankingData,
   RankingGroup,
   RankingPoint,
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
+import { getHash } from "../../utils/app/visualization_utils";
 import { formatString } from "../../utils/tile_utils";
 import { RankingUnit } from "../ranking_unit";
 import { ChartFooter } from "./chart_footer";
 
 const RANKING_COUNT = 5;
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 interface SvRankingUnitsProps {
   rankingData: RankingData;
@@ -274,14 +274,12 @@ function getExploreMoreUrl(
     : rankingGroup.points
         .slice(0, rankingCount)
         .map((point) => point.placeDcid);
-  const params = {
-    [TIMELINE_URL_PARAM_KEYS.PLACE]: places.join(placeSep),
-    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVar,
-  };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
-    "&"
-  )}`;
+  const hash = getHash(
+    VisType.TIMELINE,
+    places,
+    "",
+    [{ dcid: props.statVar, info: {} }],
+    {}
+  );
+  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
 }
