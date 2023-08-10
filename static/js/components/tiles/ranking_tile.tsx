@@ -66,7 +66,6 @@ export interface RankingTilePropType {
   showExploreMore?: boolean;
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
-  date?: string;
   showLoadingSpinner?: boolean;
 }
 
@@ -182,7 +181,7 @@ export async function fetchData(
         continue;
       }
       const variableDate =
-        props.date || getCappedStatVarDate(sv) || LATEST_DATE_KEY;
+        spec.date || getCappedStatVarDate(sv) || LATEST_DATE_KEY;
       if (!dateToVariable[variableDate]) {
         dateToVariable[variableDate] = [];
       }

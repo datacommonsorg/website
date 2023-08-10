@@ -247,6 +247,7 @@ export function getStatVarSpec(
     scaling: 1,
     statVar: sv.dcid,
     unit: "",
+    date: visType !== VisType.TIMELINE ? sv.date : "",
   };
 }
 
