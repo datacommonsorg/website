@@ -95,7 +95,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
 
   return (
     <React.Fragment>
-      {rankingMetadata.showHighest && (
+      {rankingMetadata.showHighestLowest ? (
         <div
           className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
         >
@@ -118,30 +118,57 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             />
           )}
         </div>
-      )}
-      {rankingMetadata.showLowest && (
-        <div
-          className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
-        >
-          {getRankingUnit(
-            title,
-            statVar,
-            rankingGroup,
-            rankingMetadata,
-            false,
-            lowestRankingUnitRef,
-            props.onHoverToggled
+      ) : (
+        <>
+          {rankingMetadata.showHighest && (
+            <div
+              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} highest-ranking-container`}
+            >
+              {getRankingUnit(
+                title,
+                statVar,
+                rankingGroup,
+                rankingMetadata,
+                true,
+                highestRankingUnitRef,
+                props.onHoverToggled
+              )}
+              {!props.hideFooter && (
+                <ChartFooter
+                  sources={rankingGroup.sources}
+                  handleEmbed={() => handleEmbed(true)}
+                  exploreMoreUrl={
+                    props.showExploreMore ? getExploreMoreUrl(props, true) : ""
+                  }
+                />
+              )}
+            </div>
           )}
-          {!props.hideFooter && (
-            <ChartFooter
-              sources={rankingGroup.sources}
-              handleEmbed={() => handleEmbed(false)}
-              exploreMoreUrl={
-                props.showExploreMore ? getExploreMoreUrl(props, false) : ""
-              }
-            />
+          {rankingMetadata.showLowest && (
+            <div
+              className={`ranking-unit-container ${ASYNC_ELEMENT_CLASS} lowest-ranking-container`}
+            >
+              {getRankingUnit(
+                title,
+                statVar,
+                rankingGroup,
+                rankingMetadata,
+                false,
+                lowestRankingUnitRef,
+                props.onHoverToggled
+              )}
+              {!props.hideFooter && (
+                <ChartFooter
+                  sources={rankingGroup.sources}
+                  handleEmbed={() => handleEmbed(false)}
+                  exploreMoreUrl={
+                    props.showExploreMore ? getExploreMoreUrl(props, false) : ""
+                  }
+                />
+              )}
+            </div>
           )}
-        </div>
+        </>
       )}
     </React.Fragment>
   );
@@ -198,9 +225,18 @@ export function getRankingUnit(
   onHoverToggled?: (placeDcid: string, hover: boolean) => void
 ): JSX.Element {
   const rankingCount = rankingMetadata.rankingCount || RANKING_COUNT;
-  const points = isHighest
+  const topPoints = isHighest
     ? rankingGroup.points.slice(-rankingCount).reverse()
     : rankingGroup.points.slice(0, rankingCount);
+  let bottomPoints = null;
+  if (rankingMetadata.showHighestLowest) {
+    // we want a gap of at least 1 point between the top and bottom points
+    const numBottomPoints = Math.min(
+      rankingGroup.points.length - rankingCount - 1,
+      rankingCount
+    );
+    bottomPoints = rankingGroup.points.slice(0, numBottomPoints).reverse();
+  }
   const title = getRankingUnitTitle(
     tileConfigTitle,
     rankingMetadata,
@@ -215,7 +251,8 @@ export function getRankingUnit(
       forwardRef={rankingUnitRef}
       scaling={rankingGroup.scaling}
       title={title}
-      points={points}
+      topPoints={topPoints}
+      bottomPoints={bottomPoints}
       numDataPoints={rankingGroup.numDataPoints}
       isHighest={isHighest}
       svNames={

@@ -273,7 +273,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                   <div className="ranking-chart">
                     <RankingUnit
                       title="Highest"
-                      points={this.state.rankingGroup.rankingData.highest}
+                      topPoints={this.state.rankingGroup.rankingData.highest}
                       isHighest={true}
                       unit={[this.props.unit]}
                       highlightedDcid={this.props.dcid}
@@ -283,7 +283,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                     />
                     <RankingUnit
                       title="Lowest"
-                      points={this.state.rankingGroup.rankingData.lowest}
+                      topPoints={this.state.rankingGroup.rankingData.lowest}
                       isHighest={false}
                       unit={[this.props.unit]}
                       numDataPoints={this.state.rankingGroup.numDataPoints}
