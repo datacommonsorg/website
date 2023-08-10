@@ -199,6 +199,7 @@ export interface StatVarSpec {
   scaling: number;
   log: boolean;
   name?: string;
+  date?: string;
 }
 
 export interface SampleDates {
