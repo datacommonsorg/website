@@ -82,5 +82,7 @@
   padding: 0.3rem;
   cursor: default;
   max-height: 200px;
+  max-width: 300px;
   overflow: auto;
+  word-wrap: wrap;
 }
