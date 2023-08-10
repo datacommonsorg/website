@@ -170,7 +170,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Below International Poverty Line over time (Absolute change)"
+            "title": "Decrease in Population Below International Poverty Line over time (Absolute change)"
           },
           {
             "columns": [
@@ -339,7 +339,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Below International Poverty Line over time (Percent change)"
+            "title": "Decrease in Population Below International Poverty Line over time (Percent change)"
           },
           {
             "columns": [
@@ -508,7 +508,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Using Basic Drinking Water Services over time (Absolute change)"
+            "title": "Decrease in Population Using Basic Drinking Water Services over time (Absolute change)"
           },
           {
             "columns": [
@@ -677,7 +677,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Using Basic Drinking Water Services over time (Percent change)"
+            "title": "Decrease in Population Using Basic Drinking Water Services over time (Percent change)"
           },
           {
             "columns": [
@@ -846,7 +846,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Using Basic Sanitation Services over time (Absolute change)"
+            "title": "Decrease in Population Using Basic Sanitation Services over time (Absolute change)"
           },
           {
             "columns": [
@@ -1015,7 +1015,7 @@
                 ]
               }
             ],
-            "title": "Decrease in  Population Using Basic Sanitation Services over time (Percent change)"
+            "title": "Decrease in Population Using Basic Sanitation Services over time (Percent change)"
           },
           {
             "columns": [
@@ -1358,7 +1358,7 @@
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY1": {
-            "name": " Population Below International Poverty Line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
@@ -1366,11 +1366,11 @@
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SP_ACS_BSRVH2O": {
-            "name": " Population Using Basic Drinking Water Services",
+            "name": "Population Using Basic Drinking Water Services",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": " Population Using Basic Sanitation Services",
+            "name": "Population Using Basic Sanitation Services",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }

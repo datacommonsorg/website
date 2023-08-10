@@ -8,11 +8,11 @@
               {
                 "tiles": [
                   {
-                    "description": " Children/Households Receiving Family Cash Benefit in United States",
+                    "description": "Children/Households Receiving Family Cash Benefit in United States",
                     "statVarKey": [
                       "sdg/SI_COV_CHLD"
                     ],
-                    "title": " Children/Households Receiving Family Cash Benefit in United States",
+                    "title": "Children/Households Receiving Family Cash Benefit in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -55,7 +55,7 @@
         "dcid": "dc/topic/sdg_1.3",
         "statVarSpec": {
           "sdg/SI_COV_CHLD": {
-            "name": " Children/Households Receiving Family Cash Benefit",
+            "name": "Children/Households Receiving Family Cash Benefit",
             "statVar": "sdg/SI_COV_CHLD"
           },
           "sdg/SI_COV_CHLD.SEX--F": {
@@ -76,11 +76,11 @@
               {
                 "tiles": [
                   {
-                    "description": " Population Using Basic Drinking Water Services in United States",
+                    "description": "Population Using Basic Drinking Water Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": " Population Using Basic Drinking Water Services in United States",
+                    "title": "Population Using Basic Drinking Water Services in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -95,7 +95,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": " Population Using Basic Drinking Water Services in United States",
+                    "title": "Population Using Basic Drinking Water Services in United States",
                     "type": "LINE"
                   }
                 ]
@@ -169,11 +169,11 @@
               {
                 "tiles": [
                   {
-                    "description": " Population Using Basic Sanitation Services in United States",
+                    "description": "Population Using Basic Sanitation Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": " Population Using Basic Sanitation Services in United States",
+                    "title": "Population Using Basic Sanitation Services in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -188,7 +188,7 @@
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
-                    "title": " Population Using Basic Sanitation Services in United States",
+                    "title": "Population Using Basic Sanitation Services in United States",
                     "type": "LINE"
                   }
                 ]
@@ -199,7 +199,7 @@
         "dcid": "dc/topic/sdg_1.4",
         "statVarSpec": {
           "sdg/SP_ACS_BSRVH2O": {
-            "name": " Population Using Basic Drinking Water Services",
+            "name": "Population Using Basic Drinking Water Services",
             "statVar": "sdg/SP_ACS_BSRVH2O"
           },
           "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
@@ -211,7 +211,7 @@
             "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
           },
           "sdg/SP_ACS_BSRVSAN": {
-            "name": " Population Using Basic Sanitation Services",
+            "name": "Population Using Basic Sanitation Services",
             "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         },
@@ -470,49 +470,49 @@
     "childTopics": [
       {
         "dcid": "dc/topic/sdg_1.1",
-        "name": "1.1: By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $1.25 a day",
+        "name": "End Poverty by 2030",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.2",
-        "name": "1.2: By 2030, reduce at least by half the proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",
+        "name": "Reduce Poverty by Half by 2030",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.3",
-        "name": "1.3: Implement nationally appropriate social protection systems and measures for all, including floors, and by 2030 achieve substantial coverage of the poor and the vulnerable",
+        "name": "Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.4",
-        "name": "1.4: By 2030, ensure that all men and women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance",
+        "name": "Equal Rights and Access to Basic Services by 2030",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.5",
-        "name": "1.5: By 2030, build the resilience of the poor and those in vulnerable situations and reduce their exposure and vulnerability to climate-related extreme events and other economic, social and environmental shocks and disasters",
+        "name": "Reduce Extreme Climate Events And Disasters By 2030",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.a",
-        "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+        "name": "Resource Mobilization",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_1.b",
-        "name": "1.b: Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
+        "name": "Poverty Eradication Policy Frameworks",
         "types": [
           "Topic"
         ]
@@ -553,56 +553,56 @@
     "peerTopics": [
       {
         "dcid": "dc/topic/sdg_1",
-        "name": "1: No Poverty",
+        "name": "No Poverty",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_2",
-        "name": "2: Zero Hunger",
+        "name": "Zero Hunger",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_3",
-        "name": "3: Good Health and Well-being",
+        "name": "Good Health and Well-Being",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_4",
-        "name": "4: Quality Education",
+        "name": "Quality Education",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_5",
-        "name": "5: Gender Equality",
+        "name": "Gender Equality",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_6",
-        "name": "6: Clean Water and Sanitation",
+        "name": "Clean Water and Sanitation",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_7",
-        "name": "7: Affordable and Clean Energy",
+        "name": "Affordable and Clean Energy",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_8",
-        "name": "8: Decent Work and Economic Growth",
+        "name": "Decent Work and Economic Growth",
         "types": [
           "Topic"
         ]
