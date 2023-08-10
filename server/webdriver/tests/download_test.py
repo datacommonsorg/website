@@ -32,7 +32,7 @@ TABLE_HEADERS = [
     'Value:Count_Person', 'Source:Count_Person'
 ]
 TABLE_ROW_1 = [
-    'geoId/06001', 'Alameda County', '2020', '37.8',
+    'geoId/06001', 'Alameda County', '2021', '37.8',
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
     '2021', '1648556', 'https://www2.census.gov/programs-surveys/popest/tables'
 ]
