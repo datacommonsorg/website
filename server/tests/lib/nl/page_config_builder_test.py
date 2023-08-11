@@ -151,13 +151,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name compared with other variables in Foo Place"
+         title: "Count_Person_Male-name and more in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Per Capita Count_Person_Male-name compared with other variables in Foo Place"
+         title: "Per Capita Count_Person_Male-name and more in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -223,13 +223,13 @@ SIMPLE_WITH_TOPIC_CONFIG = """
     description: "svpg desc"
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place"
+         title: "FarmInventory_Rice-name and more in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place"
+         title: "Per Capita FarmInventory_Rice-name and more in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice_pc"
          stat_var_key: "FarmInventory_Barley_pc"
@@ -576,7 +576,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place (${date})"
+         title: "FarmInventory_Barley-name and more in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -584,7 +584,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place (${date})"
+         title: "Per Capita FarmInventory_Barley-name and more in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
