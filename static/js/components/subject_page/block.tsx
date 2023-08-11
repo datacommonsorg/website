@@ -219,6 +219,8 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            showTooltipOnHover={true}
+            colors={tile.lineTileSpec?.colors}
           />
         );
       case "RANKING":

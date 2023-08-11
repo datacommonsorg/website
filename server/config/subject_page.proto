@@ -206,6 +206,10 @@ message DonutTileSpec {
   bool pie = 2;
 }
 
+message LineTileSpec {
+  // colors to use
+  repeated string colors = 1;
+}
 message Tile {
   // When adding a new TileType:
   // - make sure to update verify_tile in subject_page_config_content_test.py
@@ -268,6 +272,7 @@ message Tile {
     BarTileSpec bar_tile_spec = 12;
     GaugeTileSpec gauge_tile_spec = 13;
     DonutTileSpec donut_tile_spec = 14;
+    LineTileSpec line_tile_spec = 15;
   }
 }
 

@@ -123,6 +123,9 @@ export interface DonutTileSpec {
   pie?: boolean;
 }
 
+export interface LineTileSpec {
+  colors?: string[];
+}
 export interface TileConfig {
   title?: string;
   description: string;
@@ -138,6 +141,7 @@ export interface TileConfig {
   barTileSpec?: BarTileSpec;
   gaugeTileSpec?: GaugeTileSpec;
   donutTileSpec?: DonutTileSpec;
+  lineTileSpec?: LineTileSpec;
 }
 
 export interface ColumnConfig {
