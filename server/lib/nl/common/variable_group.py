@@ -22,6 +22,7 @@ MAX_SVGS_IN_CALL = 50
 MAX_SVG_LEVELS = 10
 
 
+# Given a list of StatVarGroups, open them up into variables.
 def open_svgs(svgs: List[str]) -> Dict[str, variable.SV]:
   result = {}
   processed = set()

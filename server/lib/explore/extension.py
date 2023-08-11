@@ -13,9 +13,10 @@
 # limitations under the License.
 """Module for Topic extension."""
 
+import copy
 from typing import Dict, List, Set
 
-from server.lib.nl.common import topic
+import server.lib.nl.common.topic as topic_lib
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
 import server.lib.nl.fulfillment.types as ftypes
@@ -35,24 +36,39 @@ def needs_extension(num_chart_vars: int, num_exist_svs: int) -> bool:
   return num_chart_vars <= 5 or num_exist_svs <= 10
 
 
+# Given a list of topics, return chart-vars per-topic for the
+# SVG members (which are Topic extensions).
 def extend_topics(topics: List[str],
-                  places: Dict[str, str]) -> Dict[str, ftypes.ChartVars]:
+                  existing_svs: Set[str]) -> Dict[str, ftypes.ChartVars]:
   res = {}
   for t in topics[:MAX_OPENED_TOPICS]:
-    svgs = topic.get_topic_extended_svgs(t)
+    svgs = topic_lib.get_topic_extended_svgs(t)
     if svgs:
-      cv_list = _extend_topic(t, svgs)
+      cv_list = _extend_topic(t, svgs, existing_svs)
       if cv_list:
         res[t] = cv_list
   return res
 
 
-def _extend_topic(topic: str, svgs: List[str]) -> List[ftypes.ChartVars]:
+def _extend_topic(topic: str, svgs: List[str],
+                  existing_svs: Set[str]) -> List[ftypes.ChartVars]:
+  # 1. Open SVGs recursively into vars.
   result = variable_group.open_svgs(svgs)
 
+  # 2. Group them into SVPGs (peer groups) based on schema.
+  #    Importantly don't rely on SVG structure because of
+  #    folding optimizations.
+  groups = group_into_svpg(result)
+
+  # 3. Build chart vars from up to a limit.
+  processed = copy.deepcopy(existing_svs)
+  return build_chart_vars(topic, groups, processed)
+
+
+def group_into_svpg(open_svg_result: Dict) -> List[Dict[str, Set[str]]]:
   # Collect the results into SVPGs.
   # 1. sort by #pvs
-  vars: List[variable.SV] = list(result.values())
+  vars: List[variable.SV] = list(open_svg_result.values())
   vars.sort(key=lambda x: len(x.pvs))
 
   # 2. group-by common keys.
@@ -77,9 +93,14 @@ def _extend_topic(topic: str, svgs: List[str]) -> List[ftypes.ChartVars]:
         groups[l][k] = set()
       groups[l][k].add(v.id)
 
-  added_sv_weight = 0
-  processed = set()
+  return groups
+
+
+def build_chart_vars(topic: str,
+                     groups: List[Dict[str, Set[str]]],
+                     processed: Set[str]) -> List[ftypes.ChartVars]:
   chart_vars_list = []
+  added_sv_weight = 0
   for pvgrp in groups:
     svgrps = list(pvgrp.values())
     svgrps.sort(key=lambda k: len(k), reverse=True)

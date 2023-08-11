@@ -100,12 +100,16 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
                                         cb_config)
   else:
+    # Check if we need extension based on the number of charts & SVs.
     if topics and extension.needs_extension(len(chart_vars_list),
                                             len(existing_svs)):
+      # Get extensions chart-vars by doing API calls.
       start = time.time()
-      ext_chart_vars_map = extension.extend_topics(topics, places_to_check)
+      ext_chart_vars_map = extension.extend_topics(topics, existing_svs)
       state.uttr.counters.timeit('extend_topics', start)
+
       if ext_chart_vars_map:
+        # Perform existence check and add to `chart_vars_list`
         start = time.time()
         ext_tracker = ext.MainExistenceCheckTracker(
             state,
