@@ -23,6 +23,7 @@ from server.lib.explore import page_main
 from server.lib.explore import page_sdg
 import server.lib.explore.extension as extension
 from server.lib.explore.params import is_sdg
+from server.lib.explore.params import Params
 import server.lib.explore.related as related
 import server.lib.explore.topic as topic
 import server.lib.nl.common.utils as cutils
@@ -100,12 +101,15 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
                                         cb_config)
   else:
+    # Get extensions chart-vars by doing API calls.
+    override_expansion_svgs = state.uttr.insight_ctx.get(Params.EXT_SVGS, [])
     # Check if we need extension based on the number of charts & SVs.
-    if topics and extension.needs_extension(len(chart_vars_list),
-                                            len(existing_svs)):
-      # Get extensions chart-vars by doing API calls.
+    if (topics and
+        (override_expansion_svgs or
+         extension.needs_extension(len(chart_vars_list), len(existing_svs)))):
       start = time.time()
-      ext_chart_vars_map = extension.extend_topics(topics, existing_svs)
+      ext_chart_vars_map = extension.extend_topics(topics, existing_svs,
+                                                   override_expansion_svgs)
       state.uttr.counters.timeit('extend_topics', start)
 
       if ext_chart_vars_map:
