@@ -164,6 +164,12 @@ message ScatterTileSpec {
 }
 
 message BarTileSpec {
+  enum SortType {
+    SORT_ASCENDING = 1;
+    SORT_DESCENDING = 2;
+    SORT_ASCENDING_POPULATION = 3;
+    SORT_DESCENDING_POPULATION = 4;
+  }
   // [optional] The root url to use for labels in the x-axis. If not specified,
   // labels in the x-axis will link to Place Explorer.
   string x_label_link_root = 1;
@@ -181,11 +187,13 @@ message BarTileSpec {
   // - "descending"
   // - "ascendingPopulation"
   // - "descendingPopulation" (default)
-  string sort = 6;
+  SortType sort = 6;
+  // whether to stack bars instead of grouping them
+  bool stacked = 7;
   // whether to draw lollipops instead of bars
-  bool use_lollipop = 7;
+  bool use_lollipop = 8;
   // y-axis margin
-  double y_axis_margin = 8;
+  double y_axis_margin = 9;
 }
 
 message GaugeTileSpec {

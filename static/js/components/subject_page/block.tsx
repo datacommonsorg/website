@@ -245,20 +245,28 @@ function renderTiles(
       case "BAR":
         return (
           <BarTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={place}
+            barHeight={tile.barTileSpec?.barHeight}
+            colors={tile.barTileSpec?.colors}
+            className={className}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
+            horizontal={tile.barTileSpec?.horizontal}
+            id={id}
+            key={id}
+            maxPlaces={tile.barTileSpec?.maxPlaces}
+            place={place}
+            showExploreMore={props.showExploreMore}
+            sort={tile.barTileSpec?.sort}
+            stacked={tile.barTileSpec?.stacked}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
             )}
             svgChartHeight={props.svgChartHeight}
-            className={className}
             tileSpec={tile.barTileSpec}
-            showExploreMore={props.showExploreMore}
+            title={tile.title}
+            useLollipop={tile.barTileSpec?.useLollipop}
+            yAxisMargin={tile.barTileSpec?.yAxisMargin}
           />
         );
       case "SCATTER":

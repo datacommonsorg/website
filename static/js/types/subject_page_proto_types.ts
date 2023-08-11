@@ -19,6 +19,7 @@
  * TODO(beets): Generate this file automatically with ts-protoc-gen
  */
 
+import { SortType } from "../chart/types";
 import { StatVarSpec } from "../shared/types";
 
 export interface SeverityFilter {
@@ -105,7 +106,8 @@ export interface BarTileSpec {
   colors?: string[];
   horizontal?: boolean;
   maxPlaces?: number;
-  sort?: string;
+  sort?: SortType;
+  stacked?: boolean;
   useLollipop?: boolean;
   yAxisMargin?: number;
 }
