@@ -111,6 +111,7 @@ export interface BarTileSpec {
 }
 
 export interface GaugeTileSpec {
+  colors?: string[];
   range: {
     min: number;
     max: number;

@@ -195,6 +195,8 @@ message GaugeTileSpec {
   }
   // Range of values represented by the gauge
   Range range = 1;
+  // Colors to use
+  repeated string colors = 2;
 }
 
 message DonutTileSpec {
