@@ -58,7 +58,7 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Asthma compared with other variables in Sunnyvale (${date})",
+                    "title": "Asthma and more in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]

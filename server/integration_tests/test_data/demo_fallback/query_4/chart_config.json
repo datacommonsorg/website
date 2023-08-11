@@ -45,7 +45,7 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "Prevalence of Obesity compared with other variables in California",
+                    "title": "Prevalence of Obesity and more in California",
                     "type": "LINE"
                   }
                 ]
@@ -76,7 +76,7 @@
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Physical Health Issues compared with other variables in California (${date})",
+                    "title": "Physical Health Issues and more in California (${date})",
                     "type": "BAR"
                   }
                 ]

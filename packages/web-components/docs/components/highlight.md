@@ -21,7 +21,7 @@ variable value from a specific variable about a single place.
 
 Required:
 
-- `description` _string_
+- `header` _string_
 
   Text to show next to the variable value highlighted.
 

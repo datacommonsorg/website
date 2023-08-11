@@ -609,63 +609,63 @@
       },
       {
         "dcid": "dc/topic/sdg_9",
-        "name": "9: Industry, Innovation and Infrastructure",
+        "name": "Industry, Innovation, and Infrastructure",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_10",
-        "name": "10: Reduced Inequality",
+        "name": "Reduce Inequality",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_11",
-        "name": "11: Sustainable Cities and Communities",
+        "name": "Sustainable Cities and Communities",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_12",
-        "name": "12: Responsible Consumption and Production",
+        "name": "Responsible Consumption and Production",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_13",
-        "name": "13: Climate Action",
+        "name": "Climate Action",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_14",
-        "name": "14: Life Below Water",
+        "name": "Life Below Water",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_15",
-        "name": "15: Life on Land",
+        "name": "Life on Land",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_16",
-        "name": "16: Peace and Justice Strong Institutions",
+        "name": "Peace and Justice Strong Institutions",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/sdg_17",
-        "name": "17: Partnerships to achieve the Goal",
+        "name": "Partnerships to Achieve SDG Goals",
         "types": [
           "Topic"
         ]

@@ -79,7 +79,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Property Related Crimes compared with other variables in California (${date})",
+                    "title": "Property Related Crimes and more in California (${date})",
                     "type": "BAR"
                   },
                   {
@@ -96,7 +96,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block_pc",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Property Related Crimes compared with other variables in California (${date})",
+                    "title": "Per Capita Property Related Crimes and more in California (${date})",
                     "type": "BAR"
                   }
                 ]

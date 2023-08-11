@@ -106,6 +106,7 @@ export function App(): JSX.Element {
       let query = getSingleParam(hashParams["q"]);
       const origQuery = getSingleParam(hashParams["oq"]);
       const dc = getSingleParam(hashParams["dc"]);
+      const svg = getSingleParam(hashParams["svg"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -145,6 +146,7 @@ export function App(): JSX.Element {
           pcmp: cmpPlace,
           pt: placeType,
           dc,
+          svg,
         });
         return;
       } else if (origQuery) {
@@ -171,13 +173,15 @@ export function App(): JSX.Element {
       const cmpPlaces = toApiList(cmpPlace);
       const topics = toApiList(topic);
       const cmpTopics = toApiList(cmpTopic);
+      const svgs = toApiList(svg);
       const resp = await fetchFulfillData(
         places,
         topics,
         placeType,
         cmpPlaces,
         cmpTopics,
-        dc
+        dc,
+        svgs
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -391,7 +395,8 @@ const fetchFulfillData = async (
   placeType: string,
   cmpPlaces: string[],
   cmpTopics: string[],
-  dc: string
+  dc: string,
+  svgs: string[]
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -401,6 +406,7 @@ const fetchFulfillData = async (
       childEntityType: placeType,
       comparisonEntities: cmpPlaces,
       comparisonVariables: cmpTopics,
+      extensionGroups: svgs,
     });
     return resp.data;
   } catch (error) {
