@@ -271,3 +271,33 @@ categories {
     }
   }
 }
+
+categories {
+  title: "Test ranking tile with single list"
+  blocks {
+    denom: "Count_Person"
+    start_with_denom: false
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        ranking_tile_spec {
+          show_highest_lowest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}

@@ -36,6 +36,7 @@ import {
   addXAxis,
   addYAxis,
   appendLegendElem,
+  getDisplayUnitAndLabel,
   updateXAxis,
 } from "./draw_utils";
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
@@ -48,6 +49,8 @@ export const HORIZONTAL_BAR_CHART = {
   marginRight: 30,
   marginTop: 30,
 };
+// Extra amount to shift axes tick labels by to account for the actual tick line
+const TICK_LABEL_PADDING = 10;
 
 /**
  * Draw stack bar chart.
@@ -403,9 +406,9 @@ function drawHorizontalGroupedBars(
       .attr("r", Math.min(6, stemSpacing));
   } else {
     // Draw grouped horizontal bars
-
     const barHeight = yScale.bandwidth() / numGroups;
     chart
+      .append("g")
       .selectAll("g")
       .data(dataGroups)
       .enter()
@@ -510,6 +513,7 @@ function drawHorizontalStackedBars(
   } else {
     // Draw horizontal bars, stacked
     chart
+      .append("g")
       .selectAll("g")
       .data(series)
       .enter()
@@ -770,7 +774,7 @@ export function drawHorizontalBarChart(
 
   // Specify the chart’s dimensions based on a bar’s height.
   const barHeight = options?.style?.barHeight || HORIZONTAL_BAR_CHART.barHeight;
-  const marginTop = HORIZONTAL_BAR_CHART.marginTop;
+  let marginTop = HORIZONTAL_BAR_CHART.marginTop;
   const marginRight = HORIZONTAL_BAR_CHART.marginRight;
   const marginBottom = HORIZONTAL_BAR_CHART.marginBottom;
   const marginLeft =
@@ -783,6 +787,77 @@ export function drawHorizontalBarChart(
     : Math.ceil((dataGroups.length + 0.1) * barHeight * numGroups) +
       marginTop +
       marginBottom;
+  const color = getColorFn(keys, options?.colors);
+  const [displayUnit, label] = getDisplayUnitAndLabel(options?.unit);
+
+  // Create the SVG container.
+  const svg = d3
+    .create("svg")
+    .attr("class", ASYNC_ELEMENT_CLASS) // for render verification in test cases
+    .attr("width", chartWidth)
+    .attr("height", height)
+    .attr("viewBox", `0, 0, ${chartWidth}, ${height}`)
+    .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;");
+
+  // Attach SVG node to the parent container
+  // The node must be attached before any getBBox() calls.
+  containerElement.append(svg.node());
+
+  if (label) {
+    // Add x-axis label in the top-middle of the axis
+    svg
+      .append("text")
+      .attr("id", "x-axis-label")
+      .attr("part", "x-axis-label")
+      .attr("x", chartWidth / 2)
+      .attr("y", 0)
+      .attr("fill", AXIS_TEXT_FILL)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "hanging")
+      .text(label);
+
+    // Adjust top margin to account for any x-axis labels
+    const xAxisLabelHeight = (
+      svg.select("#x-axis-label").node() as SVGGraphicsElement
+    ).getBBox().height;
+    marginTop += xAxisLabelHeight;
+  }
+
+  const y = d3
+    .scaleBand()
+    .domain(dataGroups.map((dg) => dg.label))
+    .rangeRound([marginTop, height - marginBottom])
+    .padding(0.15);
+
+  // y axis
+  const yAxis = svg
+    .append("g")
+    .call(d3.axisLeft(y).tickSizeOuter(0))
+    .call((g) =>
+      g
+        .selectAll("text")
+        .style("fill", AXIS_TEXT_FILL)
+        .style("shape-rendering", "crispEdges")
+    );
+
+  // Get maximum length of tick labels
+  let maxLabelWidth = marginLeft;
+  if (!options.style.yAxisMargin) {
+    yAxis.selectAll("text").each(function () {
+      maxLabelWidth = Math.max(
+        (<SVGSVGElement>this).getBBox().width,
+        maxLabelWidth
+      );
+    });
+    // TODO (juliawu): This is set to account for tick length. We should
+    //                 calculate this instead of using a set number.
+    maxLabelWidth += TICK_LABEL_PADDING;
+    // Limit label width to 1/2 the width of the chart
+    // incase labels are extremely long
+    maxLabelWidth = Math.min(maxLabelWidth, chartWidth / 2);
+  }
+  // shift tick labels by max length so tick labels don't get cut off
+  yAxis.attr("transform", `translate(${maxLabelWidth}, 0)`);
 
   const x = d3
     .scaleLinear()
@@ -793,31 +868,7 @@ export function drawHorizontalBarChart(
         : d3.max(dataGroups, (dg) => d3.max(dg.value, (dgv) => dgv.value)),
     ])
     .nice()
-    .rangeRound([marginLeft, chartWidth - marginRight]);
-
-  const y = d3
-    .scaleBand()
-    .domain(dataGroups.map((dg) => dg.label))
-    .domain(dataGroups.map((dg) => dg.label))
-    .rangeRound([marginTop, height - marginBottom])
-    .padding(0.15);
-
-  const color = getColorFn(keys, options?.colors);
-
-  // Create the SVG container.
-  const svg = d3
-    .create("svg")
-    .attr("width", chartWidth)
-    .attr("height", height)
-    .attr("viewBox", `0, 0, ${chartWidth}, ${height}`)
-    .attr("style", "max-width: 100%; height: auto; font: 10px sans-serif;");
-
-  if (options?.stacked) {
-    // Stacked bar chart
-    drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
-  } else {
-    drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
-  }
+    .rangeRound([maxLabelWidth, chartWidth - marginRight]);
 
   // x axis
   svg
@@ -828,7 +879,7 @@ export function drawHorizontalBarChart(
         .axisTop(x)
         .ticks(NUM_Y_TICKS)
         .tickFormat((d) => {
-          return formatNumber(d.valueOf(), options?.unit);
+          return formatNumber(d.valueOf(), displayUnit);
         })
     )
     .call((g) =>
@@ -839,23 +890,13 @@ export function drawHorizontalBarChart(
     )
     .call((g) => g.select(".domain").remove());
 
-  // y axis
-  svg
-    .append("g")
-    .attr("transform", `translate(${marginLeft},0)`)
-    .call(d3.axisLeft(y).tickSizeOuter(0))
-    .call((g) =>
-      g
-        .selectAll("text")
-        .style("fill", AXIS_TEXT_FILL)
-        .style("shape-rendering", "crispEdges")
-    );
-
-  // Class for render verification in test cases
-  svg.attr("class", ASYNC_ELEMENT_CLASS);
-
-  // Attach SVG node to the parent container
-  containerElement.append(svg.node());
+  if (options?.stacked) {
+    // Stacked bar chart
+    drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
+  } else {
+    // Grouped bar chart
+    drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
+  }
 
   // Legend
   appendLegendElem(

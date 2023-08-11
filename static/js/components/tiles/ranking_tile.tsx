@@ -387,6 +387,11 @@ function getNumRankingLists(
   if (rankingTileSpec.showLowest) {
     numListsPerSv++;
   }
+  // if showHighestLowest is set, will show a single list and ignore
+  // showHighest/showLowest.
+  if (rankingTileSpec.showHighestLowest) {
+    numListsPerSv = 1;
+  }
   if (!rankingData) {
     return statVarSpec.length * numListsPerSv;
   }

@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   drawGroupBarChart,
@@ -30,15 +31,15 @@ import {
   drawStackBarChart,
 } from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import {
-  placeSep,
-  statVarSep,
-  TIMELINE_URL_PARAM_KEYS,
-} from "../../tools/timeline/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { BarTileSpec } from "../../types/subject_page_proto_types";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -351,19 +352,12 @@ export function draw(
 }
 
 function getExploreMoreUrl(props: BarTilePropType): string {
-  const params = {
-    [TIMELINE_URL_PARAM_KEYS.PLACE]: [
-      ...props.comparisonPlaces,
-      props.place.dcid,
-    ].join(placeSep),
-    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
-      .map((spec) => spec.statVar)
-      .join(statVarSep),
-  };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
-    "&"
-  )}`;
+  const hash = getHash(
+    VisType.TIMELINE,
+    [...props.comparisonPlaces, props.place.dcid],
+    "",
+    props.statVarSpec.map((spec) => getContextStatVar(spec)),
+    {}
+  );
+  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
 }

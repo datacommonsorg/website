@@ -76,9 +76,13 @@
 #draw-tooltip {
   background-color: rgb(59, 59, 59, 0.7);
   color: var(--dc-white);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   border-radius: 3px;
   border: 0.5px solid var(--dc-gray-lite);
   padding: 0.3rem;
   cursor: default;
+  max-height: 200px;
+  max-width: 200px;
+  overflow: auto;
+  word-wrap: wrap;
 }

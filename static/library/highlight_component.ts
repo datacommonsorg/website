@@ -57,11 +57,18 @@ export class DatacommonsHighlightComponent extends LitElement {
 
   // Text to accompany the variable value
   @property()
-  description!: string;
+  header!: string;
 
   // DCID of the place to get data for
   @property()
   place!: string;
+
+  /**
+   * @deprecated
+   * Text to accompany the variable value
+   */
+  @property()
+  description!: string;
 
   // Optional: Unit of the variable
   @property()
@@ -75,7 +82,7 @@ export class DatacommonsHighlightComponent extends LitElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       date: this.date,
-      description: this.description,
+      description: this.header || this.description,
       place: {
         dcid: this.place,
         name: "",
