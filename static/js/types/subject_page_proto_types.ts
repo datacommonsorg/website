@@ -101,7 +101,13 @@ export interface ScatterTileSpec {
 
 export interface BarTileSpec {
   xLabelLinkRoot?: string;
+  barHeight?: number;
+  colors?: string[];
+  horizontal?: boolean;
+  maxPlaces?: number;
+  sort?: string;
   useLollipop?: boolean;
+  yAxisMargin?: number;
 }
 
 export interface GaugeTileSpec {

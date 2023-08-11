@@ -167,6 +167,25 @@ message BarTileSpec {
   // [optional] The root url to use for labels in the x-axis. If not specified,
   // labels in the x-axis will link to Place Explorer.
   string x_label_link_root = 1;
+  // Bar height for horizontal bar charts
+  double bar_height = 2;
+  // list of specific colors to use
+  repeated string colors = 3;
+  // whether to plot bars horizontally.
+  bool horizontal = 4;
+  // maximum number of places to display
+  int32 max_places = 5;
+  // bar sort order
+  // options:
+  // - "ascending"
+  // - "descending"
+  // - "ascendingPopulation"
+  // - "descendingPopulation" (default)
+  string sort = 6;
+  // whether to draw lollipops instead of bars
+  bool use_lollipop = 7;
+  // y-axis margin
+  double y_axis_margin = 8;
 }
 
 message GaugeTileSpec {
