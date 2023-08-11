@@ -23,7 +23,7 @@ import server.lib.nl.fulfillment.types as ftypes
 
 # A few limits to make sure we don't blow up things.
 MAX_OPENED_TOPICS = 3
-MAX_SVS_TO_ADD = 40
+MAX_SVS_TO_ADD = 100
 # 1 SVPG is equivalent to 4 SVs.
 SVPG_TO_SV_EQUIVALENTS = 4
 
@@ -38,10 +38,18 @@ def needs_extension(num_chart_vars: int, num_exist_svs: int) -> bool:
 
 # Given a list of topics, return chart-vars per-topic for the
 # SVG members (which are Topic extensions).
-def extend_topics(topics: List[str],
-                  existing_svs: Set[str]) -> Dict[str, ftypes.ChartVars]:
+def extend_topics(topics: List[str], existing_svs: Set[str],
+                  override_svgs: List[str]) -> Dict[str, ftypes.ChartVars]:
   res = {}
   for t in topics[:MAX_OPENED_TOPICS]:
+    # If override SVGs are set, use those, and attach to the
+    # first topic we find.
+    if override_svgs:
+      cv_list = _extend_topic(t, override_svgs, existing_svs)
+      if cv_list:
+        res[t] = cv_list
+      return res
+
     svgs = topic_lib.get_topic_extended_svgs(t)
     if svgs:
       cv_list = _extend_topic(t, svgs, existing_svs)
@@ -110,7 +118,7 @@ def build_chart_vars(topic: str, groups: List[Dict[str, Set[str]]],
         added_sv_weight += SVPG_TO_SV_EQUIVALENTS
       svs = list(svgrp)
       svs.sort()
-      if svs == 1:
+      if len(svs) == 1:
         if svs[0] in processed:
           continue
         chart_vars_list.append(
