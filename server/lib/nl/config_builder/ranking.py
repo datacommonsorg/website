@@ -55,6 +55,12 @@ def _set_ranking_tile_spec(ranking_types: List[RankingType], pri_sv: str,
       else:
         ranking_tile_spec.show_highest = True
 
+  # Both are set, use the new single chart.
+  if ranking_tile_spec.show_highest and ranking_tile_spec.show_lowest:
+    ranking_tile_spec.show_highest = False
+    ranking_tile_spec.show_lowest = False
+    ranking_tile_spec.show_highest_lowest = True
+
 
 def _does_extreme_mean_low(sv: str) -> bool:
   _MIN_SV_PATTERNS = ['ProjectedMin', 'Min_Temperature']

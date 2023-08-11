@@ -358,10 +358,34 @@
               }
             ],
             "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+                      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "% Nominal GDP Spent on Education and more in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "dcid": "dc/topic/GlobalEconomicActivity",
         "statVarSpec": {
+          "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "% Nominal GDP Spent on Education",
+            "statVar": "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
+            "name": "Percent of Total Government Expenditure Spent on Military Activities",
+            "statVar": "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
           "Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue_multiple_place_bar_block": {
             "name": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing",
             "statVar": "Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue"
