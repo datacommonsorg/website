@@ -18,13 +18,13 @@
 
 Required:
 
+- `header` _string_
+
+  Chart title.
+
 - `place` _string_
 
   Place to plot. Example: `country/USA`.
-
-- `title` _string_
-
-  Chart title.
 
 - `variables` _list of strings_
 

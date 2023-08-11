@@ -60,6 +60,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   // Maximum value of gauge range
   @property()
   max: number;
@@ -72,7 +76,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   place!: string;
 
-  // Title of the chart
+  /**
+   * @deprecated
+   * Title of the chart
+   */
   @property()
   title!: string;
 
@@ -103,7 +110,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         statVar: this.variable,
         unit: "",
       },
-      title: this.title,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(GaugeTile, gaugeTileProps), mountPoint);

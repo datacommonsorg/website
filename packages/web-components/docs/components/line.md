@@ -18,13 +18,13 @@
 
 Required:
 
+- `header` _string_
+
+  Chart title.
+
 - `place` _string_
 
   Place DCID to plot.
-
-- `title` _string_
-
-  Chart title.
 
 - `variables` _space-separated list of strings_
 
