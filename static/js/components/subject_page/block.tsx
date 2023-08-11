@@ -297,6 +297,7 @@ function renderTiles(
       case "GAUGE":
         return (
           <GaugeTile
+            colors={tile.gaugeTileSpec?.colors}
             id={id}
             minSvgChartHeight={props.svgChartHeight}
             place={place}

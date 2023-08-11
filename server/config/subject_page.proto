@@ -247,7 +247,7 @@ message Tile {
   // For map, bar, ranking: supports ${date} placeholder.
   // For scatter: supports ${xDate} and ${yDate} placeholder.
   string title = 1;
-  // Must be set for HIHGLIGHT tiles
+  // Must be set for HIGHLIGHT tiles
   string description = 2;
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
