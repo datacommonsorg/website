@@ -175,18 +175,14 @@ message BarTileSpec {
   string x_label_link_root = 1;
   // Bar height for horizontal bar charts
   double bar_height = 2;
-  // list of specific colors to use
+  // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 3;
   // whether to plot bars horizontally.
   bool horizontal = 4;
   // maximum number of places to display
   int32 max_places = 5;
   // bar sort order
-  // options:
-  // - "ascending"
-  // - "descending"
-  // - "ascendingPopulation"
-  // - "descendingPopulation" (default)
+  // default: SORT_DESCENDING_POPULATION
   SortType sort = 6;
   // whether to stack bars instead of grouping them
   bool stacked = 7;
@@ -203,24 +199,24 @@ message GaugeTileSpec {
   }
   // Range of values represented by the gauge
   Range range = 1;
-  // Colors to use
+  // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 2;
 }
 
 message DonutTileSpec {
-  // colors to use
+  // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 1;
   // whether to draw as full pie chart instead of a donut
   bool pie = 2;
 }
 
 message LineTileSpec {
-  // colors to use
+  // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 1;
 }
 
 message MapTileSpec {
-  // colors to use
+  // specific colors to use, as a list of CSS-compatible color strings
   repeated string colors = 2;
 }
 
