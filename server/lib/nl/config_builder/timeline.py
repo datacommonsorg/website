@@ -103,12 +103,19 @@ def single_place_multiple_var_timeline_block(column, place, svs, sv2thing, attr,
 
   if attr.get('title'):
     orig_title = attr['title']
-  elif attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
-      'orig_sv') and sv2thing.name.get(attr['orig_sv']):
-    orig_sv_name = sv2thing.name[attr['orig_sv']]
-    orig_title = f'{orig_sv_name} compared with other variables'
-  else:
-    orig_title = "Compared with Other Variables"
+  elif len(svs) > 1:
+    if attr.get('orig_sv') and sv2thing.name.get(attr['orig_sv']):
+      orig_sv_name = sv2thing.name[attr['orig_sv']]
+      orig_title = f'{orig_sv_name} and more'
+    elif sv2thing.name.get(svs[0]):
+      orig_title = f'{sv2thing.name[svs[0]]} and more'
+    else:
+      # This should very rarely, if ever, be used.
+      orig_title = "Comparison of related variables"
+  elif svs:
+    # This is the case of multiple places for a single SV
+    orig_title = sv2thing.name[svs[0]]
+
   title = base.decorate_chart_title(title=orig_title, place=place)
 
   # Line chart for the stat var
