@@ -212,7 +212,7 @@ const CountriesContent: React.FC<{
       <Layout.Content style={{ padding: "0rem 0" }}>
         <SearchCard>
           <StyledInput
-            placeholder='Search countries or regional topics. Examples: "Afghanistan", "Access to Clean Energy in Afghanistan", "Poverty in Sub-Saharan Africa"'
+            placeholder='Search for regional topics. For example, "Access to Clean Energy in Afghanistan"'
             allowClear
             size="large"
           />
