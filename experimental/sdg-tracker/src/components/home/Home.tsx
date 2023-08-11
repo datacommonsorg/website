@@ -15,7 +15,7 @@
  */
 
 import { gray } from "@ant-design/colors";
-import { Input } from "antd";
+import { Button, Space } from "antd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../layout/AppFooter";
@@ -53,33 +53,8 @@ const HomeContainer = styled.div`
 `;
 
 const HomeLinks = styled.div`
-  margin: auto;
+  margin: 1rem auto;
   text-align: center;
-`;
-
-const SearchContainer = styled.div`
-  margin: auto;
-  margin-bottom: 2rem;
-  text-align: center;
-`;
-
-const SearchInput = styled(Input)`
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-  max-width: 450px;
-`;
-const LinkItem = styled.div`
-  margin-bottom: 1.5rem;
-`;
-const StyledLink = styled(Link)`
-  font-size: 1rem;
-  border-radius: 2rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #f1f1f1;
-  &:hover {
-    text-decoration: none;
-    background: #f1f1f1;
-  }
 `;
 
 const Home = () => {
@@ -95,25 +70,16 @@ const Home = () => {
             System into a public repository with advanced search functionality
             and a modern, user-friendly interface.
           </p>
-          <SearchContainer>
-            <SearchInput
-              placeholder='For example, "Access to Clean Energy in Afghanistan"'
-              allowClear
-              size="large"
-            />
-          </SearchContainer>
+
           <HomeLinks>
-            <p>Sample queries</p>
-            <LinkItem>
-              <StyledLink to="/countries?q=Access to clean energy in Afghanistan">
-                Access to clean energy in Afghanistan
-              </StyledLink>
-            </LinkItem>
-            <LinkItem>
-              <StyledLink to="/countries?q=Poverty in Sub-Saharan Africa">
-                Poverty in Sub-Saharan Africa
-              </StyledLink>
-            </LinkItem>
+            <Space>
+              <Link to="/countries">
+                <Button>Countries / Regions</Button>
+              </Link>
+              <Link to="/goals">
+                <Button>Goals</Button>
+              </Link>
+            </Space>
           </HomeLinks>
         </HomeContainer>
       </AppLayoutContent>

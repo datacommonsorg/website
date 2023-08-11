@@ -29,13 +29,11 @@ import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 import CountriesContent from "./CountriesContent";
 
-const DEFAULT_PLACE_DCID = "Earth";
-
 const Countries = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || DEFAULT_PLACE_DCID;
+  const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || undefined;
   const variableDcid =
     searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
 
@@ -67,7 +65,7 @@ const Countries = () => {
     <AppLayout>
       <AppHeader selected="countries" />
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
-        <Layout style={{ height: "100%", flexGrow: 1 }}>
+        <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <AppSidebar
             variableDcid={variableDcid}
             setVariableDcid={setVariableDcid}

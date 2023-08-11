@@ -147,20 +147,21 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 `;
 
 const CountriesContent: React.FC<{
+  hidePlaceSearch?: boolean;
   variableDcid: string;
-  placeDcid: string;
+  placeDcid?: string;
   setPlaceDcid: (placeDcid: string) => void;
-}> = ({ placeDcid, setPlaceDcid, variableDcid }) => {
+}> = ({ hidePlaceSearch, placeDcid, setPlaceDcid, variableDcid }) => {
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
   const [fulfillmentResponse, setFulfillmentResponse] =
     useState<FulfillResponse>();
   const placeName = useStoreState((s) => {
-    if (placeDcid in s.countries.byDcid) {
+    if (placeDcid && placeDcid in s.countries.byDcid) {
       return s.countries.byDcid[placeDcid].name;
     }
-    if (placeDcid in s.regions.byDcid) {
+    if (placeDcid && placeDcid in s.regions.byDcid) {
       return s.regions.byDcid[placeDcid].name;
     }
     return undefined;
@@ -188,7 +189,7 @@ const CountriesContent: React.FC<{
    * Fetch page content
    */
   useEffect(() => {
-    if (!variableDcid) {
+    if (!variableDcid || !placeDcid) {
       return;
     }
     (async () => {
@@ -224,10 +225,12 @@ const CountriesContent: React.FC<{
             ) : placeDcid ? (
               <Spinner />
             ) : (
-              "Select a country or region"
+              "Select a country"
             )}
           </div>
-          <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+          {!hidePlaceSearch && (
+            <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+          )}
         </PlaceTitle>
         <StyledBreadcrumb
           items={[...parentVariables, variable]
@@ -245,14 +248,14 @@ const CountriesContent: React.FC<{
               };
             })}
         />
-        {/*
-        <PlaceChips
-          includeWorld={false}
-          includeRegions={false}
-          selectedPlaceDcid={placeDcid}
-          setSelectedPlaceDcid={setPlaceDcid}
-        />
-        */}
+        <div style={{ display: "none" }}>
+          <PlaceChips
+            includeWorld={false}
+            includeRegions={false}
+            selectedPlaceDcid={placeDcid}
+            setSelectedPlaceDcid={setPlaceDcid}
+          />
+        </div>
         <Layout.Content style={{ padding: "0 24px 24px" }}>
           {isFetchingFulfillment ? (
             <ContentCard>
@@ -274,7 +277,7 @@ const CountriesContent: React.FC<{
 const PlaceChips: React.FC<{
   includeWorld: boolean;
   includeRegions: boolean;
-  selectedPlaceDcid: string;
+  selectedPlaceDcid?: string;
   setSelectedPlaceDcid: (placeDcid: string) => void;
 }> = ({
   includeWorld,
@@ -371,7 +374,7 @@ const CountrySelect: React.FC<{
 
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;
-  placeDcid: string;
+  placeDcid?: string;
   selectedVariableDcid?: string;
 }> = (props) => {
   const { fulfillmentResponse, placeDcid, selectedVariableDcid } = props;
@@ -379,11 +382,25 @@ const ChartContent: React.FC<{
     selectedVariableDcid ? s.variableGroups.byDcid[selectedVariableDcid] : null
   );
 
-  if (!selectedVariableGroup || !fulfillmentResponse) {
+  if (!selectedVariableGroup || !fulfillmentResponse || !placeDcid) {
     return (
       <ContentCard>
         <h5>Explore SDG progress</h5>
-        <p>Select a goal on the left to get started.</p>
+        <p>Select a goal and a country to get started.</p>
+      </ContentCard>
+    );
+  }
+  if (fulfillmentResponse.failure || fulfillmentResponse.userMessage) {
+    return (
+      <ContentCard>
+        <ChartContentHeader>
+          <div>
+            <h3>No information found</h3>
+          </div>
+        </ChartContentHeader>
+        <ChartContentBody>
+          {fulfillmentResponse.failure || fulfillmentResponse.userMessage}
+        </ChartContentBody>
       </ContentCard>
     );
   }

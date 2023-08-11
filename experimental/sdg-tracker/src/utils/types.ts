@@ -104,6 +104,7 @@ export interface FulfillResponse {
   config: ChartConfig;
   context: any; // Not currently used; define interface later if needed
   debug: any; // Not currently used; define interface later if needed
+  failure?: string;
   place: Place;
   placeFallback: any; // Not currently used; define interface later if needed
   placeSource: FulfillmentResult;

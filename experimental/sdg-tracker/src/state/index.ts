@@ -283,7 +283,7 @@ const appActions: AppActions = {
         const children: MenuItemType[] = [
           ...variableGroup.childGroupDcids
             .filter((g) => sdgNameRegex.test(variableGroupsByDcid[g].name))
-            .map((g, i) => {
+            .map((g) => {
               const vairableGroupNumber =
                 variableGroupsByDcid[g].name.split(":")[0];
               return traverse(
