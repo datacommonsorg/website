@@ -93,6 +93,9 @@ message StatVarSpec {
   bool log = 5;
   // The name to use for the stat var in labels and titles.
   string name = 6;
+  // [Optional] The date to use when getting data for the stat var. Will use the
+  // latest date if not set. Only enabled in map, ranking, and scatter tiles.
+  string date = 7;
 }
 
 // This ranks across child places for a single stat var.
@@ -113,6 +116,11 @@ message RankingTileSpec {
   // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
   // Ranking is done by the last specified SV for the tile.
   bool show_multi_column = 11;
+
+  // If true, will show a single list with ranking_count top points and
+  // ranking_count bottom points separated by "...". If true, show_highest
+  // and show_lowest will be ignored.
+  bool show_highest_lowest = 12;
 }
 
 message DisasterEventMapTileSpec {

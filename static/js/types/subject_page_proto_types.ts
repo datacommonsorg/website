@@ -67,6 +67,7 @@ export interface RankingTileSpec {
   rankingCount?: number;
 
   showMultiColumn: boolean;
+  showHighestLowest?: boolean;
 }
 
 export interface DisasterEventMapTileSpec {

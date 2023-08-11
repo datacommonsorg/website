@@ -70,10 +70,11 @@ export function getChartArea(
           svgChartHeight={chartHeight}
           title={statVarLabel + " (${date})"}
           showLoadingSpinner={true}
-          date={date}
           allowZoom={true}
         />
-        <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
+        {!_.isEmpty(perCapitaInputs) && (
+          <ChartFooter inputSections={[{ inputs: perCapitaInputs }]} />
+        )}
       </div>
       <div className="chart">
         <RankingTile
@@ -98,7 +99,6 @@ export function getChartArea(
               hover
             );
           }}
-          date={date}
           showLoadingSpinner={true}
         />
       </div>

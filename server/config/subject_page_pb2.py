@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12subject_page.proto\x12\x0b\x64\x61tacommons\"l\n\x0eSeverityFilter\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x05 \x01(\t\x12\x0c\n\x04unit\x18\x02 \x01(\t\x12\x13\n\x0blower_limit\x18\x03 \x01(\x01\x12\x13\n\x0bupper_limit\x18\x04 \x01(\x01\"\x9b\x04\n\rEventTypeSpec\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10\x65vent_type_dcids\x18\x03 \x03(\t\x12\r\n\x05\x63olor\x18\x04 \x01(\t\x12<\n\x17\x64\x65\x66\x61ult_severity_filter\x18\x05 \x01(\x0b\x32\x1b.datacommons.SeverityFilter\x12[\n\x1aplace_type_severity_filter\x18\n \x03(\x0b\x32\x37.datacommons.EventTypeSpec.PlaceTypeSeverityFilterEntry\x12<\n\x0c\x64isplay_prop\x18\x06 \x03(\x0b\x32&.datacommons.EventTypeSpec.DisplayProp\x12\x15\n\rend_date_prop\x18\x07 \x03(\t\x12\x1d\n\x15polygon_geo_json_prop\x18\x08 \x01(\t\x12\x1a\n\x12path_geo_json_prop\x18\t \x01(\t\x1a[\n\x1cPlaceTypeSeverityFilterEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12*\n\x05value\x18\x02 \x01(\x0b\x32\x1b.datacommons.SeverityFilter:\x02\x38\x01\x1a?\n\x0b\x44isplayProp\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\"\xe3\x03\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x12\x45\n\x0f\x65vent_type_spec\x18\x05 \x03(\x0b\x32,.datacommons.PageMetadata.EventTypeSpecEntry\x12\x39\n\x0bplace_group\x18\x06 \x03(\x0b\x32$.datacommons.PageMetadata.PlaceGroup\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1aP\n\x12\x45ventTypeSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12)\n\x05value\x18\x02 \x01(\x0b\x32\x1a.datacommons.EventTypeSpec:\x02\x38\x01\x1a\x36\n\nPlaceGroup\x12\x14\n\x0cparent_place\x18\x01 \x01(\t\x12\x12\n\nplace_type\x18\x02 \x01(\t\"h\n\x0bStatVarSpec\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\"\xb3\x01\n\x0fRankingTileSpec\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x15\n\rranking_count\x18\n \x01(\x05\x12\x19\n\x11show_multi_column\x18\x0b \x01(\x08\"u\n\x18\x44isasterEventMapTileSpec\x12\x1c\n\x14point_event_type_key\x18\x01 \x03(\t\x12\x1e\n\x16polygon_event_type_key\x18\x02 \x03(\t\x12\x1b\n\x13path_event_type_key\x18\x03 \x03(\t\"9\n\x11HistogramTileSpec\x12\x16\n\x0e\x65vent_type_key\x18\x01 \x01(\t\x12\x0c\n\x04prop\x18\x02 \x01(\t\"\x9d\x01\n\x10TopEventTileSpec\x12\x16\n\x0e\x65vent_type_key\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_prop\x18\x02 \x03(\t\x12\x17\n\x0fshow_start_date\x18\x03 \x01(\x08\x12\x15\n\rshow_end_date\x18\x04 \x01(\x08\x12\x14\n\x0creverse_sort\x18\x05 \x01(\x08\x12\x15\n\rranking_count\x18\x06 \x01(\x05\"\xbc\x01\n\x0fScatterTileSpec\x12\x1b\n\x13highlight_top_right\x18\x01 \x01(\x08\x12\x1a\n\x12highlight_top_left\x18\x02 \x01(\x08\x12\x1e\n\x16highlight_bottom_right\x18\x03 \x01(\x08\x12\x1d\n\x15highlight_bottom_left\x18\x04 \x01(\x08\x12\x19\n\x11show_place_labels\x18\x05 \x01(\x08\x12\x16\n\x0eshow_quadrants\x18\x06 \x01(\x08\"(\n\x0b\x42\x61rTileSpec\x12\x19\n\x11x_label_link_root\x18\x01 \x01(\t\"c\n\rGaugeTileSpec\x12/\n\x05range\x18\x01 \x01(\x0b\x32 .datacommons.GaugeTileSpec.Range\x1a!\n\x05Range\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\"\xb6\x06\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x14\n\x0cstat_var_key\x18\x04 \x03(\t\x12\x19\n\x11\x63omparison_places\x18\x07 \x03(\t\x12\x1b\n\x13place_dcid_override\x18\x0b \x01(\t\x12\x39\n\x11ranking_tile_spec\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingTileSpecH\x00\x12M\n\x1c\x64isaster_event_map_tile_spec\x18\x06 \x01(\x0b\x32%.datacommons.DisasterEventMapTileSpecH\x00\x12<\n\x13top_event_tile_spec\x18\x08 \x01(\x0b\x32\x1d.datacommons.TopEventTileSpecH\x00\x12\x39\n\x11scatter_tile_spec\x18\t \x01(\x0b\x32\x1c.datacommons.ScatterTileSpecH\x00\x12=\n\x13histogram_tile_spec\x18\n \x01(\x0b\x32\x1e.datacommons.HistogramTileSpecH\x00\x12\x31\n\rbar_tile_spec\x18\x0c \x01(\x0b\x32\x18.datacommons.BarTileSpecH\x00\x12\x35\n\x0fgauge_tile_spec\x18\r \x01(\x0b\x32\x1a.datacommons.GaugeTileSpecH\x00\"\xd3\x01\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\x12\t\n\x05GAUGE\x10\r\x12\r\n\tHISTOGRAM\x10\n\x12\x12\n\x0ePLACE_OVERVIEW\x10\x0b\x12\r\n\tTOP_EVENT\x10\x0c\x12\x16\n\x12\x44ISASTER_EVENT_MAP\x10\tB\x10\n\x0etile_type_spec\"\x9a\x02\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08\x66ootnote\x18\x05 \x01(\t\x12*\n\x07\x63olumns\x18\x03 \x03(\x0b\x32\x19.datacommons.Block.Column\x12*\n\x04type\x18\x04 \x01(\x0e\x32\x1c.datacommons.Block.BlockType\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x18\n\x10start_with_denom\x18\x07 \x01(\x08\x1a*\n\x06\x43olumn\x12 \n\x05tiles\x18\x01 \x03(\x0b\x32\x11.datacommons.Tile\".\n\tBlockType\x12\r\n\tTYPE_NONE\x10\x00\x12\x12\n\x0e\x44ISASTER_EVENT\x10\x01\"\xed\x01\n\x08\x43\x61tegory\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12=\n\rstat_var_spec\x18\x04 \x03(\x0b\x32&.datacommons.Category.StatVarSpecEntry\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Block\x12\x0c\n\x04\x64\x63id\x18\x05 \x01(\t\x1aL\n\x10StatVarSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.datacommons.StatVarSpec:\x02\x38\x01\"\xd3\x01\n\nSuggestion\x12+\n\x05items\x18\x01 \x03(\x0b\x32\x1c.datacommons.Suggestion.Item\x1a.\n\x04Item\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x10\n\x08nl_query\x18\x02 \x01(\t\"h\n\x04Type\x12\x1b\n\x17NL_PLACE_DISAMBIGUATION\x10\x00\x12\x14\n\x10NL_RELATED_PLACE\x10\x01\x12\x12\n\x0eNL_RELATED_VAR\x10\x02\x12\x19\n\x15NL_RELATED_QUERY_TYPE\x10\x03\"\xfe\x01\n\x11SubjectPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12)\n\ncategories\x18\x02 \x03(\x0b\x32\x15.datacommons.Category\x12\x44\n\x0bsuggestions\x18\x03 \x03(\x0b\x32/.datacommons.SubjectPageConfig.SuggestionsEntry\x1aK\n\x10SuggestionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.datacommons.Suggestion:\x02\x38\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12subject_page.proto\x12\x0b\x64\x61tacommons\"l\n\x0eSeverityFilter\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x05 \x01(\t\x12\x0c\n\x04unit\x18\x02 \x01(\t\x12\x13\n\x0blower_limit\x18\x03 \x01(\x01\x12\x13\n\x0bupper_limit\x18\x04 \x01(\x01\"\x9b\x04\n\rEventTypeSpec\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10\x65vent_type_dcids\x18\x03 \x03(\t\x12\r\n\x05\x63olor\x18\x04 \x01(\t\x12<\n\x17\x64\x65\x66\x61ult_severity_filter\x18\x05 \x01(\x0b\x32\x1b.datacommons.SeverityFilter\x12[\n\x1aplace_type_severity_filter\x18\n \x03(\x0b\x32\x37.datacommons.EventTypeSpec.PlaceTypeSeverityFilterEntry\x12<\n\x0c\x64isplay_prop\x18\x06 \x03(\x0b\x32&.datacommons.EventTypeSpec.DisplayProp\x12\x15\n\rend_date_prop\x18\x07 \x03(\t\x12\x1d\n\x15polygon_geo_json_prop\x18\x08 \x01(\t\x12\x1a\n\x12path_geo_json_prop\x18\t \x01(\t\x1a[\n\x1cPlaceTypeSeverityFilterEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12*\n\x05value\x18\x02 \x01(\x0b\x32\x1b.datacommons.SeverityFilter:\x02\x38\x01\x1a?\n\x0b\x44isplayProp\x12\x0c\n\x04prop\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_name\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\"\xe3\x03\n\x0cPageMetadata\x12\x10\n\x08topic_id\x18\x01 \x01(\t\x12\x12\n\ntopic_name\x18\x02 \x01(\t\x12\x12\n\nplace_dcid\x18\x03 \x03(\t\x12Q\n\x15\x63ontained_place_types\x18\x04 \x03(\x0b\x32\x32.datacommons.PageMetadata.ContainedPlaceTypesEntry\x12\x45\n\x0f\x65vent_type_spec\x18\x05 \x03(\x0b\x32,.datacommons.PageMetadata.EventTypeSpecEntry\x12\x39\n\x0bplace_group\x18\x06 \x03(\x0b\x32$.datacommons.PageMetadata.PlaceGroup\x1a:\n\x18\x43ontainedPlaceTypesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1aP\n\x12\x45ventTypeSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12)\n\x05value\x18\x02 \x01(\x0b\x32\x1a.datacommons.EventTypeSpec:\x02\x38\x01\x1a\x36\n\nPlaceGroup\x12\x14\n\x0cparent_place\x18\x01 \x01(\t\x12\x12\n\nplace_type\x18\x02 \x01(\t\"v\n\x0bStatVarSpec\x12\x10\n\x08stat_var\x18\x01 \x01(\t\x12\r\n\x05\x64\x65nom\x18\x02 \x01(\t\x12\x0c\n\x04unit\x18\x03 \x01(\t\x12\x0f\n\x07scaling\x18\x04 \x01(\x01\x12\x0b\n\x03log\x18\x05 \x01(\x08\x12\x0c\n\x04name\x18\x06 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x07 \x01(\t\"\xd0\x01\n\x0fRankingTileSpec\x12\x14\n\x0cshow_highest\x18\x01 \x01(\x08\x12\x13\n\x0bshow_lowest\x18\x02 \x01(\x08\x12\x16\n\x0e\x64iff_base_date\x18\x05 \x01(\t\x12\x15\n\rhighest_title\x18\x06 \x01(\t\x12\x14\n\x0clowest_title\x18\x07 \x01(\t\x12\x15\n\rranking_count\x18\n \x01(\x05\x12\x19\n\x11show_multi_column\x18\x0b \x01(\x08\x12\x1b\n\x13show_highest_lowest\x18\x0c \x01(\x08\"u\n\x18\x44isasterEventMapTileSpec\x12\x1c\n\x14point_event_type_key\x18\x01 \x03(\t\x12\x1e\n\x16polygon_event_type_key\x18\x02 \x03(\t\x12\x1b\n\x13path_event_type_key\x18\x03 \x03(\t\"9\n\x11HistogramTileSpec\x12\x16\n\x0e\x65vent_type_key\x18\x01 \x01(\t\x12\x0c\n\x04prop\x18\x02 \x01(\t\"\x9d\x01\n\x10TopEventTileSpec\x12\x16\n\x0e\x65vent_type_key\x18\x01 \x01(\t\x12\x14\n\x0c\x64isplay_prop\x18\x02 \x03(\t\x12\x17\n\x0fshow_start_date\x18\x03 \x01(\x08\x12\x15\n\rshow_end_date\x18\x04 \x01(\x08\x12\x14\n\x0creverse_sort\x18\x05 \x01(\x08\x12\x15\n\rranking_count\x18\x06 \x01(\x05\"\xbc\x01\n\x0fScatterTileSpec\x12\x1b\n\x13highlight_top_right\x18\x01 \x01(\x08\x12\x1a\n\x12highlight_top_left\x18\x02 \x01(\x08\x12\x1e\n\x16highlight_bottom_right\x18\x03 \x01(\x08\x12\x1d\n\x15highlight_bottom_left\x18\x04 \x01(\x08\x12\x19\n\x11show_place_labels\x18\x05 \x01(\x08\x12\x16\n\x0eshow_quadrants\x18\x06 \x01(\x08\"(\n\x0b\x42\x61rTileSpec\x12\x19\n\x11x_label_link_root\x18\x01 \x01(\t\"c\n\rGaugeTileSpec\x12/\n\x05range\x18\x01 \x01(\x0b\x32 .datacommons.GaugeTileSpec.Range\x1a!\n\x05Range\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\"\xb6\x06\n\x04Tile\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12(\n\x04type\x18\x03 \x01(\x0e\x32\x1a.datacommons.Tile.TileType\x12\x14\n\x0cstat_var_key\x18\x04 \x03(\t\x12\x19\n\x11\x63omparison_places\x18\x07 \x03(\t\x12\x1b\n\x13place_dcid_override\x18\x0b \x01(\t\x12\x39\n\x11ranking_tile_spec\x18\x05 \x01(\x0b\x32\x1c.datacommons.RankingTileSpecH\x00\x12M\n\x1c\x64isaster_event_map_tile_spec\x18\x06 \x01(\x0b\x32%.datacommons.DisasterEventMapTileSpecH\x00\x12<\n\x13top_event_tile_spec\x18\x08 \x01(\x0b\x32\x1d.datacommons.TopEventTileSpecH\x00\x12\x39\n\x11scatter_tile_spec\x18\t \x01(\x0b\x32\x1c.datacommons.ScatterTileSpecH\x00\x12=\n\x13histogram_tile_spec\x18\n \x01(\x0b\x32\x1e.datacommons.HistogramTileSpecH\x00\x12\x31\n\rbar_tile_spec\x18\x0c \x01(\x0b\x32\x18.datacommons.BarTileSpecH\x00\x12\x35\n\x0fgauge_tile_spec\x18\r \x01(\x0b\x32\x1a.datacommons.GaugeTileSpecH\x00\"\xd3\x01\n\x08TileType\x12\r\n\tTYPE_NONE\x10\x00\x12\x08\n\x04LINE\x10\x01\x12\x07\n\x03\x42\x41R\x10\x02\x12\x07\n\x03MAP\x10\x03\x12\x0b\n\x07SCATTER\x10\x04\x12\r\n\tBIVARIATE\x10\x05\x12\x0b\n\x07RANKING\x10\x06\x12\r\n\tHIGHLIGHT\x10\x07\x12\x0f\n\x0b\x44\x45SCRIPTION\x10\x08\x12\t\n\x05GAUGE\x10\r\x12\r\n\tHISTOGRAM\x10\n\x12\x12\n\x0ePLACE_OVERVIEW\x10\x0b\x12\r\n\tTOP_EVENT\x10\x0c\x12\x16\n\x12\x44ISASTER_EVENT_MAP\x10\tB\x10\n\x0etile_type_spec\"\x9a\x02\n\x05\x42lock\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08\x66ootnote\x18\x05 \x01(\t\x12*\n\x07\x63olumns\x18\x03 \x03(\x0b\x32\x19.datacommons.Block.Column\x12*\n\x04type\x18\x04 \x01(\x0e\x32\x1c.datacommons.Block.BlockType\x12\r\n\x05\x64\x65nom\x18\x06 \x01(\t\x12\x18\n\x10start_with_denom\x18\x07 \x01(\x08\x1a*\n\x06\x43olumn\x12 \n\x05tiles\x18\x01 \x03(\x0b\x32\x11.datacommons.Tile\".\n\tBlockType\x12\r\n\tTYPE_NONE\x10\x00\x12\x12\n\x0e\x44ISASTER_EVENT\x10\x01\"\xed\x01\n\x08\x43\x61tegory\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12=\n\rstat_var_spec\x18\x04 \x03(\x0b\x32&.datacommons.Category.StatVarSpecEntry\x12\"\n\x06\x62locks\x18\x03 \x03(\x0b\x32\x12.datacommons.Block\x12\x0c\n\x04\x64\x63id\x18\x05 \x01(\t\x1aL\n\x10StatVarSpecEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\'\n\x05value\x18\x02 \x01(\x0b\x32\x18.datacommons.StatVarSpec:\x02\x38\x01\"\xd3\x01\n\nSuggestion\x12+\n\x05items\x18\x01 \x03(\x0b\x32\x1c.datacommons.Suggestion.Item\x1a.\n\x04Item\x12\x14\n\x0c\x64isplay_name\x18\x01 \x01(\t\x12\x10\n\x08nl_query\x18\x02 \x01(\t\"h\n\x04Type\x12\x1b\n\x17NL_PLACE_DISAMBIGUATION\x10\x00\x12\x14\n\x10NL_RELATED_PLACE\x10\x01\x12\x12\n\x0eNL_RELATED_VAR\x10\x02\x12\x19\n\x15NL_RELATED_QUERY_TYPE\x10\x03\"\xfe\x01\n\x11SubjectPageConfig\x12+\n\x08metadata\x18\x01 \x01(\x0b\x32\x19.datacommons.PageMetadata\x12)\n\ncategories\x18\x02 \x03(\x0b\x32\x15.datacommons.Category\x12\x44\n\x0bsuggestions\x18\x03 \x03(\x0b\x32/.datacommons.SubjectPageConfig.SuggestionsEntry\x1aK\n\x10SuggestionsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12&\n\x05value\x18\x02 \x01(\x0b\x32\x17.datacommons.Suggestion:\x02\x38\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'subject_page_pb2', globals())
@@ -47,45 +47,45 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _PAGEMETADATA_PLACEGROUP._serialized_start=1117
   _PAGEMETADATA_PLACEGROUP._serialized_end=1171
   _STATVARSPEC._serialized_start=1173
-  _STATVARSPEC._serialized_end=1277
-  _RANKINGTILESPEC._serialized_start=1280
-  _RANKINGTILESPEC._serialized_end=1459
-  _DISASTEREVENTMAPTILESPEC._serialized_start=1461
-  _DISASTEREVENTMAPTILESPEC._serialized_end=1578
-  _HISTOGRAMTILESPEC._serialized_start=1580
-  _HISTOGRAMTILESPEC._serialized_end=1637
-  _TOPEVENTTILESPEC._serialized_start=1640
-  _TOPEVENTTILESPEC._serialized_end=1797
-  _SCATTERTILESPEC._serialized_start=1800
-  _SCATTERTILESPEC._serialized_end=1988
-  _BARTILESPEC._serialized_start=1990
-  _BARTILESPEC._serialized_end=2030
-  _GAUGETILESPEC._serialized_start=2032
-  _GAUGETILESPEC._serialized_end=2131
-  _GAUGETILESPEC_RANGE._serialized_start=2098
-  _GAUGETILESPEC_RANGE._serialized_end=2131
-  _TILE._serialized_start=2134
-  _TILE._serialized_end=2956
-  _TILE_TILETYPE._serialized_start=2727
-  _TILE_TILETYPE._serialized_end=2938
-  _BLOCK._serialized_start=2959
-  _BLOCK._serialized_end=3241
-  _BLOCK_COLUMN._serialized_start=3151
-  _BLOCK_COLUMN._serialized_end=3193
-  _BLOCK_BLOCKTYPE._serialized_start=3195
-  _BLOCK_BLOCKTYPE._serialized_end=3241
-  _CATEGORY._serialized_start=3244
-  _CATEGORY._serialized_end=3481
-  _CATEGORY_STATVARSPECENTRY._serialized_start=3405
-  _CATEGORY_STATVARSPECENTRY._serialized_end=3481
-  _SUGGESTION._serialized_start=3484
-  _SUGGESTION._serialized_end=3695
-  _SUGGESTION_ITEM._serialized_start=3543
-  _SUGGESTION_ITEM._serialized_end=3589
-  _SUGGESTION_TYPE._serialized_start=3591
-  _SUGGESTION_TYPE._serialized_end=3695
-  _SUBJECTPAGECONFIG._serialized_start=3698
-  _SUBJECTPAGECONFIG._serialized_end=3952
-  _SUBJECTPAGECONFIG_SUGGESTIONSENTRY._serialized_start=3877
-  _SUBJECTPAGECONFIG_SUGGESTIONSENTRY._serialized_end=3952
+  _STATVARSPEC._serialized_end=1291
+  _RANKINGTILESPEC._serialized_start=1294
+  _RANKINGTILESPEC._serialized_end=1502
+  _DISASTEREVENTMAPTILESPEC._serialized_start=1504
+  _DISASTEREVENTMAPTILESPEC._serialized_end=1621
+  _HISTOGRAMTILESPEC._serialized_start=1623
+  _HISTOGRAMTILESPEC._serialized_end=1680
+  _TOPEVENTTILESPEC._serialized_start=1683
+  _TOPEVENTTILESPEC._serialized_end=1840
+  _SCATTERTILESPEC._serialized_start=1843
+  _SCATTERTILESPEC._serialized_end=2031
+  _BARTILESPEC._serialized_start=2033
+  _BARTILESPEC._serialized_end=2073
+  _GAUGETILESPEC._serialized_start=2075
+  _GAUGETILESPEC._serialized_end=2174
+  _GAUGETILESPEC_RANGE._serialized_start=2141
+  _GAUGETILESPEC_RANGE._serialized_end=2174
+  _TILE._serialized_start=2177
+  _TILE._serialized_end=2999
+  _TILE_TILETYPE._serialized_start=2770
+  _TILE_TILETYPE._serialized_end=2981
+  _BLOCK._serialized_start=3002
+  _BLOCK._serialized_end=3284
+  _BLOCK_COLUMN._serialized_start=3194
+  _BLOCK_COLUMN._serialized_end=3236
+  _BLOCK_BLOCKTYPE._serialized_start=3238
+  _BLOCK_BLOCKTYPE._serialized_end=3284
+  _CATEGORY._serialized_start=3287
+  _CATEGORY._serialized_end=3524
+  _CATEGORY_STATVARSPECENTRY._serialized_start=3448
+  _CATEGORY_STATVARSPECENTRY._serialized_end=3524
+  _SUGGESTION._serialized_start=3527
+  _SUGGESTION._serialized_end=3738
+  _SUGGESTION_ITEM._serialized_start=3586
+  _SUGGESTION_ITEM._serialized_end=3632
+  _SUGGESTION_TYPE._serialized_start=3634
+  _SUGGESTION_TYPE._serialized_end=3738
+  _SUBJECTPAGECONFIG._serialized_start=3741
+  _SUBJECTPAGECONFIG._serialized_end=3995
+  _SUBJECTPAGECONFIG_SUGGESTIONSENTRY._serialized_start=3920
+  _SUBJECTPAGECONFIG_SUGGESTIONSENTRY._serialized_end=3995
 # @@protoc_insertion_point(module_scope)

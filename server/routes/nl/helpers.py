@@ -70,6 +70,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
+    if request.get_json().get('dc', '').startswith('sdg'):
+      embeddings_index_type = 'sdg_ft'
 
   detector_type = request.args.get('detector',
                                    default=RequestedDetectorType.Hybrid.value,

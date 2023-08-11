@@ -71,9 +71,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
     <footer id="chart-container-footer">
       <slot name="footer">
         {!_.isEmpty(props.sources) && (
-          <div className="sources">
-            Data from {getSourcesJsx(props.sources)}.
-          </div>
+          <div className="sources">From {getSourcesJsx(props.sources)}.</div>
         )}
       </slot>
       <div className="outlinks">
