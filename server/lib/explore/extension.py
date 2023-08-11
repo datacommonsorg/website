@@ -16,9 +16,9 @@
 import copy
 from typing import Dict, List, Set
 
-import server.lib.nl.common.topic as topic_lib
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
+import server.lib.nl.common.topic as topic_lib
 import server.lib.nl.fulfillment.types as ftypes
 
 # A few limits to make sure we don't blow up things.
@@ -96,8 +96,7 @@ def group_into_svpg(open_svg_result: Dict) -> List[Dict[str, Set[str]]]:
   return groups
 
 
-def build_chart_vars(topic: str,
-                     groups: List[Dict[str, Set[str]]],
+def build_chart_vars(topic: str, groups: List[Dict[str, Set[str]]],
                      processed: Set[str]) -> List[ftypes.ChartVars]:
   chart_vars_list = []
   added_sv_weight = 0
