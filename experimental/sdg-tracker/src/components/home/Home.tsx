@@ -1,5 +1,21 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { gray } from "@ant-design/colors";
-import { Button, Space } from "antd";
+import { Input } from "antd";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../layout/AppFooter";
@@ -41,38 +57,63 @@ const HomeLinks = styled.div`
   text-align: center;
 `;
 
+const SearchContainer = styled.div`
+  margin: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+const SearchInput = styled(Input)`
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  max-width: 450px;
+`;
+const LinkItem = styled.div`
+  margin-bottom: 1.5rem;
+`;
+const StyledLink = styled(Link)`
+  font-size: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #f1f1f1;
+  &:hover {
+    text-decoration: none;
+    background: #f1f1f1;
+  }
+`;
+
 const Home = () => {
   return (
     <AppLayout className="layout" style={{ minHeight: "100vh" }}>
       <Header selected="home" />
-      <AppLayoutContent style={{ background: "white" }}>
+      <AppLayoutContent style={{ background: "white", overflow: "auto" }}>
         <HomeContainer>
-          <h1>
-            Use Google's Data Commons to explore United Nations Sustainable
-            Development Goals
-          </h1>
+          <h1>Sustainable Development Goals Data Commons</h1>
           <p>
-            Discover the progress made towards the United Nations{" "}
-            <a
-              href="https://sdgs.un.org/"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Sustainable Development Goals (SDGs)
-            </a>
-            . Access accurate and up-to-date information, interactive
-            visualizations, and insightful analysis, empowering you to drive
-            positive change towards a sustainable future for all.
+            Introducing the new SDG Data Commons — a platform integrating
+            authoritative SDG data and information resources from across the UN
+            System into a public repository with advanced search functionality
+            and a modern, user-friendly interface.
           </p>
+          <SearchContainer>
+            <SearchInput
+              placeholder='For example, "Access to Clean Energy in Afghanistan"'
+              allowClear
+              size="large"
+            />
+          </SearchContainer>
           <HomeLinks>
-            <Space>
-              <Link to="/global">
-                <Button size="large">Global Overview</Button>
-              </Link>
-              <Link to="/country">
-                <Button size="large">Country View</Button>
-              </Link>
-            </Space>
+            <p>Sample queries</p>
+            <LinkItem>
+              <StyledLink to="/countries?q=Access to clean energy in Afghanistan">
+                Access to clean energy in Afghanistan
+              </StyledLink>
+            </LinkItem>
+            <LinkItem>
+              <StyledLink to="/countries?q=Poverty in Sub-Saharan Africa">
+                Poverty in Sub-Saharan Africa
+              </StyledLink>
+            </LinkItem>
           </HomeLinks>
         </HomeContainer>
       </AppLayoutContent>

@@ -132,7 +132,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
-    CHART_TITLE = "Median age by gender: states near California(2020)"
+    CHART_TITLE = "Median age by gender: states near California(2021)"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
 
@@ -182,7 +182,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
-    self.assertEqual("Median age by gender: states near California(2020)",
+    self.assertEqual("Median age by gender: states near California(2021)",
                      chart_title)
 
   def test_ranking_chart_present(self):

@@ -30,6 +30,7 @@ interface ChildPlacesPropType {
   childPlaces: ChildPlacesByType;
   // Format string must include ${placeDcid} for child place URLs.
   urlFormatString: string;
+  onClick?: () => void;
 }
 
 export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
@@ -70,6 +71,7 @@ export function ChildPlaces(props: ChildPlacesPropType): JSX.Element {
                   href={formatString(props.urlFormatString, rs)}
                   className="child-place-link"
                   key={`child-place-${i}`}
+                  onClick={props.onClick || _.noop}
                 >
                   {place.name || place.dcid}
                   {i < props.childPlaces[placeType].length - 1 ? "," : ""}

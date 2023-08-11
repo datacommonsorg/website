@@ -34,42 +34,48 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
   return (
     <div className="topic-container">
       <div className="topic-queries">
-        <div className="topic-queries">
-          <div>
-            <b>Here are some examples to get started:</b>
+        {props.currentTopic.examples.general.length > 0 && (
+          <div className="topic-queries">
+            <div>
+              <b>Here are some examples to get started:</b>
+            </div>
+            <ul>
+              {props.currentTopic.examples.general.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} appName={props.appName} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            {props.currentTopic.examples.general.map((query, i) => (
-              <li key={i}>
-                <QueryLink query={query} appName={props.appName} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="topic-queries">
-          <div>
-            <b>Try diving deeper:</b>
+        )}
+        {props.currentTopic.examples.specific.length > 0 && (
+          <div className="topic-queries">
+            <div>
+              <b>Try diving deeper:</b>
+            </div>
+            <ul>
+              {props.currentTopic.examples.specific.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} appName={props.appName} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            {props.currentTopic.examples.specific.map((query, i) => (
-              <li key={i}>
-                <QueryLink query={query} appName={props.appName} />
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="topic-queries">
-          <div>
-            <b>Combine and compare data from different Data Commons:</b>
+        )}
+        {props.currentTopic.examples.comparison.length > 0 && (
+          <div className="topic-queries">
+            <div>
+              <b>Combine and compare data from different Data Commons:</b>
+            </div>
+            <ul>
+              {props.currentTopic.examples.comparison.map((query, i) => (
+                <li key={i}>
+                  <QueryLink query={query} appName={props.appName} />
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            {props.currentTopic.examples.comparison.map((query, i) => (
-              <li key={i}>
-                <QueryLink query={query} appName={props.appName} />
-              </li>
-            ))}
-          </ul>
-        </div>
+        )}
       </div>
       <div className="topic-more">
         Additional data is available for these topics:{" "}

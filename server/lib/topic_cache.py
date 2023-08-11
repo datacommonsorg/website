@@ -82,7 +82,7 @@ class TopicCache:
     return self.out_map[id].name
 
 
-def load_file(fpath: str) -> TopicCache:
+def load_file(fpath: str, name_overrides: Dict) -> TopicCache:
   with open(fpath, 'r') as fp:
     cache = json.load(fp)
 
@@ -93,6 +93,8 @@ def load_file(fpath: str) -> TopicCache:
     dcid = node['dcid'][0]
     typ = node['typeOf'][0]
     name = node.get('name', [''])[0]
+    if name_overrides.get(dcid):
+      name = name_overrides.get(dcid)
     if 'relevantVariableList' in node:
       prop = 'relevantVariableList'
     else:
@@ -112,8 +114,8 @@ def load_file(fpath: str) -> TopicCache:
   return TopicCache(out_map=out_map, in_map=in_map)
 
 
-def load() -> Dict[str, TopicCache]:
+def load(name_overrides: Dict) -> Dict[str, TopicCache]:
   topic_cache_map = {}
   for dc, fpath in TOPIC_CACHE_FILES.items():
-    topic_cache_map[dc] = load_file(fpath)
+    topic_cache_map[dc] = load_file(fpath, name_overrides)
   return topic_cache_map

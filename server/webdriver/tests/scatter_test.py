@@ -75,8 +75,8 @@ class TestScatter(WebdriverBaseTest):
     chart_title_x = self.driver.find_element(
         By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
     self.assertEqual(chart_title_y.text,
-                     "Population Asian Alone Per Capita (2020)")
-    self.assertEqual(chart_title_x.text, "Median Income of a Population (2020)")
+                     "Population Asian Alone Per Capita (2021)")
+    self.assertEqual(chart_title_x.text, "Median Income of a Population (2021)")
     chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
@@ -143,8 +143,8 @@ class TestScatter(WebdriverBaseTest):
         By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[1]')
     chart_title_x = self.driver.find_element(
         By.XPATH, '//*[@id="chart"]/div[1]/div[1]/h3[2]')
-    self.assertEqual(chart_title_y.text, "Median Income of a Population (2020)")
-    self.assertEqual(chart_title_x.text, "Median Age of Population (2020)")
+    self.assertEqual(chart_title_y.text, "Median Income of a Population (2021)")
+    self.assertEqual(chart_title_x.text, "Median Age of Population (2021)")
     chart = self.driver.find_element(By.XPATH, '//*[@id="scatterplot"]')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)

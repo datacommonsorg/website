@@ -93,6 +93,9 @@ message StatVarSpec {
   bool log = 5;
   // The name to use for the stat var in labels and titles.
   string name = 6;
+  // [Optional] The date to use when getting data for the stat var. Will use the
+  // latest date if not set. Only enabled in map, ranking, and scatter tiles.
+  string date = 7;
 }
 
 // This ranks across child places for a single stat var.

@@ -28,6 +28,7 @@ import {
 export const SVG_HEIGHT = 300;
 // Width of the svg to render.
 export const SVG_WIDTH = 500;
+export const SVG_PADDING = 25;
 export const DOM_ID = "dom-id";
 // id to use for drawing charts.
 export const CHART_ID = "chart-id";
