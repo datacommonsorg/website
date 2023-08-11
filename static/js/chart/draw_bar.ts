@@ -23,6 +23,7 @@ import _ from "lodash";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
+import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
@@ -30,13 +31,16 @@ import {
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
+  TOOLTIP_ID,
   XLINKNS,
 } from "./draw_constants";
 import {
+  addTooltip,
   addXAxis,
   addYAxis,
   appendLegendElem,
   getDisplayUnitAndLabel,
+  showTooltip,
   updateXAxis,
 } from "./draw_utils";
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
@@ -51,6 +55,80 @@ export const HORIZONTAL_BAR_CHART = {
 };
 // Extra amount to shift axes tick labels by to account for the actual tick line
 const TICK_LABEL_PADDING = 10;
+
+/**
+ * Adds highlighting and showing a tooltip on hover for bar charts
+ *
+ * @param xScale time scale corresponding to the x-axis.
+ * @param yScale linear scale corresponding to the y-axis.
+ * @param container the div element that holds the bar chart we are adding highlighting for.
+ * @param dataGroupsDict dictionary of place to datagroups of the bar chart of interest.
+ * @param colorFn color function that returns a color for a given place and datagroup.
+ * @param setOfTimePoints all the timepoints in the dataGroupsDict.
+ * @param highlightArea svg element to hold the elements for highlighting points.
+ * @param chartAreaBoundary boundary of the chart of interest relative to its container.
+ * @param unit units of the data of the chart of interest.
+ */
+function addHighlightOnHover(
+  chartAreaBoundary: Boundary,
+  container: d3.Selection<HTMLDivElement, any, any, any>,
+  svg: d3.Selection<SVGSVGElement, any, any, any>,
+  categoricalScale: d3.ScaleBand<string>,
+  numericScale: d3.ScaleLinear<number, number>,
+  chartIsHorizontal: boolean,
+  categoricalSubScale?: d3.ScaleBand<string>
+): void {
+  addTooltip(container);
+  const tooltip = container.select(`#${TOOLTIP_ID}`);
+  svg
+    .selectAll("rect")
+    .on("mouseover", () => {
+      tooltip.style("display", "block");
+    })
+    .on("mouseout", function () {
+      d3.select(this).style("opacity", 1);
+      tooltip.style("display", "none");
+    })
+    .on("mousemove", function () {
+      const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
+      //const tooltipContent = this.attr("data-d");
+      const rect = d3.select(this);
+      const place = rect.attr("data-dcid");
+      const value = parseFloat(rect.attr("data-d"));
+      const tooltipContent = rect.attr("data-d");
+      let dataPointX: number;
+      let dataPointY: number;
+      if (chartIsHorizontal) {
+        dataPointX = numericScale(value);
+        dataPointY = mouseY;
+      } else {
+        dataPointX = categoricalSubScale
+          ? categoricalScale(place) + categoricalSubScale(place)
+          : mouseX;
+        console.log(place);
+        console.log(categoricalScale(place));
+        console.log(categoricalSubScale(place));
+        console.log(dataPointX);
+        dataPointY = numericScale(parseFloat(rect.attr("data-d")));
+      }
+      rect.style("opacity", 0.5);
+      tooltip.style("display", "block");
+      showTooltip(
+        tooltipContent,
+        container,
+        dataPointX,
+        dataPointY,
+        chartAreaBoundary,
+        true
+      );
+    });
+
+  // container.on("mousemove", () => {
+  //   const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
+  //   tooltip.style("display", "block");
+  //   showTooltip(tooltipContent, container, mouseX, mouseY, chartAreaBoundary);
+  // });
+}
 
 /**
  * Draw stack bar chart.
@@ -720,6 +798,16 @@ export function drawGroupBarChart(
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
   } else {
     drawBars(chart, colorFn, dataGroups, x0, x1, y);
+  }
+
+  if (options?.showTooltipOnHover) {
+    const chartAreaBoundary = {
+      bottom: chartHeight - bottomHeight,
+      left: leftWidth,
+      right: chartWidth - MARGIN.right,
+      top: 0,
+    };
+    addHighlightOnHover(chartAreaBoundary, container, svg, x0, y, false, x1);
   }
 
   appendLegendElem(

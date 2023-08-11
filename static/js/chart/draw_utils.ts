@@ -57,12 +57,13 @@ const TOOLTIP_BOTTOM_OFFSET = 5;
  */
 export function addTooltip(
   container: d3.Selection<HTMLDivElement, any, any, any>
-): void {
-  container
+): d3.Selection<HTMLDivElement, any, any, any> {
+  const tooltip = container
     .attr("style", "position: relative")
     .append("div")
     .attr("id", TOOLTIP_ID)
     .attr("style", "position: absolute; display: none; z-index: 1");
+  return tooltip;
 }
 
 /**
@@ -490,13 +491,16 @@ export function getDisplayUnitAndLabel(
  * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
+ * @param useDataPointPosition set to true to draw tooltip where the datapoint
+ *                             that the tooltip is being shown for is located.
  */
 export function showTooltip(
   contentHTML: string,
   container: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,
   datapointY: number,
-  relativeBoundary: Boundary
+  relativeBoundary: Boundary,
+  useDataPointPosition?: boolean
 ): void {
   const tooltipSelect = container.select(`#${TOOLTIP_ID}`).html(contentHTML);
   const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
@@ -513,7 +517,9 @@ export function showTooltip(
   // place the tooltip against the top of the chart area unless there is too little space between it
   // and the datapoint, then place the tooltip against the bottom of the chart area
   let top = 0;
-  if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
+  if (useDataPointPosition) {
+    top = Math.max(datapointY - height, 0);
+  } else if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
     top = relativeBoundary.bottom - height;
   }
   tooltipSelect.style("left", left + "px").style("top", top + "px");

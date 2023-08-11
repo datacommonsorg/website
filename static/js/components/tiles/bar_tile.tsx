@@ -75,6 +75,8 @@ export interface BarTilePropType {
   place: NamedTypedPlace;
   // sort order
   sort?: SortType;
+  // Set to true to draw tooltip when hovering over bars
+  showTooltipOnHover?: boolean;
   // Set to true to draw as a stacked chart instead of a grouped chart
   stacked?: boolean;
   statVarSpec: StatVarSpec[];
@@ -313,6 +315,7 @@ export function draw(
         colors: props.colors,
         lollipop: props.useLollipop,
         stacked: props.stacked,
+        showTooltipOnHover: props.showTooltipOnHover,
         style: {
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
@@ -331,6 +334,7 @@ export function draw(
         {
           colors: props.colors,
           lollipop: props.useLollipop,
+          showTooltipOnHover: props.showTooltipOnHover,
           unit: chartData.unit,
         }
       );
@@ -344,6 +348,7 @@ export function draw(
         {
           colors: props.colors,
           lollipop: props.useLollipop,
+          showTooltipOnHover: props.showTooltipOnHover,
           unit: chartData.unit,
         }
       );

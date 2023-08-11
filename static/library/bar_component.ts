@@ -203,6 +203,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      showTooltipOnHover: true,
       sort: this.sort,
       stacked: this.stacked,
       statVarSpec,
