@@ -117,6 +117,11 @@ export interface GaugeTileSpec {
   };
 }
 
+export interface DonutTileSpec {
+  colors?: string[];
+  pie?: boolean;
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -131,6 +136,7 @@ export interface TileConfig {
   histogramTileSpec?: HistogramTileSpec;
   barTileSpec?: BarTileSpec;
   gaugeTileSpec?: GaugeTileSpec;
+  donutTileSpec?: DonutTileSpec;
 }
 
 export interface ColumnConfig {

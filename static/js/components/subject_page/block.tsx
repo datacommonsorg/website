@@ -39,6 +39,7 @@ import {
 } from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
+import { DonutTile } from "../tiles/donut_tile";
 import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -306,6 +307,21 @@ function renderTiles(
             )}
             title={tile.title}
           ></GaugeTile>
+        );
+      case "DONUT":
+        return (
+          <DonutTile
+            colors={tile.donutTileSpec?.colors}
+            id={id}
+            pie={tile.donutTileSpec?.pie}
+            place={place}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
+            svgChartHeight={props.svgChartHeight}
+            title={tile.title}
+          ></DonutTile>
         );
       case "DESCRIPTION":
         return (

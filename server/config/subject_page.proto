@@ -197,10 +197,17 @@ message GaugeTileSpec {
   Range range = 1;
 }
 
+message DonutTileSpec {
+  // colors to use
+  repeated string colors = 1;
+  // whether to draw as full pie chart instead of a donut
+  bool pie = 2;
+}
+
 message Tile {
   // When adding a new TileType:
-  // - make sure to update verify_tile in subject_page_configs_test.py with any
-  //   required fields for your new TileType.
+  // - make sure to update verify_tile in subject_page_config_content_test.py
+  //   with any required fields for your new TileType.
   // - specify what block types can render the tiles.
   // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
@@ -223,6 +230,8 @@ message Tile {
     DESCRIPTION = 8;
     // allowed in BlockTypes: TYPE_NONE
     GAUGE = 13;
+    // allowed in BlockTypes: TYPE_NONE
+    DONUT = 14;
     // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: DISASTER_EVENT
@@ -256,6 +265,7 @@ message Tile {
     HistogramTileSpec histogram_tile_spec = 10;
     BarTileSpec bar_tile_spec = 12;
     GaugeTileSpec gauge_tile_spec = 13;
+    DonutTileSpec donut_tile_spec = 14;
   }
 }
 
