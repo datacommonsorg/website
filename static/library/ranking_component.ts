@@ -64,7 +64,7 @@ export class DatacommonsRankingComponent extends LitElement {
 
   // Title of the chart
   @property()
-  title!: string;
+  header!: string;
 
   // DCID of the parent place
   @property()
@@ -82,6 +82,13 @@ export class DatacommonsRankingComponent extends LitElement {
   // Default: highest-to-lowest
   @property({ type: Boolean })
   showLowest: boolean;
+
+  /**
+   * @deprecated
+   * Title of the chart
+   */
+  @property()
+  title!: string;
 
   render(): HTMLElement {
     const rankingTileProps: RankingTilePropType = {
@@ -109,7 +116,7 @@ export class DatacommonsRankingComponent extends LitElement {
           unit: "",
         },
       ],
-      title: this.title,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(
