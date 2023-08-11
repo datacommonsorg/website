@@ -83,6 +83,13 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   subscribe: string;
 
+  /**
+   * @deprecated
+   * Title of the chart
+   */
+  @property()
+  title!: string;
+
   // Statistical variable DCID
   @property()
   variable!: string;
@@ -147,7 +154,7 @@ export class DatacommonsMapComponent extends LitElement {
         unit: "",
       },
       svgChartHeight: 200,
-      title: this.header,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);

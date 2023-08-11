@@ -76,6 +76,13 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   place!: string;
 
+  /**
+   * @deprecated
+   * Title of the chart
+   */
+  @property()
+  title!: string;
+
   // DCID of the statistical variable to compare values for
   @property()
   variable!: string;
@@ -103,7 +110,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         statVar: this.variable,
         unit: "",
       },
-      title: this.header,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(GaugeTile, gaugeTileProps), mountPoint);

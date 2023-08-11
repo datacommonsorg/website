@@ -84,6 +84,13 @@ export class DatacommonsPieComponent extends LitElement {
   @property()
   place!: string;
 
+  /**
+   * @deprecated
+   * Title of the chart
+   */
+  @property()
+  title!: string;
+
   render(): HTMLElement {
     const statVarSpec = [];
     this.variables.forEach((statVarDcid) => {
@@ -108,7 +115,7 @@ export class DatacommonsPieComponent extends LitElement {
       },
       statVarSpec,
       svgChartHeight: 200,
-      title: this.header,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(DonutTile, donutTileProps), mountPoint);

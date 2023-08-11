@@ -36,6 +36,7 @@ export interface BarComponentProps
   places?: string[];
   sort?: SortType;
   stacked?: boolean;
+  title?: string;
   variables: string[];
   yAxisMargin?: number;
 }
@@ -51,6 +52,7 @@ export interface GaugeComponentProps
   max: number;
   min: number;
   place: string;
+  title?: string;
   variable: string;
 }
 
@@ -61,7 +63,8 @@ export interface HighlightComponentProps
   > {
   apiRoot?: string;
   date?: string;
-  description: string;
+  description?: string;
+  header: string;
   place: string;
   variable: string;
 }
@@ -77,6 +80,7 @@ export interface LineComponentProps
   header: string;
   place?: string;
   places?: string[];
+  title?: string;
   variables: string[];
 }
 
@@ -96,6 +100,7 @@ export interface MapComponentProps
   placeDcid?: string;
   statVarDcid?: string;
   subscribe?: string;
+  title?: string;
   variable: string;
 }
 
@@ -109,6 +114,7 @@ export interface PieComponentProps
   donut?: boolean;
   header: string;
   place: string;
+  title?: string;
   variables: string[];
 }
 
@@ -122,6 +128,7 @@ export interface RankingComponentProps
   header: string;
   parentPlace: string;
   showLowest?: boolean;
+  title?: string;
   variable: string;
 }
 

@@ -83,6 +83,13 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean })
   showLowest: boolean;
 
+  /**
+   * @deprecated
+   * Title of the chart
+   */
+  @property()
+  title!: string;
+
   render(): HTMLElement {
     const rankingTileProps: RankingTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -109,7 +116,7 @@ export class DatacommonsRankingComponent extends LitElement {
           unit: "",
         },
       ],
-      title: this.header,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(
