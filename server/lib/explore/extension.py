@@ -13,56 +13,52 @@
 # limitations under the License.
 """Module for Topic extension."""
 
-from typing import Dict, List
+from typing import Dict, List, Set
 
 from server.lib.nl.common import topic
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
 import server.lib.nl.fulfillment.types as ftypes
 
-
-# Max PVs in an SV + 1
-MAX_PVS = 11
-MAX_SV_EQUIVALENTS = 12
+# A few limits to make sure we don't blow up things.
+MAX_OPENED_TOPICS = 3
+MAX_SVS_TO_ADD = 40
 # 1 SVPG is equivalent to 4 SVs.
 SVPG_TO_SV_EQUIVALENTS = 4
 
+# Max PVs in an SV + 1
+MAX_PVS = 11
+
+
+# TODO: Tune this threshold for extending a topic with SVG.
+def needs_extension(num_chart_vars: int, num_exist_svs: int) -> bool:
+  return num_chart_vars <= 5 or num_exist_svs <= 10
+
 
 def extend_topics(topics: List[str],
-                  state: ftypes.PopulateState,
-                  places: Dict[str, str]) -> List[ftypes.ChartVars]:
-  for t in topics:
+                  places: Dict[str, str]) -> Dict[str, ftypes.ChartVars]:
+  res = {}
+  for t in topics[:MAX_OPENED_TOPICS]:
     svgs = topic.get_topic_extended_svgs(t)
     if svgs:
-      cv_list = _extend_topic(t, svgs, list(places.keys()))
+      cv_list = _extend_topic(t, svgs)
       if cv_list:
-        _update_exist_states(cv_list, state, places)
-        return cv_list
-  return []
+        res[t] = cv_list
+  return res
 
 
-def _update_exist_states(cv_list: List[ftypes.ChartVars], state: ftypes.PopulateState,
-                         places: Dict[str, str]):
-  for pk in sorted(list(set(places.values()))):
-    for cv in cv_list:
-      for sv in cv.svs:
-        if sv not in state.exist_checks:
-          state.exist_checks[sv] = {}
-        if pk not in state.exist_checks[sv]:
-          # Be conservative and claim single-point
-          state.exist_checks[sv][pk] = True
-
-
-def _extend_topic(topic: str, svgs: List[str], places: List[str]) -> List[ftypes.ChartVars]:
-  result = variable_group.open_svgs(svgs, places)
+def _extend_topic(topic: str, svgs: List[str]) -> List[ftypes.ChartVars]:
+  result = variable_group.open_svgs(svgs)
 
   # Collect the results into SVPGs.
   # 1. sort by #pvs
   vars: List[variable.SV] = list(result.values())
-  vars.sort(key=lambda x : len(x.pvs))
+  vars.sort(key=lambda x: len(x.pvs))
 
   # 2. group-by common keys.
-  groups = [{}] * MAX_PVS
+  groups = []
+  for i in range(MAX_PVS):
+    groups.append({})
   for v in vars:
     if v.mp == v.id or v.pt == 'Thing':
       # This is schemaless, but at the very end.
@@ -98,27 +94,25 @@ def _extend_topic(topic: str, svgs: List[str], places: List[str]) -> List[ftypes
         if svs[0] in processed:
           continue
         chart_vars_list.append(
-          ftypes.ChartVars(svs=svs,
-                           orig_sv=topic,
-                           source_topic=topic,
-                           is_topic_peer_group=False)
-        )
+            ftypes.ChartVars(svs=svs,
+                             orig_sv=topic,
+                             source_topic=topic,
+                             is_topic_peer_group=False))
       elif len(svs) > 1:
-        chart_vars_list.append(ftypes.ChartVars(svs=svs,
-                         source_topic=topic,
-                         orig_sv=topic,
-                         is_topic_peer_group=True))
+        chart_vars_list.append(
+            ftypes.ChartVars(svs=svs,
+                             source_topic=topic,
+                             orig_sv=topic,
+                             is_topic_peer_group=True))
       processed.update(svs)
-      if added_sv_weight > MAX_SV_EQUIVALENTS:
+      if added_sv_weight > MAX_SVS_TO_ADD:
         return chart_vars_list
 
   return chart_vars_list
 
 
 def _key(sv: variable.SV, i: int) -> str:
-  key_list = [
-      sv.pt, sv.mp, sv.st, sv.mq, sv.md
-  ]
+  key_list = [sv.pt, sv.mp, sv.st, sv.mq, sv.md]
   for j, p in enumerate(sorted(sv.pvs)):
     key_list.append(p)
     if i == j:

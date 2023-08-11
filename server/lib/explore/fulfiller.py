@@ -15,15 +15,16 @@
 # Module for Explore fulfillment
 
 from dataclasses import dataclass
-from typing import Dict, List
+import time
+from typing import Dict, List, Set
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import page_main
 from server.lib.explore import page_sdg
+import server.lib.explore.extension as extension
 from server.lib.explore.params import is_sdg
 import server.lib.explore.related as related
 import server.lib.explore.topic as topic
-import server.lib.explore.extension as extension
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
@@ -78,6 +79,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     uttr.counters.err("failed_NoPlacesToCheck", '')
     return None, {}
 
+  start = time.time()
   # Perform existence checks for all the SVs!
   tracker = ext.MainExistenceCheckTracker(state,
                                           places_to_check,
@@ -85,39 +87,35 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
                                           prep_chart_vars=False,
                                           sv2chartvarslist=chart_vars_map)
   tracker.perform_existence_check()
+  state.uttr.counters.timeit('main_existence_check', start)
 
-  # Given a `cv` updates these structures.
+  # Given a tracker, updates these structures.
   existing_svs = set(state.uttr.svs)
   chart_vars_list = []
   topics = []
-  def _cv_func(cv: ftypes.ChartVars):
-    if cv.svs:
-      existing_svs.update(cv.svs)
-      chart_vars_list.append(cv)
-    if cv.source_topic:
-      existing_svs.add(cv.source_topic)
-    if cv.svpg_id:
-      existing_svs.add(cv.svpg_id)
-    if cv.orig_sv:
-      existing_svs.add(cv.orig_sv)
-      if cutils.is_topic(cv.orig_sv) and cv.orig_sv not in topics:
-        topics.append(cv.orig_sv)
-
-  for exist_state in tracker.exist_sv_states:
-    for exist_cv in exist_state.chart_vars_list:
-      chart_vars = tracker.get_chart_vars(exist_cv)
-      _cv_func(chart_vars)
+  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics)
 
   # Route to an appropriate page generator.
   if is_sdg(state.uttr.insight_ctx):
     config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
                                         cb_config)
   else:
-    # TODO: Tune this threshold for extending a topic with SVG.
-    if (len(chart_vars_list) <= 5 or len(existing_svs) < 10) and topics:
-      new_cv_list = extension.extend_topics(topics, state, places_to_check)
-      for cv in new_cv_list:
-        _cv_func(cv)
+    if topics and extension.needs_extension(len(chart_vars_list),
+                                            len(existing_svs)):
+      start = time.time()
+      ext_chart_vars_map = extension.extend_topics(topics, places_to_check)
+      state.uttr.counters.timeit('extend_topics', start)
+      if ext_chart_vars_map:
+        start = time.time()
+        ext_tracker = ext.MainExistenceCheckTracker(
+            state,
+            places_to_check,
+            svs=list(ext_chart_vars_map.keys()),
+            prep_chart_vars=False,
+            sv2chartvarslist=ext_chart_vars_map)
+        ext_tracker.perform_existence_check()
+        state.uttr.counters.timeit('extension_existence_check', start)
+        _chart_vars_fetch(ext_tracker, chart_vars_list, existing_svs, topics)
 
     config_resp = page_main.build_config(chart_vars_list, state, existing_svs,
                                          cb_config)
@@ -135,3 +133,24 @@ def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
   for p in places:
     dcids.append(p.dcid)
   return dcids
+
+
+def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
+                      chart_vars_list: List[ftypes.ChartVars],
+                      existing_svs: Set[str],
+                      topics: List[str] = None):
+  for exist_state in tracker.exist_sv_states:
+    for exist_cv in exist_state.chart_vars_list:
+      cv = tracker.get_chart_vars(exist_cv)
+      if cv.svs:
+        existing_svs.update(cv.svs)
+        chart_vars_list.append(cv)
+      if cv.source_topic:
+        existing_svs.add(cv.source_topic)
+      if cv.svpg_id:
+        existing_svs.add(cv.svpg_id)
+      if cv.orig_sv:
+        existing_svs.add(cv.orig_sv)
+        if topics != None and cutils.is_topic(
+            cv.orig_sv) and cv.orig_sv not in topics:
+          topics.append(cv.orig_sv)

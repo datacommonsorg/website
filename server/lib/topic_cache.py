@@ -39,11 +39,16 @@ TOPIC_CACHE_FILES = {
     DCNames.SDG_MINI_DC.value: 'server/config/nl_page/sdgmini_topic_cache.json',
 }
 
-
 # TODO: Move this to schema
 _EXTENDED_SVG_OVERRIDE_MAP = {
-  'dc/topic/Employment': ['dc/g/Employment'],
-  'dc/topic/Economy': ['dc/g/Currency', 'dc/g/Debt', 'dc/g/EconomicActivity', 'dc/g/Stock', 'dc/g/Remittance']
+    'dc/topic/Employment': ['dc/g/Employment'],
+    'dc/topic/Economy': [
+        'dc/g/Currency', 'dc/g/Debt', 'dc/g/EconomicActivity', 'dc/g/Stock',
+        'dc/g/Remittance'
+    ],
+    'dc/topic/GlobalEconomicActivity': [
+        'dc/g/EconomicActivity', 'dc/g/Stock', 'dc/g/Remittance'
+    ]
 }
 
 

@@ -14,19 +14,23 @@
 
 from typing import Dict, List
 
-import server.services.datacommons as dc
 from server.lib.nl.common import variable
+import server.services.datacommons as dc
+
+# A few limits to make sure we don't blow up.
+MAX_SVGS_IN_CALL = 50
+MAX_SVG_LEVELS = 10
 
 
-def open_svgs(svgs: List[str], places: List[str]) -> Dict[str, variable.SV]:
+def open_svgs(svgs: List[str]) -> Dict[str, variable.SV]:
   result = {}
   processed = set()
-  _get_svg_info(svgs, places, processed, result)
+  _get_svg_info(sorted(svgs), processed, result, level=0)
   return result
 
 
-def _get_svg_info(svgs, places, processed, result):
-  resp = dc.get_variable_group_info(svgs, places, numEntitiesExistence=len(places))
+def _get_svg_info(svgs, processed, result, level=0):
+  resp = dc.get_variable_group_info(svgs[:MAX_SVGS_IN_CALL], [])
   recurse_nodes = set()
   for data in resp.get('data', []):
     svg_id = data.get('node', '')
@@ -44,12 +48,13 @@ def _get_svg_info(svgs, places, processed, result):
     for csv in info.get('childStatVars', []):
       if not csv.get('id'):
         continue
-      result[csv['id']] = variable.parse_sv(csv['id'], csv.get('definition', ''))
+      result[csv['id']] = variable.parse_sv(csv['id'],
+                                            csv.get('definition', ''))
 
     for csvg in info.get('childStatVarGroups', []):
       if not csvg.get('id'):
         continue
       recurse_nodes.add(csvg['id'])
 
-  if recurse_nodes:
-    _get_svg_info(list(recurse_nodes), places, processed, result)
+  if recurse_nodes and level <= MAX_SVG_LEVELS:
+    _get_svg_info(sorted(list(recurse_nodes)), processed, result, level + 1)
