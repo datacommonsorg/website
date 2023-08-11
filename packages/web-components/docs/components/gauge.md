@@ -20,6 +20,10 @@
 
 Required:
 
+- `header` _string_
+
+  Chart title.
+
 - `max` _number_
 
   Gauge maximum value.
@@ -31,10 +35,6 @@ Required:
 - `place` _string_
 
   Place DCID to plot.
-
-- `title` _string_
-
-  Chart title.
 
 - `variable` _string_
 

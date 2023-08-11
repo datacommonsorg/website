@@ -63,6 +63,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   date: string;
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   // DCID of the parent place
   @property()
   parentPlace!: string;
@@ -79,7 +83,10 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   subscribe: string;
 
-  // Title of the chart
+  /**
+   * @deprecated
+   * Title of the chart
+   */
   @property()
   title!: string;
 
@@ -147,7 +154,7 @@ export class DatacommonsMapComponent extends LitElement {
         date: this.date,
       },
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header || this.title,
     };
     const mountPoint = document.createElement("div");
     ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);
