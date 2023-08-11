@@ -137,6 +137,14 @@ class IntegrationTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_basic', req)
 
+  def test_fulfillment_expansion(self):
+    req = {
+        'entities': ['country/BRA'],
+        'variables': ['dc/topic/GlobalEconomicActivity'],
+        'dc': ''
+    }
+    self.run_fulfillment('fulfillment_api_expansion', req)
+
   def test_fulfillment_sdg(self):
     req = {
         'entities': ['country/USA'],
