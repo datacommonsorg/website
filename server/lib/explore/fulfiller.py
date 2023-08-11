@@ -23,6 +23,7 @@ from server.lib.explore import page_sdg
 from server.lib.explore.params import is_sdg
 import server.lib.explore.related as related
 import server.lib.explore.topic as topic
+import server.lib.explore.extension as extension
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
@@ -85,26 +86,39 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
                                           sv2chartvarslist=chart_vars_map)
   tracker.perform_existence_check()
 
+  # Given a `cv` updates these structures.
   existing_svs = set(state.uttr.svs)
   chart_vars_list = []
+  topics = []
+  def _cv_func(cv: ftypes.ChartVars):
+    if cv.svs:
+      existing_svs.update(cv.svs)
+      chart_vars_list.append(cv)
+    if cv.source_topic:
+      existing_svs.add(cv.source_topic)
+    if cv.svpg_id:
+      existing_svs.add(cv.svpg_id)
+    if cv.orig_sv:
+      existing_svs.add(cv.orig_sv)
+      if cutils.is_topic(cv.orig_sv) and cv.orig_sv not in topics:
+        topics.append(cv.orig_sv)
+
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
       chart_vars = tracker.get_chart_vars(exist_cv)
-      if chart_vars.svs:
-        existing_svs.update(chart_vars.svs)
-        chart_vars_list.append(chart_vars)
-      if chart_vars.source_topic:
-        existing_svs.add(chart_vars.source_topic)
-      if chart_vars.svpg_id:
-        existing_svs.add(chart_vars.svpg_id)
-      if chart_vars.orig_sv:
-        existing_svs.add(chart_vars.orig_sv)
+      _cv_func(chart_vars)
 
   # Route to an appropriate page generator.
   if is_sdg(state.uttr.insight_ctx):
     config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
                                         cb_config)
   else:
+    # TODO: Tune this threshold for extending a topic with SVG.
+    if (len(chart_vars_list) <= 5 or len(existing_svs) < 10) and topics:
+      new_cv_list = extension.extend_topics(topics, state, places_to_check)
+      for cv in new_cv_list:
+        _cv_func(cv)
+
     config_resp = page_main.build_config(chart_vars_list, state, existing_svs,
                                          cb_config)
 

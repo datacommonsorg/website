@@ -385,6 +385,13 @@ def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
   return ret
 
 
+def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
+  if 'TOPIC_CACHE' in current_app.config:
+    return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
+  else:
+    return fetch.property_values(nodes=[topic], prop='extendedVariable')[topic]
+
+
 def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:

@@ -29,6 +29,7 @@ class Node:
   name: str
   type: str
   vars: List[str]
+  extended_vars: List[str]
 
 
 # Keyed by DC.
@@ -39,13 +40,20 @@ TOPIC_CACHE_FILES = {
 }
 
 
+# TODO: Move this to schema
+_EXTENDED_SVG_OVERRIDE_MAP = {
+  'dc/topic/Employment': ['dc/g/Employment'],
+  'dc/topic/Economy': ['dc/g/Currency', 'dc/g/Debt', 'dc/g/EconomicActivity', 'dc/g/Stock', 'dc/g/Remittance']
+}
+
+
 class TopicCache:
 
   def __init__(self, out_map: Dict[str, Node], in_map: Dict[str, Set[str]]):
     self.out_map = out_map
     self.in_map = in_map
 
-  def get_members(self, id: str):
+  def get_members(self, id: str) -> List[Dict]:
     if id not in self.out_map:
       return []
 
@@ -64,7 +72,14 @@ class TopicCache:
       ret.append({'dcid': nid, 'name': name, 'types': [t]})
     return ret
 
-  def get_parents(self, id: str, prop: str):
+  def get_extended_svgs(self, id: str) -> List[str]:
+    if id not in self.out_map:
+      return []
+    if id in _EXTENDED_SVG_OVERRIDE_MAP:
+      return _EXTENDED_SVG_OVERRIDE_MAP[id]
+    return [nid for nid in self.out_map[id].extended_vars]
+
+  def get_parents(self, id: str, prop: str) -> List[Dict]:
     if id not in self.in_map:
       return []
     if prop not in self.in_map[id]:
@@ -100,7 +115,7 @@ def load_file(fpath: str, name_overrides: Dict) -> TopicCache:
     else:
       prop = 'memberList'
     vars = node[prop]
-    out_map[dcid] = Node(name=name, type=typ, vars=vars)
+    out_map[dcid] = Node(name=name, type=typ, vars=vars, extended_vars=[])
 
     # Make the *List transparent to the caller.
     new_prop = prop.replace('List', '')
