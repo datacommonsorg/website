@@ -203,6 +203,8 @@ function renderTiles(
             className={className}
             showExploreMore={props.showExploreMore}
             parentPlaces={props.parentPlaces}
+            allowZoom={true}
+            colors={tile.mapTileSpec?.colors}
           />
         );
       case "LINE":

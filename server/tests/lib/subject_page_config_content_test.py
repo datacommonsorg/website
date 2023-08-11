@@ -77,8 +77,8 @@ class TestSubjectPageConfigs(unittest.TestCase):
     if tile.type == TileType.GAUGE:
       self.assertIsNotNone(tile.gauge_tile_spec, msg)
 
-    if tile.type == TileType.DONUT:
-      self.assertIsNotNone(tile.donut_tile_spec, msg)
+    if tile.type == TileType.HISTOGRAM:
+      self.assertIsNotNone(tile.histogram_tile_spec, msg)
 
     if tile.type == TileType.DISASTER_EVENT_MAP:
       self.assertIsNotNone(tile.disaster_event_map_tile_spec, msg)

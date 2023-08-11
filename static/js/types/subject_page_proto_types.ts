@@ -126,6 +126,11 @@ export interface DonutTileSpec {
 export interface LineTileSpec {
   colors?: string[];
 }
+
+export interface MapTileSpec {
+  colors?: string[];
+}
+
 export interface TileConfig {
   title?: string;
   description: string;
@@ -142,6 +147,7 @@ export interface TileConfig {
   gaugeTileSpec?: GaugeTileSpec;
   donutTileSpec?: DonutTileSpec;
   lineTileSpec?: LineTileSpec;
+  mapTileSpec?: MapTileSpec;
 }
 
 export interface ColumnConfig {
