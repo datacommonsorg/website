@@ -295,6 +295,14 @@ SV_DISPLAY_SHORT_NAME = {
         "RCP 4.5 (intermediate), °C",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
         "RCP 6.0 (slightly pessimistic), °C",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "SSP 2, RCP 4.5 (intermediate), °C",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "SSP 5, RCP 8.5 (pessimistic), °C",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "SSP 2, RCP 4.5 (intermediate), °C",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "SSP 5, RCP 8.5 (pessimistic), °C",
 }
 
 SV_DISPLAY_NAME_OVERRIDE = {
@@ -310,6 +318,14 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
         "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
@@ -421,6 +437,14 @@ SV_DISPLAY_FOOTNOTE_OVERRIDE = {
         "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
     "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
         "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": 
+        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": 
+        "RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
 }
 
 SV_DISPLAY_DESCRIPTION_OVERRIDE = {
