@@ -230,9 +230,9 @@ SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Projected relative increase in max temperature, under different scenarios",
+        "Predicted relative increase in max temperature, under different scenarios",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Projected relative decrease in min temperature, under different scenarios",
+        "Predicted relative decrease in min temperature, under different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
     "dc/svpg/AgricultureEmissionsByGas":
@@ -272,10 +272,10 @@ SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Max temperature likely with 5% probability at least once during the decade 2040-2050, "
+        "Max temperature predicted to be reached at least once during the decade 2040-2050 with 5% likelihood, "
         "compared to the annual average across 1980-2010. Reported values are differences in temperature.",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Min temperature likely with 5% probability at least once during the decade 2040-2050, "
+        "Min temperature predicted to be reached at least once during the decade 2040-2050 with 5% likelihood, "
         "compared to the annual average across 1980-2010. Reported values are differences in temperature.",
     "dc/svpg/GreenhouseGasEmissionsBySource":
         "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO₂ equivalents).",

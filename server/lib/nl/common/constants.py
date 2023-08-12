@@ -283,49 +283,25 @@ EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "SSP 2, RCP 4.5 (intermediate), °C",
+        "SSP245 (intermediate), °C",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "SSP 5, RCP 8.5 (pessimistic), °C",
+        "SSP585 (pessimistic), °C",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "SSP 2, RCP 4.5 (intermediate), °C",
+        "SSP245 (intermediate), °C",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "SSP 5, RCP 8.5 (pessimistic), °C",
+        "SSP585 (pessimistic), °C",
 }
 
 SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+        "Predicted Relative Max Temperature Increase by 2050 per SSP 245 (intermediate) Scenario",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
+        "Predicted Relative Max Temperature Increase by 2050 per SSP 585 (pessimistic) Scenario",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+        "Predicted Relative Min Temperature Decrease by 2050 per SSP 245 (intermediate) Scenario",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
+        "Predicted Relative Min Temperature Decrease by 2050 per SSP 585 (pessimistic) Scenario",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
@@ -425,26 +401,14 @@ SV_DISPLAY_NAME_OVERRIDE = {
 }
 
 SV_DISPLAY_FOOTNOTE_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+        "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
+        "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
+        "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
+        "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.",
 }
 
 SV_DISPLAY_DESCRIPTION_OVERRIDE = {
