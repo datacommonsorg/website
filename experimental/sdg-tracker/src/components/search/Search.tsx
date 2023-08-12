@@ -14,19 +14,102 @@
  * limitations under the License.
  */
 
+import { gray } from "@ant-design/colors";
+import { Input } from "antd";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
 import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 
+const SearchContainer = styled.div`
+  margin: 4rem auto;
+  padding: 0 2rem;
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: auto;
+    margin-bottom: 2rem;
+    text-align: center;
+    max-width: 600px;
+  }
+  p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: auto;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    text-align: center;
+  }
+  .subtext {
+    margin: auto;
+    max-width: 600px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600px;
+    color: ${gray[4]};
+  }
+`;
+
+const SearchLinks = styled.div`
+  margin: auto;
+  text-align: center;
+`;
+
+const SearchInputContainer = styled.div`
+  margin: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+`;
+
+const SearchInput = styled(Input)`
+  border-radius: 2rem;
+  padding: 0.5rem 1rem;
+  max-width: 450px;
+`;
+const LinkItem = styled.div`
+  margin-bottom: 1.5rem;
+`;
+const StyledLink = styled(Link)`
+  font-size: 1rem;
+  border-radius: 2rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #f1f1f1;
+  &:hover {
+    text-decoration: none;
+    background: #f1f1f1;
+  }
+`;
 const Search = () => {
   return (
     <AppLayout>
-      <AppHeader selected="topics" />
+      <AppHeader selected="search" />
       <AppLayoutContent>
-        <h3 style={{ margin: "2rem auto", textAlign: "center" }}>
-          Search coming soon...
-        </h3>
+        <SearchContainer>
+          <h3>SDG Data Commons Search</h3>
+          <p>Find SDG-related data about a place or region.</p>
+          <SearchInputContainer>
+            <SearchInput
+              placeholder='For example, "Access to Clean Energy in Afghanistan"'
+              allowClear
+              size="large"
+            />
+          </SearchInputContainer>
+          <SearchLinks>
+            <p>Sample queries</p>
+            <LinkItem>
+              <StyledLink to="/countries?q=Access to clean energy in Afghanistan">
+                Access to clean energy in Afghanistan
+              </StyledLink>
+            </LinkItem>
+            <LinkItem>
+              <StyledLink to="/countries?q=Poverty in Sub-Saharan Africa">
+                Poverty in Sub-Saharan Africa
+              </StyledLink>
+            </LinkItem>
+          </SearchLinks>
+        </SearchContainer>
       </AppLayoutContent>
       <AppFooter />
     </AppLayout>
