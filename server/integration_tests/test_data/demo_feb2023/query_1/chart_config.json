@@ -14,18 +14,17 @@
                       "showMultiColumn": true
                     },
                     "statVarKey": [
-                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
-                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
-                      "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+                      "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+                      "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Projected highest increase in max temperature under different scenarios",
+                    "title": "Projected relative increase in max temperature, under different scenarios",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "description": "Highest temperature likely to be reached by 2050 compared to average observed max temperature of 30 years. Reported values are differences in temperature.",
-            "title": "Projected highest increase in max temperature under different scenarios"
+            "description": "Max temperature likely with 5% probability at least once during the decade 2040-2050, compared to the annual average across 1980-2010. Reported values are differences in temperature.",
+            "title": "Projected relative increase in max temperature, under different scenarios"
           },
           {
             "columns": [
@@ -33,9 +32,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+                      "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
+                    "title": "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
                     "type": "MAP"
                   }
                 ]
@@ -44,26 +43,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+                      "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
-                    ],
-                    "title": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
+                    "title": "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
+            "footnote": "RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100."
           },
           {
             "columns": [
@@ -76,18 +64,17 @@
                       "showMultiColumn": true
                     },
                     "statVarKey": [
-                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
-                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
-                      "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+                      "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+                      "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Projected highest decrease in min temperature under different scenarios",
+                    "title": "Projected relative decrease in min temperature, under different scenarios",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "description": "Lowest temperature likely to be reached by 2050 compared to average observed min temperature of 30 years. Reported values are differences in temperature.",
-            "title": "Projected highest decrease in min temperature under different scenarios"
+            "description": "Min temperature likely with 5% probability at least once during the decade 2040-2050, compared to the annual average across 1980-2010. Reported values are differences in temperature.",
+            "title": "Projected relative decrease in min temperature, under different scenarios"
           },
           {
             "columns": [
@@ -95,9 +82,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
+                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
+                    "title": "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
                     "type": "MAP"
                   }
                 ]
@@ -106,26 +93,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
+                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
-                    ],
-                    "title": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
+                    "title": "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "footnote": "RCP 2.6 is likely to keep global temperature rise below 2 \u00b0C by 2100.\n\nRCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 \u00b0C and 4 \u00b0C by 2100."
+            "footnote": "RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.\n\nRCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100."
           },
           {
             "columns": [
@@ -242,7 +218,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
@@ -269,7 +245,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
@@ -296,7 +272,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
@@ -323,7 +299,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
@@ -458,7 +434,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
@@ -485,7 +461,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
@@ -512,7 +488,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
@@ -539,7 +515,7 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showHighest": true
+                      "showLowest": true
                     },
                     "statVarKey": [
                       "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
@@ -716,6 +692,14 @@
             "name": "Difference Relative to Average in 1980-2010, Max Temp Prediction, 5PctProb Atleast 1 Day A Year, Gaussian Mixture Fit, CMIP6 Ensemble SSP585",
             "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
+          "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
+            "name": "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+            "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          },
+          "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
+            "name": "Relative to Average in 1980-2010, Predicted Max Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
+            "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+          },
           "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "Difference Relative to Average in 1980-2010, Min Temp Prediction, 5PctProb Atleast 1 Day A Decade, Gaussian Mixture Fit, CMIP6 Ensemble SSP245",
             "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
@@ -731,6 +715,14 @@
           "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
             "name": "Difference Relative to Average in 1980-2010, Min Temp Prediction, 5PctProb Atleast 1 Day A Year, Gaussian Mixture Fit, CMIP6 Ensemble SSP585",
             "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_GaussianMixture_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+          },
+          "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
+            "name": "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP245",
+            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          },
+          "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
+            "name": "Relative to Average in 1980-2010, Predicted Min Temperature At Least Once A Decade With 5 Percent Likelihood, SSP585",
+            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
           "MaxTemp_Daily_GaussianMixture_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
@@ -776,57 +768,25 @@
             "name": "Min Temperature",
             "statVar": "Min_Temperature"
           },
-          "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
-            "name": "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
-          },
-          "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45": {
-            "name": "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
-          },
-          "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60": {
-            "name": "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
-          },
-          "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26": {
-            "name": "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (\u00b0C)",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
-          },
-          "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45": {
-            "name": "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (\u00b0C)",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
-          },
-          "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60": {
-            "name": "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (\u00b0C)",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
-          },
           "Temperature": {
             "name": "Temperature in a Location",
             "statVar": "Temperature"
           },
-          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26": {
-            "name": "RCP 2.6 (optimistic), \u00b0C",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+          "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
+            "name": "SSP 2, RCP 4.5 (intermediate), \u00b0C",
+            "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45": {
-            "name": "RCP 4.5 (intermediate), \u00b0C",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+          "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
+            "name": "SSP 5, RCP 8.5 (pessimistic), \u00b0C",
+            "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
-          "ranking-ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60": {
-            "name": "RCP 6.0 (slightly pessimistic), \u00b0C",
-            "statVar": "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+          "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
+            "name": "SSP 2, RCP 4.5 (intermediate), \u00b0C",
+            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
           },
-          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26": {
-            "name": "RCP 2.6 (optimistic), \u00b0C",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26"
-          },
-          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45": {
-            "name": "RCP 4.5 (intermediate), \u00b0C",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45"
-          },
-          "ranking-ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60": {
-            "name": "RCP 6.0 (slightly pessimistic), \u00b0C",
-            "statVar": "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60"
+          "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
+            "name": "SSP 5, RCP 8.5 (pessimistic), \u00b0C",
+            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           }
         }
       }
