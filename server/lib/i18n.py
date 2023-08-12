@@ -34,8 +34,8 @@ def locale_choices(requested_locale=''):
     if requested_locale in AVAILABLE_LANGUAGES:
       accepted_languages.append(requested_locale)
 
-    fallback_lang = requested_locale.split('-')[0] if requested_locale.find(
-        '-') != -1 else ''
+    fallback_lang = requested_locale.split(
+        '-')[0] if requested_locale.find('-') != -1 else ''
     if fallback_lang in AVAILABLE_LANGUAGES:
       accepted_languages.append(fallback_lang)
 
