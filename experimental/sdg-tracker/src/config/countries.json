@@ -1900,6 +1900,10 @@
   ],
   "regions": [
     {
+      "name": "World",
+      "dcid": "Earth"
+    },
+    {
       "name": "Central and Southern Asia",
       "dcid": "Central and Southern Asia"
     },

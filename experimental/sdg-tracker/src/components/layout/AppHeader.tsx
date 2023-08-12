@@ -115,10 +115,7 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
       <TopContainer>
         <LogoBanner>
           <a href="https://sdgs.un.org/" target="_blank">
-            <img
-              className="left"
-              src="https://sdgs.un.org/themes/custom/porto/assets/images/logo-en.svg"
-            />
+            <img className="left" src="/images/un-logo.svg" />
           </a>
           <a className="right" href="https://datacommons.org" target="_blank">
             Data
@@ -128,7 +125,7 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
         </LogoBanner>
         <LogoSecondary>
           <a href="https://sdgs.un.org/goals" target="_blank">
-            <img src="https://www.un.org/sustainabledevelopment/wp-content/uploads/2019/08/E_SDG_logo_without_UN_emblem_horizontal_RGB-1200x219.png" />
+            <img src="/images/sdg-logo.png" />
           </a>
         </LogoSecondary>
       </TopContainer>

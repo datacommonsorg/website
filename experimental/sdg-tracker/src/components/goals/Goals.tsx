@@ -14,35 +14,55 @@
  * limitations under the License.
  */
 
-import { Breadcrumb, Layout } from "antd";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Layout } from "antd";
+import React, { useCallback } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  QUERY_PARAM_VARIABLE,
+  ROOT_SDG_VARIABLE_GROUP,
+} from "../../utils/constants";
+import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
 import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
-import GoalContent from "./GoalContent";
 
+const EARTH_PLACE_DCID = "Earth";
 const Goals: React.FC = () => {
-  const [selectedVariableGroupDcid, setSelectedVariableGroupDcid] =
-    useState<string>();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const variableDcid =
+    searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
+
+  /**
+   * Update selected variable URL parameter
+   */
+  const setVariableDcid = useCallback(
+    (variableDcid: string) => {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
+      navigate(location.pathname + "?" + searchParams.toString());
+    },
+    [location]
+  );
+
   return (
     <AppLayout>
       <AppHeader selected="goals" />
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
-        <Layout style={{ height: "100%", flexGrow: 1 }}>
+        <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <AppSidebar
-            setSelectedVariableGroupDcid={setSelectedVariableGroupDcid}
+            variableDcid={variableDcid}
+            setVariableDcid={setVariableDcid}
           />
-          <Layout style={{ padding: "0 24px 24px", overflow: "auto" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>
-                <Link to="/goals">Goals</Link>
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            <GoalContent
-              selectedVariableGroupDcid={selectedVariableGroupDcid}
+          <Layout style={{ overflow: "auto" }}>
+            <CountriesContent
+              hidePlaceSearch={true}
+              variableDcid={variableDcid}
+              placeDcid={EARTH_PLACE_DCID}
+              setPlaceDcid={() => {}}
             />
           </Layout>
         </Layout>

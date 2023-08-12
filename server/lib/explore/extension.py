@@ -118,7 +118,7 @@ def build_chart_vars(topic: str, groups: List[Dict[str, Set[str]]],
         added_sv_weight += SVPG_TO_SV_EQUIVALENTS
       svs = list(svgrp)
       svs.sort()
-      if svs == 1:
+      if len(svs) == 1:
         if svs[0] in processed:
           continue
         chart_vars_list.append(
