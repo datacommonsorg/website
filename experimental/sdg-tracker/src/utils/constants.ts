@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
-import { Layout } from "antd";
+/**
+ * Variable DCID url parameter
+ */
+export const QUERY_PARAM_VARIABLE = "v";
 
-const AppFooter = () => {
-  return (
-    <Layout.Footer>
-      Powered by Google's{" "}
-      <a
-        href="https://datacommons.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Data Commons
-      </a>
-    </Layout.Footer>
-  );
-};
+/**
+ * Place DCID url parameter
+ */
+export const QUERY_PARAM_PLACE = "p";
 
-export default AppFooter;
+/**
+ * Query search text url parameter
+ */
+export const QUERY_PARAM_QUERY = "q";
+
+/**
+ * Root Data Commons variable group
+ */
+export const ROOT_VARIABLE_GROUP = "dc/g/Root";
+
+/**
+ * Root SDG variable group
+ */
+export const ROOT_SDG_VARIABLE_GROUP = "dc/g/SDG";

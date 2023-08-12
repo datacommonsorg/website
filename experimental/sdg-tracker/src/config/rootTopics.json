@@ -3,119 +3,119 @@
     "name": "No Poverty",
     "description": "End poverty in all its forms everywhere.",
     "groupDcid": "dc/g/SDG_1",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-01.jpg",
+    "iconUrl": "/images/sdg-goal-01-md.png",
     "topicDcid": "dc/topic/sdg_1"
   },
   {
     "name": "Zero Hunger",
     "description": "End hunger, achieve food security and improved nutrition and promote sustainable agriculture.",
     "groupDcid": "dc/g/SDG_2",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-02.jpg",
+    "iconUrl": "/images/sdg-goal-02-md.png",
     "topicDcid": "dc/topic/sdg_2"
   },
   {
     "name": "Good Health and Well-being",
     "description": "Ensure healthy lives and promote well-being for all at all ages.",
     "groupDcid": "dc/g/SDG_3",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-03.jpg",
+    "iconUrl": "/images/sdg-goal-03-md.png",
     "topicDcid": "dc/topic/sdg_3"
   },
   {
     "name": "Quality Education",
     "description": "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.",
     "groupDcid": "dc/g/SDG_4",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-04.jpg",
+    "iconUrl": "/images/sdg-goal-04-md.png",
     "topicDcid": "dc/topic/sdg_4"
   },
   {
     "name": "Gender Equality",
     "description": "Achieve gender equality and empower all women and girls.",
     "groupDcid": "dc/g/SDG_5",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-05.jpg",
+    "iconUrl": "/images/sdg-goal-05-md.png",
     "topicDcid": "dc/topic/sdg_5"
   },
   {
     "name": "Clean Water and Sanitation",
     "description": "Ensure availability and sustainable management of water and sanitation for all.",
     "groupDcid": "dc/g/SDG_6",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-06.jpg",
+    "iconUrl": "/images/sdg-goal-06-md.png",
     "topicDcid": "dc/topic/sdg_6"
   },
   {
     "name": "Affordable and Clean Energy",
     "description": "Ensure access to affordable, reliable, sustainable and modern energy for all.",
     "groupDcid": "dc/g/SDG_7",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg",
+    "iconUrl": "/images/sdg-goal-07-md.png",
     "topicDcid": "dc/topic/sdg_7"
   },
   {
     "name": "Decent Work and Economic Growth",
     "description": "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all.",
     "groupDcid": "dc/g/SDG_8",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg",
+    "iconUrl": "/images/sdg-goal-08-md.png",
     "topicDcid": "dc/topic/sdg_8"
   },
   {
     "name": "Industry, Innovation and Infrastructure",
     "description": "Build resilient infrastructure, promote inclusive and sustainable industrialization, and foster innovation.",
     "groupDcid": "dc/g/SDG_9",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg",
+    "iconUrl": "/images/sdg-goal-09-md.png",
     "topicDcid": "dc/topic/sdg_9"
   },
   {
     "name": "Reduced Inequality",
     "description": "Reduce inequality within and among countries.",
     "groupDcid": "dc/g/SDG_10",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-10.jpg",
+    "iconUrl": "/images/sdg-goal-10-md.png",
     "topicDcid": "dc/topic/sdg_10"
   },
   {
     "name": "Sustainable Cities and Communities",
     "description": "Make cities and human settlements inclusive, safe, resilient, and sustainable.",
     "groupDcid": "dc/g/SDG_11",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-11.jpg",
+    "iconUrl": "/images/sdg-goal-11-md.png",
     "topicDcid": "dc/topic/sdg_11"
   },
   {
     "name": "Responsible Consumption and Production",
     "description": "Ensure sustainable consumption and production patterns.",
     "groupDcid": "dc/g/SDG_12",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg",
+    "iconUrl": "/images/sdg-goal-12-md.png",
     "topicDcid": "dc/topic/sdg_12"
   },
   {
     "name": "Climate Action",
     "description": "Take urgent action to combat climate change and its impacts.",
     "groupDcid": "dc/g/SDG_13",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg",
+    "iconUrl": "/images/sdg-goal-13-md.png",
     "topicDcid": "dc/topic/sdg_13"
   },
   {
     "name": "Life Below Water",
     "description": "Conserve and sustainably use the oceans, seas, and marine resources for sustainable development.",
     "groupDcid": "dc/g/SDG_14",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-14.jpg",
+    "iconUrl": "/images/sdg-goal-14-md.png",
     "topicDcid": "dc/topic/sdg_14"
   },
   {
     "name": "Life on Land",
     "description": "Protect, restore, and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss.",
     "groupDcid": "dc/g/SDG_15",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg",
+    "iconUrl": "/images/sdg-goal-15-md.png",
     "topicDcid": "dc/topic/sdg_15"
   },
   {
     "name": "Peace and Justice Strong Institutions",
     "description": "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable, and inclusive institutions at all levels.",
     "groupDcid": "dc/g/SDG_16",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-16.jpg",
+    "iconUrl": "/images/sdg-goal-16-md.png",
     "topicDcid": "dc/topic/sdg_16"
   },
   {
     "name": "Partnerships to achieve the Goal",
     "description": "Strengthen the means of implementation and revitalize the global partnership for sustainable development.",
     "groupDcid": "dc/g/SDG_17",
-    "iconUrl": "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg",
+    "iconUrl": "/images/sdg-goal-17-md.png",
     "topicDcid": "dc/topic/sdg_17"
   }
 ]
