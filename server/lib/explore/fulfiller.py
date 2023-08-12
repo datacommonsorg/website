@@ -101,6 +101,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     config_resp = page_sdg.build_config(chart_vars_list, state, existing_svs,
                                         cb_config)
   else:
+    ext_chart_vars_list = []
+
     # Get extensions chart-vars by doing API calls.
     override_expansion_svgs = state.uttr.insight_ctx.get(Params.EXT_SVGS, [])
     # Check if we need extension based on the number of charts & SVs.
@@ -123,10 +125,11 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
             sv2chartvarslist=ext_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('extension_existence_check', start)
-        _chart_vars_fetch(ext_tracker, chart_vars_list, existing_svs, topics)
+        _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs,
+                          topics)
 
-    config_resp = page_main.build_config(chart_vars_list, state, existing_svs,
-                                         cb_config)
+    config_resp = page_main.build_config(chart_vars_list, ext_chart_vars_list,
+                                         state, existing_svs, cb_config)
 
   related_things = related.compute_related_things(state,
                                                   config_resp.plotted_orig_vars)

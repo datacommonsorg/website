@@ -29,6 +29,7 @@ import server.lib.nl.fulfillment.types as ftypes
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
+                 ext_chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
                  env_config: builder.Config) -> ConfigResp:
   # Get names of all SVs
@@ -57,6 +58,11 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
         dcid = chart_vars.source_topic
       builder.new_category(title, dcid)
       prev_topic = chart_vars.source_topic
+    _add_charts(chart_vars, state, builder)
+
+  if ext_chart_vars_list:
+    builder.new_category('More Related Charts', '')
+  for chart_vars in ext_chart_vars_list:
     _add_charts(chart_vars, state, builder)
 
   builder.cleanup_config()
@@ -95,6 +101,9 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     if not chart_vars.title and chart_vars.svpg_id:
       # If there was an SVPG, we may not have gotten its name before, so get it now.
       chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
+    if not chart_vars.title and chart_vars.svs and builder.sv2thing.name.get(
+        chart_vars.svs[0]):
+      chart_vars.title = builder.sv2thing.name[chart_vars.svs[0]] + ' and more'
     builder.new_block(title=chart_vars.title, enable_pc=enable_pc)
     if builder.is_place_comparison:
       sv_spec.update(place_comparison.add_svpg(chart_vars, state, builder))
