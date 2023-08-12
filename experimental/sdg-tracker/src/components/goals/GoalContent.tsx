@@ -19,6 +19,7 @@ import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
+import { WEB_API_ENDPOINT } from "../../utils/constants";
 
 const InnerContent = styled.div`
   margin: 0;
@@ -41,6 +42,7 @@ const DataCommonsChart: React.FC<{
     <div>
       {/**@ts-ignore */}
       <datacommons-bar
+        apiRoot={WEB_API_ENDPOINT}
         childPlaceType="Country"
         sort="descending"
         maxPlaces={10}

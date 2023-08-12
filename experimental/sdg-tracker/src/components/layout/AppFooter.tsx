@@ -15,18 +15,12 @@
  */
 
 import { Layout } from "antd";
+import { BrandingLink } from "./components";
 
 const AppFooter = () => {
   return (
     <Layout.Footer>
-      Powered by Google's{" "}
-      <a
-        href="https://datacommons.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Data Commons
-      </a>
+      <BrandingLink />
     </Layout.Footer>
   );
 };
