@@ -516,12 +516,12 @@
     "exploreMore": {
       "Count_Person_Divorced": {
         "gender": [
-          "Count_Person_Male_Divorced",
-          "Count_Person_Female_Divorced"
+          "Count_Person_Female_Divorced",
+          "Count_Person_Male_Divorced"
         ],
         "placeOfBirth": [
-          "dc/dj7cvhr91sff5",
           "dc/66sy80vs0b8q7",
+          "dc/dj7cvhr91sff5",
           "dc/drvcnjld04b06",
           "dc/twlffl9b5vgn3"
         ]

@@ -206,6 +206,6 @@ def _chart_vars_to_explore_peer_groups(state: ftypes.PopulateState,
       if sv not in explore_peer_groups:
         explore_peer_groups[sv] = {}
       if cv.source_topic not in explore_peer_groups[sv]:
-        explore_peer_groups[sv][cv.source_topic] = er.exist_svs
+        explore_peer_groups[sv][cv.source_topic] = sorted(er.exist_svs)
 
   return explore_peer_groups
