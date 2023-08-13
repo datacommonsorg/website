@@ -321,27 +321,28 @@ export function App(): JSX.Element {
                   onClick={() => setQuery("")}
                 ></ChildPlaces>
               )}
-              {chartData.exploreMore && (
-                <div id="explore-more-section">
-                  <div className="explore-more-head">Explore More</div>
-                  {Object.keys(chartData.exploreMore).map((sv) => {
-                    return Object.keys(chartData.exploreMore[sv]).map(
-                      (prop) => {
-                        const urlSv =
-                          chartData.exploreMore[sv][prop].join(DELIM);
-                        const url = `/explore/#t=${urlSv}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=1`;
-                        return (
-                          <>
-                            <a className="explore-more-link" href={url}>
-                              [{sv}] Explore more by {prop}
-                            </a>
-                          </>
-                        );
-                      }
-                    );
-                  })}
-                </div>
-              )}
+              {chartData.exploreMore &&
+                Object.keys(chartData.exploreMore).length > 0 && (
+                  <div id="explore-more-section">
+                    <div className="explore-more-head">Explore More</div>
+                    {Object.keys(chartData.exploreMore).map((sv) => {
+                      return Object.keys(chartData.exploreMore[sv]).map(
+                        (prop) => {
+                          const urlSv =
+                            chartData.exploreMore[sv][prop].join(DELIM);
+                          const url = `/explore/#t=${urlSv}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=1`;
+                          return (
+                            <>
+                              <a className="explore-more-link" href={url}>
+                                [{sv}] Explore more by {prop}
+                              </a>
+                            </>
+                          );
+                        }
+                      );
+                    })}
+                  </div>
+                )}
             </>
           )}
         </div>
