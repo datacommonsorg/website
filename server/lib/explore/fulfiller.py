@@ -19,6 +19,7 @@ import time
 from typing import Dict, List, Set
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore import existence
 from server.lib.explore import page_main
 from server.lib.explore import page_sdg
 import server.lib.explore.extension as extension
@@ -94,7 +95,10 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   existing_svs = set(state.uttr.svs)
   chart_vars_list = []
   topics = []
-  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics)
+  single_svs = []
+  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics, single_svs)
+
+  explore_peer_groups = {}
 
   # Route to an appropriate page generator.
   if is_sdg(state.uttr.insight_ctx):
@@ -125,14 +129,31 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
             sv2chartvarslist=ext_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('extension_existence_check', start)
-        _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs,
-                          topics)
+        _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
+
+    if state.uttr.insight_ctx.get(Params.EXP_MORE):
+      explore_more_chart_vars_map = extension.explore_more(single_svs)
+      if explore_more_chart_vars_map:
+        # Perform existence check and add to `chart_vars_list`
+        start = time.time()
+        ext_tracker = ext.MainExistenceCheckTracker(
+            state,
+            places_to_check,
+            svs=list(explore_more_chart_vars_map.keys()),
+            prep_chart_vars=False,
+            sv2chartvarslist=explore_more_chart_vars_map)
+        ext_tracker.perform_existence_check()
+        state.uttr.counters.timeit('explore_more_existence_check', start)
+
+      explore_peer_groups = _chart_vars_to_explore_peer_groups(
+          state, explore_more_chart_vars_map)
 
     config_resp = page_main.build_config(chart_vars_list, ext_chart_vars_list,
                                          state, existing_svs, cb_config)
 
   related_things = related.compute_related_things(state,
-                                                  config_resp.plotted_orig_vars)
+                                                  config_resp.plotted_orig_vars,
+                                                  explore_peer_groups)
 
   return FulfillResp(chart_pb=config_resp.config_pb,
                      related_things=related_things,
@@ -149,13 +170,17 @@ def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
 def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
                       chart_vars_list: List[ftypes.ChartVars],
                       existing_svs: Set[str],
-                      topics: List[str] = None):
+                      topics: List[str] = None,
+                      single_svs: List[str] = None):
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
       cv = tracker.get_chart_vars(exist_cv)
       if cv.svs:
         existing_svs.update(cv.svs)
         chart_vars_list.append(cv)
+        if single_svs != None and len(
+            cv.svs) == 1 and cv.svs[0] not in single_svs:
+          single_svs.append(cv.svs[0])
       if cv.source_topic:
         existing_svs.add(cv.source_topic)
       if cv.svpg_id:
@@ -165,3 +190,22 @@ def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
         if topics != None and cutils.is_topic(
             cv.orig_sv) and cv.orig_sv not in topics:
           topics.append(cv.orig_sv)
+
+
+def _chart_vars_to_explore_peer_groups(state: ftypes.PopulateState,
+                                       explore_more_chart_vars_map) -> Dict:
+  explore_peer_groups = {}
+
+  for sv, cv_list in explore_more_chart_vars_map.items():
+    if not existence.svs4place(state, state.uttr.places[0], [sv]).exist_svs:
+      continue
+    for cv in cv_list:
+      er = existence.svs4place(state, state.uttr.places[0], cv.svs)
+      if len(er.exist_svs) < 2:
+        continue
+      if sv not in explore_peer_groups:
+        explore_peer_groups[sv] = {}
+      if cv.source_topic not in explore_peer_groups[sv]:
+        explore_peer_groups[sv][cv.source_topic] = sorted(er.exist_svs)
+
+  return explore_peer_groups
