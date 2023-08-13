@@ -106,7 +106,7 @@ export interface BarTileSpec {
   colors?: string[];
   horizontal?: boolean;
   maxPlaces?: number;
-  sort?: SortType;
+  sort?: string;
   stacked?: boolean;
   useLollipop?: boolean;
   yAxisMargin?: number;

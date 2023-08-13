@@ -32,6 +32,7 @@ import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
+  convertToSortType,
   getColumnTileClassName,
   getColumnWidth,
   getId,
@@ -256,7 +257,7 @@ function renderTiles(
             maxPlaces={tile.barTileSpec?.maxPlaces}
             place={place}
             showExploreMore={props.showExploreMore}
-            sort={tile.barTileSpec?.sort}
+            sort={convertToSortType(tile.barTileSpec?.sort)}
             stacked={tile.barTileSpec?.stacked}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
