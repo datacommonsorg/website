@@ -1,0 +1,602 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Divorcees in Santa Clara County",
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Santa Clara County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Santa Clara County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorcees"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_Divorced",
+                      "Count_Person_Male_Divorced"
+                    ],
+                    "title": "Divorced Population By Gender in Santa Clara County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorced Population By Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_Divorced"
+                    ],
+                    "title": "Divorced Women in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_Divorced"
+                    ],
+                    "title": "Divorced Women in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_Divorced"
+                    ],
+                    "title": "Divorced Men in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_Divorced"
+                    ],
+                    "title": "Divorced Men in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_AsianAlone",
+                      "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
+                      "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
+                    ],
+                    "title": "Divorced Population By Race in Santa Clara County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorced Population By Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_AsianAlone"
+                    ],
+                    "title": "Divorced Asian Men in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_AsianAlone"
+                    ],
+                    "title": "Divorced Asian Men in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
+                    ],
+                    "title": "Divorced Hispanic Men in Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
+                    ],
+                    "title": "Divorced Hispanic Men in Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          }
+        ],
+        "dcid": "dc/topic/DivorcedPopulationByDemographic",
+        "statVarSpec": {
+          "Count_Person_15OrMoreYears_Divorced_AsianAlone": {
+            "name": "Divorced Asian Men",
+            "statVar": "Count_Person_15OrMoreYears_Divorced_AsianAlone"
+          },
+          "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone": {
+            "name": "Population: 15 Years or More, Divorced, Black or African American Alone",
+            "statVar": "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino": {
+            "name": "Divorced Hispanic Men",
+            "statVar": "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
+          },
+          "Count_Person_Divorced": {
+            "name": "Divorcees",
+            "statVar": "Count_Person_Divorced"
+          },
+          "Count_Person_Female_Divorced": {
+            "name": "Divorced Women",
+            "statVar": "Count_Person_Female_Divorced"
+          },
+          "Count_Person_Male_Divorced": {
+            "name": "Divorced Men",
+            "statVar": "Count_Person_Male_Divorced"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
+      "placeDcid": [
+        "geoId/06085"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06085",
+    "name": "Santa Clara County",
+    "place_type": "County"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601458",
+          "name": "Alum Rock",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0601486",
+          "name": "Alviso",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608848",
+          "name": "Buena Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608968",
+          "name": "Burbank",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610088",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610345",
+          "name": "Campbell",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0617610",
+          "name": "Cupertino",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620598",
+          "name": "East Foothills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0627080",
+          "name": "Fruitdale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0629504",
+          "name": "Gilroy",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641282",
+          "name": "Lexington Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643280",
+          "name": "Los Altos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643294",
+          "name": "Los Altos Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644112",
+          "name": "Los Gatos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644378",
+          "name": "Loyola",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0647766",
+          "name": "Milpitas",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0648956",
+          "name": "Monte Sereno",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649278",
+          "name": "Morgan Hill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649670",
+          "name": "Mountain View",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668000",
+          "name": "San Jose",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668238",
+          "name": "San Martin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0669084",
+          "name": "Santa Clara",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0670280",
+          "name": "Saratoga",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671074",
+          "name": "Seven Trees",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0673906",
+          "name": "Stanford",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1911837",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2214519",
+          "name": "Sunol-Midtown",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_Divorced": {
+        "gender": [
+          "Count_Person_Male_Divorced",
+          "Count_Person_Female_Divorced"
+        ],
+        "placeOfBirth": [
+          "dc/dj7cvhr91sff5",
+          "dc/66sy80vs0b8q7",
+          "dc/drvcnjld04b06",
+          "dc/twlffl9b5vgn3"
+        ]
+      }
+    },
+    "mainTopic": {
+      "dcid": "dc/topic/DivorcedPopulationByDemographic",
+      "name": "Divorced Population",
+      "types": [
+        "Topic"
+      ]
+    },
+    "parentPlaces": [
+      {
+        "dcid": "geoId/06",
+        "name": "California",
+        "types": [
+          "State"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/MaritalStatusBreakdown",
+        "name": "Marital Status Breakdown",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/DivorcedPopulationByDemographic",
+        "name": "Divorced Population",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MarriedPopulationByDemographic",
+        "name": "Married Population",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/NeverMarriedPopulationByDemographic",
+        "name": "Never Married Population",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WidowedPopulationByDemographic",
+        "name": "Widowed Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

@@ -26,6 +26,7 @@ class Params(str, Enum):
   CTX = 'context'
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
+  EXP_MORE = 'exploreMore'
 
 
 class DCNames(str, Enum):
