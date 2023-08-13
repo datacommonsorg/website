@@ -18,6 +18,6 @@ domain: staging.datacommons.org
 region:
   primary: us-central1
   others:
-    - us-west1
+    -
 nodes: 2
 storage_project: datcom-store
