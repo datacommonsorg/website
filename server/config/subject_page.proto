@@ -164,9 +164,32 @@ message ScatterTileSpec {
 }
 
 message BarTileSpec {
+  enum SortType {
+    ASCENDING = 1;
+    DESCENDING = 2;
+    ASCENDING_POPULATION = 3;
+    DESCENDING_POPULATION = 4;
+  }
   // [optional] The root url to use for labels in the x-axis. If not specified,
   // labels in the x-axis will link to Place Explorer.
   string x_label_link_root = 1;
+  // Bar height for horizontal bar charts
+  double bar_height = 2;
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 3;
+  // whether to plot bars horizontally.
+  bool horizontal = 4;
+  // maximum number of places to display
+  int32 max_places = 5;
+  // bar sort order
+  // default: SORT_DESCENDING_POPULATION
+  SortType sort = 6;
+  // whether to stack bars instead of grouping them
+  bool stacked = 7;
+  // whether to draw lollipops instead of bars
+  bool use_lollipop = 8;
+  // y-axis margin
+  double y_axis_margin = 9;
 }
 
 message GaugeTileSpec {
@@ -176,12 +199,31 @@ message GaugeTileSpec {
   }
   // Range of values represented by the gauge
   Range range = 1;
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 2;
+}
+
+message DonutTileSpec {
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 1;
+  // whether to draw as full pie chart instead of a donut
+  bool pie = 2;
+}
+
+message LineTileSpec {
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 1;
+}
+
+message MapTileSpec {
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 2;
 }
 
 message Tile {
   // When adding a new TileType:
-  // - make sure to update verify_tile in subject_page_configs_test.py with any
-  //   required fields for your new TileType.
+  // - make sure to update verify_tile in subject_page_config_content_test.py
+  //   with any required fields for your new TileType.
   // - specify what block types can render the tiles.
   // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
@@ -205,6 +247,8 @@ message Tile {
     // allowed in BlockTypes: TYPE_NONE
     GAUGE = 13;
     // allowed in BlockTypes: TYPE_NONE
+    DONUT = 14;
+    // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
     // allowed in BlockTypes: DISASTER_EVENT
     PLACE_OVERVIEW = 11;
@@ -217,7 +261,7 @@ message Tile {
   // For map, bar, ranking: supports ${date} placeholder.
   // For scatter: supports ${xDate} and ${yDate} placeholder.
   string title = 1;
-  // Must be set for HIHGLIGHT tiles
+  // Must be set for HIGHLIGHT tiles
   string description = 2;
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
@@ -237,6 +281,9 @@ message Tile {
     HistogramTileSpec histogram_tile_spec = 10;
     BarTileSpec bar_tile_spec = 12;
     GaugeTileSpec gauge_tile_spec = 13;
+    DonutTileSpec donut_tile_spec = 14;
+    LineTileSpec line_tile_spec = 15;
+    MapTileSpec map_tile_spec = 16;
   }
 }
 
