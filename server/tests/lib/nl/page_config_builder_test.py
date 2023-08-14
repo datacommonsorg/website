@@ -779,16 +779,19 @@ class TestPageConfigNext(unittest.TestCase):
   ])
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_description')
   @patch.object(utils, 'parent_place_names')
   @patch.object(variable, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_sv_footnote, mock_sv_unit):
+                mock_parent_place_names, mock_sv_description, mock_sv_footnote,
+                mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs, _: {
         sv: "{}-name".format(sv) for sv in svs
     })
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
+    mock_sv_description.side_effect = (lambda svs: {sv: '' for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {
         sv: "{}-footnote".format(sv) for sv in svs
     })
@@ -802,11 +805,14 @@ class TestPageConfigNext(unittest.TestCase):
 
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_description')
   @patch.object(variable, 'get_sv_name')
-  def test_event(self, mock_sv_name, mock_sv_footnote, mock_sv_unit):
+  def test_event(self, mock_sv_name, mock_sv_description, mock_sv_footnote,
+                 mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs, _: {sv: sv for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
+    mock_sv_description.side_effect = (lambda svs: {sv: '' for sv in svs})
     mock_sv_unit.side_effect = (lambda svs: {sv: '' for sv in svs})
 
     disaster_config = SubjectPageConfig()
@@ -831,5 +837,6 @@ def _run(uttr_dict: Dict,
   uttr.counters = ctr.Counters()
   cfg = builder.Config(event_config=event_config,
                        sv_chart_titles=SV_CHART_TITLES,
-                       nopc_vars=NOPC_VARS)
+                       nopc_vars=NOPC_VARS,
+                       sdg_percent_vars=set())
   return text_format.MessageToString(builder.build(uttr, cfg))
