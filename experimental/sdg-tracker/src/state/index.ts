@@ -27,14 +27,14 @@ import {
 } from "easy-peasy";
 import React, { ReactNode } from "react";
 import styled from "styled-components";
-import appConfig from "../config/appConfig.json";
 import countries from "../config/countries.json";
 import rootTopics from "../config/rootTopics.json";
+import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
 
 const dataCommonsClient = new DataCommonsClient({
-  apiRoot: appConfig.webApiEndpoint,
+  apiRoot: WEB_API_ENDPOINT,
 });
 
 /**
@@ -233,7 +233,9 @@ const appActions: AppActions = {
     );
     actions.setRootTopics(rootTopics);
     actions.setRegions(countries.regions);
-    actions.setCountries(countries.countries);
+    actions.setCountries(
+      countries.countries.filter((c) => c.is_un_member_or_observer)
+    );
     await actions.initializeSdgHierarchy({
       rootTopics,
       variableGroupsByDcid: sdgConfig.variableGroupsById,

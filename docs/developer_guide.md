@@ -144,12 +144,10 @@ gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh
 ./scripts/deploy_gke_helm.sh -e dev
-./scripts/deploy_gke_helm.sh -e dev -l us-west1
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE. Need to deploy it to both
-us-central1 (which is the default) and us-west1.
+hash at HEAD, then deploys to dev instance in GKE.
 
 View the deployoment at [link](https://dev.datacommons.org).
 

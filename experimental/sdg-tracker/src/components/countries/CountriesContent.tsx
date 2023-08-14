@@ -23,6 +23,7 @@ import { useStoreActions, useStoreState } from "../../state";
 import {
   QUERY_PARAM_VARIABLE,
   ROOT_VARIABLE_GROUP,
+  WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
   ChartConfigCategory,
@@ -119,6 +120,7 @@ const PlaceTitle = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 0rem 24px;
+  margin: 1rem 0 0;
   flex-wrap: wrap;
 `;
 
@@ -148,10 +150,17 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 
 const CountriesContent: React.FC<{
   hidePlaceSearch?: boolean;
+  showNLSearch?: boolean;
   variableDcid: string;
   placeDcid?: string;
   setPlaceDcid: (placeDcid: string) => void;
-}> = ({ hidePlaceSearch, placeDcid, setPlaceDcid, variableDcid }) => {
+}> = ({
+  hidePlaceSearch,
+  showNLSearch,
+  placeDcid,
+  setPlaceDcid,
+  variableDcid,
+}) => {
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
@@ -210,13 +219,15 @@ const CountriesContent: React.FC<{
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
       <Layout.Content style={{ padding: "0rem 0" }}>
-        <SearchCard>
-          <StyledInput
-            placeholder='Search for regional topics. For example, "Access to Clean Energy in Afghanistan"'
-            allowClear
-            size="large"
-          />
-        </SearchCard>
+        {showNLSearch && (
+          <SearchCard>
+            <StyledInput
+              placeholder='Search for regional topics. For example, "Access to Clean Energy in Afghanistan"'
+              allowClear
+              size="large"
+            />
+          </SearchCard>
+        )}
 
         <PlaceTitle>
           <div>
@@ -318,7 +329,7 @@ const CountrySelectContainer = styled.div`
   svg {
     position: absolute;
     right: 0.8rem;
-    top: 0.6rem;
+    top: 0.8rem;
     font-size: 1rem;
   }
 `;
@@ -340,8 +351,9 @@ const CountrySelect: React.FC<{
   return (
     <CountrySelectContainer>
       <AutoComplete
+        size="large"
         value={isFocused ? value : ""}
-        style={{ width: 175 }}
+        style={{ width: 225 }}
         options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
         placeholder="Select country"
         defaultActiveFirstOption={true}
@@ -386,7 +398,7 @@ const ChartContent: React.FC<{
     return (
       <ContentCard>
         <h5>Explore SDG progress</h5>
-        <p>Select a goal and a country to get started.</p>
+        <p>Select a country to get started.</p>
       </ContentCard>
     );
   }
@@ -480,7 +492,8 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       <div>
         {/** @ts-ignore */}
         <datacommons-bar
-          title={tile.title}
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
           variables={tile.statVarKey.join(" ")}
           places={placeDcid}
           sort="descending"
@@ -492,7 +505,8 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       <div>
         {/** @ts-ignore */}
         <datacommons-highlight
-          description={tile.title}
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
           variable={tile.statVarKey.join(" ")}
           place={placeDcid}
         />
@@ -503,7 +517,8 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       <div>
         {/** @ts-ignore */}
         <datacommons-line
-          title={tile.title}
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
           variables={tile.statVarKey.join(" ")}
           places={placeDcid}
         />
@@ -514,7 +529,8 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       <div>
         {/** @ts-ignore */}
         <datacommons-map
-          title={tile.title}
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
           variable={tile.statVarKey.join(" ")}
           parentPlace="Earth"
           childPlaceType="Country"
