@@ -146,7 +146,8 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   cb_config = config_builder.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-      nopc_vars=current_app.config['NOPC_VARS'])
+      nopc_vars=current_app.config['NOPC_VARS'],
+      sdg_percent_vars=set())
 
   start = time.time()
   utterance = fulfillment.fulfill(utterance)

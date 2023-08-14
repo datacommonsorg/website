@@ -36,6 +36,7 @@ class Config:
   event_config: SubjectPageConfig
   sv_chart_titles: Dict
   nopc_vars: Set[str]
+  sdg_percent_vars: Set[str]
 
 
 #
