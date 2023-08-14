@@ -216,7 +216,7 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`;
           }
         }
       }
@@ -233,6 +233,7 @@ export function App(): JSX.Element {
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
   const dc = getSingleParam(hashParams["dc"]);
+  const exploreMore = getSingleParam(hashParams["em"]);
 
   const searchSection = (
     <div className="search-section">
@@ -271,7 +272,7 @@ export function App(): JSX.Element {
   } else if (loadingStatus == "loaded" && chartData) {
     // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
-    urlString += `&t=${topic}&dc=${dc}`;
+    urlString += `&t=${topic}&dc=${dc}&em=${exploreMore}`;
     mainSection = (
       <div className="row explore-charts">
         <div
@@ -290,6 +291,7 @@ export function App(): JSX.Element {
                 setQuery={setQuery}
                 placeType={placeType}
                 dc={dc}
+                exploreMore={exploreMore}
               />
               {chartData &&
                 chartData.parentTopics.length > 0 &&
@@ -297,7 +299,7 @@ export function App(): JSX.Element {
                   <div className="topics-box">
                     <div className="topics-head">Broader Topics</div>
                     {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}`;
+                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`;
                       return (
                         <a
                           className="topic-link"
@@ -340,13 +342,14 @@ export function App(): JSX.Element {
                   placeType={chartData.place.types[0]}
                   topic={topic}
                   dc={dc}
+                  exploreMore={exploreMore}
                   onClick={() => setQuery("")}
                 ></ParentPlace>
               )}
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}`;
+                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${exploreMore}`;
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
