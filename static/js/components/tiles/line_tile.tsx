@@ -42,8 +42,6 @@ import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
-
 export interface LineTilePropType {
   // API root
   apiRoot?: string;
