@@ -30,6 +30,7 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import {
+  ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
@@ -271,7 +272,6 @@ export function App(): JSX.Element {
     // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
     urlString += `&t=${topic}&dc=${dc}`;
-    console.log(chartData.exploreMore);
     mainSection = (
       <div className="row explore-charts">
         <div
@@ -321,28 +321,6 @@ export function App(): JSX.Element {
                   onClick={() => setQuery("")}
                 ></ChildPlaces>
               )}
-              {chartData.exploreMore &&
-                Object.keys(chartData.exploreMore).length > 0 && (
-                  <div id="explore-more-section">
-                    <div className="explore-more-head">Explore More</div>
-                    {Object.keys(chartData.exploreMore).map((sv) => {
-                      return Object.keys(chartData.exploreMore[sv]).map(
-                        (prop) => {
-                          const urlSv =
-                            chartData.exploreMore[sv][prop].join(DELIM);
-                          const url = `/explore/#t=${urlSv}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=1`;
-                          return (
-                            <>
-                              <a className="explore-more-link" href={url}>
-                                [{sv}] Explore more by {prop}
-                              </a>
-                            </>
-                          );
-                        }
-                      );
-                    })}
-                  </div>
-                )}
             </>
           )}
         </div>
@@ -372,13 +350,23 @@ export function App(): JSX.Element {
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
-                  <SubjectPageMainPane
-                    id={PAGE_ID}
-                    place={chartData.place}
-                    pageConfig={chartData.pageConfig}
-                    svgChartHeight={SVG_CHART_HEIGHT}
-                    showExploreMore={true}
-                  />
+                  <ExploreContext.Provider
+                    value={{
+                      cmpPlace,
+                      dc,
+                      exploreMore: chartData.exploreMore,
+                      place: chartData.place.dcid,
+                      placeType,
+                    }}
+                  >
+                    <SubjectPageMainPane
+                      id={PAGE_ID}
+                      place={chartData.place}
+                      pageConfig={chartData.pageConfig}
+                      svgChartHeight={SVG_CHART_HEIGHT}
+                      showExploreMore={true}
+                    />
+                  </ExploreContext.Provider>
                 </NlSessionContext.Provider>
               </RankingUnitUrlFuncContext.Provider>
             </>

@@ -39,7 +39,7 @@ export interface SubjectPageMetadata {
 
   peerTopics?: NamedTypedNode[];
   childTopics?: NamedTypedNode[];
-  exploreMore?: any;
+  exploreMore?: Record<string, Record<string, string[]>>;
 
   topic?: string;
   sessionId?: string;
