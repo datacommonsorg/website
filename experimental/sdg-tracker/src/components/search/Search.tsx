@@ -16,7 +16,6 @@
 
 import { gray } from "@ant-design/colors";
 import { Input } from "antd";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
@@ -52,11 +51,6 @@ const SearchContainer = styled.div`
   }
 `;
 
-const SearchLinks = styled.div`
-  margin: auto;
-  text-align: center;
-`;
-
 const SearchInputContainer = styled.div`
   margin: auto;
   margin-bottom: 2rem;
@@ -68,6 +62,13 @@ const SearchInput = styled(Input)`
   padding: 0.5rem 1rem;
   max-width: 450px;
 `;
+
+/** 
+ * TODO: Add these back in once search is working
+const SearchLinks = styled.div`
+  margin: auto;
+  text-align: center;
+`;
 const LinkItem = styled.div`
   margin-bottom: 1.5rem;
 `;
@@ -76,12 +77,15 @@ const StyledLink = styled(Link)`
   border-radius: 2rem;
   padding: 0.5rem 0.75rem;
   border: 1px solid #f1f1f1;
-  &:hover {
+  pointer- &:hover {
     text-decoration: none;
     background: #f1f1f1;
   }
 `;
+*/
 const Search = () => {
+  // Placeholder text when enabled: 'For example, "Access to Clean Energy in Afghanistan"'
+
   return (
     <AppLayout>
       <AppHeader selected="search" />
@@ -91,11 +95,14 @@ const Search = () => {
           <p>Find SDG-related data about a place or region.</p>
           <SearchInputContainer>
             <SearchInput
-              placeholder='For example, "Access to Clean Energy in Afghanistan"'
+              placeholder="Coming soon..."
+              disabled
               allowClear
               size="large"
             />
           </SearchInputContainer>
+          {/** 
+           * TODO: Add these back in once search is working
           <SearchLinks>
             <p>Sample queries</p>
             <LinkItem>
@@ -109,6 +116,7 @@ const Search = () => {
               </StyledLink>
             </LinkItem>
           </SearchLinks>
+          */}
         </SearchContainer>
       </AppLayoutContent>
       <AppFooter />

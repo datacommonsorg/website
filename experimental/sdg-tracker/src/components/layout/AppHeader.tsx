@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { gray } from "@ant-design/colors";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { BrandingLink } from "./components";
 
 type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
@@ -25,7 +25,7 @@ const HeaderContainer = styled.div`
   background: white;
 `;
 
-const TopContainer = styled.div`
+const TopContainer = styled.div`r
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
   display: flex;
@@ -40,40 +40,53 @@ const LogoBanner = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
   .left {
-    height: 35px;
+    height: 45px;
     padding-right: 1.25rem;
   }
-  .right {
+  .text {
     border-left: 2px solid grey;
-    color: ${gray[7]};
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto Condensed, sans-serif;
     padding-left: 1.25rem;
-    text-decoration: none;
+    flex-shrink: 0;
+    .header {
+      color: #333;
+      font-size: 23px;
+      font-weight: 600;
+      line-height: normal;
+      flex-shrink: 0;
+    }
+    .subheader {
+      color: #333;
+      font-size: 23px;
+      line-height: 1.5rem;
+      flex-shrink: 0;
+    }
   }
 `;
 
 const LogoSecondary = styled.div`
-  @media (max-width: 576px) {
+  @media (max-width: 980px) {
     display: none;
   }
-  img {
-    height: 35px;
-  }
+  display: flex;
+  align-items: center;
 `;
 
 const HeaderNav = styled.div`
   align-items: center;
-  background-color: white !important;
+  background-color: rgb(77, 77, 77) !important;
   border-bottom: 1px solid #f1f1f1;
   display: flex;
   flex-direction: row;
-  margin: auto;
+  margin: auto 0;
+  padding: 0 4rem;
   overflow: auto;
   /** Safe center prevents the navbar from getting cut off on small screens */
-  justify-content: safe center;
+  justify-content: safe flex-start;
 
   &:hover {
     a {
@@ -83,27 +96,32 @@ const HeaderNav = styled.div`
 `;
 
 const HeaderNavItem = styled.div`
-  padding: 0 0.85rem;
   flex-shrink: 0;
+  border-right: 1px solid white;
+  &:last-child {
+    border-right: 0;
+  }
 
   &:hover {
     background-color: #f8f8f8;
-  }
-  a {
-    color: #424242;
-    display: flex;
-    font-size: 0.9rem;
+    a {
+      color: black;
+    }
   }
 `;
 
-const SubNavbarItemLink = styled.span<{ selected?: boolean }>`
-  padding: 0.8rem 0;
+const SubNavbarItemLink = styled(Link)<{ selected?: boolean }>`
+  padding: 0.6rem 1rem;
+  color: white;
+  display: flex;
+  font-size: 0.9rem;
   ${(p) =>
     p.selected
       ? `
       font-weight: 500;
-      box-shadow: inset 0 -2px 0 #9a0000;
-      color: #9a0000;
+      color: red;
+      background-color: #f8f8f8;
+        color: black;
       `
       : null}
 `;
@@ -114,56 +132,43 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
     <HeaderContainer>
       <TopContainer>
         <LogoBanner>
-          <a href="https://sdgs.un.org/" target="_blank">
+          <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
             <img className="left" src="/images/un-logo.svg" />
           </a>
-          <a className="right" href="https://datacommons.org" target="_blank">
-            Data
-            <br />
-            Commons
-          </a>
+          <div className="text">
+            <div className="header">
+              Department of Economic and Social Affairs
+            </div>
+            <div className="subheader">Statistics</div>
+          </div>
         </LogoBanner>
         <LogoSecondary>
-          <a href="https://sdgs.un.org/goals" target="_blank">
-            <img src="/images/sdg-logo.png" />
-          </a>
+          <BrandingLink />
         </LogoSecondary>
       </TopContainer>
       <HeaderNav>
         <HeaderNavItem>
-          <Link to="/">
-            <SubNavbarItemLink selected={selected === "home"}>
-              Home
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink to="/" selected={selected === "home"}>
+            Home
+          </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/countries">
-            <SubNavbarItemLink selected={selected === "countries"}>
-              Countries / Regions
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink
+            to="/countries"
+            selected={selected === "countries"}
+          >
+            Countries / Regions
+          </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/goals">
-            <SubNavbarItemLink selected={selected === "goals"}>
-              Goals
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink to="/goals" selected={selected === "goals"}>
+            Goals
+          </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/topics">
-            <SubNavbarItemLink selected={selected === "topics"}>
-              Topics
-            </SubNavbarItemLink>
-          </Link>
-        </HeaderNavItem>
-        <HeaderNavItem>
-          <Link to="/search">
-            <SubNavbarItemLink selected={selected === "search"}>
-              Search
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink to="/search" selected={selected === "search"}>
+            Search
+          </SubNavbarItemLink>
         </HeaderNavItem>
         {/* 
         <HeaderNavItem>
