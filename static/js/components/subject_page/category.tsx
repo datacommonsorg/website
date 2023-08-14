@@ -17,7 +17,7 @@
 /**
  * Component for rendering a category (a container for blocks).
  */
-
+import _ from "lodash";
 import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
@@ -92,6 +92,24 @@ function renderBlocks(
   }
   const blocksJsx = props.config.blocks.map((block, i) => {
     const id = getId(props.id, BLOCK_ID_PREFIX, i);
+    let commonSVs = [];
+    for (const column of block.columns) {
+      for (const tile of column.tiles) {
+        if (!tile.statVarKey) {
+          continue;
+        }
+        const tmp = [];
+        for (const k of tile.statVarKey) {
+          const svSpec = svProvider.getSpec(k, block.denom);
+          tmp.push(svSpec.statVar);
+        }
+        if (commonSVs.length == 0) {
+          commonSVs = tmp;
+        } else {
+          commonSVs = _.intersection(commonSVs, tmp);
+        }
+      }
+    }
     switch (block.type) {
       case "DISASTER_EVENT":
         return (
@@ -126,6 +144,7 @@ function renderBlocks(
               description={block.description}
               footnote={block.footnote}
               place={props.place}
+              commonSVs={new Set(commonSVs)}
             >
               <Block
                 id={id}

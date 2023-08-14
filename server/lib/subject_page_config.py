@@ -57,6 +57,7 @@ PLACE_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.HIGHLIGHT,
     subject_page_pb2.Tile.TileType.LINE,
     subject_page_pb2.Tile.TileType.GAUGE,
+    subject_page_pb2.Tile.TileType.DONUT,
 ]
 CHILD_FILTER_TILE_TYPES = [
     subject_page_pb2.Tile.TileType.MAP,
