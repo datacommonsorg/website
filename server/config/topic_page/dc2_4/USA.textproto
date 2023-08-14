@@ -1,0 +1,695 @@
+# Copyright 2023 TechSoup Global
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "dc2_4"
+  topic_name: "Food Security"
+  place_group {
+    parent_place: "Earth"
+    place_type: "Country"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
+  contained_place_types {
+    key: "Country"
+    value: "State"
+  }
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "CensusTract"
+  }
+}
+
+categories {
+  title: "Poverty in the United States"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Supplemental Nutrition Assistance Program (SNAP) per capita"
+    columns {
+      tiles {
+        type: MAP
+        title: "Households Receiving Food Stamps in the Past Year Per Capita ${date}"
+        stat_var_key: "Count_Household_WithFoodStampsInThePast12Months"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Household_WithFoodStampsInThePast12Months"
+    value {
+      stat_var: "Count_Household_WithFoodStampsInThePast12Months"
+      name: "Count_Household_WithFoodStampsInThePast12Months"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Number of people living in poverty"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "People below the poverty line in ${placeName} ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: false
+        }
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        description: "Number of People Below the Poverty Line ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population below poverty line"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Poverty per capita"
+    columns {
+      tiles {
+        title: "Population Living In Poverty Per Capita ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      name: "Population below poverty line"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Median Income"
+    columns {
+      tiles {
+        title: "Median Income for All Households ${date}"
+        type: MAP
+        stat_var_key: "Median_Income_Household"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Household"
+    value {
+      stat_var: "Median_Income_Household"
+      name: "Median Income for All Households"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Unemployment Rate"
+    columns {
+      tiles {
+        title: "Unemployment Rate of a Population ${date}"
+        type: MAP
+        stat_var_key: "UnemploymentRate_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "UnemploymentRate_Person"
+    value {
+      stat_var: "UnemploymentRate_Person"
+      name: "Unemployment Rate"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Language Spoken At Home"
+    columns {
+      tiles {
+        title: "Working Age Adults Who Do Not Speak English At Home Per Capita ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+    value {
+      stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      name: "Population: 18-64 Years, Language Other Than English Per Capita"
+      denom: "Count_Person"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Single Mother Households"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Households in ${placeName} are single mother households"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold_pct"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        description: "Number of Single Mother Households ${date}"
+        stat_var_key: "Count_Household_SingleMotherFamilyHousehold"
+        stat_var_key: "Count_Household_FamilyHousehold"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold_pct"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Family Household rate"
+      denom: "Count_Household_FamilyHousehold"
+      unit: "Percent"
+      scaling: 100
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_SingleMotherFamilyHousehold"
+    value {
+      stat_var: "Count_Household_SingleMotherFamilyHousehold"
+      name: "Single Mother Family Households"
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_FamilyHousehold"
+    value {
+      stat_var: "Count_Household_FamilyHousehold"
+      name: "Family Households"
+    }
+  }
+
+}
+
+categories {
+  title: "Health and Nutrition"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Community Food Services"
+    columns {
+      tiles {
+        title: "Number of Community Food Services ${date}"
+        type: MAP
+        stat_var_key: "dc/7dcmzwydmtet5"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "dc/7dcmzwydmtet5"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "dc/7dcmzwydmtet5"
+    value {
+      stat_var: "dc/7dcmzwydmtet5"
+      name: "Count of Establishment: Community Food Services (NAICS/62421)"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Grocery Store Owners"
+    columns {
+      tiles {
+        title: "Number of Grocery Store Owners ${date}"
+        type: MAP
+        stat_var_key: "dc/cc51jvbvp0jdf"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "dc/cc51jvbvp0jdf"
+    value {
+      stat_var: "dc/cc51jvbvp0jdf"
+      name: "Population of Person: Privately Owned, Grocery Stores (NAICS/4451)"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Life Expectancy"
+    columns {
+      tiles {
+        title: "Life Expectancy ${date}"
+        type: MAP
+        stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "LifeExpectancy_Person"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Life Expectancy"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Health Insurance"
+    columns {
+      tiles {
+        title: "Population Without Health Insurance Per Capita ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_NoHealthInsurance_pc"
+      }
+      tiles {
+        title: "Median Income for Households Without Health Insurance versus Number of People Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Median_Income_Household_NoHealthInsurance"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_NoHealthInsurance_pc"
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      name: "Population Without Health Insurance Per Capita"
+      denom: "Count_Person"
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Household_NoHealthInsurance"
+    value {
+      stat_var: "Median_Income_Household_NoHealthInsurance"
+      name: "Median Income for Households Without Health Insurance"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population Below Poverty Level Status in Past Year"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Health Conditions and Poverty"
+    columns {
+      tiles {
+        title: "Percent Population With Poor Physical Health and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithPhysicalHealthNotGood"
+      }
+      tiles {
+        title: "Percent Population With High Blood Pressure and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithHighBloodPressure"
+      }
+      tiles {
+        title: "Percent Population With Heart Disease and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithCoronaryHeartDisease"
+      }
+    }
+    columns {
+      tiles {
+        title: "Percent Population With Diabetes and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithDiabetes"
+      }
+      tiles {
+        title: "Percent Population With High Cholesterol and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithHighCholesterol"
+      }
+      tiles {
+        title: "Percent Population With Cancer and Below the Poverty Line"
+        type: SCATTER
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        stat_var_key: "Percent_Person_WithCancerExcludingSkinCancer"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithPhysicalHealthNotGood"
+    value {
+      stat_var: "Percent_Person_WithPhysicalHealthNotGood"
+      name: "Percentage of Population With Poor Physical Health"
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithHighBloodPressure"
+    value {
+      stat_var: "Percent_Person_WithHighBloodPressure"
+      name: "Percentage of Population With Poor Physical Health"
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithCoronaryHeartDisease"
+    value {
+      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+      name: "Percentage of Population With Coronary Heart Disease"
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithDiabetes"
+    value {
+      stat_var: "Percent_Person_WithDiabetes"
+      name: "Percentage of Population With Diabetes"
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithHighCholesterol"
+    value {
+      stat_var: "Percent_Person_WithHighCholesterol"
+      name: "Percentage of Population With High Cholesterol"
+    }
+  }
+  stat_var_spec {
+    key: "Percent_Person_WithCancerExcludingSkinCancer"
+    value {
+      stat_var: "Percent_Person_WithCancerExcludingSkinCancer"
+      name: "Percentage of Population With Cancer"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_BelowPovertyLevelInThePast12Months"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population Below Poverty Level Status in Past Year"
+    }
+  }
+
+}
+
+categories {
+  title: "Farming"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farms"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Farms in ${placeName} ${date}"
+        stat_var_key: "Count_Farm"
+      }
+      tiles {
+        title: "Farms ${date}"
+        type: MAP
+        stat_var_key: "Count_Farm"
+      }
+      tiles {
+        title: "Population: Producer ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_Producer"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Count_Farm"
+    value {
+      stat_var: "Count_Farm"
+      name: "Farms"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_Producer"
+    value {
+      stat_var: "Count_Person_Producer"
+      name: "Count: Producer"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Areas"
+    columns {
+      tiles {
+        title: "Percent of Crop Covered Area ${date}"
+        type: MAP
+        stat_var_key: "LandCoverFraction_Cropland"
+      }
+      tiles {
+        title: "Beef Cows on a Farm ${date}"
+        type: MAP
+        stat_var_key: "Count_FarmInventory_BeefCows"
+      }
+      tiles {
+        title: "Forage Produced ${date}"
+        type: MAP
+        stat_var_key: "Amount_FarmInventory_Forage"
+      }
+      tiles {
+        title: "Total Area of Farms for Silage ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_CornForSilageOrGreenchop"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "LandCoverFraction_Cropland"
+    value {
+      stat_var: "LandCoverFraction_Cropland"
+      name: "Percent of Crop Covered Area"
+    }
+  }
+  stat_var_spec {
+    key: "Count_FarmInventory_BeefCows"
+    value {
+      stat_var: "Count_FarmInventory_BeefCows"
+      name: "Beef Cows on a Farm"
+    }
+  }
+  stat_var_spec {
+    key: "Amount_FarmInventory_Forage"
+    value {
+      stat_var: "Amount_FarmInventory_Forage"
+      name: "Forage Produced"
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_CornForSilageOrGreenchop"
+    value {
+      stat_var: "Area_Farm_CornForSilageOrGreenchop"
+      name: "Total Area of Farms for Silage"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Production"
+    columns {
+      tiles {
+        title: "Area of Irrigated Lands on Farms ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_IrrigatedLand"
+      }
+      tiles {
+        title: "Area of Farms Growing Vegetables for Sale ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_VegetablesHarvestedForSale"
+      }
+      tiles {
+        title: "Farms Receiving Government Payments ${date}"
+        type: MAP
+        stat_var_key: "Count_Farm_ReceivedGovernmentPayment"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_IrrigatedLand"
+    value {
+      stat_var: "Area_Farm_IrrigatedLand"
+      name: "Area of Irrigated Lands on Farms"
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_VegetablesHarvestedForSale"
+    value {
+      stat_var: "Area_Farm_VegetablesHarvestedForSale"
+      name: "Area of Farms Growing Vegetables for Sale"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Farm_ReceivedGovernmentPayment"
+    value {
+      stat_var: "Count_Farm_ReceivedGovernmentPayment"
+      name: "Farms Receiving Government Payments"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Equipment"
+    columns {
+      tiles {
+        title: "Mean Market Value of Farm Machinery and Equipment ${date}"
+        type: MAP
+        stat_var_key: "Mean_MarketValue_Farm_MachineryAndEquipment"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "Mean_MarketValue_Farm_MachineryAndEquipment"
+    value {
+      stat_var: "Mean_MarketValue_Farm_MachineryAndEquipment"
+      name: "Mean Market Value of Farm Machinery and Equipment"
+    }
+  }
+
+}
+
+categories {
+  title: "Climate and Agriculture"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Temperature"
+    columns {
+      tiles {
+        title: "Population-weighted Number of Heat Waves ${date}"
+        type: MAP
+        stat_var_key: "PopulationWeighted_Count_HeatWaveEvent"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "PopulationWeighted_Count_HeatWaveEvent"
+    value {
+      stat_var: "PopulationWeighted_Count_HeatWaveEvent"
+      name: "Population-weighted Number of Heat Waves"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Droughts"
+    columns {
+      tiles {
+        title: "Droughts ${date}"
+        type: MAP
+        stat_var_key: "Count_DroughtEvent"
+      }
+      
+    }
+  }
+  stat_var_spec {
+    key: "Count_DroughtEvent"
+    value {
+      stat_var: "Count_DroughtEvent"
+      name: "Droughts"
+    }
+  }
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Water for Farms"
+    columns {
+      tiles {
+        title: "Area of Irrigated Lands on Farms ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_IrrigatedLand"
+      }
+      tiles: {
+        type: LINE
+        title: "Withdrawal Rate of Water for Livestock in ${placeName}"
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+      tiles {
+        title: "Withdrawal Rate of Water for Livestock ${date}"
+        type: MAP
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Area_Farm_IrrigatedLand"
+    value {
+      stat_var: "Area_Farm_IrrigatedLand"
+      name: "Area of Irrigated Lands on Farms"
+    }
+  } 
+  stat_var_spec {
+    key: "WithdrawalRate_Water_Livestock"
+    value {
+      stat_var: "WithdrawalRate_Water_Livestock"
+      name: "Withdrawal Rate of Water for Livestock"
+    }
+  } 
+
+}
+
+
+categories {
+  title: "Explore More"
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "See data for your state"
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "* [Alabama](../geoId/01)\n* [Alaska](../geoId/02)\n* [Arizona](../geoId/04)\n* [Arkansas](../geoId/05)\n* [California](../geoId/06)\n* [Colorado](../geoId/08)\n* [Connecticut](../geoId/09)\n* [Delaware](../geoId/10)\n* [Florida](../geoId/12)\n* [Georgia](../geoId/13)\n* [Hawaii](../geoId/15)\n* [Idaho](../geoId/16)\n* [Illinois](../geoId/17)\n* [Indiana](../geoId/18)\n* [Iowa](../geoId/19)\n* [Kansas](../geoId/20)\n* [Kentucky](../geoId/21)\n* [Louisiana](../geoId/22)\n* [Maine](../geoId/23)\n* [Maryland](../geoId/24)\n* [Massachusetts](../geoId/25)\n* [Michigan](../geoId/26)\n* [Minnesota](../geoId/27)\n* [Mississippi](../geoId/28)\n* [Missouri](../geoId/29)"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "* [Montana](../geoId/30)\n* [Nebraska](../geoId/31)\n* [Nevada](../geoId/32)\n* [New Hampshire	](../geoId/33)\n* [New Jersey	](../geoId/34)\n* [New Mexico	](../geoId/35)\n* [New York	](../geoId/36)\n* [North Carolina	](../geoId/37)\n* [North Dakota	](../geoId/38)\n* [Ohio](../geoId/39)\n* [Oklahoma	](../geoId/40)\n* [Oregon](../geoId/41)\n* [Pennsylvania](../geoId/42)\n* [Rhode Island](../geoId/44)\n* [South Carolina](../geoId/45)\n* [South Dakota	](../geoId/46)\n* [Tennessee](../geoId/47)\n* [Texas](../geoId/48)\n* [Utah](../geoId/49)\n* [Vermont](../geoId/50)\n* [Virginia](../geoId/51)\n* [Washington](../geoId/53)\n* [West Virginia	](../geoId/54)\n* [Wisconsin](../geoId/55)\n* [Wyoming](../geoId/56)"
+      }
+    }
+    
+  }
+}
+

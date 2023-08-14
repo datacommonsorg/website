@@ -1,0 +1,456 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "foodsecurity"
+  topic_name: "Food Security"
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "CensusTract"
+  }
+}
+
+categories {
+  title: "The Need"
+
+  blocks {
+    title: "Population below the poverty level"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "people below the poverty level in the last 12 months in ${placeName} (${date})"
+        stat_var_key: "count_person_below_poverty_level"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "count_person_below_poverty_level"
+      }
+      
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: " in ${placeName}"
+        stat_var_key: "count_person_below_poverty_level"
+      }
+    }
+  }
+
+  blocks {
+    title: "Low Access to Grocery Stores"
+    columns {
+      tiles {
+        type: MAP
+        title: " in ${placeName}"
+        stat_var_key: "count_lowincome_lowgroceryaccess"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "count_lowincome_lowgroceryaccess"
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "count_person_below_poverty_level"
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      name: "Population below poverty level"
+    }
+  }
+  
+
+  stat_var_spec {
+    key: "count_lowincome_lowgroceryaccess"
+    value {
+      stat_var: "Low_Income_Low_Access_To_Grocery_Store"
+      name: "Population with Low Income and Low Access to Grocery Stores"
+    }
+  }
+}
+
+
+categories {
+  title: "Food Assistance"
+
+  blocks {
+    title: "Supplemental Nutrition Assistance Program (SNAP) recipients"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Households receiving SNAP benefits in ${placeName} (${date})"
+        stat_var_key: "count_snap"
+      }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "pc_snap"
+      }
+      
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "SNAP participants in ${placeName}"
+        stat_var_key: "count_snap"
+      }
+      
+    }
+  }
+
+  blocks {
+    title: "Community Food Services"
+
+    columns {
+      tiles {
+        type: MAP
+        title: "Community Food Services establishments in ${placeName}"
+        stat_var_key: "pc_community_food_services"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "pc_community_food_services"
+      }
+      
+    }
+  }
+
+  stat_var_spec {
+    key: "count_snap"
+    value {
+      stat_var: "Count_Household_WithFoodStampsInThePast12Months"
+      name: "Households receiving SNAP benefits in the past year"
+    }
+  }
+  stat_var_spec {
+    key: "pc_snap"
+    value {
+      stat_var: "Count_Household_WithFoodStampsInThePast12Months"
+      denom: "Count_Person"
+      name: "Households receiving SNAP benefits in the past year (per capita)"
+    }
+  }
+  stat_var_spec {
+    key: "pc_community_food_services"
+    value {
+      stat_var: "dc/j1kr0ft77ptb6"
+      denom: "Count_Person"
+      name: "Community Food Services establishments (per capita)"
+    }
+  }
+}
+
+
+
+categories {
+  title: "Health Conditions"
+
+  blocks {
+    title: "Summary"
+    columns {
+      tiles {
+        type: BAR
+        title: "Health conditions"
+        stat_var_key: "prevalence_diabetes"
+        stat_var_key: "prevalence_chd"
+        stat_var_key: "prevalence_highbloodpressure"
+        stat_var_key: "prevalence_highcholesterol"
+      }
+    }
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest among ${statVar}"
+        }
+        stat_var_key: "prevalence_diabetes"
+        stat_var_key: "prevalence_chd"
+        stat_var_key: "prevalence_highbloodpressure"
+        stat_var_key: "prevalence_highcholesterol"
+      }
+    }
+  }
+  blocks {
+    title: "By County"
+    columns {
+      tiles {
+        type: MAP
+        title: "Prevalence of Diabetes (${date})"
+        stat_var_key: "prevalence_diabetes"
+      }
+      tiles {
+        type: MAP
+        title: "Prevalence of High Blood Pressure (${date})"
+        stat_var_key: "prevalence_highbloodpressure"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Prevalence of Coronary Heart Disease (${date})"
+        stat_var_key: "prevalence_chd"
+      }
+      tiles {
+        type: MAP
+        title: "Prevalence of High Cholesterol (${date})"
+        stat_var_key: "prevalence_highcholesterol"
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "prevalence_diabetes"
+    value {
+      stat_var: "Percent_Person_WithDiabetes"
+      name: "% population with Diabetes"
+    }
+  }
+  stat_var_spec {
+    key: "prevalence_chd"
+    value {
+      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+      name: "% population with Coronary Heart Disease"
+    }
+  }
+  stat_var_spec {
+    key: "prevalence_highbloodpressure"
+    value {
+      stat_var: "Percent_Person_WithHighBloodPressure"
+      name: "% population with High Blood Pressure"
+    }
+  }
+  stat_var_spec {
+    key: "prevalence_highcholesterol"
+    value {
+      stat_var: "Percent_Person_WithHighCholesterol"
+      name: "% population with High Cholesterol"
+    }
+  }
+}
+
+categories {
+  title: "Surplus Food Potential"
+
+  blocks {
+    title: "Sources of Surplus Food"
+    columns {
+      tiles {
+        type: MAP
+        title: "Farms in ${placeName}"
+        stat_var_key: "count_farm"
+      }
+      
+      
+      tiles {
+        type: MAP
+        title: "Grocery Wholesalers in ${placeName}"
+        stat_var_key: "establishments_wholesalers"
+      }
+      tiles {
+        type: MAP
+        title: "Restaurants in ${placeName}"
+        stat_var_key: "establishments_restaurants"
+      }
+      tiles {
+        type: MAP
+        title: "Colleges and Universities in ${placeName}"
+        stat_var_key: "establishments_colleges"
+      }
+    }
+    columns {
+      tiles {
+        type: MAP
+        title: "Food Manufacturing in ${placeName}"
+        stat_var_key: "establishment_foodmanufacturing"
+      }
+      tiles {
+        type: MAP
+        title: "Grocery Stores in ${placeName}"
+        stat_var_key: "establishments_grocery"
+      }
+      tiles {
+        type: MAP
+        title: "Hotels in ${placeName}"
+        stat_var_key: "establishment_traveleraccommodations"
+      }
+      tiles {
+        type: MAP
+        title: "Primary and Secondary Schools in ${placeName}"
+        stat_var_key: "establishment_primarysecondaryschools"
+      }
+    }
+    
+  }
+  
+
+  stat_var_spec {
+    key: "establishments_restaurants"
+    value {
+      stat_var: "dc/redh1q644pn3b"
+      name: "# of restaurants"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_grocery"
+    value {
+      stat_var: "dc/bdb0eypp5ek6h"
+      name: "# of grocery stores"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_wholesalers"
+    value {
+      stat_var: "dc/tsye5m13dgm81"
+      name: "# of grocery wholesalers"
+    }
+  }
+  stat_var_spec {
+    key: "establishments_colleges"
+    value {
+      stat_var: "dc/ds35leh1tbb6d"
+      name: "# colleges and universities"
+    }
+  }
+  stat_var_spec {
+    key: "count_farm"
+    value {
+      stat_var: "Count_Farm"
+      name: "# farms"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_foodmanufacturing"
+    value {
+      stat_var: "dc/ld7r82rlc7se6"
+      name: "# food manufacturing establishments"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_traveleraccommodations"
+    value {
+      stat_var: "dc/mq2x2pzme3yfh"
+      name: "# hotels"
+    }
+  }
+  stat_var_spec {
+    key: "establishment_primarysecondaryschools"
+    value {
+      stat_var: "dc/1xbz8tzx9lhmg"
+      name: "# primary and secondary schools"
+    }
+  }
+
+  
+}
+
+
+#categories {
+#  title: "TESTING"
+#
+#  blocks {
+#    title: "TESTING"
+#    description: "Testing"
+#    columns {
+#      tiles {
+#        type: SCATTER
+#        title: "TEST (${xDate}) vs. TEST (${yDate})"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#    columns {
+#      tiles {
+#        type: BIVARIATE
+#        title: "Testing"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#  }
+#  blocks {
+#    title: "TESTING"
+#    description: "Testing"
+#    columns {
+#      tiles {
+#        type: BIVARIATE
+#        title: "Testing"
+#        stat_var_key: 'prevalence_diabetes'
+#        stat_var_key: 'prevalence_chd'
+#      }
+#    }
+#  }
+#
+#  stat_var_spec {
+#    key: "prevalence_diabetes"
+#    value {
+#      stat_var: "Percent_Person_WithDiabetes"
+#      name: "% population with Diabetes"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_chd"
+#    value {
+#      stat_var: "Percent_Person_WithCoronaryHeartDisease"
+#      name: "% population with Coronary Heart Disease"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_highbloodpressure"
+#    value {
+#      stat_var: "Percent_Person_WithHighBloodPressure"
+#      name: "% population with High Blood Pressure"
+#    }
+#  }
+#  stat_var_spec {
+#    key: "prevalence_highcholesterol"
+#    value {
+#      stat_var: "Percent_Person_WithHighCholesterol"
+#      name: "% population with High Cholesterol"
+#    }
+#  }
+#}

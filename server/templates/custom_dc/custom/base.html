@@ -34,7 +34,7 @@
 <html lang={{ locale }} id={{ page_id }}>
 
 <head>
-  <title>{{ title }} - Custom Data Commons Commons</title>
+  <title>Data Commons for Civil Society</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
@@ -103,7 +103,17 @@
 
     <footer id="main-footer">
       <div class="container">
-        <h2>Footer goes here</h2>
+        <div class="row">
+          <div id="sub-footer" class="col-12">
+            <span>Data Commons is a Google supported project</span>
+            <div class="float-md-right mt-3 mt-md-0">
+              {% block subfooter_extra %}{% endblock %}
+              <a href="#">Terms of Use ›</a>
+              <a href="#">Privacy Policy ›</a>
+              <a href="#">Contact Us ›</a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   </div>

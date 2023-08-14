@@ -21,6 +21,50 @@
 
 {% block content %}
   <section class="container">
-    <h1>Home Page</h1>
+    <div class="homepage-header"></div>
   </section>
+
+  <section class="container">
+    <h1>Public data that can power your work</h1>
+    <p>
+      Data Commons for Civil Society is a powerful tool that makes it easy for nonprofits, NGOs, and other civil society organizations to find and use public data, and to explore connections between data sets. 
+      
+      Whether you’re trying to make a data-informed decision or understand your community better, you can find data that matters to you. 
+    </p>
+
+    <h3>Tailor made for civil society</h3>
+    <p>
+      Data Commons for Civil Society is powered by <a href="https://www.datacommons.org">DataCommons.org</a>, and includes 
+      resources tailored for organizations like yours, as well as additional data sets that reflect the issues most important
+      to civil society. If you have datasets in mind that aren’t part of Data Commons, or you have a need that you wish you could 
+      meet using Data Commons, please take a moment to <a href="https://survey.alchemer.com/s3/7341651/Data-Commons-your-data-your-needs">share your ideas</a>. Your input will help us make 
+      Data Commons for Civil Society work better for you.  
+    </p>
+
+    <h3>Flexibility and functionality for your organization</h3>
+    <p>
+      Using Data Commons, you have access to an enormous amount of data that you can finetune to fit what you need. What’s more, you can select data visualizations to tell your story in the way you need it told. 
+      Stay tuned for helpful tutorials and resources to get you started.
+    </p>
+
+    <div id="new-update">
+      <div >
+        <div class="highlight">
+          <h5>Are you a food security organization?</h5>
+          <p>
+            We are currently working with food security organizations to highlight data in Data Commons that is most relevant to their work.
+            <a href="mailto:datacommons@techsoup.org">Let us know</a> if you'd like to be involved, or take a look at what we are working on. 
+          </p>
+          <div class="cta">
+            <a href="{{ url_for('ts_issue_landing.foodsecurity') }}" class="cta-button" >Data Commons for Food Security Organizations</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  </section>
+
+
+
 {% endblock %}

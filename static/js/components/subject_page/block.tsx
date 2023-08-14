@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 import {
   COLUMN_ID_PREFIX,
@@ -310,7 +311,7 @@ function renderTiles(
       case "DESCRIPTION":
         return (
           <p key={id} className="description-tile">
-            {tile.description}
+            <ReactMarkdown>{tile.description}</ReactMarkdown>
           </p>
         );
       case "PLACE_OVERVIEW":

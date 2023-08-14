@@ -1,0 +1,121 @@
+{#
+  Copyright 2023 Google LLC
+ 
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+ 
+       http://www.apache.org/licenses/LICENSE-2.0
+ 
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ #}
+ 
+ {%- extends BASE_HTML -%}
+ 
+ {% set main_id = 'foodsecurity' %}
+ {% set page_id = 'page-foodsecurity' %}
+ {% set title = 'Food Security' %}
+ 
+ {% block content %}
+  <section class="container">
+    <div class="foodsec-landing-header"></div>
+  </section>
+  <section class="container">
+    <h1>Data Commons for Food Security Organizations</h1>
+    
+    <p>Food security organizations are weighing in and sharing the data they need to bolster their reach and impact. 
+      Read on to benefit from their input and don't forget to <a href="">contribute</a> by sharing the datasets that matter most to your organization.</p>
+  </section>
+  <section class="container ataglance-section">
+    <h5>Food security at a glance</h5>
+      <p>Based on your feedback, we've collected a number of statistics in Data Commons that may be helpful for food security organizations.</p>
+      <div class="cta">
+        <a href="/topic/foodsecurity/geoId/06" class="cta-button" >Explore data for your region</a>
+      </div>
+    </section>
+    <section class="container">
+
+    <h2>Food security organizations are asking these questions</h2>
+    
+
+    <article>
+      <h3>How many food assistance organizations are operating in areas with high rates of poverty?</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3Ddc%2Fvekpd9nlmyf0b%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F20%26ept%3DCounty%26ct%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/commfoodservices_poverty_kansas.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Community food services vs. Poverty in Kansas</a></small>
+        </span>
+        Data that shows where food assistance organizations are located can help us visualize the geographic areas of focus for these organizations.
+        However, overlaying this data with geographic data about poverty rates can also help us see where there might be areas that are underserved.  
+      </p>
+      <p>
+        The map shown here uses data in Data Commons to show the per capita <a href="/tools/statvar#sv=dc%2Fj1kr0ft77ptb6">number of Community Food Services establishments</a> in 
+        each county of Kansas, combined with the per capita <a href="/tools/statvar#sv=Count_Person_BelowPovertyLevelInThePast12Months">number of people under the poverty line</a>.
+        The counties that have a more green shading are areas where there is a higher rate of poverty but a lower density of food service agencies.
+      </p>
+      <span class="clearfix"></span>
+    </article>  
+
+    <article class="clearfix">
+      <h3>Where are there large numbers of people that don't live close to grocery stores?</h3>
+      <p>
+        <span class="img-card float-md-left" style="width: 312px">
+          {% set chart_link='/tools/map#%26sv%3DHouseholds_No_Car_Low_Access_To_Grocery_Store%26pc%3D1%26denom%3DCount_Person%26pd%3DgeoId%2F37%26ept%3DCounty' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/lowgroceryaccess_nocar_nc.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Households with no car and low access to grocery stores in N. Carolina</a></small>
+        </span>
+        The distance that individuals live from supermarkets and large grocery stores affects their ability to access healthy foods. TechSoup is
+        adding data from the USDA's <a href="https://www.ers.usda.gov/data-products/food-environment-atlas/">Food Environment Atlas</a> to
+        Data Commons to make it easier for food security organizations to find statistics such as Access and Proximity to Grocery Stores.
+      </p>
+      <p>
+        In this example, you can see a map of North Carolina that uses different colors to represent the per capita number of households that have no cars and are more than a mile
+        away from a supermarket or large grocery store. The darker colors indicate areas where there are the greatest percentage of these households.
+      </p>
+    </article>  
+
+    <article class="clearfix">
+      <h3>How common are specific health issues in areas with high rates of poverty?</h3>
+      <p>
+        <span class="img-card float-md-right" style="width: 312px">
+          {% set chart_link='/tools/scatter#%26svx%3DCount_Person_BelowPovertyLevelInThePast12Months%26pcx%3D1%26dx%3DCount_Person%26svy%3DPercent_Person_WithDiabetes%26dy%3DCount_Person%26epd%3DgeoId%2F51%26ept%3DCounty%26ct%3D1' %}
+          <a href="{{ chart_link }}">
+            <img class="img-thumbnail" src="/custom_dc/custom/images/diabetes_poverty-virginia.png" />
+          </a>
+          <small class="caption"><a href="{{ chart_link}}">Diabetes vs. Poverty in Virginia</a></small>
+        </span>
+        Food banks can best promote nutrition and health when they understand the needs of the communities to which they distribute food. Knowing about health conditions
+        that are common in a particular area can help them source and distribute appropriate foods for clients with these conditions. 
+      </p>
+      <p>
+        Data Commons has statistics from the CDC about the 
+        prevalence of various health conditions that may be of interest to food security organizations, such as <a href="tools/statvar#sv=Percent_Person_WithDiabetes">Diabetes</a>,
+        <a href="tools/statvar#sv=Percent_Person_WithCoronaryHeartDisease">Coronary Heart Disease</a>, <a href="tools/statvar#sv=Percent_Person_WithHighCholesterol">High Cholesterol</a>,
+        <a href="tools/statvar#sv=Percent_Person_WithHighBloodPressure">High Blood Pressure</a>
+      </p>
+      <p>
+        This data can be combined with geographic data about <a href="tools/statvar#sv=Count_Person_BelowPovertyLevelInThePast12Months">levels of poverty</a> to
+        show which health conditions are likely to impact those in need of food assistance.
+      </p>
+      <p>
+        In this example, we have a map of Virginia that shows the per capita number of people below the poverty level in a 12 month period, and we overlayed it with 
+        data about the per capita number of people with Diabetes. Counties on the map that have a darker blue shading are areas where food pantries and other community
+        partners are likely to be serving clients with Diabetes. 
+      </p>
+    </article>    
+    
+    
+
+    
+    
+  </section>
+ {% endblock %}
