@@ -36,14 +36,14 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 8
+    replicas: 5
   node:
-    replicas: 15
+    replicas: 12
   observation:
-    replicas: 15
+    replicas: 12
   default:
-    replicas: 15
+    replicas: 12
 
 nodejs:
   enabled: true
-  replicas: 15
+  replicas: 12
