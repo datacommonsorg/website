@@ -666,7 +666,7 @@ def coords2places():
   # Get the place types for each place dcid in the resolved place coordinates
   dcids_to_get_type = set()
   for _, place_dcids in place_coordinates.items():
-    dcids_to_get_type.update(place_dcids)
+    dcids_to_get_type.update([x['dcid'] for x in place_dcids])
   place_types = fetch.property_values(list(dcids_to_get_type), 'typeOf')
   # Get the place names for the places that are of the requested place type
   dcids_to_get_name = filter(
@@ -679,10 +679,10 @@ def coords2places():
   for place_coord, places in place_coordinates.items():
     lat, lng = place_coord.split('#')
     for place in places:
-      if place in place_names:
-        place_name = place_names[place]
+      if place['dcid'] in place_names:
+        place_name = place_names[place['dcid']]
         if not place_name:
-          place_name = place
+          place_name = place['name']
         result.append({
             'latitude': float(lat),
             'longitude': float(lng),

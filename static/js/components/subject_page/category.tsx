@@ -95,6 +95,9 @@ function renderBlocks(
     let commonSVs = [];
     for (const column of block.columns) {
       for (const tile of column.tiles) {
+        if (!tile.statVarKey) {
+          continue;
+        }
         const tmp = [];
         for (const k of tile.statVarKey) {
           const svSpec = svProvider.getSpec(k, block.denom);
