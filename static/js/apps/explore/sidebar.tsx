@@ -30,6 +30,7 @@ interface SidebarPropType {
   cmpPlace: string;
   placeType: string;
   dc: string;
+  exploreMore: string;
   /**
    * Categories from the page config.
    */
@@ -42,7 +43,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}`;
+          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}&em=${props.exploreMore}`;
           const isCurrentTopic = topic.dcid == props.currentTopicDcid;
           // Do not display itself for "root".
           const isRootTopic = topic.dcid == "dc/topic/Root";
@@ -71,7 +72,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                     if (!childTopic.dcid || childTopic.dcid === topic.dcid) {
                       return;
                     }
-                    const url = `/explore/#t=${childTopic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}`;
+                    const url = `/explore/#t=${childTopic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}&em=${props.exploreMore}`;
                     return (
                       <a
                         key={randDomId()}
