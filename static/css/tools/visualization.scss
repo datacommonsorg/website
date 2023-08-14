@@ -474,11 +474,13 @@ $selector-footer-height: 40px;
   .chart-area {
     flex-grow: 1;
     margin: 32px;
+    width: 100%;
 
     .chart {
       border: 0.5px solid #dee2e6;
       background-color: white;
       margin: 1rem 0;
+      width: 100%;
     }
 
     .timeline-chip-section {
@@ -561,6 +563,11 @@ $selector-footer-height: 40px;
 .big-query-sql-instructions {
   font-size: 1rem;
   width: 100%;
+}
+
+#draw-tooltip {
+  max-height: 60%;
+  max-width: 60%;
 }
 
 /* Info pane */
