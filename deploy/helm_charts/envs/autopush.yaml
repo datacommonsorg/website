@@ -21,7 +21,7 @@ namespace:
 
 website:
   flaskEnv: autopush
-  replicas: 10
+  replicas: 15
 
 mixer:
   hostProject:
@@ -36,14 +36,14 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 8
   node:
-    replicas: 10
+    replicas: 15
   observation:
-    replicas: 10
+    replicas: 15
   default:
-    replicas: 10
+    replicas: 15
 
 nodejs:
   enabled: true
-  replicas: 10
+  replicas: 15

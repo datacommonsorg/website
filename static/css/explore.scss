@@ -45,6 +45,26 @@
   }
 }
 
+#explore-more-section {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+
+  .explore-more-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .explore-more-link {
+    font-size: 13px;
+    margin-right: 4px;
+    color: var(--dc-gray);
+    text-decoration: underline;
+    display: inline-block;
+  }
+}
+
 .search-section {
   align-items: center;
   display: flex;
