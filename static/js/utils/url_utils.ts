@@ -42,11 +42,9 @@ export function getUrlTokenOrDefault(param: string, def: string): string {
   return res;
 }
 
-/**
- * Updates URL hash param with given value.
- * @param params Map of param to new value.
- */
-export function updateHash(params: Record<string, string | string[]>): void {
+export function getUpdatedHash(
+  params: Record<string, string | string[]>
+): string {
   const urlParams = new URLSearchParams(window.location.hash.split("#")[1]);
   for (const param in params) {
     if (Array.isArray(params[param])) {
@@ -56,5 +54,13 @@ export function updateHash(params: Record<string, string | string[]>): void {
       urlParams.set(param, <string>params[param]);
     }
   }
-  window.location.hash = urlParams.toString();
+  return urlParams.toString();
+}
+
+/**
+ * Updates URL hash param with given value.
+ * @param params Map of param to new value.
+ */
+export function updateHash(params: Record<string, string | string[]>): void {
+  window.location.hash = getUpdatedHash(params);
 }

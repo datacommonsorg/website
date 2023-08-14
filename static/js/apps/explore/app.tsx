@@ -36,7 +36,7 @@ import {
 } from "../../shared/context";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
-import { updateHash } from "../../utils/url_utils";
+import { getUpdatedHash, updateHash } from "../../utils/url_utils";
 import { ParentPlace } from "./parent_breadcrumbs";
 import { Sidebar } from "./sidebar";
 
@@ -78,9 +78,20 @@ export function App(): JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
   const savedContext = useRef([]);
+  // When ignore query param is true and the hash params change, don't update
+  // query state to the value from the param.
+  // TODO: have a better way to handle updating query to empty on back or
+  //       forward clicked.
+  const ignoreQueryParam = useRef(false);
 
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleHashChange = (e: HashChangeEvent) => {
+      if (_.isEmpty(e.oldURL) && _.isEmpty(e.newURL)) {
+        // If old and new url fields are empty, that means this was a
+        // HashChangeEvent that was fired manually from the code.
+        // TODO: should clean up this hack
+        ignoreQueryParam.current = true;
+      }
       const hash = window.location.hash;
       const parsedParams = queryString.parse(hash);
       // Update component state with the parsed parameters from the hash
@@ -139,9 +150,9 @@ export function App(): JSX.Element {
         topic = detectResp["variables"].join(DELIM);
         cmpTopic = (detectResp["comparisonVariables"] || []).join(DELIM);
         placeType = detectResp["childEntityType"] || "";
-        updateHash({
+        replaceHash({
           q: "",
-          oq: "",
+          oq: query,
           t: topic,
           tcmp: cmpTopic,
           p: place,
@@ -155,10 +166,10 @@ export function App(): JSX.Element {
       } else if (origQuery) {
         // We have orig_query set with place and topic. So while
         // we're not calling detection, we should still set query state.
-        setQuery(origQuery);
+        query = origQuery;
       }
       if (!topic) {
-        updateHash({
+        replaceHash({
           t: DEFAULT_TOPIC,
           dc,
         });
@@ -166,12 +177,16 @@ export function App(): JSX.Element {
       }
 
       if (!place) {
-        updateHash({
+        replaceHash({
           p: DEFAULT_PLACE,
           dc,
         });
         return;
       }
+      if (!ignoreQueryParam.current) {
+        setQuery(query);
+      }
+      ignoreQueryParam.current = false;
       const places = toApiList(place);
       const cmpPlaces = toApiList(cmpPlace);
       const topics = toApiList(topic);
@@ -451,3 +466,16 @@ const fetchDetectData = async (
     return null;
   }
 };
+
+// Replace current url hash with the new hash. This replaces the current entry
+// in the window history state.
+function replaceHash(params: Record<string, string | string[]>): void {
+  const newHash = getUpdatedHash(params);
+  const locationRoot = window.location.href.replace(window.location.hash, "");
+  const newURL = `${locationRoot}#${newHash}`;
+  // Replace the current entry in the history with the new url to remove
+  // intermediate states in the history.
+  history.replaceState({}, "", newURL);
+  // Fire a hashchange event so that the new hash can be used by the app
+  window.dispatchEvent(new HashChangeEvent("hashchange"));
+}
