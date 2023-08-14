@@ -304,7 +304,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Inward Remittances and more"
           },
           {
             "columns": [
@@ -326,13 +327,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossValueAdded_RealValue"
                     ],
-                    "title": "Amount of Economic Activity (Real Value): Gross Value Added in Brazil",
+                    "title": "Amount of Economic Activity (Real Value): Gross Value Added and more in Brazil",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Amount of Economic Activity (Real Value): Gross Value Added and more"
           },
           {
             "columns": [
@@ -527,7 +529,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing and more"
           },
           {
             "columns": [
@@ -543,7 +546,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "% Nominal GDP Spent on Education and more"
           },
           {
             "columns": [
@@ -603,7 +607,6 @@
             "title": "Government Expenditure on Military Activities"
           }
         ],
-        "dcid": "dc/topic/GlobalEconomicActivity",
         "statVarSpec": {
           "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "% Nominal GDP Spent on Education",
@@ -685,7 +688,8 @@
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           }
-        }
+        },
+        "title": "More Related Charts"
       }
     ],
     "metadata": {
@@ -746,6 +750,7 @@
         ]
       }
     ],
+    "exploreMore": {},
     "mainTopic": {
       "dcid": "dc/topic/GlobalEconomicActivity",
       "name": "Global Economic Activity",

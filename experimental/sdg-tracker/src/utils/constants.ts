@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import appConfig from "../config/appConfig.json";
+
 /**
  * Variable DCID url parameter
  */
@@ -38,3 +40,8 @@ export const ROOT_VARIABLE_GROUP = "dc/g/Root";
  * Root SDG variable group
  */
 export const ROOT_SDG_VARIABLE_GROUP = "dc/g/SDG";
+
+/**
+ * Web api root
+ */
+export const WEB_API_ENDPOINT = appConfig.webApiEndpoint;

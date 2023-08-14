@@ -1,7 +1,7 @@
 /**
  * Copyright 2023 Google LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under he Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -107,6 +107,7 @@ export function App(): JSX.Element {
       const origQuery = getSingleParam(hashParams["oq"]);
       const dc = getSingleParam(hashParams["dc"]);
       const svg = getSingleParam(hashParams["svg"]);
+      const exploreMore = getSingleParam(hashParams["em"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -147,6 +148,7 @@ export function App(): JSX.Element {
           pt: placeType,
           dc,
           svg,
+          em: exploreMore,
         });
         return;
       } else if (origQuery) {
@@ -181,7 +183,8 @@ export function App(): JSX.Element {
         cmpPlaces,
         cmpTopics,
         dc,
-        svgs
+        svgs,
+        exploreMore
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -200,6 +203,7 @@ export function App(): JSX.Element {
         parentTopics: resp["relatedThings"]["parentTopics"],
         childTopics: resp["relatedThings"]["childTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
+        exploreMore: resp["relatedThings"]["exploreMore"],
         topic: resp["relatedThings"]["mainTopic"]["dcid"] || "",
         sessionId: "session" in resp ? resp["session"]["id"] : "",
       };
@@ -267,6 +271,7 @@ export function App(): JSX.Element {
     // Don't set placeType here since it gets passed into child places.
     let urlString = "/explore/#p=${placeDcid}";
     urlString += `&t=${topic}&dc=${dc}`;
+    console.log(chartData.exploreMore);
     mainSection = (
       <div className="row explore-charts">
         <div
@@ -316,6 +321,28 @@ export function App(): JSX.Element {
                   onClick={() => setQuery("")}
                 ></ChildPlaces>
               )}
+              {chartData.exploreMore &&
+                Object.keys(chartData.exploreMore).length > 0 && (
+                  <div id="explore-more-section">
+                    <div className="explore-more-head">Explore More</div>
+                    {Object.keys(chartData.exploreMore).map((sv) => {
+                      return Object.keys(chartData.exploreMore[sv]).map(
+                        (prop) => {
+                          const urlSv =
+                            chartData.exploreMore[sv][prop].join(DELIM);
+                          const url = `/explore/#t=${urlSv}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=1`;
+                          return (
+                            <>
+                              <a className="explore-more-link" href={url}>
+                                [{sv}] Explore more by {prop}
+                              </a>
+                            </>
+                          );
+                        }
+                      );
+                    })}
+                  </div>
+                )}
             </>
           )}
         </div>
@@ -396,7 +423,8 @@ const fetchFulfillData = async (
   cmpPlaces: string[],
   cmpTopics: string[],
   dc: string,
-  svgs: string[]
+  svgs: string[],
+  exploreMore: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -407,6 +435,7 @@ const fetchFulfillData = async (
       comparisonEntities: cmpPlaces,
       comparisonVariables: cmpTopics,
       extensionGroups: svgs,
+      exploreMore,
     });
     return resp.data;
   } catch (error) {
