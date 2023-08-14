@@ -24,7 +24,9 @@ import server.lib.nl.fulfillment.types as ftypes
 
 
 def compute_related_things(state: ftypes.PopulateState,
-                           plotted_orig_vars: List[Dict]):
+                           plotted_orig_vars: List[Dict],
+                           explore_peer_groups: Dict[str, Dict[str,
+                                                               List[str]]]):
   # Trim child and parent places based on existence check results.
   _trim_nonexistent_places(state)
 
@@ -35,6 +37,7 @@ def compute_related_things(state: ftypes.PopulateState,
       'peerTopics': [],
       'childTopics': [],
       'mainTopic': {},
+      'exploreMore': explore_peer_groups,
   }
 
   # Convert the places to json.

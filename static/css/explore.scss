@@ -45,6 +45,24 @@
   }
 }
 
+#explore-more-section {
+  margin: 20px 0;
+  font-size: 13px;
+
+  .explore-more-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .explore-more-link {
+    margin-right: 4px;
+    color: var(--dc-gray);
+    text-decoration: underline;
+    display: inline-block;
+  }
+}
+
 .search-section {
   align-items: center;
   display: flex;

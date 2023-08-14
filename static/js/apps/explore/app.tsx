@@ -1,7 +1,7 @@
 /**
  * Copyright 2023 Google LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under he Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -30,6 +30,7 @@ import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { ChildPlaces } from "../../shared/child_places";
 import {
+  ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
@@ -107,6 +108,7 @@ export function App(): JSX.Element {
       const origQuery = getSingleParam(hashParams["oq"]);
       const dc = getSingleParam(hashParams["dc"]);
       const svg = getSingleParam(hashParams["svg"]);
+      const exploreMore = getSingleParam(hashParams["em"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -147,6 +149,7 @@ export function App(): JSX.Element {
           pt: placeType,
           dc,
           svg,
+          em: exploreMore,
         });
         return;
       } else if (origQuery) {
@@ -181,7 +184,8 @@ export function App(): JSX.Element {
         cmpPlaces,
         cmpTopics,
         dc,
-        svgs
+        svgs,
+        exploreMore
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -200,6 +204,7 @@ export function App(): JSX.Element {
         parentTopics: resp["relatedThings"]["parentTopics"],
         childTopics: resp["relatedThings"]["childTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
+        exploreMore: resp["relatedThings"]["exploreMore"],
         topic: resp["relatedThings"]["mainTopic"]["dcid"] || "",
         sessionId: "session" in resp ? resp["session"]["id"] : "",
       };
@@ -345,13 +350,23 @@ export function App(): JSX.Element {
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
-                  <SubjectPageMainPane
-                    id={PAGE_ID}
-                    place={chartData.place}
-                    pageConfig={chartData.pageConfig}
-                    svgChartHeight={SVG_CHART_HEIGHT}
-                    showExploreMore={true}
-                  />
+                  <ExploreContext.Provider
+                    value={{
+                      cmpPlace,
+                      dc,
+                      exploreMore: chartData.exploreMore,
+                      place: chartData.place.dcid,
+                      placeType,
+                    }}
+                  >
+                    <SubjectPageMainPane
+                      id={PAGE_ID}
+                      place={chartData.place}
+                      pageConfig={chartData.pageConfig}
+                      svgChartHeight={SVG_CHART_HEIGHT}
+                      showExploreMore={true}
+                    />
+                  </ExploreContext.Provider>
                 </NlSessionContext.Provider>
               </RankingUnitUrlFuncContext.Provider>
             </>
@@ -396,7 +411,8 @@ const fetchFulfillData = async (
   cmpPlaces: string[],
   cmpTopics: string[],
   dc: string,
-  svgs: string[]
+  svgs: string[],
+  exploreMore: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -407,6 +423,7 @@ const fetchFulfillData = async (
       comparisonEntities: cmpPlaces,
       comparisonVariables: cmpTopics,
       extensionGroups: svgs,
+      exploreMore,
     });
     return resp.data;
   } catch (error) {

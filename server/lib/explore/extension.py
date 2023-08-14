@@ -14,8 +14,10 @@
 """Module for Topic extension."""
 
 import copy
+from dataclasses import dataclass
 from typing import Dict, List, Set
 
+import server.lib.fetch as fetch
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
 import server.lib.nl.common.topic as topic_lib
@@ -58,6 +60,40 @@ def extend_topics(topics: List[str], existing_svs: Set[str],
   return res
 
 
+def explore_more(seed_svs: List[str]) -> Dict[str, List[ftypes.ChartVars]]:
+  if not seed_svs:
+    return {}
+
+  # Get parent SVGs.
+  sv2svgs = fetch.property_values(seed_svs, "memberOf", True)
+
+  # Collect all SVGs.
+  all_svgs = []
+  for svgs in sv2svgs.values():
+    all_svgs.extend(svgs)
+  all_svgs = list(set(all_svgs))
+
+  # Open SVGs recursively into vars.
+  result = variable_group.open_svgs(all_svgs)
+
+  # Group the vars into peer-groups that is one step away from seed_svs
+  seed_info = group_into_next_peers(result, seed_svs)
+
+  # Construct chart_vars for these.
+  chart_vars_list_map = {}
+  for seed in seed_info.values():
+    sv = seed.defn.id
+    chart_vars_list_map[sv] = []
+    for peer, peer_info in seed.peergrp.items():
+      chart_vars_list_map[sv].append(
+          ftypes.ChartVars(svs=list(peer_info),
+                           source_topic=peer,
+                           orig_sv=sv,
+                           is_topic_peer_group=True))
+
+  return chart_vars_list_map
+
+
 def _extend_topic(topic: str, svgs: List[str],
                   existing_svs: Set[str]) -> List[ftypes.ChartVars]:
   # 1. Open SVGs recursively into vars.
@@ -71,6 +107,65 @@ def _extend_topic(topic: str, svgs: List[str],
   # 3. Build chart vars from up to a limit.
   processed = copy.deepcopy(existing_svs)
   return build_chart_vars(topic, groups, processed)
+
+
+@dataclass
+class SeedSVInfo:
+  defn: variable.SV
+  peergrp: Dict[str, Set[str]]
+
+
+# Returns: seed_sv -> (defn, List(prop, defn))
+def group_into_next_peers(open_svg_result: Dict, seed_svs: List[str]):
+  # Collect the results into SVPGs.
+  # 1. sort by #pvs
+  vars: List[variable.SV] = list(open_svg_result.values())
+  vars.sort(key=lambda x: len(x.pvs))
+
+  seed_info: Dict[str, SeedSVInfo] = {}
+  for v in vars:
+    if v.id in seed_svs:
+      seed_info[v.id] = SeedSVInfo(v, {})
+
+  for v in vars:
+    if v.mp == v.id or v.pt == 'Thing':
+      # This is schemaless, but at the very end.
+      continue
+    if not v.pvs:
+      # If no-pvs this cannot be an peer.
+      continue
+
+    for seed in seed_info.values():
+      prop = is_next_peer(seed.defn, v)
+      if prop:
+        if prop not in seed.peergrp:
+          seed.peergrp[prop] = set()
+        seed.peergrp[prop].add(v.id)
+
+  return seed_info
+
+
+def is_next_peer(seed: variable.SV, peer: variable.SV) -> str:
+  if len(seed.pvs) != len(peer.pvs) - 1:
+    return None
+  if seed.mp != peer.mp:
+    return None
+  if seed.st != peer.st:
+    return None
+  if seed.pt != peer.pt:
+    return None
+  if seed.md != peer.md:
+    return None
+  if seed.mq != peer.mq:
+    return None
+  for seed_p, seed_v in seed.pvs.items():
+    if peer.pvs.get(seed_p, '') != seed_v:
+      return None
+  # OK! this is the right peer, return the prop now.
+  for peer_p in peer.pvs:
+    if peer_p not in seed.pvs:
+      return peer_p
+  return None
 
 
 def group_into_svpg(open_svg_result: Dict) -> List[Dict[str, Set[str]]]:

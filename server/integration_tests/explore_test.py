@@ -137,6 +137,15 @@ class IntegrationTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_basic', req)
 
+  def test_fulfillment_explore_more(self):
+    req = {
+        'entities': ['geoId/06085'],
+        'variables': ['dc/topic/DivorcedPopulationByDemographic'],
+        'dc': '',
+        'exploreMore': '1',
+    }
+    self.run_fulfillment('fulfillment_api_explore_more', req)
+
   def test_fulfillment_expansion(self):
     req = {
         'entities': ['country/BRA'],

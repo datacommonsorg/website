@@ -18,11 +18,14 @@
  * A container for blocks of all types.
  */
 
-import React from "react";
+import React, { useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
+import { ExploreContext } from "../../shared/context";
 import { NamedTypedPlace } from "../../shared/types";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+
+const DELIM = "___";
 
 export interface BlockContainerPropType {
   id: string;
@@ -31,9 +34,12 @@ export interface BlockContainerPropType {
   children?: React.ReactNode;
   footnote?: string;
   place?: NamedTypedPlace;
+  commonSVs?: Set<string>;
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
+  const exploreData = useContext(ExploreContext);
+
   let footnote: string;
   if (props.footnote) {
     footnote = props.footnote
@@ -53,6 +59,15 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
     ? formatString(props.description, rs)
     : "";
 
+  const exploreSV = [];
+  if (exploreData.exploreMore && props.commonSVs) {
+    for (const sv in exploreData.exploreMore) {
+      if (props.commonSVs.has(sv)) {
+        exploreSV.push(sv);
+      }
+    }
+  }
+
   return (
     <section
       className={`block subtopic ${title ? "" : "notitle"}`}
@@ -65,6 +80,26 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
         <footer className="block-footer">
           <ReactMarkdown>{footnote}</ReactMarkdown>
         </footer>
+      )}
+      {exploreSV.length > 0 && (
+        <div id="explore-more-section">
+          {exploreSV.map((sv) => {
+            return (
+              <div key={sv}>
+                <span>Explore by </span>
+                {Object.keys(exploreData.exploreMore[sv]).map((prop) => {
+                  const urlSv = exploreData.exploreMore[sv][prop].join(DELIM);
+                  const url = `/explore/#t=${urlSv}&p=${exploreData.place}&pcmp=${exploreData.cmpPlace}&pt=${exploreData.placeType}&dc=${exploreData.dc}&em=1`;
+                  return (
+                    <a key={url} className="explore-more-link" href={url}>
+                      {prop}
+                    </a>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       )}
     </section>
   );
