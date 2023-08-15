@@ -7960,6 +7960,66 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Max Temperature Likely (50%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (50%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (50%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (50%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
       ],
       "memberList": [
@@ -8013,6 +8073,66 @@
       ],
       "name": [
         "Max Temperature Likely (5%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Max Temperature Likely (95%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (95%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (95%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Max Temperature Likely (95%) At Least Once Per Year By Scenario"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -8079,6 +8199,66 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature Likely (50%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Min Temperature Likely (50%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature Likely (50%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear_MinTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Min Temperature Likely (50%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
       ],
       "memberList": [
@@ -8132,6 +8312,66 @@
       ],
       "name": [
         "Min Temperature Likely (5%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature Likely (95%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario"
+      ],
+      "memberList": [
+        "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Min Temperature Likely (95%) At Least Once Per Decade By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature Likely (95%) At Least Once Per Year By Scenario"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear_MinTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "memberList": [
+        "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245",
+        "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+      ],
+      "name": [
+        "Min Temperature Likely (95%) At Least Once Per Year By Scenario"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -10163,7 +10403,11 @@
         "Decade Projected Temperature Highs"
       ],
       "relevantVariableList": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
         "dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade",
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade",
         "dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade"
       ],
       "typeOf": [
@@ -10178,7 +10422,11 @@
         "Decade Projected Temperature Lows"
       ],
       "relevantVariableList": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
         "dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline",
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade",
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade",
         "dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade"
       ],
       "typeOf": [
@@ -12701,6 +12949,62 @@
     },
     {
       "dcid": [
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade"
+      ],
+      "name": [
+        "Max Temperature 50 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Max Temperature 50 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear"
+      ],
+      "name": [
+        "Max Temperature 50 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline"
+      ],
+      "name": [
+        "Max Temperature 50 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade"
       ],
       "name": [
@@ -12750,6 +13054,62 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade"
+      ],
+      "name": [
+        "Max Temperature 95 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Max Temperature 95 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear"
+      ],
+      "name": [
+        "Max Temperature 95 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline"
+      ],
+      "name": [
+        "Max Temperature 95 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario"
       ],
       "typeOf": [
         "Topic"
@@ -12865,6 +13225,62 @@
     },
     {
       "dcid": [
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade"
+      ],
+      "name": [
+        "Min Temperature 50 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature 50 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear"
+      ],
+      "name": [
+        "Min Temperature 50 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear_MinTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature 50 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade"
       ],
       "name": [
@@ -12914,6 +13330,62 @@
       ],
       "relevantVariableList": [
         "dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade"
+      ],
+      "name": [
+        "Min Temperature 95 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature 95 Percent Likely At Least Once Per Decade"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear"
+      ],
+      "name": [
+        "Min Temperature 95 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear_MinTemperatureLikely95PctAtLeastOncePerYearByScenario"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline"
+      ],
+      "name": [
+        "Relative to Average in 1980-2010, Min Temperature 95 Percent Likely At Least Once Per Year"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerYearByScenario"
       ],
       "typeOf": [
         "Topic"
@@ -15832,7 +16304,11 @@
         "Yearly Projected Temperature Highs"
       ],
       "relevantVariableList": [
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
         "dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
+        "dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear",
+        "dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear",
         "dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear"
       ],
       "typeOf": [
@@ -15847,7 +16323,11 @@
         "Yearly Projected Temperature Lows"
       ],
       "relevantVariableList": [
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
         "dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline",
+        "dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear",
+        "dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear",
         "dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear"
       ],
       "typeOf": [

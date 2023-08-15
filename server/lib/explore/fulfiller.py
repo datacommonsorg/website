@@ -95,8 +95,9 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   existing_svs = set(state.uttr.svs)
   chart_vars_list = []
   topics = []
-  single_svs = []
-  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics, single_svs)
+  explore_more_svs = set()
+  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics,
+                    explore_more_svs)
 
   explore_peer_groups = {}
 
@@ -132,7 +133,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
 
     if state.uttr.insight_ctx.get(Params.EXP_MORE):
-      explore_more_chart_vars_map = extension.explore_more(single_svs)
+      explore_more_chart_vars_map = extension.explore_more(
+          list(explore_more_svs))
       if explore_more_chart_vars_map:
         # Perform existence check and add to `chart_vars_list`
         start = time.time()
@@ -171,16 +173,15 @@ def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
                       chart_vars_list: List[ftypes.ChartVars],
                       existing_svs: Set[str],
                       topics: List[str] = None,
-                      single_svs: List[str] = None):
+                      explore_more_svs: Set[str] = None):
   for exist_state in tracker.exist_sv_states:
     for exist_cv in exist_state.chart_vars_list:
       cv = tracker.get_chart_vars(exist_cv)
       if cv.svs:
         existing_svs.update(cv.svs)
         chart_vars_list.append(cv)
-        if single_svs != None and len(
-            cv.svs) == 1 and cv.svs[0] not in single_svs:
-          single_svs.append(cv.svs[0])
+        if explore_more_svs != None and len(explore_more_svs) < 20:
+          explore_more_svs.update(cv.svs[:10])
       if cv.source_topic:
         existing_svs.add(cv.source_topic)
       if cv.svpg_id:
