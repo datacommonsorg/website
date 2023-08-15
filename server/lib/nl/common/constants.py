@@ -563,197 +563,197 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 1% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model for historical (past) dates.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
-        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
 }
 
 # Have a shorter limit to avoid spamming the json.

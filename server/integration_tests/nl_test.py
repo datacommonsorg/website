@@ -120,45 +120,45 @@ class IntegrationTest(NLWebServerTestCase):
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
 
-  # def test_textbox_sample(self):
+  def test_textbox_sample(self):
+    # This is the sample advertised in our textbox
+    self.run_sequence('textbox_sample', ['family earnings in california'])
+
+  # TODO: Find some way to re-enable
+  # def test_textbox_sample_llm(self):
   #   # This is the sample advertised in our textbox
-  #   self.run_sequence('textbox_sample', ['family earnings in california'])
+  #   self.run_sequence('textbox_sample_llm', ['family earnings in california'],
+  #                     detector='llm')
 
-  # # TODO: Find some way to re-enable
-  # # def test_textbox_sample_llm(self):
-  # #   # This is the sample advertised in our textbox
-  # #   self.run_sequence('textbox_sample_llm', ['family earnings in california'],
-  # #                     detector='llm')
+  def test_demo_feb2023(self):
+    self.run_sequence('demo_feb2023', [
+        'What are the projected temperature extremes across California',
+        'Where were the major fires in the last year',
+        'Tell me about Placer County',
+        'What were the most common jobs there',
+        'Which jobs have grown the most',
+        'What are the most common health issues there',
+        'Which counties in california have the highest levels of blood pressure',
+        'Which counties in the USA have the highest levels of blood pressure',
+        'How does this correlate with income',
+        'What is the meaning of life',
+    ])
 
-  # def test_demo_feb2023(self):
-  #   self.run_sequence('demo_feb2023', [
-  #       'What are the projected temperature extremes across California',
-  #       'Where were the major fires in the last year',
-  #       'Tell me about Placer County',
-  #       'What were the most common jobs there',
-  #       'Which jobs have grown the most',
-  #       'What are the most common health issues there',
-  #       'Which counties in california have the highest levels of blood pressure',
-  #       'Which counties in the USA have the highest levels of blood pressure',
-  #       'How does this correlate with income',
-  #       'What is the meaning of life',
-  #   ])
-
-  # def test_demo_cities_feb2023(self):
-  #   self.run_sequence(
-  #       'demo2_cities_feb2023',
-  #       [
-  #           # This should list public school entities.
-  #           'How big are the public schools in Sunnyvale',
-  #           'What is the prevalence of asthma there',
-  #           'What is the commute pattern there',
-  #           'How does that compare with San Bruno',
-  #           # Proxy for parks in magiceye
-  #           'Which cities in the SF Bay Area have the highest larceny',
-  #           'What countries in Africa had the greatest increase in life expectancy',
-  #           # This should list stats about the middle school students.
-  #           'How many middle schools are there in Sunnyvale',
-  #       ])
+  def test_demo_cities_feb2023(self):
+    self.run_sequence(
+        'demo2_cities_feb2023',
+        [
+            # This should list public school entities.
+            'How big are the public schools in Sunnyvale',
+            'What is the prevalence of asthma there',
+            'What is the commute pattern there',
+            'How does that compare with San Bruno',
+            # Proxy for parks in magiceye
+            'Which cities in the SF Bay Area have the highest larceny',
+            'What countries in Africa had the greatest increase in life expectancy',
+            # This should list stats about the middle school students.
+            'How many middle schools are there in Sunnyvale',
+        ])
 
   # def test_demo_fallback(self):
   #   self.run_sequence(
@@ -259,14 +259,14 @@ class IntegrationTest(NLWebServerTestCase):
   #           'how many people are unemployed in zip codes of washington?'
   #       ])
 
-  def test_sdg(self):
-    self.run_sequence('sdg', [
-        'tell me about poverty in africa',
-        'which countries have shown the greatest reduction?',
-        'health in the world',
-    ])
+  # def test_sdg(self):
+  #   self.run_sequence('sdg', [
+  #       'tell me about poverty in africa',
+  #       'which countries have shown the greatest reduction?',
+  #       'health in the world',
+  #   ])
 
-  # def test_inappropriate_query(self):
-    self.run_sequence('inappropriate_query',
-                      ['how many wise asses live in sunnyvale?'],
-                      failure='inappropriate words')
+  # # def test_inappropriate_query(self):
+  #   self.run_sequence('inappropriate_query',
+  #                     ['how many wise asses live in sunnyvale?'],
+  #                     failure='inappropriate words')

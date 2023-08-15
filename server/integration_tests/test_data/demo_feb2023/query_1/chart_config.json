@@ -23,7 +23,7 @@
                 ]
               }
             ],
-            "description": "Relative to the annual average in 1980-2010, Max temperature predicted to be reached at least once during the decade with 95% likelihood. Reported values are differences in temperature.",
+            "description": "Predicted Max Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
             "title": "Predicted relative max temperature (95% likely), under different scenarios"
           },
           {
@@ -73,7 +73,7 @@
                 ]
               }
             ],
-            "description": "Relative to the annual average in 1980-2010, Min temperature predicted to be reached at least once during the decade with 95% likelihood. Reported values are differences in temperature.",
+            "description": "Predicted Min Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
             "title": "Predicted relative min temperature (95% likely), under different scenarios"
           },
           {
@@ -128,7 +128,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Max Temperature (\u00b0C) Once In Decade With 50% Chance: SSP245"
           },
@@ -157,7 +157,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once In Decade With 50% Chance: SP585"
           },
@@ -186,7 +186,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Max Temperature (\u00b0C) Once In Decade With 5% Chance: SSP245"
           },
@@ -215,7 +215,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once In Decade With 5% Chance: SP585"
           },
@@ -244,7 +244,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Max Temperature (\u00b0C) Once In Decade With 95% Chance: SSP245"
           },
@@ -273,7 +273,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once In Decade With 95% Chance: SP585"
           },
@@ -302,7 +302,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Max Temperature (\u00b0C) Once In Decade With 50% Chance: SSP245"
           },
@@ -331,7 +331,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once In Decade With 50% Chance: SP585"
           },
@@ -360,7 +360,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Max Temperature (\u00b0C) Once In Decade With 5% Chance: SSP245"
           },
@@ -389,7 +389,7 @@
                 ]
               }
             ],
-            "description": "Predicted Max Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once In Decade With 5% Chance: SP585"
           },
@@ -418,7 +418,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Min Temperature (\u00b0C) Once In Decade With 50% Chance: SSP245"
           },
@@ -447,7 +447,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Min Temperature (\u00b0C) Once In Decade With 50% Chance: SP585"
           },
@@ -476,7 +476,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Min Temperature (\u00b0C) Once In Decade With 5% Chance: SSP245"
           },
@@ -505,7 +505,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Min Temperature (\u00b0C) Once In Decade With 5% Chance: SP585"
           },
@@ -534,7 +534,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Min Temperature (\u00b0C) Once In Decade With 95% Chance: SSP245"
           },
@@ -563,7 +563,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 95% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once In Decade With 95% Chance: SP585"
           },
@@ -592,7 +592,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Min Temperature (\u00b0C) Once In Decade With 50% Chance: SSP245"
           },
@@ -621,7 +621,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 50% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once In Decade With 50% Chance: SP585"
           },
@@ -650,7 +650,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Min Temperature (\u00b0C) Once In Decade With 5% Chance: SSP245"
           },
@@ -679,7 +679,7 @@
                 ]
               }
             ],
-            "description": "Predicted Min Temperature with 5% chance, at least once in the decade 2040-2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once In Decade With 5% Chance: SP585"
           },
@@ -708,7 +708,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 95% Chance: SSP245"
           },
@@ -737,7 +737,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 95% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 95% Chance: SP585"
           },
@@ -766,7 +766,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 50% Chance: SSP245"
           },
@@ -795,7 +795,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 50% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 50% Chance: SP585"
           },
@@ -824,7 +824,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.,",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 5% Chance: SSP245"
           },
@@ -853,7 +853,7 @@
                 ]
               }
             ],
-            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature with 5% chance, at least once in the year 2050, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once In Year With 5% Chance: SP585"
           }
