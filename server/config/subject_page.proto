@@ -165,6 +165,7 @@ message ScatterTileSpec {
 
 message BarTileSpec {
   enum SortType {
+    TYPE_UNSPECIFIED = 0;
     ASCENDING = 1;
     DESCENDING = 2;
     ASCENDING_POPULATION = 3;
