@@ -57,7 +57,9 @@ export function drawGaugeChart(
   const backgroundArcColor = "#ddd";
   // color scale for [low, med, high] values
   const colorOptions = options?.colors
-    ? options?.colors
+    ? options?.colors.length > 1
+      ? options?.colors
+      : [options?.colors.at(0), options?.colors.at(0), options?.colors.at(0)]
     : ["#d63031", "#fdcb6e", "#00b894"]; // red, yellow, green
 
   // minimum thickness of the arc, in px

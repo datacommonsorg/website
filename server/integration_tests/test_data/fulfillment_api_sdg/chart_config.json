@@ -53,7 +53,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -68,17 +67,12 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -93,17 +87,12 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -118,17 +107,12 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -143,11 +127,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -168,7 +148,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -183,17 +162,12 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -208,11 +182,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -233,7 +203,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -248,11 +217,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -273,7 +238,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -288,11 +252,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -313,7 +273,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -328,11 +287,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -397,7 +352,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -412,11 +366,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -437,7 +387,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -452,11 +401,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -477,7 +422,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -492,11 +436,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -517,7 +457,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -532,11 +471,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -557,7 +492,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -572,11 +506,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -597,7 +527,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -612,11 +541,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -979,7 +904,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -994,11 +918,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1174,7 +1094,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -1189,11 +1108,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1290,7 +1205,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -1305,11 +1219,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1330,7 +1240,6 @@
                   {
                     "gaugeTileSpec": {
                       "colors": [
-                        "blue",
                         "blue"
                       ],
                       "range": {
@@ -1345,11 +1254,7 @@
                     "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
