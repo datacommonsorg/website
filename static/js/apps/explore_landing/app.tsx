@@ -57,7 +57,6 @@ export function App(): JSX.Element {
       </div>
     );
   }
-  console.log(currentTopic);
   const placeholderQuery =
     currentTopic.examples?.general?.length > 0
       ? currentTopic.examples.general[0]
