@@ -181,8 +181,6 @@ def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
         existing_svs.update(cv.svs)
         chart_vars_list.append(cv)
         if explore_more_svs != None and len(explore_more_svs) < 20:
-          # Typically, only the first few SVs are shown
-          # at the top of the page, so restrict to 4.
           explore_more_svs.update(cv.svs[:10])
       if cv.source_topic:
         existing_svs.add(cv.source_topic)
