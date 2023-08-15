@@ -51,67 +51,83 @@
               {
                 "tiles": [
                   {
-                    "description": "Children/Households Receiving Family Cash Benefit in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_CHLD"
                     ],
                     "title": "Children/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "description": "Girls/Households Receiving Family Cash Benefit in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_CHLD.SEX--F"
                     ],
                     "title": "Girls/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "description": "Boys/Households Receiving Family Cash Benefit in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_CHLD.SEX--M"
                     ],
                     "title": "Boys/Households Receiving Family Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "description": "Employed Population Covered for Work Injury in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_WKINJRY"
                     ],
                     "title": "Employed Population Covered for Work Injury in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -130,35 +146,43 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Covered by Social Assistance Programs in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_POOR"
                     ],
                     "title": "Population Covered by Social Assistance Programs in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "description": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_PENSN"
                     ],
                     "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -177,19 +201,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Female Population Above Retirement Age Receiving Pension in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--F"
                     ],
                     "title": "Female Population Above Retirement Age Receiving Pension in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -208,19 +236,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Male Population Above Retirement Age Receiving Pension in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
                     "title": "Male Population Above Retirement Age Receiving Pension in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -239,19 +271,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Social Protection Benefits in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS"
                     ],
                     "title": "Population With Social Protection Benefits in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -314,19 +350,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Using Basic Drinking Water Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O"
                     ],
                     "title": "Population Using Basic Drinking Water Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -345,19 +385,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Rural Population Using Basic Drinking Water Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
                     ],
                     "title": "Rural Population Using Basic Drinking Water Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -376,19 +420,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Urban Population Using Basic Drinking Water Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
                     ],
                     "title": "Urban Population Using Basic Drinking Water Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -407,19 +455,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Using Basic Sanitation Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
                     "title": "Population Using Basic Sanitation Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -438,19 +490,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Rural Population Using Basic Sanitation Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
                     ],
                     "title": "Rural Population Using Basic Sanitation Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -469,19 +525,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Urban Population Using Basic Sanitation Services in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
                     ],
                     "title": "Urban Population Using Basic Sanitation Services in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -842,19 +902,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
                     ],
                     "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1028,19 +1092,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
                     ],
                     "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1135,19 +1203,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Grants for Poverty Reduction in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
                     ],
                     "title": "Grants for Poverty Reduction in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
@@ -1166,19 +1238,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Government Spending on Essential Services and Education in United States",
+                    "gaugeTileSpec": {
+                      "colors": [
+                        "blue"
+                      ],
+                      "range": {
+                        "max": 100.0,
+                        "min": 0.0001
+                      }
+                    },
                     "statVarKey": [
                       "sdg/SD_XPD_ESED"
                     ],
                     "title": "Government Spending on Essential Services and Education in United States",
-                    "type": "HIGHLIGHT"
+                    "type": "GAUGE"
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {

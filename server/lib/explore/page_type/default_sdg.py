@@ -41,16 +41,15 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
-    # TODO: Re-enable after SDG site's gauge charts are sized property
-    # if sv in builder.env_config.sdg_percent_vars:
-    #   sv_spec.update(
-    #       gauge.gauge_block_for_percent(builder.new_column(chart_vars), place,
-    #                                     sv, builder.sv2thing))
-    # else:
-    sv_spec.update(
-        highlight.higlight_block(builder.new_column(chart_vars), place, sv,
-                                 builder.sv2thing))
-    builder.new_block()
+    if sv in builder.env_config.sdg_percent_vars:
+      sv_spec.update(
+          gauge.gauge_block_for_percent(builder.new_column(chart_vars), place,
+                                        sv, builder.sv2thing))
+    else:
+      sv_spec.update(
+          highlight.higlight_block(builder.new_column(chart_vars), place, sv,
+                                   builder.sv2thing))
+      builder.new_block()
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(

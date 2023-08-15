@@ -113,218 +113,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
                     ],
                     "title": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
@@ -368,218 +156,6 @@
               }
             ],
             "title": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           },
           {
             "columns": [
@@ -699,218 +275,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
-                    ],
-                    "title": "Per Capita MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
                     ],
                     "title": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
@@ -1019,22 +383,22 @@
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
+                      "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
                     ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
+                    "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
+                      "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
                     ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
+                    "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245 in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245"
+            "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245"
           },
           {
             "columns": [
@@ -1046,48 +410,22 @@
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
+                      "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
+                    "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
+                      "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
+                    "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585 in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585"
+            "title": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585"
           },
           {
             "columns": [
@@ -1096,51 +434,25 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showLowest": true
+                      "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
+                      "Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
+                      "Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
+                    "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245"
+            "title": "Temperature in a Location"
           },
           {
             "columns": [
@@ -1152,48 +464,22 @@
                       "showLowest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
+                      "Min_Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
+                    "title": "Min Temperature in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc"
+                      "Min_Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-                    ],
-                    "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
+                    "title": "Min Temperature in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585"
+            "title": "Min Temperature"
           },
           {
             "columns": [
@@ -1202,27 +488,113 @@
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
-                      "showLowest": true
+                      "showHighest": true
                     },
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
+                      "Mean_Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
+                    "title": "Mean Temperature in Counties of California (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
-                      "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc"
+                      "Mean_Temperature"
                     ],
-                    "title": "Per Capita MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585 in Counties of California (${date})",
+                    "title": "Mean Temperature in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Mean Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Maximum Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_HeatTemperatureEvent"
+                    ],
+                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_HeatTemperatureEvent"
+                    ],
+                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Heat Temperature Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_MaxTemperature"
+                    ],
+                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Mean_MaxTemperature"
+                    ],
+                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean maximum temperature"
           }
         ],
         "statVarSpec": {
+          "Count_HeatTemperatureEvent": {
+            "name": "Count of Heat Temperature Event",
+            "statVar": "Count_HeatTemperatureEvent"
+          },
           "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "Predicted Relative Max Temperature Increase by 2050 per SSP 245 (intermediate) Scenario",
             "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
@@ -1255,42 +627,6 @@
             "name": "Difference Relative to Average in 1980-2010, Min Temp Prediction, 5PctProb Atleast 1 Day A Year, Gaussian Mixture Fit, CMIP6 Ensemble SSP585",
             "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245": {
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 50PctProb Greater Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
           "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "Max Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
             "statVar": "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
@@ -1307,77 +643,17 @@
             "name": "Max Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
             "statVar": "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          "Max_Temperature": {
+            "name": "Maximum Temperature",
+            "statVar": "Max_Temperature"
           },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          "Mean_MaxTemperature": {
+            "name": "Mean maximum temperature",
+            "statVar": "Mean_MaxTemperature"
           },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245": {
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MaxTemp Ensemble Hist 95PctProb Greater Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245": {
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 50PctProb LessThan Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+          "Mean_Temperature": {
+            "name": "Mean Temperature",
+            "statVar": "Mean_Temperature"
           },
           "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP245",
@@ -1387,41 +663,21 @@
             "name": "Min Temperature With 5% Chance Once In Decade: CMIP6 Ensemble, SSP585",
             "statVar": "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
           },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245": {
+            "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP245",
+            "statVar": "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
           },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245"
+          "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
+            "name": "Min Temperature With 5% Chance Once In Year: CMIP6 Ensemble, SSP585",
+            "statVar": "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585": {
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
+          "Min_Temperature": {
+            "name": "Min Temperature",
+            "statVar": "Min_Temperature"
           },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayADecade CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245": {
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP245",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585": {
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_pc": {
-            "denom": "Count_Person",
-            "name": "MinTemp Ensemble Hist 95PctProb LessThan Atleast1DayAYear CMIP6 SSP585",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
+          "Temperature": {
+            "name": "Temperature in a Location",
+            "statVar": "Temperature"
           },
           "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245": {
             "name": "SSP245 (intermediate), \u00b0C",
