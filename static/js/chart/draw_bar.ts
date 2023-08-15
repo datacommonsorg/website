@@ -94,6 +94,7 @@ function addHighlightOnHover(
       //const tooltipContent = this.attr("data-d");
       const rect = d3.select(this);
       const place = rect.attr("data-dcid");
+      const statVar = rect.attr("data-statvar");
       const value = parseFloat(rect.attr("data-d"));
       const tooltipContent = rect.attr("data-d");
       let dataPointX: number;
@@ -103,7 +104,7 @@ function addHighlightOnHover(
         dataPointY = mouseY;
       } else {
         dataPointX = categoricalSubScale
-          ? categoricalScale(place) + categoricalSubScale(place)
+          ? categoricalSubScale(statVar) + categoricalScale.bandwidth() / 2
           : mouseX;
         console.log(place);
         console.log(categoricalScale(place));
@@ -116,7 +117,7 @@ function addHighlightOnHover(
       showTooltip(
         tooltipContent,
         container,
-        dataPointX,
+        mouseX,
         dataPointY,
         chartAreaBoundary,
         true
@@ -661,6 +662,7 @@ function drawLollipops(
     )
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
+    .attr("data-statvar", (d) => d.statVar)
     .attr("stroke", (d) => colorFn(d.statVar))
     .attr("stroke-width", 2)
     .attr("x1", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
