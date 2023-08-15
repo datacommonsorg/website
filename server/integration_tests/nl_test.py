@@ -266,7 +266,7 @@ class IntegrationTest(NLWebServerTestCase):
         'health in the world',
     ])
 
-  # def test_inappropriate_query(self):
+    # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='inappropriate words')
