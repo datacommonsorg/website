@@ -84,8 +84,13 @@ export function App(): JSX.Element {
           />
         </div>
         <div className="explore-title">
-          <h1>{currentTopic.title}</h1>
-          <p>{currentTopic.description}</p>
+          <div className="explore-title-image">
+            <img src={currentTopic.image} />
+          </div>
+          <div className="explore-title-text">
+            <h1>{currentTopic.title}</h1>
+            <p>{currentTopic.description}</p>
+          </div>
         </div>
         <TopicQueries
           currentTopic={currentTopic}
