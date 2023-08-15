@@ -20,11 +20,15 @@
 
 import axios from "axios";
 import _ from "lodash";
+import React from "react";
 
+import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
+import { urlToDomain } from "../shared/util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
+import { isNlInterface } from "./nl_interface_utils";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -229,4 +233,36 @@ export function getTileEventTypeSpecs(
     relevantEventSpecs[specId] = eventTypeSpec[specId];
   }
   return relevantEventSpecs;
+}
+
+/**
+ * Gets the JSX element for displaying a list of sources.
+ */
+export function getSourcesJsx(sources: Set<string>): JSX.Element {
+  if (!sources) {
+    return null;
+  }
+
+  const sourceList: string[] = Array.from(sources);
+  const seenSourceDomains = new Set();
+  const sourcesJsx = sourceList.map((source, index) => {
+    // HACK for updating source for NL interface
+    let processedSource = source;
+    if (isNlInterface()) {
+      processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
+    }
+    const domain = urlToDomain(processedSource);
+    if (seenSourceDomains.has(domain)) {
+      return null;
+    }
+    seenSourceDomains.add(domain);
+    return (
+      <span key={processedSource}>
+        {index > 0 ? ", " : ""}
+        <a href={processedSource}>{domain}</a>
+        {globalThis.viaGoogle ? " via Google" : ""}
+      </span>
+    );
+  });
+  return <div className="sources">Source: {sourcesJsx}</div>;
 }

@@ -279,10 +279,13 @@ export const HistogramTile = memo(function HistogramTile(
       className={"histogram-chart"}
       allowEmbed={false}
       isInitialLoading={isInitialLoading}
-      exploreMoreUrl={
+      exploreLink={
         props.showExploreMore
-          ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
-          : ""
+          ? {
+              displayText: "Disaster Tool",
+              url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
+            }
+          : null
       }
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
