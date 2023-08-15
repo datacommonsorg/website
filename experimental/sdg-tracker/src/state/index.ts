@@ -33,7 +33,7 @@ import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
 
-const dataCommonsClient = new DataCommonsClient({
+export const dataCommonsClient = new DataCommonsClient({
   apiRoot: WEB_API_ENDPOINT,
 });
 
@@ -227,9 +227,13 @@ const appActions: AppActions = {
       sdgConfig.variableIds.map((dcid) => sdgConfig.variablesById[dcid])
     );
     actions.setVariableGroups(
-      sdgConfig.variableGroupIds.map(
-        (dcid) => sdgConfig.variableGroupsById[dcid]
-      )
+      sdgConfig.variableGroupIds.map((dcid) => ({
+        ...sdgConfig.variableGroupsById[dcid],
+        name: sdgConfig.variableGroupsById[dcid].name.replace(
+          /^(\w+.\w+.\w+\:)\s+/,
+          ""
+        ),
+      }))
     );
     actions.setRootTopics(rootTopics);
     actions.setRegions(countries.regions);
@@ -330,7 +334,6 @@ const appActions: AppActions = {
             parents,
           });
         }
-
         const item: MenuItemType = {
           children: children.length > 0 ? children : undefined,
           icon: iconUrl
@@ -339,7 +342,7 @@ const appActions: AppActions = {
               })
             : undefined,
           key: variableGroupDcid,
-          label: variableGroup.name,
+          label: variableGroup.name.replace(/^(\w+.\w+.\w+\:)\s+/, ""),
           parents,
         };
         return item;

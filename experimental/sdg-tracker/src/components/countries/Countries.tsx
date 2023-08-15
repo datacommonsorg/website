@@ -29,11 +29,13 @@ import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 import CountriesContent from "./CountriesContent";
 
+const DEFAULT_PLACE = "country/IRL";
+
 const Countries = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || undefined;
+  const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || DEFAULT_PLACE;
   const variableDcid =
     searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
 
@@ -72,7 +74,7 @@ const Countries = () => {
           />
           <Layout style={{ overflow: "auto" }}>
             <CountriesContent
-              variableDcid={variableDcid}
+              variableDcids={[variableDcid]}
               placeDcid={placeDcid}
               setPlaceDcid={setPlaceDcid}
             />
