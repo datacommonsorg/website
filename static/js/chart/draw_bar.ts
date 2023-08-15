@@ -104,12 +104,10 @@ function addHighlightOnHover(
         dataPointY = mouseY;
       } else {
         dataPointX = categoricalSubScale
-          ? categoricalSubScale(statVar) + categoricalScale.bandwidth() / 2
+          ? categoricalScale(statVar) + categoricalSubScale.bandwidth() / 2
           : mouseX;
-        console.log(place);
-        console.log(categoricalScale(place));
-        console.log(categoricalSubScale(place));
         console.log(dataPointX);
+        console.log(categoricalSubScale(statVar));
         dataPointY = numericScale(parseFloat(rect.attr("data-d")));
       }
       rect.style("opacity", 0.5);
@@ -117,7 +115,7 @@ function addHighlightOnHover(
       showTooltip(
         tooltipContent,
         container,
-        mouseX,
+        dataPointX,
         dataPointY,
         chartAreaBoundary,
         true
@@ -375,6 +373,7 @@ function drawBars(
       ].join(" ")
     )
     .attr("data-dcid", (d) => d.dcid)
+    .attr("data-statvar", (d) => d.key)
     .attr("x", (d) => xSubScale(d.key))
     .attr("y", (d) => yScale(Math.max(0, d.value)))
     .attr("width", xSubScale.bandwidth())
