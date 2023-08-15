@@ -24,8 +24,6 @@ def gauge_block_for_percent(column, place, sv, sv2thing: base.SV2Thing):
   tile.gauge_tile_spec.range.min = 0.0001
   tile.gauge_tile_spec.range.max = 100
   tile.gauge_tile_spec.colors.append('blue')
-  # TODO: Drop this once the tile bug necessitating this is fixed
-  tile.gauge_tile_spec.colors.append('blue')
   stat_var_spec_map = {}
   stat_var_spec_map[sv] = StatVarSpec(stat_var=sv,
                                       name=sv2thing.name[sv],
