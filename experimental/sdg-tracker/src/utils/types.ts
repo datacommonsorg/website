@@ -17,7 +17,7 @@ export interface ChartConfigTile {
   description: string;
   statVarKey: string[];
   title: string;
-  type: "BAR" | "LINE" | "MAP" | "HIGHLIGHT";
+  type: "BAR" | "LINE" | "MAP" | "HIGHLIGHT" | "GAUGE";
 }
 export interface ChartConfigColumn {
   tiles: ChartConfigTile[];
@@ -112,4 +112,28 @@ export interface FulfillResponse {
   session: any;
   svSource: FulfillmentResult;
   userMessage: string;
+}
+
+/**
+ * API payload for /detect
+ */
+export interface DetectRequest {
+  contextHistory: any[]; // Deliberately left definition out. Use value from previous queries
+  dc: "sdg";
+}
+
+/**
+ * API response from /detect endpoint
+ */
+export interface DetectResponse {
+  childEntityType: string;
+  comparisonEntities: string[];
+  comparisonVariables: string[];
+  context: any[]; // Definition deliberately omitted. Will use this as a black box to pass to subsequent queries.
+  debug: any; // Not currently used; define interface later if needed
+  entities?: string[]; // place DCIDs
+  failure?: string;
+  session: any; // Not currently used; define interface later if needed
+  sessionId: string;
+  variables?: string[];
 }
