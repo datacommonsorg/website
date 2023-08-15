@@ -26,6 +26,7 @@ from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection import place
 from server.lib.nl.detection import types
+from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
@@ -167,12 +168,17 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                               counters)
     child_places = child_places[:MAX_CHILD_LIMIT]
 
+  peer_places = []
+  if not cmp_entities:
+    peer_places = get_similar(places[0])
+
   place_detection = PlaceDetection(query_original=query,
                                    query_without_place_substr=var_query,
                                    query_places_mentioned=all_entities,
                                    places_found=places,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
+                                   peer_places=peer_places,
                                    child_places=child_places)
 
   if not cmp_entities and cmp_vars:

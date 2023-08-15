@@ -383,6 +383,7 @@
         ]
       }
     ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/Education",
