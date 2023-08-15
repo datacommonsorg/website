@@ -525,6 +525,50 @@
           "dc/drvcnjld04b06",
           "dc/twlffl9b5vgn3"
         ]
+      },
+      "Count_Person_Female_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Female_Divorced",
+          "Count_Person_16OrMoreYears_Female_Divorced",
+          "Count_Person_20To34Years_Female_Divorced",
+          "Count_Person_35To44Years_Female_Divorced",
+          "Count_Person_45To54Years_Female_Divorced",
+          "Count_Person_55To64Years_Female_Divorced",
+          "Count_Person_65OrMoreYears_Female_Divorced"
+        ],
+        "race": [
+          "dc/5f7zv3ydq8ttb",
+          "dc/7lwnw9syv0hb7",
+          "dc/9lq3bgx0gq5x6",
+          "dc/c53jk16c4g1r1",
+          "dc/d0n993ddpgxr3",
+          "dc/jvhsg0tbsk0d4",
+          "dc/ky1hbybytyzq",
+          "dc/m5wzmsxyngrh9",
+          "dc/q378bg9lpfnx5"
+        ]
+      },
+      "Count_Person_Male_Divorced": {
+        "age": [
+          "Count_Person_15To19Years_Male_Divorced",
+          "Count_Person_16OrMoreYears_Male_Divorced",
+          "Count_Person_20To34Years_Male_Divorced",
+          "Count_Person_35To44Years_Male_Divorced",
+          "Count_Person_45To54Years_Male_Divorced",
+          "Count_Person_55To64Years_Male_Divorced",
+          "Count_Person_65OrMoreYears_Male_Divorced"
+        ],
+        "race": [
+          "dc/4vss7dyxcf7xc",
+          "dc/bfvrlp1kfypsb",
+          "dc/cqlt4r8lh54bf",
+          "dc/myd3m7cwvsn7g",
+          "dc/rflxtne8wnyr6",
+          "dc/rxprknx7sls4c",
+          "dc/sqfy1r8mbg8j7",
+          "dc/wsxptgxe4dy33",
+          "dc/zwsmx83980w3f"
+        ]
       }
     },
     "mainTopic": {
