@@ -34,19 +34,8 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import {
-  EmptyAxis,
-  EmptyPlace,
-  FieldToAbbreviation,
-  SHOW_POPULATION_OFF,
-} from "../../tools/scatter/context";
-import {
-  getStatWithinPlace,
-  SCATTER_URL_PATH,
-  updateHashAxis,
-  updateHashBoolean,
-  updateHashPlace,
-} from "../../tools/scatter/util";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
+import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
 import {
   getContextStatVar,
@@ -394,6 +383,9 @@ export function draw(
   scatterTileSpec: ScatterTileSpec,
   svgWidth?: number
 ): void {
+  // Need to clear svg container before getting the width for resize cases.
+  // Otherwise, svgContainer offsetWidth will just be previous width.
+  svgContainer.innerHTML = "";
   const width = svgWidth || svgContainer.offsetWidth;
   const shouldHighlightQuadrants = {
     [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,

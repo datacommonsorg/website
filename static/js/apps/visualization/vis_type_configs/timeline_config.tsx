@@ -139,6 +139,7 @@ function getChartArea(
               place={appContext.places[0]}
               colors={COLORS}
               showLoadingSpinner={true}
+              showTooltipOnHover={true}
             />
             {!_.isEmpty(chartPCInputs) && (
               <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
