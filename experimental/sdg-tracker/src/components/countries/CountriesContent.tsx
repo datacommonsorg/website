@@ -15,7 +15,7 @@
  */
 
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
+import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -109,10 +109,6 @@ const PlaceChip = styled.div<{ selected?: boolean }>`
     border: 1px solid #dcdcdc;
   }
 `;
-const StyledInput = styled(Input)`
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-`;
 
 const PlaceTitle = styled.div`
   display: flex;
@@ -151,7 +147,6 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 
 const CountriesContent: React.FC<{
   hidePlaceSearch?: boolean;
-  onQueryChange?: (query: string) => void;
   onSearch?: (query: string) => void;
   showNLSearch?: boolean;
   variableDcids: string[];
@@ -161,7 +156,6 @@ const CountriesContent: React.FC<{
 }> = ({
   hidePlaceSearch,
   showNLSearch,
-  onQueryChange,
   onSearch,
   placeDcid,
   query,

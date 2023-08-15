@@ -17,7 +17,7 @@
 import { gray, red } from "@ant-design/colors";
 import { Layout } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
@@ -120,8 +120,6 @@ const LinkGroup = styled.div`
 `;
 
 const SearchBarContainer = styled.div`
-  display: flex;
-  flex-direction: column;
   margin: auto;
   margin-bottom: 2rem;
   text-align: center;
@@ -135,8 +133,11 @@ const Search = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [searchParams] = useSearchParams();
   const searchParamQuery = searchParams.get(QUERY_PARAM_QUERY);
+  console.log("Awoo", searchParamQuery);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("pew pew", searchParamQuery);
     setQuery(searchParamQuery || "");
     if (searchParamQuery) {
       search(searchParamQuery);
@@ -187,7 +188,11 @@ const Search = () => {
               <SearchBar
                 initialQuery={query}
                 isSearching={isSearching}
-                onSearch={search}
+                onSearch={(q) => {
+                  const searchParams = new URLSearchParams();
+                  searchParams.set(QUERY_PARAM_QUERY, q);
+                  navigate("/search?" + searchParams.toString());
+                }}
               />
             </SearchBarContainer>
             {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
@@ -234,8 +239,11 @@ const Search = () => {
               showNLSearch={true}
               hidePlaceSearch={true}
               query={query}
-              onQueryChange={(q) => setQuery(q)}
-              onSearch={search}
+              onSearch={(q) => {
+                const searchParams = new URLSearchParams();
+                searchParams.set(QUERY_PARAM_QUERY, q);
+                navigate("/search?" + searchParams.toString());
+              }}
               variableDcids={variableDcids}
               placeDcid={placeDcids[0]}
               setPlaceDcid={(placeDcid: string) => {
