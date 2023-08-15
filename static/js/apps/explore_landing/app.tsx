@@ -57,6 +57,7 @@ export function App(): JSX.Element {
       </div>
     );
   }
+  console.log(currentTopic);
   const placeholderQuery =
     currentTopic.examples?.general?.length > 0
       ? currentTopic.examples.general[0]
@@ -67,8 +68,6 @@ export function App(): JSX.Element {
   return (
     <div className="explore-container">
       <Container>
-        <h1>{currentTopic.title}</h1>
-        <p>{currentTopic.description}</p>
         <div className="explore-search">
           <div className="experiment-tag">Experiment</div>
           <TextSearchBar
@@ -84,6 +83,10 @@ export function App(): JSX.Element {
             shouldAutoFocus={true}
             clearValueOnSearch={true}
           />
+        </div>
+        <div className="explore-title">
+          <h1>{currentTopic.title}</h1>
+          <p>{currentTopic.description}</p>
         </div>
         <TopicQueries
           currentTopic={currentTopic}
