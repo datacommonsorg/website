@@ -190,11 +190,6 @@
   color: var(--dc-gray);
 }
 
-.nav-item.highlight {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-}
-
 .feedback-link {
   background-color: transparent;
   display: flex;
@@ -255,4 +250,8 @@
   .related-places-callout {
     margin-bottom: 16px;
   }
+}
+
+.chart-container.map-chart {
+  flex-grow: 1;
 }

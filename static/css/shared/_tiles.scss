@@ -33,9 +33,23 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   margin-top: $chart-container-top-margin;
   position: relative;
   width: 100%;
+  
+  .sources {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 16px;
+  }
 
-  h4 {
-    text-align: center;
+  .chart-headers, .ranking-header-section {
+    margin-bottom: 14px;
+
+    h4 {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      margin-bottom: 2px;
+    }
   }
 
   footer {
@@ -44,11 +58,30 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     display: flex;
     justify-content: space-between;
     min-height: 1.1rem;
+    padding: 16px 24px;
+    border-top: 1px solid #E3E3E3;
+
+    .main-footer-section {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
 
     .outlinks {
       display: flex;
-      gap: 0.5rem;
-      margin-top: auto;
+      gap: 14px;
+    }
+
+    .outlink-item {
+      display: flex;
+      align-items: center;
+      color: var(--link-color);
+      font-size: 11px;
+
+      .material-icons-outlined {
+        font-size: 16px;
+        padding-right: 2px;
+      }
     }
   }
 }
@@ -62,7 +95,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 .chart-container.disaster-event-map-tile {
   border: 0.5px solid #dee2e6;
   border-radius: 3px;
-  padding: 15px;
+  padding: 0;
 }
 
 .chart-container.ranking-tile {
@@ -79,6 +112,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  padding: 24px 24px 16px 24px;
   position: relative;
 }
 
@@ -92,24 +126,26 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 
 .highlight-tile {
   display: flex;
-  padding: 1rem;
+  flex-direction: column;
+  padding: 20px 32px;
   font-family: $highlight-font-family;
   margin-bottom: 1rem;
-  background: var(--dc-red-fade);
-  border-radius: 5px;
+  background: rgba(223, 243, 255, 0.5);
+  border-radius: 8px;
 
   .stat {
-    font-size: 2.5rem;
-    line-height: 1;
-  }
-
-  .metadata {
-    font-size: 1rem;
+    font-size: 57px;
+    line-height: 64px;
   }
 
   .desc {
-    padding-left: 1em;
-    font-size: 1.2rem;
+    font-size: 22px;
+    line-height: 28px;
+    color: #5E5E5E;
+  }
+
+  .sources {
+    margin-top: 7px;
   }
 }
 
@@ -151,6 +187,10 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   .ranking-list thead td {
     font-weight: 600;
     font-size: 0.8rem;
+  }
+
+  footer {
+    padding: 16px 0;
   }
 }
 
@@ -440,7 +480,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin-top: 0.25rem;
 
   .nl-feedback-text {
     color: var(--success);
@@ -451,6 +490,11 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     display: flex;
     justify-content: right;
     font-size: 0.75rem;
+  }
+
+  .material-icons-outlined {
+    font-size: 16px;
+    color: var(--link-color);
   }
 }
 
