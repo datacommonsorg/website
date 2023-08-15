@@ -165,10 +165,11 @@ message ScatterTileSpec {
 
 message BarTileSpec {
   enum SortType {
-    ASCENDING = 0;
-    DESCENDING = 1;
-    ASCENDING_POPULATION = 2;
-    DESCENDING_POPULATION = 3;
+    TYPE_UNSPECIFIED = 0;
+    ASCENDING = 1;
+    DESCENDING = 2;
+    ASCENDING_POPULATION = 3;
+    DESCENDING_POPULATION = 4;
   }
   // [optional] The root url to use for labels in the x-axis. If not specified,
   // labels in the x-axis will link to Place Explorer.
