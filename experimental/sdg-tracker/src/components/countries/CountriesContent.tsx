@@ -30,6 +30,7 @@ import {
   ChartConfigTile,
   FulfillResponse,
 } from "../../utils/types";
+import { SearchBar } from "../layout/components";
 const SearchCard = styled.div`
   display: flex;
   align-items: center;
@@ -150,16 +151,22 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 
 const CountriesContent: React.FC<{
   hidePlaceSearch?: boolean;
+  onQueryChange?: (query: string) => void;
+  onSearch?: (query: string) => void;
   showNLSearch?: boolean;
-  variableDcid: string;
+  variableDcids: string[];
   placeDcid?: string;
+  query?: string;
   setPlaceDcid: (placeDcid: string) => void;
 }> = ({
   hidePlaceSearch,
   showNLSearch,
+  onQueryChange,
+  onSearch,
   placeDcid,
+  query,
   setPlaceDcid,
-  variableDcid,
+  variableDcids,
 }) => {
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
@@ -175,10 +182,18 @@ const CountriesContent: React.FC<{
     }
     return undefined;
   });
-  const variable = useStoreState((s) => s.variableGroups.byDcid[variableDcid]);
+  const variables = useStoreState((s) =>
+    variableDcids
+      .filter((dcid) => dcid in s.variableGroups.byDcid)
+      .map((dcid) => s.variableGroups.byDcid[dcid])
+  );
   const parentVariables = useStoreState((s) => {
     const parentDcids: string[] = [];
-    let currentVariableDcid = variableDcid;
+    if (variables.length !== 1) {
+      return [];
+    }
+    const variableDcid = variableDcids[0];
+    let currentVariableDcid = variableDcids[0];
     while (currentVariableDcid !== ROOT_VARIABLE_GROUP) {
       if (!(currentVariableDcid in s.variableGroups.byDcid)) {
         break;
@@ -198,33 +213,41 @@ const CountriesContent: React.FC<{
    * Fetch page content
    */
   useEffect(() => {
-    if (!variableDcid || !placeDcid) {
+    if (!variableDcids || variableDcids.length === 0 || !placeDcid) {
       return;
     }
     (async () => {
       setIsFetchingFulfillment(true);
-      const topicDcid = variableDcid
-        .replace("/g/", "/topic/")
-        .toLocaleLowerCase();
+      const topicDcids = variableDcids.map((dcid) => {
+        if (dcid.indexOf("/g/") !== -1) {
+          return dcid.replace("/g/", "/topic/").toLocaleLowerCase();
+        }
+        return dcid;
+      });
+
       const fulfillment = await fetchTopicFulfillment({
         entityDcids: [placeDcid],
-        variableDcids: [topicDcid],
+        variableDcids: topicDcids,
         fulfillmentsById,
       });
       setIsFetchingFulfillment(false);
       setFulfillmentResponse(fulfillment);
     })();
-  }, [placeDcid, variableDcid]);
+  }, [placeDcid, variableDcids]);
 
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
       <Layout.Content style={{ padding: "0rem 0" }}>
         {showNLSearch && (
           <SearchCard>
-            <StyledInput
-              placeholder='Search for regional topics. For example, "Access to Clean Energy in Afghanistan"'
-              allowClear
-              size="large"
+            <SearchBar
+              initialQuery={query}
+              isSearching={isFetchingFulfillment}
+              onSearch={(query) => {
+                if (onSearch) {
+                  onSearch(query);
+                }
+              }}
             />
           </SearchCard>
         )}
@@ -244,7 +267,10 @@ const CountriesContent: React.FC<{
           )}
         </PlaceTitle>
         <StyledBreadcrumb
-          items={[...parentVariables, variable]
+          items={[
+            ...parentVariables,
+            ...(variables.length === 1 ? variables : []),
+          ]
             .filter((v) => v)
             .map((v) => {
               const searchParams = new URLSearchParams(location.search);
@@ -276,7 +302,7 @@ const CountriesContent: React.FC<{
             <ChartContent
               fulfillmentResponse={fulfillmentResponse}
               placeDcid={placeDcid}
-              selectedVariableDcid={variableDcid}
+              selectedVariableDcids={variableDcids}
             />
           )}
         </Layout.Content>
@@ -387,14 +413,16 @@ const CountrySelect: React.FC<{
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;
   placeDcid?: string;
-  selectedVariableDcid?: string;
+  selectedVariableDcids?: string[];
 }> = (props) => {
-  const { fulfillmentResponse, placeDcid, selectedVariableDcid } = props;
-  const selectedVariableGroup = useStoreState((s) =>
-    selectedVariableDcid ? s.variableGroups.byDcid[selectedVariableDcid] : null
-  );
+  const { fulfillmentResponse, placeDcid, selectedVariableDcids } = props;
 
-  if (!selectedVariableGroup || !fulfillmentResponse || !placeDcid) {
+  if (
+    !selectedVariableDcids ||
+    selectedVariableDcids.length === 0 ||
+    !fulfillmentResponse ||
+    !placeDcid
+  ) {
     return (
       <ContentCard>
         <h5>Explore SDG progress</h5>
@@ -442,20 +470,6 @@ const ChartCategoryContent: React.FC<{
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-  if (!sdgTopic) {
-    return (
-      <ContentCard>
-        <ChartContentHeader>
-          <div>
-            <h3>No information found</h3>
-          </div>
-        </ChartContentHeader>
-        <ChartContentBody>
-          Try selecting a different goal or country
-        </ChartContentBody>
-      </ContentCard>
-    );
-  }
 
   chartConfigCategory.dcid;
   const tiles: ChartConfigTile[] = [];
@@ -468,13 +482,16 @@ const ChartCategoryContent: React.FC<{
   });
   return (
     <ContentCard>
-      <ChartContentHeader>
-        <img src={sdgTopic.iconUrl} />
-        <div>
-          <h3>{sdgTopic.name}</h3>
-          <div>{sdgTopic.description}</div>
-        </div>
-      </ChartContentHeader>
+      {sdgTopic ? (
+        <ChartContentHeader>
+          <img src={sdgTopic.iconUrl} />
+          <div>
+            <h3>{sdgTopic.name}</h3>
+            <div>{sdgTopic.description}</div>
+          </div>
+        </ChartContentHeader>
+      ) : null}
+
       <ChartContentBody></ChartContentBody>
       {tiles.map((tile, i) => (
         <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
@@ -534,6 +551,20 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           variable={tile.statVarKey.join(" ")}
           parentPlace="Earth"
           childPlaceType="Country"
+        />
+      </div>
+    );
+  } else if (tile.type === "GAUGE") {
+    return (
+      <div>
+        {/** @ts-ignore */}
+        <datacommons-gauge
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
+          variable={tile.statVarKey.join(" ")}
+          place={placeDcid}
+          min="0"
+          max="100"
         />
       </div>
     );

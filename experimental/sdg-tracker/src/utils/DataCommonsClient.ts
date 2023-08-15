@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { FulfillResponse, FullfillRequest } from "./types";
+import {
+  DetectRequest,
+  DetectResponse,
+  FulfillResponse,
+  FullfillRequest,
+} from "./types";
 
 interface DatacommonsClientParams {
   apiRoot?: string;
@@ -37,6 +42,23 @@ class DataCommonsClient {
       body: JSON.stringify(payload),
     });
     return (await response.json()) as FulfillResponse;
+  }
+
+  async detect(query: string, context?: any[]): Promise<DetectResponse> {
+    const url = `${this.apiRoot}/api/explore/detect`;
+    const urlWithSearchParams = `${url}?${new URLSearchParams({ q: query })}`;
+    const response = await fetch(urlWithSearchParams, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+        contextHistory: context ? context : [],
+        dc: "sdg",
+      } as DetectRequest),
+    });
+    return (await response.json()) as DetectResponse;
   }
 }
 export default DataCommonsClient;
