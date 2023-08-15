@@ -268,7 +268,7 @@ SVPG_NAMES_OVERRIDE = {
         "Tobacco and alcohol",
 }
 
-SVPG_DESC_OVERRIDE = {
+TOPIC_AND_SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
@@ -403,7 +403,7 @@ def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
 
 
 def svpg_description(sv: str):
-  name = SVPG_DESC_OVERRIDE.get(sv, '')
+  name = TOPIC_AND_SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
     resp = fetch.property_values(nodes=[sv], prop='description')[sv]
     if resp:

@@ -252,12 +252,16 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
 
 
 def get_sv_description(all_svs: List[str]) -> Dict:
+  sv2desc_dc = fetch.property_values(all_svs, 'description')
+  sv2desc_dc = {sv: desc[0] if desc else '' for sv, desc in sv2desc_dc.items()}
   sv_desc_map = {}
   for sv in all_svs:
-    if sv in topic.SVPG_DESC_OVERRIDE:
-      sv_desc_map[sv] = topic.SVPG_DESC_OVERRIDE[sv]
-    else:
+    if sv in topic.TOPIC_AND_SVPG_DESC_OVERRIDE:
+      sv_desc_map[sv] = topic.TOPIC_AND_SVPG_DESC_OVERRIDE[sv]
+    elif sv in constants.SV_DISPLAY_DESCRIPTION_OVERRIDE:
       sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+    else:
+      sv_desc_map[sv] = sv2desc_dc[sv]
   return sv_desc_map
 
 
