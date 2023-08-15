@@ -49,7 +49,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
       sv_spec.update(
           highlight.higlight_block(builder.new_column(chart_vars), place, sv,
                                    builder.sv2thing))
-    builder.new_block()
+      builder.new_block()
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
