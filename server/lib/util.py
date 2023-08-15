@@ -204,6 +204,19 @@ def get_nl_no_percapita_vars():
     return nopc_vars
 
 
+# Returns a set of SVs that have percentage units.
+# (Generated from http://gpaste/6422443047518208)
+def get_sdg_percent_vars():
+  filepath = os.path.join(get_repo_root(), "config", "nl_page",
+                          "sdg_percent_vars.csv")
+  sdg_percent_vars = set()
+  with open(filepath, 'r') as f:
+    for row in csv.DictReader(f):
+      sv = row['variable_measured'].strip()
+      sdg_percent_vars.add(sv)
+    return sdg_percent_vars
+
+
 # Returns common event_type_spec for all disaster event related pages.
 def get_disaster_event_metadata():
   filepath = os.path.join(get_repo_root(), "config", "subject_page",
