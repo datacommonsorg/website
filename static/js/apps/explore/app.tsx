@@ -237,7 +237,7 @@ export function App(): JSX.Element {
 
   const searchSection = (
     <div className="search-section">
-      <div className="experiment-tag">Experiment</div>
+      <div className="early-preview-tag">Early preview</div>
       <div className="search-box-section">
         <TextSearchBar
           inputId="query-search-input"
