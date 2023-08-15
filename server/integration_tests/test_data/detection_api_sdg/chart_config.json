@@ -9,7 +9,6 @@
   ],
   "sessionId": "007_999999999",
   "variables": [
-    "dc/topic/sdg_3.b.2",
     "dc/topic/sdg_3.8",
     "dc/topic/sdg_3",
     "dc/topic/sdg_3.8.1",
@@ -18,6 +17,7 @@
     "dc/topic/sdg_3.b.3",
     "dc/topic/sdg_3.d",
     "dc/topic/sdg_3.4.1",
-    "dc/topic/sdg_3.c"
+    "dc/topic/sdg_3.c",
+    "dc/topic/sdg_3.4"
   ]
 }

@@ -213,7 +213,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--F"
                     ],
-                    "title": "Female Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Women Above Retirement Age Receiving Pension in United States",
                     "type": "GAUGE"
                   }
                 ]
@@ -224,7 +224,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--F"
                     ],
-                    "title": "Female Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Women Above Retirement Age Receiving Pension in United States",
                     "type": "LINE"
                   }
                 ]
@@ -248,7 +248,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Male Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Men Above Retirement Age Receiving Pension in United States",
                     "type": "GAUGE"
                   }
                 ]
@@ -259,7 +259,7 @@
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Male Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Men Above Retirement Age Receiving Pension in United States",
                     "type": "LINE"
                   }
                 ]
@@ -325,11 +325,11 @@
             "statVar": "sdg/SI_COV_PENSN"
           },
           "sdg/SI_COV_PENSN.SEX--F": {
-            "name": "Female Population Above Retirement Age Receiving Pension",
+            "name": "Women Above Retirement Age Receiving Pension",
             "statVar": "sdg/SI_COV_PENSN.SEX--F"
           },
           "sdg/SI_COV_PENSN.SEX--M": {
-            "name": "Male Population Above Retirement Age Receiving Pension",
+            "name": "Men Above Retirement Age Receiving Pension",
             "statVar": "sdg/SI_COV_PENSN.SEX--M"
           },
           "sdg/SI_COV_POOR": {
