@@ -60,7 +60,7 @@ const Goals: React.FC = () => {
           <Layout style={{ overflow: "auto" }}>
             <CountriesContent
               hidePlaceSearch={true}
-              variableDcid={variableDcid}
+              variableDcids={[variableDcid]}
               placeDcid={EARTH_PLACE_DCID}
               setPlaceDcid={() => {}}
             />

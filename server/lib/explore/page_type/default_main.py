@@ -20,6 +20,7 @@ import server.lib.explore.existence as exist
 from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.common import utils
 from server.lib.nl.config_builder import bar
+from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
@@ -46,14 +47,14 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
-    sv_spec.update(
-        highlight.higlight_block(builder.new_column(chart_vars), place, sv,
-                                 builder.sv2thing))
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
               builder.new_column(chart_vars), place, sv, builder.sv2thing, attr,
               builder.nopc()))
+    sv_spec.update(
+        highlight.higlight_block(builder.new_column(chart_vars), place, sv,
+                                 builder.sv2thing))
 
   if not state.place_type:
     return sv_spec
@@ -66,17 +67,23 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   attr['skip_map_for_ranking'] = True
   attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
 
-  builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
-
-  attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
-  sv_spec.update(
-      ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
-                                       sv, builder.sv2thing, attr))
+  title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+                                    place=place,
+                                    child_type=state.place_type.value)
+  builder.new_block(title=title,
+                    description=builder.sv2thing.description.get(sv),
+                    enable_pc=enable_pc,
+                    footnote=builder.sv2thing.footnote.get(sv))
 
   if utils.has_map(state.place_type, [place]):
     sv_spec.update(
         map.map_chart_block(builder.new_column(chart_vars), place, sv,
                             builder.sv2thing, attr, builder.nopc()))
+
+  attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+  sv_spec.update(
+      ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
+                                       sv, builder.sv2thing, attr))
   return sv_spec
 
 
@@ -115,16 +122,26 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sorted_child_svs = sorted(eres.exist_svs)[:max_charts]
 
   # TODO: Perform data lookups and pick the top value SVs.
+  description, footnote = '', ''
+  if chart_vars.svpg_id:
+    description = builder.sv2thing.description.get(chart_vars.svpg_id)
+    footnote = builder.sv2thing.footnote.get(chart_vars.svpg_id)
   for sv in sorted_child_svs:
-    builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
-    attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
-    sv_spec.update(
-        ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
-                                         sv, builder.sv2thing, attr))
+    title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+                                      place=place,
+                                      child_type=state.place_type.value)
+    builder.new_block(title=title,
+                      description=description,
+                      enable_pc=enable_pc,
+                      footnote=footnote)
     if utils.has_map(state.place_type, [place]):
       sv_spec.update(
           map.map_chart_block(builder.new_column(chart_vars), place, sv,
                               builder.sv2thing, attr, builder.nopc()))
+    attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+    sv_spec.update(
+        ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
+                                         sv, builder.sv2thing, attr))
 
   return sv_spec
 
@@ -155,10 +172,3 @@ def _get_ranking_count_by_type(t: dtypes.Place):
   if t.value.endswith('School'):
     return 20
   return 5
-
-
-def _get_block_title(builder: Builder):
-  # If there is a prior empty block title, inherit it.
-  if builder.block and not builder.block.columns and builder.block.title:
-    return builder.block.title
-  return ''

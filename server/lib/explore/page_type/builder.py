@@ -63,19 +63,23 @@ class Builder:
   def nopc(self):
     return self.env_config.nopc_vars
 
-  def new_category(self, title, dcid):
+  def new_category(self, title, dcid, description=''):
     self.category = self.page_config.categories.add()
     self.category.title = title
+    if title and description:
+      self.category.description = description
     if dcid:
       self.category.dcid = dcid
 
-  def new_block(self, title='', description='', enable_pc=False):
+  def new_block(self, title='', description='', enable_pc=False, footnote=''):
     self.block = self.category.blocks.add()
     self.block.title = base.decorate_block_title(title=title)
     if enable_pc:
       self.block.denom = 'Count_Person'
-    if description:
+    if self.block.title and description:
       self.block.description = description
+    if footnote:
+      self.block.footnote = footnote
 
   def new_column(self, cv: ftypes.ChartVars):
     # We are adding a chart for real post existence check.

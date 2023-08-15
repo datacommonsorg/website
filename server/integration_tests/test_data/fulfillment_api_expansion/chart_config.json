@@ -8,23 +8,23 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP (Nominal Value) in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "GDP (Nominal Value) in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "GDP (Nominal Value) in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "GDP (Nominal Value) in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -36,23 +36,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal GDP Per Capita in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
                     "title": "Nominal GDP Per Capita in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Nominal GDP Per Capita in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
                     "title": "Nominal GDP Per Capita in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -80,23 +80,23 @@
               {
                 "tiles": [
                   {
-                    "description": "External debt stocks as a proportion of GNI in Brazil",
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
                     "title": "External debt stocks as a proportion of GNI in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "External debt stocks as a proportion of GNI in Brazil",
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
                     "title": "External debt stocks as a proportion of GNI in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -151,23 +151,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Healthcare Expenditure Per Person in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person"
                     ],
                     "title": "Healthcare Expenditure Per Person in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Healthcare Expenditure Per Person in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_ExpenditureActivity_HealthcareExpenditure_AsFractionOf_Count_Person"
                     ],
                     "title": "Healthcare Expenditure Per Person in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -190,23 +190,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Inward Remittances in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_InwardRemittance"
                     ],
                     "title": "Inward Remittances in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Inward Remittances in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_InwardRemittance"
                     ],
                     "title": "Inward Remittances in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -218,23 +218,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "Inward Remittances as a Percentage of Nominal Gross Domestic Production in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -246,23 +246,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Outward Remittances in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_OutwardRemittance"
                     ],
                     "title": "Outward Remittances in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Outward Remittances in Brazil",
                     "statVarKey": [
                       "Amount_Remittance_OutwardRemittance"
                     ],
                     "title": "Outward Remittances in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -341,23 +341,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Gini Index of Economic Activity of a Population in Brazil",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity"
                     ],
                     "title": "Gini Index of Economic Activity of a Population in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Gini Index of Economic Activity of a Population in Brazil",
                     "statVarKey": [
                       "GiniIndex_EconomicActivity"
                     ],
                     "title": "Gini Index of Economic Activity of a Population in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -369,23 +369,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Stock Value in Brazil",
                     "statVarKey": [
                       "Amount_Stock"
                     ],
                     "title": "Stock Value in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Stock Value in Brazil",
                     "statVarKey": [
                       "Amount_Stock"
                     ],
                     "title": "Stock Value in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -398,23 +398,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Stock Value as a Percentage of Nominal GDP in Brazil",
                     "statVarKey": [
                       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "Stock Value as a Percentage of Nominal GDP in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Stock Value as a Percentage of Nominal GDP in Brazil",
                     "statVarKey": [
                       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
                     "title": "Stock Value as a Percentage of Nominal GDP in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -426,23 +426,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Growth Rate of GDP in Brazil",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Growth Rate of GDP in Brazil",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -454,23 +454,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Gross National Income Based on Purchasing Power Parity in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
                     "title": "Gross National Income Based on Purchasing Power Parity in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Gross National Income Based on Purchasing Power Parity in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
                     ],
                     "title": "Gross National Income Based on Purchasing Power Parity in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -483,23 +483,23 @@
               {
                 "tiles": [
                   {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
                     "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Brazil",
-                    "type": "HIGHLIGHT"
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
                     "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Brazil",
-                    "type": "LINE"
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -554,6 +554,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_TertiaryEducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government"
+                    ],
+                    "title": "Amount of Economic Activity: Expenditure Activity, Tertiary Education Expenditure, Government (As Fraction of Amount Economic Activity Expenditure Activity Education Expenditure Government) in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Amount of Economic Activity: Expenditure Activity, Tertiary Education Expenditure, Government (As Fraction of Amount Economic Activity Expenditure Activity Education Expenditure Government) in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_ExpenditureActivity_TertiaryEducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government"
@@ -562,23 +573,24 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_ExpenditureActivity_TertiaryEducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government"
-                    ],
-                    "title": "Amount of Economic Activity: Expenditure Activity, Tertiary Education Expenditure, Government (As Fraction of Amount Economic Activity Expenditure Activity Education Expenditure Government) in Brazil",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
+            "description": "Percentage of total general government expenditure on education. General government usually refers to local, regional and central governments.",
             "title": "Amount of Economic Activity: Expenditure Activity, Tertiary Education Expenditure, Government (As Fraction of Amount Economic Activity Expenditure Activity Education Expenditure Government)"
           },
           {
             "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
+                    ],
+                    "title": "Government Expenditure on Military Activities in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
               {
                 "tiles": [
                   {
@@ -588,17 +600,6 @@
                     ],
                     "title": "Government Expenditure on Military Activities in Brazil",
                     "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
-                    ],
-                    "title": "Government Expenditure on Military Activities in Brazil",
-                    "type": "LINE"
                   }
                 ]
               }
@@ -773,6 +774,106 @@
         "name": "Economy",
         "types": [
           "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
         ]
       }
     ],

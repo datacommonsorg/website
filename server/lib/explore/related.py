@@ -33,6 +33,7 @@ def compute_related_things(state: ftypes.PopulateState,
   related_things = {
       'parentPlaces': [],
       'childPlaces': {},
+      'peerPlaces': [],
       'parentTopics': [],
       'peerTopics': [],
       'childTopics': [],
@@ -47,6 +48,8 @@ def compute_related_things(state: ftypes.PopulateState,
     related_things['childPlaces'] = {
         state.place_type.value: _get_json_places(pd.child_places)
     }
+  if pd.peer_places:
+    related_things['peerPlaces'] = _get_json_places(pd.peer_places)
 
   dc = state.uttr.insight_ctx[Params.DC.value]
 

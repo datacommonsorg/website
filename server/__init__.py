@@ -389,6 +389,7 @@ def create_app():
     app.config['NL_BAD_WORDS'] = bad_words.load_bad_words()
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
+    app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
