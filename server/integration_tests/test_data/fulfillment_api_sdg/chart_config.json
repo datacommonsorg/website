@@ -177,11 +177,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Female Population Above Retirement Age Receiving Pension in United States",
+                    "description": "Women Above Retirement Age Receiving Pension in United States",
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--F"
                     ],
-                    "title": "Female Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Women Above Retirement Age Receiving Pension in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -208,11 +208,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Male Population Above Retirement Age Receiving Pension in United States",
+                    "description": "Men Above Retirement Age Receiving Pension in United States",
                     "statVarKey": [
                       "sdg/SI_COV_PENSN.SEX--M"
                     ],
-                    "title": "Male Population Above Retirement Age Receiving Pension in United States",
+                    "title": "Men Above Retirement Age Receiving Pension in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]

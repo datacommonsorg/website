@@ -110,12 +110,12 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
-        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
-        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
     ],
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp": [
-        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
-        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
     ],
     "dc/svpg/ClimateChange_FEMARisk": [
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent",
@@ -230,9 +230,9 @@ SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Predicted relative increase in max temperature, under different scenarios",
+        "Predicted relative max temperature (95% likely), under different scenarios",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Predicted relative decrease in min temperature, under different scenarios",
+        "Predicted relative min temperature (95% likely), under different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
     "dc/svpg/AgricultureEmissionsByGas":
@@ -322,11 +322,11 @@ TOPIC_AND_SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Max temperature predicted to be reached at least once during the decade 2040-2050 with 5% likelihood, "
-        "compared to the annual average across 1980-2010. Reported values are differences in temperature.",
+        "Relative to the annual average in 1980-2010, Max temperature predicted to be reached at least once during the decade with 95% likelihood. "
+        "Reported values are differences in temperature.",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Min temperature predicted to be reached at least once during the decade 2040-2050 with 5% likelihood, "
-        "compared to the annual average across 1980-2010. Reported values are differences in temperature.",
+        "Relative to the annual average in 1980-2010, Min temperature predicted to be reached at least once during the decade with 95% likelihood. "
+        "Reported values are differences in temperature.",
     "dc/svpg/GreenhouseGasEmissionsBySource":
         "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO₂ equivalents).",
     "dc/svpg/CarbonDioxideEmissionsBySource":
