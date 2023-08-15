@@ -66,7 +66,10 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   attr['skip_map_for_ranking'] = True
   attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
 
-  builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
+  builder.new_block(title=_get_block_title(builder),
+                    description=builder.sv2thing.description.get(sv),
+                    enable_pc=enable_pc,
+                    footnote=builder.sv2thing.footnote.get(sv))
 
   attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   sv_spec.update(
@@ -115,8 +118,15 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sorted_child_svs = sorted(eres.exist_svs)[:max_charts]
 
   # TODO: Perform data lookups and pick the top value SVs.
+  description, footnote = '', ''
+  if chart_vars.svpg_id:
+    description = builder.sv2thing.description.get(chart_vars.svpg_id)
+    footnote = builder.sv2thing.footnote.get(chart_vars.svpg_id)
   for sv in sorted_child_svs:
-    builder.new_block(title=_get_block_title(builder), enable_pc=enable_pc)
+    builder.new_block(title=_get_block_title(builder),
+                      description=description,
+                      enable_pc=enable_pc,
+                      footnote=footnote)
     attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
     sv_spec.update(
         ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,

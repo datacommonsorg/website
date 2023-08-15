@@ -17,12 +17,18 @@ from dataclasses import dataclass
 import time
 from typing import Dict, List
 
+from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.fulfillment.types as ftypes
 
 _MAX_CORRELATION_SVS_PER_TOPIC = 4
+
+# This is for main.
+_MAX_SUBTOPIC_SV_LIMIT = 3
+# Pick a higher limit for SDG
+_MAX_SUBTOPIC_SV_LIMIT_SDG = 20
 
 
 @dataclass
@@ -173,10 +179,8 @@ def _topic_chart_vars(state: ftypes.PopulateState,
     # we recurse along the topic-descendents to get a limited
     # number of vars.
     assert lvl < 2, "Must never recurse past 2 levels"
-    topic_vars = topic.get_topic_vars_recurive(sv,
-                                               rank=0,
-                                               dc=dc,
-                                               max_svs=_MAX_SUBTOPIC_SV_LIMIT)
+    topic_vars = topic.get_topic_vars_recurive(
+        sv, rank=0, dc=dc, max_svs=_max_subtopic_sv_limit(state))
 
   # Classify the members into `TopicMembers` struct.
   topic_members = _classify_topic_members(topic_vars, dc)
@@ -228,9 +232,6 @@ def _classify_topic_members(topic_vars: List[str], dc: str) -> TopicMembers:
   return TopicMembers(svs=just_svs, svpgs=svpgs, topics=sub_topics)
 
 
-_MAX_SUBTOPIC_SV_LIMIT = 3
-
-
 def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
                        orig_sv: str) -> ftypes.ChartVars:
   # We need a category called overview.
@@ -250,3 +251,9 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
                          source_topic=source_topic))
 
   return charts
+
+
+def _max_subtopic_sv_limit(state: ftypes.PopulateState) -> int:
+  if is_sdg(state.uttr.insight_ctx):
+    return _MAX_SUBTOPIC_SV_LIMIT_SDG
+  return _MAX_SUBTOPIC_SV_LIMIT
