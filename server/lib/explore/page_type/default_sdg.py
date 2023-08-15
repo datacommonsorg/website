@@ -43,13 +43,14 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if eres.exist_svs:
     if sv in builder.env_config.sdg_percent_vars:
       sv_spec.update(
-          gauge.gauge_block_for_percent(builder.new_column(chart_vars), place,
-                                        sv, builder.sv2thing))
+        gauge.gauge_block_for_percent(builder.new_column(chart_vars), place,
+                                      sv, builder.sv2thing)
+      )
     else:
       sv_spec.update(
           highlight.higlight_block(builder.new_column(chart_vars), place, sv,
-                                   builder.sv2thing))
-    builder.new_block()
+                                  builder.sv2thing))
+      builder.new_block()
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
