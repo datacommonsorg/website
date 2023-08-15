@@ -77,14 +77,14 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--F"
                     ],
-                    "title": "Female Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Male Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -123,14 +123,14 @@
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
                     ],
-                    "title": "Employed Female Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Employed Male Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -157,11 +157,11 @@
             "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Female Population Below International Poverty Line",
+            "name": "Women Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Male Population Below International Poverty Line",
+            "name": "Men Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--M"
           },
           "sdg/SI_POV_DAY1.URBANISATION--R": {
@@ -177,11 +177,11 @@
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed Female Population Aged 15 or Over Below International Poverty Line",
+            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
           },
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed Male Population Aged 15 or Over Below International Poverty Line",
+            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
           "sdg/SP_ACS_BSRVH2O": {

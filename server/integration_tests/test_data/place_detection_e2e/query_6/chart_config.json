@@ -68,20 +68,20 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females In Poverty (in last year) in Counties of United States (${date})",
+                    "title": "Women below Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Females In Poverty (in last year) in Counties of United States (${date})",
+                    "title": "Women below Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Females In Poverty (in last year)"
+            "title": "Women below Poverty Line"
           },
           {
             "columns": [
@@ -95,14 +95,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females In Poverty (in last year) in Counties of United States (${date})",
+                    "title": "Per Capita Women below Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Females In Poverty (in last year) in Counties of United States (${date})",
+                    "title": "Per Capita Women below Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -598,20 +598,20 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
+                    "title": "Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
+                    "title": "Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months"
+            "title": "Some language other than English spoken at home & below poverty line"
           },
           {
             "columns": [
@@ -625,14 +625,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
+                    "title": "Per Capita Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
                     "type": "RANKING"
                   },
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
                     ],
-                    "title": "Per Capita Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
+                    "title": "Per Capita Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -1191,12 +1191,12 @@
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
+            "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
+            "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
@@ -1317,12 +1317,12 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Females In Poverty (in last year)",
+            "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc": {
             "denom": "Count_Person",
-            "name": "Females In Poverty (in last year)",
+            "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
