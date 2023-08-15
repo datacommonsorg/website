@@ -414,6 +414,7 @@ def create_app():
     g.locale = g.locale_choices[0]
     # Add commonly used config flags.
     g.env = app.config.get('ENV', None)
+    g.custom = app.config.get('CUSTOM', False)
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
@@ -449,11 +450,13 @@ def create_app():
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
   app.secret_key = os.urandom(24)
 
-  custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
-  if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
-    app.jinja_env.globals['BASE_HTML'] = custom_path
-  else:
-    app.jinja_env.globals['BASE_HTML'] = 'base.html'
-
+  app.jinja_env.globals['BASE_HTML'] = 'base.html'
+  if cfg.CUSTOM:
+    custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
+    if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
+      app.jinja_env.globals['BASE_HTML'] = custom_path
+    else:
+      app.jinja_env.globals['BASE_HTML'] = os.path.join('custom_dc/custom',
+                                                        'base.html')
   flask_cors.CORS(app)
   return app
