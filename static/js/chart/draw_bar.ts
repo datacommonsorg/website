@@ -73,10 +73,10 @@ function addHighlightOnHover(
   chartAreaBoundary: Boundary,
   container: d3.Selection<HTMLDivElement, any, any, any>,
   svg: d3.Selection<SVGSVGElement, any, any, any>,
-  categoricalScale: d3.ScaleBand<string>,
-  numericScale: d3.ScaleLinear<number, number>,
-  chartIsHorizontal: boolean,
-  categoricalSubScale?: d3.ScaleBand<string>
+  // categoricalScale: d3.ScaleBand<string>,
+  // numericScale: d3.ScaleLinear<number, number>,
+  // chartIsHorizontal: boolean,
+  // categoricalSubScale?: d3.ScaleBand<string>
 ): void {
   addTooltip(container);
   const tooltip = container.select(`#${TOOLTIP_ID}`);
@@ -93,30 +93,31 @@ function addHighlightOnHover(
       const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
       //const tooltipContent = this.attr("data-d");
       const rect = d3.select(this);
-      const place = rect.attr("data-dcid");
-      const statVar = rect.attr("data-statvar");
-      const value = parseFloat(rect.attr("data-d"));
-      const tooltipContent = rect.attr("data-d");
-      let dataPointX: number;
-      let dataPointY: number;
-      if (chartIsHorizontal) {
-        dataPointX = numericScale(value);
-        dataPointY = mouseY;
-      } else {
-        dataPointX = categoricalSubScale
-          ? categoricalScale(statVar) + categoricalSubScale.bandwidth() / 2
-          : mouseX;
-        console.log(dataPointX);
-        console.log(categoricalSubScale(statVar));
-        dataPointY = numericScale(parseFloat(rect.attr("data-d")));
-      }
+      // const place = rect.attr("data-dcid");
+      // const statVar = rect.attr("data-statvar");
+      // const label = rect.attr("data-label");
+      // const value = parseFloat(rect.attr("data-d"));
+      const tooltipContent = formatNumber(parseFloat(rect.attr("data-d")));
+      // let dataPointX: number;
+      // let dataPointY: number;
+      // if (chartIsHorizontal) {
+      //   dataPointX = numericScale(value);
+      //   dataPointY = mouseY;
+      // } else {
+      //   dataPointX = categoricalSubScale
+      //     ? categoricalScale(label) +
+      //       categoricalSubScale(statVar) +
+      //       categoricalSubScale.bandwidth() / 2
+      //     : categoricalScale(label);
+      //   dataPointY = numericScale(parseFloat(rect.attr("data-d")));
+      // }
       rect.style("opacity", 0.5);
       tooltip.style("display", "block");
       showTooltip(
         tooltipContent,
         container,
-        dataPointX,
-        dataPointY,
+        mouseX,
+        mouseY,
         chartAreaBoundary,
         true
       );
@@ -360,7 +361,12 @@ function drawBars(
     .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
     .selectAll("rect")
     .data((dg) =>
-      dg.value.map((dp) => ({ key: dp.label, value: dp.value, dcid: dp.dcid }))
+      dg.value.map((dp) => ({
+        key: dp.label,
+        value: dp.value,
+        dcid: dp.dcid,
+        label: dg.label,
+      }))
     )
     .join("rect")
     .classed("g-bar", true)
@@ -374,6 +380,7 @@ function drawBars(
     )
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-statvar", (d) => d.key)
+    .attr("data-label", (d) => d.label)
     .attr("x", (d) => xSubScale(d.key))
     .attr("y", (d) => yScale(Math.max(0, d.value)))
     .attr("width", xSubScale.bandwidth())
@@ -808,7 +815,7 @@ export function drawGroupBarChart(
       right: chartWidth - MARGIN.right,
       top: 0,
     };
-    addHighlightOnHover(chartAreaBoundary, container, svg, x0, y, false, x1);
+    addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
   appendLegendElem(
