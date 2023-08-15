@@ -166,8 +166,11 @@
 }
 
 #place-callout {
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: #303030;
+  padding: 12px 0;
 }
 
 .topic-item {
@@ -187,11 +190,6 @@
   color: var(--dc-gray);
 }
 
-.nav-item.highlight {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
-}
-
 .feedback-link {
   background-color: transparent;
   display: flex;
@@ -208,4 +206,52 @@
     font-size: 1.1rem;
     font-weight: bolder;
   }
+}
+
+.explore-topics-box {
+  display: flex;
+  .explore-relevant-topics {
+    min-width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: #1f1f1f;
+    opacity: 0.38;
+  }
+}
+
+.explore-item-list {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0b57d0;
+  margin-left: -12px;
+
+  .explore-item-box {
+    display: inline-block;
+  }
+
+  .item-list-text {
+    padding: 10px 12px;
+    line-height: 20px;
+  }
+
+  .item-list-text:hover {
+    cursor: pointer;
+  }
+}
+
+.related-places {
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+  background: var(--gm-3-white, #fff);
+  margin-bottom: 24px;
+
+  .related-places-callout {
+    margin-bottom: 16px;
+  }
+}
+
+.chart-container.map-chart {
+  flex-grow: 1;
 }

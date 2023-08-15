@@ -114,7 +114,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -282,7 +282,10 @@ function rawToChart(
   };
 }
 
-function getExploreMoreUrl(props: LineTilePropType): string {
+function getExploreLink(props: LineTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const hash = getHash(
     VisType.TIMELINE,
     props.comparisonPlaces || [props.place.dcid],
@@ -290,5 +293,8 @@ function getExploreMoreUrl(props: LineTilePropType): string {
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Timeline Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }
