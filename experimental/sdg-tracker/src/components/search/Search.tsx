@@ -133,11 +133,9 @@ const Search = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [searchParams] = useSearchParams();
   const searchParamQuery = searchParams.get(QUERY_PARAM_QUERY);
-  console.log("Awoo", searchParamQuery);
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("pew pew", searchParamQuery);
     setQuery(searchParamQuery || "");
     if (searchParamQuery) {
       search(searchParamQuery);
