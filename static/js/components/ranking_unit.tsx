@@ -72,6 +72,7 @@ interface RankingUnitPropType {
    * hovering over the item.
    */
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  headerChild?: React.ReactNode;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -124,7 +125,10 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
       className={"ranking-list " + ASYNC_ELEMENT_CLASS}
       ref={props.forwardRef}
     >
-      <h4>{props.title}</h4>
+      <div className="ranking-header-section">
+        <h4>{props.title}</h4>
+        {props.headerChild}
+      </div>
       <table>
         {props.svNames && !props.hideValue && (
           <thead>
