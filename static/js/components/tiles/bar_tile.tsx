@@ -239,8 +239,10 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   // Track original order of stat vars in props, to maintain 1:1 pairing of
-  // colors to stat vars even after sorting
-  const statVarOrder: string[] = [];
+  // colors to stat var labels even after sorting
+  const statVarOrder = props.statVarSpec.map(
+    (spec) => statVarNames[spec.statVar]
+  );
 
   let unit = "";
   const dates: Set<string> = new Set();
@@ -249,14 +251,12 @@ function rawToChart(
     const dataPoints: DataPoint[] = [];
     for (const spec of props.statVarSpec) {
       const statVar = spec.statVar;
-      const statVarName = statVarNames[statVar];
-      statVarOrder.push(statVarName);
       if (!raw.data[statVar] || _.isEmpty(raw.data[statVar][placeDcid])) {
         continue;
       }
       const stat = raw.data[statVar][placeDcid];
       const dataPoint = {
-        label: statVarName,
+        label: statVarNames[statVar],
         value: stat.value || 0,
         dcid: placeDcid,
       };
