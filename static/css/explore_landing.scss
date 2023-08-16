@@ -199,13 +199,20 @@
 
   .topic-queries {
     margin-bottom: 2rem;
+    font-family: $font-family-sans-serif;
 
     ul {
       padding: 0;
 
       li {
         list-style: none;
+        line-height: 2.5;
       }
+    }
+
+    .topic-title {
+      padding: 0;
+      line-height: 2.5;
     }
   }
 

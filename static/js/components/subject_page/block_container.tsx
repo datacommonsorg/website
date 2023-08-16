@@ -85,6 +85,12 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
         }
       }
     }
+    exploreSVSpec.sort((a, b) => {
+      return (
+        Object.keys(exploreData.exploreMore[b.statVar]).length -
+        Object.keys(exploreData.exploreMore[a.statVar]).length
+      );
+    });
   }
 
   const buildExploreItems = (
@@ -117,12 +123,12 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
       )}
       {exploreSVSpec.length > 0 && (
         <div id="explore-more-section">
-          {exploreSVSpec.slice(0, 4).map((spec) => {
-            // Only show 4 explore sections now.
+          {exploreSVSpec.slice(0, 1).map((spec) => {
+            // Only show 1 explore section now.
             return (
               <div key={spec.statVar} className="explore-more-box">
                 <span className="explore-more-prompt">
-                  Explore {spec.name} by: &nbsp;
+                  Explore {spec.name.toLowerCase()} by: &nbsp;
                 </span>
                 <ItemList
                   items={buildExploreItems(
