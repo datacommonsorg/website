@@ -33,14 +33,15 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   margin-top: $chart-container-top-margin;
   position: relative;
   width: 100%;
-  
+
   .sources {
     font-size: 11px;
     font-weight: 500;
     line-height: 16px;
   }
 
-  .chart-headers, .ranking-header-section {
+  .chart-headers,
+  .ranking-header-section {
     margin-bottom: 14px;
 
     h4 {
@@ -59,7 +60,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     justify-content: space-between;
     min-height: 1.1rem;
     padding: 16px 24px;
-    border-top: 1px solid #E3E3E3;
+    border-top: 1px solid #e3e3e3;
 
     .main-footer-section {
       display: flex;
@@ -93,8 +94,8 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 .chart-container.bar-chart,
 .chart-container.histogram-chart,
 .chart-container.disaster-event-map-tile {
-  border: 0.5px solid #dee2e6;
-  border-radius: 3px;
+  border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+  border-radius: 8px;
   padding: 0;
 }
 
@@ -141,7 +142,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   .desc {
     font-size: 22px;
     line-height: 28px;
-    color: #5E5E5E;
+    color: #5e5e5e;
   }
 
   .sources {

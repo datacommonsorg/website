@@ -900,13 +900,6 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/WorkCommute",
-        "name": "Commute",
-        "types": [
-          "Topic"
-        ]
       }
     ]
   },

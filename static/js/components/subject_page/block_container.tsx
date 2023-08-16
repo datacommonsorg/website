@@ -21,11 +21,28 @@
 import React, { useContext } from "react";
 import ReactMarkdown from "react-markdown";
 
+import { Item, ItemList } from "../../apps/explore/item_list";
 import { ExploreContext } from "../../shared/context";
-import { NamedTypedPlace } from "../../shared/types";
+import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
 
 const DELIM = "___";
+
+function camelCaseToWords(camelCaseString: string): string {
+  const words = camelCaseString
+    .replace(/([a-z])([A-Z])/g, "$1 $2") // Insert space before uppercase letters
+    .split(/[\s_-]+/) // Split by spaces, underscores, and hyphens
+    .filter((word) => word.length > 0) // Remove empty words
+    .map((word) => word.toLowerCase()); // Convert to lowercase
+
+  const capitalizedWords = words.map((word) => {
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1).toLowerCase();
+    return firstLetter + restOfWord;
+  });
+
+  return capitalizedWords.join(" ");
+}
 
 export interface BlockContainerPropType {
   id: string;
@@ -34,7 +51,7 @@ export interface BlockContainerPropType {
   children?: React.ReactNode;
   footnote?: string;
   place?: NamedTypedPlace;
-  commonSVs?: Set<string>;
+  commonSVSpec?: StatVarSpec[];
 }
 
 export function BlockContainer(props: BlockContainerPropType): JSX.Element {
@@ -59,14 +76,31 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
     ? formatString(props.description, rs)
     : "";
 
-  const exploreSV = [];
-  if (exploreData.exploreMore && props.commonSVs) {
-    for (const sv in exploreData.exploreMore) {
-      if (props.commonSVs.has(sv)) {
-        exploreSV.push(sv);
+  const exploreSVSpec: StatVarSpec[] = [];
+  if (exploreData.exploreMore && props.commonSVSpec) {
+    for (const spec of props.commonSVSpec) {
+      for (const sv in exploreData.exploreMore) {
+        if (spec.statVar == sv) {
+          exploreSVSpec.push(spec);
+        }
       }
     }
   }
+
+  const buildExploreItems = (
+    svExtendedMap: Record<string, string[]>
+  ): Item[] => {
+    const result: Item[] = [];
+    for (const prop in svExtendedMap) {
+      const urlSv = svExtendedMap[prop].join(DELIM);
+      const url = `/explore/#t=${urlSv}&p=${exploreData.place}&pcmp=${exploreData.cmpPlace}&pt=${exploreData.placeType}&dc=${exploreData.dc}&em=1`;
+      result.push({
+        url,
+        text: camelCaseToWords(prop),
+      });
+    }
+    return result;
+  };
 
   return (
     <section
@@ -81,21 +115,20 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
           <ReactMarkdown>{footnote}</ReactMarkdown>
         </footer>
       )}
-      {exploreSV.length > 0 && (
+      {exploreSVSpec.length > 0 && (
         <div id="explore-more-section">
-          {exploreSV.map((sv) => {
+          {exploreSVSpec.slice(0, 4).map((spec) => {
+            // Only show 4 explore sections now.
             return (
-              <div key={sv}>
-                <span>Explore by </span>
-                {Object.keys(exploreData.exploreMore[sv]).map((prop) => {
-                  const urlSv = exploreData.exploreMore[sv][prop].join(DELIM);
-                  const url = `/explore/#t=${urlSv}&p=${exploreData.place}&pcmp=${exploreData.cmpPlace}&pt=${exploreData.placeType}&dc=${exploreData.dc}&em=1`;
-                  return (
-                    <a key={url} className="explore-more-link" href={url}>
-                      {prop}
-                    </a>
-                  );
-                })}
+              <div key={spec.statVar} className="explore-more-box">
+                <span className="explore-more-prompt">
+                  Explore {spec.name} by: &nbsp;
+                </span>
+                <ItemList
+                  items={buildExploreItems(
+                    exploreData.exploreMore[spec.statVar]
+                  )}
+                ></ItemList>
               </div>
             );
           })}
