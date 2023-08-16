@@ -44,7 +44,6 @@ $feedback-link-font-color: #70757a;
 }
 
 #main-header {
-  background-color: #467bd5;
   height: 72px;
 }
 
@@ -192,30 +191,97 @@ $feedback-link-font-color: #70757a;
   .search-section {
     align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    flex-shrink: 0;
+    height: 79px;
+    width: 100%;
 
     .btn {
       height: 2.5rem;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
     }
-    .experiment-tag {
-      border-radius: 10px;
-      border-style: solid;
-      border-width: 3px;
-      color: var(--blue);
+    .search-bar-tags {
+      color: var(--gm-3-ref-secondary-secondary-30, #004a77);
       display: flex;
-      float: left;
-      font: normal 1em monospace;
-      padding: 4px 6px;
-      height: 80%;
-      margin-right: 20px;
+      flex-direction: row;
+      font-family: $font-family-sans-serif;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+      line-height: 16px;
+      margin-bottom: 6px;
+      width: 100%;
+
+      .early-preview-tag {
+        margin-left: auto;
+        margin-right: 37.93px;
+        text-align: right;
+        text-transform: uppercase;
+      }
     }
+
     .history-button {
       margin-left: 0.5rem;
     }
     .search-box-section {
-      flex-grow: 1;
+      width: 100%;
+    }
+
+    .search-bar {
+      align-items: center;
+      background: var(--gm-3-ref-secondary-secondary-99, #f7fcff);
+      border-radius: 28px;
+      border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+      display: flex;
+      flex-shrink: 0;
+      gap: 4px;
+      height: 56px;
+      margin: 1px;
+      padding: 0px;
+      width: 100%;
+
+      .search-bar-content {
+        align-items: center;
+        align-self: stretch;
+        display: flex;
+        flex-shrink: 0;
+        gap: 4px;
+        height: 100%;
+        padding: 4px 8px 4px 24px;
+        width: 100%;
+
+        #rich-search-button {
+          cursor: pointer;
+          flex-shrink: 0;
+          height: 42px;
+          width: 42px;
+        }
+
+        .search-input-text {
+          align-items: center;
+          align-self: stretch;
+          background: transparent;
+          border: none;
+          color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+          display: flex;
+          flex: 1 0 0;
+          font-family: Google Sans;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          gap: 10px;
+          height: 48px;
+          line-height: 24px;
+          padding: 0px;
+        }
+
+        .search-input-text:focus {
+          // Overwrite default focus
+          box-shadow: none !important;
+        }
+      }
     }
   }
 

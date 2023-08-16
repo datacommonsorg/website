@@ -16,6 +16,46 @@
 
 import _ from "lodash";
 
+const placeTypeToPlural = {
+  place: "places",
+  continent: "continents",
+  country: "countries",
+  state: "states",
+  province: "provinces",
+  county: "counties",
+  district: "districts",
+  division: "divisions",
+  department: "departments",
+  municipality: "municipalities",
+  parish: "parishes",
+  city: "cities",
+  censustract: "census tracts",
+  tract: "tracts",
+  censuszipcodetabulationarea: "census zip code tabulation areas",
+  zip: "zips",
+  zipcode: "zip codes",
+  town: "towns",
+  village: "villages",
+  censusdivision: "census divisions",
+  borough: "boroughs",
+  eurostatnuts1: "eurostat NUTS 1 places",
+  eurostatnuts2: "eurostat NUTS 2 places",
+  eurostatnuts3: "eurostat NUTS 3 places",
+  administrativearea1: "administrative area 1 places",
+  administrativearea2: "administrative area 2 places",
+  administrativearea3: "administrative area 3 places",
+  administrativearea4: "administrative area 4 places",
+  administrativearea5: "administrative area 5 places",
+  region: "regions",
+  highschool: "high schools",
+  middleschool: "middle schools",
+  elementaryschool: "elementary schools",
+  primaryschool: "primary schools",
+  publicschool: "public schools",
+  privateschool: "private schools",
+  school: "schools",
+};
+
 const months = {
   0: "Jan",
   1: "Feb",
@@ -39,9 +79,9 @@ export function formatDate(strDate: string): string {
   if (strDate.length == 7) {
     const dt = new Date(strDate);
     return (
-      new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt) +
-      "-" +
-      months[dt.getUTCMonth()]
+      months[dt.getUTCMonth()] +
+      ", " +
+      new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(dt)
     );
   } else {
     return strDate;
@@ -94,4 +134,12 @@ export function isValidDate(date: string): boolean {
   }
   const dateRegex = /^(\d\d\d\d)(-\d\d)?(-\d\d)?$/;
   return dateRegex.test(date);
+}
+
+export function getPlaceTypePlural(placeType: string): string {
+  const l = placeType.toLowerCase();
+  if (l in placeTypeToPlural) {
+    return placeTypeToPlural[l];
+  }
+  return "places";
 }

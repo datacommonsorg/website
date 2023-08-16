@@ -1032,13 +1032,6 @@
         ]
       },
       {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income By Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/HouseholdIncomeDistribution",
         "name": "Household Income Distribution",
         "types": [

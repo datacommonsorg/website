@@ -197,7 +197,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(mapChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       {showZoomButtons && (
         <div className="map-zoom-button-section">
@@ -500,7 +500,10 @@ export function draw(
   }
 }
 
-function getExploreMoreUrl(props: MapTilePropType): string {
+function getExploreLink(props: MapTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const hash = getHash(
     VisType.MAP,
     [props.place.dcid],
@@ -508,5 +511,8 @@ function getExploreMoreUrl(props: MapTilePropType): string {
     [getContextStatVar(props.statVarSpec)],
     {}
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Map Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }

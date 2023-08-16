@@ -39,8 +39,8 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
     setInvalid(false);
   }, [props.initialValue]);
   return (
-    <div className="input-query">
-      <InputGroup>
+    <div className="search-bar">
+      <InputGroup className="search-bar-content">
         <Input
           id={props.inputId}
           invalid={invalid}
@@ -51,12 +51,13 @@ export function TextSearchBar(props: TextSearchBarPropType): JSX.Element {
             setInvalid(false);
           }}
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          className="pac-target-input"
+          className="pac-target-input search-input-text"
           autoFocus={props.shouldAutoFocus}
-        />
-        <Button onClick={handleSearch} id="rich-search-button">
-          <span className="material-icons search rich-search-icon">search</span>
-        </Button>
+          autoComplete="off"
+        ></Input>
+        <div onClick={handleSearch} id="rich-search-button">
+          <img src="/images/search-button-icon.svg" alt="Search" />
+        </div>
       </InputGroup>
     </div>
   );

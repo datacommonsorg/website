@@ -12,6 +12,25 @@
     "equity": {
       "title": "Equity",
       "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Economic Equity",
+          "url": "t=dc/topic/EconomicEquity&p=country/USA"
+        },
+        {
+          "title": "Education Equity",
+          "url": "t=dc/topic/EducationEquity&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Justice System Equity",
+          "url": "t=dc/topic/JusticeSystemEquity&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-equity.svg",
       "examples": {
         "general": [
           {
@@ -25,9 +44,7 @@
           {
             "title": "Health equity in Santa Clara County",
             "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Number of poor hispanic women in Santa Clara County",
             "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County"
@@ -90,6 +107,37 @@
     "economics": {
       "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Businesses",
+          "url": "t=dc/topic/Businesses&p=country/USA"
+        },
+        {
+          "title": "Economic Activity",
+          "url": "t=dc/topic/EconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Global Economic Activity",
+          "url": "t=dc/topic/GlobalEconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Employment",
+          "url": "t=dc/topic/Employment&p=country/USA"
+        },
+        {
+          "title": "Income",
+          "url": "t=dc/topic/Income&p=country/USA"
+        },
+        {
+          "title": "Poverty",
+          "url": "t=dc/topic/Poverty&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-economics.svg",
       "examples": {
         "general": [
           {
@@ -119,32 +167,18 @@
           {
             "title": "Economy in Brazil",
             "url": "p=country/BRA&t=dc/topic/GlobalEconomicActivity&oq=Economy+in+Brazil"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Businesses by industry in New York State",
             "url": "p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&oq=Businesses+by+industry+in+New+York+State"
-          },
-          {
-            "title": "Number of People Employed in New York City vs Boston",
-            "url": "oq=Number+of+People+Employed+in+New+York+City+vs+Boston"
           },
           {
             "title": "Number of privately owned businesses in California",
             "url": "oq=Number+of+privately+owned+businesses+in+California"
           },
           {
-            "title": "Education expenditure in the US vs Canada",
-            "url": "oq=Education+expenditure+in+the+US+vs+Canada"
-          },
-          {
             "title": "GDP of Iran",
             "url": "p=country/IRN&t=dc/topic/GDP&oq=GDP+of+Iran"
-          },
-          {
-            "title": "GDP of USA vs China vs India",
-            "url": "oq=compare+GDP+of+USA+vs+China+vs+India"
           },
           {
             "title": "Remittances in Lebanon",
@@ -152,6 +186,18 @@
           }
         ],
         "comparison": [
+          {
+            "title": "Number of People Employed in New York City vs Boston",
+            "url": "oq=Number+of+People+Employed+in+New+York+City+vs+Boston"
+          },
+          {
+            "title": "Education expenditure in the US vs Canada",
+            "url": "oq=Education+expenditure+in+the+US+vs+Canada"
+          },
+          {
+            "title": "GDP of USA vs China vs India",
+            "url": "oq=compare+GDP+of+USA+vs+China+vs+India"
+          },
           {
             "title": "Income vs Health Insurance in the US",
             "url": "oq=Income+vs+health+insurance+rates+in+USA"
@@ -222,6 +268,29 @@
     "health": {
       "title": "Health",
       "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Health Conditions",
+          "url": "t=dc/topic/HealthConditions&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Health Insurance",
+          "url": "t=dc/topic/HealthInsurance&p=country/USA"
+        },
+        {
+          "title": "Mortality",
+          "url": "t=dc/topic/Mortality&p=country/USA"
+        },
+        {
+          "title": "Preventive Health And Behavior",
+          "url": "t=dc/topic/PreventativeHealthAndBehavior&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-health.svg",
       "examples": {
         "general": [
           {
@@ -243,9 +312,7 @@
           {
             "title": "Mortality in the US",
             "url": "p=country/USA&t=dc/topic/Mortality&oq=Mortality+in+the+US"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "People with Asthma in Phoenix",
             "url": "p=geoId/0455000&t=dc/topic/Asthma&oq=People+with+Asthma+in+Phoenix"
@@ -261,10 +328,6 @@
           {
             "title": "Diabetes in Atlanta",
             "url": "p=geoId/1304000&t=dc/topic/Diabetes&oq=Diabetes+in+Atlanta"
-          },
-          {
-            "title": "Health behaviors in India vs Norway",
-            "url": "oq=health+behaviors+in+India+vs+Norway"
           },
           {
             "title": "Immunization in Pakistan",
@@ -283,14 +346,6 @@
             "url": "p=geoId/25&t=dc/topic/MentalHealth&oq=Mental+health+in+Massachusetts"
           },
           {
-            "title": "Mental health in Mercer County vs Arlington County",
-            "url": "oq=Mental+health+in+Mercer+County+vs+Arlington+County"
-          },
-          {
-            "title": "Mortality in the US vs Spain vs Nigeria",
-            "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
-          },
-          {
             "title": "Life Expectancy in countries in Africa",
             "url": "oq=life+expectancy+in+countries+in+Africa"
           },
@@ -300,6 +355,18 @@
           }
         ],
         "comparison": [
+          {
+            "title": "Health behaviors in India vs Norway",
+            "url": "oq=health+behaviors+in+India+vs+Norway"
+          },
+          {
+            "title": "Mental health in Mercer County vs Arlington County",
+            "url": "oq=Mental+health+in+Mercer+County+vs+Arlington+County"
+          },
+          {
+            "title": "Mortality in the US vs Spain vs Nigeria",
+            "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
+          },
           {
             "title": "Obesity vs Unemployment in the US counties",
             "url": "oq=Obesity+vs+Unemployment+in+the+US+counties"
@@ -368,6 +435,29 @@
     "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Educational Attainment",
+          "url": "t=dc/topic/EducationalAttainment&p=country/USA"
+        },
+        {
+          "title": "Schools",
+          "url": "t=dc/topic/Schools&p=country/USA"
+        },
+        {
+          "title": "Home Ownership",
+          "url": "t=dc/topic/HomeOwnership&p=country/USA"
+        },
+        {
+          "title": "Rental Houses",
+          "url": "t=dc/topic/RentalHouses&p=country/USA"
+        },
+        {
+          "title": "Commute",
+          "url": "t=dc/topic/WorkCommute&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-education.svg",
       "examples": {
         "general": [
           {
@@ -385,16 +475,10 @@
           {
             "title": "Commute in New York State",
             "url": "p=geoId/36&t=dc/topic/WorkCommute&oq=Commute+times+in+New+York+State"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Bachelors major types in Texas",
             "url": "p=geoId/48&t=dc/topic/BachelorsMajor&oq=Bachelors+major+types+in+Texas"
-          },
-          {
-            "title": "Bachelors majors in Berkeley vs Austin",
-            "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
           },
           {
             "title": "Student demographics among schools in Sunnyvale",
@@ -417,14 +501,6 @@
             "url": "p=geoId/2622000&t=dc/topic/HousesByHomeValue&oq=Home+value+in+Detroit"
           },
           {
-            "title": "Compare rooms per house in New York City vs Salt Lake City",
-            "url": "oq=Compare+rooms+per+house+in+New+York+City+vs+Salt+Lake+City"
-          },
-          {
-            "title": "Rental prices in Oakland vs Berkeley",
-            "url": "p=geoId/0606000&pcmp=geoId/0653000&t=dc/topic/RentalHouses&oq=Rental+prices+in+Oakland+vs+Berkeley"
-          },
-          {
             "title": "When were the houses in NYC built?",
             "url": "oq=When+were+the+houses+in+NYC+built?"
           },
@@ -433,15 +509,27 @@
             "url": "p=geoId/2507000&t=dc/topic/HousesByHouseholderEducationalAttainment&oq=Educational+attainment+of+homeowners+in+Boston"
           },
           {
-            "title": "Compare modes of commute between NYC and Chicago",
-            "url": "p=geoId/1714000&pcmp=geoId/3651000&t=dc/topic/CommuteMode&oq=Compare+modes+of+commute+between+NYC+and+Chicago"
-          },
-          {
             "title": "Counties in California with the highest work-from-home population",
             "url": "oq=Counties+in+California+with+the+highest+work-from-home+population"
           }
         ],
         "comparison": [
+          {
+            "title": "Bachelors majors in Berkeley vs Austin",
+            "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
+          },
+          {
+            "title": "Compare rooms per house in New York City vs Salt Lake City",
+            "url": "oq=Compare+rooms+per+house+in+New+York+City+vs+Salt+Lake+City"
+          },
+          {
+            "title": "Rental prices in Oakland vs Berkeley",
+            "url": "p=geoId/0606000&pcmp=geoId/0653000&t=dc/topic/RentalHouses&oq=Rental+prices+in+Oakland+vs+Berkeley"
+          },
+          {
+            "title": "Compare modes of commute between NYC and Chicago",
+            "url": "p=geoId/1714000&pcmp=geoId/3651000&t=dc/topic/CommuteMode&oq=Compare+modes+of+commute+between+NYC+and+Chicago"
+          },
           {
             "title": "Educational Attainment vs Poverty in Florida",
             "url": "oq=educational+attainment+vs+poverty+in+Florida"
@@ -484,6 +572,33 @@
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Age",
+          "url": "t=dc/topic/Age&p=country/USA"
+        },
+        {
+          "title": "Gender",
+          "url": "t=dc/topic/Gender&p=country/USA"
+        },
+        {
+          "title": "Population by Race",
+          "url": "t=dc/topic/Race&p=country/USA"
+        },
+        {
+          "title": "Language Spoken at Home",
+          "url": "t=dc/topic/Language&p=country/USA"
+        },
+        {
+          "title": "Marital Status",
+          "url": "t=dc/topic/MaritalStatus&p=country/USA"
+        },
+        {
+          "title": "Nationality",
+          "url": "t=dc/topic/Nationality&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-demographics.svg",
       "examples": {
         "general": [
           {
@@ -505,9 +620,7 @@
           {
             "title": "Statistics on Married people in New York State",
             "url": "p=geoId/36&t=dc/topic/MarriedPopulationByDemographic&oq=Statistics+on+Married+people+in+New+York+State"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Median age in Texas",
             "url": "p=geoId/48&t=dc/topic/AgeMedians&oq=Median+age+in+Texas"
@@ -519,10 +632,6 @@
           {
             "title": "Widowed population in San Francisco",
             "url": "p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic&oq=Widowed+population+in+San+Francisco"
-          },
-          {
-            "title": "Citizenship in California vs Georgia",
-            "url": "oq=citizenship+for+people+in+California+vs+Georgia"
           },
           {
             "title": "People of Caribbean origin in Florida",
@@ -537,16 +646,8 @@
             "url": "oq=Foreign+born+population+in+Texas"
           },
           {
-            "title": "Immigration in Texas vs California",
-            "url": "oq=Immigration+in+Texas+vs+California"
-          },
-          {
             "title": "Counties with the most Spanish speakers in California",
             "url": "oq=counties+with+the+most+Spanish+speakers+in+California"
-          },
-          {
-            "title": "Racial breakdown of population in Texas vs New York State",
-            "url": "oq=racial+breakdown+of+population+in+Texas+vs+New+York+State"
           },
           {
             "title": "States in the US with the most Tamil speakers",
@@ -558,6 +659,18 @@
           }
         ],
         "comparison": [
+          {
+            "title": "Citizenship in California vs Georgia",
+            "url": "oq=citizenship+for+people+in+California+vs+Georgia"
+          },
+          {
+            "title": "Immigration in Texas vs California",
+            "url": "oq=Immigration+in+Texas+vs+California"
+          },
+          {
+            "title": "Racial breakdown of population in Texas vs New York State",
+            "url": "oq=racial+breakdown+of+population+in+Texas+vs+New+York+State"
+          },
           {
             "title": "US citizenship vs. income across counties",
             "url": "oq=US+citizenship+vs+income+across+counties"
@@ -610,6 +723,49 @@
     "sustainability": {
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Emissions",
+          "url": "t=dc/topic/Emissions&p=country/USA"
+        },
+        {
+          "title": "Natural Disasters",
+          "url": "t=dc/topic/NaturalDisasters&p=country/USA"
+        },
+        {
+          "title": "Temperature",
+          "url": "t=dc/topic/Temperatures&p=country/USA"
+        },
+        {
+          "title": "Precipitation",
+          "url": "t=dc/topic/Precipitation&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        },
+        {
+          "title": "Energy",
+          "url": "t=dc/topic/Energy&p=country/USA"
+        },
+        {
+          "title": "Green Jobs",
+          "url": "t=dc/topic/GreenJobs&p=country/USA"
+        },
+        {
+          "title": "Land Use and Coverage",
+          "url": "t=dc/topic/LandUseAndCoverage&p=country/USA"
+        },
+        {
+          "title": "Ocean Health",
+          "url": "t=dc/topic/OceanHealth&p=country/USA"
+        },
+        {
+          "title": "Production Consumption and Waste",
+          "url": "t=dc/topic/ProductionConsumptionandWaste&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
@@ -635,9 +791,7 @@
           {
             "title": "Green jobs in the US",
             "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Electronic Waste generated in different countries",
             "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV___sdg/EN_EWT_GENPCAP"
@@ -715,6 +869,8 @@
     "sdg": {
       "title": "Sustainability Development Goals",
       "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
+      "subTopics": [],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
@@ -732,9 +888,7 @@
           {
             "title": "SDG goals on gender equality across the world",
             "url": "oq=SDG+goals+on+gender+equality+across+the+world&dc=sdg"
-          }
-        ],
-        "specific": [
+          },
           {
             "title": "Women in managerial positions in India",
             "url": "oq=Women+in+managerial+positions+in+India&dc=sdg"
@@ -742,7 +896,6 @@
           {
             "title": "Access to clean drinking water in Mexico",
             "url": "oq=Access+to+clean+drinking+water+in+Mexico&dc=sdg"
-
           },
           {
             "title": "Access to primary school education in Afghanistan",

@@ -809,13 +809,6 @@
         ]
       },
       {
-        "dcid": "dc/topic/DivorcedPopulationByDemographic",
-        "name": "Divorced Population",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/MarriedPopulationByDemographic",
         "name": "Married Population",
         "types": [

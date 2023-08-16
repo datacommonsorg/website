@@ -37,6 +37,7 @@ def homepage():
       "static/homepage.html",
       "homepage.html",
       topics=current_app.config.get('HOMEPAGE_TOPICS', []),
+      partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
