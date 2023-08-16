@@ -25,8 +25,8 @@ import { Container } from "reactstrap";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
-import allTopics from "./topics.json";
 import { Item, ItemList } from "../explore/item_list";
+import allTopics from "./topics.json";
 
 /**
  * Application container
@@ -40,10 +40,11 @@ export function App(): JSX.Element {
       title: allTopics.topics[name]?.title,
     }))
     .filter((item) => !item.title || item.name !== topic) as Topic[];
-  const subTopicItems: Item[] = currentTopic.subTopics?.map((query) => ({
-    text: query.title,
-    url: `/explore#${query.url || "/"}`
-  })) || [];
+  const subTopicItems: Item[] =
+    currentTopic.subTopics?.map((query) => ({
+      text: query.title,
+      url: `/explore#${query.url || "/"}`,
+    })) || [];
 
   let dc = "";
   if (topic === "sdg") {
