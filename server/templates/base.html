@@ -61,6 +61,8 @@
   {% endif %}
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
     rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Text:wght@300;400;500;700" rel="stylesheet">
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
@@ -168,11 +170,6 @@
                   <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
                 </div>
-              </li>
-              <li id="navbar-search-icon">
-                <a href="{{ url_for('search.search') }}">
-                  <img src="/images/icon-search-navbar.svg" />
-                </a>
               </li>
             </ul>
           </div>
