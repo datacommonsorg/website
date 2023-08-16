@@ -900,13 +900,6 @@
         ]
       },
       {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Income",
         "name": "Income",
         "types": [
