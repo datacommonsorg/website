@@ -34,7 +34,7 @@ class SuggestionBuilder:
 
     items = []
     plname = self.place.name.lower()
-    for rel in self.uttr.detection.places_detected.similar_to_main_place:
+    for rel in self.uttr.detection.places_detected.peer_places:
       nq = self.orig_query.replace(plname, rel.name)
       if self.orig_query != nq:
         items.append(Suggestion.Item(display_name=rel.name, nl_query=nq))

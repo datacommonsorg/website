@@ -44,7 +44,7 @@ class PlaceDetection:
   main_place: Place
   # List of places with same name as main place and similar to main place.
   identical_name_as_main_place: List[Place] = field(default_factory=list)
-  similar_to_main_place: List[Place] = field(default_factory=list)
+  peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
   # This is only of the `child_type` requested.
   child_places: List[Place] = field(default_factory=list)

@@ -54,9 +54,15 @@ article.category {
 }
 
 .subtopic {
-  border-top: 1px solid var(--dc-gray);
-  padding: 1em 0;
-  padding-bottom: 1.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 31px 0;
+
+  h3 {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 28px;
+    margin: 0;
+  }
 }
 
 .subtopic:first-of-type {
@@ -83,20 +89,24 @@ article.category {
 
 .block-body {
   display: flex;
+  margin-top: 5px;
 }
 
 .block-per-capita-toggle {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 14px 0;
 
-  .material-icons-outlined {
-    cursor: pointer;
+  .form-check-input {
+    margin: 0;
+    position: relative;
+    height: 18px;
+    width: 18px;
   }
 
-  .toggle-on,
-  .toggle-off:hover {
-    color: var(--dc-primary);
+  span {
+    font-size: 14px;
   }
 }
 

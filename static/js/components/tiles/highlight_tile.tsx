@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -26,7 +27,11 @@ import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
-import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  formatString,
+  getSourcesJsx,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
 
@@ -43,8 +48,12 @@ export interface HighlightTilePropType {
   statVarSpec: StatVarSpec;
 }
 
+interface HighlightData extends Observation {
+  sources: Set<string>;
+}
+
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
-  const [highlightData, setHighlightData] = useState<Observation | undefined>(
+  const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
 
@@ -63,7 +72,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   };
   let description = "";
   if (props.description) {
-    description = formatString(props.description, rs);
+    description = formatString(props.description + " (${date})", rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
@@ -76,22 +85,30 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            {formatNumber(highlightData.value, "", false, NUM_FRACTION_DIGITS)}
-          </span>
-          <span className="metadata">
-            {translateUnit(
-              props.statVarSpec.unit || highlightData.unitDisplayName
-            )}
-            {` (${highlightData.date})`}
+            <span>
+              {formatNumber(
+                highlightData.value,
+                "",
+                false,
+                NUM_FRACTION_DIGITS
+              )}
+            </span>
+            <span className="metadata">
+              {translateUnit(
+                props.statVarSpec.unit || highlightData.unitDisplayName
+              )}
+            </span>
           </span>
         </>
       )}
       <span className="desc">{description}</span>
+      {!_.isEmpty(highlightData.sources) &&
+        getSourcesJsx(highlightData.sources)}
     </div>
   );
 }
 
-const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
+const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarSpec.statVar;
   const denomStatVar = props.statVarSpec.denom;
@@ -120,8 +137,13 @@ const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
         value *= props.statVarSpec.scaling;
       }
       const result = { value, date: mainStatData.date };
-      if (facet && facet.unitDisplayName) {
-        result["unitDisplayName"] = facet.unitDisplayName;
+      if (facet) {
+        if (facet.unitDisplayName) {
+          result["unitDisplayName"] = facet.unitDisplayName;
+        }
+        if (facet.provenanceUrl) {
+          result["sources"] = new Set([facet.provenanceUrl]);
+        }
       }
       return result;
     })

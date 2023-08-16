@@ -28,17 +28,17 @@ import { Spinner } from "../../components/spinner";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
-import { ChildPlaces } from "../../shared/child_places";
 import {
   ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
+import { NamedTypedNode } from "../../shared/types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
-import { ParentPlace } from "./parent_breadcrumbs";
-import { Sidebar } from "./sidebar";
+import { Item, ItemList } from "./item_list";
+import { RelatedPlace } from "./related_place";
 
 const PAGE_ID = "explore";
 const DEFAULT_PLACE = "geoId/06";
@@ -78,6 +78,31 @@ export function App(): JSX.Element {
   const [query, setQuery] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
   const savedContext = useRef([]);
+
+  const buildTopicList = (
+    topics: NamedTypedNode[],
+    place: string,
+    cmpPlace: string,
+    placeType: string,
+    dc: string,
+    exploreMore: string
+  ): Item[] => {
+    if (_.isEmpty(topics)) {
+      return [];
+    }
+    const result: Item[] = [];
+    for (const topic of topics) {
+      if (topic.dcid == DEFAULT_TOPIC) {
+        // Do not show the root topic.
+        continue;
+      }
+      result.push({
+        text: topic.name,
+        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`,
+      });
+    }
+    return result;
+  };
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -205,7 +230,7 @@ export function App(): JSX.Element {
         childTopics: resp["relatedThings"]["childTopics"],
         peerTopics: resp["relatedThings"]["peerTopics"],
         exploreMore: resp["relatedThings"]["exploreMore"],
-        topic: resp["relatedThings"]["mainTopic"]["dcid"] || "",
+        mainTopic: resp["relatedThings"]["mainTopic"],
         sessionId: "session" in resp ? resp["session"]["id"] : "",
       };
       if (
@@ -234,6 +259,18 @@ export function App(): JSX.Element {
   const placeType = getSingleParam(hashParams["pt"]);
   const dc = getSingleParam(hashParams["dc"]);
   const exploreMore = getSingleParam(hashParams["em"]);
+
+  const allTopics = chartData?.childTopics
+    .concat(chartData?.peerTopics)
+    .concat(chartData?.parentTopics);
+  const topicList = buildTopicList(
+    allTopics,
+    place,
+    cmpPlace,
+    placeType,
+    dc,
+    exploreMore
+  );
 
   const searchSection = (
     <div className="search-section">
@@ -270,82 +307,30 @@ export function App(): JSX.Element {
       </div>
     );
   } else if (loadingStatus == "loaded" && chartData) {
+    const childPlaceType = Object.keys(chartData.childPlaces)[0];
     // Don't set placeType here since it gets passed into child places.
-    let urlString = "/explore/#p=${placeDcid}";
-    urlString += `&t=${topic}&dc=${dc}&em=${exploreMore}`;
     mainSection = (
       <div className="row explore-charts">
-        <div
-          id="insight-lhs"
-          className="col-md-2x col-lg-2 order-last order-lg-0"
-        >
-          {chartData && chartData.pageConfig && (
-            <>
-              <Sidebar
-                id={PAGE_ID}
-                currentTopicDcid={chartData.topic}
-                place={place}
-                cmpPlace={cmpPlace}
-                childTopics={chartData.childTopics}
-                peerTopics={chartData.peerTopics}
-                setQuery={setQuery}
-                placeType={placeType}
-                dc={dc}
-                exploreMore={exploreMore}
-              />
-              {chartData &&
-                chartData.parentTopics.length > 0 &&
-                chartData.parentTopics.at(0).dcid != "dc/topic/Root" && (
-                  <div className="topics-box">
-                    <div className="topics-head">Broader Topics</div>
-                    {chartData.parentTopics.map((parentTopic, idx) => {
-                      const url = `/explore/#t=${parentTopic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`;
-                      return (
-                        <a
-                          className="topic-link"
-                          key={idx}
-                          href={url}
-                          onClick={() => {
-                            setQuery("");
-                          }}
-                        >
-                          {parentTopic.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                )}
-              {dc !== "sdg" && (
-                <ChildPlaces
-                  childPlaces={chartData.childPlaces}
-                  parentPlace={chartData.place}
-                  urlFormatString={urlString}
-                  onClick={() => setQuery("")}
-                ></ChildPlaces>
-              )}
-            </>
-          )}
-        </div>
-        <div className="col-md-10x col-lg-10">
+        <div className="col-12">
           {chartData && chartData.pageConfig && (
             <>
               {dc !== "sdg" && searchSection}
               <div id="place-callout">
-                {chartData.pageConfig.metadata.topicName && (
-                  <>{chartData.pageConfig.metadata.topicName} in </>
-                )}
                 {chartData.place.name}
+                {!_.isEmpty(chartData.mainTopic) &&
+                  chartData.mainTopic.dcid != DEFAULT_TOPIC && (
+                    <span> • {chartData.mainTopic.name}</span>
+                  )}
               </div>
-              {chartData.parentPlaces.length > 0 && (
-                <ParentPlace
-                  parentPlaces={chartData.parentPlaces}
-                  placeType={chartData.place.types[0]}
-                  topic={topic}
-                  dc={dc}
-                  exploreMore={exploreMore}
-                  onClick={() => setQuery("")}
-                ></ParentPlace>
+              {!_.isEmpty(chartData.mainTopic) && (
+                <div className="explore-topics-box">
+                  <span className="explore-relevant-topics">
+                    Relevant topics
+                  </span>
+                  <ItemList items={topicList}></ItemList>
+                </div>
               )}
+
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
@@ -372,6 +357,16 @@ export function App(): JSX.Element {
                   </ExploreContext.Provider>
                 </NlSessionContext.Provider>
               </RankingUnitUrlFuncContext.Provider>
+              {!_.isEmpty(chartData.childPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={chartData.childPlaces[childPlaceType]}
+                  place={chartData.place}
+                  topic={chartData.mainTopic}
+                  cmpPlace={cmpPlace}
+                  dc={dc}
+                  exploreMore={exploreMore}
+                ></RelatedPlace>
+              )}
             </>
           )}
         </div>

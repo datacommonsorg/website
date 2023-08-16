@@ -18,6 +18,7 @@
  * A container for any tile containing a chart.
  */
 
+import _ from "lodash";
 import React, { useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -27,6 +28,7 @@ import {
   formatString,
   getChartTitle,
   getMergedSvg,
+  getSourcesJsx,
   ReplacementStrings,
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
@@ -46,8 +48,8 @@ interface ChartTileContainerProp {
   className?: string;
   // Whether or not this is the initial loading state.
   isInitialLoading?: boolean;
-  // Url to use for the explore more button.
-  exploreMoreUrl?: string;
+  // Object used for the explore link
+  exploreLink?: { displayText: string; url: string };
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -79,15 +81,16 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             props.title && <h4 {...{ part: "title" }}>{title}</h4>
           }
           <slot name="subtitle"></slot>
+          {!_.isEmpty(props.sources) && getSourcesJsx(props.sources)}
         </div>
         {props.children}
       </div>
       <ChartFooter
-        sources={props.sources}
         handleEmbed={showEmbed ? handleEmbed : null}
-        exploreMoreUrl={props.exploreMoreUrl}
-      />
-      <NlChartFeedback id={props.id} />
+        exploreLink={props.exploreLink}
+      >
+        <NlChartFeedback id={props.id} />
+      </ChartFooter>
       {showEmbed && <ChartEmbed ref={embedModalElement} />}
     </div>
   );
