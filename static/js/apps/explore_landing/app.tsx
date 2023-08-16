@@ -68,7 +68,7 @@ export function App(): JSX.Element {
     <div className="explore-container">
       <Container>
         <div className="explore-search">
-          <div className="experiment-tag">Experiment</div>
+          <div className="early-preview-tag">Early Preview</div>
           <TextSearchBar
             inputId="query-search-input"
             onSearch={(q) => {
@@ -77,7 +77,7 @@ export function App(): JSX.Element {
                   ? placeholderHref
                   : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
             }}
-            placeholder={`For example, "${placeholderQuery.title}"`}
+            placeholder={"Enter a question or topic to explore"}
             initialValue={""}
             shouldAutoFocus={true}
             clearValueOnSearch={true}
