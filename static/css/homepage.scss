@@ -43,7 +43,7 @@ $tool-card-vgap: 24px;
   }
 
   .sub-header {
-    color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+    color: var(--gm-3-ref-neutral-neutral-40);
     font-size: 22px;
   }
 }
@@ -70,7 +70,7 @@ $tool-card-vgap: 24px;
   font-size: 24px;
   font-weight: 400;
   border: 1px solid #c4c7c5;
-  border-radius: 8px;
+  border-radius: var(--border-radius-primary);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -133,7 +133,7 @@ $tool-card-vgap: 24px;
       font-size: 14px;
       height: fit-content;
       border-radius: 100px;
-      background-color: #0b57d0;
+      background-color: var(--gm-3-sys-light-primary);
       color: white;
       margin-right: 5px;
       cursor: pointer;
@@ -155,8 +155,8 @@ $tool-card-vgap: 24px;
   margin: 0 16px;
 
   .topic-card {
-    color: var(--gm-3-ref-neutral-neutral-20, #303030);
-    border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+    color: var(--gm-3-ref-neutral-neutral-20);
+    border: var(--border-primary);
     border-radius: 12px;
     display: flex;
     width: $tool-card-width;
@@ -183,14 +183,14 @@ $tool-card-vgap: 24px;
 
     .topic-card-description {
       font-family: $headings-font-family;
-      color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+      color: var(--gm-3-ref-neutral-neutral-40);
       font-size: 16px;
       font-weight: 400;
       margin-bottom: 12px;
     }
 
     .topic-card-links a {
-      color: var(--gm-3-sys-light-primary, #0b57d0);
+      color: var(--gm-3-sys-light-primary);
       display: flex;
       flex-direction: row;
       align-items: center;
@@ -204,7 +204,7 @@ $tool-card-vgap: 24px;
 
     &:hover {
       .topic-card-links a {
-        color: var(--gm-3-sys-light-primary-60, #4c8df6);
+        color: var(--gm-3-sys-light-primary-60);
       }
     }
   }
@@ -296,14 +296,14 @@ $tool-card-vgap: 24px;
     max-width: 300px;
 
     .tools-description-header {
-      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      color: var(--gm-3-ref-neutral-neutral-20);
       font-family: $headings-font-family;
       font-size: 32px;
       font-weight: 400;
       margin-bottom: 20px;
     }
     .tools-description--subheader {
-      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      color: var(--gm-3-ref-neutral-neutral-20);
       font-weight: 500;
       line-height: 24px;
     }
@@ -338,7 +338,7 @@ $tool-card-vgap: 24px;
         width: 64px;
       }
       span {
-        color: var(--gm-3-ref-neutral-neutral-20, #303030);
+        color: var(--gm-3-ref-neutral-neutral-20);
         font-size: 14px;
         padding: 0px;
       }
@@ -372,7 +372,7 @@ $tool-card-vgap: 24px;
 
   .learn-more-content {
     h3 {
-      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      color: var(--gm-3-ref-neutral-neutral-20);
       font-family: $headings-font-family;
       font-size: 32px;
       font-weight: 400;
@@ -381,7 +381,7 @@ $tool-card-vgap: 24px;
     }
 
     p {
-      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      color: var(--gm-3-ref-neutral-neutral-20);
       font-size: 16px;
       font-weight: 500;
       line-height: 24px;
@@ -398,7 +398,7 @@ $tool-card-vgap: 24px;
       gap: 8px;
       a {
         align-items: center;
-        color: var(--gm-3-sys-light-primary, #0b57d0);
+        color: var(--gm-3-sys-light-primary);
         display: flex;
         flex-direction: row;
         font-size: 14px;
@@ -419,7 +419,7 @@ $tool-card-vgap: 24px;
   margin: 70px 0;
 
   h3 {
-    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    color: var(--gm-3-ref-neutral-neutral-20);
     font-family: $headings-font-family;
     font-size: 32px;
     font-weight: 400;
