@@ -128,7 +128,7 @@ function getChartArea(
               },
             ];
         return (
-          <div className="chart" key={chartId}>
+          <div className="chart timeline" key={chartId}>
             {getSvChips(chartSvInfo, appContext)}
             <LineTile
               comparisonPlaces={appContext.places.map((place) => place.dcid)}

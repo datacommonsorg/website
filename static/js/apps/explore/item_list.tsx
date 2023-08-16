@@ -31,16 +31,18 @@ interface ItemListPropType {
 
 export function ItemList(props: ItemListPropType): JSX.Element {
   return (
-    <div className="explore-item-list">
-      {props.items.map((item, idx) => {
-        return (
-          <div key={idx} className="explore-item-box">
-            <a className="item-list-text" href={item.url}>
-              {item.text}
-            </a>
-          </div>
-        );
-      })}
+    <div className="item-list-container">
+      <div className="item-list-inner">
+        {props.items.map((item, idx) => {
+          return (
+            <div key={idx} className="item-list-item">
+              <a className="item-list-text" href={item.url}>
+                {item.text}
+              </a>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
