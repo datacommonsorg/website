@@ -77,18 +77,6 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
           </div>
         )}
       </div>
-      <div className="topic-more">
-        Additional data is available for these topics:{" "}
-        {props.additionalTopics.map((item, i) => (
-          <span key={i}>
-            <a href={`${props.topicUrlPrefix}${item.name}`}>
-              {item.title.toLocaleLowerCase()}
-            </a>
-            {i < Object.keys(props.additionalTopics).length - 1 && ","}{" "}
-          </span>
-        ))}
-        and more
-      </div>
       <div className="topic-sources">
         Our {props.currentTopic.title.toLocaleLowerCase()} data spans over{" "}
         <span
