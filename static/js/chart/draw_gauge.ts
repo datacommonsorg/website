@@ -67,12 +67,15 @@ export function drawGaugeChart(
   // how thickness of arc should scale with chart's height
   // The larger the number, the thicker the arc
   const arcThicknessRatio = 0.05;
+  // 0 to 1, compared to chart height, how tall should the arc be
+  const arcHeightRatio = 2 / 3;
+
   // Compute arc and label text sizes based on settings
   const arcStrokeWidth = Math.max(
     chartHeight * arcThicknessRatio,
     minArcThickness
   );
-  const outerRadius = (2 / 3) * chartHeight;
+  const outerRadius = Math.min( arcHeightRatio * chartHeight, chartWidth/2);
   const innerRadius = outerRadius - arcStrokeWidth;
   const labelTextSize = innerRadius / 3;
   const dataDomain = [
