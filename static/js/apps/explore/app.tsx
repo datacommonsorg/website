@@ -36,8 +36,8 @@ import {
 import { NamedTypedNode } from "../../shared/types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
-import { getUpdatedHash, updateHash } from "../../utils/url_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
+import { getUpdatedHash, updateHash } from "../../utils/url_utils";
 import { Item, ItemList } from "./item_list";
 import { RelatedPlace } from "./related_place";
 
