@@ -15,19 +15,19 @@
       "subTopics": [
         {
           "title": "Economic Equity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/EconomicEquity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/EconomicEquity&p=country/USA"
         },
         {
           "title": "Education Equity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/EducationEquity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/EducationEquity&p=country/USA"
         },
         {
           "title": "Health Equity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/HealthEquity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
         },
         {
           "title": "Justice System Equity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/JusticeSystemEquity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/JusticeSystemEquity&p=country/USA"
         }
       ],
       "image": "/images/topic-equity.svg",
@@ -112,31 +112,31 @@
       "subTopics": [
         {
           "title": "Businesses",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Businesses&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Businesses&p=country/USA"
         },
         {
           "title": "Economic Activity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/EconomicActivity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/EconomicActivity&p=country/USA"
         },
         {
           "title": "Global Economic Activity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/GlobalEconomicActivity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/GlobalEconomicActivity&p=country/USA"
         },
         {
           "title": "Employment",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Employment&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Employment&p=country/USA"
         },
         {
           "title": "Income",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Income&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Income&p=country/USA"
         },
         {
           "title": "Poverty",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Poverty&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Poverty&p=country/USA"
         },
         {
           "title": "Agriculture",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Agriculture&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Agriculture&p=country/USA"
         }
       ],
       "image": "/images/topic-economics.svg",
@@ -275,23 +275,23 @@
       "subTopics": [
         {
           "title": "Health Conditions",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/HealthConditions&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/HealthConditions&p=country/USA"
         },
         {
           "title": "Health Equity",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/HealthEquity&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
         },
         {
           "title": "Health Insurance",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/HealthInsurance&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/HealthInsurance&p=country/USA"
         },
         {
           "title": "Mortality",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Mortality&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Mortality&p=country/USA"
         },
         {
           "title": "Preventive Health And Behavior",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/PreventativeHealthAndBehavior&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/PreventativeHealthAndBehavior&p=country/USA"
         }
       ],
       "image": "/images/topic-health.svg",
@@ -444,23 +444,23 @@
       "subTopics": [
         {
           "title": "Educational Attainment",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/EducationalAttainment&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/EducationalAttainment&p=country/USA"
         },
         {
           "title": "Schools",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Schools&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Schools&p=country/USA"
         },
         {
           "title": "Home Ownership",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/HomeOwnership&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/HomeOwnership&p=country/USA"
         },
         {
           "title": "Rental Houses",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/RentalHouses&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/RentalHouses&p=country/USA"
         },
         {
           "title": "Commute",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/WorkCommute&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/WorkCommute&p=country/USA"
         }
       ],
       "image": "/images/topic-education.svg",
@@ -583,27 +583,27 @@
       "subTopics": [
         {
           "title": "Age",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Age&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Age&p=country/USA"
         },
         {
           "title": "Gender",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Gender&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Gender&p=country/USA"
         },
         {
           "title": "Population by Race",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Race&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Race&p=country/USA"
         },
         {
           "title": "Language Spoken at Home",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Language&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Language&p=country/USA"
         },
         {
           "title": "Marital Status",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/MaritalStatus&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/MaritalStatus&p=country/USA"
         },
         {
           "title": "Nationality",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Nationality&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Nationality&p=country/USA"
         }
       ],
       "image": "/images/topic-demographics.svg",
@@ -736,43 +736,43 @@
       "subTopics": [
         {
           "title": "Emissions",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Emissions&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Emissions&p=country/USA"
         },
         {
           "title": "Natural Disasters",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/NaturalDisasters&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/NaturalDisasters&p=country/USA"
         },
         {
           "title": "Temperature",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Temperatures&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Temperatures&p=country/USA"
         },
         {
           "title": "Precipitation",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Precipitation&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Precipitation&p=country/USA"
         },
         {
           "title": "Agriculture",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Agriculture&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Agriculture&p=country/USA"
         },
         {
           "title": "Energy",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Energy&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/Energy&p=country/USA"
         },
         {
           "title": "Green Jobs",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/GreenJobs&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/GreenJobs&p=country/USA"
         },
         {
           "title": "Land Use and Coverage",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/LandUseAndCoverage&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/LandUseAndCoverage&p=country/USA"
         },
         {
           "title": "Ocean Health",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/OceanHealth&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/OceanHealth&p=country/USA"
         },
         {
           "title": "Production Consumption and Waste",
-          "url": "https://autopush.datacommons.org/explore/#t=dc/topic/ProductionConsumptionandWaste&p=country/USA&pcmp=&pt=&dc=&em="
+          "url": "t=dc/topic/ProductionConsumptionandWaste&p=country/USA"
         }
       ],
       "image": "/images/topic-sustainability.svg",
