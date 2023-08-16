@@ -69,5 +69,5 @@ class Config:
   HIDE_REVAMP_CHANGES = False
   # The dcid of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_DCID = ''
-  # The name of the speical data source to show as top level category in the hierarchy
+  # The name of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_NAME = ''

@@ -215,8 +215,10 @@ export class StatVarHierarchy extends React.Component<
                           dataSource={
                             // This is a virtual node for holding stat vars of
                             // a data source.
-                            // Add data source to constrain the this node.
-                            svg.id == ROOT_SVG ? globalThis.dataSourceDcid : ""
+                            // Add data source to constrain this node.
+                            svg.id == ROOT_SVG
+                              ? (globalThis.dataSourceDcid as string)
+                              : ""
                           }
                         />
                       </Context.Provider>
