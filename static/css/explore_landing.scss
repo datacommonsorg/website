@@ -91,6 +91,7 @@
         width: 100%;
 
         #rich-search-button {
+          cursor: pointer;
           flex-shrink: 0;
           height: 42px;
           width: 42px;
@@ -131,7 +132,6 @@
     &-text {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
 
       h1 {
         margin: 0;
@@ -140,6 +140,7 @@
         font-style: normal;
         font-weight: 400;
         line-height: 36px;
+        margin-bottom: 8px;
       }
 
       p {
@@ -161,6 +162,10 @@
     }
   }
 
+  .explore-title-sub-topics {
+    max-width: 500px;
+    overflow: hidden;
+  }
   // TODO: Dedupe these styles. They are for the ItemList component and are currently duplicated from explore.scss.
   .explore-topics-box {
     display: flex;
@@ -183,10 +188,18 @@
 
     .explore-item-box {
       display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .explore-item-box::before {
+      content: "•";
+      color: black;
+      display: inline-block;
+      width: 8px;
     }
 
     .item-list-text {
-      padding: 10px 12px;
+      margin: 10px 12px;
       line-height: 20px;
     }
 
@@ -194,8 +207,6 @@
       cursor: pointer;
     }
   }
-
-
 
   .topic-queries {
     margin-bottom: 2rem;
@@ -206,13 +217,18 @@
 
       li {
         list-style: none;
-        line-height: 2.5;
+        line-height: 1.5rem;
+        margin-left: 32px;
+        margin-bottom: 12px;
       }
     }
 
     .topic-title {
-      padding: 0;
-      line-height: 2.5;
+      font-family: $headings-font-family;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 28px;
+      margin-bottom: 20px;
     }
   }
 
