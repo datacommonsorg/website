@@ -104,7 +104,7 @@
       background-color: transparent;
       display: flex;
       justify-content: flex-end;
-    
+
       a {
         text-transform: capitalize;
         color: var(--gm-3-ref-secondary-secondary-30, #004a77);
@@ -118,7 +118,6 @@
       }
     }
   }
-
 
   .history-button {
     margin-left: 0.5rem;
@@ -152,6 +151,7 @@
       width: 100%;
 
       #rich-search-button {
+        cursor: pointer;
         flex-shrink: 0;
         height: 42px;
         width: 42px;

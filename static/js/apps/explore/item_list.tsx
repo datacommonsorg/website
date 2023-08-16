@@ -35,17 +35,9 @@ export function ItemList(props: ItemListPropType): JSX.Element {
       {props.items.map((item, idx) => {
         return (
           <div key={idx} className="explore-item-box">
-            <span
-              className="item-list-text"
-              onClick={() => {
-                window.open(item.url, "");
-              }}
-            >
+            <a className="item-list-text" href={item.url}>
               {item.text}
-            </span>
-            {idx !== props.items.length - 1 && (
-              <span className="item-list-dot">•</span>
-            )}
+            </a>
           </div>
         );
       })}
