@@ -60,6 +60,11 @@ const getSingleParam = (input: string | string[]): string => {
 
 const DELIM = "___";
 
+// TODO (juliawu): Extract this out to a global flag we can set to remove
+//                 all feedback items for external launch.
+// Flag to determine whether or not to show link to feedback form
+const DEVELOPER_MODE = true;
+
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
   return input.split(DELIM).filter((i) => i);
@@ -275,10 +280,30 @@ export function App(): JSX.Element {
     dc,
     exploreMore
   );
-
+  const feedbackLink = getFeedbackLink(
+    FEEDBACK_LINK,
+    query || "",
+    debugData,
+    _.isEmpty(savedContext.current)
+      ? null
+      : savedContext.current[0]["insightCtx"]
+  );
   const searchSection = (
     <div className="search-section">
-      <div className="experiment-tag">Experiment</div>
+      <div className="search-bar-tags">
+        <div className="early-preview-tag">Early preview</div>
+        {DEVELOPER_MODE && (
+          <>
+            <span>|</span>
+            <div className="feedback-link">
+              <a href={feedbackLink} target="_blank" rel="noreferrer">
+                Feedback
+              </a>
+            </div>
+          </>
+        )}
+      </div>
+
       <div className="search-box-section">
         <TextSearchBar
           inputId="query-search-input"
@@ -385,25 +410,8 @@ export function App(): JSX.Element {
   } else {
     mainSection = <></>;
   }
-  const feedbackLink = getFeedbackLink(
-    FEEDBACK_LINK,
-    query || "",
-    debugData,
-    _.isEmpty(savedContext.current)
-      ? null
-      : savedContext.current[0]["insightCtx"]
-  );
 
-  return (
-    <Container className="explore-container">
-      <div className="feedback-link">
-        <a href={feedbackLink} target="_blank" rel="noreferrer">
-          Feedback
-        </a>
-      </div>
-      {mainSection}
-    </Container>
-  );
+  return <Container className="explore-container">{mainSection}</Container>;
 }
 
 const fetchFulfillData = async (

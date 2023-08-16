@@ -12,7 +12,25 @@
     "equity": {
       "title": "Equity",
       "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Economic Equity",
+          "url": "t=dc/topic/EconomicEquity&p=country/USA"
+        },
+        {
+          "title": "Education Equity",
+          "url": "t=dc/topic/EducationEquity&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Justice System Equity",
+          "url": "t=dc/topic/JusticeSystemEquity&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-equity.svg",
       "examples": {
         "general": [
           {
@@ -91,7 +109,37 @@
     "economics": {
       "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Businesses",
+          "url": "t=dc/topic/Businesses&p=country/USA"
+        },
+        {
+          "title": "Economic Activity",
+          "url": "t=dc/topic/EconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Global Economic Activity",
+          "url": "t=dc/topic/GlobalEconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Employment",
+          "url": "t=dc/topic/Employment&p=country/USA"
+        },
+        {
+          "title": "Income",
+          "url": "t=dc/topic/Income&p=country/USA"
+        },
+        {
+          "title": "Poverty",
+          "url": "t=dc/topic/Poverty&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-economics.svg",
       "examples": {
         "general": [
           {
@@ -224,7 +272,29 @@
     "health": {
       "title": "Health",
       "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Health Conditions",
+          "url": "t=dc/topic/HealthConditions&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Health Insurance",
+          "url": "t=dc/topic/HealthInsurance&p=country/USA"
+        },
+        {
+          "title": "Mortality",
+          "url": "t=dc/topic/Mortality&p=country/USA"
+        },
+        {
+          "title": "Preventive Health And Behavior",
+          "url": "t=dc/topic/PreventativeHealthAndBehavior&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-health.svg",
       "examples": {
         "general": [
           {
@@ -371,7 +441,29 @@
     "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Educational Attainment",
+          "url": "t=dc/topic/EducationalAttainment&p=country/USA"
+        },
+        {
+          "title": "Schools",
+          "url": "t=dc/topic/Schools&p=country/USA"
+        },
+        {
+          "title": "Home Ownership",
+          "url": "t=dc/topic/HomeOwnership&p=country/USA"
+        },
+        {
+          "title": "Rental Houses",
+          "url": "t=dc/topic/RentalHouses&p=country/USA"
+        },
+        {
+          "title": "Commute",
+          "url": "t=dc/topic/WorkCommute&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-education.svg",
       "examples": {
         "general": [
           {
@@ -488,7 +580,33 @@
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Age",
+          "url": "t=dc/topic/Age&p=country/USA"
+        },
+        {
+          "title": "Gender",
+          "url": "t=dc/topic/Gender&p=country/USA"
+        },
+        {
+          "title": "Population by Race",
+          "url": "t=dc/topic/Race&p=country/USA"
+        },
+        {
+          "title": "Language Spoken at Home",
+          "url": "t=dc/topic/Language&p=country/USA"
+        },
+        {
+          "title": "Marital Status",
+          "url": "t=dc/topic/MaritalStatus&p=country/USA"
+        },
+        {
+          "title": "Nationality",
+          "url": "t=dc/topic/Nationality&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-demographics.svg",
       "examples": {
         "general": [
           {
@@ -615,7 +733,49 @@
     "sustainability": {
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "subTopics": [
+        {
+          "title": "Emissions",
+          "url": "t=dc/topic/Emissions&p=country/USA"
+        },
+        {
+          "title": "Natural Disasters",
+          "url": "t=dc/topic/NaturalDisasters&p=country/USA"
+        },
+        {
+          "title": "Temperature",
+          "url": "t=dc/topic/Temperatures&p=country/USA"
+        },
+        {
+          "title": "Precipitation",
+          "url": "t=dc/topic/Precipitation&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        },
+        {
+          "title": "Energy",
+          "url": "t=dc/topic/Energy&p=country/USA"
+        },
+        {
+          "title": "Green Jobs",
+          "url": "t=dc/topic/GreenJobs&p=country/USA"
+        },
+        {
+          "title": "Land Use and Coverage",
+          "url": "t=dc/topic/LandUseAndCoverage&p=country/USA"
+        },
+        {
+          "title": "Ocean Health",
+          "url": "t=dc/topic/OceanHealth&p=country/USA"
+        },
+        {
+          "title": "Production Consumption and Waste",
+          "url": "t=dc/topic/ProductionConsumptionandWaste&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
@@ -721,7 +881,8 @@
     "sdg": {
       "title": "Sustainability Development Goals",
       "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
-      "image": "/images/topics/health.svg",
+      "subTopics": [],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
