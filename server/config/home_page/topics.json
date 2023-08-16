@@ -2,7 +2,7 @@
   {
     "id": "economics",
     "title": "Economics",
-    "description": "Discover the intricate interplay between economic forces and societal well-being.",
+    "description": "Explore Business, Economic Activity, Employment, Income, Poverty, and more.",
     "url": "/nl#topic=economics",
     "browseUrl": "/explore/economics",
     "icon": "area_chart",
@@ -11,7 +11,7 @@
   {
     "id": "demographics",
     "title": "Demographics",
-    "description": "Uncover the fascinating story of human populations and their dynamics.",
+    "description": "Explore Age, Gender, Race, Languages, Marital Status, Nationality, and more.",
     "url": "/nl#topic=demographics",
     "browseUrl": "/explore/demographics",
     "icon": "family_restroom",
@@ -20,7 +20,7 @@
   {
     "id": "health",
     "title": "Health",
-    "description": "Dive into the realm of human well-being and explore the impact of health on societies.",
+    "description": "Explore Health Conditions, Health Equity, Health Insurance, Mortality, and more.",
     "url": "/nl#topic=health",
     "browseUrl": "/explore/health",
     "icon": "area_chart",
@@ -29,7 +29,7 @@
   {
     "id": "sustainability",
     "title": "Sustainability",
-    "description": "Embark on a journey towards a sustainable future.",
+    "description": "Explore Emissions, Temperature, Energy, Green Jobs, Ocean Health, and more.",
     "url": "/nl#topic=sustainability",
     "browseUrl": "/explore/sustainability",
     "icon": "eco",
@@ -38,7 +38,7 @@
   {
     "id": "education-housing-commute",
     "title": "Education, Housing, and Commute",
-    "description": "Uncover the transformative power of education in shaping individuals and societies.",
+    "description": "Explore Educational Attainment, School Type, Home ownership, Commute Mode, and more.",
     "url": "/nl#topic=education-housing-commute",
     "browseUrl": "/explore/education-housing-commute",
     "icon": "school",
@@ -47,7 +47,7 @@
   {
     "id": "equity",
     "title": "Equity",
-    "description": "Wield the power of data to create a more just and equitable world.",
+    "description": "Explore Economic Equity, Education Equity, Health Equity, Justice System Equity and more.",
     "url": "/nl#topic=equity",
     "browseUrl": "/explore/equity",
     "icon": "public",
