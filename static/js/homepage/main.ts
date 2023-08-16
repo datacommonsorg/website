@@ -17,5 +17,3 @@
 /**
  * Entrypoint file for homepage.
  */
-
-window.onload = () => {};

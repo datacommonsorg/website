@@ -13,12 +13,14 @@
 # limitations under the License.
 """Data Commons static content routes."""
 
+from datetime import date
 import json
 import os
-from datetime import date
 
 import flask
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint
+from flask import current_app
+from flask import render_template
 
 import server.lib.render as lib_render
 from server.services import datacommons as dc
