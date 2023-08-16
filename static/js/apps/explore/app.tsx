@@ -183,7 +183,7 @@ export function App(): JSX.Element {
         placeType = detectResp["childEntityType"] || "";
         replaceHash({
           q: "",
-          oq: query,
+          oq: paramQuery,
           t: topic,
           tcmp: cmpTopic,
           p: place,
@@ -197,7 +197,7 @@ export function App(): JSX.Element {
       } else if (origQuery) {
         // We have orig_query set with place and topic. So while
         // we're not calling detection, we should still set query state.
-        query = origQuery;
+        paramQuery = origQuery;
       }
       if (!topic) {
         replaceHash({
@@ -215,7 +215,7 @@ export function App(): JSX.Element {
         return;
       }
       if (!ignoreQueryParam.current) {
-        setQuery(query);
+        setQuery(paramQuery);
       }
       ignoreQueryParam.current = false;
       const places = toApiList(place);
