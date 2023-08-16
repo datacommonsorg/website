@@ -27,6 +27,7 @@ import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
+import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
   getSourcesJsx,
@@ -68,7 +69,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place.name,
-    date: highlightData.date,
+    date: formatDate(highlightData.date),
   };
   let description = "";
   if (props.description) {

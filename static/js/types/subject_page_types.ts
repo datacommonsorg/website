@@ -35,6 +35,8 @@ export interface SubjectPageMetadata {
    */
   childPlaces?: ChildPlacesByType;
 
+  peerPlaces?: NamedTypedNode[];
+
   parentTopics?: NamedTypedNode[];
 
   peerTopics?: NamedTypedNode[];

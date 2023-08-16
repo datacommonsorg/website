@@ -33,7 +33,6 @@ export interface TopicConfig {
   subTopics: Query[];
   examples: {
     general: Query[];
-    specific: Query[];
     comparison: Query[];
   };
   meta: {
