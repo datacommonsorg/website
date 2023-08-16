@@ -27,38 +27,6 @@ $tool-card-vgap: 24px;
   margin: 0 0 3rem 0;
 }
 
-#main-footer {
-  color: var(--gm-3-ref-neutral-neutral-20, #303030);
-  h6 {
-    color: var(--gm-3-ref-neutral-neutral-20, #303030);
-    font-family: $headings-font-family;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 36px;
-  }
-  a {
-    align-items: center;
-    color: var(--gm-3-sys-light-primary, #0b57d0);
-    display: flex !important;
-    flex-direction: row;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 10px 0px;
-    .material-icons-outlined {
-      font-size: 12px;
-      margin-right: 8px;
-      text-decoration: none;
-    }
-    &:hover {
-      text-decoration: none;
-      span:last-child {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-
 #homepage-top {
   display: flex;
   font-family: $headings-font-family;

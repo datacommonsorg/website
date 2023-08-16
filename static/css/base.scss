@@ -203,15 +203,42 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   background: $full-footer-bg;
   padding-top: 75px;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh var($full-footer-bg);
+  box-shadow: 0 50vh 0 50vh var(--footer-bg);
   .top-footer {
     padding-bottom: 30px;
   }
 }
 
-#main-footer,
-#main-footer h6 {
-  font-size: 0.9rem;
+#main-footer {
+  color: var(--gm-3-ref-neutral-neutral-20, #303030);
+  h6 {
+    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    font-family: $headings-font-family;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+  }
+  a {
+    align-items: center;
+    color: var(--gm-3-sys-light-primary, #0b57d0);
+    display: flex !important;
+    flex-direction: row;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 10px 0px;
+    .material-icons-outlined {
+      font-size: 12px;
+      margin-right: 8px;
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: none;
+      span:last-child {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 
 #main-footer #sub-footer {
@@ -248,6 +275,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 #sub-footer .sub-footer-links {
   display: flex;
   flex-direction: row;
+  align-items: center;
   a {
     color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
     font-size: 14px;
