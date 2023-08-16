@@ -202,7 +202,7 @@ $feedback-link-font-color: #70757a;
       border-bottom-left-radius: 0;
     }
     .search-bar-tags {
-      color: var(--gm-3-ref-secondary-secondary-30, #004a77);
+      color: var(--gm-3-ref-secondary-secondary-30);
       display: flex;
       flex-direction: row;
       font-family: $font-family-sans-serif;
@@ -231,9 +231,9 @@ $feedback-link-font-color: #70757a;
 
     .search-bar {
       align-items: center;
-      background: var(--gm-3-ref-secondary-secondary-99, #f7fcff);
+      background: var(--gm-3-ref-secondary-secondary-99);
       border-radius: 28px;
-      border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+      border: var(--border-primary);
       display: flex;
       flex-shrink: 0;
       gap: 4px;
@@ -264,7 +264,7 @@ $feedback-link-font-color: #70757a;
           align-self: stretch;
           background: transparent;
           border: none;
-          color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+          color: var(--gm-3-ref-neutral-neutral-40);
           display: flex;
           flex: 1 0 0;
           font-family: Google Sans;

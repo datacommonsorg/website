@@ -29,6 +29,9 @@ interface ChartFooterPropType {
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
+  if (!props.handleEmbed && !props.exploreLink) {
+    return null;
+  }
   return (
     <footer id="chart-container-footer">
       <slot name="footer"></slot>

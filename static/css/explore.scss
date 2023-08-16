@@ -47,9 +47,9 @@
 
 #explore-more-section {
   padding: 24px;
-  border-radius: 8px;
-  border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
-  background: var(--gm-3-white, #fff);
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
   margin-top: 24px;
 
   font-size: 14px;
@@ -83,7 +83,7 @@
     display: flex;
     flex-direction: row;
 
-    color: var(--gm-3-ref-secondary-secondary-30, #004a77);
+    color: var(--gm-3-ref-secondary-secondary-30);
     font-family: $font-family-sans-serif;
     font-size: 11px;
     font-style: normal;
@@ -107,7 +107,7 @@
 
       a {
         text-transform: capitalize;
-        color: var(--gm-3-ref-secondary-secondary-30, #004a77);
+        color: var(--gm-3-ref-secondary-secondary-30);
         font-family: $font-family-sans-serif;
         font-size: 11px;
         font-style: normal;
@@ -129,9 +129,9 @@
 
   .search-bar {
     align-items: center;
-    background: var(--gm-3-ref-secondary-secondary-99, #f7fcff);
+    background: var(--gm-3-ref-secondary-secondary-99);
     border-radius: 28px;
-    border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+    border: var(--border-primary);
     display: flex;
     flex-shrink: 0;
     gap: 4px;
@@ -162,7 +162,7 @@
         align-self: stretch;
         background: transparent;
         border: none;
-        color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+        color: var(--gm-3-ref-neutral-neutral-40);
         display: flex;
         flex: 1 0 0;
         font-family: $font-family-sans-serif;
@@ -255,7 +255,7 @@
   font-weight: 400;
   font-size: 28px;
   line-height: 36px;
-  color: #303030;
+  color: var(--gm-3-ref-neutral-neutral-20);
   padding-bottom: 16px;
 }
 
@@ -283,14 +283,14 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
-    color: #5e5e5e;
+    color: var(--gm-3-ref-neutral-neutral-40);
   }
 }
 
 .explore-item-list {
   font-size: 14px;
   font-weight: 500;
-  color: #0b57d0;
+  color: var(--gm-3-sys-light-primary);
   margin-left: -12px;
 
   .explore-item-box {
@@ -313,9 +313,9 @@
 
 .related-places {
   padding: 24px;
-  border-radius: 8px;
-  border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
-  background: var(--gm-3-white, #fff);
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
   margin-bottom: 24px;
 
   .related-places-callout {
