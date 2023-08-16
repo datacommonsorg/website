@@ -57,6 +57,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     margin-left: inherit !important;
     margin-right: 0 !important;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     min-height: 1.1rem;
     padding: 16px 24px;
