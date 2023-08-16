@@ -26,7 +26,7 @@ class Params(str, Enum):
   CTX = 'context'
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
-  EXP_MORE = 'exploreMore'
+  EXP_MORE_DISABLED = 'disableExploreMore'
 
 
 class DCNames(str, Enum):
