@@ -75,7 +75,7 @@ export function drawGaugeChart(
     chartHeight * arcThicknessRatio,
     minArcThickness
   );
-  const outerRadius = Math.min( arcHeightRatio * chartHeight, chartWidth/2);
+  const outerRadius = Math.min(arcHeightRatio * chartHeight, chartWidth / 2);
   const innerRadius = outerRadius - arcStrokeWidth;
   const labelTextSize = innerRadius / 3;
   const dataDomain = [
