@@ -19,6 +19,7 @@
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
+@import "./shared/item_list";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 @import "./nl_interface";
@@ -283,31 +284,7 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
-    color: #5e5e5e;
-  }
-}
-
-.explore-item-list {
-  font-size: 14px;
-  font-weight: 500;
-  color: #0b57d0;
-  margin-left: -12px;
-
-  .explore-item-box {
-    display: inline-block;
-  }
-
-  .item-list-text {
-    padding: 10px 12px;
-    line-height: 24px;
-  }
-
-  .item-list-text:hover {
-    cursor: pointer;
-  }
-
-  .item-list-dot {
-    color: black;
+    color: rgb(94, 94, 94);
   }
 }
 
