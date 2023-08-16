@@ -18,11 +18,6 @@
 
 @import "base";
 
-$color-scatter: #ff8e6b;
-$color-download: #7791c3;
-$color-map: #a0dcb0;
-$color-timeline: #fcbf71;
-$color-place: #6bc8dd;
 $color-font-dark: #3c4043;
 
 .main-content {
@@ -42,25 +37,28 @@ $color-font-dark: #3c4043;
 }
 
 #homepage-top {
-  margin: 0 auto;
   display: flex;
+  font-family: $headings-font-family;
+  font-weight: 400;
+  margin: 0 auto;
+  padding-top: 58px;
   align-items: center;
   text-align: center;
+  max-width: 900px;
 
   .header {
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: 45px;
     margin-bottom: 0.5rem;
   }
 
   .sub-header {
-    font-size: 1rem;
-    font-weight: 300;
+    color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+    font-size: 22px;
   }
 }
 
 #homepage section {
-  padding: 24px;
+  padding-bottom: 58px;
 }
 
 #homepage section .main {
@@ -93,15 +91,6 @@ $color-font-dark: #3c4043;
 #homepage a.carousel-item-container:hover {
   text-decoration: none;
   box-shadow: $hover-box-shadow;
-}
-
-#homepage .interact-buttons-container,
-#homepage .tool-buttons-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  justify-content: center;
-  padding: 0 1.5rem;
 }
 
 @include media-breakpoint-up(lg) {
@@ -167,62 +156,63 @@ $color-font-dark: #3c4043;
 
 // Styling for the topics section
 #homepage .topics-container {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;
-  @include media-breakpoint-up(md) {
-    grid-template-columns: 1fr 1fr;
-  }
-  @include media-breakpoint-up(lg) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 20px;
+  justify-content: center;
 
   .topic-card {
-    color: $color-font-dark;
-    border: 2px solid #c2e7ff;
+    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
     border-radius: 12px;
     display: flex;
-    flex: 0 0 30%;
+    width: 400px;
 
     .topic-card-body {
       display: flex;
       flex-direction: column;
-      padding: 1rem;
+      padding: 32px 24px;
       flex-grow: 1;
       justify-content: space-between;
     }
 
+    .topic-card-image {
+      height: 150px;
+      margin-bottom: 18px;
+    }
+
     .topic-card-title {
-      font-size: 16px;
-      font-weight: 500;
+      font-family: $headings-font-family;
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 12px;
     }
 
     .topic-card-description {
-      font-size: 14px;
+      font-family: $headings-font-family;
+      color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+      font-size: 16px;
       font-weight: 400;
+      margin-bottom: 12px;
     }
 
-    .topic-card-links {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-    }
-
-    .topic-card-icon {
-      padding: 8px;
-      background-color: #c2e7ff;
-      width: 80px;
-      min-height: 124px;
-      height: 100%;
+    .topic-card-links a {
+      color: var(--gm-3-sys-light-primary, #0b57d0);
       display: flex;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      border-radius: 0 10px 10px 0;
-      flex-shrink: 0;
-
+      font-size: 14px;
+      text-decoration: none;
       .material-icons-outlined {
-        font-size: 24px;
-        color: $color-font-dark;
-        font-weight: 700;
+        margin-right: 8px;
+        font-size: 18px;
+      }
+    }
+
+    &:hover {
+      .topic-card-links a {
+        color: var(--gm-3-sys-light-primary-60, #4c8df6);
       }
     }
   }
@@ -290,69 +280,76 @@ $color-font-dark: #3c4043;
 }
 
 // Styling for the tools section
-#homepage .tool-buttons-container {
-  a.tool-button {
-    .img-container {
-      padding: 1.5rem;
-      border-radius: 4px 4px 0 0;
-    }
-
-    span {
-      padding: 8px;
-    }
-  }
-
-  .tool-button-img {
-    background-repeat: no-repeat;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100px;
-    height: 100px;
-  }
-
-  #download-button .img-container {
-    background-color: $color-download;
-
-    .material-icons-outlined {
-      color: white;
-      height: 100px;
-      width: 150px;
-      font-size: 80px;
+#homepage section.tools {
+  background-image: url(/images/tools-background.svg);
+  background-position: center top;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 380px;
+    @include media-breakpoint-up(lg) {
+      flex-wrap: nowrap;
     }
   }
 
-  #scatter-button .img-container {
-    background-color: $color-scatter;
+  .tools-description {
+    display: flex;
+    flex-direction: column;
 
-    .tool-button-img {
-      background: url("/images/home-tool_icons.png") -25px 0;
-      width: 150px;
+    max-width: 300px;
+
+    .tools-description-header {
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      font-family: $headings-font-family;
+      font-size: 32px;
+      font-weight: 400;
+      margin-bottom: 20px;
     }
+    .tools-description--subheader {
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      font-weight: 500;
+      line-height: 24px;
+    }
+    margin-bottom: 32px;
   }
 
-  #map-button .img-container {
-    background-color: $color-map;
+  .tool-buttons-container {
+    align-items: space-between;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0 32px;
+    gap: 32px;
+    flex-wrap: wrap;
 
-    .tool-button-img {
-      background: url("/images/home-tool_icons.png") -225px 0;
-      width: 150px;
-    }
-  }
-
-  #timeline-button .img-container {
-    background-color: $color-timeline;
-
-    .tool-button-img {
-      background: url("/images/home-tool_icons.png") -425px 0;
-      width: 150px;
-    }
-  }
-
-  #place-button .img-container {
-    background-color: $color-place;
-
-    .tool-button-img {
-      background: url("/images/home-tool_icons.png") -855px 0;
+    a.tool-button {
+      align-items: center;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0px 0px 1px rgba(3, 7, 18, 0.05),
+        0px 0px 5px rgba(3, 7, 18, 0.1);
+      display: flex;
+      flex-direction: column;
+      flex-grow: 0;
+      height: 135px;
+      justify-content: center;
+      width: 155px;
+      &:hover {
+        box-shadow: $hover-box-shadow;
+      }
+      .tool-icon {
+        width: 64px;
+      }
+      span {
+        color: var(--gm-3-ref-neutral-neutral-20, #303030);
+        font-size: 16px;
+        padding: 8px;
+      }
     }
   }
 }
