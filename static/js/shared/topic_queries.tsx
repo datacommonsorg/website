@@ -37,7 +37,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
         {props.currentTopic.examples.general.length > 0 && (
           <div className="topic-queries">
             <div>
-              <b>Here are some examples to get started:</b>
+              <b>Some examples to get started:</b>
             </div>
             <ul>
               {props.currentTopic.examples.general.map((query, i) => (
@@ -65,7 +65,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
         {props.currentTopic.examples.comparison.length > 0 && (
           <div className="topic-queries">
             <div>
-              <b>Combine and compare data from different Data Commons:</b>
+              <b>Combine and compare data:</b>
             </div>
             <ul>
               {props.currentTopic.examples.comparison.map((query, i) => (
