@@ -36,7 +36,7 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
       <div className="topic-queries">
         {props.currentTopic.examples.general.length > 0 && (
           <div className="topic-queries">
-            <div>
+            <div className="topic-title">
               <b>Some examples to get started:</b>
             </div>
             <ul>
@@ -48,23 +48,9 @@ export function TopicQueries(props: TopicQueriesProps): JSX.Element {
             </ul>
           </div>
         )}
-        {props.currentTopic.examples.specific.length > 0 && (
-          <div className="topic-queries">
-            <div>
-              <b>Try diving deeper:</b>
-            </div>
-            <ul>
-              {props.currentTopic.examples.specific.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} appName={props.appName} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
         {props.currentTopic.examples.comparison.length > 0 && (
           <div className="topic-queries">
-            <div>
+            <div className="topic-title">
               <b>Combine and compare data:</b>
             </div>
             <ul>
