@@ -92,6 +92,10 @@ export function App(): JSX.Element {
     }
     const result: Item[] = [];
     for (const topic of topics) {
+      if (topic.dcid == DEFAULT_TOPIC) {
+        // Do not show the root topic.
+        continue;
+      }
       result.push({
         text: topic.name,
         url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`,
@@ -316,12 +320,21 @@ export function App(): JSX.Element {
             <>
               {dc !== "sdg" && searchSection}
               <div id="place-callout">
-                {chartData.place.name} • {chartData.mainTopic.name}
+                {chartData.place.name}
+                {!_.isEmpty(chartData.mainTopic) &&
+                  chartData.mainTopic.dcid != DEFAULT_TOPIC && (
+                    <span> • {chartData.mainTopic.name}</span>
+                  )}
               </div>
-              <div className="explore-topics-box">
-                <span className="explore-relevant-topics">Relevant topics</span>
-                <ItemList items={topicList}></ItemList>
-              </div>
+              {!_.isEmpty(chartData.mainTopic) && (
+                <div className="explore-topics-box">
+                  <span className="explore-relevant-topics">
+                    Relevant topics
+                  </span>
+                  <ItemList items={topicList}></ItemList>
+                </div>
+              )}
+
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
