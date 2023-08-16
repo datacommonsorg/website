@@ -62,7 +62,7 @@ test("get common prefix", () => {
 });
 
 test("formatDate", () => {
-  expect(formatDate("2011-12")).toEqual("2011-Dec");
+  expect(formatDate("2011-12")).toEqual("Dec, 2011");
   expect(formatDate("2015")).toEqual("2015");
   expect(formatDate("2022-05-22")).toEqual("2022-05-22");
 });
