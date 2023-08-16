@@ -36,11 +36,13 @@ Example:
 ## Components
 
 - [datacommons-bar](./docs/components/bar.md)
+- [datacommons-highlight](./docs/components/highlight.md)
 - [datacommons-gauge](./docs/components/gauge.md)
 - [datacommons-line](./docs/components/line.md)
 - [datacommons-map](./docs/components/map.md)
 - [datacommons-pie](./docs/components/pie.md)
 - [datacommons-ranking](./docs/components/ranking.md)
+- [datacommons-scatter](./docs/components/scatter.md)
 - [datacommons-slider](./docs/components/slider.md)
 
 ## Examples
