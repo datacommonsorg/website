@@ -47,7 +47,9 @@ export function QuerySearch(props: QuerySearchProps): JSX.Element {
     <div id="search-container">
       <Container tabIndex={-1}>
         <div className="search-section">
-          <div className="experiment-tag">Early Preview</div>
+          <div className="search-bar-tags">
+            <div className="early-preview-tag">Early preview</div>
+          </div>
           <div className="search-box-section">
             <TextSearchBar
               allowEmptySearch={
