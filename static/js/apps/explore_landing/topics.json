@@ -12,7 +12,7 @@
     "equity": {
       "title": "Equity",
       "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/equity.svg",
       "examples": {
         "general": [
           {
@@ -91,7 +91,7 @@
     "economics": {
       "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/economics.svg",
       "examples": {
         "general": [
           {
@@ -371,7 +371,7 @@
     "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/educationHousing.svg",
       "examples": {
         "general": [
           {
@@ -488,7 +488,7 @@
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/demographics.svg",
       "examples": {
         "general": [
           {
@@ -615,7 +615,7 @@
     "sustainability": {
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/sustainability.svg",
       "examples": {
         "general": [
           {
@@ -721,7 +721,7 @@
     "sdg": {
       "title": "Sustainability Development Goals",
       "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
-      "image": "/images/topics/health.svg",
+      "image": "/images/topics/usSustainableGoals.svg",
       "examples": {
         "general": [
           {
