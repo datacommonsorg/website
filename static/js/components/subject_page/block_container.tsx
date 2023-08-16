@@ -35,7 +35,13 @@ function camelCaseToWords(camelCaseString: string): string {
     .filter((word) => word.length > 0) // Remove empty words
     .map((word) => word.toLowerCase()); // Convert to lowercase
 
-  return words.join(" ");
+  const capitalizedWords = words.map((word) => {
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1).toLowerCase();
+    return firstLetter + restOfWord;
+  });
+
+  return capitalizedWords.join(" ");
 }
 
 export interface BlockContainerPropType {
