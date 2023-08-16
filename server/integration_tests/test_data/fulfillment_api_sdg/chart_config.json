@@ -1416,13 +1416,6 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/sdg_1",
-        "name": "No Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/sdg_2",
         "name": "Zero Hunger",
         "types": [

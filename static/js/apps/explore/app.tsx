@@ -37,6 +37,7 @@ import { NamedTypedNode } from "../../shared/types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { getUpdatedHash, updateHash } from "../../utils/url_utils";
+import { getPlaceTypePlural } from "../../utils/string_utils";
 import { Item, ItemList } from "./item_list";
 import { RelatedPlace } from "./related_place";
 
@@ -59,6 +60,11 @@ const getSingleParam = (input: string | string[]): string => {
 };
 
 const DELIM = "___";
+
+// TODO (juliawu): Extract this out to a global flag we can set to remove
+//                 all feedback items for external launch.
+// Flag to determine whether or not to show link to feedback form
+const DEVELOPER_MODE = true;
 
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
@@ -90,16 +96,20 @@ export function App(): JSX.Element {
     cmpPlace: string,
     placeType: string,
     dc: string,
-    exploreMore: string
+    disableExploreMore: string
   ): Item[] => {
     if (_.isEmpty(topics)) {
       return [];
     }
     const result: Item[] = [];
     for (const topic of topics) {
+      if (topic.dcid == DEFAULT_TOPIC) {
+        // Do not show the root topic.
+        continue;
+      }
       result.push({
         text: topic.name,
-        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`,
+        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}`,
       });
     }
     return result;
@@ -136,22 +146,22 @@ export function App(): JSX.Element {
       let topic = getSingleParam(hashParams["t"]);
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
-      let query = getSingleParam(hashParams["q"]);
+      let paramQuery = getSingleParam(hashParams["q"]);
       const origQuery = getSingleParam(hashParams["oq"]);
       const dc = getSingleParam(hashParams["dc"]);
       const svg = getSingleParam(hashParams["svg"]);
-      const exploreMore = getSingleParam(hashParams["em"]);
+      const disableExploreMore = getSingleParam(hashParams["em"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
-      if (query || (origQuery && !place && !topic)) {
-        if (!query) {
+      if (paramQuery || (origQuery && !place && !topic)) {
+        if (!paramQuery) {
           // This should only be set once at the very beginning!
-          query = origQuery;
+          paramQuery = origQuery;
         }
-        setQuery(query);
+        setQuery(paramQuery);
         const detectResp = await fetchDetectData(
-          query,
+          paramQuery,
           savedContext.current,
           dc
         );
@@ -181,7 +191,7 @@ export function App(): JSX.Element {
           pt: placeType,
           dc,
           svg,
-          em: exploreMore,
+          em: disableExploreMore,
         });
         return;
       } else if (origQuery) {
@@ -221,7 +231,7 @@ export function App(): JSX.Element {
         cmpTopics,
         dc,
         svgs,
-        exploreMore
+        disableExploreMore
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -236,6 +246,7 @@ export function App(): JSX.Element {
         },
         pageConfig: resp["config"],
         childPlaces: resp["relatedThings"]["childPlaces"],
+        peerPlaces: resp["relatedThings"]["peerPlaces"],
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         childTopics: resp["relatedThings"]["childTopics"],
@@ -252,8 +263,12 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}`;
           }
+        }
+        if (!query && chartData.mainTopic?.name && chartData.place.name) {
+          const q = `${chartData.mainTopic.name} in ${chartData.place.name}`;
+          setQuery(q);
         }
       }
       savedContext.current = resp["context"] || [];
@@ -269,7 +284,7 @@ export function App(): JSX.Element {
   const topic = getSingleParam(hashParams["t"]);
   const placeType = getSingleParam(hashParams["pt"]);
   const dc = getSingleParam(hashParams["dc"]);
-  const exploreMore = getSingleParam(hashParams["em"]);
+  const disableExploreMore = getSingleParam(hashParams["em"]);
 
   const allTopics = chartData?.childTopics
     .concat(chartData?.peerTopics)
@@ -280,12 +295,32 @@ export function App(): JSX.Element {
     cmpPlace,
     placeType,
     dc,
-    exploreMore
+    disableExploreMore
   );
-
+  const feedbackLink = getFeedbackLink(
+    FEEDBACK_LINK,
+    query || "",
+    debugData,
+    _.isEmpty(savedContext.current)
+      ? null
+      : savedContext.current[0]["insightCtx"]
+  );
   const searchSection = (
     <div className="search-section">
-      <div className="experiment-tag">Experiment</div>
+      <div className="search-bar-tags">
+        <div className="early-preview-tag">Early preview</div>
+        {DEVELOPER_MODE && (
+          <>
+            <span>|</span>
+            <div className="feedback-link">
+              <a href={feedbackLink} target="_blank" rel="noreferrer">
+                Feedback
+              </a>
+            </div>
+          </>
+        )}
+      </div>
+
       <div className="search-box-section">
         <TextSearchBar
           inputId="query-search-input"
@@ -327,16 +362,25 @@ export function App(): JSX.Element {
             <>
               {dc !== "sdg" && searchSection}
               <div id="place-callout">
-                {chartData.place.name} • {chartData.mainTopic.name}
+                {chartData.place.name}
+                {!_.isEmpty(chartData.mainTopic) &&
+                  chartData.mainTopic.dcid != DEFAULT_TOPIC && (
+                    <span> • {chartData.mainTopic.name}</span>
+                  )}
               </div>
-              <div className="explore-topics-box">
-                <span className="explore-relevant-topics">Relevant topics</span>
-                <ItemList items={topicList}></ItemList>
-              </div>
+              {!_.isEmpty(chartData.mainTopic) && (
+                <div className="explore-topics-box">
+                  <span className="explore-relevant-topics">
+                    Relevant topics
+                  </span>
+                  <ItemList items={topicList}></ItemList>
+                </div>
+              )}
+
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${exploreMore}`;
+                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${disableExploreMore}`;
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
@@ -362,11 +406,27 @@ export function App(): JSX.Element {
               {!_.isEmpty(chartData.childPlaces) && (
                 <RelatedPlace
                   relatedPlaces={chartData.childPlaces[childPlaceType]}
-                  place={chartData.place}
                   topic={chartData.mainTopic}
                   cmpPlace={cmpPlace}
                   dc={dc}
-                  exploreMore={exploreMore}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    chartData.place.name
+                  }
+                  exploreMore={disableExploreMore}
+                ></RelatedPlace>
+              )}
+              {!_.isEmpty(chartData.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={chartData.peerPlaces}
+                  topic={chartData.mainTopic}
+                  cmpPlace={cmpPlace}
+                  dc={dc}
+                  titleSuffix={
+                    "other " + getPlaceTypePlural(chartData.place.types[0])
+                  }
+                  exploreMore={disableExploreMore}
                 ></RelatedPlace>
               )}
             </>
@@ -383,25 +443,8 @@ export function App(): JSX.Element {
   } else {
     mainSection = <></>;
   }
-  const feedbackLink = getFeedbackLink(
-    FEEDBACK_LINK,
-    query || "",
-    debugData,
-    _.isEmpty(savedContext.current)
-      ? null
-      : savedContext.current[0]["insightCtx"]
-  );
 
-  return (
-    <Container className="explore-container">
-      <div className="feedback-link">
-        <a href={feedbackLink} target="_blank" rel="noreferrer">
-          Feedback
-        </a>
-      </div>
-      {mainSection}
-    </Container>
-  );
+  return <Container className="explore-container">{mainSection}</Container>;
 }
 
 const fetchFulfillData = async (
@@ -412,7 +455,7 @@ const fetchFulfillData = async (
   cmpTopics: string[],
   dc: string,
   svgs: string[],
-  exploreMore: string
+  disableExploreMore: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -423,7 +466,7 @@ const fetchFulfillData = async (
       comparisonEntities: cmpPlaces,
       comparisonVariables: cmpTopics,
       extensionGroups: svgs,
-      exploreMore,
+      disableExploreMore,
     });
     return resp.data;
   } catch (error) {
