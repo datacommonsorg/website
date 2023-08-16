@@ -29,6 +29,7 @@ export interface Topic {
 export interface TopicConfig {
   title: string;
   description: string;
+  image: string;
   examples: {
     general: Query[];
     specific: Query[];

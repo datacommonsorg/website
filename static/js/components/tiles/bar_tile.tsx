@@ -138,7 +138,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(barChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -354,7 +354,10 @@ export function draw(
   }
 }
 
-function getExploreMoreUrl(props: BarTilePropType): string {
+function getExploreLink(props: BarTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const hash = getHash(
     VisType.TIMELINE,
     [...props.comparisonPlaces, props.place.dcid],
@@ -362,5 +365,8 @@ function getExploreMoreUrl(props: BarTilePropType): string {
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Timeline Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }

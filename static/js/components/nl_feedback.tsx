@@ -29,34 +29,34 @@ import {
 } from "../utils/nl_interface_utils";
 
 class Option {
-  content: JSX.Element;
+  icon: string;
   sentiment: string;
   tooltip: string;
 }
 
 const FEEDBACK_OPTIONS: Option[] = [
   {
-    content: <>&#128077;</>,
+    icon: "thumb_up",
     sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_UP,
     tooltip: "The chart is relevant for the query",
   },
   {
-    content: <>&#128078;</>,
+    icon: "thumb_down",
     sentiment: CHART_FEEDBACK_SENTIMENT.THUMBS_DOWN,
     tooltip: "The chart is not relevant for the query",
   },
   {
-    content: <>&#11014;</>,
+    icon: "move_up",
     sentiment: CHART_FEEDBACK_SENTIMENT.PROMOTE,
     tooltip: "The chart should be promoted up",
   },
   {
-    content: <>&#11015;</>,
+    icon: "move_down",
     sentiment: CHART_FEEDBACK_SENTIMENT.DEMOTE,
     tooltip: "The chart should be demoted",
   },
   {
-    content: <>&#129318;&#127995;</>,
+    icon: "priority_high",
     sentiment: CHART_FEEDBACK_SENTIMENT.FACE_PALM,
     tooltip: "The chart is embarrassing or inappropriate for the the query",
   },
@@ -99,13 +99,13 @@ function Emoji(props: EmojiPropType): JSX.Element {
     <>
       <div>
         <span
-          className={`feedback-emoji ${
+          className={`material-icons-outlined feedback-emoji ${
             props.saved ? "feedback-emoji-dim" : ""
           }`}
           id={`${props.id}-${props.option.sentiment}`}
           onClick={() => handleElementClick()}
         >
-          {props.option.content}
+          {props.option.icon}
         </span>
         {!props.saved && (
           <UncontrolledTooltip

@@ -132,7 +132,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(bivariateChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -357,7 +357,10 @@ function draw(
   );
 }
 
-function getExploreMoreUrl(props: BivariateTilePropType): string {
+function getExploreLink(props: BivariateTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const hash = getHash(
     VisType.SCATTER,
     [props.place.dcid],
@@ -365,5 +368,8 @@ function getExploreMoreUrl(props: BivariateTilePropType): string {
     props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
     {}
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Scatter Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }

@@ -20,6 +20,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Input } from "reactstrap";
 
 import {
   COLUMN_ID_PREFIX,
@@ -105,15 +106,12 @@ export function Block(props: BlockPropType): JSX.Element {
     <>
       {props.denom && (
         <div className="block-per-capita-toggle">
-          <span
-            className={`material-icons-outlined ${
-              useDenom ? "toggle-on" : "toggle-off"
-            }`}
-            onClick={() => setUseDenom(!useDenom)}
-          >
-            {useDenom ? "toggle_on" : "toggle_off"}
-          </span>
-          <span>Per Capita</span>
+          <Input
+            type="checkbox"
+            checked={useDenom}
+            onChange={() => setUseDenom(!useDenom)}
+          />
+          <span>See per capita</span>
         </div>
       )}
       <div className="block-body row">
