@@ -43,7 +43,7 @@
     flex-direction: column;
     flex-shrink: 0;
     height: 79px;
-    margin: 24px 0 60px 0;
+    margin: 24px 0 46px 0;
     width: 100%;
 
     .btn {
@@ -54,7 +54,7 @@
 
     .early-preview-tag {
       color: var(--gm-3-ref-secondary-secondary-30, #004a77);
-      font-family: Google Sans;
+      font-family: $font-family-sans-serif;
       font-size: 11px;
       font-style: normal;
       font-weight: 500;
@@ -104,7 +104,7 @@
           color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
           display: flex;
           flex: 1 0 0;
-          font-family: Google Sans;
+          font-family: $font-family-sans-serif;
           font-size: 16px;
           font-style: normal;
           font-weight: 400;
