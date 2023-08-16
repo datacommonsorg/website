@@ -183,45 +183,45 @@
     </main>
 
     <footer id="main-footer">
-      <div class="container">
-        {% if not is_hide_full_footer %}
+      {% if not is_hide_full_footer %}
+      <div class="container top-footer">
         <div class="row">
           <section class="col-12 col-sm-6 col-md-4">
             {# TRANSLATORS: The label for a collection of exploration tools. #}
-            <h6>{% trans %}Explore{% endtrans %}</h6>
+            <h6>{% trans %}Tools{% endtrans %}</h6>
             {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
-            <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
+            <a href="{{ url_for('place.place') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Place Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+            <a href="{{ url_for('browser.browser_main') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Graph Browser{% endtrans %}</span></a>
             {% if config['HIDE_REVAMP_CHANGES'] %}
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.timeline')}}">{% trans %}Timelines Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.timeline')}}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Timelines Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.scatter')}}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.scatter')}}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Scatter Plot Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.map')}}">{% trans %}Map Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.map')}}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Map Explorer{% endtrans %}</span></a>
             {% else %}
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=timeline"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Timelines Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=scatter"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Scatter Plot Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.visualization')}}#visType=map"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Map Explorer{% endtrans %}</span></a>
             {% endif %}
             {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
             variables. #}
-            <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
+            <a href="{{ url_for('tools.stat_var') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Statistical Variable Explorer{% endtrans %}</span></a>
             {# TRANSLATORS: The name of a tool that allows users to download data. #}
-            <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
+            <a href="{{ url_for('tools.download') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Data Download Tool{% endtrans %}</span></a>
             {# hide disaster dashboard and sustainability explorer for now #}
             {% if false %}
               {# TRANSLATORS: The name of a dashboard that shows information about
               natural disasters. #}
               {% if config['SHOW_DISASTER'] %}
-                <a href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
+                <a href="{{ url_for('disasters.disaster_dashboard') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Natural Disaster Dashboard{% endtrans %}</span></a>
               {% endif %}
               {% if config['SHOW_SUSTAINABILITY'] %}
-                <a href="{{ url_for('sustainability.sustainability_explorer') }}">{% trans %}Sustainability Explorer{% endtrans %}</a>
+                <a href="{{ url_for('sustainability.sustainability_explorer') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Sustainability Explorer{% endtrans %}</span></a>
               {% endif %}
             {% endif %}
           </section>
@@ -229,59 +229,61 @@
             {# TRANSLATORS: The label for a list of documentation links. #}
             <h6>{% trans %}Documentation{% endtrans %}</h6>
             {# TRANSLATORS: The label for a link to our documentation site. #}
-            <a href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+            <a href="http://docs.datacommons.org"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Documentation{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to our API documentation. #}
-            <a href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+            <a href="http://docs.datacommons.org/api"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}APIs{% endtrans %}</span></a>
             {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
             {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
-            {#<a href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
+            {#<a href="http://docs.datacommons.org/bigquery"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}BigQuery{% endtrans %}</span></a>#}
             {# TRANSLATORS: The label for a link to our API tutorials. #}
-            <a href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
+            <a href="http://docs.datacommons.org/tutorials"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Tutorials{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
-            <a href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
+            <a href="https://docs.datacommons.org/contributing/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Contribute{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}
-            <a href="http://github.com/datacommonsorg">{% trans %}Github Repository{% endtrans %}</a>
+            <a href="http://github.com/datacommonsorg"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Github Repository{% endtrans %}</span></a>
           </section>
           <section class="col-12 col-sm-6 col-md-4">
             {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
             <h6>{% trans %}Data Commons{% endtrans %}</h6>
             {# TRANSLATORS: The label for a link to the project's about page. #}
-            <a href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
+            <a href="{{ url_for('static.about') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}About Data Commons{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to the project's blog. #}
-            <a href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
+            <a href="https://docs.datacommons.org/blog.html"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Blog{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
-            <a href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a>
+            <a href="https://docs.datacommons.org/datasets/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Data Sources{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
-            <a href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
+            <a href="{{ url_for('static.feedback') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Feedback{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to project FAQ page. #}
-            <a href="{{ url_for('static.faq') }}">{% trans %}Frequently Asked Questions{% endtrans %}</a>
+            <a href="{{ url_for('static.faq') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Frequently Asked Questions{% endtrans %}</span></a>
           </section>
         </div>
-        {% endif %}
-        {% if not is_hide_sub_footer %}
-        <div class="row">
-          <div id="sub-footer" class="col-12">
-            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-            {# TRANSLATORS: The label for the Google branding byline. #}
-            <span class="brand-byline"><span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
+      </div>
+      {% endif %}
+      {% if not is_hide_sub_footer %}
+      <div id="sub-footer">
+        <div class="container">
+          <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
+          {# TRANSLATORS: The label for the Google branding byline. #}
+          <span class="brand-byline">
+            <span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
             {% if brand_logo_light %}
-            <img class="brand-logo" src="/images/google-logo-reverse.svg" /></span>
+            <img class="brand-logo" src="/images/google-logo-reverse.svg" />
             {% else %}
-            <img class="brand-logo" src="/images/google-logo.svg" /></span>
+            <img class="brand-logo" src="/images/google-logo.svg" />
             {% endif %}
-            <div class="float-md-right mt-3 mt-md-0">
-              {% block subfooter_extra %}{% endblock %}
-              {# TRANSLATORS: The label for a link to site terms and conditions. #}
-              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site privacy policy. #}
-              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site disclaimers. #}
-              <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
-            </div>
+          </span>
+          <div class="sub-footer-links">
+            {% block subfooter_extra %}{% endblock %}
+            {# TRANSLATORS: The label for a link to site terms and conditions. #}
+            <a href="https://policies.google.com/terms"><span>{% trans %}Terms and Conditions{% endtrans %}</span></a>
+            {# TRANSLATORS: The label for a link to site privacy policy. #}
+            <a href="https://policies.google.com/privacy?hl=en-US"><span>{% trans %}Privacy Policy{% endtrans %}</span></a>
+            {# TRANSLATORS: The label for a link to site disclaimers. #}
+            <a href="{{ url_for('static.disclaimers') }}"><span>{% trans %}Disclaimers{% endtrans %}</span></a>
           </div>
         </div>
-        {% endif %}
       </div>
+      {% endif %}
     </footer>
   </div>
   {# Compile this down (or manually implement). Used only for nav bar so far #}

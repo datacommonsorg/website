@@ -18,7 +18,7 @@
  {% set main_id = 'homepage' %}
  {% set page_id = 'page-homepage' %}
  {% set title = 'Home' %}
- {% set brand_logo_light = true %}
+ {% set brand_logo_light = false %}
 
  {% macro external_icon() -%}
  <svg class="icon"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="12px" fill="#660000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
@@ -32,7 +32,7 @@
 
  {% block content %}
  <section id="homepage-top">
-  <div class="container">
+  <div class="container-xl">
     <div class="header">Data tells interesting stories</div>
     <div class="sub-header">
       Data Commons, an initiative from Google, organizes the world’s publicly available data and makes it more accessible and useful.
@@ -92,34 +92,35 @@
 
 <section>
   <div class="container">
-    <h2>Our Partners</h2>
-    <div id="partners-container" data-items="{{ partners }}"></div>
+    <div class="learn-more">
+      <img class="learn-more-image" src="/images/learn-more.svg" />
+      <div class="learn-more-content">
+        <h3>Learn More</h3>
+        <p>Data forms the foundation of science, policy, and journalism, but its full potential is often limited. Data Commons addresses this by offering cloud-based APIs to access and integrate cleaned datasets, boosting their usability across different domains.</p>
+        <div class="learn-more-links">
+          <a href="{{ url_for('static.about') }}" ><span class="material-icons-outlined">arrow_forward</span><span>About Data Commons</span></a>
+          <a href="https://docs.datacommons.org/tutorials/" ><span class="material-icons-outlined">arrow_forward</span><span>Tutorials</span></a>
+          <a href="https://docs.datacommons.org/" ><span class="material-icons-outlined">arrow_forward</span><span>Documentation</span></a>
+          <a href="https://docs.datacommons.org/api/" ><span class="material-icons-outlined">arrow_forward</span><span>API</span></a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section>
   <div class="container">
-    <h2>Learn More</h2>
-    <div class="interact-buttons-container">
-        <a href="http://docs.datacommons.org" class="interact-button">
-            <span>Documentation</span>
-            <div><span class="material-icons-outlined">menu_book</span></div>
-        </a>
-        <a href="http://docs.datacommons.org/api" class="interact-button">
-            <span>API</span>
-            <div><span class="material-icons-outlined">swap_horiz</span></div>
-        </a>
-        <a href="http://docs.datacommons.org/tutorials" class="interact-button">
-            <span>Tutorials</span>
-            <div><span class="material-icons-outlined">school</span></div>
-        </a>
-        <a href="{{ url_for('static.about') }}" class="interact-button">
-            <span>About</span>
-            <div><span class="material-icons-outlined">contact_support</span></div>
-      </a>
+    <div class="partners">
+      <h3>Our Partners</h2>
+      <div class="partner-items">
+        {% for partner in partners_list %}
+          <a href="{{ partner['url'] }}" title="{{ partner['title'] }}" target="_blank" rel="noopener noreferrer">
+            <img src="{{ partner['imgUrl']}}" />
+          </a>
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
-
 
  {% endblock %}

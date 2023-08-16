@@ -15,6 +15,7 @@
  */
 
 $dc-primary-color: #467bd5;
+$full-footer-bg: #fafcff;
 
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
@@ -29,7 +30,7 @@ $dc-primary-color: #467bd5;
   // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #{$dc-primary-color};
-  --footer-bg: #f0f0f0;
+  --footer-bg: #f5f9fe;
 }
 
 /** Bootstrap overrides **/
@@ -48,14 +49,14 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1600px,
+  xl: 1350px,
 );
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1500px,
+  xl: 1310px,
 );
 
 $hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%),
@@ -74,6 +75,10 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 
 #main-nav {
   padding: 0.75rem 0.25rem;
+  > .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 #main-nav .navbar-brand {
@@ -195,11 +200,13 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 #main-footer {
-  background: var(--footer-bg);
-  margin-top: 3rem;
-  padding-top: 3rem;
+  background: $full-footer-bg;
+  padding-top: 75px;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh var(--footer-bg);
+  box-shadow: 0 50vh 0 50vh var($full-footer-bg);
+  .top-footer {
+    padding-bottom: 30px;
+  }
 }
 
 #main-footer,
@@ -208,13 +215,22 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 #main-footer #sub-footer {
+  align-items: space-between;
+  background: var(--footer-bg);
   border-top: 1px solid $gray-300;
-  padding-top: 1.5rem;
-  padding-bottom: 3rem;
+  display: flex;
+  flex-direction: row;
+  padding: 26px 0;
   line-height: 2.5rem;
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }
 
 .brand-byline {
+  color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
   .brand-text {
     font-size: 0.75em;
     font-weight: 400;
@@ -226,6 +242,18 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     margin-left: 0.3em;
     margin-top: -0.2em;
     height: 1.4em;
+  }
+}
+
+#sub-footer .sub-footer-links {
+  display: flex;
+  flex-direction: row;
+  a {
+    color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
   }
 }
 

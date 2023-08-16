@@ -19,20 +19,43 @@
 @import "base";
 
 $color-font-dark: #3c4043;
+$tool-card-width: 400px;
+$tool-card-hgap: 20px;
+$tool-card-vgap: 24px;
 
 .main-content {
   margin: 0 0 3rem 0;
 }
 
 #main-footer {
-  background-color: #467bd5;
-}
-
-#main-footer {
-  color: white;
-
+  color: var(--gm-3-ref-neutral-neutral-20, #303030);
+  h6 {
+    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    font-family: $headings-font-family;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+  }
   a {
-    color: white;
+    align-items: center;
+    color: var(--gm-3-sys-light-primary, #0b57d0);
+    display: flex !important;
+    flex-direction: row;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 10px 0px;
+    .material-icons-outlined {
+      font-size: 12px;
+      margin-right: 8px;
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: none;
+      span:last-child {
+        text-decoration: underline;
+      }
+    }
   }
 }
 
@@ -159,15 +182,16 @@ $color-font-dark: #3c4043;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 24px 20px;
+  gap: $tool-card-hgap $tool-card-vgap;
   justify-content: center;
+  margin: 0 16px;
 
   .topic-card {
     color: var(--gm-3-ref-neutral-neutral-20, #303030);
     border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
     border-radius: 12px;
     display: flex;
-    width: 400px;
+    width: $tool-card-width;
 
     .topic-card-body {
       display: flex;
@@ -336,9 +360,9 @@ $color-font-dark: #3c4043;
       display: flex;
       flex-direction: column;
       flex-grow: 0;
-      height: 135px;
+      height: 114px;
       justify-content: center;
-      width: 155px;
+      width: 135px;
       &:hover {
         box-shadow: $hover-box-shadow;
       }
@@ -347,25 +371,104 @@ $color-font-dark: #3c4043;
       }
       span {
         color: var(--gm-3-ref-neutral-neutral-20, #303030);
-        font-size: 16px;
-        padding: 8px;
+        font-size: 14px;
+        padding: 0px;
       }
     }
   }
 }
 
 // Styling for the learn more section
-#homepage .interact-buttons-container {
-  padding: 0 2.5rem;
+#homepage section .learn-more {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  margin: 70px 0;
 
-  a.interact-button {
-    padding: 24px;
-    flex-shrink: 0;
+  @include media-breakpoint-up(md) {
+    flex-wrap: nowrap;
+  }
 
-    .material-icons-outlined {
-      font-size: 40px;
+  img.learn-more-image {
+    width: 300px;
+    margin: 0 auto;
+
+    @include media-breakpoint-up(md) {
+      margin: 0 56px 0 0;
+      width: 210px;
+    }
+    @include media-breakpoint-up(lg) {
+      width: 300px;
+    }
+  }
+
+  .learn-more-content {
+    h3 {
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      font-family: $headings-font-family;
+      font-size: 32px;
       font-weight: 400;
-      margin-top: 0.5rem;
+      line-height: 40px;
+      margin-bottom: 24px;
+    }
+
+    p {
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 24px;
+      margin-bottom: 18px;
+    }
+    .learn-more-links {
+      display: grid;
+      max-width: 600px;
+      margin-bottom: 16px;
+      grid-template-columns: 230px;
+      @include media-breakpoint-up(md) {
+        grid-template-columns: repeat(2, 230px);
+      }
+      gap: 8px;
+      a {
+        align-items: center;
+        color: var(--gm-3-sys-light-primary, #0b57d0);
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+        font-weight: 500;
+        gap: 8px;
+        line-height: 20px;
+        padding: 10px 12px;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Styling for the learn more section
+#homepage section .partners {
+  display: flex;
+  flex-direction: column;
+  margin: 70px 0;
+
+  h3 {
+    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    font-family: $headings-font-family;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 40px;
+    margin-bottom: 48px;
+  }
+
+  .partner-items {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: space-between;
+    max-width: 100%;
+    overflow: auto;
+    img {
+      width: 120px;
+      height: 120px;
     }
   }
 }

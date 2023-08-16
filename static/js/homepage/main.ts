@@ -18,24 +18,4 @@
  * Entrypoint file for homepage.
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
-import { Carousel } from "./carousel";
-
-window.onload = () => {
-  renderPage();
-};
-
-function renderPage(): void {
-  const partnerItems = JSON.parse(
-    document.getElementById("partners-container").dataset.items
-  );
-  // Render the carousel for the partners section
-  ReactDOM.render(
-    React.createElement(Carousel, {
-      items: partnerItems,
-    }),
-    document.getElementById("partners-container")
-  );
-}
+window.onload = () => {};
