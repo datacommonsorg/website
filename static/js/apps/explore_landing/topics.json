@@ -12,7 +12,6 @@
     "equity": {
       "title": "Equity",
       "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Economic Equity",
@@ -31,6 +30,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/JusticeSystemEquity&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-equity.svg",
       "examples": {
         "general": [
           {
@@ -109,7 +109,6 @@
     "economics": {
       "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Businesses",
@@ -140,6 +139,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Agriculture&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-economics.svg",
       "examples": {
         "general": [
           {
@@ -272,7 +272,6 @@
     "health": {
       "title": "Health",
       "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Health Conditions",
@@ -295,6 +294,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/PreventativeHealthAndBehavior&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-health.svg",
       "examples": {
         "general": [
           {
@@ -441,7 +441,6 @@
     "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Educational Attainment",
@@ -464,6 +463,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/WorkCommute&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-education.svg",
       "examples": {
         "general": [
           {
@@ -580,7 +580,6 @@
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Age",
@@ -607,6 +606,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/Nationality&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-demographics.svg",
       "examples": {
         "general": [
           {
@@ -733,7 +733,6 @@
     "sustainability": {
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
-      "image": "/images/topics/health.svg",
       "subTopics": [
         {
           "title": "Emissions",
@@ -776,6 +775,7 @@
           "url": "https://autopush.datacommons.org/explore/#t=dc/topic/ProductionConsumptionandWaste&p=country/USA&pcmp=&pt=&dc=&em="
         }
       ],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
@@ -881,8 +881,8 @@
     "sdg": {
       "title": "Sustainability Development Goals",
       "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
-      "image": "/images/topics/health.svg",
       "subTopics": [],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
