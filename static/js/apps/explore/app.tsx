@@ -36,6 +36,7 @@ import {
 import { NamedTypedNode } from "../../shared/types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import { getPlaceTypePlural } from "../../utils/string_utils";
 import { updateHash } from "../../utils/url_utils";
 import { Item, ItemList } from "./item_list";
 import { RelatedPlace } from "./related_place";
@@ -230,6 +231,7 @@ export function App(): JSX.Element {
         },
         pageConfig: resp["config"],
         childPlaces: resp["relatedThings"]["childPlaces"],
+        peerPlaces: resp["relatedThings"]["peerPlaces"],
         parentPlaces: resp["relatedThings"]["parentPlaces"],
         parentTopics: resp["relatedThings"]["parentTopics"],
         childTopics: resp["relatedThings"]["childTopics"],
@@ -389,10 +391,26 @@ export function App(): JSX.Element {
               {!_.isEmpty(chartData.childPlaces) && (
                 <RelatedPlace
                   relatedPlaces={chartData.childPlaces[childPlaceType]}
-                  place={chartData.place}
                   topic={chartData.mainTopic}
                   cmpPlace={cmpPlace}
                   dc={dc}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    chartData.place.name
+                  }
+                  exploreMore={disableExploreMore}
+                ></RelatedPlace>
+              )}
+              {!_.isEmpty(chartData.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={chartData.peerPlaces}
+                  topic={chartData.mainTopic}
+                  cmpPlace={cmpPlace}
+                  dc={dc}
+                  titleSuffix={
+                    "other " + getPlaceTypePlural(chartData.place.types[0])
+                  }
                   exploreMore={disableExploreMore}
                 ></RelatedPlace>
               )}

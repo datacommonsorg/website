@@ -53,7 +53,6 @@ const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 // TODO (juliawu): Refactor the "optional" specs into BarTileSpec. This will
 //                 also allow BarTilePropType to match the structure of the
