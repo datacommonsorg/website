@@ -20,14 +20,14 @@
     line-height: 24px;
     font-size: 14px;
     font-weight: 500;
-    color: #0b57d0;
+    color: var(--gm-3-sys-light-primary);
     margin-left: -12px;
     .item-list-item {
       display: inline-block;
 
       &:before {
         content: "•";
-        color: #5e5e5e;
+        color: var(--gm-3-ref-neutral-neutral-40);
         display: inline-block;
         width: 8px;
       }
