@@ -161,6 +161,40 @@
     }
   }
 
+  // TODO: Dedupe these styles. They are for the ItemList component and are currently duplicated from explore.scss.
+  .explore-topics-box {
+    display: flex;
+
+    .explore-relevant-topics {
+      min-width: 120px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: #1f1f1f;
+      opacity: 0.38;
+    }
+  }
+
+  .explore-item-list {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0b57d0;
+    margin-left: -12px;
+
+    .explore-item-box {
+      display: inline-block;
+    }
+
+    .item-list-text {
+      padding: 10px 12px;
+      line-height: 20px;
+    }
+
+    .item-list-text:hover {
+      cursor: pointer;
+    }
+  }
+
 
 
   .topic-queries {
