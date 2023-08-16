@@ -391,7 +391,15 @@ export function App(): JSX.Element {
               {!_.isEmpty(chartData.childPlaces) && (
                 <RelatedPlace
                   relatedPlaces={chartData.childPlaces[childPlaceType]}
-                  topic={chartData.mainTopic}
+                  topic={
+                    _.isEmpty(chartData.mainTopic)
+                      ? {
+                          dcid: topic,
+                          name: "",
+                          types: null,
+                        }
+                      : chartData.mainTopic
+                  }
                   cmpPlace={cmpPlace}
                   dc={dc}
                   titleSuffix={
@@ -405,7 +413,15 @@ export function App(): JSX.Element {
               {!_.isEmpty(chartData.peerPlaces) && (
                 <RelatedPlace
                   relatedPlaces={chartData.peerPlaces}
-                  topic={chartData.mainTopic}
+                  topic={
+                    _.isEmpty(chartData.mainTopic)
+                      ? {
+                          dcid: topic,
+                          name: "",
+                          types: null,
+                        }
+                      : chartData.mainTopic
+                  }
                   cmpPlace={cmpPlace}
                   dc={dc}
                   titleSuffix={
