@@ -239,7 +239,7 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   // Track original order of stat vars in props, to maintain 1:1 pairing of
-  // colors to stat vars event after sorting
+  // colors to stat vars even after sorting
   const statVarOrder: string[] = [];
 
   let unit = "";
