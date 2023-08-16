@@ -240,6 +240,10 @@ export function App(): JSX.Element {
             category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${exploreMore}`;
           }
         }
+        if (!query && chartData.mainTopic?.name && chartData.place.name) {
+          const q = `${chartData.mainTopic.name} in ${chartData.place.name}`;
+          setQuery(q);
+        }
       }
       savedContext.current = resp["context"] || [];
       setLoadingStatus("loaded");
