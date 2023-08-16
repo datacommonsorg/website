@@ -257,12 +257,16 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
     }
     seenSourceDomains.add(domain);
     return (
-      <span key={processedSource}>
+      <span key={processedSource} {...{ part: "source" }}>
         {index > 0 ? ", " : ""}
         <a href={processedSource}>{domain}</a>
         {globalThis.viaGoogle ? " via Google" : ""}
       </span>
     );
   });
-  return <div className="sources">Source: {sourcesJsx}</div>;
+  return (
+    <div className="sources" {...{ part: "source" }}>
+      Source: {sourcesJsx}
+    </div>
+  );
 }
