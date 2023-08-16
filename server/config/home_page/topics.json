@@ -20,7 +20,7 @@
   {
     "id": "health",
     "title": "Health",
-    "description": "Explore Health Conditions, Health Equity, Helath Insurance, Mortality, and more.",
+    "description": "Explore Health Conditions, Health Equity, Health Insurance, Mortality, and more.",
     "url": "/nl#topic=health",
     "browseUrl": "/explore/health",
     "icon": "area_chart",
@@ -47,7 +47,7 @@
   {
     "id": "equity",
     "title": "Equity",
-    "description": "Explore Economic Equity, Education Equity, Health Equity, Justice Equity and more.",
+    "description": "Explore Economic Equity, Education Equity, Health Equity, Justice System Equity and more.",
     "url": "/nl#topic=equity",
     "browseUrl": "/explore/equity",
     "icon": "public",
