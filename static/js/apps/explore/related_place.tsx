@@ -22,11 +22,11 @@ import { Item, ItemList } from "./item_list";
 
 interface RelatedPlacePropsType {
   relatedPlaces: NamedTypedNode[];
-  place: NamedTypedNode;
   topic: NamedTypedNode;
   cmpPlace: string;
   dc: string;
   exploreMore: string;
+  titleSuffix: string;
 }
 
 const buildPlaceList = (
@@ -59,7 +59,11 @@ export function RelatedPlace(props: RelatedPlacePropsType): JSX.Element {
   );
   return (
     <div className="related-places">
-      <div className="related-places-callout">See {props.topic.name} in</div>
+      <div className="related-places-callout">
+        <span>See </span>
+        {props.topic.name && <span>{props.topic.name.toLowerCase()} of </span>}
+        {props.titleSuffix}
+      </div>
       <ItemList items={placeList}></ItemList>
     </div>
   );

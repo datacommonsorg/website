@@ -122,7 +122,7 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
             return (
               <div key={spec.statVar} className="explore-more-box">
                 <span className="explore-more-prompt">
-                  Explore {spec.name} by: &nbsp;
+                  Explore {spec.name.toLowerCase()} by: &nbsp;
                 </span>
                 <ItemList
                   items={buildExploreItems(
