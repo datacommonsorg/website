@@ -29,6 +29,7 @@ import server.lib.nl.fulfillment.types as ftypes
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
+                 ext_chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
                  env_config: builder.Config) -> ConfigResp:
   # Get names of all SVs
@@ -50,13 +51,20 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
     if i == 0 or prev_topic != chart_vars.source_topic:
       title = ''
       dcid = ''
+      description = ''
       if chart_vars.title:
         title = chart_vars.title
       elif chart_vars.source_topic:
         title = sv2thing.name.get(chart_vars.source_topic, '')
+        description = sv2thing.description.get(chart_vars.source_topic, '')
         dcid = chart_vars.source_topic
-      builder.new_category(title, dcid)
+      builder.new_category(title, dcid, description)
       prev_topic = chart_vars.source_topic
+    _add_charts(chart_vars, state, builder)
+
+  if ext_chart_vars_list:
+    builder.new_category('More Related Charts', '')
+  for chart_vars in ext_chart_vars_list:
     _add_charts(chart_vars, state, builder)
 
   builder.cleanup_config()
@@ -75,7 +83,16 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   enable_pc = builder.enable_pc(chart_vars)
   if builder.is_var_comparison:
-    builder.new_block(title='', enable_pc=enable_pc)
+    description = ''
+    footnote = ''
+    if len(chart_vars.svs) == 1:
+      sv = chart_vars.svs[0]
+      description = builder.sv2thing.description.get(sv, '')
+      footnote = builder.sv2thing.footnote.get(sv, '')
+    builder.new_block(title='',
+                      description=description,
+                      enable_pc=enable_pc,
+                      footnote=footnote)
     sv_spec.update(var_correlation.add_chart(chart_vars, state, builder))
     builder.update_sv_spec(sv_spec)
     return
@@ -85,17 +102,29 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     # They should not be compared.
     for sv in chart_vars.svs:
       builder.new_block(title=builder.sv2thing.name.get(sv),
-                        enable_pc=enable_pc)
+                        description=builder.sv2thing.description.get(sv),
+                        enable_pc=enable_pc,
+                        footnote=builder.sv2thing.footnote.get(sv))
       if builder.is_place_comparison:
         sv_spec.update(place_comparison.add_sv(sv, chart_vars, state, builder))
       else:
         sv_spec.update(
             default_main.add_sv(sv, chart_vars, state, builder, enable_pc))
   else:
+    description = ''
+    footnote = ''
     if not chart_vars.title and chart_vars.svpg_id:
       # If there was an SVPG, we may not have gotten its name before, so get it now.
       chart_vars.title = builder.sv2thing.name.get(chart_vars.svpg_id, '')
-    builder.new_block(title=chart_vars.title, enable_pc=enable_pc)
+      description = builder.sv2thing.description.get(chart_vars.svpg_id, '')
+      footnote = builder.sv2thing.footnote.get(chart_vars.svpg_id, '')
+    if not chart_vars.title and chart_vars.svs and builder.sv2thing.name.get(
+        chart_vars.svs[0]):
+      chart_vars.title = builder.sv2thing.name[chart_vars.svs[0]] + ' and more'
+    builder.new_block(title=chart_vars.title,
+                      description=description,
+                      enable_pc=enable_pc,
+                      footnote=footnote)
     if builder.is_place_comparison:
       sv_spec.update(place_comparison.add_svpg(chart_vars, state, builder))
     else:

@@ -34,7 +34,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Females In Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Women below Poverty Line Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -120,7 +120,7 @@
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
             "denom": "Count_Person",
-            "name": "Females In Poverty (in last year) Per Capita",
+            "name": "Women below Poverty Line Per Capita",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
             "unit": "%"
           },
@@ -145,11 +145,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

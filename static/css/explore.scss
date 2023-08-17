@@ -19,6 +19,7 @@
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
+@import "./shared/item_list";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 @import "./nl_interface";
@@ -45,11 +46,33 @@
   }
 }
 
+#explore-more-section {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-top: 24px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+
+  .explore-more-box {
+    display: flex;
+  }
+  .explore-more-prompt {
+    line-height: 24px;
+  }
+}
+
 .search-section {
   align-items: center;
   display: flex;
-  flex-direction: row;
-  margin: 20px 0;
+  flex-direction: column;
+  flex-shrink: 0;
+  height: 79px;
+  margin: 24px 0 44px 0;
+  width: 100%;
 
   .btn {
     height: 2.5rem;
@@ -57,17 +80,44 @@
     border-bottom-left-radius: 0;
   }
 
-  .experiment-tag {
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 3px;
-    color: var(--blue);
+  .search-bar-tags {
     display: flex;
-    float: left;
-    font: normal 0.85em monospace;
-    padding: 4px 6px;
-    height: 80%;
-    margin-right: 20px;
+    flex-direction: row;
+
+    color: var(--gm-3-ref-secondary-secondary-30);
+    font-family: $font-family-sans-serif;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    line-height: 16px;
+    margin-bottom: 6px;
+    margin-left: auto;
+    margin-right: 37.93px;
+
+    .early-preview-tag {
+      text-align: right;
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+
+    .feedback-link {
+      background-color: transparent;
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        text-transform: capitalize;
+        color: var(--gm-3-ref-secondary-secondary-30);
+        font-family: $font-family-sans-serif;
+        font-size: 11px;
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: 0.1px;
+        line-height: 16px;
+        margin-left: 8px;
+      }
+    }
   }
 
   .history-button {
@@ -76,6 +126,61 @@
 
   .search-box-section {
     width: 100%;
+  }
+
+  .search-bar {
+    align-items: center;
+    background: var(--gm-3-ref-secondary-secondary-99);
+    border-radius: 28px;
+    border: var(--border-primary);
+    display: flex;
+    flex-shrink: 0;
+    gap: 4px;
+    height: 56px;
+    margin: 1px;
+    padding: 0px;
+    width: 100%;
+
+    .search-bar-content {
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      flex-shrink: 0;
+      gap: 4px;
+      height: 100%;
+      padding: 4px 8px 4px 24px;
+      width: 100%;
+
+      #rich-search-button {
+        cursor: pointer;
+        flex-shrink: 0;
+        height: 42px;
+        width: 42px;
+      }
+
+      .search-input-text {
+        align-items: center;
+        align-self: stretch;
+        background: transparent;
+        border: none;
+        color: var(--gm-3-ref-neutral-neutral-40);
+        display: flex;
+        flex: 1 0 0;
+        font-family: $font-family-sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        gap: 10px;
+        height: 48px;
+        line-height: 24px;
+        padding: 0px;
+      }
+
+      .search-input-text:focus {
+        // Overwrite default focus
+        box-shadow: none !important;
+      }
+    }
   }
 }
 
@@ -148,8 +253,11 @@
 }
 
 #place-callout {
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--gm-3-ref-neutral-neutral-20);
+  padding-bottom: 16px;
 }
 
 .topic-item {
@@ -169,25 +277,29 @@
   color: var(--dc-gray);
 }
 
-.nav-item.highlight {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
+.explore-topics-box {
+  display: flex;
+  .explore-relevant-topics {
+    min-width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: rgb(94, 94, 94);
+  }
 }
 
-.feedback-link {
-  background-color: transparent;
-  display: flex;
-  justify-content: flex-end;
-  min-height: 1rem;
-  margin-top: 5px;
-  margin-bottom: -5px;
+.related-places {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-bottom: 24px;
 
-  a {
-    color: $feedback-link-font-color;
-    font-style: italic;
-    text-align: right;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bolder;
+  .related-places-callout {
+    margin-bottom: 16px;
   }
+}
+
+.chart-container.map-chart {
+  flex-grow: 1;
 }

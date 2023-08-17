@@ -146,6 +146,8 @@ export interface ChartOptions {
   lollipop?: boolean;
   // whether to draw tooltips on hover
   showTooltipOnHover?: boolean;
+  // list of stat var DCIDs, in the order the colors should be applied
+  statVarColorOrder?: string[];
   unit?: string;
 }
 

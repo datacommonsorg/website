@@ -38,8 +38,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
-import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
+import server.lib.nl.fulfillment.utils as futils
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
@@ -146,7 +146,8 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   cb_config = config_builder.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-      nopc_vars=current_app.config['NOPC_VARS'])
+      nopc_vars=current_app.config['NOPC_VARS'],
+      sdg_percent_vars=set())
 
   start = time.time()
   utterance = fulfillment.fulfill(utterance)
@@ -214,7 +215,7 @@ def prepare_response(data_dict: Dict, status_str: str, detection: Detection,
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
-    session_info = context.get_session_info(data_dict['context'], has_data)
+    session_info = futils.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
     loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 

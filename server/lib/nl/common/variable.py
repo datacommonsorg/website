@@ -35,10 +35,12 @@ EXTENSION_SV_POST_EXISTENCE_CHECK_LIMIT = 15
 
 @dataclass
 class SV:
+  id: str
   mp: str = ''
   st: str = ''
   pt: str = ''
   md: str = ''
+  mq: str = ''
   pvs: Dict[str, str] = field(default_factory=dict)
 
 
@@ -49,8 +51,10 @@ class SVG:
   p: str = ''
 
 
-def parse_sv(sv_definition: str) -> SV:
-  res = SV()
+def parse_sv(id: str, sv_definition: str) -> SV:
+  res = SV(id=id)
+  if not sv_definition:
+    return res
   parts = sv_definition.split(",")
   for part in parts:
     k, v = part.split("=")
@@ -62,6 +66,8 @@ def parse_sv(sv_definition: str) -> SV:
       res.st = v
     elif k == "md":
       res.md = v
+    elif k == "mq":
+      res.mq = v
     else:
       res.pvs[k] = v
   return res
@@ -89,7 +95,7 @@ def parse_svg(svg_dcid: str) -> SVG:
 def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   if 'definition' not in new_sv:
     return False
-  new_sv_obj = parse_sv(new_sv['definition'])
+  new_sv_obj = parse_sv(new_sv['id'], new_sv['definition'])
   if new_sv_obj.mp != sv_obj.mp:
     return False
   if new_sv_obj.st != sv_obj.st:
@@ -97,6 +103,8 @@ def _is_compatible(sv_obj: SV, new_sv: Dict) -> bool:
   if new_sv_obj.pt != sv_obj.pt:
     return False
   if new_sv_obj.md != sv_obj.md:
+    return False
+  if new_sv_obj.mq != sv_obj.mq:
     return False
   if len(new_sv_obj.pvs) != len(sv_obj.pvs):
     return False
@@ -158,7 +166,7 @@ def extend_svs(svs: List[str]):
     for child_sv in svg2childsvs[svg]:
       if child_sv['id'] == sv:
         if 'definition' in child_sv:
-          sv_obj = parse_sv(child_sv['definition'])
+          sv_obj = parse_sv(child_sv['id'], child_sv['definition'])
         break
     if not sv_obj:
       continue
@@ -244,12 +252,16 @@ def get_sv_unit(all_svs: List[str]) -> Dict:
 
 
 def get_sv_description(all_svs: List[str]) -> Dict:
+  sv2desc_dc = fetch.property_values(all_svs, 'description')
+  sv2desc_dc = {sv: desc[0] if desc else '' for sv, desc in sv2desc_dc.items()}
   sv_desc_map = {}
   for sv in all_svs:
-    if sv in topic.SVPG_DESC_OVERRIDE:
-      sv_desc_map[sv] = topic.SVPG_DESC_OVERRIDE[sv]
-    else:
+    if sv in topic.TOPIC_AND_SVPG_DESC_OVERRIDE:
+      sv_desc_map[sv] = topic.TOPIC_AND_SVPG_DESC_OVERRIDE[sv]
+    elif sv in constants.SV_DISPLAY_DESCRIPTION_OVERRIDE:
       sv_desc_map[sv] = constants.SV_DISPLAY_DESCRIPTION_OVERRIDE.get(sv, '')
+    else:
+      sv_desc_map[sv] = sv2desc_dc[sv]
   return sv_desc_map
 
 

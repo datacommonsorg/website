@@ -414,12 +414,12 @@
             "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
+            "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Population 5 Years or More, Language Other Than English, Below Poverty Level in Past 12 Months",
+            "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
@@ -540,12 +540,12 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Females In Poverty (in last year)",
+            "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Females In Poverty (in last year)",
+            "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {

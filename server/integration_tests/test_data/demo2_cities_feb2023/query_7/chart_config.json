@@ -228,7 +228,7 @@
                       "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block",
                       "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block"
                     ],
-                    "title": "Middle School Students compared with other variables in Sunnyvale (${date})",
+                    "title": "Middle School Students and more in Sunnyvale (${date})",
                     "type": "BAR"
                   },
                   {
@@ -253,7 +253,7 @@
                       "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block_pc",
                       "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Middle School Students compared with other variables in Sunnyvale (${date})",
+                    "title": "Per Capita Middle School Students and more in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -279,7 +279,7 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Population: Middle School, Some Other Race Alone compared with other variables in Sunnyvale (${date})",
+                    "title": "Population: Middle School, Some Other Race Alone and more in Sunnyvale (${date})",
                     "type": "BAR"
                   },
                   {
@@ -297,7 +297,7 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block_pc",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block_pc"
                     ],
-                    "title": "Per Capita Population: Middle School, Some Other Race Alone compared with other variables in Sunnyvale (${date})",
+                    "title": "Per Capita Population: Middle School, Some Other Race Alone and more in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -313,7 +313,7 @@
                       "Count_Person_EnrolledInSchool",
                       "Count_Person_NotEnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled in School compared with other variables in Sunnyvale",
+                    "title": "Population Currently Enrolled in School and more in Sunnyvale",
                     "type": "LINE"
                   },
                   {
@@ -321,7 +321,7 @@
                       "Count_Person_EnrolledInSchool_pc",
                       "Count_Person_NotEnrolledInSchool_pc"
                     ],
-                    "title": "Per Capita Population Currently Enrolled in School compared with other variables in Sunnyvale",
+                    "title": "Per Capita Population Currently Enrolled in School and more in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -634,22 +634,6 @@
       "placeDcid": [
         "geoId/0677000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population: 11th Grade",
-            "nlQuery": "Population: 11th Grade Sunnyvale"
-          },
-          {
-            "displayName": "Population: 7th And 8th Grade",
-            "nlQuery": "Population: 7th And 8th Grade Sunnyvale"
-          }
-        ]
-      }
     }
   },
   "context": {},
@@ -662,5 +646,5 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "svSource": "UNFULFILLED"
 }

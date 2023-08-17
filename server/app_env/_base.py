@@ -60,10 +60,14 @@ class Config:
   NEW_STAT_VARS = []
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
-  LOGO_PATH = ''
+  LOGO_PATH = '/images/dc-logo.svg'
   # If set, will be included on all pages, after base DC css as verbatim
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
   OVERRIDE_CSS_PATH = ''
   # Hide changes made for the website revamp.
   HIDE_REVAMP_CHANGES = False
+  # The dcid of the special data source to show as top level category in the hierarchy
+  DATA_SOURCE_DCID = ''
+  # The name of the special data source to show as top level category in the hierarchy
+  DATA_SOURCE_NAME = ''

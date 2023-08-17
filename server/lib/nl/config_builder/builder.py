@@ -26,7 +26,6 @@ from server.lib.nl.config_builder import event
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
-from server.lib.nl.config_builder import suggestions
 from server.lib.nl.config_builder import timeline
 
 
@@ -36,6 +35,7 @@ class Config:
   event_config: SubjectPageConfig
   sv_chart_titles: Dict
   nopc_vars: Set[str]
+  sdg_percent_vars: Set[str]
 
 
 #
@@ -49,7 +49,6 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   all_svs = set()
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
-  all_svs.update(uttr.extra_success_svs)
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = base.SV2Thing(
@@ -155,5 +154,4 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  suggestions.add(uttr, sv2thing, builder.page_config)
   return builder.page_config

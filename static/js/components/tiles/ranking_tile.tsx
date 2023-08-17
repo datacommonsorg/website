@@ -150,10 +150,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               apiRoot={props.apiRoot}
               hideFooter={props.hideFooter}
               onHoverToggled={props.onHoverToggled}
+              tileId={props.id}
             />
           );
         })}
-      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()} className="scatter-spinner">

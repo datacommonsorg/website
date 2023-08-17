@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { Layout } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../state";
+import { WEB_API_ENDPOINT } from "../../utils/constants";
 
 const InnerContent = styled.div`
   margin: 0;
@@ -40,6 +42,7 @@ const DataCommonsChart: React.FC<{
     <div>
       {/**@ts-ignore */}
       <datacommons-bar
+        apiRoot={WEB_API_ENDPOINT}
         childPlaceType="Country"
         sort="descending"
         maxPlaces={10}
@@ -100,15 +103,22 @@ const GoalContent: React.FC<{
     );
   }
   return (
-    <Layout.Content>
-      <InnerContent>
-        <h2>{selectedVariableGroup.name}</h2>
-        {chartConfigs &&
-          chartConfigs.map((config, i) => (
-            <DataCommonsChart config={config} key={i} />
-          ))}
-      </InnerContent>
-    </Layout.Content>
+    <Layout style={{ padding: "0 24px 24px", overflow: "auto" }}>
+      <Breadcrumb style={{ margin: "16px 0" }}>
+        <Breadcrumb.Item>
+          <Link to="/goals">Goals</Link>
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <Layout.Content>
+        <InnerContent>
+          <h2>{selectedVariableGroup.name}</h2>
+          {chartConfigs &&
+            chartConfigs.map((config, i) => (
+              <DataCommonsChart config={config} key={i} />
+            ))}
+        </InnerContent>
+      </Layout.Content>
+    </Layout>
   );
 };
 

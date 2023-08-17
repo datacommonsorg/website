@@ -53,8 +53,10 @@ const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
+// TODO (juliawu): Refactor the "optional" specs into BarTileSpec. This will
+//                 also allow BarTilePropType to match the structure of the
+//                 subject page protos.
 export interface BarTilePropType {
   // API root
   apiRoot?: string;
@@ -99,6 +101,7 @@ export interface BarChartData {
   unit: string;
   dateRange: string;
   props: BarTilePropType;
+  statVarOrder: string[];
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -137,7 +140,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(barChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -237,6 +240,11 @@ function rawToChart(
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
+  // Track original order of stat vars in props, to maintain 1:1 pairing of
+  // colors to stat var labels even after sorting
+  const statVarOrder = props.statVarSpec.map(
+    (spec) => statVarNames[spec.statVar]
+  );
 
   let unit = "";
   const dates: Set<string> = new Set();
@@ -284,19 +292,28 @@ function rawToChart(
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    dataGroups.sort(
-      (a, b) =>
-        (d3.sum(a.value.map((v) => v.value)) -
-          d3.sum(b.value.map((v) => v.value))) *
-        (props.sort === "ascending" ? 1 : -1)
-    );
+    if (popPoints.length === 1 && !_.isEmpty(dataGroups)) {
+      // Only one place, sort should be by variable, not by group.
+      dataGroups[0].value.sort(
+        (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
+      );
+    } else {
+      dataGroups.sort(
+        (a, b) =>
+          (d3.sum(a.value.map((v) => v.value)) -
+            d3.sum(b.value.map((v) => v.value))) *
+          (props.sort === "ascending" ? 1 : -1)
+      );
+    }
   }
+
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,
+    statVarOrder,
   };
 }
 
@@ -316,6 +333,7 @@ export function draw(
         lollipop: props.useLollipop,
         stacked: props.stacked,
         showTooltipOnHover: props.showTooltipOnHover,
+        statVarColorOrder: chartData.statVarOrder,
         style: {
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
@@ -335,6 +353,7 @@ export function draw(
           colors: props.colors,
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
+          statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
         }
       );
@@ -349,6 +368,7 @@ export function draw(
           colors: props.colors,
           lollipop: props.useLollipop,
           showTooltipOnHover: props.showTooltipOnHover,
+          statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
         }
       );
@@ -356,7 +376,10 @@ export function draw(
   }
 }
 
-function getExploreMoreUrl(props: BarTilePropType): string {
+function getExploreLink(props: BarTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const hash = getHash(
     VisType.TIMELINE,
     [...props.comparisonPlaces, props.place.dcid],
@@ -364,5 +387,8 @@ function getExploreMoreUrl(props: BarTilePropType): string {
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Timeline Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }
