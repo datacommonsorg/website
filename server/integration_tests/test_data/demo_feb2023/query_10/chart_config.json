@@ -369,33 +369,6 @@
       "placeDcid": [
         "country/USA"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Average Income for Households",
-            "nlQuery": "Average Income for Households United States"
-          },
-          {
-            "displayName": "Gini Index of Economic Activity of a Population",
-            "nlQuery": "Gini Index of Economic Activity of a Population United States"
-          },
-          {
-            "displayName": "Individual Median Earnings",
-            "nlQuery": "Individual Median Earnings United States"
-          },
-          {
-            "displayName": "Total Wages Paid to Workers in All Industries",
-            "nlQuery": "Total Wages Paid to Workers in All Industries United States"
-          },
-          {
-            "displayName": "Count of Household: Family Household, Worker 1",
-            "nlQuery": "Count of Household: Family Household, Worker 1 United States"
-          }
-        ]
-      }
     }
   },
   "context": {},

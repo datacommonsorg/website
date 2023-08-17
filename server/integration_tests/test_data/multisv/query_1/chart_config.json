@@ -613,45 +613,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "nlQuery": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad California"
-          },
-          {
-            "displayName": "Family Households Below the Poverty Level in the Past Year",
-            "nlQuery": "Family Households Below the Poverty Level in the Past Year California"
-          },
-          {
-            "displayName": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years)",
-            "nlQuery": "Population: 4 Years or Less, Overweight (As Fraction of Count Person Upto 4 Years) California"
-          },
-          {
-            "displayName": "Population Above Poverty Level Status in Past Year",
-            "nlQuery": "Population Above Poverty Level Status in Past Year California"
-          },
-          {
-            "displayName": "Median Incomes in Accommodation And Food Services",
-            "nlQuery": "Median Incomes in Accommodation And Food Services California"
-          },
-          {
-            "displayName": "% Obesity Among Adults, BMI >= 30",
-            "nlQuery": "% Obesity Among Adults, BMI >= 30 California"
-          },
-          {
-            "displayName": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "nlQuery": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County California"
-          },
-          {
-            "displayName": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "nlQuery": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State California"
-          }
-        ]
-      }
     }
   },
   "context": {},

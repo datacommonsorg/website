@@ -646,29 +646,6 @@
       "placeDcid": [
         "geoId/06061"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Global Health",
-            "nlQuery": "Global Health Placer County"
-          },
-          {
-            "displayName": "Percentage of Population Aged 18-64 With No Health Insurance",
-            "nlQuery": "Percentage of Population Aged 18-64 With No Health Insurance Placer County"
-          },
-          {
-            "displayName": "People With VA Health Care",
-            "nlQuery": "People With VA Health Care Placer County"
-          },
-          {
-            "displayName": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode",
-            "nlQuery": "Count of Medical Condition Incident: Patient Deceased, Indeterminate or Other or Unknown Tramission Mode Placer County"
-          }
-        ]
-      }
     }
   },
   "context": {},

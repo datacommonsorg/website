@@ -156,5 +156,6 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  suggestions.add(uttr, sv2thing, builder.page_config)
+  # TODO: Consider removing this since frontend doesn't use it.
+  # suggestions.add(uttr, sv2thing, builder.page_config)
   return builder.page_config

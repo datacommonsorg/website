@@ -1327,57 +1327,6 @@
       "placeDcid": [
         "Earth"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Annual Amount of Emissions: Other Energy Use, Methane",
-            "nlQuery": "Annual Amount of Emissions: Other Energy Use, Methane Earth"
-          },
-          {
-            "displayName": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide",
-            "nlQuery": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide Earth"
-          },
-          {
-            "displayName": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
-            "nlQuery": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions NaturalSources (27)",
-            "nlQuery": "Annual Amount Emissions NaturalSources (27) Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions ExternalCombustion (1)",
-            "nlQuery": "Annual Amount Emissions ExternalCombustion (1) Earth"
-          },
-          {
-            "displayName": "Annual Amount of Emissions: Storage And Transport, Non Biogenic Emission Source, Carbon Monoxide",
-            "nlQuery": "Annual Amount of Emissions: Storage And Transport, Non Biogenic Emission Source, Carbon Monoxide Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions MACTSourceCategories (6)",
-            "nlQuery": "Annual Amount Emissions MACTSourceCategories (6) Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions Carbon Monoxide, MiscellaneousAreaSources (28)",
-            "nlQuery": "Annual Amount Emissions Carbon Monoxide, MiscellaneousAreaSources (28) Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions IndustrialProcesses (3)",
-            "nlQuery": "Annual Amount Emissions IndustrialProcesses (3) Earth"
-          },
-          {
-            "displayName": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
-            "nlQuery": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide Earth"
-          },
-          {
-            "displayName": "Annual Amount Emissions MiscellaneousAreaSources (28)",
-            "nlQuery": "Annual Amount Emissions MiscellaneousAreaSources (28) Earth"
-          }
-        ]
-      }
     }
   },
   "context": {},
