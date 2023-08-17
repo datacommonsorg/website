@@ -26,7 +26,6 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
-from server.lib.nl.fulfillment import context
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
@@ -38,6 +37,7 @@ from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
+import server.lib.nl.fulfillment.utils as futils
 
 
 # Represents a query type handler.
@@ -179,7 +179,7 @@ def _classification_to_query_type(cl: NLClassifier,
       uttr.sv_source = FulfillmentResult.CURRENT_QUERY
   elif cl.type == ClassificationType.RANKING:
     _maybe_add_containedin(uttr)
-    classification = context.classifications_of_type_from_utterance(
+    classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
       query_type = QueryType.RANKING_ACROSS_PLACES
@@ -187,7 +187,7 @@ def _classification_to_query_type(cl: NLClassifier,
       query_type = QueryType.RANKING_ACROSS_VARS
   elif cl.type == ClassificationType.TIME_DELTA:
     _maybe_add_containedin(uttr)
-    classification = context.classifications_of_type_from_utterance(
+    classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES

@@ -17,7 +17,6 @@ import logging
 
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
 
 
