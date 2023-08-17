@@ -16,12 +16,9 @@ import logging
 import time
 from typing import Dict, List
 
-from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import ChartOriginType
-from server.lib.nl.common.utterance import ChartSpec
-from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
@@ -29,8 +26,9 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
-from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.handlers import route_populate
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import handle_contained_in_type
 
 # Limit the number of charts.  Each chart may double for per-capita.
 # With 3 per row max, allow up to 2 rows, without any per-capita.
@@ -40,78 +38,25 @@ _MAX_NUM_CHARTS = 15
 _MAX_EXTENSION_SVS = 5
 
 
-#
-# Base helper to add a chart spec to an utterance.
-# TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
-#
-def add_chart_to_utterance(
-    chart_type: ChartType,
-    state: PopulateState,
-    chart_vars: ChartVars,
-    places: List[Place],
-    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART
-) -> bool:
-  place_type = state.place_type
-  if place_type and isinstance(place_type, ContainedInPlaceType):
-    # TODO: What's the flow where the instance is string?
-    place_type = place_type.value
-
-  attr = {
-      "class": primary_vs_secondary,
-      "place_type": place_type,
-      "ranking_types": state.ranking_types,
-      "block_id": chart_vars.block_id,
-      "include_percapita": chart_vars.include_percapita,
-      "title": chart_vars.title,
-      "description": chart_vars.description,
-      "chart_type": chart_vars.response_type,
-      "source_topic": chart_vars.source_topic
-  }
-  if chart_vars.skip_map_for_ranking:
-    attr['skip_map_for_ranking'] = True
-  if chart_vars.growth_direction != None:
-    attr['growth_direction'] = chart_vars.growth_direction
-  if chart_vars.growth_ranking_type != None:
-    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
-  if chart_vars.title_suffix:
-    attr['title_suffix'] = chart_vars.title_suffix
-  if chart_vars.orig_sv:
-    attr['orig_sv'] = chart_vars.orig_sv
-  ch = ChartSpec(chart_type=chart_type,
-                 svs=chart_vars.svs,
-                 event=chart_vars.event,
-                 places=places,
-                 utterance=state.uttr,
-                 attr=attr)
-  state.uttr.chartCandidates.append(ch)
-  state.uttr.counters.info('num_chart_candidates', 1)
-  return True
-
-
-# Generic "populate" processor that process SIMPLE, CONTAINED_IN and RANKING
-# chart types and invoke custom callbacks.
-
-
 # Populate chart specs in state.uttr and return True if something was added.
-def populate_charts(state: PopulateState) -> bool:
-  return populate_charts_for_places(state, state.uttr.places)
+def populate_charts(state: PopulateState):
+  if not state.uttr.places:
+    state.uttr.counters.err('populate_charts_emptyplace', 1)
+    state.uttr.place_source = FulfillmentResult.UNRECOGNIZED
+    return
 
-
-# Populate charts for given places.
-def populate_charts_for_places(state: PopulateState,
-                               places: List[Place],
-                               disable_fallback=False) -> bool:
+  places = state.uttr.places
   if not handle_contained_in_type(state, places):
     # Counter updated in handle_contained_in_type()
-    return False
+    return
 
   if not state.uttr.svs:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
-    return False
+    return
 
-  success = _add_charts_with_place_fallback(state, places, state.uttr.svs,
-                                            disable_fallback)
+  success = _add_charts_with_place_fallback(state, places)
+
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.counters.err('failed_populate_main_svs', state.uttr.svs)
@@ -124,7 +69,6 @@ def populate_charts_for_places(state: PopulateState,
         state.uttr.sv_source = FulfillmentResult.UNFULFILLED
     else:
       state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
-  return success
 
 
 #
@@ -132,16 +76,15 @@ def populate_charts_for_places(state: PopulateState,
 # to parent places, or parent place-types (for contained-in query-types).
 #
 # REQUIRES: places and svs are non-empty.
-def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
-                                    svs: List[str],
-                                    disable_fallback: bool) -> bool:
+def _add_charts_with_place_fallback(state: PopulateState,
+                                    places: List[Place]) -> bool:
   # Add charts for the given places.
-  if _add_charts(state, places, svs):
+  if _add_charts(state, places):
     return True
   # That failed, we'll attempt fallback.
 
   # TODO: Support fallback for comparison query-type.
-  if disable_fallback:
+  if state.disable_fallback:
     return False
 
   if len(places) > 1:
@@ -150,7 +93,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
     state.uttr.counters.err('failed_sanitycheck_fallbackwithtoomanyplaces', '')
     return False
 
-  place = places[0]  # Caller populate_charts_for_places ensures this exists
+  place = places[0]  # Caller populate_charts ensures this exists
 
   if place.place_type == 'Continent':
     # Continent is special in that it has a single parent entity
@@ -165,7 +108,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
         'child': place.dcid,
         'parent': earth.dcid
     })
-    return _add_charts(state, [earth], svs)
+    return _add_charts(state, [earth])
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
@@ -201,7 +144,7 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
       })
       place = parents[0]
 
-    if _add_charts(state, [place], svs):
+    if _add_charts(state, [place]):
       return True
     # Else, try next parent type.
     parent_type = utils.get_parent_place_type(parent_type, place)
@@ -210,12 +153,12 @@ def _add_charts_with_place_fallback(state: PopulateState, places: List[Place],
 
 
 # Add charts given a place and a list of stat-vars.
-def _add_charts(state: PopulateState, places: List[Place],
-                svs: List[str]) -> bool:
+def _add_charts(state: PopulateState, places: List[Place]) -> bool:
+  svs = state.uttr.svs
   logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
 
   # This may set state.uttr.place_fallback
-  maybe_set_fallback(state, places)
+  _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
   places_to_check = _get_place_dcids(places)
@@ -235,7 +178,8 @@ def _add_charts(state: PopulateState, places: List[Place],
     clear_fallback(state)
     return False
 
-  tracker = MainExistenceCheckTracker(state, places_to_check, svs)
+  tracker = MainExistenceCheckTracker(state, places_to_check,
+                                      state.chart_vars_map)
   tracker.perform_existence_check()
 
   existing_svs = set()
@@ -249,8 +193,8 @@ def _add_charts(state: PopulateState, places: List[Place],
       # Now that we've found existing vars, call the per-chart-type callback.
       if chart_vars.event:
         if exist_cv.exist_event:
-          if state.main_cb(state, chart_vars, places,
-                           ChartOriginType.PRIMARY_CHART):
+          if route_populate(state, chart_vars, places,
+                            ChartOriginType.PRIMARY_CHART):
             found = True
             num_charts += 1
           else:
@@ -258,8 +202,8 @@ def _add_charts(state: PopulateState, places: List[Place],
       else:
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
-          if state.main_cb(state, chart_vars, places,
-                           ChartOriginType.PRIMARY_CHART):
+          if route_populate(state, chart_vars, places,
+                            ChartOriginType.PRIMARY_CHART):
             found = True
             num_charts += 1
           else:
@@ -345,8 +289,8 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
       printed_sv_extensions.add(exist_svs_key)
 
       # Add this as a secondary chart.
-      if state.main_cb(state, chart_vars, places,
-                       ChartOriginType.SECONDARY_CHART):
+      if route_populate(state, chart_vars, places,
+                        ChartOriginType.SECONDARY_CHART):
         found = True
         num_charts += 1
       else:
@@ -372,42 +316,6 @@ def _get_place_names(places: List[Place]) -> List[str]:
   return names
 
 
-def handle_contained_in_type(state: PopulateState, places: List[Place]):
-  if (state.place_type == ContainedInPlaceType.DEFAULT_TYPE and
-      len(places) == 1):
-    state.place_type = utils.get_default_child_place_type(places[0])
-    state.uttr.counters.info('contained_in_across_fallback',
-                             state.place_type.value)
-    return True
-
-  if state.place_type and places:
-    ptype = state.place_type
-    state.place_type = utils.admin_area_equiv_for_place(ptype, places[0])
-    if ptype != state.place_type:
-      state.uttr.counters.info('contained_in_admin_area_equivalent',
-                               (ptype, state.place_type))
-
-    if places[0].place_type == state.place_type.value:
-      state.uttr.counters.err('contained_in_sameplacetype',
-                              state.place_type.value)
-      return False
-
-  return True
-
-
-def get_default_contained_in_place(places: List[Place],
-                                   place_type: ContainedInPlaceType) -> Place:
-  if places:
-    return None
-  if not place_type:
-    # For a non-contained-in-place query, default to USA.
-    return constants.USA
-  ptype = place_type
-  if isinstance(ptype, str):
-    ptype = ContainedInPlaceType(ptype)
-  return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
-
-
 #
 # This is a key function that determines if this is a place or place-type
 # fallback call, and sets `place_fallback` in Utterance.  The `orig`
@@ -421,7 +329,7 @@ def get_default_contained_in_place(places: List[Place],
 # 3) Fallback of type and place
 #    [auto theft in tracts of santa clara county] => [auto theft in california]
 #
-def maybe_set_fallback(state: PopulateState, places: List[Place]):
+def _maybe_set_fallback(state: PopulateState, places: List[Place]):
   # No fallback unless there is exactly one place.
   if len(places) != 1 or len(state.uttr.places) != 1:
     return

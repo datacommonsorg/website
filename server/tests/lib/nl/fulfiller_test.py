@@ -35,7 +35,7 @@ from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.nl.fulfillment import base
-from server.lib.nl.fulfillment import existence
+from server.lib.nl.fulfillment import chart_vars
 from server.lib.nl.fulfillment import fulfiller
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
@@ -59,7 +59,7 @@ from shared.lib import detected_variables as dvars
 # - variable.extend_svs
 # - utils.sv_existence_for_places | utils.sv_existence_for_places_check_single_point
 # - utils.get_sample_child_places
-# - fulfillment.existence.build_chart_vars
+# - fulfillment.chart_vars.build_chart_vars
 # - fulfillment.base.open_topics_ordered
 #
 class TestDataSpecNext(unittest.TestCase):
@@ -307,7 +307,7 @@ class TestDataSpecNext(unittest.TestCase):
 
   # This exercises Topic expansion.
   @patch.object(variable, 'extend_svs')
-  @patch.object(existence, 'build_chart_vars')
+  @patch.object(chart_vars, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places_check_single_point')
   def test_simple_with_topic(self, mock_sv_existence, mock_topic_to_svs,
                              mock_extend_svs):
@@ -353,7 +353,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_latest_value')
-  @patch.object(existence, 'build_chart_vars')
+  @patch.object(chart_vars, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
                               mock_rank_svs, mock_extend_svs):
@@ -402,7 +402,7 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @patch.object(variable, 'extend_svs')
   @patch.object(rank_utils, 'rank_svs_by_series_growth')
-  @patch.object(existence, 'build_chart_vars')
+  @patch.object(chart_vars, 'build_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_time_delta(self, mock_sv_existence, mock_topic_to_svs, mock_rank_svs,
                       mock_extend_svs):

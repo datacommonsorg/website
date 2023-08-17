@@ -15,9 +15,17 @@
 from typing import Dict, List
 
 from server.lib.nl.common import constants
+from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartSpec
+from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 
 #
 # General utilities for retrieving stuff from past context.
@@ -79,3 +87,87 @@ def get_session_info(context_history: List[Dict], has_data: bool) -> Dict:
         'status': s,
     })
   return session_info
+
+
+#
+# Base helper to add a chart spec to an utterance.
+# TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
+#
+def add_chart_to_utterance(
+    chart_type: ChartType,
+    state: PopulateState,
+    chart_vars: ChartVars,
+    places: List[Place],
+    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART
+) -> bool:
+  place_type = state.place_type
+  if place_type and isinstance(place_type, ContainedInPlaceType):
+    # TODO: What's the flow where the instance is string?
+    place_type = place_type.value
+
+  attr = {
+      "class": primary_vs_secondary,
+      "place_type": place_type,
+      "ranking_types": state.ranking_types,
+      "block_id": chart_vars.block_id,
+      "include_percapita": chart_vars.include_percapita,
+      "title": chart_vars.title,
+      "description": chart_vars.description,
+      "chart_type": chart_vars.response_type,
+      "source_topic": chart_vars.source_topic
+  }
+  if chart_vars.skip_map_for_ranking:
+    attr['skip_map_for_ranking'] = True
+  if chart_vars.growth_direction != None:
+    attr['growth_direction'] = chart_vars.growth_direction
+  if chart_vars.growth_ranking_type != None:
+    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
+  if chart_vars.title_suffix:
+    attr['title_suffix'] = chart_vars.title_suffix
+  if chart_vars.orig_sv:
+    attr['orig_sv'] = chart_vars.orig_sv
+  ch = ChartSpec(chart_type=chart_type,
+                 svs=chart_vars.svs,
+                 event=chart_vars.event,
+                 places=places,
+                 utterance=state.uttr,
+                 attr=attr)
+  state.uttr.chartCandidates.append(ch)
+  state.uttr.counters.info('num_chart_candidates', 1)
+  return True
+
+
+def handle_contained_in_type(state: PopulateState, places: List[Place]):
+  if (state.place_type == ContainedInPlaceType.DEFAULT_TYPE and
+      len(places) == 1):
+    state.place_type = utils.get_default_child_place_type(places[0])
+    state.uttr.counters.info('contained_in_across_fallback',
+                             state.place_type.value)
+    return True
+
+  if state.place_type and places:
+    ptype = state.place_type
+    state.place_type = utils.admin_area_equiv_for_place(ptype, places[0])
+    if ptype != state.place_type:
+      state.uttr.counters.info('contained_in_admin_area_equivalent',
+                               (ptype, state.place_type))
+
+    if places[0].place_type == state.place_type.value:
+      state.uttr.counters.err('contained_in_sameplacetype',
+                              state.place_type.value)
+      return False
+
+  return True
+
+
+def get_default_contained_in_place(places: List[Place],
+                                   place_type: ContainedInPlaceType) -> Place:
+  if places:
+    return None
+  if not place_type:
+    # For a non-contained-in-place query, default to USA.
+    return constants.USA
+  ptype = place_type
+  if isinstance(ptype, str):
+    ptype = ContainedInPlaceType(ptype)
+  return constants.DEFAULT_PARENT_PLACES.get(ptype, None)

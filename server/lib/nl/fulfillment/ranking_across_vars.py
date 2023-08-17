@@ -16,15 +16,12 @@ import logging
 from typing import List
 
 from server.lib.nl.common import rank_utils
-from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 _MAX_VARS_IN_A_CHART = 20
 
@@ -38,25 +35,8 @@ _MAX_VARS_IN_A_CHART = 20
 # TODO: consider checking for common units, especially when we rely on
 #       auto-expanded peer groups of SVs.
 #
-def populate(uttr: Utterance):
-  # Get the RANKING classifications from the current utterance. That is what
-  # let us infer this is ranking query-type.
-  ranking_types = utils.get_ranking_types(uttr)
-  if ranking_types:
-    # Ranking among stat-vars.
-    if populate_charts(
-        PopulateState(uttr=uttr,
-                      main_cb=_populate_cb,
-                      ranking_types=ranking_types)):
-      return True
-    else:
-      uttr.counters.err('ranking-across-vars_failed_populate', 1)
-
-  return False
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)

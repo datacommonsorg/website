@@ -17,33 +17,17 @@ from typing import List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts_for_places
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
-def populate(uttr: Utterance) -> bool:
-  # NOTE: The COMPARISON attribute has no additional parameters.  So start
-  # by directly inferring the list of places to compare.
-  state = PopulateState(uttr=uttr, main_cb=_populate_cb)
-  dcids = [p.dcid for p in uttr.places]
-  uttr.counters.info('comparison_place_candidates', dcids)
-  if len(uttr.places) > 1:
-    # No fallback when doing multiple places.
-    if populate_charts_for_places(state, uttr.places, disable_fallback=True):
-      return True
-    else:
-      uttr.counters.err('comparison_failed_populate_places', dcids)
-  else:
-    uttr.counters.err('comparison_failed_to_find_multiple_places', 1)
-  return False
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
+  dcids = [p.dcid for p in state.uttr.places]
+  state.uttr.counters.info('comparison_place_candidates', dcids)
 
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for comparison')
   if len(places) < 2:
     state.uttr.counters.err('comparison_failed_cb_toofewplaces', 1)

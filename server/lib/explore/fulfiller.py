@@ -51,7 +51,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   # single-point or not happen downstream.
   uttr.query_type = nl_uttr.QueryType.SIMPLE
   pt = cutils.get_contained_in_type(uttr)
-  state = ftypes.PopulateState(uttr=uttr, main_cb=None, place_type=pt)
+  state = ftypes.PopulateState(uttr=uttr, place_type=pt)
 
   # Open up topics into vars and build ChartVars for each.
 
@@ -60,9 +60,9 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
 
   chart_vars_map = {}
   if has_correlation and state.uttr.multi_svs:
-    chart_vars_map = topic.compute_correlation_chart_vars(state)
+    state.chart_vars_map = topic.compute_correlation_chart_vars(state)
   else:
-    chart_vars_map = topic.compute_chart_vars(state)
+    state.chart_vars_map = topic.compute_chart_vars(state)
 
   # Get places to perform existence check on.
   places_to_check = {}
@@ -81,13 +81,11 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
     uttr.counters.err("failed_NoPlacesToCheck", '')
     return None, {}
 
+  state.chart_vars_map = chart_vars_map
   start = time.time()
   # Perform existence checks for all the SVs!
-  tracker = ext.MainExistenceCheckTracker(state,
-                                          places_to_check,
-                                          uttr.svs,
-                                          prep_chart_vars=False,
-                                          sv2chartvarslist=chart_vars_map)
+  tracker = ext.MainExistenceCheckTracker(state, places_to_check,
+                                          chart_vars_map)
   tracker.perform_existence_check()
   state.uttr.counters.timeit('main_existence_check', start)
 
@@ -123,11 +121,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         # Perform existence check and add to `chart_vars_list`
         start = time.time()
         ext_tracker = ext.MainExistenceCheckTracker(
-            state,
-            places_to_check,
-            svs=list(ext_chart_vars_map.keys()),
-            prep_chart_vars=False,
-            sv2chartvarslist=ext_chart_vars_map)
+            state, places_to_check, sv2chartvarslist=ext_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('extension_existence_check', start)
         _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
@@ -141,8 +135,6 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         ext_tracker = ext.MainExistenceCheckTracker(
             state,
             places_to_check,
-            svs=list(explore_more_chart_vars_map.keys()),
-            prep_chart_vars=False,
             sv2chartvarslist=explore_more_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('explore_more_existence_check', start)

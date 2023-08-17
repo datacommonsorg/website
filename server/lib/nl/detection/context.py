@@ -29,8 +29,8 @@ from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 import server.lib.nl.detection.utils as dutils
-from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
+from server.lib.nl.fulfillment.utils import get_default_contained_in_place
 
 _MAX_RETURNED_VARS_EXPLORE = 10
 _MAX_RETURNED_VARS_CHAT = 20

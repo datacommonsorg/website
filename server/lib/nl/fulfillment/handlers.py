@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import List
 
+from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
@@ -24,6 +25,7 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import correlation
@@ -37,6 +39,8 @@ from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
 
 
@@ -274,3 +278,15 @@ def route_comparison_or_correlation(cl_type: ClassificationType,
         qt = QueryType.CORRELATION_ACROSS_VARS
   uttr.counters.info('route_comparison_correlation', ctr)
   return qt
+
+
+def route_populate(state: PopulateState, chart_vars: ChartVars,
+                   places: List[Place], chart_origin: ChartOriginType) -> bool:
+  for qt in state.query_types:
+    handler = QUERY_HANDLERS.get(qt, None)
+    if handler and handler.module.populate(state, chart_vars, places,
+                                           chart_origin):
+      state.uttr.counters.info('processed_fulfillment_types',
+                               handler.module.__name__.split('.')[-1])
+      return True
+  return False
