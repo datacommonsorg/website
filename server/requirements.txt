@@ -25,7 +25,7 @@ parameterized==0.8.1
 pillow==9.5.0
 protobuf==3.20.2
 PyGithub==1.58.2
-pyOpenSSL==22.1.0
+pyOpenSSL==23.2.0
 pytest-rerunfailures==10.2
 pytest-xdist==3.2.1
 redis==4.5.4

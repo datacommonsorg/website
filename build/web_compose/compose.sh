@@ -16,7 +16,7 @@
 
 USE_SQLITE=$1
 
-if [[$USE_SQLITE != "true" ]]; then
+if [[ $USE_SQLITE != "true" ]]; then
   USE_SQLITE="false"
   SQLITE_PATH=$2
 fi
@@ -30,9 +30,9 @@ fi
     --sqlite_path=$SQLITE_PATH \
     --remote_mixer_domain=https://api.datacommons.org &
 
-envoy --config-path /mixer/esp/envoy-config.yaml &
+envoy --config-path /workspace/esp/envoy-config.yaml &
 
-gunicorn --log-level debug --timeout 30 --bind 0.0.0.0:8080 web_app:app
+gunicorn --log-level debug --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
 
 # Wait for any process to exit
 wait -n
