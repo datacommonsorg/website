@@ -1,14 +1,412 @@
 {
-  "config": {},
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in United States",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Population By Income Level in United States (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block_pc",
+                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Population By Income Level in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population By Income Level"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold",
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold",
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Median Income By Household Type in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income By Household Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Median Household Income by Race in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Household Income by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Total Wages Paid to Workers in All Industries in United States",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "WagesTotal_Worker_NAICSTotalAllIndustries_pc"
+                    ],
+                    "title": "Per Capita Total Wages Paid to Workers in All Industries in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 1 in United States",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household, Worker 1 in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Household_FamilyHousehold_With1Worker": {
+            "name": "Count of Household: Family Household, Worker 1",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household, Worker 1",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker"
+          },
+          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
+            "name": "Earners Between $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Between $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
+            "name": "Earners Between $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Between $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
+          },
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
+            "name": "Earners Between $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          },
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Between $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          },
+          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
+            "name": "Earners Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          },
+          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          },
+          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
+            "name": "Earners Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
+          },
+          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
+          },
+          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "Earners of $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
+          },
+          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners of $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
+            "name": "Earners Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Earners Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "GiniIndex_EconomicActivity": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
+          },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+          },
+          "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block": {
+            "name": "Median Income of Asian Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAsianAlone"
+          },
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Median Income of Black or African American Households",
+            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+          },
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Hispanic or Latino Households",
+            "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+          },
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Median Income of Native Hawaiian or Other Pacific Islander Households",
+            "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "WagesTotal_Worker_NAICSTotalAllIndustries": {
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
+          },
+          "WagesTotal_Worker_NAICSTotalAllIndustries_pc": {
+            "denom": "Count_Person",
+            "name": "Total Wages Paid to Workers in All Industries",
+            "statVar": "WagesTotal_Worker_NAICSTotalAllIndustries"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Average Income for Households",
+            "nlQuery": "Average Income for Households United States"
+          },
+          {
+            "displayName": "Gini Index of Economic Activity of a Population",
+            "nlQuery": "Gini Index of Economic Activity of a Population United States"
+          },
+          {
+            "displayName": "Individual Median Earnings",
+            "nlQuery": "Individual Median Earnings United States"
+          },
+          {
+            "displayName": "Total Wages Paid to Workers in All Industries",
+            "nlQuery": "Total Wages Paid to Workers in All Industries United States"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Worker 1",
+            "nlQuery": "Count of Household: Family Household, Worker 1 United States"
+          }
+        ]
+      }
+    }
+  },
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "pastSourceContext": "United States",
   "place": {
-    "dcid": "",
-    "name": "",
-    "place_type": ""
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "UNRECOGNIZED",
-  "svSource": "CURRENT_QUERY"
+  "placeSource": "PAST_QUERY",
+  "svSource": "PAST_QUERY"
 }

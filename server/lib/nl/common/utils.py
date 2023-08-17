@@ -24,6 +24,7 @@ import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utterance as nl_uttr
+from server.lib.nl.detection.types import ClassificationType
 import server.lib.nl.detection.types as types
 import server.lib.nl.fulfillment.context as ctx
 import shared.lib.constants as shared_constants
@@ -440,3 +441,16 @@ def to_dict(data):
     return data
   else:
     return data
+
+
+def get_comparison_or_correlation(
+    uttr: nl_uttr.Utterance) -> ClassificationType:
+  for cl in uttr.classifications:
+    if cl.type in [
+        ClassificationType.COMPARISON, ClassificationType.CORRELATION
+    ]:
+      return cl.type
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
+  return None

@@ -1380,6 +1380,10 @@
       "placeDcid": [
         "country/TJK"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

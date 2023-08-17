@@ -17,7 +17,6 @@
 # context, and produces updated results in Explore args dict.
 #
 
-import copy
 from typing import Dict, List
 
 from server.lib.explore.params import Params
@@ -26,47 +25,66 @@ import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import NLClassifier
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
-_MAX_RETURNED_VARS = 10
+_MAX_RETURNED_VARS = 20
 
 
-def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
+#
+# Given an utterance, this looks up past utterance and updates the merged
+# context in both the utterance inline and `merged_ctx`.
+#
+# TODO: Deprecate hoist_topics
+def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
   data_dict = {}
 
   # 0. Hoist any topic thats in the top-N
-  _hoist_topic(uttr.svs)
+  if hoist_topics:
+    _hoist_topic(uttr.svs)
 
-  # 1. Get past places.
-  past_ctx = {}
-  if uttr.prev_utterance:
-    past_ctx = uttr.prev_utterance.insight_ctx
-
-  # 2. Route comparison vs. correlation query.
+  # 1. Route comparison vs. correlation query.
   query_type = None
   cl_type = _get_comparison_or_correlation(uttr)
   if cl_type != None:
     query_type = route_comparison_or_correlation(cl_type, uttr)
 
-  # 3. Get place-type.
+  # 2. Get place-type.
   place_type = utils.get_contained_in_type(uttr)
+  if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
+    # We look up into context
+    if not place_type and uttr.prev_utterance:
+      place_type = utils.get_contained_in_type(uttr.prev_utterance)
+      if place_type:
+        uttr.classifications.append(
+            NLClassifier(type=ClassificationType.CONTAINED_IN,
+                         attributes=ContainedInClassificationAttributes(
+                             contained_in_place_type=place_type)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data
       # for just School.
       place_type = ContainedInPlaceType.PUBLIC_SCHOOL
+      for c in uttr.classifications:
+        if (c.type == ClassificationType.CONTAINED_IN and
+            isinstance(c.attributes, ContainedInClassificationAttributes) and
+            c.attributes.contained_in_place_type
+            == ContainedInPlaceType.SCHOOL):
+          c.attributes.contained_in_place_type = ContainedInPlaceType.PUBLIC_SCHOOL
 
   # 4. Detect places (and comparison type) leveraging context.
   places, cmp_places = _detect_places(
-      uttr, place_type, past_ctx,
+      uttr, place_type,
       query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
 
   # 5. Detect SVs leveraging context.
   vars, cmp_vars = _detect_vars(
-      uttr, past_ctx, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
+      uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS,
+      hoist_topics)
 
   # 6. Populate the returned dict
   data_dict.update({
@@ -79,33 +97,42 @@ def detect_with_context(uttr: nl_uttr.Utterance) -> Dict:
   })
 
   # 6. Set the detected params in uttr ctx and clear past contexts.
-  uttr.insight_ctx = copy.deepcopy(data_dict)
-  uttr.prev_utterance = None
-
-  data_dict[Params.CTX.value] = nl_uttr.save_utterance(uttr)
-  return data_dict
+  uttr.merged_ctx = data_dict
 
 
-def _detect_vars(uttr: nl_uttr.Utterance, past_ctx: Dict,
-                 is_cmp: bool) -> List[str]:
+def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool,
+                 hoist_topics: bool) -> List[str]:
   svs = []
   cmp_svs = []
   if is_cmp:
     # Comparison
     if dutils.is_multi_sv(uttr.detection):
-      svs, cmp_svs = _get_multi_sv_pair(uttr)
+      # Already multi-sv, nothing to do in `uttr`
+      svs, cmp_svs = _get_multi_sv_pair(uttr, hoist_topics)
+      uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
-      if uttr.svs and past_ctx.get(Params.VARS.value):
+      if uttr.svs and uttr.prev_utterance and uttr.prev_utterance.svs:
+        # Set `multi-sv`
         svs = uttr.svs
-        cmp_svs = past_ctx[Params.VARS.value]
+        cmp_svs = uttr.prev_utterance.svs
+        # Set a very basic score. Since this is only used by correlation
+        # which will do so regardless of the score.
+        uttr.multi_svs = dutils.get_multi_sv(svs, cmp_svs, 0.51)
+        # Important to set in detection since `correlation.py` refers to that.
+        uttr.detection.svs_detected.multi_sv = uttr.multi_svs
+        uttr.sv_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
   else:
     # No comparison.
     if uttr.svs:
       svs = uttr.svs
+      uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
       # Try to get svs from context.
-      svs = past_ctx.get(Params.VARS.value, [])
-      uttr.counters.info('insight_var_ctx', svs)
+      if uttr.prev_utterance and uttr.prev_utterance.svs:
+        svs = uttr.prev_utterance.svs
+        uttr.svs = svs
+        uttr.counters.info('insight_var_ctx', svs)
+        uttr.sv_source = nl_uttr.FulfillmentResult.PAST_QUERY
 
   return svs, cmp_svs
 
@@ -123,12 +150,14 @@ def _get_comparison_or_correlation(
   return None
 
 
-def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
+def _get_multi_sv_pair(uttr: nl_uttr.Utterance,
+                       hoist_topics: bool) -> List[str]:
   parts = dutils.get_multi_sv_pair(uttr.detection)
   if not parts or len(parts) != 2:
     return []
-  _hoist_topic(parts[0].svs)
-  _hoist_topic(parts[1].svs)
+  if hoist_topics:
+    _hoist_topic(parts[0].svs)
+    _hoist_topic(parts[1].svs)
   return parts[0].svs, parts[1].svs
 
 
@@ -150,53 +179,75 @@ def _hoist_topic(svs: List[str]):
 
 
 def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
-                   past_ctx: Dict, is_cmp: bool) -> List[str]:
+                   is_cmp: bool) -> List[str]:
   places = []
   cmp_places = []
   if is_cmp:
     if len(uttr.places) > 1:
       # Completely in this query.
-      # Note: Pick the last place as the main place (to be
-      # consistent with the HACK further below).
-      places = [uttr.places[-1].dcid]
-      cmp_places = [p.dcid for p in uttr.places[:-1]]
-      cmp_places.reverse()
+      places = [uttr.places[0].dcid]
+      cmp_places = [p.dcid for p in uttr.places[1:]]
+      uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     elif len(uttr.places) == 1:
       # Partially in this query, lookup context.
       places = [uttr.places[0].dcid]
-      cmp_places = past_ctx.get(Params.ENTITIES.value, [])
+      places_to_compare = []
+      if uttr.prev_utterance and uttr.prev_utterance.places:
+        places_to_compare = uttr.prev_utterance.places
+      cmp_places = [p.dcid for p in places_to_compare]
+      uttr.places.extend(places_to_compare)
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
+      uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
     else:
       # Completely in context.
-      ctx_places = past_ctx.get(Params.ENTITIES.value, [])
+      ctx_places = []
+      if uttr.prev_utterance and uttr.prev_utterance.places:
+        uttr.places = uttr.prev_utterance.places
+        ctx_places = [p.dcid for p in uttr.places]
       if len(ctx_places) > 1:
         places = ctx_places[:1]
         cmp_places = ctx_places[1:]
       else:
         places = ctx_places
+      uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
       uttr.counters.info('insight_cmp_place_ctx', places)
   else:
     # Not comparison.
     if uttr.places:
       places = [p.dcid for p in uttr.places]
-      # HACK: Reverse the list since we have a higher chance of common
-      # words earlier in the query interpreted incorrectly as a place
-      places.reverse()
+      uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
       # Match NL behavior in `populate_charts()` by not using context
       # when the place-type is country.
       if child_type == ContainedInPlaceType.COUNTRY:
         places = [constants.EARTH_DCID]
+        uttr.places = [constants.EARTH]
         uttr.counters.info('insight_place_earth', places)
+        uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+        uttr.past_source_context = constants.EARTH.name
       else:
         # Find place from context.
-        places = past_ctx.get(Params.ENTITIES.value, [])
-        uttr.counters.info('insight_place_ctx', places)
-    # Match NL behavior: if there was a child type and no context place,
-    # use a default place.
-    if not places and child_type:
-      default_place = get_default_contained_in_place(places, child_type)
-      if default_place:
-        places = [default_place.dcid]
+        if uttr.prev_utterance and uttr.prev_utterance.places:
+          uttr.places = uttr.prev_utterance.places
+          places = [p.dcid for p in uttr.places]
+          uttr.counters.info('insight_place_ctx', places)
+          uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
+          uttr.past_source_context = uttr.places[0].name
+
+  # Match NL behavior: if there was a child type and no context place,
+  # use a default place.
+  if not places and child_type:
+    default_place = get_default_contained_in_place(places, child_type)
+    if default_place:
+      uttr.places = [default_place]
+      places = [default_place.dcid]
+      uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+      uttr.past_source_context = default_place.name
+
+  if not places:
+    uttr.places = [constants.USA]
+    places = [constants.USA.dcid]
+    uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
+    uttr.past_source_context = constants.USA.name
 
   return places, cmp_places

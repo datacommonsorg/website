@@ -183,6 +183,7 @@ class Utterance:
   llm_resp: Dict
   sv_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
   place_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
+  # TODO: Deprecate past_source_context
   # This is more details on the *_source if it is from PAST query.
   # This is important for knowing the original place for a query
   # like [poverty across africa] -> [which countries have shown the greatest increase].

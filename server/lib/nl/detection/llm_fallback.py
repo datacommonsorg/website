@@ -67,7 +67,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
         for cl in heuristic.classifications)
 
     # Check if the context had SVs.
-    if not has_sv_classification and not context.has_sv_in_context(prev_uttr):
+    if not has_sv_classification and not context.has_sv(prev_uttr):
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
@@ -79,7 +79,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     #
     # Also confirm there was no place in the context.
     ptype = utils.get_contained_in_type(heuristic.classifications)
-    if ptype != ContainedInPlaceType.COUNTRY and not context.has_place_in_context(
+    if ptype != ContainedInPlaceType.COUNTRY and not context.has_place(
         prev_uttr):
       ctr.info('info_fallback_no_place_found', '')
       need_place = True

@@ -15,122 +15,39 @@
 from typing import Dict, List
 
 from server.lib.nl.common import constants
-from server.lib.nl.common.utterance import CTX_LOOKBACK_LIMIT
-from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import Place
 
 #
 # General utilities for retrieving stuff from past context.
-# TODO: convert all implementations to consistently loop from passed `uttr`
-#       instead of `uttr.prev_utterance`
 #
 
 
-def svs_from_context(uttr: Utterance, include_uttr: bool = False) -> List[str]:
-  ans = []
-  if include_uttr:
-    ans.append(uttr.svs)
-  prev_uttr_count = 0
-  prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    ans.append(prev.svs)
-    prev = prev.prev_utterance
-    prev_uttr_count = prev_uttr_count + 1
-  return ans
-
-
-def places_from_context(uttr: Utterance,
-                        include_uttr: bool = False) -> List[Place]:
-  ans = []
-  if include_uttr:
-    ans.extend(uttr.places)
-  prev_uttr_count = 0
-  prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    if len(prev.places) > 1:
-      # This was a comparison query, so we don't want
-      # to use just one place. Bail at this point.
-      break
-    for place in prev.places:
-      ans.append(place)
-    prev = prev.prev_utterance
-    prev_uttr_count = prev_uttr_count + 1
-  return ans
-
-
-def has_sv_in_context(uttr: Utterance) -> bool:
+def has_sv(uttr: Utterance) -> bool:
   if not uttr:
     return False
 
-  if uttr.prev_utterance and uttr.prev_utterance.insight_ctx:
-    if uttr.prev_utterance.insight_ctx.get('variables'):
-      return True
-    else:
-      return False
+  if uttr.svs:
+    return True
 
-  svs_list = svs_from_context(uttr, include_uttr=True)
-  for svs in svs_list:
-    if svs:
-      return True
+  if uttr.insight_ctx and uttr.insight_ctx.get('variables'):
+    return True
+
   return False
 
 
-def has_place_in_context(uttr: Utterance) -> bool:
+def has_place(uttr: Utterance) -> bool:
   if not uttr:
     return False
 
-  # For insight flow.
-  if uttr.prev_utterance and uttr.prev_utterance.insight_ctx:
-    if uttr.prev_utterance.insight_ctx.get('entities'):
-      return True
-    else:
-      return False
+  if uttr.places:
+    return True
 
-  places = places_from_context(uttr, include_uttr=True)
-  for place in places:
-    if place.dcid:
-      return True
+  if uttr.insight_ctx and uttr.insight_ctx.get('entities'):
+    return True
+
   return False
-
-
-# Computes a list of places for comparison from the most recent previous context.
-def most_recent_places_from_context(uttr: Utterance) -> List[Place]:
-  prev_uttr_count = 0
-  prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    if prev.places:
-      return prev.places
-    prev = prev.prev_utterance
-    prev_uttr_count = prev_uttr_count + 1
-  return []
-
-
-def query_type_from_context(uttr: Utterance) -> List[QueryType]:
-  # this needs to be made a lot smarter ...
-  prev_uttr_count = 0
-  prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    if (not (prev.query_type == QueryType.UNKNOWN)):
-      return prev.query_type
-    prev = prev.prev_utterance
-    prev_uttr_count = prev_uttr_count + 1
-  return QueryType.SIMPLE
-
-
-def classifications_of_type_from_context(
-    uttr: Utterance, ctype: ClassificationType) -> List[NLClassifier]:
-  result = []
-  result.extend(classifications_of_type_from_utterance(uttr, ctype))
-  prev_uttr_count = 0
-  prev = uttr.prev_utterance
-  while (prev and prev_uttr_count < CTX_LOOKBACK_LIMIT):
-    result.extend(classifications_of_type_from_utterance(prev, ctype))
-    prev = prev.prev_utterance
-    prev_uttr_count = prev_uttr_count + 1
-  return result
 
 
 def classifications_of_type_from_utterance(

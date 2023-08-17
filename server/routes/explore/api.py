@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
+import copy
 import json
 import logging
 import os
@@ -25,7 +26,7 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-import server.lib.explore.detector as insight_detector
+import server.lib.explore.context as explore_context
 import server.lib.explore.fulfiller as fulfillment
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
@@ -56,7 +57,11 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  data_dict = insight_detector.detect_with_context(utterance)
+  explore_context.merge_with_context(utterance, hoist_topics=True)
+
+  data_dict = copy.deepcopy(utterance.merged_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = nl_utterance.save_utterance(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None

@@ -414,6 +414,10 @@
       "placeDcid": [
         "geoId/06061"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

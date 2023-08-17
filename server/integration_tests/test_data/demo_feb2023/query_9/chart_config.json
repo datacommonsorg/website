@@ -241,6 +241,10 @@
       "placeDcid": [
         "country/USA"
       ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -253,5 +257,5 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "svSource": "PARTIAL_PAST_QUERY"
 }
