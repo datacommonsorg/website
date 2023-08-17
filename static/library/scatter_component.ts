@@ -17,8 +17,6 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
@@ -27,7 +25,7 @@ import {
   ScatterTilePropType,
 } from "../js/components/tiles/scatter_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering the datacommons scatter tile.
@@ -99,7 +97,7 @@ export class DatacommonsScatterComponent extends LitElement {
   showQuadrants?: boolean;
 
   render(): HTMLElement {
-    const tileProps: ScatterTilePropType = {
+    const scatterTileProps: ScatterTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       enclosedPlaceType: this.childPlaceType,
       id: `chart-${_.uniqueId()}`,
@@ -127,8 +125,6 @@ export class DatacommonsScatterComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(ScatterTile, tileProps), mountPoint);
-    return mountPoint;
+    return createWebComponentElement(ScatterTile, scatterTileProps);
   }
 }

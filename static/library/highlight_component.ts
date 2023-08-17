@@ -26,6 +26,7 @@ import {
   HighlightTilePropType,
 } from "../js/components/tiles/highlight_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a highlight tile.
@@ -97,11 +98,6 @@ export class DatacommonsHighlightComponent extends LitElement {
         unit: this.unit || "",
       },
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(
-      React.createElement(HighlightTile, highlightTileProps),
-      mountPoint
-    );
-    return mountPoint;
+    return createWebComponentElement(HighlightTile, highlightTileProps);
   }
 }
