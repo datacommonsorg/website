@@ -32,7 +32,7 @@ fi
 
 envoy --config-path /workspace/esp/envoy-config.yaml &
 
-gunicorn --log-level debug --timeout 30 --bind 0.0.0.0:8080 web_app:app
+gunicorn --log-level debug --preload --timeout 1000 --bind 0.0.0.0:8080 -w 4 web_app:app
 
 # Wait for any process to exit
 wait -n

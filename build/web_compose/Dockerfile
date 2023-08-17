@@ -73,6 +73,6 @@ COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 
 WORKDIR /workspace
-COPY build/web_server/compose.sh .
+COPY build/web_compose/compose.sh .
 EXPOSE 8080 8081
 CMD ./compose.sh $USE_SQLITE $SQLITE_PATH
