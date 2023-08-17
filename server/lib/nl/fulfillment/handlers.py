@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import List
 
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
@@ -23,10 +24,8 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
-from server.lib.nl.fulfillment import context
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
@@ -38,6 +37,7 @@ from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
+import server.lib.nl.fulfillment.utils as futils
 
 
 # Represents a query type handler.
@@ -134,6 +134,7 @@ def first_query_type(uttr: Utterance):
 def _maybe_remap_simple(uttr: Utterance) -> QueryType:
   remapped_type = QueryType.SIMPLE
   if (uttr.detection and uttr.detection.places_detected and
+      uttr.detection.places_detected.places_found and
       not uttr.detection.places_detected.query_without_place_substr):
     # If there are no words beyond place names, do OVERVIEW
     remapped_type = QueryType.OVERVIEW
@@ -168,15 +169,17 @@ def _classification_to_query_type(cl: NLClassifier,
   elif cl.type == ClassificationType.SIMPLE:
     query_type = QueryType.SIMPLE
   elif cl.type == ClassificationType.OVERVIEW:
-    if not uttr.svs:
+    if uttr.svs and uttr.sv_source == FulfillmentResult.CURRENT_QUERY:
+      query_type = QueryType.SIMPLE
+    else:
       # We detected some overview words ("tell me about") *and* there were
       # no SVs in current utterance, so consider it a place overview.
       query_type = QueryType.OVERVIEW
-    else:
-      query_type = QueryType.SIMPLE
+      # Reset the source of SV to the default.
+      uttr.sv_source = FulfillmentResult.CURRENT_QUERY
   elif cl.type == ClassificationType.RANKING:
     _maybe_add_containedin(uttr)
-    classification = context.classifications_of_type_from_utterance(
+    classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
       query_type = QueryType.RANKING_ACROSS_PLACES
@@ -184,7 +187,7 @@ def _classification_to_query_type(cl: NLClassifier,
       query_type = QueryType.RANKING_ACROSS_VARS
   elif cl.type == ClassificationType.TIME_DELTA:
     _maybe_add_containedin(uttr)
-    classification = context.classifications_of_type_from_utterance(
+    classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
     if classification:
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES

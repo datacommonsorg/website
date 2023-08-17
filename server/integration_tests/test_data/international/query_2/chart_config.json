@@ -65,22 +65,6 @@
       "placeDcid": [
         "country/CHN"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_QUERY_TYPE": {
-        "items": [
-          {
-            "displayName": "Show highest",
-            "nlQuery": "Life expectancy across provinces of China - show highest"
-          },
-          {
-            "displayName": "Show lowest",
-            "nlQuery": "Life expectancy across provinces of China - show lowest"
-          }
-        ]
-      },
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

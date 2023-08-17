@@ -23,6 +23,7 @@ from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
+from server.lib.nl.detection import context
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
@@ -586,7 +587,8 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   if uttr_dict:
     prev_uttr = utterance.load_utterance(uttr_dict)
   counters = ctr.Counters()
-  return utterance.save_utterance(
-      fulfiller.fulfill(
-          create_utterance(detection, prev_uttr, counters,
-                           constants.TEST_SESSION_ID)))[0]
+  uttr = create_utterance(detection, prev_uttr, counters,
+                          constants.TEST_SESSION_ID)
+  context.merge_with_context(uttr, is_explore=False)
+  print(uttr)
+  return utterance.save_utterance(fulfiller.fulfill(uttr))[0]

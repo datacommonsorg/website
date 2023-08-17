@@ -22,8 +22,8 @@ import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
-import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.types as ftypes
+import server.lib.nl.fulfillment.utils as futils
 
 # Helper class to build chart config for Explore page.
 
@@ -39,12 +39,12 @@ class Builder:
     self.num_chart_vars = num_chart_vars
 
     self.is_place_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.COMPARISON):
       self.is_place_comparison = True
 
     self.is_var_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.CORRELATION):
       self.is_var_comparison = True
 

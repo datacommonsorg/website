@@ -17,12 +17,10 @@ from typing import List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import populate_charts_for_places
-from server.lib.nl.fulfillment.context import most_recent_places_from_context
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -31,29 +29,11 @@ def populate(uttr: Utterance) -> bool:
   # NOTE: The COMPARISON attribute has no additional parameters.  So start
   # by directly inferring the list of places to compare.
   state = PopulateState(uttr=uttr, main_cb=_populate_cb)
-  is_partial = False
-  places_to_compare = []
-  # Extend so we don't point to state.uttr.places and modify in-place.
-  places_to_compare.extend(state.uttr.places)
-
-  # If the current query has >1 place, we're good.  Otherwise look
-  # in context...
-  if len(places_to_compare) <= 1:
-    is_partial = True
-    for p in most_recent_places_from_context(uttr):
-      # Avoid adding duplicates
-      if not state.uttr.places or p.dcid != state.uttr.places[0].dcid:
-        places_to_compare.append(p)
-
-  dcids = [p.dcid for p in places_to_compare]
+  dcids = [p.dcid for p in uttr.places]
   uttr.counters.info('comparison_place_candidates', dcids)
-  if len(places_to_compare) > 1:
+  if len(uttr.places) > 1:
     # No fallback when doing multiple places.
-    if populate_charts_for_places(state,
-                                  places_to_compare,
-                                  disable_fallback=True):
-      if is_partial:
-        state.uttr.place_source = FulfillmentResult.PARTIAL_PAST_QUERY
+    if populate_charts_for_places(state, uttr.places, disable_fallback=True):
       return True
     else:
       uttr.counters.err('comparison_failed_populate_places', dcids)

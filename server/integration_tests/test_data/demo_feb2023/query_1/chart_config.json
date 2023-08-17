@@ -729,37 +729,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Temperature in a Location",
-            "nlQuery": "Temperature in a Location California"
-          },
-          {
-            "displayName": "Min Temperature",
-            "nlQuery": "Min Temperature California"
-          },
-          {
-            "displayName": "Mean Temperature",
-            "nlQuery": "Mean Temperature California"
-          },
-          {
-            "displayName": "Maximum Temperature",
-            "nlQuery": "Maximum Temperature California"
-          },
-          {
-            "displayName": "Count of Heat Temperature Event",
-            "nlQuery": "Count of Heat Temperature Event California"
-          },
-          {
-            "displayName": "Mean maximum temperature",
-            "nlQuery": "Mean maximum temperature California"
-          }
-        ]
-      }
     }
   },
   "context": {},

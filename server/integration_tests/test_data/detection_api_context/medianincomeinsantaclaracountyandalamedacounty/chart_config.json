@@ -1,13 +1,13 @@
 {
   "childEntityType": "",
   "comparisonEntities": [
-    "geoId/06085"
+    "geoId/06001"
   ],
   "comparisonVariables": [],
   "context": {},
   "debug": {},
   "entities": [
-    "geoId/06001"
+    "geoId/06085"
   ],
   "sessionId": "007_999999999",
   "variables": [
