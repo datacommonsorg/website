@@ -54,6 +54,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
     query_type = route_comparison_or_correlation(cl_type, uttr)
 
   # 2. Get place-type.
+  # TODO: Confirm type for ranking
   place_type = utils.get_contained_in_type(uttr)
   if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
     # We look up into context
@@ -64,6 +65,13 @@ def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
             NLClassifier(type=ClassificationType.CONTAINED_IN,
                          attributes=ContainedInClassificationAttributes(
                              contained_in_place_type=place_type)))
+    # If its still empty, set default.
+    if not place_type:
+      uttr.classifications.append(
+          NLClassifier(
+              type=ClassificationType.CONTAINED_IN,
+              attributes=ContainedInClassificationAttributes(
+                  contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data

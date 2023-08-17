@@ -8,11 +8,15 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Percent_Person_Obesity"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Prevalence of Obesity in California",
-                    "type": "LINE"
+                    "title": "Population Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -23,11 +27,15 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in California",
-                    "type": "LINE"
+                    "title": "Women below Poverty Line Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -38,115 +46,15 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Impoverished Population By Gender in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Impoverished Population By Gender in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Impoverished Population By Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
-                    ],
-                    "title": "Impoverished Population By Race in California (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Impoverished Population By Race in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Impoverished Population By Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Impoverished Population By By Language Spoken At Home in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc",
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc",
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_pc",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Impoverished Population By By Language Spoken At Home in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Impoverished Population By By Language Spoken At Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-                    ],
-                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in California",
-                    "type": "LINE"
+                    "title": "Males in Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -157,18 +65,15 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, Poverty Status Determined, Different House Abroad in California",
-                    "type": "LINE"
+                    "title": "Asians Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -179,172 +84,15 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter",
+                      "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Above Poverty Level Status in Past Year in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population Above Poverty Level Status in Past Year in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/9pmyhk89dj3pf"
-                    ],
-                    "title": "Median Incomes in Accommodation And Food Services in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
-                    ],
-                    "title": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Obesity",
-                      "Percent_Person_BingeDrinking",
-                      "Percent_Person_PhysicalInactivity",
-                      "Percent_Person_SleepLessThan7Hours",
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Prevalence of Obesity and more in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_AbovePovertyLevelInThePast12Months",
-                      "Count_Person_PovertyStatusDetermined"
-                    ],
-                    "title": "Population Below Poverty Level Status in Past Year and more in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_pc",
-                      "Count_Person_AbovePovertyLevelInThePast12Months_pc",
-                      "Count_Person_PovertyStatusDetermined_pc"
-                    ],
-                    "title": "Per Capita Population Below Poverty Level Status in Past Year and more in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine",
-                      "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine",
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine",
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined"
-                    ],
-                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line and more in California",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc",
-                      "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_pc",
-                      "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_pc",
-                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line and more in California",
-                    "type": "LINE"
+                    "title": "Black or African Americans Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
                   }
                 ]
               }
@@ -352,264 +100,48 @@
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
-            "name": "Family Households Below the Poverty Level in the Past Year",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter": {
             "denom": "Count_Person",
-            "name": "Family Households Below the Poverty Level in the Past Year",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1.5 Ratio To Poverty Line or More",
-            "statVar": "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1.5 Ratio To Poverty Line or More",
-            "statVar": "Count_Person_1OrMoreYears_1.5OrMoreRatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Different County Different State",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInDifferentCountyDifferentState"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty": {
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less, Different House in Same County",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_DifferentHouseInSameCounty"
-          },
-          "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 Ratio To Poverty Line or Less",
-            "statVar": "Count_Person_1OrMoreYears_1OrLessRatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined": {
-            "name": "Population: 1 Years or More, Poverty Status Determined",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad": {
-            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
-          },
-          "Count_Person_1OrMoreYears_PovertyStatusDetermined_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, Poverty Status Determined",
-            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined"
-          },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Some language other than English spoken at home & below poverty line",
-            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Some language other than English spoken at home & below poverty line",
-            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_AbovePovertyLevelInThePast12Months": {
-            "name": "Population Above Poverty Level Status in Past Year",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population Above Poverty Level Status in Past Year",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
-            "name": "Asians Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Asians Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black or African Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Black or African Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Below Poverty Level Status in Past Year (Other Race)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Below Poverty Level Status in Past Year (Other Race)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "White Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_PovertyStatusDetermined": {
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
-          },
-          "Count_Person_PovertyStatusDetermined_pc": {
-            "denom": "Count_Person",
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
-          },
-          "Percent_Person_BingeDrinking": {
-            "name": "Prevalence of Binge Drinking",
-            "statVar": "Percent_Person_BingeDrinking",
+            "name": "Asians Below Poverty Level Status in Past Year Per Capita",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
             "unit": "%"
           },
-          "Percent_Person_Obesity": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
+            "denom": "Count_Person",
+            "name": "Black or African Americans Below Poverty Level Status in Past Year Per Capita",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+            "unit": "%"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Population Below Poverty Level Status in Past Year Per Capita",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Women below Poverty Line Per Capita",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
+            "denom": "Count_Person",
+            "name": "Males in Poverty (in last year) Per Capita",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity_scatter": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
-          },
-          "Percent_Person_PhysicalInactivity": {
-            "name": "Prevalence of Physical Inactivity",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking": {
-            "name": "Prevalence of Smoking",
-            "statVar": "Percent_Person_Smoking",
-            "unit": "%"
-          },
-          "dc/9pmyhk89dj3pf": {
-            "name": "Median Incomes in Accommodation And Food Services",
-            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/06"
       ]
