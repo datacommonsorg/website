@@ -35,12 +35,14 @@ export interface SubjectPageMetadata {
    */
   childPlaces?: ChildPlacesByType;
 
+  peerPlaces?: NamedTypedNode[];
+
   parentTopics?: NamedTypedNode[];
 
   peerTopics?: NamedTypedNode[];
   childTopics?: NamedTypedNode[];
   exploreMore?: Record<string, Record<string, string[]>>;
 
-  topic?: string;
+  mainTopic?: NamedTypedNode;
   sessionId?: string;
 }

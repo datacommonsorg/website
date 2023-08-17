@@ -60,7 +60,7 @@ class Config:
   NEW_STAT_VARS = []
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
-  LOGO_PATH = ''
+  LOGO_PATH = '/images/dc-logo.svg'
   # If set, will be included on all pages, after base DC css as verbatim
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.

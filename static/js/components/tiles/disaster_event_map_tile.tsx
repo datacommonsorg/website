@@ -192,10 +192,13 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
       className={`${CSS_SELECTOR_PREFIX}-tile`}
       allowEmbed={false}
       isInitialLoading={isInitialLoading}
-      exploreMoreUrl={
+      exploreLink={
         props.showExploreMore
-          ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
-          : ""
+          ? {
+              displayText: "Disaster Tool",
+              url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
+            }
+          : null
       }
     >
       <div className={`${CSS_SELECTOR_PREFIX}-container`}>
