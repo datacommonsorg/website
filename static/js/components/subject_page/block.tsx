@@ -310,13 +310,13 @@ function renderTiles(
           <GaugeTile
             colors={tile.gaugeTileSpec?.colors}
             id={id}
-            minSvgChartHeight={props.svgChartHeight}
             place={place}
             range={tile.gaugeTileSpec.range}
             statVarSpec={props.statVarProvider.getSpec(
               tile.statVarKey[0],
               blockDenom
             )}
+            svgChartHeight={props.svgChartHeight}
             title={tile.title}
           ></GaugeTile>
         );

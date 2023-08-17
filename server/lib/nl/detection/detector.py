@@ -31,6 +31,7 @@ from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
+from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
 _PALM_API_DETECTORS = [
@@ -188,7 +189,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[0.51] * len(vars),
                                          sv2sentences={}),
-                                     multi_sv=_get_multi_sv(vars, cmp_vars))
+                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
   else:
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
@@ -203,17 +204,3 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                          classifications=classifications,
                          detector=ActualDetectorType.NOP,
                          place_detector=PlaceDetectorType.NOP), None
-
-
-def _get_multi_sv(vars: List[str],
-                  cmp_vars: List[str]) -> dutils.MultiVarCandidates:
-  return dutils.MultiVarCandidates(candidates=[
-      dutils.MultiVarCandidate(parts=[
-          dutils.MultiVarCandidatePart(
-              query_part='var1', svs=vars, scores=[1.0] * len(vars)),
-          dutils.MultiVarCandidatePart(
-              query_part='var2', svs=cmp_vars, scores=[1.0] * len(cmp_vars))
-      ],
-                               aggregate_score=1.0,
-                               delim_based=True)
-  ])

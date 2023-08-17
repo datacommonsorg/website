@@ -38,8 +38,8 @@ import { ChartOptions } from "./types";
 export function drawGaugeChart(
   containerElement: HTMLDivElement,
   chartWidth: number,
+  chartHeight: number,
   data: GaugeChartData,
-  minChartHeight: number,
   options?: ChartOptions
 ): void {
   if (_.isEmpty(data)) {
@@ -64,20 +64,19 @@ export function drawGaugeChart(
 
   // minimum thickness of the arc, in px
   const minArcThickness = 10;
-  // how thickness of arc should scale with chart's width
+  // how thickness of arc should scale with chart's height
   // The larger the number, the thicker the arc
   const arcThicknessRatio = 0.05;
-  // 0 to 1, compared to chart width, how wide should the arc be
-  const arcWidthRatio = 2 / 3;
+  // 0 to 1, compared to chart height, how tall should the arc be
+  const arcHeightRatio = 2 / 3;
 
   // Compute arc and label text sizes based on settings
   const arcStrokeWidth = Math.max(
-    chartWidth * arcThicknessRatio,
+    chartHeight * arcThicknessRatio,
     minArcThickness
   );
-  const outerRadius = 0.5 * arcWidthRatio * chartWidth;
+  const outerRadius = Math.min(arcHeightRatio * chartHeight, chartWidth / 2);
   const innerRadius = outerRadius - arcStrokeWidth;
-  const chartHeight = Math.max(outerRadius, minChartHeight);
   const labelTextSize = innerRadius / 3;
   const dataDomain = [
     data.range.min,

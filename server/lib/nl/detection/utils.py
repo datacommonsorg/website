@@ -145,3 +145,18 @@ def create_utterance(query_detection: Detection, currentUtterance: Utterance,
     uttr.places.extend(query_detection.places_detected.places_found)
 
   return uttr
+
+
+def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
+                 score: float) -> dvars.MultiVarCandidates:
+  return dvars.MultiVarCandidates(candidates=[
+      dvars.MultiVarCandidate(parts=[
+          dvars.MultiVarCandidatePart(
+              query_part='var1', svs=main_vars, scores=[score] *
+              len(main_vars)),
+          dvars.MultiVarCandidatePart(
+              query_part='var2', svs=cmp_vars, scores=[score] * len(cmp_vars))
+      ],
+                              aggregate_score=score,
+                              delim_based=True)
+  ])

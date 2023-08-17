@@ -92,7 +92,6 @@ export class DatacommonsGaugeComponent extends LitElement {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
-      minSvgChartHeight: 200,
       place: {
         dcid: this.place,
         name: "",
@@ -102,6 +101,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         min: this.min,
         max: this.max,
       },
+      svgChartHeight: 200,
       statVarSpec: {
         denom: "",
         log: false,
