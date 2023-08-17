@@ -98,7 +98,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
       query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
 
   # 5. Detect SVs leveraging context.
-  vars, cmp_vars = _detect_vars(
+  main_vars, cmp_vars = _detect_vars(
       uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS, is_explore)
 
   if is_explore:
@@ -109,7 +109,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value: places,
-      Params.VARS.value: vars[:max_returned_vars],
+      Params.VARS.value: main_vars[:max_returned_vars],
       Params.SESSION_ID.value: uttr.session_id,
       Params.CMP_ENTITIES.value: cmp_places,
       Params.CMP_VARS.value: cmp_vars[:max_returned_vars],
