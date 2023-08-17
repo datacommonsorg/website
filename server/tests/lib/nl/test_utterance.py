@@ -31,7 +31,14 @@ SIMPLE_PLACE_ONLY_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': []
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
@@ -73,7 +80,14 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/01'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Person_Male', 'Count_Person_Female']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
@@ -99,7 +113,7 @@ OVERVIEW_PLACE_ONLY_UTTR = {
         'event': None,
         'svs': []
     }],
-    'svs': [],
+    'svs': ['Count_Person_Male', 'Count_Person_Female'],
     'session_id': '007_999999999',
 }
 
@@ -113,7 +127,14 @@ SIMPLE_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Person_Male', 'Count_Person_Female']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -174,7 +195,14 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Person_Male']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -236,7 +264,14 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['dc/topic/Agriculture']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -315,13 +350,25 @@ COMPARISON_UTTR = {
         'type': ClassificationType.COMPARISON
     }],
     'places': [{
+        'country': 'country/USA',
         'dcid': 'geoId/32',
         'name': 'Foo Place',
-        'place_type': 'State',
+        'place_type': 'State'
+    }, {
         'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': ['geoId/06'],
+        'comparisonVariables': [],
+        'entities': ['geoId/32'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Person_Male', 'Count_Person_Female']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.COMPARISON_ACROSS_PLACES,
@@ -378,8 +425,8 @@ COMPARISON_UTTR = {
         'event': None,
         'svs': ['Count_Person_Female']
     }],
-    'svs': [],
     'session_id': '007_999999999',
+    'svs': ['Count_Person_Male', 'Count_Person_Female']
 }
 
 # Utterance for county contained-in place.
@@ -389,9 +436,21 @@ CONTAINED_IN_UTTR = {
         'contained_in_place_type': 'County',
         'type': ClassificationType.CONTAINED_IN
     }],
-    'places': [],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': 'County',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Farm', 'Income_Farm']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CONTAINED_IN,
@@ -447,10 +506,25 @@ CONTAINED_IN_UTTR = {
 CORRELATION_UTTR = {
     'classifications': [{
         'type': ClassificationType.CORRELATION
+    }, {
+        'contained_in_place_type': 'DefaultType',
+        'type': ClassificationType.CONTAINED_IN
     }],
-    'places': [],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': ['Count_Person_Male', 'Count_Person_Female'],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Mean_Precipitation']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
@@ -505,6 +579,9 @@ CORRELATION_UTTR = {
 MULTISV_CORRELATION_UTTR = {
     'classifications': [{
         'type': ClassificationType.CORRELATION
+    }, {
+        'contained_in_place_type': 'DefaultType',
+        'type': ClassificationType.CONTAINED_IN
     }],
     'places': [{
         'country': 'country/USA',
@@ -513,7 +590,14 @@ MULTISV_CORRELATION_UTTR = {
         'place_type': 'State'
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': ['Count_Poverty'],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Prevalence_Obesity']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
@@ -551,11 +635,23 @@ RANKING_ACROSS_PLACES_UTTR = {
         'type': ClassificationType.RANKING
     }, {
         'contained_in_place_type': 'County',
-        'type': QueryType.CONTAINED_IN,
+        'type': ClassificationType.CONTAINED_IN,
     }],
-    'places': [],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': 'County',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Agricultural_Workers']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_PLACES,
@@ -591,9 +687,21 @@ RANKING_ACROSS_SVS_UTTR = {
         'ranking_type': [RankingType.HIGH],
         'type': ClassificationType.RANKING
     }],
-    'places': [],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['dc/topic/Agriculture']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_VARS,
@@ -633,9 +741,21 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
         'time_delta_type': [TimeDeltaType.INCREASE],
         'type': ClassificationType.TIME_DELTA
     }],
-    'places': [],
+    'places': [{
+        'country': 'country/USA',
+        'dcid': 'geoId/06',
+        'name': 'Foo Place',
+        'place_type': 'State'
+    }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['dc/topic/AgricultureProduction']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
@@ -731,7 +851,14 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': ['Count_Person_Male', 'Count_Person_Female']
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
@@ -797,7 +924,14 @@ EVENT_UTTR = {
         'country': 'country/USA',
     }],
     'llm_resp': {},
-    'insightCtx': {},
+    'insightCtx': {
+        'childEntityType': '',
+        'comparisonEntities': [],
+        'comparisonVariables': [],
+        'entities': ['geoId/06'],
+        'sessionId': '007_999999999',
+        'variables': []
+    },
     'placeFallback': {},
     'query': 'foo sv in place',
     'query_type': QueryType.EVENT,

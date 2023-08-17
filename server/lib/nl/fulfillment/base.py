@@ -109,6 +109,11 @@ def populate_charts_for_places(state: PopulateState,
     # Counter updated in handle_contained_in_type()
     return False
 
+  if not state.uttr.svs:
+    state.uttr.counters.err('num_populate_fallbacks', 1)
+    state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
+    return False
+
   success = _add_charts_with_place_fallback(state, places, state.uttr.svs,
                                             disable_fallback)
   if not success:

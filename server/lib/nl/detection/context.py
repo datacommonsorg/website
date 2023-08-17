@@ -109,10 +109,10 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
   data_dict.update({
       Params.ENTITIES.value: places,
       Params.VARS.value: vars[:max_returned_vars],
-      Params.SESSION_ID: uttr.session_id,
+      Params.SESSION_ID.value: uttr.session_id,
       Params.CMP_ENTITIES.value: cmp_places,
       Params.CMP_VARS.value: cmp_vars[:max_returned_vars],
-      Params.CHILD_TYPE: '' if not place_type else place_type.value,
+      Params.CHILD_TYPE.value: '' if not place_type else place_type.value,
   })
 
   # 6. Set the detected params in uttr ctx and clear past contexts.
