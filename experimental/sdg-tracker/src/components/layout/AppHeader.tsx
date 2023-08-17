@@ -27,23 +27,9 @@ interface Props {
   selected?: boolean;
 }
 
-const newNode = (className: string) => {
-  return ({ children }: Props) => {
-    return <div className={className}>{children}</div>
-  };
-}
-
-const HeaderContainer = newNode("header-container");
-
-const TopContainer = newNode("top-container");
-
-const LogoBanner = newNode("logo-banner");
-
-const LogoSecondary = newNode("logo-secondary");
-
-const HeaderNav = newNode("header-nav");
-
-const HeaderNavItem = newNode("header-nav-item");
+const HeaderNavItem = ({ children }: Props) => {
+  return <div className="header-nav-item">{children}</div>
+};
 
 const SubNavbarItemLink = ({ children, to, selected }: Props) => {
   return <Link to={to} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>
@@ -52,9 +38,9 @@ const SubNavbarItemLink = ({ children, to, selected }: Props) => {
 const AppHeader = (props: { selected: HeaderOptions }) => {
   const { selected } = props;
   return (
-    <HeaderContainer>
-      <TopContainer>
-        <LogoBanner>
+    <div className="header-container">
+      <div className="top-container">
+        <div className="logo-banner">
           <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
             <img className="left" src="/images/un-logo.svg" />
           </a>
@@ -64,12 +50,12 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
             </div>
             <div className="subheader">Statistics</div>
           </div>
-        </LogoBanner>
-        <LogoSecondary>
+        </div>
+        <div className="logo-secondary">
           <BrandingLink />
-        </LogoSecondary>
-      </TopContainer>
-      <HeaderNav>
+        </div>
+      </div>
+      <div className="header-nav">
         <HeaderNavItem>
           <SubNavbarItemLink to="/" selected={selected === "home"}>
             Home
@@ -102,8 +88,8 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
           </Link>
         </HeaderNavItem>
         */}
-      </HeaderNav>
-    </HeaderContainer>
+      </div>
+    </div>
   );
 };
 
