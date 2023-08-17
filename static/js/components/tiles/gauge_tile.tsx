@@ -39,8 +39,6 @@ export interface GaugeTilePropType {
   colors?: string[];
   // ID of the tile
   id: string;
-  // Min height, in px, for the SVG chart
-  minSvgChartHeight: number;
   // Place to show data for
   place: NamedTypedPlace;
   // Range of values gauge should span
@@ -50,6 +48,8 @@ export interface GaugeTilePropType {
   };
   // Variable to show data for
   statVarSpec: StatVarSpec;
+  // Specific height, in px, for the SVG chart
+  svgChartHeight: number;
   // Title at top of tile
   title: string;
 }
@@ -116,7 +116,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-        style={{ minHeight: props.minSvgChartHeight }}
+        style={{ minHeight: props.svgChartHeight }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -183,8 +183,8 @@ function draw(
   drawGaugeChart(
     svgContainer,
     svgContainer.offsetWidth,
+    props.svgChartHeight,
     chartData,
-    props.minSvgChartHeight,
     {
       colors: props.colors,
     }
