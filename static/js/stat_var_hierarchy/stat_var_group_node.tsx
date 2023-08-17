@@ -65,6 +65,8 @@ interface StatVarGroupNodePropType {
   expandedPath: string[];
   // Number of entities that should have data for each stat var (group) shown
   numEntitiesExistence?: number;
+  // Source constraint for the node
+  dataSource?: string;
 }
 
 interface StatVarGroupNodeStateType {
@@ -235,6 +237,7 @@ export class StatVarGroupNode extends React.Component<
                 showAllSV={this.props.showAllSV}
                 expandedPath={this.props.expandedPath}
                 numEntitiesExistence={this.props.numEntitiesExistence}
+                dataSource={this.props.dataSource}
               />
             )}
           </>
@@ -246,11 +249,20 @@ export class StatVarGroupNode extends React.Component<
   private fetchData(): void {
     const entityList = this.props.entities;
     this.dataFetchingEntities = this.props.entities;
+    let numEntitiesExistence = this.props.numEntitiesExistence;
+    // When dataSource is specified, the stat var group node info fetch should
+    // also be constrained by the data source. So adding the data source dcid
+    // to the `entities` list for this purpose.
+    const entityDcids = entityList.map((entity) => entity.dcid);
+    if (this.props.dataSource) {
+      entityDcids.push(this.props.dataSource);
+      numEntitiesExistence = entityDcids.length;
+    }
     axios
       .post("/api/variable-group/info", {
         dcid: this.props.data.id,
-        entities: entityList.map((entity) => entity.dcid),
-        numEntitiesExistence: this.props.numEntitiesExistence,
+        entities: entityDcids,
+        numEntitiesExistence,
       })
       .then((resp) => {
         const data = resp.data;

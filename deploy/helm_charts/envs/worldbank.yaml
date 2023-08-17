@@ -25,7 +25,8 @@ website:
   image:
     project: "datcom-ci"
     tag:
-  flaskEnv: custom
+  flaskEnv: worldbank
+  replicas: 3
 
 mixer:
   useBaseBigtable: false
@@ -47,7 +48,7 @@ serviceGroups:
   observation: null
   node: null
   default:
-    replicas: 1
+    replicas: 3
     useSearch: true # No svg service, this needs to use search
     resources:
       memoryRequest: "8G"
