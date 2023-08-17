@@ -59,7 +59,7 @@ def detect():
 
   explore_context.merge_with_context(utterance, hoist_topics=True)
 
-  data_dict = copy.deepcopy(utterance.merged_ctx)
+  data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
   data_dict[Params.CTX.value] = nl_utterance.save_utterance(utterance)
 

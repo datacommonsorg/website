@@ -37,7 +37,7 @@ _MAX_RETURNED_VARS = 20
 
 #
 # Given an utterance, this looks up past utterance and updates the merged
-# context in both the utterance inline and `merged_ctx`.
+# context in both the utterance inline and `insight_ctx`.
 #
 # TODO: Deprecate hoist_topics
 def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
@@ -56,6 +56,12 @@ def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
   # 2. Get place-type.
   # TODO: Confirm type for ranking
   place_type = utils.get_contained_in_type(uttr)
+
+  if not place_type and not uttr.svs and not uttr.places:
+    # Evertyhing is empty, don't look into context.
+    uttr.insight_ctx = {}
+    return
+
   if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
     # We look up into context
     if not place_type and uttr.prev_utterance:
@@ -105,7 +111,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
   })
 
   # 6. Set the detected params in uttr ctx and clear past contexts.
-  uttr.merged_ctx = data_dict
+  uttr.insight_ctx = data_dict
 
 
 def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool,
