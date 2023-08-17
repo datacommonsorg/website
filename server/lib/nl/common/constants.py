@@ -193,6 +193,7 @@ PAK_PLACE_TYPE_REMAP = {
         ContainedInPlaceType.ADMIN_AREA_3,
 }
 
+EARTH = Place('Earth', 'Earth', 'Place')
 USA = Place('country/USA', 'USA', 'Country', 'country/USA')
 
 # Key is US-only map type.

@@ -144,6 +144,8 @@ export interface ChartOptions {
   colors?: string[];
   // whether to draw chart in lollipop style, used for bar charts
   lollipop?: boolean;
+  // list of stat var DCIDs, in the order the colors should be applied
+  statVarColorOrder?: string[];
   unit?: string;
 }
 

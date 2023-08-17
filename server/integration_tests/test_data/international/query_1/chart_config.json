@@ -821,45 +821,6 @@
       "placeDcid": [
         "country/IND"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population: 6 Years or Less, Rural",
-            "nlQuery": "Population: 6 Years or Less, Rural India"
-          },
-          {
-            "displayName": "Population: Houseless, Rural, Worker",
-            "nlQuery": "Population: Houseless, Rural, Worker India"
-          },
-          {
-            "displayName": "Rural residents, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Rural residents, Below Poverty Level in The Past 12 Months India"
-          },
-          {
-            "displayName": "Population: Rural, Christianity",
-            "nlQuery": "Population: Rural, Christianity India"
-          },
-          {
-            "displayName": "Population: Houseless, Rural, Scheduled Caste",
-            "nlQuery": "Population: Houseless, Rural, Scheduled Caste India"
-          },
-          {
-            "displayName": "Population: Rural, Marginal Worker",
-            "nlQuery": "Population: Rural, Marginal Worker India"
-          },
-          {
-            "displayName": "Population: Female, Rural",
-            "nlQuery": "Population: Female, Rural India"
-          },
-          {
-            "displayName": "Population: Houseless, Rural",
-            "nlQuery": "Population: Houseless, Rural India"
-          }
-        ]
-      }
     }
   },
   "context": {},

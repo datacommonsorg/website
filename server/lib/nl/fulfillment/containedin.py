@@ -24,10 +24,10 @@ from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
 from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_utterance
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import \
+    classifications_of_type_from_utterance
 
 
 def populate(uttr: Utterance) -> bool:

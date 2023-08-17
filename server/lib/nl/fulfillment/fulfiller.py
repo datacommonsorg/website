@@ -15,12 +15,8 @@
 
 import logging
 
-from server.lib.nl.common import counters as ctr
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection import utils as detection_utils
-from server.lib.nl.detection.types import Detection
-from server.lib.nl.fulfillment import context
 import server.lib.nl.fulfillment.handlers as handlers
 
 
@@ -43,9 +39,9 @@ def fulfill_query_type(uttr: Utterance, query_type: QueryType) -> bool:
   uttr.query_type = query_type
   uttr.chartCandidates = []
 
-  # If we could not detect query_type from user-query, infer from past context.
+  # If we could not detect query_type from user-query, default to SIMPLE.
   if (uttr.query_type == QueryType.UNKNOWN):
-    uttr.query_type = context.query_type_from_context(uttr)
+    uttr.query_type = QueryType.SIMPLE
 
   found = False
 

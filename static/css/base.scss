@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-$dc-primary-color: #467bd5;
+@import "./base/color";
+@import "./base/box";
+
 $full-footer-bg: #fafcff;
 
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
-  --dc-red-lite: #9a0000;
-  --dc-red-fade: #f0e6e7;
-  --dc-gray: #3b3b3b;
-  --dc-gray-lite: #ccc;
-  --dc-white: #fff;
-  --dc-blue: #67adff;
-  --dc-error: #dc3545;
-  // Following vars are overwritten in custom dc modes
-  --dc-primary: #{$dc-primary-color};
-  --link-color: #{$dc-primary-color};
-  --footer-bg: #f5f9fe;
 }
 
 /** Bootstrap overrides **/
@@ -48,19 +39,19 @@ $grid-breakpoints: (
   xs: 0,
   sm: 576px,
   md: 768px,
-  lg: 992px,
+  lg: 1068px,
   xl: 1350px,
 );
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
-  lg: 960px,
+  lg: 1038px,
   xl: 1310px,
 );
 
-$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%),
-  0 2px 8px 4px rgb(66 66 66 / 10%);
+$hover-box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.03),
+  0px 0px 6px rgba(3, 7, 18, 0.06), 1px 1px 14px rgba(3, 7, 18, 0.1);
 
 $theme-colors: (
   "primary": $dc-primary-color,
@@ -98,7 +89,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 #main-nav .nav-item a {
-  color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+  color: var(--gm-3-ref-neutral-neutral-40);
 
   &:hover {
     text-decoration: none;
@@ -173,7 +164,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 
 /** Shared page elements **/
 #main-header {
-  background: #fff;
+  background: var(--gm-3-white);
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -210,9 +201,9 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 #main-footer {
-  color: var(--gm-3-ref-neutral-neutral-20, #303030);
+  color: var(--gm-3-ref-neutral-neutral-20);
   h6 {
-    color: var(--gm-3-ref-neutral-neutral-20, #303030);
+    color: var(--gm-3-ref-neutral-neutral-20);
     font-family: $headings-font-family;
     font-size: 28px;
     font-weight: 400;
@@ -220,7 +211,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   }
   a {
     align-items: center;
-    color: var(--gm-3-sys-light-primary, #0b57d0);
+    color: var(--gm-3-sys-light-primary);
     display: flex !important;
     flex-direction: row;
     font-size: 14px;
@@ -257,7 +248,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 .brand-byline {
-  color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+  color: var(--gm-3-ref-neutral-neutral-40);
   .brand-text {
     font-size: 0.75em;
     font-weight: 400;
@@ -277,7 +268,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   flex-direction: row;
   align-items: center;
   a {
-    color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+    color: var(--gm-3-ref-neutral-neutral-40);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;

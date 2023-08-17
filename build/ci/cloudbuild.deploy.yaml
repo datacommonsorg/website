@@ -28,8 +28,7 @@ steps:
         docker push gcr.io/datcom-ci/datacommons-website:latest
 
         # Bundle container with website, esp and mixer.
-        docker build -f build/web_server/Dockerfile \
-          --target website-compose \
+        docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
           --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
           .

@@ -190,9 +190,6 @@ class Utterance:
   # but not Africa.
   past_source_context: str = ''
   place_fallback: PlaceFallback = None
-  # A subset of `svs` that have passed existence check and haven't been
-  # added to the charts.
-  extra_success_svs: List[str] = field(default_factory=list)
   # Past complete context for insight flow.
   insight_ctx: Dict = field(default_factory=dict)
 
