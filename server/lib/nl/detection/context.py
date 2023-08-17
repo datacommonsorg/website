@@ -116,7 +116,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
       Params.CHILD_TYPE.value: '' if not place_type else place_type.value,
   })
 
-  # 6. Set the detected params in uttr ctx and clear past contexts.
+  # 7. Set the detected params in uttr ctx and clear past contexts.
   uttr.insight_ctx = data_dict
 
 
@@ -248,8 +248,10 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       else:
         # Find place from context.
         if uttr.prev_utterance and uttr.prev_utterance.places:
-          uttr.places = uttr.prev_utterance.places
-          places = [p.dcid for p in uttr.places]
+          # Only pick the main place from the context since this
+          # is NOT a comparison query.
+          uttr.places = uttr.prev_utterance.places[:1]
+          places = [uttr.places[0].dcid]
           uttr.counters.info('insight_place_ctx', places)
           uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
           uttr.past_source_context = uttr.places[0].name
