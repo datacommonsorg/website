@@ -15,116 +15,39 @@
  */
 
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { BrandingLink } from "./components";
+import "./AppHeader.css";
+import React from "react";
 
 type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
-const HeaderContainer = styled.div`
-  width: 100%;
-  background: white;
-`;
+interface Props {
+  children: React.ReactNode;
+  to?: any;
+  selected?: boolean;
+}
 
-const TopContainer = styled.div`r
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: row;
-  height: 75px;
-  justify-content: space-between;
-  padding: 0 4rem;
-  width: 100%;
-`;
+const newNode = (className: string) => {
+  return ({ children }: Props) => {
+    return <div className={className}>{children}</div>
+  };
+}
 
-const LogoBanner = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  .left {
-    height: 45px;
-    padding-right: 1.25rem;
-  }
-  .text {
-    border-left: 2px solid grey;
-    display: flex;
-    flex-direction: column;
-    font-family: Roboto Condensed, sans-serif;
-    padding-left: 1.25rem;
-    flex-shrink: 0;
-    .header {
-      color: #333;
-      font-size: 23px;
-      font-weight: 600;
-      line-height: normal;
-      flex-shrink: 0;
-    }
-    .subheader {
-      color: #333;
-      font-size: 23px;
-      line-height: 1.5rem;
-      flex-shrink: 0;
-    }
-  }
-`;
+const HeaderContainer = newNode("header-container");
 
-const LogoSecondary = styled.div`
-  @media (max-width: 980px) {
-    display: none;
-  }
-  display: flex;
-  align-items: center;
-`;
+const TopContainer = newNode("top-container");
 
-const HeaderNav = styled.div`
-  align-items: center;
-  background-color: rgb(77, 77, 77) !important;
-  border-bottom: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: row;
-  margin: auto 0;
-  padding: 0 4rem;
-  overflow: auto;
-  /** Safe center prevents the navbar from getting cut off on small screens */
-  justify-content: safe flex-start;
+const LogoBanner = newNode("logo-banner");
 
-  &:hover {
-    a {
-      text-decoration: none;
-    }
-  }
-`;
+const LogoSecondary = newNode("logo-secondary");
 
-const HeaderNavItem = styled.div`
-  flex-shrink: 0;
-  border-right: 1px solid white;
-  &:last-child {
-    border-right: 0;
-  }
+const HeaderNav = newNode("header-nav");
 
-  &:hover {
-    background-color: #f8f8f8;
-    a {
-      color: black;
-    }
-  }
-`;
+const HeaderNavItem = newNode("header-nav-item");
 
-const SubNavbarItemLink = styled(Link)<{ selected?: boolean }>`
-  padding: 0.6rem 1rem;
-  color: white;
-  display: flex;
-  font-size: 0.9rem;
-  ${(p) =>
-    p.selected
-      ? `
-      font-weight: 500;
-      color: red;
-      background-color: #f8f8f8;
-        color: black;
-      `
-      : null}
-`;
+const SubNavbarItemLink = ({ children, to, selected }: Props) => {
+  return <Link to={to} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>
+};
 
 const AppHeader = (props: { selected: HeaderOptions }) => {
   const { selected } = props;
