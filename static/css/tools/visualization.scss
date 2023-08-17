@@ -60,7 +60,7 @@ $selector-footer-height: 40px;
   width: fit-content;
   padding: 10px 24px 10px 24px;
   border-radius: 100px;
-  background-color: #0B57D0;
+  background-color: var(--gm-3-sys-light-primary);
   color: white;
   font-weight: 500;
   cursor: pointer;
@@ -102,13 +102,13 @@ $selector-footer-height: 40px;
 }
 
 .vis-type-option:hover {
-  color: #0B57D0;
-  border-bottom: 3px solid #0B57D0;
+  color: var(--gm-3-sys-light-primary);
+  border-bottom: 3px solid var(--gm-3-sys-light-primary);
 }
 
 .vis-type-option.selected {
-  color: #0B57D0;
-  border-bottom: 3px solid #0B57D0;
+  color: var(--gm-3-sys-light-primary);
+  border-bottom: 3px solid var(--gm-3-sys-light-primary);
 }
 
 /* Selected options section */

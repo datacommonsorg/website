@@ -35,6 +35,7 @@ import {
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
+const NO_SPACE_UNITS = new Set(["%"]);
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -78,6 +79,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
   // This hack should be cleaned up.
+  const unitString = translateUnit(
+    props.statVarSpec.unit || highlightData.unitDisplayName
+  );
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -94,11 +98,11 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
                 NUM_FRACTION_DIGITS
               )}
             </span>
-            <span className="metadata">
-              {translateUnit(
-                props.statVarSpec.unit || highlightData.unitDisplayName
-              )}
-            </span>
+            {unitString && (
+              <span className="metadata">
+                {`${NO_SPACE_UNITS.has(unitString) ? "" : " "}${unitString}`}
+              </span>
+            )}
           </span>
         </>
       )}

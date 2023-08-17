@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
+/**
+ * Base styling variables to use for box attributes
+ * (i.e., padding, border, margin, etc)
+ */
+
 :root {
-  --dc-primary: #660000;
-  --link-color: #660000;
+  --border-primary: 1px solid var(--gm-3-ref-neutral-neutral-90);
+  --border-radius-primary: 8px;
 }
