@@ -302,9 +302,10 @@ $tool-card-vgap: 24px;
       font-weight: 400;
       margin-bottom: 20px;
     }
-    .tools-description--subheader {
+    .tools-description-subheader {
       color: var(--gm-3-ref-neutral-neutral-20);
-      font-weight: 500;
+      font-size: 16px;
+      font-weight: 400;
       line-height: 24px;
     }
     margin-bottom: 32px;
@@ -383,7 +384,7 @@ $tool-card-vgap: 24px;
     p {
       color: var(--gm-3-ref-neutral-neutral-20);
       font-size: 16px;
-      font-weight: 500;
+      font-weight: 400;
       line-height: 24px;
       margin-bottom: 18px;
     }
@@ -430,10 +431,14 @@ $tool-card-vgap: 24px;
   .partner-items {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 24px;
-    justify-content: space-between;
+    justify-content: center;
     max-width: 100%;
-    overflow: auto;
+
+    @include media-breakpoint-up(lg) {
+      justify-content: space-between;
+    }
     img {
       width: 120px;
       height: 120px;
