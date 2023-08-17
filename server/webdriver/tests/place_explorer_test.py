@@ -232,13 +232,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Check the title text.
     chart_unit_highest_title = self.driver.find_element(
         By.XPATH,
-        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/h4'
+        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/div/h4'
     ).text
     self.assertTrue = (CHART_UNIT_HIGHEST_TITLE in chart_unit_highest_title)
 
     chart_unit_lowest_title = self.driver.find_element(
         By.XPATH,
-        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/h4'
+        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/div/h4'
     ).text
     self.assertTrue = (CHART_UNIT_LOWEST_TITLE in chart_unit_lowest_title)
 

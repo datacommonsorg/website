@@ -160,113 +160,113 @@ class IntegrationTest(NLWebServerTestCase):
             'How many middle schools are there in Sunnyvale',
         ])
 
-  # def test_demo_fallback(self):
-  #   self.run_sequence(
-  #       'demo_fallback',
-  #       [
-  #           # We have no stats on this, so we should return SF overview.
-  #           # Two places should be detected but San Francisco is the main place.
-  #           'Number of Shakespeare fans in San Francisco and Chicago.',
-  #           # We should support comparison across multiple places in a single query.
-  #           # Since there are multiple places we shouldn't need the trigger word "compare".
-  #           'Crime in California and Florida',
-  #           # We have no crime at county-level in CA, so we should fall back as:
-  #           # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
-  #           'counties in California with highest crime',
-  #           # We have no obesity data at State-level. Instead we should fallback to
-  #           # parent place USA.
-  #           'obesity in California',
-  #           # We should fail fulfilling "Country" type contained-in a country,
-  #           # instead we would pick contained-in from context (County).
-  #           'GDP of countries in the US',
-  #       ],
-  #       detector='hybrid',
-  #       expected_detectors=[
-  #           'Hybrid - LLM Fallback',
-  #           'Hybrid - Heuristic Based',
-  #           'Hybrid - Heuristic Based',
-  #           'Hybrid - Heuristic Based',
-  #           'Hybrid - Heuristic Based',
-  #       ])
+  def test_demo_fallback(self):
+    self.run_sequence(
+        'demo_fallback',
+        [
+            # We have no stats on this, so we should return SF overview.
+            # Two places should be detected but San Francisco is the main place.
+            'Number of Shakespeare fans in San Francisco and Chicago.',
+            # We should support comparison across multiple places in a single query.
+            # Since there are multiple places we shouldn't need the trigger word "compare".
+            'Crime in California and Florida',
+            # We have no crime at county-level in CA, so we should fall back as:
+            # RANKING_ACROSS_PLACES -> CONTAINED_IN -> SIMPLE
+            'counties in California with highest crime',
+            # We have no obesity data at State-level. Instead we should fallback to
+            # parent place USA.
+            'obesity in California',
+            # We should fail fulfilling "Country" type contained-in a country,
+            # instead we would pick contained-in from context (County).
+            'GDP of countries in the US',
+        ],
+        detector='hybrid',
+        expected_detectors=[
+            'Hybrid - LLM Fallback',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+            'Hybrid - Heuristic Based',
+        ])
 
-  # def test_demo_multisv(self):
-  #   self.run_sequence(
-  #       'multisv',
-  #       [
-  #           # We support comparison with multiple stat-vars. This should be
-  #           # a correlation chart for counties in CA.
-  #           "Poverty vs. Obesity in California",
-  #           # This should be a place comparison for a single more prominent SV.
-  #           "Poverty vs. Obesity in California and Florida",
-  #           # Filter query with top cities.
-  #           "California cities with hispanic population over 10000",
-  #           # Filter query with another SV.
-  #           "Prevalence of Asthma in California cities with hispanic population over 10000",
-  #       ],
-  #       # Use heuristic because LLM fallback is not very deterministic.
-  #       detector='heuristic')
+  def test_demo_multisv(self):
+    self.run_sequence(
+        'multisv',
+        [
+            # We support comparison with multiple stat-vars. This should be
+            # a correlation chart for counties in CA.
+            "Poverty vs. Obesity in California",
+            # This should be a place comparison for a single more prominent SV.
+            "Poverty vs. Obesity in California and Florida",
+            # Filter query with top cities.
+            "California cities with hispanic population over 10000",
+            # Filter query with another SV.
+            "Prevalence of Asthma in California cities with hispanic population over 10000",
+        ],
+        # Use heuristic because LLM fallback is not very deterministic.
+        detector='heuristic')
 
-  # def test_demo_climatetrace(self):
-  #   self.run_sequence('demo_climatetrace',
-  #                     ['Which countries emit the most greenhouse gases?'])
+  def test_demo_climatetrace(self):
+    self.run_sequence('demo_climatetrace',
+                      ['Which countries emit the most greenhouse gases?'])
 
-  # # # This test uses NER.
-  # def test_place_detection_e2e_ner(self):
-  #   self.run_sequence('place_detection_e2e', [
-  #       'tell me about palo alto',
-  #       'US states which have that the cheapest houses',
-  #       'what about in florida',
-  #       'compare with california and new york state and washington state',
-  #       'show me the population of mexico city',
-  #       'counties in the US with the most poverty',
-  #   ],
-  #                     check_place_detection=True,
-  #                     place_detector='ner')
+  # # This test uses NER.
+  def test_place_detection_e2e_ner(self):
+    self.run_sequence('place_detection_e2e', [
+        'tell me about palo alto',
+        'US states which have that the cheapest houses',
+        'what about in florida',
+        'compare with california and new york state and washington state',
+        'show me the population of mexico city',
+        'counties in the US with the most poverty',
+    ],
+                      check_place_detection=True,
+                      place_detector='ner')
 
-  # # This test uses DC's Recognize Places API.
-  # # TODO: "US" is not detected by RecognizePlaces.
-  # # TODO: Also "mexico city" is wrongly detected.
-  # def test_place_detection_e2e_dc(self):
-  #   self.run_sequence('place_detection_e2e_dc', [
-  #       'tell me about palo alto',
-  #       'US states which have that the cheapest houses',
-  #       'what about in florida',
-  #       'compare with california and new york state and washington state',
-  #       'show me the population of mexico city',
-  #       'counties in the US with the most poverty',
-  #   ],
-  #                     check_place_detection=True)
+  # This test uses DC's Recognize Places API.
+  # TODO: "US" is not detected by RecognizePlaces.
+  # TODO: Also "mexico city" is wrongly detected.
+  def test_place_detection_e2e_dc(self):
+    self.run_sequence('place_detection_e2e_dc', [
+        'tell me about palo alto',
+        'US states which have that the cheapest houses',
+        'what about in florida',
+        'compare with california and new york state and washington state',
+        'show me the population of mexico city',
+        'counties in the US with the most poverty',
+    ],
+                      check_place_detection=True)
 
-  # def test_international(self):
-  #   self.run_sequence('international', [
-  #       'Where are the most rural districts in India',
-  #       'Life expectancy across provinces of China',
-  #       'GDP of counties in the United Kingdom',
-  #       'Districts in Turkey with the highest fertility rate',
-  #       'Floods in Brazil',
-  #       'Drought in Africa',
-  #   ])
+  def test_international(self):
+    self.run_sequence('international', [
+        'Where are the most rural districts in India',
+        'Life expectancy across provinces of China',
+        'GDP of counties in the United Kingdom',
+        'Districts in Turkey with the highest fertility rate',
+        'Floods in Brazil',
+        'Drought in Africa',
+    ])
 
-  # def test_demo_usa_map_types(self):
-  #   self.run_sequence(
-  #       'usa_map_types',
-  #       [
-  #           # This should show ranking and map.
-  #           'which cities in the Santa Clara County have the highest larceny?',
-  #           # Shows map of tracts.
-  #           'household median income across tracts of Placer County',
-  #           # Shows map of ZCTAs.
-  #           'how many people are unemployed in zip codes of washington?'
-  #       ])
+  def test_demo_usa_map_types(self):
+    self.run_sequence(
+        'usa_map_types',
+        [
+            # This should show ranking and map.
+            'which cities in the Santa Clara County have the highest larceny?',
+            # Shows map of tracts.
+            'household median income across tracts of Placer County',
+            # Shows map of ZCTAs.
+            'how many people are unemployed in zip codes of washington?'
+        ])
 
-  # def test_sdg(self):
-  #   self.run_sequence('sdg', [
-  #       'tell me about poverty in africa',
-  #       'which countries have shown the greatest reduction?',
-  #       'health in the world',
-  #   ])
+  def test_sdg(self):
+    self.run_sequence('sdg', [
+        'tell me about poverty in africa',
+        'which countries have shown the greatest reduction?',
+        'health in the world',
+    ])
 
-  # # def test_inappropriate_query(self):
-  #   self.run_sequence('inappropriate_query',
-  #                     ['how many wise asses live in sunnyvale?'],
-  #                     failure='inappropriate words')
+    # def test_inappropriate_query(self):
+    self.run_sequence('inappropriate_query',
+                      ['how many wise asses live in sunnyvale?'],
+                      failure='inappropriate words')

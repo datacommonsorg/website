@@ -19,25 +19,15 @@ from server.lib.nl.common import utils
 from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
-from server.lib.nl.detection.types import ClassificationType
-from server.lib.nl.detection.types import ContainedInClassificationAttributes
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.base import handle_contained_in_type
-from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_context
-from server.lib.nl.fulfillment.context import places_from_context
-from server.lib.nl.fulfillment.context import svs_from_context
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 import shared.lib.detected_variables as vars
 
-_MAX_CONTEXT_SVS = 3
 _MAX_MAIN_SVS = 5
 
 #
@@ -47,22 +37,8 @@ _MAX_MAIN_SVS = 5
 
 
 def populate(uttr: Utterance) -> bool:
-  # Get the list of CONTAINED_IN classifications in order from current to past.
-  # Past is useful for demo queries, and also a correlation detection is a
-  # strong indication that child-place-type should be there.
-  classifications = classifications_of_type_from_context(
-      uttr, ClassificationType.CONTAINED_IN)
-  if not classifications:
-    # If there are no classifications, attempt default type.
-    return _populate_correlation_for_place_type(
-        PopulateState(uttr=uttr,
-                      main_cb=None,
-                      place_type=ContainedInPlaceType.DEFAULT_TYPE))
-  for classification in classifications:
-    if (not classification or not isinstance(
-        classification.attributes, ContainedInClassificationAttributes)):
-      continue
-    place_type = classification.attributes.contained_in_place_type
+  place_type = utils.get_contained_in_type(uttr)
+  if place_type:
     if _populate_correlation_for_place_type(
         PopulateState(uttr=uttr, main_cb=None, place_type=place_type)):
       return True
@@ -73,51 +49,11 @@ def populate(uttr: Utterance) -> bool:
 
 
 def _populate_correlation_for_place_type(state: PopulateState) -> bool:
-  populate_attempted = False
-
-  if state.uttr.places:
-    for pl in state.uttr.places:
-      populate_attempted = True
-      if (_populate_correlation_for_place(state, pl)):
-        state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
-        return True
-      else:
-        state.uttr.counters.err('correlation_failed_populate_main_place',
-                                pl.dcid)
-  else:
-    # Only if user has not provided a place, seek a place from the context.
-    # Otherwise the result seems unexpected to them.
-
-    # Special case: if we didn't find a place *and* the place-type is
-    # COUNTRY we will not look in the context!  Since most often
-    # [countries with X] refers to "Earth", the default place.
-    if state.place_type == ContainedInPlaceType.COUNTRY:
-      context_places = []
+  for pl in state.uttr.places:
+    if (_populate_correlation_for_place(state, pl)):
+      return True
     else:
-      context_places = places_from_context(state.uttr)
-
-    for pl in context_places:
-      populate_attempted = True
-      if (_populate_correlation_for_place(state, pl)):
-        state.uttr.place_source = FulfillmentResult.PAST_QUERY
-        state.uttr.past_source_context = pl.name
-        return True
-      else:
-        state.uttr.counters.err('correlation_failed_populate_context_place',
-                                pl.dcid)
-
-  if populate_attempted:
-    return False
-
-  default_place = get_default_contained_in_place(state.uttr.places,
-                                                 state.place_type)
-  if default_place:
-    result = _populate_correlation_for_place(state, default_place)
-    if result:
-      state.uttr.place_source = FulfillmentResult.DEFAULT
-      state.uttr.past_source_context = default_place.name
-    return result
-
+      state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
   return False
 
 
@@ -136,10 +72,7 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
 
   # When multi-sv has a higher score than single-sv prefer that.
   # See discussion in _route_comparison_or_correlation().
-  if detection_utils.is_multi_sv(state.uttr.detection):
-    lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
-  else:
-    lhs_svs, rhs_svs = _handle_svs_from_context(state.uttr, places_to_check)
+  lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
 
   if not lhs_svs or not rhs_svs:
     return False
@@ -151,42 +84,6 @@ def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
         continue
       found |= _populate_correlation_chart(state, place, lhs_sv, rhs_sv)
   return found
-
-
-def _handle_svs_from_context(uttr: Utterance,
-                             places_to_check: List[str]) -> tuple:
-  # For the main SV of correlation, we expect a variable to
-  # be detected in this `uttr`
-  main_svs = open_top_topics_ordered(uttr.svs, uttr.counters)
-  main_svs, _ = utils.sv_existence_for_places(places_to_check, main_svs,
-                                              uttr.counters)
-  if not main_svs:
-    uttr.counters.err('correlation_failed_existence_check_main_sv', main_svs)
-    uttr.counters.err('correlation_failed_missing_main_sv', 1)
-    logging.info('Correlation found no Main SV')
-    return (None, None)
-
-  # For related SV, walk up the chain to find all SVs.
-  context_svs = []
-  for c_svs in svs_from_context(uttr):
-    opened_svs = open_top_topics_ordered(c_svs, uttr.counters)
-    context_svs, _ = utils.sv_existence_for_places(places_to_check, opened_svs,
-                                                   uttr.counters)
-    if context_svs:
-      break
-    else:
-      uttr.counters.err('correlation_failed_existence_check_context_sv',
-                        opened_svs)
-  if not context_svs:
-    uttr.counters.err('correlation_failed_missing_context_sv', 1)
-    logging.info('Correlation found no Context SV')
-    return (None, None)
-
-  main_svs = main_svs[:_MAX_MAIN_SVS]
-  context_svs = context_svs[:_MAX_CONTEXT_SVS]
-  uttr.counters.info('correlation_main_svs', main_svs)
-  uttr.counters.info('correlation_context_svs', context_svs)
-  return (main_svs, context_svs)
 
 
 def _handle_multi_sv_in_uttr(uttr: Utterance,

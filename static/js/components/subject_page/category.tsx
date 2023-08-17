@@ -17,12 +17,11 @@
 /**
  * Component for rendering a category (a container for blocks).
  */
-import _ from "lodash";
 import React, { memo } from "react";
 import ReactMarkdown from "react-markdown";
 
 import { BLOCK_ID_PREFIX } from "../../constants/subject_page_constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
   CategoryConfig,
   EventTypeSpec,
@@ -90,23 +89,22 @@ function renderBlocks(
   if (!props.config.blocks) {
     return <></>;
   }
+  const visitedSV: Set<string> = new Set();
   const blocksJsx = props.config.blocks.map((block, i) => {
     const id = getId(props.id, BLOCK_ID_PREFIX, i);
-    let commonSVs = [];
+    const commonSVSpec: StatVarSpec[] = [];
     for (const column of block.columns) {
       for (const tile of column.tiles) {
         if (!tile.statVarKey) {
           continue;
         }
-        const tmp = [];
         for (const k of tile.statVarKey) {
           const svSpec = svProvider.getSpec(k, block.denom);
-          tmp.push(svSpec.statVar);
-        }
-        if (commonSVs.length == 0) {
-          commonSVs = tmp;
-        } else {
-          commonSVs = _.intersection(commonSVs, tmp);
+          if (visitedSV.has(svSpec.statVar)) {
+            continue;
+          }
+          visitedSV.add(svSpec.statVar);
+          commonSVSpec.push(svSpec);
         }
       }
     }
@@ -144,7 +142,7 @@ function renderBlocks(
               description={block.description}
               footnote={block.footnote}
               place={props.place}
-              commonSVs={new Set(commonSVs)}
+              commonSVSpec={commonSVSpec}
             >
               <Block
                 id={id}

@@ -31,9 +31,9 @@ import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
-import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
+import server.lib.nl.fulfillment.utils as futils
 
 
 @dataclass
@@ -55,7 +55,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
 
   # Open up topics into vars and build ChartVars for each.
 
-  has_correlation = ctx.classifications_of_type_from_utterance(
+  has_correlation = futils.classifications_of_type_from_utterance(
       uttr, dtypes.ClassificationType.CORRELATION)
 
   chart_vars_map = {}
@@ -132,7 +132,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         state.uttr.counters.timeit('extension_existence_check', start)
         _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
 
-    if state.uttr.insight_ctx.get(Params.EXP_MORE):
+    if not state.uttr.insight_ctx.get(Params.EXP_MORE_DISABLED):
       explore_more_chart_vars_map = extension.explore_more(
           list(explore_more_svs))
       if explore_more_chart_vars_map:

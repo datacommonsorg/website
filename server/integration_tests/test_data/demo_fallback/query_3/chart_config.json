@@ -188,11 +188,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -221,5 +216,5 @@
     "origType": "County"
   },
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "svSource": "UNFULFILLED"
 }

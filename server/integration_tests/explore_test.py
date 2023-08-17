@@ -133,7 +133,8 @@ class IntegrationTest(NLWebServerTestCase):
     req = {
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
-        'dc': ''
+        'dc': '',
+        'disableExploreMore': '1',
     }
     self.run_fulfillment('fulfillment_api_basic', req)
 
@@ -142,7 +143,6 @@ class IntegrationTest(NLWebServerTestCase):
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/DivorcedPopulationByDemographic'],
         'dc': '',
-        'exploreMore': '1',
     }
     self.run_fulfillment('fulfillment_api_explore_more', req)
 
