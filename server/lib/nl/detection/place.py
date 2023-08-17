@@ -138,7 +138,6 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
                                            debug_logs["place_resolution"])
 
   main_place = None
-  identicals = []
   peers = []
   if resolved_places:
     main_place = resolved_places[0]
@@ -151,7 +150,6 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       query_places_mentioned=places_str,
       places_found=resolved_places,
       main_place=main_place,
-      identical_name_as_main_place=identicals,
       peer_places=peers)
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
@@ -293,9 +291,6 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = d.query_places_mentioned
   query_detection_debug_logs["main_place_inferred"] = d.main_place
-  if d.identical_name_as_main_place:
-    query_detection_debug_logs["disambiguation_places"] = \
-      '; '.join([p.dcid for p in d.identical_name_as_main_place])
   if d.peer_places:
     query_detection_debug_logs["similar_places"] = \
       '; '.join([p.name for p in d.peer_places])

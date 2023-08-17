@@ -26,7 +26,6 @@ from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
-import shared.lib.detected_variables as dutils
 
 # We will ignore SV detections that are below this threshold
 _SV_THRESHOLD = 0.5
@@ -148,15 +147,16 @@ def create_utterance(query_detection: Detection, currentUtterance: Utterance,
   return uttr
 
 
-def get_multi_sv(vars: List[str], cmp_vars: List[str],
-                 score: float) -> dutils.MultiVarCandidates:
-  return dutils.MultiVarCandidates(candidates=[
-      dutils.MultiVarCandidate(parts=[
-          dutils.MultiVarCandidatePart(
-              query_part='var1', svs=vars, scores=[score] * len(vars)),
-          dutils.MultiVarCandidatePart(
+def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
+                 score: float) -> dvars.MultiVarCandidates:
+  return dvars.MultiVarCandidates(candidates=[
+      dvars.MultiVarCandidate(parts=[
+          dvars.MultiVarCandidatePart(
+              query_part='var1', svs=main_vars, scores=[score] *
+              len(main_vars)),
+          dvars.MultiVarCandidatePart(
               query_part='var2', svs=cmp_vars, scores=[score] * len(cmp_vars))
       ],
-                               aggregate_score=score,
-                               delim_based=True)
+                              aggregate_score=score,
+                              delim_based=True)
   ])
