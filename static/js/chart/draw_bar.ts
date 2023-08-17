@@ -146,7 +146,8 @@ export function drawStackBarChart(
   addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys, options?.colors);
+  const colorOrder = options?.statVarColorOrder || keys;
+  const colorFn = getColorFn(colorOrder, options?.colors);
 
   if (options?.lollipop) {
     // How much to shift stems so they plot at center of band
@@ -630,7 +631,6 @@ function drawLollipops(
  * @param chartHeight height of chart
  * @param dataGroups data values to plot
  * @param options chart options
- * @param useLollipop whether to use lollipops instead of bars
  */
 export function drawGroupBarChart(
   containerElement: HTMLDivElement,
@@ -714,7 +714,8 @@ export function drawGroupBarChart(
   addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
 
-  const colorFn = getColorFn(keys, options.colors);
+  const colorOrder = options?.statVarColorOrder || keys;
+  const colorFn = getColorFn(colorOrder, options.colors);
 
   if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
@@ -787,7 +788,8 @@ export function drawHorizontalBarChart(
     : Math.ceil((dataGroups.length + 0.1) * barHeight * numGroups) +
       marginTop +
       marginBottom;
-  const color = getColorFn(keys, options?.colors);
+  const colorOrder = options?.statVarColorOrder || keys;
+  const color = getColorFn(colorOrder, options?.colors);
   const [displayUnit, label] = getDisplayUnitAndLabel(options?.unit);
 
   // Create the SVG container.

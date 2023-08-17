@@ -19,6 +19,7 @@
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
+@import "./shared/item_list";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
@@ -53,7 +54,7 @@
     }
 
     .early-preview-tag {
-      color: var(--gm-3-ref-secondary-secondary-30, #004a77);
+      color: var(--gm-3-ref-secondary-secondary-30);
       font-family: $font-family-sans-serif;
       font-size: 11px;
       font-style: normal;
@@ -69,9 +70,9 @@
 
     .search-bar {
       align-items: center;
-      background: var(--gm-3-ref-secondary-secondary-99, #f7fcff);
+      background: var(--gm-3-ref-secondary-secondary-99);
       border-radius: 28px;
-      border: 1px solid var(--gm-3-ref-neutral-neutral-90, #e3e3e3);
+      border: var(--border);
       display: flex;
       flex-shrink: 0;
       gap: 4px;
@@ -102,7 +103,7 @@
           align-self: stretch;
           background: transparent;
           border: none;
-          color: var(--gm-3-ref-neutral-neutral-40, #5e5e5e);
+          color: var(--gm-3-ref-neutral-neutral-40);
           display: flex;
           flex: 1 0 0;
           font-family: $font-family-sans-serif;
@@ -135,7 +136,7 @@
 
       h1 {
         margin: 0;
-        color: var(--gm-3-ref-neutral-neutral-20, #303030);
+        color: var(--gm-3-ref-neutral-neutral-20);
         font-size: 28px;
         font-style: normal;
         font-weight: 400;
@@ -164,48 +165,6 @@
 
   .explore-title-sub-topics {
     max-width: 500px;
-    overflow: hidden;
-  }
-  // TODO: Dedupe these styles. They are for the ItemList component and are currently duplicated from explore.scss.
-  .explore-topics-box {
-    display: flex;
-
-    .explore-relevant-topics {
-      min-width: 120px;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 20px;
-      color: #1f1f1f;
-      opacity: 0.38;
-    }
-  }
-
-  .explore-item-list {
-    font-size: 14px;
-    font-weight: 500;
-    color: #0b57d0;
-    margin-left: -12px;
-
-    .explore-item-box {
-      display: inline-block;
-      margin-bottom: 5px;
-    }
-
-    .explore-item-box::before {
-      content: "•";
-      color: black;
-      display: inline-block;
-      width: 8px;
-    }
-
-    .item-list-text {
-      margin: 10px 12px;
-      line-height: 20px;
-    }
-
-    .item-list-text:hover {
-      cursor: pointer;
-    }
   }
 
   .topic-queries {
