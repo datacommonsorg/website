@@ -16,6 +16,7 @@ import logging
 import time
 from typing import Dict, List
 
+from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
@@ -27,7 +28,6 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment import context
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import update_extra_success_svs
@@ -98,60 +98,7 @@ def add_chart_to_utterance(
 
 # Populate chart specs in state.uttr and return True if something was added.
 def populate_charts(state: PopulateState) -> bool:
-  populate_attempted = False
-  if state.uttr.places:
-    populate_attempted = True
-    if (populate_charts_for_places(state, state.uttr.places)):
-      state.uttr.place_source = FulfillmentResult.CURRENT_QUERY
-      return True
-    else:
-      dcids = [p.dcid for p in state.uttr.places]
-      state.uttr.counters.err('failed_populate_main_places', dcids)
-  else:
-    # Only if user has not provided a place, seek a place from the context.
-    # Otherwise the result seems unexpected to them.
-
-    # Special case: if we didn't find a place *and* the place-type is
-    # COUNTRY we will not look in the context!  Since most often
-    # [countries with X] refers to "Earth", the default place.
-    if state.place_type == ContainedInPlaceType.COUNTRY:
-      context_places = []
-    else:
-      context_places = context.places_from_context(state.uttr)
-
-    for pl in context_places:
-      populate_attempted = True
-      # Important to set this for maybe_set_fallback().
-      # But always reset after populate_charts_for_places(), so
-      # we don't propagate it to failover query-types as a
-      # main place.
-      state.uttr.places = [pl]
-      if (populate_charts_for_places(state, state.uttr.places)):
-        state.uttr.places = []
-        state.uttr.place_source = FulfillmentResult.PAST_QUERY
-        state.uttr.past_source_context = pl.name
-        return True
-      else:
-        state.uttr.places = []
-        state.uttr.counters.err('failed_populate_context_place', pl.dcid)
-
-  if populate_attempted:
-    return False
-
-  # If this query did not have a place, but had a contained-in attribute, we
-  # might try specific default places.
-  default_place = get_default_contained_in_place(state.uttr.places,
-                                                 state.place_type)
-  if default_place:
-    # No fallback when using default-place
-    result = populate_charts_for_places(state, [default_place],
-                                        disable_fallback=True)
-    if result:
-      state.uttr.place_source = FulfillmentResult.DEFAULT
-      state.uttr.past_source_context = default_place.name
-      return True
-
-  return False
+  return populate_charts_for_places(state, state.uttr.places)
 
 
 # Populate charts for given places.
@@ -162,29 +109,26 @@ def populate_charts_for_places(state: PopulateState,
     # Counter updated in handle_contained_in_type()
     return False
 
-  if (len(state.uttr.svs) > 0):
-    if _add_charts_with_place_fallback(state, places, state.uttr.svs,
-                                       disable_fallback):
-      state.uttr.sv_source = FulfillmentResult.CURRENT_QUERY
-      return True
-    else:
-      state.uttr.counters.err('failed_populate_main_svs', state.uttr.svs)
-      # We attempted to fulfill, but failed.
-      state.uttr.sv_source = FulfillmentResult.UNFULFILLED
-  else:
-    # If we have not found an SV, only then seek an SV from the context.
-    # Otherwise the result seems unexpected to users.
-    for svs in context.svs_from_context(state.uttr):
-      if _add_charts_with_place_fallback(state, places, svs, disable_fallback):
-        state.uttr.sv_source = FulfillmentResult.PAST_QUERY
-        return True
-      else:
-        state.uttr.counters.err('failed_populate_context_svs', svs)
-    # The main query had no SVs, so consider it unrecognized.
+  if not state.uttr.svs:
+    state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
+    return False
 
-  state.uttr.counters.err('num_populate_fallbacks', 1)
-  return False
+  success = _add_charts_with_place_fallback(state, places, state.uttr.svs,
+                                            disable_fallback)
+  if not success:
+    state.uttr.counters.err('num_populate_fallbacks', 1)
+    state.uttr.counters.err('failed_populate_main_svs', state.uttr.svs)
+    if state.uttr.svs:
+      if state.uttr.sv_source == FulfillmentResult.PAST_QUERY:
+        # We did not recognize anything in this query, the SV
+        # we tried is from the context.
+        state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
+      else:
+        state.uttr.sv_source = FulfillmentResult.UNFULFILLED
+    else:
+      state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
+  return success
 
 
 #

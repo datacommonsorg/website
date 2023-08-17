@@ -1348,37 +1348,6 @@
       "placeDcid": [
         "country/USA"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Family Households Below the Poverty Level in the Past Year",
-            "nlQuery": "Family Households Below the Poverty Level in the Past Year United States"
-          },
-          {
-            "displayName": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months United States"
-          },
-          {
-            "displayName": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months United States"
-          },
-          {
-            "displayName": "Population With Poverty Status Determined",
-            "nlQuery": "Population With Poverty Status Determined United States"
-          },
-          {
-            "displayName": "Household Median Income",
-            "nlQuery": "Household Median Income United States"
-          },
-          {
-            "displayName": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months United States"
-          }
-        ]
-      }
     }
   },
   "context": {},

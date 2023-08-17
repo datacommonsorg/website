@@ -634,21 +634,6 @@
       "placeDcid": [
         "geoId/0677000"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population: 11th Grade",
-            "nlQuery": "Population: 11th Grade Sunnyvale"
-          },
-          {
-            "displayName": "Population: 7th And 8th Grade",
-            "nlQuery": "Population: 7th And 8th Grade Sunnyvale"
-          }
-        ]
-      }
     }
   },
   "context": {},
@@ -661,5 +646,5 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "svSource": "UNFULFILLED"
 }

@@ -77,22 +77,6 @@
       "placeDcid": [
         "geoId/53"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_QUERY_TYPE": {
-        "items": [
-          {
-            "displayName": "Show highest",
-            "nlQuery": "how many people are unemployed in zip codes of washington? - show highest"
-          },
-          {
-            "displayName": "Show lowest",
-            "nlQuery": "how many people are unemployed in zip codes of washington? - show lowest"
-          }
-        ]
-      },
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
