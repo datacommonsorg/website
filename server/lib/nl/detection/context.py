@@ -40,7 +40,8 @@ _MAX_RETURNED_VARS_CHAT = 20
 # Given an utterance, this looks up past utterance and updates the merged
 # context in both the utterance inline and in `insight_ctx`.
 #
-# TODO: Deprecate hoist_topics
+# TODO: Deprecate hoist_topics (Explore)
+# TODO: Handle OVERVIEW query (for Explore)
 def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
   data_dict = {}
 
