@@ -74,6 +74,8 @@
   {% endif %}
   <script>
     globalThis.is_custom_datacommons = {{ config['CUSTOM']|int }};
+    globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
+    globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
   </script>
 </head>
 
