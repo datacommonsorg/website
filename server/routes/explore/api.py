@@ -26,7 +26,6 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-import server.lib.explore.context as explore_context
 import server.lib.explore.fulfiller as fulfillment
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
@@ -35,6 +34,7 @@ import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
+import server.lib.nl.detection.context as explore_context
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
@@ -57,7 +57,7 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  explore_context.merge_with_context(utterance, hoist_topics=True)
+  explore_context.merge_with_context(utterance, is_explore=True)
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None

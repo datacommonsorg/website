@@ -13,11 +13,11 @@
 # limitations under the License.
 
 #
-# This is a detector that consumes the core NL detection results plus
-# context, and produces updated results in Explore args dict.
+# This merges an utterance with its prior state to produce a unified
+# single utterance.  It also produces an Explore args dict.
 #
 
-from typing import Dict, List
+from typing import List
 
 from server.lib.explore.params import Params
 from server.lib.nl.common import constants
@@ -32,19 +32,20 @@ import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 
-_MAX_RETURNED_VARS = 20
+_MAX_RETURNED_VARS_EXPLORE = 10
+_MAX_RETURNED_VARS_CHAT = 20
 
 
 #
 # Given an utterance, this looks up past utterance and updates the merged
-# context in both the utterance inline and `insight_ctx`.
+# context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Deprecate hoist_topics
-def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
+def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
   data_dict = {}
 
   # 0. Hoist any topic thats in the top-N
-  if hoist_topics:
+  if is_explore:
     _hoist_topic(uttr.svs)
 
   # 1. Route comparison vs. correlation query.
@@ -97,16 +98,20 @@ def merge_with_context(uttr: nl_uttr.Utterance, hoist_topics: bool = False):
 
   # 5. Detect SVs leveraging context.
   vars, cmp_vars = _detect_vars(
-      uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS,
-      hoist_topics)
+      uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS, is_explore)
+
+  if is_explore:
+    max_returned_vars = _MAX_RETURNED_VARS_EXPLORE
+  else:
+    max_returned_vars = _MAX_RETURNED_VARS_CHAT
 
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value: places,
-      Params.VARS.value: vars[:_MAX_RETURNED_VARS],
+      Params.VARS.value: vars[:max_returned_vars],
       Params.SESSION_ID: uttr.session_id,
       Params.CMP_ENTITIES.value: cmp_places,
-      Params.CMP_VARS.value: cmp_vars[:_MAX_RETURNED_VARS],
+      Params.CMP_VARS.value: cmp_vars[:max_returned_vars],
       Params.CHILD_TYPE: '' if not place_type else place_type.value,
   })
 
