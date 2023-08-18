@@ -25,7 +25,7 @@ const HeaderContainer = styled.div`
   background: white;
 `;
 
-const TopContainer = styled.div`r
+const TopContainer = styled.div`
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
   display: flex;
