@@ -31,7 +31,6 @@ import {
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
-  TOOLTIP_ID,
   XLINKNS,
 } from "./draw_constants";
 import {
@@ -74,27 +73,16 @@ function getTooltipContent(
 /**
  * Adds highlighting and showing a tooltip on hover for bar charts
  *
- * @param xScale time scale corresponding to the x-axis.
- * @param yScale linear scale corresponding to the y-axis.
- * @param container the div element that holds the bar chart we are adding highlighting for.
- * @param dataGroupsDict dictionary of place to datagroups of the bar chart of interest.
- * @param colorFn color function that returns a color for a given place and datagroup.
- * @param setOfTimePoints all the timepoints in the dataGroupsDict.
- * @param highlightArea svg element to hold the elements for highlighting points.
  * @param chartAreaBoundary boundary of the chart of interest relative to its container.
- * @param unit units of the data of the chart of interest.
+ * @param container the div element that holds the bar chart we are adding highlighting for.
+ * @param svg the svg element that holds the drawn chart elements
  */
 function addHighlightOnHover(
   chartAreaBoundary: Boundary,
   container: d3.Selection<HTMLDivElement, any, any, any>,
   svg: d3.Selection<SVGSVGElement, any, any, any>
-  // categoricalScale: d3.ScaleBand<string>,
-  // numericScale: d3.ScaleLinear<number, number>,
-  // chartIsHorizontal: boolean,
-  // categoricalSubScale?: d3.ScaleBand<string>
 ): void {
-  addTooltip(container);
-  const tooltip = container.select(`#${TOOLTIP_ID}`);
+  const tooltip = addTooltip(container);
 
   // define tooltip mouse behavior
   const mouseoverFn = function () {
@@ -367,7 +355,7 @@ export function drawStackBarChart(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of bars
  * @param yScale  scale for y-axis values
- * @param unit (optional) unit for values
+ * @param unit data's unit of measurement to show in tooltip
  */
 function drawBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -424,7 +412,7 @@ function drawBars(
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
  * @param useLollipop whether to use lollipop style
- * @param unit (optional) data's unit of measurement to show in tooltip
+ * @param unit data's unit of measurement to show in tooltip
  */
 function drawHorizontalGroupedBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -711,7 +699,7 @@ function drawHorizontalStackedBars(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
- * @param unit (optional) data's unit of measurement, to display in tooltip
+ * @param unit data's unit of measurement to show in tooltip
  */
 function drawLollipops(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
