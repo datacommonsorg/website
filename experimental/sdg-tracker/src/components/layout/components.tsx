@@ -73,13 +73,12 @@ export const BrandingLink: React.FC = () => {
   return (
     <div className="branding-link-container">
       <a
-        className="link"
         href="https://datacommons.org"
         target="_blank"
         rel="noopener noreferrer"
       >
         Powered by Google's{" "}
-        <img className="logo-secondary-image logo" src="images/dc-logo.png" />
+        <img className="logo-secondary-image" src="images/dc-logo.png" />
       </a>
     </div>
   );

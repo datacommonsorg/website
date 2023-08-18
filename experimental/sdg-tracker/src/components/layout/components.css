@@ -1,20 +1,19 @@
 .branding-link-container {
-
-    .link {
-        display: flex;
-        align-items: center;
-        color: #151515;
-        text-decoration: none;
-    }
-
-    .logo {
-        width: 100px;
-        align-self: flex-end;
-        margin-left: 0.5rem;
-    }
-
     display: flex;
     flex-direction: row;
     font-weight: 500;
     flex-shrink: 0;
+}
+
+.branding-link-container a {
+    display: flex;
+    align-items: center;
+    color: #151515;
+    text-decoration: none;
+}
+
+.branding-link-container img {
+    width: 100px;
+    align-self: flex-end;
+    margin-left: 0.5rem;
 }
