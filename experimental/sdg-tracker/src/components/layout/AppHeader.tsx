@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-import { Link } from "react-router-dom";
+import { Link, To } from "react-router-dom";
 import { BrandingLink } from "./components";
 import "./AppHeader.css";
-import React from "react";
 
 type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
 interface Props {
   children: React.ReactNode;
-  to?: any;
+  to?: string;
   selected?: boolean;
 }
 
 const HeaderNavItem = ({ children }: Props) => {
-  return <div className="header-nav-item">{children}</div>
+  return <div className="header-nav-item">{children}</div>;
 };
 
 const SubNavbarItemLink = ({ children, to, selected }: Props) => {
-  return <Link to={to} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>
+  return <Link to={to || "/"} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>;
 };
 
 const AppHeader = (props: { selected: HeaderOptions }) => {
