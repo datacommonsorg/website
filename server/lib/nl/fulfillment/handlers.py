@@ -26,17 +26,15 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
-from server.lib.nl.fulfillment import correlation
-from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
-from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
+from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
 
 
@@ -79,7 +77,7 @@ QUERY_HANDLERS = {
 
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=correlation, rank=6),
+        QueryHandlerConfig(module=None, rank=6),
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=7,
@@ -89,7 +87,7 @@ QUERY_HANDLERS = {
                            rank=8,
                            direct_fallback=QueryType.SIMPLE),
     QueryType.EVENT:
-        QueryHandlerConfig(module=event,
+        QueryHandlerConfig(module=None,
                            rank=9,
                            direct_fallback=QueryType.SIMPLE),
     QueryType.SIZE_ACROSS_ENTITIES:
@@ -108,7 +106,7 @@ QUERY_HANDLERS = {
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
     QueryType.OVERVIEW:
-        QueryHandlerConfig(module=overview,
+        QueryHandlerConfig(module=None,
                            rank=100,
                            direct_fallback=QueryType.OVERVIEW),
 }
@@ -274,3 +272,13 @@ def route_comparison_or_correlation(cl_type: ClassificationType,
         qt = QueryType.CORRELATION_ACROSS_VARS
   uttr.counters.info('route_comparison_correlation', ctr)
   return qt
+
+
+# Returns a tuple of QueryType and QueryHandlerConfig
+def get_populate_handlers(state: PopulateState):
+  handlers = []
+  for qt in state.query_types:
+    handler = QUERY_HANDLERS.get(qt, None)
+    if handler and handler.module:
+      handlers.append((qt, handler))
+  return handlers

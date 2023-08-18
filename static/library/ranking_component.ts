@@ -17,8 +17,6 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
@@ -27,6 +25,7 @@ import {
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
+import { createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a ranking tile.
@@ -118,11 +117,6 @@ export class DatacommonsRankingComponent extends LitElement {
       ],
       title: this.header || this.title,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(
-      React.createElement(RankingTile, rankingTileProps),
-      mountPoint
-    );
-    return mountPoint;
+    return createWebComponentElement(RankingTile, rankingTileProps);
   }
 }

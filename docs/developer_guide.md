@@ -224,8 +224,8 @@ Make code changes and build the image:
 
 ```bash
 docker build \
-  --tag datacommons-website/compose \
-  -f build/web_server/Dockerfile \
+  --tag datacommons-website/compose:latest \
+  -f build/web_compose/Dockerfile \
   -t website-compose .
 ```
 

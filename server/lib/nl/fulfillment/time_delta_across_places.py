@@ -23,12 +23,10 @@ from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 _MAX_PLACES_TO_RETURN = 20
 
@@ -36,23 +34,8 @@ _MAX_PLACES_TO_RETURN = 20
 #
 # Computes growth rate and ranks charts of child places in parent place.
 #
-def populate(uttr: Utterance):
-  time_delta = utils.get_time_delta_types(uttr)
-  place_type = utils.get_contained_in_type(uttr)
-  if not time_delta or not time_delta:
-    logging.info('time_delta_across_places: return unexpectedly')
-    return False
-  ranking_types = utils.get_ranking_types(uttr)
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    ranking_types=ranking_types,
-                    time_delta_types=time_delta))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
