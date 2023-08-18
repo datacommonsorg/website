@@ -1354,75 +1354,6 @@
               }
             ],
             "title": "Decrease in Employed Population Aged 15 or Over Below International Poverty Line over time (Percent change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14",
-                      "sdg/SI_POV_DAY1.AGE--Y15T64",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
-                    ],
-                    "title": "Population below international poverty line by age in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line by age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--F",
-                      "sdg/SI_POV_DAY1.SEX--M"
-                    ],
-                    "title": "Population below international poverty line by gender in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line by gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--U",
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
-                    ],
-                    "title": "Population below international poverty line in rural vs. urban areas in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line in rural vs. urban areas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Employed population below international poverty line by gender in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed population below international poverty line by gender"
           }
         ],
         "statVarSpec": {
@@ -1430,45 +1361,9 @@
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Population Age Under 15 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y15T64": {
-            "name": "Population Age 15 to 64 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Population Age 65 or Older Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
-          },
-          "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Women Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--F"
-          },
-          "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Men Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--M"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--R": {
-            "name": "Rural Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--U": {
-            "name": "Urban Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
-          },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
             "name": "Employed Population Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Population Using Basic Drinking Water Services",

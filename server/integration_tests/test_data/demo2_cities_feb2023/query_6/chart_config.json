@@ -340,37 +340,12 @@
               }
             ],
             "title": "Increase in Life Expectancy over time (Percent change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female",
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Life Expectancy by Gender in Africa",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Life Expectancy by Gender"
           }
         ],
         "statVarSpec": {
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
-          },
-          "LifeExpectancy_Person_Female": {
-            "name": "Female Life Expectancy",
-            "statVar": "LifeExpectancy_Person_Female"
-          },
-          "LifeExpectancy_Person_Male": {
-            "name": "Male Life Expectancy",
-            "statVar": "LifeExpectancy_Person_Male"
           }
         }
       }

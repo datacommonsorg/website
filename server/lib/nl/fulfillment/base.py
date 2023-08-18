@@ -24,10 +24,11 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import get_places_to_check
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
-from server.lib.nl.fulfillment.handlers import route_populate
+from server.lib.nl.fulfillment.handlers import get_populate_handlers
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import handle_contained_in_type
 
@@ -81,7 +82,7 @@ def populate_charts(state: PopulateState) -> bool:
 def _add_charts_with_place_fallback(state: PopulateState,
                                     places: List[Place]) -> bool:
   # Add charts for the given places.
-  if _add_charts(state, places):
+  if _add_charts_with_existence_check(state, places):
     return True
   # That failed, we'll attempt fallback.
 
@@ -110,7 +111,7 @@ def _add_charts_with_place_fallback(state: PopulateState,
         'child': place.dcid,
         'parent': earth.dcid
     })
-    return _add_charts(state, [earth])
+    return _add_charts_with_existence_check(state, [earth])
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
@@ -146,7 +147,7 @@ def _add_charts_with_place_fallback(state: PopulateState,
       })
       place = parents[0]
 
-    if _add_charts(state, [place]):
+    if _add_charts_with_existence_check(state, [place]):
       return True
     # Else, try next parent type.
     parent_type = utils.get_parent_place_type(parent_type, place)
@@ -155,7 +156,8 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
 
 # Add charts given a place and a list of stat-vars.
-def _add_charts(state: PopulateState, places: List[Place]) -> bool:
+def _add_charts_with_existence_check(state: PopulateState,
+                                     places: List[Place]) -> bool:
   svs = state.uttr.svs
   logging.info("Add chart %s %s" % (', '.join(_get_place_names(places)), svs))
 
@@ -178,36 +180,39 @@ def _add_charts(state: PopulateState, places: List[Place]) -> bool:
   existing_svs = set()
   found = False
   num_charts = 0
-  for exist_state in tracker.exist_sv_states:
 
-    # Infer charts for the main SV/Topic.
-    for exist_cv in exist_state.chart_vars_list:
-      chart_vars = tracker.get_chart_vars(exist_cv)
-      # Now that we've found existing vars, call the per-chart-type callback.
-      if chart_vars.event:
-        if exist_cv.exist_event:
-          if route_populate(state, chart_vars, places,
-                            ChartOriginType.PRIMARY_CHART):
-            found = True
-            num_charts += 1
-          else:
-            state.uttr.counters.err('failed_populate_callback_primary_event', 1)
-      else:
-        if chart_vars.svs:
-          existing_svs.update(chart_vars.svs)
-          if route_populate(state, chart_vars, places,
-                            ChartOriginType.PRIMARY_CHART):
-            found = True
-            num_charts += 1
-          else:
-            state.uttr.counters.err('failed_populate_callback_primary', 1)
+  for handler in get_populate_handlers(state):
+    for exist_state in tracker.exist_sv_states:
+      # Infer charts for the main SV/Topic.
+      for exist_cv in exist_state.chart_vars_list:
+        chart_vars = tracker.get_chart_vars(exist_cv)
+        # Now that we've found existing vars, call the per-chart-type callback.
+        if chart_vars.event:
+          if exist_cv.exist_event:
+            if handler.populate(state, chart_vars, places,
+                                ChartOriginType.PRIMARY_CHART):
+              found = True
+              num_charts += 1
+            else:
+              state.uttr.counters.err('failed_populate_callback_primary_event',
+                                      1)
+        else:
+          if chart_vars.svs:
+            existing_svs.update(chart_vars.svs)
+            if handler.populate(state, chart_vars, places,
+                                ChartOriginType.PRIMARY_CHART):
+              found = True
+              num_charts += 1
+            else:
+              state.uttr.counters.err('failed_populate_callback_primary', 1)
 
-      # If we have found enough charts, return success
-      if num_charts >= _MAX_NUM_CHARTS:
-        break
+        # If we have found enough charts, return success
+        if num_charts >= _MAX_NUM_CHARTS:
+          return True
 
-    if num_charts >= _MAX_NUM_CHARTS:
-      return True
+    # For a given handler, if we found any charts at all, we're good.
+    if found:
+      break
 
   # Handle extended/comparable SVs only for simple query since
   # for those we would construct a single bar chart comparing the differe
@@ -233,7 +238,6 @@ def _add_charts(state: PopulateState, places: List[Place]) -> bool:
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
                                  places_to_check: Dict[str, str],
                                  svs: List[str], num_charts: int) -> bool:
-
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
   # PERF-TODO: This is expensive! (multiple seconds)
@@ -282,8 +286,8 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
       printed_sv_extensions.add(exist_svs_key)
 
       # Add this as a secondary chart.
-      if route_populate(state, chart_vars, places,
-                        ChartOriginType.SECONDARY_CHART):
+      if simple.populate(state, chart_vars, places,
+                         ChartOriginType.SECONDARY_CHART):
         found = True
         num_charts += 1
       else:

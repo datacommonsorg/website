@@ -280,13 +280,10 @@ def route_comparison_or_correlation(cl_type: ClassificationType,
   return qt
 
 
-def route_populate(state: PopulateState, chart_vars: ChartVars,
-                   places: List[Place], chart_origin: ChartOriginType) -> bool:
+def get_populate_handlers(state: PopulateState):
+  handlers = []
   for qt in state.query_types:
     handler = QUERY_HANDLERS.get(qt, None)
-    if handler and handler.module and handler.module.populate(
-        state, chart_vars, places, chart_origin):
-      state.uttr.counters.info('processed_fulfillment_types',
-                               handler.module.__name__.split('.')[-1])
-      return True
-  return False
+    if handler and handler.module:
+      handlers.append(handler.module)
+  return handlers
