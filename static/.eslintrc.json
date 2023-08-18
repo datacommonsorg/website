@@ -7,20 +7,10 @@
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": [
-    "react",
-    "prettier",
-    "simple-import-sort",
-    "react-hooks"
-  ],
+  "plugins": ["react", "prettier", "simple-import-sort", "react-hooks"],
   "rules": {
-    "prettier/prettier": [
-      "error"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    "prettier/prettier": ["error"],
+    "semi": ["error", "always"],
     "@typescript-eslint/no-empty-interface": "warn",
     "@typescript-eslint/no-explicit-any": "off",
     "camelcase": "warn",
@@ -29,19 +19,7 @@
     "simple-import-sort/imports": "error",
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
-    "object-shorthand": [
-      "error",
-      "always",
-      {
-        "avoidQuotes": true
-      }
-    ],
-    "no-import-side-effect": [
-      0,
-      {
-        "ignore-module": "(\\.scss|\\.css)$"
-      }
-    ]
+    "object-shorthand": ["error", "always", { "avoidQuotes": true }]
   },
   "settings": {
     "react": {

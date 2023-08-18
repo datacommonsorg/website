@@ -86,7 +86,7 @@
     margin: auto 0;
     padding: 0 4rem;
     overflow: auto;
-    justify-content: safe flex-start;
+    justify-content: flex-start;
 }
 
 .header-container .header-nav:hover a {
