@@ -67,9 +67,300 @@
               }
             ],
             "title": "Categories of Jobs"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSTotalAllIndustries_pc"
+                    ],
+                    "title": "Per Capita Workers in All Industries in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSServiceProviding"
+                    ],
+                    "title": "Population of Person: Service-providing (NAICS/102) in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSServiceProviding_pc"
+                    ],
+                    "title": "Per Capita Population of Person: Service-providing (NAICS/102) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed_pc"
+                    ],
+                    "title": "Per Capita Population With Current Employment in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb"
+                    ],
+                    "title": "Population: Worked At Home, Management, Business, Science, And Arts Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/nfdf9rt7kbggb_pc"
+                    ],
+                    "title": "Per Capita Population: Worked At Home, Management, Business, Science, And Arts Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Establishment_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Count of Establishment: Total, All Industries (NAICS/10) in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Establishment_NAICSTotalAllIndustries_pc"
+                    ],
+                    "title": "Per Capita Count of Establishment: Total, All Industries (NAICS/10) in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/7wt44yv38rew"
+                    ],
+                    "title": "Population: Worked At Home, Sales And Office Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/7wt44yv38rew_pc"
+                    ],
+                    "title": "Per Capita Population: Worked At Home, Sales And Office Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2"
+                    ],
+                    "title": "Population: Worked At Home, Service Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/dn2h9yfcgbkg2_pc"
+                    ],
+                    "title": "Per Capita Population: Worked At Home, Service Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_With2Worker"
+                    ],
+                    "title": "Count of Household: Married Couple Family Household, Worker 2 in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Married Couple Family Household, Worker 2 in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg"
+                    ],
+                    "title": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/cs8fvwkmpmlpg_pc"
+                    ],
+                    "title": "Per Capita Population: Worked At Home, Production, Transportation, And Material Moving Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/j7pej9wer7lkd"
+                    ],
+                    "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/j7pej9wer7lkd_pc"
+                    ],
+                    "title": "Per Capita Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/m615rq99fwf2c"
+                    ],
+                    "title": "Population: Car Truck or Van Carpooled, Service Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/m615rq99fwf2c_pc"
+                    ],
+                    "title": "Per Capita Population: Car Truck or Van Carpooled, Service Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/n99t0lnl3fch6"
+                    ],
+                    "title": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "dc/n99t0lnl3fch6_pc"
+                    ],
+                    "title": "Per Capita Population: Walked, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
           }
         ],
         "statVarSpec": {
+          "Count_Establishment_NAICSTotalAllIndustries": {
+            "name": "Count of Establishment: Total, All Industries (NAICS/10)",
+            "statVar": "Count_Establishment_NAICSTotalAllIndustries"
+          },
+          "Count_Establishment_NAICSTotalAllIndustries_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Establishment: Total, All Industries (NAICS/10)",
+            "statVar": "Count_Establishment_NAICSTotalAllIndustries"
+          },
+          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker": {
+            "name": "Count of Household: Married Couple Family Household, Worker 2",
+            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_With2Worker"
+          },
+          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Married Couple Family Household, Worker 2",
+            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_With2Worker"
+          },
+          "Count_Person_Employed": {
+            "name": "Population With Current Employment",
+            "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_Employed_pc": {
+            "denom": "Count_Person",
+            "name": "Population With Current Employment",
+            "statVar": "Count_Person_Employed"
+          },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
             "name": "Accomodation/Food Industry",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
@@ -196,6 +487,24 @@
             "name": "Real Estate and Rental and Leasing",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
+          "Count_Worker_NAICSServiceProviding": {
+            "name": "Population of Person: Service-providing (NAICS/102)",
+            "statVar": "Count_Worker_NAICSServiceProviding"
+          },
+          "Count_Worker_NAICSServiceProviding_pc": {
+            "denom": "Count_Person",
+            "name": "Population of Person: Service-providing (NAICS/102)",
+            "statVar": "Count_Worker_NAICSServiceProviding"
+          },
+          "Count_Worker_NAICSTotalAllIndustries": {
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
+          "Count_Worker_NAICSTotalAllIndustries_pc": {
+            "denom": "Count_Person",
+            "name": "Workers in All Industries",
+            "statVar": "Count_Worker_NAICSTotalAllIndustries"
+          },
           "Count_Worker_NAICSUtilities_multiple_place_bar_block": {
             "name": "Utilities",
             "statVar": "Count_Worker_NAICSUtilities"
@@ -214,6 +523,15 @@
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
+          "dc/7wt44yv38rew": {
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
+          },
+          "dc/7wt44yv38rew_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Sales And Office Occupations",
+            "statVar": "dc/7wt44yv38rew"
+          },
           "dc/8p97n7l96lgg8_multiple_place_bar_block": {
             "name": "Transportation And Warehousing",
             "statVar": "dc/8p97n7l96lgg8"
@@ -223,6 +541,51 @@
             "name": "Transportation And Warehousing",
             "statVar": "dc/8p97n7l96lgg8"
           },
+          "dc/cs8fvwkmpmlpg": {
+            "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/cs8fvwkmpmlpg_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
+            "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/dn2h9yfcgbkg2": {
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
+          },
+          "dc/dn2h9yfcgbkg2_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Service Occupations",
+            "statVar": "dc/dn2h9yfcgbkg2"
+          },
+          "dc/j7pej9wer7lkd": {
+            "name": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/j7pej9wer7lkd"
+          },
+          "dc/j7pej9wer7lkd_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/j7pej9wer7lkd"
+          },
+          "dc/m615rq99fwf2c": {
+            "name": "Population: Car Truck or Van Carpooled, Service Occupations",
+            "statVar": "dc/m615rq99fwf2c"
+          },
+          "dc/m615rq99fwf2c_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Car Truck or Van Carpooled, Service Occupations",
+            "statVar": "dc/m615rq99fwf2c"
+          },
+          "dc/n99t0lnl3fch6": {
+            "name": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/n99t0lnl3fch6"
+          },
+          "dc/n99t0lnl3fch6_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations",
+            "statVar": "dc/n99t0lnl3fch6"
+          },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
             "name": "Manufacturing",
             "statVar": "dc/ndg1xk1e9frc2"
@@ -231,6 +594,15 @@
             "denom": "Count_Person",
             "name": "Manufacturing",
             "statVar": "dc/ndg1xk1e9frc2"
+          },
+          "dc/nfdf9rt7kbggb": {
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
+          },
+          "dc/nfdf9rt7kbggb_pc": {
+            "denom": "Count_Person",
+            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
+            "statVar": "dc/nfdf9rt7kbggb"
           },
           "dc/p69tpsldf99h7_multiple_place_bar_block": {
             "name": "Retail Trade",

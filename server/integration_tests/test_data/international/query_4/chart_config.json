@@ -40,6 +40,33 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Count of Birth Event: Live Birth (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Count of Birth Event: Live Birth (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event: Live Birth (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
                     "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
@@ -56,6 +83,139 @@
               }
             ],
             "title": "Count of Birth Event (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WHO/SA_0000001432"
+                    ],
+                    "title": "Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001432"
+                    ],
+                    "title": "Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prematurity And Low Birth Rate, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WHO/SA_0000001432_pc"
+                    ],
+                    "title": "Per Capita Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001432_pc"
+                    ],
+                    "title": "Per Capita Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WHO/SA_0000001451"
+                    ],
+                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001451"
+                    ],
+                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "WHO/SA_0000001451_pc"
+                    ],
+                    "title": "Per Capita Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/SA_0000001451_pc"
+                    ],
+                    "title": "Per Capita Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+                    ],
+                    "title": "Female Infant Mortality Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+                    ],
+                    "title": "Female Infant Mortality Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Female Infant Mortality Rate"
           },
           {
             "columns": [
@@ -90,6 +250,14 @@
             "name": "Count of Birth Event (Per Capita)",
             "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
           },
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Count of Birth Event: Live Birth (Per Capita)",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
+          "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
+            "name": "Female Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+          },
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"
@@ -97,6 +265,24 @@
           "GrowthRate_Count_Person": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
+          },
+          "WHO/SA_0000001432": {
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
+          },
+          "WHO/SA_0000001432_pc": {
+            "denom": "Count_Person",
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
+          },
+          "WHO/SA_0000001451": {
+            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001451"
+          },
+          "WHO/SA_0000001451_pc": {
+            "denom": "Count_Person",
+            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001451"
           }
         }
       }

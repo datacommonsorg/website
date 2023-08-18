@@ -58,34 +58,22 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   has_correlation = futils.classifications_of_type_from_utterance(
       uttr, dtypes.ClassificationType.CORRELATION)
 
-  chart_vars_map = {}
   if has_correlation and state.uttr.multi_svs:
     state.chart_vars_map = topic.compute_correlation_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
 
   # Get places to perform existence check on.
-  places_to_check = {}
-  for p in _get_place_dcids(uttr.places):
-    places_to_check[p] = p
-  if state.place_type:
-    # Add child places
-    key = uttr.places[0].dcid + state.place_type.value
-    for p in uttr.detection.places_detected.child_places[:cutils.
-                                                         NUM_CHILD_PLACES_FOR_EXISTENCE]:
-      places_to_check[p.dcid] = key
-  for p in uttr.detection.places_detected.parent_places:
-    places_to_check[p.dcid] = p.dcid
+  places_to_check = ext.get_places_to_check(state, uttr.places, is_explore=True)
 
   if not places_to_check:
     uttr.counters.err("failed_NoPlacesToCheck", '')
     return None, {}
 
-  state.chart_vars_map = chart_vars_map
   start = time.time()
   # Perform existence checks for all the SVs!
   tracker = ext.MainExistenceCheckTracker(state, places_to_check,
-                                          chart_vars_map)
+                                          state.chart_vars_map)
   tracker.perform_existence_check()
   state.uttr.counters.timeit('main_existence_check', start)
 
@@ -152,13 +140,6 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   return FulfillResp(chart_pb=config_resp.config_pb,
                      related_things=related_things,
                      user_message=config_resp.user_message)
-
-
-def _get_place_dcids(places: List[dtypes.Place]) -> List[str]:
-  dcids = []
-  for p in places:
-    dcids.append(p.dcid)
-  return dcids
 
 
 def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,

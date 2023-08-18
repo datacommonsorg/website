@@ -64,6 +64,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
     uttr.insight_ctx = {}
     return
 
+  # TODO: Clean up place_type setting.
   if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
     # We look up into context
     if not place_type and uttr.prev_utterance:
@@ -80,6 +81,13 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
               type=ClassificationType.CONTAINED_IN,
               attributes=ContainedInClassificationAttributes(
                   contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+  if not place_type and utils.get_quantity(uttr):
+    # When there is quantity, we add place_type
+    uttr.classifications.append(
+        NLClassifier(
+            type=ClassificationType.CONTAINED_IN,
+            attributes=ContainedInClassificationAttributes(
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data

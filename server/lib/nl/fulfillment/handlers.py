@@ -83,7 +83,7 @@ QUERY_HANDLERS = {
 
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=correlation, rank=6),
+        QueryHandlerConfig(module=None, rank=6),
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=7,
@@ -93,7 +93,7 @@ QUERY_HANDLERS = {
                            rank=8,
                            direct_fallback=QueryType.SIMPLE),
     QueryType.EVENT:
-        QueryHandlerConfig(module=event,
+        QueryHandlerConfig(module=None,
                            rank=9,
                            direct_fallback=QueryType.SIMPLE),
     QueryType.SIZE_ACROSS_ENTITIES:
@@ -112,7 +112,7 @@ QUERY_HANDLERS = {
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
     QueryType.OVERVIEW:
-        QueryHandlerConfig(module=overview,
+        QueryHandlerConfig(module=None,
                            rank=100,
                            direct_fallback=QueryType.OVERVIEW),
 }
@@ -284,8 +284,8 @@ def route_populate(state: PopulateState, chart_vars: ChartVars,
                    places: List[Place], chart_origin: ChartOriginType) -> bool:
   for qt in state.query_types:
     handler = QUERY_HANDLERS.get(qt, None)
-    if handler and handler.module.populate(state, chart_vars, places,
-                                           chart_origin):
+    if handler and handler.module and handler.module.populate(
+        state, chart_vars, places, chart_origin):
       state.uttr.counters.info('processed_fulfillment_types',
                                handler.module.__name__.split('.')[-1])
       return True

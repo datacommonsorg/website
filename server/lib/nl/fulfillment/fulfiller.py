@@ -24,6 +24,7 @@ from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
+from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment.chart_vars import build_chart_vars_map
 import server.lib.nl.fulfillment.handlers as handlers
@@ -37,9 +38,7 @@ def fulfill(uttr: Utterance) -> Utterance:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
   state.place_type = utils.get_contained_in_type(uttr)
-  if not state.place_type:
-    state.place_type = ContainedInPlaceType.DEFAULT_TYPE
-  state.query_types = list_query_types(uttr)
+  state.query_types = _list_query_types(uttr)
   state.ranking_types = utils.get_ranking_types(uttr)
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
@@ -61,17 +60,21 @@ def fulfill(uttr: Utterance) -> Utterance:
   elif main_qt == QueryType.SIZE_ACROSS_ENTITIES:
     # This needs custom SVs.
     size_across_entities.set_overrides(state)
+  elif main_qt == QueryType.OVERVIEW:
+    success = overview.populate(uttr)
   elif main_qt == QueryType.EVENT:
     # TODO: Port `event` to work in the normal flow.
     success = event.populate(uttr)
+    state.query_types.remove(QueryType.EVENT)
   elif main_qt == QueryType.CORRELATION_ACROSS_VARS:
     success = correlation.populate(uttr)
+    state.query_types.remove(QueryType.CORRELATION_ACROSS_VARS)
   elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
     # There are multiple places so we don't fallback.
     state.disable_fallback = True
 
   if success:
-    rank_charts(uttr)
+    _rank_charts(uttr)
     return uttr
 
   # Compute all the ChartVars
@@ -79,13 +82,16 @@ def fulfill(uttr: Utterance) -> Utterance:
   state.chart_vars_map = build_chart_vars_map(state)
 
   # Call populate_charts.
-  base.populate_charts(state)
+  if not base.populate_charts(state):
+    # If that failed, try OVERVIEW.
+    overview.populate(uttr)
 
   # Rank candidates.
-  rank_charts(state.uttr)
+  _rank_charts(state.uttr)
+  return state.uttr
 
 
-def list_query_types(uttr: Utterance) -> List[QueryType]:
+def _list_query_types(uttr: Utterance) -> List[QueryType]:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
@@ -96,7 +102,7 @@ def list_query_types(uttr: Utterance) -> List[QueryType]:
 # Rank candidate charts in the given Utterance.
 #
 # TODO: Maybe improve in future.
-def rank_charts(utterance: Utterance):
+def _rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates

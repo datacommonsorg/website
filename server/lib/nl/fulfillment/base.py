@@ -25,6 +25,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
+from server.lib.nl.fulfillment.existence import get_places_to_check
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
 from server.lib.nl.fulfillment.handlers import route_populate
 from server.lib.nl.fulfillment.types import PopulateState
@@ -39,21 +40,21 @@ _MAX_EXTENSION_SVS = 5
 
 
 # Populate chart specs in state.uttr and return True if something was added.
-def populate_charts(state: PopulateState):
+def populate_charts(state: PopulateState) -> bool:
   if not state.uttr.places:
     state.uttr.counters.err('populate_charts_emptyplace', 1)
     state.uttr.place_source = FulfillmentResult.UNRECOGNIZED
-    return
+    return False
 
   places = state.uttr.places
   if not handle_contained_in_type(state, places):
     # Counter updated in handle_contained_in_type()
-    return
+    return False
 
   if not state.uttr.svs:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
-    return
+    return False
 
   success = _add_charts_with_place_fallback(state, places)
 
@@ -69,6 +70,7 @@ def populate_charts(state: PopulateState):
         state.uttr.sv_source = FulfillmentResult.UNFULFILLED
     else:
       state.uttr.sv_source = FulfillmentResult.UNRECOGNIZED
+  return success
 
 
 #
@@ -161,16 +163,7 @@ def _add_charts(state: PopulateState, places: List[Place]) -> bool:
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  places_to_check = _get_place_dcids(places)
-  if state.place_type:
-    # REQUIRES: len(places) == 1
-    places_to_check = utils.get_sample_child_places(places[0].dcid,
-                                                    state.place_type.value,
-                                                    state.uttr.counters)
-    place_key = places[0].dcid + state.place_type.value
-    places_to_check = {p: place_key for p in places_to_check}
-  else:
-    places_to_check = {p: p for p in places_to_check}
+  places_to_check = get_places_to_check(state, places, is_explore=False)
 
   if not places_to_check:
     # Counter updated in get_sample_child_places
@@ -300,13 +293,6 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
       return found
 
   return found
-
-
-def _get_place_dcids(places: List[Place]) -> List[str]:
-  dcids = []
-  for p in places:
-    dcids.append(p.dcid)
-  return dcids
 
 
 def _get_place_names(places: List[Place]) -> List[str]:

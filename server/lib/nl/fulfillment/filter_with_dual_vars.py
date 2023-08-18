@@ -48,7 +48,8 @@ def _get_dual_sv_part(uttr: Utterance, idx: int) -> List[str]:
 #
 # TODO: Improve this.
 #
-def set_overrides(uttr: Utterance):
+def set_overrides(state: PopulateState):
+  uttr = state.uttr
   quantity = utils.get_quantity(uttr)
   if not quantity:
     uttr.counters.err('filter-with-dual-var_missingquantity', 1)

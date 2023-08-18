@@ -18,7 +18,9 @@ from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
+import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import QueryType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -192,3 +194,38 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
       # If we have the main chart-vars or extended-svs, add.
       if exist_state.chart_vars_list:
         self.exist_sv_states.append(exist_state)
+
+
+# Returns a list of place as a map with place DCID as key, and the value for
+# grouping.
+def get_places_to_check(state: PopulateState, places: List[Place],
+                        is_explore: bool) -> Dict[str, str]:
+  uttr = state.uttr
+  # Get places to perform existence check on.
+  places_to_check = {}
+  for p in _get_place_dcids(places):
+    places_to_check[p] = p
+  if state.place_type:
+    # Add child places
+    key = places[0].dcid + state.place_type.value
+    if is_explore:
+      for p in uttr.detection.places_detected.child_places[:cutils.
+                                                           NUM_CHILD_PLACES_FOR_EXISTENCE]:
+        places_to_check[p.dcid] = key
+    else:
+      ret_places = utils.get_sample_child_places(places[0].dcid,
+                                                 state.place_type.value,
+                                                 state.uttr.counters)
+      for p in ret_places:
+        places_to_check[p] = key
+  if is_explore:
+    for p in uttr.detection.places_detected.parent_places:
+      places_to_check[p.dcid] = p.dcid
+  return places_to_check
+
+
+def _get_place_dcids(places: List[Place]) -> List[str]:
+  dcids = []
+  for p in places:
+    dcids.append(p.dcid)
+  return dcids
