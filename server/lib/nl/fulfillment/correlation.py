@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
 from server.lib.nl.common import utils
@@ -22,10 +21,10 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import handle_contained_in_type
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import handle_contained_in_type
 import shared.lib.detected_variables as vars
 
 _MAX_MAIN_SVS = 5
@@ -40,7 +39,7 @@ def populate(uttr: Utterance) -> bool:
   place_type = utils.get_contained_in_type(uttr)
   if place_type:
     if _populate_correlation_for_place_type(
-        PopulateState(uttr=uttr, main_cb=None, place_type=place_type)):
+        PopulateState(uttr=uttr, place_type=place_type)):
       return True
     else:
       uttr.counters.err('correlation_failed_populate_placestype',
@@ -58,9 +57,7 @@ def _populate_correlation_for_place_type(state: PopulateState) -> bool:
 
 
 def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
-  if not handle_contained_in_type(state, [place]):
-    # counter updated in handle_contained_in_type
-    return False
+  handle_contained_in_type(state, [place])
 
   # Get child place samples for existence check.
   places_to_check = utils.get_sample_child_places(place.dcid,

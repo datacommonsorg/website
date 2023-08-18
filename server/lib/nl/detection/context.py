@@ -29,8 +29,8 @@ from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 import server.lib.nl.detection.utils as dutils
-from server.lib.nl.fulfillment.base import get_default_contained_in_place
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
+from server.lib.nl.fulfillment.utils import get_default_contained_in_place
 
 _MAX_RETURNED_VARS_EXPLORE = 10
 _MAX_RETURNED_VARS_CHAT = 20
@@ -64,6 +64,7 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
     uttr.insight_ctx = {}
     return
 
+  # TODO: Clean up place_type setting.
   if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
     # We look up into context
     if not place_type and uttr.prev_utterance:
@@ -80,6 +81,13 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
               type=ClassificationType.CONTAINED_IN,
               attributes=ContainedInClassificationAttributes(
                   contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+  if not place_type and utils.get_quantity(uttr):
+    # When there is quantity, we add place_type
+    uttr.classifications.append(
+        NLClassifier(
+            type=ClassificationType.CONTAINED_IN,
+            attributes=ContainedInClassificationAttributes(
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
   if place_type:
     if place_type == ContainedInPlaceType.SCHOOL:
       # HACK: Promote school to public school since we don't have data

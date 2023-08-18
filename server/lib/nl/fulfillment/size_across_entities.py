@@ -15,18 +15,17 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SizeType
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 # TODO: Add area
 _PLACE_SIZE_VARS = [
@@ -62,12 +61,14 @@ def _get_vars(pt: ContainedInPlaceType):
 # For big/small entities in a parent entity (big schools in sunnyvale),
 # we infer the SVs from the contained-in entity-type and then rely on BIG/SMALL
 # to infer the ranking.
+# TODO: This needs a custom override.
 #
-def populate(uttr: Utterance):
-  place_type = utils.get_contained_in_type(uttr)
-  size_types = utils.get_size_types(uttr)
+def set_overrides(state: PopulateState) -> bool:
+  place_type = utils.get_contained_in_type(state.uttr)
+  size_types = utils.get_size_types(state.uttr)
   if not place_type or not size_types:
-    uttr.counters.err('size-across-entities_failed_noplaceorsizetype', '-')
+    state.uttr.counters.err('size-across-entities_failed_noplaceorsizetype',
+                            '-')
     return False
 
   #
@@ -80,11 +81,12 @@ def populate(uttr: Utterance):
   # `SIZE_TYPE` heuristic override.
   # TODO: Find a better approach
   #
-  if not utils.is_non_geo_place_type(place_type) and uttr.svs:
-    uttr.counters.err('size-across-entities_failed_foundvars', uttr.svs)
+  if not utils.is_non_geo_place_type(place_type) and state.uttr.svs:
+    state.uttr.counters.err('size-across-entities_failed_foundvars',
+                            state.uttr.svs)
     return False
 
-  uttr.svs = _get_vars(place_type)
+  state.uttr.svs = _get_vars(place_type)
 
   # Map size_types[0] to ranking_types.
   size_type = size_types[0]
@@ -93,15 +95,12 @@ def populate(uttr: Utterance):
   else:
     ranking_type = RankingType.LOW
 
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    ranking_types=[ranking_type]))
+  state.ranking_types = [ranking_type]
+  return True
 
 
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
     state.uttr.counters.err('size-across-entities_failed_cb_norankingtypes', 1)
@@ -117,6 +116,12 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     state.uttr.counters.err('size-across-entities_failed_cb_emptyvars',
                             chart_vars.svs)
     return False
+
+  exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('containedin_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
 
   chart_vars.response_type = "ranking table"
   # NO Per-capita for these.
