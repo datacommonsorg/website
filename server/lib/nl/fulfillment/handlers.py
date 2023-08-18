@@ -16,7 +16,6 @@
 from dataclasses import dataclass
 from typing import List
 
-from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
@@ -25,21 +24,16 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
-from server.lib.nl.fulfillment import correlation
-from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
-from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
-from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
 

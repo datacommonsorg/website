@@ -18,7 +18,6 @@ from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
-import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
@@ -210,7 +209,7 @@ def get_places_to_check(state: PopulateState, places: List[Place],
     # Add child places
     key = places[0].dcid + state.place_type.value
     if is_explore:
-      for p in uttr.detection.places_detected.child_places[:cutils.
+      for p in uttr.detection.places_detected.child_places[:utils.
                                                            NUM_CHILD_PLACES_FOR_EXISTENCE]:
         places_to_check[p.dcid] = key
     else:

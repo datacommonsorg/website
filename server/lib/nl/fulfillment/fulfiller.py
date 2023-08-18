@@ -19,7 +19,6 @@ from typing import List
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event

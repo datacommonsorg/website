@@ -927,7 +927,7 @@
   "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
-    "name": "Earth",
+    "name": "World",
     "place_type": "Place"
   },
   "placeFallback": {},
