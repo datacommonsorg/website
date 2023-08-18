@@ -106,10 +106,10 @@ function addHighlightOnHover(
   };
   const mousemoveFn = function () {
     const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
-    const rect = d3.select(this);
-    const tooltipContent = getTooltipContent(rect);
+    const object = d3.select(this);
+    const tooltipContent = getTooltipContent(object);
 
-    rect.style("opacity", 0.5);
+    object.style("opacity", 0.5);
     tooltip.style("display", "block");
     showTooltip(
       tooltipContent,
@@ -121,16 +121,9 @@ function addHighlightOnHover(
     );
   };
 
-  // Add tooltip to bars
+  // Add tooltip to bars and lollipop circles
   svg
-    .selectAll("rect")
-    .on("mouseover", mouseoverFn)
-    .on("mouseout", mouseoutFn)
-    .on("mousemove", mousemoveFn);
-
-  // Add tooltip to lollipop points
-  svg
-    .selectAll("circle")
+    .selectAll("rect, circle")
     .on("mouseover", mouseoverFn)
     .on("mouseout", mouseoutFn)
     .on("mousemove", mousemoveFn);
@@ -168,6 +161,8 @@ export function drawStackBarChart(
     for (const dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
       curr.dcid = dataPoint.dcid;
+      curr.date = dataPoint.date;
+      curr.value = dataPoint.value;
     }
     data.push(curr);
   }
@@ -247,7 +242,11 @@ export function drawStackBarChart(
       .selectAll("line")
       .data((d) =>
         d.map((item) => ({
-          key: d.key,
+          date: item.data.date,
+          place: item.data.label,
+          statVar: d.key,
+          unit: options?.unit,
+          value: item.data.value,
           ...item,
         }))
       )
@@ -256,8 +255,8 @@ export function drawStackBarChart(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("data-dcid", (d) => d.data.dcid)
@@ -279,7 +278,11 @@ export function drawStackBarChart(
       .selectAll("circle")
       .data((d) =>
         d.map((item) => ({
-          key: d.key,
+          date: item.data.date,
+          place: item.data.label,
+          statVar: d.key,
+          unit: options?.unit,
+          value: item.data.value,
           ...item,
         }))
       )
@@ -288,8 +291,8 @@ export function drawStackBarChart(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("data-dcid", (d) => d.data.dcid)
@@ -308,7 +311,11 @@ export function drawStackBarChart(
       .selectAll("rect")
       .data((d) =>
         d.map((item) => ({
-          key: d.key,
+          date: item.data.date,
+          place: item.data.label,
+          statVar: d.key,
+          unit: options?.unit,
+          value: item.data.value,
           ...item,
         }))
       )
@@ -318,8 +325,8 @@ export function drawStackBarChart(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("data-dcid", (d) => d.data.dcid)
@@ -327,6 +334,16 @@ export function drawStackBarChart(
       .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
       .attr("width", x.bandwidth())
       .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+  }
+
+  if (options?.showTooltipOnHover) {
+    const chartAreaBoundary = {
+      bottom: chartHeight - bottomHeight,
+      left: leftWidth,
+      right: chartWidth - MARGIN.right,
+      top: 0,
+    };
+    addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
   appendLegendElem(
@@ -563,6 +580,7 @@ function drawHorizontalGroupedBars(
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
  * @param useLollipop whether to use lollipop style
+ * @param unit data's unit of measurement to show in tooltip
  */
 function drawHorizontalStackedBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -570,7 +588,8 @@ function drawHorizontalStackedBars(
   series: d3.Series<{ [key: string]: number }, string>[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
-  useLollipop?: boolean
+  useLollipop?: boolean,
+  unit?: string
 ): void {
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
@@ -585,7 +604,16 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("stroke", (d) => colorFn(d.key))
       .selectAll("line")
-      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .data((d) =>
+        d.map((dp) => ({
+          date: dp.data.date,
+          place: dp.data.label,
+          statVar: d.key,
+          unit,
+          value: dp.data.value,
+          ...dp,
+        }))
+      )
       .join("line")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
@@ -593,8 +621,8 @@ function drawHorizontalStackedBars(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("stroke-width", 2)
@@ -612,7 +640,16 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("circle")
-      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .data((d) =>
+        d.map((dp) => ({
+          date: dp.data.date,
+          place: dp.data.label,
+          statVar: d.key,
+          unit,
+          value: dp.data.value,
+          ...dp,
+        }))
+      )
       .join("circle")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
@@ -620,8 +657,8 @@ function drawHorizontalStackedBars(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("cx", (d) => xScale(d[1]))
@@ -637,7 +674,16 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("rect")
-      .data((d) => d.map((dp) => ({ key: d.key, ...dp })))
+      .data((d) =>
+        d.map((dp) => ({
+          date: dp.data.date,
+          place: dp.data.label,
+          statVar: d.key,
+          unit,
+          value: dp.data.value,
+          ...dp,
+        }))
+      )
       .join("rect")
       .classed("g-bar", true)
       .attr("data-dcid", (d) => d.data.dcid)
@@ -646,8 +692,8 @@ function drawHorizontalStackedBars(
         [
           "series",
           `series-place-${d.data.dcid}`,
-          `series-variable-${d.key}`,
-          `series-place-${d.data.dcid}-variable-${d.key}`,
+          `series-variable-${d.statVar}`,
+          `series-place-${d.data.dcid}-variable-${d.statVar}`,
         ].join(" ")
       )
       .attr("x", (d) => xScale(d[0]))
@@ -684,7 +730,7 @@ function drawLollipops(
     .data(dataGroups)
     .join("g")
     .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
-    .selectAll("line")
+    .selectAll("g")
     .data((dg) =>
       dg.value.map((dp) => ({
         statVar: dp.label,
@@ -695,6 +741,7 @@ function drawLollipops(
         unit,
       }))
     )
+    .attr("class", "bar-or-lollipop")
     .join("line")
     .attr("part", (d) =>
       [
@@ -899,6 +946,8 @@ export function drawHorizontalBarChart(
     for (const dataPoint of dataGroup.value) {
       curr[dataPoint.label] = dataPoint.value;
       curr.dcid = dataPoint.dcid;
+      curr.date = dataPoint.date;
+      curr.value = dataPoint.value;
     }
     data.push(curr);
   }
@@ -1029,7 +1078,15 @@ export function drawHorizontalBarChart(
 
   if (options?.stacked) {
     // Stacked bar chart
-    drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
+    drawHorizontalStackedBars(
+      svg,
+      color,
+      series,
+      x,
+      y,
+      options?.lollipop,
+      options?.unit
+    );
   } else {
     // Grouped bar chart
     drawHorizontalGroupedBars(
