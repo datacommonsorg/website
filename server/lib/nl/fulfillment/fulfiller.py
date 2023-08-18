@@ -37,8 +37,13 @@ from server.lib.nl.fulfillment.types import PopulateState
 def fulfill(uttr: Utterance) -> Utterance:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
+
+  # IMPORTANT: Do this as the very first thing before
+  # accessing the various heuristics, since it may
+  # update `uttr`
+  state.query_types = _produce_query_types(uttr)
+
   state.place_type = utils.get_contained_in_type(uttr)
-  state.query_types = _list_query_types(uttr)
   state.ranking_types = utils.get_ranking_types(uttr)
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
@@ -91,7 +96,7 @@ def fulfill(uttr: Utterance) -> Utterance:
   return state.uttr
 
 
-def _list_query_types(uttr: Utterance) -> List[QueryType]:
+def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
     query_types.append(handlers.next_query_type(query_types))
