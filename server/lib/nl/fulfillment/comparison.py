@@ -39,13 +39,23 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   chart_vars.response_type = "comparison chart"
   chart_vars.include_percapita = True
 
-  exist_svs = []
-  for sv in chart_vars.svs:
-    if all([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places]):
-      exist_svs.append(sv)
-  if len(exist_svs) <= 1:
-    return False
-  chart_vars.svs = exist_svs
+  if len(chart_vars.svs) == 1:
+    sv = chart_vars.svs[0]
+    exist_places = [
+        p for p in places if ext.svs4place(state, p, [sv]).exist_svs
+    ]
+    # Main existence check
+    if len(exist_places) <= 1:
+      return False
+    places = exist_places
+  else:
+    exist_svs = []
+    for sv in chart_vars.svs:
+      if all([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places]):
+        exist_svs.append(sv)
+    if not exist_svs:
+      return False
+    chart_vars.svs = exist_svs
 
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)

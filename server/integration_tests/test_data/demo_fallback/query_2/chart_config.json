@@ -13,6 +13,36 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Criminal Activities (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Criminal Activities (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
                       "Count_CriminalActivities_Burglary_multiple_place_bar_block",
                       "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
@@ -67,6 +97,15 @@
             "denom": "Count_Person",
             "name": "Burglaries",
             "statVar": "Count_CriminalActivities_Burglary"
+          },
+          "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block": {
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_CombinedCrime_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
           },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
