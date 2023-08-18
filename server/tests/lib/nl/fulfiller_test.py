@@ -34,9 +34,9 @@ from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import chart_vars
 from server.lib.nl.fulfillment import fulfiller
+from server.lib.nl.fulfillment.types import ChartVars
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -93,7 +93,14 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }, {})]
+    }, {
+        'Count_Person_Male': {
+            'geoId/06': False
+        },
+        'Count_Person_Female': {
+            'geoId/06': False
+        }
+    })]
 
     got = _run(detection, [])
 
@@ -132,7 +139,14 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [({
         'Count_Person_Male': True,
         'Count_Person_Female': True
-    }, {})]
+    }, {
+        'Count_Person_Male': {
+            'geoId/06': True
+        },
+        'Count_Person_Female': {
+            'geoId/06': True
+        }
+    })]
 
     got = _run(detection, [])
 
@@ -156,7 +170,10 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {})]
+    mock_sv_existence.side_effect = [(['Count_Farm', 'Income_Farm'], {
+        'Count_Farm': set(['geoId/06085']),
+        'Income_Farm': set(['geoId/06085'])
+    })]
 
     got = _run(detection, [SIMPLE_UTTR])
 
@@ -250,7 +267,9 @@ class TestDataSpecNext(unittest.TestCase):
     # - Return santa clara as child place
     mock_child_places.return_value = ['geoId/06085']
     # - Make SVs exist
-    mock_sv_existence.side_effect = [(['Count_Agricultural_Workers'], {})]
+    mock_sv_existence.side_effect = [(['Count_Agricultural_Workers'], {
+        'Count_Agricultural_Workers': set(['geoId/06085'])
+    })]
 
     # Pass in both simple and contained-in utterances.
     got = _run(detection, [SIMPLE_UTTR, CONTAINED_IN_UTTR, CORRELATION_UTTR])
@@ -271,7 +290,10 @@ class TestDataSpecNext(unittest.TestCase):
     mock_extend_svs.return_value = {}
     # - Make SVs (from context) exist
     mock_sv_existence.side_effect = [
-        (['Count_Person_Male', 'Count_Person_Female'], {})
+        (['Count_Person_Male', 'Count_Person_Female'], {
+            'Count_Person_Male': set(['geoId/32', 'geoId/06']),
+            'Count_Person_Female': set(['geoId/32', 'geoId/06'])
+        })
     ]
 
     # Pass in the simple SV utterance as context
@@ -295,10 +317,22 @@ class TestDataSpecNext(unittest.TestCase):
     # - Make SVs exist. Importantly, the second call is for both male + female.
     mock_sv_existence.side_effect = [({
         'Count_Person_Male': False
-    }, {}), ({
-        'Count_Person_Male': False,
-        'Count_Person_Female': False
-    }, {})]
+    }, {
+        'Count_Person_Male': {
+            'geoId/06': False
+        },
+    }),
+                                     ({
+                                         'Count_Person_Male': False,
+                                         'Count_Person_Female': False
+                                     }, {
+                                         'Count_Person_Male': {
+                                             'geoId/06': False
+                                         },
+                                         'Count_Person_Female': {
+                                             'geoId/06': False
+                                         },
+                                     })]
 
     got = _run(detection, [])
 
@@ -319,21 +353,21 @@ class TestDataSpecNext(unittest.TestCase):
     mock_extend_svs.return_value = {}
     # - Return 3 ChartVars: two with an SV each, and another with an SVPG.
     mock_topic_to_svs.return_value = [
-        base.ChartVars(svs=['Count_Farm'],
-                       block_id=1,
-                       include_percapita=False,
-                       source_topic='dc/topic/Agriculture'),
-        base.ChartVars(svs=['Area_Farm'],
-                       block_id=1,
-                       include_percapita=False,
-                       source_topic='dc/topic/Agriculture'),
-        base.ChartVars(svs=[
+        ChartVars(svs=['Count_Farm'],
+                  block_id=1,
+                  include_percapita=False,
+                  source_topic='dc/topic/Agriculture'),
+        ChartVars(svs=['Area_Farm'],
+                  block_id=1,
+                  include_percapita=False,
+                  source_topic='dc/topic/Agriculture'),
+        ChartVars(svs=[
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
         ],
-                       block_id=2,
-                       description='svpg desc',
-                       include_percapita=False,
-                       is_topic_peer_group=True)
+                  block_id=2,
+                  description='svpg desc',
+                  include_percapita=False,
+                  is_topic_peer_group=True)
     ]
     # - Make SVs exist. The order doesn't matter.
     #   Make Wheat inventory fail existence check.
@@ -342,7 +376,20 @@ class TestDataSpecNext(unittest.TestCase):
         'Area_Farm': False,
         'FarmInventory_Rice': False,
         'FarmInventory_Barley': False
-    }, {})]
+    }, {
+        'Count_Farm': {
+            'geoId/06': False
+        },
+        'Area_Farm': {
+            'geoId/06': False
+        },
+        'FarmInventory_Rice': {
+            'geoId/06': False
+        },
+        'FarmInventory_Barley': {
+            'geoId/06': False
+        },
+    })]
 
     got = _run(detection, [])
 
@@ -365,18 +412,18 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     mock_topic_to_svs.return_value = [
-        base.ChartVars(
+        ChartVars(
             svs=['Count_Farm'],
             block_id=1,
             include_percapita=False,
         ),
-        base.ChartVars(svs=[
+        ChartVars(svs=[
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
         ],
-                       block_id=2,
-                       include_percapita=False,
-                       is_topic_peer_group=True,
-                       source_topic='dc/topic/Agriculture')
+                  block_id=2,
+                  include_percapita=False,
+                  is_topic_peer_group=True,
+                  source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
     mock_sv_existence.side_effect = [({
@@ -414,13 +461,13 @@ class TestDataSpecNext(unittest.TestCase):
     # - Do no SV extensions
     mock_extend_svs.return_value = {}
     mock_topic_to_svs.return_value = [
-        base.ChartVars(svs=[
+        ChartVars(svs=[
             'FarmInventory_Rice', 'FarmInventory_Wheat', 'FarmInventory_Barley'
         ],
-                       block_id=2,
-                       include_percapita=False,
-                       is_topic_peer_group=True,
-                       source_topic='dc/topic/Agriculture')
+                  block_id=2,
+                  include_percapita=False,
+                  is_topic_peer_group=True,
+                  source_topic='dc/topic/Agriculture')
     ]
     # - Make SVs exist
     mock_sv_existence.side_effect = [
@@ -475,7 +522,14 @@ class TestDataSpecNext(unittest.TestCase):
     mock_sv_existence.side_effect = [({
         'Count_Person_Male': False,
         'Count_Person_Female': False
-    }, {})]
+    }, {
+        'Count_Person_Male': {
+            'geoId/06': False
+        },
+        'Count_Person_Female': {
+            'geoId/06': False
+        },
+    })]
 
     counters = ctr.Counters()
     fulfiller.fulfill(

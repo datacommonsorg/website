@@ -53,12 +53,13 @@ def fulfill(uttr: Utterance) -> Utterance:
     uttr.counters.err('fulfill_empty_querytypes', '')
     return uttr
 
-  # TODO: Avoid relying on a single query_type
-  state.uttr.query_type = state.query_types[0]
+  main_qt = state.query_types[0]
 
+  # TODO: Avoid relying on a single query_type
+
+  state.uttr.query_type = main_qt
   # Perform certain type-specific overrides or actions.
   success = False
-  main_qt = state.query_types[0]
   if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
     # This needs custom SVs.
     filter_with_dual_vars.set_overrides(state)
@@ -89,6 +90,7 @@ def fulfill(uttr: Utterance) -> Utterance:
   # Call populate_charts.
   if not base.populate_charts(state):
     # If that failed, try OVERVIEW.
+    state.uttr.query_type = QueryType.OVERVIEW
     overview.populate(uttr)
 
   # Rank candidates.
