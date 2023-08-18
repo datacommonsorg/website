@@ -19,24 +19,7 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Input, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
-const BrandingLinkContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  font-weight: 500;
-  flex-shrink: 0;
-  a {
-    display: flex;
-    align-items: center;
-    color: #151515;
-    text-decoration: none;
-  }
-  img {
-    width: 100px;
-    align-self: flex-end;
-    margin-left: 0.5rem;
-  }
-`;
+import "./components.css";
 
 const SearchInputContainer = styled.div`
   display: flex;
@@ -88,7 +71,7 @@ const SearchInput = styled(Input)`
 
 export const BrandingLink: React.FC = () => {
   return (
-    <BrandingLinkContainer>
+    <div className="branding-link-container">
       <a
         href="https://datacommons.org"
         target="_blank"
@@ -97,7 +80,7 @@ export const BrandingLink: React.FC = () => {
         Powered by Google's{" "}
         <img className="logo-secondary-image" src="images/dc-logo.png" />
       </a>
-    </BrandingLinkContainer>
+    </div>
   );
 };
 
