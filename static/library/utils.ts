@@ -59,7 +59,7 @@ export function createWebComponentElement(
   link.setAttribute("href", ICON_STYLESHEET_URL);
   container.appendChild(link);
 
-  // Create mount point and render tile in ti
+  // Create mount point and render tile in it
   const mountPoint = document.createElement("div");
   ReactDOM.render(React.createElement(tile, tileProps), mountPoint);
   container.appendChild(mountPoint);
