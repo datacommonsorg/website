@@ -16,7 +16,7 @@
 
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
-import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -494,9 +494,7 @@ const ChartCategoryContent: React.FC<{
 
       <ChartContentBody>
         {tiles.map((tile, i) => (
-          <Suspense key={i}>
-            <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
-          </Suspense>
+          <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
       </ChartContentBody>
     </ContentCard>
