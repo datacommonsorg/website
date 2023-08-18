@@ -16,14 +16,7 @@
 
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
@@ -487,43 +480,6 @@ const ChartCategoryContent: React.FC<{
       });
     });
   });
-  const getItemSize = useCallback(
-    (index: number) => {
-      console.log("WOOF GET ITEM SIZE", index, tiles.length);
-      if (index >= tiles.length) {
-        return 155;
-      }
-      if (tiles[index].type === "HIGHLIGHT") {
-        return 155;
-      } else {
-        return 389;
-      }
-    },
-    [tiles]
-  );
-  /*
-  <VariableSizeList
-        height={75}
-        itemCount={1000}
-        itemSize={getItemSize}
-        layout="vertical"
-        width={300}
-      >
-        {(p: { index: number }) => {
-          console.log("WOOF WOOF p=", p);
-          if (p.index >= tiles.length) {
-            return null;
-          }
-          return (
-            <ChartTile
-              key={p.index}
-              placeDcid={placeDcid}
-              tile={tiles[p.index]}
-            />
-          );
-        }}
-      </VariableSizeList>
-  */
   return (
     <ContentCard>
       {sdgTopic ? (
