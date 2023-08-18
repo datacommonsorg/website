@@ -61,6 +61,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             chart_vars.svs)
     return False
 
+  # TODO: Use ranking chart.
   # Ranking among peer group of SVs.
   ranked_svs = rank_utils.rank_svs_by_latest_value(places[0].dcid,
                                                    chart_vars.svs,

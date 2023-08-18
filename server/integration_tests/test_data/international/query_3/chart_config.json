@@ -31,36 +31,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-                    ],
-                    "title": "Nominal GDP Per Capita in Eurostat Nuts 3 Places of United Kingdom (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-                    ],
-                    "title": "Growth Rate of GDP in Eurostat Nuts 3 Places of United Kingdom (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
                     "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
@@ -80,18 +50,10 @@
             "name": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
-            "name": "Nominal GDP Per Capita",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
             "denom": "Count_Person",
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-          },
-          "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
-            "name": "Growth Rate of GDP",
-            "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           }
         }
       }

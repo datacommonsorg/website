@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -41,6 +42,12 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # on a non-contained-in and non-ranking query.
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
+
+  exist_svs = ext.svs4place(state, places[0], chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('simple_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
 
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.

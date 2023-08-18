@@ -300,36 +300,6 @@
                       "geoId/0677000"
                     ],
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9_multiple_place_bar_block"
-                    ],
-                    "title": "Commute Time (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0665028",
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/e9gftzl2hm8h9_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Commute Time (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0665028",
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
                       "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
                       "dc/dbe0drezxrpv6_multiple_place_bar_block",
                       "dc/1fw0t5m6459gb_multiple_place_bar_block",
@@ -563,15 +533,6 @@
             "denom": "Count_Person",
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/e27c5t4tbplg"
-          },
-          "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
-            "name": "Commute Time",
-            "statVar": "dc/e9gftzl2hm8h9"
-          },
-          "dc/e9gftzl2hm8h9_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Commute Time",
-            "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
             "name": "Population: 25 - 29 Minute",

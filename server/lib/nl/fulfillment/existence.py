@@ -76,7 +76,8 @@ class ExistenceCheckTracker:
 
     # In `state`, set sv -> place Key -> is-single-point
     for sv, pl2sp in existsv2places.items():
-      self.state.exist_checks[sv] = {}
+      if sv not in self.state.exist_checks:
+        self.state.exist_checks[sv] = {}
       for pl, is_singlepoint in pl2sp.items():
         k = self.place2keys[pl]
         if k not in self.state.exist_checks[sv]:

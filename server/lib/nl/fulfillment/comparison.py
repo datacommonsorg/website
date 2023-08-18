@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -37,6 +38,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.response_type = "comparison chart"
   chart_vars.include_percapita = True
+
+  exist_svs = []
+  for sv in chart_vars.svs:
+    if all([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places]):
+      exist_svs.append(sv)
+  if len(exist_svs) <= 1:
+    return False
+  chart_vars.svs = exist_svs
+
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)
   return True

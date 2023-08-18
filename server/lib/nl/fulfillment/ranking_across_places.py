@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -54,6 +55,12 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
   else:
+    exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs
+    if not exist_svs:
+      state.uttr.counters.err('containedin_failed_existence', 1)
+      return False
+    chart_vars.svs = exist_svs
+
     chart_vars.response_type = "ranking table"
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True

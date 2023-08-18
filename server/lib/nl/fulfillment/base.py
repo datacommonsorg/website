@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 import time
 from typing import Dict, List
@@ -48,9 +49,7 @@ def populate_charts(state: PopulateState) -> bool:
     return False
 
   places = state.uttr.places
-  if not handle_contained_in_type(state, places):
-    # Counter updated in handle_contained_in_type()
-    return False
+  handle_contained_in_type(state, places)
 
   if not state.uttr.svs:
     state.uttr.counters.err('num_populate_fallbacks', 1)
@@ -173,8 +172,8 @@ def _add_charts_with_existence_check(state: PopulateState,
     clear_fallback(state)
     return False
 
-  tracker = MainExistenceCheckTracker(state, places_to_check,
-                                      state.chart_vars_map)
+  chart_vars_map = copy.deepcopy(state.chart_vars_map)
+  tracker = MainExistenceCheckTracker(state, places_to_check, chart_vars_map)
   tracker.perform_existence_check()
 
   existing_svs = set()
@@ -182,10 +181,12 @@ def _add_charts_with_existence_check(state: PopulateState,
   num_charts = 0
 
   for (qt, handler) in get_populate_handlers(state):
+    state.uttr.counters.info('processed_fulfillment_types',
+                             handler.module.__name__.split('.')[-1])
     for exist_state in tracker.exist_sv_states:
       # Infer charts for the main SV/Topic.
       for exist_cv in exist_state.chart_vars_list:
-        chart_vars = tracker.get_chart_vars(exist_cv)
+        chart_vars = copy.deepcopy(tracker.get_chart_vars(exist_cv))
         # Now that we've found existing vars, call the per-chart-type callback.
         if chart_vars.event:
           if exist_cv.exist_event:
@@ -349,8 +350,9 @@ def _maybe_set_fallback(state: PopulateState, places: List[Place]):
       # This is the edge case where user has provided a
       # sub-type that matches the main place type,
       # like, [poverty among countries in USA].
-      # For this buggy query, don't set orig_type.
-      pass
+      # For this buggy query, we set the new_type to be
+      # same as orig_type.
+      orig_type = new_type
     else:
       orig_type = pt
 
@@ -369,6 +371,9 @@ def _maybe_set_fallback(state: PopulateState, places: List[Place]):
       + ' in ' + new_place.name
   else:
     new_str = new_place.name
+
+  if orig_str == new_str:
+    return
 
   state.uttr.place_fallback = PlaceFallback(origPlace=orig_place,
                                             origType=orig_type,

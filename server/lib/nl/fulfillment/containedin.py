@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -49,6 +50,13 @@ def populate(state: PopulateState, chart_vars: ChartVars,
     state.uttr.counters.err('containedin_failed_cb_toomanyplaces',
                             contained_places)
     return False
+
+  exist_svs = ext.svs4children(state, contained_places[0],
+                               chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('containedin_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
 
   chart_vars.response_type = "comparison map"
   add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,

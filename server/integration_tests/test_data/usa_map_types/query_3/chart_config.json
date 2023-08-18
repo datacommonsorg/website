@@ -9,43 +9,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Unemployed"
-                    ],
-                    "title": "Population: Unemployed in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Unemployed_pc"
-                    ],
-                    "title": "Per Capita Population: Unemployed in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_15OrMoreYears_NoIncome"
                     ],
                     "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
@@ -56,50 +19,6 @@
                       "Count_Person_15OrMoreYears_NoIncome_pc"
                     ],
                     "title": "Per Capita Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_DidNotWork"
-                    ],
-                    "title": "Population: 16 - 64 Years, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_DidNotWork_pc"
-                    ],
-                    "title": "Per Capita Population: 16 - 64 Years, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_DidNotWork"
-                    ],
-                    "title": "Population: 16 - 64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_DidNotWork_pc"
-                    ],
-                    "title": "Per Capita Population: 16 - 64 Years, Male, Did Not Work in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -127,40 +46,9 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker"
-                    ],
-                    "title": "Count of Household: Family Household, Worker 0 in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With0Worker_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 0 in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
-          "Count_Household_FamilyHousehold_With0Worker": {
-            "name": "Count of Household: Family Household, Worker 0",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker"
-          },
-          "Count_Household_FamilyHousehold_With0Worker_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Worker 0",
-            "statVar": "Count_Household_FamilyHousehold_With0Worker"
-          },
           "Count_Person_15OrMoreYears_NoIncome": {
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
@@ -169,37 +57,6 @@
             "denom": "Count_Person",
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
-          },
-          "Count_Person_DidNotWork": {
-            "name": "Population: 16 - 64 Years, Did Not Work",
-            "statVar": "Count_Person_DidNotWork"
-          },
-          "Count_Person_DidNotWork_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 16 - 64 Years, Did Not Work",
-            "statVar": "Count_Person_DidNotWork"
-          },
-          "Count_Person_Male_DidNotWork": {
-            "name": "Population: 16 - 64 Years, Male, Did Not Work",
-            "statVar": "Count_Person_Male_DidNotWork"
-          },
-          "Count_Person_Male_DidNotWork_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 16 - 64 Years, Male, Did Not Work",
-            "statVar": "Count_Person_Male_DidNotWork"
-          },
-          "Count_Person_Unemployed": {
-            "name": "Population: Unemployed",
-            "statVar": "Count_Person_Unemployed"
-          },
-          "Count_Person_Unemployed_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Unemployed",
-            "statVar": "Count_Person_Unemployed"
-          },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
           },
           "dc/dyhxtqe2pxhl5": {
             "name": "Population: No Income, Foreign Born",

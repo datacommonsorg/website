@@ -8,14 +8,153 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Home Value of Houses (${date})",
+                    "type": "BAR"
+                  },
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc",
+                      "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc"
+                    ],
+                    "title": "Per Capita Home Value of Houses (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "California"
+            "title": "Home Value of Houses"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block",
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block"
+                    ],
+                    "title": "Ownership Cost by Mortgage Status (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Ownership Cost by Mortgage Status"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $1,000,000 and $1,499,999",
+            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1000000To1499999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $1,000,000 and $1,499,999",
+            "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block": {
+            "name": "Homes Valued Between $1,500,000 and $1,999,999",
+            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue1500000To1999999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Homes Valued Between $1,500,000 and $1,999,999",
+            "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          }
+        }
       }
     ],
     "metadata": {

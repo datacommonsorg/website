@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -115,6 +116,12 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('size-across-entities_failed_cb_emptyvars',
                             chart_vars.svs)
     return False
+
+  exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('containedin_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
 
   chart_vars.response_type = "ranking table"
   # NO Per-capita for these.

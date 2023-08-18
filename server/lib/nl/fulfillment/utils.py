@@ -143,7 +143,6 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
     state.place_type = utils.get_default_child_place_type(places[0])
     state.uttr.counters.info('contained_in_across_fallback',
                              state.place_type.value)
-    return True
 
   if state.place_type and places:
     ptype = state.place_type
@@ -155,9 +154,7 @@ def handle_contained_in_type(state: PopulateState, places: List[Place]):
     if places[0].place_type == state.place_type.value:
       state.uttr.counters.err('contained_in_sameplacetype',
                               state.place_type.value)
-      return False
-
-  return True
+      state.place_type = None
 
 
 def get_default_contained_in_place(places: List[Place],
