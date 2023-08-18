@@ -24,7 +24,7 @@ import _ from "lodash";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
 import { Boundary } from "../shared/types";
-import { DataGroup, getColorFn } from "./base";
+import { DataGroup, DataPoint, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
   MARGIN,
@@ -63,7 +63,13 @@ const TICK_LABEL_PADDING = 10;
 function getTooltipContent(
   element: d3.Selection<d3.BaseType, any, any, any>
 ): string {
-  return formatNumber(parseFloat(element.attr("data-d")));
+  const data = element.data().at(0);
+  const value = formatNumber(data.value);
+  const unit = data.unit ? ` ${data.unit}` : "";
+  return `
+  ${data.place}<br />
+  ${data.statVar} (${data.date}): ${value}${unit}
+  `;
 }
 /**
  * Adds highlighting and showing a tooltip on hover for bar charts
@@ -345,6 +351,7 @@ export function drawStackBarChart(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of bars
  * @param yScale  scale for y-axis values
+ * @param unit (optional) unit for values
  */
 function drawBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -352,7 +359,8 @@ function drawBars(
   dataGroups: DataGroup[],
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
-  yScale: d3.ScaleLinear<number, number, never>
+  yScale: d3.ScaleLinear<number, number, never>,
+  unit?: string
 ): void {
   chart
     .append("g")
@@ -363,10 +371,12 @@ function drawBars(
     .selectAll("rect")
     .data((dg) =>
       dg.value.map((dp) => ({
-        key: dp.label,
+        statVar: dp.label,
         value: dp.value,
         dcid: dp.dcid,
-        label: dg.label,
+        place: dg.label,
+        date: dp.date,
+        unit,
       }))
     )
     .join("rect")
@@ -375,19 +385,17 @@ function drawBars(
       [
         "series",
         `series-place-${d.dcid}`,
-        `series-variable-${d.key}`,
-        `series-place-${d.dcid}-variable-${d.key}`,
+        `series-variable-${d.statVar}`,
+        `series-place-${d.dcid}-variable-${d.statVar}`,
       ].join(" ")
     )
     .attr("data-dcid", (d) => d.dcid)
-    .attr("data-statvar", (d) => d.key)
-    .attr("data-label", (d) => d.label)
-    .attr("x", (d) => xSubScale(d.key))
+    .attr("data-d", (d) => d.value)
+    .attr("x", (d) => xSubScale(d.statVar))
     .attr("y", (d) => yScale(Math.max(0, d.value)))
     .attr("width", xSubScale.bandwidth())
     .attr("height", (d) => Math.abs(yScale(0) - yScale(d.value)))
-    .attr("data-d", (d) => d.value)
-    .attr("fill", (d) => colorFn(d.key));
+    .attr("fill", (d) => colorFn(d.statVar));
 }
 
 /**
@@ -638,6 +646,7 @@ function drawHorizontalStackedBars(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
+ * @param unit (optional) data's unit of measurement, to display in tooltip
  */
 function drawLollipops(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -645,7 +654,8 @@ function drawLollipops(
   dataGroups: DataGroup[],
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
-  yScale: d3.ScaleLinear<number, number, never>
+  yScale: d3.ScaleLinear<number, number, never>,
+  unit?: string
 ): void {
   // draw lollipop stems
   chart
@@ -660,6 +670,9 @@ function drawLollipops(
         statVar: dp.label,
         value: dp.value,
         dcid: dp.dcid,
+        place: dg.label,
+        date: dp.date,
+        unit,
       }))
     )
     .join("line")
@@ -673,7 +686,6 @@ function drawLollipops(
     )
     .attr("data-dcid", (d) => d.dcid)
     .attr("data-d", (d) => d.value)
-    .attr("data-statvar", (d) => d.statVar)
     .attr("stroke", (d) => colorFn(d.statVar))
     .attr("stroke-width", 2)
     .attr("x1", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
@@ -694,6 +706,9 @@ function drawLollipops(
         statVar: dp.label,
         value: dp.value,
         dcid: dp.dcid,
+        place: dg.label,
+        date: dp.date,
+        unit,
       }))
     )
     .join("circle")
@@ -810,7 +825,7 @@ export function drawGroupBarChart(
   if (options?.lollipop) {
     drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
   } else {
-    drawBars(chart, colorFn, dataGroups, x0, x1, y);
+    drawBars(chart, colorFn, dataGroups, x0, x1, y, options?.unit);
   }
 
   if (options?.showTooltipOnHover) {

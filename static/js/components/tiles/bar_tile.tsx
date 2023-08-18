@@ -261,6 +261,7 @@ function rawToChart(
         label: statVarNames[statVar],
         value: stat.value || 0,
         dcid: placeDcid,
+        date: stat.date,
       };
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
