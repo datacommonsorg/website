@@ -122,7 +122,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
           block, column = builder.new_chart(cspec)
           block.footnote = sv2thing.footnote[sv]
 
-          if not builder.block.title:
+          if not builder.block.title and builder.ignore_block_id_check:
             builder.block.title = sv2thing.name[sv]
             builder.block.description = sv2thing.description[sv]
 
