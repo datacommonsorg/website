@@ -34,7 +34,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
   }
   return (
     <footer id="chart-container-footer">
-      <slot name="footer"></slot>
+      <slot name="footer" {...{ part: "footer" }}></slot>
       <div className="main-footer-section">
         <div className="outlinks">
           {props.handleEmbed && (

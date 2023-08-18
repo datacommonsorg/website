@@ -35,7 +35,7 @@ import {
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
-const NO_SPACE_UNITS = new Set(["%"]);
+const NO_SPACE_UNITS = ["%"];
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -82,6 +82,9 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   const unitString = translateUnit(
     props.statVarSpec.unit || highlightData.unitDisplayName
   );
+  const hasUnitSpace =
+    !!unitString &&
+    NO_SPACE_UNITS.filter((unit) => unitString.startsWith(unit)).length === 0;
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -100,7 +103,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
             </span>
             {unitString && (
               <span className="metadata">
-                {`${NO_SPACE_UNITS.has(unitString) ? "" : " "}${unitString}`}
+                {`${hasUnitSpace ? " " : ""}${unitString}`}
               </span>
             )}
           </span>

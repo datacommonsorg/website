@@ -17,15 +17,13 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { SortType } from "../js/chart/types";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a bar chart tile.
@@ -212,8 +210,7 @@ export class DatacommonsBarComponent extends LitElement {
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(BarTile, barTileProps), mountPoint);
-    return mountPoint;
+
+    return createWebComponentElement(BarTile, barTileProps);
   }
 }
