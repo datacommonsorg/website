@@ -97,8 +97,9 @@ function addHighlightOnHover(
   const tooltip = container.select(`#${TOOLTIP_ID}`);
 
   // define tooltip mouse behavior
-  const mouseoverFn = () => {
+  const mouseoverFn = function () {
     tooltip.style("display", "block");
+    d3.select(this).style("opacity", 0.5);
   };
   const mouseoutFn = function () {
     d3.select(this).style("opacity", 1);
@@ -109,8 +110,6 @@ function addHighlightOnHover(
     const object = d3.select(this);
     const tooltipContent = getTooltipContent(object);
 
-    object.style("opacity", 0.5);
-    tooltip.style("display", "block");
     showTooltip(
       tooltipContent,
       container,
