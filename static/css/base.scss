@@ -170,7 +170,6 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 
 #main-header #main-header-logo img {
   height: 28px;
-  width: 28px;
   margin-right: 12px;
 }
 
@@ -209,10 +208,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     font-weight: 400;
     line-height: 36px;
   }
+  #top-footer a {
+    display: flex !important;
+  }
   a {
     align-items: center;
     color: var(--gm-3-sys-light-primary);
-    display: flex !important;
     flex-direction: row;
     font-size: 14px;
     font-weight: 500;
@@ -248,6 +249,9 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 }
 
 .brand-byline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   color: var(--gm-3-ref-neutral-neutral-40);
   .brand-text {
     font-size: 0.75em;

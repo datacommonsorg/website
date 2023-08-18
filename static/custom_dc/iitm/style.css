@@ -50,6 +50,18 @@ header.masthead p {
   }
 }
 
+#main-header {
+  background-color: var(--dc-primary);
+
+  .navbar-brand a {
+    color: #fff;
+  }
+
+  .nav-item .nav-link {
+    color: rgba(255,255,255,.5)
+  }
+}
+
 body {
   font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
@@ -185,11 +197,6 @@ a.linked-text:hover {
   text-underline-offset: 0.5em;
 }
 
-.footer-links {
-  color: hsl(0, 0%, 85%);
-  font-weight: 500;
-}
-
 footer ul a:hover {
   text-decoration: none;
 }
@@ -198,10 +205,6 @@ hr {
   max-width: 100% !important;
   border-width: 1px !important;
   border-color: #9cabe0 !important;
-}
-
-div.footer-links {
-  font-size: 14px;
 }
 
 .no-decoration {
@@ -220,6 +223,16 @@ div.footer-links {
 /* #main-header{
   background-color:#80296E!important;
 } */
+
+#iitm-india #main-footer a {
+  color: hsl(0, 0%, 85%);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+#iitm-india #main-footer a:hover {
+  color: var(--link-color);
+}
 
 #iitm-india #main-footer #sub-footer {
   padding-top: 0.5rem;
