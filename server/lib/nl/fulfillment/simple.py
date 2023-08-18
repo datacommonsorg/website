@@ -15,38 +15,39 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 # Number of variables to plot in a chart (largely Timeline chart)
 _MAX_VARS_PER_CHART = 5
 
 
-def populate(uttr: Utterance) -> bool:
-  if not uttr.svs and not uttr.places:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
+  logging.info('populate_cb for simple')
+  if not state.uttr.svs and not state.uttr.places:
     # If both the SVs and places are empty, then do not attempt to fulfill.
     # This avoids using incorrect context for unrelated queries like
     # [meaning of life]
-    uttr.counters.err('simple_failed_noplaceandsv', 1)
+    state.uttr.counters.err('simple_failed_noplaceandsv', 1)
     return False
-  return populate_charts(PopulateState(uttr=uttr, main_cb=_populate_cb))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
-  logging.info('populate_cb for simple')
 
   if chart_vars.event:
     # This can happen if an event is part of a topic and it can be triggered
     # on a non-contained-in and non-ranking query.
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
+
+  exist_svs = ext.svs4place(state, places[0], chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('simple_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
 
   if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
     # For fewer SVs, comparing trends over time is nicer.

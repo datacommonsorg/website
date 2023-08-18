@@ -1299,9 +1299,16 @@
       },
       {
         "dcid": "Earth",
-        "name": "Earth",
+        "name": "World",
         "types": [
           "Place"
+        ]
+      },
+      {
+        "dcid": "undata-geo/G00134000",
+        "name": "Americas",
+        "types": [
+          "GeoRegion"
         ]
       }
     ],

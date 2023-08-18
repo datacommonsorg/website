@@ -17,10 +17,9 @@ from typing import List
 from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection import types
-import server.lib.nl.fulfillment.base as base
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
-
-_DEFAULT_EVENT_PLACE = types.Place("country/USA", "USA", "Country")
 
 #
 # Handler for Event queries.
@@ -47,12 +46,11 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
       ranking_classification[0].attributes.ranking_type):
     ranking_types = ranking_classification[0].attributes.ranking_type
 
-  return _populate_event(
-      base.PopulateState(uttr=uttr, main_cb=None, ranking_types=ranking_types),
-      event_types)
+  return _populate_event(PopulateState(uttr=uttr, ranking_types=ranking_types),
+                         event_types)
 
 
-def _populate_event(state: base.PopulateState,
+def _populate_event(state: PopulateState,
                     event_types: List[types.EventType]) -> bool:
   for pl in state.uttr.places:
     if (_populate_event_for_place(state, event_types, pl)):
@@ -63,7 +61,7 @@ def _populate_event(state: base.PopulateState,
   return False
 
 
-def _populate_event_for_place(state: base.PopulateState,
+def _populate_event_for_place(state: PopulateState,
                               event_types: List[types.EventType],
                               place: types.Place) -> bool:
   event_type = event_types[0]
@@ -76,10 +74,10 @@ def _populate_event_for_place(state: base.PopulateState,
     return False
 
   state.block_id += 1
-  chart_vars = base.ChartVars(svs=[],
-                              event=event_types[0],
-                              block_id=state.block_id,
-                              include_percapita=False)
-  return base.add_chart_to_utterance(base.ChartType.EVENT_CHART, state,
-                                     chart_vars, [place],
-                                     base.ChartOriginType.PRIMARY_CHART)
+  chart_vars = ChartVars(svs=[],
+                         event=event_types[0],
+                         block_id=state.block_id,
+                         include_percapita=False)
+  return futils.add_chart_to_utterance(nl_uttr.ChartType.EVENT_CHART, state,
+                                       chart_vars, [place],
+                                       nl_uttr.ChartOriginType.PRIMARY_CHART)

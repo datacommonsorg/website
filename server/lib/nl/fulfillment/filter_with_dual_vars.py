@@ -24,10 +24,9 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 # TODO: Support per-capita
 # TODO: Increase this after frontend handles comparedPlaces better.
@@ -47,10 +46,10 @@ def _get_dual_sv_part(uttr: Utterance, idx: int) -> List[str]:
 
 
 #
-# Computes ranked list of places after applying the filter and
-# retrieve a var for those places.
+# TODO: Improve this.
 #
-def populate(uttr: Utterance):
+def set_overrides(state: PopulateState):
+  uttr = state.uttr
   quantity = utils.get_quantity(uttr)
   if not quantity:
     uttr.counters.err('filter-with-dual-var_missingquantity', 1)
@@ -66,20 +65,19 @@ def populate(uttr: Utterance):
     return False
 
   # Update `svs` in uttr across the call to populate_charts()
-  orig_svs = uttr.svs
   uttr.svs = svs
-  found = populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    quantity=quantity))
-  uttr.svs = orig_svs
-  return found
+  # TODO: Check if we need resetting uttr.svs.
+
+  return True
 
 
-# TODO: Consider deduping with filter_with_single_var._populate_cb.
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+#
+# Computes ranked list of places after applying the filter and
+# retrieve a var for those places.
+#
+# TODO: Consider deduping with filter_with_single_var.populate.
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for filter_with_dual_vars')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)

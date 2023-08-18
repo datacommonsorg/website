@@ -15,15 +15,14 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
 #
@@ -31,27 +30,8 @@ from server.lib.nl.fulfillment.types import PopulateState
 # classification in the current utterance.  For example, [counties with most rainfall],
 # assuming california is in the context.
 #
-def populate(uttr: Utterance):
-  # Get the RANKING classifications from the current utterance. That is what
-  # let us infer this is ranking query-type.
-  ranking_types = utils.get_ranking_types(uttr)
-  place_type = utils.get_contained_in_type(uttr)
-  if ranking_types and place_type:
-    if populate_charts(
-        PopulateState(uttr=uttr,
-                      main_cb=_populate_cb,
-                      place_type=place_type,
-                      ranking_types=ranking_types)):
-      return True
-    else:
-      uttr.counters.err('ranking-across-places_failed_populate_placetype',
-                        place_type.value)
-
-  return False
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
@@ -75,6 +55,12 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
   else:
+    exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs
+    if not exist_svs:
+      state.uttr.counters.err('containedin_failed_existence', 1)
+      return False
+    chart_vars.svs = exist_svs
+
     chart_vars.response_type = "ranking table"
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True

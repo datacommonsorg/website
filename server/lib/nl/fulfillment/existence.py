@@ -14,18 +14,14 @@
 
 from dataclasses import dataclass
 import logging
-import time
 from typing import Dict, List
 
 from server.lib.nl.common import constants
-from server.lib.nl.common import topic
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
-from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
-
-_EVENT_PREFIX = 'event/'
 
 
 #
@@ -79,7 +75,8 @@ class ExistenceCheckTracker:
 
     # In `state`, set sv -> place Key -> is-single-point
     for sv, pl2sp in existsv2places.items():
-      self.state.exist_checks[sv] = {}
+      if sv not in self.state.exist_checks:
+        self.state.exist_checks[sv] = {}
       for pl, is_singlepoint in pl2sp.items():
         k = self.place2keys[pl]
         if k not in self.state.exist_checks[sv]:
@@ -138,23 +135,14 @@ class ExistenceCheckTracker:
 #
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
-  def __init__(self,
-               state: PopulateState,
-               place2keys: Dict[str, str],
-               svs: List[str],
-               prep_chart_vars: bool = True,
-               sv2chartvarslist: Dict = {}):
+  def __init__(self, state: PopulateState, place2keys: Dict[str, str],
+               sv2chartvarslist: Dict):
     super().__init__(state, place2keys)
     places = place2keys.keys()
 
     # Loop over all SVs, and construct existence check state.
-    for rank, sv in enumerate(svs):
+    for sv, chart_vars_list in sv2chartvarslist.items():
       exist_state = SVExistenceCheckState(sv=sv, chart_vars_list=[])
-
-      if prep_chart_vars:
-        chart_vars_list = build_chart_vars(state, sv, rank)
-      else:
-        chart_vars_list = sv2chartvarslist.get(sv, {})
       for chart_vars in chart_vars_list:
         exist_cv = ChartVarsExistenceCheckState(chart_vars=chart_vars,
                                                 exist_svs=[])
@@ -208,100 +196,36 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
         self.exist_sv_states.append(exist_state)
 
 
-#
-# Returns a list of ChartVars, where each ChartVars may be a single SV or
-# group of SVs.
-#
-def build_chart_vars(state: PopulateState,
-                     sv: str,
-                     rank: int = 0) -> List[ChartVars]:
-  if utils.is_sv(sv):
-    state.block_id += 1
-    return [ChartVars(svs=[sv], block_id=state.block_id)]
-  if utils.is_topic(sv):
-    start = time.time()
-    topic_vars = topic.get_topic_vars_recurive(sv, rank)
-    peer_groups = topic.get_topic_peergroups(topic_vars)
-
-    # Classify into two lists.
-    just_svs = []
-    svpgs = []
-    for v in topic_vars:
-      if v in peer_groups and peer_groups[v]:
-        title = topic.svpg_name(v)
-        description = topic.svpg_description(v)
-        svpgs.append((title, description, peer_groups[v]))
-      else:
-        just_svs.append(v)
-    state.uttr.counters.timeit('topic_calls', start)
-
-    # Group into blocks carefully:
-
-    # 1. Make a block for all SVs in just_svs
-    state.block_id += 1
-    charts = []
-    for v in just_svs:
-      # Skip PC for this case (per prior implementation)
-      svs = []
-      event = None
-      if v.startswith(_EVENT_PREFIX):
-        config_key = v[len(_EVENT_PREFIX):]
-        etype = constants.EVENT_CONFIG_KEY_TO_EVENT_TYPE.get(config_key, None)
-        if not etype:
-          continue
-        event = etype
-      else:
-        svs = [v]
-      charts.append(
-          ChartVars(svs=svs,
-                    event=event,
-                    block_id=state.block_id,
-                    include_percapita=False,
-                    source_topic=sv))
-
-    # 2. Make a block for every peer-group in svpgs
-    for (title, description, svs) in svpgs:
-      state.block_id += 1
-      charts.append(
-          ChartVars(svs=svs,
-                    block_id=state.block_id,
-                    include_percapita=False,
-                    title=title,
-                    description=description,
-                    is_topic_peer_group=True,
-                    source_topic=sv))
-
-    state.uttr.counters.info('topics_processed',
-                             {sv: {
-                                 'svs': just_svs,
-                                 'peer_groups': svpgs,
-                             }})
-    return charts
-
-  return []
+# Returns a list of place as a map with place DCID as key, and the value for
+# grouping.
+def get_places_to_check(state: PopulateState, places: List[Place],
+                        is_explore: bool) -> Dict[str, str]:
+  uttr = state.uttr
+  # Get places to perform existence check on.
+  places_to_check = {}
+  for p in _get_place_dcids(places):
+    places_to_check[p] = p
+  if state.place_type:
+    # Add child places
+    key = places[0].dcid + state.place_type.value
+    if is_explore:
+      for p in uttr.detection.places_detected.child_places[:utils.
+                                                           NUM_CHILD_PLACES_FOR_EXISTENCE]:
+        places_to_check[p.dcid] = key
+    else:
+      ret_places = utils.get_sample_child_places(places[0].dcid,
+                                                 state.place_type.value,
+                                                 state.uttr.counters)
+      for p in ret_places:
+        places_to_check[p] = key
+  if is_explore:
+    for p in uttr.detection.places_detected.parent_places:
+      places_to_check[p.dcid] = p.dcid
+  return places_to_check
 
 
-#
-# Update SVs from `sve_states` into `uttr.extra_success_svs` if
-# it was originally returned from the embeddings.
-#
-def update_extra_success_svs(uttr: Utterance,
-                             sve_states: List[SVExistenceCheckState]):
-  if not sve_states:
-    return
-  if not uttr.svs:
-    return
-
-  orig_svs = set(uttr.svs)
-  result = set()
-
-  for sve in sve_states:
-    if sve.sv in orig_svs:
-      result.add(sve.sv)
-
-  # Return in original order.
-  for v in uttr.svs:
-    if v in result:
-      uttr.extra_success_svs.append(v)
-  if uttr.extra_success_svs:
-    uttr.counters.info('info_extra_success_svs', uttr.extra_success_svs)
+def _get_place_dcids(places: List[Place]) -> List[str]:
+  dcids = []
+  for p in places:
+    dcids.append(p.dcid)
+  return dcids

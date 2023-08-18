@@ -153,6 +153,8 @@ class Utterance:
   query: str
   # Result of classification
   detection: Detection
+  # TODO: This shouldn't be attached to the Utterance now
+  #       Deprecate it and its users.
   # A characterization of the query.
   query_type: QueryType
   # Primary places

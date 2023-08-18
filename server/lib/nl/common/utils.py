@@ -281,6 +281,18 @@ def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
   return time_delta
 
 
+def get_event_types(uttr: nl_uttr.Utterance) -> List[types.EventType]:
+  classification = futils.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.EVENT)
+  event_types = []
+  # Get time delta type
+  if (classification and isinstance(classification[0].attributes,
+                                    types.EventClassificationAttributes) and
+      not classification[0].attributes.event_types):
+    event_types = classification[0].attributes.event_types
+  return event_types
+
+
 def pluralize_place_type(place_type: str) -> str:
   result = shared_constants.PLACE_TYPE_TO_PLURALS.get(
       place_type.lower(), shared_constants.PLACE_TYPE_TO_PLURALS["place"])
