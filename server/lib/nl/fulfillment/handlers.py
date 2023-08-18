@@ -280,10 +280,11 @@ def route_comparison_or_correlation(cl_type: ClassificationType,
   return qt
 
 
+# Returns a tuple of QueryType and QueryHandlerConfig
 def get_populate_handlers(state: PopulateState):
   handlers = []
   for qt in state.query_types:
     handler = QUERY_HANDLERS.get(qt, None)
     if handler and handler.module:
-      handlers.append(handler.module)
+      handlers.append((qt, handler))
   return handlers

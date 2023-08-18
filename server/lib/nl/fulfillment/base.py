@@ -181,7 +181,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   found = False
   num_charts = 0
 
-  for handler in get_populate_handlers(state):
+  for (qt, handler) in get_populate_handlers(state):
     for exist_state in tracker.exist_sv_states:
       # Infer charts for the main SV/Topic.
       for exist_cv in exist_state.chart_vars_list:
@@ -189,8 +189,8 @@ def _add_charts_with_existence_check(state: PopulateState,
         # Now that we've found existing vars, call the per-chart-type callback.
         if chart_vars.event:
           if exist_cv.exist_event:
-            if handler.populate(state, chart_vars, places,
-                                ChartOriginType.PRIMARY_CHART):
+            if handler.module.populate(state, chart_vars, places,
+                                       ChartOriginType.PRIMARY_CHART):
               found = True
               num_charts += 1
             else:
@@ -199,8 +199,8 @@ def _add_charts_with_existence_check(state: PopulateState,
         else:
           if chart_vars.svs:
             existing_svs.update(chart_vars.svs)
-            if handler.populate(state, chart_vars, places,
-                                ChartOriginType.PRIMARY_CHART):
+            if handler.module.populate(state, chart_vars, places,
+                                       ChartOriginType.PRIMARY_CHART):
               found = True
               num_charts += 1
             else:
@@ -210,23 +210,23 @@ def _add_charts_with_existence_check(state: PopulateState,
         if num_charts >= _MAX_NUM_CHARTS:
           return True
 
+    # Handle extended/comparable SVs only for simple query since
+    # for those we would construct a single bar chart comparing the differe
+    # variables.  For other query-types like map/ranking/scatter, we will have
+    # individual "related" charts, and those don't look good.
+    if qt == QueryType.SIMPLE and existing_svs:
+      # Note that we want to expand on existing_svs only, and in the
+      # order of `svs`
+      ordered_existing_svs = [v for v in svs if v in existing_svs]
+      found |= _add_charts_for_extended_svs(state=state,
+                                            places=places,
+                                            places_to_check=places_to_check,
+                                            svs=ordered_existing_svs,
+                                            num_charts=num_charts)
+
     # For a given handler, if we found any charts at all, we're good.
     if found:
       break
-
-  # Handle extended/comparable SVs only for simple query since
-  # for those we would construct a single bar chart comparing the differe
-  # variables.  For other query-types like map/ranking/scatter, we will have
-  # individual "related" charts, and those don't look good.
-  if state.uttr.query_type == QueryType.SIMPLE and existing_svs:
-    # Note that we want to expand on existing_svs only, and in the
-    # order of `svs`
-    ordered_existing_svs = [v for v in svs if v in existing_svs]
-    found |= _add_charts_for_extended_svs(state=state,
-                                          places=places,
-                                          places_to_check=places_to_check,
-                                          svs=ordered_existing_svs,
-                                          num_charts=num_charts)
 
   if not found:
     # Always clear fallback when returning False
