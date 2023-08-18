@@ -528,6 +528,10 @@ ul.footer_nav_redesign {
 
 #dc-fa #main-footer #sub-footer {
   border: none! important;
+  background-color: #333333;
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  line-height: 2.5rem;
 }
 
 #dc-fa #bq-link {
