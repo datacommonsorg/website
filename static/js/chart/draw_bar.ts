@@ -57,6 +57,15 @@ export const HORIZONTAL_BAR_CHART = {
 const TICK_LABEL_PADDING = 10;
 
 /**
+ * Get the content to display in a tooltip for a given chart element
+ * @param element chart element to get tooltip content for
+ */
+function getTooltipContent(
+  element: d3.Selection<d3.BaseType, any, any, any>
+): string {
+  return formatNumber(parseFloat(element.attr("data-d")));
+}
+/**
  * Adds highlighting and showing a tooltip on hover for bar charts
  *
  * @param xScale time scale corresponding to the x-axis.
@@ -72,7 +81,7 @@ const TICK_LABEL_PADDING = 10;
 function addHighlightOnHover(
   chartAreaBoundary: Boundary,
   container: d3.Selection<HTMLDivElement, any, any, any>,
-  svg: d3.Selection<SVGSVGElement, any, any, any>,
+  svg: d3.Selection<SVGSVGElement, any, any, any>
   // categoricalScale: d3.ScaleBand<string>,
   // numericScale: d3.ScaleLinear<number, number>,
   // chartIsHorizontal: boolean,
@@ -80,54 +89,45 @@ function addHighlightOnHover(
 ): void {
   addTooltip(container);
   const tooltip = container.select(`#${TOOLTIP_ID}`);
+
+  // define tooltip mouse behavior
+  const mouseoverFn = () => {
+    tooltip.style("display", "block");
+  };
+  const mouseoutFn = function () {
+    d3.select(this).style("opacity", 1);
+    tooltip.style("display", "none");
+  };
+  const mousemoveFn = function () {
+    const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
+    const rect = d3.select(this);
+    const tooltipContent = getTooltipContent(rect);
+
+    rect.style("opacity", 0.5);
+    tooltip.style("display", "block");
+    showTooltip(
+      tooltipContent,
+      container,
+      mouseX,
+      mouseY,
+      chartAreaBoundary,
+      true
+    );
+  };
+
+  // Add tooltip to bars
   svg
     .selectAll("rect")
-    .on("mouseover", () => {
-      tooltip.style("display", "block");
-    })
-    .on("mouseout", function () {
-      d3.select(this).style("opacity", 1);
-      tooltip.style("display", "none");
-    })
-    .on("mousemove", function () {
-      const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
-      //const tooltipContent = this.attr("data-d");
-      const rect = d3.select(this);
-      // const place = rect.attr("data-dcid");
-      // const statVar = rect.attr("data-statvar");
-      // const label = rect.attr("data-label");
-      // const value = parseFloat(rect.attr("data-d"));
-      const tooltipContent = formatNumber(parseFloat(rect.attr("data-d")));
-      // let dataPointX: number;
-      // let dataPointY: number;
-      // if (chartIsHorizontal) {
-      //   dataPointX = numericScale(value);
-      //   dataPointY = mouseY;
-      // } else {
-      //   dataPointX = categoricalSubScale
-      //     ? categoricalScale(label) +
-      //       categoricalSubScale(statVar) +
-      //       categoricalSubScale.bandwidth() / 2
-      //     : categoricalScale(label);
-      //   dataPointY = numericScale(parseFloat(rect.attr("data-d")));
-      // }
-      rect.style("opacity", 0.5);
-      tooltip.style("display", "block");
-      showTooltip(
-        tooltipContent,
-        container,
-        mouseX,
-        mouseY,
-        chartAreaBoundary,
-        true
-      );
-    });
+    .on("mouseover", mouseoverFn)
+    .on("mouseout", mouseoutFn)
+    .on("mousemove", mousemoveFn);
 
-  // container.on("mousemove", () => {
-  //   const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
-  //   tooltip.style("display", "block");
-  //   showTooltip(tooltipContent, container, mouseX, mouseY, chartAreaBoundary);
-  // });
+  // Add tooltip to lollipop points
+  svg
+    .selectAll("circle")
+    .on("mouseover", mouseoverFn)
+    .on("mouseout", mouseoutFn)
+    .on("mousemove", mousemoveFn);
 }
 
 /**
@@ -507,6 +507,9 @@ function drawHorizontalGroupedBars(
       .attr("fill", (item) => colorFn(item.dataGroupValue.label))
       .classed("g-bar", true)
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
+      .attr("data-d", (item) => item.dataGroupValue.value)
+      .attr("data-statvar", (item) => item.label)
+      .attr("data-label", (item) => item.dataGroupValue.label)
       .attr("part", (item) =>
         [
           "series",
@@ -610,6 +613,7 @@ function drawHorizontalStackedBars(
       .join("rect")
       .classed("g-bar", true)
       .attr("data-dcid", (d) => d.data.dcid)
+      .attr("data-d", (d) => d.data.value)
       .attr("part", (d) =>
         [
           "series",
@@ -994,6 +998,16 @@ export function drawHorizontalBarChart(
   } else {
     // Grouped bar chart
     drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
+  }
+
+  if (options?.showTooltipOnHover) {
+    const chartAreaBoundary = {
+      bottom: height - MARGIN.bottom,
+      left: maxLabelWidth,
+      right: chartWidth - MARGIN.right,
+      top: 0,
+    };
+    addHighlightOnHover(chartAreaBoundary, container, svg);
   }
 
   // Legend
