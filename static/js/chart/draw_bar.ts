@@ -24,7 +24,7 @@ import _ from "lodash";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
 import { Boundary } from "../shared/types";
-import { DataGroup, DataPoint, getColorFn } from "./base";
+import { DataGroup, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
   MARGIN,
@@ -408,6 +408,7 @@ function drawBars(
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
  * @param useLollipop whether to use lollipop style
+ * @param unit (optional) data's unit of measurement to show in tooltip
  */
 function drawHorizontalGroupedBars(
   chart: d3.Selection<SVGElement, unknown, null, undefined>,
@@ -415,7 +416,8 @@ function drawHorizontalGroupedBars(
   dataGroups: DataGroup[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
-  useLollipop?: boolean
+  useLollipop?: boolean,
+  unit?: string
 ): void {
   const numGroups = dataGroups[0].value.length;
 
@@ -438,6 +440,11 @@ function drawHorizontalGroupedBars(
         dg.value.map((dgv) => ({
           dataGroupValue: dgv,
           label: dg.label,
+          statVar: dgv.label,
+          value: dgv.value,
+          place: dg.label,
+          date: dgv.date,
+          unit,
         }))
       )
       .join("line")
@@ -477,6 +484,11 @@ function drawHorizontalGroupedBars(
         dg.value.map((dgv) => ({
           dataGroupValue: dgv,
           label: dg.label,
+          statVar: dgv.label,
+          value: dgv.value,
+          place: dg.label,
+          date: dgv.date,
+          unit,
         }))
       )
       .join("circle")
@@ -509,7 +521,15 @@ function drawHorizontalGroupedBars(
       .append("g")
       .selectAll("rect")
       .data((dg) =>
-        dg.value.map((dgv) => ({ dataGroupValue: dgv, label: dg.label }))
+        dg.value.map((dgv) => ({
+          dataGroupValue: dgv,
+          label: dg.label,
+          statVar: dgv.label,
+          value: dgv.value,
+          place: dg.label,
+          date: dgv.date,
+          unit,
+        }))
       )
       .join("rect")
       .attr("fill", (item) => colorFn(item.dataGroupValue.label))
@@ -823,7 +843,7 @@ export function drawGroupBarChart(
   const colorFn = getColorFn(colorOrder, options.colors);
 
   if (options?.lollipop) {
-    drawLollipops(chart, colorFn, dataGroups, x0, x1, y);
+    drawLollipops(chart, colorFn, dataGroups, x0, x1, y, options?.unit);
   } else {
     drawBars(chart, colorFn, dataGroups, x0, x1, y, options?.unit);
   }
@@ -1012,7 +1032,15 @@ export function drawHorizontalBarChart(
     drawHorizontalStackedBars(svg, color, series, x, y, options?.lollipop);
   } else {
     // Grouped bar chart
-    drawHorizontalGroupedBars(svg, color, dataGroups, x, y, options?.lollipop);
+    drawHorizontalGroupedBars(
+      svg,
+      color,
+      dataGroups,
+      x,
+      y,
+      options?.lollipop,
+      options?.unit
+    );
   }
 
   if (options?.showTooltipOnHover) {
