@@ -32,6 +32,8 @@ mixer:
   useBaseBigtable: false
   useBranchBigtable: false
   useCustomBigtable: true
+  # TODO: update to https://api.datacommons.org and change the mixer_api_key
+  # in Cloud Secret Manager before launch.
   remoteMixerDomain: https://autopush.api.datacommons.org
 
 ingress:
