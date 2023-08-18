@@ -29,9 +29,10 @@ export interface Topic {
 export interface TopicConfig {
   title: string;
   description: string;
+  image: string;
+  subTopics: Query[];
   examples: {
     general: Query[];
-    specific: Query[];
     comparison: Query[];
   };
   meta: {

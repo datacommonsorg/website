@@ -66,7 +66,6 @@ export interface RankingTilePropType {
   showExploreMore?: boolean;
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
-  date?: string;
   showLoadingSpinner?: boolean;
 }
 
@@ -151,10 +150,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               apiRoot={props.apiRoot}
               hideFooter={props.hideFooter}
               onHoverToggled={props.onHoverToggled}
+              tileId={props.id}
             />
           );
         })}
-      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()} className="scatter-spinner">
@@ -182,7 +181,7 @@ export async function fetchData(
         continue;
       }
       const variableDate =
-        props.date || getCappedStatVarDate(sv) || LATEST_DATE_KEY;
+        spec.date || getCappedStatVarDate(sv) || LATEST_DATE_KEY;
       if (!dateToVariable[variableDate]) {
         dateToVariable[variableDate] = [];
       }
@@ -387,6 +386,11 @@ function getNumRankingLists(
   }
   if (rankingTileSpec.showLowest) {
     numListsPerSv++;
+  }
+  // if showHighestLowest is set, will show a single list and ignore
+  // showHighest/showLowest.
+  if (rankingTileSpec.showHighestLowest) {
+    numListsPerSv = 1;
   }
   if (!rankingData) {
     return statVarSpec.length * numListsPerSv;

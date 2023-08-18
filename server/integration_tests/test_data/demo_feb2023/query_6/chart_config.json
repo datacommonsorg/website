@@ -304,12 +304,12 @@
         ],
         "statVarSpec": {
           "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
+            "name": "Neoplasms Deaths Among 35 - 44 Years Olds",
             "statVar": "Count_Death_35To44Years_Neoplasms"
           },
           "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Neoplasms Deaths Among  35 - 44 Years Olds",
+            "name": "Neoplasms Deaths Among 35 - 44 Years Olds",
             "statVar": "Count_Death_35To44Years_Neoplasms"
           },
           "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block": {
@@ -322,21 +322,21 @@
             "statVar": "Count_Death_45To54Years_Neoplasms"
           },
           "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
+            "name": "Neoplasms Deaths Among 55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
           "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Neoplasms Deaths Among  55 - 64 Years Olds",
+            "name": "Neoplasms Deaths Among 55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
           "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
-            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (65 - 74 years)",
             "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
           "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events (65 - 74 Years): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (65 - 74 years)",
             "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
           "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block": {
@@ -349,39 +349,39 @@
             "statVar": "Count_Death_65To74Years_Neoplasms"
           },
           "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
-            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (75 - 84 years)",
             "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
           "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events (75 - 84 Years): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (75 - 84 years)",
             "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
           "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
+            "name": "Neoplasms Deaths Among 75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
           },
           "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Neoplasms Deaths Among  75 - 84 Years Olds",
+            "name": "Neoplasms Deaths Among 75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
           },
           "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
-            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (over 85 years)",
             "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
           },
           "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Mortality Events (Years 85): Mental And Behavioural Disorders",
+            "name": "Deaths due to Mental and Behavioral Disorders (over 85 years)",
             "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
           },
           "Count_Death_85Years_Neoplasms_multiple_place_bar_block": {
-            "name": "Neoplasms Deaths Among  85+ Years Olds",
+            "name": "Neoplasms Deaths Among 85+ Years Olds",
             "statVar": "Count_Death_85Years_Neoplasms"
           },
           "Count_Death_85Years_Neoplasms_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Neoplasms Deaths Among  85+ Years Olds",
+            "name": "Neoplasms Deaths Among 85+ Years Olds",
             "statVar": "Count_Death_85Years_Neoplasms"
           },
           "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
@@ -493,12 +493,12 @@
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_Female_multiple_place_bar_block": {
-            "name": "Female Population With Disabilities",
+            "name": "Women With Disabilities",
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_Female_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Female Population With Disabilities",
+            "name": "Women With Disabilities",
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
@@ -511,12 +511,12 @@
             "statVar": "Count_Person_WithDisability_HispanicOrLatino"
           },
           "Count_Person_WithDisability_Male_multiple_place_bar_block": {
-            "name": "Male Population With Disabilities",
+            "name": "Men With Disabilities",
             "statVar": "Count_Person_WithDisability_Male"
           },
           "Count_Person_WithDisability_Male_multiple_place_bar_block_pc": {
             "denom": "Count_Person",
-            "name": "Male Population With Disabilities",
+            "name": "Men With Disabilities",
             "statVar": "Count_Person_WithDisability_Male"
           },
           "Count_Person_WithDisability_OneRace_multiple_place_bar_block": {

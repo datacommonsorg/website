@@ -54,4 +54,4 @@ serviceGroups:
     replicas: 20
 
 svg:
-  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD", "dc/g/SDG"]

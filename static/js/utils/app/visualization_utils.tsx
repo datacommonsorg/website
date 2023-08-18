@@ -23,12 +23,22 @@ import _ from "lodash";
 import React from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
-import { ContextStatVar } from "../../apps/visualization/app_context";
+import {
+  ContextStatVar,
+  DisplayOptions,
+} from "../../apps/visualization/app_context";
 import {
   VIS_TYPE_CONFIG,
   VisType,
   VisTypeConfig,
 } from "../../apps/visualization/vis_type_configs";
+import {
+  DISPLAY_PARAM_KEYS,
+  PARAM_VALUE_SEP,
+  PARAM_VALUE_TRUE,
+  STAT_VAR_PARAM_KEYS,
+  URL_PARAMS,
+} from "../../constants/app/visualization_constants";
 import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
@@ -247,6 +257,18 @@ export function getStatVarSpec(
     scaling: 1,
     statVar: sv.dcid,
     unit: "",
+    date: visType !== VisType.TIMELINE ? sv.date : "",
+  };
+}
+
+export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
+  return {
+    dcid: svSpec.statVar,
+    info: null,
+    isPerCapita: !!svSpec.denom,
+    isLog: svSpec.log,
+    denom: svSpec.denom,
+    date: svSpec.date,
   };
 }
 
@@ -292,4 +314,62 @@ export function getFilteredStatVarPromise(
     .catch(() => {
       return Promise.resolve(statVars);
     });
+}
+
+/**
+ * Get visualization tool url hash
+ * @param visType type of visualization
+ * @param places list of places
+ * @param enclosedPlaceType enclosed place type
+ * @param statVars list of context stat vars
+ * @param displayOptions display options
+ */
+export function getHash(
+  visType: string,
+  places: string[],
+  enclosedPlaceType: string,
+  statVars: ContextStatVar[],
+  displayOptions: DisplayOptions
+): string {
+  const params = {
+    [URL_PARAMS.VIS_TYPE]: visType,
+    [URL_PARAMS.PLACE]: places.join(PARAM_VALUE_SEP),
+    [URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
+    [URL_PARAMS.STAT_VAR]: statVars
+      .map((sv) => {
+        const svValue = { [STAT_VAR_PARAM_KEYS.DCID]: sv.dcid };
+        if (sv.isPerCapita) {
+          svValue[STAT_VAR_PARAM_KEYS.PER_CAPITA] = PARAM_VALUE_TRUE;
+        }
+        if (sv.isLog) {
+          svValue[STAT_VAR_PARAM_KEYS.LOG] = PARAM_VALUE_TRUE;
+        }
+        if (sv.date) {
+          svValue[STAT_VAR_PARAM_KEYS.DATE] = sv.date;
+        }
+        if (sv.denom) {
+          svValue[STAT_VAR_PARAM_KEYS.DENOM] = sv.denom;
+        }
+        return JSON.stringify(svValue);
+      })
+      .join(PARAM_VALUE_SEP),
+  };
+  const displayValue = {};
+  if (displayOptions.scatterPlaceLabels) {
+    displayValue[DISPLAY_PARAM_KEYS.SCATTER_LABELS] = PARAM_VALUE_TRUE;
+  }
+  if (displayOptions.scatterQuadrants) {
+    displayValue[DISPLAY_PARAM_KEYS.SCATTER_QUADRANTS] = PARAM_VALUE_TRUE;
+  }
+  if (!_.isEmpty(displayValue)) {
+    params[URL_PARAMS.DISPLAY] = JSON.stringify(displayValue);
+  }
+  let hash = "";
+  Object.keys(params).forEach((key, idx) => {
+    if (_.isEmpty(params[key])) {
+      return;
+    }
+    hash += `${idx === 0 ? "" : "&"}${key}=${params[key]}`;
+  });
+  return encodeURIComponent(hash);
 }

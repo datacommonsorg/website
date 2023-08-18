@@ -193,6 +193,7 @@ PAK_PLACE_TYPE_REMAP = {
         ContainedInPlaceType.ADMIN_AREA_3,
 }
 
+EARTH = Place('Earth', 'Earth', 'Place')
 USA = Place('country/USA', 'USA', 'Country', 'country/USA')
 
 # Key is US-only map type.
@@ -283,33 +284,17 @@ EARTH_DCID = 'Earth'
 DEFAULT_DENOMINATOR = 'Count_Person'
 
 SV_DISPLAY_SHORT_NAME = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 (optimistic), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 (intermediate), °C",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 (slightly pessimistic), °C",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "SSP245 (intermediate), °C",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "SSP585 (pessimistic), °C",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "SSP245 (intermediate), °C",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "SSP585 (pessimistic), °C",
 }
 
 SV_DISPLAY_NAME_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "Highest temperature increase by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "Highest temperature increase by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "Highest temperature increase by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "Highest temperature decrease by 2050 per RCP 2.6 (optimistic) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "Highest temperature decrease by 2050 per RCP 4.5 (intermediate) scenario (°C)",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "Highest temperature decrease by 2050 per RCP 6.0 (slightly pessimistic) scenario (°C)",
     "Percent_Person_WithArthritis":
         "Arthritis",
     "Percent_Person_WithAsthma":
@@ -409,18 +394,134 @@ SV_DISPLAY_NAME_OVERRIDE = {
 }
 
 SV_DISPLAY_FOOTNOTE_OVERRIDE = {
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26":
-        "RCP 2.6 is likely to keep global temperature rise below 2 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45":
-        "RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.",
-    "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60":
-        "RCP 6.0 simulates conditions through 2100 making the global temperature rise between 3 °C and 4 °C by 2100.",
+    'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+    'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
+        'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
 }
 
 SV_DISPLAY_DESCRIPTION_OVERRIDE = {
@@ -462,6 +563,198 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
         "CO₂ emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes).",
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 1% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 5% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 50% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model for historical (past) dates.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
+    "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
+        "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
 }
 
 # Have a shorter limit to avoid spamming the json.

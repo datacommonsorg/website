@@ -1,6 +1,24 @@
-import { gray } from "@ant-design/colors";
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { BrandingLink } from "./components";
+
+type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
 const HeaderContainer = styled.div`
   width: 100%;
@@ -22,37 +40,53 @@ const LogoBanner = styled.div`
   align-items: center;
   display: flex;
   flex-direction: row;
+  overflow: hidden;
   .left {
-    height: 35px;
+    height: 45px;
     padding-right: 1.25rem;
   }
-  .right {
+  .text {
     border-left: 2px solid grey;
-    color: ${gray[7]};
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1;
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto Condensed, sans-serif;
     padding-left: 1.25rem;
-    text-decoration: none;
+    flex-shrink: 0;
+    .header {
+      color: #333;
+      font-size: 23px;
+      font-weight: 600;
+      line-height: normal;
+      flex-shrink: 0;
+    }
+    .subheader {
+      color: #333;
+      font-size: 23px;
+      line-height: 1.5rem;
+      flex-shrink: 0;
+    }
   }
 `;
 
 const LogoSecondary = styled.div`
-  @media (max-width: 576px) {
+  @media (max-width: 980px) {
     display: none;
   }
-  img {
-    height: 35px;
-  }
+  display: flex;
+  align-items: center;
 `;
 
 const HeaderNav = styled.div`
   align-items: center;
+  background-color: rgb(77, 77, 77) !important;
   border-bottom: 1px solid #f1f1f1;
-  background-color: white !important;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  margin: auto 0;
+  padding: 0 4rem;
+  overflow: auto;
+  /** Safe center prevents the navbar from getting cut off on small screens */
+  justify-content: safe flex-start;
 
   &:hover {
     a {
@@ -62,75 +96,89 @@ const HeaderNav = styled.div`
 `;
 
 const HeaderNavItem = styled.div`
-  padding: 0 0.85rem;
+  flex-shrink: 0;
+  border-right: 1px solid white;
+  &:last-child {
+    border-right: 0;
+  }
+
   &:hover {
     background-color: #f8f8f8;
-  }
-  a {
-    color: #424242;
-    display: flex;
-    font-size: 0.9rem;
+    a {
+      color: black;
+    }
   }
 `;
 
-const SubNavbarItemLink = styled.span<{ selected?: boolean }>`
-  padding: 0.8rem 0;
+const SubNavbarItemLink = styled(Link)<{ selected?: boolean }>`
+  padding: 0.6rem 1rem;
+  color: white;
+  display: flex;
+  font-size: 0.9rem;
   ${(p) =>
     p.selected
       ? `
       font-weight: 500;
-      box-shadow: inset 0 -2px 0 #9a0000;
-      color: #9a0000;
+      color: red;
+      background-color: #f8f8f8;
+        color: black;
       `
       : null}
 `;
 
-const AppHeader = (props: { selected: "home" | "global" | "country" }) => {
+const AppHeader = (props: { selected: HeaderOptions }) => {
   const { selected } = props;
   return (
     <HeaderContainer>
       <TopContainer>
         <LogoBanner>
-          <a href="https://sdgs.un.org/" target="_blank">
-            <img
-              className="left"
-              src="https://sdgs.un.org/themes/custom/porto/assets/images/logo-en.svg"
-            />
+          <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
+            <img className="left" src="/images/un-logo.svg" />
           </a>
-          <a className="right" href="https://datacommons.org" target="_blank">
-            Data
-            <br />
-            Commons
-          </a>
+          <div className="text">
+            <div className="header">
+              Department of Economic and Social Affairs
+            </div>
+            <div className="subheader">Statistics</div>
+          </div>
         </LogoBanner>
         <LogoSecondary>
-          <a href="https://sdgs.un.org/goals" target="_blank">
-            <img src="https://www.un.org/sustainabledevelopment/wp-content/uploads/2019/08/E_SDG_logo_without_UN_emblem_horizontal_RGB-1200x219.png" />
-          </a>
+          <BrandingLink />
         </LogoSecondary>
       </TopContainer>
       <HeaderNav>
         <HeaderNavItem>
-          <Link to="/">
-            <SubNavbarItemLink selected={selected === "home"}>
-              Home
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink to="/" selected={selected === "home"}>
+            Home
+          </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/global">
-            <SubNavbarItemLink selected={selected === "global"}>
-              Global Overview
-            </SubNavbarItemLink>
-          </Link>
+          <SubNavbarItemLink
+            to="/countries"
+            selected={selected === "countries"}
+          >
+            Countries / Regions
+          </SubNavbarItemLink>
         </HeaderNavItem>
         <HeaderNavItem>
-          <Link to="/country">
-            <SubNavbarItemLink selected={selected === "country"}>
-              Country View
+          <SubNavbarItemLink to="/goals" selected={selected === "goals"}>
+            Goals
+          </SubNavbarItemLink>
+        </HeaderNavItem>
+        <HeaderNavItem>
+          <SubNavbarItemLink to="/search" selected={selected === "search"}>
+            Search
+          </SubNavbarItemLink>
+        </HeaderNavItem>
+        {/* 
+        <HeaderNavItem>
+          <Link to="/goals-legacy">
+            <SubNavbarItemLink selected={selected === "goals-legacy"}>
+              [TEST] Goals
             </SubNavbarItemLink>
           </Link>
         </HeaderNavItem>
+        */}
       </HeaderNav>
     </HeaderContainer>
   );

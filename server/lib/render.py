@@ -26,8 +26,10 @@ def render_page(default_html, custom_dc_html, **context):
 
   **context: Additional data to pass into the template.
   """
-  template_file = os.path.join('custom_dc', g.env, custom_dc_html)
-  if os.path.exists(
-      os.path.join(current_app.root_path, 'templates', template_file)):
-    return render_template(template_file, **context)
-  return render_template(default_html, **context)
+  template_path = default_html
+  if g.custom:
+    template_path = os.path.join('custom_dc', g.env, custom_dc_html)
+    if not os.path.exists(
+        os.path.join(current_app.root_path, 'templates', template_path)):
+      template_path = os.path.join('custom_dc/custom', custom_dc_html)
+  return render_template(template_path, **context)

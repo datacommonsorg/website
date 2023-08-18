@@ -22,13 +22,18 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { computeRatio } from "../../tools/shared_util";
-import { statVarSep, TIMELINE_URL_PARAM_KEYS } from "../../tools/timeline/util";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -36,8 +41,6 @@ import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
-
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
 export interface LineTilePropType {
   // API root
@@ -64,6 +67,8 @@ export interface LineTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // Whether to show tooltip on hover
+  showTooltipOnHover?: boolean;
 }
 
 export interface LineChartData {
@@ -109,7 +114,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -202,7 +207,7 @@ export function draw(
     props.svgChartHeight,
     chartData.dataGroup,
     false,
-    false,
+    props.showTooltipOnHover,
     {
       colors: props.colors,
       unit: chartData.unit,
@@ -277,17 +282,19 @@ function rawToChart(
   };
 }
 
-function getExploreMoreUrl(props: LineTilePropType): string {
-  const params = {
-    [TIMELINE_URL_PARAM_KEYS.PLACE]: props.place.dcid,
-    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
-      .map((spec) => spec.statVar)
-      .join(statVarSep),
+function getExploreLink(props: LineTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const hash = getHash(
+    VisType.TIMELINE,
+    props.comparisonPlaces || [props.place.dcid],
+    "",
+    props.statVarSpec.map((spec) => getContextStatVar(spec)),
+    {}
+  );
+  return {
+    displayText: "Timeline Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
-    "&"
-  )}`;
 }

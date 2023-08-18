@@ -25,6 +25,7 @@ import { Container } from "reactstrap";
 import { TextSearchBar } from "../../components/text_search_bar";
 import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
+import { Item, ItemList } from "../explore/item_list";
 import allTopics from "./topics.json";
 
 /**
@@ -39,7 +40,16 @@ export function App(): JSX.Element {
       title: allTopics.topics[name]?.title,
     }))
     .filter((item) => !item.title || item.name !== topic) as Topic[];
+  const subTopicItems: Item[] =
+    currentTopic.subTopics?.map((query) => ({
+      text: query.title,
+      url: `/explore#${query.url || "/"}`,
+    })) || [];
 
+  let dc = "";
+  if (topic === "sdg") {
+    dc = "sdg";
+  }
   if (!topic) {
     return (
       <div className="explore-container">
@@ -58,28 +68,37 @@ export function App(): JSX.Element {
       ? currentTopic.examples.general[0]
       : { title: "family earnings in california" };
   const placeholderHref =
-    placeholderQuery.url ||
-    `/explore#q=${encodeURIComponent(placeholderQuery.title)}`;
+    `/explore#${placeholderQuery.url}` ||
+    `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;
   return (
     <div className="explore-container">
       <Container>
-        <h1>{currentTopic.title}</h1>
-        <p>{currentTopic.description}</p>
         <div className="explore-search">
-          <div className="experiment-tag">Experiment</div>
+          <div className="early-preview-tag">Early Preview</div>
           <TextSearchBar
             inputId="query-search-input"
             onSearch={(q) => {
               window.location.href =
                 q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
                   ? placeholderHref
-                  : `/explore#q=${encodeURIComponent(q)}`;
+                  : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
             }}
-            placeholder={`For example, "${placeholderQuery.title}"`}
+            placeholder={"Enter a question or topic to explore"}
             initialValue={""}
             shouldAutoFocus={true}
             clearValueOnSearch={true}
           />
+        </div>
+        <div className="explore-title">
+          <div className="explore-title-image">
+            <img src={currentTopic.image} />
+          </div>
+          <div className="explore-title-text">
+            <h1>{currentTopic.title}</h1>
+            <div className="explore-title-sub-topics">
+              <ItemList items={subTopicItems} />
+            </div>
+          </div>
         </div>
         <TopicQueries
           currentTopic={currentTopic}

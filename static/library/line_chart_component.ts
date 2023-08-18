@@ -17,14 +17,12 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering the datacommons line tile.
@@ -58,6 +56,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   /**
    * @deprecated
    * DCID of the place to plot
@@ -74,7 +76,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   places!: string[];
 
-  // Title of the chart
+  /**
+   * @deprecated
+   * Title of the chart
+   */
   @property()
   title!: string;
 
@@ -83,7 +88,7 @@ export class DatacommonsLineComponent extends LitElement {
   variables!: Array<string>;
 
   render(): HTMLElement {
-    const tileProps: LineTilePropType = {
+    const lineTileProps: LineTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       comparisonPlaces: this.places,
@@ -94,6 +99,7 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      showTooltipOnHover: true,
       statVarSpec: this.variables.map((variable) => ({
         denom: "",
         log: false,
@@ -103,10 +109,8 @@ export class DatacommonsLineComponent extends LitElement {
         unit: "",
       })),
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header || this.title,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(LineTile, tileProps), mountPoint);
-    return mountPoint;
+    return createWebComponentElement(LineTile, lineTileProps);
   }
 }

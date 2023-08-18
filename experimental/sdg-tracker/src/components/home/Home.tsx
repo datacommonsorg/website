@@ -1,6 +1,26 @@
-import { gray } from "@ant-design/colors";
-import { Button, Space } from "antd";
-import { Link } from "react-router-dom";
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { blue, gray, orange } from "@ant-design/colors";
+import {
+  CompassOutlined,
+  FileSearchOutlined,
+  LineChartOutlined,
+} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../layout/AppFooter";
 import Header from "../layout/AppHeader";
@@ -36,45 +56,128 @@ const HomeContainer = styled.div`
   }
 `;
 
-const HomeLinks = styled.div`
-  margin: auto;
+const CardSection = styled.div`
+  align-items: center;
+  flex-grow: 1;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 0 6rem;
+  h3 {
+    font-size: 1.75rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 5rem;
+  }
+`;
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4rem;
+  justify-content: center;
+`;
+
+const StyledCard = styled.div`
+  background: white;
+  border: 1px solid #ececec;
+  width: 280px;
+  height: 280px;
+  cursor: pointer;
+  padding: 1.5rem;
   text-align: center;
+  .icon {
+    font-size: 2rem;
+    color: ${blue[2]};
+    margin-bottom: 2rem;
+  }
+  .title {
+    color: ${orange[6]};
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+  .body {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    color: #5f5f5f;
+  }
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 1px 3px rgba(3, 7, 18, 0.02),
+      0px 4px 13px rgba(3, 7, 18, 0.03), 0px 10px 30px rgba(3, 7, 18, 0.05);
+  }
 `;
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <AppLayout className="layout" style={{ minHeight: "100vh" }}>
       <Header selected="home" />
-      <AppLayoutContent style={{ background: "white" }}>
+      <AppLayoutContent
+        style={{
+          background: "white",
+          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         <HomeContainer>
-          <h1>
-            Use Google's Data Commons to explore United Nations Sustainable
-            Development Goals
-          </h1>
+          <h1>Sustainable Development Goals Data Commons</h1>
           <p>
-            Discover the progress made towards the United Nations{" "}
-            <a
-              href="https://sdgs.un.org/"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Sustainable Development Goals (SDGs)
-            </a>
-            . Access accurate and up-to-date information, interactive
-            visualizations, and insightful analysis, empowering you to drive
-            positive change towards a sustainable future for all.
+            Introducing the new SDG Data Commons — a platform integrating
+            authoritative SDG data and information resources from across the UN
+            System into a public repository with advanced search functionality
+            and a modern, user-friendly interface.
           </p>
-          <HomeLinks>
-            <Space>
-              <Link to="/global">
-                <Button size="large">Global Overview</Button>
-              </Link>
-              <Link to="/country">
-                <Button size="large">Country View</Button>
-              </Link>
-            </Space>
-          </HomeLinks>
         </HomeContainer>
+        <CardSection>
+          <h3>Understanding through Data</h3>
+          <CardContainer>
+            <StyledCard
+              onClick={() => {
+                navigate("/countries");
+              }}
+            >
+              <div className="icon">
+                <CompassOutlined />
+              </div>
+              <div className="title">Countries and Regions</div>
+              <div className="body">
+                Learn about countries' and regions' progress on UN's SDGs
+                through Google's Data Commons.
+              </div>
+            </StyledCard>
+            <StyledCard
+              onClick={() => {
+                navigate("/goals");
+              }}
+            >
+              <div className="icon">
+                <LineChartOutlined />
+              </div>
+              <div className="title">Global Progress</div>
+              <div className="body">
+                Visualize global advancements, gaining a holistic perspective on
+                our journey to a better future.
+              </div>
+            </StyledCard>
+            <StyledCard
+              onClick={() => {
+                navigate("/search");
+              }}
+            >
+              <div className="icon">
+                <FileSearchOutlined />
+              </div>
+              <div className="title">Search</div>
+              <div className="body">
+                Search all SDG goals, topics, and indicators world-wide using
+                Data Commons' knowledge graph.
+              </div>
+            </StyledCard>
+          </CardContainer>
+        </CardSection>
       </AppLayoutContent>
       <Footer />
     </AppLayout>

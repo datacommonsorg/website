@@ -18,7 +18,7 @@ import server.lib.explore.existence as exist
 from server.lib.explore.page_type.builder import Builder
 from server.lib.explore.page_type.default_main import add_svpg_line_or_bar
 from server.lib.nl.common import utils
-from server.lib.nl.config_builder import bar
+from server.lib.nl.config_builder import gauge
 from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import timeline
@@ -41,6 +41,12 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
+    #    TODO: Re-enable after fixing sizing issue
+    #    if sv in builder.env_config.sdg_percent_vars:
+    #      sv_spec.update(
+    #          gauge.gauge_block_for_percent(builder.new_column(chart_vars), place,
+    #                                        sv, builder.sv2thing))
+    #    else:
     sv_spec.update(
         highlight.higlight_block(builder.new_column(chart_vars), place, sv,
                                  builder.sv2thing))

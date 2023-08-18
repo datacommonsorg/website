@@ -14,13 +14,13 @@
                       "geoId/0668000",
                       "geoId/0627000",
                       "geoId/0669000",
-                      "geoId/0643000",
-                      "geoId/0603526"
+                      "geoId/0603526",
+                      "geoId/0643000"
                     ],
                     "statVarKey": [
                       "Count_Person_HispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic Population (${date}) - Top 7 of 290",
+                    "title": "Hispanic Population (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]
@@ -40,22 +40,6 @@
       "placeDcid": [
         "geoId/0644000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "White Hispanic Monoracial Population",
-            "nlQuery": "White Hispanic Monoracial Population California"
-          },
-          {
-            "displayName": "Count of Household: Hispanic or Latino",
-            "nlQuery": "Count of Household: Hispanic or Latino California"
-          }
-        ]
-      }
     }
   },
   "context": {},

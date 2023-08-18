@@ -23,13 +23,13 @@ Required:
 
   Child place types to plot. Example: `State`.
 
+- `header` _string_
+
+  Chart title.
+
 - `parentPlace` _string_
 
   Parent place DCID to plot. Example: `country/USA`.
-
-- `title` _string_
-
-  Chart title.
 
 - `variable` _string_
 

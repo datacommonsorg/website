@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
+import copy
 import json
 import logging
 import os
@@ -25,7 +26,6 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-import server.lib.explore.detector as insight_detector
 import server.lib.explore.fulfiller as fulfillment
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
@@ -34,6 +34,7 @@ import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.builder as config_builder
+import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
@@ -56,7 +57,11 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  data_dict = insight_detector.detect_with_context(utterance)
+  context.merge_with_context(utterance, is_explore=True)
+
+  data_dict = copy.deepcopy(utterance.insight_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = nl_utterance.save_utterance(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -147,7 +152,8 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   cb_config = config_builder.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-      nopc_vars=current_app.config['NOPC_VARS'])
+      nopc_vars=current_app.config['NOPC_VARS'],
+      sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
   fresp = fulfillment.fulfill(utterance, cb_config)

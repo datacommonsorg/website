@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React from "react";
 
 import { NamedTypedPlace } from "../../shared/types";
@@ -23,49 +24,45 @@ interface ParentPlacePropsType {
   placeType: string;
   topic: string;
   dc: string;
+  exploreMore: string;
+  onClick?: () => void;
 }
 
-class ParentPlace extends React.Component<ParentPlacePropsType> {
-  constructor(props: ParentPlacePropsType) {
-    super(props);
+export function ParentPlace(props: ParentPlacePropsType): JSX.Element {
+  let num = 0;
+  if (props.parentPlaces) {
+    num = props.parentPlaces.length;
   }
-
-  render(): JSX.Element {
-    let num = 0;
-    if (this.props.parentPlaces) {
-      num = this.props.parentPlaces.length;
-    }
-    return (
-      <div id="parent-places">
-        {num > 0 && <span id="parent-place-head">Located in </span>}
-        {num > 0 &&
-          this.props.parentPlaces.map((parent, index) => {
-            if (index === num - 1) {
-              return (
-                <a
-                  className="parent-place-link"
-                  key={parent.dcid}
-                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
-                >
-                  {parent.name}
-                </a>
-              );
-            }
+  return (
+    <div id="parent-places">
+      {num > 0 && <span id="parent-place-head">Located in </span>}
+      {num > 0 &&
+        props.parentPlaces.map((parent, index) => {
+          if (index === num - 1) {
             return (
-              <React.Fragment key={parent.dcid}>
-                <a
-                  className="parent-place-link"
-                  href={`/explore/#p=${parent.dcid}&t=${this.props.topic}&dc=${this.props.dc}`}
-                >
-                  {parent.name}
-                </a>
-                {index < num - 1 && <span>, </span>}
-              </React.Fragment>
+              <a
+                className="parent-place-link"
+                key={parent.dcid}
+                href={`/explore/#p=${parent.dcid}&t=${props.topic}&dc=${props.dc}&em=${props.exploreMore}`}
+                onClick={props.onClick || _.noop}
+              >
+                {parent.name}
+              </a>
             );
-          })}
-      </div>
-    );
-  }
+          }
+          return (
+            <React.Fragment key={parent.dcid}>
+              <a
+                className="parent-place-link"
+                href={`/explore/#p=${parent.dcid}&t=${props.topic}&dc=${props.dc}&em=${props.exploreMore}`}
+                onClick={props.onClick || _.noop}
+              >
+                {parent.name}
+              </a>
+              {index < num - 1 && <span>, </span>}
+            </React.Fragment>
+          );
+        })}
+    </div>
+  );
 }
-
-export { ParentPlace };

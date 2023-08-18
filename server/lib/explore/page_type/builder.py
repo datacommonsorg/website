@@ -22,8 +22,8 @@ import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
-import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.types as ftypes
+import server.lib.nl.fulfillment.utils as futils
 
 # Helper class to build chart config for Explore page.
 
@@ -39,12 +39,12 @@ class Builder:
     self.num_chart_vars = num_chart_vars
 
     self.is_place_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.COMPARISON):
       self.is_place_comparison = True
 
     self.is_var_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.CORRELATION):
       self.is_var_comparison = True
 
@@ -63,19 +63,23 @@ class Builder:
   def nopc(self):
     return self.env_config.nopc_vars
 
-  def new_category(self, title, dcid):
+  def new_category(self, title, dcid, description=''):
     self.category = self.page_config.categories.add()
     self.category.title = title
+    if title and description:
+      self.category.description = description
     if dcid:
       self.category.dcid = dcid
 
-  def new_block(self, title='', description='', enable_pc=False):
+  def new_block(self, title='', description='', enable_pc=False, footnote=''):
     self.block = self.category.blocks.add()
     self.block.title = base.decorate_block_title(title=title)
     if enable_pc:
       self.block.denom = 'Count_Person'
-    if description:
+    if self.block.title and description:
       self.block.description = description
+    if footnote:
+      self.block.footnote = footnote
 
   def new_column(self, cv: ftypes.ChartVars):
     # We are adding a chart for real post existence check.

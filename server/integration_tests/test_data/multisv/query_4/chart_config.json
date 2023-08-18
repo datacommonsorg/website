@@ -14,13 +14,13 @@
                       "geoId/0668000",
                       "geoId/0627000",
                       "geoId/0669000",
-                      "geoId/0643000",
-                      "geoId/0603526"
+                      "geoId/0603526",
+                      "geoId/0643000"
                     ],
                     "statVarKey": [
                       "Percent_Person_WithAsthma_multiple_place_bar_block"
                     ],
-                    "title": "Asthma (${date}) - Top 7 of 290",
+                    "title": "Asthma (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]
@@ -41,11 +41,6 @@
       "placeDcid": [
         "geoId/0644000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

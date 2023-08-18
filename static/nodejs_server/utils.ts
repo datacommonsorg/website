@@ -27,7 +27,14 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../js/types/subject_page_proto_types";
-import { CHART_URL_PARAMS, FONT_FAMILY, FONT_SIZE } from "./constants";
+import {
+  CHART_URL_PARAMS,
+  FONT_FAMILY,
+  FONT_SIZE,
+  SVG_HEIGHT,
+  SVG_PADDING,
+  SVG_WIDTH,
+} from "./constants";
 
 /**
  * Gets a list of source objects with name and url from a set of source urls.
@@ -49,12 +56,32 @@ export function getSources(
  * that chart.
  * @param chartSvg the svg element for the chart to process
  */
-export function getProcessedSvg(chartSvg: SVGSVGElement): SVGSVGElement {
+export function getProcessedSvg(
+  chartSvg: SVGSVGElement,
+  isDisasterMapTile?: boolean
+): SVGSVGElement {
   if (!chartSvg) {
     return null;
   }
   chartSvg.setAttribute("xmlns", SVGNS);
   chartSvg.setAttribute("xmlns:xlink", XLINKNS);
+
+  // TODO (juliawu): Setting padding, height/width, and transform is a hacky
+  //                 workaround for getting axes labels to show up in pngs.
+  //                 Need to switch to dynamically setting svg size.
+  const svgWidth = SVG_WIDTH + 2 * SVG_PADDING;
+  const svgHeight = SVG_HEIGHT + 2 * SVG_PADDING;
+  chartSvg.setAttribute("width", `${svgWidth}px`);
+  chartSvg.setAttribute("height", `${svgHeight}px`);
+  if (!isDisasterMapTile) {
+    // Disaster event map tiles are already centered in the SVG.
+    // Translate to center all other tile types.
+    chartSvg.setAttribute(
+      "transform",
+      `translate(${SVG_PADDING}, ${SVG_PADDING})`
+    );
+  }
+
   // Set the font for all the text in the svg to match the font family and size
   // used for getBBox calculations.
   chartSvg.querySelectorAll("text").forEach((node) => {

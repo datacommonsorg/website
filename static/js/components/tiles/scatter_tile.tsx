@@ -22,30 +22,25 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   drawScatter,
   Point,
   ScatterPlotOptions,
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
-import {
-  EmptyAxis,
-  EmptyPlace,
-  FieldToAbbreviation,
-  SHOW_POPULATION_OFF,
-} from "../../tools/scatter/context";
-import {
-  getStatWithinPlace,
-  SCATTER_URL_PATH,
-  updateHashAxis,
-  updateHashBoolean,
-  updateHashPlace,
-} from "../../tools/scatter/util";
+import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
+import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -156,7 +151,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(scatterChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       {scatterChartData && scatterChartData.errorMsg ? (
         <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
@@ -255,8 +250,14 @@ export const fetchData = async (props: ScatterTilePropType) => {
     props.place.dcid,
     props.enclosedPlaceType,
     [
-      { statVarDcid: props.statVarSpec[0].statVar },
-      { statVarDcid: props.statVarSpec[1].statVar },
+      {
+        statVarDcid: props.statVarSpec[0].statVar,
+        date: props.statVarSpec[0].date,
+      },
+      {
+        statVarDcid: props.statVarSpec[1].statVar,
+        date: props.statVarSpec[1].date,
+      },
     ],
     props.apiRoot
   );
@@ -382,6 +383,9 @@ export function draw(
   scatterTileSpec: ScatterTileSpec,
   svgWidth?: number
 ): void {
+  // Need to clear svg container before getting the width for resize cases.
+  // Otherwise, svgContainer offsetWidth will just be previous width.
+  svgContainer.innerHTML = "";
   const width = svgWidth || svgContainer.offsetWidth;
   const shouldHighlightQuadrants = {
     [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,
@@ -436,31 +440,23 @@ export function draw(
   );
 }
 
-function getExploreMoreUrl(props: ScatterTilePropType): string {
-  const yStatVar = props.statVarSpec[0];
-  const xStatVar = props.statVarSpec[1];
-  const xAxis = {
-    ...EmptyAxis,
-    statVarDcid: xStatVar.statVar,
-    log: xStatVar.log,
-    perCapita: !!xStatVar.denom,
-    denom: xStatVar.denom,
+function getExploreLink(props: ScatterTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const displayOptions = {
+    scatterPlaceLables: props.scatterTileSpec.showPlaceLabels,
+    scatterQuadrants: props.scatterTileSpec.showQuadrants,
   };
-  const yAxis = {
-    ...EmptyAxis,
-    statVarDcid: yStatVar.statVar,
-    log: yStatVar.log,
-    perCapita: !!yStatVar.denom,
-    denom: yStatVar.denom,
+  const hash = getHash(
+    VisType.SCATTER,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
+    displayOptions
+  );
+  return {
+    displayText: "Scatter Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
-  const place = {
-    ...EmptyPlace,
-    enclosingPlace: props.place,
-    enclosedPlaceType: props.enclosedPlaceType,
-  };
-  let hash = updateHashAxis("", xAxis, true);
-  hash = updateHashAxis(hash, yAxis, false);
-  hash = updateHashPlace(hash, place);
-  hash = updateHashBoolean(hash, FieldToAbbreviation.showDensity, true);
-  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
 }

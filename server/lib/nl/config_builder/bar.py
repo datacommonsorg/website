@@ -31,13 +31,15 @@ def multiple_place_bar_block(column, places: List[Place], svs: List[str],
     # This happens in the case of Topics
     orig_title = attr['title']
   elif len(svs) > 1:
-    if attr.get('class') == ChartOriginType.SECONDARY_CHART and attr.get(
-        'orig_sv') and sv2thing.name.get(attr.get('orig_sv', '')):
+    if attr.get('orig_sv') and sv2thing.name.get(attr.get('orig_sv', '')):
       # This suggests we are comparing against SV peers from SV extension
       orig_sv_name = sv2thing.name[attr['orig_sv']]
-      orig_title = f'{orig_sv_name} compared with other variables'
+      orig_title = f'{orig_sv_name} and more'
+    elif sv2thing.name.get(svs[0]):
+      orig_title = f'{sv2thing.name[svs[0]]} and more'
     else:
-      orig_title = "Compared with Other Variables"
+      # This should very rarely, if ever, be used.
+      orig_title = "Comparison of related variables"
   else:
     # This is the case of multiple places for a single SV
     orig_title = sv2thing.name[svs[0]]
