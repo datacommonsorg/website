@@ -32,7 +32,7 @@ mixer:
   useBaseBigtable: false
   useBranchBigtable: false
   useCustomBigtable: true
-  remoteMixerDomain: https://api.datacommons.org
+  remoteMixerDomain: https://autopush.api.datacommons.org
 
 ingress:
   enabled: true
