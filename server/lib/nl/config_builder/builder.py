@@ -154,9 +154,13 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                     skip_map_for_ranking=cv.skip_map_for_ranking))
     elif cspec.chart_type == ChartType.SCATTER_CHART:
       _, column = builder.new_chart(cspec)
-      stat_var_spec_map = scatter.scatter_chart_block(column, cspec.places[0],
-                                                      cspec.svs, sv2thing,
-                                                      cspec, config.nopc_vars)
+      stat_var_spec_map = scatter.scatter_chart_block(
+          column=column,
+          pri_place=cspec.places[0],
+          sv_pair=cspec.svs,
+          child_type=cspec.place_type,
+          sv2thing=sv2thing,
+          nopc_vars=config.nopc_vars)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and config.event_config:
       block, column = builder.new_chart(cspec)
