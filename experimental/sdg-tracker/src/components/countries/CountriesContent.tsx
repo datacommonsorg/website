@@ -16,8 +16,16 @@
 
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
-import React, { useEffect, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import { useStoreActions, useStoreState } from "../../state";
 import {
@@ -31,6 +39,11 @@ import {
   FulfillResponse,
 } from "../../utils/types";
 import { SearchBar } from "../layout/components";
+
+// Approximate chart heights for lazy-loading
+const CHART_HEIGHT = 389;
+const HIGHLIGHT_CHART_HEIGHT = 155;
+
 const SearchCard = styled.div`
   display: flex;
   align-items: center;
@@ -474,6 +487,43 @@ const ChartCategoryContent: React.FC<{
       });
     });
   });
+  const getItemSize = useCallback(
+    (index: number) => {
+      console.log("WOOF GET ITEM SIZE", index, tiles.length);
+      if (index >= tiles.length) {
+        return 155;
+      }
+      if (tiles[index].type === "HIGHLIGHT") {
+        return 155;
+      } else {
+        return 389;
+      }
+    },
+    [tiles]
+  );
+  /*
+  <VariableSizeList
+        height={75}
+        itemCount={1000}
+        itemSize={getItemSize}
+        layout="vertical"
+        width={300}
+      >
+        {(p: { index: number }) => {
+          console.log("WOOF WOOF p=", p);
+          if (p.index >= tiles.length) {
+            return null;
+          }
+          return (
+            <ChartTile
+              key={p.index}
+              placeDcid={placeDcid}
+              tile={tiles[p.index]}
+            />
+          );
+        }}
+      </VariableSizeList>
+  */
   return (
     <ContentCard>
       {sdgTopic ? (
@@ -486,10 +536,13 @@ const ChartCategoryContent: React.FC<{
         </ChartContentHeader>
       ) : null}
 
-      <ChartContentBody></ChartContentBody>
-      {tiles.map((tile, i) => (
-        <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
-      ))}
+      <ChartContentBody>
+        {tiles.map((tile, i) => (
+          <Suspense key={i}>
+            <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
+          </Suspense>
+        ))}
+      </ChartContentBody>
     </ContentCard>
   );
 };
@@ -498,9 +551,36 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   placeDcid,
   tile,
 }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [isIntersecting, setIntersecting] = useState(false);
+
+  const observer = useMemo(
+    () =>
+      new IntersectionObserver(([entry]) =>
+        setIntersecting(entry.isIntersecting)
+      ),
+    [ref]
+  );
+
+  useEffect(() => {
+    if (isIntersecting && !loaded) {
+      setLoaded(true);
+    }
+  }, [isIntersecting]);
+
+  useEffect(() => {
+    // @ts-ignore
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  let component = null;
+  const height =
+    tile.type === "HIGHLIGHT" ? HIGHLIGHT_CHART_HEIGHT : CHART_HEIGHT;
   if (tile.type === "BAR") {
-    return (
-      <div>
+    component = (
+      <>
         {/** @ts-ignore */}
         <datacommons-bar
           apiRoot={WEB_API_ENDPOINT}
@@ -509,11 +589,11 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           places={placeDcid}
           sort="descending"
         />
-      </div>
+      </>
     );
   } else if (tile.type === "HIGHLIGHT") {
-    return (
-      <div>
+    component = (
+      <>
         {/** @ts-ignore */}
         <datacommons-highlight
           apiRoot={WEB_API_ENDPOINT}
@@ -521,11 +601,11 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           variable={tile.statVarKey.join(" ")}
           place={placeDcid}
         />
-      </div>
+      </>
     );
   } else if (tile.type === "LINE") {
-    return (
-      <div>
+    component = (
+      <>
         {/** @ts-ignore */}
         <datacommons-line
           apiRoot={WEB_API_ENDPOINT}
@@ -533,11 +613,11 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           variables={tile.statVarKey.join(" ")}
           places={placeDcid}
         />
-      </div>
+      </>
     );
   } else if (tile.type === "MAP") {
-    return (
-      <div>
+    component = (
+      <>
         {/** @ts-ignore */}
         <datacommons-map
           apiRoot={WEB_API_ENDPOINT}
@@ -546,11 +626,11 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           parentPlace="Earth"
           childPlaceType="Country"
         />
-      </div>
+      </>
     );
   } else if (tile.type === "GAUGE") {
-    return (
-      <div>
+    component = (
+      <>
         {/** @ts-ignore */}
         <datacommons-gauge
           apiRoot={WEB_API_ENDPOINT}
@@ -560,14 +640,21 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           min="0"
           max="100"
         />
+      </>
+    );
+  } else {
+    component = (
+      <div>
+        Unknown chart type {tile.type} for chart {'"'}
+        {tile.title}
+        {'"'}
       </div>
     );
   }
+
   return (
-    <div>
-      Unknown chart type {tile.type} for chart {'"'}
-      {tile.title}
-      {'"'}
+    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
+      {loaded && component}
     </div>
   );
 };
