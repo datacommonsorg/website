@@ -20,6 +20,8 @@ steps:
       - -c
       - |
         set -e
+        git clone https://github.com/datacommonsorg/mixer.git
+
         docker build -f build/web_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-website:latest \
