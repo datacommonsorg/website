@@ -16,3 +16,7 @@
 
 /** Default website API endpoint for datacommons library */
 export const DEFAULT_API_ENDPOINT = "https://datacommons.org";
+
+/** URL for Material Icons stylesheet to inject into web components */
+export const ICON_STYLESHEET_URL =
+  "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined";
