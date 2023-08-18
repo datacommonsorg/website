@@ -29,13 +29,74 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
 import { formatDate } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   formatString,
   getSourcesJsx,
-  ReplacementStrings,
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
 const NO_SPACE_UNITS = ["%"];
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UnitOverrideConfig: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -52,6 +113,7 @@ export interface HighlightTilePropType {
 
 interface HighlightData extends Observation {
   sources: Set<string>;
+  numFractionDigits?: number;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
@@ -98,7 +160,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
                 highlightData.value,
                 "",
                 false,
-                NUM_FRACTION_DIGITS
+                highlightData.numFractionDigits
               )}
             </span>
             {unitString && (
@@ -134,6 +196,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
+      console.log("resp.data=", resp.data);
       const statData = resp.data.data;
       const mainStatData = statData[mainStatVar][props.place.dcid];
       let value = mainStatData.value;
@@ -144,9 +207,21 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (props.statVarSpec.scaling) {
         value *= props.statVarSpec.scaling;
       }
-      const result = { value, date: mainStatData.date };
+      const result = {
+        value,
+        date: mainStatData.date,
+        numFractionDigits: NUM_FRACTION_DIGITS,
+      };
       if (facet) {
-        if (facet.unitDisplayName) {
+        if (facet.unit in UnitOverrideConfig) {
+          const override = UnitOverrideConfig[facet.unit];
+          result["unitDisplayName"] = override.unitDisplayName;
+          result.value = result.value * override.multiplier;
+          result["numFractionDigits"] =
+            override.numFractionDigits === undefined
+              ? NUM_FRACTION_DIGITS
+              : override.numFractionDigits;
+        } else if (facet.unitDisplayName) {
           result["unitDisplayName"] = facet.unitDisplayName;
         }
         if (facet.provenanceUrl) {

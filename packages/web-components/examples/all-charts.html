@@ -83,8 +83,16 @@
       variables="Count_Person"
       maxPlaces="15"
     >
-      <p slot="subheader">(top 15 places)</p> 
-      <p slot="footer">Custom footer here. This is a long custom footer. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> 
+      <p slot="subheader">(top 15 places)</p>
+      <p slot="footer">
+        Custom footer here. This is a long custom footer. Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
     </datacommons-bar>
     <datacommons-bar
       header="Population of select US states"
@@ -152,8 +160,8 @@
     >
       <div slot="footer">
         <ul>
-            <li>custom footer item 1</li>
-            <li>custom footer item 2</li>
+          <li>custom footer item 1</li>
+          <li>custom footer item 2</li>
         </ul>
       </div>
     </datacommons-pie>
@@ -177,6 +185,18 @@
       place="country/USA"
       variable="Count_Person"
       date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      apiroot="https://dev.datacommons.org/"
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      apiroot="https://dev.datacommons.org/"
+      header="Local Breeds With Adequate Genetic Resources for Reconstitution in United States"
+      variable="sdg/ER_GRF_ANIMRCNTN"
+      place="country/USA"
     ></datacommons-highlight>
     <h2>Map</h2>
     <datacommons-map
