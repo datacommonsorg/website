@@ -20,6 +20,7 @@ from unittest.mock import patch
 from server.lib.nl.common import constants
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
@@ -639,10 +640,10 @@ def _detection(place: str,
 def _run(detection: Detection, uttr_dict: List[Dict]):
   prev_uttr = None
   if uttr_dict:
-    prev_uttr = utterance.load_utterance(uttr_dict)
+    prev_uttr = serialize.load_utterance(uttr_dict)
   counters = ctr.Counters()
   uttr = create_utterance(detection, prev_uttr, counters,
                           constants.TEST_SESSION_ID)
   context.merge_with_context(uttr, is_explore=False)
   print(uttr)
-  return utterance.save_utterance(fulfiller.fulfill(uttr))[0]
+  return serialize.save_utterance(fulfiller.fulfill(uttr))[0]

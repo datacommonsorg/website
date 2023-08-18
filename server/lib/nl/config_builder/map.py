@@ -12,26 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict
+from typing import Dict, Set
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
+from server.lib.nl.fulfillment.types import ChartVars
 
 
-def map_chart_block(column, place: Place, pri_sv: str, sv2thing, attr,
-                    nopc_vars):
-  svs_map = map_chart_block_nopc(column, place, pri_sv, sv2thing, attr)
-  if attr['include_percapita'] and variable.is_percapita_relevant(
-      pri_sv, nopc_vars):
-    svs_map.update(map_chart_block_pc(column, place, pri_sv, sv2thing, attr))
+def map_chart_block(column, place: Place, pri_sv: str, child_type: str,
+                    cv: ChartVars, sv2thing: base.SV2Thing,
+                    nopc_vars: Set[str]):
+  svs_map = map_chart_block_nopc(column, place, pri_sv, child_type, sv2thing)
+  if cv.include_percapita and variable.is_percapita_relevant(pri_sv, nopc_vars):
+    svs_map.update(
+        map_chart_block_pc(column, place, pri_sv, child_type, sv2thing))
   return svs_map
 
 
-def map_chart_block_nopc(column, place: Place, pri_sv: str, sv2thing: Dict,
-                         attr: Dict):
+def map_chart_block_nopc(column, place: Place, pri_sv: str, place_type: str,
+                         sv2thing: base.SV2Thing):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -40,7 +42,7 @@ def map_chart_block_nopc(column, place: Place, pri_sv: str, sv2thing: Dict,
                                          place=place,
                                          add_date=True,
                                          do_pc=False,
-                                         child_type=attr.get('place_type', ''))
+                                         child_type=place_type)
 
   stat_var_spec_map = {}
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv,
@@ -49,8 +51,8 @@ def map_chart_block_nopc(column, place: Place, pri_sv: str, sv2thing: Dict,
   return stat_var_spec_map
 
 
-def map_chart_block_pc(column, place: Place, pri_sv: str, sv2thing: Dict,
-                       attr: Dict):
+def map_chart_block_pc(column, place: Place, pri_sv: str, place_type: str,
+                       sv2thing: base.SV2Thing):
   tile = column.tiles.add()
   sv_key = pri_sv + "_pc"
   tile.stat_var_key.append(sv_key)
@@ -59,7 +61,7 @@ def map_chart_block_pc(column, place: Place, pri_sv: str, sv2thing: Dict,
                                          place=place,
                                          do_pc=True,
                                          add_date=True,
-                                         child_type=attr.get('place_type', ''))
+                                         child_type=place_type)
 
   stat_var_spec_map = {}
   stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,

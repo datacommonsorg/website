@@ -12,18 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from typing import List, Set
+
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
-from server.lib.nl.common.utterance import ChartOriginType
-from server.lib.nl.common.utterance import ChartSpec
 from server.lib.nl.config_builder import base
+from server.lib.nl.detection.types import Place
+from server.lib.nl.fulfillment.types import ChartSpec
+from server.lib.nl.fulfillment.types import ChartVars
 
 
 def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
                                      sv2thing: base.SV2Thing):
   stat_var_spec_map = {}
-  attr = cspec.attr
+  cv = cspec.chart_vars
 
   if len(cspec.places) > 1:
     is_ranking_across_places = True
@@ -31,16 +34,16 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
     block_description = sv2thing.description[cspec.svs[0]]
   else:
     is_ranking_across_places = False
-    block_title = attr.get('title', '')
+    block_title = cv.title
     block_description = ''
 
-  _, column = builder.new_chart(cspec.attr)
+  _, column = builder.new_chart(cspec)
   builder.block.title = base.decorate_block_title(
       title=block_title,
       do_pc=False,
-      chart_origin=attr['class'],
-      growth_direction=attr['growth_direction'],
-      growth_ranking_type=attr['growth_ranking_type'])
+      chart_origin=cspec.chart_origin,
+      growth_direction=cv.growth_direction,
+      growth_ranking_type=cv.growth_ranking_type)
   builder.block.description = block_description
 
   for sv_dcid in cspec.svs:
@@ -66,8 +69,9 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
   return stat_var_spec_map
 
 
-def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
-                                           attr, nopc_vars):
+def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
+                                           sv2thing: base.SV2Thing,
+                                           cv: ChartVars, nopc_vars: Set[str]):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -82,7 +86,7 @@ def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
   column.tiles.append(tile)
 
   # Line chart for the stat var per capita
-  if attr['include_percapita'] and variable.is_percapita_relevant(
+  if cv.include_percapita and variable.is_percapita_relevant(
       sv_dcid, nopc_vars):
     title = base.decorate_chart_title(title=sv2thing.name[sv_dcid],
                                       place=place,
@@ -96,16 +100,19 @@ def single_place_single_var_timeline_block(column, place, sv_dcid, sv2thing,
   return stat_var_spec_map
 
 
-def single_place_multiple_var_timeline_block(column, place, svs, sv2thing, attr,
-                                             nopc_vars):
+def single_place_multiple_var_timeline_block(column, place: Place,
+                                             svs: List[str],
+                                             sv2thing: base.SV2Thing,
+                                             cv: ChartVars,
+                                             nopc_vars: Set[str]):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 
-  if attr.get('title'):
-    orig_title = attr['title']
+  if cv.title:
+    orig_title = cv.title
   elif len(svs) > 1:
-    if attr.get('orig_sv') and sv2thing.name.get(attr['orig_sv']):
-      orig_sv_name = sv2thing.name[attr['orig_sv']]
+    if cv.orig_sv and sv2thing.name.get(cv.orig_sv):
+      orig_sv_name = sv2thing.name[cv.orig_sv]
       orig_title = f'{orig_sv_name} and more'
     elif sv2thing.name.get(svs[0]):
       orig_title = f'{sv2thing.name[svs[0]]} and more'
@@ -131,7 +138,7 @@ def single_place_multiple_var_timeline_block(column, place, svs, sv2thing, attr,
   # Line chart for the stat var per capita
   svs_pc = list(
       filter(lambda x: variable.is_percapita_relevant(x, nopc_vars), svs))
-  if attr['include_percapita'] and len(svs_pc) > 0:
+  if cv.include_percapita and len(svs_pc) > 0:
     title = base.decorate_chart_title(title=orig_title, place=place, do_pc=True)
     tile = Tile(type=Tile.TileType.LINE, title=title)
     for sv in svs_pc:

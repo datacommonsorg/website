@@ -20,7 +20,6 @@ from server.lib.explore.params import is_sdg
 from server.lib.nl.common import utils
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 import server.lib.nl.fulfillment.utils as futils
@@ -30,7 +29,7 @@ import server.lib.nl.fulfillment.utils as futils
 
 class Builder:
 
-  def __init__(self, state: ftypes.PopulateState, env_config: builder.Config,
+  def __init__(self, state: ftypes.PopulateState, env_config: base.Config,
                sv2thing: base.SV2Thing, num_chart_vars: int):
     self.uttr = state.uttr
     self.page_config = SubjectPageConfig()

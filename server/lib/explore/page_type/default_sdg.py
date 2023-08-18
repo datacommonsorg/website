@@ -33,10 +33,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   place = state.uttr.places[0]
 
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
+  chart_vars.include_percapita = False
 
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
@@ -54,8 +51,8 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
-              builder.new_column(chart_vars), place, sv, builder.sv2thing, attr,
-              builder.nopc()))
+              builder.new_column(chart_vars), place, sv, builder.sv2thing,
+              chart_vars, builder.nopc()))
       builder.new_block()
 
   if not state.place_type:
@@ -65,11 +62,15 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if not exist.svs4children(state, place, [sv]).exist_svs:
     return sv_spec
 
-  attr['child_type'] = state.place_type.value
   if utils.has_map(state.place_type, [place]):
     sv_spec.update(
-        map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                            builder.sv2thing, attr, builder.nopc()))
+        map.map_chart_block(column=builder.new_column(chart_vars),
+                            place=place,
+                            pri_sv=sv,
+                            child_type=state.place_type.value,
+                            sv2thing=builder.sv2thing,
+                            cv=chart_vars,
+                            nopc_vars=builder.nopc()))
     builder.new_block()
   return sv_spec
 
@@ -77,10 +78,9 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
              builder: Builder):
   place = state.uttr.places[0]
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
+
+  chart_vars.include_percapita = False
+
   sv_spec = {}
 
   # Main SV existence checks.
@@ -88,7 +88,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if eres.exist_svs:
     # If any of them has single-point
     add_svpg_line_or_bar(chart_vars, eres.exist_svs, eres.is_single_point,
-                         state, attr, builder, sv_spec)
+                         state, builder, sv_spec)
     builder.new_block()
 
   if not state.place_type:
@@ -98,8 +98,6 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   eres = exist.svs4children(state, place, chart_vars.svs)
   if not eres.exist_svs:
     return sv_spec
-
-  attr['child_type'] = state.place_type.value
 
   if builder.num_chart_vars > 3:
     max_charts = _MAX_MAPS_PER_SUBTOPIC_LOWER
@@ -111,8 +109,13 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   for sv in sorted_child_svs:
     if utils.has_map(state.place_type, [place]):
       sv_spec.update(
-          map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                              builder.sv2thing, attr, builder.nopc()))
+          map.map_chart_block(column=builder.new_column(chart_vars),
+                              place=place,
+                              pri_sv=sv,
+                              child_type=state.place_type.value,
+                              cv=chart_vars,
+                              sv2thing=builder.sv2thing,
+                              nopc_vars=builder.nopc()))
       builder.new_block()
 
   return sv_spec

@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+from typing import List
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import Tile
@@ -22,10 +23,12 @@ from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.fulfillment.types import ChartVars
 
 
 def event_chart_block(metadata, block, column, place: Place,
-                      event_type: EventType, attr, event_config):
+                      event_type: EventType, ranking_types: List[RankingType],
+                      event_config):
 
   # Map EventType to config key.
   event_id = constants.EVENT_TYPE_TO_CONFIG_KEY[event_type]
@@ -48,8 +51,8 @@ def event_chart_block(metadata, block, column, place: Place,
   block.title = event_title
   block.type = Block.DISASTER_EVENT
 
-  if (RankingType.HIGH in attr['ranking_types'] or
-      RankingType.EXTREME in attr['ranking_types']):
+  if (RankingType.HIGH in ranking_types or
+      RankingType.EXTREME in ranking_types):
     tile = column.tiles.add()
     # TODO: Handle top event for earthquakes
     if not _maybe_copy_top_event(event_id, block, tile, event_config):
