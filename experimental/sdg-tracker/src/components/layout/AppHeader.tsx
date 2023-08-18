@@ -14,124 +14,33 @@
  * limitations under the License.
  */
 
+import React from "react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { BrandingLink } from "./components";
+import "./AppHeader.css";
 
 type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
-const HeaderContainer = styled.div`
-  width: 100%;
-  background: white;
-`;
+interface Props {
+  children: React.ReactNode;
+  to?: string;
+  selected?: boolean;
+}
 
-const TopContainer = styled.div`
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: row;
-  height: 75px;
-  justify-content: space-between;
-  padding: 0 4rem;
-  width: 100%;
-`;
+const HeaderNavItem = ({ children }: Props) => {
+  return <div className="header-nav-item">{children}</div>;
+};
 
-const LogoBanner = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  .left {
-    height: 45px;
-    padding-right: 1.25rem;
-  }
-  .text {
-    border-left: 2px solid grey;
-    display: flex;
-    flex-direction: column;
-    font-family: Roboto Condensed, sans-serif;
-    padding-left: 1.25rem;
-    flex-shrink: 0;
-    .header {
-      color: #333;
-      font-size: 23px;
-      font-weight: 600;
-      line-height: normal;
-      flex-shrink: 0;
-    }
-    .subheader {
-      color: #333;
-      font-size: 23px;
-      line-height: 1.5rem;
-      flex-shrink: 0;
-    }
-  }
-`;
-
-const LogoSecondary = styled.div`
-  @media (max-width: 980px) {
-    display: none;
-  }
-  display: flex;
-  align-items: center;
-`;
-
-const HeaderNav = styled.div`
-  align-items: center;
-  background-color: rgb(77, 77, 77) !important;
-  border-bottom: 1px solid #f1f1f1;
-  display: flex;
-  flex-direction: row;
-  margin: auto 0;
-  padding: 0 4rem;
-  overflow: auto;
-  /** Safe center prevents the navbar from getting cut off on small screens */
-  justify-content: safe flex-start;
-
-  &:hover {
-    a {
-      text-decoration: none;
-    }
-  }
-`;
-
-const HeaderNavItem = styled.div`
-  flex-shrink: 0;
-  border-right: 1px solid white;
-  &:last-child {
-    border-right: 0;
-  }
-
-  &:hover {
-    background-color: #f8f8f8;
-    a {
-      color: black;
-    }
-  }
-`;
-
-const SubNavbarItemLink = styled(Link)<{ selected?: boolean }>`
-  padding: 0.6rem 1rem;
-  color: white;
-  display: flex;
-  font-size: 0.9rem;
-  ${(p) =>
-    p.selected
-      ? `
-      font-weight: 500;
-      color: red;
-      background-color: #f8f8f8;
-        color: black;
-      `
-      : null}
-`;
+const SubNavbarItemLink = ({ children, to, selected }: Props) => {
+  return <Link to={to || "/"} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>;
+};
 
 const AppHeader = (props: { selected: HeaderOptions }) => {
   const { selected } = props;
   return (
-    <HeaderContainer>
-      <TopContainer>
-        <LogoBanner>
+    <div className="header-container">
+      <div className="top-container">
+        <div className="logo-banner">
           <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
             <img className="left" src="/images/un-logo.svg" />
           </a>
@@ -141,12 +50,12 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
             </div>
             <div className="subheader">Statistics</div>
           </div>
-        </LogoBanner>
-        <LogoSecondary>
+        </div>
+        <div className="logo-secondary">
           <BrandingLink />
-        </LogoSecondary>
-      </TopContainer>
-      <HeaderNav>
+        </div>
+      </div>
+      <div className="header-nav">
         <HeaderNavItem>
           <SubNavbarItemLink to="/" selected={selected === "home"}>
             Home
@@ -179,8 +88,8 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
           </Link>
         </HeaderNavItem>
         */}
-      </HeaderNav>
-    </HeaderContainer>
+      </div>
+    </div>
   );
 };
 
