@@ -21,11 +21,17 @@ steps:
       - |
         set -e
         DOCKER_BUILDKIT=1
-
-        # Website container
         docker build -f build/web_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-website:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/datacommons-website:${_TAG}
 
+  - id: push-web-compose
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        DOCKER_BUILDKIT=1
         # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG} \
@@ -33,6 +39,7 @@ steps:
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG}
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:latest
+
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -43,6 +50,7 @@ steps:
         DOCKER_BUILDKIT=1 docker build -f build/nl_server/Dockerfile --tag gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG} .
         docker push gcr.io/$_PROJECT_ID/datacommons-nl:${_TAG}
     waitFor: ["-"]
+
   - id: push-nodejs-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"

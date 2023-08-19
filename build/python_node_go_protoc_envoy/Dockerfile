@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM python:3.11 as base
+FROM python:3.11.4-slim as base
 
 RUN apt update
 
