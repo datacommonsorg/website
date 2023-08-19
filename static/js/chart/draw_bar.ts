@@ -39,7 +39,6 @@ import {
   addYAxis,
   appendLegendElem,
   getDisplayUnitAndLabel,
-  showTooltip,
   updateXAxis,
 } from "./draw_utils";
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
@@ -54,6 +53,8 @@ export const HORIZONTAL_BAR_CHART = {
 };
 // Extra amount to shift axes tick labels by to account for the actual tick line
 const TICK_LABEL_PADDING = 10;
+// distance in both x and y a tooltip should be from mouse location, in px
+const TOOLTIP_OFFSET = 10;
 
 /**
  * Get the content to display in a tooltip for a given chart element
@@ -70,6 +71,84 @@ function getTooltipContent(
   ${data.statVar} (${data.date}): ${value}${unit}
   `;
 }
+
+/**
+ * Get the top and left position of the tooltip.
+ * Places the tooltip opposite to where the mouse is relative to the chart
+ * boundary. Ex: if mouse is in top left, tooltip is to the bottom right.
+ *
+ * @param mouseX X-coord of mouse location
+ * @param mouseY Y-coord of mouse location
+ * @param tooltipHeight height of the tooltip, in px
+ * @param tooltipWidth width of the tooltip, in px
+ * @param relativeBoundary Boundary the tooltip should be confined to
+ * @returns top and left position, in that order
+ */
+function positionTooltipByMouseQuadrant(
+  mouseX: number,
+  mouseY: number,
+  tooltipHeight: number,
+  tooltipWidth: number,
+  relativeBoundary: Boundary
+): [number, number] {
+  let top = 0;
+  let left = 0;
+  const yMidpoint = (relativeBoundary.bottom - relativeBoundary.top) / 2;
+  const xMidpoint = (relativeBoundary.right - relativeBoundary.left) / 2;
+  if (mouseX < xMidpoint) {
+    if (mouseY < yMidpoint) {
+      // Mouse in top left corner, place tooltip to bottom right
+      top = mouseY + TOOLTIP_OFFSET;
+      left = mouseX + TOOLTIP_OFFSET;
+    } else {
+      // Mouse in bottom left corner, place tooltip to top right
+      top = mouseY - tooltipHeight - TOOLTIP_OFFSET;
+      left = mouseX + TOOLTIP_OFFSET;
+    }
+  } else {
+    if (mouseY < yMidpoint) {
+      // Mouse in top right corner, place tooltip to bottom left
+      top = mouseY + TOOLTIP_OFFSET;
+      left = mouseX - tooltipWidth - TOOLTIP_OFFSET;
+    } else {
+      // Mouse in bottom right corner, place tooltip to top left
+      top = mouseY - tooltipHeight - TOOLTIP_OFFSET;
+      left = mouseX - tooltipWidth - TOOLTIP_OFFSET;
+    }
+  }
+  return [top, left];
+}
+
+/**
+ * Position and show the tooltip.
+ *
+ * @param contentHTML innerHTML of the tooltip as a string.
+ * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
+ * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
+ * @param relativeBoundary tooltip boundary relative to its container element.
+ * @param tooltipRef tooltip ID to  show
+ * @param useDataPointPosition set to true to draw tooltip where the datapoint
+ *                             that the tooltip is being shown for is located.
+ */
+export function positionTooltip(
+  tooltipRef: d3.Selection<HTMLDivElement, any, any, any>,
+  datapointX: number,
+  datapointY: number,
+  relativeBoundary: Boundary
+): void {
+  const rect = (tooltipRef.node() as HTMLDivElement).getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  const [top, left] = positionTooltipByMouseQuadrant(
+    datapointX,
+    datapointY,
+    height,
+    width,
+    relativeBoundary
+  );
+  tooltipRef.style("left", left + "px").style("top", top + "px");
+}
+
 /**
  * Adds highlighting and showing a tooltip on hover for bar charts
  *
@@ -83,29 +162,29 @@ function addHighlightOnHover(
   svg: d3.Selection<SVGSVGElement, any, any, any>
 ): void {
   const tooltip = addTooltip(container);
+  let hideFn: ReturnType<typeof setTimeout> = null;
 
   // define tooltip mouse behavior
   const mouseoverFn = function () {
+    if (hideFn) {
+      clearTimeout(hideFn);
+    }
     tooltip.style("display", "block");
+    const tooltipContent = getTooltipContent(d3.select(this));
+    tooltip.html(tooltipContent);
     d3.select(this).style("opacity", 0.5);
   };
   const mouseoutFn = function () {
     d3.select(this).style("opacity", 1);
-    tooltip.style("display", "none");
+    // Slightly delay hiding tooltip so quickly mousing over a stream of
+    // bars doesn't result in the tooltip flickering in and out
+    hideFn = setTimeout(() => {
+      tooltip.style("display", "none");
+    }, 200);
   };
   const mousemoveFn = function () {
     const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
-    const object = d3.select(this);
-    const tooltipContent = getTooltipContent(object);
-
-    showTooltip(
-      tooltipContent,
-      container,
-      mouseX,
-      mouseY,
-      chartAreaBoundary,
-      true
-    );
+    positionTooltip(tooltip, mouseX, mouseY, chartAreaBoundary);
   };
 
   // Add tooltip to bars and lollipop circles
@@ -540,8 +619,6 @@ function drawHorizontalGroupedBars(
       .classed("g-bar", true)
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
       .attr("data-d", (item) => item.dataGroupValue.value)
-      .attr("data-statvar", (item) => item.label)
-      .attr("data-label", (item) => item.dataGroupValue.label)
       .attr("part", (item) =>
         [
           "series",

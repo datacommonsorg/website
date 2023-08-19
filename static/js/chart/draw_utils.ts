@@ -29,7 +29,6 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 import { StatVarInfo } from "../shared/stat_var";
-import { Boundary } from "../shared/types";
 import { DataGroup, Style, wrap } from "./base";
 import {
   AXIS_TEXT_FILL,
@@ -47,23 +46,23 @@ export const MAX_UNIT_LENGTH = 5;
 const NUM_X_TICKS = 5;
 const ROTATE_MARGIN_BOTTOM = 75;
 const TICK_SIZE = 6;
-// min distance between bottom of the tooltip and a datapoint
-const TOOLTIP_BOTTOM_OFFSET = 5;
 
 /**
  * Adds tooltip element within a given container.
  *
- * @param containerId container to add tooltip element to.
+ * @param container container to add tooltip element to.
  */
 export function addTooltip(
   container: d3.Selection<HTMLDivElement, any, any, any>
 ): d3.Selection<HTMLDivElement, any, any, any> {
-  const tooltip = container
+  const tooltipRef = _.uniqueId(`${TOOLTIP_ID}-`);
+  container
     .attr("style", "position: relative")
     .append("div")
-    .attr("id", TOOLTIP_ID)
+    .attr("id", tooltipRef)
+    .attr("class", "draw-tooltip")
     .attr("style", "position: absolute; display: none; z-index: 1");
-  return tooltip;
+  return container.select(`#${tooltipRef}`);
 }
 
 /**
@@ -481,48 +480,6 @@ export function getDisplayUnitAndLabel(
     }
   }
   return [displayUnit, label];
-}
-
-/**
- * Position and show the tooltip.
- *
- * @param contentHTML innerHTML of the tooltip as a string.
- * @param containerId id of the div containing the tooltip.
- * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
- * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
- * @param relativeBoundary tooltip boundary relative to its container element.
- * @param useDataPointPosition set to true to draw tooltip where the datapoint
- *                             that the tooltip is being shown for is located.
- */
-export function showTooltip(
-  contentHTML: string,
-  container: d3.Selection<HTMLDivElement, any, any, any>,
-  datapointX: number,
-  datapointY: number,
-  relativeBoundary: Boundary,
-  useDataPointPosition?: boolean
-): void {
-  const tooltipSelect = container.select(`#${TOOLTIP_ID}`).html(contentHTML);
-  const rect = (tooltipSelect.node() as HTMLDivElement).getBoundingClientRect();
-  const width = rect.width;
-  const height = rect.height;
-  // center tooltip over the datapoint. If this causes the tooltip to overflow the boundary,
-  // place the tooltip against the respective boundary.
-  let left = datapointX - width / 2;
-  if (left < relativeBoundary.left) {
-    left = relativeBoundary.left;
-  } else if (left + width > relativeBoundary.right) {
-    left = relativeBoundary.right - width;
-  }
-  // place the tooltip against the top of the chart area unless there is too little space between it
-  // and the datapoint, then place the tooltip against the bottom of the chart area
-  let top = 0;
-  if (useDataPointPosition) {
-    top = Math.max(datapointY - height, 0);
-  } else if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
-    top = relativeBoundary.bottom - height;
-  }
-  tooltipSelect.style("left", left + "px").style("top", top + "px");
 }
 
 /**
