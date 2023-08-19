@@ -126,5 +126,5 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   # No map chart for these.
   chart_vars.skip_map_for_ranking = True
   # We want all the ranking tables lined up in a single block.
-  return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
+  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP, state, chart_vars,
                                 places, chart_origin)

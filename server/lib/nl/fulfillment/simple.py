@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from typing import List
 
 import server.lib.explore.existence as ext
@@ -41,25 +42,45 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
 
-  exist_svs = ext.svs4place(state, places[0], chart_vars.svs).exist_svs
-  if not exist_svs:
-    state.uttr.counters.err('simple_failed_existence', 1)
-    return False
-  chart_vars.svs = exist_svs
+  if chart_vars.is_topic_peer_group:
+    eres = ext.svs4place(state, places[0], chart_vars.svs)
+    if not eres.exist_svs:
+      state.uttr.counters.err('simple_failed_existence', 1)
+      return False
+    chart_vars.svs = eres.exist_svs
 
-  if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
-    # For fewer SVs, comparing trends over time is nicer.
-    chart_type = ChartType.TIMELINE_CHART
-  else:
-    # When there are too many, comparing latest values is better
-    # (than, say, breaking it into multiple timeline charts)
-    chart_type = ChartType.BAR_CHART
-  if chart_type == ChartType.TIMELINE_CHART:
-    if chart_vars.has_single_point:
-      # Demote to bar chart if single point.
-      # TODO: eventually for single SV case, make it a highlight chart
+    if len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
+      # For fewer SVs, comparing trends over time is nicer.
+      chart_type = ChartType.TIMELINE_WITH_HIGHLIGHT
+    else:
+      # When there are too many, comparing latest values is better
+      # (than, say, breaking it into multiple timeline charts)
       chart_type = ChartType.BAR_CHART
-      state.uttr.counters.info('simple_timeline_to_bar_demotions', 1)
+    chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
+    return add_chart_to_utterance(chart_type, state, chart_vars, places,
+                                  chart_origin)
+  else:
+    # If its not a peer-group add one chart at a time.
+    added = False
+    all_svs = copy.deepcopy(chart_vars.svs)
+    for sv in all_svs:
+      chart_vars.svs = [sv]
+      eres = ext.svs4place(state, places[0], chart_vars.svs)
+      if not eres.exist_svs:
+        state.uttr.counters.err('simple_failed_existence', 1)
+        return False
+      chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
+                                 eres.is_single_point, state)
+      added |= add_chart_to_utterance(chart_type, state, chart_vars, places,
+                                      chart_origin)
+    return added
 
-  return add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                chart_origin)
+
+def _maybe_demote(chart_type: ChartType, is_single_point: bool,
+                  state: PopulateState) -> ChartType:
+  if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and is_single_point:
+    state.uttr.counters.info('simple_timeline_to_bar_demotions', 1)
+    # Demote to bar chart if single point.
+    # TODO: eventually for single SV case, make it a highlight chart
+    return ChartType.BAR_CHART
+  return chart_type

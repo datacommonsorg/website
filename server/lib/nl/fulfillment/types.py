@@ -62,8 +62,6 @@ class ChartVars:
   # When `svs` has multiple entries and corresponds to expansion, this represents
   # the original SV.
   orig_sv: str = ""
-  # Set for SIMPLE query when all SVs have only one data point.
-  has_single_point: bool = False
 
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None
@@ -93,6 +91,8 @@ class PopulateState:
   # SV -> Place Keys
   # Where Place Key may be the place DCID, or place DCID + child-type.
   exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+  # Whether this is explore mode of fulfillment.
+  explore_mode: bool = False
 
 
 @dataclass

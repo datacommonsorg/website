@@ -149,7 +149,7 @@ SIMPLE_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -168,7 +168,7 @@ SIMPLE_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -195,7 +195,7 @@ SIMPLE_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -229,7 +229,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -248,7 +248,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -275,7 +275,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -309,7 +309,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -328,7 +328,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -354,7 +354,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
             'title_suffix': ''
         },
         'ranking_types': [],
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'place_type': None,
         'places': [{
             'dcid': 'geoId/06',
@@ -382,7 +382,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
         },
         'ranking_types': [],
         'place_type': None,
-        'chart_type': ChartType.TIMELINE_CHART,
+        'chart_type': ChartType.TIMELINE_WITH_HIGHLIGHT,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -518,7 +518,7 @@ CONTAINED_IN_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.CONTAINED_IN,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -749,7 +749,7 @@ RANKING_ACROSS_PLACES_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.RANKING_ACROSS_PLACES,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -768,7 +768,7 @@ RANKING_ACROSS_PLACES_UTTR = {
         },
         'ranking_types': [RankingType.HIGH],
         'place_type': 'County',
-        'chart_type': ChartType.RANKING_CHART,
+        'chart_type': ChartType.RANKING_WITH_MAP,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -805,7 +805,7 @@ RANKING_ACROSS_SVS_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.RANKING_ACROSS_VARS,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -992,7 +992,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',

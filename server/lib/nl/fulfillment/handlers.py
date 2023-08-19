@@ -16,6 +16,7 @@
 from dataclasses import dataclass
 from typing import List
 
+import server.lib.nl.common.utils as cutils
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
@@ -24,14 +25,11 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.fulfillment import basic
 from server.lib.nl.fulfillment import comparison
-from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
-from server.lib.nl.fulfillment import ranking_across_places
-from server.lib.nl.fulfillment import ranking_across_vars
-from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment import size_across_entities
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
@@ -52,57 +50,41 @@ class QueryHandlerConfig:
 
 
 QUERY_HANDLERS = {
-    QueryType.SIMPLE:
-        QueryHandlerConfig(module=simple,
+    QueryType.BASIC:
+        QueryHandlerConfig(module=basic,
                            rank=1,
                            direct_fallback=QueryType.OVERVIEW),
 
-    # Important to have CONTAINED_IN be right after SIMPLE.
-    # Because we often promote SIMPLE to CONTAINED_IN, and
-    # for larger places they are very similar.
-    QueryType.CONTAINED_IN:
-        QueryHandlerConfig(module=containedin,
-                           rank=2,
-                           direct_fallback=QueryType.SIMPLE),
     # Comparison has a more complex fallback logic captured in next_query_type().
     QueryType.COMPARISON_ACROSS_PLACES:
-        QueryHandlerConfig(module=comparison, rank=3),
-    QueryType.RANKING_ACROSS_VARS:
-        QueryHandlerConfig(module=ranking_across_vars,
-                           rank=4,
-                           direct_fallback=QueryType.SIMPLE),
-    QueryType.RANKING_ACROSS_PLACES:
-        QueryHandlerConfig(module=ranking_across_places,
-                           rank=5,
-                           direct_fallback=QueryType.SIMPLE),
+        QueryHandlerConfig(module=comparison, rank=2),
 
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=correlation, rank=6),
+        QueryHandlerConfig(module=correlation, rank=3),
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
-                           rank=7,
-                           direct_fallback=QueryType.SIMPLE),
+                           rank=4,
+                           direct_fallback=QueryType.BASIC),
     QueryType.TIME_DELTA_ACROSS_PLACES:
         QueryHandlerConfig(module=time_delta_across_places,
-                           rank=8,
-                           direct_fallback=QueryType.SIMPLE),
+                           rank=5,
+                           direct_fallback=QueryType.BASIC),
     QueryType.EVENT:
-        QueryHandlerConfig(module=None,
-                           rank=9,
-                           direct_fallback=QueryType.SIMPLE),
+        QueryHandlerConfig(module=None, rank=6,
+                           direct_fallback=QueryType.BASIC),
     QueryType.SIZE_ACROSS_ENTITIES:
         QueryHandlerConfig(module=size_across_entities,
-                           rank=10,
-                           direct_fallback=QueryType.SIMPLE),
+                           rank=7,
+                           direct_fallback=QueryType.BASIC),
     QueryType.FILTER_WITH_SINGLE_VAR:
         QueryHandlerConfig(module=filter_with_single_var,
-                           rank=11,
-                           direct_fallback=QueryType.CONTAINED_IN),
+                           rank=8,
+                           direct_fallback=QueryType.BASIC),
     QueryType.FILTER_WITH_DUAL_VARS:
         QueryHandlerConfig(module=filter_with_dual_vars,
-                           rank=12,
-                           direct_fallback=QueryType.CONTAINED_IN),
+                           rank=9,
+                           direct_fallback=QueryType.BASIC),
 
     # Overview trumps everything else ("tell us about"), and
     # has no fallback.
@@ -116,7 +98,7 @@ QUERY_HANDLERS = {
 # The first query_type to try for the given utterance.  If there are multiple
 # classifications, we pick from among them.
 def first_query_type(uttr: Utterance):
-  query_types = [QueryType.SIMPLE]
+  query_types = [QueryType.BASIC]
   for cl in uttr.classifications:
     qtype = _classification_to_query_type(cl, uttr)
     if qtype != None and qtype not in query_types:
@@ -130,8 +112,8 @@ def first_query_type(uttr: Utterance):
   return None
 
 
-def _maybe_remap_simple(uttr: Utterance) -> QueryType:
-  remapped_type = QueryType.SIMPLE
+def _maybe_remap_basic(uttr: Utterance) -> QueryType:
+  remapped_type = QueryType.BASIC
   if (uttr.detection and uttr.detection.places_detected and
       uttr.detection.places_detected.places_found and
       not uttr.detection.places_detected.query_without_place_substr):
@@ -140,14 +122,15 @@ def _maybe_remap_simple(uttr: Utterance) -> QueryType:
   elif len(uttr.places) > 1:
     # Promote to place comparison.
     remapped_type = QueryType.COMPARISON_ACROSS_PLACES
-  elif _maybe_add_containedin(uttr):
-    remapped_type = QueryType.CONTAINED_IN
+  else:
+    _maybe_add_containedin(uttr)
   return remapped_type
 
 
 def _maybe_add_containedin(uttr: Utterance) -> bool:
   if (len(uttr.places) == 1 and (uttr.places[0].place_type == 'Continent' or
-                                 uttr.places[0].dcid == 'Earth')):
+                                 uttr.places[0].dcid == 'Earth') and
+      not cutils.get_contained_in_type(uttr)):
     uttr.classifications.append(
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
@@ -160,16 +143,16 @@ def _maybe_add_containedin(uttr: Utterance) -> bool:
 def _classification_to_query_type(cl: NLClassifier,
                                   uttr: Utterance) -> QueryType:
   if cl.type == ClassificationType.CONTAINED_IN:
-    query_type = QueryType.CONTAINED_IN
+    query_type = QueryType.BASIC
   elif cl.type == ClassificationType.EVENT:
     query_type = QueryType.EVENT
   elif cl.type == ClassificationType.SIZE_TYPE:
     query_type = QueryType.SIZE_ACROSS_ENTITIES
   elif cl.type == ClassificationType.SIMPLE:
-    query_type = QueryType.SIMPLE
+    query_type = QueryType.BASIC
   elif cl.type == ClassificationType.OVERVIEW:
     if uttr.svs and uttr.sv_source == FulfillmentResult.CURRENT_QUERY:
-      query_type = QueryType.SIMPLE
+      query_type = QueryType.BASIC
     else:
       # We detected some overview words ("tell me about") *and* there were
       # no SVs in current utterance, so consider it a place overview.
@@ -180,10 +163,7 @@ def _classification_to_query_type(cl: NLClassifier,
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
-    if classification:
-      query_type = QueryType.RANKING_ACROSS_PLACES
-    else:
-      query_type = QueryType.RANKING_ACROSS_VARS
+    query_type = QueryType.BASIC
   elif cl.type == ClassificationType.TIME_DELTA:
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
@@ -201,12 +181,12 @@ def _classification_to_query_type(cl: NLClassifier,
     else:
       query_type = QueryType.FILTER_WITH_SINGLE_VAR
   else:
-    # For any unsupported type, fallback to SIMPLE
+    # For any unsupported type, fallback to BASIC
     # TODO: Handle this better.
-    query_type = QueryType.SIMPLE
+    query_type = QueryType.BASIC
 
-  if query_type == QueryType.SIMPLE:
-    query_type = _maybe_remap_simple(uttr)
+  if query_type == QueryType.BASIC:
+    query_type = _maybe_remap_basic(uttr)
 
   return query_type
 
@@ -228,12 +208,12 @@ def next_query_type(query_types: List[QueryType]) -> QueryType:
     if QueryType.CORRELATION_ACROSS_VARS not in query_types:
       next_type = QueryType.CORRELATION_ACROSS_VARS
     else:
-      next_type = QueryType.CONTAINED_IN
+      next_type = QueryType.BASIC
   elif prev_type == QueryType.CORRELATION_ACROSS_VARS:
     if QueryType.COMPARISON_ACROSS_PLACES not in query_types:
       next_type = QueryType.COMPARISON_ACROSS_PLACES
     else:
-      next_type = QueryType.CONTAINED_IN
+      next_type = QueryType.BASIC
 
   return next_type
 

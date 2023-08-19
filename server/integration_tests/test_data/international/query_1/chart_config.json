@@ -232,6 +232,34 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural residents, Below Poverty Level in The Past 12 Months in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rural residents, Below Poverty Level in The Past 12 Months in India",
+                    "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural residents, Below Poverty Level in The Past 12 Months in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -404,6 +432,10 @@
           "Count_Person_Rural": {
             "name": "Population Living in Rural Areas",
             "statVar": "Count_Person_Rural"
+          },
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
+            "name": "Rural residents, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Rural_Female": {
             "name": "Population: Female, Rural",

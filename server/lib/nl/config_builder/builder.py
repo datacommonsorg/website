@@ -22,6 +22,7 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
+from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
@@ -74,19 +75,27 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
       block.title = place.name
       base.place_overview_block(column)
 
-    elif cspec.chart_type == ChartType.TIMELINE_CHART:
-      _, column = builder.new_chart(cspec)
+    elif cspec.chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
+      block, column = builder.new_chart(cspec)
       if len(cspec.svs) > 1:
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
             column, cspec.places[0], cspec.svs, sv2thing, cv)
       else:
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
             column, cspec.places[0], cspec.svs[0], sv2thing)
+        stat_var_spec_map.update(
+            highlight.higlight_block(block.columns.add(), cspec.places[0],
+                                     cspec.svs[0], sv2thing))
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       _, column = builder.new_chart(cspec)
-      stat_var_spec_map = bar.multiple_place_bar_block(column, cspec.places,
-                                                       cspec.svs, sv2thing, cv)
+      if len(cspec.places) == 1 and len(cspec.svs) == 1:
+        # Demote this to a highlight.
+        stat_var_spec_map = highlight.higlight_block(column, cspec.places[0],
+                                                     cspec.svs[0], sv2thing)
+      else:
+        stat_var_spec_map = bar.multiple_place_bar_block(
+            column, cspec.places, cspec.svs, sv2thing, cv)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
@@ -100,7 +109,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                                 child_type=cspec.place_type,
                                 sv2thing=sv2thing))
 
-    elif cspec.chart_type == ChartType.RANKING_CHART:
+    elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
       pri_place = cspec.places[0]
