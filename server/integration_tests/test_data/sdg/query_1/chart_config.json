@@ -11,130 +11,35 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Population Below International Poverty Line in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below International Poverty Line in Africa",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Population Below International Poverty Line in Africa",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y0T14"
-                    ],
-                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y15T64"
-                    ],
-                    "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
-                    ],
-                    "title": "Population Age 65 or Older Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line by age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--F"
-                    ],
-                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--M"
-                    ],
-                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line by gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--U"
-                    ],
-                    "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
-                    ],
-                    "title": "Rural Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population below international poverty line in rural vs. urban areas"
           }
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Population Age Under 15 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y15T64": {
-            "name": "Population Age 15 to 64 Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Population Age 65 or Older Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
-          },
-          "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Women Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--F"
-          },
-          "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Men Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.SEX--M"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--R": {
-            "name": "Rural Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
-          },
-          "sdg/SI_POV_DAY1.URBANISATION--U": {
-            "name": "Urban Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
           }
         }
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "Continent": "Country"
-      },
       "placeDcid": [
         "africa"
       ]

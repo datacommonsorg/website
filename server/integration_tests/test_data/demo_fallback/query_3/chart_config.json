@@ -15,6 +15,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Criminal Activities in California",
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -45,32 +57,6 @@
             ],
             "denom": "Count_Person",
             "title": "Crimes by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
-                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
-                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
-                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
-                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
-                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
-                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
-                    ],
-                    "title": "Property Related Crimes and more in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

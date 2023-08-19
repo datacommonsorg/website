@@ -35,7 +35,7 @@ import server.lib.nl.fulfillment.utils as futils
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance) -> Utterance:
+def fulfill(uttr: Utterance, explore_mode: bool = False) -> Utterance:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
@@ -49,6 +49,7 @@ def fulfill(uttr: Utterance) -> Utterance:
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
   state.event_types = utils.get_event_types(uttr)
+  state.explore_mode = explore_mode
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')

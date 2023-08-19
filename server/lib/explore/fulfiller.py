@@ -49,7 +49,7 @@ class FulfillResp:
 def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
-  uttr.query_type = nl_uttr.QueryType.SIMPLE
+  uttr.query_type = nl_uttr.QueryType.BASIC
   pt = cutils.get_contained_in_type(uttr)
   state = ftypes.PopulateState(uttr=uttr, place_type=pt)
 

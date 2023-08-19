@@ -15,6 +15,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Middle School Students in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool"
+                    ],
+                    "title": "Middle School Students in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -59,6 +71,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Elementary School Students in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool"
+                    ],
+                    "title": "Elementary School Students in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -73,6 +97,18 @@
                     ],
                     "title": "High School Students in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High School Students in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool"
+                    ],
+                    "title": "High School Students in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -91,6 +127,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Currently Enrolled in School in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -105,6 +153,18 @@
                     ],
                     "title": "Population: Primary School, Two or More Races in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Primary School, Two or More Races in Sunnyvale",
+                    "statVarKey": [
+                      "dc/jhjdplbeg26k1"
+                    ],
+                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -123,6 +183,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 11th Grade in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_EducationalAttainment11ThGrade"
+                    ],
+                    "title": "Population: 11th Grade in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -139,82 +211,16 @@
                     "type": "LINE"
                   }
                 ]
-              }
-            ],
-            "denom": "Count_Person"
-          },
-          {
-            "columns": [
+              },
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
+                    "description": "Population: 7th And 8th Grade in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block",
-                      "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block"
+                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Middle School Students and more in Sunnyvale (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/6zbb7s5nx6rxb_multiple_place_bar_block",
-                      "dc/b3nmcj3w1lhed_multiple_place_bar_block",
-                      "dc/c57vzg7l74577_multiple_place_bar_block",
-                      "dc/c75qlm98pmcb2_multiple_place_bar_block",
-                      "dc/e2szvml8jkld8_multiple_place_bar_block",
-                      "dc/g4fthg3t3y5td_multiple_place_bar_block",
-                      "dc/njgzb8knf11n8_multiple_place_bar_block",
-                      "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
-                      "dc/zvr6djt1p9gj3_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Middle School, Some Other Race Alone and more in Sunnyvale (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool",
-                      "Count_Person_NotEnrolledInSchool"
-                    ],
-                    "title": "Population Currently Enrolled in School and more in Sunnyvale",
-                    "type": "LINE"
+                    "title": "Population: 7th And 8th Grade in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -223,75 +229,11 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block": {
-            "name": "Population: Enrolled in College Undergraduate Years",
-            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
-          },
-          "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 10",
-            "statVar": "Count_Person_DetailedEnrolledInGrade10"
-          },
-          "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 11",
-            "statVar": "Count_Person_DetailedEnrolledInGrade11"
-          },
-          "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 12",
-            "statVar": "Count_Person_DetailedEnrolledInGrade12"
-          },
-          "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 1",
-            "statVar": "Count_Person_DetailedEnrolledInGrade1"
-          },
-          "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 2",
-            "statVar": "Count_Person_DetailedEnrolledInGrade2"
-          },
-          "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 3",
-            "statVar": "Count_Person_DetailedEnrolledInGrade3"
-          },
-          "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 4",
-            "statVar": "Count_Person_DetailedEnrolledInGrade4"
-          },
-          "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 5",
-            "statVar": "Count_Person_DetailedEnrolledInGrade5"
-          },
-          "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 6",
-            "statVar": "Count_Person_DetailedEnrolledInGrade6"
-          },
-          "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 7",
-            "statVar": "Count_Person_DetailedEnrolledInGrade7"
-          },
-          "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 8",
-            "statVar": "Count_Person_DetailedEnrolledInGrade8"
-          },
-          "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 9",
-            "statVar": "Count_Person_DetailedEnrolledInGrade9"
-          },
-          "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
-          },
-          "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Nursery School Preschool",
-            "statVar": "Count_Person_DetailedEnrolledInNurserySchoolPreschool"
-          },
           "Count_Person_DetailedHighSchool": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
           },
           "Count_Person_DetailedMiddleSchool": {
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
-          },
-          "Count_Person_DetailedMiddleSchool_multiple_place_bar_block": {
             "name": "Middle School Students",
             "statVar": "Count_Person_DetailedMiddleSchool"
           },
@@ -306,10 +248,6 @@
           "Count_Person_EnrolledInSchool": {
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
-          },
-          "Count_Person_NotEnrolledInSchool": {
-            "name": "Population Not Currently Enrolled in School",
-            "statVar": "Count_Person_NotEnrolledInSchool"
           },
           "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
             "name": "Population: 7th And 8th Grade",

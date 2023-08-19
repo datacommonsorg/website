@@ -57,14 +57,16 @@ class Builder:
     self.config = config
 
     metadata = self.page_config.metadata
-    first_chart: ChartSpec = uttr.rankedCharts[0]
-    main_place = first_chart.places[0]
+    # TODO: Revisit this choice.
+    main_place = uttr.rankedCharts[0].places[0]
     metadata.place_dcid.append(main_place.dcid)
-    if (first_chart.chart_type == ChartType.MAP_CHART or
-        first_chart.chart_type == ChartType.RANKING_CHART or
-        first_chart.chart_type == ChartType.SCATTER_CHART):
-      metadata.contained_place_types[main_place.place_type] = \
-        first_chart.place_type
+    for ch in uttr.rankedCharts:
+      if (ch.chart_type == ChartType.MAP_CHART or
+          ch.chart_type == ChartType.RANKING_WITH_MAP or
+          ch.chart_type == ChartType.SCATTER_CHART):
+        metadata.contained_place_types[main_place.place_type] = \
+          ch.place_type
+        break
 
     self.category = self.page_config.categories.add()
     self.block = None

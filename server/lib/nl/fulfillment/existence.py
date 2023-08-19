@@ -64,7 +64,8 @@ class ExistenceCheckTracker:
 
   def _run(self):
     # Perform batch existence check.
-    if self.state.uttr.query_type == QueryType.SIMPLE:
+    # TODO: Optimize this!
+    if self.state.uttr.query_type == QueryType.BASIC:
       self.existing_svs, existsv2places = \
         utils.sv_existence_for_places_check_single_point(
           self.places, list(self.all_svs), self.state.uttr.counters)
@@ -126,10 +127,6 @@ class ExistenceCheckTracker:
     cv = cv_existence.chart_vars
     # Set existing SVs.
     cv.svs = cv_existence.exist_svs
-    # Set `has_single_point` if all SVs in the ChartVars have a single-data point.
-    # Do so only for SIMPLE charts.
-    if self.state.uttr.query_type == QueryType.SIMPLE:
-      cv.has_single_point = all(self.existing_svs.get(v, False) for v in cv.svs)
     return cv
 
 
