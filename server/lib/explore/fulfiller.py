@@ -112,7 +112,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
             state, places_to_check, sv2chartvarslist=ext_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('extension_existence_check', start)
-        _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
+        ext.chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
 
     if not state.uttr.insight_ctx.get(Params.EXP_MORE_DISABLED):
       explore_more_chart_vars_map = extension.explore_more(
