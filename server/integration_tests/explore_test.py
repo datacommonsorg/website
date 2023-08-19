@@ -193,3 +193,41 @@ class IntegrationTest(NLWebServerTestCase):
         'entities': ['geoId/06']
     }
     self.run_fulfillment('fulfillment_api_statvars', req)
+
+  #
+  # NL Backend queries
+  #
+
+  def test_fulfillment_nl_basic(self):
+    req = {
+        "nlFulfillment": True,
+        'entities': ['geoId/06085'],
+        'variables': ['dc/topic/WorkCommute'],
+        'disableExploreMore': '1',
+    }
+    self.run_fulfillment('fulfillment_api_nl_basic', req)
+
+  def test_fulfillment_nl_size(self):
+    # How big are schools in Redwood city
+    # -> this query returns 3 ranking tables, not supported
+    #    on old Explore backend.
+    req = {
+        "nlFulfillment":
+            True,
+        "entities": ["geoId/0660102"],
+        "variables": ["dc/topic/Schools", "Count_Person_EnrolledInSchool"],
+        'childEntityType':
+            'PublicSchool',
+        "comparisonVariables": [],
+        "classifications": [
+            {
+                "contained_in_place_type": "PublicSchool",
+                "type": 4
+            },
+            {
+                "size_type": [1],
+                "type": 11
+            },
+        ],
+    }
+    self.run_fulfillment('fulfillment_api_nl_size', req)

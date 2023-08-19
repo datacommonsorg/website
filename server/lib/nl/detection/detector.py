@@ -18,6 +18,7 @@ from typing import Dict, List
 from flask import current_app
 from markupsafe import escape
 
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
@@ -117,7 +118,8 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 # Constructor a Detection object given DCID inputs.
 #
 def construct(entities: List[str], vars: List[str], child_type: str,
-              cmp_entities: List[str], cmp_vars: List[str], debug_logs: Dict,
+              cmp_entities: List[str], cmp_vars: List[str],
+              in_classifications: List[Dict], debug_logs: Dict,
               counters: Counters) -> types.Detection:
   all_entities = entities + cmp_entities
   parent_map = {p: [] for p in all_entities}
@@ -161,6 +163,16 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                            attributes=types.ComparisonClassificationAttributes(
                                comparison_trigger_words=[]))
     classifications.append(c)
+
+  # Append the classifications we got, but after trimming the ones above.
+  classifications.extend(
+      utils.trim_classifications(
+          serialize.dict_to_classification(in_classifications),
+          set([
+              types.ClassificationType.CONTAINED_IN,
+              types.ClassificationType.COMPARISON,
+              types.ClassificationType.CORRELATION
+          ])))
 
   main_dcid = places[0].dcid
   child_places = []

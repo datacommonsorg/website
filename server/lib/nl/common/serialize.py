@@ -21,12 +21,19 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
+from server.lib.nl.detection.types import ComparisonClassificationAttributes
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import OverviewClassificationAttributes
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import QCmpType
+from server.lib.nl.detection.types import Quantity
+from server.lib.nl.detection.types import QuantityClassificationAttributes
+from server.lib.nl.detection.types import QuantityRange
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
@@ -89,6 +96,14 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['time_delta_type'] = c.attributes.time_delta_types
     elif isinstance(c.attributes, SizeTypeClassificationAttributes):
       cdict['size_type'] = c.attributes.size_types
+    elif isinstance(c.attributes, ComparisonClassificationAttributes):
+      cdict['comparison'] = True
+    elif isinstance(c.attributes, CorrelationClassificationAttributes):
+      cdict['correlation'] = True
+    elif isinstance(c.attributes, OverviewClassificationAttributes):
+      cdict['overview'] = True
+    elif isinstance(c.attributes, QuantityClassificationAttributes):
+      cdict['quantity'] = _quantity_to_dict(c.attributes)
 
     classifications_dict.append(cdict)
   return classifications_dict
@@ -119,10 +134,58 @@ def dict_to_classification(
       attributes = SizeTypeClassificationAttributes(
           size_types=[SizeType(t) for t in cdict['size_type']],
           size_types_trigger_words=[])
+    elif cdict.get('comparison'):
+      attributes = ComparisonClassificationAttributes(
+          comparison_trigger_words=[])
+    elif cdict.get('correlation'):
+      attributes = CorrelationClassificationAttributes(
+          correlation_trigger_words=[])
+    elif cdict.get('overview'):
+      attributes = OverviewClassificationAttributes(overview_trigger_words=[])
+    elif 'quantity' in cdict:
+      attributes = _dict_to_quantity(cdict['quantity'])
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
   return classifications
+
+
+def _quantity_to_dict(qc: QuantityClassificationAttributes) -> Dict:
+  if not qc.qval and not qc.qrange:
+    return {}
+  qdict = {'idx': qc.idx}
+  if qc.qval:
+    qdict['qval'] = {'cmp': qc.qval.cmp, 'val': qc.qval.val}
+  else:
+    qdict['qrange'] = {
+        'lower': {
+            'cmp': qc.qrange.lower.cmp,
+            'val': qc.qrange.lower.val
+        },
+        'upper': {
+            'cmp': qc.qrange.upper.cmp,
+            'val': qc.qrange.upper.val
+        }
+    }
+  return qdict
+
+
+def _dict_to_quantity(qdict: Dict) -> QuantityClassificationAttributes:
+  if 'qval' in qdict:
+    qv = qdict['qval']
+    return QuantityClassificationAttributes(idx=qdict.get('idx'),
+                                            qval=Quantity(cmp=QCmpType(
+                                                qv['cmp']),
+                                                          val=qv['val']),
+                                            qrange=None)
+  l = qdict['qrange']['lower']
+  u = qdict['qrange']['upper']
+  return QuantityClassificationAttributes(
+      idx=qdict.get('idx'),
+      qval=None,
+      qrange=QuantityRange(lower=Quantity(cmp=QCmpType(l['cmp']), val=l['cmp']),
+                           upper=Quantity(cmp=QCmpType(u['cmp']),
+                                          val=u['cmp'])))
 
 
 def _chart_spec_to_dict(charts: List[ChartSpec]) -> List[Dict]:

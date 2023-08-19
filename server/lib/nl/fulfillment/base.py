@@ -165,7 +165,9 @@ def _add_charts_with_existence_check(state: PopulateState,
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  places_to_check = get_places_to_check(state, places, is_explore=False)
+  places_to_check = get_places_to_check(state,
+                                        places,
+                                        is_explore=state.explore_mode)
 
   if not places_to_check:
     # Counter updated in get_sample_child_places
