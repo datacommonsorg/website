@@ -48,16 +48,12 @@ class ChartVars:
   # Only one of svs or events is set.
   svs: List[str] = field(default_factory=list)
   # Represents a grouping of charts on the resulting display.
-  block_id: int = -1
-  include_percapita: bool = True
   title: str = ""
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
   # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
-  # For response descriptions. Will be inserted into either: "a <str>" or "some <str>s".
-  response_type: str = ""
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""
   event: EventType = None
@@ -86,7 +82,6 @@ class PopulateState:
   quantity: QuantityClassificationAttributes = None
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
-  block_id: int = 0
   # The list of chart-vars to process.  This is keyed by var / topic.
   chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
   # Ordered list of query types.

@@ -22,11 +22,12 @@ from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+import server.lib.nl.common.variable as var_lib
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
+from server.lib.nl.fulfillment.types import ChartVars
 
 
 # Config structures.
@@ -49,9 +50,11 @@ class SV2Thing:
 
 class Builder:
 
-  def __init__(self, uttr: Utterance):
+  def __init__(self, uttr: Utterance, sv2thing: SV2Thing, config: Config):
     self.uttr = uttr
     self.page_config = SubjectPageConfig()
+    self.sv2thing = sv2thing
+    self.config = config
 
     metadata = self.page_config.metadata
     first_chart: ChartSpec = uttr.rankedCharts[0]
@@ -66,32 +69,63 @@ class Builder:
     self.category = self.page_config.categories.add()
     self.block = None
     self.column = None
-    self.prev_block_id = -1
-
-    self.ignore_block_id_check = False
-    if (uttr.query_type == QueryType.RANKING_ACROSS_PLACES or
-        uttr.query_type == QueryType.TIME_DELTA_ACROSS_PLACES or
-        uttr.query_type == QueryType.TIME_DELTA_ACROSS_VARS or
-        uttr.query_type == QueryType.FILTER_WITH_SINGLE_VAR or
-        uttr.query_type == QueryType.FILTER_WITH_DUAL_VARS):
-      self.ignore_block_id_check = True
 
   # Returns a Block and a Column
-  def new_chart(self, cspec: ChartSpec) -> any:
+  def new_chart(self,
+                cspec: ChartSpec,
+                override_sv: str = '',
+                skip_title: bool = False) -> any:
     cv = cspec.chart_vars
-    block_id = cv.block_id
-    if block_id != self.prev_block_id or self.ignore_block_id_check:
-      if self.block:
-        self.category.blocks.append(self.block)
-      self.block = Block()
-      if cv.title:
-        self.block.title = decorate_block_title(title=cv.title,
+    if self.block:
+      self.category.blocks.append(self.block)
+    self.block = Block()
+
+    if not skip_title:
+      title, description, footnote = self.get_block_strings(cv, override_sv)
+      if title:
+        self.block.title = decorate_block_title(title=title,
                                                 chart_origin=cspec.chart_origin)
-      if cv.description:
-        self.block.description = cv.description
-      self.column = self.block.columns.add()
-      self.prev_block_id = block_id
+      if description:
+        self.block.description = description
+
+      if footnote:
+        self.block.footnote = footnote
+
+    if cv.svs and self.enable_pc(cv):
+      self.block.denom = 'Count_Person'
+
+    self.column = self.block.columns.add()
     return self.block, self.column
+
+  def enable_pc(self, cv: ChartVars) -> bool:
+    return all([
+        var_lib.is_percapita_relevant(v, self.config.nopc_vars) for v in cv.svs
+    ])
+
+  # Returns title, description and footnote for a block.
+  def get_block_strings(self, cv: ChartVars, override_sv: str = ''):
+    title, description, footnote = '', '', ''
+
+    if override_sv:
+      title = self.sv2thing.name.get(override_sv, '')
+      description = self.sv2thing.description.get(override_sv, '')
+      footnote = self.sv2thing.footnote.get(override_sv, '')
+      return title, description, footnote
+
+    if cv.title:
+      title = cv.title
+      description = cv.description
+    elif cv.svpg_id:
+      title = self.sv2thing.name.get(cv.svpg_id, '')
+      description = self.sv2thing.description.get(cv.svpg_id, '')
+      footnote = self.sv2thing.footnote.get(cv.svpg_id, '')
+    elif len(cv.svs) == 1:
+      title = self.sv2thing.name.get(cv.svs[0], '')
+      description = self.sv2thing.description.get(cv.svs[0], '')
+      footnote = self.sv2thing.footnote.get(cv.svs[0], '')
+    elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
+      title = self.sv2thing.name[cv.svs[0]] + ' and more'
+    return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
     for sv_key, spec in stat_var_spec_map.items():
@@ -104,7 +138,6 @@ class Builder:
 
 
 def decorate_block_title(title: str,
-                         do_pc: bool = False,
                          chart_origin: ChartOriginType = None,
                          growth_direction: TimeDeltaType = None,
                          growth_ranking_type: str = '') -> str:
@@ -128,9 +161,6 @@ def decorate_block_title(title: str,
   if not title:
     return ''
 
-  if do_pc:
-    title = 'Per Capita ' + title
-
   if chart_origin == ChartOriginType.SECONDARY_CHART:
     title = 'Related: ' + title
 
@@ -140,7 +170,6 @@ def decorate_block_title(title: str,
 def decorate_chart_title(title: str,
                          place: Place,
                          add_date: bool = False,
-                         do_pc: bool = False,
                          child_type: str = '',
                          title_suffix: str = '') -> str:
   if not title:
@@ -156,9 +185,6 @@ def decorate_chart_title(title: str,
             child_type) + ' of ' + place.name
       else:
         title = title + ' in ' + place.name
-
-  if do_pc:
-    title = 'Per Capita ' + title
 
   if add_date:
     title = title + ' (${date})'

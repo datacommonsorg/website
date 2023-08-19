@@ -115,6 +115,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Increase in Categories of Jobs over time (Absolute change)"
           },
           {
@@ -229,6 +230,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Increase in Categories of Jobs over time (Percent change)"
           },
           {
@@ -343,6 +345,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Increase in Categories of Jobs over time (Per Capita change)"
           }
         ],

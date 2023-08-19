@@ -16,7 +16,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Prevalence of Obesity"
           },
           {
             "columns": [
@@ -31,7 +32,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Physical Health Issues"
           },
           {
             "columns": [
@@ -50,7 +52,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Prevalence of Obesity and more"
           },
           {
             "columns": [
@@ -81,7 +84,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Physical Health Issues and more"
           }
         ],
         "statVarSpec": {

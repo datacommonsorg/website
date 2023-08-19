@@ -186,10 +186,9 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
       # Infer comparison charts with extended SVs.
       extended_svs = sv2extensions.get(sv, [])
       if extended_svs and not all(v in self.all_svs for v in extended_svs):
-        state.block_id += 1
         exist_state.chart_vars_list.append(
             ChartVarsExistenceCheckState(chart_vars=ChartVars(
-                svs=extended_svs, block_id=state.block_id, orig_sv=sv),
+                svs=extended_svs, orig_sv=sv, is_topic_peer_group=True),
                                          exist_svs=[]))
         self.all_svs.update(extended_svs)
 

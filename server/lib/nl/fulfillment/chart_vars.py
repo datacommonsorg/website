@@ -44,8 +44,7 @@ def build_chart_vars(state: PopulateState,
                      sv: str,
                      rank: int = 0) -> List[ChartVars]:
   if utils.is_sv(sv):
-    state.block_id += 1
-    return [ChartVars(svs=[sv], block_id=state.block_id)]
+    return [ChartVars(svs=[sv])]
   if utils.is_topic(sv):
     start = time.time()
     topic_vars = topic.get_topic_vars_recurive(sv, rank)
@@ -66,7 +65,6 @@ def build_chart_vars(state: PopulateState,
     # Group into blocks carefully:
 
     # 1. Make a block for all SVs in just_svs
-    state.block_id += 1
     charts = []
     for v in just_svs:
       # Skip PC for this case (per prior implementation)
@@ -80,20 +78,12 @@ def build_chart_vars(state: PopulateState,
         event = etype
       else:
         svs = [v]
-      charts.append(
-          ChartVars(svs=svs,
-                    event=event,
-                    block_id=state.block_id,
-                    include_percapita=False,
-                    source_topic=sv))
+      charts.append(ChartVars(svs=svs, event=event, source_topic=sv))
 
     # 2. Make a block for every peer-group in svpgs
     for (title, description, svs) in svpgs:
-      state.block_id += 1
       charts.append(
           ChartVars(svs=svs,
-                    block_id=state.block_id,
-                    include_percapita=False,
                     title=title,
                     description=description,
                     is_topic_peer_group=True,

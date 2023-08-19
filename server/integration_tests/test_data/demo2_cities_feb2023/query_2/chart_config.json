@@ -16,7 +16,24 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma"
           },
           {
             "columns": [
@@ -31,7 +48,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Chronic Obstructive Pulmonary Disease"
           },
           {
             "columns": [
@@ -63,7 +81,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Asthma and more"
           }
         ],
         "statVarSpec": {

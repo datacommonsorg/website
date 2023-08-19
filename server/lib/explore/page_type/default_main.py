@@ -39,16 +39,13 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   place = state.uttr.places[0]
 
-  chart_vars.include_percapita = False
-
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
-              builder.new_column(chart_vars), place, sv, builder.sv2thing,
-              chart_vars, builder.nopc()))
+              builder.new_column(chart_vars), place, sv, builder.sv2thing))
     sv_spec.update(
         highlight.higlight_block(builder.new_column(chart_vars), place, sv,
                                  builder.sv2thing))
@@ -81,14 +78,14 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   rc = _get_ranking_count_by_type(state.place_type)
   rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   sv_spec.update(
-      ranking.ranking_chart_block_nopc(column=builder.new_column(chart_vars),
-                                       pri_place=place,
-                                       pri_sv=sv,
-                                       child_type=state.place_type.value,
-                                       sv2thing=builder.sv2thing,
-                                       ranking_types=rt,
-                                       ranking_count=rc,
-                                       skip_map_for_ranking=True))
+      ranking.ranking_chart_block(column=builder.new_column(chart_vars),
+                                  pri_place=place,
+                                  pri_sv=sv,
+                                  child_type=state.place_type.value,
+                                  sv2thing=builder.sv2thing,
+                                  ranking_types=rt,
+                                  ranking_count=rc,
+                                  skip_map_for_ranking=True))
   return sv_spec
 
 
@@ -96,7 +93,6 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
              builder: Builder, enable_pc: bool):
   place = state.uttr.places[0]
 
-  chart_vars.include_percapita = False
   sv_spec = {}
 
   # Main SV existence checks.
@@ -146,14 +142,14 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
     rc = _get_ranking_count_by_type(state.place_type)
     sv_spec.update(
-        ranking.ranking_chart_block_nopc(column=builder.new_column(chart_vars),
-                                         pri_place=place,
-                                         pri_sv=sv,
-                                         child_type=state.place_type.value,
-                                         sv2thing=builder.sv2thing,
-                                         ranking_types=rt,
-                                         ranking_count=rc,
-                                         skip_map_for_ranking=True))
+        ranking.ranking_chart_block(column=builder.new_column(chart_vars),
+                                    pri_place=place,
+                                    pri_sv=sv,
+                                    child_type=state.place_type.value,
+                                    sv2thing=builder.sv2thing,
+                                    ranking_types=rt,
+                                    ranking_count=rc,
+                                    skip_map_for_ranking=True))
 
   return sv_spec
 
@@ -172,12 +168,11 @@ def add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
             builder.new_column(chart_vars), state.uttr.places[0], svs,
-            builder.sv2thing, chart_vars, builder.nopc()))
+            builder.sv2thing, chart_vars))
   else:
     sv_spec.update(
         bar.multiple_place_bar_block(builder.new_column(chart_vars),
-                                     state.uttr.places, svs, builder.sv2thing,
-                                     chart_vars, builder.nopc()))
+                                     state.uttr.places, svs, builder.sv2thing))
 
 
 def _get_ranking_count_by_type(t: dtypes.Place):

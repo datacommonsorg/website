@@ -26,6 +26,7 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import containedin
+from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
 from server.lib.nl.fulfillment import ranking_across_places
@@ -77,7 +78,7 @@ QUERY_HANDLERS = {
 
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=None, rank=6),
+        QueryHandlerConfig(module=correlation, rank=6),
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=7,

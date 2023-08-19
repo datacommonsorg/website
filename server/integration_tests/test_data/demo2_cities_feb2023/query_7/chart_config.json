@@ -13,17 +13,12 @@
                     ],
                     "title": "Middle School Students in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool_pc"
-                    ],
-                    "title": "Per Capita Middle School Students in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Middle School Students"
           },
           {
             "columns": [
@@ -44,30 +39,13 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School By Race in Sunnyvale (${date})",
-                    "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/6zbb7s5nx6rxb_multiple_place_bar_block_pc",
-                      "dc/b3nmcj3w1lhed_multiple_place_bar_block_pc",
-                      "dc/c57vzg7l74577_multiple_place_bar_block_pc",
-                      "dc/c75qlm98pmcb2_multiple_place_bar_block_pc",
-                      "dc/e2szvml8jkld8_multiple_place_bar_block_pc",
-                      "dc/g4fthg3t3y5td_multiple_place_bar_block_pc",
-                      "dc/njgzb8knf11n8_multiple_place_bar_block_pc",
-                      "dc/qvf1yrhwzp8rd_multiple_place_bar_block_pc",
-                      "dc/zvr6djt1p9gj3_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Students In Middle School By Race in Sunnyvale (${date})",
+                    "title": "Students In Middle School and more in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Students In Middle School By Race"
           },
           {
@@ -80,17 +58,12 @@
                     ],
                     "title": "Elementary School Students in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool_pc"
-                    ],
-                    "title": "Per Capita Elementary School Students in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Elementary School Students"
           },
           {
             "columns": [
@@ -102,17 +75,12 @@
                     ],
                     "title": "High School Students in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool_pc"
-                    ],
-                    "title": "Per Capita High School Students in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "High School Students"
           },
           {
             "columns": [
@@ -124,17 +92,12 @@
                     ],
                     "title": "Population Currently Enrolled in School in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool_pc"
-                    ],
-                    "title": "Per Capita Population Currently Enrolled in School in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population Currently Enrolled in School"
           },
           {
             "columns": [
@@ -146,17 +109,12 @@
                     ],
                     "title": "Population: Primary School, Two or More Races in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "dc/jhjdplbeg26k1_pc"
-                    ],
-                    "title": "Per Capita Population: Primary School, Two or More Races in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Primary School, Two or More Races"
           },
           {
             "columns": [
@@ -168,17 +126,12 @@
                     ],
                     "title": "Population: 11th Grade in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade_pc"
-                    ],
-                    "title": "Per Capita Population: 11th Grade in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 11th Grade"
           },
           {
             "columns": [
@@ -190,17 +143,12 @@
                     ],
                     "title": "Population: 7th And 8th Grade in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade_pc"
-                    ],
-                    "title": "Per Capita Population: 7th And 8th Grade in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 7th And 8th Grade"
           },
           {
             "columns": [
@@ -230,35 +178,12 @@
                     ],
                     "title": "Middle School Students and more in Sunnyvale (${date})",
                     "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block_pc",
-                      "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Middle School Students and more in Sunnyvale (${date})",
-                    "type": "BAR"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Middle School Students and more"
           },
           {
             "columns": [
@@ -281,28 +206,12 @@
                     ],
                     "title": "Population: Middle School, Some Other Race Alone and more in Sunnyvale (${date})",
                     "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "geoId/0677000"
-                    ],
-                    "statVarKey": [
-                      "dc/6zbb7s5nx6rxb_multiple_place_bar_block_pc",
-                      "dc/b3nmcj3w1lhed_multiple_place_bar_block_pc",
-                      "dc/c57vzg7l74577_multiple_place_bar_block_pc",
-                      "dc/c75qlm98pmcb2_multiple_place_bar_block_pc",
-                      "dc/e2szvml8jkld8_multiple_place_bar_block_pc",
-                      "dc/g4fthg3t3y5td_multiple_place_bar_block_pc",
-                      "dc/njgzb8knf11n8_multiple_place_bar_block_pc",
-                      "dc/qvf1yrhwzp8rd_multiple_place_bar_block_pc",
-                      "dc/zvr6djt1p9gj3_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita Population: Middle School, Some Other Race Alone and more in Sunnyvale (${date})",
-                    "type": "BAR"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Population: Middle School, Some Other Race Alone and more"
           },
           {
             "columns": [
@@ -315,18 +224,12 @@
                     ],
                     "title": "Population Currently Enrolled in School and more in Sunnyvale",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool_pc",
-                      "Count_Person_NotEnrolledInSchool_pc"
-                    ],
-                    "title": "Per Capita Population Currently Enrolled in School and more in Sunnyvale",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Related: Population Currently Enrolled in School and more"
           }
         ],
         "statVarSpec": {
@@ -334,17 +237,7 @@
             "name": "Population: Enrolled in College Undergraduate Years",
             "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
           },
-          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in College Undergraduate Years",
-            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
-          },
           "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 10",
-            "statVar": "Count_Person_DetailedEnrolledInGrade10"
-          },
-          "Count_Person_DetailedEnrolledInGrade10_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 10",
             "statVar": "Count_Person_DetailedEnrolledInGrade10"
           },
@@ -352,17 +245,7 @@
             "name": "Population: Enrolled in Grade 11",
             "statVar": "Count_Person_DetailedEnrolledInGrade11"
           },
-          "Count_Person_DetailedEnrolledInGrade11_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 11",
-            "statVar": "Count_Person_DetailedEnrolledInGrade11"
-          },
           "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 12",
-            "statVar": "Count_Person_DetailedEnrolledInGrade12"
-          },
-          "Count_Person_DetailedEnrolledInGrade12_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 12",
             "statVar": "Count_Person_DetailedEnrolledInGrade12"
           },
@@ -370,17 +253,7 @@
             "name": "Population: Enrolled in Grade 1",
             "statVar": "Count_Person_DetailedEnrolledInGrade1"
           },
-          "Count_Person_DetailedEnrolledInGrade1_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 1",
-            "statVar": "Count_Person_DetailedEnrolledInGrade1"
-          },
           "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 2",
-            "statVar": "Count_Person_DetailedEnrolledInGrade2"
-          },
-          "Count_Person_DetailedEnrolledInGrade2_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 2",
             "statVar": "Count_Person_DetailedEnrolledInGrade2"
           },
@@ -388,17 +261,7 @@
             "name": "Population: Enrolled in Grade 3",
             "statVar": "Count_Person_DetailedEnrolledInGrade3"
           },
-          "Count_Person_DetailedEnrolledInGrade3_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 3",
-            "statVar": "Count_Person_DetailedEnrolledInGrade3"
-          },
           "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 4",
-            "statVar": "Count_Person_DetailedEnrolledInGrade4"
-          },
-          "Count_Person_DetailedEnrolledInGrade4_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 4",
             "statVar": "Count_Person_DetailedEnrolledInGrade4"
           },
@@ -406,17 +269,7 @@
             "name": "Population: Enrolled in Grade 5",
             "statVar": "Count_Person_DetailedEnrolledInGrade5"
           },
-          "Count_Person_DetailedEnrolledInGrade5_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 5",
-            "statVar": "Count_Person_DetailedEnrolledInGrade5"
-          },
           "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 6",
-            "statVar": "Count_Person_DetailedEnrolledInGrade6"
-          },
-          "Count_Person_DetailedEnrolledInGrade6_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 6",
             "statVar": "Count_Person_DetailedEnrolledInGrade6"
           },
@@ -424,17 +277,7 @@
             "name": "Population: Enrolled in Grade 7",
             "statVar": "Count_Person_DetailedEnrolledInGrade7"
           },
-          "Count_Person_DetailedEnrolledInGrade7_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 7",
-            "statVar": "Count_Person_DetailedEnrolledInGrade7"
-          },
           "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Grade 8",
-            "statVar": "Count_Person_DetailedEnrolledInGrade8"
-          },
-          "Count_Person_DetailedEnrolledInGrade8_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Grade 8",
             "statVar": "Count_Person_DetailedEnrolledInGrade8"
           },
@@ -442,17 +285,7 @@
             "name": "Population: Enrolled in Grade 9",
             "statVar": "Count_Person_DetailedEnrolledInGrade9"
           },
-          "Count_Person_DetailedEnrolledInGrade9_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Grade 9",
-            "statVar": "Count_Person_DetailedEnrolledInGrade9"
-          },
           "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
-          },
-          "Count_Person_DetailedEnrolledInKindergarten_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Enrolled in Kindergarten",
             "statVar": "Count_Person_DetailedEnrolledInKindergarten"
           },
@@ -460,17 +293,7 @@
             "name": "Population: Enrolled in Nursery School Preschool",
             "statVar": "Count_Person_DetailedEnrolledInNurserySchoolPreschool"
           },
-          "Count_Person_DetailedEnrolledInNurserySchoolPreschool_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Enrolled in Nursery School Preschool",
-            "statVar": "Count_Person_DetailedEnrolledInNurserySchoolPreschool"
-          },
           "Count_Person_DetailedHighSchool": {
-            "name": "High School Students",
-            "statVar": "Count_Person_DetailedHighSchool"
-          },
-          "Count_Person_DetailedHighSchool_pc": {
-            "denom": "Count_Person",
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
           },
@@ -482,22 +305,7 @@
             "name": "Middle School Students",
             "statVar": "Count_Person_DetailedMiddleSchool"
           },
-          "Count_Person_DetailedMiddleSchool_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
-          },
-          "Count_Person_DetailedMiddleSchool_pc": {
-            "denom": "Count_Person",
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
-          },
           "Count_Person_DetailedPrimarySchool": {
-            "name": "Elementary School Students",
-            "statVar": "Count_Person_DetailedPrimarySchool"
-          },
-          "Count_Person_DetailedPrimarySchool_pc": {
-            "denom": "Count_Person",
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
@@ -505,17 +313,7 @@
             "name": "Population: 11th Grade",
             "statVar": "Count_Person_EducationalAttainment11ThGrade"
           },
-          "Count_Person_EducationalAttainment11ThGrade_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 11th Grade",
-            "statVar": "Count_Person_EducationalAttainment11ThGrade"
-          },
           "Count_Person_EnrolledInSchool": {
-            "name": "Population Currently Enrolled in School",
-            "statVar": "Count_Person_EnrolledInSchool"
-          },
-          "Count_Person_EnrolledInSchool_pc": {
-            "denom": "Count_Person",
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
           },
@@ -523,17 +321,7 @@
             "name": "Population Not Currently Enrolled in School",
             "statVar": "Count_Person_NotEnrolledInSchool"
           },
-          "Count_Person_NotEnrolledInSchool_pc": {
-            "denom": "Count_Person",
-            "name": "Population Not Currently Enrolled in School",
-            "statVar": "Count_Person_NotEnrolledInSchool"
-          },
           "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
-            "name": "Population: 7th And 8th Grade",
-            "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-          },
-          "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade_pc": {
-            "denom": "Count_Person",
             "name": "Population: 7th And 8th Grade",
             "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
           },
@@ -541,17 +329,7 @@
             "name": "Population: Middle School, Some Other Race Alone",
             "statVar": "dc/6zbb7s5nx6rxb"
           },
-          "dc/6zbb7s5nx6rxb_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Middle School, Some Other Race Alone",
-            "statVar": "dc/6zbb7s5nx6rxb"
-          },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
-            "name": "Population: Middle School, Two or More Races",
-            "statVar": "dc/b3nmcj3w1lhed"
-          },
-          "dc/b3nmcj3w1lhed_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Middle School, Two or More Races",
             "statVar": "dc/b3nmcj3w1lhed"
           },
@@ -559,17 +337,7 @@
             "name": "Population: Middle School, Native Hawaiian or Other Pacific Islander Alone",
             "statVar": "dc/c57vzg7l74577"
           },
-          "dc/c57vzg7l74577_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Middle School, Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "dc/c57vzg7l74577"
-          },
           "dc/c75qlm98pmcb2_multiple_place_bar_block": {
-            "name": "Population: Middle School, White Alone Not Hispanic or Latino",
-            "statVar": "dc/c75qlm98pmcb2"
-          },
-          "dc/c75qlm98pmcb2_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Middle School, White Alone Not Hispanic or Latino",
             "statVar": "dc/c75qlm98pmcb2"
           },
@@ -577,17 +345,7 @@
             "name": "Population: Middle School, Black or African American Alone",
             "statVar": "dc/e2szvml8jkld8"
           },
-          "dc/e2szvml8jkld8_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Middle School, Black or African American Alone",
-            "statVar": "dc/e2szvml8jkld8"
-          },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
-            "name": "Population: Middle School, Asian Alone",
-            "statVar": "dc/g4fthg3t3y5td"
-          },
-          "dc/g4fthg3t3y5td_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Middle School, Asian Alone",
             "statVar": "dc/g4fthg3t3y5td"
           },
@@ -595,17 +353,7 @@
             "name": "Population: Primary School, Two or More Races",
             "statVar": "dc/jhjdplbeg26k1"
           },
-          "dc/jhjdplbeg26k1_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Primary School, Two or More Races",
-            "statVar": "dc/jhjdplbeg26k1"
-          },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
-            "name": "Population: Middle School, American Indian or Alaska Native Alone",
-            "statVar": "dc/njgzb8knf11n8"
-          },
-          "dc/njgzb8knf11n8_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Middle School, American Indian or Alaska Native Alone",
             "statVar": "dc/njgzb8knf11n8"
           },
@@ -613,17 +361,7 @@
             "name": "Population: Middle School, White Alone",
             "statVar": "dc/qvf1yrhwzp8rd"
           },
-          "dc/qvf1yrhwzp8rd_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "Population: Middle School, White Alone",
-            "statVar": "dc/qvf1yrhwzp8rd"
-          },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
-            "name": "Population: Middle School, Hispanic or Latino",
-            "statVar": "dc/zvr6djt1p9gj3"
-          },
-          "dc/zvr6djt1p9gj3_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "Population: Middle School, Hispanic or Latino",
             "statVar": "dc/zvr6djt1p9gj3"
           }

@@ -25,7 +25,9 @@
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Population"
           }
         ],
         "statVarSpec": {

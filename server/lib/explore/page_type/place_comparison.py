@@ -25,8 +25,6 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   places = state.uttr.places
 
-  chart_vars.include_percapita = False
-
   # Main SV existence checks.
   exist_places = [
       p for p in places if exist.svs4place(state, p, [sv]).exist_svs
@@ -39,8 +37,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                                    places=exist_places,
                                    svs=[sv],
                                    sv2thing=builder.sv2thing,
-                                   cv=chart_vars,
-                                   nopc_vars=builder.nopc()))
+                                   cv=chart_vars))
 
   return sv_spec
 
@@ -50,7 +47,6 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   places = state.uttr.places
   sv_spec = {}
 
-  chart_vars.include_percapita = False
   # Pick SVs that satisfy all places.
   exist_svs = []
   for sv in chart_vars.svs:
@@ -63,6 +59,5 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                                    places=places,
                                    svs=exist_svs,
                                    sv2thing=builder.sv2thing,
-                                   cv=chart_vars,
-                                   nopc_vars=builder.nopc()))
+                                   cv=chart_vars))
   return sv_spec
