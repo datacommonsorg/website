@@ -42,7 +42,9 @@ class TopicMembers:
 def compute_chart_vars(
     state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
   # Have a slightly higher limit for non-US places since there are fewer vars.
-  num_topics_limit = 1 if cutils.is_us_place(state.uttr.places[0]) else 2
+  num_topics_limit = 2
+  if state.uttr.places and cutils.is_us_place(state.uttr.places[0]):
+    num_topics_limit = 1
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   chart_vars_map = {}

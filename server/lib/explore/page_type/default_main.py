@@ -71,9 +71,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                             place=place,
                             pri_sv=sv,
                             child_type=state.place_type.value,
-                            cv=chart_vars,
-                            sv2thing=builder.sv2thing,
-                            nopc_vars=builder.nopc()))
+                            sv2thing=builder.sv2thing))
 
   rc = _get_ranking_count_by_type(state.place_type)
   rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
@@ -135,9 +133,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                               place=place,
                               pri_sv=sv,
                               child_type=state.place_type.value,
-                              cv=chart_vars,
-                              sv2thing=builder.sv2thing,
-                              nopc_vars=builder.nopc()))
+                              sv2thing=builder.sv2thing))
 
     rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
     rc = _get_ranking_count_by_type(state.place_type)
@@ -172,7 +168,8 @@ def add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
   else:
     sv_spec.update(
         bar.multiple_place_bar_block(builder.new_column(chart_vars),
-                                     state.uttr.places, svs, builder.sv2thing))
+                                     state.uttr.places, svs, builder.sv2thing,
+                                     chart_vars))
 
 
 def _get_ranking_count_by_type(t: dtypes.Place):

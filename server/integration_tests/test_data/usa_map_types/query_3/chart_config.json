@@ -13,17 +13,12 @@
                     ],
                     "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome_pc"
-                    ],
-                    "title": "Per Capita Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population of Working Age With No Income"
           },
           {
             "columns": [
@@ -35,17 +30,12 @@
                     ],
                     "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "dc/dyhxtqe2pxhl5_pc"
-                    ],
-                    "title": "Per Capita Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population: No Income, Foreign Born"
           }
         ],
         "statVarSpec": {
@@ -53,17 +43,7 @@
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
-          "Count_Person_15OrMoreYears_NoIncome_pc": {
-            "denom": "Count_Person",
-            "name": "Population of Working Age With No Income",
-            "statVar": "Count_Person_15OrMoreYears_NoIncome"
-          },
           "dc/dyhxtqe2pxhl5": {
-            "name": "Population: No Income, Foreign Born",
-            "statVar": "dc/dyhxtqe2pxhl5"
-          },
-          "dc/dyhxtqe2pxhl5_pc": {
-            "denom": "Count_Person",
             "name": "Population: No Income, Foreign Born",
             "statVar": "dc/dyhxtqe2pxhl5"
           }

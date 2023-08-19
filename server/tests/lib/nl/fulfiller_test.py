@@ -35,7 +35,6 @@ from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SVDetection
 import server.lib.nl.detection.types as nl_detection
 from server.lib.nl.detection.utils import create_utterance
-from server.lib.nl.fulfillment import chart_vars
 from server.lib.nl.fulfillment import fulfiller
 from server.lib.nl.fulfillment.types import ChartVars
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR

@@ -65,9 +65,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                             place=place,
                             pri_sv=sv,
                             child_type=state.place_type.value,
-                            sv2thing=builder.sv2thing,
-                            cv=chart_vars,
-                            nopc_vars=builder.nopc()))
+                            sv2thing=builder.sv2thing))
     builder.new_block()
   return sv_spec
 
@@ -108,9 +106,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                               place=place,
                               pri_sv=sv,
                               child_type=state.place_type.value,
-                              cv=chart_vars,
-                              sv2thing=builder.sv2thing,
-                              nopc_vars=builder.nopc()))
+                              sv2thing=builder.sv2thing))
       builder.new_block()
 
   return sv_spec

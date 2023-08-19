@@ -100,9 +100,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                                 place=cspec.places[0],
                                 pri_sv=sv,
                                 child_type=cspec.place_type,
-                                cv=cv,
-                                sv2thing=sv2thing,
-                                nopc_vars=config.nopc_vars))
+                                sv2thing=sv2thing))
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
