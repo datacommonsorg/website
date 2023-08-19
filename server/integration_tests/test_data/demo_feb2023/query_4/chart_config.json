@@ -32,7 +32,7 @@
                       "Count_Worker_NAICSUtilities_multiple_place_bar_block",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block"
                     ],
-                    "title": "Jobs and more in Placer County (${date})",
+                    "title": "Categories of Jobs in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]

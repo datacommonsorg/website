@@ -99,9 +99,8 @@ def single_place_multiple_var_timeline_block(column, place: Place,
   if cv.title:
     orig_title = cv.title
   elif len(svs) > 1:
-    if cv.orig_sv and sv2thing.name.get(cv.orig_sv):
-      orig_sv_name = sv2thing.name[cv.orig_sv]
-      orig_title = f'{orig_sv_name} and more'
+    if cv.svpg_id and sv2thing.name.get(cv.svpg_id):
+      orig_title = sv2thing.name[cv.svpg_id]
     elif sv2thing.name.get(svs[0]):
       orig_title = f'{sv2thing.name[svs[0]]} and more'
     else:

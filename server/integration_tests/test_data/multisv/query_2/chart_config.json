@@ -16,13 +16,12 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Poverty and more (${date})",
+                    "title": "Population Below Poverty Level Status in Past Year and more (${date})",
                     "type": "BAR"
                   }
                 ]
               }
-            ],
-            "title": "Population Below Poverty Level Status in Past Year and more"
+            ]
           },
           {
             "columns": [
@@ -37,13 +36,12 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Poverty and more (${date})",
+                    "title": "Women below Poverty Line and more (${date})",
                     "type": "BAR"
                   }
                 ]
               }
-            ],
-            "title": "Women below Poverty Line and more"
+            ]
           },
           {
             "columns": [
@@ -58,13 +56,12 @@
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Poverty and more (${date})",
+                    "title": "Males in Poverty (in last year) and more (${date})",
                     "type": "BAR"
                   }
                 ]
               }
-            ],
-            "title": "Males in Poverty (in last year) and more"
+            ]
           },
           {
             "columns": [
@@ -79,13 +76,12 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Poverty and more (${date})",
+                    "title": "Asians Below Poverty Level Status in Past Year and more (${date})",
                     "type": "BAR"
                   }
                 ]
               }
-            ],
-            "title": "Asians Below Poverty Level Status in Past Year and more"
+            ]
           }
         ],
         "statVarSpec": {

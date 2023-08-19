@@ -20,7 +20,7 @@
                       "dc/vt2q292eme79f_multiple_place_bar_block",
                       "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
-                    "title": "Commute Mode and more (${date})",
+                    "title": "Modes of Commute (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -46,7 +46,7 @@
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
-                    "title": "Commute Mode and more (${date})",
+                    "title": "Management, Business, Science and Arts Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -72,7 +72,7 @@
                       "dc/kt900ezddrf79_multiple_place_bar_block",
                       "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
-                    "title": "Commute Mode and more (${date})",
+                    "title": "Sales and Office Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -98,7 +98,7 @@
                       "dc/k33ngtzpqxql6_multiple_place_bar_block",
                       "dc/6zrlr86zt61yg_multiple_place_bar_block"
                     ],
-                    "title": "Commute Mode and more (${date})",
+                    "title": "Service Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -124,7 +124,7 @@
                       "dc/r0delcsw86kc6_multiple_place_bar_block",
                       "dc/e27c5t4tbplg_multiple_place_bar_block"
                     ],
-                    "title": "Commute Mode and more (${date})",
+                    "title": "Production Transportation and Material Moving Occupations (${date})",
                     "type": "BAR"
                   }
                 ]

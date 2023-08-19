@@ -17,8 +17,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP (Nominal Value)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -33,8 +32,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Nominal GDP Per Capita"
+            ]
           },
           {
             "columns": [
@@ -65,7 +63,7 @@
                       "dc/qt7ewllmt3826_multiple_place_bar_block",
                       "dc/zz6gwv838v9w_multiple_place_bar_block"
                     ],
-                    "title": "Industries By GDP and more in United States (${date})",
+                    "title": "Breakdown of GDP by Industry in United States (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -87,8 +85,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Growth Rate of GDP"
+            ]
           },
           {
             "columns": [
@@ -104,8 +101,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "GDP (Real Value)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -139,8 +135,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: GDP of the Finance and Insurance Industry and more"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -157,8 +152,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: GDP (Real Value) and more"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

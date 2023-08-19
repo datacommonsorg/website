@@ -30,10 +30,9 @@ def multiple_place_bar_block(column, places: List[Place], svs: List[str],
     # This happens in the case of Topics
     orig_title = cv.title
   elif len(svs) > 1:
-    if cv.orig_sv and sv2thing.name.get(cv.orig_sv):
+    if cv.svpg_id and sv2thing.name.get(cv.svpg_id):
       # This suggests we are comparing against SV peers from SV extension
-      orig_sv_name = sv2thing.name[cv.orig_sv]
-      orig_title = f'{orig_sv_name} and more'
+      orig_title = sv2thing.name[cv.svpg_id]
     elif sv2thing.name.get(svs[0]):
       orig_title = f'{sv2thing.name[svs[0]]} and more'
     else:

@@ -93,7 +93,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
         continue
       block, column = None, None
       for sv in cspec.svs:
-        block, column = builder.new_chart(cspec, override_sv=sv)
+        block, column = builder.new_chart(cspec, skip_title=True)
 
         stat_var_spec_map.update(
             map.map_chart_block(column=column,
@@ -113,7 +113,9 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                 builder, pri_place, cspec.svs, sv2thing, cspec))
       else:
         for sv in cspec.svs:
-          block, column = builder.new_chart(cspec, override_sv=sv)
+          block, column = builder.new_chart(cspec,
+                                            override_sv=sv,
+                                            skip_title=cv.skip_map_for_ranking)
           stat_var_spec_map.update(
               ranking.ranking_chart_block(
                   column=column,

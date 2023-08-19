@@ -16,8 +16,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Average Income for Family Households"
+            ]
           },
           {
             "columns": [
@@ -32,8 +31,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Median Family Household Income"
+            ]
           },
           {
             "columns": [
@@ -48,8 +46,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Median Married Couple Family Household Income"
+            ]
           },
           {
             "columns": [
@@ -64,8 +61,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Average Income for Married Couple Family Households"
+            ]
           },
           {
             "columns": [
@@ -80,8 +76,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Average Income for Nonfamily Households"
+            ]
           },
           {
             "columns": [
@@ -92,13 +87,12 @@
                       "Median_Income_Household",
                       "Median_Income_Person"
                     ],
-                    "title": "Income and more in California",
+                    "title": "Household Median Income and more in California",
                     "type": "LINE"
                   }
                 ]
               }
-            ],
-            "title": "Household Median Income and more"
+            ]
           },
           {
             "columns": [
@@ -117,7 +111,7 @@
                       "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
                       "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
                     ],
-                    "title": "Income and more in California (${date})",
+                    "title": "Population By Income Level in California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -151,7 +145,7 @@
                       "dc/yw52qqrrb2w11_multiple_place_bar_block",
                       "dc/zbpsz8dg01nh2_multiple_place_bar_block"
                     ],
-                    "title": "Income and more in California (${date})",
+                    "title": "Individual Income By Industry Type in California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -169,7 +163,7 @@
                       "Median_Income_Household_MarriedCoupleFamilyHousehold",
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Income and more in California",
+                    "title": "Median Income By Household Type in California",
                     "type": "LINE"
                   }
                 ]
@@ -190,8 +184,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Mean Income Deficit of Household: Family Household"
+            ]
           },
           {
             "columns": [
@@ -207,8 +200,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Owner Occupied"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -224,8 +216,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -240,8 +231,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Average Income for Households"
+            ]
           },
           {
             "columns": [
@@ -257,8 +247,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Other Family Household"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -273,8 +262,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Mean Income Deficit of Household: Married Couple Family Household"
+            ]
           }
         ],
         "statVarSpec": {

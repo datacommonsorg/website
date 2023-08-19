@@ -16,8 +16,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Life Expectancy"
+            ]
           },
           {
             "columns": [
@@ -32,8 +31,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Female Life Expectancy"
+            ]
           },
           {
             "columns": [
@@ -48,8 +46,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Male Life Expectancy"
+            ]
           }
         ],
         "statVarSpec": {

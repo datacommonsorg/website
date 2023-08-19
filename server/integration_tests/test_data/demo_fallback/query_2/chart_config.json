@@ -21,8 +21,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Criminal Activities"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -43,7 +42,7 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crime and more (${date})",
+                    "title": "Crimes by Type (${date})",
                     "type": "BAR"
                   }
                 ]

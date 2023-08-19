@@ -16,8 +16,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Household Median Income"
+            ]
           },
           {
             "columns": [
@@ -32,8 +31,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Individual Median Income"
+            ]
           }
         ],
         "statVarSpec": {

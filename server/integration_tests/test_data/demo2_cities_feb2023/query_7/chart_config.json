@@ -17,8 +17,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Middle School Students"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -39,7 +38,7 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School and more in Sunnyvale (${date})",
+                    "title": "Students In Middle School By Race in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -62,8 +61,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Elementary School Students"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -79,8 +77,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "High School Students"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -96,8 +93,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -113,8 +109,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: Primary School, Two or More Races"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -130,8 +125,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 11th Grade"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -147,8 +141,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 7th And 8th Grade"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -182,8 +175,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: Middle School Students and more"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -210,8 +202,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: Population: Middle School, Some Other Race Alone and more"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -228,8 +219,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: Population Currently Enrolled in School and more"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

@@ -17,8 +17,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population of Working Age With No Income"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -34,8 +33,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

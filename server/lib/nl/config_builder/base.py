@@ -119,12 +119,13 @@ class Builder:
       title = self.sv2thing.name.get(cv.svpg_id, '')
       description = self.sv2thing.description.get(cv.svpg_id, '')
       footnote = self.sv2thing.footnote.get(cv.svpg_id, '')
-    elif len(cv.svs) == 1:
-      title = self.sv2thing.name.get(cv.svs[0], '')
-      description = self.sv2thing.description.get(cv.svs[0], '')
-      footnote = self.sv2thing.footnote.get(cv.svs[0], '')
-    elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
-      title = self.sv2thing.name[cv.svs[0]] + ' and more'
+    # TODO: Uncomment this soon
+    # elif len(cv.svs) == 1:
+    #   title = self.sv2thing.name.get(cv.svs[0], '')
+    #   description = self.sv2thing.description.get(cv.svs[0], '')
+    #   footnote = self.sv2thing.footnote.get(cv.svs[0], '')
+    # elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
+    #   title = self.sv2thing.name[cv.svs[0]] + ' and more'
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):

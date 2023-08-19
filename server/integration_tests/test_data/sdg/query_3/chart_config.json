@@ -16,8 +16,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Life Expectancy"
+            ]
           },
           {
             "columns": [
@@ -32,8 +31,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Female Life Expectancy"
+            ]
           },
           {
             "columns": [
@@ -48,8 +46,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Male Life Expectancy"
+            ]
           },
           {
             "columns": [
@@ -64,8 +61,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita)"
+            ]
           },
           {
             "columns": [
@@ -81,8 +77,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -98,8 +93,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -115,8 +109,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -132,8 +125,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "% Daily Tobacco Smokers (Estimate)"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -149,8 +141,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "% Underweight Among Adults, BMI < 18"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -166,8 +157,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "% Obesity Among Adults, BMI >= 30"
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -183,8 +173,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

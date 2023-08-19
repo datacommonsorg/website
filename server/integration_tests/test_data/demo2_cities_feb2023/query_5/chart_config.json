@@ -21,8 +21,7 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Larceny Theft Cases"
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {
