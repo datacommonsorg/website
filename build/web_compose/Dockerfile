@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-08-17
+FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-08-19
 
 ARG ENV
 ENV ENV=${ENV}
