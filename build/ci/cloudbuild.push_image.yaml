@@ -39,6 +39,7 @@ steps:
           .
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:${_TAG}
         docker push gcr.io/$_PROJECT_ID/datacommons-website-compose:latest
+    waitFor: ["-"]
 
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker

@@ -20,14 +20,21 @@ steps:
       - -c
       - |
         set -e
-        git clone https://github.com/datacommonsorg/mixer.git
-
         docker build -f build/web_server/Dockerfile \
           -t gcr.io/datcom-ci/datacommons-website:$SHORT_SHA \
           -t gcr.io/datcom-ci/datacommons-website:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
+
+  - id: push-web-compose
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        git clone https://github.com/datacommonsorg/mixer.git
 
         # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
@@ -36,6 +43,7 @@ steps:
           .
         docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
         docker push gcr.io/datcom-ci/datacommons-website-compose:latest
+    waitFor: ["-"]
 
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
