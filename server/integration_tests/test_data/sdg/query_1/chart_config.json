@@ -28,30 +28,14 @@
                     ],
                     "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
+                  },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
                     "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
+                  },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y_GE65"
@@ -61,7 +45,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line by age"
           },
           {
             "columns": [
@@ -73,15 +58,7 @@
                     ],
                     "title": "Women Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
+                  },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
@@ -91,7 +68,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line by gender"
           },
           {
             "columns": [
@@ -103,15 +81,7 @@
                     ],
                     "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
+                  },
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
@@ -121,7 +91,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population below international poverty line in rural vs. urban areas"
           }
         ],
         "statVarSpec": {

@@ -91,10 +91,8 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
-      block, column = None, None
+      block, column = builder.new_chart(cspec)
       for sv in cspec.svs:
-        block, column = builder.new_chart(cspec, skip_title=True)
-
         stat_var_spec_map.update(
             map.map_chart_block(column=column,
                                 place=cspec.places[0],
@@ -112,10 +110,13 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
             ranking.ranking_chart_block_climate_extremes(
                 builder, pri_place, cspec.svs, sv2thing, cspec))
       else:
+        if cv.skip_map_for_ranking:
+          # Create the block here.
+          block, column = builder.new_chart(cspec)
         for sv in cspec.svs:
-          block, column = builder.new_chart(cspec,
-                                            override_sv=sv,
-                                            skip_title=cv.skip_map_for_ranking)
+          if not cv.skip_map_for_ranking:
+            # We have a rank + map, so create a block per SV.
+            block, column = builder.new_chart(cspec, override_sv=sv)
           stat_var_spec_map.update(
               ranking.ranking_chart_block(
                   column=column,
