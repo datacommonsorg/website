@@ -13,10 +13,12 @@
 # limitations under the License.
 """Module for topic expansion"""
 
+from collections import OrderedDict
 from dataclasses import dataclass
 import time
 from typing import Dict, List
 
+from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
@@ -39,12 +41,14 @@ class TopicMembers:
 
 
 def compute_chart_vars(
-    state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+    state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
   # Have a slightly higher limit for non-US places since there are fewer vars.
-  num_topics_limit = 1 if cutils.is_us_place(state.uttr.places[0]) else 2
+  num_topics_limit = 2
+  if state.uttr.places and cutils.is_us_place(state.uttr.places[0]):
+    num_topics_limit = 1
 
-  dc = state.uttr.insight_ctx[Params.DC.value]
-  chart_vars_map = {}
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
+  chart_vars_map = OrderedDict()
   num_topics_opened = 0
   for sv in state.uttr.svs:
     cv = []
@@ -65,9 +69,9 @@ def compute_chart_vars(
 
 
 def compute_correlation_chart_vars(
-    state: ftypes.PopulateState) -> Dict[str, List[ftypes.ChartVars]]:
+    state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
   # Note: This relies on the construction of multi-sv in `construct()`
-  chart_vars_map = {}
+  chart_vars_map = OrderedDict()
   lhs_svs = state.uttr.multi_svs.candidates[0].parts[0].svs
   rhs_svs = state.uttr.multi_svs.candidates[0].parts[1].svs
 
@@ -93,7 +97,7 @@ def compute_correlation_chart_vars(
 #
 def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
                                              lhs_orig: str, rhs_orig: str):
-  dc = state.uttr.insight_ctx[Params.DC.value]
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
 
   # Get vars.
   def _vars(v):
@@ -244,7 +248,6 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
   for (svpg, svs) in svpgs:
     charts.append(
         ftypes.ChartVars(svs=svs,
-                         include_percapita=False,
                          is_topic_peer_group=True,
                          svpg_id=svpg,
                          orig_sv=orig_sv,

@@ -15,6 +15,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asthma in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ]
           },
@@ -28,6 +40,18 @@
                     ],
                     "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }

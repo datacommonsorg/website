@@ -58,7 +58,6 @@ def populate(state: PopulateState, chart_vars: ChartVars,
     return False
   chart_vars.svs = exist_svs
 
-  chart_vars.response_type = "comparison map"
   add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
                          contained_places, chart_origin)
   return True
