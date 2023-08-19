@@ -15,6 +15,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "GDP (Nominal Value) in United States",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+                    ],
+                    "title": "GDP (Nominal Value) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person"
@@ -29,6 +41,18 @@
                     ],
                     "title": "Nominal GDP Per Capita in United States",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Nominal GDP Per Capita in United States",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+                    ],
+                    "title": "Nominal GDP Per Capita in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -84,6 +108,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Growth Rate of GDP in United States",
+                    "statVarKey": [
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+                    ],
+                    "title": "Growth Rate of GDP in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ]
           },
@@ -97,6 +133,18 @@
                     ],
                     "title": "GDP (Real Value) in United States",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "GDP (Real Value) in United States",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Real Value) in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }

@@ -215,7 +215,9 @@ def _add_charts_with_existence_check(state: PopulateState,
     # for those we would construct a single bar chart comparing the differe
     # variables.  For other query-types like map/ranking/scatter, we will have
     # individual "related" charts, and those don't look good.
-    if qt == QueryType.SIMPLE and existing_svs:
+    #
+    # TODO: Optimize and enable in Explore mode.
+    if qt == QueryType.BASIC and existing_svs and not state.place_type and not state.ranking_types:
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in svs if v in existing_svs]

@@ -62,5 +62,5 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True
-    return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
+    return add_chart_to_utterance(ChartType.RANKING_WITH_MAP, state, chart_vars,
                                   places, chart_origin)

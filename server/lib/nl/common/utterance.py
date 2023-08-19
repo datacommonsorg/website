@@ -51,10 +51,7 @@ class ChartOriginType(IntEnum):
 # (ranking across vars vs. ranking across places).
 class QueryType(IntEnum):
   OTHER = 0
-  SIMPLE = 1
-  RANKING_ACROSS_PLACES = 2
-  RANKING_ACROSS_VARS = 3
-  CONTAINED_IN = 4
+  BASIC = 1
   CORRELATION_ACROSS_VARS = 5
   COMPARISON_ACROSS_PLACES = 6
   TIME_DELTA_ACROSS_VARS = 7
@@ -71,9 +68,9 @@ class QueryType(IntEnum):
 
 # Type of chart.
 class ChartType(IntEnum):
-  TIMELINE_CHART = 0
+  TIMELINE_WITH_HIGHLIGHT = 0
   MAP_CHART = 1
-  RANKING_CHART = 2
+  RANKING_WITH_MAP = 2
   BAR_CHART = 3
   PLACE_OVERVIEW = 4
   SCATTER_CHART = 5
