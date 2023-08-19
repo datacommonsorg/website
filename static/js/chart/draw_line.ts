@@ -32,7 +32,6 @@ import {
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
-  TOOLTIP_ID,
   XLINKNS,
 } from "./draw_constants";
 import {
