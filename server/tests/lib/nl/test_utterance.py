@@ -149,7 +149,7 @@ SIMPLE_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -229,7 +229,7 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -309,7 +309,7 @@ SIMPLE_WITH_TOPIC_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -518,7 +518,7 @@ CONTAINED_IN_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.CONTAINED_IN,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -749,7 +749,7 @@ RANKING_ACROSS_PLACES_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.RANKING_ACROSS_PLACES,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -805,7 +805,7 @@ RANKING_ACROSS_SVS_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.RANKING_ACROSS_VARS,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
@@ -992,7 +992,7 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     },
     'placeFallback': {},
     'query': 'foo sv in place',
-    'query_type': QueryType.SIMPLE,
+    'query_type': QueryType.BASIC,
     'ranked_charts': [{
         'chart_vars': {
             'description': '',
