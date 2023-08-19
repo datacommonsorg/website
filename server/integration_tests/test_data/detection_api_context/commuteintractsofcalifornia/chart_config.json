@@ -1,5 +1,11 @@
 {
   "childEntityType": "CensusTract",
+  "classifications": [
+    {
+      "contained_in_place_type": "CensusTract",
+      "type": 4
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},

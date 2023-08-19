@@ -214,25 +214,6 @@ class ContainedInClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class ClusteringClassificationAttributes(ClassificationAttributes):
-  """Clustering-based Correlation classification attributes."""
-  sv_dcid_1: str
-  sv_dcid_2: str
-
-  # If is_using_clusters is True, that means sv_1 is coming from
-  # cluster_1_svs and sv_2 is coming from cluster_2_svs.
-  # Otherwise, the two SVs could have come from the same cluster.
-  is_using_clusters: bool
-
-  # Words that may have implied clustering, e.g.
-  # "correlation between ...", "related to .."
-  correlation_trigger_words: str
-
-  cluster_1_svs: List[str]
-  cluster_2_svs: List[str]
-
-
-@dataclass
 class CorrelationClassificationAttributes(ClassificationAttributes):
   """Heuristic-based Correlation classification attributes"""
 
