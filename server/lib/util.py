@@ -52,7 +52,7 @@ TOPIC_PAGE_CONFIGS = {
     'dev': ['CA'],
     'sdg': ['sdg'],
     'foodsecurity' : ['USA', 'CA'],
-    'dc2_1' : ['COL'],
+    'economic-and-social-growth' : ['COL'],
     'dc2_2' : ['NGA'],
     'dc2_4' : ['USA'],
     'playground' : ['US_Places']
