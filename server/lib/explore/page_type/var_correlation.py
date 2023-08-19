@@ -33,7 +33,9 @@ def add_chart(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if len(exist.svs4children(state, place, chart_vars.svs).exist_svs) != 2:
     return {}
 
-  attr = {'include_percapita': False, 'child_type': state.place_type.value}
-  return scatter.scatter_chart_block(builder.new_column(chart_vars), place,
-                                     chart_vars.svs, builder.sv2thing, attr,
-                                     builder.nopc())
+  return scatter.scatter_chart_block(column=builder.new_column(chart_vars),
+                                     pri_place=place,
+                                     sv_pair=chart_vars.svs,
+                                     sv2thing=builder.sv2thing,
+                                     child_type=state.place_type.value,
+                                     nopc_vars=builder.nopc())

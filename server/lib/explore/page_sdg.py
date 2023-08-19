@@ -28,7 +28,6 @@ from server.lib.nl.common import topic
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
@@ -50,7 +49,7 @@ class TopicTree:
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
-                 env_config: builder.Config) -> ConfigResp:
+                 env_config: base.Config) -> ConfigResp:
   # Get names of all SVs
   dc = state.uttr.insight_ctx[params.Params.DC.value]
   start = time.time()

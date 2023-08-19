@@ -24,11 +24,12 @@ from parameterized import parameterized
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib import util as libutil
 from server.lib.nl.common import counters as ctr
-from server.lib.nl.common import topic
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import builder
+import server.lib.nl.config_builder.base as builder_base
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -833,10 +834,10 @@ def _textproto(s):
 
 def _run(uttr_dict: Dict,
          event_config: SubjectPageConfig = None) -> SubjectPageConfig:
-  uttr = utterance.load_utterance([uttr_dict])
+  uttr = serialize.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  cfg = builder.Config(event_config=event_config,
-                       sv_chart_titles=SV_CHART_TITLES,
-                       nopc_vars=NOPC_VARS,
-                       sdg_percent_vars=set())
+  cfg = builder_base.Config(event_config=event_config,
+                            sv_chart_titles=SV_CHART_TITLES,
+                            nopc_vars=NOPC_VARS,
+                            sdg_percent_vars=set())
   return text_format.MessageToString(builder.build(uttr, cfg))

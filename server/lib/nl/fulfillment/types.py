@@ -18,47 +18,18 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from enum import Enum
 from typing import Dict, List, Set
 
+from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import TimeDeltaType
-
-
-# Forward declaration of ChartVars
-class ChartVars:
-  pass
-
-
-# Data structure to store state for a single "populate" call.
-@dataclass
-class PopulateState:
-  uttr: Utterance
-  place_type: ContainedInPlaceType = None
-  ranking_types: List[RankingType] = field(default_factory=list)
-  time_delta_types: List[TimeDeltaType] = field(default_factory=list)
-  quantity: QuantityClassificationAttributes = None
-  event_types: List[EventType] = field(default_factory=list)
-  disable_fallback: bool = False
-  block_id: int = 0
-  # The list of chart-vars to process.  This is keyed by var / topic.
-  chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
-  # Ordered list of query types.
-  query_types: List[QueryType] = field(default_factory=list)
-  # Has the results of existence check.
-  # SV -> Place Keys
-  # Where Place Key may be the place DCID, or place DCID + child-type.
-  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
-
-
-class InsightType(Enum):
-  CATEGORY = 1
-  BLOCK = 2
 
 
 # Data structure for configuring the vars that go into a chart.
@@ -75,7 +46,7 @@ class InsightType(Enum):
 @dataclass
 class ChartVars:
   # Only one of svs or events is set.
-  svs: List[str]
+  svs: List[str] = field(default_factory=list)
   # Represents a grouping of charts on the resulting display.
   block_id: int = -1
   include_percapita: bool = True
@@ -103,3 +74,37 @@ class ChartVars:
 
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
+
+
+# Data structure to store state for a single "populate" call.
+@dataclass
+class PopulateState:
+  uttr: Utterance
+  place_type: ContainedInPlaceType = None
+  ranking_types: List[RankingType] = field(default_factory=list)
+  time_delta_types: List[TimeDeltaType] = field(default_factory=list)
+  quantity: QuantityClassificationAttributes = None
+  event_types: List[EventType] = field(default_factory=list)
+  disable_fallback: bool = False
+  block_id: int = 0
+  # The list of chart-vars to process.  This is keyed by var / topic.
+  chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
+  # Ordered list of query types.
+  query_types: List[QueryType] = field(default_factory=list)
+  # Has the results of existence check.
+  # SV -> Place Keys
+  # Where Place Key may be the place DCID, or place DCID + child-type.
+  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
+
+
+@dataclass
+class ChartSpec:
+  chart_type: ChartType
+  places: List[Place]
+  svs: List[str]
+  event: EventType
+  chart_vars: ChartVars
+  place_type: str
+  ranking_types: List[RankingType]
+  ranking_count: int
+  chart_origin: ChartOriginType

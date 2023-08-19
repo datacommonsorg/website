@@ -22,7 +22,7 @@ from server.lib.nl.detection.types import Place
 
 
 def scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
-                        sv2thing: Dict, attr: Dict, nopc_vars: Set[str]):
+                        child_type: str, sv2thing: Dict, nopc_vars: Set[str]):
   assert len(sv_pair) == 2
 
   sv_names = [sv2thing.name[sv_pair[0]], sv2thing.name[sv_pair[1]]]
@@ -65,7 +65,7 @@ def scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
       title=f"{sv_names[0]} (${{yDate}}) vs. {sv_names[1]} (${{xDate}})",
       place=pri_place,
       do_pc=False,
-      child_type=attr.get('place_type', ''))
+      child_type=child_type)
   tile.scatter_tile_spec.highlight_top_right = True
 
   return stat_var_spec_map

@@ -14,35 +14,54 @@
 
 from dataclasses import dataclass
 import logging
-from typing import Dict
+from typing import Dict, Set
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
-from server.lib.nl.common.utterance import ChartSpec
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
-from server.lib.nl.common.utterance import TimeDeltaType
+from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import TimeDeltaType
+from server.lib.nl.fulfillment.types import ChartSpec
+
+
+# Config structures.
+@dataclass
+class Config:
+  event_config: SubjectPageConfig
+  sv_chart_titles: Dict
+  nopc_vars: Set[str]
+  sdg_percent_vars: Set[str]
+
+
+# A structure with maps from SV DCID to different things.
+@dataclass
+class SV2Thing:
+  name: Dict
+  unit: Dict
+  description: Dict
+  footnote: Dict
 
 
 class Builder:
 
-  def __init__(self, uttr):
+  def __init__(self, uttr: Utterance):
     self.uttr = uttr
     self.page_config = SubjectPageConfig()
 
     metadata = self.page_config.metadata
-    first_chart = uttr.rankedCharts[0]
+    first_chart: ChartSpec = uttr.rankedCharts[0]
     main_place = first_chart.places[0]
     metadata.place_dcid.append(main_place.dcid)
     if (first_chart.chart_type == ChartType.MAP_CHART or
         first_chart.chart_type == ChartType.RANKING_CHART or
         first_chart.chart_type == ChartType.SCATTER_CHART):
       metadata.contained_place_types[main_place.place_type] = \
-        first_chart.attr['place_type']
+        first_chart.place_type
 
     self.category = self.page_config.categories.add()
     self.block = None
@@ -58,18 +77,18 @@ class Builder:
       self.ignore_block_id_check = True
 
   # Returns a Block and a Column
-  def new_chart(self, attr: Dict) -> any:
-    block_id = attr['block_id']
+  def new_chart(self, cspec: ChartSpec) -> any:
+    cv = cspec.chart_vars
+    block_id = cv.block_id
     if block_id != self.prev_block_id or self.ignore_block_id_check:
       if self.block:
         self.category.blocks.append(self.block)
       self.block = Block()
-      if attr['title']:
-        self.block.title = decorate_block_title(title=attr['title'],
-                                                chart_origin=attr.get(
-                                                    'class', None))
-      if attr['description']:
-        self.block.description = attr['description']
+      if cv.title:
+        self.block.title = decorate_block_title(title=cv.title,
+                                                chart_origin=cspec.chart_origin)
+      if cv.description:
+        self.block.description = cv.description
       self.column = self.block.columns.add()
       self.prev_block_id = block_id
     return self.block, self.column
@@ -82,15 +101,6 @@ class Builder:
     if self.block:
       self.category.blocks.append(self.block)
       self.block = None
-
-
-# A structure with maps from SV DCID to different things.
-@dataclass
-class SV2Thing:
-  name: Dict
-  unit: Dict
-  description: Dict
-  footnote: Dict
 
 
 def decorate_block_title(title: str,
@@ -173,7 +183,7 @@ def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
     logging.error(f'Incompatible MAP/RANKING: too-many-places {cspec}')
     return False
-  if 'place_type' not in cspec.attr or not cspec.attr['place_type']:
+  if not cspec.place_type:
     logging.error(f'Incompatible MAP/RANKING: missing-place-type {cspec}')
     return False
   return True

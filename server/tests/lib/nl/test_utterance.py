@@ -16,10 +16,10 @@
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import QueryType
-from server.lib.nl.common.utterance import TimeDeltaType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.detection.types import TimeDeltaType
 
 # Utterance for Place Overview.
 SIMPLE_PLACE_ONLY_UTTR = {
@@ -43,17 +43,26 @@ SIMPLE_PLACE_ONLY_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': [],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.PLACE_OVERVIEW,
         'places': [{
             'dcid': 'geoId/06',
@@ -92,17 +101,26 @@ OVERVIEW_PLACE_ONLY_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.OVERVIEW,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': [],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.PLACE_OVERVIEW,
         'places': [{
             'dcid': 'geoId/01',
@@ -139,17 +157,26 @@ SIMPLE_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Male'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -160,17 +187,26 @@ SIMPLE_UTTR = {
         'event': None,
         'svs': ['Count_Person_Male']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Female'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -207,17 +243,26 @@ SIMPLE_WITH_SV_EXT_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Male'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -228,18 +273,26 @@ SIMPLE_WITH_SV_EXT_UTTR = {
         'event': None,
         'svs': ['Count_Person_Male']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.SECONDARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
-            'source_topic': '',
-            'title': '',
+            'is_topic_peer_group': False,
             'orig_sv': 'Count_Person_Male',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
+            'source_topic': '',
+            'svpg_id': '',
+            'svs': ['Count_Person_Male', 'Count_Person_Female'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -276,17 +329,26 @@ SIMPLE_WITH_TOPIC_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Farm'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -297,18 +359,27 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'event': None,
         'svs': ['Count_Farm']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Area_Farm'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
         'chart_type': ChartType.TIMELINE_CHART,
+        'place_type': None,
         'places': [{
             'dcid': 'geoId/06',
             'name': 'Foo Place',
@@ -318,17 +389,26 @@ SIMPLE_WITH_TOPIC_UTTR = {
         'event': None,
         'svs': ['Area_Farm']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'timeline',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': 'svpg desc',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': True,
+            'orig_sv': '',
+            'response_type': 'timeline',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['FarmInventory_Rice', 'FarmInventory_Barley'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.TIMELINE_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -373,17 +453,26 @@ COMPARISON_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.COMPARISON_ACROSS_PLACES,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'comparison chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'comparison chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Male'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.BAR_CHART,
         'places': [{
             'dcid': 'geoId/32',
@@ -399,17 +488,26 @@ COMPARISON_UTTR = {
         'event': None,
         'svs': ['Count_Person_Male']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'comparison chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'comparison chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Female'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.BAR_CHART,
         'places': [{
             'dcid': 'geoId/32',
@@ -455,17 +553,26 @@ CONTAINED_IN_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.CONTAINED_IN,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'comparison map',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': 'County',
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'comparison map',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Farm'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': 'County',
         'chart_type': 1,
         'places': [{
             'dcid': 'geoId/06',
@@ -476,17 +583,26 @@ CONTAINED_IN_UTTR = {
         'event': None,
         'svs': ['Count_Farm']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'comparison map',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': 'County',
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'comparison map',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Income_Farm'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': 'County',
         'chart_type': 1,
         'places': [{
             'dcid': 'geoId/06',
@@ -529,17 +645,26 @@ CORRELATION_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'scatter chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': 'County',
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'scatter chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Farm', 'Mean_Precipitation'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': 'County',
         'chart_type': ChartType.SCATTER_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -550,17 +675,26 @@ CORRELATION_UTTR = {
         'event': None,
         'svs': ['Count_Farm', 'Mean_Precipitation']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'scatter chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': 'County',
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'scatter chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Income_Farm', 'Mean_Precipitation'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': 'County',
         'chart_type': ChartType.SCATTER_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -602,17 +736,26 @@ MULTISV_CORRELATION_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.CORRELATION_ACROSS_VARS,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'scatter chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': 'County',
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'scatter chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Prevalence_Obesity', 'Count_Poverty'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': 'County',
         'chart_type': ChartType.SCATTER_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -656,17 +799,26 @@ RANKING_ACROSS_PLACES_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_PLACES,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'ranking table',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': 'County',
-            'ranking_types': [1],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'ranking table',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Agricultural_Workers'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [RankingType.HIGH],
+        'place_type': 'County',
         'chart_type': ChartType.RANKING_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -706,17 +858,30 @@ RANKING_ACROSS_SVS_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.RANKING_ACROSS_VARS,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'ranked bar chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [RankingType.HIGH],
+            'is_topic_peer_group': True,
+            'orig_sv': '',
+            'response_type': 'ranked bar chart',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'svpg_id': '',
+            'svs': [
+                'FarmInventory_Barley', 'FarmInventory_Rice',
+                'FarmInventory_Wheat'
+            ],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [RankingType.HIGH],
+        'place_type':
+            None,
         'chart_type':
             ChartType.BAR_CHART,
         'places': [{
@@ -760,19 +925,30 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.TIME_DELTA_ACROSS_VARS,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
-            'growth_direction': TimeDeltaType.INCREASE,
-            'include_percapita': False,
-            'place_type': None,
+            'event': None,
+            'growth_direction': 0,
             'growth_ranking_type': 'abs',
-            'ranking_types': [],
+            'has_single_point': False,
+            'include_percapita': False,
+            'is_topic_peer_group': True,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'svpg_id': '',
+            'svs': [
+                'FarmInventory_Rice', 'FarmInventory_Barley',
+                'FarmInventory_Wheat'
+            ],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type':
+            None,
         'chart_type':
             ChartType.RANKED_TIMELINE_COLLECTION,
         'event':
@@ -787,19 +963,30 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
             'FarmInventory_Rice', 'FarmInventory_Barley', 'FarmInventory_Wheat'
         ],
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
-            'growth_direction': TimeDeltaType.INCREASE,
-            'include_percapita': False,
-            'place_type': None,
+            'event': None,
+            'growth_direction': 0,
             'growth_ranking_type': 'pct',
-            'ranking_types': [],
+            'has_single_point': False,
+            'include_percapita': False,
+            'is_topic_peer_group': True,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
+            'svpg_id': '',
+            'svs': [
+                'FarmInventory_Barley', 'FarmInventory_Rice',
+                'FarmInventory_Wheat'
+            ],
             'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type':
+            None,
         'chart_type':
             ChartType.RANKED_TIMELINE_COLLECTION,
         'event':
@@ -814,19 +1001,26 @@ TIME_DELTA_ACROSS_VARS_UTTR = {
             'FarmInventory_Barley', 'FarmInventory_Rice', 'FarmInventory_Wheat'
         ],
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
-            'growth_direction': TimeDeltaType.INCREASE,
+            'event': None,
+            'growth_direction': 0,
             'growth_ranking_type': 'pc',
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': True,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': 'dc/topic/Agriculture',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['FarmInventory_Barley', 'FarmInventory_Wheat'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.RANKED_TIMELINE_COLLECTION,
         'event': None,
         'places': [{
@@ -863,17 +1057,26 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.SIMPLE,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': 'bar chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': True,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'bar chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Male'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.BAR_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -884,17 +1087,26 @@ SIMPLE_BAR_DOWNGRADE_UTTR = {
         'event': None,
         'svs': ['Count_Person_Male']
     }, {
-        'attr': {
+        'chart_vars': {
             'block_id': 2,
-            'chart_type': 'bar chart',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': None,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': True,
             'include_percapita': True,
-            'place_type': None,
-            'ranking_types': [],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': 'bar chart',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': ['Count_Person_Female'],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [],
+        'place_type': None,
         'chart_type': ChartType.BAR_CHART,
         'places': [{
             'dcid': 'geoId/06',
@@ -936,17 +1148,26 @@ EVENT_UTTR = {
     'query': 'foo sv in place',
     'query_type': QueryType.EVENT,
     'ranked_charts': [{
-        'attr': {
+        'chart_vars': {
             'block_id': 1,
-            'chart_type': '',
-            'class': ChartOriginType.PRIMARY_CHART,
             'description': '',
+            'event': 4,
+            'growth_direction': None,
+            'growth_ranking_type': None,
+            'has_single_point': False,
             'include_percapita': False,
-            'place_type': None,
-            'ranking_types': [RankingType.HIGH],
+            'is_topic_peer_group': False,
+            'orig_sv': '',
+            'response_type': '',
+            'skip_map_for_ranking': False,
             'source_topic': '',
-            'title': ''
+            'svpg_id': '',
+            'svs': [],
+            'title': '',
+            'title_suffix': ''
         },
+        'ranking_types': [RankingType.HIGH],
+        'place_type': None,
         'chart_type': ChartType.EVENT_CHART,
         'places': [{
             'dcid': 'geoId/06',
