@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM nikolaik/python-nodejs:python3.11-nodejs18 as base
+FROM nikolaik/python-nodejs:python3.11-nodejs18-slim as base
 
 ARG ENV
 ENV ENV=${ENV}
