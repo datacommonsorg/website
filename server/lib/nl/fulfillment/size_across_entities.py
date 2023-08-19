@@ -123,13 +123,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = exist_svs
 
-  chart_vars.response_type = "ranking table"
-  # NO Per-capita for these.
-  chart_vars.include_percapita = False
   # No map chart for these.
   chart_vars.skip_map_for_ranking = True
-  # We exactly control the Vars in this case,
-  # so line them all up in a single block.
-  chart_vars.block_id = 1
+  # We want all the ranking tables lined up in a single block.
   return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
                                 places, chart_origin)

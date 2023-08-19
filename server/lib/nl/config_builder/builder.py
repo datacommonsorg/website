@@ -36,8 +36,6 @@ from server.lib.nl.fulfillment.types import ChartVars
 # TODO: Do fine-grained existence checks while adding charts.
 #
 def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
-  builder = base.Builder(uttr)
-
   # Get names of all SVs
   all_svs = set()
   for cspec in uttr.rankedCharts:
@@ -59,6 +57,8 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   )
   uttr.counters.timeit('get_sv_details', start)
 
+  builder = base.Builder(uttr, sv2thing, config)
+
   # Build chart blocks
   for cspec in uttr.rankedCharts:
     cspec = cast(ChartSpec, cspec)
@@ -70,7 +70,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     # Call per-chart handlers.
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
       place = cspec.places[0]
-      block, column = builder.new_chart(cspec)
+      block, column = builder.new_chart(cspec, skip_title=True)
       block.title = place.name
       base.place_overview_block(column)
 
@@ -78,31 +78,27 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
       _, column = builder.new_chart(cspec)
       if len(cspec.svs) > 1:
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
-            column, cspec.places[0], cspec.svs, sv2thing, cv, config.nopc_vars)
+            column, cspec.places[0], cspec.svs, sv2thing, cv)
       else:
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
-            column, cspec.places[0], cspec.svs[0], sv2thing, cv,
-            config.nopc_vars)
+            column, cspec.places[0], cspec.svs[0], sv2thing)
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       _, column = builder.new_chart(cspec)
       stat_var_spec_map = bar.multiple_place_bar_block(column, cspec.places,
-                                                       cspec.svs, sv2thing, cv,
-                                                       config.nopc_vars)
+                                                       cspec.svs, sv2thing, cv)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
+      block, column = builder.new_chart(cspec)
       for sv in cspec.svs:
-        _, column = builder.new_chart(cspec)
         stat_var_spec_map.update(
             map.map_chart_block(column=column,
                                 place=cspec.places[0],
                                 pri_sv=sv,
                                 child_type=cspec.place_type,
-                                cv=cv,
-                                sv2thing=sv2thing,
-                                nopc_vars=config.nopc_vars))
+                                sv2thing=sv2thing))
 
     elif cspec.chart_type == ChartType.RANKING_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
@@ -114,22 +110,15 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
             ranking.ranking_chart_block_climate_extremes(
                 builder, pri_place, cspec.svs, sv2thing, cspec))
       else:
-        # Do not let the builder decide the title and description.
-        cv.title = ''
-        cv.description = ''
-
-        for sv in cspec.svs:
+        if cv.skip_map_for_ranking:
+          # Create the block here.
           block, column = builder.new_chart(cspec)
-          block.footnote = sv2thing.footnote[sv]
-
-          if not builder.block.title and builder.ignore_block_id_check:
-            builder.block.title = sv2thing.name[sv]
-            builder.block.description = sv2thing.description[sv]
-
-          builder.block.title = base.decorate_block_title(
-              title=builder.block.title, chart_origin=cspec.chart_origin)
+        for sv in cspec.svs:
+          if not cv.skip_map_for_ranking:
+            # We have a rank + map, so create a block per SV.
+            block, column = builder.new_chart(cspec, override_sv=sv)
           stat_var_spec_map.update(
-              ranking.ranking_chart_block_nopc(
+              ranking.ranking_chart_block(
                   column=column,
                   pri_place=pri_place,
                   pri_sv=sv,
@@ -138,22 +127,8 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                   ranking_types=cspec.ranking_types,
                   ranking_count=cspec.ranking_count,
                   skip_map_for_ranking=cv.skip_map_for_ranking))
-          if (cv.include_percapita and
-              variable.is_percapita_relevant(sv, config.nopc_vars)):
-            if not cv.skip_map_for_ranking:
-              block, column = builder.new_chart(cspec)
-            stat_var_spec_map.update(
-                ranking.ranking_chart_block_pc(
-                    column=column,
-                    pri_place=pri_place,
-                    pri_sv=sv,
-                    child_type=cspec.place_type,
-                    sv2thing=sv2thing,
-                    ranking_types=cspec.ranking_types,
-                    ranking_count=cspec.ranking_count,
-                    skip_map_for_ranking=cv.skip_map_for_ranking))
     elif cspec.chart_type == ChartType.SCATTER_CHART:
-      _, column = builder.new_chart(cspec)
+      _, column = builder.new_chart(cspec, skip_title=True)
       stat_var_spec_map = scatter.scatter_chart_block(
           column=column,
           pri_place=cspec.places[0],
@@ -163,7 +138,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
           nopc_vars=config.nopc_vars)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and config.event_config:
-      block, column = builder.new_chart(cspec)
+      block, column = builder.new_chart(cspec, skip_title=True)
       event.event_chart_block(builder.page_config.metadata, block, column,
                               cspec.places[0], cspec.event, cspec.ranking_types,
                               config.event_config)

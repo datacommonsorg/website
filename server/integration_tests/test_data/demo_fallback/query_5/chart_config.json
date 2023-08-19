@@ -13,17 +13,11 @@
                     ],
                     "title": "GDP (Nominal Value) in United States",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc"
-                    ],
-                    "title": "Per Capita GDP (Nominal Value) in United States",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -39,6 +33,44 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block",
+                      "dc/62n3z7mvfpjx1_multiple_place_bar_block",
+                      "dc/qt7ewllmt3826_multiple_place_bar_block",
+                      "dc/zz6gwv838v9w_multiple_place_bar_block"
+                    ],
+                    "title": "Breakdown of GDP by Industry in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Breakdown of GDP by Industry"
           },
           {
             "columns": [
@@ -61,43 +93,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
-                    ],
-                    "title": "GDP of the Finance and Insurance Industry in United States",
-                    "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP of the Finance and Insurance Industry in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
                     "title": "GDP (Real Value) in United States",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP (Real Value) in United States",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -127,35 +131,11 @@
                     ],
                     "title": "GDP of the Finance and Insurance Industry and more in United States (${date})",
                     "type": "BAR"
-                  },
-                  {
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block_pc",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block_pc"
-                    ],
-                    "title": "Per Capita GDP of the Finance and Insurance Industry and more in United States (${date})",
-                    "type": "BAR"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           },
           {
             "columns": [
@@ -168,18 +148,11 @@
                     ],
                     "title": "GDP (Real Value) and more in United States",
                     "type": "LINE"
-                  },
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc",
-                      "Amount_EconomicActivity_GrossValueAdded_RealValue_pc"
-                    ],
-                    "title": "Per Capita GDP (Real Value) and more in United States",
-                    "type": "LINE"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {
@@ -187,17 +160,7 @@
             "name": "GDP of the Accommodation and Food Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Accommodation and Food Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Administrative and Support and Waste Management Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Administrative and Support and Waste Management Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue"
           },
@@ -205,17 +168,7 @@
             "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Agriculture, Forestry, Fishing and Hunting Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Arts, Entertainment, and Recreation Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Arts, Entertainment, and Recreation Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue"
           },
@@ -223,35 +176,11 @@
             "name": "GDP of the Construction Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Construction Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Educational Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Educational Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue": {
-            "name": "GDP of the Finance and Insurance Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Finance and Insurance Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Finance and Insurance Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Finance and Insurance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue"
           },
@@ -259,17 +188,7 @@
             "name": "GDP of the Health Care and Social Assistance Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Health Care and Social Assistance Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Information Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Information Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
           },
@@ -277,17 +196,7 @@
             "name": "GDP of the Management of Companies and Enterprises Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Management of Companies and Enterprises Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Mining, Quarrying, and Oil and Gas Extraction Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Mining, Quarrying, and Oil and Gas Extraction Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue"
           },
@@ -295,17 +204,7 @@
             "name": "GDP of Other Services, Except Public Administration Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of Other Services, Except Public Administration Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Professional, Scientific, and Technical Services Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Professional, Scientific, and Technical Services Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue"
           },
@@ -313,26 +212,11 @@
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Real Estate and Rental and Leasing Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
-            "name": "GDP of the Utilities Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block": {
-            "name": "GDP of the Wholesale Trade Industry",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block_pc": {
-            "denom": "Count_Person",
             "name": "GDP of the Wholesale Trade Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
           },
@@ -344,17 +228,7 @@
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_pc": {
-            "denom": "Count_Person",
-            "name": "GDP (Nominal Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
-            "name": "GDP (Real Value)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_RealValue_pc": {
-            "denom": "Count_Person",
             "name": "GDP (Real Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
           },
@@ -362,14 +236,21 @@
             "name": "Amount of Economic Activity (Real Value): Gross Value Added",
             "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
-          "Amount_EconomicActivity_GrossValueAdded_RealValue_pc": {
-            "denom": "Count_Person",
-            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
-            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
-          },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "dc/62n3z7mvfpjx1_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Manufacturing (NAICS/31-33)",
+            "statVar": "dc/62n3z7mvfpjx1"
+          },
+          "dc/qt7ewllmt3826_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
+            "statVar": "dc/qt7ewllmt3826"
+          },
+          "dc/zz6gwv838v9w_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
+            "statVar": "dc/zz6gwv838v9w"
           }
         }
       }

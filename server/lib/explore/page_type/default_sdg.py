@@ -33,8 +33,6 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   place = state.uttr.places[0]
 
-  chart_vars.include_percapita = False
-
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
@@ -51,8 +49,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
-              builder.new_column(chart_vars), place, sv, builder.sv2thing,
-              chart_vars, builder.nopc()))
+              builder.new_column(chart_vars), place, sv, builder.sv2thing))
       builder.new_block()
 
   if not state.place_type:
@@ -68,9 +65,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                             place=place,
                             pri_sv=sv,
                             child_type=state.place_type.value,
-                            sv2thing=builder.sv2thing,
-                            cv=chart_vars,
-                            nopc_vars=builder.nopc()))
+                            sv2thing=builder.sv2thing))
     builder.new_block()
   return sv_spec
 
@@ -78,8 +73,6 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
              builder: Builder):
   place = state.uttr.places[0]
-
-  chart_vars.include_percapita = False
 
   sv_spec = {}
 
@@ -113,9 +106,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                               place=place,
                               pri_sv=sv,
                               child_type=state.place_type.value,
-                              cv=chart_vars,
-                              sv2thing=builder.sv2thing,
-                              nopc_vars=builder.nopc()))
+                              sv2thing=builder.sv2thing))
       builder.new_block()
 
   return sv_spec

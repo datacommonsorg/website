@@ -25,7 +25,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {

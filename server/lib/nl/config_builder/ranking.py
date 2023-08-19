@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+from typing import List
 
 from server.config.subject_page_pb2 import RankingTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
@@ -104,8 +104,8 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
     if len(map_column.tiles):
       map_column = map_block.columns.add()
     stat_var_spec_map.update(
-        map.map_chart_block_nopc(map_column, pri_place, sv, cspec.place_type,
-                                 sv2thing))
+        map.map_chart_block(map_column, pri_place, sv, cspec.place_type,
+                            sv2thing))
     map_column.tiles[0].title = sv2thing.name[
         sv]  # override decorated title (too long).
 
@@ -116,10 +116,10 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
   return stat_var_spec_map
 
 
-def ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
-                             child_type: str, sv2thing: base.SV2Thing,
-                             ranking_types: List[RankingType],
-                             ranking_count: int, skip_map_for_ranking: bool):
+def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
+                        sv2thing: base.SV2Thing,
+                        ranking_types: List[RankingType], ranking_count: int,
+                        skip_map_for_ranking: bool):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -130,7 +130,6 @@ def ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   tile.title = base.decorate_chart_title(title=sv2thing.name[pri_sv],
                                          place=pri_place,
                                          add_date=True,
-                                         do_pc=False,
                                          child_type=child_type)
 
   stat_var_spec_map = {}
@@ -141,58 +140,6 @@ def ranking_chart_block_nopc(column, pri_place: Place, pri_sv: str,
   if not skip_map_for_ranking:
     # Also add a map chart.
     stat_var_spec_map.update(
-        map.map_chart_block_nopc(column, pri_place, pri_sv, child_type,
-                                 sv2thing))
-
-  return stat_var_spec_map
-
-
-def ranking_chart_block_pc(column, pri_place: Place, pri_sv: str,
-                           child_type: str, sv2thing: base.SV2Thing,
-                           ranking_types: List[RankingType], ranking_count: int,
-                           skip_map_for_ranking: bool):
-  # The per capita tile
-  tile = column.tiles.add()
-  sv_key = pri_sv + "_pc"
-  tile.stat_var_key.append(sv_key)
-  tile.type = Tile.TileType.RANKING
-  ranking_count = ranking_count if ranking_count else _DEFAULT_RANKING_COUNT
-  _set_ranking_tile_spec(ranking_types, pri_sv, tile.ranking_tile_spec,
-                         ranking_count)
-  tile.title = base.decorate_chart_title(title=sv2thing.name[pri_sv],
-                                         place=pri_place,
-                                         add_date=True,
-                                         do_pc=True,
-                                         child_type=child_type)
-
-  stat_var_spec_map = {}
-  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
-                                          denom="Count_Person",
-                                          name=sv2thing.name[pri_sv])
-
-  if pri_sv in constants.ADDITIONAL_DENOMINATOR_VARS:
-    denom_sv, name_suffix = constants.ADDITIONAL_DENOMINATOR_VARS[pri_sv]
-    tile = column.tiles.add()
-    sv_key = pri_sv + "_" + denom_sv
-    tile.stat_var_key.append(sv_key)
-    tile.type = Tile.TileType.RANKING
-    _set_ranking_tile_spec(ranking_types, pri_sv, tile.ranking_tile_spec,
-                           ranking_count)
-    sv_title = sv2thing.name[pri_sv] + " " + name_suffix
-    tile.title = base.decorate_chart_title(title=sv_title,
-                                           place=pri_place,
-                                           add_date=True,
-                                           do_pc=False,
-                                           child_type=child_type)
-
-    stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
-                                            denom=denom_sv,
-                                            name=sv_title)
-
-  # TODO: Maybe add ADDITIONAL_DENOMINATOR_VARS to map too
-  if not skip_map_for_ranking:
-    # Also add a map chart.
-    stat_var_spec_map.update(
-        map.map_chart_block_pc(column, pri_place, pri_sv, child_type, sv2thing))
+        map.map_chart_block(column, pri_place, pri_sv, child_type, sv2thing))
 
   return stat_var_spec_map

@@ -23,7 +23,6 @@ from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
-from server.lib.nl.fulfillment.types import ChartVars
 
 
 def event_chart_block(metadata, block, column, place: Place,

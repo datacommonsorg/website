@@ -64,7 +64,6 @@ def scatter_chart_block(column, pri_place: Place, sv_pair: List[str],
   tile.title = base.decorate_chart_title(
       title=f"{sv_names[0]} (${{yDate}}) vs. {sv_names[1]} (${{xDate}})",
       place=pri_place,
-      do_pc=False,
       child_type=child_type)
   tile.scatter_tile_spec.highlight_top_right = True
 
