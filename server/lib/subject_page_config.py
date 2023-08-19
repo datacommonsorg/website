@@ -159,8 +159,12 @@ def _places_with_geojson(places):
   result = []
   resp = fetch.properties(places)
   for place, place_props in resp.items():
-    if 'geoJsonCoordinates' in place_props:
-      result.append(place)
+    # TECHSOUP UPDATE: Look for a property that starts with geoJsonCoordinates rather than an exact match
+    #if 'geoJsonCoordinates' in place_props:
+    #  result.append(place)
+    for prop in place_props:
+      if prop.startswith("geoJsonCoordinates"):
+        result.append(place)
   return result
 
 

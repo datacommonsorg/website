@@ -1,0 +1,407 @@
+# Copyright 2022 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "economic-and-social-growth"
+  topic_name: "Economic & Social Growth"
+  place_dcid: "country/COL"
+  contained_place_types {
+    key: "Country"
+    value: "AdministrativeArea1"
+  }
+}
+
+categories {
+  title: "Economic Development For Better Lives"
+  
+
+  blocks {
+    description: "When we think of economic development, we may think of new infrastructure or ways the government may better meet its people's needs. But we often don’t see economic development as something that affects our daily lives. In this article, we aim to review economic development and its social impact on a country. How does this country flourish in the midst of endless difficulties and deep social and political transformations? How can economic development help to reduce violence — particularly homicides? And finally, how do civil society organizations complement economic development and state action? For this, there is no better country to review than Colombia."
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "People live in ${placeName} (${date})"
+        stat_var_key: "count_person"
+      }
+    }
+    columns { 
+      tiles {
+        title: "Population of ${placeName} by Department (${date})"
+        type: MAP
+        stat_var_key: "count_person"
+      }
+    }
+  }
+
+  blocks {
+    title: "From LATAM to Colombia: The Correlations of Economic Development"
+    description: "Over the last 50 years, Latin American (LATAM) countries such as Colombia, Ecuador, Perú, and Venezuela have steadily strengthened their GDP, except during the COVID-19 pandemic. There appears to be a regional correlation in economic performance of these countries: When one country prospers, other LATAM countries prosper as a result. Similarly, these countries suffered significant declines during the pandemic. After the pandemic, recovery was accelerated dramatically."
+    columns {
+      tiles {
+        type: LINE
+        title: "Growth Rate of GDP (${placeName})"
+        stat_var_key: "gdp_growth"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Growth Rate of GDP (${placeName})"
+        stat_var_key: "gdp_growth"
+        place_dcid_override: "country/ECU"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Growth Rate of GDP (${placeName})"
+        stat_var_key: "gdp_growth"
+        place_dcid_override: "country/PER"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Growth Rate of GDP (${placeName})"
+        stat_var_key: "gdp_growth"
+        place_dcid_override: "country/VEN"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Colombia has undoubtedly contributed to the accelerated growth of the region's GDP in the post-pandemic years — partly due to the different measures taken by the national government to overcome the humanitarian crisis — but how does the country's economic growth correlate with social variables?"
+      }
+    }
+  }
+
+  blocks {
+    title: "Leading Social Change Through Economic Growth"
+    description: "Since 2008, economic growth has led to a significant reduction of people under the poverty line, mainly because this growth generates more employment and business opportunities and therefore a higher income."
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP of ${placeName}"
+        stat_var_key: "gdp"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "${placeName}'s employed population below the poverty line"
+        stat_var_key: "empl_poverty_rate_15_24"
+        stat_var_key: "empl_poverty_rate_15_older"
+        stat_var_key: "empl_poverty_rate_25_older"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "As GDP increases, poverty decreases. Newly created jobs allow governments to collect more taxes to invest in social programs such as free secondary education for vulnerable populations, which in most cases enables people to access better salaries, which **improves their quality of life**."
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "According to macroeconomics theories, as more production is generated in a country, the labor force increases. This is a result of production driving more consumption, which in turn drives demand and employment."
+      }
+      tiles {
+        type: LINE
+        title: "Percent of Working-Age Population in the Labor Force"
+        stat_var_key: "pct_pop_laborforce"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "When GDP increases, we see an increase in the number of higher education students not dropping out of college and instead continuing to graduation."
+      }
+      tiles {
+        type: LINE
+        title: "Percent of Secondary Education Students Graduating"
+        stat_var_key: "upper_secondary_pc"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Economic growth has also contributed to a decrease in the infant mortality rate, the main indicator for measuring the quality of health systems. With higher incomes, families have access to more and better food, medicines, and sanitary implements in their homes. It has also allowed the universalization of public services such as drinking water, which provides better guarantees for life, especially for the children."
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: LINE
+        title: "Infant Mortality Rate"
+        stat_var_key: "infant_mortality"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Access to Basic Drinking Water Services"
+        stat_var_key: "basic_water_services_pc"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "The data shows that the better the economy, the better the quality of life in the region and the country. Unfortunately, not all the correlations are on the good side. LATAM, and specially Colombia, concentrates a large part of the world's drug production, which leads it to be a center of operations of transnational criminal organizations, resulting in constant attacks against the civil population."
+      }
+    }
+  }
+  
+  stat_var_spec {
+    key: "count_person"
+    value {
+      stat_var: "Count_Person"
+      name: "Population"
+    }
+  }
+
+  stat_var_spec {
+    key: "gdp_growth"
+    value {
+      stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+      name: "Growth Rate of GDP"
+    }
+  }
+
+  stat_var_spec {
+    key: "gdp"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "Nominal GDP"
+    }
+  }
+
+  stat_var_spec {
+    key: "empl_poverty_rate_15_24"
+    value {
+      stat_var: "sdg/SI_POV_EMP1.AGE--Y15T24"
+      name: "Employed population below international poverty line: 15 to 24 years old"
+      unit: "%"
+    }
+  }  
+  stat_var_spec {
+    key: "empl_poverty_rate_15_older"
+    value {
+      stat_var: "sdg/SI_POV_EMP1.AGE--Y_GE15"
+      name: "Employed population below international poverty line: 15 years old and over"
+      unit: "%"
+    }
+  }  
+  stat_var_spec {
+    key: "empl_poverty_rate_25_older"
+    value {
+      stat_var: "sdg/SI_POV_EMP1.AGE--Y_GE25"
+      name: "Employed population below international poverty line: 25 years old and over"
+      unit: "%"
+    }
+  }  
+
+  stat_var_spec {
+    key: "pct_pop_laborforce"
+    value {
+      stat_var: "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+      name: "Percent of Working Age Population in the Labor Force"
+      scaling: 100
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "upper_secondary_pc"
+    value {
+      stat_var: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_3"
+      name: "Completion rate: Upper secondary"
+      unit: "%"
+    }
+  }
+  stat_var_spec {
+    key: "infant_mortality"
+    value {
+      stat_var: "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+      name: "Infant Mortality Rate"
+    }
+  }
+  stat_var_spec {
+    key: "basic_water_services_pc"
+    value {
+      stat_var: "sdg/SP_ACS_BSRVH2O"
+      name: "Proportion of population using basic drinking water services"
+      unit: "%"
+    }
+  }
+
+}
+
+
+categories {
+  title: "A Growing Economy for Better Security"
+
+  blocks {
+    description: "The reality that violence has created in LATAM is overwhelming. During 2022, countries such as Bolivia, Colombia, Ecuador, Perú y Venezuela reached similar homicide rates, mainly due to the presence of armed groups seeking to expand their illegal businesses through violence, spreading fear among the population."
+    columns {
+      tiles {
+        type: BAR
+        title: "Homicides in LATAM"
+        stat_var_key: "homicides_pc"
+        comparison_places: "self"
+        comparison_places: "country/VEN"
+        comparison_places: "country/ECU"
+        comparison_places: "country/PER"
+      }
+    }
+    
+  }
+
+  blocks {
+    title: "GDP Growth and Violence"
+    description: "When the economy grows, the lives of the inhabitants improve by increasing access to basic services such as health, education, work, and security. And it makes it possible for people to receive a living wage that reduces inequality and poverty gaps, decreasing the presence of illegal and subversive groups and the violence they exert."
+
+    columns {
+      tiles {
+        type: LINE
+        title: "GDP of ${placeName}"
+        stat_var_key: "gdp"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Violence in ${placeName}"
+        stat_var_key: "homicides_pc"
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "That being said, reducing violence and improving Colombian's daily lives is not just an economic development matter. Governments need allies to establish a prosperous and peaceful nation. The active participation of civil society and social organizations is vital for building bridges between government efforts and the needs of the population. In Colombia’s case there are many organizations working to promote development in the country and therefore improving the quality of life for all the inhabitants."
+      }
+    }
+  }
+
+  stat_var_spec {
+    key: "homicides_pc"
+    value {
+      stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
+      name: "Murder and Non Negligent Manslaughter Cases Per Capita"
+    }
+  }
+  stat_var_spec {
+    key: "gdp"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "Nominal GDP"
+    }
+  }
+}
+
+categories {
+  title: "Promoting Development Through Civil Society"
+
+  blocks {
+    description: "Many efforts are being made by civil society to continue actions that promote the growth of the economy in favor of improving the living conditions of its inhabitants."
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Several social organizations in Colombia are working for the economic and social development of the country."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*WWB Colombia Foundation*](https://www.fundacionwwbcolombia.org): Creates programs to strengthen the personal and business skills of vulnerable women in order to reduce the unemployment rate of this population and boost the impact of social investment."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Mano Cambiada*](https://www.manocambiada.org): Seeks to prevent the recruitment of young people in contexts of violence, transforming them into social change agents through the creation of community-based tourism programs and environmental and cultural education."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Recon*](https://www.reconcolombia.org): Seeks to strengthen social enterprises that impact the sustainable economic and social development of vulnerable communities."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Fundación Capital*](https://www.fundacioncapital.org): Seeks to improve the financial and economic life of socially vulnerable populations."
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "In the search of expanding impacts and creating social awareness, these other organizations have linked a third ally to their work: open data."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Propacifico*](https://propacifico.org) seeks to make visible through the use of open data the level of compliance with the SDGs in the country's municipalities through a monitoring platform, in order to promote the strengthening of actions in the lowest indicators."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Alexander Von Humboldt Institute*](http://humboldt.org.co) seeks to promote through open data collaboration in scientific and academic creation."
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "- [*Karisma Foundation*](https://web.karisma.org.co) promotes the use of open data to guarantee human rights on the Internet, social inclusion and the democratization of knowledge."
+      }
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Although the impact of the work of social organizations in the country is undeniable, it is important to establish open data as a constant tool in their work. Using open data is essential for promoting economic development in countries because it enhances transparency, enables evidence-based decision-making, drives economic growth and innovation, empowers communities, and facilitates collaboration. It is a powerful tool that can contribute to a more inclusive and sustainable Colombia."
+      }
+    }
+  }
+
+  blocks {
+    title: "Acknowledgements"
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Designed by: [Corporación Makaia Asesoría Internacional](https://makaia.org)"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "[![Makaia](/custom_dc/custom/images/topics/economic-and-social-growth/logo-makaia-web.png)](https://makaia.org)"
+      }
+    }
+  }
+
+}
+
