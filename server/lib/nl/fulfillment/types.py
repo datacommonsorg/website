@@ -16,6 +16,7 @@
 # Common types used across the fulfillers.
 #
 
+from collections import OrderedDict
 from dataclasses import dataclass
 from dataclasses import field
 from typing import Dict, List, Set
@@ -83,7 +84,9 @@ class PopulateState:
   event_types: List[EventType] = field(default_factory=list)
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
-  chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
+  # This is in the order of the returned SVs from the Embeddings index.
+  chart_vars_map: OrderedDict[str,
+                              List[ChartVars]] = field(default_factory=dict)
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.

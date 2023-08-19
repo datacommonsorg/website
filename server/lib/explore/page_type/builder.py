@@ -114,36 +114,7 @@ class Builder:
   # 3. Finally, if there is a singleton block in a category and both
   #    the block and category have names, drop the block name.
   def cleanup_config(self):
-    # From inside to out, delete duplicate charts and cleanup
-    # any empties.
-    chart_keys = set()
-    out_cats = []
-    for cat in self.page_config.categories:
-      out_blks = []
-      for blk in cat.blocks:
-        out_cols = []
-        for col in blk.columns:
-          out_tiles = []
-          for tile in col.tiles:
-            x = tile.SerializeToString()
-            if x not in chart_keys:
-              out_tiles.append(tile)
-            chart_keys.add(x)
-          del col.tiles[:]
-          if out_tiles:
-            col.tiles.extend(out_tiles)
-            out_cols.append(col)
-        del blk.columns[:]
-        if out_cols:
-          blk.columns.extend(out_cols)
-          out_blks.append(blk)
-      del cat.blocks[:]
-      if out_blks:
-        cat.blocks.extend(out_blks)
-        out_cats.append(cat)
-    del self.page_config.categories[:]
-    if out_cats:
-      self.page_config.categories.extend(out_cats)
+    base.trim_config(self.page_config)
 
     # Nothing more to do (like resetting title) if SDG.
     if is_sdg(self.uttr.insight_ctx):

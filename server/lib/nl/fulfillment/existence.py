@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import OrderedDict
 from dataclasses import dataclass
 import logging
 from typing import Dict, List, Set
@@ -138,7 +139,7 @@ class ExistenceCheckTracker:
 class MainExistenceCheckTracker(ExistenceCheckTracker):
 
   def __init__(self, state: PopulateState, place2keys: Dict[str, str],
-               sv2chartvarslist: Dict):
+               sv2chartvarslist: OrderedDict[str, List[ChartVars]]):
     super().__init__(state, place2keys)
     places = place2keys.keys()
 
@@ -158,6 +159,10 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
                     'event': chart_vars.event
                 })
         else:
+          # NOTE: This does not prevent an SV that first appears alone
+          # and is then part of a topic.  For that case, we do
+          # chart dedupe (since having that SV as part of the
+          # peer group is useful).
           if all(v in self.all_svs for v in chart_vars.svs):
             # Avoid adding SVs that have already been added before.
             continue

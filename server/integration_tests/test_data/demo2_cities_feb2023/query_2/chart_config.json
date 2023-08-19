@@ -24,21 +24,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_WithAsthma"
-                    ],
-                    "title": "Asthma in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
                     "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",

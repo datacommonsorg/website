@@ -14,6 +14,7 @@
 
 from typing import List
 
+import server.lib.explore.existence as exist
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -29,6 +30,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType) -> bool:
   if len(chart_vars.svs) != 2 or not places:
     state.uttr.counters.err('correlation_failed_noplaceorsv', 1)
+    return False
+
+  # Child existence check for both SVs.
+  if len(exist.svs4children(state, places[0], chart_vars.svs).exist_svs) != 2:
     return False
 
   return add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,

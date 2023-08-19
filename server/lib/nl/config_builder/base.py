@@ -136,6 +136,7 @@ class Builder:
     if self.block:
       self.category.blocks.append(self.block)
       self.block = None
+    trim_config(self.page_config)
 
 
 def decorate_block_title(title: str,
@@ -219,3 +220,35 @@ def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 def place_overview_block(column):
   tile = column.tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
+
+
+# Delete duplicate charts and cleanup any empties.
+def trim_config(page_config: SubjectPageConfig):
+  chart_keys = set()
+  out_cats = []
+  for cat in page_config.categories:
+    out_blks = []
+    for blk in cat.blocks:
+      out_cols = []
+      for col in blk.columns:
+        out_tiles = []
+        for tile in col.tiles:
+          x = tile.SerializeToString()
+          if x not in chart_keys:
+            out_tiles.append(tile)
+          chart_keys.add(x)
+        del col.tiles[:]
+        if out_tiles:
+          col.tiles.extend(out_tiles)
+          out_cols.append(col)
+      del blk.columns[:]
+      if out_cols:
+        blk.columns.extend(out_cols)
+        out_blks.append(blk)
+    del cat.blocks[:]
+    if out_blks:
+      cat.blocks.extend(out_blks)
+      out_cats.append(cat)
+  del page_config.categories[:]
+  if out_cats:
+    page_config.categories.extend(out_cats)

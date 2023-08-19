@@ -57,7 +57,10 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
         chart_title = base.decorate_chart_title(title=sv2thing.name[sv_dcid],
                                                 place=place)
 
-      sv_key = sv_dcid
+      # NOTE: It is important to keep the growth-ranking-type in the key.
+      # So the same SV can be plotted by itself for the same place multiple
+      # times in a chart result.
+      sv_key = sv_dcid + '_growth_' + cspec.chart_vars.growth_ranking_type
       tile = Tile(type=Tile.TileType.LINE,
                   title=chart_title,
                   stat_var_key=[sv_key])
