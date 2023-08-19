@@ -11,20 +11,8 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Life Expectancy in the World",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World",
-                    "type": "HIGHLIGHT"
+                    "title": "Life Expectancy in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -36,11 +24,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female",
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Life Expectancy by Gender in the World",
-                    "type": "LINE"
+                    "title": "Male Life Expectancy in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
@@ -55,25 +49,81 @@
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World",
-                    "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World",
-                    "type": "HIGHLIGHT"
+                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
             "title": "Causes Of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_117"
+                    ],
+                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_128"
+                    ],
+                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/WHS4_129"
+                    ],
+                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/M_Est_smk_daily"
+                    ],
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_BMI_18A"
+                    ],
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_BMI_30A"
+                    ],
+                    "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
+                    "type": "MAP"
+                  },
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_PAC"
+                    ],
+                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Health Behaviors"
           }
         ],
         "statVarSpec": {
@@ -92,11 +142,42 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "WHO/M_Est_smk_daily": {
+            "name": "% Daily Tobacco Smokers (Estimate)",
+            "statVar": "WHO/M_Est_smk_daily"
+          },
+          "WHO/NCD_BMI_18A": {
+            "name": "% Underweight Among Adults, BMI < 18",
+            "statVar": "WHO/NCD_BMI_18A"
+          },
+          "WHO/NCD_BMI_30A": {
+            "name": "% Obesity Among Adults, BMI >= 30",
+            "statVar": "WHO/NCD_BMI_30A"
+          },
+          "WHO/NCD_PAC": {
+            "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
+            "statVar": "WHO/NCD_PAC"
+          },
+          "WHO/WHS4_117": {
+            "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_117"
+          },
+          "WHO/WHS4_128": {
+            "name": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)",
+            "statVar": "WHO/WHS4_128"
+          },
+          "WHO/WHS4_129": {
+            "name": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%)",
+            "statVar": "WHO/WHS4_129"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
       "placeDcid": [
         "Earth"
       ]
