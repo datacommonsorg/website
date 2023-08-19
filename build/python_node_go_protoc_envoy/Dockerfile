@@ -16,10 +16,10 @@
 FROM python:3.11.4-slim as base
 
 RUN apt update
+RUN apt install -y curl zip wget
 
 # Install Node
 ENV NODE_VERSION=18.17.1
-RUN apt install -y curl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 ENV NVM_DIR=/root/.nvm
 RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
@@ -47,7 +47,7 @@ RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
 ENV PATH="${PATH}:/root/go/bin"
 
 # Install Envoy
-RUN apt install -y debian-keyring debian-archive-keyring apt-transport-https curl lsb-release
+RUN apt install -y debian-keyring debian-archive-keyring apt-transport-https lsb-release
 RUN curl -sL 'https://deb.dl.getenvoy.io/public/gpg.8115BA8E629CC074.key' | gpg --dearmor -o /usr/share/keyrings/getenvoy-keyring.gpg
 RUN echo a077cb587a1b622e03aa4bf2f3689de14658a9497a9af2c427bba5f4cc3c4723 /usr/share/keyrings/getenvoy-keyring.gpg | sha256sum --check
 RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/getenvoy-keyring.gpg] https://deb.dl.getenvoy.io/public/deb/debian $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/getenvoy.list
