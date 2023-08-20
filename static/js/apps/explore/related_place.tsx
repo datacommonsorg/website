@@ -26,6 +26,7 @@ interface RelatedPlacePropsType {
   cmpPlace: string;
   dc: string;
   exploreMore: string;
+  nlFulfillment: string;
   titleSuffix: string;
 }
 
@@ -34,7 +35,8 @@ const buildPlaceList = (
   topic: NamedTypedNode,
   cmpPlace: string,
   dc: string,
-  exploreMore: string
+  exploreMore: string,
+  nlFulfillment: string
 ): Item[] => {
   if (_.isEmpty(relatedPlaces)) {
     return [];
@@ -43,7 +45,7 @@ const buildPlaceList = (
   for (const relatedPlace of relatedPlaces) {
     result.push({
       text: relatedPlace.name,
-      url: `/explore/#t=${topic.dcid}&p=${relatedPlace.dcid}&pcmp=${cmpPlace}&dc=${dc}&em=${exploreMore}`,
+      url: `/explore/#t=${topic.dcid}&p=${relatedPlace.dcid}&pcmp=${cmpPlace}&dc=${dc}&em=${exploreMore}&nl=${nlFulfillment}`,
     });
   }
   return result;
@@ -55,7 +57,8 @@ export function RelatedPlace(props: RelatedPlacePropsType): JSX.Element {
     props.topic,
     props.cmpPlace,
     props.dc,
-    props.exploreMore
+    props.exploreMore,
+    props.nlFulfillment
   );
   return (
     <div className="related-places">
