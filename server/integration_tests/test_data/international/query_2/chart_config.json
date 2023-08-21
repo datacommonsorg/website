@@ -16,7 +16,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Life Expectancy"
           },
           {
             "columns": [
@@ -28,7 +29,11 @@
                     ],
                     "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
