@@ -256,6 +256,7 @@ function renderTiles(
             place={place}
             showExploreMore={props.showExploreMore}
             sort={convertToSortType(tile.barTileSpec?.sort)}
+            showTooltipOnHover={true}
             stacked={tile.barTileSpec?.stacked}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
