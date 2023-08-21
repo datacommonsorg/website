@@ -32,7 +32,7 @@
                 ]
               }
             ],
-            "title": "Fertility Rate"
+            "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey"
           },
           {
             "columns": [
@@ -91,7 +91,7 @@
                 ]
               }
             ],
-            "title": "Count of Birth Event (Per Capita)"
+            "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey"
           },
           {
             "columns": [
@@ -186,7 +186,7 @@
                 ]
               }
             ],
-            "title": "Rate of Population Growth"
+            "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
           },
           {
             "columns": [
