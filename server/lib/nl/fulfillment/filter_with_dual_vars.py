@@ -143,7 +143,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     first = 'Bottom' if show_lowest else 'Top'
     last = f'{_MAX_PLACES_TO_RETURN} of {len(ranked_children)}'
     chart_vars.title_suffix = first + ' ' + last
-  chart_vars.include_percapita = False
 
   found = False
   for sv in selected_svs:

@@ -1,4 +1,4 @@
-[
+{"map": [
   {
     "header": "Max Temperature Relative to 2006 (RCP 4.5)",
     "preposition": "for",
@@ -32,4 +32,4 @@
       "url": "#%26sv%3DCount_Person_MainWorker_AgriculturalLabourers%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
     }]
   }
-]
+]}

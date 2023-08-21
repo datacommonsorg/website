@@ -12,18 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 from typing import Dict, List
 
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
-from server.lib.nl.common.utterance import ChartSpec
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -91,47 +92,28 @@ def get_session_info(context_history: List[Dict], has_data: bool) -> Dict:
 
 #
 # Base helper to add a chart spec to an utterance.
-# TODO: Deprecate `attrs` by just using ChartVars.  Maybe rename it to ChartAttrs.
 #
 def add_chart_to_utterance(
     chart_type: ChartType,
     state: PopulateState,
     chart_vars: ChartVars,
     places: List[Place],
-    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART
-) -> bool:
+    primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
+    ranking_count: int = 0) -> bool:
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
     place_type = place_type.value
-
-  attr = {
-      "class": primary_vs_secondary,
-      "place_type": place_type,
-      "ranking_types": state.ranking_types,
-      "block_id": chart_vars.block_id,
-      "include_percapita": chart_vars.include_percapita,
-      "title": chart_vars.title,
-      "description": chart_vars.description,
-      "chart_type": chart_vars.response_type,
-      "source_topic": chart_vars.source_topic
-  }
-  if chart_vars.skip_map_for_ranking:
-    attr['skip_map_for_ranking'] = True
-  if chart_vars.growth_direction != None:
-    attr['growth_direction'] = chart_vars.growth_direction
-  if chart_vars.growth_ranking_type != None:
-    attr['growth_ranking_type'] = chart_vars.growth_ranking_type
-  if chart_vars.title_suffix:
-    attr['title_suffix'] = chart_vars.title_suffix
-  if chart_vars.orig_sv:
-    attr['orig_sv'] = chart_vars.orig_sv
+  # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
                  svs=chart_vars.svs,
                  event=chart_vars.event,
                  places=places,
-                 utterance=state.uttr,
-                 attr=attr)
+                 chart_vars=copy.deepcopy(chart_vars),
+                 place_type=place_type,
+                 ranking_types=state.ranking_types,
+                 ranking_count=ranking_count,
+                 chart_origin=primary_vs_secondary)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True

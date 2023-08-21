@@ -30,8 +30,11 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 # classification in the current utterance.  For example, [counties with most rainfall],
 # assuming california is in the context.
 #
-def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState,
+             chart_vars: ChartVars,
+             places: List[Place],
+             chart_origin: ChartOriginType,
+             ranking_count: int = 0) -> bool:
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
     state.uttr.counters.err('ranking-across-places_failed_cb_norankingtypes', 1)
@@ -51,7 +54,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
 
   if chart_vars.event:
-    chart_vars.response_type = "event chart"
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)
   else:
@@ -61,9 +63,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       return False
     chart_vars.svs = exist_svs
 
-    chart_vars.response_type = "ranking table"
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True
-    chart_vars.include_percapita = True
-    return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
-                                  places, chart_origin)
+    return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
+                                  state,
+                                  chart_vars,
+                                  places,
+                                  chart_origin,
+                                  ranking_count=ranking_count)
