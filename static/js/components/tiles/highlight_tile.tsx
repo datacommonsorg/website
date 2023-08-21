@@ -29,9 +29,9 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
 import { formatDate } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   formatString,
   getSourcesJsx,
+  ReplacementStrings,
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
