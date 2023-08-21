@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from enum import Enum
 from enum import IntEnum
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from shared.lib import detected_variables as dvars
 
@@ -302,6 +302,22 @@ class QuantityClassificationAttributes(ClassificationAttributes):
     return f'({self.qrange} idx:{self.idx})'
 
 
+@dataclass
+class Date:
+  """Represents a range of two numeric quantities."""
+  prep: str
+  year: int
+  month: Optional[int] = 0
+
+  def __str__(self):
+    return f'{self.year} - {self.month}'
+
+
+@dataclass
+class DateClassificationAttributes(ClassificationAttributes):
+  dates: List[Date]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -314,6 +330,7 @@ class ClassificationType(IntEnum):
   EVENT = 9
   OVERVIEW = 10
   SIZE_TYPE = 11
+  DATE = 12
   UNKNOWN = 13
 
 
