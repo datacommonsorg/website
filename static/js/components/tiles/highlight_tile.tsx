@@ -196,7 +196,6 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {
-      console.log("resp.data=", resp.data);
       const statData = resp.data.data;
       const mainStatData = statData[mainStatVar][props.place.dcid];
       let value = mainStatData.value;
