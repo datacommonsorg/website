@@ -62,7 +62,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             chart_vars.svs)
     return False
 
-  # TODO: Use ranking chart.
   # Ranking among peer group of SVs.
   eres = ext.svs4place(state, places[0], chart_vars.svs)
   if not eres.exist_svs:
