@@ -9,17 +9,50 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome"
+                      "Count_Person_Unemployed"
                     ],
-                    "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
+                    "title": "Population: Unemployed in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Unemployed in Washington",
+                    "statVarKey": [
+                      "Count_Person_Unemployed"
+                    ],
+                    "title": "Population: Unemployed in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_NoIncome_pc"
+                      "UnemploymentRate_Person"
                     ],
-                    "title": "Per Capita Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
+                    "title": "Unemployment Rate in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate in Washington",
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in Washington",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -31,39 +64,143 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/dyhxtqe2pxhl5"
+                      "Count_Person_15OrMoreYears_NoIncome"
                     ],
-                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "dc/dyhxtqe2pxhl5_pc"
-                    ],
-                    "title": "Per Capita Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DidNotWork"
+                    ],
+                    "title": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "statVarKey": [
+                      "Count_Person_DidNotWork"
+                    ],
+                    "title": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "statVarKey": [
+                      "Count_Person_Male_DidNotWork"
+                    ],
+                    "title": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/dyhxtqe2pxhl5"
+                    ],
+                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0 in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, Worker 0 in Washington",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0 in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {
+          "Count_Household_FamilyHousehold_With0Worker": {
+            "name": "Count of Household: Family Household, Worker 0",
+            "statVar": "Count_Household_FamilyHousehold_With0Worker"
+          },
           "Count_Person_15OrMoreYears_NoIncome": {
             "name": "Population of Working Age With No Income",
             "statVar": "Count_Person_15OrMoreYears_NoIncome"
           },
-          "Count_Person_15OrMoreYears_NoIncome_pc": {
-            "denom": "Count_Person",
-            "name": "Population of Working Age With No Income",
-            "statVar": "Count_Person_15OrMoreYears_NoIncome"
+          "Count_Person_DidNotWork": {
+            "name": "Population: 16 - 64 Years, Did Not Work",
+            "statVar": "Count_Person_DidNotWork"
+          },
+          "Count_Person_Male_DidNotWork": {
+            "name": "Population: 16 - 64 Years, Male, Did Not Work",
+            "statVar": "Count_Person_Male_DidNotWork"
+          },
+          "Count_Person_Unemployed": {
+            "name": "Population: Unemployed",
+            "statVar": "Count_Person_Unemployed"
+          },
+          "UnemploymentRate_Person": {
+            "name": "Unemployment Rate",
+            "statVar": "UnemploymentRate_Person"
           },
           "dc/dyhxtqe2pxhl5": {
-            "name": "Population: No Income, Foreign Born",
-            "statVar": "dc/dyhxtqe2pxhl5"
-          },
-          "dc/dyhxtqe2pxhl5_pc": {
-            "denom": "Count_Person",
             "name": "Population: No Income, Foreign Born",
             "statVar": "dc/dyhxtqe2pxhl5"
           }
@@ -77,89 +214,6 @@
       "placeDcid": [
         "geoId/53"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {
-        "items": [
-          {
-            "displayName": "City in District of Columbia",
-            "nlQuery": "how many people are unemployed in zip codes of Washington District of Columbia?"
-          },
-          {
-            "displayName": "City in Utah",
-            "nlQuery": "how many people are unemployed in zip codes of Washington Utah?"
-          },
-          {
-            "displayName": "City in Illinois",
-            "nlQuery": "how many people are unemployed in zip codes of Washington Illinois?"
-          },
-          {
-            "displayName": "City in Missouri",
-            "nlQuery": "how many people are unemployed in zip codes of Washington Missouri?"
-          },
-          {
-            "displayName": "City in Pennsylvania",
-            "nlQuery": "how many people are unemployed in zip codes of Washington Pennsylvania?"
-          }
-        ]
-      },
-      "NL_RELATED_PLACE": {
-        "items": [
-          {
-            "displayName": "Alabama",
-            "nlQuery": "how many people are unemployed in zip codes of Alabama?"
-          },
-          {
-            "displayName": "Alaska",
-            "nlQuery": "how many people are unemployed in zip codes of Alaska?"
-          },
-          {
-            "displayName": "Arizona",
-            "nlQuery": "how many people are unemployed in zip codes of Arizona?"
-          },
-          {
-            "displayName": "Arkansas",
-            "nlQuery": "how many people are unemployed in zip codes of Arkansas?"
-          },
-          {
-            "displayName": "California",
-            "nlQuery": "how many people are unemployed in zip codes of California?"
-          },
-          {
-            "displayName": "Colorado",
-            "nlQuery": "how many people are unemployed in zip codes of Colorado?"
-          },
-          {
-            "displayName": "Connecticut",
-            "nlQuery": "how many people are unemployed in zip codes of Connecticut?"
-          },
-          {
-            "displayName": "Delaware",
-            "nlQuery": "how many people are unemployed in zip codes of Delaware?"
-          },
-          {
-            "displayName": "District of Columbia",
-            "nlQuery": "how many people are unemployed in zip codes of District of Columbia?"
-          },
-          {
-            "displayName": "Florida",
-            "nlQuery": "how many people are unemployed in zip codes of Florida?"
-          }
-        ]
-      },
-      "NL_RELATED_QUERY_TYPE": {
-        "items": [
-          {
-            "displayName": "Show highest",
-            "nlQuery": "how many people are unemployed in zip codes of washington? - show highest"
-          },
-          {
-            "displayName": "Show lowest",
-            "nlQuery": "how many people are unemployed in zip codes of washington? - show lowest"
-          }
-        ]
-      },
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

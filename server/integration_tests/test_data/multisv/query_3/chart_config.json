@@ -25,7 +25,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person"
           }
         ],
         "statVarSpec": {
@@ -40,22 +41,6 @@
       "placeDcid": [
         "geoId/0644000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "White Hispanic Monoracial Population",
-            "nlQuery": "White Hispanic Monoracial Population California"
-          },
-          {
-            "displayName": "Count of Household: Hispanic or Latino",
-            "nlQuery": "Count of Household: Hispanic or Latino California"
-          }
-        ]
-      }
     }
   },
   "context": {},

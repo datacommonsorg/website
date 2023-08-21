@@ -15,55 +15,20 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import FulfillmentResult
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts_for_places
-from server.lib.nl.fulfillment.context import most_recent_places_from_context
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
-def populate(uttr: Utterance) -> bool:
-  # NOTE: The COMPARISON attribute has no additional parameters.  So start
-  # by directly inferring the list of places to compare.
-  state = PopulateState(uttr=uttr, main_cb=_populate_cb)
-  is_partial = False
-  places_to_compare = []
-  # Extend so we don't point to state.uttr.places and modify in-place.
-  places_to_compare.extend(state.uttr.places)
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
+  dcids = [p.dcid for p in state.uttr.places]
+  state.uttr.counters.info('comparison_place_candidates', dcids)
 
-  # If the current query has >1 place, we're good.  Otherwise look
-  # in context...
-  if len(places_to_compare) <= 1:
-    is_partial = True
-    for p in most_recent_places_from_context(uttr):
-      # Avoid adding duplicates
-      if not state.uttr.places or p.dcid != state.uttr.places[0].dcid:
-        places_to_compare.append(p)
-
-  dcids = [p.dcid for p in places_to_compare]
-  uttr.counters.info('comparison_place_candidates', dcids)
-  if len(places_to_compare) > 1:
-    # No fallback when doing multiple places.
-    if populate_charts_for_places(state,
-                                  places_to_compare,
-                                  disable_fallback=True):
-      if is_partial:
-        state.uttr.place_source = FulfillmentResult.PARTIAL_PAST_QUERY
-      return True
-    else:
-      uttr.counters.err('comparison_failed_populate_places', dcids)
-  else:
-    uttr.counters.err('comparison_failed_to_find_multiple_places', 1)
-  return False
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for comparison')
   if len(places) < 2:
     state.uttr.counters.err('comparison_failed_cb_toofewplaces', 1)
@@ -71,8 +36,25 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   if chart_vars.event:
     state.uttr.counters.err('comparison_failed_cb_events', 1)
     return False
-  chart_vars.response_type = "comparison chart"
-  chart_vars.include_percapita = True
+
+  if len(chart_vars.svs) == 1:
+    sv = chart_vars.svs[0]
+    exist_places = [
+        p for p in places if ext.svs4place(state, p, [sv]).exist_svs
+    ]
+    # Main existence check
+    if len(exist_places) <= 1:
+      return False
+    places = exist_places
+  else:
+    exist_svs = []
+    for sv in chart_vars.svs:
+      if all([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places]):
+        exist_svs.append(sv)
+    if not exist_svs:
+      return False
+    chart_vars.svs = exist_svs
+
   add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                          chart_origin)
   return True

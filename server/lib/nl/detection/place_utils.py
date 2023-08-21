@@ -21,17 +21,13 @@ import server.lib.fetch as fetch
 from server.lib.nl.detection.types import Place
 
 # Have enough to account for existence checks.
-MAX_SIMILAR_PLACES = 10
+MAX_SIMILAR_PLACES = 50
 
 
 #
 # Given a place get related places.
 #
-# TODO: change this to return List[Place] after
-# https://api.datacommons.org/v1/bulk/property/values/out?property=member&nodes=PlacePagesComparisonCountyCohort
-# includes names.
-#
-def get_similar(pl: Place) -> List[str]:
+def get_similar(pl: Place) -> List[Place]:
   cohort = _cohort(pl)
   if not cohort:
     return []
@@ -40,17 +36,16 @@ def get_similar(pl: Place) -> List[str]:
   res = fetch.raw_property_values([cohort], 'member')
   members = []
   for m in res.get(cohort, []):
-    if 'dcid' not in m:
+    if 'dcid' not in m or m['dcid'] == pl.dcid:
       continue
-    members.append(m['dcid'])
+    members.append(
+        Place(dcid=m['dcid'],
+              name=m.get('name', ''),
+              place_type=m.get('types', [pl.place_type])[0]))
   if not members:
     return []
 
-  # Randomize order.
-  if is_test_env():
-    members.sort()
-  else:
-    random.shuffle(members)
+  members.sort(key=lambda x: x.name)
   return members[:MAX_SIMILAR_PLACES]
 
 

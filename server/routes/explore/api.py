@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
+import copy
 import json
 import logging
 import os
@@ -25,15 +26,17 @@ from flask import current_app
 from flask import request
 from google.protobuf.json_format import MessageToJson
 
-import server.lib.explore.detector as insight_detector
 import server.lib.explore.fulfiller as fulfillment
+import server.lib.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
+from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
-import server.lib.nl.config_builder.builder as config_builder
+import server.lib.nl.config_builder.base as config_builder
+import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
@@ -56,7 +59,11 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  data_dict = insight_detector.detect_with_context(utterance)
+  context.merge_with_context(utterance, is_explore=True)
+
+  data_dict = copy.deepcopy(utterance.insight_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = serialize.save_utterance(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
@@ -98,6 +105,7 @@ def fulfill():
   cmp_vars = req_json.get(Params.CMP_VARS.value, [])
   child_type = req_json.get(Params.CHILD_TYPE.value, '')
   session_id = req_json.get(Params.SESSION_ID.value, '')
+  classifications = req_json.get(Params.CLASSIFICATIONS.value, [])
 
   dc_name = req_json.get(Params.DC.value)
   if not dc_name:
@@ -120,6 +128,7 @@ def fulfill():
   start = time.time()
   query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
                                                      cmp_entities, cmp_vars,
+                                                     classifications,
                                                      debug_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
@@ -151,7 +160,10 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  fresp = fulfillment.fulfill(utterance, cb_config)
+  if utterance.insight_ctx.get(Params.ENABLE_NL_FULFILLMENT.value):
+    fresp = nl_fulfillment.fulfill(utterance, cb_config)
+  else:
+    fresp = fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
   if fresp.chart_pb:
     # Use the first chart's place as main place.
@@ -167,7 +179,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
-  context_history = nl_utterance.save_utterance(utterance)
+  context_history = serialize.save_utterance(utterance)
 
   data_dict = {
       'place': {

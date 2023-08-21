@@ -15,6 +15,18 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Obesity in California",
+                    "statVarKey": [
+                      "Percent_Person_Obesity"
+                    ],
+                    "title": "Prevalence of Obesity in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
             ]
           },
@@ -28,6 +40,18 @@
                     ],
                     "title": "Physical Health Issues in California",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Physical Health Issues in California",
+                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood"
+                    ],
+                    "title": "Physical Health Issues in California",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -192,11 +216,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

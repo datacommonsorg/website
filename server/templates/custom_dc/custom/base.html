@@ -45,6 +45,10 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script>
+    globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
+    globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
+  </script>
 </head>
 
 <body>
@@ -103,7 +107,6 @@
 
     <footer id="main-footer">
       <div class="container">
-        <h2>Footer goes here</h2>
       </div>
     </footer>
   </div>

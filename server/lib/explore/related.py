@@ -16,6 +16,7 @@
 import time
 from typing import Dict, List
 
+from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
@@ -33,6 +34,7 @@ def compute_related_things(state: ftypes.PopulateState,
   related_things = {
       'parentPlaces': [],
       'childPlaces': {},
+      'peerPlaces': [],
       'parentTopics': [],
       'peerTopics': [],
       'childTopics': [],
@@ -47,8 +49,10 @@ def compute_related_things(state: ftypes.PopulateState,
     related_things['childPlaces'] = {
         state.place_type.value: _get_json_places(pd.child_places)
     }
+  if pd.peer_places:
+    related_things['peerPlaces'] = _get_json_places(pd.peer_places)
 
-  dc = state.uttr.insight_ctx[Params.DC.value]
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
 
   # Expand to parent and peer topics.
   # Do this only for one topic, otherwise it gets
@@ -86,9 +90,10 @@ def compute_related_things(state: ftypes.PopulateState,
       if pt:
         # Pick only one parent topic deterministically!
         pt.sort()
-        related_things['peerTopics'] = topic.get_child_topics([pt[0]], dc)
-      if not related_things['peerTopics']:
-        related_things['peerTopics'] = [t]
+        peer_topics = topic.get_child_topics([pt[0]], dc)
+        related_things['peerTopics'] = [
+            p for p in peer_topics if p['dcid'] != t['dcid']
+        ]
 
       # We found a topic, so break!
       break

@@ -78,25 +78,6 @@
                 ]
               }
             ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter",
-                      "Percent_Person_Obesity_scatter"
-                    ],
-                    "title": "Black or African Americans Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -104,12 +85,6 @@
             "denom": "Count_Person",
             "name": "Asians Below Poverty Level Status in Past Year Per Capita",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-            "unit": "%"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_scatter": {
-            "denom": "Count_Person",
-            "name": "Black or African Americans Below Poverty Level Status in Past Year Per Capita",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
             "unit": "%"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
@@ -145,11 +120,6 @@
       "placeDcid": [
         "geoId/06"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

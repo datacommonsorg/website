@@ -17,7 +17,6 @@ import re
 from typing import Dict, List
 
 from server.lib.nl.detection.place_recon import infer_place_dcids
-from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetection
 import server.services.datacommons as dc
@@ -139,13 +138,9 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
                                            debug_logs["place_resolution"])
 
   main_place = None
-  identicals = []
-  similars = []
+  peers = []
   if resolved_places:
     main_place = resolved_places[0]
-    identicals = main2corrections[main_place.dcid]
-    similars = get_similar(main_place)
-    identicals, similars = _get_places_for_listpair(identicals, similars)
 
   # Set PlaceDetection.
   query_without_place_substr = ' '.join(nonplace_query_parts)
@@ -155,8 +150,7 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       query_places_mentioned=places_str,
       places_found=resolved_places,
       main_place=main_place,
-      identical_name_as_main_place=identicals,
-      similar_to_main_place=similars)
+      peer_places=peers)
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
@@ -297,12 +291,9 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   # Update the various place detection and query transformation debug logs dict.
   query_detection_debug_logs["places_found_str"] = d.query_places_mentioned
   query_detection_debug_logs["main_place_inferred"] = d.main_place
-  if d.identical_name_as_main_place:
-    query_detection_debug_logs["disambiguation_places"] = \
-      '; '.join([p.dcid for p in d.identical_name_as_main_place])
-  if d.similar_to_main_place:
+  if d.peer_places:
     query_detection_debug_logs["similar_places"] = \
-      '; '.join([p.name for p in d.similar_to_main_place])
+      '; '.join([p.name for p in d.peer_places])
   if not query_detection_debug_logs["place_dcid_inference"]:
     query_detection_debug_logs[
         "place_dcid_inference"] = "Place DCID Inference did not trigger (no place strings found)."

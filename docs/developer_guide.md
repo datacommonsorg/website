@@ -78,8 +78,8 @@ website and mixer changes.
 
 This will watch static files change and re-build on code edit.
 
-> NOTE: On macOS machines with a M1 chip, run the following command before running the above command. 
-See [this](https://stackoverflow.com/a/71353060) for more details.
+> NOTE: On macOS machines with a M1 chip, run the following command before running the above command.
+> See [this](https://stackoverflow.com/a/71353060) for more details.
 
 ```bash
 brew install pkg-config cairo pango libpng jpeg giflib librsvg
@@ -168,7 +168,7 @@ different cloud enviornment.
 
 ### Obtain API Key
 
-- Get API key for mixer by sending an email to [Data Commons Support](support@datacommons.org).
+- Get API key for mixer by sending an email to `support@datacommons.org`.
 - [Optional] Provision a Google Maps API key from your GCP project. This is
   optional and used for place search in various visualization tools.
 
@@ -224,8 +224,8 @@ Make code changes and build the image:
 
 ```bash
 docker build \
-  --tag datacommons-website/compose \
-  -f build/web_server/Dockerfile \
+  --tag datacommons-website/compose:latest \
+  -f build/web_compose/Dockerfile \
   -t website-compose .
 ```
 

@@ -22,11 +22,13 @@ class Params(str, Enum):
   CHILD_TYPE = 'childEntityType'
   CMP_ENTITIES = 'comparisonEntities'
   CMP_VARS = 'comparisonVariables'
+  CLASSIFICATIONS = 'classifications'
   SESSION_ID = 'sessionId'
   CTX = 'context'
   DC = 'dc'
   EXT_SVGS = 'extensionGroups'
-  EXP_MORE = 'exploreMore'
+  EXP_MORE_DISABLED = 'disableExploreMore'
+  ENABLE_NL_FULFILLMENT = 'nlFulfillment'
 
 
 class DCNames(str, Enum):

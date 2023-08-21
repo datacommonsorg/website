@@ -18,14 +18,15 @@ import datetime
 import logging
 import random
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utterance as nl_uttr
+from server.lib.nl.detection.types import ClassificationType
 import server.lib.nl.detection.types as types
-import server.lib.nl.fulfillment.context as ctx
+import server.lib.nl.fulfillment.utils as futils
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
@@ -221,13 +222,23 @@ def parent_place_names(dcid: str) -> List[str]:
   return None
 
 
+def trim_classifications(
+    classifications: List[types.NLClassifier],
+    to_trim: Set[types.ClassificationType]) -> List[types.NLClassifier]:
+  ret = []
+  for c in classifications:
+    if c.type not in to_trim:
+      ret.append(c)
+  return ret
+
+
 def get_contained_in_type(
     uttr_or_classifications: Any) -> types.ContainedInPlaceType:
   if isinstance(uttr_or_classifications, nl_uttr.Utterance):
-    classification = ctx.classifications_of_type_from_utterance(
+    classification = futils.classifications_of_type_from_utterance(
         uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
   else:
-    classification = ctx.classifications_of_type(
+    classification = futils.classifications_of_type(
         uttr_or_classifications, types.ClassificationType.CONTAINED_IN)
   place_type = None
   if (classification and isinstance(classification[0].attributes,
@@ -238,7 +249,7 @@ def get_contained_in_type(
 
 
 def get_size_types(uttr: nl_uttr.Utterance) -> List[types.SizeType]:
-  classification = ctx.classifications_of_type_from_utterance(
+  classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.SIZE_TYPE)
   size_types = []
   if (classification and isinstance(classification[0].attributes,
@@ -249,7 +260,7 @@ def get_size_types(uttr: nl_uttr.Utterance) -> List[types.SizeType]:
 
 
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
-  classification = ctx.classifications_of_type_from_utterance(
+  classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.RANKING)
   ranking_types = []
   if (classification and isinstance(classification[0].attributes,
@@ -261,7 +272,7 @@ def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
 
 def get_quantity(
     uttr: nl_uttr.Utterance) -> types.QuantityClassificationAttributes:
-  classification = ctx.classifications_of_type_from_utterance(
+  classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.QUANTITY)
   if (classification and isinstance(classification[0].attributes,
                                     types.QuantityClassificationAttributes)):
@@ -270,7 +281,7 @@ def get_quantity(
 
 
 def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
-  classification = ctx.classifications_of_type_from_utterance(
+  classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.TIME_DELTA)
   time_delta = []
   # Get time delta type
@@ -278,6 +289,18 @@ def get_time_delta_types(uttr: nl_uttr.Utterance) -> List[types.TimeDeltaType]:
                                     types.TimeDeltaClassificationAttributes)):
     time_delta = classification[0].attributes.time_delta_types
   return time_delta
+
+
+def get_event_types(uttr: nl_uttr.Utterance) -> List[types.EventType]:
+  classification = futils.classifications_of_type_from_utterance(
+      uttr, types.ClassificationType.EVENT)
+  event_types = []
+  # Get time delta type
+  if (classification and isinstance(classification[0].attributes,
+                                    types.EventClassificationAttributes) and
+      not classification[0].attributes.event_types):
+    event_types = classification[0].attributes.event_types
+  return event_types
 
 
 def pluralize_place_type(place_type: str) -> str:
@@ -440,3 +463,16 @@ def to_dict(data):
     return data
   else:
     return data
+
+
+def get_comparison_or_correlation(
+    uttr: nl_uttr.Utterance) -> ClassificationType:
+  for cl in uttr.classifications:
+    if cl.type in [
+        ClassificationType.COMPARISON, ClassificationType.CORRELATION
+    ]:
+      return cl.type
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
+  return None
