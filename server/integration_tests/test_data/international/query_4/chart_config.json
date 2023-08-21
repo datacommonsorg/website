@@ -17,7 +17,11 @@
                     ],
                     "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "FertilityRate_Person_Female"
@@ -55,7 +59,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Count of Birth Event: Live Birth (Per Capita)"
           },
           {
             "columns": [
@@ -71,7 +76,11 @@
                     ],
                     "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
@@ -99,7 +108,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Prematurity And Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
@@ -116,7 +126,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
@@ -143,7 +154,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Female Infant Mortality Rate"
           },
           {
             "columns": [
@@ -159,7 +171,11 @@
                     ],
                     "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "GrowthRate_Count_Person"
@@ -198,7 +214,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Number Of Maternal Deaths"
           },
           {
             "columns": [
@@ -225,7 +242,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Maternal mortality ratio"
           }
         ],
         "statVarSpec": {

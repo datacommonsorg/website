@@ -29,7 +29,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Middle School Students"
           },
           {
             "columns": [
@@ -85,7 +86,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Elementary School Students"
           },
           {
             "columns": [
@@ -113,7 +115,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "High School Students"
           },
           {
             "columns": [
@@ -141,7 +144,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population Currently Enrolled in School"
           },
           {
             "columns": [
@@ -169,7 +173,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Primary School, Two or More Races"
           },
           {
             "columns": [
@@ -197,7 +202,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: 11th Grade"
           },
           {
             "columns": [
@@ -225,7 +231,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: 7th And 8th Grade"
           }
         ],
         "statVarSpec": {

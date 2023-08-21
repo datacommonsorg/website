@@ -82,8 +82,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                                   child_type=state.place_type.value,
                                   sv2thing=builder.sv2thing,
                                   ranking_types=rt,
-                                  ranking_count=rc,
-                                  skip_map_for_ranking=True))
+                                  ranking_count=rc))
   return sv_spec
 
 
@@ -144,8 +143,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                                     child_type=state.place_type.value,
                                     sv2thing=builder.sv2thing,
                                     ranking_types=rt,
-                                    ranking_count=rc,
-                                    skip_map_for_ranking=True))
+                                    ranking_count=rc))
 
   return sv_spec
 
