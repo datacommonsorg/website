@@ -21,7 +21,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population Below Poverty Level Status in Past Year and more"
           },
           {
             "columns": [
@@ -41,7 +42,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Women below Poverty Line and more"
           },
           {
             "columns": [
@@ -61,7 +63,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Males in Poverty (in last year) and more"
           },
           {
             "columns": [
@@ -81,7 +84,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Asians Below Poverty Level Status in Past Year and more"
           }
         ],
         "statVarSpec": {

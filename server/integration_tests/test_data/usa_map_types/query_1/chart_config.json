@@ -17,7 +17,11 @@
                     ],
                     "title": "Larceny Theft Cases in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"

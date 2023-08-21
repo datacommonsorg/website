@@ -25,9 +25,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 
 
-def event_chart_block(metadata, block, column, place: Place,
-                      event_type: EventType, ranking_types: List[RankingType],
-                      event_config):
+def event_chart_block(metadata, block, place: Place, event_type: EventType,
+                      ranking_types: List[RankingType], event_config):
 
   # Map EventType to config key.
   event_id = constants.EVENT_TYPE_TO_CONFIG_KEY[event_type]
@@ -52,7 +51,7 @@ def event_chart_block(metadata, block, column, place: Place,
 
   if (RankingType.HIGH in ranking_types or
       RankingType.EXTREME in ranking_types):
-    tile = column.tiles.add()
+    tile = block.columns.add().tiles.add()
     # TODO: Handle top event for earthquakes
     if not _maybe_copy_top_event(event_id, block, tile, event_config):
       tile.type = Tile.TOP_EVENT
@@ -66,7 +65,7 @@ def event_chart_block(metadata, block, column, place: Place,
       tile.title = base.decorate_chart_title(title=tile.title, place=place)
     tile = block.columns.add().tiles.add()
   else:
-    tile = column.tiles.add()
+    tile = block.columns.add().tiles.add()
 
   tile.type = Tile.DISASTER_EVENT_MAP
   tile.disaster_event_map_tile_spec.point_event_type_key.append(event_id)
