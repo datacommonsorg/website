@@ -57,7 +57,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return _populate_chat(state, chart_vars, places, chart_origin)
 
 
-# TODO: Support ranking across vars.
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
                       places: List[Place],
                       chart_origin: ChartOriginType) -> bool:
