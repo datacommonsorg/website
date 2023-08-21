@@ -50,29 +50,24 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
             <div className="option-inputs">
               {inputSection.inputs.map((input, inputIdx) => {
                 return (
-                  <span
+                  <div
                     className="chart-option"
                     key={`section-${sectionIdx}-input-${inputIdx}`}
                   >
-                    <FormGroup check>
-                      <Label check>
-                        <Input
-                          type="checkbox"
-                          checked={input.isChecked}
-                          onChange={() => {
-                            input.onUpdated(!input.isChecked);
-                            if (!input.isChecked && input.gaEventParam) {
-                              triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
-                                [GA_PARAM_TOOL_CHART_OPTION]:
-                                  input.gaEventParam,
-                              });
-                            }
-                          }}
-                        />
-                        {input.label}
-                      </Label>
-                    </FormGroup>
-                  </span>
+                    <Input
+                      type="checkbox"
+                      checked={input.isChecked}
+                      onChange={() => {
+                        input.onUpdated(!input.isChecked);
+                        if (!input.isChecked && input.gaEventParam) {
+                          triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
+                            [GA_PARAM_TOOL_CHART_OPTION]: input.gaEventParam,
+                          });
+                        }
+                      }}
+                    />
+                    <span>{input.label}</span>
+                  </div>
                 );
               })}
             </div>

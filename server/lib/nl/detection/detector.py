@@ -18,6 +18,7 @@ from typing import Dict, List
 from flask import current_app
 from markupsafe import escape
 
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.common.utterance import Utterance
@@ -26,10 +27,12 @@ from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection import place
 from server.lib.nl.detection import types
+from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
+from server.lib.nl.detection.utils import get_multi_sv
 import shared.lib.detected_variables as dutils
 
 _PALM_API_DETECTORS = [
@@ -115,7 +118,8 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 # Constructor a Detection object given DCID inputs.
 #
 def construct(entities: List[str], vars: List[str], child_type: str,
-              cmp_entities: List[str], cmp_vars: List[str], debug_logs: Dict,
+              cmp_entities: List[str], cmp_vars: List[str],
+              in_classifications: List[Dict], debug_logs: Dict,
               counters: Counters) -> types.Detection:
   all_entities = entities + cmp_entities
   parent_map = {p: [] for p in all_entities}
@@ -160,6 +164,16 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                comparison_trigger_words=[]))
     classifications.append(c)
 
+  # Append the classifications we got, but after trimming the ones above.
+  classifications.extend(
+      utils.trim_classifications(
+          serialize.dict_to_classification(in_classifications),
+          set([
+              types.ClassificationType.CONTAINED_IN,
+              types.ClassificationType.COMPARISON,
+              types.ClassificationType.CORRELATION
+          ])))
+
   main_dcid = places[0].dcid
   child_places = []
   if child_type:
@@ -167,12 +181,17 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                               counters)
     child_places = child_places[:MAX_CHILD_LIMIT]
 
+  peer_places = []
+  if not cmp_entities:
+    peer_places = get_similar(places[0])
+
   place_detection = PlaceDetection(query_original=query,
                                    query_without_place_substr=var_query,
                                    query_places_mentioned=all_entities,
                                    places_found=places,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
+                                   peer_places=peer_places,
                                    child_places=child_places)
 
   if not cmp_entities and cmp_vars:
@@ -182,7 +201,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                                          svs=vars,
                                          scores=[0.51] * len(vars),
                                          sv2sentences={}),
-                                     multi_sv=_get_multi_sv(vars, cmp_vars))
+                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
   else:
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
@@ -197,17 +216,3 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                          classifications=classifications,
                          detector=ActualDetectorType.NOP,
                          place_detector=PlaceDetectorType.NOP), None
-
-
-def _get_multi_sv(vars: List[str],
-                  cmp_vars: List[str]) -> dutils.MultiVarCandidates:
-  return dutils.MultiVarCandidates(candidates=[
-      dutils.MultiVarCandidate(parts=[
-          dutils.MultiVarCandidatePart(
-              query_part='var1', svs=vars, scores=[1.0] * len(vars)),
-          dutils.MultiVarCandidatePart(
-              query_part='var2', svs=cmp_vars, scores=[1.0] * len(cmp_vars))
-      ],
-                               aggregate_score=1.0,
-                               delim_based=True)
-  ])

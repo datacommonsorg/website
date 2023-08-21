@@ -16,7 +16,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Life Expectancy"
           },
           {
             "columns": [
@@ -28,7 +29,11 @@
                     ],
                     "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
@@ -65,23 +70,6 @@
       "placeDcid": [
         "country/CHN"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_QUERY_TYPE": {
-        "items": [
-          {
-            "displayName": "Show highest",
-            "nlQuery": "Life expectancy across provinces of China - show highest"
-          },
-          {
-            "displayName": "Show lowest",
-            "nlQuery": "Life expectancy across provinces of China - show lowest"
-          }
-        ]
-      },
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

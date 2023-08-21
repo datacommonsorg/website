@@ -17,10 +17,9 @@ from typing import List
 from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.detection import types
-import server.lib.nl.fulfillment.base as base
-import server.lib.nl.fulfillment.context as ctx
-
-_DEFAULT_EVENT_PLACE = types.Place("country/USA", "USA", "Country")
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
+import server.lib.nl.fulfillment.utils as futils
 
 #
 # Handler for Event queries.
@@ -28,7 +27,7 @@ _DEFAULT_EVENT_PLACE = types.Place("country/USA", "USA", "Country")
 
 
 def populate(uttr: nl_uttr.Utterance) -> bool:
-  event_classification = ctx.classifications_of_type_from_utterance(
+  event_classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.EVENT)
   if (not event_classification or
       not isinstance(event_classification[0].attributes,
@@ -38,7 +37,7 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
     return False
   event_types = event_classification[0].attributes.event_types
 
-  ranking_classification = ctx.classifications_of_type_from_utterance(
+  ranking_classification = futils.classifications_of_type_from_utterance(
       uttr, types.ClassificationType.RANKING)
   ranking_types = []
   if (ranking_classification and
@@ -47,34 +46,22 @@ def populate(uttr: nl_uttr.Utterance) -> bool:
       ranking_classification[0].attributes.ranking_type):
     ranking_types = ranking_classification[0].attributes.ranking_type
 
-  return _populate_event(
-      base.PopulateState(uttr=uttr, main_cb=None, ranking_types=ranking_types),
-      event_types)
+  return _populate_event(PopulateState(uttr=uttr, ranking_types=ranking_types),
+                         event_types)
 
 
-def _populate_event(state: base.PopulateState,
+def _populate_event(state: PopulateState,
                     event_types: List[types.EventType]) -> bool:
   for pl in state.uttr.places:
     if (_populate_event_for_place(state, event_types, pl)):
-      state.uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
       return True
     else:
       state.uttr.counters.err('event_failed_populate_main_place', pl.dcid)
-  if not state.uttr.places:
-    for pl in ctx.places_from_context(state.uttr):
-      # Important to set this for maybe_set_fallback().
-      state.uttr.places = [pl]
-      if (_populate_event_for_place(state, event_types, pl)):
-        state.uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
-        state.uttr.past_source_context = pl.name
-        return True
-      else:
-        state.uttr.counters.err('event_failed_populate_context_place', pl.dcid)
 
   return False
 
 
-def _populate_event_for_place(state: base.PopulateState,
+def _populate_event_for_place(state: PopulateState,
                               event_types: List[types.EventType],
                               place: types.Place) -> bool:
   event_type = event_types[0]
@@ -86,11 +73,7 @@ def _populate_event_for_place(state: base.PopulateState,
     })
     return False
 
-  state.block_id += 1
-  chart_vars = base.ChartVars(svs=[],
-                              event=event_types[0],
-                              block_id=state.block_id,
-                              include_percapita=False)
-  return base.add_chart_to_utterance(base.ChartType.EVENT_CHART, state,
-                                     chart_vars, [place],
-                                     base.ChartOriginType.PRIMARY_CHART)
+  chart_vars = ChartVars(svs=[], event=event_types[0])
+  return futils.add_chart_to_utterance(nl_uttr.ChartType.EVENT_CHART, state,
+                                       chart_vars, [place],
+                                       nl_uttr.ChartOriginType.PRIMARY_CHART)

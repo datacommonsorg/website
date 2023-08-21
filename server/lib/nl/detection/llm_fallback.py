@@ -14,7 +14,6 @@
 """Decide whether to fallback to using LLM."""
 
 from enum import Enum
-import logging
 from typing import List
 
 from server.lib.nl.common import counters
@@ -24,7 +23,7 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
 import server.lib.nl.detection.utils as dutils
-from server.lib.nl.fulfillment import context
+import server.lib.nl.fulfillment.utils as futils
 from shared.lib import constants as sh_constants
 from shared.lib import detected_variables as dvars
 from shared.lib import utils as sh_utils
@@ -67,7 +66,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
         for cl in heuristic.classifications)
 
     # Check if the context had SVs.
-    if not has_sv_classification and not context.has_sv_in_context(prev_uttr):
+    if not has_sv_classification and not futils.has_sv(prev_uttr):
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
@@ -79,7 +78,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     #
     # Also confirm there was no place in the context.
     ptype = utils.get_contained_in_type(heuristic.classifications)
-    if ptype != ContainedInPlaceType.COUNTRY and not context.has_place_in_context(
+    if ptype != ContainedInPlaceType.COUNTRY and not futils.has_place(
         prev_uttr):
       ctr.info('info_fallback_no_place_found', '')
       need_place = True

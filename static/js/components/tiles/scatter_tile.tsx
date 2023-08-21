@@ -151,7 +151,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(scatterChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       {scatterChartData && scatterChartData.errorMsg ? (
         <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
@@ -440,7 +440,10 @@ export function draw(
   );
 }
 
-function getExploreMoreUrl(props: ScatterTilePropType): string {
+function getExploreLink(props: ScatterTilePropType): {
+  displayText: string;
+  url: string;
+} {
   const displayOptions = {
     scatterPlaceLables: props.scatterTileSpec.showPlaceLabels,
     scatterQuadrants: props.scatterTileSpec.showQuadrants,
@@ -452,5 +455,8 @@ function getExploreMoreUrl(props: ScatterTilePropType): string {
     props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
     displayOptions
   );
-  return `${props.apiRoot || ""}${URL_PATH}#${hash}`;
+  return {
+    displayText: "Scatter Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }

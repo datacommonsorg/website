@@ -42,9 +42,7 @@ class PlaceDetection:
   query_places_mentioned: List[str]
   places_found: List[Place]
   main_place: Place
-  # List of places with same name as main place and similar to main place.
-  identical_name_as_main_place: List[Place] = field(default_factory=list)
-  similar_to_main_place: List[Place] = field(default_factory=list)
+  peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
   # This is only of the `child_type` requested.
   child_places: List[Place] = field(default_factory=list)
@@ -213,25 +211,6 @@ class ComparisonClassificationAttributes(ClassificationAttributes):
 class ContainedInClassificationAttributes(ClassificationAttributes):
   """ContainedIn classification attributes."""
   contained_in_place_type: ContainedInPlaceType
-
-
-@dataclass
-class ClusteringClassificationAttributes(ClassificationAttributes):
-  """Clustering-based Correlation classification attributes."""
-  sv_dcid_1: str
-  sv_dcid_2: str
-
-  # If is_using_clusters is True, that means sv_1 is coming from
-  # cluster_1_svs and sv_2 is coming from cluster_2_svs.
-  # Otherwise, the two SVs could have come from the same cluster.
-  is_using_clusters: bool
-
-  # Words that may have implied clustering, e.g.
-  # "correlation between ...", "related to .."
-  correlation_trigger_words: str
-
-  cluster_1_svs: List[str]
-  cluster_2_svs: List[str]
 
 
 @dataclass

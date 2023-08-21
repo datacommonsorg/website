@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
@@ -26,9 +27,76 @@ import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
-import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import { formatDate } from "../../utils/string_utils";
+import {
+  formatString,
+  getSourcesJsx,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
+const NO_SPACE_UNITS = ["%"];
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UnitOverrideConfig: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -43,8 +111,13 @@ export interface HighlightTilePropType {
   statVarSpec: StatVarSpec;
 }
 
+interface HighlightData extends Observation {
+  sources: Set<string>;
+  numFractionDigits?: number;
+}
+
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
-  const [highlightData, setHighlightData] = useState<Observation | undefined>(
+  const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
 
@@ -59,15 +132,21 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   }
   const rs: ReplacementStrings = {
     placeName: props.place.name,
-    date: highlightData.date,
+    date: formatDate(highlightData.date),
   };
   let description = "";
   if (props.description) {
-    description = formatString(props.description, rs);
+    description = formatString(props.description + " (${date})", rs);
   }
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
   // This hack should be cleaned up.
+  const unitString = translateUnit(
+    props.statVarSpec.unit || highlightData.unitDisplayName
+  );
+  const hasUnitSpace =
+    !!unitString &&
+    NO_SPACE_UNITS.filter((unit) => unitString.startsWith(unit)).length === 0;
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -76,22 +155,30 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            {formatNumber(highlightData.value, "", false, NUM_FRACTION_DIGITS)}
-          </span>
-          <span className="metadata">
-            {translateUnit(
-              props.statVarSpec.unit || highlightData.unitDisplayName
+            <span>
+              {formatNumber(
+                highlightData.value,
+                "",
+                false,
+                highlightData.numFractionDigits
+              )}
+            </span>
+            {unitString && (
+              <span className="metadata">
+                {`${hasUnitSpace ? " " : ""}${unitString}`}
+              </span>
             )}
-            {` (${highlightData.date})`}
           </span>
         </>
       )}
       <span className="desc">{description}</span>
+      {!_.isEmpty(highlightData.sources) &&
+        getSourcesJsx(highlightData.sources)}
     </div>
   );
 }
 
-const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
+const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   // Now assume highlight only talks about one stat var.
   const mainStatVar = props.statVarSpec.statVar;
   const denomStatVar = props.statVarSpec.denom;
@@ -119,9 +206,26 @@ const fetchData = (props: HighlightTilePropType): Promise<Observation> => {
       if (props.statVarSpec.scaling) {
         value *= props.statVarSpec.scaling;
       }
-      const result = { value, date: mainStatData.date };
-      if (facet && facet.unitDisplayName) {
-        result["unitDisplayName"] = facet.unitDisplayName;
+      const result = {
+        value,
+        date: mainStatData.date,
+        numFractionDigits: NUM_FRACTION_DIGITS,
+      };
+      if (facet) {
+        if (facet.unit in UnitOverrideConfig) {
+          const override = UnitOverrideConfig[facet.unit];
+          result["unitDisplayName"] = override.unitDisplayName;
+          result.value = result.value * override.multiplier;
+          result["numFractionDigits"] =
+            override.numFractionDigits === undefined
+              ? NUM_FRACTION_DIGITS
+              : override.numFractionDigits;
+        } else if (facet.unitDisplayName) {
+          result["unitDisplayName"] = facet.unitDisplayName;
+        }
+        if (facet.provenanceUrl) {
+          result["sources"] = new Set([facet.provenanceUrl]);
+        }
       }
       return result;
     })

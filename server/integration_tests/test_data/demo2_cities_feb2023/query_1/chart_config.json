@@ -17,7 +17,16 @@
                     ],
                     "title": "Number of Students in Public Schools of Sunnyvale (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Students"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
@@ -28,7 +37,16 @@
                     ],
                     "title": "Number of Teachers in Public Schools of Sunnyvale (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Teachers"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
                   {
                     "rankingTileSpec": {
                       "rankingCount": 10,
@@ -42,7 +60,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Student-Teacher Ratio"
           }
         ],
         "statVarSpec": {
@@ -69,11 +88,6 @@
       "placeDcid": [
         "geoId/0677000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},

@@ -13,31 +13,11 @@
                     ],
                     "title": "Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
-                    ],
-                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
-                    ],
-                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -49,14 +29,22 @@
                     ],
                     "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
                     "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y_GE65"
@@ -77,14 +65,18 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--F"
                     ],
-                    "title": "Female Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Male Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -102,7 +94,11 @@
                     ],
                     "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
@@ -114,29 +110,6 @@
               }
             ],
             "title": "Population below international poverty line in rural vs. urban areas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-                    ],
-                    "title": "Employed Female Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  },
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Employed Male Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed population below international poverty line by gender"
           }
         ],
         "statVarSpec": {
@@ -157,11 +130,11 @@
             "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Female Population Below International Poverty Line",
+            "name": "Women Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Male Population Below International Poverty Line",
+            "name": "Men Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--M"
           },
           "sdg/SI_POV_DAY1.URBANISATION--R": {
@@ -171,26 +144,6 @@
           "sdg/SI_POV_DAY1.URBANISATION--U": {
             "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed Female Population Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed Male Population Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Population Using Basic Drinking Water Services",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Population Using Basic Sanitation Services",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -202,57 +155,6 @@
       "placeDcid": [
         "africa"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_QUERY_TYPE": {
-        "items": [
-          {
-            "displayName": "Show highest",
-            "nlQuery": "tell me about poverty in africa - show highest"
-          },
-          {
-            "displayName": "Show lowest",
-            "nlQuery": "tell me about poverty in africa - show lowest"
-          }
-        ]
-      },
-      "NL_RELATED_VAR": {
-        "items": [
-          {
-            "displayName": "Population Above Poverty Level Status in Past Year",
-            "nlQuery": "Population Above Poverty Level Status in Past Year Africa"
-          },
-          {
-            "displayName": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "nlQuery": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line Africa"
-          },
-          {
-            "displayName": "Family Households Below the Poverty Level in the Past Year",
-            "nlQuery": "Family Households Below the Poverty Level in the Past Year Africa"
-          },
-          {
-            "displayName": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months Africa"
-          },
-          {
-            "displayName": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months Africa"
-          },
-          {
-            "displayName": "Population With Poverty Status Determined",
-            "nlQuery": "Population With Poverty Status Determined Africa"
-          },
-          {
-            "displayName": "Household Median Income",
-            "nlQuery": "Household Median Income Africa"
-          },
-          {
-            "displayName": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
-            "nlQuery": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months Africa"
-          }
-        ]
-      }
     }
   },
   "context": {},

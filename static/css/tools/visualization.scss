@@ -60,7 +60,7 @@ $selector-footer-height: 40px;
   width: fit-content;
   padding: 10px 24px 10px 24px;
   border-radius: 100px;
-  background-color: #0B57D0;
+  background-color: var(--gm-3-sys-light-primary);
   color: white;
   font-weight: 500;
   cursor: pointer;
@@ -102,13 +102,13 @@ $selector-footer-height: 40px;
 }
 
 .vis-type-option:hover {
-  color: #0B57D0;
-  border-bottom: 3px solid #0B57D0;
+  color: var(--gm-3-sys-light-primary);
+  border-bottom: 3px solid var(--gm-3-sys-light-primary);
 }
 
 .vis-type-option.selected {
-  color: #0B57D0;
-  border-bottom: 3px solid #0B57D0;
+  color: var(--gm-3-sys-light-primary);
+  border-bottom: 3px solid var(--gm-3-sys-light-primary);
 }
 
 /* Selected options section */
@@ -481,6 +481,11 @@ $selector-footer-height: 40px;
       background-color: white;
       margin: 1rem 0;
       width: 100%;
+
+      #chart-container-footer {
+        border-top: none;
+        padding-top: 0;
+      }
     }
 
     .timeline-chip-section {
@@ -496,7 +501,7 @@ $selector-footer-height: 40px;
     .chart-footer-options {
       background-color: white;
       border-top: 0.5px solid #dee2e6;
-      padding: 1rem;
+      padding: 16px 24px;
       font-size: 14px;
       display: flex;
       flex-direction: column;
@@ -514,6 +519,14 @@ $selector-footer-height: 40px;
 
       .chart-option {
         width: 125px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .form-check-input {
+          position: relative;
+          margin: 0;
+        }
       }
     }
   }
@@ -568,6 +581,12 @@ $selector-footer-height: 40px;
 #draw-tooltip {
   max-height: 60%;
   max-width: 60%;
+}
+
+.chart.timeline {
+  .chart-content {
+    padding-top: 0;
+  }
 }
 
 /* Info pane */

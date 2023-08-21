@@ -16,16 +16,12 @@ import logging
 from typing import List
 
 from server.lib.nl.common import rank_utils
-from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 # TODO: Support per-capita
 # TODO: Increase this after frontend handles comparedPlaces better.
@@ -35,23 +31,8 @@ _MAX_PLACES_TO_RETURN = 7
 #
 # Computes ranked list of places after applying the filter
 #
-def populate(uttr: Utterance):
-  quantity = utils.get_quantity(uttr)
-  if not quantity:
-    uttr.counters.err('filter-with-single-var_missingquantity', 1)
-    return False
-  place_type = utils.get_contained_in_type(uttr)
-  if not place_type:
-    place_type = ContainedInPlaceType.DEFAULT_TYPE
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    quantity=quantity))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType) -> bool:
   logging.info('populate_cb for filter_with_single_var')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-single-var_failed_cb_events', 1)
@@ -99,7 +80,6 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     last = f'{_MAX_PLACES_TO_RETURN} of {len(ranked_children)}'
     chart_vars.title_suffix = first + ' ' + last
 
-  chart_vars.include_percapita = False
   found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
                                   shortlist, chart_origin)
 

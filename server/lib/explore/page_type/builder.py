@@ -20,17 +20,16 @@ from server.lib.explore.params import is_sdg
 from server.lib.nl.common import utils
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
-import server.lib.nl.fulfillment.context as ctx
 import server.lib.nl.fulfillment.types as ftypes
+import server.lib.nl.fulfillment.utils as futils
 
 # Helper class to build chart config for Explore page.
 
 
 class Builder:
 
-  def __init__(self, state: ftypes.PopulateState, env_config: builder.Config,
+  def __init__(self, state: ftypes.PopulateState, env_config: base.Config,
                sv2thing: base.SV2Thing, num_chart_vars: int):
     self.uttr = state.uttr
     self.page_config = SubjectPageConfig()
@@ -39,12 +38,12 @@ class Builder:
     self.num_chart_vars = num_chart_vars
 
     self.is_place_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.COMPARISON):
       self.is_place_comparison = True
 
     self.is_var_comparison = False
-    if ctx.classifications_of_type_from_utterance(
+    if futils.classifications_of_type_from_utterance(
         state.uttr, dtypes.ClassificationType.CORRELATION):
       self.is_var_comparison = True
 
@@ -115,36 +114,7 @@ class Builder:
   # 3. Finally, if there is a singleton block in a category and both
   #    the block and category have names, drop the block name.
   def cleanup_config(self):
-    # From inside to out, delete duplicate charts and cleanup
-    # any empties.
-    chart_keys = set()
-    out_cats = []
-    for cat in self.page_config.categories:
-      out_blks = []
-      for blk in cat.blocks:
-        out_cols = []
-        for col in blk.columns:
-          out_tiles = []
-          for tile in col.tiles:
-            x = tile.SerializeToString()
-            if x not in chart_keys:
-              out_tiles.append(tile)
-            chart_keys.add(x)
-          del col.tiles[:]
-          if out_tiles:
-            col.tiles.extend(out_tiles)
-            out_cols.append(col)
-        del blk.columns[:]
-        if out_cols:
-          blk.columns.extend(out_cols)
-          out_blks.append(blk)
-      del cat.blocks[:]
-      if out_blks:
-        cat.blocks.extend(out_blks)
-        out_cats.append(cat)
-    del self.page_config.categories[:]
-    if out_cats:
-      self.page_config.categories.extend(out_cats)
+    base.trim_config(self.page_config)
 
     # Nothing more to do (like resetting title) if SDG.
     if is_sdg(self.uttr.insight_ctx):

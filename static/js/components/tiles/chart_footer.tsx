@@ -21,80 +21,50 @@
 import _ from "lodash";
 import React from "react";
 
-import { NL_SOURCE_REPLACEMENTS } from "../../constants/app/nl_interface_constants";
-import { urlToDomain } from "../../shared/util";
-import { isNlInterface } from "../../utils/nl_interface_utils";
-
 interface ChartFooterPropType {
-  // set of full urls of sources of the data in the chart
-  sources: Set<string>;
   handleEmbed?: () => void;
-  // Url for the explore more button. Only show explore more button if this url
-  // is non-empty.
-  exploreMoreUrl?: string;
-}
-
-/**
- * Gets the JSX element for displaying a list of sources.
- */
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  if (!sources) {
-    return null;
-  }
-
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    // HACK for updating source for NL interface
-    let processedSource = source;
-    if (isNlInterface()) {
-      processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
-    }
-    const domain = urlToDomain(processedSource);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={processedSource}>
-        {index > 0 ? ", " : ""}
-        <a href={processedSource}>{domain}</a>
-        {globalThis.viaGoogle ? " via Google" : ""}
-      </span>
-    );
-  });
-  return sourcesJsx;
+  // Link to explore more. Only show explore button if this object is non-empty.
+  exploreLink?: { displayText: string; url: string };
+  children?: React.ReactNode;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
+  if (!props.handleEmbed && !props.exploreLink) {
+    return null;
+  }
   return (
     <footer id="chart-container-footer">
-      <slot name="footer">
-        {!_.isEmpty(props.sources) && (
-          <div className="sources">From {getSourcesJsx(props.sources)}.</div>
-        )}
-      </slot>
-      <div className="outlinks">
-        {props.handleEmbed && (
-          <a
-            href="#"
-            onClick={(event) => {
-              event.preventDefault();
-              props.handleEmbed();
-            }}
-          >
-            Export
-          </a>
-        )}
-        {props.exploreMoreUrl && (
-          <a
-            href={props.exploreMoreUrl}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Explore More ›
-          </a>
-        )}
+      <slot name="footer" {...{ part: "footer" }}></slot>
+      <div className="main-footer-section">
+        <div className="outlinks">
+          {props.handleEmbed && (
+            <div className="outlink-item">
+              <span className="material-icons-outlined">download</span>
+              <a
+                href="#"
+                onClick={(event) => {
+                  event.preventDefault();
+                  props.handleEmbed();
+                }}
+              >
+                Download
+              </a>
+            </div>
+          )}
+          {props.exploreLink && (
+            <div className="outlink-item">
+              <span className="material-icons-outlined">timeline</span>
+              <a
+                href={props.exploreLink.url}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Explore in {props.exploreLink.displayText}
+              </a>
+            </div>
+          )}
+        </div>
+        {props.children}
       </div>
     </footer>
   );

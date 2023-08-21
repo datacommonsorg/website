@@ -170,7 +170,7 @@ const Home = () => {
               <div className="icon">
                 <FileSearchOutlined />
               </div>
-              <div className="title">Natural Language Search</div>
+              <div className="title">Search</div>
               <div className="body">
                 Search all SDG goals, topics, and indicators world-wide using
                 Data Commons' knowledge graph.

@@ -25,11 +25,13 @@ from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
 from server.lib.nl.common import bad_words
+from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
+import server.lib.nl.config_builder.base as builder_base
 import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.detector as detector
@@ -38,8 +40,8 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
-import server.lib.nl.fulfillment.context as context
 import server.lib.nl.fulfillment.fulfiller as fulfillment
+import server.lib.nl.fulfillment.utils as futils
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
 import server.services.bigtable as bt
@@ -107,7 +109,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   debug_logs["original_query"] = query
 
   # Generate new utterance.
-  prev_utterance = nl_utterance.load_utterance(context_history)
+  prev_utterance = serialize.load_utterance(context_history)
   if prev_utterance:
     session_id = prev_utterance.session_id
   else:
@@ -143,14 +145,14 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   else:
     logging.info('Unable to load event configs!')
 
-  cb_config = config_builder.Config(
+  cb_config = builder_base.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
       nopc_vars=current_app.config['NOPC_VARS'],
       sdg_percent_vars=set())
 
   start = time.time()
-  utterance = fulfillment.fulfill(utterance)
+  utterance = fulfillment.fulfill(utterance, explore_mode=False)
   utterance.counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
@@ -173,7 +175,7 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
-  context_history = nl_utterance.save_utterance(utterance)
+  context_history = serialize.save_utterance(utterance)
 
   data_dict = {
       'place': {
@@ -215,7 +217,7 @@ def prepare_response(data_dict: Dict, status_str: str, detection: Detection,
   if current_app.config['LOG_QUERY']:
     # Asynchronously log as bigtable write takes O(100ms)
     loop = asyncio.new_event_loop()
-    session_info = context.get_session_info(data_dict['context'], has_data)
+    session_info = futils.get_session_info(data_dict['context'], has_data)
     data_dict['session'] = session_info
     loop.run_until_complete(bt.write_row(session_info, data_dict, dbg_counters))
 

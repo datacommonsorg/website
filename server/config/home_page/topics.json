@@ -2,49 +2,55 @@
   {
     "id": "economics",
     "title": "Economics",
-    "description": "Discover the intricate interplay between economic forces and societal well-being.",
+    "description": "Business, Economic Activity, Employment, Income, Poverty, and Agriculture",
     "url": "/nl#topic=economics",
     "browseUrl": "/explore/economics",
-    "icon": "area_chart"
+    "icon": "area_chart",
+    "image": "/images/topic-economics.svg"
   },
   {
     "id": "demographics",
     "title": "Demographics",
-    "description": "Uncover the fascinating story of human populations and their dynamics.",
+    "description": "Age, Gender, Race, Population by race, Language Spoken at Home, Marital Status, Nationality",
     "url": "/nl#topic=demographics",
     "browseUrl": "/explore/demographics",
-    "icon": "family_restroom"
+    "icon": "family_restroom",
+    "image": "/images/topic-demographics.svg"
   },
   {
     "id": "health",
     "title": "Health",
-    "description": "Dive into the realm of human well-being and explore the profound impact of health on individuals, communities, and global societies.",
+    "description": "Explore Health Conditions, Health Equity, Health Insurance, Mortality, Preventive Health and Behavior",
     "url": "/nl#topic=health",
     "browseUrl": "/explore/health",
-    "icon": "area_chart"
+    "icon": "area_chart",
+    "image": "/images/topic-health.svg"
   },
   {
     "id": "sustainability",
     "title": "Sustainability",
-    "description": "Embark on a journey towards a sustainable future.",
+    "description": "Explore Emissions, Natural Disasters, Temperature, Precipitation, Agriculture, Energy, and more",
     "url": "/nl#topic=sustainability",
     "browseUrl": "/explore/sustainability",
-    "icon": "eco"
+    "icon": "eco",
+    "image": "/images/topic-sustainability.svg"
   },
   {
     "id": "education-housing-commute",
     "title": "Education, Housing, and Commute",
-    "description": "Uncover the transformative power of education in shaping individuals, communities, and societies.",
+    "description": "Explore Educational Attainment, Home Ownership, and more",
     "url": "/nl#topic=education-housing-commute",
     "browseUrl": "/explore/education-housing-commute",
-    "icon": "school"
+    "icon": "school",
+    "image": "/images/topic-education.svg"
   },
   {
     "id": "equity",
     "title": "Equity",
-    "description": "Wield the power of data to create a more just and equitable world.",
+    "description": "Explore Economic Equity, Education Equity, Health Equity, Justice System Equity and more",
     "url": "/nl#topic=equity",
     "browseUrl": "/explore/equity",
-    "icon": "public"
+    "icon": "public",
+    "image": "/images/topic-equity.svg"
   }
 ]

@@ -17,15 +17,13 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { ChartEventDetail } from "../js/chart/types";
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering map tile.
@@ -156,8 +154,6 @@ export class DatacommonsMapComponent extends LitElement {
       svgChartHeight: 200,
       title: this.header || this.title,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(MapTile, mapTileProps), mountPoint);
-    return mountPoint;
+    return createWebComponentElement(MapTile, mapTileProps);
   }
 }
