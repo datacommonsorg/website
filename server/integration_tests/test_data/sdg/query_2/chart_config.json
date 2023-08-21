@@ -14,7 +14,11 @@
                     ],
                     "title": "Tajikistan",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SLB",
                     "statVarKey": [
@@ -22,7 +26,11 @@
                     ],
                     "title": "Solomon Islands",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/NPL",
                     "statVarKey": [
@@ -30,7 +38,11 @@
                     ],
                     "title": "Nepal",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GUY",
                     "statVarKey": [
@@ -38,7 +50,11 @@
                     ],
                     "title": "Guyana",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
@@ -46,7 +62,11 @@
                     ],
                     "title": "Mali",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/LBR",
                     "statVarKey": [
@@ -54,7 +74,11 @@
                     ],
                     "title": "Liberia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GIN",
                     "statVarKey": [
@@ -62,7 +86,11 @@
                     ],
                     "title": "Guinea",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/TGO",
                     "statVarKey": [
@@ -70,7 +98,11 @@
                     ],
                     "title": "Togo",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/COD",
                     "statVarKey": [
@@ -78,7 +110,11 @@
                     ],
                     "title": "Congo [DRC]",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
@@ -86,7 +122,11 @@
                     ],
                     "title": "Gambia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/CHN",
                     "statVarKey": [
@@ -94,7 +134,11 @@
                     ],
                     "title": "China",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/COG",
                     "statVarKey": [
@@ -102,7 +146,11 @@
                     ],
                     "title": "Congo [Republic]",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
@@ -110,7 +158,11 @@
                     ],
                     "title": "Senegal",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
@@ -118,7 +170,11 @@
                     ],
                     "title": "Eswatini",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/BEN",
                     "statVarKey": [
@@ -126,7 +182,11 @@
                     ],
                     "title": "Benin",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/BFA",
                     "statVarKey": [
@@ -134,7 +194,11 @@
                     ],
                     "title": "Burkina Faso",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/ETH",
                     "statVarKey": [
@@ -142,7 +206,11 @@
                     ],
                     "title": "Ethiopia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MMR",
                     "statVarKey": [
@@ -150,7 +218,11 @@
                     ],
                     "title": "Myanmar [Burma]",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/PAK",
                     "statVarKey": [
@@ -158,7 +230,11 @@
                     ],
                     "title": "Pakistan",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/IDN",
                     "statVarKey": [
@@ -183,7 +259,11 @@
                     ],
                     "title": "Myanmar [Burma]",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SYC",
                     "statVarKey": [
@@ -191,7 +271,11 @@
                     ],
                     "title": "Seychelles",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/AZE",
                     "statVarKey": [
@@ -199,7 +283,11 @@
                     ],
                     "title": "Azerbaijan",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GUY",
                     "statVarKey": [
@@ -207,7 +295,11 @@
                     ],
                     "title": "Guyana",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SRB",
                     "statVarKey": [
@@ -215,7 +307,11 @@
                     ],
                     "title": "Serbia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SYR",
                     "statVarKey": [
@@ -223,7 +319,11 @@
                     ],
                     "title": "Syria",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MKD",
                     "statVarKey": [
@@ -231,7 +331,11 @@
                     ],
                     "title": "Macedonia [FYROM]",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/BGR",
                     "statVarKey": [
@@ -239,7 +343,11 @@
                     ],
                     "title": "Bulgaria",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SLB",
                     "statVarKey": [
@@ -247,7 +355,11 @@
                     ],
                     "title": "Solomon Islands",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/KIR",
                     "statVarKey": [
@@ -255,7 +367,11 @@
                     ],
                     "title": "Kiribati",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/BIH",
                     "statVarKey": [
@@ -263,7 +379,11 @@
                     ],
                     "title": "Bosnia and Herzegovina",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/BTN",
                     "statVarKey": [
@@ -271,7 +391,11 @@
                     ],
                     "title": "Bhutan",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/POL",
                     "statVarKey": [
@@ -279,7 +403,11 @@
                     ],
                     "title": "Poland",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/CYP",
                     "statVarKey": [
@@ -287,7 +415,11 @@
                     ],
                     "title": "Cyprus",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/HRV",
                     "statVarKey": [
@@ -295,7 +427,11 @@
                     ],
                     "title": "Croatia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MUS",
                     "statVarKey": [
@@ -303,7 +439,11 @@
                     ],
                     "title": "Mauritius",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MDV",
                     "statVarKey": [
@@ -311,7 +451,11 @@
                     ],
                     "title": "Maldives",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/ROU",
                     "statVarKey": [
@@ -319,7 +463,11 @@
                     ],
                     "title": "Romania",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/LTU",
                     "statVarKey": [
@@ -327,7 +475,11 @@
                     ],
                     "title": "Lithuania",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/NPL",
                     "statVarKey": [
