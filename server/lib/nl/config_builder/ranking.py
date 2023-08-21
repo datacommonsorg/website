@@ -79,8 +79,8 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
   stat_var_spec_map = {}
 
   # Add the main ranking tile
-  ranking_block, ranking_column = builder.new_chart(cspec)
-  ranking_tile = ranking_column.tiles.add()
+  ranking_block = builder.new_chart(cspec)
+  ranking_tile = ranking_block.columns.add().tiles.add()
   ranking_tile.type = Tile.TileType.RANKING
 
   ranking_count = cspec.ranking_count if cspec.ranking_count else _DEFAULT_RANKING_COUNT
@@ -98,11 +98,10 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
   ranking_tile.ranking_tile_spec.show_multi_column = True
 
   # Add the map block
-  map_block, map_column = builder.new_chart(cspec)
+  map_block = builder.new_chart(cspec)
 
   for _, sv in enumerate(pri_svs):
-    if len(map_column.tiles):
-      map_column = map_block.columns.add()
+    map_column = map_block.columns.add()
     stat_var_spec_map.update(
         map.map_chart_block(map_column, pri_place, sv, cspec.place_type,
                             sv2thing))
@@ -118,8 +117,7 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
 
 def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
                         sv2thing: base.SV2Thing,
-                        ranking_types: List[RankingType], ranking_count: int,
-                        skip_map_for_ranking: bool):
+                        ranking_types: List[RankingType], ranking_count: int):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)
@@ -136,10 +134,5 @@ def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
   stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv,
                                           name=sv2thing.name[pri_sv],
                                           unit=sv2thing.unit[pri_sv])
-
-  if not skip_map_for_ranking:
-    # Also add a map chart.
-    stat_var_spec_map.update(
-        map.map_chart_block(column, pri_place, pri_sv, child_type, sv2thing))
 
   return stat_var_spec_map

@@ -96,8 +96,7 @@ class Builder:
     if cv.svs and self.enable_pc(cv):
       self.block.denom = 'Count_Person'
 
-    self.column = self.block.columns.add()
-    return self.block, self.column
+    return self.block
 
   def enable_pc(self, cv: ChartVars) -> bool:
     return all([
@@ -121,13 +120,12 @@ class Builder:
       title = self.sv2thing.name.get(cv.svpg_id, '')
       description = self.sv2thing.description.get(cv.svpg_id, '')
       footnote = self.sv2thing.footnote.get(cv.svpg_id, '')
-    # TODO: Uncomment this soon
-    # elif len(cv.svs) == 1:
-    #   title = self.sv2thing.name.get(cv.svs[0], '')
-    #   description = self.sv2thing.description.get(cv.svs[0], '')
-    #   footnote = self.sv2thing.footnote.get(cv.svs[0], '')
-    # elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
-    #   title = self.sv2thing.name[cv.svs[0]] + ' and more'
+    elif len(cv.svs) == 1:
+      title = self.sv2thing.name.get(cv.svs[0], '')
+      description = self.sv2thing.description.get(cv.svs[0], '')
+      footnote = self.sv2thing.footnote.get(cv.svs[0], '')
+    elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
+      title = self.sv2thing.name[cv.svs[0]] + ' and more'
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):

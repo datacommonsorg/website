@@ -1,5 +1,15 @@
 {
   "childEntityType": "",
+  "classifications": [
+    {
+      "correlation": true,
+      "type": 5
+    },
+    {
+      "contained_in_place_type": "DefaultType",
+      "type": 4
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [
     "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",

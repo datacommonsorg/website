@@ -152,7 +152,7 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=set())
 
   start = time.time()
-  utterance = fulfillment.fulfill(utterance)
+  utterance = fulfillment.fulfill(utterance, explore_mode=False)
   utterance.counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:

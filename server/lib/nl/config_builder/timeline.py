@@ -38,16 +38,16 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
     block_title, block_description, block_footnote = builder.get_block_strings(
         cv)
 
-  _, column = builder.new_chart(cspec)
-  builder.block.title = base.decorate_block_title(
+  block = builder.new_chart(cspec)
+  block.title = base.decorate_block_title(
       title=block_title,
       chart_origin=cspec.chart_origin,
       growth_direction=cv.growth_direction,
       growth_ranking_type=cv.growth_ranking_type)
   if block_description:
-    builder.block.description = block_description
+    block.description = block_description
   if block_footnote:
-    builder.block.footnote = block_footnote
+    block.footnote = block_footnote
 
   for sv_dcid in cspec.svs:
     for place in cspec.places:
@@ -70,7 +70,7 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
 
       if is_ranking_across_places:
         tile.place_dcid_override = place.dcid
-      column.tiles.append(tile)
+      block.columns.add().tiles.append(tile)
 
   return stat_var_spec_map
 

@@ -25,6 +25,8 @@ from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
+_EXPLORE_RANKING_COUNT = 5
+
 #
 # NOTE: basic is a layer on topic of simple, containedin, ranking_across_places and ranking_across_vars
 # The choice of the charts to show depends on the `explore_mode`
@@ -72,7 +74,8 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
     ranking_orig = state.ranking_types
     state.ranking_types = [RankingType.HIGH, RankingType.LOW]
     added |= ranking_across_places.populate(state, chart_vars, places,
-                                            chart_origin)
+                                            chart_origin,
+                                            _EXPLORE_RANKING_COUNT)
     state.ranking_types = ranking_orig
 
   return added

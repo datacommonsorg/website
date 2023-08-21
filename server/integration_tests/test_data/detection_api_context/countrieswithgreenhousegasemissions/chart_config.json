@@ -1,5 +1,11 @@
 {
   "childEntityType": "Country",
+  "classifications": [
+    {
+      "contained_in_place_type": "Country",
+      "type": 4
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},

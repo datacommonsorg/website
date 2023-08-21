@@ -16,7 +16,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Household Median Income"
           },
           {
             "columns": [
@@ -43,7 +44,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Households"
           },
           {
             "columns": [
@@ -70,7 +72,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Median Family Household Income"
           },
           {
             "columns": [
@@ -97,7 +100,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Nonfamily Household Median Income"
           },
           {
             "columns": [
@@ -112,7 +116,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Individual Median Income"
           },
           {
             "columns": [
@@ -139,7 +144,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Median Married Couple Family Household Income"
           },
           {
             "columns": [
@@ -166,7 +172,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Family Households"
           },
           {
             "columns": [
@@ -193,7 +200,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Nonfamily Households"
           }
         ],
         "statVarSpec": {
