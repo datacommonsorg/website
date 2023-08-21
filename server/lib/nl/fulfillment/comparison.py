@@ -36,8 +36,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if chart_vars.event:
     state.uttr.counters.err('comparison_failed_cb_events', 1)
     return False
-  chart_vars.response_type = "comparison chart"
-  chart_vars.include_percapita = True
 
   if len(chart_vars.svs) == 1:
     sv = chart_vars.svs[0]

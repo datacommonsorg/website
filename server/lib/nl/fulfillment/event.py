@@ -73,11 +73,7 @@ def _populate_event_for_place(state: PopulateState,
     })
     return False
 
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[],
-                         event=event_types[0],
-                         block_id=state.block_id,
-                         include_percapita=False)
+  chart_vars = ChartVars(svs=[], event=event_types[0])
   return futils.add_chart_to_utterance(nl_uttr.ChartType.EVENT_CHART, state,
                                        chart_vars, [place],
                                        nl_uttr.ChartOriginType.PRIMARY_CHART)

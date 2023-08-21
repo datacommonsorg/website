@@ -72,8 +72,5 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       'ranked': ranked_svs,
   })
   chart_vars.svs = ranked_svs[:_MAX_VARS_IN_A_CHART]
-  # Show per-capita too.
-  chart_vars.include_percapita = True
-  chart_vars.response_type = "ranked bar chart"
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                                 chart_origin)

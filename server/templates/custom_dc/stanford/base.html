@@ -159,7 +159,6 @@
     </main>
 
     <footer id="main-footer">
-      <div class="container">
         {% if false %}
         {% if not is_hide_full_footer %}
         <div class="row">
@@ -217,25 +216,26 @@
         {% endif %}
         {% endif %}
         {% if not is_hide_sub_footer %}
-        <div class="row">
-          <div id="sub-footer" class="col-12">
-            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-            {# TRANSLATORS: The label for a link to project homepage. #}
-            <img style="height: 1rem" src="/images/google.png" />
-            <span>{% trans project="Data Commons" %}<a href="https://datacommons.org">Data Commons</a> from Google{% endtrans %}</span>
-            <div class="float-md-right mt-3 mt-md-0">
-              {% block subfooter_extra %}{% endblock %}
-              {# TRANSLATORS: The label for a link to site terms and conditions. #}
-              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site privacy policy. #}
-              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site disclaimers. #}
-              <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+          <div id="sub-footer">
+            <div class="container">
+              <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
+              {# TRANSLATORS: The label for a link to project homepage. #}
+              <span class="brand-byline">
+                <img style="height: 1rem" src="/images/google.png" />
+                <span class="">{% trans project="Data Commons" %}<a href="https://datacommons.org">Data Commons</a> from Google{% endtrans %}</span>
+              </span>
+              <div class="sub-footer-links">
+                {% block subfooter_extra %}{% endblock %}
+                {# TRANSLATORS: The label for a link to site terms and conditions. #}
+                <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
+                {# TRANSLATORS: The label for a link to site privacy policy. #}
+                <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
+                {# TRANSLATORS: The label for a link to site disclaimers. #}
+                <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
+              </div>
             </div>
           </div>
-        </div>
         {% endif %}
-      </div>
     </footer>
   </div>
   {# Compile this down (or manually implement). Used only for nav bar so far #}

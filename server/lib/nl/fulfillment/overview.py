@@ -33,9 +33,6 @@ def populate(uttr: Utterance) -> bool:
 
 def _add_place_overview(place: Place, uttr: Utterance):
   state = PopulateState(uttr=uttr)
-  state.block_id += 1
-  chart_vars = ChartVars(svs=[],
-                         block_id=state.block_id,
-                         include_percapita=False)
+  chart_vars = ChartVars(svs=[])
   return add_chart_to_utterance(ChartType.PLACE_OVERVIEW, state, chart_vars,
                                 [place], ChartOriginType.PRIMARY_CHART)

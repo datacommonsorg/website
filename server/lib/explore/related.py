@@ -16,6 +16,7 @@
 import time
 from typing import Dict, List
 
+from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
@@ -51,7 +52,7 @@ def compute_related_things(state: ftypes.PopulateState,
   if pd.peer_places:
     related_things['peerPlaces'] = _get_json_places(pd.peer_places)
 
-  dc = state.uttr.insight_ctx[Params.DC.value]
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
 
   # Expand to parent and peer topics.
   # Do this only for one topic, otherwise it gets
