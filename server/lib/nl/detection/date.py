@@ -12,17 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
 from datetime import datetime
+import re
 
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
 
-YEAR_RE = [r'(in|after|on|before|year) (\d{4})']
+YEAR_RE = [r'(in|after|on|before|year)(?: year)? (\d{4})']
 YEAR_MONTH_RE = [
-    r'(in|after|on|before) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
-    r'(in|after|on|before) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
+    r'(in|after|on|before|since|by|util|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
+    r'(in|after|on|before|since|by|util|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
 
@@ -31,17 +31,17 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
   for pattern in YEAR_MONTH_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
-      _, month_str, year_str = match.groups()
+      prep, month_str, year_str = match.groups()
       year = int(year_str)
       try:
         month = datetime.strptime(month_str, '%b').month
       except ValueError:
         continue
-      dates.append(Date(year, month))
+      dates.append(Date(prep, year, month))
   for pattern in YEAR_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
-      _, year_str = match.groups()
+      prep, year_str = match.groups()
       year = int(year_str)
-      dates.append(Date(year))
+      dates.append(Date(prep, year))
   return DateClassificationAttributes(dates=dates)

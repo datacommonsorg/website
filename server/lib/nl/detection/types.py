@@ -305,6 +305,7 @@ class QuantityClassificationAttributes(ClassificationAttributes):
 @dataclass
 class Date:
   """Represents a range of two numeric quantities."""
+  prep: str
   year: int
   month: Optional[int] = 0
 

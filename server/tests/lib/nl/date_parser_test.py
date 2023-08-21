@@ -25,12 +25,12 @@ from server.lib.nl.detection.types import Date
 class TestDateParser(unittest.TestCase):
 
   @parameterized.expand([
-      ('USA population in May, 2021', [Date(2021, 5)]),
-      ('USA population in Sep 2021', [Date(2021, 9)]),
-      ('USA population in 2021', [Date(2021, 0)]),
-      ('World temperature before year 2080', [Date(2080, 0)]),
+      ('USA population in May, 2021', [Date('in', 2021, 5)]),
+      ('USA population in Sep 2021', [Date('in', 2021, 9)]),
+      ('USA population in 2021', [Date('in', 2021, 0)]),
+      ('World temperature before year 2080', [Date('before', 2080, 0)]),
       ('How does california GCP in 2020 compare with year 2010',
-       [Date(2020, 0), Date(2010, 0)]),
+       [Date('in', 2020, 0), Date('year', 2010, 0)]),
   ])
   def test_main(self, query, expected):
     ctr = Counters()
