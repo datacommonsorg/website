@@ -72,7 +72,12 @@ export function getNlChartId(idStr: string): ChartId {
 export function isNlInterface(): boolean {
   // Returns true if currently on the NL page.
   const path = window.location.pathname;
-  return path === "/nl" || path === "/nl/" || path === "/explore" || path === "/explore/";
+  return (
+    path === "/nl" ||
+    path === "/nl/" ||
+    path === "/explore" ||
+    path === "/explore/"
+  );
 }
 
 /**
