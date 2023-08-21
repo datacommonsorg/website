@@ -75,7 +75,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population of Working Age With No Income"
+            "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -150,7 +150,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born"
+            "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [

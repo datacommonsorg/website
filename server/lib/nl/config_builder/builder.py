@@ -105,7 +105,9 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
-      block = builder.new_chart(cspec)
+      block = builder.new_chart(cspec,
+                                place=cspec.places[0],
+                                child_type=cspec.place_type)
       for sv in cspec.svs:
         stat_var_spec_map.update(
             map.map_chart_block(column=block.columns.add(),
@@ -126,11 +128,16 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
       else:
         if cv.skip_map_for_ranking:
           # Create the block here.
-          block = builder.new_chart(cspec)
+          block = builder.new_chart(cspec,
+                                    place=pri_place,
+                                    child_type=cspec.place_type)
         for sv in cspec.svs:
           if not cv.skip_map_for_ranking:
             # We have a rank + map, so create a block per SV.
-            block = builder.new_chart(cspec, override_sv=sv)
+            block = builder.new_chart(cspec,
+                                      override_sv=sv,
+                                      place=pri_place,
+                                      child_type=cspec.place_type)
           stat_var_spec_map.update(
               ranking.ranking_chart_block(column=block.columns.add(),
                                           pri_place=pri_place,
