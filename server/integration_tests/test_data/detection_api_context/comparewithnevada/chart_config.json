@@ -1,5 +1,11 @@
 {
   "childEntityType": "",
+  "classifications": [
+    {
+      "comparison": true,
+      "type": 7
+    }
+  ],
   "comparisonEntities": [
     "geoId/06"
   ],

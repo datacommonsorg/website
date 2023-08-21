@@ -91,7 +91,8 @@ export function App(): JSX.Element {
     cmpPlace: string,
     placeType: string,
     dc: string,
-    disableExploreMore: string
+    disableExploreMore: string,
+    nlFulfillment: string
   ): Item[] => {
     if (_.isEmpty(topics)) {
       return [];
@@ -104,7 +105,7 @@ export function App(): JSX.Element {
       }
       result.push({
         text: topic.name,
-        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}`,
+        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`,
       });
     }
     return result;
@@ -136,10 +137,12 @@ export function App(): JSX.Element {
       let cmpTopic = getSingleParam(hashParams["tcmp"]);
       let placeType = getSingleParam(hashParams["pt"]);
       let paramQuery = getSingleParam(hashParams["q"]);
+      let classificationsStr = getSingleParam(hashParams["cls"]);
       const origQuery = getSingleParam(hashParams["oq"]);
       const dc = getSingleParam(hashParams["dc"]);
       const svg = getSingleParam(hashParams["svg"]);
       const disableExploreMore = getSingleParam(hashParams["em"]);
+      const nlFulfillment = getSingleParam(hashParams["nl"]);
 
       // Do detection only if `q` is set (from search box) or
       // if `oq` is set without accompanying place and topic.
@@ -170,6 +173,9 @@ export function App(): JSX.Element {
         topic = detectResp["variables"].join(DELIM);
         cmpTopic = (detectResp["comparisonVariables"] || []).join(DELIM);
         placeType = detectResp["childEntityType"] || "";
+        classificationsStr = JSON.stringify(
+          { stuff: detectResp["classifications"] } || {}
+        );
         updateHash({
           q: "",
           oq: "",
@@ -181,6 +187,8 @@ export function App(): JSX.Element {
           dc,
           svg,
           em: disableExploreMore,
+          nl: nlFulfillment,
+          cls: classificationsStr,
         });
         return;
       } else if (origQuery) {
@@ -208,6 +216,7 @@ export function App(): JSX.Element {
       const topics = toApiList(topic);
       const cmpTopics = toApiList(cmpTopic);
       const svgs = toApiList(svg);
+      const classificationsJson = JSON.parse(classificationsStr || "{}");
       const resp = await fetchFulfillData(
         places,
         topics,
@@ -216,7 +225,9 @@ export function App(): JSX.Element {
         cmpTopics,
         dc,
         svgs,
-        disableExploreMore
+        classificationsJson["stuff"] || [],
+        disableExploreMore,
+        nlFulfillment
       );
       if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
         setLoadingStatus("fail");
@@ -248,7 +259,7 @@ export function App(): JSX.Element {
         // Note: for category links, we only use the main-topic.
         for (const category of chartData.pageConfig.categories) {
           if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}`;
+            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`;
           }
         }
         if (!query && chartData.mainTopic?.name && chartData.place.name) {
@@ -270,6 +281,7 @@ export function App(): JSX.Element {
   const placeType = getSingleParam(hashParams["pt"]);
   const dc = getSingleParam(hashParams["dc"]);
   const disableExploreMore = getSingleParam(hashParams["em"]);
+  const nlFulfillment = getSingleParam(hashParams["nl"]);
 
   const allTopics = chartData?.childTopics
     .concat(chartData?.peerTopics)
@@ -280,7 +292,8 @@ export function App(): JSX.Element {
     cmpPlace,
     placeType,
     dc,
-    disableExploreMore
+    disableExploreMore,
+    nlFulfillment
   );
   const feedbackLink = getFeedbackLink(
     FEEDBACK_LINK,
@@ -365,7 +378,7 @@ export function App(): JSX.Element {
               {userMessage && <div id="user-message">{userMessage}</div>}
               <RankingUnitUrlFuncContext.Provider
                 value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${disableExploreMore}`;
+                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`;
                 }}
               >
                 <NlSessionContext.Provider value={chartData.sessionId}>
@@ -408,6 +421,7 @@ export function App(): JSX.Element {
                     chartData.place.name
                   }
                   exploreMore={disableExploreMore}
+                  nlFulfillment={nlFulfillment}
                 ></RelatedPlace>
               )}
               {!_.isEmpty(chartData.peerPlaces) && (
@@ -428,6 +442,7 @@ export function App(): JSX.Element {
                     "other " + getPlaceTypePlural(chartData.place.types[0])
                   }
                   exploreMore={disableExploreMore}
+                  nlFulfillment={nlFulfillment}
                 ></RelatedPlace>
               )}
             </>
@@ -456,7 +471,9 @@ const fetchFulfillData = async (
   cmpTopics: string[],
   dc: string,
   svgs: string[],
-  disableExploreMore: string
+  classificationsJson: any,
+  disableExploreMore: string,
+  nlFulfillment: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -467,7 +484,9 @@ const fetchFulfillData = async (
       comparisonEntities: cmpPlaces,
       comparisonVariables: cmpTopics,
       extensionGroups: svgs,
+      classifications: classificationsJson,
       disableExploreMore,
+      nlFulfillment,
     });
     return resp.data;
   } catch (error) {

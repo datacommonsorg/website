@@ -18,7 +18,7 @@ import datetime
 import logging
 import random
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -220,6 +220,16 @@ def parent_place_names(dcid: str) -> List[str]:
     ret = [names[p][0] for p in parent_dcids]
     return ret
   return None
+
+
+def trim_classifications(
+    classifications: List[types.NLClassifier],
+    to_trim: Set[types.ClassificationType]) -> List[types.NLClassifier]:
+  ret = []
+  for c in classifications:
+    if c.type not in to_trim:
+      ret.append(c)
+  return ret
 
 
 def get_contained_in_type(

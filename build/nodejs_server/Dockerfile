@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18.4.0
+FROM node:18.14.0-slim
 
 ARG ENV
 ENV ENV=${ENV}

@@ -221,17 +221,15 @@
       <!--/.container-->
       {% endif %}
       {% if not is_hide_sub_footer %}
-      <div class="container">
-        <div class="row">
-          <div id="sub-footer" class="col-12">
-            <span>Feeding America Data Commons is a Google supported project</span>
-            <div class="float-md-right mt-3 mt-md-0">
-              {% block subfooter_extra %}{% endblock %}
-              <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy ›</a>
-              <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy ›</a>
-              <a href="{{ url_for('static.disclaimers') }}">Disclaimers ›</a>
-              <a href="{{ url_for('static.feedback') }}">Contact Us ›</a>
-            </div>
+      <div id="sub-footer">
+        <div class="container">
+          <span>Feeding America Data Commons is a Google supported project</span>
+          <div class="sub-footer-links">
+            {% block subfooter_extra %}{% endblock %}
+            <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy ›</a>
+            <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy ›</a>
+            <a href="{{ url_for('static.disclaimers') }}">Disclaimers ›</a>
+            <a href="{{ url_for('static.feedback') }}">Contact Us ›</a>
           </div>
         </div>
       </div>
