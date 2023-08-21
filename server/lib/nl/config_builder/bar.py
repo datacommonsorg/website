@@ -14,15 +14,22 @@
 
 from typing import List
 
+from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartVars
 
 
-def multiple_place_bar_block(column, places: List[Place], svs: List[str],
-                             sv2thing: base.SV2Thing, cv: ChartVars):
+# TODO: Support ranking_count for limit on number of vars.
+def multiple_place_bar_block(column,
+                             places: List[Place],
+                             svs: List[str],
+                             sv2thing: base.SV2Thing,
+                             cv: ChartVars,
+                             ranking_types: List[RankingType] = []):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -67,6 +74,9 @@ def multiple_place_bar_block(column, places: List[Place], svs: List[str],
     stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
                                             name=sv2thing.name[sv],
                                             unit=sv2thing.unit[sv])
-
+  if RankingType.HIGH in ranking_types:
+    tile.bar_tile_spec.sort = BarTileSpec.DESCENDING
+  elif RankingType.LOW in ranking_types:
+    tile.bar_tile_spec.sort = BarTileSpec.ASCENDING
   column.tiles.append(tile)
   return stat_var_spec_map

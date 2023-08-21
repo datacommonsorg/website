@@ -34,7 +34,6 @@ from server.lib.nl.fulfillment.types import ChartVars
 
 #
 # Given an Utterance, build the final Chart config proto.
-# TODO: Do fine-grained existence checks while adding charts.
 #
 def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
   # Get names of all SVs
@@ -96,7 +95,12 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                                                      cspec.svs[0], sv2thing)
       else:
         stat_var_spec_map = bar.multiple_place_bar_block(
-            block.columns.add(), cspec.places, cspec.svs, sv2thing, cv)
+            column=block.columns.add(),
+            places=cspec.places,
+            svs=cspec.svs,
+            sv2thing=sv2thing,
+            cv=cv,
+            ranking_types=cspec.ranking_types)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
