@@ -20,7 +20,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Number of Students"
           },
           {
             "columns": [
@@ -39,7 +40,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Number of Teachers"
           },
           {
             "columns": [
@@ -58,7 +60,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Student-Teacher Ratio"
           }
         ],
         "statVarSpec": {

@@ -47,7 +47,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -74,7 +75,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Asthma"
           },
           {
             "columns": [
@@ -101,7 +103,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "High Blood Pressure"
           },
           {
             "columns": [
@@ -128,7 +131,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Percent of Adults with Blood Pressure Who Take Medication"
           },
           {
             "columns": [
@@ -155,7 +159,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Cancer (excluding skin cancer)"
           },
           {
             "columns": [
@@ -183,7 +188,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Deaths From Neoplasms (Tumors or Abnormal Growths)"
           },
           {
             "columns": [
@@ -256,7 +262,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "High Cholesterol"
           },
           {
             "columns": [
@@ -283,7 +290,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Prevalence: Cholesterol Screening"
           },
           {
             "columns": [
@@ -310,7 +318,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Mental Health Issues"
           },
           {
             "columns": [
@@ -337,7 +346,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Depression"
           },
           {
             "columns": [
@@ -365,7 +375,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Deaths Due To Mental And Behavioural Disorders"
           },
           {
             "columns": [
@@ -414,7 +425,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
           },
           {
             "columns": [
@@ -442,7 +454,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "People With VA Health Care"
           }
         ],
         "statVarSpec": {

@@ -29,7 +29,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Criminal Activities"
           },
           {
             "columns": [

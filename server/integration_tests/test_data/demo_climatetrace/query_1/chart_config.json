@@ -17,7 +17,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
@@ -46,7 +50,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
@@ -75,7 +83,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
@@ -104,7 +116,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
@@ -133,7 +149,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Manufacturing in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
@@ -162,7 +182,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
@@ -191,7 +215,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGas"
@@ -219,7 +247,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
@@ -248,7 +280,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions from Waste Management in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
@@ -277,7 +313,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_CementProduction"
@@ -305,7 +345,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_SteelManufacturing"
@@ -333,7 +377,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestFire"
@@ -361,7 +409,11 @@
                     ],
                     "title": "Greenhouse Gas Emissions in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
@@ -390,7 +442,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
@@ -418,7 +474,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
@@ -446,7 +506,11 @@
                     ],
                     "title": "CO2 emissions, Annual in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "eia/INTL.4008-8-MMTCD.A"
@@ -473,7 +537,11 @@
                     ],
                     "title": "CO2 Emissions Per Capita in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Amount_Emissions_CarbonDioxide_PerCapita"
@@ -500,7 +568,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Agriculture in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Agriculture"
@@ -529,7 +601,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Fuel Combustion in Buildings in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
@@ -558,7 +634,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Fossil Fuel Operations in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
@@ -587,7 +667,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Manufacturing in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Manufacturing"
@@ -616,7 +700,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Mineral Extraction in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_MineralExtraction"
@@ -645,7 +733,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Power Sector in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Power"
@@ -674,7 +766,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Transportation in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Transportation"
@@ -703,7 +799,11 @@
                     ],
                     "title": "CO\u2082 Emissions from Waste Management in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_WasteManagement"
@@ -732,7 +832,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Agriculture, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_Agriculture"
@@ -760,7 +864,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_FossilFuelOperations"
@@ -788,7 +896,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Open Burning Waste, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_OpenBurningWaste"
@@ -816,7 +928,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Waste Management, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_WasteManagement"
@@ -844,7 +960,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Agriculture"
@@ -872,7 +992,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
@@ -900,7 +1024,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Manufacturing"
@@ -928,7 +1056,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Transportation, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Transportation"
@@ -956,7 +1088,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Waste Management, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WasteManagement"
@@ -984,7 +1120,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
@@ -1012,7 +1152,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Power, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_Power"
@@ -1040,7 +1184,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
@@ -1068,7 +1216,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
@@ -1096,7 +1248,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
@@ -1124,7 +1280,11 @@
                     ],
                     "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_OpenBurningWaste"

@@ -117,7 +117,11 @@
                     ],
                     "title": "Temperature in a Location in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Temperature"
@@ -144,7 +148,11 @@
                     ],
                     "title": "Min Temperature in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Min_Temperature"
@@ -171,7 +179,11 @@
                     ],
                     "title": "Mean Temperature in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Mean_Temperature"
@@ -198,7 +210,11 @@
                     ],
                     "title": "Maximum Temperature in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Max_Temperature"
@@ -225,7 +241,11 @@
                     ],
                     "title": "Count of Heat Temperature Event in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_HeatTemperatureEvent"
@@ -252,7 +272,11 @@
                     ],
                     "title": "Mean maximum temperature in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Mean_MaxTemperature"

@@ -17,7 +17,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "GDP (Nominal Value)"
           },
           {
             "columns": [
@@ -44,7 +45,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Nominal GDP Per Capita"
           },
           {
             "columns": [
@@ -71,7 +73,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -86,7 +89,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)"
           }
         ],
         "statVarSpec": {
