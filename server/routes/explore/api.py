@@ -94,50 +94,29 @@ def fulfill():
     flask.abort(404)
 
   req_json = request.get_json()
-  if not req_json:
-    return helpers.abort('Missing input', '', [])
-  if not req_json.get('entities'):
-    return helpers.abort('`entities` must be provided', '', [])
+  return _fulfill_with_insight_ctx(req_json)
 
-  entities = req_json.get(Params.ENTITIES.value, [])
-  cmp_entities = req_json.get(Params.CMP_ENTITIES.value, [])
-  vars = req_json.get(Params.VARS.value, [])
-  cmp_vars = req_json.get(Params.CMP_VARS.value, [])
-  child_type = req_json.get(Params.CHILD_TYPE.value, '')
-  session_id = req_json.get(Params.SESSION_ID.value, '')
-  classifications = req_json.get(Params.CLASSIFICATIONS.value, [])
 
-  dc_name = req_json.get(Params.DC.value)
-  if not dc_name:
-    dc_name = DCNames.MAIN_DC.value
-  if dc_name not in set([it.value for it in DCNames]):
-    return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
-
-  counters = ctr.Counters()
+#
+# The detect and fulfill endpoint.
+#
+@bp.route('/detect-and-fulfill', methods=['POST'])
+def detect_and_fulfill():
   debug_logs = {}
+  utterance, error_json = helpers.parse_query_and_detect(
+      request, 'explore', debug_logs)
+  if error_json:
+    return error_json
+  if not utterance:
+    return helpers.abort('Failed to process!', '', [])
 
-  if not session_id:
-    if current_app.config['LOG_QUERY']:
-      session_id = utils.new_session_id('explore')
-    else:
-      session_id = constants.TEST_SESSION_ID
+  context.merge_with_context(utterance, is_explore=True)
 
-  # There is not detection, so just construct a structure.
-  # TODO: Maybe check that if cmp_entities is set, entities should
-  # be singleton.
-  start = time.time()
-  query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
-                                                     cmp_entities, cmp_vars,
-                                                     classifications,
-                                                     debug_logs, counters)
-  counters.timeit('query_detection', start)
-  if not query_detection:
-    return helpers.abort(error_msg, '', [])
+  data_dict = copy.deepcopy(utterance.insight_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = serialize.save_utterance(utterance)
 
-  utterance = create_utterance(query_detection, None, counters, session_id)
-  utterance.insight_ctx = req_json
-  utterance.insight_ctx[Params.DC.value] = dc_name
-  return _fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_insight_ctx(data_dict)
 
 
 #
@@ -212,3 +191,52 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                   dbg_counters,
                                   debug_logs,
                                   has_data=has_charts)
+
+#
+# Given an insight context, fulfills it into charts.
+#
+def _fulfill_with_insight_ctx(insight_ctx: Dict) -> Dict:
+  if not insight_ctx:
+    return helpers.abort('Missing input', '', [])
+  if not insight_ctx.get('entities'):
+    return helpers.abort('`entities` must be provided', '', [])
+
+  entities = insight_ctx.get(Params.ENTITIES.value, [])
+  cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
+  vars = insight_ctx.get(Params.VARS.value, [])
+  cmp_vars = insight_ctx.get(Params.CMP_VARS.value, [])
+  child_type = insight_ctx.get(Params.CHILD_TYPE.value, '')
+  session_id = insight_ctx.get(Params.SESSION_ID.value, '')
+  classifications = insight_ctx.get(Params.CLASSIFICATIONS.value, [])
+
+  dc_name = insight_ctx.get(Params.DC.value)
+  if not dc_name:
+    dc_name = DCNames.MAIN_DC.value
+  if dc_name not in set([it.value for it in DCNames]):
+    return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
+
+  counters = ctr.Counters()
+  debug_logs = {}
+
+  if not session_id:
+    if current_app.config['LOG_QUERY']:
+      session_id = utils.new_session_id('explore')
+    else:
+      session_id = constants.TEST_SESSION_ID
+
+  # There is not detection, so just construct a structure.
+  # TODO: Maybe check that if cmp_entities is set, entities should
+  # be singleton.
+  start = time.time()
+  query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
+                                                     cmp_entities, cmp_vars,
+                                                     classifications,
+                                                     debug_logs, counters)
+  counters.timeit('query_detection', start)
+  if not query_detection:
+    return helpers.abort(error_msg, '', [])
+
+  utterance = create_utterance(query_detection, None, counters, session_id)
+  utterance.insight_ctx = insight_ctx
+  utterance.insight_ctx[Params.DC.value] = dc_name
+  return _fulfill_with_chart_config(utterance, debug_logs)
