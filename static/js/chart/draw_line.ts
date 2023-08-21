@@ -111,19 +111,19 @@ function getTooltipContent(
  * Position and show the tooltip.
  *
  * @param contentHTML innerHTML of the tooltip as a string.
- * @param containerId id of the div containing the tooltip.
+ * @param tooltipDiv div containing the tooltip.
  * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
  */
 export function showTooltip(
   contentHTML: string,
-  tooltipRef: d3.Selection<HTMLDivElement, any, any, any>,
+  tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,
   datapointY: number,
   relativeBoundary: Boundary
 ): void {
-  const rect = (tooltipRef.node() as HTMLDivElement).getBoundingClientRect();
+  const rect = (tooltipDiv.node() as HTMLDivElement).getBoundingClientRect();
   const width = rect.width;
   const height = rect.height;
   // center tooltip over the datapoint. If this causes the tooltip to overflow the boundary,
@@ -140,8 +140,8 @@ export function showTooltip(
   if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
     top = relativeBoundary.bottom - height;
   }
-  tooltipRef.html(contentHTML);
-  tooltipRef.style("left", left + "px").style("top", top + "px");
+  tooltipDiv.html(contentHTML);
+  tooltipDiv.style("left", left + "px").style("top", top + "px");
 }
 
 /**
@@ -209,7 +209,6 @@ function addHighlightOnHover(
         .datum(dataGroup);
     }
   }
-  //const tooltip = container.select(`#${TOOLTIP_ID}`);
   highlightArea.style("opacity", "0");
   const highlightLine = highlightArea
     .append("line")

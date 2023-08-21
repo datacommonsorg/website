@@ -84,7 +84,7 @@ function getTooltipContent(
  * @param relativeBoundary Boundary the tooltip should be confined to
  * @returns top and left position, in that order
  */
-function positionTooltipByMouseQuadrant(
+function getTooltipPositionByMouseQuadrant(
   mouseX: number,
   mouseY: number,
   tooltipHeight: number,
@@ -122,31 +122,28 @@ function positionTooltipByMouseQuadrant(
 /**
  * Position and show the tooltip.
  *
- * @param contentHTML innerHTML of the tooltip as a string.
+ * @param tooltipDiv tooltip's div element
  * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
  * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
  * @param relativeBoundary tooltip boundary relative to its container element.
- * @param tooltipRef tooltip ID to  show
- * @param useDataPointPosition set to true to draw tooltip where the datapoint
- *                             that the tooltip is being shown for is located.
  */
 export function positionTooltip(
-  tooltipRef: d3.Selection<HTMLDivElement, any, any, any>,
+  tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
   datapointX: number,
   datapointY: number,
   relativeBoundary: Boundary
 ): void {
-  const rect = (tooltipRef.node() as HTMLDivElement).getBoundingClientRect();
+  const rect = (tooltipDiv.node() as HTMLDivElement).getBoundingClientRect();
   const width = rect.width;
   const height = rect.height;
-  const [top, left] = positionTooltipByMouseQuadrant(
+  const [top, left] = getTooltipPositionByMouseQuadrant(
     datapointX,
     datapointY,
     height,
     width,
     relativeBoundary
   );
-  tooltipRef.style("left", left + "px").style("top", top + "px");
+  tooltipDiv.style("left", left + "px").style("top", top + "px");
 }
 
 /**
@@ -473,7 +470,6 @@ function drawBars(
       ].join(" ")
     )
     .attr("data-dcid", (d) => d.dcid)
-    .attr("data-d", (d) => d.value)
     .attr("x", (d) => xSubScale(d.statVar))
     .attr("y", (d) => yScale(Math.max(0, d.value)))
     .attr("width", xSubScale.bandwidth())
@@ -618,7 +614,6 @@ function drawHorizontalGroupedBars(
       .attr("fill", (item) => colorFn(item.dataGroupValue.label))
       .classed("g-bar", true)
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
-      .attr("data-d", (item) => item.dataGroupValue.value)
       .attr("part", (item) =>
         [
           "series",
@@ -794,7 +789,7 @@ function drawLollipops(
     .data(dataGroups)
     .join("g")
     .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
-    .selectAll("g")
+    .selectAll("line")
     .data((dg) =>
       dg.value.map((dp) => ({
         statVar: dp.label,
@@ -805,7 +800,6 @@ function drawLollipops(
         unit,
       }))
     )
-    .attr("class", "bar-or-lollipop")
     .join("line")
     .attr("part", (d) =>
       [
