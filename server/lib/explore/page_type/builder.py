@@ -121,7 +121,6 @@ class Builder:
       return
 
     for cat in self.page_config.categories:
-      # TODO: Check if we need more work here.
       if self.plotted_orig_vars and self.plotted_orig_vars[0][
           'dcid'] == cat.dcid:
         # The overall topic matches the category, so clear out the title.
