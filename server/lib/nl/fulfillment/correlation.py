@@ -27,7 +27,7 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 # Handler for correlation charts.
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   if len(chart_vars.svs) != 2 or not places:
     state.uttr.counters.err('correlation_failed_noplaceorsv', 1)
     return False

@@ -775,3 +775,6 @@ SV_BLOCKS_MAP = {
     ],
     "dc/topic/WetBulbTemperature": ["dc/topic/Temperature"],
 }
+
+# Max number of answer places
+MAX_ANSWER_PLACES = 10
