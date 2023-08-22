@@ -79,8 +79,8 @@ def fulfill(uttr: Utterance,
     done = overview.populate(uttr)
   elif main_qt == QueryType.EVENT:
     # TODO: Port `event` to work in the normal flow.
-    # TODO: Don't consider it "done", try showing SVs too.
-    done = event.populate(uttr)
+    # Don't consider it done and fallthrough to show SV stuff
+    event.populate(uttr)
     state.query_types.remove(QueryType.EVENT)
 
   elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:

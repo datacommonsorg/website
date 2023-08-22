@@ -53,7 +53,6 @@ class ChartVars:
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
-  # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""

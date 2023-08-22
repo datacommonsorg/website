@@ -32,7 +32,7 @@
                 ]
               }
             ],
-            "title": "High Blood Pressure"
+            "title": "High Blood Pressure in Counties of California"
           },
           {
             "columns": [
@@ -63,7 +63,7 @@
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of California"
           }
         ],
         "statVarSpec": {

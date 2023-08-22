@@ -33,7 +33,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Level Status in Past Year"
+            "title": "Population Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -65,7 +65,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line"
+            "title": "Women below Poverty Line in Counties of United States"
           },
           {
             "columns": [
@@ -97,7 +97,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year)"
+            "title": "Males in Poverty (in last year) in Counties of United States"
           },
           {
             "columns": [
@@ -129,7 +129,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Asians Below Poverty Level Status in Past Year"
+            "title": "Asians Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -161,7 +161,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Black or African Americans Below Poverty Level Status in Past Year"
+            "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Hispanic or Latino Americans Below Poverty Level Status in Past Year"
+            "title": "Hispanic or Latino Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -225,7 +225,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year"
+            "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -257,7 +257,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Below Poverty Level Status in Past Year (Other Race)"
+            "title": "Below Poverty Level Status in Past Year (Other Race) in Counties of United States"
           },
           {
             "columns": [
@@ -289,7 +289,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Below Poverty Level Status in Past Year (Two or More Races)"
+            "title": "Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States"
           },
           {
             "columns": [
@@ -321,7 +321,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "White Americans Below Poverty Level Status in Past Year"
+            "title": "White Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -353,7 +353,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year"
+            "title": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -385,7 +385,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Some language other than English spoken at home & below poverty line"
+            "title": "Some language other than English spoken at home & below poverty line in Counties of United States"
           },
           {
             "columns": [
@@ -417,7 +417,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months"
+            "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -449,7 +449,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months"
+            "title": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -481,7 +481,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months"
+            "title": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -541,7 +541,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Level Status in Past Year"
+            "title": "Population Above Poverty Level Status in Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -573,7 +573,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line"
+            "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in Counties of United States"
           },
           {
             "columns": [
@@ -605,7 +605,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Level in the Past Year"
+            "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States"
           },
           {
             "columns": [
@@ -637,7 +637,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -669,7 +669,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months"
+            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of United States"
           },
           {
             "columns": [
@@ -729,7 +729,7 @@
                 ]
               }
             ],
-            "title": "Household Median Income"
+            "title": "Household Median Income in Counties of United States"
           },
           {
             "columns": [
@@ -761,7 +761,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months"
+            "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States"
           }
         ],
         "statVarSpec": {
