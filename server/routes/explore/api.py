@@ -192,6 +192,7 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
                                   debug_logs,
                                   has_data=has_charts)
 
+
 #
 # Given an insight context, fulfills it into charts.
 #
