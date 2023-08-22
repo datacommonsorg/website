@@ -180,8 +180,8 @@ def _add_charts_with_existence_check(state: PopulateState,
   tracker = MainExistenceCheckTracker(state, state.places_to_check,
                                       chart_vars_map)
   tracker.perform_existence_check()
-  exist_chart_vars_list = []
-  chart_vars_fetch(tracker, exist_chart_vars_list, set())
+  state.exist_chart_vars_list = []
+  chart_vars_fetch(tracker, state.exist_chart_vars_list, set())
 
   existing_svs = set()
   found = False
@@ -190,7 +190,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   for (qt, handler) in get_populate_handlers(state):
     state.uttr.counters.info('processed_fulfillment_types',
                              handler.module.__name__.split('.')[-1])
-    for exist_cv in exist_chart_vars_list:
+    for exist_cv in state.exist_chart_vars_list:
       chart_vars = copy.deepcopy(exist_cv)
       if chart_vars.event:
         if exist_cv.exist_event:

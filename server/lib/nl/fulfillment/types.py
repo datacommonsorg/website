@@ -92,6 +92,9 @@ class PopulateState:
   # This is in the order of the returned SVs from the Embeddings index.
   chart_vars_map: OrderedDict[str,
                               List[ChartVars]] = field(default_factory=dict)
+  # This is a temporary subset of `chart_vars_map` that have passed existence
+  # checks.
+  exist_chart_vars_list: List[ChartVars] = field(default_factory=list)
   # Places to do existence check on.
   #
   # Dict's key is the DCID of the place to check.  Dict's value is a group-by key
