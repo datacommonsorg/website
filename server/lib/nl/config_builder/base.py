@@ -24,11 +24,13 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.common.variable as var_lib
+from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
+import server.lib.nl.fulfillment.utils as futils
 
 
 # Config structures.
@@ -64,6 +66,10 @@ class Builder:
     self.category = self.page_config.categories.add()
     self.block = None
     self.column = None
+    if futils.classifications_of_type(uttr.classifications, ClassificationType.PER_CAPITA):
+      self.default_per_capita = True
+    else:
+      self.default_per_capita = False
 
   # Returns a Block and a Column
   def new_chart(self,
@@ -92,6 +98,8 @@ class Builder:
 
     if cv.svs and self.enable_pc(cv):
       self.block.denom = 'Count_Person'
+      if self.default_per_capita:
+        self.block.start_with_denom = True
 
     return self.block
 

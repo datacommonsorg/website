@@ -32,6 +32,7 @@ from server.lib.nl.detection.types import NLClassifier
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
+import server.lib.nl.fulfillment.utils as futils
 
 _MAX_RETURNED_VARS_EXPLORE = 10
 _MAX_RETURNED_VARS_CHAT = 20
@@ -178,7 +179,8 @@ def _get_comparison_or_correlation(
     uttr: nl_uttr.Utterance) -> ClassificationType:
   for cl in uttr.classifications:
     if cl.type in [
-        ClassificationType.COMPARISON, ClassificationType.CORRELATION
+        ClassificationType.COMPARISON, ClassificationType.CORRELATION,
+        ClassificationType.ANSWER_PLACES_REFERENCE
     ]:
       return cl.type
   # Mimic NL behavior when there are multiple places.
@@ -236,6 +238,10 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
       uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
     else:
+      # There are NO places.
+      if _handle_answer_places(uttr, child_type, places, cmp_places):
+        return places, cmp_places
+
       # Completely in context.
       ctx_places = []
       if uttr.prev_utterance and uttr.prev_utterance.places:
@@ -254,6 +260,10 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       places = [p.dcid for p in uttr.places]
       uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
+      # There are NO places.
+      if _handle_answer_places(uttr, child_type, places, cmp_places):
+        return places, cmp_places
+
       # Match NL behavior in `populate_charts()` by not using context
       # when the place-type is country.
       if child_type == ContainedInPlaceType.COUNTRY:
@@ -267,8 +277,8 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
         if uttr.prev_utterance and uttr.prev_utterance.places:
           # Only pick the main place from the context since this
           # is NOT a comparison query.
-          uttr.places = uttr.prev_utterance.places[:1]
-          places = [uttr.places[0].dcid]
+          uttr.places = uttr.prev_utterance.places
+          places = [p.dcid for p in uttr.places]
           uttr.counters.info('insight_place_ctx', places)
           uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
           uttr.past_source_context = uttr.places[0].name
@@ -290,3 +300,34 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
     uttr.past_source_context = constants.USA.name
 
   return places, cmp_places
+
+
+def _handle_answer_places(uttr: nl_uttr.Utterance,
+                          child_type: ContainedInPlaceType,
+                          places: List[str],
+                          cmp_places: List[str]) -> bool:
+  if not futils.classifications_of_type(
+    uttr.classifications, ClassificationType.ANSWER_PLACES_REFERENCE):
+    return False
+  if not uttr.prev_utterance or not uttr.prev_utterance.answerPlaces:
+    return False
+
+  if child_type in [ContainedInPlaceType.DEFAULT_TYPE, ContainedInPlaceType.PLACE]:
+    # Pick any type.
+    ans_places = list(uttr.prev_utterance.answerPlaces.values())[0]
+  elif uttr.prev_utterance.answerPlaces.get(child_type.value):
+    # Pick the specific type.
+    ans_places = uttr.prev_utterance.answerPlaces[child_type.value]
+  else:
+    return False
+  
+  if len(ans_places) > 1:
+    places.append(ans_places[0].dcid)
+    cmp_places.extend([p.dcid for p in ans_places[1:]])
+  else:
+    places.extend([p.dcid for p in ans_places])
+  uttr.places = ans_places
+  uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
+  uttr.past_source_context = "Query Results"
+
+  return True

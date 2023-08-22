@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 import os
 from typing import List
@@ -19,6 +20,7 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
+from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
@@ -98,6 +100,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
+
+    if field == 'abs' and ranked_places:
+      state.uttr.answerPlaces[state.place_type.value] = \
+        copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
     ranked_places = ranked_places[:_MAX_PLACES_TO_RETURN]

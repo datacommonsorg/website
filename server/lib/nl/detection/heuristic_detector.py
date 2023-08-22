@@ -55,46 +55,25 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
   sv_detection = dutils.create_sv_detection(query, svs_scores_dict)
 
   # Step 4: find query classifiers.
-  ranking_classification = heuristic_classifiers.ranking(query)
-  comparison_classification = heuristic_classifiers.comparison(query)
-  correlation_classification = heuristic_classifiers.correlation(query)
-  overview_classification = heuristic_classifiers.overview(query)
-  size_type_classification = heuristic_classifiers.size_type(query)
-  time_delta_classification = heuristic_classifiers.time_delta(query)
-  contained_in_classification = heuristic_classifiers.containedin(query)
-  event_classification = heuristic_classifiers.event(query)
-  quantity_classification = \
-    heuristic_classifiers.quantity(query, counters)
-  logging.info(f'Ranking classification: {ranking_classification}')
-  logging.info(f'Comparison classification: {comparison_classification}')
-  logging.info(f'Correlation classification: {correlation_classification}')
-  logging.info(f'SizeType classification: {size_type_classification}')
-  logging.info(f'TimeDelta classification: {time_delta_classification}')
-  logging.info(f'ContainedIn classification: {contained_in_classification}')
-  logging.info(f'Event Classification: {event_classification}')
-  logging.info(f'Overview classification: {overview_classification}')
-  logging.info(f'Quantity classification: {quantity_classification}')
+  classifications = [
+    heuristic_classifiers.ranking(query),
+    heuristic_classifiers.comparison(query),
+    heuristic_classifiers.containedin(query),
+    heuristic_classifiers.size_type(query),
+    heuristic_classifiers.time_delta(query),
+    heuristic_classifiers.event(query),
+    heuristic_classifiers.general(
+        query, ClassificationType.OVERVIEW, "Overview"),
+    heuristic_classifiers.quantity(query, counters),
+    heuristic_classifiers.correlation(query),
+    heuristic_classifiers.general(
+        query, ClassificationType.ANSWER_PLACES_REFERENCE, "AnswerPlacesReference"),
+    heuristic_classifiers.general(
+        query, ClassificationType.PER_CAPITA, "PerCapita"),
+  ]
 
   # Set the Classifications list.
-  classifications = []
-  if ranking_classification is not None:
-    classifications.append(ranking_classification)
-  if comparison_classification is not None:
-    classifications.append(comparison_classification)
-  if contained_in_classification is not None:
-    classifications.append(contained_in_classification)
-  if size_type_classification is not None:
-    classifications.append(size_type_classification)
-  if time_delta_classification is not None:
-    classifications.append(time_delta_classification)
-  if event_classification is not None:
-    classifications.append(event_classification)
-  if overview_classification is not None:
-    classifications.append(overview_classification)
-  if quantity_classification is not None:
-    classifications.append(quantity_classification)
-  if correlation_classification is not None:
-    classifications.append(correlation_classification)
+  classifications = [c for c in classifications if c is not None]
 
   if not classifications:
     # if not classification is found, it should default to UNKNOWN (not SIMPLE)

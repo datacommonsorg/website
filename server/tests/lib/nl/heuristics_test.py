@@ -137,15 +137,17 @@ class TestHeuristicEventClassifier(unittest.TestCase):
     self.assertIsNone(result)
 
 
-class TestHeuristicOverviewClassifier(unittest.TestCase):
+class TestHeuristicGeneralClassifier(unittest.TestCase):
 
   @parameterized.expand([
-      ("Tell me about palo alto"),
-      ("new tell me about cambridge"),
+      ("Tell me about palo alto", ClassificationType.OVERVIEW, "Overview"),
+      ("new tell me about cambridge", ClassificationType.OVERVIEW, "Overview"),
   ])
-  def test_detect_overview(self, query):
+  def test_detect_overview(self, query, subtype, subtype_name):
     expected = ClassificationType.OVERVIEW
-    classification = heuristic_classifiers.overview(query)
+    classification = heuristic_classifiers.general(query,
+                                                   subtype,
+                                                   subtype_name)
     result = classification.type
     self.assertEqual(result, expected)
 
@@ -162,9 +164,11 @@ class TestHeuristicOverviewClassifier(unittest.TestCase):
       ("what about berkeley"),
       ("how about in oregon"),
   ])
-  def test_no_false_positives(self, query):
+  def test_no_false_positives_for_overview(self, query):
     # If no matches, classifier returns None
-    result = heuristic_classifiers.overview(query)
+    result = heuristic_classifiers.general(query,
+                                           ClassificationType.OVERVIEW,
+                                           "Overview")
     self.assertIsNone(result)
 
 
