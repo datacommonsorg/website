@@ -220,7 +220,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             place_type=cdict.get('place_type'),
             ranking_types=[RankingType(c) for c in cdict['ranking_types']],
             ranking_count=0,
-            chart_origin=None))
+            chart_origin=None,
+            is_sdg=False))
   return charts
 
 
