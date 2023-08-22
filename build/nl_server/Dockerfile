@@ -14,6 +14,8 @@
 
 FROM python:3.11.4-slim
 
+RUN apt-get update && apt-get -y upgrade
+
 ARG ENV
 ENV ENV=${ENV}
 
