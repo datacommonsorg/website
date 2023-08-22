@@ -15,6 +15,7 @@
 import copy
 from typing import Dict, List
 
+from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
@@ -100,6 +101,9 @@ def add_chart_to_utterance(
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
     ranking_count: int = 0) -> bool:
+  is_sdg = False
+  if state.uttr.insight_ctx and params.is_sdg(state.uttr.insight_ctx):
+    is_sdg = True
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
@@ -113,7 +117,8 @@ def add_chart_to_utterance(
                  place_type=place_type,
                  ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,
-                 chart_origin=primary_vs_secondary)
+                 chart_origin=primary_vs_secondary,
+                 is_sdg=is_sdg)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True
