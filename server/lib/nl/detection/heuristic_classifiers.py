@@ -30,8 +30,8 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
-from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import GeneralClassificationAttributes
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SizeType
@@ -248,8 +248,7 @@ def comparison(query) -> Union[NLClassifier, None]:
   return NLClassifier(type=ClassificationType.COMPARISON, attributes=attributes)
 
 
-def general(query: str,
-            subtype: ClassificationType,
+def general(query: str, subtype: ClassificationType,
             subtype_name: str) -> Union[NLClassifier, None]:
   """Heuristic-based classifier for general pattern to type."""
   # make query lowercase for string matching
@@ -265,8 +264,7 @@ def general(query: str,
   if not trigger_words:
     return None
 
-  attributes = GeneralClassificationAttributes(
-      trigger_words=trigger_words)
+  attributes = GeneralClassificationAttributes(trigger_words=trigger_words)
   return NLClassifier(type=subtype, attributes=attributes)
 
 

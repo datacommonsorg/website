@@ -100,7 +100,7 @@ def set_overrides(state: PopulateState) -> bool:
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
     state.uttr.counters.err('size-across-entities_failed_cb_norankingtypes', 1)

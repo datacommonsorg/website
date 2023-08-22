@@ -66,7 +66,8 @@ class Builder:
     self.category = self.page_config.categories.add()
     self.block = None
     self.column = None
-    if futils.classifications_of_type(uttr.classifications, ClassificationType.PER_CAPITA):
+    if futils.classifications_of_type(uttr.classifications,
+                                      ClassificationType.PER_CAPITA):
       self.default_per_capita = True
     else:
       self.default_per_capita = False

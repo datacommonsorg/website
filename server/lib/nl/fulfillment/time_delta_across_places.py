@@ -37,7 +37,7 @@ _MAX_PLACES_TO_RETURN = 20
 # Computes growth rate and ranks charts of child places in parent place.
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, rank: int) -> bool:
   logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
@@ -101,7 +101,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
 
-    if field == 'abs' and ranked_places:
+    if rank == 0 and field == 'abs' and ranked_places:
       state.uttr.answerPlaces[state.place_type.value] = \
         copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
 

@@ -303,16 +303,17 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
 
 
 def _handle_answer_places(uttr: nl_uttr.Utterance,
-                          child_type: ContainedInPlaceType,
-                          places: List[str],
+                          child_type: ContainedInPlaceType, places: List[str],
                           cmp_places: List[str]) -> bool:
   if not futils.classifications_of_type(
-    uttr.classifications, ClassificationType.ANSWER_PLACES_REFERENCE):
+      uttr.classifications, ClassificationType.ANSWER_PLACES_REFERENCE):
     return False
   if not uttr.prev_utterance or not uttr.prev_utterance.answerPlaces:
     return False
 
-  if child_type in [ContainedInPlaceType.DEFAULT_TYPE, ContainedInPlaceType.PLACE]:
+  if child_type in [
+      ContainedInPlaceType.DEFAULT_TYPE, ContainedInPlaceType.PLACE
+  ]:
     # Pick any type.
     ans_places = list(uttr.prev_utterance.answerPlaces.values())[0]
   elif uttr.prev_utterance.answerPlaces.get(child_type.value):
@@ -320,7 +321,7 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
     ans_places = uttr.prev_utterance.answerPlaces[child_type.value]
   else:
     return False
-  
+
   if len(ans_places) > 1:
     places.append(ans_places[0].dcid)
     cmp_places.extend([p.dcid for p in ans_places[1:]])

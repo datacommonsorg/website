@@ -145,9 +145,7 @@ class TestHeuristicGeneralClassifier(unittest.TestCase):
   ])
   def test_detect_overview(self, query, subtype, subtype_name):
     expected = ClassificationType.OVERVIEW
-    classification = heuristic_classifiers.general(query,
-                                                   subtype,
-                                                   subtype_name)
+    classification = heuristic_classifiers.general(query, subtype, subtype_name)
     result = classification.type
     self.assertEqual(result, expected)
 
@@ -166,8 +164,7 @@ class TestHeuristicGeneralClassifier(unittest.TestCase):
   ])
   def test_no_false_positives_for_overview(self, query):
     # If no matches, classifier returns None
-    result = heuristic_classifiers.general(query,
-                                           ClassificationType.OVERVIEW,
+    result = heuristic_classifiers.general(query, ClassificationType.OVERVIEW,
                                            "Overview")
     self.assertIsNone(result)
 

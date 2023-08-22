@@ -56,20 +56,21 @@ def detect(place_detector_type: PlaceDetectorType, orig_query: str,
 
   # Step 4: find query classifiers.
   classifications = [
-    heuristic_classifiers.ranking(query),
-    heuristic_classifiers.comparison(query),
-    heuristic_classifiers.containedin(query),
-    heuristic_classifiers.size_type(query),
-    heuristic_classifiers.time_delta(query),
-    heuristic_classifiers.event(query),
-    heuristic_classifiers.general(
-        query, ClassificationType.OVERVIEW, "Overview"),
-    heuristic_classifiers.quantity(query, counters),
-    heuristic_classifiers.correlation(query),
-    heuristic_classifiers.general(
-        query, ClassificationType.ANSWER_PLACES_REFERENCE, "AnswerPlacesReference"),
-    heuristic_classifiers.general(
-        query, ClassificationType.PER_CAPITA, "PerCapita"),
+      heuristic_classifiers.ranking(query),
+      heuristic_classifiers.comparison(query),
+      heuristic_classifiers.containedin(query),
+      heuristic_classifiers.size_type(query),
+      heuristic_classifiers.time_delta(query),
+      heuristic_classifiers.event(query),
+      heuristic_classifiers.general(query, ClassificationType.OVERVIEW,
+                                    "Overview"),
+      heuristic_classifiers.quantity(query, counters),
+      heuristic_classifiers.correlation(query),
+      heuristic_classifiers.general(query,
+                                    ClassificationType.ANSWER_PLACES_REFERENCE,
+                                    "AnswerPlacesReference"),
+      heuristic_classifiers.general(query, ClassificationType.PER_CAPITA,
+                                    "PerCapita"),
   ]
 
   # Set the Classifications list.

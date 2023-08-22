@@ -27,8 +27,8 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
-from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import GeneralClassificationAttributes
+from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QCmpType
 from server.lib.nl.detection.types import Quantity
@@ -141,8 +141,8 @@ def dict_to_classification(
     elif 'quantity' in cdict:
       attributes = _dict_to_quantity(cdict['quantity'])
     elif ClassificationType(cdict['type']) in [
-      ClassificationType.OVERVIEW, ClassificationType.ANSWER_PLACES_REFERENCE,
-      ClassificationType.PER_CAPITA
+        ClassificationType.OVERVIEW, ClassificationType.ANSWER_PLACES_REFERENCE,
+        ClassificationType.PER_CAPITA
     ]:
       attributes = GeneralClassificationAttributes(trigger_words=[])
 
@@ -283,7 +283,9 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['llm_resp'] = u.llm_resp
     udict['placeFallback'] = _place_fallback_to_dict(u.place_fallback)
     udict['insightCtx'] = u.insight_ctx
-    udict['answerPlaces'] = {t: _place_to_dict(p) for t, p in u.answerPlaces.items()}
+    udict['answerPlaces'] = {
+        t: _place_to_dict(p) for t, p in u.answerPlaces.items()
+    }
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -309,7 +311,10 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         places=_dict_to_place(udict['places']),
         classifications=dict_to_classification(udict['classifications']),
         rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
-        answerPlaces={t: _dict_to_place(p) for t, p in udict.get('answerPlaces', {}).items()},
+        answerPlaces={
+            t: _dict_to_place(p)
+            for t, p in udict.get('answerPlaces', {}).items()
+        },
         detection=None,
         chartCandidates=None,
         counters=None,
