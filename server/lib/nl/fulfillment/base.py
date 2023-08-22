@@ -41,6 +41,8 @@ _MAX_NUM_CHARTS = 15
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
 
+_MAX_RANK = 1000
+
 
 # Populate chart specs in state.uttr and return True if something was added.
 def populate_charts(state: PopulateState) -> bool:
@@ -190,12 +192,12 @@ def _add_charts_with_existence_check(state: PopulateState,
   for (qt, handler) in get_populate_handlers(state):
     state.uttr.counters.info('processed_fulfillment_types',
                              handler.module.__name__.split('.')[-1])
-    for exist_cv in state.exist_chart_vars_list:
+    for idx, exist_cv in enumerate(state.exist_chart_vars_list):
       chart_vars = copy.deepcopy(exist_cv)
       if chart_vars.event:
         if exist_cv.exist_event:
           if handler.module.populate(state, chart_vars, places,
-                                     ChartOriginType.PRIMARY_CHART):
+                                     ChartOriginType.PRIMARY_CHART, idx):
             found = True
             num_charts += 1
           else:
@@ -204,7 +206,7 @@ def _add_charts_with_existence_check(state: PopulateState,
         if chart_vars.svs:
           existing_svs.update(chart_vars.svs)
           if handler.module.populate(state, chart_vars, places,
-                                     ChartOriginType.PRIMARY_CHART):
+                                     ChartOriginType.PRIMARY_CHART, idx):
             found = True
             num_charts += 1
           else:
@@ -291,7 +293,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
 
       # Add this as a secondary chart.
       if simple.populate(state, chart_vars, places,
-                         ChartOriginType.SECONDARY_CHART):
+                         ChartOriginType.SECONDARY_CHART, _MAX_RANK):
         found = True
         num_charts += 1
       else:
