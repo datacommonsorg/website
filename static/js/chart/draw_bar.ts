@@ -169,13 +169,15 @@ function addHighlightOnHover(
     tooltip.style("display", "block");
     const tooltipContent = getTooltipContent(d3.select(this));
     tooltip.html(tooltipContent);
-    d3.select(this).style("opacity", 0.5);
+    // highlight just the bar or lollipop selected
+    svg.selectAll("rect, circle").style("opacity", 0.5);
+    d3.select(this).style("opacity", 1);
   };
   const mouseoutFn = function () {
-    d3.select(this).style("opacity", 1);
-    // Slightly delay hiding tooltip so quickly mousing over a stream of
-    // bars doesn't result in the tooltip flickering in and out
+    // Slightly delay hiding tooltip and resetting styling so quickly mousing
+    // over a stream of bars doesn't result in the tooltip flickering in and out
     hideFn = setTimeout(() => {
+      svg.selectAll("rect, circle").style("opacity", 1);
       tooltip.style("display", "none");
     }, 200);
   };

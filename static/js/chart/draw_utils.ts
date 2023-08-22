@@ -51,6 +51,7 @@ const TICK_SIZE = 6;
  * Adds tooltip element within a given container.
  *
  * @param container container to add tooltip element to.
+ * @returns tooltip element that was added
  */
 export function addTooltip(
   container: d3.Selection<HTMLDivElement, any, any, any>
