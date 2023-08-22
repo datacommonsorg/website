@@ -37,7 +37,7 @@ _MAX_VARS_IN_A_CHART = 20
 #       auto-expanded peer groups of SVs.
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)

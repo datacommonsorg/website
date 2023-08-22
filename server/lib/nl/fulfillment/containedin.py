@@ -26,8 +26,8 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
 def populate(state: PopulateState, chart_vars: ChartVars,
-             contained_places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             contained_places: List[Place], chart_origin: ChartOriginType,
+             _: int) -> bool:
   logging.info('populate_cb for contained-in')
 
   if chart_vars.event:

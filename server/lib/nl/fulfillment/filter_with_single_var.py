@@ -12,9 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 from typing import List
 
+from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -32,7 +34,7 @@ _MAX_PLACES_TO_RETURN = 7
 # Computes ranked list of places after applying the filter
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, rank: int) -> bool:
   logging.info('populate_cb for filter_with_single_var')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-single-var_failed_cb_events', 1)
@@ -73,6 +75,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if show_lowest:
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]
+
+  if rank == 0:
+    # Set answer places.
+    state.uttr.answerPlaces[state.place_type.value] = \
+      copy.deepcopy(ranked_children[:constants.MAX_ANSWER_PLACES])
 
   # Compute title suffix.
   if len(ranked_children) > _MAX_PLACES_TO_RETURN:

@@ -42,7 +42,7 @@ _MAX_RANKING_AND_MAP_PER_SVPG_UPPER = 10
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, rank: int) -> bool:
   if chart_vars.event:
     state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
@@ -60,20 +60,20 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
 
   if state.explore_mode:
-    return _populate_explore(state, chart_vars, places, chart_origin)
+    return _populate_explore(state, chart_vars, places, chart_origin, rank)
   else:
-    return _populate_chat(state, chart_vars, places, chart_origin)
+    return _populate_chat(state, chart_vars, places, chart_origin, rank)
 
 
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
-                      places: List[Place],
-                      chart_origin: ChartOriginType) -> bool:
+                      places: List[Place], chart_origin: ChartOriginType,
+                      rank: int) -> bool:
   added = False
 
   # For peer-groups, add multi-line charts.
   if chart_vars.is_topic_peer_group:
 
-    added |= simple.populate(state, chart_vars, places, chart_origin)
+    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
     # Limit the number of map/ranking charts in an SVPG.
     if len(state.exist_chart_vars_list) > _MAX_NUM_CHART_VARS_THRESHOLD:
@@ -90,42 +90,50 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   for sv in all_svs[:max_rank_and_map_charts]:
     chart_vars.svs = [sv]
     if not chart_vars.is_topic_peer_group:
-      added |= simple.populate(state, chart_vars, places, chart_origin)
+      added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
     # If this is SDG, unless user has asked for ranking, do not return!
     if not is_sdg or state.ranking_types:
       ranking_orig = state.ranking_types
-      state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+      if not state.ranking_types:
+        state.ranking_types = [RankingType.HIGH, RankingType.LOW]
       added |= ranking_across_places.populate(
-          state, chart_vars, places, chart_origin,
-          _get_ranking_count_by_type(state.place_type))
+          state,
+          chart_vars,
+          places,
+          chart_origin,
+          rank,
+          ranking_count=_get_ranking_count_by_type(state.place_type,
+                                                   ranking_orig))
       state.ranking_types = ranking_orig
 
   return added
 
 
 def _populate_chat(state: PopulateState, chart_vars: ChartVars,
-                   places: List[Place], chart_origin: ChartOriginType) -> bool:
+                   places: List[Place], chart_origin: ChartOriginType,
+                   rank: int) -> bool:
   if state.ranking_types:
     # Ranking query
     if state.place_type:
       # This is ranking across places.
-      if ranking_across_places.populate(state, chart_vars, places,
-                                        chart_origin):
+      if ranking_across_places.populate(state, chart_vars, places, chart_origin,
+                                        rank):
         return True
     else:
       # This is ranking across vars.
-      if ranking_across_vars.populate(state, chart_vars, places, chart_origin):
+      if ranking_across_vars.populate(state, chart_vars, places, chart_origin,
+                                      rank):
         return True
 
   if state.place_type:
-    if containedin.populate(state, chart_vars, places, chart_origin):
+    if containedin.populate(state, chart_vars, places, chart_origin, rank):
       return True
 
-  return simple.populate(state, chart_vars, places, chart_origin)
+  return simple.populate(state, chart_vars, places, chart_origin, rank)
 
 
-def _get_ranking_count_by_type(t: ContainedInPlaceType):
-  if t and t.value.endswith('School'):
+def _get_ranking_count_by_type(t: ContainedInPlaceType, rt: List[RankingType]):
+  if (t and t.value.endswith('School')) or (len(rt) == 1):
     return _EXPLORE_SCHOOL_RANKING_COUNT
   return _EXPLORE_RANKING_COUNT
