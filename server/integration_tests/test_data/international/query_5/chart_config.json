@@ -21,8 +21,74 @@
             ],
             "title": "Floods in Brazil",
             "type": "DISASTER_EVENT"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Flood Event in Brazil",
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Flood Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Floods in Brazil",
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Area_FloodEvent": {
+            "name": "Area of Flood Event",
+            "statVar": "Area_FloodEvent"
+          },
+          "Count_FloodEvent": {
+            "name": "Floods",
+            "statVar": "Count_FloodEvent"
+          }
+        }
       }
     ],
     "metadata": {

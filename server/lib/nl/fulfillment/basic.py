@@ -15,7 +15,9 @@
 import copy
 from typing import List
 
+from server.lib.explore import params
 from server.lib.nl.common.utterance import ChartOriginType
+from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment import containedin
@@ -26,6 +28,12 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
 _EXPLORE_RANKING_COUNT = 5
+_EXPLORE_SCHOOL_RANKING_COUNT = 10
+
+# The the threshold of total #chart-vars at which we stop showing the whole SVPG.
+_MAX_NUM_CHART_VARS_THRESHOLD = 3
+_MAX_RANKING_AND_MAP_PER_SVPG_LOWER = 2
+_MAX_RANKING_AND_MAP_PER_SVPG_UPPER = 10
 
 #
 # NOTE: basic is a layer on topic of simple, containedin, ranking_across_places and ranking_across_vars
@@ -57,26 +65,41 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return _populate_chat(state, chart_vars, places, chart_origin)
 
 
-# TODO: Support ranking across vars.
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
                       places: List[Place],
                       chart_origin: ChartOriginType) -> bool:
   added = False
-  # First add timeline.
+
+  # For peer-groups, add multi-line charts.
   if chart_vars.is_topic_peer_group:
+
     added |= simple.populate(state, chart_vars, places, chart_origin)
 
+    # Limit the number of map/ranking charts in an SVPG.
+    if len(state.exist_chart_vars_list) > _MAX_NUM_CHART_VARS_THRESHOLD:
+      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_LOWER
+    else:
+      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_UPPER
+
+  else:
+    max_rank_and_map_charts = len(chart_vars.svs)
+
+  is_sdg = params.is_sdg(state.uttr.insight_ctx)
+
   all_svs = copy.deepcopy(chart_vars.svs)
-  for sv in all_svs:
+  for sv in all_svs[:max_rank_and_map_charts]:
     chart_vars.svs = [sv]
     if not chart_vars.is_topic_peer_group:
       added |= simple.populate(state, chart_vars, places, chart_origin)
-    ranking_orig = state.ranking_types
-    state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-    added |= ranking_across_places.populate(state, chart_vars, places,
-                                            chart_origin,
-                                            _EXPLORE_RANKING_COUNT)
-    state.ranking_types = ranking_orig
+
+    # If this is SDG, unless user has asked for ranking, do not return!
+    if not is_sdg or state.ranking_types:
+      ranking_orig = state.ranking_types
+      state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+      added |= ranking_across_places.populate(
+          state, chart_vars, places, chart_origin,
+          _get_ranking_count_by_type(state.place_type))
+      state.ranking_types = ranking_orig
 
   return added
 
@@ -100,3 +123,9 @@ def _populate_chat(state: PopulateState, chart_vars: ChartVars,
       return True
 
   return simple.populate(state, chart_vars, places, chart_origin)
+
+
+def _get_ranking_count_by_type(t: ContainedInPlaceType):
+  if t and t.value.endswith('School'):
+    return _EXPLORE_SCHOOL_RANKING_COUNT
+  return _EXPLORE_RANKING_COUNT

@@ -403,11 +403,10 @@ class TestDataSpecNext(unittest.TestCase):
   # Example: [what are the most grown agricultural things?]
   @unittest.skip
   @patch.object(variable, 'extend_svs')
-  @patch.object(rank_utils, 'rank_svs_by_latest_value')
   @patch.object(topic, 'compute_chart_vars')
   @patch.object(utils, 'sv_existence_for_places')
   def test_ranking_across_svs(self, mock_sv_existence, mock_topic_to_svs,
-                              mock_rank_svs, mock_extend_svs):
+                              mock_extend_svs):
     # Ranking, no place.
     detection = _detection(None, ['dc/topic/Agriculture'], [0.6],
                            ClassificationType.RANKING)
@@ -430,12 +429,6 @@ class TestDataSpecNext(unittest.TestCase):
         'FarmInventory_Wheat': False,
         'FarmInventory_Barley': False
     }, {})]
-    # Differently order result
-    mock_rank_svs.return_value = [
-        'FarmInventory_Barley',
-        'FarmInventory_Rice',
-        'FarmInventory_Wheat',
-    ]
 
     # Pass in just simple utterance
     got = _run(detection, [SIMPLE_UTTR])
@@ -644,4 +637,4 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
                           constants.TEST_SESSION_ID)
   context.merge_with_context(uttr, is_explore=False)
   print(uttr)
-  return serialize.save_utterance(fulfiller.fulfill(uttr))[0]
+  return serialize.save_utterance(fulfiller.fulfill(uttr).utterance)[0]

@@ -132,7 +132,7 @@
                 ]
               }
             ],
-            "title": "Temperature in a Location"
+            "title": "Temperature in a Location in Counties of California"
           },
           {
             "columns": [
@@ -163,7 +163,7 @@
                 ]
               }
             ],
-            "title": "Min Temperature"
+            "title": "Min Temperature in Counties of California"
           },
           {
             "columns": [
@@ -194,7 +194,7 @@
                 ]
               }
             ],
-            "title": "Mean Temperature"
+            "title": "Mean Temperature in Counties of California"
           },
           {
             "columns": [
@@ -225,7 +225,7 @@
                 ]
               }
             ],
-            "title": "Maximum Temperature"
+            "title": "Maximum Temperature in Counties of California"
           },
           {
             "columns": [
@@ -256,7 +256,7 @@
                 ]
               }
             ],
-            "title": "Count of Heat Temperature Event"
+            "title": "Count of Heat Temperature Event in Counties of California"
           },
           {
             "columns": [
@@ -287,7 +287,7 @@
                 ]
               }
             ],
-            "title": "Mean maximum temperature"
+            "title": "Mean maximum temperature in Counties of California"
           }
         ],
         "statVarSpec": {

@@ -8,29 +8,32 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block",
-                      "dc/p69tpsldf99h7_multiple_place_bar_block",
                       "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
                       "Count_Worker_NAICSConstruction_multiple_place_bar_block",
                       "Count_Worker_NAICSEducationalServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block",
-                      "Count_Worker_NAICSOtherServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block",
-                      "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block",
                       "dc/ndg1xk1e9frc2_multiple_place_bar_block",
-                      "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
-                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block",
                       "Count_Worker_NAICSInformation_multiple_place_bar_block",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block",
+                      "Count_Worker_NAICSOtherServices_multiple_place_bar_block",
                       "dc/8p97n7l96lgg8_multiple_place_bar_block",
-                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
                       "Count_Worker_NAICSUtilities_multiple_place_bar_block",
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block"
+                      "dc/p69tpsldf99h7_multiple_place_bar_block",
+                      "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
+                      "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block"
                     ],
                     "title": "Categories of Jobs in Placer County (${date})",
                     "type": "BAR"

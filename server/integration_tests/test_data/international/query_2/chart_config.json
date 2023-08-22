@@ -17,7 +17,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy"
+            "title": "Life Expectancy in Administrative Area 1 Places of China"
           },
           {
             "columns": [
@@ -44,7 +44,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy by Gender"
+            "title": "Life Expectancy by Gender in Administrative Area 1 Places of China"
           }
         ],
         "statVarSpec": {

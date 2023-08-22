@@ -17,7 +17,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy"
+            "title": "Life Expectancy in the World"
           },
           {
             "columns": [
@@ -44,7 +44,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy by Gender"
+            "title": "Life Expectancy by Gender in the World"
           },
           {
             "columns": [
@@ -60,7 +60,7 @@
                 ]
               }
             ],
-            "title": "Causes Of Death"
+            "title": "Causes Of Death in the World"
           },
           {
             "columns": [
@@ -99,7 +99,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and more"
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and more in the World"
           },
           {
             "columns": [
@@ -149,7 +149,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Health Behaviors"
+            "title": "Health Behaviors in the World"
           }
         ],
         "statVarSpec": {

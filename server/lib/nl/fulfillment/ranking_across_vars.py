@@ -15,6 +15,7 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -61,16 +62,13 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             chart_vars.svs)
     return False
 
-  # TODO: Use ranking chart.
   # Ranking among peer group of SVs.
-  ranked_svs = rank_utils.rank_svs_by_latest_value(places[0].dcid,
-                                                   chart_vars.svs,
-                                                   state.ranking_types[0],
-                                                   state.uttr.counters)
-  state.uttr.counters.info('ranking-across-vars_reranked_svs', {
-      'orig': chart_vars.svs,
-      'ranked': ranked_svs,
-  })
-  chart_vars.svs = ranked_svs[:_MAX_VARS_IN_A_CHART]
+  eres = ext.svs4place(state, places[0], chart_vars.svs)
+  if not eres.exist_svs:
+    state.uttr.counters.err('ranking_across_vars_failed_existence', 1)
+    return False
+  # TODO: Add limit back after chart-config supports it natively.
+  chart_vars.svs = eres.exist_svs
+
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
                                 chart_origin)

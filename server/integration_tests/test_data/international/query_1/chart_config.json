@@ -33,7 +33,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Living in Rural Areas"
+            "title": "Population Living in Rural Areas in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -65,7 +65,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Rural"
+            "title": "Count of Household: Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -97,7 +97,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Worker"
+            "title": "Population: Rural, Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -129,7 +129,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Non Worker"
+            "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -161,7 +161,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate, Rural"
+            "title": "Population: Literate, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -193,7 +193,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Main Worker"
+            "title": "Population: Rural, Main Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -225,7 +225,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 6 Years or Less, Rural"
+            "title": "Population: 6 Years or Less, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -257,7 +257,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural, Worker"
+            "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -318,7 +318,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Christianity"
+            "title": "Population: Rural, Christianity in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -350,7 +350,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural, Scheduled Caste"
+            "title": "Population: Houseless, Rural, Scheduled Caste in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -382,7 +382,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Rural, Marginal Worker"
+            "title": "Population: Rural, Marginal Worker in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -414,7 +414,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Rural"
+            "title": "Population: Female, Rural in Administrative Area 2 Places of India"
           },
           {
             "columns": [
@@ -446,7 +446,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Houseless, Rural"
+            "title": "Population: Houseless, Rural in Administrative Area 2 Places of India"
           }
         ],
         "statVarSpec": {
