@@ -357,6 +357,36 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_RU_ZS"
+                    ],
+                    "title": "Rural Population With Electricity Access in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rural Population With Electricity Access in India",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_RU_ZS"
+                    ],
+                    "title": "Rural Population With Electricity Access in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Access to electricity, rural is the percentage of rural population with access to electricity. (WorldBank Series Code: EG.ELC.ACCS.RU.ZS, Source: World Bank Global Electrification Database from \"Tracking SDG 7: The Energy Progress Report\" led jointly by the custodian agencies: the International Energy Agency (IEA), the International Renewable Energy Agency (IRENA), the United Nations Statistics Division (UNSD), the World Bank and the World Health Organization (WHO).)",
+            "title": "Rural Population With Electricity Access"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -505,6 +535,10 @@
           "indianCensus/Count_Person_Religion_Christian_Rural": {
             "name": "Population: Rural, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Rural"
+          },
+          "worldBank/EG_ELC_ACCS_RU_ZS": {
+            "name": "Rural Population With Electricity Access",
+            "statVar": "worldBank/EG_ELC_ACCS_RU_ZS"
           }
         }
       }
