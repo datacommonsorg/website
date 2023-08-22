@@ -21,7 +21,7 @@
                 ]
               }
             ],
-            "title": "Number of Students"
+            "title": "Number of Students in Public Schools of Sunnyvale"
           },
           {
             "columns": [
@@ -41,7 +41,7 @@
                 ]
               }
             ],
-            "title": "Number of Teachers"
+            "title": "Number of Teachers in Public Schools of Sunnyvale"
           },
           {
             "columns": [
@@ -61,7 +61,7 @@
                 ]
               }
             ],
-            "title": "Student-Teacher Ratio"
+            "title": "Student-Teacher Ratio in Public Schools of Sunnyvale"
           }
         ],
         "statVarSpec": {

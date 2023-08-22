@@ -37,6 +37,9 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06"
                     ],

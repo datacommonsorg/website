@@ -18,7 +18,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "GDP (Nominal Value)"
+            "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom"
           },
           {
             "columns": [
@@ -90,7 +90,7 @@
                 ]
               }
             ],
-            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)"
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
           }
         ],
         "statVarSpec": {
