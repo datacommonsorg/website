@@ -12,14 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 from typing import List
 
 import server.lib.explore.existence as ext
+from server.lib.nl.common import constants
 from server.lib.nl.common import utils
+from server.lib.nl.common.rank_utils import filter_and_rank_places
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
@@ -34,6 +38,7 @@ def populate(state: PopulateState,
              chart_vars: ChartVars,
              places: List[Place],
              chart_origin: ChartOriginType,
+             rank: int,
              ranking_count: int = 0) -> bool:
   logging.info('populate_cb for ranking_across_places')
   if not state.ranking_types:
@@ -62,6 +67,21 @@ def populate(state: PopulateState,
       state.uttr.counters.err('containedin_failed_existence', 1)
       return False
     chart_vars.svs = exist_svs
+
+    # Maybe set Answer Places.  Be very conservative here.
+    # We only do this if this is the first chart, user requested ranking
+    # result and this is for 1 SV.
+    if (rank == 0 and len(chart_vars.svs) == 1 and
+        len(state.ranking_types) == 1 and
+        state.ranking_types[0] in [RankingType.HIGH, RankingType.LOW]):
+      # Perform a read.
+      ranked_places = filter_and_rank_places(places[0], state.place_type,
+                                             chart_vars.svs[0])
+      if state.ranking_types[0] == RankingType.LOW:
+        # Reverse the order.
+        ranked_places.reverse()
+      state.uttr.answerPlaces[state.place_type.value] = \
+        copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
 
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True

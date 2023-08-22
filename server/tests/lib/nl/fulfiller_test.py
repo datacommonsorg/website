@@ -621,8 +621,8 @@ def _detection(place: str,
   elif query_type == ClassificationType.OVERVIEW:
     detection.classifications = [
         NLClassifier(type=ClassificationType.OVERVIEW,
-                     attributes=nl_detection.OverviewClassificationAttributes(
-                         overview_trigger_words=['tell me']))
+                     attributes=nl_detection.GeneralClassificationAttributes(
+                         trigger_words=['tell me']))
     ]
 
   return detection
