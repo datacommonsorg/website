@@ -179,8 +179,7 @@ def _get_comparison_or_correlation(
     uttr: nl_uttr.Utterance) -> ClassificationType:
   for cl in uttr.classifications:
     if cl.type in [
-        ClassificationType.COMPARISON, ClassificationType.CORRELATION,
-        ClassificationType.ANSWER_PLACES_REFERENCE
+        ClassificationType.COMPARISON, ClassificationType.CORRELATION
     ]:
       return cl.type
   # Mimic NL behavior when there are multiple places.
