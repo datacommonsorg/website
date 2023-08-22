@@ -1,0 +1,419 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
+                    ],
+                    "title": "PM 2.5 Emissions by Source (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "PM 2.5 Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
+                    ],
+                    "title": "Sulfur Dioxide Emissions by Source (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Sulfur Dioxide Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount Emissions MiscellaneousAreaSources (28) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions MiscellaneousAreaSources (28)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount Emissions InternalCombustionEngines (2) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions InternalCombustionEngines (2)"
+          }
+        ],
+        "statVarSpec": {
+          "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, StationarySourceFuelCombustion (21)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, MobileSources (22)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, IndustrialProcesses (23)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, SolventUtilization (24)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, StorageAndTransport (25)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, WasteDisposalTreatmentAndRecovery (26)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, MiscellaneousAreaSources (28)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
+          },
+          "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions MiscellaneousAreaSources (28)",
+            "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
+          },
+          "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions InternalCombustionEngines (2)",
+            "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, StationarySourceFuelCombustion (21)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, MobileSources (22)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, IndustrialProcesses (23)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, SolventUtilization (24)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, StorageAndTransport (25)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, WasteDisposalTreatmentAndRecovery (26)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, MiscellaneousAreaSources (28)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06105"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06105",
+    "name": "Trinity County",
+    "place_type": "County"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/GreenhouseGasEmissions",
+        "name": "Greenhouse Gasses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/CO2Emissions",
+        "name": "Carbondioxide (CO2)",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_FlourinatedGases",
+        "name": "Flourinated Gas",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
+        "name": "Methane",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
+        "name": "Nitrous Oxide",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_PM2.5_EmissionsbySource",
+        "name": "PM 2.5",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_SulfurDioxide_EmissionsbySource",
+        "name": "Sulfur Dioxide",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources": {
+        "emittedThing": [
+          "Annual_Amount_Emissions_Acetaldehyde_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Ammonia_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Arsenic_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Benzene_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Cadmium_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_CarbonDioxide_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_CarbonMonoxide_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Chlorane_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Chlorine_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Chloroform_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Chromium_6_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Cobalt_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Fluorane_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Formaldehyde_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Hexane_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Lead_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Manganese_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Mercury_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Methane_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Methanol_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Naphthalene_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Nickel_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_PM10_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Phenol_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Phosphorus_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Pyrene_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Selenium_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_Toluene_SCC_28_MiscellaneousAreaSources",
+          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_28_MiscellaneousAreaSources"
+        ]
+      },
+      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
+        "emittedThing": [
+          "Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Benzene_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_CarbonMonoxide_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Formaldehyde_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Mercury_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Naphthalene_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_PM10_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Pyrene_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_Toluene_SCC_2_InternalCombustionEngines",
+          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_2_InternalCombustionEngines"
+        ]
+      }
+    },
+    "mainTopic": {
+      "dcid": "dc/topic/Emissions",
+      "name": "Emissions",
+      "types": [
+        "Topic"
+      ]
+    },
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Pollutants",
+        "name": "Air Pollutants",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Temperatures",
+        "name": "Temperature",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Precipitation",
+        "name": "Precipitation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/NaturalDisasters",
+        "name": "Natural Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy",
+        "name": "Energy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GreenJobs",
+        "name": "Green Jobs",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/LandUseAndCoverage",
+        "name": "Land Use and Coverage",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/OceanHealth",
+        "name": "Ocean Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/ProductionConsumptionandWaste",
+        "name": "Production Consumption and Waste",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

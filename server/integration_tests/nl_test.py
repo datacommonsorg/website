@@ -156,6 +156,7 @@ class IntegrationTest(NLWebServerTestCase):
             # Proxy for parks in magiceye
             'Which cities in the SF Bay Area have the highest larceny',
             'What countries in Africa had the greatest increase in life expectancy',
+            'What is the fertility rate in these countries?',
             # This should list stats about the middle school students.
             'How many middle schools are there in Sunnyvale',
         ])

@@ -8,29 +8,28 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
                     ],
-                    "title": "Middle School Students in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Middle School Students in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                      "FertilityRate_Person_Female_multiple_place_bar_block"
                     ],
-                    "title": "Middle School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Fertility Rate (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Middle School Students"
+            "title": "Fertility Rate"
           },
           {
             "columns": [
@@ -38,286 +37,221 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/0677000"
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
                     ],
                     "statVarKey": [
-                      "dc/6zbb7s5nx6rxb_multiple_place_bar_block",
-                      "dc/b3nmcj3w1lhed_multiple_place_bar_block",
-                      "dc/c57vzg7l74577_multiple_place_bar_block",
-                      "dc/c75qlm98pmcb2_multiple_place_bar_block",
-                      "dc/e2szvml8jkld8_multiple_place_bar_block",
-                      "dc/g4fthg3t3y5td_multiple_place_bar_block",
-                      "dc/njgzb8knf11n8_multiple_place_bar_block",
-                      "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
-                      "dc/zvr6djt1p9gj3_multiple_place_bar_block"
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School By Race in Sunnyvale (${date})",
+                    "title": "Count of Birth Event: Live Birth (Per Capita) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event: Live Birth (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "WHO/SA_0000001432_multiple_place_bar_block"
+                    ],
+                    "title": "Prematurity And Low Birth Rate, Per 100,000 (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Students In Middle School By Race"
+            "title": "Prematurity And Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB"
                     ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                      "WHO/SA_0000001451_multiple_place_bar_block"
                     ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Elementary School Students"
+            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
                     ],
-                    "title": "High School Students in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High School Students in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block"
                     ],
-                    "title": "High School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Female Infant Mortality Rate (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "High School Students"
+            "title": "Female Infant Mortality Rate"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
                     ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Currently Enrolled in School in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_EnrolledInSchool"
+                      "GrowthRate_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Population Currently Enrolled in School in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Rate of Population Growth (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population Currently Enrolled in School"
+            "title": "Rate of Population Growth"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "dc/jhjdplbeg26k1"
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
                     ],
-                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Primary School, Two or More Races in Sunnyvale",
                     "statVarKey": [
-                      "dc/jhjdplbeg26k1"
+                      "WHO/MORT_MATERNALNUM_multiple_place_bar_block",
+                      "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Primary School, Two or More Races"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 11th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
+                    "title": "Number Of Maternal Deaths and more (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population: 11th Grade"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 7th And 8th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 7th And 8th Grade"
+            "title": "Number Of Maternal Deaths and more"
           }
         ],
         "statVarSpec": {
-          "Count_Person_DetailedHighSchool": {
-            "name": "High School Students",
-            "statVar": "Count_Person_DetailedHighSchool"
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
+            "name": "Count of Birth Event: Live Birth (Per Capita)",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-          "Count_Person_DetailedMiddleSchool": {
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
+          "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block": {
+            "name": "Female Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
           },
-          "Count_Person_DetailedPrimarySchool": {
-            "name": "Elementary School Students",
-            "statVar": "Count_Person_DetailedPrimarySchool"
+          "FertilityRate_Person_Female_multiple_place_bar_block": {
+            "name": "Fertility Rate",
+            "statVar": "FertilityRate_Person_Female"
           },
-          "Count_Person_EducationalAttainment11ThGrade": {
-            "name": "Population: 11th Grade",
-            "statVar": "Count_Person_EducationalAttainment11ThGrade"
+          "GrowthRate_Count_Person_multiple_place_bar_block": {
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
           },
-          "Count_Person_EnrolledInSchool": {
-            "name": "Population Currently Enrolled in School",
-            "statVar": "Count_Person_EnrolledInSchool"
+          "WHO/MORT_MATERNALNUM_multiple_place_bar_block": {
+            "name": "Number Of Maternal Deaths",
+            "statVar": "WHO/MORT_MATERNALNUM"
           },
-          "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
-            "name": "Population: 7th And 8th Grade",
-            "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
+          "WHO/SA_0000001432_multiple_place_bar_block": {
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
           },
-          "dc/6zbb7s5nx6rxb_multiple_place_bar_block": {
-            "name": "Population: Middle School, Some Other Race Alone",
-            "statVar": "dc/6zbb7s5nx6rxb"
+          "WHO/SA_0000001451_multiple_place_bar_block": {
+            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001451"
           },
-          "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
-            "name": "Population: Middle School, Two or More Races",
-            "statVar": "dc/b3nmcj3w1lhed"
-          },
-          "dc/c57vzg7l74577_multiple_place_bar_block": {
-            "name": "Population: Middle School, Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "dc/c57vzg7l74577"
-          },
-          "dc/c75qlm98pmcb2_multiple_place_bar_block": {
-            "name": "Population: Middle School, White Alone Not Hispanic or Latino",
-            "statVar": "dc/c75qlm98pmcb2"
-          },
-          "dc/e2szvml8jkld8_multiple_place_bar_block": {
-            "name": "Population: Middle School, Black or African American Alone",
-            "statVar": "dc/e2szvml8jkld8"
-          },
-          "dc/g4fthg3t3y5td_multiple_place_bar_block": {
-            "name": "Population: Middle School, Asian Alone",
-            "statVar": "dc/g4fthg3t3y5td"
-          },
-          "dc/jhjdplbeg26k1": {
-            "name": "Population: Primary School, Two or More Races",
-            "statVar": "dc/jhjdplbeg26k1"
-          },
-          "dc/njgzb8knf11n8_multiple_place_bar_block": {
-            "name": "Population: Middle School, American Indian or Alaska Native Alone",
-            "statVar": "dc/njgzb8knf11n8"
-          },
-          "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
-            "name": "Population: Middle School, White Alone",
-            "statVar": "dc/qvf1yrhwzp8rd"
-          },
-          "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
-            "name": "Population: Middle School, Hispanic or Latino",
-            "statVar": "dc/zvr6djt1p9gj3"
+          "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block": {
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/0677000"
+        "country/DZA"
       ]
     }
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "pastSourceContext": "Query Results",
   "place": {
-    "dcid": "geoId/0677000",
-    "name": "Sunnyvale",
-    "place_type": "City"
+    "dcid": "country/DZA",
+    "name": "Algeria",
+    "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "placeSource": "PAST_ANSWER",
+  "svSource": "PARTIAL_PAST_QUERY"
 }

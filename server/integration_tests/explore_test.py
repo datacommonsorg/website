@@ -48,6 +48,23 @@ class IntegrationTest(NLWebServerTestCase):
         d = q.replace(' ', '').replace('?', '').lower()
       self.handle_response(q, resp, test_dir, d, failure)
 
+  def run_detect_and_fulfill(self, test_dir, queries, dc='', failure=''):
+    ctx = {}
+    for q in queries:
+      resp = requests.post(
+        self.get_server_url() + f'/api/explore/detect-and-fulfill?q={q}',
+        json={
+            'contextHistory': ctx,
+            'dc': dc,
+        }).json()
+      ctx = resp['context']
+      if len(queries) == 1:
+        d = ''
+      else:
+        d = q.replace(' ', '').replace('?', '').lower()
+      print(resp)
+      self.handle_response(d, resp, test_dir, d, failure)
+
   def handle_response(self,
                       query,
                       resp,
@@ -239,3 +256,12 @@ class IntegrationTest(NLWebServerTestCase):
         ],
     }
     self.run_fulfillment('fulfillment_api_nl_size', req)
+
+  def test_e2e_answer_places(self):
+    self.run_detect_and_fulfill('e2e_answer_places', [
+        'California counties with the highest asthma levels',
+        'What is the obesity rate in these counties?',
+        'How about the uninsured population?',
+        'Which counties in california have median age over 40?',
+        'What is the emissions in these counties?'
+    ])
