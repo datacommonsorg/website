@@ -16,10 +16,11 @@ from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
+import server.lib.nl.fulfillment.types
 
 
 def map_chart_block(column, place: Place, pri_sv: str, child_type: str,
-                    sv2thing: base.SV2Thing):
+                    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   # The main tile
   tile = column.tiles.add()
   tile.stat_var_key.append(pri_sv)

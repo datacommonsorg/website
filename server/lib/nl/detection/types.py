@@ -308,9 +308,10 @@ class Date:
   prep: str
   year: int
   month: Optional[int] = 0
+  year_span: Optional[int] = 0
 
   def __str__(self):
-    return f'{self.year} - {self.month}'
+    return f'{self.year} - {self.month} | {self.year_span}'
 
 
 @dataclass

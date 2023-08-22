@@ -20,6 +20,7 @@ from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartVars
 
 
@@ -27,7 +28,7 @@ from server.lib.nl.fulfillment.types import ChartVars
 def multiple_place_bar_block(column,
                              places: List[Place],
                              svs: List[str],
-                             sv2thing: base.SV2Thing,
+                             sv2thing: server.lib.nl.fulfillment.types.SV2Thing,
                              cv: ChartVars,
                              ranking_types: List[RankingType] = []):
   """A column with two charts, main stat var and per capita"""

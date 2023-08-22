@@ -33,7 +33,7 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
                  env_config: base.Config) -> ConfigResp:
   # Get names of all SVs
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = ftypes.SV2Thing(
       name=variable.get_sv_name(all_svs, env_config.sv_chart_titles),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),

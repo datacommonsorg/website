@@ -14,15 +14,10 @@
 """Module for NL page data spec"""
 
 import logging
-from typing import cast, Dict, List
+from typing import List
 
-from flask import current_app
-
-from server.lib.explore import params
-from server.lib.explore import related
 import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
-from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
@@ -32,7 +27,6 @@ from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import size_across_entities
 import server.lib.nl.fulfillment.handlers as handlers
-from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
 
@@ -40,9 +34,7 @@ import server.lib.nl.fulfillment.utils as futils
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance,
-            explore_mode: bool = False,
-            related_things: Dict = {}) -> Utterance:
+def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
@@ -60,7 +52,7 @@ def fulfill(uttr: Utterance,
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')
-    return uttr
+    return state
 
   main_qt = state.query_types[0]
 
@@ -89,7 +81,7 @@ def fulfill(uttr: Utterance,
 
   if done:
     _rank_charts(uttr)
-    return uttr
+    return state
 
   # Compute all the ChartVars
   has_correlation = futils.classifications_of_type_from_utterance(
@@ -108,12 +100,7 @@ def fulfill(uttr: Utterance,
   # Rank candidates.
   _rank_charts(state.uttr)
 
-  if explore_mode:
-    plotted_orig_vars = _get_plotted_orig_vars(uttr)
-    related_things.update(
-        related.compute_related_things(state, plotted_orig_vars, {}))
-
-  return state.uttr
+  return state
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:
@@ -131,29 +118,3 @@ def _rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates
-
-
-# TODO: Improve this
-def _get_plotted_orig_vars(uttr: Utterance) -> List[Dict]:
-  sv_chart_titles = current_app.config['NL_CHART_TITLES']
-  dc = uttr.insight_ctx.get(params.Params.DC.value,
-                            params.DCNames.MAIN_DC.value)
-
-  plotted_orig_vars: List[Dict] = []
-  added = set()
-  for cs in uttr.rankedCharts:
-    cs = cast(ChartSpec, cs)
-    sv = cs.chart_vars.orig_sv
-    if sv and sv not in added:
-      if utils.is_topic(sv):
-        typ = 'Topic'
-        # Topics use the topic-cache so should be fast.
-        # TODO: Consider getting this from `sv2thing` in a later stage.
-        name = variable.get_sv_name([sv], sv_chart_titles, dc)[sv]
-      else:
-        typ = 'StatisticalVariable'
-        name = sv
-      plotted_orig_vars.append({'types': [typ], 'name': name, 'dcid': sv})
-      added.add(sv)
-
-  return plotted_orig_vars

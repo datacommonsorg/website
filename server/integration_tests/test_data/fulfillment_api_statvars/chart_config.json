@@ -645,7 +645,16 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "WagesTotal_Worker_NAICSInformation": {
+        "establishmentOwnership": [
+          "WagesTotal_Worker_FederalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_PrivatelyOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_StateGovernmentOwnedEstablishment_NAICSInformation"
+        ]
+      }
+    },
     "mainTopic": {
       "dcid": "dc/topic/IndividualIncomeByIndustry",
       "name": "Individual Income By Industry",
@@ -653,15 +662,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/Income",

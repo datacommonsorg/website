@@ -31,6 +31,9 @@ class TestDateParser(unittest.TestCase):
       ('World temperature before year 2080', [Date('before', 2080, 0)]),
       ('How does california GCP in 2020 compare with year 2010',
        [Date('in', 2020, 0), Date('year', 2010, 0)]),
+      ('Earthquakes in the last 5 years',
+       [Date('before', 2022, 0, year_span=5)]),
+      ('Flood in previous year', [Date('before', 2022, 0, year_span=1)]),
   ])
   def test_main(self, query, expected):
     ctr = Counters()
