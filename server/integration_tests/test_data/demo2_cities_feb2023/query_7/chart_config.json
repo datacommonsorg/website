@@ -253,5 +253,5 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
-  "svSource": "PARTIAL_PAST_QUERY"
+  "svSource": "CURRENT_QUERY"
 }
