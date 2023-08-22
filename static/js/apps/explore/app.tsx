@@ -20,32 +20,38 @@
 
 import axios from "axios";
 import _ from "lodash";
-import queryString, { ParsedQuery } from "query-string";
+import queryString from "query-string";
 import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
-import { TextSearchBar } from "../../components/text_search_bar";
+import {
+  DEFAULT_TOPIC,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import {
   ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import { NamedTypedNode } from "../../shared/types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
-import { updateHash } from "../../utils/url_utils";
-import { Item, ItemList } from "./item_list";
+import { getUpdatedHash } from "../../utils/url_utils";
 import { RelatedPlace } from "./related_place";
+import { ResultHeaderSection } from "./result_header_section";
+import { SearchSection } from "./search_section";
+
+enum LoadingStatus {
+  LOADING = "loading",
+  FAILED = "failed",
+  SUCCESS = "success",
+}
 
 const PAGE_ID = "explore";
 const DEFAULT_PLACE = "geoId/06";
-const DEFAULT_TOPIC = "dc/topic/Root";
-const FEEDBACK_LINK =
-  "https://docs.google.com/forms/d/14oXA39Il7f20Rvtqkx_KZNn2NXTi7D_ag_hiX8oH2vc/viewform?usp=pp_url";
+const DELIM = "___";
 
 const getSingleParam = (input: string | string[]): string => {
   // If the input is an array, convert it to a single string
@@ -59,13 +65,6 @@ const getSingleParam = (input: string | string[]): string => {
   return input;
 };
 
-const DELIM = "___";
-
-// TODO (juliawu): Extract this out to a global flag we can set to remove
-//                 all feedback items for external launch.
-// Flag to determine whether or not to show link to feedback form
-const DEVELOPER_MODE = true;
-
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
   return input.split(DELIM).filter((i) => i);
@@ -75,50 +74,17 @@ const toApiList = (input: string): string[] => {
  * Application container
  */
 export function App(): JSX.Element {
-  const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
-  const [userMessage, setUserMessage] = useState<string>("");
-  const [loadingStatus, setLoadingStatus] = useState<string>("init");
-  const [hashParams, setHashParams] = useState<ParsedQuery<string>>(
-    queryString.parse(window.location.hash)
+  const [loadingStatus, setLoadingStatus] = useState<string>(
+    LoadingStatus.LOADING
   );
   const [query, setQuery] = useState<string>("");
+  const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
+  const [userMessage, setUserMessage] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
   const savedContext = useRef([]);
 
-  const buildTopicList = (
-    topics: NamedTypedNode[],
-    place: string,
-    cmpPlace: string,
-    placeType: string,
-    dc: string,
-    disableExploreMore: string,
-    nlFulfillment: string
-  ): Item[] => {
-    if (_.isEmpty(topics)) {
-      return [];
-    }
-    const result: Item[] = [];
-    for (const topic of topics) {
-      if (topic.dcid == DEFAULT_TOPIC) {
-        // Do not show the root topic.
-        continue;
-      }
-      result.push({
-        text: topic.name,
-        url: `/explore/#t=${topic.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`,
-      });
-    }
-    return result;
-  };
-
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      const parsedParams = queryString.parse(hash);
-      // Update component state with the parsed parameters from the hash
-      setHashParams(parsedParams);
-    };
-
+    handleHashChange();
     // Listen to the 'hashchange' event and call the handler
     window.addEventListener("hashchange", handleHashChange);
 
@@ -128,339 +94,224 @@ export function App(): JSX.Element {
     };
   }, []);
 
-  useEffect(() => {
-    setLoadingStatus("loading");
-    (async () => {
-      let place = getSingleParam(hashParams["p"]);
-      let cmpPlace = getSingleParam(hashParams["pcmp"]);
-      let topic = getSingleParam(hashParams["t"]);
-      let cmpTopic = getSingleParam(hashParams["tcmp"]);
-      let placeType = getSingleParam(hashParams["pt"]);
-      let paramQuery = getSingleParam(hashParams["q"]);
-      let classificationsStr = getSingleParam(hashParams["cls"]);
-      const origQuery = getSingleParam(hashParams["oq"]);
-      const dc = getSingleParam(hashParams["dc"]);
-      const svg = getSingleParam(hashParams["svg"]);
-      const disableExploreMore = getSingleParam(hashParams["em"]);
-      const nlFulfillment = getSingleParam(hashParams["nl"]);
-
-      // Do detection only if `q` is set (from search box) or
-      // if `oq` is set without accompanying place and topic.
-      if (paramQuery || (origQuery && !place && !topic)) {
-        if (!paramQuery) {
-          // This should only be set once at the very beginning!
-          paramQuery = origQuery;
-        }
-        setQuery(paramQuery);
-        const detectResp = await fetchDetectData(
-          paramQuery,
-          savedContext.current,
-          dc
-        );
-        if (!detectResp) {
-          setLoadingStatus("fail");
-          return;
-        }
-        savedContext.current = detectResp["context"] || [];
-        if (_.isEmpty(detectResp["entities"])) {
-          setLoadingStatus("fail");
-          return;
-        }
-        setDebugData(detectResp["debug"]);
-
-        place = detectResp["entities"].join(DELIM);
-        cmpPlace = (detectResp["comparisonEntities"] || []).join(DELIM);
-        topic = detectResp["variables"].join(DELIM);
-        cmpTopic = (detectResp["comparisonVariables"] || []).join(DELIM);
-        placeType = detectResp["childEntityType"] || "";
-        classificationsStr = JSON.stringify(
-          { stuff: detectResp["classifications"] } || {}
-        );
-        updateHash({
-          q: "",
-          oq: "",
-          t: topic,
-          tcmp: cmpTopic,
-          p: place,
-          pcmp: cmpPlace,
-          pt: placeType,
-          dc,
-          svg,
-          em: disableExploreMore,
-          nl: nlFulfillment,
-          cls: classificationsStr,
-        });
-        return;
-      } else if (origQuery) {
-        // We have orig_query set with place and topic. So while
-        // we're not calling detection, we should still set query state.
-        setQuery(origQuery);
-      }
-      if (!topic) {
-        updateHash({
-          t: DEFAULT_TOPIC,
-          dc,
-        });
-        return;
-      }
-
-      if (!place) {
-        updateHash({
-          p: DEFAULT_PLACE,
-          dc,
-        });
-        return;
-      }
-      const places = toApiList(place);
-      const cmpPlaces = toApiList(cmpPlace);
-      const topics = toApiList(topic);
-      const cmpTopics = toApiList(cmpTopic);
-      const svgs = toApiList(svg);
-      const classificationsJson = JSON.parse(classificationsStr || "{}");
-      const resp = await fetchFulfillData(
-        places,
-        topics,
-        placeType,
-        cmpPlaces,
-        cmpTopics,
-        dc,
-        svgs,
-        classificationsJson["stuff"] || [],
-        disableExploreMore,
-        nlFulfillment
-      );
-      if (!resp || !resp["place"] || !resp["place"]["dcid"]) {
-        setLoadingStatus("fail");
-        return;
-      }
-      const mainPlace = resp["place"];
-      const chartData: SubjectPageMetadata = {
-        place: {
-          dcid: mainPlace["dcid"],
-          name: mainPlace["name"],
-          types: [mainPlace["place_type"]],
-        },
-        pageConfig: resp["config"],
-        childPlaces: resp["relatedThings"]["childPlaces"],
-        peerPlaces: resp["relatedThings"]["peerPlaces"],
-        parentPlaces: resp["relatedThings"]["parentPlaces"],
-        parentTopics: resp["relatedThings"]["parentTopics"],
-        childTopics: resp["relatedThings"]["childTopics"],
-        peerTopics: resp["relatedThings"]["peerTopics"],
-        exploreMore: resp["relatedThings"]["exploreMore"],
-        mainTopic: resp["relatedThings"]["mainTopic"],
-        sessionId: "session" in resp ? resp["session"]["id"] : "",
-      };
-      if (
-        chartData &&
-        chartData.pageConfig &&
-        chartData.pageConfig.categories
-      ) {
-        // Note: for category links, we only use the main-topic.
-        for (const category of chartData.pageConfig.categories) {
-          if (category.dcid) {
-            category.url = `/explore/#t=${category.dcid}&p=${place}&pcmp=${cmpPlace}&pt=${placeType}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`;
-          }
-        }
-        if (!query && chartData.mainTopic?.name && chartData.place.name) {
-          const q = `${chartData.mainTopic.name} in ${chartData.place.name}`;
-          setQuery(q);
-        }
-      }
-      savedContext.current = resp["context"] || [];
-      setLoadingStatus("loaded");
-      setChartData(chartData);
-      setUserMessage(resp["userMessage"]);
-    })();
-  }, [hashParams]);
-
-  let mainSection: JSX.Element;
-  const place = getSingleParam(hashParams["p"]);
-  const cmpPlace = getSingleParam(hashParams["pcmp"]);
-  const topic = getSingleParam(hashParams["t"]);
-  const placeType = getSingleParam(hashParams["pt"]);
-  const dc = getSingleParam(hashParams["dc"]);
-  const disableExploreMore = getSingleParam(hashParams["em"]);
-  const nlFulfillment = getSingleParam(hashParams["nl"]);
-
-  const allTopics = chartData?.childTopics
-    .concat(chartData?.peerTopics)
-    .concat(chartData?.parentTopics);
-  const topicList = buildTopicList(
-    allTopics,
-    place,
-    cmpPlace,
-    placeType,
-    dc,
-    disableExploreMore,
-    nlFulfillment
-  );
-  const feedbackLink = getFeedbackLink(
-    FEEDBACK_LINK,
-    query || "",
-    debugData,
-    _.isEmpty(savedContext.current)
-      ? null
-      : savedContext.current[0]["insightCtx"]
-  );
-  const searchSection = (
-    <div className="search-section">
-      <div className="search-bar-tags">
-        <div className="early-preview-tag">Early preview</div>
-        {DEVELOPER_MODE && (
-          <>
-            <span>|</span>
-            <div className="feedback-link">
-              <a href={feedbackLink} target="_blank" rel="noreferrer">
-                Feedback
-              </a>
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="search-box-section">
-        <TextSearchBar
-          inputId="query-search-input"
-          onSearch={(q) => {
-            updateHash({
-              q,
-              oq: "",
-              t: "",
-              p: "",
-              pt: "",
-              pcmp: "",
-              tcmp: "",
-              dc,
-            });
-          }}
-          placeholder={query}
-          initialValue={query}
-          shouldAutoFocus={false}
-          clearValueOnSearch={true}
-        />
-      </div>
-    </div>
-  );
-
-  if (loadingStatus == "fail") {
-    mainSection = (
-      <div>
-        <div id="user-message">Sorry, could not complete your request.</div>
-        {query && searchSection}
-      </div>
-    );
-  } else if (loadingStatus == "loaded" && chartData) {
-    const childPlaceType = Object.keys(chartData.childPlaces)[0];
-    // Don't set placeType here since it gets passed into child places.
-    mainSection = (
-      <div className="row explore-charts">
-        <div className="col-12">
-          {chartData && chartData.pageConfig && (
-            <>
-              {dc !== "sdg" && searchSection}
-              <div id="place-callout">
-                {chartData.place.name}
-                {!_.isEmpty(chartData.mainTopic) &&
-                  chartData.mainTopic.dcid != DEFAULT_TOPIC && (
-                    <span> • {chartData.mainTopic.name}</span>
-                  )}
-              </div>
-              {!_.isEmpty(chartData.mainTopic) && (
-                <div className="explore-topics-box">
-                  <span className="explore-relevant-topics">
-                    Relevant topics
-                  </span>
-                  <ItemList items={topicList}></ItemList>
-                </div>
-              )}
-
-              {userMessage && <div id="user-message">{userMessage}</div>}
-              <RankingUnitUrlFuncContext.Provider
-                value={(dcid: string) => {
-                  return `/explore/#p=${dcid}&t=${topic}&dc=${dc}&em=${disableExploreMore}&nl=${nlFulfillment}`;
-                }}
-              >
-                <NlSessionContext.Provider value={chartData.sessionId}>
-                  <ExploreContext.Provider
-                    value={{
-                      cmpPlace,
-                      dc,
-                      exploreMore: chartData.exploreMore,
-                      place: chartData.place.dcid,
-                      placeType,
-                    }}
-                  >
-                    <SubjectPageMainPane
-                      id={PAGE_ID}
-                      place={chartData.place}
-                      pageConfig={chartData.pageConfig}
-                      svgChartHeight={SVG_CHART_HEIGHT}
-                      showExploreMore={true}
-                    />
-                  </ExploreContext.Provider>
-                </NlSessionContext.Provider>
-              </RankingUnitUrlFuncContext.Provider>
-              {!_.isEmpty(chartData.childPlaces) && (
-                <RelatedPlace
-                  relatedPlaces={chartData.childPlaces[childPlaceType]}
-                  topic={
-                    _.isEmpty(chartData.mainTopic)
-                      ? {
-                          dcid: topic,
-                          name: "",
-                          types: null,
-                        }
-                      : chartData.mainTopic
-                  }
-                  cmpPlace={cmpPlace}
-                  dc={dc}
-                  titleSuffix={
-                    getPlaceTypePlural(childPlaceType) +
-                    " in " +
-                    chartData.place.name
-                  }
-                  exploreMore={disableExploreMore}
-                  nlFulfillment={nlFulfillment}
-                ></RelatedPlace>
-              )}
-              {!_.isEmpty(chartData.peerPlaces) && (
-                <RelatedPlace
-                  relatedPlaces={chartData.peerPlaces}
-                  topic={
-                    _.isEmpty(chartData.mainTopic)
-                      ? {
-                          dcid: topic,
-                          name: "",
-                          types: null,
-                        }
-                      : chartData.mainTopic
-                  }
-                  cmpPlace={cmpPlace}
-                  dc={dc}
-                  titleSuffix={
-                    "other " + getPlaceTypePlural(chartData.place.types[0])
-                  }
-                  exploreMore={disableExploreMore}
-                  nlFulfillment={nlFulfillment}
-                ></RelatedPlace>
-              )}
-            </>
+  const exploreContext = _.isEmpty(savedContext.current)
+    ? null
+    : savedContext.current[0]["insightCtx"];
+  if (loadingStatus === LoadingStatus.FAILED) {
+    return (
+      <Container className="explore-container">
+        <div>
+          <div id="user-message">Sorry, could not complete your request.</div>
+          {query && (
+            <SearchSection
+              query={query}
+              debugData={debugData}
+              exploreContext={exploreContext}
+            />
           )}
         </div>
-      </div>
+      </Container>
     );
-  } else if (loadingStatus == "loading") {
-    mainSection = (
-      <div>
-        <Spinner isOpen={true} />
-      </div>
+  }
+  if (loadingStatus === LoadingStatus.LOADING) {
+    return (
+      <Container className="explore-container">
+        <div>
+          <Spinner isOpen={true} />
+        </div>
+      </Container>
     );
-  } else {
-    mainSection = <></>;
+  }
+  if (loadingStatus === LoadingStatus.SUCCESS && chartData) {
+    const childPlaceType = Object.keys(chartData.childPlaces)[0];
+    const placeUrlVal = (
+      exploreContext?.entities || [chartData.place.dcid]
+    ).join(DELIM);
+    const topicUrlVal = (exploreContext?.variables || []).join(DELIM);
+    const relatedPlaceTopic = _.isEmpty(chartData.mainTopic)
+      ? {
+          dcid: exploreContext?.variables,
+          name: "",
+          types: null,
+        }
+      : chartData.mainTopic;
+    return (
+      <Container className="explore-container">
+        <div className="row explore-charts">
+          <div className="col-12">
+            {chartData && chartData.pageConfig && (
+              <>
+                {exploreContext.dc !== "sdg" && (
+                  <SearchSection
+                    query={query}
+                    debugData={debugData}
+                    exploreContext={exploreContext}
+                  />
+                )}
+                <ResultHeaderSection
+                  chartData={chartData}
+                  userMessage={userMessage}
+                  placeUrlVal={placeUrlVal}
+                />
+                <RankingUnitUrlFuncContext.Provider
+                  value={(dcid: string) => {
+                    return `/explore/#${getUpdatedHash({
+                      [URL_HASH_PARAMS.PLACE]: dcid,
+                      [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
+                      [URL_HASH_PARAMS.QUERY]: "",
+                    })}`;
+                  }}
+                >
+                  <NlSessionContext.Provider value={chartData.sessionId}>
+                    <ExploreContext.Provider
+                      value={{
+                        exploreMore: chartData.exploreMore,
+                        place: chartData.place.dcid,
+                        placeType: exploreContext.childEntityType || "",
+                      }}
+                    >
+                      <SubjectPageMainPane
+                        id={PAGE_ID}
+                        place={chartData.place}
+                        pageConfig={chartData.pageConfig}
+                        svgChartHeight={SVG_CHART_HEIGHT}
+                        showExploreMore={true}
+                      />
+                    </ExploreContext.Provider>
+                  </NlSessionContext.Provider>
+                </RankingUnitUrlFuncContext.Provider>
+                {!_.isEmpty(chartData.childPlaces) && (
+                  <RelatedPlace
+                    relatedPlaces={chartData.childPlaces[childPlaceType]}
+                    topic={relatedPlaceTopic}
+                    titleSuffix={
+                      getPlaceTypePlural(childPlaceType) +
+                      " in " +
+                      chartData.place.name
+                    }
+                  ></RelatedPlace>
+                )}
+                {!_.isEmpty(chartData.peerPlaces) && (
+                  <RelatedPlace
+                    relatedPlaces={chartData.peerPlaces}
+                    topic={relatedPlaceTopic}
+                    titleSuffix={
+                      "other " + getPlaceTypePlural(chartData.place.types[0])
+                    }
+                  ></RelatedPlace>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </Container>
+    );
+  }
+  return <Container className="explore-container"></Container>;
+
+  function useFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+    if (
+      !fulfillData ||
+      !fulfillData["place"] ||
+      !fulfillData["place"]["dcid"]
+    ) {
+      setLoadingStatus(LoadingStatus.FAILED);
+      return;
+    }
+    const mainPlace = fulfillData["place"];
+    const chartData: SubjectPageMetadata = {
+      place: {
+        dcid: mainPlace["dcid"],
+        name: mainPlace["name"],
+        types: [mainPlace["place_type"]],
+      },
+      pageConfig: fulfillData["config"],
+      childPlaces: fulfillData["relatedThings"]["childPlaces"],
+      peerPlaces: fulfillData["relatedThings"]["peerPlaces"],
+      parentPlaces: fulfillData["relatedThings"]["parentPlaces"],
+      parentTopics: fulfillData["relatedThings"]["parentTopics"],
+      childTopics: fulfillData["relatedThings"]["childTopics"],
+      peerTopics: fulfillData["relatedThings"]["peerTopics"],
+      exploreMore: fulfillData["relatedThings"]["exploreMore"],
+      mainTopic: fulfillData["relatedThings"]["mainTopic"],
+      sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+    };
+    if (chartData && chartData.pageConfig && chartData.pageConfig.categories) {
+      // Note: for category links, we only use the main-topic.
+      for (const category of chartData.pageConfig.categories) {
+        if (category.dcid) {
+          category.url = `/explore/#${getUpdatedHash({
+            [URL_HASH_PARAMS.TOPIC]: category.dcid,
+            [URL_HASH_PARAMS.PLACE]: chartData.place.dcid,
+            [URL_HASH_PARAMS.QUERY]: "",
+          })}`;
+        }
+      }
+      if (shouldSetQuery && chartData.mainTopic?.name && chartData.place.name) {
+        const q = `${chartData.mainTopic.name} in ${chartData.place.name}`;
+        setQuery(q);
+      }
+    }
+    savedContext.current = fulfillData["context"] || [];
+    setChartData(chartData);
+    setUserMessage(fulfillData["userMessage"]);
+    setDebugData(fulfillData["debug"]);
+    setLoadingStatus(LoadingStatus.SUCCESS);
   }
 
-  return <Container className="explore-container">{mainSection}</Container>;
+  function handleHashChange(): void {
+    setLoadingStatus(LoadingStatus.LOADING);
+    const hashParams = queryString.parse(window.location.hash);
+    const query = getSingleParam(hashParams[URL_HASH_PARAMS.QUERY]);
+    const topic = getSingleParam(hashParams[URL_HASH_PARAMS.TOPIC]);
+    const place = getSingleParam(hashParams[URL_HASH_PARAMS.PLACE]);
+    const dc = getSingleParam(hashParams[URL_HASH_PARAMS.DC]);
+    const disableExploreMore = getSingleParam(
+      hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
+    );
+    const nlFulfillment = getSingleParam(
+      hashParams[URL_HASH_PARAMS.NL_FULFILLMENT]
+    );
+    if (query) {
+      setQuery(query);
+      fetchDetectAndFufillData(
+        query,
+        savedContext.current,
+        dc,
+        disableExploreMore,
+        nlFulfillment
+      )
+        .then((resp) => {
+          useFulfillData(resp, false);
+        })
+        .catch(() => {
+          setLoadingStatus(LoadingStatus.FAILED);
+        });
+    } else {
+      setQuery("");
+      const currentContext = !_.isEmpty(savedContext.current)
+        ? savedContext.current[0].insightCtx
+        : {};
+      fetchFulfillData(
+        toApiList(place || DEFAULT_PLACE),
+        toApiList(topic || DEFAULT_TOPIC),
+        currentContext.childEntityType,
+        currentContext.comparisonEntities || [],
+        currentContext.comparisonVariables || [],
+        dc,
+        currentContext.extensionGroups || [],
+        currentContext.classifications || [],
+        disableExploreMore,
+        nlFulfillment
+      )
+        .then((resp) => {
+          useFulfillData(resp, true);
+        })
+        .catch(() => {
+          setLoadingStatus(LoadingStatus.FAILED);
+        });
+    }
+  }
 }
 
 const fetchFulfillData = async (
@@ -495,16 +346,23 @@ const fetchFulfillData = async (
   }
 };
 
-const fetchDetectData = async (
+const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
-  dc: string
+  dc: string,
+  disableExploreMore: string,
+  nlFulfillment: string
 ) => {
   try {
-    const resp = await axios.post(`/api/explore/detect?q=${query}`, {
-      contextHistory: savedContext,
-      dc,
-    });
+    const resp = await axios.post(
+      `/api/explore/detect-and-fulfill?q=${query}`,
+      {
+        contextHistory: savedContext,
+        dc,
+        disableExploreMore,
+        nlFulfillment: nlFulfillment === "0" ? false : true,
+      }
+    );
     return resp.data;
   } catch (error) {
     console.log(error);

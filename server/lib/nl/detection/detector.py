@@ -142,7 +142,10 @@ def construct(entities: List[str], vars: List[str], child_type: str,
       if not any([child_type == x.value for x in types.ContainedInPlaceType]):
         counters.err('failed_detection_badChildEntityType', child_type)
         return None, f'Bad childEntityType value {child_type}!'
-      child_type = types.ContainedInPlaceType(child_type)
+      if child_type == places[0].place_type:
+        child_type = None
+      else:
+        child_type = types.ContainedInPlaceType(child_type)
     if not child_type or child_type == types.ContainedInPlaceType.DEFAULT_TYPE:
       child_type = utils.get_default_child_place_type(places[0], is_nl=False)
   else:
