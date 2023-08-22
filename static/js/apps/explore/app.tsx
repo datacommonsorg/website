@@ -123,7 +123,9 @@ export function App(): JSX.Element {
     );
   }
   if (loadingStatus === LoadingStatus.SUCCESS && chartData) {
-    const childPlaceType = Object.keys(chartData.childPlaces)[0];
+    const childPlaceType = !_.isEmpty(chartData.childPlaces)
+      ? Object.keys(chartData.childPlaces)[0]
+      : "";
     const placeUrlVal = (
       exploreContext?.entities || [chartData.place.dcid]
     ).join(DELIM);
@@ -262,7 +264,9 @@ export function App(): JSX.Element {
   function handleHashChange(): void {
     setLoadingStatus(LoadingStatus.LOADING);
     const hashParams = queryString.parse(window.location.hash);
-    const query = getSingleParam(hashParams[URL_HASH_PARAMS.QUERY]);
+    const query =
+      getSingleParam(hashParams[URL_HASH_PARAMS.QUERY]) ||
+      getSingleParam(hashParams[URL_HASH_PARAMS.DEPRECATED_QUERY]);
     const topic = getSingleParam(hashParams[URL_HASH_PARAMS.TOPIC]);
     const place = getSingleParam(hashParams[URL_HASH_PARAMS.PLACE]);
     const dc = getSingleParam(hashParams[URL_HASH_PARAMS.DC]);

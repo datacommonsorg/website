@@ -26,6 +26,8 @@ export const URL_HASH_PARAMS = {
   DC: "dc",
   DISABLE_EXPLORE_MORE: "em",
   NL_FULFILLMENT: "nl",
+  // old query param
+  DEPRECATED_QUERY: "oq",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";
