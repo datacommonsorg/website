@@ -30,13 +30,16 @@ from server.lib.nl.config_builder import timeline
 from server.lib.nl.config_builder.base import Config
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.types import SV2Thing
 
 
 #
 # Given an Utterance, build the final Chart config proto.
 #
-def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
+def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   # Get names of all SVs
+  uttr = state.uttr
   all_svs = set()
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
@@ -49,12 +52,13 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
       all_svs.add(cv.orig_sv)
   all_svs = list(all_svs)
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = SV2Thing(
       name=variable.get_sv_name(all_svs, config.sv_chart_titles),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),
   )
+  state.sv2thing = sv2thing
   uttr.counters.timeit('get_sv_details', start)
 
   builder = base.Builder(uttr, sv2thing, config)
@@ -138,6 +142,14 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                                       override_sv=sv,
                                       place=pri_place,
                                       child_type=cspec.place_type)
+            if len(cspec.ranking_types) > 1:
+              # This is Explore case where we show both HIGH + LOW mappings.
+              stat_var_spec_map.update(
+                  map.map_chart_block(column=block.columns.add(),
+                                      place=pri_place,
+                                      pri_sv=sv,
+                                      child_type=cspec.place_type,
+                                      sv2thing=sv2thing))
           stat_var_spec_map.update(
               ranking.ranking_chart_block(column=block.columns.add(),
                                           pri_place=pri_place,
@@ -146,7 +158,7 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
                                           sv2thing=sv2thing,
                                           ranking_types=cspec.ranking_types,
                                           ranking_count=cspec.ranking_count))
-          if not cv.skip_map_for_ranking:
+          if not cv.skip_map_for_ranking and len(cspec.ranking_types) < 2:
             # Also add a map chart.
             stat_var_spec_map.update(
                 map.map_chart_block(column=block.columns.add(),

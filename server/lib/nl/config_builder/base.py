@@ -28,6 +28,7 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import SV2Thing
 
 
 # Config structures.
@@ -40,14 +41,6 @@ class Config:
 
 
 # A structure with maps from SV DCID to different things.
-@dataclass
-class SV2Thing:
-  name: Dict
-  unit: Dict
-  description: Dict
-  footnote: Dict
-
-
 class Builder:
 
   def __init__(self, uttr: Utterance, sv2thing: SV2Thing, config: Config):
