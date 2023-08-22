@@ -21,7 +21,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases in Cities of San Francisco Bay Area"
           }
         ],
         "statVarSpec": {

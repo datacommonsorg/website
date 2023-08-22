@@ -106,12 +106,12 @@ def add_chart_to_utterance(
     place_type = place_type.value
   # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
-                 svs=chart_vars.svs,
+                 svs=copy.deepcopy(chart_vars.svs),
                  event=chart_vars.event,
-                 places=places,
+                 places=copy.deepcopy(places),
                  chart_vars=copy.deepcopy(chart_vars),
                  place_type=place_type,
-                 ranking_types=state.ranking_types,
+                 ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary)
   state.uttr.chartCandidates.append(ch)

@@ -28,7 +28,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Family Households"
           },
           {
             "columns": [
@@ -55,7 +56,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Median Family Household Income"
           },
           {
             "columns": [
@@ -82,7 +84,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Median Married Couple Family Household Income"
           },
           {
             "columns": [
@@ -109,7 +112,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Married Couple Family Households"
           },
           {
             "columns": [
@@ -136,7 +140,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Nonfamily Households"
           },
           {
             "columns": [
@@ -163,7 +168,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Household Median Income"
           },
           {
             "columns": [
@@ -190,7 +196,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Individual Median Income"
           },
           {
             "columns": [
@@ -294,7 +301,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Mean Income Deficit of Household: Family Household"
           },
           {
             "columns": [
@@ -322,7 +330,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Owner Occupied"
           },
           {
             "columns": [
@@ -350,7 +359,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household"
           },
           {
             "columns": [
@@ -377,7 +387,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Average Income for Households"
           },
           {
             "columns": [
@@ -405,7 +416,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Count of Household: Other Family Household"
           },
           {
             "columns": [
@@ -432,7 +444,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Mean Income Deficit of Household: Married Couple Family Household"
           }
         ],
         "statVarSpec": {

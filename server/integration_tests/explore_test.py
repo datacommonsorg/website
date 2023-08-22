@@ -131,6 +131,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_basic(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
         'dc': '',
@@ -140,14 +141,17 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_explore_more(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/DivorcedPopulationByDemographic'],
         'dc': '',
     }
     self.run_fulfillment('fulfillment_api_explore_more', req)
 
+  # NOTE: SVG Expansion is not supported with NL backend.
   def test_fulfillment_expansion(self):
     req = {
+        'nlFulfillment': False,
         'entities': ['country/BRA'],
         'variables': ['dc/topic/GlobalEconomicActivity'],
         'dc': ''
@@ -156,6 +160,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_sdg(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['country/USA'],
         'variables': ['dc/topic/sdg_1'],
         'dc': 'sdg'
@@ -164,6 +169,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_comparison(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County',
@@ -173,6 +179,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_correlation(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'comparisonVariables': ['dc/topic/Asthma'],
@@ -182,6 +189,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_statvars(self):
     req = {
+        'nlFulfillment': True,
         'variables': [
             'ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll',
             'dc/xj2nk2bg60fg',
@@ -195,12 +203,12 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_fulfillment('fulfillment_api_statvars', req)
 
   #
-  # NL Backend queries
+  # Legacy Explore Backend queries
+  # TODO: Delete me.
   #
-
-  def test_fulfillment_nl_basic(self):
+  def test_fulfillment_explorebackend_basic(self):
     req = {
-        "nlFulfillment": True,
+        "nlFulfillment": False,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
         'disableExploreMore': '1',

@@ -19,12 +19,14 @@ from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
+import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 
 
-def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
-                                     sv2thing: base.SV2Thing):
+def ranked_timeline_collection_block(
+    builder: base.Builder, cspec: ChartSpec,
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   stat_var_spec_map = {}
   cv = cspec.chart_vars
 
@@ -38,16 +40,16 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
     block_title, block_description, block_footnote = builder.get_block_strings(
         cv)
 
-  _, column = builder.new_chart(cspec)
-  builder.block.title = base.decorate_block_title(
+  block = builder.new_chart(cspec)
+  block.title = base.decorate_block_title(
       title=block_title,
       chart_origin=cspec.chart_origin,
       growth_direction=cv.growth_direction,
       growth_ranking_type=cv.growth_ranking_type)
   if block_description:
-    builder.block.description = block_description
+    block.description = block_description
   if block_footnote:
-    builder.block.footnote = block_footnote
+    block.footnote = block_footnote
 
   for sv_dcid in cspec.svs:
     for place in cspec.places:
@@ -70,13 +72,14 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
 
       if is_ranking_across_places:
         tile.place_dcid_override = place.dcid
-      column.tiles.append(tile)
+      block.columns.add().tiles.append(tile)
 
   return stat_var_spec_map
 
 
-def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
-                                           sv2thing: base.SV2Thing):
+def single_place_single_var_timeline_block(
+    column, place: Place, sv_dcid: str,
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -92,10 +95,9 @@ def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
   return stat_var_spec_map
 
 
-def single_place_multiple_var_timeline_block(column, place: Place,
-                                             svs: List[str],
-                                             sv2thing: base.SV2Thing,
-                                             cv: ChartVars):
+def single_place_multiple_var_timeline_block(
+    column, place: Place, svs: List[str],
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing, cv: ChartVars):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 

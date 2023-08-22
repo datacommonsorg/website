@@ -8,29 +8,32 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block",
-                      "dc/p69tpsldf99h7_multiple_place_bar_block",
                       "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
                       "Count_Worker_NAICSConstruction_multiple_place_bar_block",
                       "Count_Worker_NAICSEducationalServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block",
-                      "Count_Worker_NAICSOtherServices_multiple_place_bar_block",
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block",
-                      "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block",
                       "dc/ndg1xk1e9frc2_multiple_place_bar_block",
-                      "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
-                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block",
                       "Count_Worker_NAICSInformation_multiple_place_bar_block",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block",
+                      "Count_Worker_NAICSOtherServices_multiple_place_bar_block",
                       "dc/8p97n7l96lgg8_multiple_place_bar_block",
-                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
                       "Count_Worker_NAICSUtilities_multiple_place_bar_block",
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block"
+                      "dc/p69tpsldf99h7_multiple_place_bar_block",
+                      "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
+                      "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block"
                     ],
                     "title": "Categories of Jobs in Placer County (${date})",
                     "type": "BAR"
@@ -67,7 +70,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Workers in All Industries"
           },
           {
             "columns": [
@@ -95,7 +99,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population of Person: Service-providing (NAICS/102)"
           },
           {
             "columns": [
@@ -123,7 +128,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population With Current Employment"
           },
           {
             "columns": [
@@ -151,7 +157,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Worked At Home, Management, Business, Science, And Arts Occupations"
           },
           {
             "columns": [
@@ -179,7 +186,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Count of Establishment: Total, All Industries (NAICS/10)"
           },
           {
             "columns": [
@@ -207,7 +215,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Worked At Home, Sales And Office Occupations"
           },
           {
             "columns": [
@@ -235,7 +244,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Worked At Home, Service Occupations"
           },
           {
             "columns": [
@@ -263,7 +273,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Count of Household: Married Couple Family Household, Worker 2"
           },
           {
             "columns": [
@@ -291,7 +302,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations"
           },
           {
             "columns": [
@@ -319,7 +331,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations"
           },
           {
             "columns": [
@@ -347,7 +360,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Car Truck or Van Carpooled, Service Occupations"
           },
           {
             "columns": [
@@ -375,7 +389,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations"
           }
         ],
         "statVarSpec": {

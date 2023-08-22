@@ -14,6 +14,8 @@
 
 FROM node:18.14.0-slim
 
+RUN apt-get update && apt-get -y upgrade
+
 ARG ENV
 ENV ENV=${ENV}
 

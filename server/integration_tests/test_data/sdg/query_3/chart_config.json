@@ -16,7 +16,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Life Expectancy in the World"
           },
           {
             "columns": [
@@ -28,7 +29,11 @@
                     ],
                     "title": "Female Life Expectancy in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
@@ -39,7 +44,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy by Gender"
+            "title": "Life Expectancy by Gender in the World"
           },
           {
             "columns": [
@@ -55,7 +60,7 @@
                 ]
               }
             ],
-            "title": "Causes Of Death"
+            "title": "Causes Of Death in the World"
           },
           {
             "columns": [
@@ -67,14 +72,22 @@
                     ],
                     "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "WHO/WHS4_128"
                     ],
                     "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "WHO/WHS4_129"
@@ -85,7 +98,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and more in the World"
           },
           {
             "columns": [
@@ -97,21 +111,33 @@
                     ],
                     "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "WHO/NCD_BMI_18A"
                     ],
                     "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "WHO/NCD_BMI_30A"
                     ],
                     "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
                     "type": "MAP"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "WHO/NCD_PAC"
@@ -123,7 +149,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Health Behaviors"
+            "title": "Health Behaviors in the World"
           }
         ],
         "statVarSpec": {

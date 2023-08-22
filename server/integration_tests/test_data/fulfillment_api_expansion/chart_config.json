@@ -759,15 +759,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "Earth",
-        "name": "World",
-        "types": [
-          "Place"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/Economy",

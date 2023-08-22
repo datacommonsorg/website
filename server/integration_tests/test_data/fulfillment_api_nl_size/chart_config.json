@@ -20,7 +20,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Number of Students in Public Schools of Redwood City"
           },
           {
             "columns": [
@@ -39,7 +40,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Number of Teachers in Public Schools of Redwood City"
           },
           {
             "columns": [
@@ -58,7 +60,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Student-Teacher Ratio in Public Schools of Redwood City"
           }
         ],
         "statVarSpec": {

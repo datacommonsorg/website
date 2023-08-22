@@ -53,7 +53,7 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   # Get names of all SVs
   dc = state.uttr.insight_ctx[params.Params.DC.value]
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = ftypes.SV2Thing(
       name=variable.get_sv_name(all_svs, env_config.sv_chart_titles, dc),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
@@ -136,7 +136,7 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
 
 def _get_topic_tree(chart_vars_list: List[ftypes.ChartVars],
-                    sv2thing: base.SV2Thing, dc: str) -> TopicTree:
+                    sv2thing: ftypes.SV2Thing, dc: str) -> TopicTree:
   tree = TopicTree()
   ancestors = []
   topics = set(

@@ -30,6 +30,7 @@ from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import builder
 import server.lib.nl.config_builder.base as builder_base
+from server.lib.nl.fulfillment.types import PopulateState
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -842,4 +843,5 @@ def _run(uttr_dict: Dict,
                             sv_chart_titles=SV_CHART_TITLES,
                             nopc_vars=NOPC_VARS,
                             sdg_percent_vars=set())
-  return text_format.MessageToString(builder.build(uttr, cfg))
+  state = PopulateState(uttr=uttr)
+  return text_format.MessageToString(builder.build(state, cfg))

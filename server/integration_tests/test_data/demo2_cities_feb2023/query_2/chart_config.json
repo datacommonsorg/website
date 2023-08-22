@@ -28,7 +28,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Asthma"
           },
           {
             "columns": [
@@ -55,7 +56,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Chronic Obstructive Pulmonary Disease"
           },
           {
             "columns": [
@@ -87,7 +89,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Asthma and more"
           }
         ],
         "statVarSpec": {

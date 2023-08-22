@@ -486,7 +486,7 @@ const fetchFulfillData = async (
       extensionGroups: svgs,
       classifications: classificationsJson,
       disableExploreMore,
-      nlFulfillment,
+      nlFulfillment: nlFulfillment === "0" ? false : true,
     });
     return resp.data;
   } catch (error) {
