@@ -51,12 +51,12 @@ class IntegrationTest(NLWebServerTestCase):
   def run_detect_and_fulfill(self, test_dir, queries, dc='', failure=''):
     ctx = {}
     for q in queries:
-      resp = requests.post(
-        self.get_server_url() + f'/api/explore/detect-and-fulfill?q={q}',
-        json={
-            'contextHistory': ctx,
-            'dc': dc,
-        }).json()
+      resp = requests.post(self.get_server_url() +
+                           f'/api/explore/detect-and-fulfill?q={q}',
+                           json={
+                               'contextHistory': ctx,
+                               'dc': dc,
+                           }).json()
       ctx = resp['context']
       if len(queries) == 1:
         d = ''
