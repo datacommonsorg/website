@@ -557,15 +557,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/EducationHousingAndCommute",

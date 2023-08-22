@@ -221,9 +221,8 @@ def get_places_to_check(state: PopulateState, places: List[Place],
                                                  state.uttr.counters)
       for p in ret_places:
         places_to_check[p] = key
-  if is_explore:
-    for p in uttr.detection.places_detected.parent_places:
-      places_to_check[p.dcid] = p.dcid
+  # NOTE: We don't do existence check on parent places since it is
+  # not really shown on the Explore UI anymore.
   return places_to_check
 
 

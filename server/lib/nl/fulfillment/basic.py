@@ -15,6 +15,7 @@
 import copy
 from typing import List
 
+from server.lib.explore import params
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
@@ -65,17 +66,22 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   if chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin)
 
+  is_sdg = params.is_sdg(state.uttr.insight_ctx)
+
   all_svs = copy.deepcopy(chart_vars.svs)
   for sv in all_svs:
     chart_vars.svs = [sv]
     if not chart_vars.is_topic_peer_group:
       added |= simple.populate(state, chart_vars, places, chart_origin)
-    ranking_orig = state.ranking_types
-    state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-    added |= ranking_across_places.populate(state, chart_vars, places,
-                                            chart_origin,
-                                            _EXPLORE_RANKING_COUNT)
-    state.ranking_types = ranking_orig
+
+    # If this is SDG, unless user has asked for ranking, do not return!
+    if not is_sdg or state.ranking_types:
+      ranking_orig = state.ranking_types
+      state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+      added |= ranking_across_places.populate(state, chart_vars, places,
+                                              chart_origin,
+                                              _EXPLORE_RANKING_COUNT)
+      state.ranking_types = ranking_orig
 
   return added
 

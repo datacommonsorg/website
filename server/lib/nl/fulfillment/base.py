@@ -165,11 +165,11 @@ def _add_charts_with_existence_check(state: PopulateState,
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  places_to_check = get_places_to_check(state,
-                                        places,
-                                        is_explore=state.explore_mode)
+  state.places_to_check = get_places_to_check(state,
+                                              places,
+                                              is_explore=state.explore_mode)
 
-  if not places_to_check:
+  if not state.places_to_check:
     # Counter updated in get_sample_child_places
     # Always clear fallback when returning False
     clear_fallback(state)
@@ -177,7 +177,8 @@ def _add_charts_with_existence_check(state: PopulateState,
 
   # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
-  tracker = MainExistenceCheckTracker(state, places_to_check, chart_vars_map)
+  tracker = MainExistenceCheckTracker(state, state.places_to_check,
+                                      chart_vars_map)
   tracker.perform_existence_check()
   exist_chart_vars_list = []
   chart_vars_fetch(tracker, exist_chart_vars_list, set())
@@ -225,7 +226,6 @@ def _add_charts_with_existence_check(state: PopulateState,
       ordered_existing_svs = [v for v in svs if v in existing_svs]
       found |= _add_charts_for_extended_svs(state=state,
                                             places=places,
-                                            places_to_check=places_to_check,
                                             svs=ordered_existing_svs,
                                             num_charts=num_charts)
 
@@ -241,7 +241,6 @@ def _add_charts_with_existence_check(state: PopulateState,
 
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
-                                 places_to_check: Dict[str, str],
                                  svs: List[str], num_charts: int) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
@@ -265,7 +264,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # We extended some SVs, perform existence check.
   # PERF-NOTE: We do two serial existence-checks because the SV extension
   # call is super expensive.
-  tracker = ExtensionExistenceCheckTracker(state, places_to_check, svs,
+  tracker = ExtensionExistenceCheckTracker(state, state.places_to_check, svs,
                                            sv2extensions)
   tracker.perform_existence_check()
 

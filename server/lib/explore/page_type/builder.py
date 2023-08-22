@@ -30,7 +30,7 @@ import server.lib.nl.fulfillment.utils as futils
 class Builder:
 
   def __init__(self, state: ftypes.PopulateState, env_config: base.Config,
-               sv2thing: base.SV2Thing, num_chart_vars: int):
+               sv2thing: ftypes.SV2Thing, num_chart_vars: int):
     self.uttr = state.uttr
     self.page_config = SubjectPageConfig()
     self.env_config = env_config

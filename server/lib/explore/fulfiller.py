@@ -19,9 +19,9 @@ import time
 from typing import Dict
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore import existence
 from server.lib.explore import page_main
 from server.lib.explore import page_sdg
+from server.lib.explore.extension import chart_vars_to_explore_peer_groups
 import server.lib.explore.extension as extension
 from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
@@ -127,7 +127,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('explore_more_existence_check', start)
 
-      explore_peer_groups = _chart_vars_to_explore_peer_groups(
+      explore_peer_groups = chart_vars_to_explore_peer_groups(
           state, explore_more_chart_vars_map)
 
     config_resp = page_main.build_config(chart_vars_list, ext_chart_vars_list,
@@ -140,22 +140,3 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   return FulfillResp(chart_pb=config_resp.config_pb,
                      related_things=related_things,
                      user_message=config_resp.user_message)
-
-
-def _chart_vars_to_explore_peer_groups(state: ftypes.PopulateState,
-                                       explore_more_chart_vars_map) -> Dict:
-  explore_peer_groups = {}
-
-  for sv, cv_list in explore_more_chart_vars_map.items():
-    if not existence.svs4place(state, state.uttr.places[0], [sv]).exist_svs:
-      continue
-    for cv in cv_list:
-      er = existence.svs4place(state, state.uttr.places[0], cv.svs)
-      if len(er.exist_svs) < 2:
-        continue
-      if sv not in explore_peer_groups:
-        explore_peer_groups[sv] = {}
-      if cv.source_topic not in explore_peer_groups[sv]:
-        explore_peer_groups[sv][cv.source_topic] = sorted(er.exist_svs)
-
-  return explore_peer_groups

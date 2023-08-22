@@ -70,6 +70,14 @@ class ChartVars:
   svpg_id: str = ''
 
 
+@dataclass
+class SV2Thing:
+  name: Dict
+  unit: Dict
+  description: Dict
+  footnote: Dict
+
+
 # Data structure to store state for a single "populate" call.
 @dataclass
 class PopulateState:
@@ -84,6 +92,13 @@ class PopulateState:
   # This is in the order of the returned SVs from the Embeddings index.
   chart_vars_map: OrderedDict[str,
                               List[ChartVars]] = field(default_factory=dict)
+  # Places to do existence check on.
+  #
+  # Dict's key is the DCID of the place to check.  Dict's value is a group-by key
+  # used for recognizing child places.
+  places_to_check: Dict[str, str] = field(default_factory=dict)
+  # Var to names/descriptions/etc.
+  sv2thing: SV2Thing = None
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.

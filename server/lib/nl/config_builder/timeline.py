@@ -19,12 +19,14 @@ from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.types import Place
+import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 
 
-def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
-                                     sv2thing: base.SV2Thing):
+def ranked_timeline_collection_block(
+    builder: base.Builder, cspec: ChartSpec,
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   stat_var_spec_map = {}
   cv = cspec.chart_vars
 
@@ -75,8 +77,9 @@ def ranked_timeline_collection_block(builder: base.Builder, cspec: ChartSpec,
   return stat_var_spec_map
 
 
-def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
-                                           sv2thing: base.SV2Thing):
+def single_place_single_var_timeline_block(
+    column, place: Place, sv_dcid: str,
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   """A column with two charts, main stat var and per capita"""
   stat_var_spec_map = {}
 
@@ -92,10 +95,9 @@ def single_place_single_var_timeline_block(column, place: Place, sv_dcid: str,
   return stat_var_spec_map
 
 
-def single_place_multiple_var_timeline_block(column, place: Place,
-                                             svs: List[str],
-                                             sv2thing: base.SV2Thing,
-                                             cv: ChartVars):
+def single_place_multiple_var_timeline_block(
+    column, place: Place, svs: List[str],
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing, cv: ChartVars):
   """A column with two chart, all stat vars and per capita"""
   stat_var_spec_map = {}
 

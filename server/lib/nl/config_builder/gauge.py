@@ -15,9 +15,11 @@
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.config_builder import base
+import server.lib.nl.fulfillment.types
 
 
-def gauge_block_for_percent(column, place, sv, sv2thing: base.SV2Thing):
+def gauge_block_for_percent(column, place, sv,
+                            sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
   chart_title = base.decorate_chart_title(title=sv2thing.name[sv], place=place)
 
   tile = Tile(type=Tile.TileType.GAUGE, title=chart_title, stat_var_key=[sv])
