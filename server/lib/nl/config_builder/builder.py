@@ -84,11 +84,17 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
             block.columns.add(), cspec.places[0], cspec.svs, sv2thing, cv)
       else:
+        if cspec.is_sdg:
+          # Return highlight before timeline for SDG.
+          stat_var_spec_map.update(
+              highlight.higlight_block(block.columns.add(), cspec.places[0],
+                                       cspec.svs[0], sv2thing))
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
             block.columns.add(), cspec.places[0], cspec.svs[0], sv2thing)
-        stat_var_spec_map.update(
-            highlight.higlight_block(block.columns.add(), cspec.places[0],
-                                     cspec.svs[0], sv2thing))
+        if not cspec.is_sdg:
+          stat_var_spec_map.update(
+              highlight.higlight_block(block.columns.add(), cspec.places[0],
+                                       cspec.svs[0], sv2thing))
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       block = builder.new_chart(cspec)

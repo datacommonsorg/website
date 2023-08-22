@@ -139,7 +139,8 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  if utterance.insight_ctx.get(Params.ENABLE_NL_FULFILLMENT.value):
+  use_nl = utterance.insight_ctx.get(Params.ENABLE_NL_FULFILLMENT.value, True)
+  if use_nl:
     fresp = nl_fulfillment.fulfill(utterance, cb_config)
   else:
     fresp = fulfillment.fulfill(utterance, cb_config)
