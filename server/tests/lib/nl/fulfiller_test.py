@@ -637,4 +637,4 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
                           constants.TEST_SESSION_ID)
   context.merge_with_context(uttr, is_explore=False)
   print(uttr)
-  return serialize.save_utterance(fulfiller.fulfill(uttr))[0]
+  return serialize.save_utterance(fulfiller.fulfill(uttr).utterance)[0]

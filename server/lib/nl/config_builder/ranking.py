@@ -22,6 +22,7 @@ from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import map
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+import server.lib.nl.fulfillment.types
 from server.lib.nl.fulfillment.types import ChartSpec
 
 _DEFAULT_RANKING_COUNT = 10
@@ -71,10 +72,9 @@ def _does_extreme_mean_low(sv: str) -> bool:
   return False
 
 
-def ranking_chart_block_climate_extremes(builder: base.Builder,
-                                         pri_place: Place, pri_svs: List[str],
-                                         sv2thing: base.SV2Thing,
-                                         cspec: ChartSpec):
+def ranking_chart_block_climate_extremes(
+    builder: base.Builder, pri_place: Place, pri_svs: List[str],
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing, cspec: ChartSpec):
   footnotes = []
   stat_var_spec_map = {}
 
@@ -116,7 +116,7 @@ def ranking_chart_block_climate_extremes(builder: base.Builder,
 
 
 def ranking_chart_block(column, pri_place: Place, pri_sv: str, child_type: str,
-                        sv2thing: base.SV2Thing,
+                        sv2thing: server.lib.nl.fulfillment.types.SV2Thing,
                         ranking_types: List[RankingType], ranking_count: int):
   # The main tile
   tile = column.tiles.add()

@@ -28,6 +28,7 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import SV2Thing
 
 
 # Config structures.
@@ -40,14 +41,6 @@ class Config:
 
 
 # A structure with maps from SV DCID to different things.
-@dataclass
-class SV2Thing:
-  name: Dict
-  unit: Dict
-  description: Dict
-  footnote: Dict
-
-
 class Builder:
 
   def __init__(self, uttr: Utterance, sv2thing: SV2Thing, config: Config):
@@ -76,7 +69,9 @@ class Builder:
   def new_chart(self,
                 cspec: ChartSpec,
                 override_sv: str = '',
-                skip_title: bool = False) -> any:
+                skip_title: bool = False,
+                place: Place = None,
+                child_type: str = '') -> any:
     cv = cspec.chart_vars
     if self.block:
       self.category.blocks.append(self.block)
@@ -86,7 +81,9 @@ class Builder:
       title, description, footnote = self.get_block_strings(cv, override_sv)
       if title:
         self.block.title = decorate_block_title(title=title,
-                                                chart_origin=cspec.chart_origin)
+                                                chart_origin=cspec.chart_origin,
+                                                place=place,
+                                                child_type=child_type)
       if description:
         self.block.description = description
 
@@ -142,7 +139,9 @@ class Builder:
 def decorate_block_title(title: str,
                          chart_origin: ChartOriginType = None,
                          growth_direction: TimeDeltaType = None,
-                         growth_ranking_type: str = '') -> str:
+                         growth_ranking_type: str = '',
+                         place: Place = None,
+                         child_type: str = '') -> str:
   if growth_direction != None:
     if growth_direction == TimeDeltaType.INCREASE:
       prefix = 'Increase'
@@ -162,6 +161,16 @@ def decorate_block_title(title: str,
 
   if not title:
     return ''
+
+  if place and place.name:
+    if place.dcid == 'Earth':
+      title = title + ' in the World'
+    else:
+      if child_type:
+        title = title + ' in ' + utils.pluralize_place_type(
+            child_type) + ' of ' + place.name
+      else:
+        title = title + ' in ' + place.name
 
   if chart_origin == ChartOriginType.SECONDARY_CHART:
     title = 'Related: ' + title

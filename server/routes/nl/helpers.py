@@ -152,14 +152,15 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=set())
 
   start = time.time()
-  utterance = fulfillment.fulfill(utterance, explore_mode=False)
+  state = fulfillment.fulfill(utterance, explore_mode=False)
+  utterance = state.uttr
   utterance.counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
     start = time.time()
 
     # Call chart config builder.
-    page_config_pb = config_builder.build(utterance, cb_config)
+    page_config_pb = config_builder.build(state, cb_config)
 
     page_config = json.loads(MessageToJson(page_config_pb))
     utterance.counters.timeit('build_page_config', start)
