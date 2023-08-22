@@ -8,26 +8,26 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
                     "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "RANKING"
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
                     "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -67,49 +67,51 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
                     "title": "Asthma in Counties of California (${date})",
-                    "type": "RANKING"
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
                     "title": "Asthma in Counties of California (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
             "title": "Asthma in Counties of California"
+          }
+        ],
+        "dcid": "dc/topic/Asthma",
+        "statVarSpec": {
+          "Percent_Person_Children_WithAsthma": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
           },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
+            "unit": "%"
+          }
+        }
+      },
+      {
+        "blocks": [
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
-                    ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -118,6 +120,21 @@
                     ],
                     "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
                     "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -130,16 +147,6 @@
           "Count_Death_DiseasesOfTheRespiratorySystem": {
             "name": "Deaths From Diseases of the Respiratory System",
             "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
-          },
-          "Percent_Person_Children_WithAsthma": {
-            "name": "Percent of Children That Have Asthma",
-            "statVar": "Percent_Person_Children_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithAsthma": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
           }
         }
       }
