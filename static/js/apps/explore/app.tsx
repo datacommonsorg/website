@@ -299,7 +299,7 @@ export function App(): JSX.Element {
       fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),
-        currentContext.childEntityType,
+        "",
         currentContext.comparisonEntities || [],
         currentContext.comparisonVariables || [],
         dc,

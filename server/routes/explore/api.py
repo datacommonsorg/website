@@ -116,7 +116,7 @@ def detect_and_fulfill():
   utterance.prev_utterance = None
   data_dict[Params.CTX.value] = serialize.save_utterance(utterance)
   data_dict[Params.ENABLE_NL_FULFILLMENT.value] = request.get_json().get(
-      Params.ENABLE_NL_FULFILLMENT, "")
+      Params.ENABLE_NL_FULFILLMENT, True)
   data_dict[Params.EXP_MORE_DISABLED.value] = request.get_json().get(
       Params.EXP_MORE_DISABLED, "")
   data_dict[Params.DC.value] = request.get_json().get(Params.DC, "")

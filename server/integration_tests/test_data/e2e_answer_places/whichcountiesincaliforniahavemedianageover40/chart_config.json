@@ -8,392 +8,38 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Median_Age_Person"
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109"
                     ],
-                    "title": "Median Age of Population in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in California",
                     "statVarKey": [
-                      "Median_Age_Person"
+                      "Median_Age_Person_multiple_place_bar_block"
                     ],
-                    "title": "Median Age of Population in California",
-                    "type": "HIGHLIGHT"
+                    "title": "Median Age of Population (${date}) - Top 7 of 22",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "title": "Median Age of Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female",
-                      "Median_Age_Person_Male"
-                    ],
-                    "title": "Median Age By Gender in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age By Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Women's Median Age in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male"
-                    ],
-                    "title": "Men's Median Age in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Male"
-                    ],
-                    "title": "Men's Median Age in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Men's Median Age in Counties of California"
           }
         ],
-        "dcid": "dc/topic/AgeMedians",
         "statVarSpec": {
-          "Median_Age_Person": {
+          "Median_Age_Person_multiple_place_bar_block": {
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
-          },
-          "Median_Age_Person_Female": {
-            "name": "Women's Median Age",
-            "statVar": "Median_Age_Person_Female"
-          },
-          "Median_Age_Person_Male": {
-            "name": "Men's Median Age",
-            "statVar": "Median_Age_Person_Male"
-          }
-        }
-      },
-      {
-        "blocks": [
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_1OrMoreYears"
-                    ],
-                    "title": "Median Age: 1 Years or More in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age: 1 Years or More in California",
-                    "statVarKey": [
-                      "Median_Age_Person_1OrMoreYears"
-                    ],
-                    "title": "Median Age: 1 Years or More in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age: 1 Years or More"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_1OrMoreYears"
-                    ],
-                    "title": "Median Age: 1 Years or More in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_1OrMoreYears"
-                    ],
-                    "title": "Median Age: 1 Years or More in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age: 1 Years or More in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_ResidesInGroupQuarters"
-                    ],
-                    "title": "Median Age: Group Quarters in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age: Group Quarters in California",
-                    "statVarKey": [
-                      "Median_Age_Person_ResidesInGroupQuarters"
-                    ],
-                    "title": "Median Age: Group Quarters in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age: Group Quarters"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_SomeOtherRaceAlone"
-                    ],
-                    "title": "Median Age of Population of Some Other Race in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population of Some Other Race in California",
-                    "statVarKey": [
-                      "Median_Age_Person_SomeOtherRaceAlone"
-                    ],
-                    "title": "Median Age of Population of Some Other Race in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population of Some Other Race"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_SomeOtherRaceAlone"
-                    ],
-                    "title": "Median Age of Population of Some Other Race in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_SomeOtherRaceAlone"
-                    ],
-                    "title": "Median Age of Population of Some Other Race in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population of Some Other Race in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState"
-                    ],
-                    "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in California",
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState"
-                    ],
-                    "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState"
-                    ],
-                    "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState"
-                    ],
-                    "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State in Counties of California"
-          }
-        ],
-        "statVarSpec": {
-          "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState": {
-            "name": "Population: 25 Years or More, Less Than High School Graduate, Different House in Different County Different State",
-            "statVar": "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate_DifferentHouseInDifferentCountyDifferentState"
-          },
-          "Median_Age_Person_1OrMoreYears": {
-            "name": "Median Age: 1 Years or More",
-            "statVar": "Median_Age_Person_1OrMoreYears"
-          },
-          "Median_Age_Person_ResidesInGroupQuarters": {
-            "name": "Median Age: Group Quarters",
-            "statVar": "Median_Age_Person_ResidesInGroupQuarters"
-          },
-          "Median_Age_Person_SomeOtherRaceAlone": {
-            "name": "Median Age of Population of Some Other Race",
-            "statVar": "Median_Age_Person_SomeOtherRaceAlone"
           }
         }
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "State": "County"
-      },
       "placeDcid": [
-        "geoId/06"
+        "geoId/06105"
       ]
     }
   },
@@ -763,14 +409,7 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopic": {
       "dcid": "dc/topic/AgeMedians",
       "name": "Age Medians",
