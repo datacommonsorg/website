@@ -17,7 +17,11 @@
                     ],
                     "title": "Population Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -28,6 +32,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population Below Poverty Level Status in Past Year"
           },
           {
@@ -40,37 +45,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Women below Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
@@ -81,6 +64,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Women below Poverty Line"
           },
           {
@@ -93,37 +77,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Women below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Women below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Males in Poverty (in last year) in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
@@ -134,6 +96,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Males in Poverty (in last year)"
           },
           {
@@ -146,37 +109,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Males in Poverty (in last year) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Males in Poverty (in last year) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
                     "title": "Asians Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
@@ -187,6 +128,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Asians Below Poverty Level Status in Past Year"
           },
           {
@@ -199,37 +141,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_pc"
-                    ],
-                    "title": "Per Capita Asians Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_pc"
-                    ],
-                    "title": "Per Capita Asians Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
                     "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
@@ -240,6 +160,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Black or African Americans Below Poverty Level Status in Past Year"
           },
           {
@@ -252,37 +173,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
-                    ],
-                    "title": "Per Capita Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc"
-                    ],
-                    "title": "Per Capita Black or African Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
                     ],
                     "title": "Hispanic or Latino Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
@@ -293,6 +192,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Hispanic or Latino Americans Below Poverty Level Status in Past Year"
           },
           {
@@ -305,37 +205,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_pc"
-                    ],
-                    "title": "Per Capita Hispanic or Latino Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_pc"
-                    ],
-                    "title": "Per Capita Hispanic or Latino Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
                     ],
                     "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
@@ -346,6 +224,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year"
           },
           {
@@ -358,37 +237,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_pc"
-                    ],
-                    "title": "Per Capita Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_pc"
-                    ],
-                    "title": "Per Capita Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
                     ],
                     "title": "Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
@@ -399,6 +256,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Below Poverty Level Status in Past Year (Other Race)"
           },
           {
@@ -411,37 +269,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Other Race) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
                     "title": "Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
@@ -452,6 +288,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Below Poverty Level Status in Past Year (Two or More Races)"
           },
           {
@@ -464,37 +301,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc"
-                    ],
-                    "title": "Per Capita Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
                     ],
                     "title": "White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
@@ -505,6 +320,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "White Americans Below Poverty Level Status in Past Year"
           },
           {
@@ -517,37 +333,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
-                    ],
-                    "title": "Per Capita White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc"
-                    ],
-                    "title": "Per Capita White Americans Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
                     ],
                     "title": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
@@ -558,6 +352,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year"
           },
           {
@@ -570,37 +365,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_pc"
-                    ],
-                    "title": "Per Capita White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_pc"
-                    ],
-                    "title": "Per Capita White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -611,6 +384,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Some language other than English spoken at home & below poverty line"
           },
           {
@@ -623,37 +397,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Some language other than English spoken at home & below poverty line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -664,6 +416,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months"
           },
           {
@@ -676,37 +429,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -717,6 +448,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months"
           },
           {
@@ -729,37 +461,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
@@ -770,6 +480,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months"
           },
           {
@@ -777,26 +488,28 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Per Capita Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
+                    "title": "Population Below International Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
+                    "description": "Population Below International Poverty Line in United States",
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc"
+                      "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Per Capita Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Population Below International Poverty Line in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -812,7 +525,11 @@
                     ],
                     "title": "Population Above Poverty Level Status in Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
@@ -823,6 +540,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population Above Poverty Level Status in Past Year"
           },
           {
@@ -835,37 +553,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population Above Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_AbovePovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Population Above Poverty Level Status in Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
                     "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
@@ -876,6 +572,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line"
           },
           {
@@ -888,37 +585,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc"
-                    ],
-                    "title": "Per Capita Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
@@ -929,6 +604,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Family Households Below the Poverty Level in the Past Year"
           },
           {
@@ -941,37 +617,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
@@ -982,6 +636,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months"
           },
           {
@@ -994,37 +649,15 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
@@ -1035,6 +668,7 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months"
           },
           {
@@ -1042,26 +676,29 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
+                      "Count_Person_PovertyStatusDetermined"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
+                    "title": "Population With Poverty Status Determined in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
+                    "description": "Population With Poverty Status Determined in United States",
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
+                      "Count_Person_PovertyStatusDetermined"
                     ],
-                    "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Population With Poverty Status Determined in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Poverty Status Determined"
           },
           {
             "columns": [
@@ -1077,7 +714,11 @@
                     ],
                     "title": "Household Median Income in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Median_Income_Household"
@@ -1104,7 +745,11 @@
                     ],
                     "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
@@ -1115,33 +760,8 @@
                 ]
               }
             ],
+            "denom": "Count_Person",
             "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  },
-                  {
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months_pc"
-                    ],
-                    "title": "Per Capita Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ]
           }
         ],
         "statVarSpec": {
@@ -1149,17 +769,7 @@
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Family Households Below the Poverty Level in the Past Year",
-            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
           },
@@ -1167,17 +777,7 @@
             "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
           },
@@ -1185,17 +785,7 @@
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
             "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
           },
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_pc": {
-            "denom": "Count_Person",
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-          },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Some language other than English spoken at home & below poverty line",
-            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
@@ -1203,17 +793,7 @@
             "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months": {
-            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
@@ -1221,17 +801,7 @@
             "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
-            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_AbovePovertyLevelInThePast12Months": {
-            "name": "Population Above Poverty Level Status in Past Year",
-            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
-          },
-          "Count_Person_AbovePovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Population Above Poverty Level Status in Past Year",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
@@ -1243,17 +813,7 @@
             "name": "Asians Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_pc": {
-            "denom": "Count_Person",
-            "name": "Asians Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
-            "name": "Black or African Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_pc": {
-            "denom": "Count_Person",
             "name": "Black or African Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           },
@@ -1261,17 +821,7 @@
             "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_pc": {
-            "denom": "Count_Person",
-            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
-            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_pc": {
-            "denom": "Count_Person",
             "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
           },
@@ -1279,17 +829,7 @@
             "name": "Below Poverty Level Status in Past Year (Other Race)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_pc": {
-            "denom": "Count_Person",
-            "name": "Below Poverty Level Status in Past Year (Other Race)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
-            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_pc": {
-            "denom": "Count_Person",
             "name": "Below Poverty Level Status in Past Year (Two or More Races)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
           },
@@ -1301,27 +841,7 @@
             "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_pc": {
-            "denom": "Count_Person",
-            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_pc": {
-            "denom": "Count_Person",
-            "name": "White Americans Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Population Below Poverty Level Status in Past Year",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
-            "name": "Women below Poverty Line",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
@@ -1329,14 +849,17 @@
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_pc": {
-            "denom": "Count_Person",
-            "name": "Males in Poverty (in last year)",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          "Count_Person_PovertyStatusDetermined": {
+            "name": "Population With Poverty Status Determined",
+            "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "Median_Income_Household": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
+          },
+          "sdg/SI_POV_DAY1": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
           }
         }
       }
