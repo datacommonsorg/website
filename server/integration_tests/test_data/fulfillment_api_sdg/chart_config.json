@@ -8,6 +8,7 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
                     "description": "Population Below International Poverty Line in United States",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
@@ -20,11 +21,25 @@
               {
                 "tiles": [
                   {
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
                     "title": "Population Below International Poverty Line in United States",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below International Poverty Line in United States",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Population Below International Poverty Line in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -84,6 +99,7 @@
           },
           {
             "columns": [
+<<<<<<< HEAD
               {
                 "tiles": [
                   {
@@ -96,6 +112,8 @@
                   }
                 ]
               },
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               {
                 "tiles": [
                   {
@@ -104,6 +122,18 @@
                     ],
                     "title": "Employed Population Covered for Work Injury in United States",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Employed Population Covered for Work Injury in United States",
+                    "statVarKey": [
+                      "sdg/SI_COV_WKINJRY"
+                    ],
+                    "title": "Employed Population Covered for Work Injury in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -132,6 +162,17 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "sdg/SI_COV_PENSN"
+                    ],
+                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "description": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
                     "statVarKey": [
                       "sdg/SI_COV_PENSN"
@@ -140,23 +181,36 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_PENSN"
-                    ],
-                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit in United States",
-                    "type": "LINE"
-                  }
-                ]
+=======
               }
             ],
             "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
           },
           {
             "columns": [
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_PENSN.SEX--F"
+                    ],
+                    "title": "Women Above Retirement Age Receiving Pension in United States",
+                    "type": "LINE"
+                  }
+                ]
+<<<<<<< HEAD
+              }
+            ],
+            "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+          },
+          {
+            "columns": [
+=======
+              },
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               {
                 "tiles": [
                   {
@@ -168,23 +222,36 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_PENSN.SEX--F"
-                    ],
-                    "title": "Women Above Retirement Age Receiving Pension in United States",
-                    "type": "LINE"
-                  }
-                ]
+=======
               }
             ],
             "title": "Women Above Retirement Age Receiving Pension"
           },
           {
             "columns": [
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_PENSN.SEX--M"
+                    ],
+                    "title": "Men Above Retirement Age Receiving Pension in United States",
+                    "type": "LINE"
+                  }
+                ]
+<<<<<<< HEAD
+              }
+            ],
+            "title": "Women Above Retirement Age Receiving Pension"
+          },
+          {
+            "columns": [
+=======
+              },
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               {
                 "tiles": [
                   {
@@ -196,23 +263,36 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_COV_PENSN.SEX--M"
-                    ],
-                    "title": "Men Above Retirement Age Receiving Pension in United States",
-                    "type": "LINE"
-                  }
-                ]
+=======
               }
             ],
             "title": "Men Above Retirement Age Receiving Pension"
           },
           {
             "columns": [
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_BENFTS"
+                    ],
+                    "title": "Population With Social Protection Benefits in United States",
+                    "type": "LINE"
+                  }
+                ]
+<<<<<<< HEAD
+              }
+            ],
+            "title": "Men Above Retirement Age Receiving Pension"
+          },
+          {
+            "columns": [
+=======
+              },
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               {
                 "tiles": [
                   {
@@ -224,19 +304,41 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
+=======
+              }
+            ],
+            "title": "Population With Social Protection Benefits"
+          },
+          {
+            "columns": [
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               {
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_COV_BENFTS"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Population With Social Protection Benefits in United States",
+                    "title": "Population Using Basic Drinking Water Services in United States",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Using Basic Drinking Water Services in United States",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Population Using Basic Drinking Water Services in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
+<<<<<<< HEAD
             "title": "Population With Social Protection Benefits"
           },
           {
@@ -265,6 +367,8 @@
                 ]
               }
             ],
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
             "title": "Population Using Basic Drinking Water Services"
           },
           {
@@ -272,6 +376,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
+                    ],
+                    "title": "Rural Population Using Basic Drinking Water Services in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Rural Population Using Basic Drinking Water Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
@@ -280,6 +398,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -291,6 +410,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Rural Population Using Basic Drinking Water Services"
@@ -300,6 +421,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+                    ],
+                    "title": "Urban Population Using Basic Drinking Water Services in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Urban Population Using Basic Drinking Water Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
@@ -308,6 +443,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -319,6 +455,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Urban Population Using Basic Drinking Water Services"
@@ -328,6 +466,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Population Using Basic Sanitation Services in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Population Using Basic Sanitation Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
@@ -336,6 +488,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -347,6 +500,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Population Using Basic Sanitation Services"
@@ -356,6 +511,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
+                    ],
+                    "title": "Rural Population Using Basic Sanitation Services in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Rural Population Using Basic Sanitation Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
@@ -364,6 +533,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -375,6 +545,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Rural Population Using Basic Sanitation Services"
@@ -384,6 +556,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+                    ],
+                    "title": "Urban Population Using Basic Sanitation Services in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Urban Population Using Basic Sanitation Services in United States",
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
@@ -392,6 +578,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -403,6 +590,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Urban Population Using Basic Sanitation Services"
@@ -412,6 +601,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_MMHN"
+                    ],
+                    "title": "Deaths and Missing Persons From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Deaths and Missing Persons From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
@@ -420,6 +623,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -431,6 +635,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Deaths and Missing Persons From Disasters"
@@ -440,6 +646,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_MTMP"
+                    ],
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
@@ -448,6 +668,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -459,6 +680,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Deaths and Missing Persons From Disasters Per 100k Capita"
@@ -468,6 +691,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_MORT"
+                    ],
+                    "title": "Deaths From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Deaths From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_MORT"
@@ -476,6 +713,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -487,6 +725,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Deaths From Disasters"
@@ -496,6 +736,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_DAFF"
+                    ],
+                    "title": "Population Affected by Disasters Per 100k Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Population Affected by Disasters Per 100k Capita in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
@@ -504,6 +758,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -515,6 +770,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Population Affected by Disasters Per 100k Capita"
@@ -524,6 +781,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_IJILN"
+                    ],
+                    "title": "Injured or Ill Population From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Injured or Ill Population From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN"
@@ -532,6 +803,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -543,6 +815,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Injured or Ill Population From Disasters"
@@ -552,6 +826,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_AFFCT"
+                    ],
+                    "title": "Population Affected by Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Population Affected by Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT"
@@ -560,6 +848,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -571,6 +860,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Population Affected by Disasters"
@@ -580,6 +871,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_PDAN"
+                    ],
+                    "title": "Population With Damaged Dwellings From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Population With Damaged Dwellings From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN"
@@ -588,6 +893,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -599,6 +905,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Population With Damaged Dwellings From Disasters"
@@ -608,6 +916,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_PDYN"
+                    ],
+                    "title": "Populatin With Destroyed Dwellings From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Populatin With Destroyed Dwellings From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
@@ -616,6 +938,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -627,6 +950,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Populatin With Destroyed Dwellings From Disasters"
@@ -636,6 +961,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_AGLH"
+                    ],
+                    "title": "Direct Agriculture Loss From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Direct Agriculture Loss From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_AGLH"
@@ -644,6 +983,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -655,6 +995,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Direct Agriculture Loss From Disasters"
@@ -664,6 +1006,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_GDPLS"
+                    ],
+                    "title": "Direct Economic Loss From Disasters in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Direct Economic Loss From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_GDPLS"
@@ -672,6 +1028,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -683,6 +1040,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Direct Economic Loss From Disasters"
@@ -692,6 +1051,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_LSGP"
+                    ],
+                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
@@ -700,6 +1073,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -711,6 +1085,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Direct Economic Loss From Disasters (Relative to GDP)"
@@ -720,6 +1096,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_CILN"
+                    ],
+                    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Direct Economic Loss From Disaster-Caused Infrastructure Damage in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_CILN"
@@ -728,6 +1118,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -739,6 +1130,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage"
@@ -748,6 +1141,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/VC_DSR_DDPA"
+                    ],
+                    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Direct Economic Loss From Disaster-Caused Productive Asset Damage in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_DDPA"
@@ -756,6 +1163,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -767,6 +1175,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage"
@@ -776,6 +1186,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SG_DSR_LGRGSR"
+                    ],
+                    "title": "Adoption and Implementation of National DRR Strategies in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Adoption and Implementation of National DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
@@ -784,6 +1208,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -795,6 +1220,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Adoption and Implementation of National DRR Strategies"
@@ -804,6 +1231,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SG_GOV_LOGV"
+                    ],
+                    "title": "Local Governments in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Local Governments in United States",
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV"
@@ -812,6 +1253,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -823,6 +1265,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Local Governments"
@@ -832,6 +1276,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SG_DSR_SILN"
+                    ],
+                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Local Governments Adopting and Implementing DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
@@ -840,6 +1298,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -851,6 +1310,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Local Governments Adopting and Implementing DRR Strategies"
@@ -860,6 +1321,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SG_DSR_SILS"
+                    ],
+                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
@@ -868,6 +1343,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -879,6 +1355,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies"
@@ -888,6 +1366,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/DC_ODA_POVDLG"
+                    ],
+                    "title": "Grants for Poverty Reduction in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Grants for Poverty Reduction in United States",
                     "statVarKey": [
                       "sdg/DC_ODA_POVDLG"
@@ -896,6 +1388,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -907,6 +1400,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Grants for Poverty Reduction"
@@ -916,6 +1411,20 @@
               {
                 "tiles": [
                   {
+<<<<<<< HEAD
+=======
+                    "statVarKey": [
+                      "sdg/SD_XPD_ESED"
+                    ],
+                    "title": "Government Spending on Essential Services and Education in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
                     "description": "Government Spending on Essential Services and Education in United States",
                     "statVarKey": [
                       "sdg/SD_XPD_ESED"
@@ -924,6 +1433,7 @@
                     "type": "HIGHLIGHT"
                   }
                 ]
+<<<<<<< HEAD
               },
               {
                 "tiles": [
@@ -935,6 +1445,8 @@
                     "type": "LINE"
                   }
                 ]
+=======
+>>>>>>> 2dab260898d6528ea9ba21a744292eafccceb1fc
               }
             ],
             "title": "Government Spending on Essential Services and Education"
