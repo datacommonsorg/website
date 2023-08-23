@@ -16,7 +16,7 @@
 
 metadata {
   topic_id: "dc2_2"
-  topic_name: "Health Factors"
+  topic_name: "Development Landscape"
   place_dcid: "country/NGA"
   contained_place_types {
     key: "Country"
@@ -27,7 +27,7 @@ metadata {
 
 categories {
     title: "Life Expectancy"
-    description: "The life expectancy in Nigeria is at an all time high of 52.9 years as at 2022 , the highest since 1960 when the country gained  independence. At independence life expectancy was 37.4 years. Into the millennium (200) it was 47.2 years. What is driving this increment? Could it be as a result of a healthier lifestyle?"
+    description: "The life expectancy in Nigeria is at an all time high of 52.9 years as at 2022 , the highest since 1960 when the country gained  independence. At independence life expectancy was 37.4years. Into the millennium (200) it was 47.2 years. What is driving this improvement? We see that infant mortality is steadily declining"
     
     blocks {
         columns {
@@ -40,8 +40,8 @@ categories {
         columns {
             tiles {
                 type: LINE
-                title: "Mortality Rates for Common Conditions in ${placeName}"
-                stat_var_key: "mortalityRates"
+                title: "Infant mortality under 1 year old in ${placeName}"
+                stat_var_key: "infantMortalityRate"
             }
         }
     }
@@ -55,24 +55,88 @@ categories {
     }
 
     stat_var_spec {
-        key: "mortalityRates"
+        key: "infantMortalityRate"
         value {
-            stat_var: "sdg/SH_DTH_NCOM_30-70"
-            name: "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease: 30 to 70 years old"
+            stat_var: "sdg/SH_DYN_IMRT.AGE--Y0"
+            name: "Infant motality rate (Age = under 1 year old)"
         }
+    }
+
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Deaths from common diseases in ${placeName}"
+                stat_var_key: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+            }
+        }
+        columns {
+            tiles {
+                type: LINE
+                title: "Access to clean water in ${placeName}"
+                stat_var_key: "sdg/SH_H2O_SAFE"
+            }
+        }
+    }
+
+    stat_var_spec {
+        key: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+        value {
+            stat_var: "sdg/SH_DTH_NCOM.AGE--Y30T70"
+            name: "Mortality Rate Attributed To Cardiovascular Disease, Cancer, Diabetes or Chronic Respiratory Disease With Age = 30 to 70 Years Old"
+            unit: "%"
+        }
+    }
+
+    stat_var_spec {
+        key: "sdg/SH_H2O_SAFE"
+        value {
+            stat_var: "sdg/SH_H2O_SAFE"
+            name: "Proportion of population using safely managed drinking water services"
+            unit: "%"
+        } 
     }
 }
 
 categories {
     title: "COVID Impact"
-    description: "Covid deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases in 2023. For countries with high populations such as Nigeria, confirmed cases remained high including deaths. For example the United States has 103 million confirmed cases and  1,135,343 deaths. Could the numbers be attributed to the growing population which is known to increase the risk of pandemics?"
-    
+    description: "Covid deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases in 2023. For countries with high populations such as Nigeria, confirmed cases remained high including deaths. For example the United States has 103 million confirmed cases and  1,135,343 deaths. As of the end of 2022, the vaccination rate in Nigeria was under 7%. Given its poor health infrastructure, what could have kept the numbers low for Nigeria and many other countries in Africa?"
+
     blocks {
         columns {
             tiles {
-                type: LINE
-                title: "Deaths in ${placeName} due to COVID-19"
+                type: DESCRIPTION
+                description: "A [research project](https://healthpolicy.fsi.stanford.edu/news/how-has-africa-largely-evaded-covid-19-pandemic-0) from a group led by a Nigerian doctor at Stanford University identified five possible factors:\n* Limited seeding (less air travel)\n* Power of the young age group\n* Exposure to previous infectious diseases\n* Population density\n* Prevalence of associated comorbid conditions"
+            }
+        }
+    }
+
+    blocks {
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "Cumulative COVID-19 Deaths in ${placeName}"
                 stat_var_key: "covidDeaths"
+            }
+        }
+    }
+
+    blocks {
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "Total Population in ${placeName}"
+                stat_var_key: "Count_Person"
+            }
+        }
+    }
+
+    blocks {
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "COVID-19 Deaths per 100,000 people in ${placeName}"
+                stat_var_key: "covidDeaths_pc"
             }
         }
     }
@@ -84,11 +148,71 @@ categories {
             name: "Cumulative Count of COVID-19 Deaths"
         }
     }
+
+    stat_var_spec {
+        key: "covidDeaths_pc"
+        value {
+            stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+            name: "Cumulative Count of COVID-19 Deaths"
+            denom: "Count_Person"
+            scaling: 100000
+        }
+    }
+
+    stat_var_spec {
+        key: "Count_Person"
+        value {
+            stat_var: "Count_Person"
+            name: "Total Population"
+        }
+    }
 }
 
 categories {
+    title: "Population Growth"
+    description: "Nigeria’s population has grown rapidly since independence, but the growth rate has varied considerably. The growth rate peaked in 1980 at 3.06%, which was followed by a sharp decline around 1985. It remained steady until around 2010, but has been steadily declining since then. The growth rate is expected to continue to decline, but despite this Nigeria is projected to have a population of over 375 million people by 2050"
+    
+    blocks {
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth Rate in ${placeName}"
+                stat_var_key: "populationGrowthRate"
+            }
+        }
+
+        columns {
+            tiles {
+                type: LINE
+                title: "Population Growth in ${placeName}"
+                stat_var_key: "population"
+            }
+        }
+
+        
+    }
+
+    stat_var_spec {
+        key: "population"
+        value {
+            stat_var: "Count_Person"
+            name: "Total Population"
+        }
+    }
+
+    stat_var_spec {
+        key: "populationGrowthRate"
+        value {
+            stat_var: "GrowthRate_Count_Person"
+            name: "Rate of Population Growth"
+        }
+    }
+}
+
+
+categories {
     title: "Fertility and Education"
-    description: "At independence (1960) fertility rate in NIgeria was 6.36, into the millennium there was a decrease, settling at 6.12 in 2000 and continued to witness a decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an increasing population growth (Globally the average fertility rate is 2.3.) Could the decline be as a result of education?"
+    description: "At independence (1960) fertility rate in Nigeria was 6.36, into the millennium there was a decrease, settling at 6.12 in 2000 and continued to witness a decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an increasing population growth (Globally the average fertility rate is 2.3.)  At the same time, Nigeria has been making progress towards broader access to education. What is the relationship between birth rates and education, especially for women?"
     
     blocks {
         columns {
@@ -119,54 +243,17 @@ categories {
     stat_var_spec {
         key: "completionRate"
         value {
-            stat_var: "sdg/SE_TOT_CPLR_LOWSEC"
+            stat_var: "sdg/SE_TOT_CPLR.EDUCATION_LEV--ISCED11_2"
             name: "Completion rate: Lower secondary"
+            unit: "%"
         }
     }
 }
 
-categories {
-    title: "Population Growth"
-    description: "National population growth rate peaked in 1980 at 3.06, but after a period of  fast population growth during this time, rates have continued to  decline  up until 1985 when there was a steep rise (2.73) and has fallen further to 2.41 in 2021."
-    
-    blocks {
-        columns {
-            tiles {
-                type: LINE
-                title: "Population Growth in ${placeName}"
-                stat_var_key: "population"
-            }
-        }
-
-        columns {
-            tiles {
-                type: LINE
-                title: "Population Growth Rate in ${placeName}"
-                stat_var_key: "populationGrowthRate"
-            }
-        }
-    }
-
-    stat_var_spec {
-        key: "population"
-        value {
-            stat_var: "Count_Person"
-            name: "Total Population"
-        }
-    }
-
-    stat_var_spec {
-        key: "populationGrowthRate"
-        value {
-            stat_var: "GrowthRate_Count_Person"
-            name: "Rate of Population Growth"
-        }
-    }
-}
 
 categories {
     title: "GDP and Consumption"
-    description: "At a Gross Domestic Product (GDP) growth rate of 3.65 in 2021 and a population growth of 2.41 the same year, More recent data indicates that population is now rising faster than GDP. The country is in an uncomfortable pattern of a population that may soon rise faster than its economy since population growth leads to increase in human activity, consumption and scramble for resources.  How does this affect consumption?"
+    description: "In 2021 the Gross Domestic Product (GDP) of Nigera grew faster than the population (3.65% vs 2.41%). However, according to the World Bank “The economy is projected to grow by an average of 2.9% per year between 2023 and 2025, only slightly above the estimated population growth rate of 2.4%” The country is in an uncomfortable position where the population may soon rise faster than its economy. In this case the translation of economic growth into an enhancement of the average standard of living appears to be less probable. What happens then?"
     
     blocks {
         columns {
@@ -180,8 +267,8 @@ categories {
         columns {
             tiles {
                 type: LINE
-                title: "Domestic Material Consumption in ${placeName}"
-                stat_var_key: "domesticMaterialConsumption"
+                title: "Population Growth Rate in ${placeName}"
+                stat_var_key: "populationGrowthRate"
             }
         }
     }
@@ -201,28 +288,36 @@ categories {
             name: "Domestic material consumption"
         }
     }
+
+    stat_var_spec {
+        key: "populationGrowthRate"
+        value {
+            stat_var: "GrowthRate_Count_Person"
+            name: "Rate of Population Growth"
+        }
+    }
 }
 
+categories {
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "## ACKNOWLEDGEMENTS"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "Designed by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
+      }
+      tiles {
+        type: DESCRIPTION
+        description: "[![NNNGO](/custom_dc/custom/images/topics/development-landscape/nnngo-30th-logo.png)](https://nnngo.org)"
+      }
 
-#categories {
-#    title: "Category_Title_Goes_Here"
-#    description: "Category_Description_Goes_Here"
-#    
-#    blocks {
-#        columns {
-#            tiles {
-#                type: LINE
-#                title: "TILE_TITLE_GOES_HERE"
-#                stat_var_key: "STAT_VAR_KEY_GOES_HERE"
-#            }
-#        }
-#    }
-#
-#    stat_var_spec {
-#        key: "STAT_VAR_KEY_GOES_HERE"
-#        value {
-#            stat_var: "STAT_VAR_GOES_HERE"
-#            name: "STAT_VAR_NAME_GOES_HERE"
-#        }
-#    }
-#}
+      tiles {
+        type: DESCRIPTION
+        description: "![Oyebisi Babatunde Oluseyi](/custom_dc/custom/images/topics/development-landscape/EDD1.jpeg)"
+      }
+    }
+  }
+}
