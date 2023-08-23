@@ -56,10 +56,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   if state.uttr.answerPlaces:
     # We've already answered this query
-    state.uttr.counters.err(
-        'time-delta-across-places_failed_alreadyanswered', len(state.uttr.answerPlaces))
+    state.uttr.counters.err('time-delta-across-places_failed_alreadyanswered',
+                            len(state.uttr.answerPlaces))
     return False
-
 
   found = False
   # Compute time-delta ranks.

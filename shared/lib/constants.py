@@ -335,10 +335,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "Overview": ["tell me (more )?about",],
         # Hint for potential reference to answer-places, to be used
         # together with ContainedInPlace.
-        "AnswerPlacesReference": [
-            "these",
-            "those"
-        ],
+        "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
             "fraction", "percent", "percentage", "per capita", "percapita"
         ]

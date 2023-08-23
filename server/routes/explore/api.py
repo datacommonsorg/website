@@ -168,9 +168,9 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   ret_places = []
   for p in utterance.places:
     ret_places.append({
-      'dcid': p.dcid,
-      'name': p.name,
-      'place_type': p.place_type
+        'dcid': p.dcid,
+        'name': p.name,
+        'place_type': p.place_type
     })
   data_dict = {
       'place': {
