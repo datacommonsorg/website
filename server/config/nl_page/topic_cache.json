@@ -7271,22 +7271,7 @@
         "worldBank/EG_ELC_ACCS_RU_ZS"
       ],
       "name": [
-        "Accesss To Electricty By Urban/Rural Split"
-      ],
-      "typeOf": [
-        "StatVarPeerGroup"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/svpg/dc/topic/GlobalElectricityOutput/ElectricyOutputSplits"
-      ],
-      "memberList": [
-        "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT",
-        "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT"
-      ],
-      "name": [
-        "Electricity Output Total vs Renewables"
+        "Accesss To Electricty By Percentage Of Urban/Rural Population"
       ],
       "typeOf": [
         "StatVarPeerGroup"
@@ -11147,7 +11132,8 @@
         "Electricity Output"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/GlobalElectricityOutput/ElectricyOutputSplits",
+        "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT",
+        "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT",
         "worldBank/4_1_SHARE_RE_IN_ELECTRICITY"
       ],
       "typeOf": [
