@@ -293,6 +293,17 @@ export function drawStackBarChart(
   const colorOrder = options?.statVarColorOrder || keys;
   const colorFn = getColorFn(colorOrder, options?.colors);
 
+  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+    return d.map((item) => ({
+      date: item.data.date,
+      place: item.data.label,
+      statVar: d.key,
+      unit: options?.unit,
+      value: item.data.value,
+      ...item,
+    }));
+  };
+
   if (options?.lollipop) {
     // How much to shift stems so they plot at center of band
     const xShift = x.bandwidth() / 2;
@@ -305,16 +316,7 @@ export function drawStackBarChart(
       .append("g")
       .attr("stroke", (d) => colorFn(d.key))
       .selectAll("line")
-      .data((d) =>
-        d.map((item) => ({
-          date: item.data.date,
-          place: item.data.label,
-          statVar: d.key,
-          unit: options?.unit,
-          value: item.data.value,
-          ...item,
-        }))
-      )
+      .data(setData)
       .join("line")
       .attr("part", (d) =>
         [
@@ -341,16 +343,7 @@ export function drawStackBarChart(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("circle")
-      .data((d) =>
-        d.map((item) => ({
-          date: item.data.date,
-          place: item.data.label,
-          statVar: d.key,
-          unit: options?.unit,
-          value: item.data.value,
-          ...item,
-        }))
-      )
+      .data(setData)
       .join("circle")
       .attr("part", (d) =>
         [
@@ -374,16 +367,7 @@ export function drawStackBarChart(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("rect")
-      .data((d) =>
-        d.map((item) => ({
-          date: item.data.date,
-          place: item.data.label,
-          statVar: d.key,
-          unit: options?.unit,
-          value: item.data.value,
-          ...item,
-        }))
-      )
+      .data(setData)
       .join("rect")
       .classed("g-bar", true)
       .attr("part", (d) =>
@@ -501,6 +485,17 @@ function drawHorizontalGroupedBars(
   unit?: string
 ): void {
   const numGroups = dataGroups[0].value.length;
+  const setData = (dg: DataGroup) => {
+    return dg.value.map((dgv) => ({
+      dataGroupValue: dgv,
+      label: dg.label,
+      statVar: dgv.label,
+      value: dgv.value,
+      place: dg.label,
+      date: dgv.date,
+      unit,
+    }));
+  };
 
   if (useLollipop) {
     // Max allowable stem spacing
@@ -517,17 +512,7 @@ function drawHorizontalGroupedBars(
       .data(dataGroups)
       .join("g")
       .selectAll("line")
-      .data((dg) =>
-        dg.value.map((dgv) => ({
-          dataGroupValue: dgv,
-          label: dg.label,
-          statVar: dgv.label,
-          value: dgv.value,
-          place: dg.label,
-          date: dgv.date,
-          unit,
-        }))
-      )
+      .data(setData)
       .join("line")
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
       .attr("data-d", (item) => item.dataGroupValue.value)
@@ -561,17 +546,7 @@ function drawHorizontalGroupedBars(
       .data(dataGroups)
       .join("g")
       .selectAll("line")
-      .data((dg) =>
-        dg.value.map((dgv) => ({
-          dataGroupValue: dgv,
-          label: dg.label,
-          statVar: dgv.label,
-          value: dgv.value,
-          place: dg.label,
-          date: dgv.date,
-          unit,
-        }))
-      )
+      .data(setData)
       .join("circle")
       .attr("data-dcid", (item) => item.dataGroupValue.dcid)
       .attr("data-d", (item) => item.dataGroupValue.value)
@@ -601,17 +576,7 @@ function drawHorizontalGroupedBars(
       .enter()
       .append("g")
       .selectAll("rect")
-      .data((dg) =>
-        dg.value.map((dgv) => ({
-          dataGroupValue: dgv,
-          label: dg.label,
-          statVar: dgv.label,
-          value: dgv.value,
-          place: dg.label,
-          date: dgv.date,
-          unit,
-        }))
-      )
+      .data(setData)
       .join("rect")
       .attr("fill", (item) => colorFn(item.dataGroupValue.label))
       .classed("g-bar", true)
@@ -652,6 +617,16 @@ function drawHorizontalStackedBars(
   useLollipop?: boolean,
   unit?: string
 ): void {
+  const setData = (d: d3.Series<{ [key: string]: number }, string>) => {
+    return d.map((dp) => ({
+      date: dp.data.date,
+      place: dp.data.label,
+      statVar: d.key,
+      unit,
+      value: dp.data.value,
+      ...dp,
+    }));
+  };
   if (useLollipop) {
     // How much to shift stems so they plot at center of band
     const yShift = yScale.bandwidth() / 2;
@@ -665,16 +640,7 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("stroke", (d) => colorFn(d.key))
       .selectAll("line")
-      .data((d) =>
-        d.map((dp) => ({
-          date: dp.data.date,
-          place: dp.data.label,
-          statVar: d.key,
-          unit,
-          value: dp.data.value,
-          ...dp,
-        }))
-      )
+      .data(setData)
       .join("line")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
@@ -701,16 +667,7 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("circle")
-      .data((d) =>
-        d.map((dp) => ({
-          date: dp.data.date,
-          place: dp.data.label,
-          statVar: d.key,
-          unit,
-          value: dp.data.value,
-          ...dp,
-        }))
-      )
+      .data(setData)
       .join("circle")
       .attr("data-dcid", (d) => d.data.dcid)
       .attr("data-d", (d) => d.data.value)
@@ -735,16 +692,7 @@ function drawHorizontalStackedBars(
       .append("g")
       .attr("fill", (d) => colorFn(d.key))
       .selectAll("rect")
-      .data((d) =>
-        d.map((dp) => ({
-          date: dp.data.date,
-          place: dp.data.label,
-          statVar: d.key,
-          unit,
-          value: dp.data.value,
-          ...dp,
-        }))
-      )
+      .data(setData)
       .join("rect")
       .classed("g-bar", true)
       .attr("data-dcid", (d) => d.data.dcid)
@@ -784,6 +732,16 @@ function drawLollipops(
   yScale: d3.ScaleLinear<number, number, never>,
   unit?: string
 ): void {
+  const setData = (dg: DataGroup) => {
+    return dg.value.map((dp) => ({
+      statVar: dp.label,
+      value: dp.value,
+      dcid: dp.dcid,
+      place: dg.label,
+      date: dp.date,
+      unit,
+    }));
+  };
   // draw lollipop stems
   chart
     .append("g")
@@ -792,16 +750,7 @@ function drawLollipops(
     .join("g")
     .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
     .selectAll("line")
-    .data((dg) =>
-      dg.value.map((dp) => ({
-        statVar: dp.label,
-        value: dp.value,
-        dcid: dp.dcid,
-        place: dg.label,
-        date: dp.date,
-        unit,
-      }))
-    )
+    .data(setData)
     .join("line")
     .attr("part", (d) =>
       [
@@ -828,16 +777,7 @@ function drawLollipops(
     .join("g")
     .attr("transform", (dg) => `translate(${xScale(dg.label)},0)`)
     .selectAll("circle")
-    .data((dg) =>
-      dg.value.map((dp) => ({
-        statVar: dp.label,
-        value: dp.value,
-        dcid: dp.dcid,
-        place: dg.label,
-        date: dp.date,
-        unit,
-      }))
-    )
+    .data(setData)
     .join("circle")
     .attr("part", (d) =>
       [
