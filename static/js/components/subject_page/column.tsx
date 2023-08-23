@@ -34,6 +34,7 @@ export interface ColumnPropType {
   width: string;
   // tiles to render within the column
   tiles: JSX.Element;
+  className?: string;
 }
 
 export function Column(props: ColumnPropType): JSX.Element {
@@ -41,7 +42,7 @@ export function Column(props: ColumnPropType): JSX.Element {
     <div
       key={props.id}
       id={props.id}
-      className="block-column"
+      className={`${props.className} block-column`}
       style={{ width: props.width }}
     >
       {props.tiles}

@@ -591,6 +591,10 @@ h3,
 .expando {
   font-size: 0.9rem;
 }
+.block .expando {
+  display: inline-block;
+  margin-top: 12px;
+}
 
 .expando,
 .debug-info-toggle {
