@@ -21,7 +21,10 @@
 import React from "react";
 
 import { NL_NUM_TILES_SHOWN } from "../../constants/app/nl_interface_constants";
-import { HIDE_TILE_CLASS } from "../../constants/subject_page_constants";
+import {
+  HIDE_COLUMN_CLASS,
+  HIDE_TILE_CLASS,
+} from "../../constants/subject_page_constants";
 import { ColumnConfig } from "../../types/subject_page_proto_types";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 
@@ -34,7 +37,7 @@ export interface ColumnPropType {
   width: string;
   // tiles to render within the column
   tiles: JSX.Element;
-  className?: string;
+  shouldHideColumn?: boolean;
 }
 
 export function Column(props: ColumnPropType): JSX.Element {
@@ -42,7 +45,9 @@ export function Column(props: ColumnPropType): JSX.Element {
     <div
       key={props.id}
       id={props.id}
-      className={`${props.className} block-column`}
+      className={`${
+        props.shouldHideColumn ? HIDE_COLUMN_CLASS : ""
+      } block-column`}
       style={{ width: props.width }}
     >
       {props.tiles}

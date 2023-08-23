@@ -120,13 +120,10 @@ export function Block(props: BlockPropType): JSX.Element {
           props.columns.map((column, idx) => {
             const id = getId(props.id, COLUMN_ID_PREFIX, idx);
             const columnTileClassName = getColumnTileClassName(column);
-            let className = "";
-            if (idx >= minIdxToHide) {
-              className = HIDE_TILE_CLASS;
-            }
+            const shouldHideColumn = idx >= minIdxToHide;
             return (
               <Column
-                className={className}
+                shouldHideColumn={shouldHideColumn}
                 key={id}
                 id={id}
                 config={column}
