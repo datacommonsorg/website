@@ -31,16 +31,16 @@ import { ItemList } from "./item_list";
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
-  chartData: SubjectPageMetadata;
+  pageMetadata: SubjectPageMetadata;
   userMessage: string;
 }
 
 export function ResultHeaderSection(
   props: ResultHeaderSectionPropType
 ): JSX.Element {
-  const topics = props.chartData?.childTopics
-    .concat(props.chartData?.peerTopics)
-    .concat(props.chartData?.parentTopics);
+  const topics = props.pageMetadata?.childTopics
+    .concat(props.pageMetadata?.peerTopics)
+    .concat(props.pageMetadata?.parentTopics);
   const topicList = [];
   if (!_.isEmpty(topics)) {
     for (const topic of topics) {
@@ -60,7 +60,7 @@ export function ResultHeaderSection(
   }
 
   let placeNameStr = "";
-  for (let i = 0; i < props.chartData.places.length; i++) {
+  for (let i = 0; i < props.pageMetadata.places.length; i++) {
     if (i == 2) {
       placeNameStr += " and more";
       break;
@@ -68,19 +68,19 @@ export function ResultHeaderSection(
     if (placeNameStr) {
       placeNameStr += ", ";
     }
-    placeNameStr += props.chartData.places[i].name;
+    placeNameStr += props.pageMetadata.places[i].name;
   }
 
   return (
     <>
       <div id="place-callout">
         {placeNameStr}
-        {!_.isEmpty(props.chartData.mainTopic) &&
-          props.chartData.mainTopic.dcid != DEFAULT_TOPIC && (
-            <span> • {props.chartData.mainTopic.name}</span>
+        {!_.isEmpty(props.pageMetadata.mainTopic) &&
+          props.pageMetadata.mainTopic.dcid != DEFAULT_TOPIC && (
+            <span> • {props.pageMetadata.mainTopic.name}</span>
           )}
       </div>
-      {!_.isEmpty(props.chartData.mainTopic) && (
+      {!_.isEmpty(props.pageMetadata.mainTopic) && (
         <div className="explore-topics-box">
           <span className="explore-relevant-topics">Relevant topics</span>
           <ItemList items={topicList}></ItemList>

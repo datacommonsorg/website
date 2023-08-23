@@ -20,10 +20,10 @@
 
 import React from "react";
 
-import { SearchResult } from "../../types/app/nl_interface_types";
+import { QueryResult } from "../../types/app/nl_interface_types";
 
 interface NLCommentaryPropType {
-  chartsData: SearchResult;
+  chartsData: QueryResult;
 }
 
 export function shouldHideCharts(respData: any): boolean {

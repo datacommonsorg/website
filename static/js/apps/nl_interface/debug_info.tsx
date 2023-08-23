@@ -25,7 +25,7 @@ import { Col, Row } from "reactstrap";
 import {
   DebugInfo,
   MultiSVCandidate,
-  SearchResult,
+  QueryResult,
   SVScores,
 } from "../../types/app/nl_interface_types";
 
@@ -158,7 +158,7 @@ const multiVarScoresElement = (svScores: SVScores): JSX.Element => {
 
 export interface DebugInfoProps {
   debugData: any; // from the server response
-  chartsData: SearchResult;
+  queryResult: QueryResult;
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
@@ -324,26 +324,26 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>Query Fulfillment:</b>
           </Row>
-          {props.chartsData && (
+          {props.queryResult && (
             <Row>
               <Col>
-                Place Query Source: {props.chartsData.placeSource}
-                {props.chartsData.pastSourceContext
-                  ? "(" + props.chartsData.pastSourceContext + ")"
+                Place Query Source: {props.queryResult.placeSource}
+                {props.queryResult.pastSourceContext
+                  ? "(" + props.queryResult.pastSourceContext + ")"
                   : ""}
               </Col>
             </Row>
           )}
-          {props.chartsData && (
+          {props.queryResult && (
             <Row>
-              <Col>Variable Query Source: {props.chartsData.svSource}</Col>
+              <Col>Variable Query Source: {props.queryResult.svSource}</Col>
             </Row>
           )}
-          {props.chartsData && props.chartsData.placeFallback && (
+          {props.queryResult && props.queryResult.placeFallback && (
             <Row>
               <Col>
-                Place Fallback: &quot;{props.chartsData.placeFallback.origStr}
-                &quot; to &quot;{props.chartsData.placeFallback.newStr}&quot;
+                Place Fallback: &quot;{props.queryResult.placeFallback.origStr}
+                &quot; to &quot;{props.queryResult.placeFallback.newStr}&quot;
               </Col>
             </Row>
           )}
@@ -360,7 +360,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>
               <pre>
                 {JSON.stringify(
-                  props.chartsData ? props.chartsData.config : null,
+                  props.queryResult ? props.queryResult.config : null,
                   null,
                   2
                 )}

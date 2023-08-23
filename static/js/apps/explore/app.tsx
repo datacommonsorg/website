@@ -36,9 +36,11 @@ import {
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
+import { QueryResult } from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { DebugInfo } from "../nl_interface/debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -78,9 +80,10 @@ export function App(): JSX.Element {
     LoadingStatus.LOADING
   );
   const [query, setQuery] = useState<string>("");
-  const [chartData, setChartData] = useState<SubjectPageMetadata | null>();
+  const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
   const [userMessage, setUserMessage] = useState<string>("");
   const [debugData, setDebugData] = useState<any>({});
+  const [queryResult, setQueryResult] = useState<QueryResult>(null);
   const savedContext = useRef([]);
 
   useEffect(() => {
@@ -100,14 +103,20 @@ export function App(): JSX.Element {
   if (loadingStatus === LoadingStatus.FAILED) {
     return (
       <Container className="explore-container">
-        <div>
+        <div className="row explore-charts">
           <div id="user-message">Sorry, could not complete your request.</div>
           {query && (
-            <SearchSection
-              query={query}
-              debugData={debugData}
-              exploreContext={exploreContext}
-            />
+            <>
+              <SearchSection
+                query={query}
+                debugData={debugData}
+                exploreContext={exploreContext}
+              />
+              <DebugInfo
+                debugData={debugData}
+                queryResult={queryResult}
+              ></DebugInfo>
+            </>
           )}
         </div>
       </Container>
@@ -122,26 +131,30 @@ export function App(): JSX.Element {
       </Container>
     );
   }
-  if (loadingStatus === LoadingStatus.SUCCESS && chartData) {
-    const childPlaceType = !_.isEmpty(chartData.childPlaces)
-      ? Object.keys(chartData.childPlaces)[0]
+  if (loadingStatus === LoadingStatus.SUCCESS && pageMetadata) {
+    const childPlaceType = !_.isEmpty(pageMetadata.childPlaces)
+      ? Object.keys(pageMetadata.childPlaces)[0]
       : "";
     const placeUrlVal = (
-      exploreContext?.entities || [chartData.place.dcid]
+      exploreContext?.entities || [pageMetadata.place.dcid]
     ).join(DELIM);
     const topicUrlVal = (exploreContext?.variables || []).join(DELIM);
-    const relatedPlaceTopic = _.isEmpty(chartData.mainTopic)
+    const relatedPlaceTopic = _.isEmpty(pageMetadata.mainTopic)
       ? {
           dcid: topicUrlVal,
           name: "",
           types: null,
         }
-      : chartData.mainTopic;
+      : pageMetadata.mainTopic;
     return (
       <Container className="explore-container">
         <div className="row explore-charts">
           <div className="col-12">
-            {chartData && chartData.pageConfig && (
+            <DebugInfo
+              debugData={debugData}
+              queryResult={queryResult}
+            ></DebugInfo>
+            {pageMetadata && pageMetadata.pageConfig && (
               <>
                 {exploreContext.dc !== "sdg" && (
                   <SearchSection
@@ -151,7 +164,7 @@ export function App(): JSX.Element {
                   />
                 )}
                 <ResultHeaderSection
-                  chartData={chartData}
+                  pageMetadata={pageMetadata}
                   userMessage={userMessage}
                   placeUrlVal={placeUrlVal}
                 />
@@ -164,41 +177,41 @@ export function App(): JSX.Element {
                     })}`;
                   }}
                 >
-                  <NlSessionContext.Provider value={chartData.sessionId}>
+                  <NlSessionContext.Provider value={pageMetadata.sessionId}>
                     <ExploreContext.Provider
                       value={{
-                        exploreMore: chartData.exploreMore,
-                        place: chartData.place.dcid,
+                        exploreMore: pageMetadata.exploreMore,
+                        place: pageMetadata.place.dcid,
                         placeType: exploreContext.childEntityType || "",
                       }}
                     >
                       <SubjectPageMainPane
                         id={PAGE_ID}
-                        place={chartData.place}
-                        pageConfig={chartData.pageConfig}
+                        place={pageMetadata.place}
+                        pageConfig={pageMetadata.pageConfig}
                         svgChartHeight={SVG_CHART_HEIGHT}
                         showExploreMore={true}
                       />
                     </ExploreContext.Provider>
                   </NlSessionContext.Provider>
                 </RankingUnitUrlFuncContext.Provider>
-                {!_.isEmpty(chartData.childPlaces) && (
+                {!_.isEmpty(pageMetadata.childPlaces) && (
                   <RelatedPlace
-                    relatedPlaces={chartData.childPlaces[childPlaceType]}
+                    relatedPlaces={pageMetadata.childPlaces[childPlaceType]}
                     topic={relatedPlaceTopic}
                     titleSuffix={
                       getPlaceTypePlural(childPlaceType) +
                       " in " +
-                      chartData.place.name
+                      pageMetadata.place.name
                     }
                   ></RelatedPlace>
                 )}
-                {!_.isEmpty(chartData.peerPlaces) && (
+                {!_.isEmpty(pageMetadata.peerPlaces) && (
                   <RelatedPlace
-                    relatedPlaces={chartData.peerPlaces}
+                    relatedPlaces={pageMetadata.peerPlaces}
                     topic={relatedPlaceTopic}
                     titleSuffix={
-                      "other " + getPlaceTypePlural(chartData.place.types[0])
+                      "other " + getPlaceTypePlural(pageMetadata.place.types[0])
                     }
                   ></RelatedPlace>
                 )}
@@ -211,7 +224,8 @@ export function App(): JSX.Element {
   }
   return <Container className="explore-container"></Container>;
 
-  function useFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+  function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+    setDebugData(fulfillData["debug"]);
     if (
       !fulfillData ||
       !fulfillData["place"] ||
@@ -220,13 +234,13 @@ export function App(): JSX.Element {
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }
-    const mainPlace = fulfillData["place"];
-    const chartData: SubjectPageMetadata = {
-      place: {
-        dcid: mainPlace["dcid"],
-        name: mainPlace["name"],
-        types: [mainPlace["place_type"]],
-      },
+    const mainPlace = {
+      dcid: fulfillData["place"]["dcid"],
+      name: fulfillData["place"]["name"],
+      types: [fulfillData["place"]["place_type"]],
+    };
+    const pageMetadata: SubjectPageMetadata = {
+      place: mainPlace,
       places: fulfillData["places"],
       pageConfig: fulfillData["config"],
       childPlaces: fulfillData["relatedThings"]["childPlaces"],
@@ -239,27 +253,43 @@ export function App(): JSX.Element {
       mainTopic: fulfillData["relatedThings"]["mainTopic"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
     };
-    if (chartData && chartData.pageConfig && chartData.pageConfig.categories) {
+    if (
+      pageMetadata &&
+      pageMetadata.pageConfig &&
+      pageMetadata.pageConfig.categories
+    ) {
       // Note: for category links, we only use the main-topic.
-      for (const category of chartData.pageConfig.categories) {
+      for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
           category.url = `/explore/#${getUpdatedHash({
             [URL_HASH_PARAMS.TOPIC]: category.dcid,
-            [URL_HASH_PARAMS.PLACE]: chartData.place.dcid,
+            [URL_HASH_PARAMS.PLACE]: pageMetadata.place.dcid,
             [URL_HASH_PARAMS.QUERY]: "",
           })}`;
         }
       }
-      if (shouldSetQuery && chartData.mainTopic?.name && chartData.place.name) {
-        const q = `${chartData.mainTopic.name} in ${chartData.place.name}`;
+      if (
+        shouldSetQuery &&
+        pageMetadata.mainTopic?.name &&
+        pageMetadata.place.name
+      ) {
+        const q = `${pageMetadata.mainTopic.name} in ${pageMetadata.place.name}`;
         setQuery(q);
       }
     }
     savedContext.current = fulfillData["context"] || [];
-    setChartData(chartData);
+    setPageMetadata(pageMetadata);
     setUserMessage(fulfillData["userMessage"]);
-    setDebugData(fulfillData["debug"]);
     setLoadingStatus(LoadingStatus.SUCCESS);
+    setQueryResult({
+      place: mainPlace,
+      config: pageMetadata.pageConfig,
+      svSource: fulfillData["svSource"],
+      placeSource: fulfillData["placeSource"],
+      placeFallback: fulfillData["placeFallback"],
+      pastSourceContext: fulfillData["pastSourceContext"],
+      sessionId: pageMetadata.sessionId,
+    });
   }
 
   function handleHashChange(): void {
@@ -287,7 +317,7 @@ export function App(): JSX.Element {
         nlFulfillment
       )
         .then((resp) => {
-          useFulfillData(resp, false);
+          processFulfillData(resp, false);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -310,7 +340,7 @@ export function App(): JSX.Element {
         nlFulfillment
       )
         .then((resp) => {
-          useFulfillData(resp, true);
+          processFulfillData(resp, true);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
