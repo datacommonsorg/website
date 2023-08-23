@@ -17,10 +17,12 @@
 metadata {
   topic_id: "dc2_4"
   topic_name: "Food Security"
-  place_group {
-    parent_place: "Earth"
-    place_type: "Country"
-  }
+#  place_group {
+#    parent_place: "Earth"
+#    place_type: "Country"
+#  }
+
+  place_dcid: "country/USA"
   place_group {
     parent_place: "country/USA"
     place_type: "State"
@@ -44,49 +46,52 @@ metadata {
 }
 
 categories {
-  title: "Poverty in the United States"
+  title: "Poverty"
+
+#------- FOOD ASSISTANCE -------#
 
   ### NEW BLOCK ###
   blocks {
-    title: "Supplemental Nutrition Assistance Program (SNAP) per capita"
+    description: "Food assistance programs address food insecurity in a variety of ways by providing critical resources, such as bulk food, prepared meals, community gardens, subsidized or free groceries, and other local community efforts. These safety net programs during times of financial hardship or emergencies help families stabilize by providing financial assistance and access to balanced, nutritional meals. "
     columns {
       tiles {
-        type: MAP
-        title: "Households Receiving Food Stamps in the Past Year Per Capita ${date}"
-        stat_var_key: "Count_Household_WithFoodStampsInThePast12Months"
+        type: HIGHLIGHT
+        description: "Households in the United States live in poverty but do not receive food assistance (SNAP)"
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Number of Households in Poverty and Not Receiving SNAP"
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
       }
     }
   }
   stat_var_spec {
-    key: "Count_Household_WithFoodStampsInThePast12Months"
+    key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
     value {
-      stat_var: "Count_Household_WithFoodStampsInThePast12Months"
-      name: "Count_Household_WithFoodStampsInThePast12Months"
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      name: "Households Not Receiving Food Stamps in Last Year, Income Below Poverty Level"
     }
   }
 
   ### NEW BLOCK ###
   blocks {
-    title: "Number of people living in poverty"
     columns {
-      tiles {
-        type: HIGHLIGHT
-        description: "People below the poverty line in ${placeName} ${date}"
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-      }
       tiles {
         type: RANKING
         ranking_tile_spec {
           show_highest: true
-          show_lowest: false
+          show_lowest: true
         }
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
     }
     columns {
       tiles {
-        type: LINE
-        description: "Number of People Below the Poverty Line ${date}"
+        type: MAP
+        title: "Population Below Poverty Level Status in Past Year ${date}"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
     }
@@ -95,38 +100,59 @@ categories {
     key: "Count_Person_BelowPovertyLevelInThePast12Months"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      name: "Population below poverty line"
+      name: "Population Below Poverty Level"
     }
   }
 
   ### NEW BLOCK ###
   blocks {
-    title: "Poverty per capita"
     columns {
       tiles {
-        title: "Population Living In Poverty Per Capita ${date}"
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
+    columns {
+      tiles {
         type: MAP
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+        title: "% of Population Below Poverty Level ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
       }
     }
   }
   stat_var_spec {
-    key: "Count_Person_BelowPovertyLevelInThePast12Months_pc"
+    key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person"
-      name: "Population below poverty line"
+      name: "% of Population Below Poverty Level"
+      scaling: 100
+      unit: "%"
     }
   }
+
+  #------- MEDIAN INCOME -------#
 
   ### NEW BLOCK ###
   blocks {
     title: "Median Income"
+    description: "Income and the cost of living can help us understand where and how food insecurity impacts communities at the local level. Often, though, communities with higher costs of living result in some populations living below the poverty line and having low access to balanced, nutritional meals."
     columns {
       tiles {
         title: "Median Income for All Households ${date}"
         type: MAP
         stat_var_key: "Median_Income_Household"
+      }
+    }
+    columns {
+      tiles {
+        title: "Median Gross Rent of Housing Unit: With Cash Rent ${date}"
+        type: MAP
+        stat_var_key: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
       }
     }
   }
@@ -137,10 +163,27 @@ categories {
       name: "Median Income for All Households"
     }
   }
+  stat_var_spec {
+    key: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+    value {
+      stat_var: "Median_GrossRent_HousingUnit_WithCashRent_OccupiedHousingUnit_RenterOccupied"
+      name: "Median Gross Rent of Housing Unit: With Cash Rent"
+    }
+  }
+
+#------- POVERTY AND UNEMPLOYMENT -------#
 
   ### NEW BLOCK ###
   blocks {
-    title: "Unemployment Rate"
+    title: "Poverty and Unemployment"
+    description: "Unemployment can impact families in a variety of difficult ways, including needing to prioritize bills over groceries. Policies and programs that support individuals in finding stable employment can play a significant role in alleviating food insecurity. However, fluctuations in income — even among those who are employed — can lead to food insecurity. Unemployment and poverty both speak to how difficult it is for households to consistently meet their household's nutritional needs."
+    columns {
+      tiles {
+        type: MAP
+        title: "% of Population Below Poverty Level ${date}"
+        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
+      }
+    }
     columns {
       tiles {
         title: "Unemployment Rate of a Population ${date}"
@@ -157,42 +200,79 @@ categories {
     }
   }
 
+#------- LANGUAGE -------#
+
   ### NEW BLOCK ###
   blocks {
-    title: "Language Spoken At Home"
+    title: "Language"
     columns {
       tiles {
-        title: "Working Age Adults Who Do Not Speak English At Home Per Capita ${date}"
+        type: HIGHLIGHT
+        description: "Working Age Adults Who Do Not Speak English At Home"
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      }
+    }
+    columns {
+      tiles {
+        title: "Working Age Adults Who Do Not Speak English At Home"
+        type: LINE
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Language proficiency can play a role in food security. Finding and accessing assistance programs can be challenging when a person does not read or write in English. Understanding the language spoken at home can also help food security organizations — like pantries — tailor their offerings and materials to fit the language and culture of a community. "
+      }
+    }
+    columns {
+      tiles {
+        title: "Percentage of Working Age Adults Who Do Not Speak English At Home ${date}"
         type: MAP
-        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+        stat_var_key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pct"
       }
     }
   }
   stat_var_spec {
-    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pc"
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+    value {
+      stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
+      name: "Population: 18-64 Years, Language Other Than English Per Capita"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome_pct"
     value {
       stat_var: "Count_Person_18To64Years_LanguageOtherThanEnglishSpokenAtHome"
       name: "Population: 18-64 Years, Language Other Than English Per Capita"
       denom: "Count_Person"
+      scaling: 100
+      unit: "%"
     }
   }
+
+#------- SINGLE MOTHER HOUSEHOLDS -------#
 
   ### NEW BLOCK ###
   blocks {
     title: "Single Mother Households"
+    description: "Single mother households often face exacerbated economic difficulties. Often their households operate with less income and must balance professional work with caregiving responsibilities. When single caregivers rely on day care services, they are left with less income to provide sufficient and nutritious food for their household."
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Households in ${placeName} are single mother households"
+        description: "Of households are single mother households"
         stat_var_key: "Count_Household_SingleMotherFamilyHousehold_pct"
       }
     }
     columns {
       tiles {
-        type: LINE
+        type: BAR
         description: "Number of Single Mother Households ${date}"
         stat_var_key: "Count_Household_SingleMotherFamilyHousehold"
         stat_var_key: "Count_Household_FamilyHousehold"
+        comparison_places: "self"
       }
     }
   }
@@ -228,22 +308,37 @@ categories {
 categories {
   title: "Health and Nutrition"
 
+#------- COMMUNITY FOOD SERVICES AND GROCERY STORES -------#
+
   ### NEW BLOCK ###
   blocks {
     title: "Community Food Services"
     columns {
       tiles {
-        title: "Number of Community Food Services ${date}"
+        title: "Count of Establishment: Community Food Services (NAICS/62421) ${date}"
         type: MAP
         stat_var_key: "dc/7dcmzwydmtet5"
       }
+    }
+    columns {
       tiles {
-        type: RANKING
-        ranking_tile_spec {
-          show_highest: true
-          show_lowest: true
-        }
-        stat_var_key: "dc/7dcmzwydmtet5"
+        type: DESCRIPTION
+        description: "Community food services (food banks, pantries, meal programs, gardens, and other social services programs related to food) provide crucial and immediate access to food for households facing food insecurity. These programs play a critical role in providing immediate relief, promoting nutrition, and building community resilience to address food insecurity at the local level. Highly populated areas may have easier access to these services than more rural areas, which might make it difficult for food services to reach residents in need. Even when there are community food services available, there may be a cultural stigma discouraging individuals from receiving these services."
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Having more grocery store owners means greater availability of fresh produce and food options, reduces food deserts, and increases competition that drives lower prices. With more stores available, it is more likely that a grocer is nearby, which is important for those who lack access to a vehicle or public transportation.\n\nWhat other factors could provide us with an understanding of  food availability in a region?"
+      }
+    }
+    columns {
+      tiles {
+        title: "Population of Person: Privately Owned, Grocery Stores (NAICS/4451) ${date}"
+        type: MAP
+        stat_var_key: "dc/cc51jvbvp0jdf"
       }
     }
   }
@@ -255,17 +350,6 @@ categories {
     }
   }
 
-  ### NEW BLOCK ###
-  blocks {
-    title: "Grocery Store Owners"
-    columns {
-      tiles {
-        title: "Number of Grocery Store Owners ${date}"
-        type: MAP
-        stat_var_key: "dc/cc51jvbvp0jdf"
-      }
-    }
-  }
   stat_var_spec {
     key: "dc/cc51jvbvp0jdf"
     value {
@@ -274,14 +358,22 @@ categories {
     }
   }
 
+  #------- LIFE EXPECTANCY AND HEALTH INSURANCE -------#
+
   ### NEW BLOCK ###
   blocks {
-    title: "Life Expectancy"
+    title: "Life Expectancy and Health Insurance"
     columns {
       tiles {
         title: "Life Expectancy ${date}"
         type: MAP
         stat_var_key: "LifeExpectancy_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Access to an adequate and nutritious diet is crucial for maintaining good health and well-being. Food insecurity leads to a poor diet and contributes to a range of physical and mental health issues, and these health challenges impact life expectancy. Food insecurity is often rooted in poverty and socioeconomic disparities. Low-income households may face barriers to accessing healthcare and health insurance, education, safe housing, and other resources that influence overall health and life expectancy."
       }
     }
   }
@@ -295,36 +387,32 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Health Insurance"
     columns {
       tiles {
-        title: "Population Without Health Insurance Per Capita ${date}"
-        type: MAP
-        stat_var_key: "Count_Person_NoHealthInsurance_pc"
+        type: DESCRIPTION
+        description: "Lack of access to health insurance and healthcare can contribute to a cycle of poor health and poverty. Having a health emergency without health insurance is costly, can put you into a debt cycle, and can create challenges to getting nutritious food. Additionally, preventative care – which is generally inexpensive with health insurance –  helps avoid costly health procedures in the future. Being in a situation that foregoes preventative care costs families more in the long run."
       }
+    }
+    columns {
       tiles {
-        title: "Median Income for Households Without Health Insurance versus Number of People Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Median_Income_Household_NoHealthInsurance"
+        title: "% Population Without Health Insurance ${date}"
+        type: MAP
+        stat_var_key: "Count_Person_NoHealthInsurance_pct"
       }
     }
   }
+
   stat_var_spec {
-    key: "Count_Person_NoHealthInsurance_pc"
+    key: "Count_Person_NoHealthInsurance_pct"
     value {
       stat_var: "Count_Person_NoHealthInsurance"
       name: "Population Without Health Insurance Per Capita"
       denom: "Count_Person"
+      scaling: 100
+      unit: "%"
     }
   }
-  stat_var_spec {
-    key: "Median_Income_Household_NoHealthInsurance"
-    value {
-      stat_var: "Median_Income_Household_NoHealthInsurance"
-      name: "Median Income for Households Without Health Insurance"
-    }
-  }
+  
   stat_var_spec {
     key: "Count_Person_BelowPovertyLevelInThePast12Months"
     value {
@@ -335,67 +423,73 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Health Conditions and Poverty"
     columns {
       tiles {
-        title: "Percent Population With Poor Physical Health and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Percent_Person_WithPhysicalHealthNotGood"
+        title: "Percentage of Population That Has Received an Annual Checkup ${date}"
+        type: MAP
+        stat_var_key: "Percent_Person_ReceivedAnnualCheckup"
       }
+    }
+    columns {
       tiles {
-        title: "Percent Population With High Blood Pressure and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Percent_Person_WithHighBloodPressure"
+        type: DESCRIPTION
+        description: "Health insurance provides individuals with access to preventative health services, including annual checkups. These checkups are essential for detecting and addressing health issues early, which can lead to better health outcomes and reduced healthcare costs in the long run. Health insurance coverage can make annual health checkups more affordable, encouraging individuals to seek regular medical care."
       }
+    }
+  }
+
+  stat_var_spec {
+    key: "Percent_Person_ReceivedAnnualCheckup"
+    value {
+      stat_var: "Percent_Person_ReceivedAnnualCheckup"
+      name: "Percentage of Population That Has Received an Annual Checkup"
+    }
+  }
+
+  #------- HEALTH CONDITIONS -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Health Conditions"
+    description: "Food insecurity often leads to limited access to nutritious foods, which can result in a diet that is high in unhealthy, processed foods and low in heart-healthy foods such as fruits, vegetables, whole grains, and lean proteins. This type of diet increases the risk of developing type 2 diabetes and developing factors for coronary heart disease, such as high blood pressure, high cholesterol, and obesity. Furthermore, developing these conditions can lead to increased healthcare costs, perpetuating and exacerbating the cycle of food insecurity.."
+    columns {
       tiles {
-        title: "Percent Population With Heart Disease and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
+        title: "Percent Population With Diabetes"
+        type: MAP
+        stat_var_key: "Percent_Person_WithDiabetes"
+      }
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "Of the population has diabetes"
+        stat_var_key: "Percent_Person_WithDiabetes"
+      }
+    }
+  }
+  blocks {
+    columns {
+      tiles {
+        title: "Percent Population With Coronary Heart Disease"
+        type: MAP
         stat_var_key: "Percent_Person_WithCoronaryHeartDisease"
       }
     }
     columns {
       tiles {
-        title: "Percent Population With Diabetes and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Percent_Person_WithDiabetes"
-      }
-      tiles {
-        title: "Percent Population With High Cholesterol and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Percent_Person_WithHighCholesterol"
-      }
-      tiles {
-        title: "Percent Population With Cancer and Below the Poverty Line"
-        type: SCATTER
-        stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
-        stat_var_key: "Percent_Person_WithCancerExcludingSkinCancer"
+        type: HIGHLIGHT
+        description: "Of the population has coronary heart disease"
+        stat_var_key: "Percent_Person_WithCoronaryHeartDisease"
       }
     }
   }
-  stat_var_spec {
-    key: "Percent_Person_WithPhysicalHealthNotGood"
-    value {
-      stat_var: "Percent_Person_WithPhysicalHealthNotGood"
-      name: "Percentage of Population With Poor Physical Health"
-    }
-  }
-  stat_var_spec {
-    key: "Percent_Person_WithHighBloodPressure"
-    value {
-      stat_var: "Percent_Person_WithHighBloodPressure"
-      name: "Percentage of Population With Poor Physical Health"
-    }
-  }
+
   stat_var_spec {
     key: "Percent_Person_WithCoronaryHeartDisease"
     value {
       stat_var: "Percent_Person_WithCoronaryHeartDisease"
       name: "Percentage of Population With Coronary Heart Disease"
+      unit: "%"
     }
   }
   stat_var_spec {
@@ -403,38 +497,18 @@ categories {
     value {
       stat_var: "Percent_Person_WithDiabetes"
       name: "Percentage of Population With Diabetes"
+      unit: "%"
     }
   }
-  stat_var_spec {
-    key: "Percent_Person_WithHighCholesterol"
-    value {
-      stat_var: "Percent_Person_WithHighCholesterol"
-      name: "Percentage of Population With High Cholesterol"
-    }
-  }
-  stat_var_spec {
-    key: "Percent_Person_WithCancerExcludingSkinCancer"
-    value {
-      stat_var: "Percent_Person_WithCancerExcludingSkinCancer"
-      name: "Percentage of Population With Cancer"
-    }
-  }
-  stat_var_spec {
-    key: "Count_Person_BelowPovertyLevelInThePast12Months"
-    value {
-      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      name: "Population Below Poverty Level Status in Past Year"
-    }
-  }
-
 }
 
 categories {
-  title: "Farming"
+  title: "Farming and Climate"
 
   ### NEW BLOCK ###
   blocks {
     title: "Farms"
+    description: "The number of farms and crop coverage are factors that influence food security by proxy. While they are not direct indicators of food insecurity, they are part of the broader agricultural landscape that contributes to food availability, affordability, and access. In some cases, farms may prioritize exporting crops over the cultivation of diverse and nutritious foods for local consumption. Prioritizing crop exports — and instead focusing on importing foods — can make local food systems vulnerable to global market fluctuations and global supply chain disruptions. Additionally, if the prices of imported foods increase, it can impact local economies and potentially hinder food affordability and access."
     columns {
       tiles {
         type: HIGHLIGHT
@@ -471,6 +545,7 @@ categories {
   ### NEW BLOCK ###
   blocks {
     title: "Farm Areas"
+    description: "Silage and forage are crops that are grown specifically to feed livestock, including cows, and are an essential component of cattle farming. Having sufficient land dedicated to silage and forage production can support a healthy, productive, and sustainable cattle population, which in turn contributes to food security by ensuring a consistent supply of meat and dairy products to these communities. Especially during periods of drought, crop failure, or other disasters, having dedicated land for cattle and feed ensures consistent supply of animal-based foods to communities in the face of potential agricultural disasters."
     columns {
       tiles {
         title: "Percent of Crop Covered Area ${date}"
@@ -526,6 +601,7 @@ categories {
   ### NEW BLOCK ###
   blocks {
     title: "Farm Production"
+    description: "Irrigation and depleting water sources play an increasingly critical role on farms. Crops vary in their dependence on irrigation, with many vegetables and more sensitive grains being completely reliant on supplementary water to survive harsh summers. Other crops require supplemental water from irrigation to be economically viable, but are unlikely to die or completely fail without it. With climate change impacting access to reliable irrigation, how will farmers need to adapt to this depleting resource?"
     columns {
       tiles {
         title: "Area of Irrigated Lands on Farms ${date}"
@@ -569,7 +645,8 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Farm Equipment"
+    title: "Farm Equipment and Subsidies"
+    description: "The U.S. government has subsidized farmers through direct cash payments and other measures since 1933. How do higher equipment costs impact new farmers?"
     columns {
       tiles {
         title: "Mean Market Value of Farm Machinery and Equipment ${date}"
@@ -591,6 +668,7 @@ categories {
 
 categories {
   title: "Climate and Agriculture"
+  description: "Climate change is an increasingly significant development for farmers. Heat waves are just one factor that can lead to crop loss. Below you see a map exploring the rate of heat waves experienced by a population in a given region. What decisions will farmers have to make to address more frequent heat events?"
 
   ### NEW BLOCK ###
   blocks {
@@ -670,26 +748,37 @@ categories {
 
 }
 
-
 categories {
-  title: "Explore More"
-
   ### NEW BLOCK ###
   blocks {
-    title: "See data for your state"
     columns {
       tiles {
         type: DESCRIPTION
-        description: "* [Alabama](../geoId/01)\n* [Alaska](../geoId/02)\n* [Arizona](../geoId/04)\n* [Arkansas](../geoId/05)\n* [California](../geoId/06)\n* [Colorado](../geoId/08)\n* [Connecticut](../geoId/09)\n* [Delaware](../geoId/10)\n* [Florida](../geoId/12)\n* [Georgia](../geoId/13)\n* [Hawaii](../geoId/15)\n* [Idaho](../geoId/16)\n* [Illinois](../geoId/17)\n* [Indiana](../geoId/18)\n* [Iowa](../geoId/19)\n* [Kansas](../geoId/20)\n* [Kentucky](../geoId/21)\n* [Louisiana](../geoId/22)\n* [Maine](../geoId/23)\n* [Maryland](../geoId/24)\n* [Massachusetts](../geoId/25)\n* [Michigan](../geoId/26)\n* [Minnesota](../geoId/27)\n* [Mississippi](../geoId/28)\n* [Missouri](../geoId/29)"
+        description: "It is important to note that the dryer, warmer future is only one component of how climate change is expected to affect our food systems. The increasing severity of storms, massive flooding events, and other changing climate factors affect our ability to produce food. These events not only impact food production where they occur, they also drive up the demand for food and other resources as people are displaced and try to recover.\nIn summary, improving food security depends on careful planning and policy considerations. Food security is a multifaceted issue influenced by a wide range of factors, including income levels, access to markets, food distribution systems, government policies, social safety nets, education, health, sustainable agricultural practices, climate resilience, and more. "
       }
     }
-    columns {
-      tiles {
-        type: DESCRIPTION
-        description: "* [Montana](../geoId/30)\n* [Nebraska](../geoId/31)\n* [Nevada](../geoId/32)\n* [New Hampshire	](../geoId/33)\n* [New Jersey	](../geoId/34)\n* [New Mexico	](../geoId/35)\n* [New York	](../geoId/36)\n* [North Carolina	](../geoId/37)\n* [North Dakota	](../geoId/38)\n* [Ohio](../geoId/39)\n* [Oklahoma	](../geoId/40)\n* [Oregon](../geoId/41)\n* [Pennsylvania](../geoId/42)\n* [Rhode Island](../geoId/44)\n* [South Carolina](../geoId/45)\n* [South Dakota	](../geoId/46)\n* [Tennessee](../geoId/47)\n* [Texas](../geoId/48)\n* [Utah](../geoId/49)\n* [Vermont](../geoId/50)\n* [Virginia](../geoId/51)\n* [Washington](../geoId/53)\n* [West Virginia	](../geoId/54)\n* [Wisconsin](../geoId/55)\n* [Wyoming](../geoId/56)"
-      }
-    }
-    
   }
 }
+
+#categories {
+#  title: "Explore More"
+#
+#  ### NEW BLOCK ###
+#  blocks {
+#    title: "See data for your state"
+#    columns {
+#      tiles {
+#        type: DESCRIPTION
+#        description: "* [Alabama](../geoId/01)\n* [Alaska](../geoId/02)\n* [Arizona](../geoId/04)\n* [Arkansas](../geoId/05)\n* [California](../geoId/06)\n* [Colorado](../geoId/08)\n* [Connecticut](../geoId/09)\n* [Delaware](../geoId/10)\n* [Florida](../geoId/12)\n* [Georgia](../geoId/13)\n* [Hawaii](../geoId/15)\n* [Idaho](../geoId/16)\n* [Illinois](../geoId/17)\n* [Indiana](../geoId/18)\n* [Iowa](../geoId/19)\n* [Kansas](../geoId/20)\n* [Kentucky](../geoId/21)\n* [Louisiana](../geoId/22)\n* [Maine](../geoId/23)\n* [Maryland](../geoId/24)\n* [Massachusetts](../geoId/25)\n* [Michigan](../geoId/26)\n* [Minnesota](../geoId/27)\n* [Mississippi](../geoId/28)\n* [Missouri](../geoId/29)"
+#      }
+#    }
+#    columns {
+#      tiles {
+#        type: DESCRIPTION
+#        description: "* [Montana](../geoId/30)\n* [Nebraska](../geoId/31)\n* [Nevada](../geoId/32)\n* [New Hampshire	](../geoId/33)\n* [New Jersey	](../geoId/34)\n* [New Mexico	](../geoId/35)\n* [New York	](../geoId/36)\n* [North Carolina	](../geoId/37)\n* [North Dakota	](../geoId/38)\n* [Ohio](../geoId/39)\n* [Oklahoma	](../geoId/40)\n* [Oregon](../geoId/41)\n* [Pennsylvania](../geoId/42)\n* [Rhode Island](../geoId/44)\n* [South Carolina](../geoId/45)\n* [South Dakota	](../geoId/46)\n* [Tennessee](../geoId/47)\n* [Texas](../geoId/48)\n* [Utah](../geoId/49)\n* [Vermont](../geoId/50)\n* [Virginia](../geoId/51)\n* [Washington](../geoId/53)\n* [West Virginia	](../geoId/54)\n* [Wisconsin](../geoId/55)\n* [Wyoming](../geoId/56)"
+#      }
+#    }
+#    
+#  }
+#}
 
