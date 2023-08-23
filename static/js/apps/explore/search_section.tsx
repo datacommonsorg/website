@@ -18,7 +18,6 @@
  * Component for the search section
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { TextSearchBar } from "../../components/text_search_bar";
