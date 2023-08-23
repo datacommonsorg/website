@@ -2498,9 +2498,9 @@ Age-standardized prevalence of current tobacco use among persons aged 15 years a
 ,DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_Historical,,Relative Min Temperature Once In Year With 95% Chance: Historical,,Relative Min Temperature (°C) Once In Year With 95% Chance: Historical
 ,DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245,,Relative Min Temperature Once In Year With 95% Chance: SSP245,,Relative Min Temperature (°C) Once In Year With 95% Chance: SSP245
 ,DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585,,Relative Min Temperature Once In Year With 95% Chance: SP585,,Relative Min Temperature (°C) Once In Year With 95% Chance: SP585
-,worldBank/EG_ELC_ACCS_ZS,,Population With Electricity Access,,Population With Electricity Access
-,worldBank/EG_ELC_ACCS_UR_ZS,,Urban Population With Electricity Access,,Urban Population With Electricity Access
-,worldBank/EG_ELC_ACCS_RU_ZS,,Rural Population With Electricity Access,,Rural Population With Electricity Access
-,worldBank/4_1_SHARE_RE_IN_ELECTRICITY,,Renewable Electricity Fraction Of Energy Output,,Renewable Electricity Fraction Of Energy Output
-,worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,,Total Electricity Output,,Total Electricity Output
-,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,,Renewable Electricity Output,,Renewable Electricity Output
+,worldBank/EG_ELC_ACCS_ZS,,Population With Electricity Access (%),,Population With Electricity Access (%)
+,worldBank/EG_ELC_ACCS_UR_ZS,,Urban Population With Electricity Access (%),,Urban Population With Electricity Access (%)
+,worldBank/EG_ELC_ACCS_RU_ZS,,Rural Population With Electricity Access (%),,Rural Population With Electricity Access (%)
+,worldBank/4_1_SHARE_RE_IN_ELECTRICITY,,Renewable Electricity As Percentage Of Total (%),,Renewable Electricity As Percentage Of Total (%)
+,worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,,Total Electricity Output (GWh),,Total Electricity Output (GWh)
+,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,,Renewable Electricity Output (GWh),,Renewable Electricity Output (GWh)
