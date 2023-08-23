@@ -26,7 +26,7 @@ export interface PlaceFallback {
   newStr?: string;
 }
 
-export interface SearchResult {
+export interface QueryResult {
   place: NamedTypedPlace;
   config: SubjectPageConfig;
   sessionId?: string;

@@ -87,12 +87,45 @@
               }
             ],
             "title": "Prevalence: Female, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06049",
+                      "geoId/06033",
+                      "geoId/06023",
+                      "geoId/06103",
+                      "geoId/06039",
+                      "geoId/06015",
+                      "geoId/06115",
+                      "geoId/06089"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
+                    ],
+                    "title": "Physical Health Issues (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Physical Health Issues"
           }
         ],
         "statVarSpec": {
           "Percent_Person_Obesity_multiple_place_bar_block": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
+            "name": "Physical Health Issues",
+            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1_multiple_place_bar_block": {
@@ -122,6 +155,58 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06105",
+      "name": "Trinity County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06049",
+      "name": "Modoc County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06033",
+      "name": "Lake County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06023",
+      "name": "Humboldt County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06103",
+      "name": "Tehama County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06039",
+      "name": "Madera County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06015",
+      "name": "Del Norte County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06115",
+      "name": "Yuba County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06089",
+      "name": "Shasta County",
+      "place_type": "County"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],

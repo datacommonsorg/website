@@ -2367,10 +2367,10 @@
   "sdg/VC_DSR_PDAN": "Population With Damaged Dwellings From Disasters",
   "sdg/VC_DSR_PDLN": "Population With Affected Livelihoods From Disasters",
   "sdg/VC_DSR_PDYN": "Populatin With Destroyed Dwellings From Disasters",
-  "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": "Total Electricity Output",
-  "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT": "Renewable Electricity Output",
-  "worldBank/4_1_SHARE_RE_IN_ELECTRICITY": "Renewable Electricity Fraction Of Energy Output",
-  "worldBank/EG_ELC_ACCS_RU_ZS": "Rural Population With Electricity Access",
-  "worldBank/EG_ELC_ACCS_UR_ZS": "Urban Population With Electricity Access",
-  "worldBank/EG_ELC_ACCS_ZS": "Population With Electricity Access"
+  "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": "Total Electricity Output (GWh)",
+  "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT": "Renewable Electricity Output (GWh)",
+  "worldBank/4_1_SHARE_RE_IN_ELECTRICITY": "Renewable Electricity (%)",
+  "worldBank/EG_ELC_ACCS_RU_ZS": "Rural Population With Electricity Access (%)",
+  "worldBank/EG_ELC_ACCS_UR_ZS": "Urban Population With Electricity Access (%)",
+  "worldBank/EG_ELC_ACCS_ZS": "Population With Electricity Access (%)"
 }

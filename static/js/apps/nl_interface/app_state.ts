@@ -38,7 +38,7 @@ import {
   NL_PLACE_DETECTOR_VALS,
   NL_URL_PARAMS,
 } from "../../constants/app/nl_interface_constants";
-import { SearchResult } from "../../types/app/nl_interface_types";
+import { QueryResult } from "../../types/app/nl_interface_types";
 import { stringifyFn } from "../../utils/axios";
 import { getUrlToken, getUrlTokenOrDefault } from "../../utils/url_utils";
 
@@ -53,7 +53,7 @@ export interface SampleQuery {
 }
 
 export interface NLQueryType {
-  chartData?: SearchResult;
+  queryResult?: QueryResult;
   context?: any; // Summarized context
   debugData?: any;
   errorMsg?: any;
@@ -344,7 +344,7 @@ const nlAppActions: NLAppActions = {
           let mainPlace = {};
           mainPlace = resp.data["place"];
           const fb = resp.data["placeFallback"];
-          nlQueryUpdate.chartData = {
+          nlQueryUpdate.queryResult = {
             place: {
               dcid: mainPlace["dcid"],
               name: mainPlace["name"],

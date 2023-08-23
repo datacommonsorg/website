@@ -1556,5 +1556,4 @@ dc/topic/EnglishLanguageAtHome,English Language Spoken At Home,English Language 
 dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,Language Spoken At Home By Immigrants,,immigrants language at home; language at home for foreign born;
 dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
 dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;
-dc/topic/GlobalElectricityAccess,,,,
-dc/topic/GlobalElectricityOutput,,,,
+dc/topic/GlobalElectricityAccess,Access To Electricity,Percentage of People with access to Electricity,,electrification; electricity access; people with access to electricity;
