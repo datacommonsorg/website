@@ -309,6 +309,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06085",
+      "name": "Santa Clara County",
+      "place_type": "County"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {
       "City": [

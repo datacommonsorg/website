@@ -53,10 +53,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('basic_failed_cb_missing_svs', 1)
     return False
   if not places:
-    state.uttr.counters.err('basic_failed_cb_noplace', places)
+    state.uttr.counters.err('basic_failed_cb_noplace', '')
     return False
   if len(places) > 1:
-    state.uttr.counters.err('basic_failed_cb_toomanyplaces', places)
+    state.uttr.counters.err('basic_failed_cb_toomanyplaces',
+                            [p.dcid for p in places])
     return False
 
   if state.explore_mode:
