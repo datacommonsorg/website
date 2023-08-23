@@ -132,7 +132,7 @@ export function App(): JSX.Element {
     const topicUrlVal = (exploreContext?.variables || []).join(DELIM);
     const relatedPlaceTopic = _.isEmpty(chartData.mainTopic)
       ? {
-          dcid: exploreContext?.variables,
+          dcid: topicUrlVal,
           name: "",
           types: null,
         }
