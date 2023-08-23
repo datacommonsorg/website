@@ -378,7 +378,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "description": "Access to electricity, rural is the percentage of rural population with access to electricity.",
             "title": "Rural Population With Electricity Access (%)"
           },
