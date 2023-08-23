@@ -30,6 +30,8 @@ import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
 import { PageSelector } from "./page_selector";
+import { ChildPlacesByType } from "../../shared/types";
+import { ChildPlaces } from "../../shared/child_places";
 
 interface AppPropType {
   /**
@@ -52,6 +54,18 @@ interface AppPropType {
    * Summary of all available page configs
    */
   topicsSummary: TopicsSummary;
+  /**
+   * Show child places
+   */
+  showChildPlaces?: boolean;
+  /**
+   * Child places
+   */
+  childPlaces?: ChildPlacesByType;
+  /**
+   * Display searchbar
+   */
+  displaySearchbar?: boolean;
 }
 
 const PAGE_ID = "topic";
@@ -80,8 +94,30 @@ export function App(props: AppPropType): JSX.Element {
               categories={props.pageConfig.categories}
             />
           )}
+          {props.topic !== "sdg" && props.showChildPlaces && (
+            <ChildPlaces
+              childPlaces={props.childPlaces}
+              parentPlace={props.place}
+              urlFormatString={`/topic/${props.topic}/\${placeDcid}`}
+            ></ChildPlaces>
+          )}
         </div>
         <div className="row col-md-9x col-lg-9">
+          {props.showChildPlaces && (
+            <div>
+              <div className="search border">
+                <div id="location-field">
+                  <div id="search-icon"></div>
+                  <input
+                    id="place-autocomplete"
+                    placeholder="Enter a country, state, county or city"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          
           <PageSelector
             selectedPlace={props.place}
             morePlaces={props.morePlaces}

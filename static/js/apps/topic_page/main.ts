@@ -23,9 +23,12 @@ import ReactDOM from "react-dom";
 
 import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
 import { loadLocaleData } from "../../i18n/i18n";
+import { initSearchAutocomplete } from "../../shared/place_autocomplete";
 import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
+import { getElementIDFunc } from "../../biomedical/bio_charts_utils";
+import { ChildPlacesByType } from "../../shared/types";
 
 window.onload = () => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
@@ -52,7 +55,12 @@ function renderPage(): void {
   const topicsSummary: TopicsSummary = JSON.parse(
     document.getElementById("topic-config").dataset.topicsSummary
   );
-
+  const showChildPlaces = JSON.parse(document.getElementById("topic-page-options").dataset.showChildPlaces);
+  const childPlaces: ChildPlacesByType = JSON.parse(
+    document.getElementById("place-children").dataset.pc
+  );
+  const displaySearchbar = JSON.parse(document.getElementById("topic-page-options").dataset.displaySearchbar);
+  
   // TODO(beets): use locale from URL
   const locale = "en";
   loadLocaleData(locale, [
@@ -74,7 +82,13 @@ function renderPage(): void {
       topic,
       pageConfig,
       topicsSummary,
+      showChildPlaces,
+      childPlaces,
+      displaySearchbar
     }),
     document.getElementById("body")
   );
+
+  // Load this after the place-autocomplete input is rendered.
+  initSearchAutocomplete(`/topic/${topic}`);
 }

@@ -25,6 +25,11 @@ import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as libutil
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
+import logging
+
+# TechSoup - add search bar and child places
+_TOPICS_TO_DISPLAY_SEARCH_BAR = ["dc2_4"]
+_TOPICS_TO_SHOW_CHILD_PLACES = ["dc2_4"]
 
 _NL_DISASTER_TOPIC = 'nl_disasters'
 _SDG_TOPIC = 'sdg'
@@ -140,6 +145,21 @@ def topic_page(topic_id=None, place_dcid=None):
     place_name = place_names[place_dcid]
   else:
     place_name = place_dcid
+
+  # [TECHSOUP] call place_metadata function to get child places. TO DO: refactor to avoid redundant info returned by place_metadata 
+  if topic_id in _TOPICS_TO_SHOW_CHILD_PLACES:
+    show_child_places = True
+    place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+    place_children = place_metadata.child_places
+  else:
+    show_child_places = False
+    place_children = []
+
+  if topic_id in _TOPICS_TO_DISPLAY_SEARCH_BAR:
+    display_searchbar = True
+  else:
+    display_searchbar = False
+
   return flask.render_template(
       'topic_page.html',
       place_type=place_type,
@@ -149,4 +169,8 @@ def topic_page(topic_id=None, place_dcid=None):
       topic_id=topic_id,
       topic_name=topic_place_config.metadata.topic_name or "",
       page_config=MessageToJson(topic_place_config),
-      topics_summary=topics_summary)
+      topics_summary=topics_summary,
+      show_child_places=json.dumps(show_child_places),
+      place_children=json.dumps(place_children),
+      display_searchbar=json.dumps(display_searchbar),
+      maps_api_key=current_app.config['MAPS_API_KEY'])
