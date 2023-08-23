@@ -227,6 +227,7 @@ export function App(): JSX.Element {
         name: mainPlace["name"],
         types: [mainPlace["place_type"]],
       },
+      places: fulfillData["places"],
       pageConfig: fulfillData["config"],
       childPlaces: fulfillData["relatedThings"]["childPlaces"],
       peerPlaces: fulfillData["relatedThings"]["peerPlaces"],

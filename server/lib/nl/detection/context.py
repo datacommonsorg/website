@@ -34,22 +34,16 @@ from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
 import server.lib.nl.fulfillment.utils as futils
 
-_MAX_RETURNED_VARS_EXPLORE = 10
-_MAX_RETURNED_VARS_CHAT = 20
+_MAX_RETURNED_VARS = 20
 
 
 #
 # Given an utterance, this looks up past utterance and updates the merged
 # context in both the utterance inline and in `insight_ctx`.
 #
-# TODO: Deprecate hoist_topics (Explore)
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
+def merge_with_context(uttr: nl_uttr.Utterance):
   data_dict = {}
-
-  # 0. Hoist any topic thats in the top-N
-  if is_explore:
-    _hoist_topic(uttr.svs)
 
   # 1. Route comparison vs. correlation query.
   query_type = None
@@ -109,25 +103,20 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
 
   # 5. Detect SVs leveraging context.
   main_vars, cmp_vars = _detect_vars(
-      uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS, is_explore)
-
-  if is_explore:
-    max_returned_vars = _MAX_RETURNED_VARS_EXPLORE
-  else:
-    max_returned_vars = _MAX_RETURNED_VARS_CHAT
+      uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
   # 6. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
           places,
       Params.VARS.value:
-          main_vars[:max_returned_vars],
+          main_vars[:_MAX_RETURNED_VARS],
       Params.SESSION_ID.value:
           uttr.session_id,
       Params.CMP_ENTITIES.value:
           cmp_places,
       Params.CMP_VARS.value:
-          cmp_vars[:max_returned_vars],
+          cmp_vars[:_MAX_RETURNED_VARS],
       Params.CHILD_TYPE.value:
           '' if not place_type else place_type.value,
       Params.CLASSIFICATIONS.value:
@@ -138,15 +127,14 @@ def merge_with_context(uttr: nl_uttr.Utterance, is_explore: bool):
   uttr.insight_ctx = data_dict
 
 
-def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool,
-                 hoist_topics: bool) -> List[str]:
+def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
   svs = []
   cmp_svs = []
   if is_cmp:
     # Comparison
     if dutils.is_multi_sv(uttr.detection):
       # Already multi-sv, nothing to do in `uttr`
-      svs, cmp_svs = _get_multi_sv_pair(uttr, hoist_topics)
+      svs, cmp_svs = _get_multi_sv_pair(uttr)
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
     else:
       if uttr.svs and uttr.prev_utterance and uttr.prev_utterance.svs:
@@ -188,44 +176,31 @@ def _get_comparison_or_correlation(
   return None
 
 
-def _get_multi_sv_pair(uttr: nl_uttr.Utterance,
-                       hoist_topics: bool) -> List[str]:
+def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
   parts = dutils.get_multi_sv_pair(uttr.detection)
   if not parts or len(parts) != 2:
     return []
-  if hoist_topics:
-    _hoist_topic(parts[0].svs)
-    _hoist_topic(parts[1].svs)
   return parts[0].svs, parts[1].svs
-
-
-#
-# A topic may not often be the top-most result. In that case,
-# we look for a topic for up to TOPIC_RANK_LIMIT, and hoist to top
-# (This is the same limit NL interface uses for opening up topic).
-#
-def _hoist_topic(svs: List[str]):
-  # If no SVs, or topic is already on top, return.
-  if len(svs) <= 1 or utils.is_topic(svs[0]):
-    return
-  for i in range(1, min(len(svs), topic.TOPIC_RANK_LIMIT)):
-    if utils.is_topic(svs[i]):
-      t = svs[0]
-      svs[0] = svs[i]
-      svs[i] = t
-      return
 
 
 def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
                    is_cmp: bool) -> List[str]:
   places = []
   cmp_places = []
+  #
+  # Note on Answer Places handling: we should process it after adding the
+  # places in current query, and *before* processing places in context.
+  # That way, before consuming the context place we would use any answer places.
+  #
   if is_cmp:
     if len(uttr.places) > 1:
       # Completely in this query.
       places = [uttr.places[0].dcid]
       cmp_places = [p.dcid for p in uttr.places[1:]]
       uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+
+      if _handle_answer_places(uttr, child_type, places, cmp_places):
+        return places, cmp_places
     elif len(uttr.places) == 1:
       # Partially in this query, lookup context.
       places = [uttr.places[0].dcid]
@@ -236,8 +211,11 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       uttr.places.extend(places_to_compare)
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
       uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
+
+      if _handle_answer_places(uttr, child_type, places, cmp_places):
+        return places, cmp_places
     else:
-      # There are NO places.
+      # There are NO places, so if there are answer places, bail.
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
 
@@ -258,8 +236,11 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
     if uttr.places:
       places = [p.dcid for p in uttr.places]
       uttr.place_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
+
+      if _handle_answer_places(uttr, child_type, places, cmp_places):
+        return places, cmp_places
     else:
-      # There are NO places.
+      # There are NO places, so if there are answer places, bail.
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
 
@@ -277,7 +258,9 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
           # Only pick the main place from the context since this
           # is NOT a comparison query.
           uttr.places = uttr.prev_utterance.places
-          places = [p.dcid for p in uttr.places]
+          places = [uttr.places[0].dcid]
+          if len(uttr.places) > 1:
+            cmp_places = [p.dcid for p in uttr.places[1:]]
           uttr.counters.info('insight_place_ctx', places)
           uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
           uttr.past_source_context = uttr.places[0].name
@@ -321,12 +304,14 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
   else:
     return False
 
-  if len(ans_places) > 1:
+  if uttr.places:
+    cmp_places.extend([p.dcid for p in ans_places])
+  elif len(ans_places) > 1:
     places.append(ans_places[0].dcid)
     cmp_places.extend([p.dcid for p in ans_places[1:]])
   else:
     places.extend([p.dcid for p in ans_places])
-  uttr.places = ans_places
+  uttr.places.extend(ans_places)
   uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
   uttr.past_source_context = "Query Results"
 
