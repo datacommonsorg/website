@@ -333,6 +333,12 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "Small": ["small",],
         },
         "Overview": ["tell me (more )?about",],
+        # Hint for potential reference to answer-places, to be used
+        # together with ContainedInPlace.
+        "AnswerPlacesReference": ["(in|for|of) these"],
+        "PerCapita": [
+            "fraction", "percent", "percentage", "per capita", "percapita"
+        ]
     }
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {

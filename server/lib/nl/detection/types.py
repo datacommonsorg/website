@@ -232,9 +232,9 @@ class EventClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class OverviewClassificationAttributes(ClassificationAttributes):
-  """Overview classification attributes"""
-  overview_trigger_words: List[str]
+class GeneralClassificationAttributes(ClassificationAttributes):
+  """Simple class for classification based on certain words attributes"""
+  trigger_words: List[str]
 
 
 @dataclass
@@ -332,7 +332,9 @@ class ClassificationType(IntEnum):
   OVERVIEW = 10
   SIZE_TYPE = 11
   DATE = 12
-  UNKNOWN = 13
+  ANSWER_PLACES_REFERENCE = 13
+  PER_CAPITA = 14
+  UNKNOWN = 15
 
 
 @dataclass

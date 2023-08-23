@@ -25,7 +25,7 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   dcids = [p.dcid for p in state.uttr.places]
   state.uttr.counters.info('comparison_place_candidates', dcids)
 

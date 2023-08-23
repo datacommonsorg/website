@@ -26,7 +26,8 @@
   "context": {},
   "debug": {},
   "entities": [
-    "geoId/32"
+    "geoId/32",
+    "geoId/06"
   ],
   "sessionId": "007_999999999",
   "variables": [
