@@ -490,7 +490,8 @@ $feedback-link-font-color: #70757a;
     display: none;
   }
 
-  .tile-hidden {
+  .tile-hidden,
+  .column-hidden {
     position: absolute;
     top: -10000px;
     visibility: hidden;
@@ -590,6 +591,10 @@ h3,
 
 .expando {
   font-size: 0.9rem;
+}
+.block .expando {
+  display: inline-block;
+  margin-top: 12px;
 }
 
 .expando,

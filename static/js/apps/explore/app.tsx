@@ -241,6 +241,7 @@ export function App(): JSX.Element {
     };
     const pageMetadata: SubjectPageMetadata = {
       place: mainPlace,
+      places: fulfillData["places"],
       pageConfig: fulfillData["config"],
       childPlaces: fulfillData["relatedThings"]["childPlaces"],
       peerPlaces: fulfillData["relatedThings"]["peerPlaces"],
@@ -276,7 +277,6 @@ export function App(): JSX.Element {
         setQuery(q);
       }
     }
-    console.log(fulfillData);
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(fulfillData["userMessage"]);
