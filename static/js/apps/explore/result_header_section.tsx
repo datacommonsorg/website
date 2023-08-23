@@ -59,10 +59,22 @@ export function ResultHeaderSection(
     }
   }
 
+  let placeNameStr = "";
+  for (let i = 0; i < props.chartData.places.length; i++) {
+    if (i == 2) {
+      placeNameStr += " and more";
+      break;
+    }
+    if (placeNameStr) {
+      placeNameStr += ", ";
+    }
+    placeNameStr += props.chartData.places[i].name;
+  }
+
   return (
     <>
       <div id="place-callout">
-        {props.chartData.place.name}
+        {placeNameStr}
         {!_.isEmpty(props.chartData.mainTopic) &&
           props.chartData.mainTopic.dcid != DEFAULT_TOPIC && (
             <span> • {props.chartData.mainTopic.name}</span>

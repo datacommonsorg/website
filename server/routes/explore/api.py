@@ -59,7 +59,7 @@ def detect():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  context.merge_with_context(utterance, is_explore=True)
+  context.merge_with_context(utterance)
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -110,7 +110,7 @@ def detect_and_fulfill():
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
 
-  context.merge_with_context(utterance, is_explore=True)
+  context.merge_with_context(utterance)
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -165,12 +165,20 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   utterance.counters = None
   context_history = serialize.save_utterance(utterance)
 
+  ret_places = []
+  for p in utterance.places:
+    ret_places.append({
+      'dcid': p.dcid,
+      'name': p.name,
+      'place_type': p.place_type
+    })
   data_dict = {
       'place': {
           'dcid': main_place.dcid,
           'name': main_place.name,
           'place_type': main_place.place_type,
       },
+      'places': ret_places,
       'config': page_config,
       'context': context_history,
       'placeFallback': context_history[0]['placeFallback'],

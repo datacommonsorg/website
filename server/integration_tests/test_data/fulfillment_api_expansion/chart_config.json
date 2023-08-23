@@ -712,6 +712,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/BRA",
+      "name": "Brazil",
+      "place_type": "Country"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [

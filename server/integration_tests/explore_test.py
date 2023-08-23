@@ -265,3 +265,11 @@ class IntegrationTest(NLWebServerTestCase):
         'Which counties in california have median age over 40?',
         'What is the emissions in these counties?'
     ])
+
+  def test_e2e_electrification_demo(self):
+    self.run_detect_and_fulfill('e2e_electrification_demo', [
+        'Which countries in Africa have had the greatest increase in electricity access?',
+        'How do these countries compare with the US and Germany?',
+        'How has poverty reduced in these places?',
+        'How has the GDP grown?',
+    ])
