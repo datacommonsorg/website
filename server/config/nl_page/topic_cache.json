@@ -10835,8 +10835,7 @@
         "dc/topic/Energy_Renewables",
         "dc/topic/Electricity_Consumption",
         "dc/topic/Energy_Fraction",
-        "dc/topic/GlobalElectricityAccess",
-        "dc/topic/GlobalElectricityOutput"
+        "dc/topic/GlobalElectricityAccess"
       ],
       "typeOf": [
         "Topic"
@@ -11119,22 +11118,6 @@
       "relevantVariableList": [
         "worldBank/EG_ELC_ACCS_ZS",
         "dc/svpg/dc/topic/GlobalElectricityAccess/ElectricyAccessByResidenceType"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/GlobalElectricityOutput"
-      ],
-      "name": [
-        "Electricity Output"
-      ],
-      "relevantVariableList": [
-        "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT",
-        "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT",
-        "worldBank/4_1_SHARE_RE_IN_ELECTRICITY"
       ],
       "typeOf": [
         "Topic"

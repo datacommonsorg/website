@@ -379,7 +379,7 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Access to electricity, rural is the percentage of rural population with access to electricity. (WorldBank Series Code: EG.ELC.ACCS.RU.ZS, Source: World Bank Global Electrification Database from \"Tracking SDG 7: The Energy Progress Report\" led jointly by the custodian agencies: the International Energy Agency (IEA), the International Renewable Energy Agency (IRENA), the United Nations Statistics Division (UNSD), the World Bank and the World Health Organization (WHO).)",
+            "description": "Access to electricity, rural is the percentage of rural population with access to electricity.",
             "title": "Rural Population With Electricity Access (%)"
           },
           {
