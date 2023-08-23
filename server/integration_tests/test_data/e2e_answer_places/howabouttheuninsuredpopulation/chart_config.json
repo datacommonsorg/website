@@ -322,6 +322,120 @@
             ],
             "denom": "Count_Person",
             "title": "People With Only Public Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06049",
+                      "geoId/06033",
+                      "geoId/06023",
+                      "geoId/06103",
+                      "geoId/06039",
+                      "geoId/06015",
+                      "geoId/06115",
+                      "geoId/06089"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithMedicareCoverage_multiple_place_bar_block"
+                    ],
+                    "title": "People With Medicare Coverage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Medicare Coverage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06049",
+                      "geoId/06033",
+                      "geoId/06023",
+                      "geoId/06103",
+                      "geoId/06039",
+                      "geoId/06015",
+                      "geoId/06115",
+                      "geoId/06089"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block"
+                    ],
+                    "title": "Only Direct Purchasers of Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Only Direct Purchasers of Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06049",
+                      "geoId/06033",
+                      "geoId/06023",
+                      "geoId/06103",
+                      "geoId/06039",
+                      "geoId/06015",
+                      "geoId/06115",
+                      "geoId/06089"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06049",
+                      "geoId/06033",
+                      "geoId/06023",
+                      "geoId/06103",
+                      "geoId/06039",
+                      "geoId/06015",
+                      "geoId/06115",
+                      "geoId/06089"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance"
           }
         ],
         "statVarSpec": {
@@ -365,6 +479,10 @@
             "name": "Population Without Health Insurance",
             "statVar": "Count_Person_NoHealthInsurance"
           },
+          "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block": {
+            "name": "Only Direct Purchasers of Health Insurance",
+            "statVar": "Count_Person_WithDirectPurchaseHealthInsuranceOnly"
+          },
           "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block": {
             "name": "Direct Purchasers of Health Insurance",
             "statVar": "Count_Person_WithDirectPurchaseHealthInsurance"
@@ -372,6 +490,10 @@
           "Count_Person_WithHealthInsurance_multiple_place_bar_block": {
             "name": "Population With Health Insurance",
             "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Count_Person_WithMedicareCoverage_multiple_place_bar_block": {
+            "name": "People With Medicare Coverage",
+            "statVar": "Count_Person_WithMedicareCoverage"
           },
           "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
             "name": "People With Only Private Health Insurance",
@@ -388,6 +510,16 @@
           "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
             "name": "People With Public Health Insurance",
             "statVar": "Count_Person_WithPublicHealthInsurance"
+          },
+          "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Women (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_Female_NoHealthInsurance",
+            "unit": "%"
+          },
+          "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Men (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_Male_NoHealthInsurance",
+            "unit": "%"
           },
           "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block": {
             "name": "Percentage of Population Aged 18-64 With No Health Insurance",
@@ -413,116 +545,60 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "relatedThings": {
-    "childPlaces": {
-      "City": [
-        {
-          "dcid": "geoId/0609150",
-          "name": "Burnt Ranch",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0614406",
-          "name": "Coffee Creek",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0619724",
-          "name": "Douglas City",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0632562",
-          "name": "Hayfork",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0636098",
-          "name": "Hyampom",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0637596",
-          "name": "Junction City",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0641278",
-          "name": "Lewiston",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0645092",
-          "name": "Mad River",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0658456",
-          "name": "Post Mountain",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0663386",
-          "name": "Ruth",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0664378",
-          "name": "Salyer",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0680476",
-          "name": "Trinity Center",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0680483",
-          "name": "Trinity Village",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0683794",
-          "name": "Weaverville",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q5140909",
-          "name": "Coffee Creek",
-          "types": [
-            "City"
-          ]
-        }
-      ]
+  "places": [
+    {
+      "dcid": "geoId/06105",
+      "name": "Trinity County",
+      "place_type": "County"
     },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06049",
+      "name": "Modoc County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06033",
+      "name": "Lake County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06023",
+      "name": "Humboldt County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06103",
+      "name": "Tehama County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06039",
+      "name": "Madera County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06015",
+      "name": "Del Norte County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06115",
+      "name": "Yuba County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06089",
+      "name": "Shasta County",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
     "childTopics": [
       {
         "dcid": "dc/topic/HealthInsuranceType",
@@ -544,7 +620,6 @@
         "age": [
           "Count_Person_18To64Years_Female_NoHealthInsurance",
           "Count_Person_21To64Years_Female_NoHealthInsurance",
-          "Count_Person_40To64Years_Female_NoHealthInsurance",
           "dc/001qmh9sdqzeb",
           "dc/0flj62fpwwxd",
           "dc/bhlcb3wz4b3v2",
@@ -563,7 +638,6 @@
         "age": [
           "Count_Person_18To64Years_Male_NoHealthInsurance",
           "Count_Person_21To64Years_Male_NoHealthInsurance",
-          "Count_Person_40To64Years_Male_NoHealthInsurance",
           "dc/1qdvp8x0t3l11",
           "dc/260gxgmeglpb",
           "dc/33z5t6xqjepp1",
@@ -588,10 +662,6 @@
           "Count_Person_21To64Years_NoHealthInsurance",
           "Count_Person_25OrMoreYears_NoHealthInsurance",
           "Count_Person_25To34Years_NoHealthInsurance",
-          "Count_Person_26OrMoreYears_NoHealthInsurance",
-          "Count_Person_26To34Years_NoHealthInsurance",
-          "Count_Person_35To44Years_NoHealthInsurance",
-          "Count_Person_40To64Years_NoHealthInsurance",
           "dc/6cd3lft0vm4f5",
           "dc/e8e2b0m921k68",
           "dc/kk8cqe86becs4"
@@ -637,6 +707,16 @@
           "Count_Person_65OrMoreYears_WithDirectPurchaseHealthInsurance"
         ]
       },
+      "Count_Person_WithDirectPurchaseHealthInsuranceOnly": {
+        "age": [
+          "dc/1nhzy1gkmf1ch",
+          "dc/2y726x9spgz45",
+          "dc/p6ezg1gqttg4",
+          "dc/she4g5yxb4ps1",
+          "dc/tvsl30ve6xcmh",
+          "dc/xc7xt9l4v6jy3"
+        ]
+      },
       "Count_Person_WithHealthInsurance": {
         "age": [
           "Count_Person_18OrMoreYears_WithHealthInsurance",
@@ -645,11 +725,7 @@
           "Count_Person_19To25Years_WithHealthInsurance",
           "Count_Person_19To64Years_WithHealthInsurance",
           "Count_Person_21To64Years_WithHealthInsurance",
-          "Count_Person_25OrMoreYears_WithHealthInsurance",
-          "Count_Person_25To34Years_WithHealthInsurance",
-          "Count_Person_26OrMoreYears_WithHealthInsurance",
-          "Count_Person_26To34Years_WithHealthInsurance",
-          "Count_Person_35To44Years_WithHealthInsurance"
+          "Count_Person_25OrMoreYears_WithHealthInsurance"
         ],
         "race": [
           "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
@@ -657,22 +733,43 @@
           "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
         ]
       },
+      "Count_Person_WithMedicareCoverage": {
+        "age": [
+          "Count_Person_18OrLessYears_WithMedicareCoverage",
+          "Count_Person_18To64Years_WithMedicareCoverage",
+          "Count_Person_19OrLessYears_WithMedicareCoverage",
+          "Count_Person_19To64Years_WithMedicareCoverage",
+          "Count_Person_65OrMoreYears_WithMedicareCoverage"
+        ]
+      },
       "Count_Person_WithPrivateHealthInsurance": {
         "age": [
           "Count_Person_18To24Years_WithPrivateHealthInsurance",
-          "Count_Person_19To25Years_WithPrivateHealthInsurance",
-          "Count_Person_25To34Years_WithPrivateHealthInsurance",
-          "Count_Person_26To34Years_WithPrivateHealthInsurance",
-          "Count_Person_35To44Years_WithPrivateHealthInsurance"
+          "Count_Person_19To25Years_WithPrivateHealthInsurance"
         ]
       },
       "Count_Person_WithPublicHealthInsurance": {
         "age": [
           "Count_Person_18To24Years_WithPublicHealthInsurance",
-          "Count_Person_19To25Years_WithPublicHealthInsurance",
-          "Count_Person_25To34Years_WithPublicHealthInsurance",
-          "Count_Person_26To34Years_WithPublicHealthInsurance",
-          "Count_Person_35To44Years_WithPublicHealthInsurance"
+          "Count_Person_19To25Years_WithPublicHealthInsurance"
+        ]
+      },
+      "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+        "familyIncome": [
+          "dc/580lp655hysv",
+          "dc/65wl19b3nw2h",
+          "dc/bzcnetd3pryhb",
+          "dc/hcg8bgt9ne75h",
+          "dc/s0ywx1qw7v582"
+        ]
+      },
+      "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+        "familyIncome": [
+          "dc/4y2x596pytve6",
+          "dc/qs60zzbnmyx95",
+          "dc/t99qwdy76dbv2",
+          "dc/xyqvew3z6zrt7",
+          "dc/ypjr28dcw2zm4"
         ]
       }
     },
@@ -693,204 +790,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "geoId/06001",
-        "name": "Alameda",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36005",
-        "name": "Bronx",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06013",
-        "name": "Contra Costa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/17031",
-        "name": "Cook",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/39035",
-        "name": "Cuyahoga",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48113",
-        "name": "Dallas",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12031",
-        "name": "Duval",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08041",
-        "name": "El Paso",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/51059",
-        "name": "Fairfax",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/13121",
-        "name": "Fulton",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/48201",
-        "name": "Harris",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12057",
-        "name": "Hillsborough",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/15003",
-        "name": "Honolulu",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/08059",
-        "name": "Jefferson",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06029",
-        "name": "Kern",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/53033",
-        "name": "King",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06037",
-        "name": "Los Angeles",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/04013",
-        "name": "Maricopa",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/37119",
-        "name": "Mecklenburg",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/12086",
-        "name": "Miami-Dade",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06059",
-        "name": "Orange",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/36081",
-        "name": "Queens",
-        "types": [
-          "County"
-        ]
-      },
-      {
-        "dcid": "geoId/06065",
-        "name": "Riverside",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06071",
-        "name": "San Bernardino",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06073",
-        "name": "San Diego",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06075",
-        "name": "San Francisco",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/06085",
-        "name": "Santa Clara",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      },
-      {
-        "dcid": "geoId/24047",
-        "name": "Worcester",
-        "types": [
-          "AdministrativeArea2"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/HealthConditions",

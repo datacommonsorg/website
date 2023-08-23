@@ -8,54 +8,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TJK",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Tajikistan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SLB",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Solomon Islands",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/NPL",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Nepal",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GUY",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Guyana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
@@ -80,11 +32,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GIN",
+                    "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Guinea",
+                    "title": "Eswatini",
                     "type": "LINE"
                   }
                 ]
@@ -92,11 +44,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/TGO",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Togo",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -104,11 +56,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/COD",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Congo [DRC]",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -116,11 +68,47 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/BWA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Gambia",
+                    "title": "Botswana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/LSO",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Lesotho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/USA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/DEU",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Germany",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MMR",
+                    "placeDcidOverride": "country/LBR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Myanmar [Burma]",
+                    "title": "Liberia",
                     "type": "LINE"
                   }
                 ]
@@ -145,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYC",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Seychelles",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -157,11 +145,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/AZE",
+                    "placeDcidOverride": "country/ETH",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Azerbaijan",
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -169,11 +157,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GUY",
+                    "placeDcidOverride": "country/SWZ",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Guyana",
+                    "title": "Eswatini",
                     "type": "LINE"
                   }
                 ]
@@ -181,11 +169,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SRB",
+                    "placeDcidOverride": "country/BWA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Serbia",
+                    "title": "Botswana",
                     "type": "LINE"
                   }
                 ]
@@ -193,11 +181,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SYR",
+                    "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Syria",
+                    "title": "Ghana",
                     "type": "LINE"
                   }
                 ]
@@ -205,11 +193,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MKD",
+                    "placeDcidOverride": "country/USA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Macedonia [FYROM]",
+                    "title": "United States",
                     "type": "LINE"
                   }
                 ]
@@ -217,11 +205,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BGR",
+                    "placeDcidOverride": "country/LSO",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Bulgaria",
+                    "title": "Lesotho",
                     "type": "LINE"
                   }
                 ]
@@ -229,23 +217,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SLB",
+                    "placeDcidOverride": "country/DEU",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Solomon Islands",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/KIR",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Kiribati",
+                    "title": "Germany",
                     "type": "LINE"
                   }
                 ]
@@ -268,19 +244,185 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/TJK"
+        "country/MLI"
       ]
     }
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "Earth",
+  "pastSourceContext": "",
   "place": {
-    "dcid": "country/TJK",
-    "name": "Tajikistan",
+    "dcid": "country/USA",
+    "name": "United States",
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "DEFAULT",
-  "svSource": "PAST_QUERY"
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/DEU",
+      "name": "Germany",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SWZ",
+      "name": "Eswatini",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/COM",
+      "name": "Comoros",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/KEN",
+      "name": "Kenya",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SOM",
+      "name": "Somalia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/LSO",
+      "name": "Lesotho",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/BWA",
+      "name": "Botswana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/LBR",
+      "name": "Liberia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty By Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty By Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByResidency",
+        "name": "Poverty By Residency",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty By Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/SDG_1",
+        "name": "",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopic": {
+      "dcid": "dc/topic/Poverty",
+      "name": "Poverty",
+      "types": [
+        "Topic"
+      ]
+    },
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

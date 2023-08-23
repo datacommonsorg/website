@@ -62,6 +62,7 @@ QUERY_HANDLERS = {
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation, rank=3),
+    # TODO: Consider falling back to each other since they're quite similar.
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=4,
@@ -168,7 +169,7 @@ def _classification_to_query_type(cl: NLClassifier,
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
-    if classification:
+    if classification or len(uttr.places) > 1:
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES
     else:
       query_type = QueryType.TIME_DELTA_ACROSS_VARS
