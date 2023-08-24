@@ -1,0 +1,503 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1188",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Madhya Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1498",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Uttar Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1164",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Assam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q22048",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1184",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Jharkhand",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Secondary Schools over time (Absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1498",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Uttar Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1164",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Assam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1188",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Madhya Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q22048",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1184",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Jharkhand",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Secondary Schools over time (Percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1164",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Assam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q22048",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1188",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Madhya Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1184",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Jharkhand",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1498",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Uttar Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Increase in Secondary Schools over time (Per Capita change)"
+          }
+        ],
+        "statVarSpec": {
+          "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs": {
+            "name": "Secondary Schools",
+            "statVar": "Count_School_SeniorSecondarySchool_Grade1To10"
+          },
+          "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc": {
+            "name": "Secondary Schools",
+            "statVar": "Count_School_SeniorSecondarySchool_Grade1To10"
+          },
+          "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct": {
+            "name": "Secondary Schools",
+            "statVar": "Count_School_SeniorSecondarySchool_Grade1To10"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1188"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q1168",
+    "name": "Chhattisgarh",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1184",
+      "name": "Jharkhand",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1498",
+      "name": "Uttar Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_School_SeniorSecondarySchool_Grade1To10": {
+        "schoolManagement": [
+          "Count_School_SeniorSecondarySchool_Grade1To10_CentralGovernment",
+          "Count_School_SeniorSecondarySchool_Grade1To10_CentralTibetanSchool",
+          "Count_School_SeniorSecondarySchool_Grade1To10_DepartmentOfEducation",
+          "Count_School_SeniorSecondarySchool_Grade1To10_GovernmentAided",
+          "Count_School_SeniorSecondarySchool_Grade1To10_JawaharNavodayaVidyalaya",
+          "Count_School_SeniorSecondarySchool_Grade1To10_KendriyaVidyalaya",
+          "Count_School_SeniorSecondarySchool_Grade1To10_LocalBody",
+          "Count_School_SeniorSecondarySchool_Grade1To10_MadrasaRecognized",
+          "Count_School_SeniorSecondarySchool_Grade1To10_MadrasaUnrecognized",
+          "Count_School_SeniorSecondarySchool_Grade1To10_OtherGovernmentManaged",
+          "Count_School_SeniorSecondarySchool_Grade1To10_PrivateUnaidedButRecognized",
+          "Count_School_SeniorSecondarySchool_Grade1To10_RailwaySchool",
+          "Count_School_SeniorSecondarySchool_Grade1To10_SainikSchool",
+          "Count_School_SeniorSecondarySchool_Grade1To10_SocialWelfareDepartment",
+          "Count_School_SeniorSecondarySchool_Grade1To10_TribalWelfareDepartment",
+          "Count_School_SeniorSecondarySchool_Grade1To10_UnknownSchoolManagement",
+          "Count_School_SeniorSecondarySchool_Grade1To10_Unrecognized"
+        ]
+      }
+    },
+    "mainTopic": {},
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

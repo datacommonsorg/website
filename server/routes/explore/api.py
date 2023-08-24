@@ -38,6 +38,7 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as nl_detector
+from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
@@ -94,7 +95,9 @@ def fulfill():
     flask.abort(404)
 
   req_json = request.get_json()
-  return _fulfill_with_insight_ctx(req_json)
+  debug_logs = {}
+  counters = ctr.Counters()
+  return _fulfill_with_insight_ctx(req_json, debug_logs, counters)
 
 
 #
@@ -120,7 +123,8 @@ def detect_and_fulfill():
   data_dict[Params.EXP_MORE_DISABLED.value] = request.get_json().get(
       Params.EXP_MORE_DISABLED, "")
   data_dict[Params.DC.value] = request.get_json().get(Params.DC, "")
-  return _fulfill_with_insight_ctx(data_dict)
+  return _fulfill_with_insight_ctx(data_dict, debug_logs, utterance.counters,
+                                   utterance.detection)
 
 
 #
@@ -128,7 +132,8 @@ def detect_and_fulfill():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict) -> Dict:
+                               debug_logs: Dict,
+                               orig_detection: Detection = None) -> Dict:
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
@@ -198,9 +203,15 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       status_str += '**No SVs Found**.'
 
   has_charts = True if page_config else False
+  if orig_detection:
+    # This is the case of Detection + Fulfill flow.
+    detection = orig_detection
+  else:
+    # This is the case of Fulfill-only flow.
+    detection = utterance.detection
   return helpers.prepare_response(data_dict,
                                   status_str,
-                                  utterance.detection,
+                                  detection,
                                   dbg_counters,
                                   debug_logs,
                                   has_data=has_charts)
@@ -209,7 +220,10 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
 #
 # Given an insight context, fulfills it into charts.
 #
-def _fulfill_with_insight_ctx(insight_ctx: Dict) -> Dict:
+def _fulfill_with_insight_ctx(insight_ctx: Dict,
+                              debug_logs: Dict,
+                              counters: ctr.Counters,
+                              orig_detection: Detection = None) -> Dict:
   if not insight_ctx:
     return helpers.abort('Missing input', '', [])
   if not insight_ctx.get('entities'):
@@ -229,9 +243,6 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict) -> Dict:
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
 
-  counters = ctr.Counters()
-  debug_logs = {}
-
   if not session_id:
     if current_app.config['LOG_QUERY']:
       session_id = utils.new_session_id('explore')
@@ -242,10 +253,16 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict) -> Dict:
   # TODO: Maybe check that if cmp_entities is set, entities should
   # be singleton.
   start = time.time()
+  if orig_detection:
+    # Pass in dummy logs, since we've done the detection already and
+    # have those logs.
+    construct_logs = {}
+  else:
+    construct_logs = debug_logs
   query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
                                                      cmp_entities, cmp_vars,
                                                      classifications,
-                                                     debug_logs, counters)
+                                                     construct_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     return helpers.abort(error_msg, '', [])
@@ -253,4 +270,4 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict) -> Dict:
   utterance = create_utterance(query_detection, None, counters, session_id)
   utterance.insight_ctx = insight_ctx
   utterance.insight_ctx[Params.DC.value] = dc_name
-  return _fulfill_with_chart_config(utterance, debug_logs)
+  return _fulfill_with_chart_config(utterance, debug_logs, orig_detection)

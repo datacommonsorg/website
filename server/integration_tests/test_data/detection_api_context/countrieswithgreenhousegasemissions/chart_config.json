@@ -3,6 +3,7 @@
   "classifications": [
     {
       "contained_in_place_type": "Country",
+      "had_default_type": false,
       "type": 4
     }
   ],

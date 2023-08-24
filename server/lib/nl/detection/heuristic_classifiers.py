@@ -158,6 +158,7 @@ def time_delta(query: str) -> Union[NLClassifier, None]:
   subtype_map = {
       "Increase": TimeDeltaType.INCREASE,
       "Decrease": TimeDeltaType.DECREASE,
+      "Change": TimeDeltaType.CHANGE,
   }
   time_delta_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["TimeDelta"]
   time_delta_subtypes = time_delta_heuristics.keys()

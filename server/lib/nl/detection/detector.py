@@ -137,6 +137,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
 
   # For place-comparison (bar charts only), we don't need child places.
   # So we can save on the existence checks, etc.
+  had_default_type = False
   if not cmp_entities:
     if child_type:
       if not any([child_type == x.value for x in types.ContainedInPlaceType]):
@@ -145,12 +146,17 @@ def construct(entities: List[str], vars: List[str], child_type: str,
       child_type = types.ContainedInPlaceType(child_type)
     if not child_type or child_type == types.ContainedInPlaceType.DEFAULT_TYPE:
       child_type = utils.get_default_child_place_type(places[0], is_nl=False)
+      had_default_type = True
   else:
     child_type = None
   if child_type:
+    # This is important so that the child places correspond to AA1/AA2 regardless
+    # of what the user has asked for (district, state)
+    child_type = utils.admin_area_equiv_for_place(child_type, places[0])
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
-                               contained_in_place_type=child_type))
+                               contained_in_place_type=child_type,
+                               had_default_type=had_default_type))
     classifications.append(c)
 
   if cmp_entities:
