@@ -49,7 +49,7 @@ def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
 
 
-# Checks if there is an event in the last 1 year.
+# Checks if there is an event in the last 3 years.
 def event_existence_for_place(place: str, event: types.EventType,
                               counters: ctr.Counters) -> bool:
   for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
@@ -60,11 +60,14 @@ def event_existence_for_place(place: str, event: types.EventType,
     counters.timeit('event_existence_for_place', start)
     cur_year = datetime.datetime.now().year
     prev_year = str(cur_year - 1)
+    two_years = str(cur_year - 2)
+    three_years = str(cur_year - 3)
     cur_year = str(cur_year)
     # A crude recency check
     for date in date_list:
-      if date.startswith(cur_year) or date.startswith(prev_year):
-        return True
+      for year in [cur_year, prev_year, two_years, three_years]:
+        if date.startswith(year):
+          return True
   return False
 
 
