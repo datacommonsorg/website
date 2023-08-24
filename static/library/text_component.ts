@@ -20,7 +20,6 @@ import { customElement, property } from "lit/decorators.js";
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { TextTile, TextTilePropType } from "../js/components/tiles/text_tile";
-import { DEFAULT_API_ENDPOINT } from "./constants";
 import { createWebComponentElement } from "./utils";
 
 /**
@@ -30,7 +29,8 @@ import { createWebComponentElement } from "./utils";
  *
  * <!-- Show companion text to UN SDG 1 we have in the KG -->
  * <datacommons-text
- *      node="dc/topic/SDG_1"
+ *      header="Title here"
+ *      text="Main text goes here"
  * ></datacommons-text>
  */
 @customElement("datacommons-text")
@@ -39,30 +39,27 @@ export class DatacommonsTextComponent extends LitElement {
   static styles: CSSResult = css`
     ${unsafeCSS(tilesCssString)}
   `;
+  // Optional: number of characters of text body to show before "show more"
+  // defaults to 250 chars
+  characterLimit?: number;
 
-  // Optional: API root to use to fetch data
-  // Defaults to https://datacommons.org
+  // Header/title of the text
   @property()
-  apiRoot: string;
+  header!: string;
 
-  // Optional: override of the story title
-  @property()
-  header?: string;
+  // Optional: Whether to show entire story regardless of character limit
+  showFullText?: boolean;
 
-  // Optional: override of the story body text
+  // text body
   @property()
-  text?: string;
-
-  // DCID of the node to get text annotation for
-  @property()
-  node!: string;
+  text!: string;
 
   render(): HTMLElement {
     const textTileProps: TextTilePropType = {
-      apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
+      characterLimit: this.characterLimit || 250,
       heading: this.header,
       text: this.text,
-      node: this.node,
+      showFullText: this.showFullText,
     };
     return createWebComponentElement(TextTile, textTileProps);
   }

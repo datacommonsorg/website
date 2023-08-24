@@ -18,6 +18,7 @@ import { Layout } from "antd";
 import React, { useCallback } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
   ROOT_SDG_VARIABLE_GROUP,
 } from "../../utils/constants";
@@ -28,7 +29,6 @@ import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 
-const EARTH_PLACE_DCID = "Earth";
 const Goals: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();

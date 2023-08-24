@@ -65,6 +65,8 @@ export interface RootTopic {
   groupDcid: string;
   topicDcid: string;
   iconUrl: string;
+  storyTitle: string;
+  storyText: string;
 }
 
 /**

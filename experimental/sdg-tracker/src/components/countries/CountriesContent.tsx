@@ -20,8 +20,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
-import { useStoreActions, useStoreState } from "../../state";
+import { RootTopic, useStoreActions, useStoreState } from "../../state";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
   ROOT_VARIABLE_GROUP,
   WEB_API_ENDPOINT,
@@ -465,7 +466,6 @@ const ChartCategoryContent: React.FC<{
   const rootTopics = useStoreState((s) => s.rootTopics);
 
   const matches = chartConfigCategory.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-
   const rootTopicIndex =
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
@@ -493,12 +493,27 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
+        {placeDcid === EARTH_PLACE_DCID && (
+          <StoryTile sdgTopic={sdgTopic} />
+        )}
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
       </ChartContentBody>
     </ContentCard>
   );
+};
+
+const StoryTile: React.FC<{ sdgTopic: RootTopic | null }> = ({sdgTopic}) => {
+  if (!sdgTopic) {
+    return <></>;
+  }
+  return (
+    <datacommons-text
+      header={sdgTopic.storyTitle}
+      text={sdgTopic.storyText}
+    />
+  )
 };
 
 const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
