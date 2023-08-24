@@ -273,7 +273,7 @@ const CountriesContent: React.FC<{
               searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
               return (
                 <Breadcrumb.Item key={i}>
-                  <Link to={"#/countries?" + searchParams.toString()}>
+                  <Link to={"/countries?" + searchParams.toString()}>
                     {v.name}
                   </Link>
                 </Breadcrumb.Item>
