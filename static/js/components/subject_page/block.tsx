@@ -237,6 +237,7 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
+            comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom

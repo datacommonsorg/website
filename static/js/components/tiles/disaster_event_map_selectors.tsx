@@ -23,23 +23,24 @@ import { CustomInput } from "reactstrap";
 
 import {
   DATE_OPTION_1Y_KEY,
+  DATE_OPTION_3Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
-  URL_HASH_PARAM_KEYS,
+  DEFAULT_DATE,
+  PLACE_DEFAULT_DATE,
 } from "../../constants/disaster_event_map_constants";
 import { NamedTypedPlace } from "../../shared/types";
 import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
   fetchDateList,
-  getDate,
   getUseCache,
-  setUrlHash,
 } from "../../utils/disaster_event_map_utils";
 
 const DATE_OPTION_DISPLAY_NAMES = {
   [DATE_OPTION_30D_KEY]: "Last 30 days",
   [DATE_OPTION_6M_KEY]: "Last 6 months",
   [DATE_OPTION_1Y_KEY]: "Last year",
+  [DATE_OPTION_3Y_KEY]: "Last 3 years",
 };
 
 interface DisasterEventMapSelectorsPropType {
@@ -49,6 +50,10 @@ interface DisasterEventMapSelectorsPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // Place to show the event map for
   place: NamedTypedPlace;
+  // The selected date
+  date: string;
+  // Function to run to set a new date
+  setDate: (date: string) => void;
   children?: React.ReactNode;
 }
 
@@ -80,9 +85,9 @@ export function DisasterEventMapSelectors(
         <CustomInput
           id="disaster-event-map-date-selector-input"
           type="select"
-          value={getDate(props.blockId)}
+          value={props.date}
           onChange={(e) => {
-            setUrlHash(URL_HASH_PARAM_KEYS.DATE, e.target.value, props.blockId);
+            props.setDate(e.target.value);
           }}
         >
           {dateOptions.map((date) => {
@@ -120,26 +125,23 @@ export function DisasterEventMapSelectors(
       DATE_OPTION_30D_KEY,
       DATE_OPTION_6M_KEY,
       DATE_OPTION_1Y_KEY,
+      DATE_OPTION_3Y_KEY,
     ];
     fetchDateList(eventTypeDcids, selectedPlace, useCache)
       .then((dateList) => {
-        const currDate = getDate(props.blockId);
+        const currDate = props.date;
         const dateOptions = [...customDateOptions, ...dateList];
         setDateOptions(dateOptions);
         // if current date is not in the new date options, set selected date to be
-        // default (1 year).
+        // default.
         if (dateOptions.findIndex((date) => date === currDate) < 0) {
-          setUrlHash(
-            URL_HASH_PARAM_KEYS.DATE,
-            DATE_OPTION_1Y_KEY,
-            props.blockId
-          );
+          props.setDate(PLACE_DEFAULT_DATE[props.place.dcid] || DEFAULT_DATE);
         }
       })
       .catch(() => {
         setDateOptions(customDateOptions);
-        // if empty date list, set selected date to be default (1 year).
-        setUrlHash(URL_HASH_PARAM_KEYS.DATE, DATE_OPTION_1Y_KEY, props.blockId);
+        // if empty date list, set selected date to be default.
+        props.setDate(PLACE_DEFAULT_DATE[props.place.dcid] || DEFAULT_DATE);
       });
   }
 }
