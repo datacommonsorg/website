@@ -25,6 +25,7 @@ import { Item, ItemList } from "../../apps/explore/item_list";
 import { ExploreContext } from "../../shared/context";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { formatString, ReplacementStrings } from "../../utils/tile_utils";
+import { getUpdatedHash } from "../../utils/url_utils";
 
 const DELIM = "___";
 
@@ -99,7 +100,12 @@ export function BlockContainer(props: BlockContainerPropType): JSX.Element {
     const result: Item[] = [];
     for (const prop in svExtendedMap) {
       const urlSv = svExtendedMap[prop].join(DELIM);
-      const url = `/explore/#t=${urlSv}&p=${exploreData.place}&pcmp=${exploreData.cmpPlace}&pt=${exploreData.placeType}&dc=${exploreData.dc}&em=1`;
+      const url = `/explore/#${getUpdatedHash({
+        t: urlSv,
+        p: exploreData.place,
+        q: "",
+        em: "1",
+      })}`;
       result.push({
         url,
         text: camelCaseToWords(prop),

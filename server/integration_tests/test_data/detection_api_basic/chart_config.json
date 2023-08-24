@@ -2,7 +2,7 @@
   "childEntityType": "",
   "classifications": [
     {
-      "type": 13
+      "type": 15
     }
   ],
   "comparisonEntities": [],
@@ -23,6 +23,8 @@
     "dc/1fw0t5m6459gb",
     "dc/kt900ezddrf79",
     "dc/slp5hywj7b9c1",
-    "Count_Household_With2AvailableVehicles"
+    "Count_Household_With2AvailableVehicles",
+    "Count_Household_With3AvailableVehicles",
+    "Count_Household_With1AvailableVehicles"
   ]
 }

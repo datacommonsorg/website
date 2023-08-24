@@ -114,7 +114,7 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
-          {nlQuery.chartData && nlQuery.chartData.sessionId && (
+          {nlQuery.queryResult && nlQuery.queryResult.sessionId && (
             <span
               className={`feedback-emoji ${
                 nlQuery.feedbackGiven ? "feedback-emoji-dim" : ""
@@ -131,16 +131,18 @@ export const QueryResult = memo(function QueryResult(
           {nlQuery.debugData && (
             <DebugInfo
               debugData={nlQuery.debugData}
-              chartsData={nlQuery.chartData}
+              queryResult={nlQuery.queryResult}
             ></DebugInfo>
           )}
-          {nlQuery.chartData && <NLCommentary chartsData={nlQuery.chartData} />}
-          {nlQuery.chartData && nlQuery.chartData.config && (
-            <NlSessionContext.Provider value={nlQuery.chartData.sessionId}>
+          {nlQuery.queryResult && (
+            <NLCommentary chartsData={nlQuery.queryResult} />
+          )}
+          {nlQuery.queryResult && nlQuery.queryResult.config && (
+            <NlSessionContext.Provider value={nlQuery.queryResult.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
-                place={nlQuery.chartData.place}
-                pageConfig={nlQuery.chartData.config}
+                place={nlQuery.queryResult.place}
+                pageConfig={nlQuery.queryResult.config}
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showExploreMore={true}
               />
@@ -181,7 +183,7 @@ export const QueryResult = memo(function QueryResult(
       id: nlQuery.id,
     });
     axios.post("/api/nl/feedback", {
-      sessionId: nlQuery.chartData.sessionId,
+      sessionId: nlQuery.queryResult.sessionId,
       feedbackData: {
         queryId: props.queryIdx,
         sentiment,

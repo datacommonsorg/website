@@ -53,7 +53,6 @@ class ChartVars:
   description: str = ""
   title_suffix: str = ""
   # Represents a peer-group of SVs from a Topic.
-  # TODO: deprecate this in favor of svpg_id
   is_topic_peer_group: bool = False
   # If svs came from a topic, the topic dcid.
   source_topic: str = ""
@@ -71,11 +70,22 @@ class ChartVars:
   svpg_id: str = ''
 
 
+@dataclass
+class SV2Thing:
+  name: Dict
+  unit: Dict
+  description: Dict
+  footnote: Dict
+
+
 # Data structure to store state for a single "populate" call.
 @dataclass
 class PopulateState:
   uttr: Utterance
   place_type: ContainedInPlaceType = None
+  # Set to true if `place_type` at the outset of fulfillment was
+  # DEFAULT_TYPE.
+  had_default_place_type: bool = False
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
@@ -83,8 +93,17 @@ class PopulateState:
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
   # This is in the order of the returned SVs from the Embeddings index.
-  chart_vars_map: OrderedDict[str,
-                              List[ChartVars]] = field(default_factory=dict)
+  chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
+  # This is a temporary subset of `chart_vars_map` that have passed existence
+  # checks.
+  exist_chart_vars_list: List[ChartVars] = field(default_factory=list)
+  # Places to do existence check on.
+  #
+  # Dict's key is the DCID of the place to check.  Dict's value is a group-by key
+  # used for recognizing child places.
+  places_to_check: Dict[str, str] = field(default_factory=dict)
+  # Var to names/descriptions/etc.
+  sv2thing: SV2Thing = None
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.
@@ -106,3 +125,4 @@ class ChartSpec:
   ranking_types: List[RankingType]
   ranking_count: int
   chart_origin: ChartOriginType
+  is_sdg: bool

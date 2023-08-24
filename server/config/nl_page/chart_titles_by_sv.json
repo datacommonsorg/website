@@ -1052,6 +1052,7 @@
   "Count_Person_WithVAHealthCare": "People With VA Health Care",
   "Count_Person_WithVAHealthCareOnly": "People With Only VA Health Care",
   "Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person": "Mobile Phone Subscriptions Per Person in a Population",
+  "Count_School_SeniorSecondarySchool_Grade1To10": "Number of Secondary Schools",
   "Count_SolarInstallation": "Solar Installations",
   "Count_Student_Asian": "Students, Asian",
   "Count_Student_Black": "Students, Black",
@@ -2366,5 +2367,11 @@
   "sdg/VC_DSR_MTMP": "Deaths and Missing Persons From Disasters Per 100k Capita",
   "sdg/VC_DSR_PDAN": "Population With Damaged Dwellings From Disasters",
   "sdg/VC_DSR_PDLN": "Population With Affected Livelihoods From Disasters",
-  "sdg/VC_DSR_PDYN": "Populatin With Destroyed Dwellings From Disasters"
+  "sdg/VC_DSR_PDYN": "Populatin With Destroyed Dwellings From Disasters",
+  "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": "Total Electricity Output (GWh)",
+  "worldBank/4_1_2_REN_ELECTRICITY_OUTPUT": "Renewable Electricity Output (GWh)",
+  "worldBank/4_1_SHARE_RE_IN_ELECTRICITY": "Renewable Electricity (%)",
+  "worldBank/EG_ELC_ACCS_RU_ZS": "Rural Population With Electricity Access (%)",
+  "worldBank/EG_ELC_ACCS_UR_ZS": "Urban Population With Electricity Access (%)",
+  "worldBank/EG_ELC_ACCS_ZS": "Population With Electricity Access (%)"
 }

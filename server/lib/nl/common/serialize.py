@@ -27,8 +27,8 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import GeneralClassificationAttributes
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import OverviewClassificationAttributes
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QCmpType
 from server.lib.nl.detection.types import Quantity
@@ -53,6 +53,8 @@ CTX_LOOKBACK_LIMIT = 15
 
 
 def _place_to_dict(places: List[Place]) -> List[Dict]:
+  if not places:
+    return []
   places_dict = []
   for p in places:
     pdict = {}
@@ -88,6 +90,7 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       else:
         # This could also be a simple string (rather than string enum)
         cdict['contained_in_place_type'] = cip
+      cdict['had_default_type'] = c.attributes.had_default_type
     elif isinstance(c.attributes, EventClassificationAttributes):
       cdict['event_type'] = c.attributes.event_types
     elif isinstance(c.attributes, RankingClassificationAttributes):
@@ -100,8 +103,6 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['comparison'] = True
     elif isinstance(c.attributes, CorrelationClassificationAttributes):
       cdict['correlation'] = True
-    elif isinstance(c.attributes, OverviewClassificationAttributes):
-      cdict['overview'] = True
     elif isinstance(c.attributes, QuantityClassificationAttributes):
       cdict['quantity'] = _quantity_to_dict(c.attributes)
 
@@ -117,7 +118,8 @@ def dict_to_classification(
     if 'contained_in_place_type' in cdict:
       attributes = ContainedInClassificationAttributes(
           contained_in_place_type=ContainedInPlaceType(
-              cdict['contained_in_place_type']))
+              cdict['contained_in_place_type']),
+          had_default_type=cdict.get('had_default_type', False))
     elif 'event_type' in cdict:
       attributes = EventClassificationAttributes(
           event_types=[EventType(e) for e in cdict['event_type']],
@@ -140,10 +142,14 @@ def dict_to_classification(
     elif cdict.get('correlation'):
       attributes = CorrelationClassificationAttributes(
           correlation_trigger_words=[])
-    elif cdict.get('overview'):
-      attributes = OverviewClassificationAttributes(overview_trigger_words=[])
     elif 'quantity' in cdict:
       attributes = _dict_to_quantity(cdict['quantity'])
+    elif ClassificationType(cdict['type']) in [
+        ClassificationType.OVERVIEW, ClassificationType.ANSWER_PLACES_REFERENCE,
+        ClassificationType.PER_CAPITA
+    ]:
+      attributes = GeneralClassificationAttributes(trigger_words=[])
+
     classifications.append(
         NLClassifier(type=ClassificationType(cdict['type']),
                      attributes=attributes))
@@ -220,7 +226,8 @@ def _dict_to_chart_spec(charts_dict: List[Dict]) -> List[ChartSpec]:
             place_type=cdict.get('place_type'),
             ranking_types=[RankingType(c) for c in cdict['ranking_types']],
             ranking_count=0,
-            chart_origin=None))
+            chart_origin=None,
+            is_sdg=False))
   return charts
 
 
@@ -280,6 +287,7 @@ def save_utterance(uttr: Utterance) -> List[Dict]:
     udict['llm_resp'] = u.llm_resp
     udict['placeFallback'] = _place_fallback_to_dict(u.place_fallback)
     udict['insightCtx'] = u.insight_ctx
+    udict['answerPlaces'] = _place_to_dict(u.answerPlaces)
     uttr_dicts.append(udict)
     u = u.prev_utterance
     cnt += 1
@@ -305,9 +313,9 @@ def load_utterance(uttr_dicts: List[Dict]) -> Utterance:
         places=_dict_to_place(udict['places']),
         classifications=dict_to_classification(udict['classifications']),
         rankedCharts=_dict_to_chart_spec(udict['ranked_charts']),
+        answerPlaces=_dict_to_place(udict.get('answerPlaces', [])),
         detection=None,
         chartCandidates=None,
-        answerPlaces=None,
         counters=None,
         session_id=udict['session_id'],
         multi_svs=None,

@@ -2,7 +2,7 @@
   "childEntityType": "",
   "classifications": [
     {
-      "type": 13
+      "type": 15
     }
   ],
   "comparisonEntities": [
@@ -25,6 +25,7 @@
     "Mean_Income_Household",
     "dc/x3gghqtglpr59",
     "Median_Income_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_WithIncome",
-    "dc/topic/IncomeEquity"
+    "dc/topic/IncomeEquity",
+    "dc/topic/Income"
   ]
 }

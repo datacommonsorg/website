@@ -327,12 +327,19 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "drop(ped|s)?",
                 "loss(es)?",
             ],
+            "Change": ["change(s|d|) (over|with) time"]
         },
         "SizeType": {
             "Big": ["big",],
             "Small": ["small",],
         },
         "Overview": ["tell me (more )?about",],
+        # Hint for potential reference to answer-places, to be used
+        # together with ContainedInPlace.
+        "AnswerPlacesReference": ["these", "those"],
+        "PerCapita": [
+            "fraction", "percent", "percentage", "per capita", "percapita"
+        ]
     }
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {

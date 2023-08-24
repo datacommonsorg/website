@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from enum import Enum
 from enum import IntEnum
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from shared.lib import detected_variables as dvars
 
@@ -162,6 +162,7 @@ class TimeDeltaType(IntEnum):
   """Indicates whether query refers to an increase or decrease in SV values."""
   INCREASE = 0
   DECREASE = 1
+  CHANGE = 2
 
 
 class SizeType(IntEnum):
@@ -211,6 +212,7 @@ class ComparisonClassificationAttributes(ClassificationAttributes):
 class ContainedInClassificationAttributes(ClassificationAttributes):
   """ContainedIn classification attributes."""
   contained_in_place_type: ContainedInPlaceType
+  had_default_type: bool = False
 
 
 @dataclass
@@ -232,9 +234,9 @@ class EventClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class OverviewClassificationAttributes(ClassificationAttributes):
-  """Overview classification attributes"""
-  overview_trigger_words: List[str]
+class GeneralClassificationAttributes(ClassificationAttributes):
+  """Simple class for classification based on certain words attributes"""
+  trigger_words: List[str]
 
 
 @dataclass
@@ -302,6 +304,23 @@ class QuantityClassificationAttributes(ClassificationAttributes):
     return f'({self.qrange} idx:{self.idx})'
 
 
+@dataclass
+class Date:
+  """Represents a range of two numeric quantities."""
+  prep: str
+  year: int
+  month: Optional[int] = 0
+  year_span: Optional[int] = 0
+
+  def __str__(self):
+    return f'{self.year} - {self.month} | {self.year_span}'
+
+
+@dataclass
+class DateClassificationAttributes(ClassificationAttributes):
+  dates: List[Date]
+
+
 class ClassificationType(IntEnum):
   OTHER = 0
   SIMPLE = 1
@@ -314,7 +333,10 @@ class ClassificationType(IntEnum):
   EVENT = 9
   OVERVIEW = 10
   SIZE_TYPE = 11
-  UNKNOWN = 13
+  DATE = 12
+  ANSWER_PLACES_REFERENCE = 13
+  PER_CAPITA = 14
+  UNKNOWN = 15
 
 
 @dataclass

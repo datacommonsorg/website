@@ -8,21 +8,24 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
-                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
-                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
-                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
+                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
                       "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block",
                       "Percent_Person_WithCoronaryHeartDisease_multiple_place_bar_block",
-                      "Percent_Person_WithChronicKidneyDisease_multiple_place_bar_block",
+                      "Percent_Person_WithDiabetes_multiple_place_bar_block",
+                      "Percent_Person_WithHighBloodPressure_multiple_place_bar_block",
+                      "Percent_Person_WithHighCholesterol_multiple_place_bar_block",
+                      "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
+                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
                     "title": "Prevalence of Health Conditions in Placer County (${date})",
@@ -196,16 +199,19 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block",
                       "Count_Death_45To54Years_Neoplasms_multiple_place_bar_block",
-                      "Count_Death_35To44Years_Neoplasms_multiple_place_bar_block"
+                      "Count_Death_55To64Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_65To74Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
+                      "Count_Death_85Years_Neoplasms_multiple_place_bar_block"
                     ],
                     "title": "Cancer Deaths by Age in Placer County (${date})",
                     "type": "BAR"
@@ -221,6 +227,9 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
@@ -383,13 +392,16 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06061"
                     ],
                     "statVarKey": [
-                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block",
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block",
                       "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
-                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block"
+                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block"
                     ],
                     "title": "Mental Health Deaths by Age in Placer County (${date})",
                     "type": "BAR"

@@ -712,6 +712,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/BRA",
+      "name": "Brazil",
+      "place_type": "Country"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [
@@ -759,15 +766,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "Earth",
-        "name": "World",
-        "types": [
-          "Place"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/Economy",

@@ -144,6 +144,8 @@ export interface ChartOptions {
   colors?: string[];
   // whether to draw chart in lollipop style, used for bar charts
   lollipop?: boolean;
+  // whether to draw tooltips on hover
+  showTooltipOnHover?: boolean;
   // list of stat var DCIDs, in the order the colors should be applied
   statVarColorOrder?: string[];
   unit?: string;
@@ -158,6 +160,7 @@ export interface HistogramOptions extends ChartOptions {
 }
 
 export interface HorizontalBarChartOptions extends ChartOptions {
+  showTooltipOnHover?: boolean;
   stacked?: boolean;
   style?: {
     barHeight?: number;

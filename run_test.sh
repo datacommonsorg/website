@@ -64,7 +64,7 @@ function run_lint_fix {
   then
     pip3 install isort -q
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=.env/*
   isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
   deactivate
 }
@@ -103,7 +103,7 @@ function run_py_test {
     pip3 install isort -q
   fi
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=.env/*; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
@@ -144,7 +144,7 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export MIXER_API_KEY=
   export PALM_API_KEY=
-  python3 -m pytest server/webdriver/screenshot/
+  python3 -m pytest -n 2 --reruns 2 server/webdriver/screenshot/
 }
 
 # Run integration test for NL interface

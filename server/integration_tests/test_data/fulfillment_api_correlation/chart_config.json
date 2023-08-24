@@ -137,6 +137,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {
       "County": [
@@ -557,15 +564,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/EducationHousingAndCommute",

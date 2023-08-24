@@ -65,17 +65,9 @@ class ExistenceCheckTracker:
   def _run(self):
     # Perform batch existence check.
     # TODO: Optimize this!
-    if self.state.uttr.query_type == QueryType.BASIC:
-      self.existing_svs, existsv2places = \
-        utils.sv_existence_for_places_check_single_point(
-          self.places, list(self.all_svs), self.state.uttr.counters)
-    else:
-      tmp_svs, tmp_existsv2places = utils.sv_existence_for_places(
-          self.places, list(self.all_svs), self.state.uttr.counters)
-      self.existing_svs = {v: False for v in tmp_svs}
-      existsv2places = {}
-      for sv, plset in tmp_existsv2places.items():
-        existsv2places[sv] = {p: False for p in plset}
+    self.existing_svs, existsv2places = \
+      utils.sv_existence_for_places_check_single_point(
+        self.places, list(self.all_svs), self.state.uttr.counters)
 
     # In `state`, set sv -> place Key -> is-single-point
     for sv, pl2sp in existsv2places.items():
@@ -107,19 +99,6 @@ class ExistenceCheckTracker:
         for sv in ecv.chart_vars.svs:
           if sv in self.existing_svs:
             ecv.exist_svs.append(sv)
-        if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
-          self.state.uttr.counters.err(
-              'failed_partial_existence_check_extended_svs', {
-                  'places':
-                      self.places,
-                  'type':
-                      self.state.place_type,
-                  'svs':
-                      list(
-                          set(ecv.chart_vars.svs) -
-                          set(self.existing_svs.keys()))
-                      [:constants.DBG_LIST_LIMIT],
-              })
 
   # Get chart-vars for addition to charts
   def get_chart_vars(self,
@@ -221,9 +200,8 @@ def get_places_to_check(state: PopulateState, places: List[Place],
                                                  state.uttr.counters)
       for p in ret_places:
         places_to_check[p] = key
-  if is_explore:
-    for p in uttr.detection.places_detected.parent_places:
-      places_to_check[p.dcid] = p.dcid
+  # NOTE: We don't do existence check on parent places since it is
+  # not really shown on the Explore UI anymore.
   return places_to_check
 
 

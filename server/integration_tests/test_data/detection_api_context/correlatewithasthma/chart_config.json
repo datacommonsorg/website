@@ -7,10 +7,13 @@
     },
     {
       "contained_in_place_type": "DefaultType",
+      "had_default_type": false,
       "type": 4
     }
   ],
-  "comparisonEntities": [],
+  "comparisonEntities": [
+    "geoId/06"
+  ],
   "comparisonVariables": [
     "dc/topic/CommuteTime",
     "dc/topic/WorkCommute",
@@ -21,7 +24,9 @@
     "dc/1fw0t5m6459gb",
     "dc/kt900ezddrf79",
     "dc/slp5hywj7b9c1",
-    "Count_Household_With2AvailableVehicles"
+    "Count_Household_With2AvailableVehicles",
+    "Count_Household_With3AvailableVehicles",
+    "Count_Household_With1AvailableVehicles"
   ],
   "context": {},
   "debug": {},

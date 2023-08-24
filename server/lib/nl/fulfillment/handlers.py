@@ -62,6 +62,8 @@ QUERY_HANDLERS = {
     # Correlation has a more complex fallback logic captured in next_query_type().
     QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation, rank=3),
+    # TODO: Consider falling back to each other since they're quite similar.
+    # TODO: When we fallback from TIME_DELTA we should report why to user.
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=4,
@@ -69,7 +71,7 @@ QUERY_HANDLERS = {
     QueryType.TIME_DELTA_ACROSS_PLACES:
         QueryHandlerConfig(module=time_delta_across_places,
                            rank=5,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.COMPARISON_ACROSS_PLACES),
     QueryType.EVENT:
         QueryHandlerConfig(module=None, rank=6,
                            direct_fallback=QueryType.BASIC),
@@ -135,7 +137,8 @@ def _maybe_add_containedin(uttr: Utterance) -> bool:
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
     return True
   return False
 
@@ -168,7 +171,10 @@ def _classification_to_query_type(cl: NLClassifier,
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
-    if classification:
+    if len(
+        uttr.places) > 1 or (classification and
+                             not classification[0].attributes.had_default_type):
+      # We had multiple places or had place-type that's user-specified.
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES
     else:
       query_type = QueryType.TIME_DELTA_ACROSS_VARS

@@ -16,7 +16,7 @@
 
 import { StoreProvider } from "easy-peasy";
 import { useEffect } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Countries from "./components/countries/Countries";
 import Goals from "./components/goals/Goals";
 import Home from "./components/home/Home";
@@ -28,15 +28,15 @@ function App() {
   return (
     <StoreProvider store={store}>
       <InitializeStore />
-      <HashRouter>
-        <Routes>
-          <Route path="/" Component={Home} />
-          <Route path="/countries/:dcid?" Component={Countries} />
-          <Route path="/goals" Component={Goals} />
-          <Route path="/topics" Component={Topics} />
-          <Route path="/search" Component={Search} />
-        </Routes>
-      </HashRouter>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/countries/:dcid?" component={Countries} />
+          <Route path="/goals" component={Goals} />
+          <Route path="/topics" component={Topics} />
+          <Route path="/search" component={Search} />
+          <Route path="/" component={Home} />
+        </Switch>
+      </BrowserRouter>
     </StoreProvider>
   );
 }

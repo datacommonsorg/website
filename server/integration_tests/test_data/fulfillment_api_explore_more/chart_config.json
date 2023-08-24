@@ -262,7 +262,6 @@
             "title": "Divorced Hispanic Men in Cities of Santa Clara County"
           }
         ],
-        "dcid": "dc/topic/DivorcedPopulationByDemographic",
         "statVarSpec": {
           "Count_Person_15OrMoreYears_Divorced_AsianAlone": {
             "name": "Divorced Asian Men",
@@ -310,6 +309,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06085",
+      "name": "Santa Clara County",
+      "place_type": "County"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {
       "City": [
@@ -584,22 +590,7 @@
         "Topic"
       ]
     },
-    "parentPlaces": [
-      {
-        "dcid": "geoId/06",
-        "name": "California",
-        "types": [
-          "State"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/MaritalStatus",

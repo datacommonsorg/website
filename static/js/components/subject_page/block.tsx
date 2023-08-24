@@ -22,8 +22,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Input } from "reactstrap";
 
+import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
 import {
   COLUMN_ID_PREFIX,
+  HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
   SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
@@ -119,8 +121,10 @@ export function Block(props: BlockPropType): JSX.Element {
           props.columns.map((column, idx) => {
             const id = getId(props.id, COLUMN_ID_PREFIX, idx);
             const columnTileClassName = getColumnTileClassName(column);
+            const shouldHideColumn = idx >= minIdxToHide;
             return (
               <Column
+                shouldHideColumn={shouldHideColumn}
                 key={id}
                 id={id}
                 config={column}
@@ -138,9 +142,29 @@ export function Block(props: BlockPropType): JSX.Element {
             );
           })}
       </div>
+      {isNlInterface() && props.columns.length > NL_NUM_BLOCKS_SHOWN && (
+        <a className="expando" onClick={expandoCallback}>
+          Show more
+        </a>
+      )}
     </>
   );
 }
+
+const expandoCallback = function (e) {
+  // Callback to remove HIDE_TILE_CLASS from all sibling elements. Assumes
+  // target link is the child of the container with elements to toggle.
+  const selfEl = e.target as HTMLAnchorElement;
+  const parentEl = selfEl.parentElement;
+  const columns = parentEl.getElementsByClassName(
+    HIDE_COLUMN_CLASS
+  ) as HTMLCollectionOf<HTMLElement>;
+  for (let i = 0; i < columns.length; i++) {
+    columns[i].classList.remove(HIDE_COLUMN_CLASS);
+  }
+  selfEl.hidden = true;
+  e.preventDefault();
+};
 
 function renderTiles(
   tiles: TileConfig[],
@@ -213,6 +237,7 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
+            comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
@@ -256,6 +281,7 @@ function renderTiles(
             place={place}
             showExploreMore={props.showExploreMore}
             sort={convertToSortType(tile.barTileSpec?.sort)}
+            showTooltipOnHover={true}
             stacked={tile.barTileSpec?.stacked}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,

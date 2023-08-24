@@ -129,6 +129,7 @@ function renderBlocks(
                 columns={block.columns}
                 eventTypeSpec={props.eventTypeSpec}
                 showExploreMore={props.showExploreMore}
+                disasterBlockMetadata={block.disasterBlockSpec || {}}
               />
             </BlockContainer>
           </ErrorBoundary>

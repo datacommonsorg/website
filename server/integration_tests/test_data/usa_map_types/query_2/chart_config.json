@@ -17,7 +17,7 @@
                 ]
               }
             ],
-            "title": "Household Median Income"
+            "title": "Household Median Income in Census Tracts of Placer County"
           },
           {
             "columns": [
@@ -117,7 +117,7 @@
                 ]
               }
             ],
-            "title": "Individual Median Income"
+            "title": "Individual Median Income in Census Tracts of Placer County"
           },
           {
             "columns": [

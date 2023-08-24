@@ -57,7 +57,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if not exist.svs4children(state, place, [sv]).exist_svs:
     return sv_spec
 
-  title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+  title = base.decorate_block_title(title=builder.sv2thing.name.get(sv),
                                     place=place,
                                     child_type=state.place_type.value)
   builder.new_block(title=title,
@@ -119,7 +119,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     description = builder.sv2thing.description.get(chart_vars.svpg_id)
     footnote = builder.sv2thing.footnote.get(chart_vars.svpg_id)
   for sv in sorted_child_svs:
-    title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+    title = base.decorate_block_title(title=builder.sv2thing.name.get(sv),
                                       place=place,
                                       child_type=state.place_type.value)
     builder.new_block(title=title,

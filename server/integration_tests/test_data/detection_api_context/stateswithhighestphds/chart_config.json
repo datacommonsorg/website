@@ -9,6 +9,7 @@
     },
     {
       "contained_in_place_type": "State",
+      "had_default_type": false,
       "type": 4
     }
   ],

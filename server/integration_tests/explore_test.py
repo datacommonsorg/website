@@ -48,6 +48,23 @@ class IntegrationTest(NLWebServerTestCase):
         d = q.replace(' ', '').replace('?', '').lower()
       self.handle_response(q, resp, test_dir, d, failure)
 
+  def run_detect_and_fulfill(self, test_dir, queries, dc='', failure=''):
+    ctx = {}
+    for q in queries:
+      resp = requests.post(self.get_server_url() +
+                           f'/api/explore/detect-and-fulfill?q={q}',
+                           json={
+                               'contextHistory': ctx,
+                               'dc': dc,
+                           }).json()
+      ctx = resp['context']
+      if len(queries) == 1:
+        d = ''
+      else:
+        d = q.replace(' ', '').replace('?', '').lower()
+      print(resp)
+      self.handle_response(d, resp, test_dir, d, failure)
+
   def handle_response(self,
                       query,
                       resp,
@@ -131,6 +148,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_basic(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
         'dc': '',
@@ -140,14 +158,17 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_explore_more(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/DivorcedPopulationByDemographic'],
         'dc': '',
     }
     self.run_fulfillment('fulfillment_api_explore_more', req)
 
+  # NOTE: SVG Expansion is not supported with NL backend.
   def test_fulfillment_expansion(self):
     req = {
+        'nlFulfillment': False,
         'entities': ['country/BRA'],
         'variables': ['dc/topic/GlobalEconomicActivity'],
         'dc': ''
@@ -156,14 +177,25 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_sdg(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['country/USA'],
         'variables': ['dc/topic/sdg_1'],
         'dc': 'sdg'
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
 
+  def test_fulfillment_sdg_global(self):
+    req = {
+        'nlFulfillment': True,
+        'entities': ['Earth'],
+        'variables': ['dc/topic/sdg_2.2.1'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_global', req)
+
   def test_fulfillment_comparison(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County',
@@ -173,6 +205,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_correlation(self):
     req = {
+        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'comparisonVariables': ['dc/topic/Asthma'],
@@ -182,6 +215,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_statvars(self):
     req = {
+        'nlFulfillment': True,
         'variables': [
             'ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll',
             'dc/xj2nk2bg60fg',
@@ -195,12 +229,12 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_fulfillment('fulfillment_api_statvars', req)
 
   #
-  # NL Backend queries
+  # Legacy Explore Backend queries
+  # TODO: Delete me.
   #
-
-  def test_fulfillment_nl_basic(self):
+  def test_fulfillment_explorebackend_basic(self):
     req = {
-        "nlFulfillment": True,
+        "nlFulfillment": False,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
         'disableExploreMore': '1',
@@ -231,3 +265,29 @@ class IntegrationTest(NLWebServerTestCase):
         ],
     }
     self.run_fulfillment('fulfillment_api_nl_size', req)
+
+  def test_e2e_answer_places(self):
+    self.run_detect_and_fulfill('e2e_answer_places', [
+        'California counties with the highest asthma levels',
+        'What is the obesity rate in these counties?',
+        'How about the uninsured population?',
+        'Which counties in california have median age over 40?',
+        'What is the emissions in these counties?'
+    ])
+
+  def test_e2e_electrification_demo(self):
+    self.run_detect_and_fulfill('e2e_electrification_demo', [
+        'Which countries in Africa have had the greatest increase in electricity access?',
+        'How do these countries compare with the US and Germany?',
+        'How has poverty reduced in these places?',
+        'How has the GDP grown?',
+    ])
+
+  def test_e2e_india_demo(self):
+    self.run_detect_and_fulfill('e2e_india_demo', [
+        'Which states in India have the highest poverty levels per capita?',
+        'How have the wages changed over time in these states?',
+        'How much has infant mortality reduced?',
+        'How does the literacy rate compare?',
+        'How has the number of secondary schools increased?',
+    ])

@@ -88,6 +88,8 @@ class FulfillmentResult(str, Enum):
   # Subset of the places used are from a past query.
   # (Not used for variables)
   PARTIAL_PAST_QUERY = "PARTIAL_PAST_QUERY"
+  # The places come from past answer.
+  PAST_ANSWER = "PAST_ANSWER"
   # Place is from a preset default.  Importantly, no place
   # was recognized in the current / past query.
   # (Not used for variables)
@@ -144,8 +146,9 @@ class Utterance:
   rankedCharts: List[ChartSpec]
   # This is a list of places in the answer
   # (e.g., top earthquake prone CA counties)
-  # TODO: Fill this up
-  answerPlaces: List[str]
+  # If the answer involves a list of Top N/ Bottom N places, the results
+  # are saved here.
+  answerPlaces: List[Place]
   # Linked list of past utterances
   prev_utterance: Utterance
   # A unique ID to identify sessions

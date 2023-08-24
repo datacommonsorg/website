@@ -15,8 +15,8 @@
  */
 
 import { Layout } from "antd";
-import React, { useCallback } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import React, { useCallback, useMemo } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
@@ -30,9 +30,13 @@ import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 
 const Goals: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const location = useLocation();
+  const history = useHistory();
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
+
   const variableDcid =
     searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
 
@@ -43,7 +47,7 @@ const Goals: React.FC = () => {
     (variableDcid: string) => {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
-      navigate(location.pathname + "?" + searchParams.toString());
+      history.push(location.pathname + "?" + searchParams.toString());
     },
     [location]
   );

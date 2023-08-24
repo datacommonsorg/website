@@ -17,26 +17,20 @@
 import _ from "lodash";
 import React from "react";
 
+import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { NamedTypedNode } from "../../shared/types";
+import { getUpdatedHash } from "../../utils/url_utils";
 import { Item, ItemList } from "./item_list";
 
 interface RelatedPlacePropsType {
   relatedPlaces: NamedTypedNode[];
   topic: NamedTypedNode;
-  cmpPlace: string;
-  dc: string;
-  exploreMore: string;
-  nlFulfillment: string;
   titleSuffix: string;
 }
 
 const buildPlaceList = (
   relatedPlaces: NamedTypedNode[],
-  topic: NamedTypedNode,
-  cmpPlace: string,
-  dc: string,
-  exploreMore: string,
-  nlFulfillment: string
+  topic: NamedTypedNode
 ): Item[] => {
   if (_.isEmpty(relatedPlaces)) {
     return [];
@@ -45,21 +39,18 @@ const buildPlaceList = (
   for (const relatedPlace of relatedPlaces) {
     result.push({
       text: relatedPlace.name,
-      url: `/explore/#t=${topic.dcid}&p=${relatedPlace.dcid}&pcmp=${cmpPlace}&dc=${dc}&em=${exploreMore}&nl=${nlFulfillment}`,
+      url: `/explore/#${getUpdatedHash({
+        [URL_HASH_PARAMS.PLACE]: relatedPlace.dcid,
+        [URL_HASH_PARAMS.TOPIC]: topic.dcid,
+        [URL_HASH_PARAMS.QUERY]: "",
+      })}`,
     });
   }
   return result;
 };
 
 export function RelatedPlace(props: RelatedPlacePropsType): JSX.Element {
-  const placeList = buildPlaceList(
-    props.relatedPlaces,
-    props.topic,
-    props.cmpPlace,
-    props.dc,
-    props.exploreMore,
-    props.nlFulfillment
-  );
+  const placeList = buildPlaceList(props.relatedPlaces, props.topic);
   return (
     <div className="related-places">
       <div className="related-places-callout">
