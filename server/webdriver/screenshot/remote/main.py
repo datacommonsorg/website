@@ -31,5 +31,6 @@ if __name__ == "__main__":
   args = parser.parse_args()
   logging.info(args.domain)
   driver = base.create_driver()
-  runner.run(driver, 'https://' + args.domain, f'remote/{args.domain}')
+  for page in runner.prepare(f'remote/{args.domain}'):
+    runner.run(driver, 'https://' + args.domain, page)
   driver.quit()
