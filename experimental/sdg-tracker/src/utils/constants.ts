@@ -30,16 +30,10 @@ export const QUERY_PARAM_PLACE = "p";
  * Query search text url parameter
  */
 export const QUERY_PARAM_QUERY = "q";
-
-/**
- * Root Data Commons variable group
- */
-export const ROOT_VARIABLE_GROUP = "dc/g/Root";
-
 /**
  * Root SDG variable group
  */
-export const ROOT_SDG_VARIABLE_GROUP = "dc/g/SDG";
+export const ROOT_TOPIC = "dc/topic/sdg";
 
 /**
  * Web api root

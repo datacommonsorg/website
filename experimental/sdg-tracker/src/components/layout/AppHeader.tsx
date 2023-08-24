@@ -16,8 +16,8 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { BrandingLink } from "./components";
 import "./AppHeader.css";
+import { BrandingLink } from "./components";
 
 type HeaderOptions = "home" | "countries" | "goals" | "topics" | "search";
 
@@ -32,7 +32,14 @@ const HeaderNavItem = ({ children }: Props) => {
 };
 
 const SubNavbarItemLink = ({ children, to, selected }: Props) => {
-  return <Link to={to || "/"} className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}>{children}</Link>;
+  return (
+    <Link
+      to={to || "/"}
+      className={`sub-nav-bar-item-link ${selected ? "selected" : ""}`}
+    >
+      {children}
+    </Link>
+  );
 };
 
 const AppHeader = (props: { selected: HeaderOptions }) => {
@@ -42,7 +49,7 @@ const AppHeader = (props: { selected: HeaderOptions }) => {
       <div className="top-container">
         <div className="logo-banner">
           <a href="https://unstats.un.org/UNSDWebsite/" target="_blank">
-            <img className="left" src="/images/un-logo.svg" />
+            <img className="left" src="/images/datacommons/un-logo.svg" />
           </a>
           <div className="text">
             <div className="header">
