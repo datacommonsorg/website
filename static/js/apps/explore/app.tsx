@@ -324,18 +324,15 @@ export function App(): JSX.Element {
         });
     } else {
       setQuery("");
-      const currentContext = !_.isEmpty(savedContext.current)
-        ? savedContext.current[0].insightCtx
-        : {};
       fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),
         "",
-        currentContext.comparisonEntities || [],
-        currentContext.comparisonVariables || [],
+        [],
+        [],
         dc,
-        currentContext.extensionGroups || [],
-        currentContext.classifications || [],
+        [],
+        [],
         disableExploreMore,
         nlFulfillment
       )
