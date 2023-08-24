@@ -1,0 +1,265 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1356",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "West Bengal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1191",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Maharashtra",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1185",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Karnataka",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Decrease in Total number of infant deaths reported over time (Absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1356",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "West Bengal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1191",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Maharashtra",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1185",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Karnataka",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Decrease in Total number of infant deaths reported over time (Percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1356",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "West Bengal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1191",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Maharashtra",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1185",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Karnataka",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Decrease in Total number of infant deaths reported over time (Per Capita change)"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death_Infant_growth_abs": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          },
+          "Count_Death_Infant_growth_pc": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          },
+          "Count_Death_Infant_growth_pct": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1356"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q1498",
+    "name": "Uttar Pradesh",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q1498",
+      "name": "Uttar Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1191",
+      "name": "Maharashtra",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1356",
+      "name": "West Bengal",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1185",
+      "name": "Karnataka",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1184",
+      "name": "Jharkhand",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopic": {},
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

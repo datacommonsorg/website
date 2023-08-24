@@ -184,6 +184,15 @@ class IntegrationTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg', req)
 
+  def test_fulfillment_sdg_global(self):
+    req = {
+        'nlFulfillment': True,
+        'entities': ['Earth'],
+        'variables': ['dc/topic/sdg_2.2.1'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_global', req)
+
   def test_fulfillment_comparison(self):
     req = {
         'nlFulfillment': True,
@@ -272,4 +281,13 @@ class IntegrationTest(NLWebServerTestCase):
         'How do these countries compare with the US and Germany?',
         'How has poverty reduced in these places?',
         'How has the GDP grown?',
+    ])
+
+  def test_e2e_india_demo(self):
+    self.run_detect_and_fulfill('e2e_india_demo', [
+        'Which states in India have the highest poverty levels?',
+        'How have the wages changed over time in these states?',
+        'How much has infant mortality reduced?',
+        'How does the literacy rate compare?',
+        'How has the number of secondary schools increased?',
     ])
