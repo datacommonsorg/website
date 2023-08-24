@@ -292,18 +292,10 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
     return False
   if not uttr.prev_utterance or not uttr.prev_utterance.answerPlaces:
     return False
-
-  if child_type in [
-      ContainedInPlaceType.DEFAULT_TYPE, ContainedInPlaceType.PLACE
-  ]:
-    # Pick any type.
-    ans_places = list(uttr.prev_utterance.answerPlaces.values())[0]
-  elif uttr.prev_utterance.answerPlaces.get(child_type.value):
-    # Pick the specific type.
-    ans_places = uttr.prev_utterance.answerPlaces[child_type.value]
-  else:
+  if not child_type:
     return False
 
+  ans_places = uttr.prev_utterance.answerPlaces
   if uttr.places:
     cmp_places.extend([p.dcid for p in ans_places])
   elif len(ans_places) > 1:
@@ -315,4 +307,5 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
   uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
   uttr.past_source_context = "Query Results"
 
+  uttr.counters.info('include_answer_places', [p.dcid for p in ans_places])
   return True

@@ -16,9 +16,17 @@ from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.screenshot import runner
 
 
-# Class to test screenshot capture.
-class Test(WebdriverBaseTest):
+def create_test_function(page_config):
 
-  def test_run_local(self):
-    """Test these page can show correctly and do screenshot."""
-    self.assertTrue(runner.run(self.driver, self.url_, 'local'))
+  def test_function(self):
+    assert runner.run(self.driver, self.url_, page_config)
+
+  return test_function
+
+
+test_functions = {
+    f"test_{page}": create_test_function(page)
+    for page in runner.prepare('local')
+}
+
+TestDynamic = type("TestDynamic", (WebdriverBaseTest,), test_functions)

@@ -253,3 +253,10 @@ article.category {
   font-size: 12px;
   padding: 2px;
 }
+
+.tile-hidden,
+.column-hidden {
+  position: absolute;
+  top: -10000px;
+  visibility: hidden;
+}
