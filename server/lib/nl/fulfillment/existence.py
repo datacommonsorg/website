@@ -65,17 +65,9 @@ class ExistenceCheckTracker:
   def _run(self):
     # Perform batch existence check.
     # TODO: Optimize this!
-    if self.state.uttr.query_type == QueryType.BASIC:
-      self.existing_svs, existsv2places = \
-        utils.sv_existence_for_places_check_single_point(
-          self.places, list(self.all_svs), self.state.uttr.counters)
-    else:
-      tmp_svs, tmp_existsv2places = utils.sv_existence_for_places(
-          self.places, list(self.all_svs), self.state.uttr.counters)
-      self.existing_svs = {v: False for v in tmp_svs}
-      existsv2places = {}
-      for sv, plset in tmp_existsv2places.items():
-        existsv2places[sv] = {p: False for p in plset}
+    self.existing_svs, existsv2places = \
+      utils.sv_existence_for_places_check_single_point(
+        self.places, list(self.all_svs), self.state.uttr.counters)
 
     # In `state`, set sv -> place Key -> is-single-point
     for sv, pl2sp in existsv2places.items():

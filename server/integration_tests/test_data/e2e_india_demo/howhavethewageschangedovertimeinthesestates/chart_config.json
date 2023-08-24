@@ -8,11 +8,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1437",
+                    "placeDcidOverride": "wikidataId/Q1162",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
                     ],
-                    "title": "Rajasthan",
+                    "title": "Arunachal Pradesh",
                     "type": "LINE"
                   }
                 ]
@@ -20,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1185",
+                    "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
                     ],
-                    "title": "Karnataka",
+                    "title": "Manipur",
                     "type": "LINE"
                   }
                 ]
@@ -32,11 +32,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1191",
+                    "placeDcidOverride": "wikidataId/Q43433",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
                     ],
-                    "title": "Maharashtra",
+                    "title": "Chandigarh",
                     "type": "LINE"
                   }
                 ]
@@ -104,11 +104,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1356",
+                    "placeDcidOverride": "wikidataId/Q1164",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
                     ],
-                    "title": "West Bengal",
+                    "title": "Assam",
                     "type": "LINE"
                   }
                 ]
@@ -134,11 +134,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1437",
+                    "placeDcidOverride": "wikidataId/Q1162",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
-                    "title": "Rajasthan",
+                    "title": "Arunachal Pradesh",
                     "type": "LINE"
                   }
                 ]
@@ -146,11 +146,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1185",
+                    "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
-                    "title": "Karnataka",
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Chandigarh",
                     "type": "LINE"
                   }
                 ]
@@ -163,18 +175,6 @@
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
                     "title": "Odisha",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1191",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pct"
-                    ],
-                    "title": "Maharashtra",
                     "type": "LINE"
                   }
                 ]
@@ -230,11 +230,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1356",
+                    "placeDcidOverride": "wikidataId/Q1164",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
-                    "title": "West Bengal",
+                    "title": "Assam",
                     "type": "LINE"
                   }
                 ]
@@ -260,6 +260,42 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1168",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pc"
@@ -277,42 +313,6 @@
                       "Mean_WagesMonthly_Worker_growth_pc"
                     ],
                     "title": "Odisha",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1185",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pc"
-                    ],
-                    "title": "Karnataka",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1437",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pc"
-                    ],
-                    "title": "Rajasthan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1191",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pc"
-                    ],
-                    "title": "Maharashtra",
                     "type": "LINE"
                   }
                 ]
@@ -356,11 +356,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1356",
+                    "placeDcidOverride": "wikidataId/Q1164",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pc"
                     ],
-                    "title": "West Bengal",
+                    "title": "Assam",
                     "type": "LINE"
                   }
                 ]
@@ -400,7 +400,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1437"
+        "wikidataId/Q1162"
       ]
     }
   },
@@ -408,46 +408,21 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1498",
-    "name": "Uttar Pradesh",
+    "dcid": "wikidataId/Q1168",
+    "name": "Chhattisgarh",
     "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1498",
-      "name": "Uttar Pradesh",
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1191",
-      "name": "Maharashtra",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1356",
-      "name": "West Bengal",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1185",
-      "name": "Karnataka",
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
       "place_type": "State"
     },
     {
@@ -456,13 +431,38 @@
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q1437",
-      "name": "Rajasthan",
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1498",
+      "name": "Uttar Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
       "place_type": "State"
     }
   ],

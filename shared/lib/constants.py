@@ -327,7 +327,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
                 "drop(ped|s)?",
                 "loss(es)?",
             ],
-            "Change": ["change(s|d|) over time"]
+            "Change": ["change(s|d|) (over|with) time"]
         },
         "SizeType": {
             "Big": ["big",],

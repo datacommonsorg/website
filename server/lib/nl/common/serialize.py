@@ -90,6 +90,7 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       else:
         # This could also be a simple string (rather than string enum)
         cdict['contained_in_place_type'] = cip
+      cdict['had_default_type'] = c.attributes.had_default_type
     elif isinstance(c.attributes, EventClassificationAttributes):
       cdict['event_type'] = c.attributes.event_types
     elif isinstance(c.attributes, RankingClassificationAttributes):
@@ -117,7 +118,8 @@ def dict_to_classification(
     if 'contained_in_place_type' in cdict:
       attributes = ContainedInClassificationAttributes(
           contained_in_place_type=ContainedInPlaceType(
-              cdict['contained_in_place_type']))
+              cdict['contained_in_place_type']),
+          had_default_type=cdict.get('had_default_type', False))
     elif 'event_type' in cdict:
       attributes = EventClassificationAttributes(
           event_types=[EventType(e) for e in cdict['event_type']],

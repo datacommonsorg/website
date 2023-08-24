@@ -33,6 +33,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population Below Poverty Level Status in Past Year in Administrative Area 1 Places of India"
           },
           {
@@ -62,6 +63,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Population Below Poverty Level Status in Past Year"
           },
           {
@@ -94,6 +96,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Rural residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
           },
           {
@@ -126,6 +129,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Urban residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
           },
           {
@@ -155,6 +159,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Impoverished Population By Residency"
           },
           {
