@@ -772,7 +772,6 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Water for Farms"
     columns {
       tiles : {
         type: DESCRIPTION
