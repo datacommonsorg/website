@@ -1,0 +1,418 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Literate_multiple_place_bar_block",
+                      "Count_Person_Illiterate_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Literate and more (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate and more"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Literate_Female_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Female, Literate (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Literate, Rural (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Literate_Urban_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Literate, Urban (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Urban"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Houseless_Literate_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Houseless, Literate (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Houseless, Literate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Rural_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Illiterate, Rural (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Illiterate_Urban_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Illiterate, Urban (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate, Urban"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_Houseless_Literate_multiple_place_bar_block": {
+            "name": "Population: Houseless, Literate",
+            "statVar": "Count_Person_Houseless_Literate"
+          },
+          "Count_Person_Illiterate_Rural_multiple_place_bar_block": {
+            "name": "Population: Illiterate, Rural",
+            "statVar": "Count_Person_Illiterate_Rural"
+          },
+          "Count_Person_Illiterate_Urban_multiple_place_bar_block": {
+            "name": "Population: Illiterate, Urban",
+            "statVar": "Count_Person_Illiterate_Urban"
+          },
+          "Count_Person_Illiterate_multiple_place_bar_block": {
+            "name": "Population: Illiterate",
+            "statVar": "Count_Person_Illiterate"
+          },
+          "Count_Person_Literate_Female_multiple_place_bar_block": {
+            "name": "Population: Female, Literate",
+            "statVar": "Count_Person_Literate_Female"
+          },
+          "Count_Person_Literate_Rural_multiple_place_bar_block": {
+            "name": "Population: Literate, Rural",
+            "statVar": "Count_Person_Literate_Rural"
+          },
+          "Count_Person_Literate_Urban_multiple_place_bar_block": {
+            "name": "Population: Literate, Urban",
+            "statVar": "Count_Person_Literate_Urban"
+          },
+          "Count_Person_Literate_multiple_place_bar_block": {
+            "name": "Population: Literate",
+            "statVar": "Count_Person_Literate"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1168"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q1168",
+    "name": "Chhattisgarh",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1184",
+      "name": "Jharkhand",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1498",
+      "name": "Uttar Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_Houseless_Literate": {
+        "gender": [
+          "Count_Person_Houseless_Literate_Female",
+          "Count_Person_Houseless_Literate_Male"
+        ],
+        "placeOfResidenceClassification": [
+          "Count_Person_Houseless_Literate_Rural",
+          "Count_Person_Houseless_Literate_Urban"
+        ]
+      },
+      "Count_Person_Illiterate": {
+        "gender": [
+          "Count_Person_Illiterate_Female",
+          "Count_Person_Illiterate_Male"
+        ],
+        "placeOfResidenceClassification": [
+          "Count_Person_Illiterate_Rural",
+          "Count_Person_Illiterate_Urban"
+        ]
+      },
+      "Count_Person_Illiterate_Rural": {
+        "gender": [
+          "Count_Person_Illiterate_Rural_Female",
+          "Count_Person_Illiterate_Rural_Male"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_Christian_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_Hindu_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_Jain_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_Muslim_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_Illiterate_Rural",
+          "indianCensus/Count_Person_Religion_Sikh_Illiterate_Rural"
+        ]
+      },
+      "Count_Person_Illiterate_Urban": {
+        "gender": [
+          "Count_Person_Illiterate_Urban_Female",
+          "Count_Person_Illiterate_Urban_Male"
+        ]
+      },
+      "Count_Person_Literate": {
+        "gender": [
+          "Count_Person_Literate_Female",
+          "Count_Person_Literate_Male"
+        ],
+        "placeOfResidenceClassification": [
+          "Count_Person_Literate_Rural",
+          "Count_Person_Literate_Urban"
+        ]
+      },
+      "Count_Person_Literate_Female": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Literate_Rural_Female",
+          "Count_Person_Literate_Urban_Female"
+        ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Buddhist_Literate_Female",
+          "indianCensus/Count_Person_Religion_Christian_Literate_Female",
+          "indianCensus/Count_Person_Religion_Hindu_Literate_Female",
+          "indianCensus/Count_Person_Religion_Jain_Literate_Female",
+          "indianCensus/Count_Person_Religion_Muslim_Literate_Female",
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female",
+          "indianCensus/Count_Person_Religion_ReligionNotStated_Literate_Female",
+          "indianCensus/Count_Person_Religion_Sikh_Literate_Female"
+        ],
+        "socialCategory": [
+          "Count_Person_ScheduledCaste_Literate_Female",
+          "Count_Person_ScheduledTribe_Literate_Female"
+        ]
+      },
+      "Count_Person_Literate_Rural": {
+        "gender": [
+          "Count_Person_Literate_Rural_Female",
+          "Count_Person_Literate_Rural_Male"
+        ]
+      },
+      "Count_Person_Literate_Urban": {
+        "gender": [
+          "Count_Person_Literate_Urban_Female",
+          "Count_Person_Literate_Urban_Male"
+        ]
+      }
+    },
+    "mainTopic": {
+      "dcid": "dc/topic/Literacy",
+      "name": "Literacy",
+      "types": [
+        "Topic"
+      ]
+    },
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

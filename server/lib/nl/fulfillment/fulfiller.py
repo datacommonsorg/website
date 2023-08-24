@@ -14,7 +14,7 @@
 """Module for NL page data spec"""
 
 import logging
-from typing import List
+from typing import cast, List
 
 import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
@@ -43,7 +43,12 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # update `uttr`
   state.query_types = _produce_query_types(uttr)
 
-  state.place_type = utils.get_contained_in_type(uttr)
+  pt_cls = futils.classifications_of_type(
+      uttr.classifications, dtypes.ClassificationType.CONTAINED_IN)
+  if pt_cls:
+    cip = cast(dtypes.ContainedInClassificationAttributes, pt_cls[0].attributes)
+    state.place_type = cip.contained_in_place_type
+    state.had_default_place_type = cip.had_default_type
   state.ranking_types = utils.get_ranking_types(uttr)
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
@@ -86,7 +91,8 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Compute all the ChartVars
   has_correlation = futils.classifications_of_type_from_utterance(
       uttr, dtypes.ClassificationType.CORRELATION)
-  if has_correlation and state.uttr.multi_svs:
+  if (has_correlation and state.uttr.multi_svs and
+      state.uttr.multi_svs.candidates):
     state.chart_vars_map = topic.compute_correlation_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)

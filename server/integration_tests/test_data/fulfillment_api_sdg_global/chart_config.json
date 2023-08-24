@@ -1,0 +1,527 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Moderate or Severe Stunting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Moderate or Severe Stunting in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Moderate or Severe Stunting in Population Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Moderate or Severe Stunting in Population Under 5 in the World"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SH_STA_STNT.AGE--Y0T4": {
+            "name": "Moderate or Severe Stunting in Population Under 5",
+            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          },
+          "sdg/SH_STA_STNTN.AGE--Y0T4": {
+            "name": "Children Under 5 With Moderate or Severe Stunting",
+            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
+      "placeDcid": [
+        "Earth"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "Earth",
+    "name": "World",
+    "place_type": "Place"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "Earth",
+      "name": "World",
+      "place_type": "Place"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COG",
+          "name": "Congo [Republic]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopic": {
+      "dcid": "dc/topic/sdg_2.2.1",
+      "name": "Height Stunting for Children Under 5",
+      "types": [
+        "Topic"
+      ]
+    },
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2",
+        "name": "End Malnutrition by 2030",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.2",
+        "name": "Malnutrition (wasting and overweight) for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.2.3",
+        "name": "Aenemia",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

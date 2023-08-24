@@ -490,13 +490,6 @@ $feedback-link-font-color: #70757a;
     display: none;
   }
 
-  .tile-hidden,
-  .column-hidden {
-    position: absolute;
-    top: -10000px;
-    visibility: hidden;
-  }
-
   .tile-lg {
     width: 100%;
   }
