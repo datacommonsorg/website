@@ -20,7 +20,7 @@ import {
   FileSearchOutlined,
   LineChartOutlined,
 } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../layout/AppFooter";
 import Header from "../layout/AppHeader";
@@ -110,7 +110,8 @@ const StyledCard = styled.div`
 `;
 
 const Home = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
+  const location = useLocation();
   return (
     <AppLayout className="layout" style={{ minHeight: "100vh" }}>
       <Header selected="home" />
@@ -136,7 +137,7 @@ const Home = () => {
           <CardContainer>
             <StyledCard
               onClick={() => {
-                navigate("/countries");
+                history.push("/countries");
               }}
             >
               <div className="icon">
@@ -150,7 +151,7 @@ const Home = () => {
             </StyledCard>
             <StyledCard
               onClick={() => {
-                navigate("/goals");
+                history.replace("/goals");
               }}
             >
               <div className="icon">
@@ -164,7 +165,7 @@ const Home = () => {
             </StyledCard>
             <StyledCard
               onClick={() => {
-                navigate("/search");
+                history.replace("/search");
               }}
             >
               <div className="icon">
