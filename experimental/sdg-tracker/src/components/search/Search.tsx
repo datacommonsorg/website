@@ -16,8 +16,8 @@
 
 import { gray, red } from "@ant-design/colors";
 import { Layout } from "antd";
-import { useCallback, useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
@@ -131,9 +131,13 @@ const Search = () => {
   const [variableDcids, setVariableDcids] = useState<string[]>([]);
   const [placeDcids, setPlaceDcids] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const history = useHistory();
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
   const searchParamQuery = searchParams.get(QUERY_PARAM_QUERY);
-  const navigate = useNavigate();
 
   useEffect(() => {
     setQuery(searchParamQuery || "");
@@ -189,7 +193,7 @@ const Search = () => {
                 onSearch={(q) => {
                   const searchParams = new URLSearchParams();
                   searchParams.set(QUERY_PARAM_QUERY, q);
-                  navigate("/search?" + searchParams.toString());
+                  history.push("/search?" + searchParams.toString());
                 }}
               />
             </SearchBarContainer>
@@ -240,7 +244,7 @@ const Search = () => {
               onSearch={(q) => {
                 const searchParams = new URLSearchParams();
                 searchParams.set(QUERY_PARAM_QUERY, q);
-                navigate("/search?" + searchParams.toString());
+                history.push("/search?" + searchParams.toString());
               }}
               variableDcids={variableDcids}
               placeDcid={placeDcids[0]}

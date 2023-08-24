@@ -15,8 +15,8 @@
  */
 
 import { Layout } from "antd";
-import { useCallback } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useCallback, useMemo } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
   QUERY_PARAM_PLACE,
   QUERY_PARAM_VARIABLE,
@@ -32,9 +32,13 @@ import CountriesContent from "./CountriesContent";
 const DEFAULT_PLACE = "country/IRL";
 
 const Countries = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const history = useHistory();
   const location = useLocation();
+
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
   const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || DEFAULT_PLACE;
   const variableDcid =
     searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
@@ -46,7 +50,7 @@ const Countries = () => {
     (variableDcid: string) => {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
-      navigate(location.pathname + "?" + searchParams.toString());
+      history.push(location.pathname + "?" + searchParams.toString());
     },
     [location]
   );
@@ -58,7 +62,7 @@ const Countries = () => {
     (placeDcid: string) => {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set(QUERY_PARAM_PLACE, placeDcid);
-      navigate(location.pathname + "?" + searchParams.toString());
+      history.push(location.pathname + "?" + searchParams.toString());
     },
     [location]
   );

@@ -94,7 +94,7 @@ export interface Variable {
  * MenuItem type for holding variable egroups
  */
 
-interface MenuItemType {
+export interface MenuItemType {
   key: string;
   label: string;
   icon?: ReactNode;
