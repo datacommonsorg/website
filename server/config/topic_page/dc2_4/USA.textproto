@@ -59,12 +59,20 @@ categories {
         description: "Households in the United States live in poverty but do not receive food assistance (SNAP)"
         stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
       }
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
+      }
     }
     columns {
       tiles {
-        type: LINE
-        title: "Number of Households in Poverty and Not Receiving SNAP"
-        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+        type: MAP
+        title: "% of Households in Poverty and Not Receiving SNAP"
+        stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
       }
     }
   }
@@ -73,6 +81,17 @@ categories {
     value {
       stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
       name: "Households Not Receiving Food Stamps in Last Year, Income Below Poverty Level"
+    }
+  }
+
+  stat_var_spec {
+    key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
+    value {
+      stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
+      name: "Households Not Receiving Food Stamps in Last Year, Income Below Poverty Level"
+      denom: "Count_Household"
+      scaling: 100
+      unit: "%"
     }
   }
 
@@ -505,6 +524,8 @@ categories {
 categories {
   title: "Farming and Climate"
 
+  #------- FARMS -------#
+
   ### NEW BLOCK ###
   blocks {
     title: "Farms"
@@ -515,16 +536,6 @@ categories {
         description: "Farms in ${placeName} ${date}"
         stat_var_key: "Count_Farm"
       }
-      tiles {
-        title: "Farms ${date}"
-        type: MAP
-        stat_var_key: "Count_Farm"
-      }
-      tiles {
-        title: "Population: Producer ${date}"
-        type: MAP
-        stat_var_key: "Count_Person_Producer"
-      }
     }
   }
   stat_var_spec {
@@ -534,41 +545,24 @@ categories {
       name: "Farms"
     }
   }
-  stat_var_spec {
-    key: "Count_Person_Producer"
-    value {
-      stat_var: "Count_Person_Producer"
-      name: "Count: Producer"
-    }
-  }
 
-  ### NEW BLOCK ###
   blocks {
-    title: "Farm Areas"
-    description: "Silage and forage are crops that are grown specifically to feed livestock, including cows, and are an essential component of cattle farming. Having sufficient land dedicated to silage and forage production can support a healthy, productive, and sustainable cattle population, which in turn contributes to food security by ensuring a consistent supply of meat and dairy products to these communities. Especially during periods of drought, crop failure, or other disasters, having dedicated land for cattle and feed ensures consistent supply of animal-based foods to communities in the face of potential agricultural disasters."
+    columns {
+      tiles {
+        title: "Farms ${date}"
+        type: MAP
+        stat_var_key: "Count_Farm"
+      }
+    }
     columns {
       tiles {
         title: "Percent of Crop Covered Area ${date}"
         type: MAP
         stat_var_key: "LandCoverFraction_Cropland"
       }
-      tiles {
-        title: "Beef Cows on a Farm ${date}"
-        type: MAP
-        stat_var_key: "Count_FarmInventory_BeefCows"
-      }
-      tiles {
-        title: "Forage Produced ${date}"
-        type: MAP
-        stat_var_key: "Amount_FarmInventory_Forage"
-      }
-      tiles {
-        title: "Total Area of Farms for Silage ${date}"
-        type: MAP
-        stat_var_key: "Area_Farm_CornForSilageOrGreenchop"
-      }
     }
   }
+
   stat_var_spec {
     key: "LandCoverFraction_Cropland"
     value {
@@ -576,11 +570,43 @@ categories {
       name: "Percent of Crop Covered Area"
     }
   }
+
+  #------- FARMS -------#
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Farm Areas"
+    description: "Silage and forage are crops that are grown specifically to feed livestock, including cows, and are an essential component of cattle farming. Having sufficient land dedicated to silage and forage production can support a healthy, productive, and sustainable cattle population, which in turn contributes to food security by ensuring a consistent supply of meat and dairy products to these communities. Especially during periods of drought, crop failure, or other disasters, having dedicated land for cattle and feed ensures consistent supply of animal-based foods to communities in the face of potential agricultural disasters."
+    columns {
+      tiles {
+        title: "Beef Cows on a Farm ${date}"
+        type: MAP
+        stat_var_key: "Count_FarmInventory_BeefCows"
+      }
+    }
+  }
   stat_var_spec {
     key: "Count_FarmInventory_BeefCows"
     value {
       stat_var: "Count_FarmInventory_BeefCows"
       name: "Beef Cows on a Farm"
+    }
+  }
+
+  blocks {
+    columns {
+      tiles {
+        title: "Forage Produced ${date}"
+        type: MAP
+        stat_var_key: "Amount_FarmInventory_Forage"
+      }
+    }
+    columns {
+      tiles {
+        title: "Total Area of Farms for Silage ${date}"
+        type: MAP
+        stat_var_key: "Area_Farm_CornForSilageOrGreenchop"
+      }
     }
   }
   stat_var_spec {
@@ -598,26 +624,26 @@ categories {
     }
   }
 
+  #------- FARM PRODUCTION -------#
+
   ### NEW BLOCK ###
   blocks {
     title: "Farm Production"
-    description: "Irrigation and depleting water sources play an increasingly critical role on farms. Crops vary in their dependence on irrigation, with many vegetables and more sensitive grains being completely reliant on supplementary water to survive harsh summers. Other crops require supplemental water from irrigation to be economically viable, but are unlikely to die or completely fail without it. With climate change impacting access to reliable irrigation, how will farmers need to adapt to this depleting resource?"
+    description: "Irrigation and depleting water sources play an increasingly critical role on farms. Crops vary in their dependence on irrigation, with many vegetables and more sensitive grains being completely reliant on supplementary water to survive harsh summers. Other crops require supplemental water from irrigation to be economically viable, but are unlikely to die or completely fail without it. With climate change impacting access to reliable irrigation, how will farmers need to adapt to this depleting resource? "
     columns {
       tiles {
         title: "Area of Irrigated Lands on Farms ${date}"
         type: MAP
         stat_var_key: "Area_Farm_IrrigatedLand"
       }
+    }
+    columns {
       tiles {
         title: "Area of Farms Growing Vegetables for Sale ${date}"
         type: MAP
         stat_var_key: "Area_Farm_VegetablesHarvestedForSale"
       }
-      tiles {
-        title: "Farms Receiving Government Payments ${date}"
-        type: MAP
-        stat_var_key: "Count_Farm_ReceivedGovernmentPayment"
-      }
+
       
     }
   }
@@ -635,13 +661,9 @@ categories {
       name: "Area of Farms Growing Vegetables for Sale"
     }
   }
-  stat_var_spec {
-    key: "Count_Farm_ReceivedGovernmentPayment"
-    value {
-      stat_var: "Count_Farm_ReceivedGovernmentPayment"
-      name: "Farms Receiving Government Payments"
-    }
-  }
+
+
+  #------- FARM EQUIPMENT AND SUBSIDIES -------#
 
   ### NEW BLOCK ###
   blocks {
@@ -649,11 +671,24 @@ categories {
     description: "The U.S. government has subsidized farmers through direct cash payments and other measures since 1933. How do higher equipment costs impact new farmers?"
     columns {
       tiles {
+        title: "Farms Receiving Government Payments ${date}"
+        type: MAP
+        stat_var_key: "Count_Farm_ReceivedGovernmentPayment"
+      }
+    }
+    columns {
+      tiles {
         title: "Mean Market Value of Farm Machinery and Equipment ${date}"
         type: MAP
         stat_var_key: "Mean_MarketValue_Farm_MachineryAndEquipment"
       }
-      
+    }
+  }
+  stat_var_spec {
+    key: "Count_Farm_ReceivedGovernmentPayment"
+    value {
+      stat_var: "Count_Farm_ReceivedGovernmentPayment"
+      name: "Farms Receiving Government Payments"
     }
   }
   stat_var_spec {
@@ -664,15 +699,12 @@ categories {
     }
   }
 
-}
-
-categories {
-  title: "Climate and Agriculture"
-  description: "Climate change is an increasingly significant development for farmers. Heat waves are just one factor that can lead to crop loss. Below you see a map exploring the rate of heat waves experienced by a population in a given region. What decisions will farmers have to make to address more frequent heat events?"
+  #------- CLIMATE AND AGRICULTURE -------#
 
   ### NEW BLOCK ###
   blocks {
-    title: "Temperature"
+    title: "Climate and Agriculture"
+    description: "Climate change is an increasingly significant development for farmers. Heat waves are just one factor that can lead to crop loss. Below you see a map exploring the rate of heat waves experienced by a population in a given region."
     columns {
       tiles {
         title: "Population-weighted Number of Heat Waves ${date}"
@@ -692,14 +724,18 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Droughts"
     columns {
       tiles {
         title: "Droughts ${date}"
         type: MAP
         stat_var_key: "Count_DroughtEvent"
+      } 
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "Farmers rely on a steady and reliable source of water for their crops to be successful, either in the form of irrigation or in the form of consistent rainfall. Coupled with intensifying water use, the number of droughts paint a picture of a dwindling key resource and the stress on farmers to obtain consistent access to this resource."
       }
-      
     }
   }
   stat_var_spec {
@@ -712,23 +748,18 @@ categories {
 
   ### NEW BLOCK ###
   blocks {
-    title: "Water for Farms"
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "In response to a changing climate, farmers may need to find other resources for their crops or livestock."
+      }
+    }
     columns {
       tiles {
         title: "Area of Irrigated Lands on Farms ${date}"
         type: MAP
         stat_var_key: "Area_Farm_IrrigatedLand"
-      }
-      tiles: {
-        type: LINE
-        title: "Withdrawal Rate of Water for Livestock in ${placeName}"
-        stat_var_key: "WithdrawalRate_Water_Livestock"
-      }
-      tiles {
-        title: "Withdrawal Rate of Water for Livestock ${date}"
-        type: MAP
-        stat_var_key: "WithdrawalRate_Water_Livestock"
-      }
+      } 
     }
   }
   stat_var_spec {
@@ -738,6 +769,34 @@ categories {
       name: "Area of Irrigated Lands on Farms"
     }
   } 
+
+  ### NEW BLOCK ###
+  blocks {
+    title: "Water for Farms"
+    columns {
+      tiles : {
+        type: DESCRIPTION
+        description: "Animal products are an essential component of the U.S. food system. However, it is important to note that beef demands a lot of water. This demand stems from both the animals themselves and the feed that they rely on.\n\nHow could the U.S. preference for beef be impacting other agricultural sectors negatively?"
+      }
+      tiles: {
+        type: LINE
+        title: "Withdrawal Rate of Water for Livestock in ${placeName}"
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+    columns {
+      tiles : {
+        type: DESCRIPTION
+        description: "Animal agriculture is often the most viable agricultural option in many areas. Factors limiting crop production include climate pressures, access to irrigation, and socioeconomic pressures.\n\nSince water resources are often limited, how might competition for this resource affect farmers?"
+      }
+      tiles {
+        title: "Withdrawal Rate of Water for Livestock ${date}"
+        type: MAP
+        stat_var_key: "WithdrawalRate_Water_Livestock"
+      }
+    }
+  }
+  
   stat_var_spec {
     key: "WithdrawalRate_Water_Livestock"
     value {
@@ -754,7 +813,7 @@ categories {
     columns {
       tiles {
         type: DESCRIPTION
-        description: "It is important to note that the dryer, warmer future is only one component of how climate change is expected to affect our food systems. The increasing severity of storms, massive flooding events, and other changing climate factors affect our ability to produce food. These events not only impact food production where they occur, they also drive up the demand for food and other resources as people are displaced and try to recover.\nIn summary, improving food security depends on careful planning and policy considerations. Food security is a multifaceted issue influenced by a wide range of factors, including income levels, access to markets, food distribution systems, government policies, social safety nets, education, health, sustainable agricultural practices, climate resilience, and more. "
+        description: "It is important to note that the dryer, warmer future is only one component of how climate change is expected to affect our food systems. The increasing severity of storms, massive flooding events, and other changing climate factors affect our ability to produce food. These events not only impact food production where they occur, they also drive up the demand for food and other resources as people are displaced and try to recover.\n\nIn summary, improving food security depends on careful planning and policy considerations. Food security is a multifaceted issue influenced by a wide range of factors, including income levels, access to markets, food distribution systems, government policies, social safety nets, education, health, sustainable agricultural practices, climate resilience, and more."
       }
     }
   }
