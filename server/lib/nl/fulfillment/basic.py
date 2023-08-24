@@ -72,41 +72,48 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   added = False
 
   # For peer-groups, add multi-line charts.
-  if chart_vars.is_topic_peer_group:
-
-    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
-
-    # Limit the number of map/ranking charts in an SVPG.
-    if len(state.exist_chart_vars_list) > _MAX_NUM_CHART_VARS_THRESHOLD:
-      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_LOWER
-    else:
-      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_UPPER
-
-  else:
-    max_rank_and_map_charts = len(chart_vars.svs)
-
+  max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
   is_sdg = params.is_sdg(state.uttr.insight_ctx)
+
+  # If user didn't ask for ranking, show timeline+highlight first.
+  if not state.ranking_types and chart_vars.is_topic_peer_group:
+    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   all_svs = copy.deepcopy(chart_vars.svs)
   for sv in all_svs[:max_rank_and_map_charts]:
     chart_vars.svs = [sv]
-    if not chart_vars.is_topic_peer_group:
+
+    # If user didn't ask for ranking, show timeline+highlight first.
+    if not state.ranking_types and not chart_vars.is_topic_peer_group:
       added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
-    # If this is SDG, unless user has asked for ranking, do not return!
-    if not is_sdg or state.ranking_types:
-      ranking_orig = state.ranking_types
-      if not state.ranking_types:
-        state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-      added |= ranking_across_places.populate(
-          state,
-          chart_vars,
-          places,
-          chart_origin,
-          rank,
-          ranking_count=_get_ranking_count_by_type(state.place_type,
-                                                   ranking_orig))
-      state.ranking_types = ranking_orig
+    if state.place_type:
+      # If this is SDG, unless user has asked for ranking, do not return!
+      if not is_sdg or state.ranking_types:
+        ranking_orig = state.ranking_types
+        if not state.ranking_types:
+          state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+        added |= ranking_across_places.populate(
+            state,
+            chart_vars,
+            places,
+            chart_origin,
+            rank,
+            ranking_count=_get_ranking_count_by_type(state.place_type,
+                                                     ranking_orig))
+        state.ranking_types = ranking_orig
+      elif is_sdg:
+        # Return only map.
+        added |= containedin.populate(state, chart_vars, places, chart_origin,
+                                      rank)
+
+    # If user had asked for ranking, show timeline+highlight last.
+    if state.ranking_types and not chart_vars.is_topic_peer_group:
+      added |= simple.populate(state, chart_vars, places, chart_origin, rank)
+
+  # If user had asked for ranking, show timeline+highlight last.
+  if state.ranking_types and chart_vars.is_topic_peer_group:
+    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   return added
 
@@ -138,3 +145,16 @@ def _get_ranking_count_by_type(t: ContainedInPlaceType, rt: List[RankingType]):
   if (t and t.value.endswith('School')) or (len(rt) == 1):
     return _EXPLORE_SCHOOL_RANKING_COUNT
   return _EXPLORE_RANKING_COUNT
+
+
+def _get_max_rank_and_map_charts(chart_vars: ChartVars,
+                                 state: PopulateState) -> int:
+  if chart_vars.is_topic_peer_group:
+    # Limit the number of map/ranking charts in an SVPG.
+    if len(state.exist_chart_vars_list) > _MAX_NUM_CHART_VARS_THRESHOLD:
+      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_LOWER
+    else:
+      max_rank_and_map_charts = _MAX_RANKING_AND_MAP_PER_SVPG_UPPER
+  else:
+    max_rank_and_map_charts = len(chart_vars.svs)
+  return max_rank_and_map_charts

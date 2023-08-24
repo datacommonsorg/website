@@ -45,6 +45,12 @@ _TIME_DELTA_SORT_MAP = {
     # Lowest shrinking jobs
     (types.TimeDeltaType.DECREASE, types.RankingType.LOW):
         True,
+    (types.TimeDeltaType.CHANGE, None):
+        True,
+    (types.TimeDeltaType.CHANGE, types.RankingType.HIGH):
+        True,
+    (types.TimeDeltaType.CHANGE, types.RankingType.LOW):
+        False,
 }
 
 
@@ -120,9 +126,9 @@ def rank_places_by_series_growth(places: List[str], sv: str,
       logging.error('Growth rate computation failed: %s', str(e))
       continue
 
-    if net_growth.abs > 0 and growth_direction != types.TimeDeltaType.INCREASE:
+    if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
       continue
-    if net_growth.abs < 0 and growth_direction != types.TimeDeltaType.DECREASE:
+    if net_growth.abs < 0 and growth_direction == types.TimeDeltaType.INCREASE:
       continue
 
     places_with_vals.append((place, net_growth))
@@ -159,9 +165,9 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
       logging.error('Growth rate computation failed: %s', str(e))
       continue
 
-    if net_growth.abs > 0 and growth_direction != types.TimeDeltaType.INCREASE:
+    if net_growth.abs > 0 and growth_direction == types.TimeDeltaType.DECREASE:
       continue
-    if net_growth.abs < 0 and growth_direction != types.TimeDeltaType.DECREASE:
+    if net_growth.abs < 0 and growth_direction == types.TimeDeltaType.INCREASE:
       continue
 
     svs_with_vals.append((sv, net_growth))
