@@ -44,7 +44,7 @@ export function ResultHeaderSection(
   const topicList = [];
   if (!_.isEmpty(topics)) {
     for (const topic of topics) {
-      if (topic.dcid == DEFAULT_TOPIC) {
+      if (topic.dcid == DEFAULT_TOPIC || !topic.name) {
         // Do not show the root topic.
         continue;
       }
