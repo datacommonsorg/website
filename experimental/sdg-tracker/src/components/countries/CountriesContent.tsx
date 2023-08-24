@@ -17,7 +17,7 @@
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 import { useStoreActions, useStoreState } from "../../state";
@@ -208,7 +208,6 @@ const CountriesContent: React.FC<{
     return parentDcids.map((parentDcid) => s.variableGroups.byDcid[parentDcid]);
   });
   const location = useLocation();
-  const history = useHistory();
   /**
    * Fetch page content
    */
