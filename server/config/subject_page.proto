@@ -288,6 +288,22 @@ message Tile {
   }
 }
 
+message DisasterBlockSpec {
+  enum DateRange {
+    TYPE_NONE = 0;
+    THIRTY_DAYS = 1;
+    SIX_MONTHS = 2;
+    ONE_YEAR = 3;
+    THREE_YEARS = 4;
+  }
+  // [optional] If set, use as default date. Otherwise, default date is
+  // THREE_YEARS for all places except for Earth, which defaults to ONE_YEAR.
+  oneof default_date {
+    DateRange date_range = 1;
+    string date = 2;
+  }
+}
+
 message Block {
   // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
@@ -316,6 +332,10 @@ message Block {
   // Whether or not the block should use the denom when first rendered. Only
   // used if denom is set. Defaults to false.
   bool start_with_denom = 7;
+  // specs for specific block types
+  oneof block_type_spec {
+    DisasterBlockSpec disaster_block_spec = 8;
+  }
 }
 
 message Category {
