@@ -212,6 +212,7 @@ class ComparisonClassificationAttributes(ClassificationAttributes):
 class ContainedInClassificationAttributes(ClassificationAttributes):
   """ContainedIn classification attributes."""
   contained_in_place_type: ContainedInPlaceType
+  had_default_type: bool = False
 
 
 @dataclass

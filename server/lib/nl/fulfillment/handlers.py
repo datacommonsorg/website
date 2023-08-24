@@ -137,7 +137,8 @@ def _maybe_add_containedin(uttr: Utterance) -> bool:
         NLClassifier(
             type=ClassificationType.CONTAINED_IN,
             attributes=ContainedInClassificationAttributes(
-                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE,
+                had_default_type=True)))
     return True
   return False
 
@@ -170,7 +171,10 @@ def _classification_to_query_type(cl: NLClassifier,
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
         uttr, ClassificationType.CONTAINED_IN)
-    if classification or len(uttr.places) > 1:
+    if len(
+        uttr.places) > 1 or (classification and
+                             not classification[0].attributes.had_default_type):
+      # We had multiple places or had place-type that's user-specified.
       query_type = QueryType.TIME_DELTA_ACROSS_PLACES
     else:
       query_type = QueryType.TIME_DELTA_ACROSS_VARS

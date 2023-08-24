@@ -14,19 +14,28 @@
 
 import copy
 import logging
+import os
 from typing import List
 
+from flask import current_app
+
+from server.lib import util as libutil
 import server.lib.explore.existence as ext
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
+from server.lib.nl.common import variable
 from server.lib.nl.common.rank_utils import filter_and_rank_places
+from server.lib.nl.common.rank_utils import filter_and_rank_places_per_capita
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
+from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import \
+    classifications_of_type_from_utterance
 
 
 #
@@ -74,16 +83,7 @@ def populate(state: PopulateState,
     if (rank == 0 and len(chart_vars.svs) == 1 and
         len(state.ranking_types) == 1 and
         state.ranking_types[0] in [RankingType.HIGH, RankingType.LOW]):
-      # Perform a read.
-      ranked_places = filter_and_rank_places(places[0], state.place_type,
-                                             chart_vars.svs[0])
-      if state.ranking_types[0] == RankingType.LOW:
-        # Reverse the order.
-        ranked_places.reverse()
-      ans_places = copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
-      state.uttr.answerPlaces = ans_places
-      state.uttr.counters.info('ranking-across-places_answer_places',
-                               [p.dcid for p in ans_places])
+      _compute_answer_places(state, places[0], chart_vars.svs[0])
 
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True
@@ -93,3 +93,30 @@ def populate(state: PopulateState,
                                   places,
                                   chart_origin,
                                   ranking_count=ranking_count)
+
+
+def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
+  if classifications_of_type_from_utterance(state.uttr,
+                                            ClassificationType.PER_CAPITA):
+    if os.environ.get('FLASK_ENV') == 'test':
+      nopc_vars = libutil.get_nl_no_percapita_vars()
+    else:
+      nopc_vars = current_app.config['NOPC_VARS']
+    if variable.is_percapita_relevant(sv, nopc_vars):
+      ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
+                                                        sv)
+    else:
+      ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
+                                                        sv)
+  else:
+    ranked_places = filter_and_rank_places(place, state.place_type, sv)
+
+  if state.ranking_types[0] == RankingType.LOW:
+    # Reverse the order.
+    ranked_places.reverse()
+
+  ans_places = copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+
+  state.uttr.answerPlaces = ans_places
+  state.uttr.counters.info('ranking-across-places_answer_places',
+                           [p.dcid for p in ans_places])

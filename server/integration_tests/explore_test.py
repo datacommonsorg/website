@@ -285,7 +285,7 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_e2e_india_demo(self):
     self.run_detect_and_fulfill('e2e_india_demo', [
-        'Which states in India have the highest poverty levels?',
+        'Which states in India have the highest poverty levels per capita?',
         'How have the wages changed over time in these states?',
         'How much has infant mortality reduced?',
         'How does the literacy rate compare?',

@@ -75,8 +75,15 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
   is_sdg = params.is_sdg(state.uttr.insight_ctx)
 
+  # If user specified ranking or an explicit child place type, show child charts
+  # (map, ranking) before main (bars, timelines).
+  main_before_child = True
+  if state.ranking_types or (state.place_type and
+                             not state.had_default_place_type):
+    main_before_child = False
+
   # If user didn't ask for ranking, show timeline+highlight first.
-  if not state.ranking_types and chart_vars.is_topic_peer_group:
+  if main_before_child and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   all_svs = copy.deepcopy(chart_vars.svs)
@@ -84,7 +91,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
     chart_vars.svs = [sv]
 
     # If user didn't ask for ranking, show timeline+highlight first.
-    if not state.ranking_types and not chart_vars.is_topic_peer_group:
+    if main_before_child and not chart_vars.is_topic_peer_group:
       added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
     if state.place_type:
@@ -108,11 +115,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
                                       rank)
 
     # If user had asked for ranking, show timeline+highlight last.
-    if state.ranking_types and not chart_vars.is_topic_peer_group:
+    if not main_before_child and not chart_vars.is_topic_peer_group:
       added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   # If user had asked for ranking, show timeline+highlight last.
-  if state.ranking_types and chart_vars.is_topic_peer_group:
+  if not main_before_child and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   return added
