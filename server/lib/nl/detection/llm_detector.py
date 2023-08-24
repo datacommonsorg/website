@@ -67,6 +67,7 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
     'GROWTH': {
         'INCREASE': types.TimeDeltaType.INCREASE,
         'DECREASE': types.TimeDeltaType.DECREASE,
+        'CHANGE': types.TimeDeltaType.CHANGE,
     },
     'SIZE': {
         'BIG': types.SizeType.BIG,

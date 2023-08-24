@@ -1075,6 +1075,9 @@ worldBank/EG_ELC_ACCS_RU_ZS,"Access to electricity, rural (% of rural population
 worldBank/4_1_SHARE_RE_IN_ELECTRICITY,Renewable electricity share of total electricity output (%),Renewable electricity proportion in total output,,fraction of electricity output due to renewables; renewable electricity as a percentage of total output; electricity output from renewables;
 worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,Total electricity output (GWh),Total electricity output,,total energy output; total energy produced;
 worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,Renewable electricity output (GWh),Renewable electricity output,,renewable energy output; energy produced from renewables;
+Mean_WagesMonthly_Worker,Mean Monthly Wages,Monthly wages of workers,,monthly wages; mean wages monthly; monthly worker wages;monthly income; monthly salary;
+Count_Death_Infant,Number of infant deaths,Total number of infant deaths,,deaths of infants; infant death count;
+Count_School_SeniorSecondarySchool_Grade1To10,Numer of secondary schools,Numer of secondary schools,,number of senior secondary schools; senior secondary schools; secondary school count; 
 dc/topic/Economy,,Economy,,Economic overview; Summary of the economy; State of the economy; Condition of the economy; Status of the economy;
 dc/topic/Agriculture,,Agriculture,,Agriculture; Farming;Farming information; Agriculture data; Agriculture statistics; Data related to agriculture; Information on farming;
 dc/topic/AgriculturalProduction,,Agricultural Output,,Agricultural Production; Agricultural Output; Output from agricultural activities;

@@ -19,7 +19,6 @@
  * TODO(beets): Generate this file automatically with ts-protoc-gen
  */
 
-import { SortType } from "../chart/types";
 import { StatVarSpec } from "../shared/types";
 
 export interface SeverityFilter {
@@ -156,6 +155,11 @@ export interface ColumnConfig {
   tiles: TileConfig[];
 }
 
+export interface DisasterBlockSpec {
+  dateRange?: string;
+  date?: string;
+}
+
 export interface BlockConfig {
   title?: string;
   description: string;
@@ -164,6 +168,7 @@ export interface BlockConfig {
   type?: string;
   denom?: string;
   startWithDenom?: boolean;
+  disasterBlockSpec?: DisasterBlockSpec;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

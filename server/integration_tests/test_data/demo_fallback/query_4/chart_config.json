@@ -91,6 +91,7 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
                       "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
+                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
@@ -146,6 +147,11 @@
           "Percent_Person_Smoking": {
             "name": "Prevalence of Smoking",
             "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
+          "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
+            "name": "Prevalance of Complete Tooth Loss in the Population",
+            "statVar": "Percent_Person_WithAllTeethLoss",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {

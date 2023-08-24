@@ -78,8 +78,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   if rank == 0:
     # Set answer places.
-    state.uttr.answerPlaces[state.place_type.value] = \
-      copy.deepcopy(ranked_children[:constants.MAX_ANSWER_PLACES])
+    ans_places = copy.deepcopy(ranked_children[:constants.MAX_ANSWER_PLACES])
+    state.uttr.answerPlaces = ans_places
+    state.uttr.counters.info('filter-with-single-var_answer_places',
+                             [p.dcid for p in ans_places])
 
   # Compute title suffix.
   if len(ranked_children) > _MAX_PLACES_TO_RETURN:
