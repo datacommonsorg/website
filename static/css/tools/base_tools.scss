@@ -112,3 +112,23 @@ body {
 .modal .statvar-hierarchy-search-section .title {
   display: none;
 }
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a:hover {
+    outline: 1px solid var(--dc-primary);
+    border-color: var(--dc-primary);
+  }
+
+  a {
+    font-size: 14px;
+    border: 1px solid #747775;
+    border-radius: 100px;
+    padding: 10px 24px;
+    text-decoration: none;
+  }
+}
