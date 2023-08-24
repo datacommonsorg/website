@@ -130,6 +130,17 @@ categories {
         type: DESCRIPTION
         description: "According to macroeconomics theories, as more production is generated in a country, the labor force increases. This is a result of production driving more consumption, which in turn drives demand and employment."
       }
+    }
+    columns {
+      tiles {
+        type: DESCRIPTION
+        description: "When GDP increases, we see an increase in the number of higher education students not dropping out of college and instead continuing to graduation."
+      }
+    }
+  }
+
+  blocks {
+    columns {
       tiles {
         type: LINE
         title: "Percent of Working-Age Population in the Labor Force"
@@ -137,10 +148,6 @@ categories {
       }
     }
     columns {
-      tiles {
-        type: DESCRIPTION
-        description: "When GDP increases, we see an increase in the number of higher education students not dropping out of college and instead continuing to graduation."
-      }
       tiles {
         type: LINE
         title: "Percent of Secondary Education Students Graduating"
@@ -197,6 +204,7 @@ categories {
     value {
       stat_var: "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
       name: "Growth Rate of GDP"
+      unit: "%"
     }
   }
 
@@ -345,19 +353,19 @@ categories {
       }
       tiles {
         type: DESCRIPTION
-        description: "- [*WWB Colombia Foundation*](https://www.fundacionwwbcolombia.org): Creates programs to strengthen the personal and business skills of vulnerable women in order to reduce the unemployment rate of this population and boost the impact of social investment."
+        description: "- [*WWB Colombia Foundation*](https://www.fundacionwwbcolombia.org) creates programs to strengthen the personal and business skills of vulnerable women in order to reduce the unemployment rate of this population and boost the impact of social investment."
       }
       tiles {
         type: DESCRIPTION
-        description: "- [*Mano Cambiada*](https://www.manocambiada.org): Seeks to prevent the recruitment of young people in contexts of violence, transforming them into social change agents through the creation of community-based tourism programs and environmental and cultural education."
+        description: "- [*Mano Cambiada*](https://www.manocambiada.org) seeks to prevent the recruitment of young people in contexts of violence, transforming them into social change agents through the creation of community-based tourism programs and environmental and cultural education."
       }
       tiles {
         type: DESCRIPTION
-        description: "- [*Recon*](https://www.reconcolombia.org): Seeks to strengthen social enterprises that impact the sustainable economic and social development of vulnerable communities."
+        description: "- [*Recon*](https://www.reconcolombia.org) seeks to strengthen social enterprises that impact the sustainable economic and social development of vulnerable communities."
       }
       tiles {
         type: DESCRIPTION
-        description: "- [*Fundación Capital*](https://www.fundacioncapital.org): Seeks to improve the financial and economic life of socially vulnerable populations."
+        description: "- [*Fundación Capital*](https://www.fundacioncapital.org) seeks to improve the financial and economic life of socially vulnerable populations."
       }
     }
     columns {
@@ -371,7 +379,7 @@ categories {
       }
       tiles {
         type: DESCRIPTION
-        description: "- [*Alexander Von Humboldt Institute*](http://humboldt.org.co) seeks to promote through open data collaboration in scientific and academic creation."
+        description: "- [*Alexander Von Humboldt Institute*](http://humboldt.org.co) seeks to promote collaboration in scientific and academic creation through open data."
       }
       tiles {
         type: DESCRIPTION
