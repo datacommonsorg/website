@@ -64,7 +64,7 @@ def populate(state: PopulateState,
   else:
     exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs
     if not exist_svs:
-      state.uttr.counters.err('containedin_failed_existence', 1)
+      state.uttr.counters.err('ranking-across-places_failed_existence', 1)
       return False
     chart_vars.svs = exist_svs
 
@@ -80,8 +80,10 @@ def populate(state: PopulateState,
       if state.ranking_types[0] == RankingType.LOW:
         # Reverse the order.
         ranked_places.reverse()
-      state.uttr.answerPlaces[state.place_type.value] = \
-        copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+      ans_places = copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+      state.uttr.answerPlaces = ans_places
+      state.uttr.counters.info('ranking-across-places_answer_places',
+                               [p.dcid for p in ans_places])
 
     if not utils.has_map(state.place_type, places):
       chart_vars.skip_map_for_ranking = True

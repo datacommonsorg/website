@@ -107,19 +107,6 @@ class ExistenceCheckTracker:
         for sv in ecv.chart_vars.svs:
           if sv in self.existing_svs:
             ecv.exist_svs.append(sv)
-        if len(ecv.exist_svs) < len(ecv.chart_vars.svs):
-          self.state.uttr.counters.err(
-              'failed_partial_existence_check_extended_svs', {
-                  'places':
-                      self.places,
-                  'type':
-                      self.state.place_type,
-                  'svs':
-                      list(
-                          set(ecv.chart_vars.svs) -
-                          set(self.existing_svs.keys()))
-                      [:constants.DBG_LIST_LIMIT],
-              })
 
   # Get chart-vars for addition to charts
   def get_chart_vars(self,

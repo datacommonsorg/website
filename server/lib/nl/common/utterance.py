@@ -147,8 +147,8 @@ class Utterance:
   # This is a list of places in the answer
   # (e.g., top earthquake prone CA counties)
   # If the answer involves a list of Top N/ Bottom N places, the results
-  # are saved here.  The key is place-type and values are DCIDs.
-  answerPlaces: Dict[str, List[Place]]
+  # are saved here.
+  answerPlaces: List[Place]
   # Linked list of past utterances
   prev_utterance: Utterance
   # A unique ID to identify sessions

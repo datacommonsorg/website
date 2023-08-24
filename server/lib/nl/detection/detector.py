@@ -148,6 +148,9 @@ def construct(entities: List[str], vars: List[str], child_type: str,
   else:
     child_type = None
   if child_type:
+    # This is important so that the child places correspond to AA1/AA2 regardless
+    # of what the user has asked for (district, state)
+    child_type = utils.admin_area_equiv_for_place(child_type, places[0])
     c = types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
                            attributes=types.ContainedInClassificationAttributes(
                                contained_in_place_type=child_type))

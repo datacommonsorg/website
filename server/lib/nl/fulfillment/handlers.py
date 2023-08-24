@@ -63,6 +63,7 @@ QUERY_HANDLERS = {
     QueryType.CORRELATION_ACROSS_VARS:
         QueryHandlerConfig(module=correlation, rank=3),
     # TODO: Consider falling back to each other since they're quite similar.
+    # TODO: When we fallback from TIME_DELTA we should report why to user.
     QueryType.TIME_DELTA_ACROSS_VARS:
         QueryHandlerConfig(module=time_delta_across_vars,
                            rank=4,
@@ -70,7 +71,7 @@ QUERY_HANDLERS = {
     QueryType.TIME_DELTA_ACROSS_PLACES:
         QueryHandlerConfig(module=time_delta_across_places,
                            rank=5,
-                           direct_fallback=QueryType.BASIC),
+                           direct_fallback=QueryType.COMPARISON_ACROSS_PLACES),
     QueryType.EVENT:
         QueryHandlerConfig(module=None, rank=6,
                            direct_fallback=QueryType.BASIC),
