@@ -16,13 +16,13 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year and more (${date})",
+                    "title": "Population Below Poverty Level and more (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Level Status in Past Year and more"
+            "title": "Population Below Poverty Level and more"
           },
           {
             "columns": [
@@ -94,7 +94,7 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year",
+            "name": "Population Below Poverty Level",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
