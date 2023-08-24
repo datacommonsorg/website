@@ -70,8 +70,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if len(places) > 1:
     # This is place comparison!
     child_places = places
-    state.uttr.counters.err('time-delta-across-places_using_comparison_places',
-                            [p.dcid for p in places])
+    state.uttr.counters.info('time-delta-across-places_using_comparison_places',
+                             [p.dcid for p in places])
   else:
     parent_place = places[0].dcid
     child_places = utils.get_all_child_places([parent_place],
@@ -122,4 +122,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, ranked_places, chart_origin)
 
+  if not found:
+    state.uttr.counters.err('time-delta-across-places_toofewplaces', '')
   return found
