@@ -20,8 +20,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import { useStoreActions, useStoreState } from "../../state";
+import { RootTopic, useStoreActions, useStoreState } from "../../state";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
@@ -30,6 +31,7 @@ import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
+  RelatedTopic,
 } from "../../utils/types";
 import { SearchBar } from "../layout/components";
 
@@ -459,6 +461,7 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
+            mainTopic={fulfillmentResponse.relatedThings.mainTopic}
           />
         ))}
     </>
@@ -468,17 +471,17 @@ const ChartContent: React.FC<{
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-}> = ({ chartConfigCategory, placeDcid }) => {
+  mainTopic: RelatedTopic;
+}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
 
-  const matches = chartConfigCategory.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-
+  const matches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
   const rootTopicIndex =
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
 
-  chartConfigCategory.dcid;
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
@@ -500,12 +503,27 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
+        {placeDcid === EARTH_PLACE_DCID && isGoal && (
+          <StoryTile sdgTopic={sdgTopic} />
+        )}
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
       </ChartContentBody>
     </ContentCard>
   );
+};
+
+const StoryTile: React.FC<{ sdgTopic: RootTopic | null }> = ({sdgTopic}) => {
+  if (!sdgTopic) {
+    return <></>;
+  }
+  return (
+    <datacommons-text
+      header={sdgTopic.storyTitle}
+      text={sdgTopic.storyText}
+    />
+  )
 };
 
 const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
