@@ -72,6 +72,22 @@ const CHEM_RELATIONS = [
 ];
 
 /**
+ * Checks if all the values in an array of objects has zeroes
+ * @param data
+ * @returns boolean with true indicating that all values are zero
+ */
+function check_for_zeroes(data: ProteinNumData[]): boolean {
+  const arrValues = data.map(function (obj) {
+    return obj.value;
+  });
+  const isAllZero = arrValues.every((item) => item === 0);
+  if (isAllZero) {
+    return true;
+  }
+  return false;
+}
+
+/**
  * Fetches and formats the tissue name and expression score for the protein of interest
  * @param data
  * @returns array with tissue name and corresponding expression score
@@ -528,7 +544,9 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
     for (const m in chemAssoc) {
       result.push({ name: m, value: chemAssoc[m] });
     }
-
+    if (check_for_zeroes(result)) {
+      return [];
+    }
     return result;
   }
   return [];
