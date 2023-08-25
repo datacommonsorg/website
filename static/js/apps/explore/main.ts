@@ -18,9 +18,11 @@
  * Entrypoint for DC Explore.
  */
 
+import queryString from "query-string";
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
@@ -33,8 +35,11 @@ window.onload = () => {
 };
 
 function renderPage(): void {
+  const hashParams = queryString.parse(window.location.hash);
+  // use demo mode when there are autoplay queries in the url hash
+  const isDemo = !!hashParams[URL_HASH_PARAMS.AUTO_PLAY_QUERY];
   ReactDOM.render(
-    React.createElement(App),
+    React.createElement(App, { isDemo }),
     document.getElementById("dc-explore")
   );
 }
