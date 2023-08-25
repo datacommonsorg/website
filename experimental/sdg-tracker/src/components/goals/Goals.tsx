@@ -17,7 +17,11 @@
 import { Layout } from "antd";
 import React, { useCallback, useMemo } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
+import {
+  EARTH_PLACE_DCID,
+  QUERY_PARAM_VARIABLE,
+  ROOT_TOPIC,
+} from "../../utils/constants";
 import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
@@ -25,7 +29,6 @@ import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 
-const EARTH_PLACE_DCID = "Earth";
 const Goals: React.FC = () => {
   const location = useLocation();
   const history = useHistory();
