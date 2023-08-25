@@ -31,6 +31,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if len(chart_vars.svs) != 2 or not places:
     state.uttr.counters.err('correlation_failed_noplaceorsv', 1)
     return False
+  if not state.place_type:
+    state.uttr.counters.err('correlation_failed_noplacetype', 1)
+    return False
 
   # Child existence check for both SVs.
   if len(exist.svs4children(state, places[0], chart_vars.svs).exist_svs) != 2:

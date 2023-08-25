@@ -42,7 +42,7 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance):
+def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool = False):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
@@ -165,14 +165,14 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
 
 def _get_comparison_or_correlation(
     uttr: nl_uttr.Utterance) -> ClassificationType:
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
   for cl in uttr.classifications:
     if cl.type in [
         ClassificationType.COMPARISON, ClassificationType.CORRELATION
     ]:
       return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
   return None
 
 
