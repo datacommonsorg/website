@@ -197,7 +197,6 @@ const CountriesContent: React.FC<{
     if (topics.length !== 1) {
       return [];
     }
-    const variableDcid = variableDcids[0];
     let currentVariableDcid = variableDcids[0];
     const BREADCRUMB_LIMIT = 10;
     let breadcrumbIndex = 0;
@@ -213,7 +212,6 @@ const CountriesContent: React.FC<{
       currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
       parentDcids.unshift(currentVariableDcid);
     }
-    s.topics.byDcid[variableDcid];
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const location = useLocation();
@@ -478,7 +476,6 @@ const ChartCategoryContent: React.FC<{
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
 
-  chartConfigCategory.dcid;
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
