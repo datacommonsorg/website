@@ -57,7 +57,6 @@ export function SearchSection(props: {
       placeholder={props.query}
       initialValue={props.query}
       shouldAutoFocus={false}
-      clearValueOnSearch={true}
       feedbackLink={DEVELOPER_MODE ? feedbackLink : undefined}
     />
   );

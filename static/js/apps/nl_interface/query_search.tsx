@@ -81,7 +81,6 @@ export function QuerySearch(props: QuerySearchProps): JSX.Element {
               : `For example "${config.placeholderQuery}"`
           }
           shouldAutoFocus={true}
-          clearValueOnSearch={true}
         />
       </Container>
     </div>
