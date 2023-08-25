@@ -28,6 +28,7 @@ import {
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
+  ChartConfigBlock,
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
@@ -463,13 +464,14 @@ const ChartCategoryContent: React.FC<{
 }> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
 
-  const matches = mainTopic.dcid?.match(/^dc\/topic\/sdg_(\d\d?)$/);
+  const matches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
   const rootTopicIndex =
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-
-  chartConfigCategory.dcid;
+  console.log(mainTopic.dcid);
+  console.log(matches);
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
@@ -491,7 +493,7 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
-        {placeDcid === EARTH_PLACE_DCID && (
+        {placeDcid === EARTH_PLACE_DCID && isGoal && (
           <StoryTile sdgTopic={sdgTopic} />
         )}
         {tiles.map((tile, i) => (
