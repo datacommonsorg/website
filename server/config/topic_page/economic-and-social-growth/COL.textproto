@@ -107,7 +107,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "${placeName}'s employed population below the poverty line"
+        title: "${placeName}'s Employed Population Below the Poverty Line"
         stat_var_key: "empl_poverty_rate_15_24"
         stat_var_key: "empl_poverty_rate_15_older"
         stat_var_key: "empl_poverty_rate_25_older"
@@ -160,7 +160,7 @@ categories {
     columns {
       tiles {
         type: DESCRIPTION
-        description: "Economic growth has also contributed to a decrease in the infant mortality rate, the main indicator for measuring the quality of health systems. With higher incomes, families have access to more and better food, medicines, and sanitary implements in their homes. It has also allowed the universalization of public services such as drinking water, which provides better guarantees for life, especially for the children."
+        description: "Economic growth has also contributed to a decrease in the infant mortality rate, the main indicator for measuring the quality of health systems. With higher incomes, families have access to more and better food, medicines, internet, and sanitary conditions in their homes."
       }
     }
   }
@@ -169,15 +169,15 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Infant Mortality Rate"
+        title: "Number of Infant Deaths (Per 1,000 Live Births)"
         stat_var_key: "infant_mortality"
       }
     }
     columns {
       tiles {
         type: LINE
-        title: "Access to Basic Drinking Water Services"
-        stat_var_key: "basic_water_services_pc"
+        title: "Percent of Internet Users"
+        stat_var_key: "Count_Person_IsInternetUser_PerCapita"
       }
     }
   }
@@ -186,7 +186,7 @@ categories {
     columns {
       tiles {
         type: DESCRIPTION
-        description: "The data shows that the better the economy, the better the quality of life in the region and the country. Unfortunately, not all the correlations are on the good side. LATAM, and specially Colombia, concentrates a large part of the world's drug production, which leads it to be a center of operations of transnational criminal organizations, resulting in constant attacks against the civil population."
+        description: "The data shows that the better the economy, the better the quality of life. Unfortunately, not all the correlations are on the good side. LATAM, and especially Colombia, houses a large part of the world's drug production, which leads it to be a center of operations of transnational criminal organizations and violence against the civilian population."
       }
     }
   }
@@ -266,10 +266,10 @@ categories {
     }
   }
   stat_var_spec {
-    key: "basic_water_services_pc"
+    key: "Count_Person_IsInternetUser_PerCapita"
     value {
-      stat_var: "sdg/SP_ACS_BSRVH2O"
-      name: "Proportion of population using basic drinking water services"
+      stat_var: "Count_Person_IsInternetUser_PerCapita"
+      name: "Percent of Internet Users"
       unit: "%"
     }
   }
@@ -285,7 +285,7 @@ categories {
     columns {
       tiles {
         type: BAR
-        title: "Homicides in LATAM"
+        title: "Number of Homicides (Per 100,000 People)"
         stat_var_key: "homicides_pc"
         comparison_places: "self"
         comparison_places: "country/VEN"
@@ -298,7 +298,7 @@ categories {
 
   blocks {
     title: "GDP Growth and Violence"
-    description: "When the economy grows, the lives of the inhabitants improve by increasing access to basic services such as health, education, work, and security. And it makes it possible for people to receive a living wage that reduces inequality and poverty gaps, decreasing the presence of illegal and subversive groups and the violence they exert."
+    description: "When the economy grows, the lives of the inhabitants improve by increasing access to basic services such as health, education, internet, jobs, and security. And it makes it possible for people to receive a living wage that reduces inequality and poverty gaps, decreasing the presence of illegal and subversive groups and the violence they exert."
 
     columns {
       tiles {
@@ -310,7 +310,7 @@ categories {
     columns {
       tiles {
         type: LINE
-        title: "Violence in ${placeName}"
+        title: "Number of Homicides (Per 100,000 People)"
         stat_var_key: "homicides_pc"
       }
     }
@@ -330,6 +330,7 @@ categories {
     value {
       stat_var: "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
       name: "Murder and Non Negligent Manslaughter Cases Per Capita"
+      scaling: 100000
     }
   }
   stat_var_spec {
