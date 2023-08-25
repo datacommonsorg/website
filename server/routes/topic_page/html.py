@@ -149,7 +149,7 @@ def topic_page(topic_id=None, place_dcid=None):
   # [TECHSOUP] call place_metadata function to get child places. TO DO: refactor to avoid redundant info returned by place_metadata 
   if topic_id in _TOPICS_TO_SHOW_CHILD_PLACES:
     show_child_places = True
-    place_metadata = lib_subject_page_config.place_metadata(place_dcid)
+    place_metadata = lib_subject_page_config.place_metadata(place_dcid, True, None, None, 'name', False)
     place_children = place_metadata.child_places
   else:
     show_child_places = False
