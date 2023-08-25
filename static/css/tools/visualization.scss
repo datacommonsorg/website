@@ -608,7 +608,18 @@ $selector-footer-height: 40px;
     };
   }
 
-  .start-button {
-    font-size: 16px;
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .start-button {
+      font-size: 16px;
+    }
+
+    a {
+      font-size: 14px;
+      padding: 10px 12px 10px 12px;
+    }
   }
 }

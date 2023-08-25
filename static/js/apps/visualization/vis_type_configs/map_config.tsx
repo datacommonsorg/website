@@ -174,4 +174,5 @@ export const MAP_CONFIG = {
   getChartArea,
   getInfoContent,
   getSqlQueryFn,
+  oldToolUrl: "/tools/map",
 };
