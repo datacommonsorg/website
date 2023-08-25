@@ -496,6 +496,7 @@ function drawHorizontalGroupedBars(
       unit,
     }));
   };
+
   if (useLollipop) {
     // Max allowable stem spacing
     const maxStemSpacing = yScale.bandwidth() / (numGroups + 1);
