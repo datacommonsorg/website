@@ -20,7 +20,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import {
   QUERY_PARAM_PLACE,
   QUERY_PARAM_VARIABLE,
-  ROOT_SDG_VARIABLE_GROUP,
+  ROOT_TOPIC,
 } from "../../utils/constants";
 import AppFooter from "../layout/AppFooter";
 import AppHeader from "../layout/AppHeader";
@@ -39,9 +39,9 @@ const Countries = () => {
     () => new URLSearchParams(location.search),
     [location.search]
   );
+
   const placeDcid = searchParams.get(QUERY_PARAM_PLACE) || DEFAULT_PLACE;
-  const variableDcid =
-    searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
+  const variableDcid = searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_TOPIC;
 
   /**
    * Update selected variable URL parameter

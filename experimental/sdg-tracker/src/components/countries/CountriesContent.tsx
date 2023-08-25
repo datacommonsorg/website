@@ -23,7 +23,7 @@ import styled from "styled-components";
 import { useStoreActions, useStoreState } from "../../state";
 import {
   QUERY_PARAM_VARIABLE,
-  ROOT_VARIABLE_GROUP,
+  ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
@@ -143,11 +143,15 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
 const StyledBreadcrumb = styled(Breadcrumb)`
   margin: 16px 0;
   padding: 0 24px;
-  .ant-breadcrumb-link {
-    max-width: 300px;
+  li {
+    display: flex;
+  }
+  .ant-breadcrumb-link a {
+    display: block;
+    max-width: 400px;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
@@ -182,30 +186,35 @@ const CountriesContent: React.FC<{
     }
     return undefined;
   });
-  const variables = useStoreState((s) =>
+  const topics = useStoreState((s) =>
     variableDcids
-      .filter((dcid) => dcid in s.variableGroups.byDcid)
-      .map((dcid) => s.variableGroups.byDcid[dcid])
+      .filter((dcid) => dcid in s.topics.byDcid)
+      .map((dcid) => s.topics.byDcid[dcid])
   );
+
   const parentVariables = useStoreState((s) => {
     const parentDcids: string[] = [];
-    if (variables.length !== 1) {
+    if (topics.length !== 1) {
       return [];
     }
     const variableDcid = variableDcids[0];
     let currentVariableDcid = variableDcids[0];
-    while (currentVariableDcid !== ROOT_VARIABLE_GROUP) {
-      if (!(currentVariableDcid in s.variableGroups.byDcid)) {
+    const BREADCRUMB_LIMIT = 10;
+    let breadcrumbIndex = 0;
+    while (currentVariableDcid !== ROOT_TOPIC) {
+      // This avoids the possibility of an infinite loop
+      breadcrumbIndex++;
+      if (breadcrumbIndex > BREADCRUMB_LIMIT) {
         break;
       }
-      currentVariableDcid =
-        s.variableGroups.byDcid[currentVariableDcid].parentGroupDcids[0];
+      if (!(currentVariableDcid in s.topics.byDcid)) {
+        break;
+      }
+      currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
       parentDcids.unshift(currentVariableDcid);
     }
-    // Remove root group
-    parentDcids.shift();
-    s.variableGroups.byDcid[variableDcid];
-    return parentDcids.map((parentDcid) => s.variableGroups.byDcid[parentDcid]);
+    s.topics.byDcid[variableDcid];
+    return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const location = useLocation();
   /**
@@ -266,14 +275,17 @@ const CountriesContent: React.FC<{
           )}
         </PlaceTitle>
         <StyledBreadcrumb>
-          {[...parentVariables, ...(variables.length === 1 ? variables : [])]
+          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
             .filter((v) => v)
             .map((v, i) => {
               const searchParams = new URLSearchParams(location.search);
               searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
               return (
                 <Breadcrumb.Item key={i}>
-                  <Link to={"/countries?" + searchParams.toString()}>
+                  <Link
+                    to={"/countries?" + searchParams.toString()}
+                    title={v.name}
+                  >
                     {v.name}
                   </Link>
                 </Breadcrumb.Item>

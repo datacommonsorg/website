@@ -78,7 +78,10 @@ export const BrandingLink: React.FC = () => {
         rel="noopener noreferrer"
       >
         Powered by Google's{" "}
-        <img className="logo-secondary-image" src="images/dc-logo.png" />
+        <img
+          className="logo-secondary-image"
+          src="/images/datacommons/dc-logo.png"
+        />
       </a>
     </div>
   );
