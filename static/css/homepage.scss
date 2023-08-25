@@ -25,10 +25,6 @@ $topic-card-hgap: 24px;
 $topic-card-vgap: 24px;
 $topic-card-image-height: 109px;
 
-.main-content {
-  margin: 0 0 3rem 0;
-}
-
 #homepage-top {
   display: flex;
   font-family: $headings-font-family;
@@ -276,12 +272,16 @@ $topic-card-image-height: 109px;
   }
 }
 
-// Styling for the tools section
-#homepage section.tools {
+#homepage .background-gradient {
   background-image: url(/images/tools-background.svg);
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
+  padding-bottom: 3rem;
+}
+
+// Styling for the tools section
+#homepage section.tools {
   .container {
     align-items: center;
     display: flex;
