@@ -30,6 +30,7 @@ import { DatacommonsPieComponent } from "./pie_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
 import { DatacommonsScatterComponent } from "./scatter_component";
 import { DatacommonsSliderComponent } from "./slider_component";
+import { DatacommonsTextComponent } from "./text_component";
 
 globalThis.datacommons = {
   DatacommonsBarComponent,
@@ -41,6 +42,7 @@ globalThis.datacommons = {
   DatacommonsRankingComponent,
   DatacommonsScatterComponent,
   DatacommonsSliderComponent,
+  DatacommonsTextComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,
