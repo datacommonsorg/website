@@ -212,4 +212,5 @@ export const TIMELINE_CONFIG = {
   getChartArea,
   getInfoContent,
   getSqlQueryFn,
+  oldToolUrl: "/tools/timeline",
 };

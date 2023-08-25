@@ -174,7 +174,14 @@ class Page extends Component<unknown, PageStateType> {
         />
         <div id="plot-container">
           <Container fluid={true}>
-            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
+            {numPlaces === 0 && (
+              <div className="app-header">
+                <h1 className="mb-4">Timelines Explorer</h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  Go back to the new Data Commons
+                </a>
+              </div>
+            )}
             <Card id="place-search">
               <Row>
                 <Col sm={12}>

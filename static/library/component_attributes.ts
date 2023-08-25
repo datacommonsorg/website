@@ -142,3 +142,14 @@ export interface SliderComponentProps
   publish: string;
   value: number;
 }
+
+export interface TextComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  characterLimit?: number;
+  heading: string;
+  text: string;
+  showFullText?: boolean;
+}

@@ -3,119 +3,153 @@
     "name": "No Poverty",
     "description": "End poverty in all its forms everywhere.",
     "groupDcid": "dc/g/SDG_1",
-    "iconUrl": "/images/sdg-goal-01-md.png",
-    "topicDcid": "dc/topic/sdg_1"
+    "iconUrl": "/images/datacommons/sdg-goal-01-md.png",
+    "topicDcid": "dc/topic/sdg_1",
+    "storyTitle": "Slow and uneven progress on poverty reduction may leave hundreds of millions in extreme poverty by 2030",
+    "storyText": "Extreme poverty, currently defined as living on less than $2.15 per person per day at 2017 purchasing power parity, had experienced a significant decline in recent decades. However, COVID-19 reversed this positive trend. Even before the pandemic, the pace of poverty reduction was slowing, with extreme poverty falling from 10.8 per cent in 2015 to 8.4 per cent in 2019. The average annual reduction rate was 0.54 percentage points between 2015 and 2019, less than half the 1.28 percentage-point rate observed between 2000 and 2014. In 2020, the number of people living in extreme poverty rose to 724 million, surpassing the pre-pandemic projection by 90 million and reversing approximately three years of progress on poverty reduction.\n\nRecovery from the pandemic has been slow and uneven, with extreme poverty dropping from 9.3 per cent in 2020 to 8.8 per cent in 2021. About 41 per cent of low-income countries experienced a higher poverty rate in 2021 compared to the previous year, versus only 13 per cent of upper-middle-income countries. The conflict in Ukraine has disrupted global trade, leading to increased living costs that are disproportionately impacting the poor. Furthermore, climate change poses substantial threats to poverty reduction. By the end of 2022, nowcasting suggests that 8.4 per cent of the world’s population, or as many as 670 million people, could still be living in extreme poverty.\n\nIf current trends continue, an estimated 7 per cent of the global population – approximately 575 million people – will still be living in extreme poverty by 2030, with most in sub-Saharan Africa. This projection would represent a meager poverty reduction of less than 30 per cent since 2015."
   },
   {
     "name": "Zero Hunger",
     "description": "End hunger, achieve food security and improved nutrition and promote sustainable agriculture.",
     "groupDcid": "dc/g/SDG_2",
-    "iconUrl": "/images/sdg-goal-02-md.png",
-    "topicDcid": "dc/topic/sdg_2"
+    "iconUrl": "/images/datacommons/sdg-goal-02-md.png",
+    "topicDcid": "dc/topic/sdg_2",
+    "storyTitle": "In the face of a polycrisis, joint global efforts are urgently needed to address hunger and ensure food security",
+    "storyText": "In 2022, the prevalence of undernourishment remained unchanged compared to 2021, following a significant increase in 2020 due to the pandemic and a slower rise in 2021. The global population facing chronic hunger stood at 9.2 per cent in 2022, up from 7.9 per cent in 2019, affecting around 735 million people, which is a rise of 122 million since 2019. Moreover, an estimated 2.4 billion individuals, equivalent to 29.6 per cent of the world&#39;s population, experienced moderate to severe food insecurity, meaning they did not have regular access to adequate food. While Africa has a higher proportion of its population facing hunger compared to other regions, Asia is home to the majority of people facing hunger. It is projected that more than 600 million people worldwide will be facing hunger in 2030, highlighting the immense challenge of achieving the zero hunger target.\n\nGlobal trends in the prevalence of hunger and food security reflect the interplay of two opposing forces. On one hand, the resumption of economic activity has led to increased incomes and improved access to food. On the other hand, food price inflation has eroded income gains and hindered access to food. However, these forces have manifested differently across different regions. Hunger continues to increase in Western Asia, the Caribbean, and all subregions of Africa. Conversely, most subregions in Asia and Latin America have experienced improvements in food security."
   },
   {
     "name": "Good Health and Well-being",
     "description": "Ensure healthy lives and promote well-being for all at all ages.",
     "groupDcid": "dc/g/SDG_3",
-    "iconUrl": "/images/sdg-goal-03-md.png",
-    "topicDcid": "dc/topic/sdg_3"
+    "iconUrl": "/images/datacommons/sdg-goal-03-md.png",
+    "topicDcid": "dc/topic/sdg_3",
+    "storyTitle": "Global child mortality rates show significant decline, but challenges remain",
+    "storyText": "A significant reduction in child mortality has been achieved over the past two decades. Between 2015 and 2021, the global under-5 mortality rate fell by 12 per cent, from 43 deaths per 1,000 live births to 38. Additionally, the global neonatal mortality rate fell by about 10 per cent, from 20 deaths per 1,000 live births to 18. Despite this progress, 5 million children still lost their lives before their fifth birthday in 2021, down from 6.1 million in 2015. Nearly half of those deaths (2.3 million) occured in the first 28 days of life. While child mortality has declined in all regions, sub-Saharan Africa continues to face the highest rates. In 2021, 1 child in 14 died before reaching age 5 (74 deaths per 1,000 live births) in this region, the same as the global average rate achieved two decades ago in 2001.\n\nBy 2021, 133 countries had already met the SDG target on under-5 mortality, and an additional 13 are expected to do so by 2030, if current trends continue. But to achieve the target by 2030, progress needs to accelerate in 54 countries, nearly 75 per cent of which are in sub-Saharan Africa. If these countries were to achieve the under-5 target, nearly 10 million under-5 deaths could be averted between 2022 and 2030. Meanwhile, more than 60 countries need to accelerate progress to meet the neonatal target."
   },
   {
     "name": "Quality Education",
     "description": "Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all.",
     "groupDcid": "dc/g/SDG_4",
-    "iconUrl": "/images/sdg-goal-04-md.png",
-    "topicDcid": "dc/topic/sdg_4"
+    "iconUrl": "/images/datacommons/sdg-goal-04-md.png",
+    "topicDcid": "dc/topic/sdg_4",
+    "storyTitle": "Primary and secondary school completion is rising, but the pace is far too slow and uneven",
+    "storyText": "Between 2015 and 2021, worldwide primary school completion increased from 85 to 87 per cent, lower secondary completion rose from 74 to 77 per cent and upper secondary completion grew from 53 to 58 per cent. However, the pace of improvement was significantly slower than the 2000–2015 period. Most regions have primary completion rates of nearly 90 per cent or higher, except sub-Saharan Africa, where fewer than two-thirds of children complete primary school. In impoverished regions, poor learning outcomes lead to high drop-out rates and delayed completion. In sub-Saharan Africa, although 80 per cent of primary-aged children are enrolled in school, only 62 per cent graduate on time. Economic burdens, like expenses for books and uniforms, plus opportunity costs, also contribute to incomplete education.\n\nSince 2019, UNESCO Member States have participated in a national Goal 4 benchmarking process to set national education targets. Despite the aspiration of universal secondary school completion, only one in six countries aims to achieve this goal by 2030 based on their national targets. Even if these targets are met, an estimated 84 million children and young people will still be out of school by 2030."
   },
   {
     "name": "Gender Equality",
     "description": "Achieve gender equality and empower all women and girls.",
     "groupDcid": "dc/g/SDG_5",
-    "iconUrl": "/images/sdg-goal-05-md.png",
-    "topicDcid": "dc/topic/sdg_5"
+    "iconUrl": "/images/datacommons/sdg-goal-05-md.png",
+    "topicDcid": "dc/topic/sdg_5",
+    "storyTitle": "Progress has been sluggish on upping women’s share in management and political representation",
+    "storyText": "As of 1 January 2023, the global share of women in lower and single chambers of national parliaments reached 26.5 per cent – a slight improvement of 4.2 percentage points since 2015, but an average annual increase of just 0.5 points. At the local level, women held 35.5 per cent of seats in local governments in 2023, up from 33.9 per cent in 2020. If current trends continue, it will take more than four decades to close the gender gap in national parliamentary representation and three decades to do so at the local level. Legislated gender quotas have proven effective, with countries applying quotas seeing an average of 30.9 per cent women’s representation in the 2022 parliamentary elections, compared with 21.2 per cent in countries without quotas. Quotas also contribute to higher women’s representation in local government, by seven percentage points on average.\n\nGlobally, women accounted for nearly 40 per cent of total employment but held only 28.2 per cent of management positions in 2021. Progress on increasing women’s representation in management has been slow, with only a 1.0-percentage-point increase since 2015. At the current rate, it would take more than 140 years to achieve gender parity in managerial positions. Women’s representation in management remains below their share in total employment across all regions, with sub-Saharan Africa making the most progress, reaching 38.2 per cent in 2021. Conversely, Northern Africa and Western Asia, and Central and Southern Asia, have the lowest shares of women in management positions, at around 15 per cent, linked to low female employment rates in those regions."
   },
   {
     "name": "Clean Water and Sanitation",
     "description": "Ensure availability and sustainable management of water and sanitation for all.",
     "groupDcid": "dc/g/SDG_6",
-    "iconUrl": "/images/sdg-goal-06-md.png",
-    "topicDcid": "dc/topic/sdg_6"
+    "iconUrl": "/images/datacommons/sdg-goal-06-md.png",
+    "topicDcid": "dc/topic/sdg_6",
+    "storyTitle": "Access to drinking water, sanitation and hygiene improved significantly in rural areas, but stagnated or decreased in urban areas",
+    "storyText": "Between 2015 and 2022, the proportion of the world’s population with access to safely managed drinking water services increased from 69 to 73 per cent; safely managed sanitation services increased from 49 to 57 per cent; and basic hygiene services increased from 67 to 75 per cent. This progress signifies an additional 687 million, 911 million and 637 million people gaining access to these essential services, respectively. Open defecation decreased from 715 million to 419 million during this period. However, in 2022, 2.2 billion people still lacked safely managed drinking water, including 703 million without a basic water service; 3.5 billion people lacked safely managed sanitation, including 1.5 billion without basic sanitation services; and 2 billion lacked a basic handwashing facility with soap and water at home, including 653 million with no handwashing facility at all. Sub-Saharan Africa is furthest behind. During this period, while the rural population saw improvements in access, the urban population’s access remained largely unchanged or decreased. To achieve universal coverage by 2030, the current rates of progress would need to increase by three to six times."
   },
   {
     "name": "Affordable and Clean Energy",
     "description": "Ensure access to affordable, reliable, sustainable and modern energy for all.",
     "groupDcid": "dc/g/SDG_7",
-    "iconUrl": "/images/sdg-goal-07-md.png",
-    "topicDcid": "dc/topic/sdg_7"
+    "iconUrl": "/images/datacommons/sdg-goal-07-md.png",
+    "topicDcid": "dc/topic/sdg_7",
+    "storyTitle": "Renewable energy use is growing in the electricity sector, but limited in heating and transport",
+    "storyText": "Globally, in 2020, renewable sources accounted for 19.1 per cent of total final energy consumption, representing a 2.4-percentage-point increase from 2015. Over the same period, total renewable energy consumption increased by 16 per cent. Traditional uses of biomass – such as the burning of wood in open stoves or fireplaces – still represented over a third of total renewable energy use in 2020. But modern renewable sources are slowly expanding, from 10 per cent of total final energy consumption in 2015 to 12.5 per cent in 2020. The electricity sector shows the largest share of renewables in total final energy consumption (28.2 per cent in 2020). However, progress in the heating and transport sectors has been limited over the past decade, as upward trends in demand have outpaced the deployment of renewables. Meeting the targets of Goal 7 and the Paris Agreement will require sustained policy momentum to scale up both renewable energy deployment and energy conservation in all sectors, as well as to mobilize public and private investment, particularly in developing countries."
   },
   {
     "name": "Decent Work and Economic Growth",
     "description": "Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all.",
     "groupDcid": "dc/g/SDG_8",
-    "iconUrl": "/images/sdg-goal-08-md.png",
-    "topicDcid": "dc/topic/sdg_8"
+    "iconUrl": "/images/datacommons/sdg-goal-08-md.png",
+    "topicDcid": "dc/topic/sdg_8",
+    "storyTitle": "Global economic recovery continues on a slow trajectory",
+    "storyText": "The global economy is grappling with persistent inflation, increasing interest rates and heightened uncertainties. Global real GDP per capita increased at an average annual rate of 1.8 per cent from 2015 to 2019, then sharply declined by 4.1 per cent in 2020 due to the COVID-19 pandemic. It then rebounded in 2021 with a solid 5.2 per cent increase, only to decelerate to 2.2 per cent in 2022. Estimates are that growth will further dwindle, to 1.4 per cent in 2023, followed by a modest increase of 1.6 per cent in 2024.\n\nIn LDCs, the annual growth rate of real GDP dropped from 5 per cent in 2019 to just 0.2 per cent in 2020 before recovering to 2.8 per cent in 2021. However, it is estimated that growth will resume, with the annual rate rising to 4.3 per cent in 2022 and further increasing by 4.1 per cent and 5.2 per cent in 2023 and 2024, respectively. However, these growth rates still fall short of the SDG target of 7 per cent."
   },
   {
     "name": "Industry, Innovation and Infrastructure",
     "description": "Build resilient infrastructure, promote inclusive and sustainable industrialization, and foster innovation.",
     "groupDcid": "dc/g/SDG_9",
-    "iconUrl": "/images/sdg-goal-09-md.png",
-    "topicDcid": "dc/topic/sdg_9"
+    "iconUrl": "/images/datacommons/sdg-goal-09-md.png",
+    "topicDcid": "dc/topic/sdg_9",
+    "storyTitle": "",
+    "storyText": ""
   },
   {
     "name": "Reduced Inequality",
     "description": "Reduce inequality within and among countries.",
     "groupDcid": "dc/g/SDG_10",
-    "iconUrl": "/images/sdg-goal-10-md.png",
-    "topicDcid": "dc/topic/sdg_10"
+    "iconUrl": "/images/datacommons/sdg-goal-10-md.png",
+    "topicDcid": "dc/topic/sdg_10",
+    "storyTitle": "",
+    "storyText": ""
   },
   {
     "name": "Sustainable Cities and Communities",
     "description": "Make cities and human settlements inclusive, safe, resilient, and sustainable.",
     "groupDcid": "dc/g/SDG_11",
-    "iconUrl": "/images/sdg-goal-11-md.png",
-    "topicDcid": "dc/topic/sdg_11"
+    "iconUrl": "/images/datacommons/sdg-goal-11-md.png",
+    "topicDcid": "dc/topic/sdg_11",
+    "storyTitle": "",
+    "storyText": ""
   },
   {
     "name": "Responsible Consumption and Production",
     "description": "Ensure sustainable consumption and production patterns.",
     "groupDcid": "dc/g/SDG_12",
-    "iconUrl": "/images/sdg-goal-12-md.png",
-    "topicDcid": "dc/topic/sdg_12"
+    "iconUrl": "/images/datacommons/sdg-goal-12-md.png",
+    "topicDcid": "dc/topic/sdg_12",
+    "storyTitle": "",
+    "storyText": ""
   },
   {
     "name": "Climate Action",
     "description": "Take urgent action to combat climate change and its impacts.",
     "groupDcid": "dc/g/SDG_13",
-    "iconUrl": "/images/sdg-goal-13-md.png",
-    "topicDcid": "dc/topic/sdg_13"
+    "iconUrl": "/images/datacommons/sdg-goal-13-md.png",
+    "topicDcid": "dc/topic/sdg_13",
+    "storyTitle": "Urgent global greenhouse gas emission reductions are needed to avert 1.5°C tipping point",
+    "storyText": "The latest IPCC synthesis report unequivocally states that human activities, particularly over a century of burning fossil fuels, unsustainable energy and land use, and untenable consumption and production patterns, have caused global warming of 1.1°C above pre-industrial levels. This has led to a surge in extreme weather and climate events in every region, which is now the everyday face of climate change. Vulnerable communities, despite having contributed the least to climate change, are disproportionately affected. Between 2010 and 2020, highly vulnerable regions, home to approximately 3.3–3.6 billion people, experienced 15 times higher human mortality rates from floods, droughts and storms compared to regions with very low vulnerability. The adverse impacts of climate change have caused substantial damages and increasingly irreparable losses to ecosystems and human lives, triggering food shortages, loss of housing and infrastructure, migration of populations, and more. With further temperature increases, these extreme events will worsen and become harder to manage. Moreover, the effectiveness of adaptation measures diminishes with heightened warming.\n\nThe United Nations Framework Convention on Climate Change (UNFCCC)’s latest nationally determined contributions (NDC) synthesis report finds that the combined climate pledges of 193 Parties under the Paris Agreement will achieve a slight decrease (0.3 per cent) in GHG emissions by 2030 compared to 2019 levels. However, this falls well short of the 43 per cent emissions reduction called for by the IPCC to be on the 1.5°C pathway and would propel the world to an unsustainable potential warming of around 2.5°C by the end of the century.\n\nThe IPCC warns that without strengthened cross-sectoral policies, the world is likely to surpass the critical 1.5°C tipping point by 2035. How livable the world will be for current and future generations will depend on the choices we make today. To curb climate change, rapid, deep and sustained GHG emissions reductions in all sectors, starting now, are vital. This requires global climate-resilient development action, accelerated adaptation and mitigation measures and leveraging SDG synergies. Increased finance, political commitment, coordinated policies, international cooperation, ecosystem stewardship and inclusive governance are all urgently needed for effective and equitable climate action."
   },
   {
     "name": "Life Below Water",
     "description": "Conserve and sustainably use the oceans, seas, and marine resources for sustainable development.",
     "groupDcid": "dc/g/SDG_14",
-    "iconUrl": "/images/sdg-goal-14-md.png",
-    "topicDcid": "dc/topic/sdg_14"
+    "iconUrl": "/images/datacommons/sdg-goal-14-md.png",
+    "topicDcid": "dc/topic/sdg_14",
+    "storyTitle": "Coastal eutrophication: a growing threat to marine ecosystems and communities",
+    "storyText": "Agriculture, aquaculture and wastewater practices are contributing to nutrient loading in coastal areas, causing widespread coastal eutrophication and algal blooms. These blooms lead to oxygen depletion, harm marine life, contaminate seafood, and damage seagrass and coral reefs, among other impacts. The consequences are severe for marine ecosystem health, local communities, fisheries and tourism. Satellite imagery reveals elevated coastal eutrophication trends globally in 2022 (above the 2000–2004 baseline), though different in magnitude from recent years. Consistently high rates were found in the Arabian Sea, where blooms posed threats to fisheries, tourism and desalination plants, particularly during late winter and early spring, from 2018 to 2022.\n\nIn a striking signal of an ocean that can’t breathe, crustaceans, such as crawfish and lobster, have been observed leaving the sea to survive. A recent walkout in early 2023 in South Africa saw around 5 tons of endangered lobster escaping, prompting an emergency plan for their rehabilitation in an already struggling fishing community. While blooms can sprout due to natural processes, such as the upwelling of nutrient-rich waters or low-flow waters, human activities are the main driver behind their increasing frequency, duration and expansion. With the added challenge of climate change and its complex interactions with a warming ocean, the impacts of eutrophication on coastal communities are expected to worsen."
   },
   {
     "name": "Life on Land",
     "description": "Protect, restore, and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss.",
     "groupDcid": "dc/g/SDG_15",
-    "iconUrl": "/images/sdg-goal-15-md.png",
-    "topicDcid": "dc/topic/sdg_15"
+    "iconUrl": "/images/datacommons/sdg-goal-15-md.png",
+    "topicDcid": "dc/topic/sdg_15",
+    "storyTitle": "Species extinction risk has accelerated each decade since 1993",
+    "storyText": "Plant and animal species are vital for our existence, from pollinating one third of global crops to providing medicines and economic opportunities. Yet, despite this importance, the world is currently facing the largest extinction event since the dinosaurs disappeared. Habitat destruction, invasive species, overexploitation, illegal wildlife trade, pollution and climate change are propelling this crisis. The Red List Index, which measures species’ extinction risk across mammal, bird, amphibian, coral and cycad species, has deteriorated by about 11 per cent since 1993, with an accelerating decline each decade. Central and Southern Asia, Eastern and South-Eastern Asia, and Oceania have suffered the fastest declines.\n\nIn 2022, assessments revealed that 21 per cent of reptile species are threatened, including the iconic Komodo Dragon in Indonesia, highly valued for ecotourism but endangered by climate change and deforestation. Based on the International Union for Conservation of Nature (IUCN) Red List, it is estimated that 1 million species globally may be threatened with extinction. Urgent action is imperative to halt these potential losses, as they would have irreversible and profound impacts on nature and pose a serious threat to human well-being."
   },
   {
     "name": "Peace and Justice Strong Institutions",
     "description": "Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable, and inclusive institutions at all levels.",
     "groupDcid": "dc/g/SDG_16",
-    "iconUrl": "/images/sdg-goal-16-md.png",
-    "topicDcid": "dc/topic/sdg_16"
+    "iconUrl": "/images/datacommons/sdg-goal-16-md.png",
+    "topicDcid": "dc/topic/sdg_16",
+    "storyTitle": "",
+    "storyText": ""
   },
   {
     "name": "Partnerships to achieve the Goal",
     "description": "Strengthen the means of implementation and revitalize the global partnership for sustainable development.",
     "groupDcid": "dc/g/SDG_17",
-    "iconUrl": "/images/sdg-goal-17-md.png",
-    "topicDcid": "dc/topic/sdg_17"
+    "iconUrl": "/images/datacommons/sdg-goal-17-md.png",
+    "topicDcid": "dc/topic/sdg_17",
+    "storyTitle": "In the wake of the pandemic, many developing countries are facing a debt crisis",
+    "storyText": "The debt levels of many countries reached record highs during the pandemic, posing a potential threat to economic growth. The total external debt of low- and middle-income countries reached $9 trillion in 2021, recording a 5.6 per cent increase from 2020. The rise was primarily driven by an increase in short-term debt. Close to 7 in 10 countries in LDCs and LLDCs experienced a higher debt-to-export ratio in 2021 compared with 2015. Moreover, challenges such as high inflation, competing priorities and rising borrowing costs have exacerbated the risk of debt distress. As of November 2022, more than half (37 out of 69) of the world’s poorest countries were either at high risk of, or already in, debt distress. Meanwhile, one in four middle-income countries, home to the majority of the extreme poor, faced a high risk of fiscal crisis. Some countries with unsustainable levels of debt service have already opted for sovereign debt restructuring, while others remain vulnerable."
   }
 ]

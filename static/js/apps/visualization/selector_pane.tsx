@@ -39,7 +39,7 @@ export function SelectorPane(): JSX.Element {
     useContext(AppContext);
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
   const [availableSelectors, setAvailableSelectors] = useState(getSelectors());
-  const placeHeaderTitle = `Select${
+  const placeHeaderTitle = `Enter${
     visTypeConfig.singlePlace ? " a" : ""
   } place${visTypeConfig.singlePlace ? "" : "s"}`;
   // Header title for the stat var selector
