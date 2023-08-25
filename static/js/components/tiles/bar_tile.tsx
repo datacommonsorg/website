@@ -299,21 +299,16 @@ function rawToChart(
     dataGroups[0].value.sort(
       (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
     );
-    const firstGroup = dataGroups[0].value;
 
     // use order of first group for all other groups
     if (dataGroups.length > 1) {
+      const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
       dataGroups.slice(1).forEach((dataGroup) => {
-        const sortedDataPoints: DataPoint[] = [];
-        firstGroup.forEach((dataPoints) => {
-          const targetLabel = dataPoints.label;
-          dataGroup.value.forEach((dataPoint) => {
-            if (dataPoint.label === targetLabel) {
-              sortedDataPoints.push(dataPoint);
-            }
-          });
-        });
-        dataGroup.value = sortedDataPoints;
+        dataGroup.value.sort(
+          (a, b) =>
+            firstGroupLabels.indexOf(a.label) -
+            firstGroupLabels.indexOf(b.label)
+        );
       });
     }
   }
