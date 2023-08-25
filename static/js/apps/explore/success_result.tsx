@@ -56,7 +56,6 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
     return null;
   }
-  console.log(props.pageMetadata);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
