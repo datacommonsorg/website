@@ -482,8 +482,7 @@ const ChartCategoryContent: React.FC<{
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-  console.log(mainTopic.dcid);
-  console.log(matches);
+
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
