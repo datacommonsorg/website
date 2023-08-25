@@ -25,6 +25,10 @@ $topic-card-hgap: 24px;
 $topic-card-vgap: 24px;
 $topic-card-image-height: 109px;
 
+.main-content {
+  margin: 0 0 3rem 0;
+}
+
 #homepage-top {
   display: flex;
   font-family: $headings-font-family;
@@ -277,7 +281,7 @@ $topic-card-image-height: 109px;
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  padding-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 // Styling for the tools section
