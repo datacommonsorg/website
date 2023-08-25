@@ -22,7 +22,7 @@ import "../../../library";
 import React from "react";
 import { Container } from "reactstrap";
 
-import { TextSearchBar } from "../../components/text_search_bar";
+import { NlSearchBar } from "../../components/nl_search_bar";
 import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
 import { Item, ItemList } from "../explore/item_list";
@@ -73,22 +73,19 @@ export function App(): JSX.Element {
   return (
     <div className="explore-container">
       <Container>
-        <div className="explore-search">
-          <div className="early-preview-tag">Early Preview</div>
-          <TextSearchBar
-            inputId="query-search-input"
-            onSearch={(q) => {
-              window.location.href =
-                q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
-                  ? placeholderHref
-                  : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
-            }}
-            placeholder={"Enter a question or topic to explore"}
-            initialValue={""}
-            shouldAutoFocus={true}
-            clearValueOnSearch={true}
-          />
-        </div>
+        <NlSearchBar
+          inputId="query-search-input"
+          onSearch={(q) => {
+            window.location.href =
+              q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
+                ? placeholderHref
+                : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
+          }}
+          placeholder={"Enter a question or topic to explore"}
+          initialValue={""}
+          shouldAutoFocus={false}
+          clearValueOnSearch={true}
+        />
         <div className="explore-title">
           <div className="explore-title-image">
             <img src={currentTopic.image} />

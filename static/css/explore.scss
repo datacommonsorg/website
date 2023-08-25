@@ -15,6 +15,7 @@
  */
 
 @use "./shared/subject_page";
+@use "./nl_search_bar";
 @import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
@@ -62,125 +63,6 @@
   }
   .explore-more-prompt {
     line-height: 24px;
-  }
-}
-
-.search-section {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  height: 79px;
-  margin: 24px 0 44px 0;
-  width: 100%;
-
-  .btn {
-    height: 2.5rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  .search-bar-tags {
-    display: flex;
-    flex-direction: row;
-
-    color: var(--gm-3-ref-secondary-secondary-30);
-    font-family: $font-family-sans-serif;
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    line-height: 16px;
-    margin-bottom: 6px;
-    margin-left: auto;
-    margin-right: 37.93px;
-
-    .early-preview-tag {
-      text-align: right;
-      text-transform: uppercase;
-      margin-right: 8px;
-    }
-
-    .feedback-link {
-      background-color: transparent;
-      display: flex;
-      justify-content: flex-end;
-
-      a {
-        text-transform: capitalize;
-        color: var(--gm-3-ref-secondary-secondary-30);
-        font-family: $font-family-sans-serif;
-        font-size: 11px;
-        font-style: normal;
-        font-weight: 500;
-        letter-spacing: 0.1px;
-        line-height: 16px;
-        margin-left: 8px;
-      }
-    }
-  }
-
-  .history-button {
-    margin-left: 0.5rem;
-  }
-
-  .search-box-section {
-    width: 100%;
-  }
-
-  .search-bar {
-    align-items: center;
-    background: var(--gm-3-ref-secondary-secondary-99);
-    border-radius: 28px;
-    border: var(--border-primary);
-    display: flex;
-    flex-shrink: 0;
-    gap: 4px;
-    height: 56px;
-    margin: 1px;
-    padding: 0px;
-    width: 100%;
-
-    .search-bar-content {
-      align-items: center;
-      align-self: stretch;
-      display: flex;
-      flex-shrink: 0;
-      gap: 4px;
-      height: 100%;
-      padding: 4px 8px 4px 24px;
-      width: 100%;
-
-      #rich-search-button {
-        cursor: pointer;
-        flex-shrink: 0;
-        height: 42px;
-        width: 42px;
-      }
-
-      .search-input-text {
-        align-items: center;
-        align-self: stretch;
-        background: transparent;
-        border: none;
-        color: var(--gm-3-ref-neutral-neutral-40);
-        display: flex;
-        flex: 1 0 0;
-        font-family: $font-family-sans-serif;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        gap: 10px;
-        height: 48px;
-        line-height: 24px;
-        padding: 0px;
-      }
-
-      .search-input-text:focus {
-        // Overwrite default focus
-        box-shadow: none !important;
-      }
-    }
   }
 }
 
