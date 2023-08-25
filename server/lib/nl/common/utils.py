@@ -114,18 +114,18 @@ def sv_existence_for_places_check_single_point(
     return {}, {}
 
   start = time.time()
-  series_data = fetch.series_core(entities=places,
-                                  variables=svs,
-                                  all_facets=False)
+  series_facet = fetch.series_facet(entities=places,
+                                    variables=svs,
+                                    all_facets=False)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
   existsv2places = {}
-  for sv, sv_data in series_data.get('data', {}).items():
+  for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
-      num_series = len(place_data['series'])
+      num_series = place_data['series'][0]["value"]
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
       if sv not in existsv2places:
         existsv2places[sv] = {}
