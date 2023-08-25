@@ -496,7 +496,6 @@ function drawHorizontalGroupedBars(
       unit,
     }));
   };
-
   if (useLollipop) {
     // Max allowable stem spacing
     const maxStemSpacing = yScale.bandwidth() / (numGroups + 1);
@@ -591,7 +590,7 @@ function drawHorizontalGroupedBars(
       )
       .attr("x", xScale(0))
       .attr("y", (item, i) => yScale(item.label) + i * barHeight)
-      .attr("width", (item) => xScale(item.dataGroupValue.value))
+      .attr("width", (item) => xScale(item.dataGroupValue.value) - xScale(0))
       .attr("height", barHeight);
   }
 }
