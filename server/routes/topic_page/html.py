@@ -28,8 +28,8 @@ import server.services.datacommons as dc
 import logging
 
 # TechSoup - add search bar and child places
-_TOPICS_TO_DISPLAY_SEARCH_BAR = ["dc2_4"]
-_TOPICS_TO_SHOW_CHILD_PLACES = ["dc2_4"]
+_TOPICS_TO_DISPLAY_SEARCH_BAR = ["dc2_4", "climate"]
+_TOPICS_TO_SHOW_CHILD_PLACES = ["dc2_4", "climate"]
 
 _NL_DISASTER_TOPIC = 'nl_disasters'
 _SDG_TOPIC = 'sdg'

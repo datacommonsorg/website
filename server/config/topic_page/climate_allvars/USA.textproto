@@ -1,0 +1,684 @@
+# Copyright 2023 TechSoup Global
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+
+## NOTES
+## * Population Change var isn't in US
+
+metadata {
+  topic_id: "climate_allvars"
+  topic_name: "All Climate Variables"
+
+  place_dcid: "country/USA"
+  place_group {
+    parent_place: "country/USA"
+    place_type: "State"
+  }
+  place_group {
+    parent_place: "country/USA"
+    place_type: "County"
+  }
+  contained_place_types {
+    key: "Country"
+    value: "State"
+  }
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+  contained_place_types {
+    key: "County"
+    value: "CensusTract"
+  }
+}
+
+
+
+############ CATEGORY: Emissions ############
+
+categories {
+  title: "Emissions"
+
+  #---------- Annual Emissions of Non Biogenic Carbon Dioxide ----------# 
+  blocks {title: "Annual Emissions of Non Biogenic Carbon Dioxide" columns {tiles {type: DESCRIPTION description: "Stat Var = Annual_Emissions_CarbonDioxide_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Annual Emissions of Non Biogenic Carbon Dioxide (${date})" stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}
+    columns {tiles {type: LINE stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_CarbonDioxide_NonBiogenic" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Annual_Emissions_CarbonDioxide_NonBiogenic" value {stat_var: "Annual_Emissions_CarbonDioxide_NonBiogenic"}}
+
+  #---------- Annual Emissions of Non Biogenic Greenhouse Gases ----------# 
+  blocks {title: "Annual Emissions of Non Biogenic Greenhouse Gases" columns {tiles {type: DESCRIPTION description: "Stat Var = Annual_Emissions_GreenhouseGas_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Annual Emissions of Non Biogenic Greenhouse Gases (${date})" stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}
+    columns {tiles {type: LINE stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_GreenhouseGas_NonBiogenic" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Annual_Emissions_GreenhouseGas_NonBiogenic" value {stat_var: "Annual_Emissions_GreenhouseGas_NonBiogenic"}}
+
+  #---------- Annual Emissions of Non Biogenic Methane ----------# 
+  blocks {title: "Annual Emissions of Non Biogenic Methane" columns {tiles {type: DESCRIPTION description: "Stat Var = Annual_Emissions_Methane_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Annual Emissions of Non Biogenic Methane (${date})" stat_var_key: "Annual_Emissions_Methane_NonBiogenic"}}
+    columns {tiles {type: LINE stat_var_key: "Annual_Emissions_Methane_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Annual_Emissions_Methane_NonBiogenic"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Annual_Emissions_Methane_NonBiogenic"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Annual_Emissions_Methane_NonBiogenic"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_Methane_NonBiogenic" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_Methane_NonBiogenic" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Annual_Emissions_Methane_NonBiogenic" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Annual_Emissions_Methane_NonBiogenic" value {stat_var: "Annual_Emissions_Methane_NonBiogenic"}}
+
+  # Demographic vars
+  stat_var_spec {key: "Count_Person" value {stat_var: "Count_Person"}}
+  stat_var_spec {key: "Count_Person_PerArea" value {stat_var: "Count_Person_PerArea"}}
+  stat_var_spec {key: "LifeExpectancy_Person" value {stat_var: "LifeExpectancy_Person"}}
+}
+
+############ CATEGORY: Remote Sensing ############
+
+categories {
+  title: "Remote Sensing"
+
+  #---------- Mean maximum temperature in forested areas ----------# 
+  blocks {title: "Mean maximum temperature in forested areas" columns {tiles {type: DESCRIPTION description: "Stat Var = Mean_MaxTemperature_Forest"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Mean maximum temperature in forested areas (${date})" stat_var_key: "Mean_MaxTemperature_Forest"}}
+    columns {tiles {type: LINE stat_var_key: "Mean_MaxTemperature_Forest"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Mean_MaxTemperature_Forest"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Mean_MaxTemperature_Forest"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Mean_MaxTemperature_Forest"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature_Forest" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature_Forest" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature_Forest" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Mean_MaxTemperature_Forest" value {stat_var: "Mean_MaxTemperature_Forest"}}
+
+  #---------- Percent of Forest Covered Area ----------# 
+  blocks {title: "Percent of Forest Covered Area" columns {tiles {type: DESCRIPTION description: "Stat Var = LandCoverFraction_Forest"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Percent of Forest Covered Area (${date})" stat_var_key: "LandCoverFraction_Forest"}}
+    columns {tiles {type: LINE stat_var_key: "LandCoverFraction_Forest"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "LandCoverFraction_Forest"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "LandCoverFraction_Forest"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "LandCoverFraction_Forest"}}  
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_Forest" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_Forest" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_Forest" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "LandCoverFraction_Forest" value {stat_var: "LandCoverFraction_Forest"}}
+
+  #---------- Percent of Permanent Water Covered Area ----------# 
+  blocks {title: "Percent of Permanent Water Covered Area" columns {tiles {type: DESCRIPTION description: "Stat Var = LandCoverFraction_PermanentWater"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Percent of Permanent Water Covered Area (${date})" stat_var_key: "LandCoverFraction_PermanentWater"}}
+    columns {tiles {type: LINE stat_var_key: "LandCoverFraction_PermanentWater"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "LandCoverFraction_PermanentWater"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "LandCoverFraction_PermanentWater"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "LandCoverFraction_PermanentWater"}}  
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_PermanentWater" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_PermanentWater" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_PermanentWater" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "LandCoverFraction_PermanentWater" value {stat_var: "LandCoverFraction_PermanentWater"}}
+
+  #---------- Percent of Seasonal Water Covered Area ----------# 
+  blocks {title: "Percent of Seasonal Water Covered Area" columns {tiles {type: DESCRIPTION description: "Stat Var = LandCoverFraction_SeasonalWater"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Percent of Seasonal Water Covered Area (${date})" stat_var_key: "LandCoverFraction_SeasonalWater"}}
+    columns {tiles {type: LINE stat_var_key: "LandCoverFraction_SeasonalWater"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "LandCoverFraction_SeasonalWater"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "LandCoverFraction_SeasonalWater"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "LandCoverFraction_SeasonalWater"}}  
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_SeasonalWater" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_SeasonalWater" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "LandCoverFraction_SeasonalWater" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "LandCoverFraction_SeasonalWater" value {stat_var: "LandCoverFraction_SeasonalWater"}}
+
+  #---------- Rate of Water Withdrawal ----------# 
+  blocks {title: "Rate of Water Withdrawal" columns {tiles {type: DESCRIPTION description: "Stat Var = WithdrawalRate_Water"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Rate of Water Withdrawal (${date})" stat_var_key: "WithdrawalRate_Water"}}
+    columns {tiles {type: LINE stat_var_key: "WithdrawalRate_Water"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "WithdrawalRate_Water"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "WithdrawalRate_Water"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "WithdrawalRate_Water"}}  
+    columns {tiles {type: SCATTER stat_var_key: "WithdrawalRate_Water" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "WithdrawalRate_Water" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "WithdrawalRate_Water" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "WithdrawalRate_Water" value {stat_var: "WithdrawalRate_Water"}}
+
+  #---------- Mean Temperature ----------# 
+  blocks {title: "Mean Temperature" columns {tiles {type: DESCRIPTION description: "Stat Var = Mean_Temperature"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Mean Temperature (${date})" stat_var_key: "Mean_Temperature"}}
+    columns {tiles {type: LINE stat_var_key: "Mean_Temperature"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Mean_Temperature"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Mean_Temperature"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Mean_Temperature"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Mean_Temperature" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Mean_Temperature" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Mean_Temperature" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Mean_Temperature" value {stat_var: "Mean_Temperature"}}
+
+  #---------- Mean maximum temperature ----------# 
+  blocks {title: "Mean maximum temperature" columns {tiles {type: DESCRIPTION description: "Stat Var = Mean_MaxTemperature"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Mean maximum temperature (${date})" stat_var_key: "Mean_MaxTemperature"}}
+    columns {tiles {type: LINE stat_var_key: "Mean_MaxTemperature"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Mean_MaxTemperature"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Mean_MaxTemperature"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Mean_MaxTemperature"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Mean_MaxTemperature" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Mean_MaxTemperature" value {stat_var: "Mean_MaxTemperature"}}
+
+  # Demographic vars
+  stat_var_spec {key: "Count_Person" value {stat_var: "Count_Person"}}
+  stat_var_spec {key: "Count_Person_PerArea" value {stat_var: "Count_Person_PerArea"}}
+  stat_var_spec {key: "LifeExpectancy_Person" value {stat_var: "LifeExpectancy_Person"}}
+}
+
+
+############ CATEGORY: Hazards ############
+
+categories {
+  title: "Hazards"
+
+  #---------- Wildfires ----------# 
+  blocks {title: "Wildfires" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_WildfireEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Wildfires (${date})" stat_var_key: "Count_WildfireEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_WildfireEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_WildfireEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_WildfireEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_WildfireEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_WildfireEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_WildfireEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_WildfireEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_WildfireEvent" value {stat_var: "Count_WildfireEvent"}}
+
+  #---------- Cyclones ----------# 
+  blocks {title: "Cyclones" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_CycloneEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Cyclones (${date})" stat_var_key: "Count_CycloneEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_CycloneEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_CycloneEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_CycloneEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_CycloneEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_CycloneEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_CycloneEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_CycloneEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_CycloneEvent" value {stat_var: "Count_CycloneEvent"}}
+
+  #---------- Cloud of Dense Smoke Event ----------# 
+  blocks {title: "Cloud of Dense Smoke Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_DenseSmokeEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Cloud of Dense Smoke Event (${date})" stat_var_key: "Count_DenseSmokeEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_DenseSmokeEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_DenseSmokeEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_DenseSmokeEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_DenseSmokeEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_DenseSmokeEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_DenseSmokeEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_DenseSmokeEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_DenseSmokeEvent" value {stat_var: "Count_DenseSmokeEvent"}}
+
+  #---------- Count of Fire Incident Complex Event ----------# 
+  blocks {title: "Count of Fire Incident Complex Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_FireIncidentComplex"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Fire Incident Complex Event (${date})" stat_var_key: "Count_FireIncidentComplex"}}
+    columns {tiles {type: LINE stat_var_key: "Count_FireIncidentComplex"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_FireIncidentComplex"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_FireIncidentComplex"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_FireIncidentComplex"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_FireIncidentComplex" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_FireIncidentComplex" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_FireIncidentComplex" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_FireIncidentComplex" value {stat_var: "Count_FireIncidentComplex"}}
+
+  #---------- Count of Excessive Heat Event ----------# 
+  blocks {title: "Count of Excessive Heat Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_ExcessiveHeatEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Excessive Heat Event (${date})" stat_var_key: "Count_ExcessiveHeatEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_ExcessiveHeatEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_ExcessiveHeatEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_ExcessiveHeatEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_ExcessiveHeatEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExcessiveHeatEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExcessiveHeatEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExcessiveHeatEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_ExcessiveHeatEvent" value {stat_var: "Count_ExcessiveHeatEvent"}}
+
+  #---------- Count of Extreme Cold Wind Chill Event ----------# 
+  blocks {title: "Count of Extreme Cold Wind Chill Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_ExtremeColdWindChillEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Extreme Cold Wind Chill Event (${date})" stat_var_key: "Count_ExtremeColdWindChillEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_ExtremeColdWindChillEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_ExtremeColdWindChillEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_ExtremeColdWindChillEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_ExtremeColdWindChillEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExtremeColdWindChillEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExtremeColdWindChillEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_ExtremeColdWindChillEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_ExtremeColdWindChillEvent" value {stat_var: "Count_ExtremeColdWindChillEvent"}}
+
+  #---------- Fire Event With Area = Forest ----------# 
+  blocks {title: "Fire Event With Area = Forest" columns {tiles {type: DESCRIPTION description: "Stat Var = BurnedArea_FireEvent_Forest"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Fire Event With Area = Forest (${date})" stat_var_key: "BurnedArea_FireEvent_Forest"}}
+    columns {tiles {type: LINE stat_var_key: "BurnedArea_FireEvent_Forest"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "BurnedArea_FireEvent_Forest"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "BurnedArea_FireEvent_Forest"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "BurnedArea_FireEvent_Forest"}}  
+    columns {tiles {type: SCATTER stat_var_key: "BurnedArea_FireEvent_Forest" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "BurnedArea_FireEvent_Forest" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "BurnedArea_FireEvent_Forest" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "BurnedArea_FireEvent_Forest" value {stat_var: "BurnedArea_FireEvent_Forest"}}
+
+  #---------- Count of Flash Flood Event ----------# 
+  blocks {title: "Count of Flash Flood Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_FlashFloodEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Flash Flood Event (${date})" stat_var_key: "Count_FlashFloodEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_FlashFloodEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_FlashFloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_FlashFloodEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_FlashFloodEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_FlashFloodEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_FlashFloodEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_FlashFloodEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_FlashFloodEvent" value {stat_var: "Count_FlashFloodEvent"}}
+
+  #---------- Heat Waves ----------# 
+  blocks {title: "Heat Waves" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HeatEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Heat Waves (${date})" stat_var_key: "Count_HeatEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HeatEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HeatEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeatEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HeatEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HeatEvent" value {stat_var: "Count_HeatEvent"}}
+
+  #---------- Heavy Rains ----------# 
+  blocks {title: "Heavy Rains" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HeavyRainEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Heavy Rains (${date})" stat_var_key: "Count_HeavyRainEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HeavyRainEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HeavyRainEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeavyRainEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HeavyRainEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavyRainEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavyRainEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavyRainEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HeavyRainEvent" value {stat_var: "Count_HeavyRainEvent"}}
+
+  #---------- Heavy Snows ----------# 
+  blocks {title: "Heavy Snows" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HeavySnowEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Heavy Snows (${date})" stat_var_key: "Count_HeavySnowEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HeavySnowEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HeavySnowEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeavySnowEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HeavySnowEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavySnowEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavySnowEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeavySnowEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HeavySnowEvent" value {stat_var: "Count_HeavySnowEvent"}}
+
+  #---------- Percent of forest area that experienced high-severity fire (1995 to 2017) ----------# 
+  blocks {title: "Percent of forest area that experienced high-severity fire (1995 to 2017)" columns {tiles {type: DESCRIPTION description: "Stat Var = Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Percent of forest area that experienced high-severity fire (1995 to 2017) (${date})" stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}
+    columns {tiles {type: LINE stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Percent_BurnedArea_FireEvent_Forest_HighSeverity" value {stat_var: "Percent_BurnedArea_FireEvent_Forest_HighSeverity"}}
+
+  #---------- Floods ----------# 
+  blocks {title: "Floods" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Floods (${date})" stat_var_key: "Count_FloodEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_FloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_FloodEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_FloodEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_FloodEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_FloodEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_FloodEvent" value {stat_var: "Count_FloodEvent"}}
+
+  #---------- Count of Hurricane Event ----------# 
+  blocks {title: "Count of Hurricane Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HurricaneEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Hurricane Event (${date})" stat_var_key: "Count_HurricaneEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HurricaneEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HurricaneEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HurricaneEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HurricaneEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HurricaneEvent" value {stat_var: "Count_HurricaneEvent"}}
+
+  #---------- Count of Hurricane Typhoon Event ----------# 
+  blocks {title: "Count of Hurricane Typhoon Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HurricaneTyphoonEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Hurricane Typhoon Event (${date})" stat_var_key: "Count_HurricaneTyphoonEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HurricaneTyphoonEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HurricaneTyphoonEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HurricaneTyphoonEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HurricaneTyphoonEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneTyphoonEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneTyphoonEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HurricaneTyphoonEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HurricaneTyphoonEvent" value {stat_var: "Count_HurricaneTyphoonEvent"}}
+
+  #---------- Count of Tropical Depression Event ----------# 
+  blocks {title: "Count of Tropical Depression Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_TropicalDepressionEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Tropical Depression Event (${date})" stat_var_key: "Count_TropicalDepressionEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_TropicalDepressionEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_TropicalDepressionEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_TropicalDepressionEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_TropicalDepressionEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalDepressionEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalDepressionEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalDepressionEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_TropicalDepressionEvent" value {stat_var: "Count_TropicalDepressionEvent"}}
+
+  #---------- Count of Tropical Storm Event ----------# 
+  blocks {title: "Count of Tropical Storm Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_TropicalStormEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Tropical Storm Event (${date})" stat_var_key: "Count_TropicalStormEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_TropicalStormEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_TropicalStormEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_TropicalStormEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_TropicalStormEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalStormEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalStormEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_TropicalStormEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_TropicalStormEvent" value {stat_var: "Count_TropicalStormEvent"}}
+
+  #---------- Droughts ----------# 
+  blocks {title: "Droughts" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_DroughtEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Droughts (${date})" stat_var_key: "Count_DroughtEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_DroughtEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_DroughtEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_DroughtEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_DroughtEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_DroughtEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_DroughtEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_DroughtEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_DroughtEvent" value {stat_var: "Count_DroughtEvent"}}
+
+  #---------- Earthquakes ----------# 
+  blocks {title: "Earthquakes" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_EarthquakeEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Earthquakes (${date})" stat_var_key: "Count_EarthquakeEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_EarthquakeEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_EarthquakeEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_EarthquakeEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_EarthquakeEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_EarthquakeEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_EarthquakeEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_EarthquakeEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_EarthquakeEvent" value {stat_var: "Count_EarthquakeEvent"}}
+
+  #---------- Count of Heat Temperature Event ----------# 
+  blocks {title: "Count of Heat Temperature Event" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_HeatTemperatureEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Count of Heat Temperature Event (${date})" stat_var_key: "Count_HeatTemperatureEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_HeatTemperatureEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_HeatTemperatureEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeatTemperatureEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_HeatTemperatureEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatTemperatureEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatTemperatureEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_HeatTemperatureEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_HeatTemperatureEvent" value {stat_var: "Count_HeatTemperatureEvent"}}
+
+  #---------- Coastal Floods ----------# 
+  blocks {title: "Coastal Floods" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_CoastalFloodEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Coastal Floods (${date})" stat_var_key: "Count_CoastalFloodEvent"}}
+    columns {tiles {type: LINE stat_var_key: "Count_CoastalFloodEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_CoastalFloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_CoastalFloodEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_CoastalFloodEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "Count_CoastalFloodEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "Count_CoastalFloodEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "Count_CoastalFloodEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "Count_CoastalFloodEvent" value {stat_var: "Count_CoastalFloodEvent"}}
+
+  #---------- Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone(FEMA) ----------# 
+  blocks {title: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone(FEMA)" columns {tiles {type: DESCRIPTION description: "Stat Var = SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone(FEMA) (${date})" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}
+    columns {tiles {type: LINE stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}
+
+  #---------- Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone(FEMA) ----------# 
+  blocks {title: "Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone(FEMA)" columns {tiles {type: DESCRIPTION description: "Stat Var = SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone(FEMA) (${date})" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
+    columns {tiles {type: LINE stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}  
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: SCATTER stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" stat_var_key: "LifeExpectancy_Person"}}}
+  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
+
+  # Demographic vars
+  stat_var_spec {key: "Count_Person" value {stat_var: "Count_Person"}}
+  stat_var_spec {key: "Count_Person_PerArea" value {stat_var: "Count_Person_PerArea"}}
+  stat_var_spec {key: "LifeExpectancy_Person" value {stat_var: "LifeExpectancy_Person"}}
+
+}
+
+
+############ CATEGORY: Demographics ############
+
+categories {
+  title: "Demographics"
+
+  #---------- Total Population ----------# 
+  blocks {title: "Total Population" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_Person"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Total Population (${date})" stat_var_key: "Count_Person"}}
+    columns {tiles {type: LINE stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_Person"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_Person"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_Person"}}  
+    columns {tiles {type: DESCRIPTION description: ""}}}
+  stat_var_spec {key: "Count_Person" value {stat_var: "Count_Person"}}
+
+  #---------- Population Density ----------# 
+  blocks {title: "Population Density" columns {tiles {type: DESCRIPTION description: "Stat Var = Count_Person_PerArea"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Population Density (${date})" stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: LINE stat_var_key: "Count_Person_PerArea"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "Count_Person_PerArea"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_Person_PerArea"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "Count_Person_PerArea"}}  
+    columns {tiles {type: DESCRIPTION description: ""}}}
+  stat_var_spec {key: "Count_Person_PerArea" value {stat_var: "Count_Person_PerArea"}}
+
+  #---------- Life expectancy ----------# 
+  blocks {title: "Life expectancy" columns {tiles {type: DESCRIPTION description: "Stat Var = LifeExpectancy_Person"}}}
+  blocks {
+    columns {tiles {type: HIGHLIGHT description: "Life expectancy (${date})" stat_var_key: "LifeExpectancy_Person"}}
+    columns {tiles {type: LINE stat_var_key: "LifeExpectancy_Person"}}}
+  blocks {
+    columns {tiles {type: MAP stat_var_key: "LifeExpectancy_Person"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "LifeExpectancy_Person"}}}
+  blocks {
+    columns {tiles {type: BAR stat_var_key: "LifeExpectancy_Person"}}  
+    columns {tiles {type: DESCRIPTION description: ""}}}
+  stat_var_spec {key: "__STATLifeExpectancy_PersonVAR" value {stat_var: "LifeExpectancy_Person"}}
+
+  # Demographic vars
+  stat_var_spec {key: "Count_Person" value {stat_var: "Count_Person"}}
+  stat_var_spec {key: "Count_Person_PerArea" value {stat_var: "Count_Person_PerArea"}}
+  stat_var_spec {key: "LifeExpectancy_Person" value {stat_var: "LifeExpectancy_Person"}}
+
+
+  ##################### TEMPLATE START ############################
+
+  #---------- __STATVAR_DESCRIPTION ----------# 
+  #blocks {title: "__STATVAR_DESCRIPTION" columns {tiles {type: DESCRIPTION description: "Stat Var = __STATVAR"}}}
+  #blocks {
+  #  columns {tiles {type: HIGHLIGHT description: "__STATVAR_DESCRIPTION (${date})" stat_var_key: "__STATVAR"}}
+  #  columns {tiles {type: LINE stat_var_key: "__STATVAR"}}}
+  #blocks {
+  #  columns {tiles {type: MAP stat_var_key: "__STATVAR"}}
+  #  columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "__STATVAR"}}}
+  #blocks {
+  #  columns {tiles {type: BAR stat_var_key: "__STATVAR"}}  
+  #  columns {tiles {type: SCATTER stat_var_key: "__STATVAR" stat_var_key: "Count_Person"}}}
+  #blocks {
+  #  columns {tiles {type: SCATTER stat_var_key: "__STATVAR" stat_var_key: "Count_Person_PerArea"}}
+  #  columns {tiles {type: SCATTER stat_var_key: "__STATVAR" stat_var_key: "LifeExpectancy_Person"}}}
+  #stat_var_spec {key: "__STATVAR" value {stat_var: "__STATVAR"}}
+
+  ##################### TEMPLATE END ############################
+
+}
