@@ -31,6 +31,7 @@ import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
+  RelatedTopic,
 } from "../../utils/types";
 import { SearchBar } from "../layout/components";
 
@@ -448,6 +449,7 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
+            mainTopic={fulfillmentResponse.relatedThings.mainTopic}
           />
         ))}
     </>
@@ -457,10 +459,11 @@ const ChartContent: React.FC<{
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-}> = ({ chartConfigCategory, placeDcid }) => {
+  mainTopic: RelatedTopic;
+}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
 
-  const matches = chartConfigCategory.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  const matches = mainTopic.dcid?.match(/^dc\/topic\/sdg_(\d\d?)$/);
   const rootTopicIndex =
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
