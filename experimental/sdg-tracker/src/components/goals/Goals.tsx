@@ -20,7 +20,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import {
   EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
-  ROOT_SDG_VARIABLE_GROUP,
+  ROOT_TOPIC,
 } from "../../utils/constants";
 import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../layout/AppFooter";
@@ -37,8 +37,7 @@ const Goals: React.FC = () => {
     [location.search]
   );
 
-  const variableDcid =
-    searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
+  const variableDcid = searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_TOPIC;
 
   /**
    * Update selected variable URL parameter

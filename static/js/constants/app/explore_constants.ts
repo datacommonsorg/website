@@ -28,6 +28,12 @@ export const URL_HASH_PARAMS = {
   NL_FULFILLMENT: "nl",
   // old query param
   DEPRECATED_QUERY: "oq",
+  // auto play params
+  AUTO_PLAY_QUERY: "aq",
+  AUTO_PLAY_DISABLE_TYPING: "at",
+  AUTO_PLAY_MANUAL_ENTER: "ae",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";
+// String used as a delimiter for url params
+export const URL_DELIM = "___";

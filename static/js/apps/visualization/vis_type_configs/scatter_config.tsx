@@ -175,4 +175,5 @@ export const SCATTER_CONFIG = {
   numSv: 2,
   getChartArea,
   getInfoContent,
+  oldToolUrl: "/tools/scatter",
 };

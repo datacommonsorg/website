@@ -85,7 +85,7 @@ export function PlaceSelector(props: {
           addPlace={addPlace}
           removePlace={removePlace}
           numPlacesLimit={1}
-          customPlaceHolder="Select a place"
+          customPlaceHolder="Enter a place"
         />
       </div>
       {props.selectOnContinue && (
