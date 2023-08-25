@@ -28,7 +28,6 @@ import {
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
-  ChartConfigBlock,
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
