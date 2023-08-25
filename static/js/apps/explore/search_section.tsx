@@ -20,7 +20,7 @@
 
 import React from "react";
 
-import { TextSearchBar } from "../../components/text_search_bar";
+import { NlSearchBar } from "../../components/nl_search_bar";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
@@ -45,37 +45,20 @@ export function SearchSection(props: {
   );
 
   return (
-    <div className="search-section">
-      <div className="search-bar-tags">
-        <div className="early-preview-tag">Early preview</div>
-        {DEVELOPER_MODE && (
-          <>
-            <span>|</span>
-            <div className="feedback-link">
-              <a href={feedbackLink} target="_blank" rel="noreferrer">
-                Feedback
-              </a>
-            </div>
-          </>
-        )}
-      </div>
-
-      <div className="search-box-section">
-        <TextSearchBar
-          inputId="query-search-input"
-          onSearch={(q) => {
-            updateHash({
-              [URL_HASH_PARAMS.QUERY]: q,
-              [URL_HASH_PARAMS.PLACE]: "",
-              [URL_HASH_PARAMS.TOPIC]: "",
-            });
-          }}
-          placeholder={props.query}
-          initialValue={props.query}
-          shouldAutoFocus={false}
-          clearValueOnSearch={true}
-        />
-      </div>
-    </div>
+    <NlSearchBar
+      inputId="query-search-input"
+      onSearch={(q) => {
+        updateHash({
+          [URL_HASH_PARAMS.QUERY]: q,
+          [URL_HASH_PARAMS.PLACE]: "",
+          [URL_HASH_PARAMS.TOPIC]: "",
+        });
+      }}
+      placeholder={props.query}
+      initialValue={props.query}
+      shouldAutoFocus={false}
+      clearValueOnSearch={true}
+      feedbackLink={DEVELOPER_MODE ? feedbackLink : undefined}
+    />
   );
 }

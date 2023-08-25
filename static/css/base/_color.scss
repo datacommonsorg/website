@@ -31,6 +31,8 @@ $dc-primary-color: #467bd5;
   --dc-error: #dc3545;
   --gm-3-sys-light-primary: #0b57d0;
   --gm-3-sys-light-primary-60: #4c8df6;
+  --gm-3-ref-primary-primary-99: #fafbff;
+  --gm-3-ref-primary-primary-100: #ffffff;
   --gm-3-ref-secondary-secondary-30: #004a77;
   --gm-3-ref-secondary-secondary-99: #f7fcff;
   --gm-3-ref-neutral-neutral-20: #303030;
@@ -39,6 +41,6 @@ $dc-primary-color: #467bd5;
   --gm-3-white: #fff;
   // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
-  --link-color: #{$dc-primary-color};
+  --link-color:#0b57d0;
   --footer-bg: #f5f9fe;
 }

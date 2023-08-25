@@ -32,5 +32,6 @@ declare namespace JSX {
     "datacommons-pie": import("./library/component_attributes").PieComponentProps;
     "datacommons-ranking": import("./library/component_attributes").RankingComponentProps;
     "datacommons-slider": import("./library/component_attributes").SliderComponentProps;
+    "datacommons-text": import("./library/component_attributes").TextComponentProps;
   }
 }
