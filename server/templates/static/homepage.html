@@ -30,6 +30,7 @@
  {% endblock %}
 
  {% block content %}
+ {#
  <section id="homepage-top">
   <div class="container">
     <div class="header">Data tells interesting stories</div>
@@ -38,8 +39,43 @@
     </div>
   </div>
 </section>
+#}
 
- <section>
+<section id="search-animation">
+  <div class="container">
+    {# replace with animation search box style #}
+    <div class="search-section">
+      <div class="search-box-section">
+        <div class="search-bar">
+          <div class="search-bar-content input-group">
+            <input id="query-search-input" placeholder="Enter a question or topic to explore" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="">
+            <div id="rich-search-button">
+              <img src="https://dev.datacommons.org/images/search-button-icon.svg" alt="Search">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="search-results">
+      <div id="default-text">
+        <div class="content">
+          <h1>Data tells interesting stories</h1>
+          <h2>Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</h2>
+        </div>
+      </div>
+      {# convert to config / json #}
+      <div id="result-svg" class="">
+        <div class="result hidden" data-query="Which countries in Africa have had the greatest increase in electricity access?" style="background-image: url('/images/answers/access-electricity.svg')"></div>
+        <div class="result hidden" data-query="How do income and diabetes trend in US counties?" style="background-image: url('/images/answers/diabetes.svg')"></div>
+        <div class="result hidden" data-query="Which counties in the US have the highest levels of diabetes?" style="background-image: url('/images/answers/diabetes.svg')"></div>
+        <div class="result hidden" data-query="Tell me about global greenhouse gas emissions" style="background-image: url('/images/answers/emissions.svg')"></div>
+        <div class="result hidden" data-query="Show me agricultural income by US county" style="background-image: url('/images/answers/farm-income.svg')"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
   <div class="container">
     <div class="topics-container">
       {% for topic in topics %}
