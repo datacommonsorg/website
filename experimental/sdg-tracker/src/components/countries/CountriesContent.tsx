@@ -17,7 +17,7 @@
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 import { useStoreActions, useStoreState } from "../../state";
@@ -208,7 +208,6 @@ const CountriesContent: React.FC<{
     return parentDcids.map((parentDcid) => s.variableGroups.byDcid[parentDcid]);
   });
   const location = useLocation();
-  const navigate = useNavigate();
   /**
    * Fetch page content
    */
@@ -266,25 +265,21 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
-        <StyledBreadcrumb
-          items={[
-            ...parentVariables,
-            ...(variables.length === 1 ? variables : []),
-          ]
+        <StyledBreadcrumb>
+          {[...parentVariables, ...(variables.length === 1 ? variables : [])]
             .filter((v) => v)
-            .map((v) => {
+            .map((v, i) => {
               const searchParams = new URLSearchParams(location.search);
               searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
-              return {
-                title: v.name,
-                onClick: (e: React.MouseEvent) => {
-                  e.preventDefault();
-                  navigate(location.pathname + "?" + searchParams.toString());
-                },
-                href: "#/countries?" + searchParams.toString(),
-              };
+              return (
+                <Breadcrumb.Item key={i}>
+                  <Link to={"/countries?" + searchParams.toString()}>
+                    {v.name}
+                  </Link>
+                </Breadcrumb.Item>
+              );
             })}
-        />
+        </StyledBreadcrumb>
         <div style={{ display: "none" }}>
           <PlaceChips
             includeWorld={false}
