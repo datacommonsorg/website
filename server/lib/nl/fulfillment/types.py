@@ -83,6 +83,9 @@ class SV2Thing:
 class PopulateState:
   uttr: Utterance
   place_type: ContainedInPlaceType = None
+  # Set to true if `place_type` at the outset of fulfillment was
+  # DEFAULT_TYPE.
+  had_default_place_type: bool = False
   ranking_types: List[RankingType] = field(default_factory=list)
   time_delta_types: List[TimeDeltaType] = field(default_factory=list)
   quantity: QuantityClassificationAttributes = None
@@ -90,8 +93,7 @@ class PopulateState:
   disable_fallback: bool = False
   # The list of chart-vars to process.  This is keyed by var / topic.
   # This is in the order of the returned SVs from the Embeddings index.
-  chart_vars_map: OrderedDict[str,
-                              List[ChartVars]] = field(default_factory=dict)
+  chart_vars_map: Dict[str, List[ChartVars]] = field(default_factory=dict)
   # This is a temporary subset of `chart_vars_map` that have passed existence
   # checks.
   exist_chart_vars_list: List[ChartVars] = field(default_factory=list)

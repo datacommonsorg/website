@@ -154,8 +154,10 @@ def decorate_block_title(title: str,
   if growth_direction != None:
     if growth_direction == TimeDeltaType.INCREASE:
       prefix = 'Increase'
-    else:
+    elif growth_direction == TimeDeltaType.DECREASE:
       prefix = 'Decrease'
+    elif growth_direction == TimeDeltaType.CHANGE:
+      prefix = 'Change'
     suffix = 'over time '
     if growth_ranking_type == 'abs':
       suffix += '(Absolute change)'

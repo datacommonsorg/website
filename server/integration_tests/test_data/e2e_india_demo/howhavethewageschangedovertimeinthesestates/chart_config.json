@@ -1,0 +1,488 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1505",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Sikkim",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q26927",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Lakshadweep",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1502",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Mizoram",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1599",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Nagaland",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1363",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Tripura",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q66710",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Daman and Diu",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mean Monthly Wages over time (Absolute change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1505",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Sikkim",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q26927",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Lakshadweep",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1599",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Nagaland",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1502",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Mizoram",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1363",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Tripura",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q66710",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Daman and Diu",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mean Monthly Wages over time (Percent change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q26927",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Lakshadweep",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1505",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Sikkim",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1162",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Arunachal Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1502",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Mizoram",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q43433",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Chandigarh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1599",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Nagaland",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1363",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Tripura",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q66710",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Daman and Diu",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Mean Monthly Wages over time (Per Capita change)"
+          }
+        ],
+        "statVarSpec": {
+          "Mean_WagesMonthly_Worker_growth_abs": {
+            "name": "Mean Monthly Wages",
+            "statVar": "Mean_WagesMonthly_Worker"
+          },
+          "Mean_WagesMonthly_Worker_growth_pc": {
+            "name": "Mean Monthly Wages",
+            "statVar": "Mean_WagesMonthly_Worker"
+          },
+          "Mean_WagesMonthly_Worker_growth_pct": {
+            "name": "Mean Monthly Wages",
+            "statVar": "Mean_WagesMonthly_Worker"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1505"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q26927",
+    "name": "Lakshadweep",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q26927",
+      "name": "Lakshadweep",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q66710",
+      "name": "Daman and Diu",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1502",
+      "name": "Mizoram",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1505",
+      "name": "Sikkim",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1599",
+      "name": "Nagaland",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1363",
+      "name": "Tripura",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Mean_WagesMonthly_Worker": {
+        "gender": [
+          "Mean_WagesMonthly_Worker_Female",
+          "Mean_WagesMonthly_Worker_Male"
+        ]
+      }
+    },
+    "mainTopic": {},
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

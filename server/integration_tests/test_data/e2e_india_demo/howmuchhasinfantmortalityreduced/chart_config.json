@@ -1,0 +1,124 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q26927",
+                      "wikidataId/Q66710",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q43433",
+                      "wikidataId/Q1502",
+                      "wikidataId/Q1505",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1599",
+                      "wikidataId/Q1363",
+                      "wikidataId/Q1195"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Infant_multiple_place_bar_block"
+                    ],
+                    "title": "Total number of infant deaths reported (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Total number of infant deaths reported"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death_Infant_multiple_place_bar_block": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q26927"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q26927",
+    "name": "Lakshadweep",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q26927",
+      "name": "Lakshadweep",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q66710",
+      "name": "Daman and Diu",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1502",
+      "name": "Mizoram",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1505",
+      "name": "Sikkim",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1599",
+      "name": "Nagaland",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1363",
+      "name": "Tripura",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopic": {},
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

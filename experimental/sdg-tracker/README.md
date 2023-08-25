@@ -22,7 +22,7 @@ npm run dev
 
 ## Deploy
 
-Deploy to the demo site on Google App Engine at [https://dwnoble.ue.r.appspot.com/](https://dwnoble.ue.r.appspot.com/)
+Deploy to the demo site on Google App Engine at [https://datcom-un.ue.r.appspot.com/](https://datcom-un.ue.r.appspot.com/)
 
 ```bash
 ./deploy_app.sh

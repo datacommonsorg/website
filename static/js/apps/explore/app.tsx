@@ -25,35 +25,27 @@ import React, { useEffect, useRef, useState } from "react";
 import { Container } from "reactstrap";
 
 import { Spinner } from "../../components/spinner";
-import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   DEFAULT_TOPIC,
+  URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
-import {
-  ExploreContext,
-  NlSessionContext,
-  RankingUnitUrlFuncContext,
-} from "../../shared/context";
 import { QueryResult } from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getPlaceTypePlural } from "../../utils/string_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { DebugInfo } from "../nl_interface/debug_info";
-import { RelatedPlace } from "./related_place";
-import { ResultHeaderSection } from "./result_header_section";
+import { AutoPlay } from "./autoplay";
+import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
+import { SuccessResult } from "./success_result";
 
 enum LoadingStatus {
   LOADING = "loading",
   FAILED = "failed",
   SUCCESS = "success",
+  DEMO_INIT = "demoInit",
 }
 
-const PAGE_ID = "explore";
 const DEFAULT_PLACE = "geoId/06";
-const DELIM = "___";
 
 const getSingleParam = (input: string | string[]): string => {
   // If the input is an array, convert it to a single string
@@ -69,15 +61,24 @@ const getSingleParam = (input: string | string[]): string => {
 
 const toApiList = (input: string): string[] => {
   // Split of an empty string returns [''].  Trim empties.
-  return input.split(DELIM).filter((i) => i);
+  return input.split(URL_DELIM).filter((i) => i);
 };
+
+// Gets the list of auto play queries in the url.
+function getAutoPlayQueries(): string[] {
+  const hashParams = queryString.parse(window.location.hash);
+  const queryListParam = getSingleParam(
+    hashParams[URL_HASH_PARAMS.AUTO_PLAY_QUERY]
+  );
+  return toApiList(queryListParam);
+}
 
 /**
  * Application container
  */
-export function App(): JSX.Element {
+export function App(props: { isDemo: boolean }): JSX.Element {
   const [loadingStatus, setLoadingStatus] = useState<string>(
-    LoadingStatus.LOADING
+    props.isDemo ? LoadingStatus.DEMO_INIT : LoadingStatus.LOADING
   );
   const [query, setQuery] = useState<string>("");
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
@@ -85,9 +86,17 @@ export function App(): JSX.Element {
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
   const savedContext = useRef([]);
+  const autoPlayQueryList = useRef(getAutoPlayQueries());
+  const [autoPlayQuery, setAutoPlayQuery] = useState("");
 
   useEffect(() => {
-    handleHashChange();
+    // If in demo mode, should input first autoplay query on mount.
+    // Otherwise, treat it as a regular hashchange.
+    if (props.isDemo && autoPlayQueryList.current.length > 0) {
+      setAutoPlayQuery(autoPlayQueryList.current.shift());
+    } else {
+      handleHashChange();
+    }
     // Listen to the 'hashchange' event and call the handler
     window.addEventListener("hashchange", handleHashChange);
 
@@ -100,129 +109,45 @@ export function App(): JSX.Element {
   const exploreContext = _.isEmpty(savedContext.current)
     ? null
     : savedContext.current[0]["insightCtx"];
-  if (loadingStatus === LoadingStatus.FAILED) {
-    return (
-      <Container className="explore-container">
-        <div className="row explore-charts">
-          <div id="user-message">Sorry, could not complete your request.</div>
-          {query && (
-            <>
-              <SearchSection
-                query={query}
-                debugData={debugData}
-                exploreContext={exploreContext}
-              />
-              <DebugInfo
-                debugData={debugData}
-                queryResult={queryResult}
-              ></DebugInfo>
-            </>
-          )}
-        </div>
-      </Container>
-    );
-  }
-  if (loadingStatus === LoadingStatus.LOADING) {
-    return (
-      <Container className="explore-container">
+  return (
+    <Container className="explore-container">
+      {props.isDemo && (
+        <AutoPlay
+          autoPlayQuery={autoPlayQuery}
+          inputQuery={setQuery}
+          disableDelay={loadingStatus === LoadingStatus.DEMO_INIT}
+        />
+      )}
+      {loadingStatus === LoadingStatus.FAILED && (
+        <ErrorResult
+          query={query}
+          debugData={debugData}
+          exploreContext={exploreContext}
+          queryResult={queryResult}
+        />
+      )}
+      {loadingStatus === LoadingStatus.LOADING && (
         <div>
           <Spinner isOpen={true} />
         </div>
-      </Container>
-    );
-  }
-  if (loadingStatus === LoadingStatus.SUCCESS && pageMetadata) {
-    const childPlaceType = !_.isEmpty(pageMetadata.childPlaces)
-      ? Object.keys(pageMetadata.childPlaces)[0]
-      : "";
-    const placeUrlVal = (
-      exploreContext?.entities || [pageMetadata.place.dcid]
-    ).join(DELIM);
-    const topicUrlVal = (exploreContext?.variables || []).join(DELIM);
-    const relatedPlaceTopic = _.isEmpty(pageMetadata.mainTopic)
-      ? {
-          dcid: topicUrlVal,
-          name: "",
-          types: null,
-        }
-      : pageMetadata.mainTopic;
-    return (
-      <Container className="explore-container">
+      )}
+      {loadingStatus === LoadingStatus.DEMO_INIT && (
         <div className="row explore-charts">
-          <div className="col-12">
-            <DebugInfo
-              debugData={debugData}
-              queryResult={queryResult}
-            ></DebugInfo>
-            {pageMetadata && pageMetadata.pageConfig && (
-              <>
-                {exploreContext.dc !== "sdg" && (
-                  <SearchSection
-                    query={query}
-                    debugData={debugData}
-                    exploreContext={exploreContext}
-                  />
-                )}
-                <ResultHeaderSection
-                  pageMetadata={pageMetadata}
-                  userMessage={userMessage}
-                  placeUrlVal={placeUrlVal}
-                />
-                <RankingUnitUrlFuncContext.Provider
-                  value={(dcid: string) => {
-                    return `/explore/#${getUpdatedHash({
-                      [URL_HASH_PARAMS.PLACE]: dcid,
-                      [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
-                      [URL_HASH_PARAMS.QUERY]: "",
-                    })}`;
-                  }}
-                >
-                  <NlSessionContext.Provider value={pageMetadata.sessionId}>
-                    <ExploreContext.Provider
-                      value={{
-                        exploreMore: pageMetadata.exploreMore,
-                        place: pageMetadata.place.dcid,
-                        placeType: exploreContext.childEntityType || "",
-                      }}
-                    >
-                      <SubjectPageMainPane
-                        id={PAGE_ID}
-                        place={pageMetadata.place}
-                        pageConfig={pageMetadata.pageConfig}
-                        svgChartHeight={SVG_CHART_HEIGHT}
-                        showExploreMore={true}
-                      />
-                    </ExploreContext.Provider>
-                  </NlSessionContext.Provider>
-                </RankingUnitUrlFuncContext.Provider>
-                {!_.isEmpty(pageMetadata.childPlaces) && (
-                  <RelatedPlace
-                    relatedPlaces={pageMetadata.childPlaces[childPlaceType]}
-                    topic={relatedPlaceTopic}
-                    titleSuffix={
-                      getPlaceTypePlural(childPlaceType) +
-                      " in " +
-                      pageMetadata.place.name
-                    }
-                  ></RelatedPlace>
-                )}
-                {!_.isEmpty(pageMetadata.peerPlaces) && (
-                  <RelatedPlace
-                    relatedPlaces={pageMetadata.peerPlaces}
-                    topic={relatedPlaceTopic}
-                    titleSuffix={
-                      "other " + getPlaceTypePlural(pageMetadata.place.types[0])
-                    }
-                  ></RelatedPlace>
-                )}
-              </>
-            )}
-          </div>
+          <SearchSection query={query} debugData={null} exploreContext={null} />
         </div>
-      </Container>
-    );
-  }
-  return <Container className="explore-container"></Container>;
+      )}
+      {loadingStatus === LoadingStatus.SUCCESS && (
+        <SuccessResult
+          query={query}
+          debugData={debugData}
+          exploreContext={exploreContext}
+          queryResult={queryResult}
+          pageMetadata={pageMetadata}
+          userMessage={userMessage}
+        />
+      )}
+    </Container>
+  );
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
@@ -307,9 +232,10 @@ export function App(): JSX.Element {
     const nlFulfillment = getSingleParam(
       hashParams[URL_HASH_PARAMS.NL_FULFILLMENT]
     );
+    let fulfillmentPromise: Promise<any>;
     if (query) {
       setQuery(query);
-      fetchDetectAndFufillData(
+      fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
         dc,
@@ -324,18 +250,15 @@ export function App(): JSX.Element {
         });
     } else {
       setQuery("");
-      const currentContext = !_.isEmpty(savedContext.current)
-        ? savedContext.current[0].insightCtx
-        : {};
-      fetchFulfillData(
+      fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),
         "",
-        currentContext.comparisonEntities || [],
-        currentContext.comparisonVariables || [],
+        [],
+        [],
         dc,
-        currentContext.extensionGroups || [],
-        currentContext.classifications || [],
+        [],
+        [],
         disableExploreMore,
         nlFulfillment
       )
@@ -346,6 +269,13 @@ export function App(): JSX.Element {
           setLoadingStatus(LoadingStatus.FAILED);
         });
     }
+    // Once current query processing is done, run the next autoplay query if
+    // there are any more autoplay queries left.
+    fulfillmentPromise.then(() => {
+      if (autoPlayQueryList.current.length > 0) {
+        setAutoPlayQuery(autoPlayQueryList.current.shift());
+      }
+    });
   }
 }
 

@@ -28,8 +28,12 @@ import ReactDOM from "react-dom";
 import { DisasterEventMapInfoCard } from "../components/tiles/disaster_event_map_info_card";
 import {
   DATE_OPTION_1Y_KEY,
+  DATE_OPTION_3Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
+  DEFAULT_DATE,
+  PLACE_DEFAULT_DATE,
+  PROTO_DATE_MAPPING,
   URL_HASH_PARAM_KEYS,
 } from "../constants/disaster_event_map_constants";
 import {
@@ -46,6 +50,7 @@ import {
   MapPointsData,
 } from "../types/disaster_event_map_types";
 import {
+  DisasterBlockSpec,
   EventTypeSpec,
   SeverityFilter,
 } from "../types/subject_page_proto_types";
@@ -336,6 +341,9 @@ function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
   const minus1Year = new Date(
     new Date().setFullYear(currentDate.getFullYear() - 1)
   );
+  const minus3Years = new Date(
+    new Date().setFullYear(currentDate.getFullYear() - 3)
+  );
   return {
     [DATE_OPTION_30D_KEY]: [
       minus30Days.toISOString().substring(0, DATE_SUBSTRING_IDX),
@@ -347,6 +355,10 @@ function getCustomDateRanges(): { [dateKey: string]: [string, string] } {
     ],
     [DATE_OPTION_1Y_KEY]: [
       minus1Year.toISOString().substring(0, DATE_SUBSTRING_IDX),
+      currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
+    ],
+    [DATE_OPTION_3Y_KEY]: [
+      minus3Years.toISOString().substring(0, DATE_SUBSTRING_IDX),
       currentDate.toISOString().substring(0, DATE_SUBSTRING_IDX),
     ],
   };
@@ -487,15 +499,15 @@ export function onPointClicked(
 }
 
 /**
- * Sets the url hash with the given key, value, and block
- * @param paramKey the param key to update in the hash
- * @param paramValue the value to use in the hash
+ * Gets the updated hash given a list of params and the id of the block to
+ * update the params for
+ * @param params the list of params to update
+ * @param blockId id of the block that these params are for
  */
-export function setUrlHash(
-  paramKey: string,
-  paramValue: string,
+export function getUpdatedHash(
+  params: Record<string, string>,
   blockId: string
-): void {
+): string {
   // TODO (chejennifer): Right now we are assuming each subject page only has
   // one disaster event map tile. Find a way to handle the url hash for
   // mulitple disaster event map tiles.
@@ -505,9 +517,11 @@ export function setUrlHash(
   if (blockParamString) {
     blockParamVal = JSON.parse(blockParamString);
   }
-  blockParamVal[paramKey] = paramValue;
+  Object.keys(params).forEach((key) => {
+    blockParamVal[key] = params[key];
+  });
   urlParams.set(blockId, JSON.stringify(blockParamVal));
-  window.location.hash = urlParams.toString();
+  return urlParams.toString();
 }
 
 /**
@@ -528,10 +542,29 @@ export function getHashValue(paramKey: string, blockId: string): string {
 }
 
 /**
- * Gets the date for a disaster event map using url params.
+ * Gets the date for a disaster event block.
+ * @param blockId the id of the block to get the date for
+ * @param disasterBlockSpec the disaster block spec for the block
+ * @param place the place this block is shown for
  */
-export function getDate(blockId: string): string {
-  return getHashValue(URL_HASH_PARAM_KEYS.DATE, blockId) || DATE_OPTION_1Y_KEY;
+export function getDate(
+  blockId: string,
+  disasterBlockSpec: DisasterBlockSpec,
+  place: NamedTypedPlace
+): string {
+  // If there is a date in the url hash, return that date
+  const hashDate = getHashValue(URL_HASH_PARAM_KEYS.DATE, blockId);
+  if (hashDate) {
+    return hashDate;
+  }
+  // If there is a date in the block spec, return that date
+  const blockSpecDate =
+    disasterBlockSpec.date || PROTO_DATE_MAPPING[disasterBlockSpec.dateRange];
+  if (blockSpecDate) {
+    return blockSpecDate;
+  }
+  // return the default date
+  return PLACE_DEFAULT_DATE[place.dcid] || DEFAULT_DATE;
 }
 
 /**

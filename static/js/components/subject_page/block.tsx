@@ -25,6 +25,7 @@ import { Input } from "reactstrap";
 import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
 import {
   COLUMN_ID_PREFIX,
+  HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
   SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
@@ -155,11 +156,11 @@ const expandoCallback = function (e) {
   // target link is the child of the container with elements to toggle.
   const selfEl = e.target as HTMLAnchorElement;
   const parentEl = selfEl.parentElement;
-  const tiles = parentEl.getElementsByClassName(
-    HIDE_TILE_CLASS
+  const columns = parentEl.getElementsByClassName(
+    HIDE_COLUMN_CLASS
   ) as HTMLCollectionOf<HTMLElement>;
-  for (let i = 0; i < tiles.length; i++) {
-    tiles[i].classList.remove(HIDE_TILE_CLASS);
+  for (let i = 0; i < columns.length; i++) {
+    columns[i].classList.remove(HIDE_COLUMN_CLASS);
   }
   selfEl.hidden = true;
   e.preventDefault();
@@ -236,6 +237,7 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
+            comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom

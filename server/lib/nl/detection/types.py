@@ -162,6 +162,7 @@ class TimeDeltaType(IntEnum):
   """Indicates whether query refers to an increase or decrease in SV values."""
   INCREASE = 0
   DECREASE = 1
+  CHANGE = 2
 
 
 class SizeType(IntEnum):
@@ -211,6 +212,7 @@ class ComparisonClassificationAttributes(ClassificationAttributes):
 class ContainedInClassificationAttributes(ClassificationAttributes):
   """ContainedIn classification attributes."""
   contained_in_place_type: ContainedInPlaceType
+  had_default_type: bool = False
 
 
 @dataclass
