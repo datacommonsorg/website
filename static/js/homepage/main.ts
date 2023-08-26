@@ -48,8 +48,7 @@ window.onload = () => {
     nextInputTimer = setInterval(() => {
       // console.log("next prompt", currentPromptIndex);
       let inputLength = 0;
-      if (currentPromptIndex < 2) {
-        //resultsElList.length) {
+      if (currentPromptIndex < resultsElList.length) {
         prompt = resultsElList.item(currentPromptIndex);
       } else {
         console.log("End the animation", currentPromptIndex);
