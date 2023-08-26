@@ -118,4 +118,8 @@ function placeNotFoundAlert(placeName): void {
   );
 }
 
-export { initSearchAutocomplete };
+function setComponentRestrictions(componentRestrictions): void {
+  ac.setComponentRestrictions(componentRestrictions)
+}
+
+export { initSearchAutocomplete, setComponentRestrictions };

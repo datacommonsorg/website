@@ -172,3 +172,7 @@ article {
   background: rgba(0, 0, 0, 0.05);
   padding: 1em;
 }
+
+.topicpage-searchbar {
+  width: 100%;
+}

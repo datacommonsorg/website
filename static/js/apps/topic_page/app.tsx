@@ -103,14 +103,14 @@ export function App(props: AppPropType): JSX.Element {
           )}
         </div>
         <div className="row col-md-9x col-lg-9">
-          {props.showChildPlaces && (
-            <div>
+          {props.displaySearchbar && (
+            <div className="topicpage-searchbar">
               <div className="search border">
                 <div id="location-field">
                   <div id="search-icon"></div>
                   <input
                     id="place-autocomplete"
-                    placeholder="Enter a country, state, county or city"
+                    placeholder="Enter a state or county"
                     type="text"
                   />
                 </div>

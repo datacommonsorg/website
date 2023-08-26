@@ -24,6 +24,7 @@ import ReactDOM from "react-dom";
 import { DEFAULT_PAGE_PLACE_TYPE } from "../../constants/subject_page_constants";
 import { loadLocaleData } from "../../i18n/i18n";
 import { initSearchAutocomplete } from "../../shared/place_autocomplete";
+import { setComponentRestrictions } from "../../shared/place_autocomplete";
 import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
 import { App } from "./app";
@@ -91,4 +92,5 @@ function renderPage(): void {
 
   // Load this after the place-autocomplete input is rendered.
   initSearchAutocomplete(`/topic/${topic}`);
+  setComponentRestrictions({ country: "us" }); // TO DO: Hardcoding to US for now.
 }
