@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in Counties of United States (${date})",
+                    "title": "Population Below Poverty Level in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,14 +26,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in Counties of United States (${date})",
+                    "title": "Population Below Poverty Level in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Level Status in Past Year in Counties of United States"
+            "title": "Population Below Poverty Level in Counties of United States"
           },
           {
             "columns": [
@@ -699,69 +699,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population With Poverty Status Determined"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household"
-                    ],
-                    "title": "Household Median Income in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Household Median Income in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -776,10 +713,6 @@
           "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
             "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Single Mother Family Household, Renter Occupied, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_SingleMotherFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
             "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
@@ -806,7 +739,7 @@
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below Poverty Level Status in Past Year",
+            "name": "Population Below Poverty Level",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
@@ -853,10 +786,6 @@
             "name": "Population With Poverty Status Determined",
             "statVar": "Count_Person_PovertyStatusDetermined"
           },
-          "Median_Income_Household": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
-          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -883,5 +812,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

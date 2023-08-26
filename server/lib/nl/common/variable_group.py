@@ -19,7 +19,7 @@ import server.services.datacommons as dc
 
 # A few limits to make sure we don't blow up.
 MAX_SVGS_IN_CALL = 50
-MAX_SVG_LEVELS = 20
+MAX_SVG_LEVELS = 5
 
 
 # Given a list of StatVarGroups, open them up into variables.

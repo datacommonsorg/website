@@ -21,7 +21,7 @@
 import React from "react";
 import { Container } from "reactstrap";
 
-import { TextSearchBar } from "../../components/text_search_bar";
+import { NlSearchBar } from "../../components/nl_search_bar";
 import { useStoreActions, useStoreState } from "./app_state";
 
 interface QuerySearchProps {
@@ -46,51 +46,42 @@ export function QuerySearch(props: QuerySearchProps): JSX.Element {
   return (
     <div id="search-container">
       <Container tabIndex={-1}>
-        <div className="search-section">
-          <div className="search-bar-tags">
-            <div className="early-preview-tag">Early preview</div>
-          </div>
-          <div className="search-box-section">
-            <TextSearchBar
-              allowEmptySearch={
-                /**
-                 * If we're in auto-run manual mode, when a query runs an "empty search" (hits enter in a blank prompt),
-                 * use this as a cue that we want to show the next URL prompt
-                 */
-                config.autoPlayCurrentQueryIndex < config.urlPrompts.length &&
-                config.autoPlayManuallyShowQuery
-              }
-              inputId="query-search-input"
-              onSearch={(q: string) => {
-                /**
-                 * Handle auto-play manual mode:
-                 * Show the next url prompt when user hits enter in blank search bar
-                 */
-                if (config.autoPlayManuallyShowQuery && !q.trim()) {
-                  updateConfig({
-                    autoPlayCurrentQueryIndex:
-                      config.autoPlayCurrentQueryIndex + 1,
-                  });
-                  return;
-                }
-                search({
-                  config,
-                  nlQueryContext,
-                  nlQueryHistory,
-                  query: q,
-                });
-              }}
-              initialValue={query}
-              placeholder={
-                nlQueryHistory.length > 0
-                  ? ""
-                  : `For example "${config.placeholderQuery}"`
-              }
-              shouldAutoFocus={true}
-              clearValueOnSearch={true}
-            />
-          </div>
-        </div>
+        <NlSearchBar
+          allowEmptySearch={
+            /**
+             * If we're in auto-run manual mode, when a query runs an "empty search" (hits enter in a blank prompt),
+             * use this as a cue that we want to show the next URL prompt
+             */
+            config.autoPlayCurrentQueryIndex < config.urlPrompts.length &&
+            config.autoPlayManuallyShowQuery
+          }
+          inputId="query-search-input"
+          onSearch={(q: string) => {
+            /**
+             * Handle auto-play manual mode:
+             * Show the next url prompt when user hits enter in blank search bar
+             */
+            if (config.autoPlayManuallyShowQuery && !q.trim()) {
+              updateConfig({
+                autoPlayCurrentQueryIndex: config.autoPlayCurrentQueryIndex + 1,
+              });
+              return;
+            }
+            search({
+              config,
+              nlQueryContext,
+              nlQueryHistory,
+              query: q,
+            });
+          }}
+          initialValue={query}
+          placeholder={
+            nlQueryHistory.length > 0
+              ? ""
+              : `For example "${config.placeholderQuery}"`
+          }
+          shouldAutoFocus={true}
+        />
       </Container>
     </div>
   );

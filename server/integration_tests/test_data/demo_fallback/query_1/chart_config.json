@@ -12,8 +12,7 @@
                   }
                 ]
               }
-            ],
-            "title": "San Francisco"
+            ]
           }
         ]
       }
@@ -34,5 +33,18 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0667000",
+      "name": "San Francisco",
+      "place_type": "City"
+    },
+    {
+      "dcid": "geoId/1714000",
+      "name": "Chicago",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "UNRECOGNIZED"
 }

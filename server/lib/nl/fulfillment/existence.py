@@ -169,7 +169,7 @@ class ExtensionExistenceCheckTracker(ExistenceCheckTracker):
       if extended_svs and not all(v in self.all_svs for v in extended_svs):
         exist_state.chart_vars_list.append(
             ChartVarsExistenceCheckState(chart_vars=ChartVars(
-                svs=extended_svs, orig_sv=sv, is_topic_peer_group=True),
+                svs=extended_svs, orig_svs=[sv], is_topic_peer_group=True),
                                          exist_svs=[]))
         self.all_svs.update(extended_svs)
 
@@ -229,8 +229,9 @@ def chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
         existing_svs.add(cv.source_topic)
       if cv.svpg_id:
         existing_svs.add(cv.svpg_id)
-      if cv.orig_sv:
-        existing_svs.add(cv.orig_sv)
-        if topics != None and cutils.is_topic(
-            cv.orig_sv) and cv.orig_sv not in topics:
-          topics.append(cv.orig_sv)
+      if cv.orig_svs:
+        existing_svs.update(cv.orig_svs)
+        if topics != None:
+          for v in cv.orig_svs:
+            if cutils.is_topic(v) and v not in topics:
+              topics.append(v)

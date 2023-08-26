@@ -648,13 +648,15 @@
     },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GlobalElectricityAccess",
-      "name": "Access To Electricity",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GlobalElectricityAccess",
+        "name": "Access To Electricity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -704,6 +706,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

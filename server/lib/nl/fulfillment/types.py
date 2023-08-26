@@ -42,7 +42,7 @@ from server.lib.nl.detection.types import TimeDeltaType
 #    to decide the chart category.
 # 3) svpg_id: if the svs belong to a peer-group, this is set
 #    and used to infer the title of a bar/timeline chart.
-# 4) orig_sv: this is the user-specified topic/sv. this is
+# 4) orig_svs: this is the user-specified topic/sv. this is
 #    used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
@@ -60,7 +60,9 @@ class ChartVars:
   skip_map_for_ranking: bool = False
   # When `svs` has multiple entries and corresponds to expansion, this represents
   # the original SV.
-  orig_sv: str = ""
+  # Only correlation query has 2 entries, for the rest there
+  # should only be one entry.
+  orig_svs: List[str] = field(default_factory=list)
 
   # Relevant only when chart_type is RANKED_TIMELINE_COLLECTION
   growth_direction: TimeDeltaType = None

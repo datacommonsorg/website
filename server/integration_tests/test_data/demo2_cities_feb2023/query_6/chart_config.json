@@ -276,11 +276,19 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/DZA",
-    "name": "Algeria",
-    "place_type": "Country"
+    "dcid": "africa",
+    "name": "Africa",
+    "place_type": "Continent"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "africa",
+      "name": "Africa",
+      "place_type": "Continent"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

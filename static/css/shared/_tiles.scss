@@ -176,6 +176,50 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 }
 
 /**
+ * text tile
+ */
+.text-tile {
+  font-family: $highlight-font-family;
+  margin-bottom: 1rem;
+  padding: 20px 32px;
+  background: rgba(223, 243, 255, 0.5);
+  border-radius: var(--border-radius-primary);
+
+  .fade-text {
+    mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, rgba(250,250,250), 85%, transparent);
+  }
+
+  .show-more-toggle {
+    margin-left: auto;
+    width: fit-content;
+    font-size: 18px;
+    color: var(--link-color);
+  }
+
+  .show-more-toggle:hover {
+    cursor: pointer;
+  }
+
+  .text-body {
+    font-size: 18px;
+    color: var(--gm-3-ref-neutral-neutral-40);
+  }
+
+  .text-header {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 32px;
+    margin: 16px 0;
+    color: var(--gm-3-ref-neutral-neutral-40);
+  }
+
+
+
+
+}
+
+/**
  * ranking tile
  */
 

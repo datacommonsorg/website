@@ -969,13 +969,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/WorkCommute",
-      "name": "Commute",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -1194,6 +1196,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

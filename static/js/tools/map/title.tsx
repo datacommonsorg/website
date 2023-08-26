@@ -29,7 +29,12 @@ export function Title(): JSX.Element {
   return (
     <>
       {!ifShowChart(statVar.value, placeInfo.value) && (
-        <h1 className="mb-4">Map Explorer</h1>
+        <div className="app-header">
+          <h1 className="mb-4">Map Explorer</h1>
+          <a href="/tools/visualization#visType%3Dmap">
+            Go back to the new Data Commons
+          </a>
+        </div>
       )}
     </>
   );

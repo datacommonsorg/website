@@ -13,6 +13,7 @@
 # limitations under the License.
 """Module for related things."""
 
+from dataclasses import dataclass
 import time
 from typing import Dict, List
 
@@ -24,8 +25,20 @@ import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 
 
+@dataclass
+class Node:
+  dcid: str
+  name: str
+  types: List[str]
+
+
+@dataclass
+class PlottedOrigVar:
+  svs: List[Node]
+
+
 def compute_related_things(state: ftypes.PopulateState,
-                           plotted_orig_vars: List[Dict],
+                           plotted_orig_vars: List[PlottedOrigVar],
                            explore_peer_groups: Dict[str, Dict[str,
                                                                List[str]]]):
   # Trim child and parent places based on existence check results.
@@ -38,7 +51,7 @@ def compute_related_things(state: ftypes.PopulateState,
       'parentTopics': [],
       'peerTopics': [],
       'childTopics': [],
-      'mainTopic': {},
+      'mainTopics': [],
       'exploreMore': explore_peer_groups,
   }
 
@@ -61,46 +74,71 @@ def compute_related_things(state: ftypes.PopulateState,
   start = time.time()
   checked_orig_vars = set()
   for orig_var in plotted_orig_vars:
-    sv_dcid = orig_var['dcid']
-
-    if sv_dcid in checked_orig_vars:
+    svs = [v.dcid for v in orig_var.svs]
+    svk = ''.join(sorted(svs))
+    if svk in checked_orig_vars:
       continue
-    checked_orig_vars.add(orig_var['dcid'])
-
-    t = {}
-    # If this is an SV attached to SVPG, get the topic first.
-    if utils.is_sv(sv_dcid):
-      t = topic.get_parent_topics(sv_dcid, dc)
+    checked_orig_vars.add(svk)
+    found = False
+    for n in orig_var.svs:
+      t = _node_to_topic_dict(n, dc)
       if t:
-        # Pick one.
-        t = t[0]
-    else:
-      # Its already a topic.
-      t = orig_var
-    if t:
-      related_things['mainTopic'] = t
-
-      # Get child topics.
-      related_things['childTopics'] = topic.get_child_topics([t['dcid']], dc)
-
-      # Get parent topics.
-      pt = topic.get_parent_topics(t['dcid'], dc)
-      related_things['parentTopics'] = pt
-      pt = [p['dcid'] for p in pt]
-      if pt:
-        # Pick only one parent topic deterministically!
-        pt.sort()
-        peer_topics = topic.get_child_topics([pt[0]], dc)
-        related_things['peerTopics'] = [
-            p for p in peer_topics if p['dcid'] != t['dcid']
-        ]
-
+        found |= True
+        _add_topic_to_related(t, related_things, dc)
+    if found:
       # We found a topic, so break!
       break
 
   state.uttr.counters.timeit('topic_expansion', start)
 
+  _trim_dups(related_things)
   return related_things
+
+
+def _trim_dups(related_things: Dict):
+  added = set()
+  # Order is important here.
+  for k in [
+      'parentPlaces', 'peerPlaces', 'mainTopics', 'parentTopics', 'peerTopics',
+      'childTopics'
+  ]:
+    k_list = []
+    for it in related_things.get(k, []):
+      if it['dcid'] in added:
+        continue
+      added.add(it['dcid'])
+      k_list.append(it)
+    related_things[k] = k_list
+
+
+def _node_to_topic_dict(n: Node, dc: str) -> Dict:
+  # If this is an SV attached to SVPG, get the topic first.
+  t = None
+  if utils.is_sv(n.dcid):
+    t = topic.get_parent_topics(n.dcid, dc)
+    if t:
+      # Pick one.
+      t = t[0]
+  else:
+    # Its already a topic.
+    t = {'dcid': n.dcid, 'name': n.name, 'types': n.types}
+  return t
+
+
+def _add_topic_to_related(t: Dict, related_things: Dict, dc: str):
+  related_things['mainTopics'].append(t)
+  # Get child topics.
+  related_things['childTopics'].extend(topic.get_child_topics([t['dcid']], dc))
+  # Get parent topics.
+  pt = topic.get_parent_topics(t['dcid'], dc)
+  related_things['parentTopics'].extend(pt)
+  pt = [p['dcid'] for p in pt]
+  if pt:
+    # Pick only one parent topic deterministically!
+    pt.sort()
+    peer_topics = topic.get_child_topics([pt[0]], dc)
+    related_things['peerTopics'].extend(
+        [p for p in peer_topics if p['dcid'] != t['dcid']])
 
 
 # Also delete non-existent child and parent places in detection!

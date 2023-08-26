@@ -50,6 +50,8 @@ export interface VisTypeConfig {
   ) => JSX.Element;
   // function to get the component that gives information about the vis type
   getInfoContent: () => JSX.Element;
+  // url to the old version of the tool.
+  oldToolUrl: string;
   // whether this vis type takes a single place or multiple places
   singlePlace?: boolean;
   // whether or not to skip setting enclosed place type

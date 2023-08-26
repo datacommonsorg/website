@@ -13,16 +13,36 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year and more (${date})",
+                    "title": "Prevalence of Obesity (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Level Status in Past Year and more"
+            "title": "Prevalence of Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below Poverty Level (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Level"
           },
           {
             "columns": [
@@ -35,36 +55,16 @@
                     ],
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Percent_Person_Obesity_multiple_place_bar_block"
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Women below Poverty Line and more (${date})",
+                    "title": "Impoverished Population By Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Women below Poverty Line and more"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
-                      "Percent_Person_Obesity_multiple_place_bar_block"
-                    ],
-                    "title": "Males in Poverty (in last year) and more (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Males in Poverty (in last year) and more"
+            "denom": "Count_Person",
+            "title": "Impoverished Population By Gender"
           },
           {
             "columns": [
@@ -77,24 +77,219 @@
                     ],
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
-                      "Percent_Person_Obesity_multiple_place_bar_block"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year and more (${date})",
+                    "title": "Impoverished Population By Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Asians Below Poverty Level Status in Past Year and more"
+            "denom": "Count_Person",
+            "title": "Impoverished Population By Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Impoverished Population By By Language Spoken At Home (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Impoverished Population By By Language Spoken At Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
+                    ],
+                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_multiple_place_bar_block"
+                    ],
+                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Level in the Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Population Above Poverty Level Status in Past Year (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Above Poverty Level Status in Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Accommodation And Food Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Accommodation And Food Services"
           }
         ],
         "statVarSpec": {
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
+            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
+            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+          },
+          "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_multiple_place_bar_block": {
+            "name": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad",
+            "statVar": "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad"
+          },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Some language other than English spoken at home & below poverty line",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months",
+            "statVar": "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months",
+            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
+            "name": "Population Above Poverty Level Status in Past Year",
+            "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
             "name": "Asians Below Poverty Level Status in Past Year",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African Americans Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic or Latino Americans Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Below Poverty Level Status in Past Year (Other Race)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Below Poverty Level Status in Past Year (Two or More Races)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Americans Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level Status in Past Year",
+            "name": "Population Below Poverty Level",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
@@ -109,6 +304,10 @@
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
+          },
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
+            "name": "Median Incomes in Accommodation And Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }
@@ -129,5 +328,18 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    {
+      "dcid": "geoId/12",
+      "name": "Florida",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

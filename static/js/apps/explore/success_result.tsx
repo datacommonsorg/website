@@ -56,7 +56,6 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
     return null;
   }
-  console.log(props.pageMetadata);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -64,13 +63,14 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     props.exploreContext?.entities || [props.pageMetadata.place.dcid]
   ).join(URL_DELIM);
   const topicUrlVal = (props.exploreContext?.variables || []).join(URL_DELIM);
-  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopic)
+  // TODO: Consider if we want to include both topics.
+  const relatedPlaceTopic = _.isEmpty(props.pageMetadata.mainTopics)
     ? {
         dcid: topicUrlVal,
         name: "",
         types: null,
       }
-    : props.pageMetadata.mainTopic;
+    : props.pageMetadata.mainTopics[0];
   return (
     <div className="row explore-charts">
       <div className="col-12">

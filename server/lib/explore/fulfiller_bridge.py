@@ -14,6 +14,7 @@
 
 # NL Bridge fulfiller.
 
+import copy
 import time
 from typing import cast, Dict, List
 
@@ -52,24 +53,33 @@ def fulfill(uttr: nl_uttr.Utterance,
                                                   explore_peer_groups)
 
   return exp_fulfiller.FulfillResp(chart_pb=config_pb,
-                                   related_things=related_things,
-                                   user_message='')
+                                   related_things=related_things)
 
 
-def _get_plotted_orig_vars(state: PopulateState) -> List[Dict]:
-  plotted_orig_vars: List[Dict] = []
+def _get_plotted_orig_vars(
+    state: PopulateState) -> List[related.PlottedOrigVar]:
+  plotted_orig_vars: List[related.PlottedOrigVar] = []
+
+  def _node(sv):
+    name = state.sv2thing.name.get(sv, '')
+    if utils.is_topic(sv):
+      typ = 'Topic'
+    else:
+      typ = 'StatisticalVariable'
+    return related.Node(types=[typ], name=name, dcid=sv)
+
   added = set()
   for cs in state.uttr.rankedCharts:
     cs = cast(ChartSpec, cs)
-    sv = cs.chart_vars.orig_sv
-    if sv and sv not in added:
-      name = state.sv2thing.name.get(sv, '')
-      if utils.is_topic(sv):
-        typ = 'Topic'
-      else:
-        typ = 'StatisticalVariable'
-      plotted_orig_vars.append({'types': [typ], 'name': name, 'dcid': sv})
-      added.add(sv)
+    svs = cs.chart_vars.orig_svs
+    if not svs:
+      continue
+    svk = ''.join(sorted(svs))
+    if svk in added:
+      continue
+    plotted_orig_vars.append(
+        related.PlottedOrigVar(svs=[_node(sv) for sv in svs]))
+    added.add(svk)
 
   return plotted_orig_vars
 

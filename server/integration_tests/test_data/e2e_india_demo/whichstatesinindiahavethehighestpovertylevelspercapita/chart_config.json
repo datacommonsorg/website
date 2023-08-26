@@ -13,9 +13,68 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Level (Per Capita) in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Level (Per Capita) in India",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Level (Per Capita) in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Level (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Level in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,7 +85,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in Administrative Area 1 Places of India (${date})",
+                    "title": "Population Below Poverty Level in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -34,7 +93,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Population Below Poverty Level Status in Past Year in Administrative Area 1 Places of India"
+            "title": "Population Below Poverty Level in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -44,7 +103,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in India",
+                    "title": "Population Below Poverty Level in India",
                     "type": "LINE"
                   }
                 ]
@@ -52,11 +111,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Level Status in Past Year in India",
+                    "description": "Population Below Poverty Level in India",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level Status in Past Year in India",
+                    "title": "Population Below Poverty Level in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -64,7 +123,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Population Below Poverty Level Status in Past Year"
+            "title": "Population Below Poverty Level"
           },
           {
             "columns": [
@@ -277,8 +336,12 @@
         ],
         "statVarSpec": {
           "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below Poverty Level Status in Past Year",
+            "name": "Population Below Poverty Level",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below Poverty Level (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
             "name": "Rural residents, Below Poverty Level in The Past 12 Months",
@@ -657,13 +720,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Poverty",
-      "name": "Poverty",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -819,6 +884,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

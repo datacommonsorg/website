@@ -545,5 +545,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/12",
+      "name": "Florida",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "PAST_QUERY"
 }

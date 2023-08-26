@@ -44,7 +44,6 @@ def data():
     return error_json
   if not utterance:
     return helpers.abort('Failed to process!', '', [])
-  context.merge_with_context(utterance)
   return helpers.fulfill_with_chart_config(utterance, debug_logs)
 
 

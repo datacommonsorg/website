@@ -16,6 +16,7 @@
 
 /* Styles for the homepage */
 
+@use "./nl_search_bar";
 @import "base";
 
 $color-font-dark: #3c4043;
@@ -24,31 +25,26 @@ $topic-card-height: 355px;
 $topic-card-hgap: 24px;
 $topic-card-vgap: 24px;
 $topic-card-image-height: 109px;
+$max-topics-per-row: 3;
+
+$animation-card-max-width: 905px;
+$animation-card-height: 363px;
+$animation-section-background: #fafbff;
+
+// Calculates the total width of $num-topic-cards including horizontal spacing.
+@function animation-width($num-topic-cards) {
+  @return ($topic-card-width * $num-topic-cards) +
+    ($topic-card-hgap * ($num-topic-cards - 1));
+}
+
+// Answer cards are fixed height, but of various widths. Calculates the height
+// to use for image size at a particular width.
+@function answer-height($max-width) {
+  @return $max-width * $animation-card-height / $animation-card-max-width;
+}
 
 .main-content {
   margin: 0 0 3rem 0;
-}
-
-#homepage-top {
-  display: flex;
-  font-family: $headings-font-family;
-  font-weight: 400;
-  margin: 0 auto;
-  padding-top: 58px;
-  align-items: center;
-  text-align: center;
-  max-width: 900px;
-
-  .header {
-    font-size: 45px;
-    margin-bottom: 0.5rem;
-  }
-
-  .sub-header {
-    color: var(--gm-3-ref-neutral-neutral-40);
-    font-size: 22px;
-    font-weight: 400;
-  }
 }
 
 #homepage section {
@@ -96,54 +92,183 @@ $topic-card-image-height: 109px;
   }
 }
 
-// Styling for the search box
-#search-container {
-  width: 100%;
-  margin: 0 20%;
+// Styling for top search box
+#homepage #homepage-top {
+  padding-bottom: 8px;
+  box-shadow: 0px 1px 2px 0px #0000004D;
+  z-index: 100;
   position: relative;
 
-  .search-icon-container {
-    width: 40px;
-    position: absolute;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 10px;
+}
 
-    .material-icons-outlined {
-      font-size: 1.25rem;
+// Styling for the search animation
+#search-animation {
+  background: $animation-section-background;
+  padding-bottom: 0 !important;
+
+  @media (max-width: animation-width(2)) {
+    .container {
+      max-width: animation-width(1) !important;
+      height: 324px !important;
+    }
+
+    .header {
+      font-size: 24px !important;
+    }
+
+    .sub-header {
+      font-size: 16px !important;
+    }
+
+    .result {
+      background-size: auto answer-height(animation-width(1)) !important;
+    }
+
+    #animation-search-input {
+      font-size: 12px !important;
     }
   }
 
-  #homepage-search-input {
-    border-radius: 30px;
-    padding-left: 40px;
-    padding-right: 100px;
-    height: 50px;
+  @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
+    .container {
+      max-width: animation-width(2) !important;
+      height: 464px !important;
+    }
+
+    .header {
+      font-size: 36px !important;
+    }
+
+    .sub-header {
+      font-size: 24px !important;
+    }
+
+    .result {
+      background-size: auto answer-height(animation-width(2)) !important;
+    }
   }
 
-  .search-button-container {
+  @media (min-width: animation-width(3)) {
+    .container {
+      max-width: animation-width((3)) !important;
+    }
+  }
+
+  .container {
+    height: 552px; // TODO(beets): Find a better way to fix this height to max of either child.
+    position: relative;
+
+    #result-svg {
+      height: $animation-card-height;
+      padding-top: 32px;
+    }
+  }
+
+  .hidden {
+    display: none !important;
+    position: absolute;
+  }
+
+  #default-text {
+    align-items: center;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
+    left: 0;
+    right: 0;
     position: absolute;
     top: 0;
-    right: 0;
-    align-items: center;
 
-    .search-button {
-      padding: 10px 24px 10px 24px;
-      font-size: 14px;
-      height: fit-content;
-      border-radius: 100px;
-      background-color: var(--gm-3-sys-light-primary);
-      color: white;
-      margin-right: 5px;
-      cursor: pointer;
+    .content {
+      font-family: $headings-font-family;
+      font-weight: 400;
+      margin: 0 auto;
+      align-items: center;
+      text-align: center;
+      flex: 0 0;
+
+      .header {
+        font-size: 57px;
+        line-height: 1.2;
+        letter-spacing: 0em;
+      }
+
+      .sub-header {
+        font-size: 28px;
+        line-height: 1.2;
+        letter-spacing: 0em;
+        color: var(--gm-3-ref-neutral-neutral-40);
+        margin-top: 24px;
+      }
+    }
+  }
+
+  #search-sequence {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+
+    #animation-search-input {
+      background: $animation-section-background;
+      border: none;
+      border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-80);
+      border-radius: 0;
+      padding-left: 0;
+      color: var(--gm-3-sys-light-primary);
+      font-family: $headings-font-family;
+      size: 30px;
+      line-height: 52px;
+      z-index: 100;
+      position: relative;
     }
 
-    .search-button:hover {
-      box-shadow: var(--hover-box-shadow);
+    #animation-search-input:focus {
+      box-shadow: none !important;
+      border-color: var(--gm-3-ref-neutral-neutral-80) !important;
+    }
+
+    #result-svg {
+      z-index: 1;
+      position: relative;
+    }
+
+    .result {
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-size: auto $animation-card-height;
+      width: 100%;
+      height: $animation-card-height;
+      overflow: hidden;
+    }
+  }
+
+  .fade-out {
+    animation: fade-out 800ms !important;
+    opacity: 0;
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .slide-down {
+    animation: slide-down 600ms;
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0px);
     }
   }
 }
@@ -155,6 +280,7 @@ $topic-card-image-height: 109px;
   flex-wrap: wrap;
   gap: $topic-card-hgap $topic-card-vgap;
   justify-content: center;
+  margin-top: 88px;
 
   .topic-card {
     color: var(--gm-3-ref-neutral-neutral-20);
@@ -276,12 +402,16 @@ $topic-card-image-height: 109px;
   }
 }
 
-// Styling for the tools section
-#homepage section.tools {
+#homepage .background-gradient {
   background-image: url(/images/tools-background.svg);
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
+  margin-bottom: 3rem;
+}
+
+// Styling for the tools section
+#homepage section.tools {
   .container {
     align-items: center;
     display: flex;

@@ -487,13 +487,15 @@
     },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/sdg_2.2.1",
-      "name": "Height Stunting for Children Under 5",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.1",
+        "name": "Height Stunting for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -522,6 +524,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

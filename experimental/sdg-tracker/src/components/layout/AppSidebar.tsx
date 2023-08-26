@@ -42,7 +42,7 @@ const AppSidebar: React.FC<{
   setVariableDcid: (variableDcid: string) => void;
 }> = (props) => {
   const { setVariableDcid, variableDcid } = props;
-  const variableGroupHierarchy = useStoreState((s) => s.variableGroupHierarchy);
+  const sidebarMenuHierarchy = useStoreState((s) => s.sidebarMenuHierarchy);
   const [siderHidden, setSiderHidden] = useState<boolean>(false);
   const getMenuItem = (item: MenuItemType) => {
     if (item.children && item.children.length > 0) {
@@ -82,7 +82,7 @@ const AppSidebar: React.FC<{
           setVariableDcid(item.key.replace("summary-", ""));
         }}
       >
-        {variableGroupHierarchy.map((vg) => getMenuItem(vg))}
+        {sidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
       </StyledMenu>
     </Sider>
   );

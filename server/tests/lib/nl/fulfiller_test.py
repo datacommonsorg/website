@@ -635,5 +635,5 @@ def _run(detection: Detection, uttr_dict: List[Dict]):
   counters = ctr.Counters()
   uttr = create_utterance(detection, prev_uttr, counters,
                           constants.TEST_SESSION_ID)
-  context.merge_with_context(uttr)
+  context.merge_with_context(uttr, is_sdg=False)
   return serialize.save_utterance(fulfiller.fulfill(uttr).utterance)[0]

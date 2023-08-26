@@ -48,8 +48,8 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
       all_svs.add(cv.source_topic)
     if cv.svpg_id:
       all_svs.add(cv.svpg_id)
-    if cv.orig_sv:
-      all_svs.add(cv.orig_sv)
+    if cv.orig_svs:
+      all_svs.update(cv.orig_svs)
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = SV2Thing(
@@ -73,9 +73,9 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     # Call per-chart handlers.
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
-      place = cspec.places[0]
+      # Skip the title because in explore the place appears
+      # as page title.
       block = builder.new_chart(cspec, skip_title=True)
-      block.title = place.name
       base.place_overview_block(block.columns.add())
 
     elif cspec.chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:

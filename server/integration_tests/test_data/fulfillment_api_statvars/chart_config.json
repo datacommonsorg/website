@@ -662,13 +662,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/IndividualIncomeByIndustry",
-      "name": "Individual Income By Industry",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income By Industry",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -1048,6 +1050,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

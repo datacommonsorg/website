@@ -24,7 +24,6 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
-from google.protobuf.json_format import MessageToJson
 
 import server.lib.explore.fulfiller as fulfillment
 import server.lib.explore.fulfiller_bridge as nl_fulfillment
@@ -36,7 +35,6 @@ import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
-import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
@@ -58,9 +56,7 @@ def detect():
   if error_json:
     return error_json
   if not utterance:
-    return helpers.abort('Failed to process!', '', [])
-
-  context.merge_with_context(utterance)
+    return helpers.abort('Sorry could not answer your query.', '', [])
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -70,12 +66,12 @@ def detect():
   utterance.counters = None
   status_str = "Successful"
 
-  return helpers.prepare_response(data_dict,
-                                  status_str,
-                                  utterance.detection,
-                                  dbg_counters,
-                                  debug_logs,
-                                  has_data=True)
+  return helpers.prepare_response_common(data_dict,
+                                         status_str,
+                                         utterance.detection,
+                                         dbg_counters,
+                                         debug_logs,
+                                         has_data=True)
 
 
 #
@@ -111,9 +107,7 @@ def detect_and_fulfill():
   if error_json:
     return error_json
   if not utterance:
-    return helpers.abort('Failed to process!', '', [])
-
-  context.merge_with_context(utterance)
+    return helpers.abort('Sorry, could not answer your query.', '', [])
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -154,67 +148,15 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   else:
     fresp = fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
-  if fresp.chart_pb:
-    # Use the first chart's place as main place.
-    main_place = utterance.places[0]
-    page_config = json.loads(MessageToJson(fresp.chart_pb))
 
-  else:
-    page_config = {}
-    utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
-    main_place = Place(dcid='', name='', place_type='')
-    logging.info('Found empty place for query "%s"',
-                 utterance.detection.original_query)
-
-  dbg_counters = utterance.counters.get()
-  utterance.counters = None
-  context_history = serialize.save_utterance(utterance)
-
-  ret_places = []
-  for p in utterance.places:
-    ret_places.append({
-        'dcid': p.dcid,
-        'name': p.name,
-        'place_type': p.place_type
-    })
-  data_dict = {
-      'place': {
-          'dcid': main_place.dcid,
-          'name': main_place.name,
-          'place_type': main_place.place_type,
-      },
-      'places': ret_places,
-      'config': page_config,
-      'context': context_history,
-      'placeFallback': context_history[0]['placeFallback'],
-      'svSource': utterance.sv_source.value,
-      'placeSource': utterance.place_source.value,
-      'pastSourceContext': utterance.past_source_context,
-      'relatedThings': fresp.related_things,
-      'userMessage': fresp.user_message,
-  }
-  status_str = "Successful"
-  if utterance.rankedCharts:
-    status_str = ""
-  else:
-    if not utterance.places:
-      status_str += '**No Place Found**.'
-    if not utterance.svs:
-      status_str += '**No SVs Found**.'
-
-  has_charts = True if page_config else False
   if orig_detection:
     # This is the case of Detection + Fulfill flow.
     detection = orig_detection
   else:
     # This is the case of Fulfill-only flow.
     detection = utterance.detection
-  return helpers.prepare_response(data_dict,
-                                  status_str,
-                                  detection,
-                                  dbg_counters,
-                                  debug_logs,
-                                  has_data=has_charts)
+  return helpers.prepare_response(utterance, fresp.chart_pb, detection,
+                                  debug_logs, fresp.related_things)
 
 
 #
@@ -225,9 +167,9 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict,
                               counters: ctr.Counters,
                               orig_detection: Detection = None) -> Dict:
   if not insight_ctx:
-    return helpers.abort('Missing input', '', [])
+    return helpers.abort('Sorry, could not answer your query.', '', [])
   if not insight_ctx.get('entities'):
-    return helpers.abort('`entities` must be provided', '', [])
+    return helpers.abort('Could not recognize any places in the query.', '', [])
 
   entities = insight_ctx.get(Params.ENTITIES.value, [])
   cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
@@ -241,7 +183,7 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict,
   if not dc_name:
     dc_name = DCNames.MAIN_DC.value
   if dc_name not in set([it.value for it in DCNames]):
-    return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
+    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}', '', [])
 
   if not session_id:
     if current_app.config['LOG_QUERY']:

@@ -21,6 +21,11 @@
                       "geoId/06093"
                     ],
                     "statVarKey": [
+                      "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block",
                       "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources_multiple_place_bar_block",
                       "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses_multiple_place_bar_block",
@@ -56,6 +61,10 @@
                       "geoId/06093"
                     ],
                     "statVarKey": [
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block",
@@ -341,6 +350,10 @@
             "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide",
             "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide"
           },
+          "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, ExternalCombustion (1)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion"
+          },
           "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions PM2.5, StationarySourceFuelCombustion (21)",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion"
@@ -369,6 +382,22 @@
             "name": "Annual Amount Emissions PM2.5, MiscellaneousAreaSources (28)",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
           },
+          "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, InternalCombustionEngines (2)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, IndustrialProcesses (3)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, PetroleumAndSolventEvaporation (4)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation"
+          },
+          "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions PM2.5, WasteDisposal (5)",
+            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal"
+          },
           "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions ExternalCombustion (1)",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
@@ -392,6 +421,10 @@
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
             "name": "Annual Amount Emissions InternalCombustionEngines (2)",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, ExternalCombustion (1)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, StationarySourceFuelCombustion (21)",
@@ -420,6 +453,18 @@
           "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, MiscellaneousAreaSources (28)",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, InternalCombustionEngines (2)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, IndustrialProcesses (3)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses"
+          },
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Sulfur Dioxide, WasteDisposal (5)",
+            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal"
           }
         }
       }
@@ -662,13 +707,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Emissions",
-      "name": "Emissions",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Emissions",
+        "name": "Emissions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -753,6 +800,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }
