@@ -19,10 +19,14 @@
  */
 
 window.onload = () => {
+  // Homepage animation.
   const CHARACTER_INPUT_INTERVAL_MS = 30;
-  const NEXT_PROMPT_DELAY_MS = 4000; // (110) * CHARACTER_INPUT_INTERVAL;
+  const NEXT_PROMPT_DELAY_MS = 4000;
   const INITIAL_START_DELAY_MS = 100;
   const FADE_OUT_MS = 800;
+  const FADE_OUT_CLASS = "fade-out";
+  const HIDDEN_CLASS = "hidden";
+  const SLIDE_DOWN_CLASS = "slide-down";
 
   let inputIntervalTimer, nextInputTimer: ReturnType<typeof setTimeout>;
   let currentPromptIndex = 0;
@@ -41,54 +45,41 @@ window.onload = () => {
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
-  // return;
-
   setTimeout(() => {
-    console.log("outer timer");
     nextInputTimer = setInterval(() => {
-      // console.log("next prompt", currentPromptIndex);
       let inputLength = 0;
       if (currentPromptIndex < resultsElList.length) {
         prompt = resultsElList.item(currentPromptIndex);
       } else {
-        console.log("End the animation", currentPromptIndex);
         setTimeout(() => {
-          defaultTextContainer.classList.remove("fade-out");
+          defaultTextContainer.classList.remove(FADE_OUT_CLASS);
         }, FADE_OUT_MS);
-        searchSequenceContainer.classList.add("fade-out");
-        // resultsElList.item(currentPromptIndex - 1).classList.add("fade-out");
-        // inputEl.value = "Enter a question or topic to explore...";
+        searchSequenceContainer.classList.add(FADE_OUT_CLASS);
         clearInterval(nextInputTimer);
         nextInputTimer = undefined;
       }
       if (nextInputTimer) {
         if (currentPromptIndex == 0) {
-          defaultTextContainer.classList.add("fade-out");
-          // document.getElementById("default-text").classList.add("hidden");
-          searchSequenceContainer.classList.remove("hidden");
+          defaultTextContainer.classList.add(FADE_OUT_CLASS);
+          searchSequenceContainer.classList.remove(HIDDEN_CLASS);
         } else {
-          resultsElList.item(currentPromptIndex - 1).classList.add("fade-out");
+          resultsElList.item(currentPromptIndex - 1).classList.add(FADE_OUT_CLASS);
         }
         inputIntervalTimer = setInterval(() => {
-          // console.log("input interval", inputLength);
           if (inputLength <= prompt.dataset.query.length) {
             inputEl.value = prompt.dataset.query.substring(0, inputLength);
           }
           if (inputLength === prompt.dataset.query.length) {
             clearInterval(inputIntervalTimer);
-            console.log("update answer: autoplay index", currentPromptIndex);
-            console.log(prompt);
-            // defaultTextContainer.classList.add("hidden");
-            defaultTextContainer.classList.add("fade-out");
-            svgDiv.classList.remove("hidden");
-            prompt.classList.remove("hidden");
-            prompt.classList.add("slide-down");
+            defaultTextContainer.classList.add(FADE_OUT_CLASS);
+            svgDiv.classList.remove(HIDDEN_CLASS);
+            prompt.classList.remove(HIDDEN_CLASS);
+            prompt.classList.add(SLIDE_DOWN_CLASS);
             if (currentPromptIndex > 0) {
               resultsElList
                 .item(currentPromptIndex - 1)
-                .classList.add("hidden");
+                .classList.add(HIDDEN_CLASS);
             }
-            console.log(svgDiv.style);
 
             currentPromptIndex++;
             return;
