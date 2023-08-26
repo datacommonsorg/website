@@ -73,7 +73,9 @@ window.onload = () => {
           defaultTextContainer.classList.add(FADE_OUT_CLASS);
           searchSequenceContainer.classList.remove(HIDDEN_CLASS);
         } else {
-          resultsElList.item(currentPromptIndex - 1).classList.add(FADE_OUT_CLASS);
+          resultsElList
+            .item(currentPromptIndex - 1)
+            .classList.add(FADE_OUT_CLASS);
         }
         inputIntervalTimer = setInterval(() => {
           if (inputLength <= prompt.dataset.query.length) {
