@@ -17,8 +17,18 @@
 /**
  * Entrypoint file for homepage.
  */
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { App } from "./app";
 
 window.onload = () => {
+  // Initialize search box.
+  ReactDOM.render(
+    React.createElement(App),
+    document.getElementById("search-container")
+  );
+
   // Homepage animation.
   const CHARACTER_INPUT_INTERVAL_MS = 30;
   const NEXT_PROMPT_DELAY_MS = 4000;

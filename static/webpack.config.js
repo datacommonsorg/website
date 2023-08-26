@@ -120,7 +120,7 @@ const config = {
       __dirname + "/css/datacommons.scss",
     ],
     homepage: [
-      __dirname + "/js/homepage/main.ts",
+      __dirname + "/js/apps/homepage/main.ts",
       __dirname + "/css/homepage.scss",
     ],
     visualization: [

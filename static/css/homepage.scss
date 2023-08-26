@@ -16,6 +16,7 @@
 
 /* Styles for the homepage */
 
+@use "./nl_search_bar";
 @import "base";
 
 $color-font-dark: #3c4043;
@@ -91,54 +92,184 @@ $animation-section-background: #fafbff;
   }
 }
 
-// Styling for the search box
-#search-container {
-  width: 100%;
-  margin: 0 20%;
+// Styling for top search box
+#homepage #homepage-top {
+  padding-bottom: 8px;
+  box-shadow: 0px 1px 2px 0px #0000004D;
+  z-index: 100;
   position: relative;
 
-  .search-icon-container {
-    width: 40px;
-    position: absolute;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-left: 10px;
+}
 
-    .material-icons-outlined {
-      font-size: 1.25rem;
+// Styling for the search animation
+#search-animation {
+  background: $animation-section-background;
+  padding-bottom: 0 !important;
+
+  @media (max-width: animation-width(2)) {
+    .container {
+      max-width: animation-width(1) !important;
+      height: 324px !important;
+    }
+
+    .header {
+      font-size: 24px !important;
+    }
+
+    .sub-header {
+      font-size: 16px !important;
+    }
+
+    .result {
+      background-size: auto answer-height(animation-width(1)) !important;
+    }
+
+    #animation-search-input {
+      font-size: 12px !important;
     }
   }
 
-  #homepage-search-input {
-    border-radius: 30px;
-    padding-left: 40px;
-    padding-right: 100px;
-    height: 50px;
+  @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
+    .container {
+      max-width: animation-width(2) !important;
+      height: 464px !important;
+    }
+
+    .header {
+      font-size: 36px !important;
+    }
+
+    .sub-header {
+      font-size: 24px !important;
+    }
+
+    .result {
+      background-size: auto answer-height(animation-width(2)) !important;
+    }
   }
 
-  .search-button-container {
+  @media (min-width: animation-width(3)) {
+    .container {
+      max-width: animation-width((3)) !important;
+    }
+  }
+
+  .container {
+    height: 552px; // TODO(beets): Find a better way to fix this height to max of either child.
+    position: relative;
+
+    #result-svg {
+      height: $animation-card-height;
+      padding-top: 32px;
+    }
+  }
+
+  .hidden {
+    display: none !important;
+    // opacity: 0.5;
+    position: absolute;
+  }
+
+  #default-text {
+    align-items: center;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     height: 100%;
+    left: 0;
+    right: 0;
     position: absolute;
     top: 0;
-    right: 0;
-    align-items: center;
 
-    .search-button {
-      padding: 10px 24px 10px 24px;
-      font-size: 14px;
-      height: fit-content;
-      border-radius: 100px;
-      background-color: var(--gm-3-sys-light-primary);
-      color: white;
-      margin-right: 5px;
-      cursor: pointer;
+    .content {
+      font-family: $headings-font-family;
+      font-weight: 400;
+      margin: 0 auto;
+      align-items: center;
+      text-align: center;
+      flex: 0 0;
+
+      .header {
+        font-size: 57px;
+        line-height: 1.2;
+        letter-spacing: 0em;
+      }
+
+      .sub-header {
+        font-size: 28px;
+        line-height: 1.2;
+        letter-spacing: 0em;
+        color: var(--gm-3-ref-neutral-neutral-40);
+        margin-top: 24px;
+      }
+    }
+  }
+
+  #search-sequence {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+
+    #animation-search-input {
+      background: $animation-section-background;
+      border: none;
+      border-bottom: 1px solid #c7c7c7;
+      border-radius: 0;
+      padding-left: 0;
+      color: var(--gm-3-sys-light-primary);
+      font-family: $headings-font-family;
+      size: 30px;
+      line-height: 52px;
+      z-index: 100;
+      position: relative;
     }
 
-    .search-button:hover {
-      box-shadow: var(--hover-box-shadow);
+    #animation-search-input:focus {
+      box-shadow: none !important;
+      border-color: #c7c7c7 !important;
+    }
+
+    #result-svg {
+      z-index: 1;
+      position: relative;
+    }
+
+    .result {
+      background-position: top center;
+      background-repeat: no-repeat;
+      background-size: auto $animation-card-height;
+      width: 100%;
+      height: $animation-card-height;
+      overflow: hidden;
+    }
+  }
+
+  .fade-out {
+    animation: fade-out 800ms !important;
+    opacity: 0;
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  .slide-down {
+    animation: slide-down 600ms;
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0px);
     }
   }
 }
@@ -467,178 +598,6 @@ $animation-section-background: #fafbff;
     img {
       width: 120px;
       height: 120px;
-    }
-  }
-}
-
-// Styling for the search animation
-#search-animation {
-  background: $animation-section-background;
-  padding-bottom: 0 !important;
-
-  @media (max-width: animation-width(2)) {
-    .container {
-      max-width: animation-width(1) !important;
-      height: 324px !important;
-    }
-
-    .header {
-      font-size: 24px !important;
-    }
-
-    .sub-header {
-      font-size: 16px !important;
-    }
-
-    .result {
-      background-size: auto answer-height(animation-width(1)) !important;
-    }
-
-    #animation-search-input {
-      font-size: 12px !important;
-    }
-  }
-
-  @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
-    .container {
-      max-width: animation-width(2) !important;
-      height: 464px !important;
-    }
-
-    .header {
-      font-size: 36px !important;
-    }
-
-    .sub-header {
-      font-size: 24px !important;
-    }
-
-    .result {
-      background-size: auto answer-height(animation-width(2)) !important;
-    }
-  }
-
-  @media (min-width: animation-width(3)) {
-    .container {
-      max-width: animation-width((3)) !important;
-    }
-  }
-
-  .container {
-    height: 552px; // TODO(beets): Find a better way to fix this height to max of either child.
-    position: relative;
-
-    #result-svg {
-      height: $animation-card-height;
-      padding-top: 32px;
-    }
-  }
-
-  .hidden {
-    display: none !important;
-    // opacity: 0.5;
-    position: absolute;
-  }
-
-  #default-text {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    left: 0;
-    right: 0;
-    position: absolute;
-    top: 0;
-
-    .content {
-      font-family: $headings-font-family;
-      font-weight: 400;
-      margin: 0 auto;
-      align-items: center;
-      text-align: center;
-      flex: 0 0;
-
-      .header {
-        font-size: 57px;
-        line-height: 1.2;
-        letter-spacing: 0em;
-      }
-
-      .sub-header {
-        font-size: 28px;
-        line-height: 1.2;
-        letter-spacing: 0em;
-        color: var(--gm-3-ref-neutral-neutral-40);
-        margin-top: 24px;
-      }
-    }
-  }
-
-  #search-sequence {
-    position: absolute;
-    top: 56px;
-    left: 0;
-    right: 0;
-
-    #animation-search-input {
-      background: $animation-section-background;
-      border: none;
-      border-bottom: 1px solid #c7c7c7;
-      border-radius: 0;
-      padding-left: 0;
-      color: var(--gm-3-sys-light-primary);
-      font-family: $headings-font-family;
-      size: 30px;
-      line-height: 52px;
-      z-index: 100;
-      position: relative;
-    }
-
-    #animation-search-input:focus {
-      box-shadow: none !important;
-      border-color: #c7c7c7 !important;
-    }
-
-    #result-svg {
-      z-index: 1;
-      position: relative;
-    }
-
-    .result {
-      background-position: top center;
-      background-repeat: no-repeat;
-      background-size: auto $animation-card-height;
-      width: 100%;
-      height: $animation-card-height;
-      overflow: hidden;
-    }
-  }
-
-  .fade-out {
-    animation: fade-out 800ms !important;
-    opacity: 0;
-  }
-
-  @keyframes fade-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  .slide-down {
-    animation: slide-down 600ms;
-  }
-
-  @keyframes slide-down {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(0px);
     }
   }
 }
