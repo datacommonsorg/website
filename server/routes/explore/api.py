@@ -58,7 +58,7 @@ def detect():
   if error_json:
     return error_json
   if not utterance:
-    return helpers.abort('Failed to process!', '', [])
+    return helpers.abort('Sorry could not answer your query.', '', [])
 
   context.merge_with_context(utterance)
 
@@ -111,7 +111,7 @@ def detect_and_fulfill():
   if error_json:
     return error_json
   if not utterance:
-    return helpers.abort('Failed to process!', '', [])
+    return helpers.abort('Sorry, could not answer your query.', '', [])
 
   context.merge_with_context(utterance)
 
@@ -173,9 +173,9 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict,
                               counters: ctr.Counters,
                               orig_detection: Detection = None) -> Dict:
   if not insight_ctx:
-    return helpers.abort('Missing input', '', [])
+    return helpers.abort('Sorry, could not answer your query.', '', [])
   if not insight_ctx.get('entities'):
-    return helpers.abort('`entities` must be provided', '', [])
+    return helpers.abort('Could not recognize any places in the query.', '', [])
 
   entities = insight_ctx.get(Params.ENTITIES.value, [])
   cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
@@ -189,7 +189,7 @@ def _fulfill_with_insight_ctx(insight_ctx: Dict,
   if not dc_name:
     dc_name = DCNames.MAIN_DC.value
   if dc_name not in set([it.value for it in DCNames]):
-    return helpers.abort(f'Invalid DC Name {dc_name}', '', [])
+    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}', '', [])
 
   if not session_id:
     if current_app.config['LOG_QUERY']:

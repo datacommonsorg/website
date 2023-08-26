@@ -28,16 +28,16 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  dcids = [p.dcid for p in state.uttr.places]
-  state.uttr.counters.info('comparison_place_candidates', dcids)
-
-  logging.info('populate_cb for comparison')
   if len(places) < 2:
     state.uttr.counters.err('comparison_failed_cb_toofewplaces', 1)
     return False
   if chart_vars.event:
     state.uttr.counters.err('comparison_failed_cb_events', 1)
     return False
+
+  if rank == 0:
+    dcids = [p.dcid for p in places]
+    state.uttr.counters.info('comparison_place_candidates', dcids)
 
   if len(chart_vars.svs) == 1:
     sv = chart_vars.svs[0]

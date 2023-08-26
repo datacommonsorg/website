@@ -73,9 +73,9 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     # Call per-chart handlers.
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
-      place = cspec.places[0]
+      # Skip the title because in explore the place appears
+      # as page title.
       block = builder.new_chart(cspec, skip_title=True)
-      block.title = place.name
       base.place_overview_block(block.columns.add())
 
     elif cspec.chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:

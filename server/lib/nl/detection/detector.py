@@ -126,7 +126,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
   places = place.get_place_from_dcids(all_entities, debug_logs, parent_map)
   if not places:
     counters.err('failed_detection_unabletofinddcids', all_entities)
-    return None, 'No places found!'
+    return None, 'No places found in the query!'
 
   # Unused fillers.
   var_query = ';'.join(vars)
