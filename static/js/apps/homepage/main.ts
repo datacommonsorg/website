@@ -61,6 +61,7 @@ window.onload = () => {
       if (currentPromptIndex < resultsElList.length) {
         prompt = resultsElList.item(currentPromptIndex);
       } else {
+        // End the animation
         setTimeout(() => {
           defaultTextContainer.classList.remove(FADE_OUT_CLASS);
         }, FADE_OUT_MS);
@@ -69,6 +70,7 @@ window.onload = () => {
         nextInputTimer = undefined;
       }
       if (nextInputTimer) {
+        // Fade out the previous query
         if (currentPromptIndex == 0) {
           defaultTextContainer.classList.add(FADE_OUT_CLASS);
           searchSequenceContainer.classList.remove(HIDDEN_CLASS);
@@ -78,10 +80,12 @@ window.onload = () => {
             .classList.add(FADE_OUT_CLASS);
         }
         inputIntervalTimer = setInterval(() => {
+          // Start typing animation
           if (inputLength <= prompt.dataset.query.length) {
             inputEl.value = prompt.dataset.query.substring(0, inputLength);
           }
           if (inputLength === prompt.dataset.query.length) {
+            // Slide in the answer
             clearInterval(inputIntervalTimer);
             defaultTextContainer.classList.add(FADE_OUT_CLASS);
             svgDiv.classList.remove(HIDDEN_CLASS);
