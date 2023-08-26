@@ -726,13 +726,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/Emissions",
-      "name": "Emissions",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Emissions",
+        "name": "Emissions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [
       {
         "dcid": "geoId/48157",

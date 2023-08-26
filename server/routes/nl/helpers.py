@@ -35,6 +35,7 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as builder_base
 import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
+import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
@@ -73,8 +74,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
-    if request.get_json().get('dc', '').startswith('sdg'):
-      embeddings_index_type = 'sdg_ft'
+  is_sdg = request.get_json().get('dc', '').startswith('sdg')
+  if is_sdg:
+    embeddings_index_type = 'sdg_ft'
 
   detector_type = request.args.get('detector',
                                    default=RequestedDetectorType.Hybrid.value,
@@ -129,6 +131,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
 
   utterance = create_utterance(query_detection, prev_utterance, counters,
                                session_id)
+
+  if utterance:
+    context.merge_with_context(utterance, is_sdg)
 
   return utterance, None
 

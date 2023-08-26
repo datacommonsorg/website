@@ -527,13 +527,15 @@
     },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/Asthma",
-      "name": "Asthma",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
