@@ -124,6 +124,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
           debugData={debugData}
           exploreContext={exploreContext}
           queryResult={queryResult}
+          userMessage={userMessage}
         />
       )}
       {loadingStatus === LoadingStatus.LOADING && (
@@ -156,6 +157,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       !fulfillData["place"] ||
       !fulfillData["place"]["dcid"]
     ) {
+      setUserMessage(fulfillData["userMessage"]);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }

@@ -54,14 +54,15 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=basic,
                            rank=1,
                            direct_fallback=QueryType.OVERVIEW),
-
-    # Comparison has a more complex fallback logic captured in next_query_type().
     QueryType.COMPARISON_ACROSS_PLACES:
-        QueryHandlerConfig(module=comparison, rank=2),
-
-    # Correlation has a more complex fallback logic captured in next_query_type().
+        QueryHandlerConfig(module=comparison,
+                           rank=2,
+                           direct_fallback=QueryType.BASIC),
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=correlation, rank=3),
+        QueryHandlerConfig(module=correlation,
+                           rank=3,
+                           direct_fallback=QueryType.BASIC),
+
     # TODO: Consider falling back to each other since they're quite similar.
     # TODO: When we fallback from TIME_DELTA we should report why to user.
     QueryType.TIME_DELTA_ACROSS_VARS:

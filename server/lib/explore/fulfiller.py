@@ -40,7 +40,6 @@ import server.lib.nl.fulfillment.utils as futils
 class FulfillResp:
   chart_pb: SubjectPageConfig
   related_things: Dict
-  user_message: str
 
 
 #
@@ -138,5 +137,4 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
                                                   explore_peer_groups)
 
   return FulfillResp(chart_pb=config_resp.config_pb,
-                     related_things=related_things,
-                     user_message=config_resp.user_message)
+                     related_things=related_things)

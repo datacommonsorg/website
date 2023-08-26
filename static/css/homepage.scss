@@ -272,12 +272,16 @@ $animation-section-background: #fafbff;
   }
 }
 
-// Styling for the tools section
-#homepage section.tools {
+#homepage .background-gradient {
   background-image: url(/images/tools-background.svg);
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
+  margin-bottom: 3rem;
+}
+
+// Styling for the tools section
+#homepage section.tools {
   .container {
     align-items: center;
     display: flex;

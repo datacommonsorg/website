@@ -162,50 +162,6 @@
         ],
         "AggCosineScore": 0.9051,
         "DelimBased": false
-      },
-      {
-        "Parts": [
-          {
-            "QueryPart": "male",
-            "SV": [
-              "Count_Person_Male"
-            ],
-            "CosineScore": [
-              0.8629986047744751
-            ]
-          },
-          {
-            "QueryPart": "population",
-            "SV": [
-              "Count_Person"
-            ],
-            "CosineScore": [
-              0.901258111000061
-            ]
-          },
-          {
-            "QueryPart": "female",
-            "SV": [
-              "Count_Person_Female",
-              "Count_Person_Urban_Female"
-            ],
-            "CosineScore": [
-              0.8139935731887817,
-              0.7725144624710083
-            ]
-          },
-          {
-            "QueryPart": "population",
-            "SV": [
-              "Count_Person"
-            ],
-            "CosineScore": [
-              0.901258111000061
-            ]
-          }
-        ],
-        "AggCosineScore": 0.8699,
-        "DelimBased": false
       }
     ]
   }

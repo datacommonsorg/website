@@ -209,6 +209,33 @@ def series_core(entities, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
+def series_facet(entities, variables, all_facets):
+  """Fetches facet of series for given entities and variables.
+
+  The response is in the following format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          "facet": <facet_id>,
+          "series": [
+            {
+              "value": <count_of_observations>
+            }
+          ]
+        }
+      }
+    }
+  }
+
+  """
+  resp = dc.series_facet(entities, variables)
+  return _compact_series(resp, all_facets)
+
+
 def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
   """Fetchs observation series for for descendent entities of certain type.
 
