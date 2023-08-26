@@ -234,4 +234,4 @@ def chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
         if topics != None:
           for v in cv.orig_svs:
             if cutils.is_topic(v) and v not in topics:
-              topics.extend(v)
+              topics.append(v)
