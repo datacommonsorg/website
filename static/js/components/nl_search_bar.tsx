@@ -28,7 +28,6 @@ interface NlSearchBarPropType {
   initialValue: string;
   placeholder: string;
   shouldAutoFocus?: boolean;
-  clearValueOnSearch?: boolean;
   feedbackLink?: string;
 }
 
@@ -86,8 +85,5 @@ export function NlSearchBar(props: NlSearchBarPropType): JSX.Element {
     }
 
     props.onSearch(value);
-    if (props.clearValueOnSearch) {
-      setValue("");
-    }
   }
 }

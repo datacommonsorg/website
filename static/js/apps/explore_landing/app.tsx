@@ -84,7 +84,6 @@ export function App(): JSX.Element {
           placeholder={"Enter a question or topic to explore"}
           initialValue={""}
           shouldAutoFocus={false}
-          clearValueOnSearch={true}
         />
         <div className="explore-title">
           <div className="explore-title-image">
