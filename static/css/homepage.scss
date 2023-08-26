@@ -166,7 +166,6 @@ $animation-section-background: #fafbff;
 
   .hidden {
     display: none !important;
-    // opacity: 0.5;
     position: absolute;
   }
 
@@ -215,7 +214,7 @@ $animation-section-background: #fafbff;
     #animation-search-input {
       background: $animation-section-background;
       border: none;
-      border-bottom: 1px solid #c7c7c7;
+      border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-80);
       border-radius: 0;
       padding-left: 0;
       color: var(--gm-3-sys-light-primary);
@@ -228,7 +227,7 @@ $animation-section-background: #fafbff;
 
     #animation-search-input:focus {
       box-shadow: none !important;
-      border-color: #c7c7c7 !important;
+      border-color: var(--gm-3-ref-neutral-neutral-80) !important;
     }
 
     #result-svg {
