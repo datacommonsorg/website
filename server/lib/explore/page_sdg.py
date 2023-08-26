@@ -104,10 +104,9 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   builder.cleanup_config()
 
   # If after cleanup, the config is empty, maybe fallback.
-  message = fallback.maybe_fallback(state, builder)
+  fallback.maybe_fallback(state, builder)
 
   return ConfigResp(builder.page_config,
-                    message,
                     plotted_orig_vars=builder.plotted_orig_vars)
 
 

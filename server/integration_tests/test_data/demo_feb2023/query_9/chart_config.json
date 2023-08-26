@@ -133,5 +133,13 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "PARTIAL_PAST_QUERY"
 }
