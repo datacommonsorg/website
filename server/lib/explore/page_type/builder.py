@@ -136,5 +136,4 @@ class Builder:
 @dataclass
 class ConfigResp:
   config_pb: SubjectPageConfig
-  user_message: str
   plotted_orig_vars: List[Dict]

@@ -128,3 +128,37 @@ def single_place_multiple_var_timeline_block(
   column.tiles.append(tile)
 
   return stat_var_spec_map
+
+
+def multi_place_single_var_timeline_block(
+    builder: base.Builder, places: List[Place], sv: str,
+    sv2thing: server.lib.nl.fulfillment.types.SV2Thing, cspec: ChartSpec):
+  """A column with two chart, all stat vars and per capita"""
+  stat_var_spec_map = {}
+  cv = cspec.chart_vars
+
+  block_title = sv2thing.name[sv]
+  block_description = sv2thing.description[sv]
+  block_footnote = sv2thing.footnote[sv]
+  block = builder.new_chart(cspec)
+  block.title = base.decorate_block_title(title=block_title,
+                                          chart_origin=cspec.chart_origin,
+                                          growth_direction=cv.growth_direction)
+  if block_description:
+    block.description = block_description
+  if block_footnote:
+    block.footnote = block_footnote
+
+  title = base.decorate_chart_title(title=sv2thing.name[sv], place=None)
+
+  # Line chart for the stat var
+  sv_key = sv + str(len(places))
+  tile = Tile(type=Tile.TileType.LINE,
+              title=title,
+              stat_var_key=[sv_key],
+              comparison_places=[p.dcid for p in places])
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=sv,
+                                          name=sv2thing.name[sv],
+                                          unit=sv2thing.unit[sv])
+  block.columns.add().tiles.append(tile)
+  return stat_var_spec_map

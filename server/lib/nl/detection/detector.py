@@ -145,7 +145,7 @@ def construct(entities: List[str], vars: List[str], child_type: str,
         return None, f'Bad childEntityType value {child_type}!'
       child_type = types.ContainedInPlaceType(child_type)
     if not child_type or child_type == types.ContainedInPlaceType.DEFAULT_TYPE:
-      child_type = utils.get_default_child_place_type(places[0], is_nl=False)
+      child_type = utils.get_default_child_place_type(places[0])
       had_default_type = True
   else:
     child_type = None

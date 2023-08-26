@@ -87,3 +87,28 @@ def dict_to_multivar_candidates(input: Dict) -> MultiVarCandidates:
                             aggregate_score=c_dict['AggCosineScore'],
                             delim_based=c_dict['DelimBased']))
   return result
+
+
+# Deduplicates SVs across different parts of the given multi-var candidate.
+# If a part has no SV as a result, returns False.
+def deduplicate_svs(candidate: MultiVarCandidate) -> bool:
+  exists = set()
+
+  for p in candidate.parts:
+    new_svs = []
+    new_scores = []
+
+    for sv, score in zip(p.svs, p.scores):
+      if sv in exists:
+        continue
+      exists.add(sv)
+      new_svs.append(sv)
+      new_scores.append(score)
+
+    if not new_svs:
+      return False
+
+    p.svs = new_svs
+    p.scores = new_scores
+
+  return True
