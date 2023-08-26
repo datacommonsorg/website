@@ -268,8 +268,12 @@ def get_place_from_dcids(
 
   places = []
   dc_resolve_failures = []
+  added = set()
   # Iterate in the same order as place_dcids.
   for p_dcid in place_dcids:
+    if p_dcid in added:
+      continue
+    added.add(p_dcid)
 
     if p_dcid not in dcid2place:
       logging.info(

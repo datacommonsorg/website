@@ -253,5 +253,58 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
+  "places": [
+    {
+      "dcid": "country/DZA",
+      "name": "Algeria",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/LBY",
+      "name": "Libya",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/TUN",
+      "name": "Tunisia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ERI",
+      "name": "Eritrea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MWI",
+      "name": "Malawi",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GMB",
+      "name": "Gambia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SSD",
+      "name": "South Sudan",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

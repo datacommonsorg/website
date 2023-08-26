@@ -12,8 +12,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Placer County"
+            ]
           }
         ]
       }
@@ -34,5 +33,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06061",
+      "name": "Placer County",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

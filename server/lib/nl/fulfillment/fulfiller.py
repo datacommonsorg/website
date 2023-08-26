@@ -89,8 +89,7 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
     return state
 
   # Compute all the ChartVars
-  has_correlation = futils.classifications_of_type_from_utterance(
-      uttr, dtypes.ClassificationType.CORRELATION)
+  has_correlation = main_qt == QueryType.CORRELATION_ACROSS_VARS
   if (has_correlation and state.uttr.multi_svs and
       state.uttr.multi_svs.candidates):
     state.chart_vars_map = topic.compute_correlation_chart_vars(state)

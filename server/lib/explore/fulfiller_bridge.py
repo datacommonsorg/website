@@ -52,8 +52,7 @@ def fulfill(uttr: nl_uttr.Utterance,
                                                   explore_peer_groups)
 
   return exp_fulfiller.FulfillResp(chart_pb=config_pb,
-                                   related_things=related_things,
-                                   user_message='')
+                                   related_things=related_things)
 
 
 def _get_plotted_orig_vars(state: PopulateState) -> List[Dict]:

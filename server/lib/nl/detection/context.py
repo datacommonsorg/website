@@ -29,6 +29,7 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
@@ -133,6 +134,7 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
   if is_cmp:
     # Comparison
     if dutils.is_multi_sv(uttr.detection):
+      # This comes from multi-var detection which would have deduped.
       # Already multi-sv, nothing to do in `uttr`
       svs, cmp_svs = _get_multi_sv_pair(uttr)
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
@@ -165,14 +167,14 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
 
 def _get_comparison_or_correlation(
     uttr: nl_uttr.Utterance) -> ClassificationType:
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
   for cl in uttr.classifications:
     if cl.type in [
         ClassificationType.COMPARISON, ClassificationType.CORRELATION
     ]:
       return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
   return None
 
 
@@ -297,15 +299,22 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
 
   ans_places = uttr.prev_utterance.answerPlaces
   if uttr.places:
-    cmp_places.extend([p.dcid for p in ans_places])
+    _append(ans_places, cmp_places)
   elif len(ans_places) > 1:
-    places.append(ans_places[0].dcid)
-    cmp_places.extend([p.dcid for p in ans_places[1:]])
+    _append(ans_places[:1], places)
+    _append(ans_places[1:], cmp_places)
   else:
-    places.extend([p.dcid for p in ans_places])
+    _append(ans_places, places)
   uttr.places.extend(ans_places)
   uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
   uttr.past_source_context = "Query Results"
 
   uttr.counters.info('include_answer_places', [p.dcid for p in ans_places])
   return True
+
+
+# Adds src to dst without dups.
+def _append(src: List[Place], dst: List[str]):
+  for p in src:
+    if p.dcid not in dst:
+      dst.append(p.dcid)
