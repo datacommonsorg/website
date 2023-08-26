@@ -51,10 +51,10 @@ TOPIC_PAGE_CONFIGS = {
     'poverty': ['USA', 'India'],
     'dev': ['CA'],
     'sdg': ['sdg'],
-    'foodsecurity' : ['CA'],
+    'foodsecurity' : ['USA'],
+    'foodsecurity_old' : ['CA'],
     'economic-and-social-growth' : ['COL'],
     'dc2_2' : ['NGA'],
-    'dc2_4' : ['USA'],
     'climate_allvars' : ['USA'],
     'playground' : ['US_Places']
 }
