@@ -43,7 +43,7 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool = False):
+def merge_with_context(uttr: nl_uttr.Utterance):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
