@@ -48,8 +48,8 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
       all_svs.add(cv.source_topic)
     if cv.svpg_id:
       all_svs.add(cv.svpg_id)
-    if cv.orig_sv:
-      all_svs.add(cv.orig_sv)
+    if cv.orig_svs:
+      all_svs.update(cv.orig_svs)
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = SV2Thing(

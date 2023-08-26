@@ -53,7 +53,7 @@ def compute_chart_vars(
   for sv in state.uttr.svs:
     cv = []
     if cutils.is_sv(sv):
-      cv = [ftypes.ChartVars(svs=[sv], orig_sv=sv)]
+      cv = [ftypes.ChartVars(svs=[sv], orig_svs=[sv])]
     elif num_topics_opened < num_topics_limit:
       start = time.time()
       cv = _topic_chart_vars(state=state,
@@ -121,7 +121,8 @@ def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
     if lsv == rsv or k in added:
       return
     added.add(k)
-    chart_vars.append(ftypes.ChartVars(svs=[lsv, rsv], orig_sv=lhs_orig))
+    chart_vars.append(
+        ftypes.ChartVars(svs=[lsv, rsv], orig_svs=[lhs_orig, rhs_orig]))
 
   # Try to avoid repeating SVs at the top of the page.
   for lsv, rsv in zip(lhs_svs, rhs_svs):
@@ -241,7 +242,7 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
   # We need a category called overview.
   # 1. Make a block for all SVs in just_svs
   charts = [
-      ftypes.ChartVars(svs=svs, orig_sv=orig_sv, source_topic=source_topic)
+      ftypes.ChartVars(svs=svs, orig_svs=[orig_sv], source_topic=source_topic)
   ]
 
   # 2. Make a block for every peer-group in svpgs
@@ -250,7 +251,7 @@ def _direct_chart_vars(svs: List[str], svpgs: List[str], source_topic: str,
         ftypes.ChartVars(svs=svs,
                          is_topic_peer_group=True,
                          svpg_id=svpg,
-                         orig_sv=orig_sv,
+                         orig_svs=[orig_sv],
                          source_topic=source_topic))
 
   return charts

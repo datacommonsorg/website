@@ -707,13 +707,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Emissions",
-      "name": "Emissions",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Emissions",
+        "name": "Emissions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

@@ -386,13 +386,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Literacy",
-      "name": "Literacy",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Literacy",
+        "name": "Literacy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [],
     "peerPlaces": [],

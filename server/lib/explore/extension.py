@@ -89,7 +89,7 @@ def explore_more(seed_svs: List[str]) -> Dict[str, List[ftypes.ChartVars]]:
       chart_vars_list_map[sv].append(
           ftypes.ChartVars(svs=list(peer_info),
                            source_topic=peer,
-                           orig_sv=sv,
+                           orig_svs=[sv],
                            is_topic_peer_group=True))
 
   return chart_vars_list_map
@@ -219,14 +219,14 @@ def build_chart_vars(topic: str, groups: List[Dict[str, Set[str]]],
           continue
         chart_vars_list.append(
             ftypes.ChartVars(svs=svs,
-                             orig_sv=topic,
+                             orig_svs=[topic],
                              source_topic=topic,
                              is_topic_peer_group=False))
       elif len(svs) > 1:
         chart_vars_list.append(
             ftypes.ChartVars(svs=svs,
                              source_topic=topic,
-                             orig_sv=topic,
+                             orig_svs=[topic],
                              is_topic_peer_group=True))
       processed.update(svs)
       if added_sv_weight > MAX_SVS_TO_ADD:

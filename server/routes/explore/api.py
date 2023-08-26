@@ -24,7 +24,6 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
-from google.protobuf.json_format import MessageToJson
 
 import server.lib.explore.fulfiller as fulfillment
 import server.lib.explore.fulfiller_bridge as nl_fulfillment
@@ -36,7 +35,6 @@ import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
-import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
@@ -59,8 +57,6 @@ def detect():
     return error_json
   if not utterance:
     return helpers.abort('Sorry could not answer your query.', '', [])
-
-  context.merge_with_context(utterance)
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None
@@ -112,8 +108,6 @@ def detect_and_fulfill():
     return error_json
   if not utterance:
     return helpers.abort('Sorry, could not answer your query.', '', [])
-
-  context.merge_with_context(utterance)
 
   data_dict = copy.deepcopy(utterance.insight_ctx)
   utterance.prev_utterance = None

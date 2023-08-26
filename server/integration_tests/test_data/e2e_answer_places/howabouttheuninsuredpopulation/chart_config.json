@@ -790,13 +790,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/HealthInsurance",
-      "name": "Health Insurance",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

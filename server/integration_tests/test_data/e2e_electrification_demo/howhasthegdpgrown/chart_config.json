@@ -485,13 +485,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GDP",
-      "name": "GDP",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

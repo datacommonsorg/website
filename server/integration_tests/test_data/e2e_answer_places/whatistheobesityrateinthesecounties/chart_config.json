@@ -218,13 +218,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/HealthBehavior",
-      "name": "Health Behavior",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthBehavior",
+        "name": "Health Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
