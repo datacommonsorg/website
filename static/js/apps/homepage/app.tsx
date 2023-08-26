@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for DC Explore.
+ * Main component for homnepage.
  */
 import "../../../library";
 
