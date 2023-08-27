@@ -27,7 +27,7 @@ Runs the sanity test on the specified explore landing page and 2 levels of explo
 ### `--mode=explore`
 
 ```shell
-python3 sanity.py --mode=explore_landing --url=https://dev.datacommons.org/explore/economics
+python3 sanity.py --mode=explore --url=https://dev.datacommons.org/explore/#q=How+do+solar+installations+correlate+with+median+income+across+US+counties
 ```
 
 Runs the sanity test on the specified explore explore page.
