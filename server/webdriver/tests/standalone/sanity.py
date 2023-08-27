@@ -1,4 +1,17 @@
-import time
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -9,6 +22,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from absl import app
 from absl import flags
 from enum import StrEnum
+from datetime import datetime
 import os
 import csv
 
@@ -65,19 +79,30 @@ class Result:
 
 class Test:
 
-    def __init__(self) -> None:
+    def __init__(self, results_csv_file_path) -> None:
+        self.results_csv_file_path = results_csv_file_path
         self.results = []
 
     def __enter__(self):
         self.driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()))
+        self.file = open(self.results_csv_file_path, "w", newline="")
+        print("Writing results to", self.results_csv_file_path)
+        self.csv_writer = csv.DictWriter(self.file,
+                                         fieldnames=result_csv_columns(),
+                                         lineterminator="\n")
+        self.csv_writer.writeheader()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        self.file.close()
+        print("\nResults written to", self.results_csv_file_path)
         self.driver.quit()
 
     def add_result(self, result: Result) -> None:
-        print(result)
+        print(f"#{len(self.results) + 1}", result)
+        self.csv_writer.writerow(result.__dict__)
+        self.file.flush()
         self.results.append(result)
 
     def home(self, page: WebPage):
@@ -160,14 +185,14 @@ class Test:
                 WebPage(PageType.EXPLORE, link.text,
                         link.get_attribute("href")))
         for explore_page in explore_pages:
-            self.explore(explore_page, False)
+            self.explore(explore_page, True)
 
     def explore(self, page: WebPage, recurse: bool = False):
         self.driver.get(page.url)
 
         page.title = self.driver.title if page.title is None else page.title
 
-        # Wait 5 secs for explore charts to load
+        # Wait 5 secs for charts container to load
         explore_container_present = EC.presence_of_element_located(
             (By.CLASS_NAME, "explore-charts"))
         try:
@@ -176,6 +201,18 @@ class Test:
             self.add_result(fresult(
                 page,
                 "Timed out.",
+            ))
+            return
+
+        # Wait couple more seconds for subtopics (i.e. charts) to load
+        subtopics_present = EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "section[class*='block subtopic']"))
+        try:
+            WebDriverWait(self.driver, 2).until(subtopics_present)
+        except:
+            self.add_result(fresult(
+                page,
+                "No charts.",
             ))
             return
 
@@ -202,6 +239,7 @@ class Test:
         warning_result = None
 
         # relavant topics parent
+        topics = []
         topics_parent = find_elem(self.driver, By.CLASS_NAME,
                                   "explore-topics-box")
         if topics_parent:
@@ -264,8 +302,12 @@ def result_csv_columns() -> str:
     return list(presult(WebPage(PageType.UNKNOWN, "", ""), "").__dict__.keys())
 
 
-def main(_):
-    with Test() as test:
+def run_test():
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    results_csv_file_path = os.path.join(
+        OUTPUT_DIR, f"results-{int(datetime.now().timestamp())}.csv")
+
+    with Test(results_csv_file_path=results_csv_file_path) as test:
         page = WebPage(PageType.UNKNOWN, None, FLAGS.url)
 
         # match-case would be the right thing to use here.
@@ -283,15 +325,18 @@ def main(_):
             print("Invalid mode", FLAGS.mode)
             exit(1)
 
-        os.makedirs(OUTPUT_DIR, exist_ok=True)
-        results_csv_file_path = os.path.join(OUTPUT_DIR, "results.csv")
-        print("\nWriting results to", results_csv_file_path)
-        with open(results_csv_file_path, "w", newline="") as out:
-            csv_writer = csv.DictWriter(out,
-                                        fieldnames=result_csv_columns(),
-                                        lineterminator="\n")
-            csv_writer.writeheader()
-            csv_writer.writerows(result.__dict__ for result in test.results)
+
+def main(_):
+    start = datetime.now()
+    print("Start", start)
+    print()
+
+    run_test()
+
+    print()
+    end = datetime.now()
+    print("End", end)
+    print("Duration", str(end - start))
 
 
 if __name__ == "__main__":
