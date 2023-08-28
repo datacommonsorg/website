@@ -467,5 +467,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "PAST_QUERY"
+  "svSource": "PAST_QUERY",
+  "userMessage": "Could not recognize any topic in this query. See relevant statistics based on the previous query."
 }

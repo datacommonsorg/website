@@ -245,7 +245,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "Query Results",
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/DZA",
     "name": "Algeria",
@@ -306,5 +306,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

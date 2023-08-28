@@ -158,7 +158,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           {scatterChartData.errorMsg}
         </div>
       ) : (
-        <>
+        <div className="scatter-tile-content">
           <div
             id={props.id}
             className="scatter-svg-container"
@@ -170,7 +170,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
             ref={tooltip}
             style={{ visibility: "hidden" }}
           />
-        </>
+        </div>
       )}
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()} className="scatter-spinner">

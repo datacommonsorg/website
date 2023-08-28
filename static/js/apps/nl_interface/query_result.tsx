@@ -31,7 +31,6 @@ import {
 } from "../../utils/nl_interface_utils";
 import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
-import { NLCommentary } from "./nl_commentary";
 
 const FEEDBACK_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
@@ -134,8 +133,8 @@ export const QueryResult = memo(function QueryResult(
               queryResult={nlQuery.queryResult}
             ></DebugInfo>
           )}
-          {nlQuery.queryResult && (
-            <NLCommentary chartsData={nlQuery.queryResult} />
+          {nlQuery.userMessage && (
+            <div className="nl-query-info">{nlQuery.userMessage}</div>
           )}
           {nlQuery.queryResult && nlQuery.queryResult.config && (
             <NlSessionContext.Provider value={nlQuery.queryResult.sessionId}>

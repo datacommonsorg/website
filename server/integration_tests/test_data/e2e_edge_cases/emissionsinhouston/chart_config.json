@@ -406,32 +406,29 @@
               {
                 "tiles": [
                   {
-                    "comparisonPlaces": [
-                      "geoId/48157"
-                    ],
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_22_MobileSources_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_24_SolventUtilization_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_3_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block"
+                      "Annual_Amount_Emissions_SCC_5_WasteDisposal"
                     ],
-                    "title": "Annual Amount Emissions MiscellaneousAreaSources (28) and more in Fort Bend County (${date})",
-                    "type": "BAR"
+                    "title": "Annual Amount Emissions WasteDisposal (5) in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount Emissions WasteDisposal (5) in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_5_WasteDisposal"
+                    ],
+                    "title": "Annual Amount Emissions WasteDisposal (5) in Fort Bend County",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Annual Amount Emissions MiscellaneousAreaSources (28) and more"
+            "title": "Annual Amount Emissions WasteDisposal (5)"
           }
         ],
         "statVarSpec": {
@@ -491,31 +488,7 @@
             "name": "Annual Amount Emissions ExternalCombustion (1)",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
           },
-          "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions ExternalCombustion (1)",
-            "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
-          },
-          "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions StationarySourceFuelCombustion (21)",
-            "statVar": "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
-          },
-          "Annual_Amount_Emissions_SCC_22_MobileSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions MobileSources (22)",
-            "statVar": "Annual_Amount_Emissions_SCC_22_MobileSources"
-          },
-          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions IndustrialProcesses (23)",
-            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
-          },
-          "Annual_Amount_Emissions_SCC_24_SolventUtilization_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions SolventUtilization (24)",
-            "statVar": "Annual_Amount_Emissions_SCC_24_SolventUtilization"
-          },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
-            "name": "Annual Amount Emissions StorageAndTransport (25)",
-            "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
-          },
-          "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block": {
             "name": "Annual Amount Emissions StorageAndTransport (25)",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
           },
@@ -523,15 +496,7 @@
             "name": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)",
             "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
-          "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)",
-            "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
-          },
           "Annual_Amount_Emissions_SCC_27_NaturalSources": {
-            "name": "Annual Amount Emissions NaturalSources (27)",
-            "statVar": "Annual_Amount_Emissions_SCC_27_NaturalSources"
-          },
-          "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block": {
             "name": "Annual Amount Emissions NaturalSources (27)",
             "statVar": "Annual_Amount_Emissions_SCC_27_NaturalSources"
           },
@@ -539,27 +504,11 @@
             "name": "Annual Amount Emissions MiscellaneousAreaSources (28)",
             "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
           },
-          "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions MiscellaneousAreaSources (28)",
-            "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
-          },
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
             "name": "Annual Amount Emissions InternalCombustionEngines (2)",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
           },
-          "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions InternalCombustionEngines (2)",
-            "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-          },
-          "Annual_Amount_Emissions_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions IndustrialProcesses (3)",
-            "statVar": "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
-          },
-          "Annual_Amount_Emissions_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PetroleumAndSolventEvaporation (4)",
-            "statVar": "Annual_Amount_Emissions_SCC_4_PetroleumAndSolventEvaporation"
-          },
-          "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block": {
+          "Annual_Amount_Emissions_SCC_5_WasteDisposal": {
             "name": "Annual Amount Emissions WasteDisposal (5)",
             "statVar": "Annual_Amount_Emissions_SCC_5_WasteDisposal"
           },
@@ -1178,5 +1127,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County."
 }
