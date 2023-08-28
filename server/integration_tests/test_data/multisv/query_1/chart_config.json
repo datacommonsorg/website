@@ -15,12 +15,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Population Below Poverty Level (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Level vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -96,12 +98,14 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Women below Poverty Line Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Women below Poverty Line (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -146,12 +150,14 @@
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Males in Poverty (in last year) Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Males in Poverty (in last year) (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -196,12 +202,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year Per Capita (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Asians Below Poverty Level Status in Past Year (${yDate}) vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Asians Below Poverty Level Status in Past Year vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -245,36 +253,28 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter": {
-            "denom": "Count_Person",
-            "name": "Asians Below Poverty Level Status in Past Year Per Capita",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
-            "unit": "%"
+            "name": "Asians Below Poverty Level Status in Past Year",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Population Below Poverty Level Per Capita",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
+            "name": "Population Below Poverty Level",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Women below Poverty Line Per Capita",
-            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter": {
-            "denom": "Count_Person",
-            "name": "Males in Poverty (in last year) Per Capita",
-            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months",
-            "unit": "%"
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Percent_Person_Obesity": {
             "name": "Prevalence of Obesity",

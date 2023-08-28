@@ -56,7 +56,7 @@ export interface NLQueryType {
   queryResult?: QueryResult;
   context?: any; // Summarized context
   debugData?: any;
-  userMessage?: any;
+  userMessage?: string;
   errorMsg?: any;
   feedbackGiven?: boolean;
   id: string;

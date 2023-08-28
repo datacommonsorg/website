@@ -86,6 +86,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 10,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/48157"
                     ],
@@ -115,6 +119,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 10,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/48157"
                     ],

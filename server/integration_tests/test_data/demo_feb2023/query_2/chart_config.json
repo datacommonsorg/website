@@ -163,6 +163,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 10,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -402,5 +403,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics for California based on the previous query."
+  "userMessage": "See relevant statistics for California based on the previous query."
 }

@@ -20,7 +20,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Household Median Income vs. High Blood Pressure"
           },
           {
             "columns": [
@@ -101,7 +102,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Individual Median Income vs. Percent of Adults with Blood Pressure Who Take Medication"
           },
           {
             "columns": [
@@ -177,12 +179,14 @@
                       "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Up to $9,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Up to $9,999 (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Up to $9,999 vs. High Blood Pressure"
           },
           {
             "columns": [
@@ -227,12 +231,14 @@
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 (${yDate}) vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Between $10,000 and $14,999 vs. High Blood Pressure"
           },
           {
             "columns": [
@@ -272,20 +278,16 @@
             "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
           "Count_Person_IncomeOf10000To14999USDollar_scatter": {
-            "denom": "Count_Person",
-            "name": "Earners Between $10,000 and $14,999 Per Capita",
-            "statVar": "Count_Person_IncomeOf10000To14999USDollar",
-            "unit": "%"
+            "name": "Earners Between $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
           "Count_Person_IncomeOfUpto9999USDollar": {
             "name": "Earners Up to $9,999",
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Count_Person_IncomeOfUpto9999USDollar_scatter": {
-            "denom": "Count_Person",
-            "name": "Earners Up to $9,999 Per Capita",
-            "statVar": "Count_Person_IncomeOfUpto9999USDollar",
-            "unit": "%"
+            "name": "Earners Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Median_Income_Household": {
             "name": "Household Median Income",
@@ -293,6 +295,7 @@
           },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
+            "noPerCapita": true,
             "statVar": "Median_Income_Household"
           },
           "Median_Income_Person": {
@@ -301,6 +304,7 @@
           },
           "Median_Income_Person_scatter": {
             "name": "Individual Median Income",
+            "noPerCapita": true,
             "statVar": "Median_Income_Person"
           },
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
@@ -310,6 +314,7 @@
           },
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter": {
             "name": "Percent of Adults with Blood Pressure Who Take Medication",
+            "noPerCapita": true,
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },

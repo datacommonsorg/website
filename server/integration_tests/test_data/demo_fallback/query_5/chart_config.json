@@ -65,6 +65,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 10,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA"
                     ],
@@ -160,6 +164,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 10,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA"
                     ],

@@ -21,7 +21,8 @@
                 ]
               }
             ],
-            "denom": "Count_Person"
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Males in Poverty (in last year)"
           },
           {
             "columns": [
