@@ -28,6 +28,10 @@ interface UserMessagePropType {
 }
 
 export function UserMessage(props: UserMessagePropType): JSX.Element {
+  if (!props.userMessage) {
+    return null;
+  }
+
   return (
     <div className="user-message">
       <div className="user-message-text">
