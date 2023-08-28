@@ -201,10 +201,14 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       places_to_compare = []
       if uttr.prev_utterance and uttr.prev_utterance.places:
         places_to_compare = uttr.prev_utterance.places
-      cmp_places = [p.dcid for p in places_to_compare]
-      uttr.places.extend(places_to_compare)
+      for p in places_to_compare:
+        if p.dcid == uttr.places[0].dcid:
+          continue
+        cmp_places.append(p.dcid)
+        uttr.places.append(p)
       uttr.counters.info('insight_cmp_partial_place_ctx', cmp_places)
-      uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
+      if cmp_places:
+        uttr.place_source = nl_uttr.FulfillmentResult.PARTIAL_PAST_QUERY
 
       if _handle_answer_places(uttr, child_type, places, cmp_places):
         return places, cmp_places
@@ -302,8 +306,14 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
   else:
     _append(ans_places, places)
 
-  uttr.places.extend(ans_places)
-  uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
+  existing = [p.dcid for p in uttr.places]
+  added = False
+  for p in ans_places:
+    if p.dcid not in existing:
+      added = True
+      uttr.places.append(p)
+  if added:
+    uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
 
   uttr.counters.info('include_answer_places', [p.dcid for p in ans_places])
   return True
