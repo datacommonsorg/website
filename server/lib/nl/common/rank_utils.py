@@ -71,16 +71,19 @@ class GrowthRanks(NamedTuple):
 # Given an SV and list of places, this API ranks the places
 # per the growth rate of the time-series.
 # TODO: Compute per-date Count_Person
-def rank_places_by_series_growth(places: List[str], sv: str,
+def rank_places_by_series_growth(places: List[str],
+                                 sv: str,
                                  growth_direction: types.TimeDeltaType,
                                  rank_order: types.RankingType,
                                  nopc_vars: Set[str],
-                                 counters: ctr.Counters) -> GrowthRankedLists:
+                                 counters: ctr.Counters,
+                                 place_type: str = '',
+                                 min_population: int = 0) -> GrowthRankedLists:
   start = time.time()
   series_data = fetch.series_core(entities=places,
                                   variables=[sv],
                                   all_facets=False)
-  place2denom = _compute_place_to_denom(sv, places, nopc_vars)
+  place2denom = _compute_place_to_denom(sv, places)
   # Count the RPC section (since we have multiple exit points)
   counters.timeit('rank_places_by_series_growth', start)
 
@@ -93,8 +96,13 @@ def rank_places_by_series_growth(places: List[str], sv: str,
     if len(series) < 2:
       continue
 
+    denom = place2denom.get(place, 0)
+    if place_type == 'Country' and min_population and denom < min_population:
+      continue
+    if not variable.is_percapita_relevant(sv, nopc_vars):
+      denom = 0
     try:
-      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, denom)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -121,7 +129,7 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
   series_data = fetch.series_core(entities=[place],
                                   variables=svs,
                                   all_facets=False)
-  place2denom = _compute_place_to_denom(svs[0], [place], nopc_vars)
+  place2denom = _compute_place_to_denom(svs[0], [place])
   counters.timeit('rank_svs_by_series_growth', start)
 
   svs_with_vals = []
@@ -132,8 +140,12 @@ def rank_svs_by_series_growth(place: str, svs: List[str],
     if len(series) < 2:
       continue
 
+    if variable.is_percapita_relevant(sv, nopc_vars):
+      denom = place2denom.get(place, 0)
+    else:
+      denom = 0
     try:
-      net_growth = _compute_series_growth(series, place2denom.get(place, 0))
+      net_growth = _compute_series_growth(series, denom)
     except Exception as e:
       logging.error('Growth rate computation failed: %s', str(e))
       continue
@@ -217,10 +229,9 @@ def _datestr_to_date(datestr: str) -> datetime.date:
   raise ValueError(f'Unable to parse date {datestr}')
 
 
-def _compute_place_to_denom(sv: str, places: List[str], nopc_vars: Set[str]):
+def _compute_place_to_denom(sv: str, places: List[str]):
   place2denom = {}
-  if (sv != constants.DEFAULT_DENOMINATOR and
-      variable.is_percapita_relevant(sv, nopc_vars)):
+  if sv != constants.DEFAULT_DENOMINATOR:
     denom_data = fetch.point_core(entities=places,
                                   variables=[constants.DEFAULT_DENOMINATOR],
                                   date='LATEST',
