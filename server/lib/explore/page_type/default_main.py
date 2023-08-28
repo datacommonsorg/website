@@ -39,19 +39,13 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   place = state.uttr.places[0]
 
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
-
   # Main existence check
   eres = exist.svs4place(state, place, [sv])
   if eres.exist_svs:
     if not eres.is_single_point:
       sv_spec.update(
           timeline.single_place_single_var_timeline_block(
-              builder.new_column(chart_vars), place, sv, builder.sv2thing, attr,
-              builder.nopc()))
+              builder.new_column(chart_vars), place, sv, builder.sv2thing))
     sv_spec.update(
         highlight.higlight_block(builder.new_column(chart_vars), place, sv,
                                  builder.sv2thing))
@@ -63,11 +57,7 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if not exist.svs4children(state, place, [sv]).exist_svs:
     return sv_spec
 
-  attr['child_type'] = state.place_type.value
-  attr['skip_map_for_ranking'] = True
-  attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
-
-  title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+  title = base.decorate_block_title(title=builder.sv2thing.name.get(sv),
                                     place=place,
                                     child_type=state.place_type.value)
   builder.new_block(title=title,
@@ -77,23 +67,29 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
   if utils.has_map(state.place_type, [place]):
     sv_spec.update(
-        map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                            builder.sv2thing, attr, builder.nopc()))
+        map.map_chart_block(column=builder.new_column(chart_vars),
+                            place=place,
+                            pri_sv=sv,
+                            child_type=state.place_type.value,
+                            sv2thing=builder.sv2thing))
 
-  attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+  rc = _get_ranking_count_by_type(state.place_type)
+  rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
   sv_spec.update(
-      ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
-                                       sv, builder.sv2thing, attr))
+      ranking.ranking_chart_block(column=builder.new_column(chart_vars),
+                                  pri_place=place,
+                                  pri_sv=sv,
+                                  child_type=state.place_type.value,
+                                  sv2thing=builder.sv2thing,
+                                  ranking_types=rt,
+                                  ranking_count=rc))
   return sv_spec
 
 
 def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
              builder: Builder, enable_pc: bool):
   place = state.uttr.places[0]
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
+
   sv_spec = {}
 
   # Main SV existence checks.
@@ -101,7 +97,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   if eres.exist_svs:
     # If any of them has single-point
     add_svpg_line_or_bar(chart_vars, eres.exist_svs, eres.is_single_point,
-                         state, attr, builder, sv_spec)
+                         state, builder, sv_spec)
 
   if not state.place_type:
     return sv_spec
@@ -110,10 +106,6 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   eres = exist.svs4children(state, place, chart_vars.svs)
   if not eres.exist_svs:
     return sv_spec
-
-  attr['skip_map_for_ranking'] = True
-  attr['child_type'] = state.place_type.value
-  attr['ranking_count'] = _get_ranking_count_by_type(state.place_type)
 
   if builder.num_chart_vars > 3:
     max_charts = _MAX_MAPS_PER_SUBTOPIC_LOWER
@@ -127,7 +119,7 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
     description = builder.sv2thing.description.get(chart_vars.svpg_id)
     footnote = builder.sv2thing.footnote.get(chart_vars.svpg_id)
   for sv in sorted_child_svs:
-    title = base.decorate_chart_title(title=builder.sv2thing.name.get(sv),
+    title = base.decorate_block_title(title=builder.sv2thing.name.get(sv),
                                       place=place,
                                       child_type=state.place_type.value)
     builder.new_block(title=title,
@@ -136,19 +128,29 @@ def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
                       footnote=footnote)
     if utils.has_map(state.place_type, [place]):
       sv_spec.update(
-          map.map_chart_block(builder.new_column(chart_vars), place, sv,
-                              builder.sv2thing, attr, builder.nopc()))
-    attr['ranking_types'] = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+          map.map_chart_block(column=builder.new_column(chart_vars),
+                              place=place,
+                              pri_sv=sv,
+                              child_type=state.place_type.value,
+                              sv2thing=builder.sv2thing))
+
+    rt = [dtypes.RankingType.HIGH, dtypes.RankingType.LOW]
+    rc = _get_ranking_count_by_type(state.place_type)
     sv_spec.update(
-        ranking.ranking_chart_block_nopc(builder.new_column(chart_vars), place,
-                                         sv, builder.sv2thing, attr))
+        ranking.ranking_chart_block(column=builder.new_column(chart_vars),
+                                    pri_place=place,
+                                    pri_sv=sv,
+                                    child_type=state.place_type.value,
+                                    sv2thing=builder.sv2thing,
+                                    ranking_types=rt,
+                                    ranking_count=rc))
 
   return sv_spec
 
 
 def add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
                          has_single_point: bool, state: ftypes.PopulateState,
-                         attr: Dict, builder: Builder, sv_spec: Dict):
+                         builder: Builder, sv_spec: Dict):
   # Add timeline and/or bar charts.
   if (len(svs) <= _MAX_VARS_PER_TIMELINE_CHART and not has_single_point):
     if len(svs) == 1:
@@ -160,12 +162,12 @@ def add_svpg_line_or_bar(chart_vars: ftypes.ChartVars, svs: List[str],
     sv_spec.update(
         timeline.single_place_multiple_var_timeline_block(
             builder.new_column(chart_vars), state.uttr.places[0], svs,
-            builder.sv2thing, attr, builder.nopc()))
+            builder.sv2thing, chart_vars))
   else:
     sv_spec.update(
         bar.multiple_place_bar_block(builder.new_column(chart_vars),
                                      state.uttr.places, svs, builder.sv2thing,
-                                     attr, builder.nopc()))
+                                     chart_vars))
 
 
 def _get_ranking_count_by_type(t: dtypes.Place):

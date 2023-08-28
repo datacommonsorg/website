@@ -22,6 +22,15 @@ namespace:
 website:
   flaskEnv: dev
   replicas: 20
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.27.156.51",
+          "port": "6379"
+        }
+      }
 
 serviceAccount:
   name: website-ksa

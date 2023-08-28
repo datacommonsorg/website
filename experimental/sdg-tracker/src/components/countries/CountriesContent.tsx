@@ -17,19 +17,21 @@
 import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import { useStoreActions, useStoreState } from "../../state";
+import { RootTopic, useStoreActions, useStoreState } from "../../state";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
-  ROOT_VARIABLE_GROUP,
+  ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
+  RelatedTopic,
 } from "../../utils/types";
 import { SearchBar } from "../layout/components";
 
@@ -143,11 +145,15 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
 const StyledBreadcrumb = styled(Breadcrumb)`
   margin: 16px 0;
   padding: 0 24px;
-  .ant-breadcrumb-link {
-    max-width: 300px;
+  li {
+    display: flex;
+  }
+  .ant-breadcrumb-link a {
+    display: block;
+    max-width: 400px;
     overflow: hidden;
-    white-space: nowrap;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 
@@ -182,33 +188,35 @@ const CountriesContent: React.FC<{
     }
     return undefined;
   });
-  const variables = useStoreState((s) =>
+  const topics = useStoreState((s) =>
     variableDcids
-      .filter((dcid) => dcid in s.variableGroups.byDcid)
-      .map((dcid) => s.variableGroups.byDcid[dcid])
+      .filter((dcid) => dcid in s.topics.byDcid)
+      .map((dcid) => s.topics.byDcid[dcid])
   );
+
   const parentVariables = useStoreState((s) => {
     const parentDcids: string[] = [];
-    if (variables.length !== 1) {
+    if (topics.length !== 1) {
       return [];
     }
-    const variableDcid = variableDcids[0];
     let currentVariableDcid = variableDcids[0];
-    while (currentVariableDcid !== ROOT_VARIABLE_GROUP) {
-      if (!(currentVariableDcid in s.variableGroups.byDcid)) {
+    const BREADCRUMB_LIMIT = 10;
+    let breadcrumbIndex = 0;
+    while (currentVariableDcid !== ROOT_TOPIC) {
+      // This avoids the possibility of an infinite loop
+      breadcrumbIndex++;
+      if (breadcrumbIndex > BREADCRUMB_LIMIT) {
         break;
       }
-      currentVariableDcid =
-        s.variableGroups.byDcid[currentVariableDcid].parentGroupDcids[0];
+      if (!(currentVariableDcid in s.topics.byDcid)) {
+        break;
+      }
+      currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
       parentDcids.unshift(currentVariableDcid);
     }
-    // Remove root group
-    parentDcids.shift();
-    s.variableGroups.byDcid[variableDcid];
-    return parentDcids.map((parentDcid) => s.variableGroups.byDcid[parentDcid]);
+    return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const location = useLocation();
-  const navigate = useNavigate();
   /**
    * Fetch page content
    */
@@ -266,25 +274,24 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
-        <StyledBreadcrumb
-          items={[
-            ...parentVariables,
-            ...(variables.length === 1 ? variables : []),
-          ]
+        <StyledBreadcrumb>
+          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
             .filter((v) => v)
-            .map((v) => {
+            .map((v, i) => {
               const searchParams = new URLSearchParams(location.search);
               searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
-              return {
-                title: v.name,
-                onClick: (e: React.MouseEvent) => {
-                  e.preventDefault();
-                  navigate(location.pathname + "?" + searchParams.toString());
-                },
-                href: "#/countries?" + searchParams.toString(),
-              };
+              return (
+                <Breadcrumb.Item key={i}>
+                  <Link
+                    to={"/countries?" + searchParams.toString()}
+                    title={v.name}
+                  >
+                    {v.name}
+                  </Link>
+                </Breadcrumb.Item>
+              );
             })}
-        />
+        </StyledBreadcrumb>
         <div style={{ display: "none" }}>
           <PlaceChips
             includeWorld={false}
@@ -452,6 +459,7 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
+            mainTopic={fulfillmentResponse.relatedThings.mainTopic}
           />
         ))}
     </>
@@ -461,17 +469,17 @@ const ChartContent: React.FC<{
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-}> = ({ chartConfigCategory, placeDcid }) => {
+  mainTopic: RelatedTopic;
+}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
 
-  const matches = chartConfigCategory.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-
+  const matches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
   const rootTopicIndex =
     matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
 
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
 
-  chartConfigCategory.dcid;
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
@@ -493,12 +501,27 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
+        {placeDcid === EARTH_PLACE_DCID && isGoal && (
+          <StoryTile sdgTopic={sdgTopic} />
+        )}
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
       </ChartContentBody>
     </ContentCard>
   );
+};
+
+const StoryTile: React.FC<{ sdgTopic: RootTopic | null }> = ({sdgTopic}) => {
+  if (!sdgTopic) {
+    return <></>;
+  }
+  return (
+    <datacommons-text
+      header={sdgTopic.storyTitle}
+      text={sdgTopic.storyText}
+    />
+  )
 };
 
 const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({

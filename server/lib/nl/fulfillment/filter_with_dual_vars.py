@@ -77,7 +77,7 @@ def set_overrides(state: PopulateState):
 #
 # TODO: Consider deduping with filter_with_single_var.populate.
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for filter_with_dual_vars')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)
@@ -143,7 +143,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     first = 'Bottom' if show_lowest else 'Top'
     last = f'{_MAX_PLACES_TO_RETURN} of {len(ranked_children)}'
     chart_vars.title_suffix = first + ' ' + last
-  chart_vars.include_percapita = False
 
   found = False
   for sv in selected_svs:

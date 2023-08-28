@@ -15,11 +15,12 @@
  */
 
 import { Layout } from "antd";
-import React, { useCallback } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import React, { useCallback, useMemo } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
-  ROOT_SDG_VARIABLE_GROUP,
+  ROOT_TOPIC,
 } from "../../utils/constants";
 import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../layout/AppFooter";
@@ -28,13 +29,15 @@ import AppLayout from "../layout/AppLayout";
 import AppLayoutContent from "../layout/AppLayoutContent";
 import AppSidebar from "../layout/AppSidebar";
 
-const EARTH_PLACE_DCID = "Earth";
 const Goals: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const location = useLocation();
-  const variableDcid =
-    searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_SDG_VARIABLE_GROUP;
+  const history = useHistory();
+  const searchParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
+
+  const variableDcid = searchParams.get(QUERY_PARAM_VARIABLE) || ROOT_TOPIC;
 
   /**
    * Update selected variable URL parameter
@@ -43,7 +46,7 @@ const Goals: React.FC = () => {
     (variableDcid: string) => {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
-      navigate(location.pathname + "?" + searchParams.toString());
+      history.push(location.pathname + "?" + searchParams.toString());
     },
     [location]
   );

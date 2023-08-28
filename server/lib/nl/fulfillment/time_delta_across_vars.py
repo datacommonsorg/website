@@ -32,7 +32,7 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 # Computes growth rate and ranks charts of comparable peer SVs.
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for time_delta_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-vars_failed_cb_events', 1)
@@ -86,6 +86,13 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     chart_vars.svs = ranked_svs
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
+
+    # TODO: Uncomment this once we agree on look and feel.
+    # if field == 'abs':
+    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+    #                                   state, chart_vars, places, chart_origin)
+    #
+
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, places, chart_origin)
 

@@ -23,6 +23,11 @@ export interface SubjectPageMetadata {
    */
   place: NamedTypedNode;
   /**
+   * In cases where there are multiple places, this is used.
+   * TODO: Switch over to this
+   */
+  places?: NamedTypedNode[];
+  /**
    * Config of the page
    */
   pageConfig: SubjectPageConfig;
@@ -43,6 +48,6 @@ export interface SubjectPageMetadata {
   childTopics?: NamedTypedNode[];
   exploreMore?: Record<string, Record<string, string[]>>;
 
-  mainTopic?: NamedTypedNode;
+  mainTopics?: NamedTypedNode[];
   sessionId?: string;
 }

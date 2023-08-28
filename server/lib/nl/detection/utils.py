@@ -149,7 +149,7 @@ def create_utterance(query_detection: Detection, currentUtterance: Utterance,
 
 def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
                  score: float) -> dvars.MultiVarCandidates:
-  return dvars.MultiVarCandidates(candidates=[
+  res = dvars.MultiVarCandidates(candidates=[
       dvars.MultiVarCandidate(parts=[
           dvars.MultiVarCandidatePart(
               query_part='var1', svs=main_vars, scores=[score] *
@@ -160,3 +160,6 @@ def get_multi_sv(main_vars: List[str], cmp_vars: List[str],
                               aggregate_score=score,
                               delim_based=True)
   ])
+  if not dvars.deduplicate_svs(res.candidates[0]):
+    return None
+  return res

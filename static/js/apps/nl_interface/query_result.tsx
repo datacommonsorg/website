@@ -31,7 +31,6 @@ import {
 } from "../../utils/nl_interface_utils";
 import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
-import { NLCommentary } from "./nl_commentary";
 
 const FEEDBACK_LINK =
   "https://docs.google.com/forms/d/e/1FAIpQLSe9SG0hOfrK7UBiOkQbK0ieC0yP5v-8gnQKU3mSIyzqdv6WaQ/viewform?usp=pp_url";
@@ -114,7 +113,7 @@ export const QueryResult = memo(function QueryResult(
           <a href={feedbackLink} target="_blank" rel="noreferrer">
             Feedback
           </a>
-          {nlQuery.chartData && nlQuery.chartData.sessionId && (
+          {nlQuery.queryResult && nlQuery.queryResult.sessionId && (
             <span
               className={`feedback-emoji ${
                 nlQuery.feedbackGiven ? "feedback-emoji-dim" : ""
@@ -131,16 +130,18 @@ export const QueryResult = memo(function QueryResult(
           {nlQuery.debugData && (
             <DebugInfo
               debugData={nlQuery.debugData}
-              chartsData={nlQuery.chartData}
+              queryResult={nlQuery.queryResult}
             ></DebugInfo>
           )}
-          {nlQuery.chartData && <NLCommentary chartsData={nlQuery.chartData} />}
-          {nlQuery.chartData && nlQuery.chartData.config && (
-            <NlSessionContext.Provider value={nlQuery.chartData.sessionId}>
+          {nlQuery.userMessage && (
+            <div className="nl-query-info">{nlQuery.userMessage}</div>
+          )}
+          {nlQuery.queryResult && nlQuery.queryResult.config && (
+            <NlSessionContext.Provider value={nlQuery.queryResult.sessionId}>
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
-                place={nlQuery.chartData.place}
-                pageConfig={nlQuery.chartData.config}
+                place={nlQuery.queryResult.place}
+                pageConfig={nlQuery.queryResult.config}
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showExploreMore={true}
               />
@@ -181,7 +182,7 @@ export const QueryResult = memo(function QueryResult(
       id: nlQuery.id,
     });
     axios.post("/api/nl/feedback", {
-      sessionId: nlQuery.chartData.sessionId,
+      sessionId: nlQuery.queryResult.sessionId,
       feedbackData: {
         queryId: props.queryIdx,
         sentiment,

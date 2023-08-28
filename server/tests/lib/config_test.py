@@ -50,7 +50,7 @@ class TestConfig(unittest.TestCase):
                              'LITE': False,
                              'API_ROOT': 'http://127.0.0.1:8081',
                              'SECRET_PROJECT': '',
-                             'GA_ACCOUNT': 'UA-117119267-1',
+                             'GA_ACCOUNT': 'G-KWSES5WXZE',
                              'SCHEME': 'https',
                          }),
                          ('webdriver', {

@@ -17,6 +17,7 @@ import copy
 from dataclasses import dataclass
 from typing import Dict, List, Set
 
+from server.lib.explore import existence
 import server.lib.fetch as fetch
 from server.lib.nl.common import variable
 from server.lib.nl.common import variable_group
@@ -88,7 +89,7 @@ def explore_more(seed_svs: List[str]) -> Dict[str, List[ftypes.ChartVars]]:
       chart_vars_list_map[sv].append(
           ftypes.ChartVars(svs=list(peer_info),
                            source_topic=peer,
-                           orig_sv=sv,
+                           orig_svs=[sv],
                            is_topic_peer_group=True))
 
   return chart_vars_list_map
@@ -218,14 +219,14 @@ def build_chart_vars(topic: str, groups: List[Dict[str, Set[str]]],
           continue
         chart_vars_list.append(
             ftypes.ChartVars(svs=svs,
-                             orig_sv=topic,
+                             orig_svs=[topic],
                              source_topic=topic,
                              is_topic_peer_group=False))
       elif len(svs) > 1:
         chart_vars_list.append(
             ftypes.ChartVars(svs=svs,
                              source_topic=topic,
-                             orig_sv=topic,
+                             orig_svs=[topic],
                              is_topic_peer_group=True))
       processed.update(svs)
       if added_sv_weight > MAX_SVS_TO_ADD:
@@ -243,3 +244,23 @@ def _key(sv: variable.SV, i: int) -> str:
     else:
       key_list.append(sv.pvs[p])
   return ';'.join(key_list)
+
+
+def chart_vars_to_explore_peer_groups(
+    state: ftypes.PopulateState,
+    explore_more_chart_vars_map: Dict[str, ftypes.ChartVars]) -> Dict:
+  explore_peer_groups = {}
+
+  for sv, cv_list in explore_more_chart_vars_map.items():
+    if not existence.svs4place(state, state.uttr.places[0], [sv]).exist_svs:
+      continue
+    for cv in cv_list:
+      er = existence.svs4place(state, state.uttr.places[0], cv.svs)
+      if len(er.exist_svs) < 2:
+        continue
+      if sv not in explore_peer_groups:
+        explore_peer_groups[sv] = {}
+      if cv.source_topic not in explore_peer_groups[sv]:
+        explore_peer_groups[sv][cv.source_topic] = sorted(er.exist_svs)
+
+  return explore_peer_groups

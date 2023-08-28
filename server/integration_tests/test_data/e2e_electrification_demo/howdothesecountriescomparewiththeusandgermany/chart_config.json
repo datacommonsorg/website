@@ -1,0 +1,534 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_multiple_place_bar_block"
+                    ],
+                    "title": "Population With Electricity Access (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "description": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+            "title": "Population With Electricity Access (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_UR_ZS_multiple_place_bar_block",
+                      "worldBank/EG_ELC_ACCS_RU_ZS_multiple_place_bar_block"
+                    ],
+                    "title": "Accesss To Electricty By Percentage Of Urban/Rural Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Accesss To Electricty By Percentage Of Urban/Rural Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/SEN"
+                    ],
+                    "statVarKey": [
+                      "Amount_Consumption_Electricity_PerCapita_multiple_place_bar_block"
+                    ],
+                    "title": "Per Capita Electricity Use (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Per Capita Electricity Use"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Consumption_Electricity_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Electricity Consumption (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Electricity Consumption"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Consumption_Electricity_Households_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Consumption of Electricity: for Households (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Consumption of Electricity: for Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT_multiple_place_bar_block"
+                    ],
+                    "title": "Total Electricity Output (GWh) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Total electricity output (GWh): Total number of GWh generated by all power plants (WorldBank Series Code: 4.1.1_TOTAL.ELECTRICITY.OUTPUT)",
+            "title": "Total Electricity Output (GWh)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Generation_Electricity_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Energy Generation (All Fuels, All Sectors) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Energy Generation (All Fuels, All Sectors)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Consumption_Electricity_OtherSector_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Consumption of Electricity: for UN_Other Sector (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Consumption of Electricity: for UN_Other Sector"
+          }
+        ],
+        "statVarSpec": {
+          "Amount_Consumption_Electricity_PerCapita_multiple_place_bar_block": {
+            "name": "Per Capita Electricity Use",
+            "statVar": "Amount_Consumption_Electricity_PerCapita"
+          },
+          "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use",
+            "statVar": "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse"
+          },
+          "Annual_Consumption_Electricity_Households_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Households",
+            "statVar": "Annual_Consumption_Electricity_Households"
+          },
+          "Annual_Consumption_Electricity_OtherSector_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for UN_Other Sector",
+            "statVar": "Annual_Consumption_Electricity_OtherSector"
+          },
+          "Annual_Consumption_Electricity_multiple_place_bar_block": {
+            "name": "Annual Electricity Consumption",
+            "statVar": "Annual_Consumption_Electricity"
+          },
+          "Annual_Generation_Electricity_multiple_place_bar_block": {
+            "name": "Annual Energy Generation (All Fuels, All Sectors)",
+            "statVar": "Annual_Generation_Electricity"
+          },
+          "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT_multiple_place_bar_block": {
+            "name": "Total Electricity Output (GWh)",
+            "statVar": "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT"
+          },
+          "worldBank/EG_ELC_ACCS_RU_ZS_multiple_place_bar_block": {
+            "name": "Rural Population With Electricity Access (%)",
+            "statVar": "worldBank/EG_ELC_ACCS_RU_ZS"
+          },
+          "worldBank/EG_ELC_ACCS_UR_ZS_multiple_place_bar_block": {
+            "name": "Urban Population With Electricity Access (%)",
+            "statVar": "worldBank/EG_ELC_ACCS_UR_ZS"
+          },
+          "worldBank/EG_ELC_ACCS_ZS_multiple_place_bar_block": {
+            "name": "Population With Electricity Access (%)",
+            "statVar": "worldBank/EG_ELC_ACCS_ZS"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_ANSWER",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/DEU",
+      "name": "Germany",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/KEN",
+      "name": "Kenya",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SOM",
+      "name": "Somalia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GIN",
+      "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Annual_Consumption_Electricity": {
+        "consumingSector": [
+          "Annual_Consumption_Electricity_Agriculture",
+          "Annual_Consumption_Electricity_ChemicalPetrochemicalIndustry",
+          "Annual_Consumption_Electricity_CommerceAndPublicServices",
+          "Annual_Consumption_Electricity_ConstructionIndustry",
+          "Annual_Consumption_Electricity_FoodAndTobaccoIndustry",
+          "Annual_Consumption_Electricity_Households",
+          "Annual_Consumption_Electricity_IronSteel",
+          "Annual_Consumption_Electricity_MachineryIndustry",
+          "Annual_Consumption_Electricity_Manufacturing",
+          "Annual_Consumption_Electricity_MiningAndQuarryingIndustry",
+          "Annual_Consumption_Electricity_NonFerrousMetalsIndustry",
+          "Annual_Consumption_Electricity_NonMetallicMineralsIndustry",
+          "Annual_Consumption_Electricity_OtherIndustry",
+          "Annual_Consumption_Electricity_OtherManufacturingIndustry",
+          "Annual_Consumption_Electricity_OtherSector",
+          "Annual_Consumption_Electricity_PaperPulpPrintIndustry",
+          "Annual_Consumption_Electricity_RailTransport",
+          "Annual_Consumption_Electricity_RoadTransport",
+          "Annual_Consumption_Electricity_TextileAndLeatherIndustry",
+          "Annual_Consumption_Electricity_TransportEquipmentIndustry",
+          "Annual_Consumption_Electricity_TransportIndustry",
+          "Annual_Consumption_Electricity_UnspecifiedSector",
+          "Annual_Consumption_Electricity_WoodAndWoodProductsIndustry"
+        ]
+      },
+      "Annual_Generation_Electricity": {
+        "energySource": [
+          "Annual_Generation_Electricity_Coal",
+          "Annual_Generation_Electricity_ConventionalHydroelectric",
+          "Annual_Generation_Electricity_Geothermal",
+          "Annual_Generation_Electricity_HydroelectricPumpedStorage",
+          "Annual_Generation_Electricity_NaturalGas",
+          "Annual_Generation_Electricity_Nuclear",
+          "Annual_Generation_Electricity_Other",
+          "Annual_Generation_Electricity_OtherBiomass",
+          "Annual_Generation_Electricity_OtherGases",
+          "Annual_Generation_Electricity_PetroleumCoke",
+          "Annual_Generation_Electricity_PetroleumLiquids",
+          "Annual_Generation_Electricity_RenewableEnergy",
+          "Annual_Generation_Electricity_SmallScaleSolarPhotovoltaic",
+          "Annual_Generation_Electricity_Solar",
+          "Annual_Generation_Electricity_UtilityScalePhotovoltaic",
+          "Annual_Generation_Electricity_UtilityScaleSolar",
+          "Annual_Generation_Electricity_UtilityScaleThermal",
+          "Annual_Generation_Electricity_Wind",
+          "Annual_Generation_Electricity_WoodAndWoodDerivedFuels"
+        ],
+        "powerPlantSector": [
+          "Annual_Generation_Electricity_AutoProducer",
+          "Annual_Generation_Electricity_MainActivityProducer"
+        ],
+        "producingSector": [
+          "Annual_Generation_Electricity_Commercial",
+          "Annual_Generation_Electricity_CommercialCogen",
+          "Annual_Generation_Electricity_CommercialNonCogen",
+          "Annual_Generation_Electricity_ElectricPower",
+          "Annual_Generation_Electricity_ElectricUtility",
+          "Annual_Generation_Electricity_ElectricUtilityCogen",
+          "Annual_Generation_Electricity_ElectricUtilityNonCogen",
+          "Annual_Generation_Electricity_IndependentPowerProducers",
+          "Annual_Generation_Electricity_Industrial",
+          "Annual_Generation_Electricity_IndustrialCogen",
+          "Annual_Generation_Electricity_IndustrialNonCogen"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GlobalElectricityAccess",
+        "name": "Access To Electricity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Energy",
+        "name": "Energy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Energy_Generation",
+        "name": "Energy Generation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy_Consumption_FossilFuels",
+        "name": "Energy Consumption by Fossil Fuels",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy_Renewables",
+        "name": "Renewables",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Electricity_Consumption",
+        "name": "Electricity Consumption",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy_Fraction",
+        "name": "Energy Percentages",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "PAST_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
+}

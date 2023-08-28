@@ -35,7 +35,69 @@ import {
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
-const NO_SPACE_UNITS = ["%"];
+// units that should be formatted as part of the number
+const NUMBER_UNITS = ["%"];
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UnitOverrideConfig: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -52,6 +114,7 @@ export interface HighlightTilePropType {
 
 interface HighlightData extends Observation {
   sources: Set<string>;
+  numFractionDigits?: number;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
@@ -79,12 +142,16 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
   // This hack should be cleaned up.
-  const unitString = translateUnit(
+  let numberUnit = "";
+  let metadataUnit = translateUnit(
     props.statVarSpec.unit || highlightData.unitDisplayName
   );
-  const hasUnitSpace =
-    !!unitString &&
-    NO_SPACE_UNITS.filter((unit) => unitString.startsWith(unit)).length === 0;
+  if (metadataUnit) {
+    numberUnit = NUMBER_UNITS.find((unit) => metadataUnit.startsWith(unit));
+    metadataUnit = numberUnit
+      ? metadataUnit.slice(numberUnit.length).trimStart()
+      : metadataUnit;
+  }
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -93,19 +160,15 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            <span>
+            <span className="number">
               {formatNumber(
                 highlightData.value,
-                "",
+                numberUnit,
                 false,
-                NUM_FRACTION_DIGITS
+                highlightData.numFractionDigits
               )}
             </span>
-            {unitString && (
-              <span className="metadata">
-                {`${hasUnitSpace ? " " : ""}${unitString}`}
-              </span>
-            )}
+            {metadataUnit && <span className="metadata">{metadataUnit}</span>}
           </span>
         </>
       )}
@@ -144,9 +207,21 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (props.statVarSpec.scaling) {
         value *= props.statVarSpec.scaling;
       }
-      const result = { value, date: mainStatData.date };
+      const result = {
+        value,
+        date: mainStatData.date,
+        numFractionDigits: NUM_FRACTION_DIGITS,
+      };
       if (facet) {
-        if (facet.unitDisplayName) {
+        if (facet.unit in UnitOverrideConfig) {
+          const override = UnitOverrideConfig[facet.unit];
+          result["unitDisplayName"] = override.unitDisplayName;
+          result.value = result.value * override.multiplier;
+          result["numFractionDigits"] =
+            override.numFractionDigits === undefined
+              ? NUM_FRACTION_DIGITS
+              : override.numFractionDigits;
+        } else if (facet.unitDisplayName) {
           result["unitDisplayName"] = facet.unitDisplayName;
         }
         if (facet.provenanceUrl) {

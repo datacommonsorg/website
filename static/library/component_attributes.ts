@@ -32,6 +32,7 @@ export interface BarComponentProps
   horizontal?: boolean;
   lollipop?: boolean;
   maxPlaces?: number;
+  maxVariables?: number;
   parentPlace?: string;
   places?: string[];
   sort?: SortType;
@@ -141,4 +142,15 @@ export interface SliderComponentProps
   min: number;
   publish: string;
   value: number;
+}
+
+export interface TextComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  characterLimit?: number;
+  heading: string;
+  text: string;
+  showFullText?: boolean;
 }

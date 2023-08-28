@@ -38,7 +38,7 @@ export class StatVarProvider {
       return null;
     }
     const spec = _.cloneDeep(this._statVarSpecMap[key]);
-    if (blockDenom) {
+    if (blockDenom && !spec.noPerCapita) {
       spec.denom = blockDenom;
       spec.scaling = PER_CAPITA_SCALING;
       spec.unit = PER_CAPITA_UNIT;

@@ -28,7 +28,6 @@ from server.lib.nl.common import topic
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
@@ -50,11 +49,11 @@ class TopicTree:
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
-                 env_config: builder.Config) -> ConfigResp:
+                 env_config: base.Config) -> ConfigResp:
   # Get names of all SVs
   dc = state.uttr.insight_ctx[params.Params.DC.value]
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = ftypes.SV2Thing(
       name=variable.get_sv_name(all_svs, env_config.sv_chart_titles, dc),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
@@ -105,10 +104,9 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   builder.cleanup_config()
 
   # If after cleanup, the config is empty, maybe fallback.
-  message = fallback.maybe_fallback(state, builder)
+  fallback.maybe_fallback(state, builder)
 
   return ConfigResp(builder.page_config,
-                    message,
                     plotted_orig_vars=builder.plotted_orig_vars)
 
 
@@ -137,11 +135,14 @@ def _add_charts(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 
 
 def _get_topic_tree(chart_vars_list: List[ftypes.ChartVars],
-                    sv2thing: base.SV2Thing, dc: str) -> TopicTree:
+                    sv2thing: ftypes.SV2Thing, dc: str) -> TopicTree:
   tree = TopicTree()
   ancestors = []
-  topics = set(
-      [cv.orig_sv for cv in chart_vars_list if utils.is_topic(cv.orig_sv)])
+  topics = set([
+      cv.orig_svs[0]
+      for cv in chart_vars_list
+      if cv.orig_svs and utils.is_topic(cv.orig_svs[0])
+  ])
   if len(topics) != 1:
     return tree
 

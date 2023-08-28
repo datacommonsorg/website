@@ -712,6 +712,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/BRA",
+      "name": "Brazil",
+      "place_type": "Country"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [
@@ -752,22 +759,16 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GlobalEconomicActivity",
-      "name": "Global Economic Activity",
-      "types": [
-        "Topic"
-      ]
-    },
-    "parentPlaces": [
+    "mainTopics": [
       {
-        "dcid": "Earth",
-        "name": "World",
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
         "types": [
-          "Place"
+          "Topic"
         ]
       }
     ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/Economy",

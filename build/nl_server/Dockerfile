@@ -12,7 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM python:3.11.3
+FROM python:3.11.4-slim
+
+RUN apt-get update && apt-get -y upgrade
 
 ARG ENV
 ENV ENV=${ENV}

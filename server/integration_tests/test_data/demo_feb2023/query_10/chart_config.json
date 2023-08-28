@@ -10,5 +10,14 @@
   },
   "placeFallback": {},
   "placeSource": "UNRECOGNIZED",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "",
+      "name": "",
+      "place_type": ""
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

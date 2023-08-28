@@ -563,6 +563,12 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
         "CO₂ emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes).",
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
+    "worldBank/EG_ELC_ACCS_ZS":
+        "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+    "worldBank/EG_ELC_ACCS_UR_ZS":
+        "Access to electricity, urban is the percentage of urban population with access to electricity.",
+    "worldBank/EG_ELC_ACCS_RU_ZS":
+        "Access to electricity, rural is the percentage of rural population with access to electricity.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_Historical":
         "Predicted Max Temperature with 50% chance, at least once in the decade, according to a CMIP6 Ensemble model for historical (past) dates.",
     "MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245":
@@ -775,3 +781,6 @@ SV_BLOCKS_MAP = {
     ],
     "dc/topic/WetBulbTemperature": ["dc/topic/Temperature"],
 }
+
+# Max number of answer places
+MAX_ANSWER_PLACES = 10

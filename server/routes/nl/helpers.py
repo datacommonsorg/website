@@ -24,14 +24,19 @@ from flask import current_app
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
+from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.nl.common import bad_words
+from server.lib.nl.common import commentary
+from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.debug_utils as dbg
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
+import server.lib.nl.config_builder.base as builder_base
 import server.lib.nl.config_builder.builder as config_builder
 from server.lib.nl.detection import utils as dutils
+import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
@@ -70,8 +75,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   context_history = []
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
-    if request.get_json().get('dc', '').startswith('sdg'):
-      embeddings_index_type = 'sdg_ft'
+  is_sdg = request.get_json().get('dc', '').startswith('sdg')
+  if is_sdg:
+    embeddings_index_type = 'sdg_ft'
 
   detector_type = request.args.get('detector',
                                    default=RequestedDetectorType.Hybrid.value,
@@ -107,7 +113,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   debug_logs["original_query"] = query
 
   # Generate new utterance.
-  prev_utterance = nl_utterance.load_utterance(context_history)
+  prev_utterance = serialize.load_utterance(context_history)
   if prev_utterance:
     session_id = prev_utterance.session_id
   else:
@@ -127,6 +133,9 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   utterance = create_utterance(query_detection, prev_utterance, counters,
                                session_id)
 
+  if utterance:
+    context.merge_with_context(utterance, is_sdg)
+
   return utterance, None
 
 
@@ -143,50 +152,74 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   else:
     logging.info('Unable to load event configs!')
 
-  cb_config = config_builder.Config(
+  cb_config = builder_base.Config(
       event_config=disaster_config,
       sv_chart_titles=current_app.config['NL_CHART_TITLES'],
       nopc_vars=current_app.config['NOPC_VARS'],
       sdg_percent_vars=set())
 
   start = time.time()
-  utterance = fulfillment.fulfill(utterance)
+  state = fulfillment.fulfill(utterance, explore_mode=False)
+  utterance = state.uttr
   utterance.counters.timeit('fulfillment', start)
 
   if utterance.rankedCharts:
     start = time.time()
-
     # Call chart config builder.
-    page_config_pb = config_builder.build(utterance, cb_config)
-
-    page_config = json.loads(MessageToJson(page_config_pb))
+    page_config_pb = config_builder.build(state, cb_config)
     utterance.counters.timeit('build_page_config', start)
+  else:
+    page_config_pb = None
 
-    # Use the first chart's place as main place.
-    main_place = utterance.rankedCharts[0].places[0]
+  return prepare_response(utterance, page_config_pb, utterance.detection,
+                          debug_logs)
+
+
+def prepare_response(utterance: nl_utterance.Utterance,
+                     chart_pb: SubjectPageConfig,
+                     detection: Detection,
+                     debug_logs: Dict,
+                     related_things: Dict = {}) -> Dict:
+  ret_places = []
+  if chart_pb:
+    page_config = json.loads(MessageToJson(chart_pb))
+
+    # Figure out the main place.
+    fallback = utterance.place_fallback
+    if (fallback and fallback.origPlace and fallback.newPlace and
+        fallback.origPlace.dcid != fallback.newPlace.dcid):
+      ret_places = [fallback.newPlace]
+    else:
+      ret_places = utterance.places
   else:
     page_config = {}
     utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
-    main_place = Place(dcid='', name='', place_type='')
-    logging.info('Found empty place for query "%s"',
-                 utterance.detection.original_query)
+    ret_places = [Place(dcid='', name='', place_type='')]
+
+  user_message = commentary.user_message(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
-  context_history = nl_utterance.save_utterance(utterance)
+  context_history = serialize.save_utterance(utterance)
 
+  ret_places_dict = []
+  for p in ret_places:
+    ret_places_dict.append({
+        'dcid': p.dcid,
+        'name': p.name,
+        'place_type': p.place_type
+    })
   data_dict = {
-      'place': {
-          'dcid': main_place.dcid,
-          'name': main_place.name,
-          'place_type': main_place.place_type,
-      },
+      'place': ret_places_dict[0],
+      'places': ret_places_dict,
       'config': page_config,
       'context': context_history,
       'placeFallback': context_history[0]['placeFallback'],
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
+      'relatedThings': related_things,
+      'userMessage': user_message,
   }
   status_str = "Successful"
   if utterance.rankedCharts:
@@ -196,18 +229,15 @@ def fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       status_str += '**No Place Found**.'
     if not utterance.svs:
       status_str += '**No SVs Found**.'
-  has_charts = len(utterance.rankedCharts) > 0
-  return prepare_response(data_dict,
-                          status_str,
-                          utterance.detection,
-                          dbg_counters,
-                          debug_logs,
-                          has_data=has_charts)
+
+  has_charts = True if page_config else False
+  return prepare_response_common(data_dict, status_str, detection, dbg_counters,
+                                 debug_logs, has_charts)
 
 
-def prepare_response(data_dict: Dict, status_str: str, detection: Detection,
-                     dbg_counters: Dict, debug_logs: Dict,
-                     has_data: bool) -> Dict:
+def prepare_response_common(data_dict: Dict, status_str: str,
+                            detection: Detection, dbg_counters: Dict,
+                            debug_logs: Dict, has_data: bool) -> Dict:
   data_dict = dbg.result_with_debug_info(data_dict, status_str, detection,
                                          dbg_counters, debug_logs)
   # Convert data_dict to pure json.
@@ -240,7 +270,8 @@ def abort(error_message: str, original_query: str,
       },
       'config': {},
       'context': escaped_context_history,
-      'failure': error_message
+      'failure': error_message,
+      'userMessage': error_message,
   }
 
   counters = ctr.Counters()

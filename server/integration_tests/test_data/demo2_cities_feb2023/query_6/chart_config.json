@@ -10,161 +10,117 @@
                   {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Algeria",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/LBY",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Libya",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/TUN",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Tunisia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Mali",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/ERI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Eritrea",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MWI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Malawi",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Senegal",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "South Sudan",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SLE",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Sierra Leone",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/CMR",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Cameroon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/EGY",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Egypt",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/CPV",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Cape Verde",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/STP",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/COM",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Comoros",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/AGO",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Angola",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BFA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Burkina Faso",
                     "type": "LINE"
                   }
                 ]
@@ -179,161 +135,117 @@
                   {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Mali",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "South Sudan",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/DZA",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Algeria",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MWI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Malawi",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/LBY",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Libya",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/ERI",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Eritrea",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/GMB",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Gambia",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/SLE",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Sierra Leone",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Morocco",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "placeDcidOverride": "country/CMR",
                     "statVarKey": [
-                      "LifeExpectancy_Person"
+                      "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Cameroon",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/NER",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Niger",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/SEN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Senegal",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/TUN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Tunisia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/BFA",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Burkina Faso",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/AGO",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Angola",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GIN",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Guinea",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/ETH",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Ethiopia",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/COM",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Comoros",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/GNB",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Guinea-Bissau",
-                    "type": "LINE"
-                  },
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Liberia",
                     "type": "LINE"
                   }
                 ]
@@ -343,7 +255,11 @@
           }
         ],
         "statVarSpec": {
-          "LifeExpectancy_Person": {
+          "LifeExpectancy_Person_growth_abs": {
+            "name": "Life Expectancy",
+            "statVar": "LifeExpectancy_Person"
+          },
+          "LifeExpectancy_Person_growth_pct": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
           }
@@ -360,11 +276,20 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/DZA",
-    "name": "Algeria",
-    "place_type": "Country"
+    "dcid": "africa",
+    "name": "Africa",
+    "place_type": "Continent"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "africa",
+      "name": "Africa",
+      "place_type": "Continent"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

@@ -18,7 +18,7 @@ import datetime
 import logging
 import random
 import time
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
@@ -49,7 +49,7 @@ def is_sv(sv):
   return not (is_topic(sv) or is_svg(sv))
 
 
-# Checks if there is an event in the last 1 year.
+# Checks if there is an event in the last 3 years.
 def event_existence_for_place(place: str, event: types.EventType,
                               counters: ctr.Counters) -> bool:
   for event_type in constants.EVENT_TYPE_TO_DC_TYPES[event]:
@@ -60,11 +60,14 @@ def event_existence_for_place(place: str, event: types.EventType,
     counters.timeit('event_existence_for_place', start)
     cur_year = datetime.datetime.now().year
     prev_year = str(cur_year - 1)
+    two_years = str(cur_year - 2)
+    three_years = str(cur_year - 3)
     cur_year = str(cur_year)
     # A crude recency check
     for date in date_list:
-      if date.startswith(cur_year) or date.startswith(prev_year):
-        return True
+      for year in [cur_year, prev_year, two_years, three_years]:
+        if date.startswith(year):
+          return True
   return False
 
 
@@ -111,18 +114,18 @@ def sv_existence_for_places_check_single_point(
     return {}, {}
 
   start = time.time()
-  series_data = fetch.series_core(entities=places,
-                                  variables=svs,
-                                  all_facets=False)
+  series_facet = fetch.series_facet(entities=places,
+                                    variables=svs,
+                                    all_facets=False)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
   existsv2places = {}
-  for sv, sv_data in series_data.get('data', {}).items():
+  for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
-      num_series = len(place_data['series'])
+      num_series = place_data['series'][0]["value"]
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
       if sv not in existsv2places:
         existsv2places[sv] = {}
@@ -220,6 +223,16 @@ def parent_place_names(dcid: str) -> List[str]:
     ret = [names[p][0] for p in parent_dcids]
     return ret
   return None
+
+
+def trim_classifications(
+    classifications: List[types.NLClassifier],
+    to_trim: Set[types.ClassificationType]) -> List[types.NLClassifier]:
+  ret = []
+  for c in classifications:
+    if c.type not in to_trim:
+      ret.append(c)
+  return ret
 
 
 def get_contained_in_type(
@@ -337,16 +350,20 @@ def new_session_id(app: str) -> str:
 
 def get_time_delta_title(direction: types.TimeDeltaType,
                          is_absolute: bool) -> str:
+  if direction == types.TimeDeltaType.INCREASE:
+    prefix = 'Increase'
+  elif direction == types.TimeDeltaType.DECREASE:
+    prefix = 'Decrease'
+  else:
+    prefix = 'Change'
   return ' '.join([
-      'Increase' if direction == types.TimeDeltaType.INCREASE else 'Decrease',
-      'over time',
+      prefix, 'over time',
       '(by absolute change)' if is_absolute else '(by percent change)'
   ])
 
 
-def get_default_child_place_type(place: types.Place,
-                                 is_nl: bool = True
-                                ) -> types.ContainedInPlaceType:
+def get_default_child_place_type(
+    place: types.Place,) -> types.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return types.ContainedInPlaceType.COUNTRY
   # Canonicalize the type.
@@ -356,15 +373,11 @@ def get_default_child_place_type(place: types.Place,
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
 
-    if is_nl and place.dcid == constants.USA.dcid:
+    if place.dcid == constants.USA.dcid:
       # NL has fallback, so if for country we preferred AA1, downgrade
       # to AA2 since if data doesn't exist it will fallback to AA1.
       ptype = types.ContainedInPlaceType.COUNTY
 
-  # TODO: Since most queries/data tends to be US specific and we have
-  # maps for it, we pick County as default, but reconsider in future.
-  if not ptype:
-    ptype = types.ContainedInPlaceType.COUNTY
   return ptype
 
 
@@ -420,7 +433,7 @@ def is_place_type_match_for_fallback(pt1: types.ContainedInPlaceType,
 # corresponding to the country that the place is located in.
 def admin_area_equiv_for_place(
     place_type: types.ContainedInPlaceType,
-    place: types.Place) -> types.ClassificationAttributes:
+    place: types.Place) -> types.ContainedInPlaceType:
   # Convert to AA equivalent
   ptype = constants.ADMIN_DIVISION_EQUIVALENTS.get(place_type, None)
   # Not an admin-equivalent type

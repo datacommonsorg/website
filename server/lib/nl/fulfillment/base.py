@@ -26,6 +26,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment import simple
+from server.lib.nl.fulfillment.existence import chart_vars_fetch
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import get_places_to_check
 from server.lib.nl.fulfillment.existence import MainExistenceCheckTracker
@@ -39,6 +40,8 @@ _MAX_NUM_CHARTS = 15
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
+
+_MAX_RANK = 1000
 
 
 # Populate chart specs in state.uttr and return True if something was added.
@@ -114,8 +117,15 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
-  pt = state.place_type if state.place_type else place.place_type
+  # Use child type only if user had specified the child type.
+  if state.place_type and not state.had_default_place_type:
+    pt = state.place_type
+  else:
+    pt = place.place_type
   if isinstance(pt, str):
+    if pt not in set([it.value for it in ContainedInPlaceType]):
+      state.uttr.counters.err('failed_unknown_placetype', pt)
+      return False
     pt = ContainedInPlaceType(pt)
 
   # Walk up the parent type hierarchy trying to add charts.
@@ -164,17 +174,23 @@ def _add_charts_with_existence_check(state: PopulateState,
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  places_to_check = get_places_to_check(state, places, is_explore=False)
+  state.places_to_check = get_places_to_check(state,
+                                              places,
+                                              is_explore=state.explore_mode)
 
-  if not places_to_check:
+  if not state.places_to_check:
     # Counter updated in get_sample_child_places
     # Always clear fallback when returning False
     clear_fallback(state)
     return False
 
+  # Avoid any mutations in existence tracker.
   chart_vars_map = copy.deepcopy(state.chart_vars_map)
-  tracker = MainExistenceCheckTracker(state, places_to_check, chart_vars_map)
+  tracker = MainExistenceCheckTracker(state, state.places_to_check,
+                                      chart_vars_map)
   tracker.perform_existence_check()
+  state.exist_chart_vars_list = []
+  chart_vars_fetch(tracker, state.exist_chart_vars_list, set())
 
   existing_svs = set()
   found = False
@@ -183,45 +199,42 @@ def _add_charts_with_existence_check(state: PopulateState,
   for (qt, handler) in get_populate_handlers(state):
     state.uttr.counters.info('processed_fulfillment_types',
                              handler.module.__name__.split('.')[-1])
-    for exist_state in tracker.exist_sv_states:
-      # Infer charts for the main SV/Topic.
-      for exist_cv in exist_state.chart_vars_list:
-        chart_vars = copy.deepcopy(tracker.get_chart_vars(exist_cv))
-        # Now that we've found existing vars, call the per-chart-type callback.
-        if chart_vars.event:
-          if exist_cv.exist_event:
-            if handler.module.populate(state, chart_vars, places,
-                                       ChartOriginType.PRIMARY_CHART):
-              found = True
-              num_charts += 1
-            else:
-              state.uttr.counters.err('failed_populate_callback_primary_event',
-                                      1)
-        else:
-          if chart_vars.svs:
-            existing_svs.update(chart_vars.svs)
-            if handler.module.populate(state, chart_vars, places,
-                                       ChartOriginType.PRIMARY_CHART):
-              found = True
-              num_charts += 1
-            else:
-              state.uttr.counters.err('failed_populate_callback_primary', 1)
+    for idx, exist_cv in enumerate(state.exist_chart_vars_list):
+      chart_vars = copy.deepcopy(exist_cv)
+      if chart_vars.event:
+        if exist_cv.exist_event:
+          if handler.module.populate(state, chart_vars, places,
+                                     ChartOriginType.PRIMARY_CHART, idx):
+            found = True
+            num_charts += 1
+          else:
+            state.uttr.counters.err('failed_populate_callback_primary_event', 1)
+      else:
+        if chart_vars.svs:
+          existing_svs.update(chart_vars.svs)
+          if handler.module.populate(state, chart_vars, places,
+                                     ChartOriginType.PRIMARY_CHART, idx):
+            found = True
+            num_charts += 1
+          else:
+            state.uttr.counters.err('failed_populate_callback_primary', 1)
 
-        # If we have found enough charts, return success
-        if num_charts >= _MAX_NUM_CHARTS:
-          return True
+      # If we have found enough charts, return success
+      if num_charts >= _MAX_NUM_CHARTS:
+        return True
 
     # Handle extended/comparable SVs only for simple query since
     # for those we would construct a single bar chart comparing the differe
     # variables.  For other query-types like map/ranking/scatter, we will have
     # individual "related" charts, and those don't look good.
-    if qt == QueryType.SIMPLE and existing_svs:
+    #
+    # TODO: Optimize and enable in Explore mode.
+    if qt == QueryType.BASIC and existing_svs and not state.place_type and not state.ranking_types:
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in svs if v in existing_svs]
       found |= _add_charts_for_extended_svs(state=state,
                                             places=places,
-                                            places_to_check=places_to_check,
                                             svs=ordered_existing_svs,
                                             num_charts=num_charts)
 
@@ -237,7 +250,6 @@ def _add_charts_with_existence_check(state: PopulateState,
 
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
-                                 places_to_check: Dict[str, str],
                                  svs: List[str], num_charts: int) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
@@ -261,7 +273,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
   # We extended some SVs, perform existence check.
   # PERF-NOTE: We do two serial existence-checks because the SV extension
   # call is super expensive.
-  tracker = ExtensionExistenceCheckTracker(state, places_to_check, svs,
+  tracker = ExtensionExistenceCheckTracker(state, state.places_to_check, svs,
                                            sv2extensions)
   tracker.perform_existence_check()
 
@@ -288,7 +300,7 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
 
       # Add this as a secondary chart.
       if simple.populate(state, chart_vars, places,
-                         ChartOriginType.SECONDARY_CHART):
+                         ChartOriginType.SECONDARY_CHART, _MAX_RANK):
         found = True
         num_charts += 1
       else:

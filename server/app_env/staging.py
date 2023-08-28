@@ -16,5 +16,5 @@ from server.app_env import _base
 
 
 class Config(_base.Config):
-  GA_ACCOUNT = 'UA-117119267-2'
+  GA_ACCOUNT = 'G-HV2XYYS1JD'
   HIDE_REVAMP_CHANGES = True

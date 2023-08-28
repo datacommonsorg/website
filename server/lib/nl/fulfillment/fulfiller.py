@@ -14,26 +14,27 @@
 """Module for NL page data spec"""
 
 import logging
-from typing import List
+from typing import cast, List
 
+import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
+import server.lib.nl.detection.types as dtypes
 from server.lib.nl.fulfillment import base
-from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import size_across_entities
-from server.lib.nl.fulfillment.chart_vars import build_chart_vars_map
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
+import server.lib.nl.fulfillment.utils as futils
 
 
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance) -> Utterance:
+def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
@@ -42,15 +43,21 @@ def fulfill(uttr: Utterance) -> Utterance:
   # update `uttr`
   state.query_types = _produce_query_types(uttr)
 
-  state.place_type = utils.get_contained_in_type(uttr)
+  pt_cls = futils.classifications_of_type(
+      uttr.classifications, dtypes.ClassificationType.CONTAINED_IN)
+  if pt_cls:
+    cip = cast(dtypes.ContainedInClassificationAttributes, pt_cls[0].attributes)
+    state.place_type = cip.contained_in_place_type
+    state.had_default_place_type = cip.had_default_type
   state.ranking_types = utils.get_ranking_types(uttr)
   state.time_delta_types = utils.get_time_delta_types(uttr)
   state.quantity = utils.get_quantity(uttr)
   state.event_types = utils.get_event_types(uttr)
+  state.explore_mode = explore_mode
 
   if not state.query_types:
     uttr.counters.err('fulfill_empty_querytypes', '')
-    return uttr
+    return state
 
   main_qt = state.query_types[0]
 
@@ -58,7 +65,7 @@ def fulfill(uttr: Utterance) -> Utterance:
 
   state.uttr.query_type = main_qt
   # Perform certain type-specific overrides or actions.
-  success = False
+  done = False
   if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
     # This needs custom SVs.
     filter_with_dual_vars.set_overrides(state)
@@ -66,25 +73,28 @@ def fulfill(uttr: Utterance) -> Utterance:
     # This needs custom SVs.
     size_across_entities.set_overrides(state)
   elif main_qt == QueryType.OVERVIEW:
-    success = overview.populate(uttr)
+    done = overview.populate(uttr)
   elif main_qt == QueryType.EVENT:
     # TODO: Port `event` to work in the normal flow.
-    success = event.populate(uttr)
+    # Don't consider it done and fallthrough to show SV stuff
+    event.populate(uttr)
     state.query_types.remove(QueryType.EVENT)
-  elif main_qt == QueryType.CORRELATION_ACROSS_VARS:
-    success = correlation.populate(uttr)
-    state.query_types.remove(QueryType.CORRELATION_ACROSS_VARS)
+
   elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
     # There are multiple places so we don't fallback.
     state.disable_fallback = True
 
-  if success:
+  if done:
     _rank_charts(uttr)
-    return uttr
+    return state
 
   # Compute all the ChartVars
-  # TODO: Perform custom chart-vars computation.
-  state.chart_vars_map = build_chart_vars_map(state)
+  has_correlation = main_qt == QueryType.CORRELATION_ACROSS_VARS
+  if (has_correlation and state.uttr.multi_svs and
+      state.uttr.multi_svs.candidates):
+    state.chart_vars_map = topic.compute_correlation_chart_vars(state)
+  else:
+    state.chart_vars_map = topic.compute_chart_vars(state)
 
   # Call populate_charts.
   if not base.populate_charts(state):
@@ -94,7 +104,8 @@ def fulfill(uttr: Utterance) -> Utterance:
 
   # Rank candidates.
   _rank_charts(state.uttr)
-  return state.uttr
+
+  return state
 
 
 def _produce_query_types(uttr: Utterance) -> List[QueryType]:

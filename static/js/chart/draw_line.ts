@@ -32,7 +32,6 @@ import {
   NUM_Y_TICKS,
   SVGNS,
   TEXT_FONT_FAMILY,
-  TOOLTIP_ID,
   XLINKNS,
 } from "./draw_constants";
 import {
@@ -43,7 +42,6 @@ import {
   buildInChartLegend,
   computeRanges,
   getRowLabels,
-  showTooltip,
   updateXAxis,
 } from "./draw_utils";
 import { GroupLineChartOptions, LineChartOptions } from "./types";
@@ -59,6 +57,8 @@ const YLABEL = {
   topMargin: 10,
   height: 15,
 };
+// min distance between bottom of the tooltip and a datapoint
+const TOOLTIP_BOTTOM_OFFSET = 5;
 
 /**
  * Gets the html content of a tooltip
@@ -105,6 +105,43 @@ function getTooltipContent(
   } else {
     return `${tooltipDate}<br/>` + tooltipContent;
   }
+}
+
+/**
+ * Position and show the tooltip.
+ *
+ * @param contentHTML innerHTML of the tooltip as a string.
+ * @param tooltipDiv div containing the tooltip.
+ * @param datapointX x coordinate of the datapoint that the tooltip is being shown for.
+ * @param datapointY y coordinate of the datapoint that the tooltip is being shown for.
+ * @param relativeBoundary tooltip boundary relative to its container element.
+ */
+export function showTooltip(
+  contentHTML: string,
+  tooltipDiv: d3.Selection<HTMLDivElement, any, any, any>,
+  datapointX: number,
+  datapointY: number,
+  relativeBoundary: Boundary
+): void {
+  const rect = (tooltipDiv.node() as HTMLDivElement).getBoundingClientRect();
+  const width = rect.width;
+  const height = rect.height;
+  // center tooltip over the datapoint. If this causes the tooltip to overflow the boundary,
+  // place the tooltip against the respective boundary.
+  let left = datapointX - width / 2;
+  if (left < relativeBoundary.left) {
+    left = relativeBoundary.left;
+  } else if (left + width > relativeBoundary.right) {
+    left = relativeBoundary.right - width;
+  }
+  // place the tooltip against the top of the chart area unless there is too little space between it
+  // and the datapoint, then place the tooltip against the bottom of the chart area
+  let top = 0;
+  if (height > datapointY - TOOLTIP_BOTTOM_OFFSET) {
+    top = relativeBoundary.bottom - height;
+  }
+  tooltipDiv.html(contentHTML);
+  tooltipDiv.style("left", left + "px").style("top", top + "px");
 }
 
 /**
@@ -160,7 +197,7 @@ function addHighlightOnHover(
 ): void {
   const listOfTimePoints: number[] = Array.from(setOfTimePoints);
   listOfTimePoints.sort((a, b) => a - b);
-  addTooltip(container);
+  const tooltip = addTooltip(container);
   for (const place in dataGroupsDict) {
     const dataGroups = dataGroupsDict[place];
     for (const dataGroup of dataGroups) {
@@ -172,7 +209,6 @@ function addHighlightOnHover(
         .datum(dataGroup);
     }
   }
-  const tooltip = container.select(`#${TOOLTIP_ID}`);
   highlightArea.style("opacity", "0");
   const highlightLine = highlightArea
     .append("line")
@@ -245,7 +281,7 @@ function addHighlightOnHover(
       );
       showTooltip(
         tooltipContent,
-        container,
+        tooltip,
         dataPointX,
         minDataPointY,
         chartAreaBoundary

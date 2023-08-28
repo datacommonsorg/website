@@ -7264,6 +7264,21 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/GlobalElectricityAccess/ElectricyAccessByResidenceType"
+      ],
+      "memberList": [
+        "worldBank/EG_ELC_ACCS_UR_ZS",
+        "worldBank/EG_ELC_ACCS_RU_ZS"
+      ],
+      "name": [
+        "Accesss To Electricty By Percentage Of Urban/Rural Population"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages"
       ],
       "memberList": [
@@ -10819,7 +10834,8 @@
         "dc/topic/Energy_Consumption_FossilFuels",
         "dc/topic/Energy_Renewables",
         "dc/topic/Electricity_Consumption",
-        "dc/topic/Energy_Fraction"
+        "dc/topic/Energy_Fraction",
+        "dc/topic/GlobalElectricityAccess"
       ],
       "typeOf": [
         "Topic"
@@ -11087,6 +11103,21 @@
         "dc/topic/EducationExpenditure",
         "dc/topic/HealthcareExpenditure",
         "dc/topic/Remittance"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/GlobalElectricityAccess"
+      ],
+      "name": [
+        "Access To Electricity"
+      ],
+      "relevantVariableList": [
+        "worldBank/EG_ELC_ACCS_ZS",
+        "dc/svpg/dc/topic/GlobalElectricityAccess/ElectricyAccessByResidenceType"
       ],
       "typeOf": [
         "Topic"

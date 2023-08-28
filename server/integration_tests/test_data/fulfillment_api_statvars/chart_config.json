@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in California (${date})",
+                    "title": "Median Incomes in Information industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -54,7 +54,7 @@
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in California (${date})",
+                    "title": "Median Incomes in Information industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of the Information Industry in California (${date})",
+                    "title": "GDP of the Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of the Information Industry in California (${date})",
+                    "title": "GDP of the Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -160,7 +160,7 @@
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "title": "Total Wages for Population Working in the Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -175,7 +175,7 @@
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in the Information Industry in California (${date})",
+                    "title": "Total Wages for Population Working in the Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -221,7 +221,7 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -236,7 +236,7 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (NAICS/51) in California (${date})",
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -289,6 +289,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
   "relatedThings": {
     "childPlaces": {
       "County": [
@@ -645,23 +652,26 @@
       ]
     },
     "childTopics": [],
-    "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/IndividualIncomeByIndustry",
-      "name": "Individual Income By Industry",
-      "types": [
-        "Topic"
-      ]
+    "exploreMore": {
+      "WagesTotal_Worker_NAICSInformation": {
+        "establishmentOwnership": [
+          "WagesTotal_Worker_FederalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_LocalGovernmentOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_PrivatelyOwnedEstablishment_NAICSInformation",
+          "WagesTotal_Worker_StateGovernmentOwnedEstablishment_NAICSInformation"
+        ]
+      }
     },
-    "parentPlaces": [
+    "mainTopics": [
       {
-        "dcid": "country/USA",
-        "name": "United States",
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income By Industry",
         "types": [
-          "Country"
+          "Topic"
         ]
       }
     ],
+    "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/Income",

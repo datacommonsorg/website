@@ -15,8 +15,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Mexico City",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Mexico City",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Population"
           },
           {
             "columns": [
@@ -28,17 +41,24 @@
                     ],
                     "title": "Population Density in Mexico City",
                     "type": "LINE"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
+                    "description": "Population Density in Mexico City",
                     "statVarKey": [
-                      "Count_Person_PerArea_pc"
+                      "Count_Person_PerArea"
                     ],
-                    "title": "Per Capita Population Density in Mexico City",
-                    "type": "LINE"
+                    "title": "Population Density in Mexico City",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Population Density"
           },
           {
             "columns": [
@@ -52,8 +72,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rate of Population Growth in Mexico City",
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Mexico City",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Rate of Population Growth"
           }
         ],
         "statVarSpec": {
@@ -62,11 +95,6 @@
             "statVar": "Count_Person"
           },
           "Count_Person_PerArea": {
-            "name": "Population Density",
-            "statVar": "Count_Person_PerArea"
-          },
-          "Count_Person_PerArea_pc": {
-            "denom": "Count_Person",
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
@@ -93,5 +121,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "wikidataId/Q1489",
+      "name": "Mexico City",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

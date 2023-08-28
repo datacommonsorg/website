@@ -15,8 +15,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Obesity in California",
+                    "statVarKey": [
+                      "Percent_Person_Obesity"
+                    ],
+                    "title": "Prevalence of Obesity in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Prevalence of Obesity"
           },
           {
             "columns": [
@@ -30,8 +43,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Physical Health Issues in California",
+                    "statVarKey": [
+                      "Percent_Person_WithPhysicalHealthNotGood"
+                    ],
+                    "title": "Physical Health Issues in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Physical Health Issues"
           },
           {
             "columns": [
@@ -50,7 +76,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Prevalence of Obesity and more"
           },
           {
             "columns": [
@@ -64,6 +91,7 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_18OrMoreYears_WithDepression_multiple_place_bar_block",
                       "Percent_Person_18OrMoreYears_WithPoorGeneralHealth_multiple_place_bar_block",
+                      "Percent_Person_WithAllTeethLoss_multiple_place_bar_block",
                       "Percent_Person_WithArthritis_multiple_place_bar_block",
                       "Percent_Person_WithAsthma_multiple_place_bar_block",
                       "Percent_Person_WithCancerExcludingSkinCancer_multiple_place_bar_block",
@@ -81,7 +109,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Physical Health Issues and more"
           }
         ],
         "statVarSpec": {
@@ -118,6 +147,11 @@
           "Percent_Person_Smoking": {
             "name": "Prevalence of Smoking",
             "statVar": "Percent_Person_Smoking",
+            "unit": "%"
+          },
+          "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
+            "name": "Prevalance of Complete Tooth Loss in the Population",
+            "statVar": "Percent_Person_WithAllTeethLoss",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
@@ -204,5 +238,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

@@ -45,6 +45,7 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
   place_dcids = []
   main_place = None
   resolved_places = []
+  parent_map = {}
 
   # Start updating the query_detection_debug_logs. Create space for place dcid inference
   # and place resolution. If they remain empty, the function belows were never triggered.
@@ -57,7 +58,7 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
     logging.info(f"Found {len(place_dcids)} place dcids: {place_dcids}.")
 
   if place_dcids:
-    resolved_places = get_place_from_dcids(
+    resolved_places, parent_map = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
     logging.info(
         f"Resolved {len(resolved_places)} place dcids: {resolved_places}.")
@@ -69,8 +70,10 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
     # be considered good enough to remove the place strings.
     query = _remove_places(cleaned_query.lower(), place_dcids)
 
+  parent_places = []
   if resolved_places:
     main_place = resolved_places[0]
+    parent_places = parent_map.get(main_place.dcid, [])
     logging.info(f"Using main_place as: {main_place}")
 
   # Set PlaceDetection.
@@ -78,7 +81,8 @@ def detect_from_query_ner(cleaned_query: str, orig_query: str,
                                    query_without_place_substr=query,
                                    query_places_mentioned=places_str_found,
                                    places_found=resolved_places,
-                                   main_place=main_place)
+                                   main_place=main_place,
+                                   parent_places=parent_places)
   _set_query_detection_debug_logs(place_detection, query_detection_debug_logs)
 
   # This only makes sense for this flow.
@@ -133,14 +137,17 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       nonplace_query_parts.append(item['span'].lower())
 
   resolved_places = []
+  parent_map = {}
   if mains:
-    resolved_places = get_place_from_dcids(mains,
-                                           debug_logs["place_resolution"])
+    resolved_places, parent_map = get_place_from_dcids(
+        mains, debug_logs["place_resolution"])
 
   main_place = None
   peers = []
+  parent_places = []
   if resolved_places:
     main_place = resolved_places[0]
+    parent_places = parent_map.get(main_place.dcid, [])
 
   # Set PlaceDetection.
   query_without_place_substr = ' '.join(nonplace_query_parts)
@@ -150,7 +157,8 @@ def detect_from_query_dc(orig_query: str, debug_logs: Dict) -> PlaceDetection:
       query_places_mentioned=places_str,
       places_found=resolved_places,
       main_place=main_place,
-      peer_places=peers)
+      peer_places=peers,
+      parent_places=parent_places)
   _set_query_detection_debug_logs(place_detection, debug_logs)
   # This only makes sense for this flow.
   debug_logs["query_transformations"] = {
@@ -170,6 +178,8 @@ def detect_from_names(place_names: List[str], query_without_places: str,
   place_dcids = []
   main_place = None
   resolved_places = []
+  parent_map = {}
+  parent_places = []
 
   # Start updating the query_detection_debug_logs. Create space for place dcid inference
   # and place resolution. If they remain empty, the function belows were never triggered.
@@ -181,11 +191,12 @@ def detect_from_names(place_names: List[str], query_without_places: str,
         place_names, query_detection_debug_logs["place_dcid_inference"])
 
   if place_dcids:
-    resolved_places = get_place_from_dcids(
+    resolved_places, parent_map = get_place_from_dcids(
         place_dcids.values(), query_detection_debug_logs["place_resolution"])
 
   if resolved_places:
     main_place = resolved_places[0]
+    parent_places = parent_map.get(main_place.dcid, [])
 
   # Set PlaceDetection.
   place_detection = PlaceDetection(
@@ -193,7 +204,8 @@ def detect_from_names(place_names: List[str], query_without_places: str,
       query_without_place_substr=query_without_places,
       query_places_mentioned=place_names,
       places_found=resolved_places,
-      main_place=main_place)
+      main_place=main_place,
+      parent_places=parent_places)
 
   _set_query_detection_debug_logs(place_detection, query_detection_debug_logs)
   return place_detection
@@ -228,10 +240,8 @@ def _remove_places(query, place_str_to_dcids: Dict[str, str]):
 # by using the DC API. `parent_places` if set, will have a map of
 # dcid to empty list, to be populated by this function.
 #
-def get_place_from_dcids(
-    place_dcids: List[str],
-    debug_logs: Dict,
-    parent_places: Dict[str, List[str]] = None) -> List[Place]:
+def get_place_from_dcids(place_dcids: List[str], debug_logs: Dict) -> any:
+  parent_places = {p: [] for p in place_dcids}
   place_info_result = dc.get_place_info(place_dcids)
   dcid2place = {}
   for res in place_info_result.get('data', []):
@@ -250,11 +260,10 @@ def get_place_from_dcids(
     for parent in info.get('parents', []):
       if 'dcid' not in parent or 'type' not in parent or 'name' not in parent:
         continue
-      if parent_places:
-        parent_places[dcid].append(
-            Place(dcid=parent['dcid'],
-                  name=parent['name'],
-                  place_type=parent['type']))
+      parent_places[dcid].append(
+          Place(dcid=parent['dcid'],
+                name=parent['name'],
+                place_type=parent['type']))
       if parent['type'] == 'Country':
         country = parent['dcid']
     if not country and ptype == 'Country':
@@ -268,8 +277,12 @@ def get_place_from_dcids(
 
   places = []
   dc_resolve_failures = []
+  added = set()
   # Iterate in the same order as place_dcids.
   for p_dcid in place_dcids:
+    if p_dcid in added:
+      continue
+    added.add(p_dcid)
 
     if p_dcid not in dcid2place:
       logging.info(
@@ -283,7 +296,7 @@ def get_place_from_dcids(
       "dc_resolution_failure": dc_resolve_failures,
       "dc_resolved_places": places,
   })
-  return places
+  return places, parent_places
 
 
 def _set_query_detection_debug_logs(d: PlaceDetection,
@@ -300,26 +313,3 @@ def _set_query_detection_debug_logs(d: PlaceDetection,
   if not query_detection_debug_logs["place_resolution"]:
     query_detection_debug_logs[
         "place_resolution"] = "Place resolution did not trigger (no place dcids found)."
-
-
-#
-# Given two lists of dcids, this function returns two parallel lists of
-# Places by making a single DC API call.
-#
-def _get_places_for_listpair(similars, identicals):
-  if not similars and not identicals:
-    return [], []
-
-  merged = list(set(similars + identicals))
-
-  tmp = {}
-  merged = get_place_from_dcids(merged, tmp)
-
-  result = []
-  for l in [similars, identicals]:
-    # Make a map from dcid to Place
-    pmap = {p.dcid: p for p in merged if p.dcid in l}
-    # Create a Place list in the same order as input list
-    result.append([pmap[p] for p in l if p in pmap])
-
-  return result[0], result[1]

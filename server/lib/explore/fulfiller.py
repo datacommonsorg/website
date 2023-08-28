@@ -16,12 +16,12 @@
 
 from dataclasses import dataclass
 import time
-from typing import Dict, List, Set
+from typing import Dict
 
 from server.config.subject_page_pb2 import SubjectPageConfig
-from server.lib.explore import existence
 from server.lib.explore import page_main
 from server.lib.explore import page_sdg
+from server.lib.explore.extension import chart_vars_to_explore_peer_groups
 import server.lib.explore.extension as extension
 from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
@@ -29,7 +29,7 @@ import server.lib.explore.related as related
 import server.lib.explore.topic as topic
 import server.lib.nl.common.utils as cutils
 import server.lib.nl.common.utterance as nl_uttr
-from server.lib.nl.config_builder import builder
+from server.lib.nl.config_builder import base
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.existence as ext
 import server.lib.nl.fulfillment.types as ftypes
@@ -40,16 +40,15 @@ import server.lib.nl.fulfillment.utils as futils
 class FulfillResp:
   chart_pb: SubjectPageConfig
   related_things: Dict
-  user_message: str
 
 
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
+def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   # This is a useful thing to set since checks for
   # single-point or not happen downstream.
-  uttr.query_type = nl_uttr.QueryType.SIMPLE
+  uttr.query_type = nl_uttr.QueryType.BASIC
   pt = cutils.get_contained_in_type(uttr)
   state = ftypes.PopulateState(uttr=uttr, place_type=pt)
 
@@ -82,8 +81,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
   chart_vars_list = []
   topics = []
   explore_more_svs = set()
-  _chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics,
-                    explore_more_svs)
+  ext.chart_vars_fetch(tracker, chart_vars_list, existing_svs, topics,
+                       explore_more_svs)
 
   explore_peer_groups = {}
 
@@ -112,7 +111,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
             state, places_to_check, sv2chartvarslist=ext_chart_vars_map)
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('extension_existence_check', start)
-        _chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
+        ext.chart_vars_fetch(ext_tracker, ext_chart_vars_list, existing_svs)
 
     if not state.uttr.insight_ctx.get(Params.EXP_MORE_DISABLED):
       explore_more_chart_vars_map = extension.explore_more(
@@ -127,7 +126,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
         ext_tracker.perform_existence_check()
         state.uttr.counters.timeit('explore_more_existence_check', start)
 
-      explore_peer_groups = _chart_vars_to_explore_peer_groups(
+      explore_peer_groups = chart_vars_to_explore_peer_groups(
           state, explore_more_chart_vars_map)
 
     config_resp = page_main.build_config(chart_vars_list, ext_chart_vars_list,
@@ -138,48 +137,4 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: builder.Config) -> FulfillResp:
                                                   explore_peer_groups)
 
   return FulfillResp(chart_pb=config_resp.config_pb,
-                     related_things=related_things,
-                     user_message=config_resp.user_message)
-
-
-def _chart_vars_fetch(tracker: ext.MainExistenceCheckTracker,
-                      chart_vars_list: List[ftypes.ChartVars],
-                      existing_svs: Set[str],
-                      topics: List[str] = None,
-                      explore_more_svs: Set[str] = None):
-  for exist_state in tracker.exist_sv_states:
-    for exist_cv in exist_state.chart_vars_list:
-      cv = tracker.get_chart_vars(exist_cv)
-      if cv.svs:
-        existing_svs.update(cv.svs)
-        chart_vars_list.append(cv)
-        if explore_more_svs != None and len(explore_more_svs) < 20:
-          explore_more_svs.update(cv.svs[:10])
-      if cv.source_topic:
-        existing_svs.add(cv.source_topic)
-      if cv.svpg_id:
-        existing_svs.add(cv.svpg_id)
-      if cv.orig_sv:
-        existing_svs.add(cv.orig_sv)
-        if topics != None and cutils.is_topic(
-            cv.orig_sv) and cv.orig_sv not in topics:
-          topics.append(cv.orig_sv)
-
-
-def _chart_vars_to_explore_peer_groups(state: ftypes.PopulateState,
-                                       explore_more_chart_vars_map) -> Dict:
-  explore_peer_groups = {}
-
-  for sv, cv_list in explore_more_chart_vars_map.items():
-    if not existence.svs4place(state, state.uttr.places[0], [sv]).exist_svs:
-      continue
-    for cv in cv_list:
-      er = existence.svs4place(state, state.uttr.places[0], cv.svs)
-      if len(er.exist_svs) < 2:
-        continue
-      if sv not in explore_peer_groups:
-        explore_peer_groups[sv] = {}
-      if cv.source_topic not in explore_peer_groups[sv]:
-        explore_peer_groups[sv][cv.source_topic] = sorted(er.exist_svs)
-
-  return explore_peer_groups
+                     related_things=related_things)

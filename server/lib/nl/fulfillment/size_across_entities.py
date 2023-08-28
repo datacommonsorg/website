@@ -100,7 +100,7 @@ def set_overrides(state: PopulateState) -> bool:
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
-             chart_origin: ChartOriginType) -> bool:
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
     state.uttr.counters.err('size-across-entities_failed_cb_norankingtypes', 1)
@@ -123,13 +123,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = exist_svs
 
-  chart_vars.response_type = "ranking table"
-  # NO Per-capita for these.
-  chart_vars.include_percapita = False
   # No map chart for these.
   chart_vars.skip_map_for_ranking = True
-  # We exactly control the Vars in this case,
-  # so line them all up in a single block.
-  chart_vars.block_id = 1
-  return add_chart_to_utterance(ChartType.RANKING_CHART, state, chart_vars,
+  # We want all the ranking tables lined up in a single block.
+  return add_chart_to_utterance(ChartType.RANKING_WITH_MAP, state, chart_vars,
                                 places, chart_origin)

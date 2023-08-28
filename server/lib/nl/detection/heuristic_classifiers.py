@@ -30,8 +30,8 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import CorrelationClassificationAttributes
 from server.lib.nl.detection.types import EventClassificationAttributes
 from server.lib.nl.detection.types import EventType
+from server.lib.nl.detection.types import GeneralClassificationAttributes
 from server.lib.nl.detection.types import NLClassifier
-from server.lib.nl.detection.types import OverviewClassificationAttributes
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SizeType
@@ -158,6 +158,7 @@ def time_delta(query: str) -> Union[NLClassifier, None]:
   subtype_map = {
       "Increase": TimeDeltaType.INCREASE,
       "Decrease": TimeDeltaType.DECREASE,
+      "Change": TimeDeltaType.CHANGE,
   }
   time_delta_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["TimeDelta"]
   time_delta_subtypes = time_delta_heuristics.keys()
@@ -248,13 +249,14 @@ def comparison(query) -> Union[NLClassifier, None]:
   return NLClassifier(type=ClassificationType.COMPARISON, attributes=attributes)
 
 
-def overview(query) -> Union[NLClassifier, None]:
-  """Heuristic-based classifier for overview queries."""
+def general(query: str, subtype: ClassificationType,
+            subtype_name: str) -> Union[NLClassifier, None]:
+  """Heuristic-based classifier for general pattern to type."""
   # make query lowercase for string matching
   query = query.lower()
-  overview_heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS["Overview"]
+  heuristics = constants.QUERY_CLASSIFICATION_HEURISTICS[subtype_name]
   trigger_words = []
-  for keyword in overview_heuristics:
+  for keyword in heuristics:
     # look for keyword surrounded by spaces or start/end delimiters
     regex = r"(^|\W)" + keyword + r"($|\W)"
     trigger_words += [w.group() for w in re.finditer(regex, query)]
@@ -263,9 +265,8 @@ def overview(query) -> Union[NLClassifier, None]:
   if not trigger_words:
     return None
 
-  attributes = OverviewClassificationAttributes(
-      overview_trigger_words=trigger_words)
-  return NLClassifier(type=ClassificationType.OVERVIEW, attributes=attributes)
+  attributes = GeneralClassificationAttributes(trigger_words=trigger_words)
+  return NLClassifier(type=subtype, attributes=attributes)
 
 
 def containedin(query: str) -> Union[NLClassifier, None]:

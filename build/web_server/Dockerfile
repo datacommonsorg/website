@@ -13,7 +13,9 @@
 # limitations under the License.
 
 
-FROM nikolaik/python-nodejs:python3.11-nodejs18 as base
+FROM nikolaik/python-nodejs:python3.11-nodejs18-slim as base
+
+RUN apt-get update && apt-get -y upgrade
 
 ARG ENV
 ENV ENV=${ENV}

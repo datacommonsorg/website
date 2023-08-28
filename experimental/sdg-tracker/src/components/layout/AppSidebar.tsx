@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu } from "antd";
+import SubMenu from "antd/lib/menu/SubMenu";
 import { useState } from "react";
 import styled from "styled-components";
-import { useStoreState } from "../../state";
+import { MenuItemType, useStoreState } from "../../state";
 const { Sider } = Layout;
 
 const MenuTitle = styled.div`
@@ -26,17 +27,37 @@ const MenuTitle = styled.div`
   padding: 0.5rem 1.5rem;
 `;
 
+const StyledMenu = styled(Menu)`
+  .ant-menu-submenu-title {
+  }
+  .-title-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: auto !important;
+  }
+`;
+
 const AppSidebar: React.FC<{
   variableDcid: string;
   setVariableDcid: (variableDcid: string) => void;
 }> = (props) => {
   const { setVariableDcid, variableDcid } = props;
-  const variableGroupHierarchy = useStoreState((s) => s.variableGroupHierarchy);
+  const sidebarMenuHierarchy = useStoreState((s) => s.sidebarMenuHierarchy);
   const [siderHidden, setSiderHidden] = useState<boolean>(false);
-
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const getMenuItem = (item: MenuItemType) => {
+    if (item.children && item.children.length > 0) {
+      return (
+        <SubMenu key={item.key} title={item.label} icon={item.icon}>
+          {item.children.map((subItem) => getMenuItem(subItem))}
+        </SubMenu>
+      );
+    }
+    return (
+      <Menu.Item key={item.key} icon={item.icon}>
+        {item.label}
+      </Menu.Item>
+    );
+  };
 
   return (
     <Sider
@@ -47,21 +68,22 @@ const AppSidebar: React.FC<{
         setSiderHidden(broken);
       }}
       style={{
-        background: colorBgContainer,
+        background: "white",
         overflow: !siderHidden ? "auto" : undefined,
       }}
     >
       <MenuTitle>Goals</MenuTitle>
-      <Menu
+      <StyledMenu
         defaultSelectedKeys={[variableDcid]}
         mode="inline"
         defaultOpenKeys={["1"]}
         style={{ borderRight: 0 }}
-        items={variableGroupHierarchy}
         onClick={(item) => {
           setVariableDcid(item.key.replace("summary-", ""));
         }}
-      />
+      >
+        {sidebarMenuHierarchy.map((vg) => getMenuItem(vg))}
+      </StyledMenu>
     </Sider>
   );
 };

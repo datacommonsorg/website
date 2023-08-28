@@ -17,7 +17,11 @@
                     ],
                     "title": "High Blood Pressure in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
@@ -28,7 +32,7 @@
                 ]
               }
             ],
-            "title": "High Blood Pressure"
+            "title": "High Blood Pressure in Counties of California"
           },
           {
             "columns": [
@@ -44,7 +48,11 @@
                     ],
                     "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of California (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
@@ -55,7 +63,7 @@
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -91,5 +99,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

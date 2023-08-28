@@ -16,11 +16,11 @@ from dataclasses import dataclass
 from typing import Dict, List
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore import related
 from server.lib.explore.params import is_sdg
 from server.lib.nl.common import utils
 import server.lib.nl.common.variable as var_lib
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.detection.types as dtypes
 import server.lib.nl.fulfillment.types as ftypes
 import server.lib.nl.fulfillment.utils as futils
@@ -30,8 +30,8 @@ import server.lib.nl.fulfillment.utils as futils
 
 class Builder:
 
-  def __init__(self, state: ftypes.PopulateState, env_config: builder.Config,
-               sv2thing: base.SV2Thing, num_chart_vars: int):
+  def __init__(self, state: ftypes.PopulateState, env_config: base.Config,
+               sv2thing: ftypes.SV2Thing, num_chart_vars: int):
     self.uttr = state.uttr
     self.page_config = SubjectPageConfig()
     self.env_config = env_config
@@ -55,7 +55,7 @@ class Builder:
       metadata.contained_place_types[main_place.place_type] = \
         state.place_type.value
 
-    self.plotted_orig_vars = []
+    self.plotted_orig_vars: List[related.PlottedOrigVar] = []
     self.category = None
     self.block = None
     self.column = None
@@ -85,16 +85,16 @@ class Builder:
     # We are adding a chart for real post existence check.
     # Add all the orig-vars.  We'll use them to define
     # the topic page.
-    if cv and cv.orig_sv:
-      osv = cv.orig_sv
-      if not (self.plotted_orig_vars and
-              self.plotted_orig_vars[-1]['dcid'] == osv):
+    if cv and cv.orig_svs:
+      osv = cv.orig_svs[0]
+      if not (self.plotted_orig_vars and self.plotted_orig_vars[-1].svs and
+              self.plotted_orig_vars[-1].svs[0].dcid == osv):
         t = 'StatisticalVariable' if utils.is_sv(osv) else 'Topic'
-        self.plotted_orig_vars.append({
-            'dcid': osv,
-            'name': self.sv2thing.name.get(osv, ''),
-            'types': [t],
-        })
+        self.plotted_orig_vars.append(
+            related.PlottedOrigVar(svs=[
+                related.Node(
+                    dcid=osv, name=self.sv2thing.name.get(osv, ''), types=[t])
+            ]))
 
     self.column = self.block.columns.add()
     return self.column
@@ -115,45 +115,15 @@ class Builder:
   # 3. Finally, if there is a singleton block in a category and both
   #    the block and category have names, drop the block name.
   def cleanup_config(self):
-    # From inside to out, delete duplicate charts and cleanup
-    # any empties.
-    chart_keys = set()
-    out_cats = []
-    for cat in self.page_config.categories:
-      out_blks = []
-      for blk in cat.blocks:
-        out_cols = []
-        for col in blk.columns:
-          out_tiles = []
-          for tile in col.tiles:
-            x = tile.SerializeToString()
-            if x not in chart_keys:
-              out_tiles.append(tile)
-            chart_keys.add(x)
-          del col.tiles[:]
-          if out_tiles:
-            col.tiles.extend(out_tiles)
-            out_cols.append(col)
-        del blk.columns[:]
-        if out_cols:
-          blk.columns.extend(out_cols)
-          out_blks.append(blk)
-      del cat.blocks[:]
-      if out_blks:
-        cat.blocks.extend(out_blks)
-        out_cats.append(cat)
-    del self.page_config.categories[:]
-    if out_cats:
-      self.page_config.categories.extend(out_cats)
+    base.trim_config(self.page_config)
 
     # Nothing more to do (like resetting title) if SDG.
     if is_sdg(self.uttr.insight_ctx):
       return
 
     for cat in self.page_config.categories:
-      # TODO: Check if we need more work here.
-      if self.plotted_orig_vars and self.plotted_orig_vars[0][
-          'dcid'] == cat.dcid:
+      if (self.plotted_orig_vars and self.plotted_orig_vars[0].svs and
+          self.plotted_orig_vars[0].svs[0].dcid == cat.dcid):
         # The overall topic matches the category, so clear out the title.
         cat.title = ''
 
@@ -167,5 +137,4 @@ class Builder:
 @dataclass
 class ConfigResp:
   config_pb: SubjectPageConfig
-  user_message: str
   plotted_orig_vars: List[Dict]

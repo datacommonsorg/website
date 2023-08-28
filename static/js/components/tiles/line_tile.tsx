@@ -137,7 +137,7 @@ export function getReplacementStrings(
   props: LineTilePropType
 ): ReplacementStrings {
   return {
-    placeName: props.place.name,
+    placeName: props.place ? props.place.name : "",
   };
 }
 

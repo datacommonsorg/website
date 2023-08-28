@@ -14,106 +14,44 @@
 
 from typing import List
 
-from server.lib.nl.common import utils
-from server.lib.nl.common.topic import open_top_topics_ordered
+import server.lib.explore.existence as exist
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection import utils as detection_utils
 from server.lib.nl.detection.types import Place
+from server.lib.nl.detection.types import RankingType
+from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
-from server.lib.nl.fulfillment.utils import handle_contained_in_type
-import shared.lib.detected_variables as vars
 
-_MAX_MAIN_SVS = 5
 
 #
-# Handler for CORRELATION chart.  This does not use the populate_charts() logic
-# because it is sufficiently different, requiring identifying pairs of SVs.
+# Handler for correlation charts.
 #
-
-
-def populate(uttr: Utterance) -> bool:
-  place_type = utils.get_contained_in_type(uttr)
-  if place_type:
-    if _populate_correlation_for_place_type(
-        PopulateState(uttr=uttr, place_type=place_type)):
-      return True
-    else:
-      uttr.counters.err('correlation_failed_populate_placestype',
-                        place_type.value)
-  return False
-
-
-def _populate_correlation_for_place_type(state: PopulateState) -> bool:
-  for pl in state.uttr.places:
-    if (_populate_correlation_for_place(state, pl)):
-      return True
-    else:
-      state.uttr.counters.err('correlation_failed_populate_main_place', pl.dcid)
-  return False
-
-
-def _populate_correlation_for_place(state: PopulateState, place: Place) -> bool:
-  handle_contained_in_type(state, [place])
-
-  # Get child place samples for existence check.
-  places_to_check = utils.get_sample_child_places(place.dcid,
-                                                  state.place_type.value,
-                                                  state.uttr.counters)
-  if not places_to_check:
-    # Counter updated in get_sample_child_places
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, rank: int) -> bool:
+  if len(chart_vars.svs) != 2 or not places:
+    state.uttr.counters.err('correlation_failed_noplaceorsv', 1)
+    return False
+  if not state.place_type:
+    state.uttr.counters.err('correlation_failed_noplacetype', 1)
     return False
 
-  # When multi-sv has a higher score than single-sv prefer that.
-  # See discussion in _route_comparison_or_correlation().
-  lhs_svs, rhs_svs = _handle_multi_sv_in_uttr(state.uttr, places_to_check)
-
-  if not lhs_svs or not rhs_svs:
+  # Child existence check for both SVs.
+  if len(exist.svs4children(state, places[0], chart_vars.svs).exist_svs) != 2:
     return False
 
-  found = False
-  for lhs_sv in lhs_svs:
-    for rhs_sv in rhs_svs:
-      if lhs_sv == rhs_sv:
-        continue
-      found |= _populate_correlation_chart(state, place, lhs_sv, rhs_sv)
+  found = add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
+                                 places, chart_origin)
+  if found:
+    ranking_orig = state.ranking_types
+    state.ranking_types = [RankingType.HIGH, RankingType.LOW]
+    found |= ranking_across_places.populate(state,
+                                            chart_vars,
+                                            places,
+                                            chart_origin,
+                                            rank,
+                                            ranking_count=5)
+    state.ranking_types = ranking_orig
+
   return found
-
-
-def _handle_multi_sv_in_uttr(uttr: Utterance,
-                             places_to_check: List[str]) -> tuple:
-  parts = detection_utils.get_multi_sv_pair(uttr.detection)
-  if not parts:
-    return (None, None)
-
-  final_svs: List[List[str]] = []
-  for i, p in enumerate(parts):
-    svs = open_top_topics_ordered(p.svs, uttr.counters)
-    svs, _ = utils.sv_existence_for_places(places_to_check, svs, uttr.counters)
-    if not svs:
-      uttr.counters.err(f'multisv_correlation_failed_existence_check_{i}_sv',
-                        svs)
-      uttr.counters.err(f'multisv_correlation_failed_missing_{i}_sv', 1)
-      return (None, None)
-    final_svs.append(svs)
-
-  lhs_svs = final_svs[0][:_MAX_MAIN_SVS]
-  rhs_svs = final_svs[1][:_MAX_MAIN_SVS]
-  uttr.counters.info(f'multisv_correlation_lhs_svs', lhs_svs)
-  uttr.counters.info(f'multisv_correlation_rhs_svs', rhs_svs)
-  return (lhs_svs, rhs_svs)
-
-
-def _populate_correlation_chart(state: PopulateState, place: Place, sv_1: str,
-                                sv_2: str) -> bool:
-  state.block_id += 1
-  # TODO: Handle per-capita carefully.
-  chart_vars = ChartVars(svs=[sv_1, sv_2],
-                         block_id=state.block_id,
-                         include_percapita=False,
-                         response_type="scatter chart")
-  return add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
-                                [place], ChartOriginType.PRIMARY_CHART)

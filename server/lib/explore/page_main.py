@@ -24,17 +24,16 @@ from server.lib.explore.page_type.builder import Builder
 from server.lib.explore.page_type.builder import ConfigResp
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import base
-from server.lib.nl.config_builder import builder
 import server.lib.nl.fulfillment.types as ftypes
 
 
 def build_config(chart_vars_list: List[ftypes.ChartVars],
                  ext_chart_vars_list: List[ftypes.ChartVars],
                  state: ftypes.PopulateState, all_svs: List[str],
-                 env_config: builder.Config) -> ConfigResp:
+                 env_config: base.Config) -> ConfigResp:
   # Get names of all SVs
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = ftypes.SV2Thing(
       name=variable.get_sv_name(all_svs, env_config.sv_chart_titles),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
@@ -70,10 +69,9 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   builder.cleanup_config()
 
   # If after cleanup, the config is empty, maybe fallback.
-  message = fallback.maybe_fallback(state, builder)
+  fallback.maybe_fallback(state, builder)
 
   return ConfigResp(builder.page_config,
-                    message,
                     plotted_orig_vars=builder.plotted_orig_vars)
 
 

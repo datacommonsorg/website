@@ -129,6 +129,13 @@ export class DatacommonsBarComponent extends LitElement {
   maxPlaces?: number;
 
   /**
+   * Optional: Maximum number of variables per place to display
+   * If not provided, shows all variables.
+   */
+  @property({ type: Number })
+  maxVariables?: number;
+
+  /**
    * DCID of the parent place
    * */
   @property()
@@ -165,7 +172,7 @@ export class DatacommonsBarComponent extends LitElement {
    * List of DCIDs of the statistical variable(s) to plot values for
    */
   @property({ type: Array<string>, converter: convertArrayAttribute })
-  variables?: string[];
+  variables!: string[];
 
   /**
    * Optional: Y axis margin to fit the axis label text.
@@ -196,11 +203,13 @@ export class DatacommonsBarComponent extends LitElement {
       horizontal: this.horizontal,
       id: `chart-${_.uniqueId()}`,
       maxPlaces: this.maxPlaces,
+      maxVariables: this.maxVariables,
       place: {
         dcid: this.parentPlace,
         name: "",
         types: [],
       },
+      showTooltipOnHover: true,
       sort: this.sort,
       stacked: this.stacked,
       statVarSpec,

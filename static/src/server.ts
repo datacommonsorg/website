@@ -30,6 +30,10 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../js/types/subject_page_proto_types";
+import {
+  getDate,
+  getSeverityFilters,
+} from "../js/utils/disaster_event_map_utils";
 import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
 import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
 import { CHART_URL_PARAMS } from "../nodejs_server/constants";
@@ -40,15 +44,10 @@ import {
 import { getLineChart, getLineTileResult } from "../nodejs_server/line_tile";
 import { getMapChart, getMapTileResult } from "../nodejs_server/map_tile";
 import {
-  getRankingChart,
-  getRankingTileResult,
-} from "../nodejs_server/ranking_tile";
-import {
   getScatterChart,
   getScatterTileResult,
 } from "../nodejs_server/scatter_tile";
 import { TileResult } from "../nodejs_server/types";
-import { getSvgXml } from "../nodejs_server/utils";
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -279,9 +278,10 @@ function getDisasterBlockTileResults(
     block.columns
   );
   const disasterEventDataPromise = fetchDisasterEventData(
-    id,
     blockEventTypeSpec,
     place.dcid,
+    getDate(id, block.disasterBlockSpec || {}, place),
+    getSeverityFilters(eventTypeSpec, id),
     null,
     CONFIG.apiRoot
   );
