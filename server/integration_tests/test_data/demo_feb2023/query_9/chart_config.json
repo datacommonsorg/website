@@ -15,7 +15,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${Ydate}) Vs. High Blood Pressure (${Xdate}) In Counties Of United States",
+                    "title": "Household Median Income (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income In Counties Of United States (${date})",
+                    "title": "Household Median Income in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -45,13 +45,13 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income In Counties Of United States (${date})",
+                    "title": "Household Median Income in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income In Counties Of United States"
+            "title": "Household Median Income in Counties of United States"
           },
           {
             "columns": [
@@ -61,7 +61,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure In Counties Of United States (${date})",
+                    "title": "High Blood Pressure in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,13 +76,13 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure In Counties Of United States (${date})",
+                    "title": "High Blood Pressure in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "High Blood Pressure In Counties Of United States"
+            "title": "High Blood Pressure in Counties of United States"
           },
           {
             "columns": [
@@ -96,7 +96,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Income (${Ydate}) Vs. Percent Of Adults With Blood Pressure Who Take Medication (${Xdate}) In Counties Of United States",
+                    "title": "Individual Median Income (${Ydate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${Xdate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -111,7 +111,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income In Counties Of United States (${date})",
+                    "title": "Individual Median Income in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -126,13 +126,13 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income In Counties Of United States (${date})",
+                    "title": "Individual Median Income in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income In Counties Of United States"
+            "title": "Individual Median Income in Counties of United States"
           },
           {
             "columns": [
@@ -142,7 +142,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -157,13 +157,13 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States"
           },
           {
             "columns": [
@@ -177,7 +177,7 @@
                       "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Up To $9,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) In Counties Of United States",
+                    "title": "Earners Up to $9,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -192,7 +192,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Earners Up To $9,999 In Counties Of United States (${date})",
+                    "title": "Earners Up to $9,999 in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -207,13 +207,13 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Earners Up To $9,999 In Counties Of United States (${date})",
+                    "title": "Earners Up to $9,999 in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Earners Up To $9,999 In Counties Of United States"
+            "title": "Earners Up to $9,999 in Counties of United States"
           },
           {
             "columns": [
@@ -227,7 +227,7 @@
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Between $10,000 And $14,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) In Counties Of United States",
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -242,7 +242,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "Earners Between $10,000 And $14,999 In Counties Of United States (${date})",
+                    "title": "Earners Between $10,000 and $14,999 in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -257,13 +257,13 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "Earners Between $10,000 And $14,999 In Counties Of United States (${date})",
+                    "title": "Earners Between $10,000 and $14,999 in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Earners Between $10,000 And $14,999 In Counties Of United States"
+            "title": "Earners Between $10,000 and $14,999 in Counties of United States"
           }
         ],
         "statVarSpec": {

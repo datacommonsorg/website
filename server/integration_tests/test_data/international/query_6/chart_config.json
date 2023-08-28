@@ -13,13 +13,13 @@
                         "drought"
                       ]
                     },
-                    "title": "Droughts In Africa",
+                    "title": "Droughts in Africa",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
               }
             ],
-            "title": "Droughts In Africa",
+            "title": "Droughts in Africa",
             "type": "DISASTER_EVENT"
           },
           {
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area Of Drought Event In Africa",
+                    "title": "Area of Drought Event in Africa",
                     "type": "LINE"
                   }
                 ]
@@ -38,17 +38,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Area Of Drought Event In Africa",
+                    "description": "Area of Drought Event in Africa",
                     "statVarKey": [
                       "Area_DroughtEvent"
                     ],
-                    "title": "Area Of Drought Event In Africa",
+                    "title": "Area of Drought Event in Africa",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Area Of Drought Event"
+            "title": "Area of Drought Event"
           },
           {
             "columns": [
@@ -58,7 +58,7 @@
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts In Africa",
+                    "title": "Droughts in Africa",
                     "type": "LINE"
                   }
                 ]
@@ -66,11 +66,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Droughts In Africa",
+                    "description": "Droughts in Africa",
                     "statVarKey": [
                       "Count_DroughtEvent"
                     ],
-                    "title": "Droughts In Africa",
+                    "title": "Droughts in Africa",
                     "type": "HIGHLIGHT"
                   }
                 ]

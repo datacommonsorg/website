@@ -15,7 +15,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Per Capita (${Ydate}) Vs. Prevalence Of Obesity (${Xdate}) In Counties Of California",
+                    "title": "Population Below Poverty Level Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Counties Of California (${date})",
+                    "title": "Population Below Poverty Level in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -45,13 +45,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Counties Of California (${date})",
+                    "title": "Population Below Poverty Level in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Level In Counties Of California"
+            "title": "Population Below Poverty Level in Counties of California"
           },
           {
             "columns": [
@@ -61,7 +61,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence Of Obesity In Counties Of California (${date})",
+                    "title": "Prevalence of Obesity in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,13 +76,13 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence Of Obesity In Counties Of California (${date})",
+                    "title": "Prevalence of Obesity in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Prevalence Of Obesity In Counties Of California"
+            "title": "Prevalence of Obesity in Counties of California"
           },
           {
             "columns": [
@@ -96,7 +96,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Women Below Poverty Line Per Capita (${Ydate}) Vs. Prevalence Of Obesity (${Xdate}) In Counties Of California",
+                    "title": "Women Below Poverty Line Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -111,7 +111,7 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women Below Poverty Line In Counties Of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -126,13 +126,13 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women Below Poverty Line In Counties Of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Women Below Poverty Line In Counties Of California"
+            "title": "Women Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -146,7 +146,7 @@
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Males In Poverty (In Last Year) Per Capita (${Ydate}) Vs. Prevalence Of Obesity (${Xdate}) In Counties Of California",
+                    "title": "Males in Poverty (In Last Year) Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -161,7 +161,7 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males In Poverty (In Last Year) In Counties Of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -176,13 +176,13 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males In Poverty (In Last Year) In Counties Of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Males In Poverty (In Last Year) In Counties Of California"
+            "title": "Males in Poverty (In Last Year) in Counties of California"
           },
           {
             "columns": [
@@ -196,7 +196,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Asians Below Poverty Level Status In Past Year Per Capita (${Ydate}) Vs. Prevalence Of Obesity (${Xdate}) In Counties Of California",
+                    "title": "Asians Below Poverty Level Status in Past Year Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -211,7 +211,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -226,13 +226,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Asians Below Poverty Level Status In Past Year In Counties Of California"
+            "title": "Asians Below Poverty Level Status in Past Year in Counties of California"
           }
         ],
         "statVarSpec": {

@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedMiddleSchool"
                     ],
-                    "title": "Middle School Students In Sunnyvale",
+                    "title": "Middle School Students in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Middle School Students In Sunnyvale",
+                    "description": "Middle School Students in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedMiddleSchool"
                     ],
-                    "title": "Middle School Students In Sunnyvale",
+                    "title": "Middle School Students in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -51,14 +51,14 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School By Race In Sunnyvale (${date})",
+                    "title": "Students in Middle School by Race in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Students In Middle School By Race"
+            "title": "Students in Middle School by Race"
           },
           {
             "columns": [
@@ -68,7 +68,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedPrimarySchool"
                     ],
-                    "title": "Elementary School Students In Sunnyvale",
+                    "title": "Elementary School Students in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -76,11 +76,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Elementary School Students In Sunnyvale",
+                    "description": "Elementary School Students in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedPrimarySchool"
                     ],
-                    "title": "Elementary School Students In Sunnyvale",
+                    "title": "Elementary School Students in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -97,7 +97,7 @@
                     "statVarKey": [
                       "Count_Person_DetailedHighSchool"
                     ],
-                    "title": "High School Students In Sunnyvale",
+                    "title": "High School Students in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -105,11 +105,11 @@
               {
                 "tiles": [
                   {
-                    "description": "High School Students In Sunnyvale",
+                    "description": "High School Students in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_DetailedHighSchool"
                     ],
-                    "title": "High School Students In Sunnyvale",
+                    "title": "High School Students in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -126,7 +126,7 @@
                     "statVarKey": [
                       "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled In School In Sunnyvale",
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -134,18 +134,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Currently Enrolled In School In Sunnyvale",
+                    "description": "Population Currently Enrolled in School in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_EnrolledInSchool"
                     ],
-                    "title": "Population Currently Enrolled In School In Sunnyvale",
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Currently Enrolled In School"
+            "title": "Population Currently Enrolled in School"
           },
           {
             "columns": [
@@ -155,7 +155,7 @@
                     "statVarKey": [
                       "dc/jhjdplbeg26k1"
                     ],
-                    "title": "Population: Primary School, Two Or More Races In Sunnyvale",
+                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -163,18 +163,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Primary School, Two Or More Races In Sunnyvale",
+                    "description": "Population: Primary School, Two or More Races in Sunnyvale",
                     "statVarKey": [
                       "dc/jhjdplbeg26k1"
                     ],
-                    "title": "Population: Primary School, Two Or More Races In Sunnyvale",
+                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Primary School, Two Or More Races"
+            "title": "Population: Primary School, Two or More Races"
           },
           {
             "columns": [
@@ -184,7 +184,7 @@
                     "statVarKey": [
                       "Count_Person_EducationalAttainment11ThGrade"
                     ],
-                    "title": "Population: 11Th Grade In Sunnyvale",
+                    "title": "Population: 11Th Grade in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -192,11 +192,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 11Th Grade In Sunnyvale",
+                    "description": "Population: 11Th Grade in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_EducationalAttainment11ThGrade"
                     ],
-                    "title": "Population: 11Th Grade In Sunnyvale",
+                    "title": "Population: 11Th Grade in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -213,7 +213,7 @@
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7Th And 8Th Grade In Sunnyvale",
+                    "title": "Population: 7Th and 8Th Grade in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -221,18 +221,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 7Th And 8Th Grade In Sunnyvale",
+                    "description": "Population: 7Th and 8Th Grade in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7Th And 8Th Grade In Sunnyvale",
+                    "title": "Population: 7Th and 8Th Grade in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 7Th And 8Th Grade"
+            "title": "Population: 7Th and 8Th Grade"
           }
         ],
         "statVarSpec": {

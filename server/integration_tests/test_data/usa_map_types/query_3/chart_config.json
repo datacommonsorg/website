@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed In Washington",
+                    "title": "Population: Unemployed in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Unemployed In Washington",
+                    "description": "Population: Unemployed in Washington",
                     "statVarKey": [
                       "Count_Person_Unemployed"
                     ],
-                    "title": "Population: Unemployed In Washington",
+                    "title": "Population: Unemployed in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate In Washington",
+                    "title": "Unemployment Rate in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -48,11 +48,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Unemployment Rate In Washington",
+                    "description": "Unemployment Rate in Washington",
                     "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
-                    "title": "Unemployment Rate In Washington",
+                    "title": "Unemployment Rate in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -68,14 +68,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_NoIncome"
                     ],
-                    "title": "Population Of Working Age With No Income In Census Zip Code Tabulation Areas Of Washington (${date})",
+                    "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Of Working Age With No Income In Census Zip Code Tabulation Areas Of Washington"
+            "title": "Population of Working Age With No Income in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -85,7 +85,7 @@
                     "statVarKey": [
                       "Count_Person_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Did Not Work In Washington",
+                    "title": "Population: 16-64 Years, Did Not Work in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -93,18 +93,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 - 64 Years, Did Not Work In Washington",
+                    "description": "Population: 16-64 Years, Did Not Work in Washington",
                     "statVarKey": [
                       "Count_Person_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Did Not Work In Washington",
+                    "title": "Population: 16-64 Years, Did Not Work in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 - 64 Years, Did Not Work"
+            "title": "Population: 16-64 Years, Did Not Work"
           },
           {
             "columns": [
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Male, Did Not Work In Washington",
+                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -122,18 +122,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 - 64 Years, Male, Did Not Work In Washington",
+                    "description": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Male, Did Not Work In Washington",
+                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 - 64 Years, Male, Did Not Work"
+            "title": "Population: 16-64 Years, Male, Did Not Work"
           },
           {
             "columns": [
@@ -143,14 +143,14 @@
                     "statVarKey": [
                       "dc/dyhxtqe2pxhl5"
                     ],
-                    "title": "Population: No Income, Foreign Born In Census Zip Code Tabulation Areas Of Washington (${date})",
+                    "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: No Income, Foreign Born In Census Zip Code Tabulation Areas Of Washington"
+            "title": "Population: No Income, Foreign Born in Census Zip Code Tabulation Areas of Washington"
           },
           {
             "columns": [
@@ -160,7 +160,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 0 In Washington",
+                    "title": "Count of Household: Family Household, Worker 0 in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -168,18 +168,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count Of Household: Family Household, Worker 0 In Washington",
+                    "description": "Count of Household: Family Household, Worker 0 in Washington",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With0Worker"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 0 In Washington",
+                    "title": "Count of Household: Family Household, Worker 0 in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count Of Household: Family Household, Worker 0"
+            "title": "Count of Household: Family Household, Worker 0"
           }
         ],
         "statVarSpec": {

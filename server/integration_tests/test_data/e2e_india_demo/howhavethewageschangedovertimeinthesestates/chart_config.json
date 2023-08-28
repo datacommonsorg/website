@@ -127,7 +127,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change In Mean Monthly Wages Over Time (Absolute Change)"
+            "title": "Change in Mean Monthly Wages Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -253,7 +253,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change In Mean Monthly Wages Over Time (Percent Change)"
+            "title": "Change in Mean Monthly Wages Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -379,7 +379,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change In Mean Monthly Wages Over Time (Per Capita Change)"
+            "title": "Change in Mean Monthly Wages Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {

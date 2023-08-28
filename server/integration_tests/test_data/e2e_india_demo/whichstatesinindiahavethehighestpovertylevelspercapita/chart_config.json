@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Level (Per Capita) In Administrative Area 1 Places Of India (${date})",
+                    "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,13 +26,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Level (Per Capita) In Administrative Area 1 Places Of India (${date})",
+                    "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Level (Per Capita) In Administrative Area 1 Places Of India"
+            "title": "Population Below Poverty Level (Per Capita) in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -42,7 +42,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Level (Per Capita) In India",
+                    "title": "Population Below Poverty Level (Per Capita) in India",
                     "type": "LINE"
                   }
                 ]
@@ -50,11 +50,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Level (Per Capita) In India",
+                    "description": "Population Below Poverty Level (Per Capita) in India",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
-                    "title": "Population Below Poverty Level (Per Capita) In India",
+                    "title": "Population Below Poverty Level (Per Capita) in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -74,7 +74,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Administrative Area 1 Places Of India (${date})",
+                    "title": "Population Below Poverty Level in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -85,7 +85,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Administrative Area 1 Places Of India (${date})",
+                    "title": "Population Below Poverty Level in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -93,7 +93,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Population Below Poverty Level In Administrative Area 1 Places Of India"
+            "title": "Population Below Poverty Level in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -103,7 +103,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In India",
+                    "title": "Population Below Poverty Level in India",
                     "type": "LINE"
                   }
                 ]
@@ -111,11 +111,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Level In India",
+                    "description": "Population Below Poverty Level in India",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In India",
+                    "title": "Population Below Poverty Level in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -137,7 +137,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India (${date})",
+                    "title": "Rural Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -148,7 +148,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India (${date})",
+                    "title": "Rural Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -156,7 +156,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Rural Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India"
+            "title": "Rural Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -170,7 +170,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India (${date})",
+                    "title": "Urban Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -181,7 +181,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India (${date})",
+                    "title": "Urban Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -189,7 +189,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Urban Residents, Below Poverty Level In The Past 12 Months In Administrative Area 1 Places Of India"
+            "title": "Urban Residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -199,7 +199,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban Residents, Below Poverty Level In The Past 12 Months In India",
+                    "title": "Urban Residents, Below Poverty Level in The Past 12 Months in India",
                     "type": "LINE"
                   }
                 ]
@@ -207,11 +207,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Urban Residents, Below Poverty Level In The Past 12 Months In India",
+                    "description": "Urban Residents, Below Poverty Level in The Past 12 Months in India",
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban Residents, Below Poverty Level In The Past 12 Months In India",
+                    "title": "Urban Residents, Below Poverty Level in The Past 12 Months in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -219,7 +219,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Impoverished Population By Residency"
+            "title": "Impoverished Population by Residency"
           },
           {
             "columns": [
@@ -229,7 +229,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line In India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -237,11 +237,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below International Poverty Line In India",
+                    "description": "Population Below International Poverty Line in India",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line In India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -257,7 +257,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
-                    "title": "Population Age 15 To 64 Below International Poverty Line In India",
+                    "title": "Population Age 15 to 64 Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -265,17 +265,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Age 15 To 64 Below International Poverty Line In India",
+                    "description": "Population Age 15 to 64 Below International Poverty Line in India",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
-                    "title": "Population Age 15 To 64 Below International Poverty Line In India",
+                    "title": "Population Age 15 to 64 Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line By Age"
+            "title": "Population Below International Poverty Line by Age"
           },
           {
             "columns": [
@@ -285,7 +285,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Men Below International Poverty Line In India",
+                    "title": "Men Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -293,17 +293,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Men Below International Poverty Line In India",
+                    "description": "Men Below International Poverty Line in India",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Men Below International Poverty Line In India",
+                    "title": "Men Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line By Gender"
+            "title": "Population Below International Poverty Line by Gender"
           },
           {
             "columns": [
@@ -313,7 +313,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Rural Population Below International Poverty Line In India",
+                    "title": "Rural Population Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -321,17 +321,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Rural Population Below International Poverty Line In India",
+                    "description": "Rural Population Below International Poverty Line in India",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Rural Population Below International Poverty Line In India",
+                    "title": "Rural Population Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line In Rural Vs. Urban Areas"
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
           }
         ],
         "statVarSpec": {
@@ -663,28 +663,28 @@
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
+        "name": "Poverty by Gender",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
+        "name": "Poverty by Residency",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]

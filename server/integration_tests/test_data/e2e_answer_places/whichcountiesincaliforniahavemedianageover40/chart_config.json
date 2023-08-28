@@ -20,13 +20,13 @@
                     "statVarKey": [
                       "Median_Age_Person_multiple_place_bar_block"
                     ],
-                    "title": "Median Age Of Population (${date}) - Top 7 Of 22",
+                    "title": "Median Age of Population (${date}) - Top 7 of 22",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Age Of Population"
+            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
@@ -798,7 +798,7 @@
       },
       {
         "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old And Very Young Population",
+        "name": "Very Old and Very Young Population",
         "types": [
           "Topic"
         ]

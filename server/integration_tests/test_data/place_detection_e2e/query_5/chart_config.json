@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Population In Mexico City",
+                    "title": "Population in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population In Mexico City",
+                    "description": "Population in Mexico City",
                     "statVarKey": [
                       "Count_Person"
                     ],
-                    "title": "Population In Mexico City",
+                    "title": "Population in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Count_Person_PerArea"
                     ],
-                    "title": "Population Density In Mexico City",
+                    "title": "Population Density in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -47,11 +47,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Density In Mexico City",
+                    "description": "Population Density in Mexico City",
                     "statVarKey": [
                       "Count_Person_PerArea"
                     ],
-                    "title": "Population Density In Mexico City",
+                    "title": "Population Density in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -68,7 +68,7 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate Of Population Growth In Mexico City",
+                    "title": "Rate of Population Growth in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -76,17 +76,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Rate Of Population Growth In Mexico City",
+                    "description": "Rate of Population Growth in Mexico City",
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate Of Population Growth In Mexico City",
+                    "title": "Rate of Population Growth in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Rate Of Population Growth"
+            "title": "Rate of Population Growth"
           }
         ],
         "statVarSpec": {

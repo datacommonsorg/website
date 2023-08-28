@@ -19,14 +19,14 @@
                       "dc/vt2q292eme79f_multiple_place_bar_block",
                       "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
-                    "title": "Modes Of Commute In Santa Clara County (${date})",
+                    "title": "Modes of Commute in Santa Clara County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Modes Of Commute"
+            "title": "Modes of Commute"
           },
           {
             "columns": [
@@ -36,7 +36,7 @@
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
-                    "title": "Drive Alone In Cities Of Santa Clara County (${date})",
+                    "title": "Drive Alone in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -51,14 +51,14 @@
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
-                    "title": "Drive Alone In Cities Of Santa Clara County (${date})",
+                    "title": "Drive Alone in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Drive Alone In Cities Of Santa Clara County"
+            "title": "Drive Alone in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -68,7 +68,7 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home In Cities Of Santa Clara County (${date})",
+                    "title": "Work At Home in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -83,14 +83,14 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home In Cities Of Santa Clara County (${date})",
+                    "title": "Work At Home in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Work At Home In Cities Of Santa Clara County"
+            "title": "Work At Home in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -108,14 +108,14 @@
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
-                    "title": "Management, Business, Science And Arts Occupations In Santa Clara County (${date})",
+                    "title": "Management, Business, Science and Arts Occupations in Santa Clara County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Management, Business, Science And Arts Occupations"
+            "title": "Management, Business, Science and Arts Occupations"
           },
           {
             "columns": [
@@ -125,7 +125,7 @@
                     "statVarKey": [
                       "dc/4xklqxfc27w1f"
                     ],
-                    "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -140,14 +140,14 @@
                     "statVarKey": [
                       "dc/4xklqxfc27w1f"
                     ],
-                    "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County"
+            "title": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -157,7 +157,7 @@
                     "statVarKey": [
                       "dc/80q8jrnkvwtt3"
                     ],
-                    "title": "Population: Car Truck Or Van Carpooled, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Car Truck or Van Carpooled, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -172,14 +172,14 @@
                     "statVarKey": [
                       "dc/80q8jrnkvwtt3"
                     ],
-                    "title": "Population: Car Truck Or Van Carpooled, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Car Truck or Van Carpooled, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Car Truck Or Van Carpooled, Management, Business, Science, And Arts Occupations In Cities Of Santa Clara County"
+            "title": "Population: Car Truck or Van Carpooled, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -197,14 +197,14 @@
                       "dc/kt900ezddrf79_multiple_place_bar_block",
                       "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
-                    "title": "Sales And Office Occupations In Santa Clara County (${date})",
+                    "title": "Sales and Office Occupations in Santa Clara County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Sales And Office Occupations"
+            "title": "Sales and Office Occupations"
           },
           {
             "columns": [
@@ -214,7 +214,7 @@
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales And Office Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -229,14 +229,14 @@
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales And Office Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Sales And Office Occupations In Cities Of Santa Clara County"
+            "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -246,7 +246,7 @@
                     "statVarKey": [
                       "dc/jxsx1rb4xg84f"
                     ],
-                    "title": "Population: Car Truck Or Van Carpooled, Sales And Office Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Car Truck or Van Carpooled, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -261,14 +261,14 @@
                     "statVarKey": [
                       "dc/jxsx1rb4xg84f"
                     ],
-                    "title": "Population: Car Truck Or Van Carpooled, Sales And Office Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Car Truck or Van Carpooled, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Car Truck Or Van Carpooled, Sales And Office Occupations In Cities Of Santa Clara County"
+            "title": "Population: Car Truck or Van Carpooled, Sales and Office Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -286,7 +286,7 @@
                       "dc/k33ngtzpqxql6_multiple_place_bar_block",
                       "dc/6zrlr86zt61yg_multiple_place_bar_block"
                     ],
-                    "title": "Service Occupations In Santa Clara County (${date})",
+                    "title": "Service Occupations in Santa Clara County (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -303,7 +303,7 @@
                     "statVarKey": [
                       "dc/6zrlr86zt61yg"
                     ],
-                    "title": "Population: Taxicab Motorcycle Bicycle Or Other Means, Service Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -318,14 +318,14 @@
                     "statVarKey": [
                       "dc/6zrlr86zt61yg"
                     ],
-                    "title": "Population: Taxicab Motorcycle Bicycle Or Other Means, Service Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Taxicab Motorcycle Bicycle Or Other Means, Service Occupations In Cities Of Santa Clara County"
+            "title": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -335,7 +335,7 @@
                     "statVarKey": [
                       "dc/bre4whrdn7pt7"
                     ],
-                    "title": "Population: Walked, Service Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Walked, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -350,14 +350,14 @@
                     "statVarKey": [
                       "dc/bre4whrdn7pt7"
                     ],
-                    "title": "Population: Walked, Service Occupations In Cities Of Santa Clara County (${date})",
+                    "title": "Population: Walked, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Walked, Service Occupations In Cities Of Santa Clara County"
+            "title": "Population: Walked, Service Occupations in Cities of Santa Clara County"
           }
         ],
         "dcid": "dc/topic/CommuteMode",
@@ -503,7 +503,7 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time In Santa Clara County",
+                    "title": "Commute Time in Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -511,11 +511,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Commute Time In Santa Clara County",
+                    "description": "Commute Time in Santa Clara County",
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time In Santa Clara County",
+                    "title": "Commute Time in Santa Clara County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -532,7 +532,7 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time In Cities Of Santa Clara County (${date})",
+                    "title": "Commute Time in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -547,14 +547,14 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time In Cities Of Santa Clara County (${date})",
+                    "title": "Commute Time in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commute Time In Cities Of Santa Clara County"
+            "title": "Commute Time in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -578,14 +578,14 @@
                       "dc/kfr6chpkw90e3_multiple_place_bar_block",
                       "dc/h7ft916g93ys2_multiple_place_bar_block"
                     ],
-                    "title": "Commuters By Commute Time In Santa Clara County (${date})",
+                    "title": "Commuters by Commute Time in Santa Clara County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commuters By Commute Time"
+            "title": "Commuters by Commute Time"
           },
           {
             "columns": [
@@ -595,7 +595,7 @@
                     "statVarKey": [
                       "dc/1fw0t5m6459gb"
                     ],
-                    "title": "Population: 10 - 14 Minute In Cities Of Santa Clara County (${date})",
+                    "title": "Population: 10-14 Minute in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -610,14 +610,14 @@
                     "statVarKey": [
                       "dc/1fw0t5m6459gb"
                     ],
-                    "title": "Population: 10 - 14 Minute In Cities Of Santa Clara County (${date})",
+                    "title": "Population: 10-14 Minute in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 10 - 14 Minute In Cities Of Santa Clara County"
+            "title": "Population: 10-14 Minute in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -627,7 +627,7 @@
                     "statVarKey": [
                       "dc/62gn48xpbqew9"
                     ],
-                    "title": "Population: 30 - 34 Minute In Cities Of Santa Clara County (${date})",
+                    "title": "Population: 30-34 Minute in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -642,14 +642,14 @@
                     "statVarKey": [
                       "dc/62gn48xpbqew9"
                     ],
-                    "title": "Population: 30 - 34 Minute In Cities Of Santa Clara County (${date})",
+                    "title": "Population: 30-34 Minute in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 30 - 34 Minute In Cities Of Santa Clara County"
+            "title": "Population: 30-34 Minute in Cities of Santa Clara County"
           }
         ],
         "dcid": "dc/topic/CommuteTime",

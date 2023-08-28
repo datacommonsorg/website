@@ -11,14 +11,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Gdp (Nominal Value) In Eurostat Nuts 3 Places Of United Kingdom (${date})",
+                    "title": "Gdp (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Gdp (Nominal Value) In Eurostat Nuts 3 Places Of United Kingdom"
+            "title": "Gdp (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom"
           },
           {
             "columns": [
@@ -28,7 +28,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita In United Kingdom",
+                    "title": "Nominal Gdp Per Capita in United Kingdom",
                     "type": "LINE"
                   }
                 ]
@@ -36,11 +36,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal Gdp Per Capita In United Kingdom",
+                    "description": "Nominal Gdp Per Capita in United Kingdom",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita In United Kingdom",
+                    "title": "Nominal Gdp Per Capita in United Kingdom",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -56,7 +56,7 @@
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate Of Gdp In United Kingdom",
+                    "title": "Growth Rate of Gdp in United Kingdom",
                     "type": "LINE"
                   }
                 ]
@@ -64,17 +64,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Growth Rate Of Gdp In United Kingdom",
+                    "description": "Growth Rate of Gdp in United Kingdom",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate Of Gdp In United Kingdom",
+                    "title": "Growth Rate of Gdp in United Kingdom",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Growth Rate Of Gdp"
+            "title": "Growth Rate of Gdp"
           },
           {
             "columns": [
@@ -84,13 +84,13 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Amount Of Economic Activity (Nominal): Gross Domestic Production (Per Capita) In Eurostat Nuts 3 Places Of United Kingdom (${date})",
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Amount Of Economic Activity (Nominal): Gross Domestic Production (Per Capita) In Eurostat Nuts 3 Places Of United Kingdom"
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
           }
         ],
         "statVarSpec": {

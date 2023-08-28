@@ -34,14 +34,14 @@
                       "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
                       "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
                     ],
-                    "title": "Pm 2.5 Emissions By Source (${date})",
+                    "title": "Pm 2.5 Emissions by Source (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Pm 2.5 Emissions By Source"
+            "title": "Pm 2.5 Emissions by Source"
           },
           {
             "columns": [
@@ -73,14 +73,14 @@
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
                     ],
-                    "title": "Sulfur Dioxide Emissions By Source (${date})",
+                    "title": "Sulfur Dioxide Emissions by Source (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Sulfur Dioxide Emissions By Source"
+            "title": "Sulfur Dioxide Emissions by Source"
           },
           {
             "columns": [
@@ -211,14 +211,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
           },
           {
             "columns": [
@@ -298,14 +298,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Ammonia (${date})",
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Ammonia"
+            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia"
           },
           {
             "columns": [
@@ -327,16 +327,13 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide (${date})",
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-<<<<<<< HEAD
-            "title": "Annual Amount Of Emissions: On Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide"
-=======
             "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide"
           },
           {
@@ -352,14 +349,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions WasteDisposal (5) (${date})",
+                    "title": "Annual Amount Emissions Wastedisposal (5) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions WasteDisposal (5)"
+            "title": "Annual Amount Emissions Wastedisposal (5)"
           },
           {
             "columns": [
@@ -375,14 +372,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions Toluene, ExternalCombustion (1) (${date})",
+                    "title": "Annual Amount Emissions Toluene, Externalcombustion (1) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions Toluene, ExternalCombustion (1)"
+            "title": "Annual Amount Emissions Toluene, Externalcombustion (1)"
           },
           {
             "columns": [
@@ -404,14 +401,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
+                    "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+            "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
           },
           {
             "columns": [
@@ -433,15 +430,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions IndustrialProcesses (23) (${date})",
+                    "title": "Annual Amount Emissions Industrialprocesses (23) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions IndustrialProcesses (23)"
->>>>>>> master
+            "title": "Annual Amount Emissions Industrialprocesses (23)"
           }
         ],
         "statVarSpec": {
@@ -672,7 +668,7 @@
       },
       {
         "dcid": "dc/topic/CO2Emissions",
-        "name": "Carbondioxide (CO2)",
+        "name": "Carbondioxide ( CO2)",
         "types": [
           "Topic"
         ]

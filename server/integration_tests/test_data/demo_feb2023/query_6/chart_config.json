@@ -28,30 +28,30 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Prevalence Of Health Conditions In Placer County (${date})",
+                    "title": "Prevalence of Health Conditions in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Prevalence Of Health Conditions"
+            "title": "Prevalence of Health Conditions"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Percent Of Children That Have Asthma In Placer County",
+                    "description": "Percent of Children That Have Asthma in Placer County",
                     "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Percent Of Children That Have Asthma In Placer County",
+                    "title": "Percent of Children That Have Asthma in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Percent Of Children That Have Asthma"
+            "title": "Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -61,7 +61,7 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma In Placer County",
+                    "title": "Asthma in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -69,11 +69,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Asthma In Placer County",
+                    "description": "Asthma in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma In Placer County",
+                    "title": "Asthma in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -89,7 +89,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure In Placer County",
+                    "title": "High Blood Pressure in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -97,11 +97,11 @@
               {
                 "tiles": [
                   {
-                    "description": "High Blood Pressure In Placer County",
+                    "description": "High Blood Pressure in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure In Placer County",
+                    "title": "High Blood Pressure in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -117,7 +117,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Placer County",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -125,17 +125,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent Of Adults With Blood Pressure Who Take Medication In Placer County",
+                    "description": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Placer County",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Percent Of Adults With Blood Pressure Who Take Medication"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication"
           },
           {
             "columns": [
@@ -145,7 +145,7 @@
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (Excluding Skin Cancer) In Placer County",
+                    "title": "Cancer (Excluding Skin Cancer) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -153,11 +153,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Cancer (Excluding Skin Cancer) In Placer County",
+                    "description": "Cancer (Excluding Skin Cancer) in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (Excluding Skin Cancer) In Placer County",
+                    "title": "Cancer (Excluding Skin Cancer) in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -173,7 +173,7 @@
                     "statVarKey": [
                       "Count_Death_Neoplasms"
                     ],
-                    "title": "Deaths From Neoplasms (Tumors Or Abnormal Growths) In Placer County",
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -181,18 +181,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths From Neoplasms (Tumors Or Abnormal Growths) In Placer County",
+                    "description": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Placer County",
                     "statVarKey": [
                       "Count_Death_Neoplasms"
                     ],
-                    "title": "Deaths From Neoplasms (Tumors Or Abnormal Growths) In Placer County",
+                    "title": "Deaths From Neoplasms (Tumors or Abnormal Growths) in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Neoplasms (Tumors Or Abnormal Growths)"
+            "title": "Deaths From Neoplasms (Tumors or Abnormal Growths)"
           },
           {
             "columns": [
@@ -213,14 +213,14 @@
                       "Count_Death_75To84Years_Neoplasms_multiple_place_bar_block",
                       "Count_Death_85Years_Neoplasms_multiple_place_bar_block"
                     ],
-                    "title": "Cancer Deaths By Age In Placer County (${date})",
+                    "title": "Cancer Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Cancer Deaths By Age"
+            "title": "Cancer Deaths by Age"
           },
           {
             "columns": [
@@ -238,7 +238,7 @@
                       "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
                       "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
                     ],
-                    "title": "Cancer Preventive Health In Placer County (${date})",
+                    "title": "Cancer Preventive Health in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -254,7 +254,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighCholesterol"
                     ],
-                    "title": "High Cholesterol In Placer County",
+                    "title": "High Cholesterol in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -262,11 +262,11 @@
               {
                 "tiles": [
                   {
-                    "description": "High Cholesterol In Placer County",
+                    "description": "High Cholesterol in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithHighCholesterol"
                     ],
-                    "title": "High Cholesterol In Placer County",
+                    "title": "High Cholesterol in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -282,7 +282,7 @@
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening In Placer County",
+                    "title": "Prevalence: Cholesterol Screening in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -290,11 +290,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence: Cholesterol Screening In Placer County",
+                    "description": "Prevalence: Cholesterol Screening in Placer County",
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
-                    "title": "Prevalence: Cholesterol Screening In Placer County",
+                    "title": "Prevalence: Cholesterol Screening in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -310,7 +310,7 @@
                     "statVarKey": [
                       "Percent_Person_WithMentalHealthNotGood"
                     ],
-                    "title": "Mental Health Issues In Placer County",
+                    "title": "Mental Health Issues in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -318,11 +318,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Mental Health Issues In Placer County",
+                    "description": "Mental Health Issues in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithMentalHealthNotGood"
                     ],
-                    "title": "Mental Health Issues In Placer County",
+                    "title": "Mental Health Issues in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -338,7 +338,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithDepression"
                     ],
-                    "title": "Depression In Placer County",
+                    "title": "Depression in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -346,11 +346,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Depression In Placer County",
+                    "description": "Depression in Placer County",
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithDepression"
                     ],
-                    "title": "Depression In Placer County",
+                    "title": "Depression in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -366,7 +366,7 @@
                     "statVarKey": [
                       "Count_Death_MentalBehaviouralDisorders"
                     ],
-                    "title": "Deaths Due To Mental And Behavioural Disorders In Placer County",
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -374,18 +374,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths Due To Mental And Behavioural Disorders In Placer County",
+                    "description": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "statVarKey": [
                       "Count_Death_MentalBehaviouralDisorders"
                     ],
-                    "title": "Deaths Due To Mental And Behavioural Disorders In Placer County",
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths Due To Mental And Behavioural Disorders"
+            "title": "Deaths Due to Mental and Behavioural Disorders"
           },
           {
             "columns": [
@@ -403,14 +403,14 @@
                       "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
                       "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block"
                     ],
-                    "title": "Mental Health Deaths By Age In Placer County (${date})",
+                    "title": "Mental Health Deaths by Age in Placer County (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mental Health Deaths By Age"
+            "title": "Mental Health Deaths by Age"
           },
           {
             "columns": [
@@ -420,7 +420,7 @@
                     "statVarKey": [
                       "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
                     ],
-                    "title": "Percentage Of Population Aged 18-64 With No Health Insurance In Placer County",
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -428,17 +428,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Percentage Of Population Aged 18-64 With No Health Insurance In Placer County",
+                    "description": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
                     "statVarKey": [
                       "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
                     ],
-                    "title": "Percentage Of Population Aged 18-64 With No Health Insurance In Placer County",
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Percentage Of Population Aged 18-64 With No Health Insurance"
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
           },
           {
             "columns": [
@@ -448,7 +448,7 @@
                     "statVarKey": [
                       "Count_Person_WithVAHealthCare"
                     ],
-                    "title": "People With Va Health Care In Placer County",
+                    "title": "People With Va Health Care in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -456,11 +456,11 @@
               {
                 "tiles": [
                   {
-                    "description": "People With Va Health Care In Placer County",
+                    "description": "People With Va Health Care in Placer County",
                     "statVarKey": [
                       "Count_Person_WithVAHealthCare"
                     ],
-                    "title": "People With Va Health Care In Placer County",
+                    "title": "People With Va Health Care in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]

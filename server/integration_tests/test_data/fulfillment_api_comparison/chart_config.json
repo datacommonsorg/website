@@ -20,14 +20,14 @@
                       "dc/vt2q292eme79f_multiple_place_bar_block",
                       "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
-                    "title": "Modes Of Commute (${date})",
+                    "title": "Modes of Commute (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Modes Of Commute"
+            "title": "Modes of Commute"
           },
           {
             "columns": [
@@ -46,14 +46,14 @@
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
-                    "title": "Management, Business, Science And Arts Occupations (${date})",
+                    "title": "Management, Business, Science and Arts Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Management, Business, Science And Arts Occupations"
+            "title": "Management, Business, Science and Arts Occupations"
           },
           {
             "columns": [
@@ -72,14 +72,14 @@
                       "dc/kt900ezddrf79_multiple_place_bar_block",
                       "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
-                    "title": "Sales And Office Occupations (${date})",
+                    "title": "Sales and Office Occupations (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Sales And Office Occupations"
+            "title": "Sales and Office Occupations"
           },
           {
             "columns": [
@@ -151,14 +151,14 @@
                       "dc/kfr6chpkw90e3_multiple_place_bar_block",
                       "dc/h7ft916g93ys2_multiple_place_bar_block"
                     ],
-                    "title": "Commuters By Commute Time (${date})",
+                    "title": "Commuters by Commute Time (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commuters By Commute Time"
+            "title": "Commuters by Commute Time"
           }
         ],
         "statVarSpec": {

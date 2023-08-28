@@ -23,13 +23,13 @@
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Prevalence Of Obesity (${date})",
+                    "title": "Prevalence of Obesity (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Prevalence Of Obesity"
+            "title": "Prevalence of Obesity"
           },
           {
             "columns": [
@@ -231,7 +231,7 @@
     "parentTopics": [
       {
         "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health And Behavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]

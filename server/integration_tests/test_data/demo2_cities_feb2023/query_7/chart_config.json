@@ -51,13 +51,13 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Count Of Birth Event: Live Birth (Per Capita) (${date})",
+                    "title": "Count of Birth Event: Live Birth (Per Capita) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Count Of Birth Event: Live Birth (Per Capita)"
+            "title": "Count of Birth Event: Live Birth (Per Capita)"
           },
           {
             "columns": [
@@ -78,14 +78,14 @@
                     "statVarKey": [
                       "WHO/SA_0000001432_multiple_place_bar_block"
                     ],
-                    "title": "Prematurity And Low Birth Rate, Per 100,000 (${date})",
+                    "title": "Prematurity and Low Birth Rate, Per 100,000 (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
@@ -106,14 +106,14 @@
                     "statVarKey": [
                       "WHO/SA_0000001451_multiple_place_bar_block"
                     ],
-                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 (${date})",
+                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
@@ -163,13 +163,13 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Rate Of Population Growth (${date})",
+                    "title": "Rate of Population Growth (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Rate Of Population Growth"
+            "title": "Rate of Population Growth"
           },
           {
             "columns": [
@@ -192,13 +192,13 @@
                       "WHO/MORT_MATERNALNUM_multiple_place_bar_block",
                       "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Number Of Maternal Deaths And More (${date})",
+                    "title": "Number of Maternal Deaths and More (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Number Of Maternal Deaths And More"
+            "title": "Number of Maternal Deaths and More"
           }
         ],
         "statVarSpec": {

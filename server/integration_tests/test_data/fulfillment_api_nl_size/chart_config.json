@@ -15,13 +15,13 @@
                     "statVarKey": [
                       "Count_Student"
                     ],
-                    "title": "Number Of Students In Public Schools Of Redwood City (${date})",
+                    "title": "Number of Students in Public Schools of Redwood City (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number Of Students In Public Schools Of Redwood City"
+            "title": "Number of Students in Public Schools of Redwood City"
           },
           {
             "columns": [
@@ -35,13 +35,13 @@
                     "statVarKey": [
                       "Count_Teacher"
                     ],
-                    "title": "Number Of Teachers In Public Schools Of Redwood City (${date})",
+                    "title": "Number of Teachers in Public Schools of Redwood City (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number Of Teachers In Public Schools Of Redwood City"
+            "title": "Number of Teachers in Public Schools of Redwood City"
           },
           {
             "columns": [
@@ -55,13 +55,13 @@
                     "statVarKey": [
                       "Percent_Student_AsAFractionOf_Count_Teacher"
                     ],
-                    "title": "Student-Teacher Ratio In Public Schools Of Redwood City (${date})",
+                    "title": "Student-Teacher Ratio in Public Schools of Redwood City (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Student-Teacher Ratio In Public Schools Of Redwood City"
+            "title": "Student-Teacher Ratio in Public Schools of Redwood City"
           }
         ],
         "statVarSpec": {
@@ -684,42 +684,42 @@
       },
       {
         "dcid": "dc/topic/StudentsInKindergarten",
-        "name": "Students In Kindergarten",
+        "name": "Students in Kindergarten",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/StudentsInPrimarySchool",
-        "name": "Students In Primary School",
+        "name": "Students in Primary School",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/StudentsInMiddleSchool",
-        "name": "Students In Middle School",
+        "name": "Students in Middle School",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/StudentsInHighSchool",
-        "name": "Students In High School",
+        "name": "Students in High School",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/StudentsInCollege",
-        "name": "Students In College",
+        "name": "Students in College",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/StudentsInGraduateOrProfessionalSchool",
-        "name": "Students In Graduate Or Professional School",
+        "name": "Students in Graduate or Professional School",
         "types": [
           "Topic"
         ]

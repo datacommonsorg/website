@@ -20,7 +20,7 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma_multiple_place_bar_block"
                     ],
-                    "title": "Asthma (${date}) - Top 7 Of 289",
+                    "title": "Asthma (${date}) - Top 7 of 289",
                     "type": "BAR"
                   }
                 ]

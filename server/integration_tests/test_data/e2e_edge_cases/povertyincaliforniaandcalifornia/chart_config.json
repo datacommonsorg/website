@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In California",
+                    "title": "Population Below Poverty Level in California",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Below Poverty Level In California",
+                    "description": "Population Below Poverty Level in California",
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In California",
+                    "title": "Population Below Poverty Level in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Counties Of California (${date})",
+                    "title": "Population Below Poverty Level in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,14 +55,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level In Counties Of California (${date})",
+                    "title": "Population Below Poverty Level in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Level In Counties Of California"
+            "title": "Population Below Poverty Level in Counties of California"
           },
           {
             "columns": [
@@ -73,14 +73,14 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population By Gender In California",
+                    "title": "Impoverished Population by Gender in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Gender"
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
@@ -90,7 +90,7 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women Below Poverty Line In Counties Of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -105,14 +105,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women Below Poverty Line In Counties Of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women Below Poverty Line In Counties Of California"
+            "title": "Women Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -122,7 +122,7 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males In Poverty (In Last Year) In Counties Of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -137,14 +137,14 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males In Poverty (In Last Year) In Counties Of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Males In Poverty (In Last Year) In Counties Of California"
+            "title": "Males in Poverty (In Last Year) in Counties of California"
           },
           {
             "columns": [
@@ -164,14 +164,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Race In California (${date})",
+                    "title": "Impoverished Population by Race in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Race"
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
@@ -181,7 +181,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -196,14 +196,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Asians Below Poverty Level Status In Past Year In Counties Of California"
+            "title": "Asians Below Poverty Level Status in Past Year in Counties of California"
           },
           {
             "columns": [
@@ -213,7 +213,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black Or African Americans Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -228,14 +228,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black Or African Americans Below Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Black Or African Americans Below Poverty Level Status In Past Year In Counties Of California"
+            "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of California"
           },
           {
             "columns": [
@@ -248,14 +248,14 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population By By Language Spoken At Home In California",
+                    "title": "Impoverished Population by By Language Spoken At Home in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken At Home"
           },
           {
             "columns": [
@@ -265,7 +265,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line In Counties Of California (${date})",
+                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -280,14 +280,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line In Counties Of California (${date})",
+                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Some Language Other Than English Spoken At Home & Below Poverty Line In Counties Of California"
+            "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -297,7 +297,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population 5 Years Or More, Only English, Below Poverty Level In Past 12 Months In Counties Of California (${date})",
+                    "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -312,14 +312,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population 5 Years Or More, Only English, Below Poverty Level In Past 12 Months In Counties Of California (${date})",
+                    "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population 5 Years Or More, Only English, Below Poverty Level In Past 12 Months In Counties Of California"
+            "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of California"
           },
           {
             "columns": [
@@ -329,7 +329,7 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Level Status In Past Year In California",
+                    "title": "Population Above Poverty Level Status in Past Year in California",
                     "type": "LINE"
                   }
                 ]
@@ -337,18 +337,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Above Poverty Level Status In Past Year In California",
+                    "description": "Population Above Poverty Level Status in Past Year in California",
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Level Status In Past Year In California",
+                    "title": "Population Above Poverty Level Status in Past Year in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Level Status In Past Year"
+            "title": "Population Above Poverty Level Status in Past Year"
           },
           {
             "columns": [
@@ -358,7 +358,7 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Population Above Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -373,14 +373,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Above Poverty Level Status In Past Year In Counties Of California (${date})",
+                    "title": "Population Above Poverty Level Status in Past Year in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Level Status In Past Year In Counties Of California"
+            "title": "Population Above Poverty Level Status in Past Year in Counties of California"
           },
           {
             "columns": [
@@ -390,7 +390,7 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In California",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in California",
                     "type": "LINE"
                   }
                 ]
@@ -398,18 +398,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In California",
+                    "description": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in California",
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In California",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line"
+            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line"
           },
           {
             "columns": [
@@ -419,7 +419,7 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In Counties Of California (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -434,14 +434,14 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
                     ],
-                    "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In Counties Of California (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line In Counties Of California"
+            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -451,7 +451,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below The Poverty Level In The Past Year In California",
+                    "title": "Family Households Below The Poverty Level in The Past Year in California",
                     "type": "LINE"
                   }
                 ]
@@ -459,18 +459,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Family Households Below The Poverty Level In The Past Year In California",
+                    "description": "Family Households Below The Poverty Level in The Past Year in California",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below The Poverty Level In The Past Year In California",
+                    "title": "Family Households Below The Poverty Level in The Past Year in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below The Poverty Level In The Past Year"
+            "title": "Family Households Below The Poverty Level in The Past Year"
           },
           {
             "columns": [
@@ -480,7 +480,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below The Poverty Level In The Past Year In Counties Of California (${date})",
+                    "title": "Family Households Below The Poverty Level in The Past Year in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -495,14 +495,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below The Poverty Level In The Past Year In Counties Of California (${date})",
+                    "title": "Family Households Below The Poverty Level in The Past Year in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below The Poverty Level In The Past Year In Counties Of California"
+            "title": "Family Households Below The Poverty Level in The Past Year in Counties of California"
           },
           {
             "columns": [
@@ -512,7 +512,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In California",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in California",
                     "type": "LINE"
                   }
                 ]
@@ -520,18 +520,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In California",
+                    "description": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in California",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In California",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months"
           },
           {
             "columns": [
@@ -541,7 +541,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In Counties Of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -556,14 +556,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In Counties Of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count Of Household: Family Household, Worker 2, Below Poverty Level In The Past 12 Months In Counties Of California"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months in Counties of California"
           },
           {
             "columns": [
@@ -573,7 +573,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In California",
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
                     "type": "LINE"
                   }
                 ]
@@ -581,18 +581,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In California",
+                    "description": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In California",
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months"
+            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months"
           },
           {
             "columns": [
@@ -602,7 +602,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In Counties Of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -617,14 +617,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In Counties Of California (${date})",
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count Of Household: Family Household, Worker 1, Below Poverty Level In The Past 12 Months In Counties Of California"
+            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in Counties of California"
           },
           {
             "columns": [
@@ -634,7 +634,7 @@
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined"
                     ],
-                    "title": "Population With Poverty Status Determined In California",
+                    "title": "Population With Poverty Status Determined in California",
                     "type": "LINE"
                   }
                 ]
@@ -642,11 +642,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Poverty Status Determined In California",
+                    "description": "Population With Poverty Status Determined in California",
                     "statVarKey": [
                       "Count_Person_PovertyStatusDetermined"
                     ],
-                    "title": "Population With Poverty Status Determined In California",
+                    "title": "Population With Poverty Status Determined in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -1136,28 +1136,28 @@
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
+        "name": "Poverty by Gender",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
+        "name": "Poverty by Residency",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]

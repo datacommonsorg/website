@@ -23,13 +23,13 @@
                     "statVarKey": [
                       "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Percentage Of Population Aged 18-64 With No Health Insurance (${date})",
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage Of Population Aged 18-64 With No Health Insurance"
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
           },
           {
             "columns": [
@@ -221,14 +221,14 @@
                     "statVarKey": [
                       "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Direct Purchasers Of Health Insurance (${date})",
+                    "title": "Direct Purchasers of Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Direct Purchasers Of Health Insurance"
+            "title": "Direct Purchasers of Health Insurance"
           },
           {
             "columns": [
@@ -251,14 +251,14 @@
                       "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
                       "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Gender (${date})",
+                    "title": "Uninsured by Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Gender"
+            "title": "Uninsured by Gender"
           },
           {
             "columns": [
@@ -282,14 +282,14 @@
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block",
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Income (${date})",
+                    "title": "Uninsured by Income (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Income"
+            "title": "Uninsured by Income"
           },
           {
             "columns": [
@@ -316,14 +316,14 @@
                       "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
                       "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Race (${date})",
+                    "title": "Uninsured by Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Race"
+            "title": "Uninsured by Race"
           },
           {
             "columns": [
@@ -403,14 +403,14 @@
                     "statVarKey": [
                       "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block"
                     ],
-                    "title": "Only Direct Purchasers Of Health Insurance (${date})",
+                    "title": "Only Direct Purchasers of Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Only Direct Purchasers Of Health Insurance"
+            "title": "Only Direct Purchasers of Health Insurance"
           },
           {
             "columns": [
@@ -432,13 +432,13 @@
                     "statVarKey": [
                       "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Percentage Of Women (18 To 64 Years Old) Without Health Insurance (${date})",
+                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage Of Women (18 To 64 Years Old) Without Health Insurance"
+            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
           }
         ],
         "statVarSpec": {
@@ -834,7 +834,7 @@
       },
       {
         "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health And Behavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]

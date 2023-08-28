@@ -57,13 +57,13 @@
                       "worldBank/EG_ELC_ACCS_UR_ZS_multiple_place_bar_block",
                       "worldBank/EG_ELC_ACCS_RU_ZS_multiple_place_bar_block"
                     ],
-                    "title": "Accesss To Electricty By Percentage Of Urban/Rural Population (${date})",
+                    "title": "Accesss to Electricty by Percentage of Urban/Rural Population (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Accesss To Electricty By Percentage Of Urban/Rural Population"
+            "title": "Accesss to Electricty by Percentage of Urban/Rural Population"
           },
           {
             "columns": [
@@ -142,14 +142,14 @@
                     "statVarKey": [
                       "Annual_Consumption_Electricity_Households_multiple_place_bar_block"
                     ],
-                    "title": "Annual Consumption Of Electricity: For Households (${date})",
+                    "title": "Annual Consumption of Electricity: for Households (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Consumption Of Electricity: For Households"
+            "title": "Annual Consumption of Electricity: for Households"
           },
           {
             "columns": [
@@ -236,14 +236,14 @@
                     "statVarKey": [
                       "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse_multiple_place_bar_block"
                     ],
-                    "title": "Annual Consumption Of Electricity: For Electricity Generation, Energy Industry Own Use (${date})",
+                    "title": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Consumption Of Electricity: For Electricity Generation, Energy Industry Own Use"
+            "title": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use"
           },
           {
             "columns": [
@@ -267,14 +267,14 @@
                     "statVarKey": [
                       "Annual_Consumption_Electricity_OtherSector_multiple_place_bar_block"
                     ],
-                    "title": "Annual Consumption Of Electricity: For Un_Other Sector (${date})",
+                    "title": "Annual Consumption of Electricity: for Un_Other Sector (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Consumption Of Electricity: For Un_Other Sector"
+            "title": "Annual Consumption of Electricity: for Un_Other Sector"
           }
         ],
         "statVarSpec": {
@@ -474,7 +474,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/GlobalElectricityAccess",
-        "name": "Access To Electricity",
+        "name": "Access to Electricity",
         "types": [
           "Topic"
         ]

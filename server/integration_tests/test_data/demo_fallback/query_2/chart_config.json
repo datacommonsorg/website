@@ -43,14 +43,14 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crimes By Type (${date})",
+                    "title": "Crimes by Type (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Crimes By Type"
+            "title": "Crimes by Type"
           }
         ],
         "statVarSpec": {
