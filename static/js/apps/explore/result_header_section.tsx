@@ -32,7 +32,6 @@ import { ItemList } from "./item_list";
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
-  userMessage: string;
 }
 
 export function ResultHeaderSection(
@@ -85,7 +84,6 @@ export function ResultHeaderSection(
 
   return (
     <>
-      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
       <div id="place-callout">
         {placeNameStr}
         {topicNameStr && <span> • {topicNameStr}</span>}
