@@ -261,5 +261,5 @@ def add_child_and_peer_places(places: List[types.Place],
                                               counters)
     detection.child_places = child_places[:MAX_CHILD_LIMIT]
 
-  if len(places) > 1:
+  if len(places) == 1:
     detection.peer_places = get_similar(places[0])
