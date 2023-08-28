@@ -132,6 +132,9 @@ class Builder:
       footnote = self.sv2thing.footnote.get(cv.svs[0], '')
     elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
       title = self.sv2thing.name[cv.svs[0]] + ' and more'
+
+    # Make title case.
+    title = title.title()
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
@@ -186,7 +189,8 @@ def decorate_block_title(title: str,
   if chart_origin == ChartOriginType.SECONDARY_CHART:
     title = 'Related: ' + title
 
-  return title
+  # Return in title case.
+  return title.title()
 
 
 def decorate_chart_title(title: str,
@@ -208,11 +212,14 @@ def decorate_chart_title(title: str,
       else:
         title = title + ' in ' + place.name
 
+  # Use title case.
+  title = title.title()
+
   if add_date:
     title = title + ' (${date})'
 
   if title_suffix:
-    title += ' - ' + title_suffix
+    title += ' - ' + title_suffix.title()
 
   return title
 
