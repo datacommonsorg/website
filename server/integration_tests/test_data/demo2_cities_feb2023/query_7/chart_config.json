@@ -51,13 +51,13 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Count of Birth Event: Live Birth (Per Capita) (${date})",
+                    "title": "Count Of Birth Event: Live Birth (Per Capita) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event: Live Birth (Per Capita)"
+            "title": "Count Of Birth Event: Live Birth (Per Capita)"
           },
           {
             "columns": [
@@ -163,13 +163,13 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Rate of Population Growth (${date})",
+                    "title": "Rate Of Population Growth (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Rate of Population Growth"
+            "title": "Rate Of Population Growth"
           },
           {
             "columns": [
@@ -192,13 +192,13 @@
                       "WHO/MORT_MATERNALNUM_multiple_place_bar_block",
                       "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Number Of Maternal Deaths and more (${date})",
+                    "title": "Number Of Maternal Deaths And More (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Number Of Maternal Deaths and more"
+            "title": "Number Of Maternal Deaths And More"
           }
         ],
         "statVarSpec": {

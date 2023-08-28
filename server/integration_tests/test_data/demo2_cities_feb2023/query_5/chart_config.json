@@ -15,14 +15,14 @@
                     "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
-                    "title": "Larceny Theft Cases in Cities of San Francisco Bay Area (${date})",
+                    "title": "Larceny Theft Cases In Cities Of San Francisco Bay Area (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Larceny Theft Cases in Cities of San Francisco Bay Area"
+            "title": "Larceny Theft Cases In Cities Of San Francisco Bay Area"
           }
         ],
         "statVarSpec": {

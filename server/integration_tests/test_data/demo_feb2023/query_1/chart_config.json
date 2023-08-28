@@ -17,14 +17,14 @@
                       "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
                       "ranking-DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Predicted relative max temperature (95% likely), under different scenarios",
+                    "title": "Predicted Relative Max Temperature (95% Likely), Under Different Scenarios",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Predicted Max Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
-            "title": "Predicted relative max temperature (95% likely), under different scenarios"
+            "title": "Predicted Relative Max Temperature (95% Likely), Under Different Scenarios"
           },
           {
             "columns": [
@@ -67,14 +67,14 @@
                       "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
                       "ranking-DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585"
                     ],
-                    "title": "Predicted relative min temperature (95% likely), under different scenarios",
+                    "title": "Predicted Relative Min Temperature (95% Likely), Under Different Scenarios",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "description": "Predicted Min Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
-            "title": "Predicted relative min temperature (95% likely), under different scenarios"
+            "title": "Predicted Relative Min Temperature (95% Likely), Under Different Scenarios"
           },
           {
             "columns": [
@@ -115,7 +115,7 @@
                     "statVarKey": [
                       "Temperature"
                     ],
-                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "title": "Temperature In A Location In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -126,13 +126,13 @@
                     "statVarKey": [
                       "Temperature"
                     ],
-                    "title": "Temperature in a Location in Counties of California (${date})",
+                    "title": "Temperature In A Location In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Temperature in a Location in Counties of California"
+            "title": "Temperature In A Location In Counties Of California"
           },
           {
             "columns": [
@@ -146,7 +146,7 @@
                     "statVarKey": [
                       "Min_Temperature"
                     ],
-                    "title": "Min Temperature in Counties of California (${date})",
+                    "title": "Min Temperature In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -157,13 +157,13 @@
                     "statVarKey": [
                       "Min_Temperature"
                     ],
-                    "title": "Min Temperature in Counties of California (${date})",
+                    "title": "Min Temperature In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Min Temperature in Counties of California"
+            "title": "Min Temperature In Counties Of California"
           },
           {
             "columns": [
@@ -177,7 +177,7 @@
                     "statVarKey": [
                       "Mean_Temperature"
                     ],
-                    "title": "Mean Temperature in Counties of California (${date})",
+                    "title": "Mean Temperature In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -188,13 +188,13 @@
                     "statVarKey": [
                       "Mean_Temperature"
                     ],
-                    "title": "Mean Temperature in Counties of California (${date})",
+                    "title": "Mean Temperature In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean Temperature in Counties of California"
+            "title": "Mean Temperature In Counties Of California"
           },
           {
             "columns": [
@@ -208,7 +208,7 @@
                     "statVarKey": [
                       "Max_Temperature"
                     ],
-                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "title": "Maximum Temperature In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -219,13 +219,13 @@
                     "statVarKey": [
                       "Max_Temperature"
                     ],
-                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "title": "Maximum Temperature In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Maximum Temperature in Counties of California"
+            "title": "Maximum Temperature In Counties Of California"
           },
           {
             "columns": [
@@ -239,7 +239,7 @@
                     "statVarKey": [
                       "Count_HeatTemperatureEvent"
                     ],
-                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "title": "Count Of Heat Temperature Event In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -250,13 +250,13 @@
                     "statVarKey": [
                       "Count_HeatTemperatureEvent"
                     ],
-                    "title": "Count of Heat Temperature Event in Counties of California (${date})",
+                    "title": "Count Of Heat Temperature Event In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Heat Temperature Event in Counties of California"
+            "title": "Count Of Heat Temperature Event In Counties Of California"
           },
           {
             "columns": [
@@ -270,7 +270,7 @@
                     "statVarKey": [
                       "Mean_MaxTemperature"
                     ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "title": "Mean Maximum Temperature In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -281,13 +281,13 @@
                     "statVarKey": [
                       "Mean_MaxTemperature"
                     ],
-                    "title": "Mean maximum temperature in Counties of California (${date})",
+                    "title": "Mean Maximum Temperature In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Mean maximum temperature in Counties of California"
+            "title": "Mean Maximum Temperature In Counties Of California"
           }
         ],
         "statVarSpec": {

@@ -9,29 +9,29 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Literate_multiple_place_bar_block",
                       "Count_Person_Illiterate_multiple_place_bar_block"
                     ],
-                    "title": "Population: Literate and more (${date})",
+                    "title": "Population: Literate And More (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate and more"
+            "title": "Population: Literate And More"
           },
           {
             "columns": [
@@ -39,16 +39,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Literate_Female_multiple_place_bar_block"
@@ -68,16 +68,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Literate_Rural_multiple_place_bar_block"
@@ -97,16 +97,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Literate_Urban_multiple_place_bar_block"
@@ -126,16 +126,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Houseless_Literate_multiple_place_bar_block"
@@ -155,16 +155,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Illiterate_Rural_multiple_place_bar_block"
@@ -184,16 +184,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Person_Illiterate_Urban_multiple_place_bar_block"
@@ -246,7 +246,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1168"
+        "wikidataId/Q1165"
       ]
     }
   },
@@ -254,16 +254,16 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1168",
-    "name": "Chhattisgarh",
+    "dcid": "wikidataId/Q1165",
+    "name": "Bihar",
     "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
       "place_type": "State"
     },
     {
@@ -272,33 +272,8 @@
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1162",
-      "name": "Arunachal Pradesh",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
       "place_type": "State"
     },
     {
@@ -307,8 +282,33 @@
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q43433",
-      "name": "Chandigarh",
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
       "place_type": "State"
     }
   ],

@@ -19,14 +19,14 @@
                       "dc/vt2q292eme79f_multiple_place_bar_block",
                       "dc/wc8q05drd74bd_multiple_place_bar_block"
                     ],
-                    "title": "Modes of Commute in Sunnyvale (${date})",
+                    "title": "Modes Of Commute In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Modes of Commute"
+            "title": "Modes Of Commute"
           },
           {
             "columns": [
@@ -44,14 +44,14 @@
                       "dc/jszfr5wd4f7pb_multiple_place_bar_block",
                       "dc/y9yb58snpfzw5_multiple_place_bar_block"
                     ],
-                    "title": "Management, Business, Science and Arts Occupations in Sunnyvale (${date})",
+                    "title": "Management, Business, Science And Arts Occupations In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Management, Business, Science and Arts Occupations"
+            "title": "Management, Business, Science And Arts Occupations"
           },
           {
             "columns": [
@@ -69,14 +69,14 @@
                       "dc/kt900ezddrf79_multiple_place_bar_block",
                       "dc/slp5hywj7b9c1_multiple_place_bar_block"
                     ],
-                    "title": "Sales and Office Occupations in Sunnyvale (${date})",
+                    "title": "Sales And Office Occupations In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Sales and Office Occupations"
+            "title": "Sales And Office Occupations"
           },
           {
             "columns": [
@@ -94,7 +94,7 @@
                       "dc/k33ngtzpqxql6_multiple_place_bar_block",
                       "dc/6zrlr86zt61yg_multiple_place_bar_block"
                     ],
-                    "title": "Service Occupations in Sunnyvale (${date})",
+                    "title": "Service Occupations In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -119,14 +119,14 @@
                       "dc/r0delcsw86kc6_multiple_place_bar_block",
                       "dc/e27c5t4tbplg_multiple_place_bar_block"
                     ],
-                    "title": "Production Transportation and Material Moving Occupations in Sunnyvale (${date})",
+                    "title": "Production Transportation And Material Moving Occupations In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Production Transportation and Material Moving Occupations"
+            "title": "Production Transportation And Material Moving Occupations"
           }
         ],
         "statVarSpec": {

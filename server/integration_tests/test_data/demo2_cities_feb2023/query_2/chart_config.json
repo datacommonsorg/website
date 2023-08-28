@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Sunnyvale",
+                    "title": "Asthma In Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Asthma in Sunnyvale",
+                    "description": "Asthma In Sunnyvale",
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Sunnyvale",
+                    "title": "Asthma In Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
-                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "title": "Chronic Obstructive Pulmonary Disease In Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -47,11 +47,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "description": "Chronic Obstructive Pulmonary Disease In Sunnyvale",
                     "statVarKey": [
                       "Percent_Person_WithChronicObstructivePulmonaryDisease"
                     ],
-                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "title": "Chronic Obstructive Pulmonary Disease In Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -84,13 +84,13 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Asthma and more in Sunnyvale (${date})",
+                    "title": "Asthma And More In Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Related: Asthma and more"
+            "title": "Related: Asthma And More"
           }
         ],
         "statVarSpec": {

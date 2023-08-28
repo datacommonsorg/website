@@ -11,13 +11,13 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line in Countries of Africa"
+            "title": "Population Below International Poverty Line In Countries Of Africa"
           },
           {
             "columns": [
@@ -27,7 +27,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y0T14"
                     ],
-                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Age Under 15 Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -38,7 +38,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
-                    "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Age 15 To 64 Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -49,13 +49,13 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
-                    "title": "Population Age 65 or Older Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Population Age 65 Or Older Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population below international poverty line by age in Countries of Africa"
+            "title": "Population Below International Poverty Line By Age In Countries Of Africa"
           },
           {
             "columns": [
@@ -65,7 +65,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--F"
                     ],
-                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Women Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,13 +76,13 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Men Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population below international poverty line by gender in Countries of Africa"
+            "title": "Population Below International Poverty Line By Gender In Countries Of Africa"
           },
           {
             "columns": [
@@ -92,7 +92,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--U"
                     ],
-                    "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Urban Population Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -103,13 +103,13 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Rural Population Below International Poverty Line in Countries of Africa (${date})",
+                    "title": "Rural Population Below International Poverty Line In Countries Of Africa (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population below international poverty line in rural vs. urban areas in Countries of Africa"
+            "title": "Population Below International Poverty Line In Rural Vs. Urban Areas In Countries Of Africa"
           }
         ],
         "statVarSpec": {

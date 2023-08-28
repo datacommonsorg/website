@@ -15,7 +15,7 @@
                       "dc/0gettc3bc60cb_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Drive alone Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Drive Alone Per Capita (${Ydate}) Vs. Percent Of Children That Have Asthma (${Xdate}) In Counties Of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
-                    "title": "Drive alone in Counties of California (${date})",
+                    "title": "Drive Alone In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -45,13 +45,13 @@
                     "statVarKey": [
                       "dc/0gettc3bc60cb"
                     ],
-                    "title": "Drive alone in Counties of California (${date})",
+                    "title": "Drive Alone In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Drive alone in Counties of California"
+            "title": "Drive Alone In Counties Of California"
           },
           {
             "columns": [
@@ -61,7 +61,7 @@
                     "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "title": "Percent Of Children That Have Asthma In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,13 +76,13 @@
                     "statVarKey": [
                       "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "title": "Percent Of Children That Have Asthma In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent of Children That Have Asthma in Counties of California"
+            "title": "Percent Of Children That Have Asthma In Counties Of California"
           },
           {
             "columns": [
@@ -96,7 +96,7 @@
                       "dc/6rltk4kf75612_scatter",
                       "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Work at home Per Capita (${yDate}) vs. Asthma (${xDate}) in Counties of California",
+                    "title": "Work At Home Per Capita (${Ydate}) Vs. Asthma (${Xdate}) In Counties Of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -111,7 +111,7 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work at home in Counties of California (${date})",
+                    "title": "Work At Home In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -126,13 +126,13 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work at home in Counties of California (${date})",
+                    "title": "Work At Home In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Work at home in Counties of California"
+            "title": "Work At Home In Counties Of California"
           },
           {
             "columns": [
@@ -142,7 +142,7 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Counties of California (${date})",
+                    "title": "Asthma In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -157,13 +157,13 @@
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
-                    "title": "Asthma in Counties of California (${date})",
+                    "title": "Asthma In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Asthma in Counties of California"
+            "title": "Asthma In Counties Of California"
           },
           {
             "columns": [
@@ -177,7 +177,7 @@
                       "dc/hbkh95kc7pkb6_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Public Transit Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Public Transit Per Capita (${Ydate}) Vs. Percent Of Children That Have Asthma (${Xdate}) In Counties Of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -192,7 +192,7 @@
                     "statVarKey": [
                       "dc/hbkh95kc7pkb6"
                     ],
-                    "title": "Public Transit in Counties of California (${date})",
+                    "title": "Public Transit In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -207,13 +207,13 @@
                     "statVarKey": [
                       "dc/hbkh95kc7pkb6"
                     ],
-                    "title": "Public Transit in Counties of California (${date})",
+                    "title": "Public Transit In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Public Transit in Counties of California"
+            "title": "Public Transit In Counties Of California"
           },
           {
             "columns": [
@@ -227,7 +227,7 @@
                       "dc/vp8cbt6k79t94_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Walk to work Per Capita (${yDate}) vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Walk To Work Per Capita (${Ydate}) Vs. Percent Of Children That Have Asthma (${Xdate}) In Counties Of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -242,7 +242,7 @@
                     "statVarKey": [
                       "dc/vp8cbt6k79t94"
                     ],
-                    "title": "Walk to work in Counties of California (${date})",
+                    "title": "Walk To Work In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -257,13 +257,13 @@
                     "statVarKey": [
                       "dc/vp8cbt6k79t94"
                     ],
-                    "title": "Walk to work in Counties of California (${date})",
+                    "title": "Walk To Work In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Walk to work in Counties of California"
+            "title": "Walk To Work In Counties Of California"
           }
         ],
         "statVarSpec": {

@@ -13,13 +13,13 @@
                         "flood"
                       ]
                     },
-                    "title": "Floods in Brazil",
+                    "title": "Floods In Brazil",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
               }
             ],
-            "title": "Floods in Brazil",
+            "title": "Floods In Brazil",
             "type": "DISASTER_EVENT"
           },
           {
@@ -30,7 +30,7 @@
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area of Flood Event in Brazil",
+                    "title": "Area Of Flood Event In Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -38,17 +38,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Area of Flood Event in Brazil",
+                    "description": "Area Of Flood Event In Brazil",
                     "statVarKey": [
                       "Area_FloodEvent"
                     ],
-                    "title": "Area of Flood Event in Brazil",
+                    "title": "Area Of Flood Event In Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Area of Flood Event"
+            "title": "Area Of Flood Event"
           },
           {
             "columns": [
@@ -58,7 +58,7 @@
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
-                    "title": "Floods in Brazil",
+                    "title": "Floods In Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -66,11 +66,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Floods in Brazil",
+                    "description": "Floods In Brazil",
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
-                    "title": "Floods in Brazil",
+                    "title": "Floods In Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]

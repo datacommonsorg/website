@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Fertility Rate In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,13 +26,13 @@
                     "statVarKey": [
                       "FertilityRate_Person_Female"
                     ],
-                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Fertility Rate In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey"
+            "title": "Fertility Rate In Eurostat Nuts 3 Places Of Turkey"
           },
           {
             "columns": [
@@ -42,7 +42,7 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Birth Event: Live Birth (Per Capita) in Turkey",
+                    "title": "Count Of Birth Event: Live Birth (Per Capita) In Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -50,17 +50,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Birth Event: Live Birth (Per Capita) in Turkey",
+                    "description": "Count Of Birth Event: Live Birth (Per Capita) In Turkey",
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Birth Event: Live Birth (Per Capita) in Turkey",
+                    "title": "Count Of Birth Event: Live Birth (Per Capita) In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event: Live Birth (Per Capita)"
+            "title": "Count Of Birth Event: Live Birth (Per Capita)"
           },
           {
             "columns": [
@@ -74,7 +74,7 @@
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count Of Birth Event (Per Capita) In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -85,24 +85,24 @@
                     "statVarKey": [
                       "Count_BirthEvent_AsAFractionOfCount_Person"
                     ],
-                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Count Of Birth Event (Per Capita) In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey"
+            "title": "Count Of Birth Event (Per Capita) In Eurostat Nuts 3 Places Of Turkey"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "description": "Prematurity And Low Birth Rate, Per 100,000 In Turkey",
                     "statVarKey": [
                       "WHO/SA_0000001432"
                     ],
-                    "title": "Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "title": "Prematurity And Low Birth Rate, Per 100,000 In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -116,11 +116,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "description": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 In Turkey",
                     "statVarKey": [
                       "WHO/SA_0000001451"
                     ],
-                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -137,7 +137,7 @@
                     "statVarKey": [
                       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
                     ],
-                    "title": "Female Infant Mortality Rate in Turkey",
+                    "title": "Female Infant Mortality Rate In Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -145,11 +145,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Female Infant Mortality Rate in Turkey",
+                    "description": "Female Infant Mortality Rate In Turkey",
                     "statVarKey": [
                       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
                     ],
-                    "title": "Female Infant Mortality Rate in Turkey",
+                    "title": "Female Infant Mortality Rate In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -169,7 +169,7 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Rate Of Population Growth In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -180,13 +180,13 @@
                     "statVarKey": [
                       "GrowthRate_Count_Person"
                     ],
-                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "title": "Rate Of Population Growth In Eurostat Nuts 3 Places Of Turkey (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
+            "title": "Rate Of Population Growth In Eurostat Nuts 3 Places Of Turkey"
           },
           {
             "columns": [
@@ -196,7 +196,7 @@
                     "statVarKey": [
                       "WHO/MORT_MATERNALNUM"
                     ],
-                    "title": "Number Of Maternal Deaths in Turkey",
+                    "title": "Number Of Maternal Deaths In Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -204,11 +204,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Number Of Maternal Deaths in Turkey",
+                    "description": "Number Of Maternal Deaths In Turkey",
                     "statVarKey": [
                       "WHO/MORT_MATERNALNUM"
                     ],
-                    "title": "Number Of Maternal Deaths in Turkey",
+                    "title": "Number Of Maternal Deaths In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -225,7 +225,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
-                    "title": "Maternal mortality ratio in Turkey",
+                    "title": "Maternal Mortality Ratio In Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -233,17 +233,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Maternal mortality ratio in Turkey",
+                    "description": "Maternal Mortality Ratio In Turkey",
                     "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
-                    "title": "Maternal mortality ratio in Turkey",
+                    "title": "Maternal Mortality Ratio In Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Maternal mortality ratio"
+            "title": "Maternal Mortality Ratio"
           }
         ],
         "statVarSpec": {

@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in California",
+                    "title": "Criminal Activities In California",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Criminal Activities in California",
+                    "description": "Criminal Activities In California",
                     "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
-                    "title": "Criminal Activities in California",
+                    "title": "Criminal Activities In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -53,14 +53,14 @@
                       "Count_CriminalActivities_Robbery_multiple_place_bar_block",
                       "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
                     ],
-                    "title": "Crimes by Type in California (${date})",
+                    "title": "Crimes By Type In California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Crimes by Type"
+            "title": "Crimes By Type"
           }
         ],
         "statVarSpec": {

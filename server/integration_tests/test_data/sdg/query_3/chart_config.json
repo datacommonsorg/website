@@ -11,13 +11,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in the World (${date})",
+                    "title": "Life Expectancy In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Life Expectancy in the World"
+            "title": "Life Expectancy In The World"
           },
           {
             "columns": [
@@ -27,7 +27,7 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
-                    "title": "Female Life Expectancy in the World (${date})",
+                    "title": "Female Life Expectancy In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -38,13 +38,13 @@
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
-                    "title": "Male Life Expectancy in the World (${date})",
+                    "title": "Male Life Expectancy In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Life Expectancy by Gender in the World"
+            "title": "Life Expectancy By Gender In The World"
           },
           {
             "columns": [
@@ -54,13 +54,13 @@
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
+                    "title": "Count Of Mortality Event: X60-X84 (Intentional Self-Harm) (Per Capita) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Causes Of Death in the World"
+            "title": "Causes Of Death In The World"
           },
           {
             "columns": [
@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "WHO/WHS4_117"
                     ],
-                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "WHO/WHS4_128"
                     ],
-                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -92,14 +92,14 @@
                     "statVarKey": [
                       "WHO/WHS4_129"
                     ],
-                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and more in the World"
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) And More In The World"
           },
           {
             "columns": [
@@ -109,7 +109,7 @@
                     "statVarKey": [
                       "WHO/M_Est_smk_daily"
                     ],
-                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
+                    "title": "% Daily Tobacco Smokers (Estimate) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -120,7 +120,7 @@
                     "statVarKey": [
                       "WHO/NCD_BMI_18A"
                     ],
-                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
+                    "title": "% Underweight Among Adults, Bmi < 18 In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "WHO/NCD_BMI_30A"
                     ],
-                    "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
+                    "title": "% Obesity Among Adults, Bmi >= 30 In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -142,14 +142,14 @@
                     "statVarKey": [
                       "WHO/NCD_PAC"
                     ],
-                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) in the World (${date})",
+                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Health Behaviors in the World"
+            "title": "Health Behaviors In The World"
           }
         ],
         "statVarSpec": {

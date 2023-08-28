@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Agriculture In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,7 +26,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Agriculture"
                     ],
-                    "title": "Greenhouse Gas Emissions from Agriculture in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Agriculture In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -34,7 +34,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from the growing of crops and livestock for food and raw materials for non-food consumption (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Agriculture in the World"
+            "title": "Greenhouse Gas Emissions From Agriculture In The World"
           },
           {
             "columns": [
@@ -48,7 +48,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Electricity Generation In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -59,7 +59,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
                     ],
-                    "title": "Greenhouse Gas Emissions from Electricity Generation in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Electricity Generation In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -67,7 +67,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from electricity generation (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Electricity Generation in the World"
+            "title": "Greenhouse Gas Emissions From Electricity Generation In The World"
           },
           {
             "columns": [
@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Fuel Combustion In Buildings In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -92,7 +92,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
                     ],
-                    "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Fuel Combustion In Buildings In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -100,7 +100,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Fuel Combustion in Buildings in the World"
+            "title": "Greenhouse Gas Emissions From Fuel Combustion In Buildings In The World"
           },
           {
             "columns": [
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Forestry And Land Use In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -125,7 +125,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
                     ],
-                    "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Forestry And Land Use In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -133,7 +133,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from change in living biomass due to clearing, degradation and fires in forests, grasslands and wetlands (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Forestry and Land Use in the World"
+            "title": "Greenhouse Gas Emissions From Forestry And Land Use In The World"
           },
           {
             "columns": [
@@ -147,7 +147,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Manufacturing In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -158,7 +158,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Manufacturing"
                     ],
-                    "title": "Greenhouse Gas Emissions from Manufacturing in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Manufacturing In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -166,7 +166,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from cement, aluminum, steel, and other manufacturing processes (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Manufacturing in the World"
+            "title": "Greenhouse Gas Emissions From Manufacturing In The World"
           },
           {
             "columns": [
@@ -180,7 +180,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Mineral Extraction In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -191,7 +191,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_MineralExtraction"
                     ],
-                    "title": "Greenhouse Gas Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Mineral Extraction In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -199,7 +199,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from mining and quarrying of minerals and ores (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Mineral Extraction in the World"
+            "title": "Greenhouse Gas Emissions From Mineral Extraction In The World"
           },
           {
             "columns": [
@@ -213,7 +213,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGas"
                     ],
-                    "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Oil And Gas, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -224,14 +224,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_OilAndGas"
                     ],
-                    "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Oil And Gas, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Oil And Gas, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -245,7 +245,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Transportation In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -256,7 +256,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_Transportation"
                     ],
-                    "title": "Greenhouse Gas Emissions from Transportation in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Transportation In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -264,7 +264,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Transportation in the World"
+            "title": "Greenhouse Gas Emissions From Transportation In The World"
           },
           {
             "columns": [
@@ -278,7 +278,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Waste Management In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -289,7 +289,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_WasteManagement"
                     ],
-                    "title": "Greenhouse Gas Emissions from Waste Management in the World (${date})",
+                    "title": "Greenhouse Gas Emissions From Waste Management In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -297,7 +297,7 @@
             ],
             "denom": "Count_Person",
             "description": "Greenhouse gas emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes of CO\u2082 equivalents).",
-            "title": "Greenhouse Gas Emissions from Waste Management in the World"
+            "title": "Greenhouse Gas Emissions From Waste Management In The World"
           },
           {
             "columns": [
@@ -311,7 +311,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_CementProduction"
                     ],
-                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Cement Production, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -322,14 +322,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_CementProduction"
                     ],
-                    "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Cement Production, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Cement Production, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Cement Production, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -343,7 +343,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_SteelManufacturing"
                     ],
-                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Steel Manufacturing, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -354,14 +354,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_SteelManufacturing"
                     ],
-                    "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Steel Manufacturing, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Steel Manufacturing, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -375,7 +375,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestFire"
                     ],
-                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Forest Fire, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -386,14 +386,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ForestFire"
                     ],
-                    "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Forest Fire, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Forest Fire, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -407,7 +407,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "title": "Greenhouse Gas Emissions In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -418,7 +418,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Greenhouse Gas Emissions in the World (${date})",
+                    "title": "Greenhouse Gas Emissions In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -426,7 +426,7 @@
             ],
             "denom": "Count_Person",
             "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
-            "title": "Greenhouse Gas Emissions in the World"
+            "title": "Greenhouse Gas Emissions In The World"
           },
           {
             "columns": [
@@ -440,7 +440,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -451,14 +451,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Other Energy Use, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Other Energy Use, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -472,7 +472,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Carbon Dioxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -483,14 +483,14 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Carbon Dioxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Other Energy Use, Carbon Dioxide in the World"
+            "title": "Annual Amount Of Emissions: Other Energy Use, Carbon Dioxide In The World"
           },
           {
             "columns": [
@@ -504,7 +504,7 @@
                     "statVarKey": [
                       "eia/INTL.4008-8-MMTCD.A"
                     ],
-                    "title": "CO2 emissions, Annual in the World (${date})",
+                    "title": "Co2 Emissions, Annual In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -515,13 +515,13 @@
                     "statVarKey": [
                       "eia/INTL.4008-8-MMTCD.A"
                     ],
-                    "title": "CO2 emissions, Annual in the World (${date})",
+                    "title": "Co2 Emissions, Annual In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "CO2 emissions, Annual in the World"
+            "title": "Co2 Emissions, Annual In The World"
           },
           {
             "columns": [
@@ -535,7 +535,7 @@
                     "statVarKey": [
                       "Amount_Emissions_CarbonDioxide_PerCapita"
                     ],
-                    "title": "CO2 Emissions Per Capita in the World (${date})",
+                    "title": "Co2 Emissions Per Capita In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -546,13 +546,13 @@
                     "statVarKey": [
                       "Amount_Emissions_CarbonDioxide_PerCapita"
                     ],
-                    "title": "CO2 Emissions Per Capita in the World (${date})",
+                    "title": "Co2 Emissions Per Capita In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "CO2 Emissions Per Capita in the World"
+            "title": "Co2 Emissions Per Capita In The World"
           },
           {
             "columns": [
@@ -566,7 +566,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Agriculture"
                     ],
-                    "title": "CO\u2082 Emissions from Agriculture in the World (${date})",
+                    "title": "Co\u2082 Emissions From Agriculture In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -577,7 +577,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Agriculture"
                     ],
-                    "title": "CO\u2082 Emissions from Agriculture in the World (${date})",
+                    "title": "Co\u2082 Emissions From Agriculture In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -585,7 +585,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from the growing of crops and livestock for food and raw materials for non-food consumption (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Agriculture in the World"
+            "title": "Co\u2082 Emissions From Agriculture In The World"
           },
           {
             "columns": [
@@ -599,7 +599,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
                     ],
-                    "title": "CO\u2082 Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Co\u2082 Emissions From Fuel Combustion In Buildings In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -610,7 +610,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
                     ],
-                    "title": "CO\u2082 Emissions from Fuel Combustion in Buildings in the World (${date})",
+                    "title": "Co\u2082 Emissions From Fuel Combustion In Buildings In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -618,7 +618,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from onsite fuel combustion in residential, commercial and institutional buildings (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Fuel Combustion in Buildings in the World"
+            "title": "Co\u2082 Emissions From Fuel Combustion In Buildings In The World"
           },
           {
             "columns": [
@@ -632,7 +632,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
                     ],
-                    "title": "CO\u2082 Emissions from Fossil Fuel Operations in the World (${date})",
+                    "title": "Co\u2082 Emissions From Fossil Fuel Operations In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -643,7 +643,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
                     ],
-                    "title": "CO\u2082 Emissions from Fossil Fuel Operations in the World (${date})",
+                    "title": "Co\u2082 Emissions From Fossil Fuel Operations In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -651,7 +651,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from oil and gas production, refining, and coal mining (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Fossil Fuel Operations in the World"
+            "title": "Co\u2082 Emissions From Fossil Fuel Operations In The World"
           },
           {
             "columns": [
@@ -665,7 +665,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Manufacturing"
                     ],
-                    "title": "CO\u2082 Emissions from Manufacturing in the World (${date})",
+                    "title": "Co\u2082 Emissions From Manufacturing In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -676,7 +676,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Manufacturing"
                     ],
-                    "title": "CO\u2082 Emissions from Manufacturing in the World (${date})",
+                    "title": "Co\u2082 Emissions From Manufacturing In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -684,7 +684,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from cement, aluminum, steel, and other manufacturing processes (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Manufacturing in the World"
+            "title": "Co\u2082 Emissions From Manufacturing In The World"
           },
           {
             "columns": [
@@ -698,7 +698,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_MineralExtraction"
                     ],
-                    "title": "CO\u2082 Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Co\u2082 Emissions From Mineral Extraction In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -709,7 +709,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_MineralExtraction"
                     ],
-                    "title": "CO\u2082 Emissions from Mineral Extraction in the World (${date})",
+                    "title": "Co\u2082 Emissions From Mineral Extraction In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -717,7 +717,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from mining and quarrying of minerals and ores (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Mineral Extraction in the World"
+            "title": "Co\u2082 Emissions From Mineral Extraction In The World"
           },
           {
             "columns": [
@@ -731,7 +731,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Power"
                     ],
-                    "title": "CO\u2082 Emissions from Power Sector in the World (${date})",
+                    "title": "Co\u2082 Emissions From Power Sector In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -742,7 +742,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Power"
                     ],
-                    "title": "CO\u2082 Emissions from Power Sector in the World (${date})",
+                    "title": "Co\u2082 Emissions From Power Sector In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -750,7 +750,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from electricity generation (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Power Sector in the World"
+            "title": "Co\u2082 Emissions From Power Sector In The World"
           },
           {
             "columns": [
@@ -764,7 +764,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Transportation"
                     ],
-                    "title": "CO\u2082 Emissions from Transportation in the World (${date})",
+                    "title": "Co\u2082 Emissions From Transportation In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -775,7 +775,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_Transportation"
                     ],
-                    "title": "CO\u2082 Emissions from Transportation in the World (${date})",
+                    "title": "Co\u2082 Emissions From Transportation In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -783,7 +783,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from on-road vehicles, aviation, shipping, railways and other modes of transportation (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Transportation in the World"
+            "title": "Co\u2082 Emissions From Transportation In The World"
           },
           {
             "columns": [
@@ -797,7 +797,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_WasteManagement"
                     ],
-                    "title": "CO\u2082 Emissions from Waste Management in the World (${date})",
+                    "title": "Co\u2082 Emissions From Waste Management In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -808,7 +808,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_WasteManagement"
                     ],
-                    "title": "CO\u2082 Emissions from Waste Management in the World (${date})",
+                    "title": "Co\u2082 Emissions From Waste Management In The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -816,7 +816,7 @@
             ],
             "denom": "Count_Person",
             "description": "CO\u2082 emissions from solid waste disposal on land, wastewater, waste incineration and any other waste management activity (measured in tonnes).",
-            "title": "CO\u2082 Emissions from Waste Management in the World"
+            "title": "Co\u2082 Emissions From Waste Management In The World"
           },
           {
             "columns": [
@@ -830,7 +830,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Agriculture"
                     ],
-                    "title": "Annual Amount of Emissions: Agriculture, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Agriculture, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -841,14 +841,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Agriculture"
                     ],
-                    "title": "Annual Amount of Emissions: Agriculture, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Agriculture, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Agriculture, Methane in the World"
+            "title": "Annual Amount Of Emissions: Agriculture, Methane In The World"
           },
           {
             "columns": [
@@ -862,7 +862,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_FossilFuelOperations"
                     ],
-                    "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fossil Fuel Operations, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -873,14 +873,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_FossilFuelOperations"
                     ],
-                    "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fossil Fuel Operations, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Fossil Fuel Operations, Methane in the World"
+            "title": "Annual Amount Of Emissions: Fossil Fuel Operations, Methane In The World"
           },
           {
             "columns": [
@@ -894,7 +894,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_OpenBurningWaste"
                     ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Open Burning Waste, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -905,14 +905,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_OpenBurningWaste"
                     ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Open Burning Waste, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Open Burning Waste, Methane in the World"
+            "title": "Annual Amount Of Emissions: Open Burning Waste, Methane In The World"
           },
           {
             "columns": [
@@ -926,7 +926,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_WasteManagement"
                     ],
-                    "title": "Annual Amount of Emissions: Waste Management, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Waste Management, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -937,14 +937,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_WasteManagement"
                     ],
-                    "title": "Annual Amount of Emissions: Waste Management, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Waste Management, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Waste Management, Methane in the World"
+            "title": "Annual Amount Of Emissions: Waste Management, Methane In The World"
           },
           {
             "columns": [
@@ -958,7 +958,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Agriculture"
                     ],
-                    "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -969,14 +969,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Agriculture"
                     ],
-                    "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Agriculture, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Agriculture, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -990,7 +990,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
                     ],
-                    "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1001,14 +1001,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
                     ],
-                    "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Fuel Combustion For Residential Commercial Onsite Heating, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -1022,7 +1022,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Manufacturing"
                     ],
-                    "title": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Manufacturing, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1033,14 +1033,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Manufacturing"
                     ],
-                    "title": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Manufacturing, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Manufacturing, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -1054,7 +1054,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Transportation"
                     ],
-                    "title": "Annual Amount of Emissions: Transportation, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Transportation, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1065,14 +1065,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_Transportation"
                     ],
-                    "title": "Annual Amount of Emissions: Transportation, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Transportation, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Transportation, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Transportation, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -1086,7 +1086,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WasteManagement"
                     ],
-                    "title": "Annual Amount of Emissions: Waste Management, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Waste Management, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1097,14 +1097,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WasteManagement"
                     ],
-                    "title": "Annual Amount of Emissions: Waste Management, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Waste Management, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Waste Management, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Waste Management, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -1118,7 +1118,7 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
                     ],
-                    "title": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1129,14 +1129,14 @@
                     "statVarKey": [
                       "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
                     ],
-                    "title": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide in the World"
+            "title": "Annual Amount Of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide In The World"
           },
           {
             "columns": [
@@ -1150,7 +1150,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Power"
                     ],
-                    "title": "Annual Amount of Emissions: Power, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Power, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1161,14 +1161,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_Power"
                     ],
-                    "title": "Annual Amount of Emissions: Power, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Power, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Power, Methane in the World"
+            "title": "Annual Amount Of Emissions: Power, Methane In The World"
           },
           {
             "columns": [
@@ -1182,7 +1182,7 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Methane In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1193,14 +1193,14 @@
                     "statVarKey": [
                       "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
                     ],
-                    "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Other Energy Use, Methane In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World"
+            "title": "Annual Amount Of Emissions: Other Energy Use, Methane In The World"
           },
           {
             "columns": [
@@ -1214,7 +1214,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
                     ],
-                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Electricity Generation, Carbon Dioxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1225,14 +1225,14 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_ElectricityGeneration"
                     ],
-                    "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Electricity Generation, Carbon Dioxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Electricity Generation, Carbon Dioxide in the World"
+            "title": "Annual Amount Of Emissions: Electricity Generation, Carbon Dioxide In The World"
           },
           {
             "columns": [
@@ -1246,7 +1246,7 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fuel Combustion For Cooking, Greenhouse Gas In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1257,14 +1257,14 @@
                     "statVarKey": [
                       "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
                     ],
-                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Fuel Combustion For Cooking, Greenhouse Gas In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas in the World"
+            "title": "Annual Amount Of Emissions: Fuel Combustion For Cooking, Greenhouse Gas In The World"
           },
           {
             "columns": [
@@ -1278,7 +1278,7 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
                     ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Open Burning Waste, Carbon Dioxide In The World (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -1289,14 +1289,14 @@
                     "statVarKey": [
                       "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
                     ],
-                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World (${date})",
+                    "title": "Annual Amount Of Emissions: Open Burning Waste, Carbon Dioxide In The World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide in the World"
+            "title": "Annual Amount Of Emissions: Open Burning Waste, Carbon Dioxide In The World"
           }
         ],
         "statVarSpec": {

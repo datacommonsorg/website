@@ -8,7 +8,7 @@
               {
                 "tiles": [
                   {
-                    "title": "Most severe fires in California",
+                    "title": "Most Severe Fires In California",
                     "topEventTileSpec": {
                       "eventTypeKey": "fire",
                       "showStartDate": true
@@ -25,7 +25,7 @@
                         "fire"
                       ]
                     },
-                    "title": "Fires in California",
+                    "title": "Fires In California",
                     "type": "DISASTER_EVENT_MAP"
                   }
                 ]
@@ -45,7 +45,7 @@
                     "statVarKey": [
                       "Count_WildlandFireEvent"
                     ],
-                    "title": "Count of Wildland Fire Event in Counties of California (${date})",
+                    "title": "Count Of Wildland Fire Event In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -56,13 +56,13 @@
                     "statVarKey": [
                       "Count_WildlandFireEvent"
                     ],
-                    "title": "Count of Wildland Fire Event in Counties of California (${date})",
+                    "title": "Count Of Wildland Fire Event In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Wildland Fire Event in Counties of California"
+            "title": "Count Of Wildland Fire Event In Counties Of California"
           },
           {
             "columns": [
@@ -76,7 +76,7 @@
                     "statVarKey": [
                       "BurnedArea_FireEvent"
                     ],
-                    "title": "Total area that burned (Acres) in Counties of California (${date})",
+                    "title": "Total Area That Burned (Acres) In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -87,13 +87,13 @@
                     "statVarKey": [
                       "BurnedArea_FireEvent"
                     ],
-                    "title": "Total area that burned (Acres) in Counties of California (${date})",
+                    "title": "Total Area That Burned (Acres) In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Total area that burned (Acres) in Counties of California"
+            "title": "Total Area That Burned (Acres) In Counties Of California"
           },
           {
             "columns": [
@@ -107,7 +107,7 @@
                     "statVarKey": [
                       "Percent_BurnedArea_FireEvent"
                     ],
-                    "title": "Percent of area that burned in Counties of California (${date})",
+                    "title": "Percent Of Area That Burned In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -118,13 +118,13 @@
                     "statVarKey": [
                       "Percent_BurnedArea_FireEvent"
                     ],
-                    "title": "Percent of area that burned in Counties of California (${date})",
+                    "title": "Percent Of Area That Burned In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of area that burned in Counties of California"
+            "title": "Percent Of Area That Burned In Counties Of California"
           },
           {
             "columns": [
@@ -138,7 +138,7 @@
                     "statVarKey": [
                       "Percent_BurnedArea_FireEvent_Forest_HighSeverity"
                     ],
-                    "title": "Percent of forest area that experienced high-severity fire in Counties of California (${date})",
+                    "title": "Percent Of Forest Area That Experienced High-Severity Fire In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -149,13 +149,13 @@
                     "statVarKey": [
                       "Percent_BurnedArea_FireEvent_Forest_HighSeverity"
                     ],
-                    "title": "Percent of forest area that experienced high-severity fire in Counties of California (${date})",
+                    "title": "Percent Of Forest Area That Experienced High-Severity Fire In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of forest area that experienced high-severity fire in Counties of California"
+            "title": "Percent Of Forest Area That Experienced High-Severity Fire In Counties Of California"
           },
           {
             "columns": [
@@ -177,14 +177,14 @@
                       "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide_multiple_place_bar_block",
                       "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound_multiple_place_bar_block"
                     ],
-                    "title": "Wildfire Emissions by Pollutant in California (${date})",
+                    "title": "Wildfire Emissions By Pollutant In California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Wildfire Emissions by Pollutant"
+            "title": "Wildfire Emissions By Pollutant"
           },
           {
             "columns": [
@@ -198,7 +198,7 @@
                     "statVarKey": [
                       "Count_WildfireEvent"
                     ],
-                    "title": "Wildfires in Counties of California (${date})",
+                    "title": "Wildfires In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -209,13 +209,13 @@
                     "statVarKey": [
                       "Count_WildfireEvent"
                     ],
-                    "title": "Wildfires in Counties of California (${date})",
+                    "title": "Wildfires In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Wildfires in Counties of California"
+            "title": "Wildfires In Counties Of California"
           },
           {
             "columns": [
@@ -229,7 +229,7 @@
                     "statVarKey": [
                       "Count_FireIncidentComplex"
                     ],
-                    "title": "Count of Fire Incident Complex Event in Counties of California (${date})",
+                    "title": "Count Of Fire Incident Complex Event In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -240,13 +240,13 @@
                     "statVarKey": [
                       "Count_FireIncidentComplex"
                     ],
-                    "title": "Count of Fire Incident Complex Event in Counties of California (${date})",
+                    "title": "Count Of Fire Incident Complex Event In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Count of Fire Incident Complex Event in Counties of California"
+            "title": "Count Of Fire Incident Complex Event In Counties Of California"
           },
           {
             "columns": [
@@ -260,7 +260,7 @@
                     "statVarKey": [
                       "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
                     ],
-                    "title": "Annual Expected Loss from Natural Hazard Impact: Wildfire in Counties of California (${date})",
+                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire In Counties Of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -271,14 +271,14 @@
                     "statVarKey": [
                       "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
                     ],
-                    "title": "Annual Expected Loss from Natural Hazard Impact: Wildfire in Counties of California (${date})",
+                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire In Counties Of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Expected Loss from Natural Hazard Impact: Wildfire in Counties of California"
+            "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire In Counties Of California"
           }
         ],
         "statVarSpec": {

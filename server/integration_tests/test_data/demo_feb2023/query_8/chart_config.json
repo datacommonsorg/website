@@ -15,7 +15,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "title": "High Blood Pressure In Counties Of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -26,13 +26,13 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "title": "High Blood Pressure In Counties Of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "High Blood Pressure in Counties of United States"
+            "title": "High Blood Pressure In Counties Of United States"
           },
           {
             "columns": [
@@ -46,7 +46,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -57,13 +57,13 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States"
+            "title": "Percent Of Adults With Blood Pressure Who Take Medication In Counties Of United States"
           }
         ],
         "statVarSpec": {

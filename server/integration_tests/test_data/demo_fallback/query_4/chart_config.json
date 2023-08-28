@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence of Obesity in California",
+                    "title": "Prevalence Of Obesity In California",
                     "type": "LINE"
                   }
                 ]
@@ -19,17 +19,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Obesity in California",
+                    "description": "Prevalence Of Obesity In California",
                     "statVarKey": [
                       "Percent_Person_Obesity"
                     ],
-                    "title": "Prevalence of Obesity in California",
+                    "title": "Prevalence Of Obesity In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Obesity"
+            "title": "Prevalence Of Obesity"
           },
           {
             "columns": [
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues in California",
+                    "title": "Physical Health Issues In California",
                     "type": "LINE"
                   }
                 ]
@@ -47,11 +47,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Physical Health Issues in California",
+                    "description": "Physical Health Issues In California",
                     "statVarKey": [
                       "Percent_Person_WithPhysicalHealthNotGood"
                     ],
-                    "title": "Physical Health Issues in California",
+                    "title": "Physical Health Issues In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -71,13 +71,13 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "Prevalence of Obesity and more in California",
+                    "title": "Prevalence Of Obesity And More In California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Related: Prevalence of Obesity and more"
+            "title": "Related: Prevalence Of Obesity And More"
           },
           {
             "columns": [
@@ -104,13 +104,13 @@
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Physical Health Issues and more in California (${date})",
+                    "title": "Physical Health Issues And More In California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Related: Physical Health Issues and more"
+            "title": "Related: Physical Health Issues And More"
           }
         ],
         "statVarSpec": {

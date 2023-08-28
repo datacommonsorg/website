@@ -15,13 +15,13 @@
                     "statVarKey": [
                       "Count_Student"
                     ],
-                    "title": "Number of Students in Public Schools of Sunnyvale (${date})",
+                    "title": "Number Of Students In Public Schools Of Sunnyvale (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number of Students in Public Schools of Sunnyvale"
+            "title": "Number Of Students In Public Schools Of Sunnyvale"
           },
           {
             "columns": [
@@ -35,13 +35,13 @@
                     "statVarKey": [
                       "Count_Teacher"
                     ],
-                    "title": "Number of Teachers in Public Schools of Sunnyvale (${date})",
+                    "title": "Number Of Teachers In Public Schools Of Sunnyvale (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number of Teachers in Public Schools of Sunnyvale"
+            "title": "Number Of Teachers In Public Schools Of Sunnyvale"
           },
           {
             "columns": [
@@ -55,13 +55,13 @@
                     "statVarKey": [
                       "Percent_Student_AsAFractionOf_Count_Teacher"
                     ],
-                    "title": "Student-Teacher Ratio in Public Schools of Sunnyvale (${date})",
+                    "title": "Student-Teacher Ratio In Public Schools Of Sunnyvale (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Student-Teacher Ratio in Public Schools of Sunnyvale"
+            "title": "Student-Teacher Ratio In Public Schools Of Sunnyvale"
           }
         ],
         "statVarSpec": {

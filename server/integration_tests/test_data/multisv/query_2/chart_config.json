@@ -15,13 +15,13 @@
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Prevalence of Obesity (${date})",
+                    "title": "Prevalence Of Obesity (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Obesity"
+            "title": "Prevalence Of Obesity"
           },
           {
             "columns": [
@@ -130,14 +130,14 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
                     ],
-                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
+                    "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line"
+            "title": "Population: 1 Years Or More, 1 - 1.5 Ratio To Poverty Line"
           },
           {
             "columns": [
@@ -151,14 +151,14 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad_multiple_place_bar_block"
                     ],
-                    "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad (${date})",
+                    "title": "Population: 1 Years Or More, Poverty Status Determined, Different House Abroad (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, Poverty Status Determined, Different House Abroad"
+            "title": "Population: 1 Years Or More, Poverty Status Determined, Different House Abroad"
           },
           {
             "columns": [
@@ -172,14 +172,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "title": "Family Households Below The Poverty Level In The Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Level in the Past Year"
+            "title": "Family Households Below The Poverty Level In The Past Year"
           },
           {
             "columns": [
@@ -193,14 +193,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Population Above Poverty Level Status in Past Year (${date})",
+                    "title": "Population Above Poverty Level Status In Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Level Status in Past Year"
+            "title": "Population Above Poverty Level Status In Past Year"
           },
           {
             "columns": [
@@ -214,13 +214,13 @@
                     "statVarKey": [
                       "dc/9pmyhk89dj3pf_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Accommodation And Food Services (${date})",
+                    "title": "Median Incomes In Accommodation And Food Services (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Accommodation And Food Services"
+            "title": "Median Incomes In Accommodation And Food Services"
           }
         ],
         "statVarSpec": {

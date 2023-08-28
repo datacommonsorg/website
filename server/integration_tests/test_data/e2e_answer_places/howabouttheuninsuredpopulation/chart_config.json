@@ -23,13 +23,13 @@
                     "statVarKey": [
                       "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance (${date})",
+                    "title": "Percentage Of Population Aged 18-64 With No Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
+            "title": "Percentage Of Population Aged 18-64 With No Health Insurance"
           },
           {
             "columns": [
@@ -221,14 +221,14 @@
                     "statVarKey": [
                       "Count_Person_WithDirectPurchaseHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Direct Purchasers of Health Insurance (${date})",
+                    "title": "Direct Purchasers Of Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Direct Purchasers of Health Insurance"
+            "title": "Direct Purchasers Of Health Insurance"
           },
           {
             "columns": [
@@ -403,14 +403,14 @@
                     "statVarKey": [
                       "Count_Person_WithDirectPurchaseHealthInsuranceOnly_multiple_place_bar_block"
                     ],
-                    "title": "Only Direct Purchasers of Health Insurance (${date})",
+                    "title": "Only Direct Purchasers Of Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Only Direct Purchasers of Health Insurance"
+            "title": "Only Direct Purchasers Of Health Insurance"
           },
           {
             "columns": [
@@ -432,13 +432,13 @@
                     "statVarKey": [
                       "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "title": "Percentage Of Women (18 To 64 Years Old) Without Health Insurance (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
+            "title": "Percentage Of Women (18 To 64 Years Old) Without Health Insurance"
           }
         ],
         "statVarSpec": {

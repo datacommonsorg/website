@@ -11,13 +11,13 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in Census Tracts of Placer County (${date})",
+                    "title": "Household Median Income In Census Tracts Of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in Census Tracts of Placer County"
+            "title": "Household Median Income In Census Tracts Of Placer County"
           },
           {
             "columns": [
@@ -27,7 +27,7 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in Placer County",
+                    "title": "Average Income For Households In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -35,17 +35,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Households in Placer County",
+                    "description": "Average Income For Households In Placer County",
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in Placer County",
+                    "title": "Average Income For Households In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households"
+            "title": "Average Income For Households"
           },
           {
             "columns": [
@@ -55,7 +55,7 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in Placer County",
+                    "title": "Median Family Household Income In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -63,11 +63,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Family Household Income in Placer County",
+                    "description": "Median Family Household Income In Placer County",
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in Placer County",
+                    "title": "Median Family Household Income In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -83,7 +83,7 @@
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Nonfamily Household Median Income in Placer County",
+                    "title": "Nonfamily Household Median Income In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -91,11 +91,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Nonfamily Household Median Income in Placer County",
+                    "description": "Nonfamily Household Median Income In Placer County",
                     "statVarKey": [
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Nonfamily Household Median Income in Placer County",
+                    "title": "Nonfamily Household Median Income In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -111,13 +111,13 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
+                    "title": "Individual Median Income In Census Tracts Of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income in Census Tracts of Placer County"
+            "title": "Individual Median Income In Census Tracts Of Placer County"
           },
           {
             "columns": [
@@ -127,7 +127,7 @@
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Median Married Couple Family Household Income In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -135,11 +135,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Married Couple Family Household Income in Placer County",
+                    "description": "Median Married Couple Family Household Income In Placer County",
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Median Married Couple Family Household Income In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -155,7 +155,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in Placer County",
+                    "title": "Average Income For Family Households In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -163,17 +163,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Family Households in Placer County",
+                    "description": "Average Income For Family Households In Placer County",
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in Placer County",
+                    "title": "Average Income For Family Households In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Family Households"
+            "title": "Average Income For Family Households"
           },
           {
             "columns": [
@@ -183,7 +183,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Average Income for Nonfamily Households in Placer County",
+                    "title": "Average Income For Nonfamily Households In Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -191,17 +191,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Nonfamily Households in Placer County",
+                    "description": "Average Income For Nonfamily Households In Placer County",
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Average Income for Nonfamily Households in Placer County",
+                    "title": "Average Income For Nonfamily Households In Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Nonfamily Households"
+            "title": "Average Income For Nonfamily Households"
           }
         ],
         "statVarSpec": {

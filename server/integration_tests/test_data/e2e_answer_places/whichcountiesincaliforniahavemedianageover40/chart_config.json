@@ -20,13 +20,13 @@
                     "statVarKey": [
                       "Median_Age_Person_multiple_place_bar_block"
                     ],
-                    "title": "Median Age of Population (${date}) - Top 7 of 22",
+                    "title": "Median Age Of Population (${date}) - Top 7 Of 22",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Population"
+            "title": "Median Age Of Population"
           }
         ],
         "statVarSpec": {

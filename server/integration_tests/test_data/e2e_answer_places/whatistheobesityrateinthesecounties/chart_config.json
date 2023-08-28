@@ -23,13 +23,13 @@
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
                     ],
-                    "title": "Prevalence of Obesity (${date})",
+                    "title": "Prevalence Of Obesity (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Obesity"
+            "title": "Prevalence Of Obesity"
           },
           {
             "columns": [

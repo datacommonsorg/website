@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in California",
+                    "title": "Average Income For Family Households In California",
                     "type": "LINE"
                   }
                 ]
@@ -19,17 +19,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Family Households in California",
+                    "description": "Average Income For Family Households In California",
                     "statVarKey": [
                       "Mean_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Family Households in California",
+                    "title": "Average Income For Family Households In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Family Households"
+            "title": "Average Income For Family Households"
           },
           {
             "columns": [
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in California",
+                    "title": "Median Family Household Income In California",
                     "type": "LINE"
                   }
                 ]
@@ -47,11 +47,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Family Household Income in California",
+                    "description": "Median Family Household Income In California",
                     "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
-                    "title": "Median Family Household Income in California",
+                    "title": "Median Family Household Income In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -67,7 +67,7 @@
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in California",
+                    "title": "Median Married Couple Family Household Income In California",
                     "type": "LINE"
                   }
                 ]
@@ -75,11 +75,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Married Couple Family Household Income in California",
+                    "description": "Median Married Couple Family Household Income In California",
                     "statVarKey": [
                       "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Median Married Couple Family Household Income in California",
+                    "title": "Median Married Couple Family Household Income In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -95,7 +95,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
+                    "title": "Average Income For Married Couple Family Households In California",
                     "type": "LINE"
                   }
                 ]
@@ -103,17 +103,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Married Couple Family Households in California",
+                    "description": "Average Income For Married Couple Family Households In California",
                     "statVarKey": [
                       "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
+                    "title": "Average Income For Married Couple Family Households In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Married Couple Family Households"
+            "title": "Average Income For Married Couple Family Households"
           },
           {
             "columns": [
@@ -123,7 +123,7 @@
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Average Income for Nonfamily Households in California",
+                    "title": "Average Income For Nonfamily Households In California",
                     "type": "LINE"
                   }
                 ]
@@ -131,17 +131,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Nonfamily Households in California",
+                    "description": "Average Income For Nonfamily Households In California",
                     "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Average Income for Nonfamily Households in California",
+                    "title": "Average Income For Nonfamily Households In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Nonfamily Households"
+            "title": "Average Income For Nonfamily Households"
           },
           {
             "columns": [
@@ -151,7 +151,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in California",
+                    "title": "Household Median Income In California",
                     "type": "LINE"
                   }
                 ]
@@ -159,11 +159,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Household Median Income in California",
+                    "description": "Household Median Income In California",
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in California",
+                    "title": "Household Median Income In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -179,7 +179,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in California",
+                    "title": "Individual Median Income In California",
                     "type": "LINE"
                   }
                 ]
@@ -187,11 +187,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Income in California",
+                    "description": "Individual Median Income In California",
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in California",
+                    "title": "Individual Median Income In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -216,7 +216,7 @@
                       "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
                       "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
                     ],
-                    "title": "Population By Income Level in California (${date})",
+                    "title": "Population By Income Level In California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -250,7 +250,7 @@
                       "dc/yw52qqrrb2w11_multiple_place_bar_block",
                       "dc/zbpsz8dg01nh2_multiple_place_bar_block"
                     ],
-                    "title": "Individual Income By Industry Type in California (${date})",
+                    "title": "Individual Income By Industry Type In California (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -268,7 +268,7 @@
                       "Median_Income_Household_MarriedCoupleFamilyHousehold",
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Income By Household Type in California",
+                    "title": "Median Income By Household Type In California",
                     "type": "LINE"
                   }
                 ]
@@ -284,7 +284,7 @@
                     "statVarKey": [
                       "Mean_IncomeDeficit_Household_FamilyHousehold"
                     ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "title": "Mean Income Deficit Of Household: Family Household In California",
                     "type": "LINE"
                   }
                 ]
@@ -292,17 +292,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Income Deficit of Household: Family Household in California",
+                    "description": "Mean Income Deficit Of Household: Family Household In California",
                     "statVarKey": [
                       "Mean_IncomeDeficit_Household_FamilyHousehold"
                     ],
-                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "title": "Mean Income Deficit Of Household: Family Household In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Income Deficit of Household: Family Household"
+            "title": "Mean Income Deficit Of Household: Family Household"
           },
           {
             "columns": [
@@ -312,7 +312,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_OwnerOccupied"
                     ],
-                    "title": "Count of Household: Family Household, Owner Occupied in California",
+                    "title": "Count Of Household: Family Household, Owner Occupied In California",
                     "type": "LINE"
                   }
                 ]
@@ -320,18 +320,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Family Household, Owner Occupied in California",
+                    "description": "Count Of Household: Family Household, Owner Occupied In California",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_OwnerOccupied"
                     ],
-                    "title": "Count of Household: Family Household, Owner Occupied in California",
+                    "title": "Count Of Household: Family Household, Owner Occupied In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Owner Occupied"
+            "title": "Count Of Household: Family Household, Owner Occupied"
           },
           {
             "columns": [
@@ -341,7 +341,7 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold"
                     ],
-                    "title": "Count of Household: Family Household in California",
+                    "title": "Count Of Household: Family Household In California",
                     "type": "LINE"
                   }
                 ]
@@ -349,18 +349,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Family Household in California",
+                    "description": "Count Of Household: Family Household In California",
                     "statVarKey": [
                       "Count_Household_FamilyHousehold"
                     ],
-                    "title": "Count of Household: Family Household in California",
+                    "title": "Count Of Household: Family Household In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Family Household"
+            "title": "Count Of Household: Family Household"
           },
           {
             "columns": [
@@ -370,7 +370,7 @@
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in California",
+                    "title": "Average Income For Households In California",
                     "type": "LINE"
                   }
                 ]
@@ -378,17 +378,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Households in California",
+                    "description": "Average Income For Households In California",
                     "statVarKey": [
                       "Mean_Income_Household"
                     ],
-                    "title": "Average Income for Households in California",
+                    "title": "Average Income For Households In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households"
+            "title": "Average Income For Households"
           },
           {
             "columns": [
@@ -398,7 +398,7 @@
                     "statVarKey": [
                       "Count_Household_OtherFamilyHousehold"
                     ],
-                    "title": "Count of Household: Other Family Household in California",
+                    "title": "Count Of Household: Other Family Household In California",
                     "type": "LINE"
                   }
                 ]
@@ -406,18 +406,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Other Family Household in California",
+                    "description": "Count Of Household: Other Family Household In California",
                     "statVarKey": [
                       "Count_Household_OtherFamilyHousehold"
                     ],
-                    "title": "Count of Household: Other Family Household in California",
+                    "title": "Count Of Household: Other Family Household In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Household: Other Family Household"
+            "title": "Count Of Household: Other Family Household"
           },
           {
             "columns": [
@@ -427,7 +427,7 @@
                     "statVarKey": [
                       "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "title": "Mean Income Deficit Of Household: Married Couple Family Household In California",
                     "type": "LINE"
                   }
                 ]
@@ -435,17 +435,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "description": "Mean Income Deficit Of Household: Married Couple Family Household In California",
                     "statVarKey": [
                       "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "title": "Mean Income Deficit Of Household: Married Couple Family Household In California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Income Deficit of Household: Married Couple Family Household"
+            "title": "Mean Income Deficit Of Household: Married Couple Family Household"
           }
         ],
         "statVarSpec": {

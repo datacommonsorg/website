@@ -127,7 +127,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Absolute change)"
+            "title": "Increase In Gdp (Nominal Value) Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -253,7 +253,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Percent change)"
+            "title": "Increase In Gdp (Nominal Value) Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -379,7 +379,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Per Capita change)"
+            "title": "Increase In Gdp (Nominal Value) Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {

@@ -126,7 +126,7 @@
                 ]
               }
             ],
-            "title": "Increase in Life Expectancy over time (Absolute change)"
+            "title": "Increase In Life Expectancy Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -251,7 +251,7 @@
                 ]
               }
             ],
-            "title": "Increase in Life Expectancy over time (Percent change)"
+            "title": "Increase In Life Expectancy Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {

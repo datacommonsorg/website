@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Count_Person_Divorced"
                     ],
-                    "title": "Divorcees in Santa Clara County",
+                    "title": "Divorcees In Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -19,11 +19,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Divorcees in Santa Clara County",
+                    "description": "Divorcees In Santa Clara County",
                     "statVarKey": [
                       "Count_Person_Divorced"
                     ],
-                    "title": "Divorcees in Santa Clara County",
+                    "title": "Divorcees In Santa Clara County",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "Count_Person_Divorced"
                     ],
-                    "title": "Divorcees in Cities of Santa Clara County (${date})",
+                    "title": "Divorcees In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,14 +55,14 @@
                     "statVarKey": [
                       "Count_Person_Divorced"
                     ],
-                    "title": "Divorcees in Cities of Santa Clara County (${date})",
+                    "title": "Divorcees In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorcees in Cities of Santa Clara County"
+            "title": "Divorcees In Cities Of Santa Clara County"
           },
           {
             "columns": [
@@ -73,7 +73,7 @@
                       "Count_Person_Female_Divorced",
                       "Count_Person_Male_Divorced"
                     ],
-                    "title": "Divorced Population By Gender in Santa Clara County",
+                    "title": "Divorced Population By Gender In Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -90,7 +90,7 @@
                     "statVarKey": [
                       "Count_Person_Female_Divorced"
                     ],
-                    "title": "Divorced Women in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Women In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -105,14 +105,14 @@
                     "statVarKey": [
                       "Count_Person_Female_Divorced"
                     ],
-                    "title": "Divorced Women in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Women In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorced Women in Cities of Santa Clara County"
+            "title": "Divorced Women In Cities Of Santa Clara County"
           },
           {
             "columns": [
@@ -122,7 +122,7 @@
                     "statVarKey": [
                       "Count_Person_Male_Divorced"
                     ],
-                    "title": "Divorced Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Men In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -137,14 +137,14 @@
                     "statVarKey": [
                       "Count_Person_Male_Divorced"
                     ],
-                    "title": "Divorced Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Men In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorced Men in Cities of Santa Clara County"
+            "title": "Divorced Men In Cities Of Santa Clara County"
           },
           {
             "columns": [
@@ -156,7 +156,7 @@
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone",
                       "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
                     ],
-                    "title": "Divorced Population By Race in Santa Clara County",
+                    "title": "Divorced Population By Race In Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -173,7 +173,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_AsianAlone"
                     ],
-                    "title": "Divorced Asian Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Asian Men In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -188,14 +188,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_AsianAlone"
                     ],
-                    "title": "Divorced Asian Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Asian Men In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorced Asian Men in Cities of Santa Clara County"
+            "title": "Divorced Asian Men In Cities Of Santa Clara County"
           },
           {
             "columns": [
@@ -205,7 +205,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Population: 15 Years Or More, Divorced, Black Or African American Alone In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -220,14 +220,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County (${date})",
+                    "title": "Population: 15 Years Or More, Divorced, Black Or African American Alone In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 15 Years or More, Divorced, Black or African American Alone in Cities of Santa Clara County"
+            "title": "Population: 15 Years Or More, Divorced, Black Or African American Alone In Cities Of Santa Clara County"
           },
           {
             "columns": [
@@ -237,7 +237,7 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
                     ],
-                    "title": "Divorced Hispanic Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Hispanic Men In Cities Of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -252,14 +252,14 @@
                     "statVarKey": [
                       "Count_Person_15OrMoreYears_Divorced_HispanicOrLatino"
                     ],
-                    "title": "Divorced Hispanic Men in Cities of Santa Clara County (${date})",
+                    "title": "Divorced Hispanic Men In Cities Of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorced Hispanic Men in Cities of Santa Clara County"
+            "title": "Divorced Hispanic Men In Cities Of Santa Clara County"
           }
         ],
         "statVarSpec": {

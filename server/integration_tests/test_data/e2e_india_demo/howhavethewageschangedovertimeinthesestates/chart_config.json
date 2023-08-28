@@ -8,18 +8,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_abs"
-                    ],
-                    "title": "Arunachal Pradesh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
@@ -32,11 +20,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q43433",
+                    "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
                     ],
-                    "title": "Chandigarh",
+                    "title": "Rajasthan",
                     "type": "LINE"
                   }
                 ]
@@ -116,6 +104,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_abs"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1184",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
@@ -127,18 +127,18 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Mean Monthly Wages over time (Absolute change)"
+            "title": "Change In Mean Monthly Wages Over Time (Absolute Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
+                    "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
-                    "title": "Arunachal Pradesh",
+                    "title": "Rajasthan",
                     "type": "LINE"
                   }
                 ]
@@ -151,18 +151,6 @@
                       "Mean_WagesMonthly_Worker_growth_pct"
                     ],
                     "title": "Manipur",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q43433",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pct"
-                    ],
-                    "title": "Chandigarh",
                     "type": "LINE"
                   }
                 ]
@@ -242,6 +230,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pct"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1184",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pct"
@@ -253,37 +253,13 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Mean Monthly Wages over time (Percent change)"
+            "title": "Change In Mean Monthly Wages Over Time (Percent Change)"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pc"
-                    ],
-                    "title": "Arunachal Pradesh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q43433",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker_growth_pc"
-                    ],
-                    "title": "Chandigarh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_pc"
@@ -313,6 +289,18 @@
                       "Mean_WagesMonthly_Worker_growth_pc"
                     ],
                     "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1437",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Rajasthan",
                     "type": "LINE"
                   }
                 ]
@@ -376,10 +364,22 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker_growth_pc"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Change in Mean Monthly Wages over time (Per Capita change)"
+            "title": "Change In Mean Monthly Wages Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
@@ -400,7 +400,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1162"
+        "wikidataId/Q1193"
       ]
     }
   },
@@ -408,16 +408,16 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1168",
-    "name": "Chhattisgarh",
+    "dcid": "wikidataId/Q1165",
+    "name": "Bihar",
     "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
       "place_type": "State"
     },
     {
@@ -426,33 +426,8 @@
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1162",
-      "name": "Arunachal Pradesh",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
       "place_type": "State"
     },
     {
@@ -461,8 +436,33 @@
       "place_type": "State"
     },
     {
-      "dcid": "wikidataId/Q43433",
-      "name": "Chandigarh",
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
       "place_type": "State"
     }
   ],
