@@ -655,7 +655,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "",
+  "pastSourceContext": "Placer County",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
@@ -672,5 +672,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
+  "userMessage": "Could not recognize any place in this query. See relevant statistics for Placer County based on the previous query."
 }

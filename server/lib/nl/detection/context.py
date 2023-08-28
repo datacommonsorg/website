@@ -228,6 +228,8 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       else:
         places = ctx_places
       uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
+      if len(uttr.places) == 1:
+        uttr.past_source_context = uttr.places[0].name
       uttr.counters.info('insight_cmp_place_ctx', places)
   else:
     # Not comparison.
@@ -261,6 +263,8 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
             cmp_places = [p.dcid for p in uttr.places[1:]]
           uttr.counters.info('insight_place_ctx', places)
           uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
+          if len(uttr.places) == 1:
+            uttr.past_source_context = uttr.places[0].name
 
   # Match NL behavior: if there was a child type and no context place,
   # use a default place.
