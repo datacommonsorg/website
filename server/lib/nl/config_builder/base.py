@@ -70,8 +70,11 @@ def _replace_special(input_string_title_case: str) -> str:
 def _make_title_case(input_string: str) -> str:
   # Only title case those parts which aren't already capitalized.
   # This is necessary for words like "GDP" do not become "Gdp".
-  output_str = ' '.join(
-      [w.title() if w.islower() else w for w in input_string.split()])
+  # Note that we don't want to title-case words like "7th" etc.
+  output_str = ' '.join([
+      w.title() if (w.islower() and not w[0].isdigit()) else w
+      for w in input_string.split()
+  ])
   return _replace_special(output_str)
 
 

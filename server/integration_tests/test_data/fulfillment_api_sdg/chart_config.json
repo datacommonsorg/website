@@ -440,11 +440,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths and Missing Persons From Disasters Per 100K Capita in United States",
+                    "description": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters Per 100K Capita in United States",
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -455,13 +455,13 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons From Disasters Per 100K Capita in United States",
+                    "title": "Deaths and Missing Persons From Disasters Per 100k Capita in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Deaths and Missing Persons From Disasters Per 100K Capita"
+            "title": "Deaths and Missing Persons From Disasters Per 100k Capita"
           },
           {
             "columns": [
@@ -496,11 +496,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population Affected by Disasters Per 100K Capita in United States",
+                    "description": "Population Affected by Disasters Per 100k Capita in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Population Affected by Disasters Per 100K Capita in United States",
+                    "title": "Population Affected by Disasters Per 100k Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -511,13 +511,13 @@
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Population Affected by Disasters Per 100K Capita in United States",
+                    "title": "Population Affected by Disasters Per 100k Capita in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Population Affected by Disasters Per 100K Capita"
+            "title": "Population Affected by Disasters Per 100k Capita"
           },
           {
             "columns": [
