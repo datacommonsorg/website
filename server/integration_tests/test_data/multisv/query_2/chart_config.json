@@ -9,7 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -33,7 +33,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -58,7 +58,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -84,7 +84,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -116,7 +116,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -144,7 +144,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -169,7 +169,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -194,7 +194,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -219,7 +219,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -244,7 +244,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
-                      "maxVariables": 10,
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [

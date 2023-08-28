@@ -36,7 +36,7 @@ def scatter_chart_block(builder: base.Builder, cspec: ChartSpec):
   stat_var_spec_map = {}
   show_pc_block = False
   for i in range(2):
-    is_pc = variable.is_percapita_relevant(sv_pair[0], nopc_vars)
+    is_pc = variable.is_percapita_relevant(sv_pair[i], nopc_vars)
     show_pc_block |= is_pc
     stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(
         stat_var=sv_pair[i],

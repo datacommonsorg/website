@@ -283,6 +283,7 @@
           },
           "Percent_Person_Obesity_scatter": {
             "name": "Prevalence of Obesity",
+            "noPerCapita": true,
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
           }

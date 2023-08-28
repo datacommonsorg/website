@@ -325,6 +325,7 @@
           },
           "Percent_Person_WithHighBloodPressure_scatter": {
             "name": "High Blood Pressure",
+            "noPerCapita": true,
             "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           }
