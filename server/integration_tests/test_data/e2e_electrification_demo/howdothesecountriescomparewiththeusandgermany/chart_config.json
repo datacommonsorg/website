@@ -11,16 +11,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_multiple_place_bar_block"
@@ -42,16 +42,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_UR_ZS_multiple_place_bar_block",
@@ -74,9 +74,10 @@
                       "country/USA",
                       "country/DEU",
                       "country/KEN",
-                      "country/BWA",
                       "country/GHA",
-                      "country/ETH"
+                      "country/ETH",
+                      "country/MAR",
+                      "country/SEN"
                     ],
                     "statVarKey": [
                       "Amount_Consumption_Electricity_PerCapita_multiple_place_bar_block"
@@ -97,16 +98,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "Annual_Consumption_Electricity_multiple_place_bar_block"
@@ -128,14 +129,15 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "Annual_Consumption_Electricity_Households_multiple_place_bar_block"
@@ -157,16 +159,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT_multiple_place_bar_block"
@@ -189,16 +191,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "Annual_Generation_Electricity_multiple_place_bar_block"
@@ -220,16 +222,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse_multiple_place_bar_block"
@@ -251,16 +253,16 @@
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
-                      "country/SWZ",
-                      "country/COM",
                       "country/KEN",
                       "country/SOM",
-                      "country/LSO",
-                      "country/BWA",
                       "country/GHA",
                       "country/ETH",
-                      "country/LBR",
-                      "country/MLI"
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
                     ],
                     "statVarKey": [
                       "Annual_Consumption_Electricity_OtherSector_multiple_place_bar_block"
@@ -334,7 +336,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "country/USA",
@@ -344,16 +346,6 @@
     {
       "dcid": "country/DEU",
       "name": "Germany",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SWZ",
-      "name": "Eswatini",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/COM",
-      "name": "Comoros",
       "place_type": "Country"
     },
     {
@@ -367,16 +359,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LSO",
-      "name": "Lesotho",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/BWA",
-      "name": "Botswana",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/GHA",
       "name": "Ghana",
       "place_type": "Country"
@@ -387,13 +369,33 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LBR",
-      "name": "Liberia",
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GIN",
+      "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
       "place_type": "Country"
     }
   ],
@@ -469,13 +471,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/GlobalElectricityAccess",
-      "name": "Access To Electricity",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GlobalElectricityAccess",
+        "name": "Access To Electricity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -525,6 +529,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "PAST_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

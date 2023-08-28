@@ -132,5 +132,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "country/GBR",
+      "name": "United Kingdom",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

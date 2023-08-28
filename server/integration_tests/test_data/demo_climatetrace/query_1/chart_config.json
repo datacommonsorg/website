@@ -1482,5 +1482,14 @@
   },
   "placeFallback": {},
   "placeSource": "DEFAULT",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "Earth",
+      "name": "Earth",
+      "place_type": "Place"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

@@ -325,5 +325,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

@@ -319,5 +319,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

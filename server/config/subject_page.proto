@@ -96,6 +96,8 @@ message StatVarSpec {
   // [Optional] The date to use when getting data for the stat var. Will use the
   // latest date if not set. Only enabled in map, ranking, and scatter tiles.
   string date = 7;
+  // [Optional] Whether to prevent this variable from being shown per capita. 
+  bool no_per_capita = 8;
 }
 
 // This ranks across child places for a single stat var.
@@ -182,15 +184,17 @@ message BarTileSpec {
   bool horizontal = 4;
   // maximum number of places to display
   int32 max_places = 5;
+  // maximum number of variables to display
+  int32 max_variables = 6;
   // bar sort order
   // default: SORT_DESCENDING_POPULATION
-  SortType sort = 6;
+  SortType sort = 7;
   // whether to stack bars instead of grouping them
-  bool stacked = 7;
+  bool stacked = 8;
   // whether to draw lollipops instead of bars
-  bool use_lollipop = 8;
+  bool use_lollipop = 9;
   // y-axis margin
-  double y_axis_margin = 9;
+  double y_axis_margin = 10;
 }
 
 message GaugeTileSpec {

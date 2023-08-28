@@ -73,6 +73,8 @@ export interface BarTilePropType {
   id: string;
   // Maximum number of places to display
   maxPlaces?: number;
+  // Maximum number of variables to display
+  maxVariables?: number;
   // The primary place of the page (disaster, topic, nl)
   place: NamedTypedPlace;
   // sort order
@@ -293,19 +295,28 @@ function rawToChart(
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    if (popPoints.length === 1 && !_.isEmpty(dataGroups)) {
-      // Only one place, sort should be by variable, not by group.
-      dataGroups[0].value.sort(
-        (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
-      );
-    } else {
-      dataGroups.sort(
-        (a, b) =>
-          (d3.sum(a.value.map((v) => v.value)) -
-            d3.sum(b.value.map((v) => v.value))) *
-          (props.sort === "ascending" ? 1 : -1)
-      );
+    // sort variables in first group by value
+    dataGroups[0].value.sort(
+      (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
+    );
+
+    // use order of first group for all other groups
+    if (dataGroups.length > 1) {
+      const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
+      dataGroups.slice(1).forEach((dataGroup) => {
+        dataGroup.value.sort(
+          (a, b) =>
+            firstGroupLabels.indexOf(a.label) -
+            firstGroupLabels.indexOf(b.label)
+        );
+      });
     }
+  }
+
+  if (props.maxVariables) {
+    dataGroups.forEach((dataGroup) => {
+      dataGroup.value = dataGroup.value.slice(0, props.maxVariables);
+    });
   }
 
   return {

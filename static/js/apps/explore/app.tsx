@@ -124,6 +124,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
           debugData={debugData}
           exploreContext={exploreContext}
           queryResult={queryResult}
+          userMessage={userMessage}
         />
       )}
       {loadingStatus === LoadingStatus.LOADING && (
@@ -156,6 +157,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       !fulfillData["place"] ||
       !fulfillData["place"]["dcid"]
     ) {
+      setUserMessage(fulfillData["userMessage"]);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }
@@ -175,7 +177,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       childTopics: fulfillData["relatedThings"]["childTopics"],
       peerTopics: fulfillData["relatedThings"]["peerTopics"],
       exploreMore: fulfillData["relatedThings"]["exploreMore"],
-      mainTopic: fulfillData["relatedThings"]["mainTopic"],
+      mainTopics: fulfillData["relatedThings"]["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
     };
     if (
@@ -195,11 +197,16 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       }
       if (
         shouldSetQuery &&
-        pageMetadata.mainTopic?.name &&
+        !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
-        const q = `${pageMetadata.mainTopic.name} in ${pageMetadata.place.name}`;
-        setQuery(q);
+        if (pageMetadata.mainTopics.length == 2) {
+          const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
+          setQuery(q);
+        } else {
+          const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
+          setQuery(q);
+        }
       }
     }
     savedContext.current = fulfillData["context"] || [];

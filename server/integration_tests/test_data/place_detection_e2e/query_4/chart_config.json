@@ -449,5 +449,24 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "PAST_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    {
+      "dcid": "geoId/36",
+      "name": "New York",
+      "place_type": "State"
+    },
+    {
+      "dcid": "geoId/53",
+      "name": "Washington",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "PAST_QUERY",
+  "userMessage": "Could not recognize any topic in this query. See relevant statistics based on the previous query."
 }

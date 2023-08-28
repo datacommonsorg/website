@@ -8,30 +8,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Eswatini",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/COM",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Comoros",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
@@ -49,30 +25,6 @@
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
                     "title": "Somalia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LSO",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Lesotho",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BWA",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
-                    ],
-                    "title": "Botswana",
                     "type": "LINE"
                   }
                 ]
@@ -104,11 +56,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LBR",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
-                    "title": "Liberia",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -116,11 +68,59 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
                     ],
-                    "title": "Mali",
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_abs"
+                    ],
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -131,18 +131,6 @@
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/GNB",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
-                    ],
-                    "title": "Guinea-Bissau",
-                    "type": "LINE"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -170,35 +158,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
-                    ],
-                    "title": "Liberia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SSD",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
                     "title": "South Sudan",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LSO",
-                    "statVarKey": [
-                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
-                    ],
-                    "title": "Lesotho",
                     "type": "LINE"
                   }
                 ]
@@ -242,11 +206,47 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BWA",
+                    "placeDcidOverride": "country/TZA",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_pct"
                     ],
-                    "title": "Botswana",
+                    "title": "Tanzania",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/TCD",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                    ],
+                    "title": "Chad",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MOZ",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                    ],
+                    "title": "Mozambique",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/ETH",
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS_growth_pct"
+                    ],
+                    "title": "Ethiopia",
                     "type": "LINE"
                   }
                 ]
@@ -270,7 +270,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/SWZ"
+        "country/KEN"
       ]
     }
   },
@@ -648,13 +648,15 @@
     },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GlobalElectricityAccess",
-      "name": "Access To Electricity",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GlobalElectricityAccess",
+        "name": "Access To Electricity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

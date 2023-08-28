@@ -48,8 +48,8 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
       all_svs.add(cv.source_topic)
     if cv.svpg_id:
       all_svs.add(cv.svpg_id)
-    if cv.orig_sv:
-      all_svs.add(cv.orig_sv)
+    if cv.orig_svs:
+      all_svs.update(cv.orig_svs)
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = SV2Thing(
@@ -73,17 +73,21 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     # Call per-chart handlers.
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
-      place = cspec.places[0]
+      # Skip the title because in explore the place appears
+      # as page title.
       block = builder.new_chart(cspec, skip_title=True)
-      block.title = place.name
       base.place_overview_block(block.columns.add())
 
     elif cspec.chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
-      block = builder.new_chart(cspec)
       if len(cspec.svs) > 1:
+        block = builder.new_chart(cspec)
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
             block.columns.add(), cspec.places[0], cspec.svs, sv2thing, cv)
+      elif len(cspec.places) > 1:
+        stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
+            builder, cspec.places, cspec.svs[0], sv2thing, cspec)
       else:
+        block = builder.new_chart(cspec)
         if cspec.is_sdg:
           # Return highlight before timeline for SDG.
           stat_var_spec_map.update(

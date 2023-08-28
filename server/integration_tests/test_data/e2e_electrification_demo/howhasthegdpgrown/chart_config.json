@@ -44,6 +44,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                    ],
+                    "title": "Morocco",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
@@ -68,6 +80,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
+                    ],
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
@@ -80,23 +104,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BWA",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
                     ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Liberia",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -112,18 +124,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
-                    ],
-                    "title": "Eswatini",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
@@ -131,18 +131,6 @@
           },
           {
             "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BWA",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
-                    ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  }
-                ]
-              },
               {
                 "tiles": [
                   {
@@ -158,11 +146,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SWZ",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Eswatini",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -182,11 +170,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LSO",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
-                    "title": "Lesotho",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -223,6 +211,18 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
                     ],
                     "title": "Somalia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SEN",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pct"
+                    ],
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -284,23 +284,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BWA",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Eswatini",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -332,23 +320,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/COM",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Comoros",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LBR",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
-                    ],
-                    "title": "Liberia",
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -368,11 +344,35 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LSO",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
                     ],
-                    "title": "Lesotho",
+                    "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/SOM",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_pc"
+                    ],
+                    "title": "Somalia",
                     "type": "LINE"
                   }
                 ]
@@ -413,7 +413,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
       "dcid": "country/USA",
@@ -423,16 +423,6 @@
     {
       "dcid": "country/DEU",
       "name": "Germany",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SWZ",
-      "name": "Eswatini",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/COM",
-      "name": "Comoros",
       "place_type": "Country"
     },
     {
@@ -446,16 +436,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LSO",
-      "name": "Lesotho",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/BWA",
-      "name": "Botswana",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/GHA",
       "name": "Ghana",
       "place_type": "Country"
@@ -466,13 +446,23 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LBR",
-      "name": "Liberia",
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
       "place_type": "Country"
     }
   ],
@@ -495,13 +485,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GDP",
-      "name": "GDP",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -545,5 +537,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }

@@ -305,5 +305,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "country/TUR",
+      "name": "Turkey",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

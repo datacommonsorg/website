@@ -717,5 +717,14 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06061",
+      "name": "Placer County",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics for Placer County based on the previous query."
 }

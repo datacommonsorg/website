@@ -48,11 +48,20 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/0644000",
-    "name": "Los Angeles",
-    "place_type": "City"
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

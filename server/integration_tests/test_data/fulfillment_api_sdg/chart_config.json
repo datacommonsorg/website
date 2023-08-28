@@ -1186,13 +1186,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/sdg_1",
-      "name": "No Poverty",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

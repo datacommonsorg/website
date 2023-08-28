@@ -154,7 +154,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "geoId/06105",
@@ -218,13 +218,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/HealthBehavior",
-      "name": "Health Behavior",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthBehavior",
+        "name": "Health Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -247,5 +249,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "See comparison based on places in the previous answer."
 }

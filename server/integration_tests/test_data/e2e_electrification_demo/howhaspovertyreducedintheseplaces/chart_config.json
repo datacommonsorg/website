@@ -20,23 +20,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LBR",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Liberia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Eswatini",
+                    "title": "Senegal",
                     "type": "LINE"
                   }
                 ]
@@ -56,6 +44,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/RWA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Rwanda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
@@ -68,23 +68,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/BWA",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/LSO",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Lesotho",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +109,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LBR",
+                    "placeDcidOverride": "country/MLI",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Liberia",
+                    "title": "Mali",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +121,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MLI",
+                    "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Mali",
+                    "title": "Senegal",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MAR",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -157,30 +157,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/SWZ",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Eswatini",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/BWA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Botswana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/GHA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
@@ -193,11 +169,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/USA",
+                    "placeDcidOverride": "country/RWA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "United States",
+                    "title": "Rwanda",
                     "type": "LINE"
                   }
                 ]
@@ -205,11 +181,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/LSO",
+                    "placeDcidOverride": "country/USA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "Lesotho",
+                    "title": "United States",
                     "type": "LINE"
                   }
                 ]
@@ -257,7 +233,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "country/USA",
@@ -267,16 +243,6 @@
     {
       "dcid": "country/DEU",
       "name": "Germany",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SWZ",
-      "name": "Eswatini",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/COM",
-      "name": "Comoros",
       "place_type": "Country"
     },
     {
@@ -290,16 +256,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LSO",
-      "name": "Lesotho",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/BWA",
-      "name": "Botswana",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/GHA",
       "name": "Ghana",
       "place_type": "Country"
@@ -310,13 +266,23 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/LBR",
-      "name": "Liberia",
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
       "place_type": "Country"
     }
   ],
@@ -360,13 +326,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/Poverty",
-      "name": "Poverty",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -424,5 +392,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "See comparison based on places in the previous answer."
 }

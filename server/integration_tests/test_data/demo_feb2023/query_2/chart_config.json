@@ -393,5 +393,14 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
-  "svSource": "CURRENT_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics for California based on the previous query."
 }

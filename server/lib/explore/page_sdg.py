@@ -104,10 +104,9 @@ def build_config(chart_vars_list: List[ftypes.ChartVars],
   builder.cleanup_config()
 
   # If after cleanup, the config is empty, maybe fallback.
-  message = fallback.maybe_fallback(state, builder)
+  fallback.maybe_fallback(state, builder)
 
   return ConfigResp(builder.page_config,
-                    message,
                     plotted_orig_vars=builder.plotted_orig_vars)
 
 
@@ -139,8 +138,11 @@ def _get_topic_tree(chart_vars_list: List[ftypes.ChartVars],
                     sv2thing: ftypes.SV2Thing, dc: str) -> TopicTree:
   tree = TopicTree()
   ancestors = []
-  topics = set(
-      [cv.orig_sv for cv in chart_vars_list if utils.is_topic(cv.orig_sv)])
+  topics = set([
+      cv.orig_svs[0]
+      for cv in chart_vars_list
+      if cv.orig_svs and utils.is_topic(cv.orig_svs[0])
+  ])
   if len(topics) != 1:
     return tree
 

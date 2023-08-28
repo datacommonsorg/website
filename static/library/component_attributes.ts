@@ -32,6 +32,7 @@ export interface BarComponentProps
   horizontal?: boolean;
   lollipop?: boolean;
   maxPlaces?: number;
+  maxVariables?: number;
   parentPlace?: string;
   places?: string[];
   sort?: SortType;

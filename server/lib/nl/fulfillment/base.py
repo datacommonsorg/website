@@ -117,8 +117,15 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   # Get the place-type.  Either of child-place (contained-in query-type),
   # or of the place itself.
-  pt = state.place_type if state.place_type else place.place_type
+  # Use child type only if user had specified the child type.
+  if state.place_type and not state.had_default_place_type:
+    pt = state.place_type
+  else:
+    pt = place.place_type
   if isinstance(pt, str):
+    if pt not in set([it.value for it in ContainedInPlaceType]):
+      state.uttr.counters.err('failed_unknown_placetype', pt)
+      return False
     pt = ContainedInPlaceType(pt)
 
   # Walk up the parent type hierarchy trying to add charts.

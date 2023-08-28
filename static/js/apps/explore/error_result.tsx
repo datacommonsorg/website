@@ -29,12 +29,16 @@ interface ErrorResultPropType {
   debugData: any;
   exploreContext: any;
   queryResult: QueryResult;
+  userMessage: string;
 }
 
 export function ErrorResult(props: ErrorResultPropType): JSX.Element {
+  const msg = props.userMessage
+    ? props.userMessage
+    : "Sorry, could not complete your request.";
   return (
     <div className="row explore-charts">
-      <div id="user-message">Sorry, could not complete your request.</div>
+      <div id="user-message">{msg}</div>
       {props.query && (
         <>
           <SearchSection

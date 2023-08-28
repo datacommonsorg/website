@@ -759,13 +759,15 @@
       }
     ],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/GlobalEconomicActivity",
-      "name": "Global Economic Activity",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

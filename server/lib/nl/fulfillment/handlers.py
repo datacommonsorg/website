@@ -54,14 +54,15 @@ QUERY_HANDLERS = {
         QueryHandlerConfig(module=basic,
                            rank=1,
                            direct_fallback=QueryType.OVERVIEW),
-
-    # Comparison has a more complex fallback logic captured in next_query_type().
     QueryType.COMPARISON_ACROSS_PLACES:
-        QueryHandlerConfig(module=comparison, rank=2),
-
-    # Correlation has a more complex fallback logic captured in next_query_type().
+        QueryHandlerConfig(module=comparison,
+                           rank=2,
+                           direct_fallback=QueryType.BASIC),
     QueryType.CORRELATION_ACROSS_VARS:
-        QueryHandlerConfig(module=correlation, rank=3),
+        QueryHandlerConfig(module=correlation,
+                           rank=3,
+                           direct_fallback=QueryType.BASIC),
+
     # TODO: Consider falling back to each other since they're quite similar.
     # TODO: When we fallback from TIME_DELTA we should report why to user.
     QueryType.TIME_DELTA_ACROSS_VARS:
@@ -100,11 +101,13 @@ QUERY_HANDLERS = {
 # The first query_type to try for the given utterance.  If there are multiple
 # classifications, we pick from among them.
 def first_query_type(uttr: Utterance):
-  query_types = [QueryType.BASIC]
+  query_types = []
   for cl in uttr.classifications:
     qtype = _classification_to_query_type(cl, uttr)
     if qtype != None and qtype not in query_types:
       query_types.append(qtype)
+  if not query_types:
+    query_types.append(_maybe_remap_basic(uttr))
 
   default_config = QueryHandlerConfig(module=None, rank=-1)  # Ranks the lowest
   query_types = sorted(

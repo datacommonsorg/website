@@ -276,11 +276,20 @@
   "debug": {},
   "pastSourceContext": "Earth",
   "place": {
-    "dcid": "country/TJK",
-    "name": "Tajikistan",
-    "place_type": "Country"
+    "dcid": "Earth",
+    "name": "Earth",
+    "place_type": "Place"
   },
   "placeFallback": {},
   "placeSource": "DEFAULT",
-  "svSource": "PAST_QUERY"
+  "places": [
+    {
+      "dcid": "Earth",
+      "name": "Earth",
+      "place_type": "Place"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "PAST_QUERY",
+  "userMessage": ""
 }

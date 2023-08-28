@@ -417,13 +417,15 @@
     },
     "childTopics": [],
     "exploreMore": {},
-    "mainTopic": {
-      "dcid": "dc/topic/AgeMedians",
-      "name": "Age Medians",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/AgeMedians",
+        "name": "Age Medians",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {

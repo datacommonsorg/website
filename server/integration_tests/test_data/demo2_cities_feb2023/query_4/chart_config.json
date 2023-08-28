@@ -274,5 +274,19 @@
   },
   "placeFallback": {},
   "placeSource": "PARTIAL_PAST_QUERY",
-  "svSource": "PAST_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/0665028",
+      "name": "San Bruno",
+      "place_type": "City"
+    },
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "PAST_QUERY",
+  "userMessage": "See comparisons with San Bruno and Sunnyvale based on the previous query."
 }

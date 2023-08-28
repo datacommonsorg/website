@@ -71,22 +71,31 @@ export function ResultHeaderSection(
     placeNameStr += props.pageMetadata.places[i].name;
   }
 
+  let topicNameStr = "";
+  if (
+    !_.isEmpty(props.pageMetadata.mainTopics) &&
+    props.pageMetadata.mainTopics[0].dcid !== DEFAULT_TOPIC
+  ) {
+    if (props.pageMetadata.mainTopics.length == 2) {
+      topicNameStr = `${props.pageMetadata.mainTopics[0].name} vs. ${props.pageMetadata.mainTopics[1].name}`;
+    } else {
+      topicNameStr = `${props.pageMetadata.mainTopics[0].name}`;
+    }
+  }
+
   return (
     <>
+      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
       <div id="place-callout">
         {placeNameStr}
-        {!_.isEmpty(props.pageMetadata.mainTopic) &&
-          props.pageMetadata.mainTopic.dcid != DEFAULT_TOPIC && (
-            <span> • {props.pageMetadata.mainTopic.name}</span>
-          )}
+        {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopic) && (
+      {!_.isEmpty(props.pageMetadata.mainTopics) && (
         <div className="explore-topics-box">
           <span className="explore-relevant-topics">Relevant topics</span>
           <ItemList items={topicList}></ItemList>
         </div>
       )}
-      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
     </>
   );
 }

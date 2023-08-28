@@ -545,5 +545,14 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
-  "svSource": "PAST_QUERY"
+  "places": [
+    {
+      "dcid": "geoId/12",
+      "name": "Florida",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "PAST_QUERY",
+  "userMessage": "Could not recognize any topic in this query. See relevant statistics based on the previous query."
 }

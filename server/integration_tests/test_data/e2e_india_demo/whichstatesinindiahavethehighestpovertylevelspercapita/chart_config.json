@@ -704,6 +704,12 @@
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
         ]
       },
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
+          "Count_Person_Urban_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person"
+        ]
+      },
       "sdg/SI_POV_DAY1": {
         "age": [
           "sdg/SI_POV_DAY1.AGE--Y0T14",
@@ -720,13 +726,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Poverty",
-      "name": "Poverty",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
