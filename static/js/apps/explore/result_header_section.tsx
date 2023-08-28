@@ -90,9 +90,9 @@ export function ResultHeaderSection(
         {placeNameStr}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopics) && (
+      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box">
-          <span className="explore-relevant-topics">Relevant topics</span>
+          <span className="explore-relevant-topics">Related topics</span>
           <ItemList items={topicList}></ItemList>
         </div>
       )}
