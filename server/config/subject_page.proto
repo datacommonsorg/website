@@ -96,6 +96,8 @@ message StatVarSpec {
   // [Optional] The date to use when getting data for the stat var. Will use the
   // latest date if not set. Only enabled in map, ranking, and scatter tiles.
   string date = 7;
+  // [Optional] Whether to prevent this variable from being shown per capita. 
+  bool no_per_capita = 8;
 }
 
 // This ranks across child places for a single stat var.
