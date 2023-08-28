@@ -528,7 +528,10 @@ export function getChemicalGeneAssoc(data: GraphNodes): ProteinNumData[] {
     for (const m in chemAssoc) {
       result.push({ name: m, value: chemAssoc[m] });
     }
-
+    const hasNonZero = result.findIndex((obj) => obj.value !== 0) >= 0;
+    if (!hasNonZero) {
+      return [];
+    }
     return result;
   }
   return [];
