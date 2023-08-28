@@ -40,6 +40,7 @@ import { DebugInfo } from "../nl_interface/debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
+import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
 
@@ -78,18 +79,18 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           debugData={props.debugData}
           queryResult={props.queryResult}
         ></DebugInfo>
+        {props.exploreContext.dc !== "sdg" && (
+          <SearchSection
+            query={props.query}
+            debugData={props.debugData}
+            exploreContext={props.exploreContext}
+          />
+        )}
+        <UserMessage userMessage={props.userMessage} showForm={false} />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
-            {props.exploreContext.dc !== "sdg" && (
-              <SearchSection
-                query={props.query}
-                debugData={props.debugData}
-                exploreContext={props.exploreContext}
-              />
-            )}
             <ResultHeaderSection
               pageMetadata={props.pageMetadata}
-              userMessage={props.userMessage}
               placeUrlVal={placeUrlVal}
             />
             <RankingUnitUrlFuncContext.Provider
