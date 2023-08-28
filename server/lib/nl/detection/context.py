@@ -29,6 +29,7 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+from server.lib.nl.detection.types import Place
 import server.lib.nl.detection.utils as dutils
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
@@ -42,7 +43,7 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-def merge_with_context(uttr: nl_uttr.Utterance):
+def merge_with_context(uttr: nl_uttr.Utterance, is_sdg: bool):
   data_dict = {}
 
   # 1. Route comparison vs. correlation query.
@@ -62,21 +63,11 @@ def merge_with_context(uttr: nl_uttr.Utterance):
 
   # TODO: Clean up place_type setting.
   if not place_type and query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS:
-    # We look up into context
-    if not place_type and uttr.prev_utterance:
-      place_type = utils.get_contained_in_type(uttr.prev_utterance)
-      if place_type:
-        uttr.classifications.append(
-            NLClassifier(type=ClassificationType.CONTAINED_IN,
-                         attributes=ContainedInClassificationAttributes(
-                             contained_in_place_type=place_type)))
-    # If its still empty, set default.
-    if not place_type:
-      uttr.classifications.append(
-          NLClassifier(
-              type=ClassificationType.CONTAINED_IN,
-              attributes=ContainedInClassificationAttributes(
-                  contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
+    uttr.classifications.append(
+        NLClassifier(
+            type=ClassificationType.CONTAINED_IN,
+            attributes=ContainedInClassificationAttributes(
+                contained_in_place_type=ContainedInPlaceType.DEFAULT_TYPE)))
   if not place_type and utils.get_quantity(uttr):
     # When there is quantity, we add place_type
     uttr.classifications.append(
@@ -98,8 +89,10 @@ def merge_with_context(uttr: nl_uttr.Utterance):
 
   # 4. Detect places (and comparison type) leveraging context.
   places, cmp_places = _detect_places(
-      uttr, place_type,
-      query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES)
+      uttr,
+      place_type,
+      query_type == nl_uttr.QueryType.COMPARISON_ACROSS_PLACES,
+      is_sdg=is_sdg)
 
   # 5. Detect SVs leveraging context.
   main_vars, cmp_vars = _detect_vars(
@@ -133,6 +126,7 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
   if is_cmp:
     # Comparison
     if dutils.is_multi_sv(uttr.detection):
+      # This comes from multi-var detection which would have deduped.
       # Already multi-sv, nothing to do in `uttr`
       svs, cmp_svs = _get_multi_sv_pair(uttr)
       uttr.sv_source = nl_uttr.FulfillmentResult.CURRENT_QUERY
@@ -165,14 +159,14 @@ def _detect_vars(uttr: nl_uttr.Utterance, is_cmp: bool) -> List[str]:
 
 def _get_comparison_or_correlation(
     uttr: nl_uttr.Utterance) -> ClassificationType:
+  # Mimic NL behavior when there are multiple places.
+  if len(uttr.places) > 1:
+    return ClassificationType.COMPARISON
   for cl in uttr.classifications:
     if cl.type in [
         ClassificationType.COMPARISON, ClassificationType.CORRELATION
     ]:
       return cl.type
-  # Mimic NL behavior when there are multiple places.
-  if len(uttr.places) > 1:
-    return ClassificationType.COMPARISON
   return None
 
 
@@ -184,7 +178,7 @@ def _get_multi_sv_pair(uttr: nl_uttr.Utterance) -> List[str]:
 
 
 def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
-                   is_cmp: bool) -> List[str]:
+                   is_cmp: bool, is_sdg: bool) -> List[str]:
   places = []
   cmp_places = []
   #
@@ -276,8 +270,13 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
       uttr.past_source_context = default_place.name
 
   if not places:
-    uttr.places = [constants.USA]
-    places = [constants.USA.dcid]
+    # For SDG use Earth as the default place.
+    if is_sdg:
+      uttr.places = [constants.EARTH]
+      places = [constants.EARTH_DCID]
+    else:
+      uttr.places = [constants.USA]
+      places = [constants.USA.dcid]
     uttr.place_source = nl_uttr.FulfillmentResult.DEFAULT
     uttr.past_source_context = constants.USA.name
 
@@ -297,15 +296,22 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
 
   ans_places = uttr.prev_utterance.answerPlaces
   if uttr.places:
-    cmp_places.extend([p.dcid for p in ans_places])
+    _append(ans_places, cmp_places)
   elif len(ans_places) > 1:
-    places.append(ans_places[0].dcid)
-    cmp_places.extend([p.dcid for p in ans_places[1:]])
+    _append(ans_places[:1], places)
+    _append(ans_places[1:], cmp_places)
   else:
-    places.extend([p.dcid for p in ans_places])
+    _append(ans_places, places)
   uttr.places.extend(ans_places)
   uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
   uttr.past_source_context = "Query Results"
 
   uttr.counters.info('include_answer_places', [p.dcid for p in ans_places])
   return True
+
+
+# Adds src to dst without dups.
+def _append(src: List[Place], dst: List[str]):
+  for p in src:
+    if p.dcid not in dst:
+      dst.append(p.dcid)

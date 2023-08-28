@@ -27,6 +27,68 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Drive alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "scatterTileSpec": {
                       "highlightTopRight": true
                     },
@@ -40,6 +102,68 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Work at home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma in Counties of California"
           },
           {
             "columns": [
@@ -65,6 +189,37 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6"
+                    ],
+                    "title": "Public Transit in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6"
+                    ],
+                    "title": "Public Transit in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Public Transit in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "scatterTileSpec": {
                       "highlightTopRight": true
                     },
@@ -78,12 +233,53 @@
                 ]
               }
             ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/vp8cbt6k79t94"
+                    ],
+                    "title": "Walk to work in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/vp8cbt6k79t94"
+                    ],
+                    "title": "Walk to work in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Walk to work in Counties of California"
           }
         ],
         "statVarSpec": {
+          "Percent_Person_Children_WithAsthma": {
+            "name": "Percent of Children That Have Asthma",
+            "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
           "Percent_Person_Children_WithAsthma_scatter": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",
+            "unit": "%"
+          },
+          "Percent_Person_WithAsthma": {
+            "name": "Asthma",
+            "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
           },
           "Percent_Person_WithAsthma_scatter": {
@@ -91,11 +287,19 @@
             "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
           },
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
+          },
           "dc/0gettc3bc60cb_scatter": {
             "denom": "Count_Person",
             "name": "Drive alone Per Capita",
             "statVar": "dc/0gettc3bc60cb",
             "unit": "%"
+          },
+          "dc/6rltk4kf75612": {
+            "name": "Work at home",
+            "statVar": "dc/6rltk4kf75612"
           },
           "dc/6rltk4kf75612_scatter": {
             "denom": "Count_Person",
@@ -103,11 +307,19 @@
             "statVar": "dc/6rltk4kf75612",
             "unit": "%"
           },
+          "dc/hbkh95kc7pkb6": {
+            "name": "Public Transit",
+            "statVar": "dc/hbkh95kc7pkb6"
+          },
           "dc/hbkh95kc7pkb6_scatter": {
             "denom": "Count_Person",
             "name": "Public Transit Per Capita",
             "statVar": "dc/hbkh95kc7pkb6",
             "unit": "%"
+          },
+          "dc/vp8cbt6k79t94": {
+            "name": "Walk to work",
+            "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vp8cbt6k79t94_scatter": {
             "denom": "Count_Person",
@@ -557,18 +769,34 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/WorkCommute",
-      "name": "Commute",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
         "dcid": "dc/topic/EducationHousingAndCommute",
         "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -940,9 +1168,78 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

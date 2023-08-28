@@ -114,18 +114,18 @@ def sv_existence_for_places_check_single_point(
     return {}, {}
 
   start = time.time()
-  series_data = fetch.series_core(entities=places,
-                                  variables=svs,
-                                  all_facets=False)
+  series_facet = fetch.series_facet(entities=places,
+                                    variables=svs,
+                                    all_facets=False)
   counters.timeit('sv_existence_for_places_check_single_point', start)
 
   existing_svs = {}
   existsv2places = {}
-  for sv, sv_data in series_data.get('data', {}).items():
+  for sv, sv_data in series_facet.get('data', {}).items():
     for pl, place_data in sv_data.items():
       if not place_data.get('series'):
         continue
-      num_series = len(place_data['series'])
+      num_series = place_data['series'][0]["value"]
       existing_svs[sv] = existing_svs.get(sv, False) | (num_series == 1)
       if sv not in existsv2places:
         existsv2places[sv] = {}
@@ -362,9 +362,8 @@ def get_time_delta_title(direction: types.TimeDeltaType,
   ])
 
 
-def get_default_child_place_type(place: types.Place,
-                                 is_nl: bool = True
-                                ) -> types.ContainedInPlaceType:
+def get_default_child_place_type(
+    place: types.Place,) -> types.ContainedInPlaceType:
   if place.dcid == constants.EARTH_DCID:
     return types.ContainedInPlaceType.COUNTRY
   # Canonicalize the type.
@@ -374,15 +373,11 @@ def get_default_child_place_type(place: types.Place,
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
 
-    if is_nl and place.dcid == constants.USA.dcid:
+    if place.dcid == constants.USA.dcid:
       # NL has fallback, so if for country we preferred AA1, downgrade
       # to AA2 since if data doesn't exist it will fallback to AA1.
       ptype = types.ContainedInPlaceType.COUNTY
 
-  # TODO: Since most queries/data tends to be US specific and we have
-  # maps for it, we pick County as default, but reconsider in future.
-  if not ptype:
-    ptype = types.ContainedInPlaceType.COUNTY
   return ptype
 
 

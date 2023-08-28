@@ -48,6 +48,6 @@ export interface SubjectPageMetadata {
   childTopics?: NamedTypedNode[];
   exploreMore?: Record<string, Record<string, string[]>>;
 
-  mainTopic?: NamedTypedNode;
+  mainTopics?: NamedTypedNode[];
   sessionId?: string;
 }

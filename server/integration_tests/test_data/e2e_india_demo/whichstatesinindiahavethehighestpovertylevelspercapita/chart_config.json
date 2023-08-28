@@ -720,13 +720,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/Poverty",
-      "name": "Poverty",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -882,6 +884,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

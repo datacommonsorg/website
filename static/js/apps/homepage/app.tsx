@@ -15,5 +15,27 @@
  */
 
 /**
- * Entrypoint file for homepage.
+ * Main component for homnepage.
  */
+import "../../../library";
+
+import React from "react";
+
+import { NlSearchBar } from "../../components/nl_search_bar";
+
+/**
+ * Application container
+ */
+export function App(): JSX.Element {
+  return (
+    <NlSearchBar
+      inputId="query-search-input"
+      onSearch={(q) => {
+        window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+      }}
+      placeholder={"Enter a question or topic to explore"}
+      initialValue={""}
+      shouldAutoFocus={false}
+    />
+  );
+}

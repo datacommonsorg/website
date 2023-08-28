@@ -583,13 +583,15 @@
         ]
       }
     },
-    "mainTopic": {
-      "dcid": "dc/topic/DivorcedPopulationByDemographic",
-      "name": "Divorced Population",
-      "types": [
-        "Topic"
-      ]
-    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/DivorcedPopulationByDemographic",
+        "name": "Divorced Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
     "parentTopics": [
       {
@@ -822,6 +824,5 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "svSource": "CURRENT_QUERY"
 }

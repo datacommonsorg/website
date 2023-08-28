@@ -242,6 +242,10 @@ class Embeddings:
           # so drop this candidate.
           continue
 
+        # Avoid duplicate SVs across candidate parts.
+        if not vars.deduplicate_svs(candidate):
+          continue
+
         # The candidate level score is the average.
         candidate.aggregate_score = total / len(c.parts)
         candidates.append(candidate)

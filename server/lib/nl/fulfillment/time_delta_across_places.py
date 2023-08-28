@@ -30,7 +30,13 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
-_MAX_PLACES_TO_RETURN = 10
+
+# Demo HACK! to avoid tiny countries to bubble up on top.
+def get_min_population(place_type: str, sv: str):
+  if (place_type == 'Country' and
+      sv in ['Annual_Emissions_GreenhouseGas', 'worldBank/EG_ELC_ACCS_ZS']):
+    return 10000000
+  return 0
 
 
 #
@@ -87,13 +93,17 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
+  pt = child_places[0].place_type
+  sv = chart_vars.svs[0]
   ranked_children = rank_utils.rank_places_by_series_growth(
       places=dcids,
-      sv=chart_vars.svs[0],
+      sv=sv,
       growth_direction=direction,
       rank_order=rank_order,
       counters=state.uttr.counters,
-      nopc_vars=nopc_vars)
+      nopc_vars=nopc_vars,
+      place_type=pt,
+      min_population=get_min_population(pt, sv))
 
   state.uttr.counters.info(
       'time-delta_reranked_places', {
@@ -108,16 +118,22 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
+    ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
+
+    # TODO: Uncomment this once we agree on look and feel
+    # if field == 'abs' and ranked_places:
+    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+    #                                   state, chart_vars, ranked_places,
+    #                                   chart_origin)
 
     if rank == 0 and field == 'abs' and ranked_places:
-      ans_places = copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+      ans_places = copy.deepcopy(ranked_places)
       state.uttr.answerPlaces = ans_places
       state.uttr.counters.info('time-delta-across-places_answer_places',
                                [p.dcid for p in ans_places])
 
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
-    ranked_places = ranked_places[:_MAX_PLACES_TO_RETURN]
 
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, ranked_places, chart_origin)
