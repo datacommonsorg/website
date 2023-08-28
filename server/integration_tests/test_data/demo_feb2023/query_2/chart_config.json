@@ -385,7 +385,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "California",
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
     "name": "California",
@@ -401,5 +401,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }

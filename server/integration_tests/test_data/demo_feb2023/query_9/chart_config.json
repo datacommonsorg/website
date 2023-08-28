@@ -337,7 +337,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "United States",
+  "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
     "name": "United States",
@@ -353,5 +353,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "PARTIAL_PAST_QUERY"
+  "svSource": "PARTIAL_PAST_QUERY",
+  "userMessage": ""
 }

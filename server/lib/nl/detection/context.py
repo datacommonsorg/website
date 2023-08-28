@@ -257,7 +257,6 @@ def _detect_places(uttr: nl_uttr.Utterance, child_type: ContainedInPlaceType,
             cmp_places = [p.dcid for p in uttr.places[1:]]
           uttr.counters.info('insight_place_ctx', places)
           uttr.place_source = nl_uttr.FulfillmentResult.PAST_QUERY
-          uttr.past_source_context = uttr.places[0].name
 
   # Match NL behavior: if there was a child type and no context place,
   # use a default place.
@@ -302,9 +301,9 @@ def _handle_answer_places(uttr: nl_uttr.Utterance,
     _append(ans_places[1:], cmp_places)
   else:
     _append(ans_places, places)
+
   uttr.places.extend(ans_places)
   uttr.place_source = nl_uttr.FulfillmentResult.PAST_ANSWER
-  uttr.past_source_context = "Query Results"
 
   uttr.counters.info('include_answer_places', [p.dcid for p in ans_places])
   return True

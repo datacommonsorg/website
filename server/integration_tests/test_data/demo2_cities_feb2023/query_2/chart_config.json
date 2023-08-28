@@ -190,7 +190,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "Sunnyvale",
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
     "name": "Sunnyvale",
@@ -206,5 +206,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }

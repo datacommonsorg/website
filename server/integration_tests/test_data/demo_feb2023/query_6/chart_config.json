@@ -655,7 +655,7 @@
   },
   "context": {},
   "debug": {},
-  "pastSourceContext": "Placer County",
+  "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06061",
     "name": "Placer County",
@@ -671,5 +671,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }
