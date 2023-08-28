@@ -96,6 +96,7 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Boolean })
   showQuadrants?: boolean;
 
+  // Optional: list of statvars to plot in per capita instead of raw value
   @property({ type: Array<string>, converter: convertArrayAttribute })
   usePerCapita?: string[];
 
