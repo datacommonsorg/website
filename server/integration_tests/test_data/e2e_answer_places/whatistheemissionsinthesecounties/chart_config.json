@@ -335,9 +335,116 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Sulfur Dioxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount Emissions WasteDisposal (5) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions WasteDisposal (5)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount Emissions Toluene, ExternalCombustion (1) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions Toluene, ExternalCombustion (1)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06009",
+                      "geoId/06063",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005",
+                      "geoId/06109",
+                      "geoId/06003",
+                      "geoId/06049",
+                      "geoId/06093"
+                    ],
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount Emissions IndustrialProcesses (23) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions IndustrialProcesses (23)"
           }
         ],
         "statVarSpec": {
+          "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide",
+            "statVar": "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
+          },
           "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia",
             "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
@@ -402,6 +509,10 @@
             "name": "Annual Amount Emissions ExternalCombustion (1)",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
           },
+          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions IndustrialProcesses (23)",
+            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
+          },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block": {
             "name": "Annual Amount Emissions StorageAndTransport (25)",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
@@ -421,6 +532,10 @@
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
             "name": "Annual Amount Emissions InternalCombustionEngines (2)",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions WasteDisposal (5)",
+            "statVar": "Annual_Amount_Emissions_SCC_5_WasteDisposal"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, ExternalCombustion (1)",
@@ -465,6 +580,10 @@
           "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, WasteDisposal (5)",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal"
+          },
+          "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block": {
+            "name": "Annual Amount Emissions Toluene, ExternalCombustion (1)",
+            "statVar": "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion"
           }
         }
       }
@@ -484,7 +603,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "geoId/06105",
@@ -591,6 +710,36 @@
       }
     ],
     "exploreMore": {
+      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses": {
+        "emittedThing": [
+          "Annual_Amount_Emissions_Acetaldehyde_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Arsenic_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Benzene_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Cadmium_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_CarbonMonoxide_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Chlorine_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Chromium_6_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Cobalt_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Formaldehyde_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Hexane_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Lead_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Manganese_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Mercury_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Naphthalene_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Nickel_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_OxidesOfNitrogen_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_PM10_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Phenol_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Phosphorus_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Pyrene_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Selenium_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_Toluene_SCC_23_IndustrialProcesses",
+          "Annual_Amount_Emissions_VolatileOrganicCompound_SCC_23_IndustrialProcesses"
+        ]
+      },
       "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
         "emittedThing": [
           "Annual_Amount_Emissions_Ammonia_SCC_25_StorageAndTransport",
@@ -800,5 +949,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

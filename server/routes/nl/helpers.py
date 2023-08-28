@@ -26,6 +26,7 @@ from markupsafe import escape
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.nl.common import bad_words
+from server.lib.nl.common import commentary
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -195,6 +196,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
     utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
     ret_places = [Place(dcid='', name='', place_type='')]
 
+  user_message = commentary.user_message(utterance)
+
   dbg_counters = utterance.counters.get()
   utterance.counters = None
   context_history = serialize.save_utterance(utterance)
@@ -215,7 +218,8 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'svSource': utterance.sv_source.value,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
-      'relatedThings': related_things
+      'relatedThings': related_things,
+      'userMessage': user_message,
   }
   status_str = "Successful"
   if utterance.rankedCharts:

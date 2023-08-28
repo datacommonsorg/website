@@ -85,6 +85,7 @@ export function ResultHeaderSection(
 
   return (
     <>
+      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
       <div id="place-callout">
         {placeNameStr}
         {topicNameStr && <span> • {topicNameStr}</span>}
@@ -95,7 +96,6 @@ export function ResultHeaderSection(
           <ItemList items={topicList}></ItemList>
         </div>
       )}
-      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
     </>
   );
 }

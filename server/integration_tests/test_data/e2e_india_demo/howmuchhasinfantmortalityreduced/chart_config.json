@@ -9,16 +9,16 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1162",
                       "wikidataId/Q1165",
-                      "wikidataId/Q22048",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1188",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
                       "wikidataId/Q1498",
-                      "wikidataId/Q43433"
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
                     ],
                     "statVarKey": [
                       "Count_Death_Infant_multiple_place_bar_block"
@@ -43,7 +43,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1168"
+        "wikidataId/Q1165"
       ]
     }
   },
@@ -51,62 +51,62 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1168",
-    "name": "Chhattisgarh",
-    "place_type": "State"
+    "dcid": "wikidataId/Q1165",
+    "name": "Bihar",
+    "place_type": "AdministrativeArea1"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "AdministrativeArea1"
     },
     {
       "dcid": "wikidataId/Q1184",
       "name": "Jharkhand",
-      "place_type": "State"
+      "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1162",
-      "name": "Arunachal Pradesh",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "AdministrativeArea1"
     },
     {
       "dcid": "wikidataId/Q1498",
       "name": "Uttar Pradesh",
-      "place_type": "State"
+      "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q43433",
-      "name": "Chandigarh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "AdministrativeArea1"
     }
   ],
   "relatedThings": {
@@ -119,5 +119,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }

@@ -56,6 +56,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "wikidataId/Q1437",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
+                    ],
+                    "title": "Rajasthan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1165",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
@@ -104,23 +116,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
+                    "placeDcidOverride": "wikidataId/Q1195",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
                     ],
-                    "title": "Arunachal Pradesh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q43433",
-                    "statVarKey": [
-                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
-                    ],
-                    "title": "Chandigarh",
+                    "title": "Meghalaya",
                     "type": "LINE"
                   }
                 ]
@@ -206,11 +206,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
+                    "placeDcidOverride": "wikidataId/Q1195",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
                     ],
-                    "title": "Arunachal Pradesh",
+                    "title": "Meghalaya",
                     "type": "LINE"
                   }
                 ]
@@ -242,11 +242,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q43433",
+                    "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_pct"
                     ],
-                    "title": "Chandigarh",
+                    "title": "Rajasthan",
                     "type": "LINE"
                   }
                 ]
@@ -296,11 +296,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1162",
+                    "placeDcidOverride": "wikidataId/Q1188",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
                     ],
-                    "title": "Arunachal Pradesh",
+                    "title": "Madhya Pradesh",
                     "type": "LINE"
                   }
                 ]
@@ -308,11 +308,23 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1188",
+                    "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
                     ],
-                    "title": "Madhya Pradesh",
+                    "title": "Rajasthan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
+                    ],
+                    "title": "Meghalaya",
                     "type": "LINE"
                   }
                 ]
@@ -364,18 +376,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q43433",
-                    "statVarKey": [
-                      "Count_School_SeniorSecondarySchool_Grade1To10_growth_pc"
-                    ],
-                    "title": "Chandigarh",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "denom": "Count_Person",
@@ -408,62 +408,62 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1168",
-    "name": "Chhattisgarh",
-    "place_type": "State"
+    "dcid": "wikidataId/Q1165",
+    "name": "Bihar",
+    "place_type": "AdministrativeArea1"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_QUERY",
   "places": [
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "AdministrativeArea1"
     },
     {
       "dcid": "wikidataId/Q1184",
       "name": "Jharkhand",
-      "place_type": "State"
+      "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1162",
-      "name": "Arunachal Pradesh",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1165",
-      "name": "Bihar",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1164",
-      "name": "Assam",
-      "place_type": "State"
-    },
-    {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "AdministrativeArea1"
     },
     {
       "dcid": "wikidataId/Q1498",
       "name": "Uttar Pradesh",
-      "place_type": "State"
+      "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q43433",
-      "name": "Chandigarh",
-      "place_type": "State"
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "AdministrativeArea1"
     }
   ],
   "relatedThings": {
@@ -471,9 +471,12 @@
     "childTopics": [],
     "exploreMore": {
       "Count_School_SeniorSecondarySchool_Grade1To10": {
+        "amenityFeature": [
+          "Count_School_HasComputer_SeniorSecondarySchool_Grade1To10",
+          "Count_School_HasLibrary_SeniorSecondarySchool_Grade1To10"
+        ],
         "schoolManagement": [
           "Count_School_SeniorSecondarySchool_Grade1To10_CentralGovernment",
-          "Count_School_SeniorSecondarySchool_Grade1To10_CentralTibetanSchool",
           "Count_School_SeniorSecondarySchool_Grade1To10_DepartmentOfEducation",
           "Count_School_SeniorSecondarySchool_Grade1To10_GovernmentAided",
           "Count_School_SeniorSecondarySchool_Grade1To10_JawaharNavodayaVidyalaya",
@@ -487,7 +490,6 @@
           "Count_School_SeniorSecondarySchool_Grade1To10_SainikSchool",
           "Count_School_SeniorSecondarySchool_Grade1To10_SocialWelfareDepartment",
           "Count_School_SeniorSecondarySchool_Grade1To10_TribalWelfareDepartment",
-          "Count_School_SeniorSecondarySchool_Grade1To10_UnknownSchoolManagement",
           "Count_School_SeniorSecondarySchool_Grade1To10_Unrecognized"
         ]
       }
@@ -498,5 +500,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
 }
