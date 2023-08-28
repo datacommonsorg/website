@@ -52,7 +52,7 @@ categories {
 
     ### NEW BLOCK ###
   blocks {
-    description: "Food assistance programs address food insecurity in a variety of ways by providing critical resources, such as bulk food, prepared meals, community gardens, subsidized or free groceries, and other local community efforts. These safety net programs during times of financial hardship or emergencies help families stabilize by providing financial assistance and access to balanced, nutritional meals.\n\nWhat factors might contribute to individuals not utilizing SNAP?"
+    description: "Food assistance programs address food insecurity in a variety of ways by providing critical resources, such as bulk food, prepared meals, community gardens, subsidized or free groceries, and other local community efforts. These safety net programs help families stabilize during times of financial hardship by providing financial assistance and access to balanced, nutritional meals.\n\nWhat factors might contribute to individuals not utilizing SNAP?"
     columns {
       tiles {
         type: HIGHLIGHT
@@ -125,7 +125,7 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Households in the United States live in poverty but do not receive food assistance (SNAP)"
+        description: "Households in ${placeName} live in poverty but do not receive food assistance (SNAP)"
         stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
       }
       tiles {
@@ -169,7 +169,7 @@ categories {
   ### NEW BLOCK ###
   blocks {
     title: "Median Income"
-    description: "Income and the cost of living can help us understand where and how food insecurity impacts communities at the local level. Often, though, communities with higher costs of living result in some populations living below the poverty line and having low access to balanced, nutritional meals."
+    description: "Income and the cost of living can help us understand where and how food insecurity impacts communities at the local level. Often, communities with higher costs of living have a segment of the population living below the poverty line with low access to balanced, nutritional meals."
     columns {
       tiles {
         title: "Median Income (${date})"
