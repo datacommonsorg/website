@@ -151,10 +151,14 @@ def _trim_nonexistent_places(state: ftypes.PopulateState):
     exist_placekeys.update(plmap.keys())
 
   # For child places, use a specific key:
-  if detection.child_places:
+  if detection.child_places and state.place_type:
     key = state.uttr.places[0].dcid + state.place_type.value
     if key not in exist_placekeys:
       detection.child_places = []
+  else:
+    # NOTE: state.place_type could have been reset in some
+    # edge-cases, so clear out child-places.
+    detection.child_places = []
 
   exist_parents = []
   for p in detection.parent_places:

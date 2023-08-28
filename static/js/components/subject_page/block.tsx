@@ -19,7 +19,7 @@
  */
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Input } from "reactstrap";
 
 import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
@@ -79,6 +79,8 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const columnSectionRef = useRef(null);
+  const expandoRef = useRef(null);
 
   useEffect(() => {
     const overridePlaces = props.columns
@@ -116,7 +118,7 @@ export function Block(props: BlockPropType): JSX.Element {
           <span>See per capita</span>
         </div>
       )}
-      <div className="block-body row">
+      <div className="block-body row" ref={columnSectionRef}>
         {props.columns &&
           props.columns.map((column, idx) => {
             const id = getId(props.id, COLUMN_ID_PREFIX, idx);
@@ -143,28 +145,33 @@ export function Block(props: BlockPropType): JSX.Element {
           })}
       </div>
       {isNlInterface() && props.columns.length > NL_NUM_BLOCKS_SHOWN && (
-        <a className="expando" onClick={expandoCallback}>
-          Show more
-        </a>
+        <div
+          className="show-more-expando"
+          onClick={(e) => {
+            onShowMore();
+            e.preventDefault();
+          }}
+          ref={expandoRef}
+        >
+          <span className="material-icons-outlined">expand_circle_down</span>
+          <span className="expando-text">Show more</span>
+        </div>
       )}
     </>
   );
-}
 
-const expandoCallback = function (e) {
-  // Callback to remove HIDE_TILE_CLASS from all sibling elements. Assumes
-  // target link is the child of the container with elements to toggle.
-  const selfEl = e.target as HTMLAnchorElement;
-  const parentEl = selfEl.parentElement;
-  const columns = parentEl.getElementsByClassName(
-    HIDE_COLUMN_CLASS
-  ) as HTMLCollectionOf<HTMLElement>;
-  for (let i = 0; i < columns.length; i++) {
-    columns[i].classList.remove(HIDE_COLUMN_CLASS);
+  // Removes HIDE_COLUMN_CLASS from all columns in this block and hides the
+  // show more button.
+  function onShowMore() {
+    const columns = columnSectionRef.current.getElementsByClassName(
+      HIDE_COLUMN_CLASS
+    ) as HTMLCollectionOf<HTMLElement>;
+    Array.from(columns).forEach((column) => {
+      column.classList.remove(HIDE_COLUMN_CLASS);
+    });
+    expandoRef.current.hidden = true;
   }
-  selfEl.hidden = true;
-  e.preventDefault();
-};
+}
 
 function renderTiles(
   tiles: TileConfig[],

@@ -101,11 +101,13 @@ QUERY_HANDLERS = {
 # The first query_type to try for the given utterance.  If there are multiple
 # classifications, we pick from among them.
 def first_query_type(uttr: Utterance):
-  query_types = [QueryType.BASIC]
+  query_types = []
   for cl in uttr.classifications:
     qtype = _classification_to_query_type(cl, uttr)
     if qtype != None and qtype not in query_types:
       query_types.append(qtype)
+  if not query_types:
+    query_types.append(_maybe_remap_basic(uttr))
 
   default_config = QueryHandlerConfig(module=None, rank=-1)  # Ranks the lowest
   query_types = sorted(

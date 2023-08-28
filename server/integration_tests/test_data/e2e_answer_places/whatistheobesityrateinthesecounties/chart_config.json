@@ -154,7 +154,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "geoId/06105",
@@ -248,5 +248,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

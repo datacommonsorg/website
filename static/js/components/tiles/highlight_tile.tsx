@@ -35,7 +35,8 @@ import {
 } from "../../utils/tile_utils";
 
 const NUM_FRACTION_DIGITS = 1;
-const NO_SPACE_UNITS = ["%"];
+// units that should be formatted as part of the number
+const NUMBER_UNITS = ["%"];
 
 /**
  * Override unit display when unit contains
@@ -141,12 +142,16 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
   // This hack should be cleaned up.
-  const unitString = translateUnit(
+  let numberUnit = "";
+  let metadataUnit = translateUnit(
     props.statVarSpec.unit || highlightData.unitDisplayName
   );
-  const hasUnitSpace =
-    !!unitString &&
-    NO_SPACE_UNITS.filter((unit) => unitString.startsWith(unit)).length === 0;
+  if (metadataUnit) {
+    numberUnit = NUMBER_UNITS.find((unit) => metadataUnit.startsWith(unit));
+    metadataUnit = numberUnit
+      ? metadataUnit.slice(numberUnit.length).trimStart()
+      : metadataUnit;
+  }
   return (
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
@@ -155,19 +160,15 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            <span>
+            <span className="number">
               {formatNumber(
                 highlightData.value,
-                "",
+                numberUnit,
                 false,
                 highlightData.numFractionDigits
               )}
             </span>
-            {unitString && (
-              <span className="metadata">
-                {`${hasUnitSpace ? " " : ""}${unitString}`}
-              </span>
-            )}
+            {metadataUnit && <span className="metadata">{metadataUnit}</span>}
           </span>
         </>
       )}

@@ -725,5 +725,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Could not recognize any place in this query. See relevant statistics for Placer County based on the previous query."
 }
