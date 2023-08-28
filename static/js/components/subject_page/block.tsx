@@ -278,6 +278,7 @@ function renderTiles(
             id={id}
             key={id}
             maxPlaces={tile.barTileSpec?.maxPlaces}
+            maxVariables={tile.barTileSpec?.maxVariables}
             place={place}
             showExploreMore={props.showExploreMore}
             sort={convertToSortType(tile.barTileSpec?.sort)}
