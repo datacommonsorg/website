@@ -89,6 +89,22 @@ def compute_related_things(state: ftypes.PopulateState,
       # We found a topic, so break!
       break
 
+  # # Check the data existence for topics
+  # all_topics = (related_things['parentTopics'] + related_things['peerTopics'] +
+  #               related_things['childTopics'])
+  # valid_topics, _ = utils.sv_existence_for_places(state.uttr.places, all_topics,
+  #                                                 state.uttr.counters)
+  # valid_topics_set = {t: "" for t in valid_topics}
+  # related_things['parentTopics'] = [
+  #     t for t in related_things['parentTopics'] if valid_topics_set[t]
+  # ]
+  # related_things['peerTopics'] = [
+  #     t for t in related_things['peerTopics'] if valid_topics_set[t]
+  # ]
+  # related_things['childTopics'] = [
+  #     t for t in related_things['childTopics'] if valid_topics_set[t]
+  # ]
+
   state.uttr.counters.timeit('topic_expansion', start)
 
   _trim_dups(related_things)
