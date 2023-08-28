@@ -252,8 +252,9 @@ def setup_for_explore(uttr: Utterance):
 def add_child_and_peer_places(places: List[types.Place],
                               child_type: types.ContainedInPlaceType,
                               counters: Counters, detection: PlaceDetection):
-  if not places:
+  if not places or len(places) > 1:
     return
+
   main_dcid = places[0].dcid
   child_places = []
   if child_type and child_type.value != places[0].place_type:
@@ -261,5 +262,4 @@ def add_child_and_peer_places(places: List[types.Place],
                                               counters)
     detection.child_places = child_places[:MAX_CHILD_LIMIT]
 
-  if len(places) == 1:
-    detection.peer_places = get_similar(places[0])
+  detection.peer_places = get_similar(places[0])
