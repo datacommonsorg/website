@@ -15,7 +15,7 @@
                       "dc/0gettc3bc60cb_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Drive Alone Per Capita (${Ydate}) Vs. Percent of Children That Have Asthma (${Xdate}) in Counties of California",
+                    "title": "Drive Alone Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -96,7 +96,7 @@
                       "dc/6rltk4kf75612_scatter",
                       "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Work At Home Per Capita (${Ydate}) Vs. Asthma (${Xdate}) in Counties of California",
+                    "title": "Work At Home Per Capita (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -177,7 +177,7 @@
                       "dc/hbkh95kc7pkb6_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Public Transit Per Capita (${Ydate}) Vs. Percent of Children That Have Asthma (${Xdate}) in Counties of California",
+                    "title": "Public Transit Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -227,7 +227,7 @@
                       "dc/vp8cbt6k79t94_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Walk to Work Per Capita (${Ydate}) Vs. Percent of Children That Have Asthma (${Xdate}) in Counties of California",
+                    "title": "Walk to Work Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]

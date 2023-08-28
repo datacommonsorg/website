@@ -15,7 +15,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -96,7 +96,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Income (${Ydate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${Xdate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -177,7 +177,7 @@
                       "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Up to $9,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
+                    "title": "Earners Up to $9,999 Per Capita (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -227,7 +227,7 @@
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Between $10,000 and $14,999 Per Capita (${Ydate}) Vs. High Blood Pressure (${Xdate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 Per Capita (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
                     "type": "SCATTER"
                   }
                 ]

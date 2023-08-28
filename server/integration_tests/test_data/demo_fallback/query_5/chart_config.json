@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Gdp (Nominal Value) in United States",
+                    "title": "GDP (Nominal Value) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -19,18 +19,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Gdp (Nominal Value) in United States",
+                    "description": "GDP (Nominal Value) in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Gdp (Nominal Value) in United States",
+                    "title": "GDP (Nominal Value) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Gdp (Nominal Value)"
+            "title": "GDP (Nominal Value)"
           },
           {
             "columns": [
@@ -40,7 +40,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita in United States",
+                    "title": "Nominal GDP Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -48,17 +48,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal Gdp Per Capita in United States",
+                    "description": "Nominal GDP Per Capita in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita in United States",
+                    "title": "Nominal GDP Per Capita in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Nominal Gdp Per Capita"
+            "title": "Nominal GDP Per Capita"
           },
           {
             "columns": [
@@ -89,14 +89,14 @@
                       "dc/qt7ewllmt3826_multiple_place_bar_block",
                       "dc/zz6gwv838v9w_multiple_place_bar_block"
                     ],
-                    "title": "Breakdown of Gdp by Industry in United States (${date})",
+                    "title": "Breakdown of GDP by Industry in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Breakdown of Gdp by Industry"
+            "title": "Breakdown of GDP by Industry"
           },
           {
             "columns": [
@@ -106,7 +106,7 @@
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of Gdp in United States",
+                    "title": "Growth Rate of GDP in United States",
                     "type": "LINE"
                   }
                 ]
@@ -114,17 +114,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Growth Rate of Gdp in United States",
+                    "description": "Growth Rate of GDP in United States",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of Gdp in United States",
+                    "title": "Growth Rate of GDP in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Growth Rate of Gdp"
+            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -134,7 +134,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "Gdp (Real Value) in United States",
+                    "title": "GDP (Real Value) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -142,18 +142,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Gdp (Real Value) in United States",
+                    "description": "GDP (Real Value) in United States",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "Gdp (Real Value) in United States",
+                    "title": "GDP (Real Value) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Gdp (Real Value)"
+            "title": "GDP (Real Value)"
           },
           {
             "columns": [
@@ -181,14 +181,14 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
                     ],
-                    "title": "Gdp of The Finance and Insurance Industry and More in United States (${date})",
+                    "title": "GDP of The Finance and Insurance Industry and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Gdp of The Finance and Insurance Industry and More"
+            "title": "Related: GDP of The Finance and Insurance Industry and More"
           },
           {
             "columns": [
@@ -199,14 +199,14 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
                       "Amount_EconomicActivity_GrossValueAdded_RealValue"
                     ],
-                    "title": "Gdp (Real Value) and More in United States",
+                    "title": "GDP (Real Value) and More in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Gdp (Real Value) and More"
+            "title": "Related: GDP (Real Value) and More"
           }
         ],
         "statVarSpec": {

@@ -54,7 +54,7 @@
                     "statVarKey": [
                       "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
                     ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-Harm) (Per Capita) in The World (${date})",
+                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -120,7 +120,7 @@
                     "statVarKey": [
                       "WHO/NCD_BMI_18A"
                     ],
-                    "title": "% Underweight Among Adults, Bmi < 18 in The World (${date})",
+                    "title": "% Underweight Among Adults, BMI < 18 in The World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "WHO/NCD_BMI_30A"
                     ],
-                    "title": "% Obesity Among Adults, Bmi >= 30 in The World (${date})",
+                    "title": "% Obesity Among Adults, BMI >= 30 in The World (${date})",
                     "type": "MAP"
                   }
                 ]

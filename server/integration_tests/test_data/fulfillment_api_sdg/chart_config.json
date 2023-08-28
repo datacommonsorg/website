@@ -692,11 +692,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Direct Economic Loss From Disasters (Relative to Gdp) in United States",
+                    "description": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
                     ],
-                    "title": "Direct Economic Loss From Disasters (Relative to Gdp) in United States",
+                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -707,13 +707,13 @@
                     "statVarKey": [
                       "sdg/VC_DSR_LSGP"
                     ],
-                    "title": "Direct Economic Loss From Disasters (Relative to Gdp) in United States",
+                    "title": "Direct Economic Loss From Disasters (Relative to GDP) in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Direct Economic Loss From Disasters (Relative to Gdp)"
+            "title": "Direct Economic Loss From Disasters (Relative to GDP)"
           },
           {
             "columns": [
@@ -776,11 +776,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Adoption and Implementation of National Drr Strategies in United States",
+                    "description": "Adoption and Implementation of National DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Adoption and Implementation of National Drr Strategies in United States",
+                    "title": "Adoption and Implementation of National DRR Strategies in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -791,13 +791,13 @@
                     "statVarKey": [
                       "sdg/SG_DSR_LGRGSR"
                     ],
-                    "title": "Adoption and Implementation of National Drr Strategies in United States",
+                    "title": "Adoption and Implementation of National DRR Strategies in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Adoption and Implementation of National Drr Strategies"
+            "title": "Adoption and Implementation of National DRR Strategies"
           },
           {
             "columns": [
@@ -832,11 +832,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Governments Adopting and Implementing Drr Strategies in United States",
+                    "description": "Local Governments Adopting and Implementing DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments Adopting and Implementing Drr Strategies in United States",
+                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -847,24 +847,24 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments Adopting and Implementing Drr Strategies in United States",
+                    "title": "Local Governments Adopting and Implementing DRR Strategies in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Local Governments Adopting and Implementing Drr Strategies"
+            "title": "Local Governments Adopting and Implementing DRR Strategies"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Local Government Adoption and Implementation of Drr Strategies in United States",
+                    "description": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
                     ],
-                    "title": "Prevalence of Local Government Adoption and Implementation of Drr Strategies in United States",
+                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -875,13 +875,13 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILS"
                     ],
-                    "title": "Prevalence of Local Government Adoption and Implementation of Drr Strategies in United States",
+                    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Prevalence of Local Government Adoption and Implementation of Drr Strategies"
+            "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies"
           },
           {
             "columns": [

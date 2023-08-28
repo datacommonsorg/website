@@ -15,7 +15,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
+                    "title": "Population Below Poverty Level Per Capita (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -96,7 +96,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Women Below Poverty Line Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
+                    "title": "Women Below Poverty Line Per Capita (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -146,7 +146,7 @@
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Males in Poverty (In Last Year) Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
+                    "title": "Males in Poverty (In Last Year) Per Capita (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -196,7 +196,7 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year Per Capita (${Ydate}) Vs. Prevalence of Obesity (${Xdate}) in Counties of California",
+                    "title": "Asians Below Poverty Level Status in Past Year Per Capita (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]

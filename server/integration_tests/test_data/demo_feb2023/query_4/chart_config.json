@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSServiceProviding"
                     ],
-                    "title": "Population of Person: Service-Providing (Naics/102) in Placer County",
+                    "title": "Population of Person: Service-providing (NAICS/102) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -89,18 +89,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population of Person: Service-Providing (Naics/102) in Placer County",
+                    "description": "Population of Person: Service-providing (NAICS/102) in Placer County",
                     "statVarKey": [
                       "Count_Worker_NAICSServiceProviding"
                     ],
-                    "title": "Population of Person: Service-Providing (Naics/102) in Placer County",
+                    "title": "Population of Person: Service-providing (NAICS/102) in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population of Person: Service-Providing (Naics/102)"
+            "title": "Population of Person: Service-providing (NAICS/102)"
           },
           {
             "columns": [
@@ -168,7 +168,7 @@
                     "statVarKey": [
                       "Count_Establishment_NAICSTotalAllIndustries"
                     ],
-                    "title": "Count of Establishment: Total, All Industries (Naics/10) in Placer County",
+                    "title": "Count of Establishment: Total, All Industries (NAICS/10) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -176,18 +176,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Establishment: Total, All Industries (Naics/10) in Placer County",
+                    "description": "Count of Establishment: Total, All Industries (NAICS/10) in Placer County",
                     "statVarKey": [
                       "Count_Establishment_NAICSTotalAllIndustries"
                     ],
-                    "title": "Count of Establishment: Total, All Industries (Naics/10) in Placer County",
+                    "title": "Count of Establishment: Total, All Industries (NAICS/10) in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Count of Establishment: Total, All Industries (Naics/10)"
+            "title": "Count of Establishment: Total, All Industries (NAICS/10)"
           },
           {
             "columns": [

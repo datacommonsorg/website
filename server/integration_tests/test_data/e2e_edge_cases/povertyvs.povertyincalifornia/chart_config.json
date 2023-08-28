@@ -15,7 +15,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
                     ],
-                    "title": "Women Below Poverty Line (${Ydate}) Vs. Males in Poverty (In Last Year) (${Xdate}) in Counties of California",
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Males in Poverty (In Last Year) (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]

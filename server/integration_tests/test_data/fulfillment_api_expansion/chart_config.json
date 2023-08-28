@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Gdp (Nominal Value) in Brazil",
+                    "title": "GDP (Nominal Value) in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -19,17 +19,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Gdp (Nominal Value) in Brazil",
+                    "description": "GDP (Nominal Value) in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Gdp (Nominal Value) in Brazil",
+                    "title": "GDP (Nominal Value) in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Gdp (Nominal Value)"
+            "title": "GDP (Nominal Value)"
           },
           {
             "columns": [
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita in Brazil",
+                    "title": "Nominal GDP Per Capita in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -47,17 +47,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Nominal Gdp Per Capita in Brazil",
+                    "description": "Nominal GDP Per Capita in Brazil",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Nominal Gdp Per Capita in Brazil",
+                    "title": "Nominal GDP Per Capita in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Nominal Gdp Per Capita"
+            "title": "Nominal GDP Per Capita"
           }
         ],
         "dcid": "dc/topic/GDP",
@@ -83,7 +83,7 @@
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
-                    "title": "External Debt Stocks as a Proportion of Gni in Brazil",
+                    "title": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -91,11 +91,11 @@
               {
                 "tiles": [
                   {
-                    "description": "External Debt Stocks as a Proportion of Gni in Brazil",
+                    "description": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
-                    "title": "External Debt Stocks as a Proportion of Gni in Brazil",
+                    "title": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -401,7 +401,7 @@
                     "statVarKey": [
                       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Stock Value as a Percentage of Nominal Gdp in Brazil",
+                    "title": "Stock Value as a Percentage of Nominal GDP in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -409,17 +409,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Stock Value as a Percentage of Nominal Gdp in Brazil",
+                    "description": "Stock Value as a Percentage of Nominal GDP in Brazil",
                     "statVarKey": [
                       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Stock Value as a Percentage of Nominal Gdp in Brazil",
+                    "title": "Stock Value as a Percentage of Nominal GDP in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Stock Value as a Percentage of Nominal Gdp"
+            "title": "Stock Value as a Percentage of Nominal GDP"
           },
           {
             "columns": [
@@ -429,7 +429,7 @@
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of Gdp in Brazil",
+                    "title": "Growth Rate of GDP in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -437,17 +437,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Growth Rate of Gdp in Brazil",
+                    "description": "Growth Rate of GDP in Brazil",
                     "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
-                    "title": "Growth Rate of Gdp in Brazil",
+                    "title": "Growth Rate of GDP in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Growth Rate of Gdp"
+            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -541,13 +541,13 @@
                       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal",
                       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "% Nominal Gdp Spent on Education and More in Brazil",
+                    "title": "% Nominal GDP Spent on Education and More in Brazil",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "% Nominal Gdp Spent on Education and More"
+            "title": "% Nominal GDP Spent on Education and More"
           },
           {
             "columns": [

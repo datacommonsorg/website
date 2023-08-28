@@ -61,10 +61,18 @@ class Config:
 
 # Keep some special words as small case.
 def _replace_special(input_string_title_case: str) -> str:
-    input = input_string_title_case
-    for sr, sr_replace in _SPECIAL_REPLACEMENTS.items():
-        input = input.replace(sr, sr_replace)
-    return input
+  input = input_string_title_case
+  for sr, sr_replace in _SPECIAL_REPLACEMENTS.items():
+    input = input.replace(sr, sr_replace)
+  return input
+
+
+def _make_title_case(input_string: str) -> str:
+  # Only title case those parts which aren't already capitalized.
+  # This is necessary for words like "GDP" do not become "Gdp".
+  output_str = ' '.join(
+      [w.title() if w.islower() else w for w in input_string.split()])
+  return _replace_special(output_str)
 
 
 # A structure with maps from SV DCID to different things.
@@ -159,7 +167,7 @@ class Builder:
       title = self.sv2thing.name[cv.svs[0]] + ' and more'
 
     # Make title case.
-    title = _replace_special(title.title())
+    title = _make_title_case(title)
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
@@ -215,7 +223,7 @@ def decorate_block_title(title: str,
     title = 'Related: ' + title
 
   # Return in title case.
-  return _replace_special(title.title())
+  return _make_title_case(title)
 
 
 def decorate_chart_title(title: str,
@@ -238,13 +246,13 @@ def decorate_chart_title(title: str,
         title = title + ' in ' + place.name
 
   # Use title case.
-  title = _replace_special(title.title())
+  title = _make_title_case(title)
 
   if add_date:
     title = title + ' (${date})'
 
   if title_suffix:
-    title += ' - ' + _replace_special(title_suffix.title())
+    title += ' - ' + _make_title_case(title_suffix)
 
   return title
 

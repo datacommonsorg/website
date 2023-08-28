@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "Gdp of The Information Industry in California",
+                    "title": "GDP of The Information Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -78,18 +78,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Gdp of The Information Industry in California",
+                    "description": "GDP of The Information Industry in California",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "Gdp of The Information Industry in California",
+                    "title": "GDP of The Information Industry in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Gdp of The Information Industry"
+            "title": "GDP of The Information Industry"
           },
           {
             "columns": [
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "Gdp of The Information Industry in Counties of California (${date})",
+                    "title": "GDP of The Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -114,14 +114,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "Gdp of The Information Industry in Counties of California (${date})",
+                    "title": "GDP of The Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Gdp of The Information Industry in Counties of California"
+            "title": "GDP of The Information Industry in Counties of California"
           },
           {
             "columns": [
@@ -192,7 +192,7 @@
                     "statVarKey": [
                       "USStateQuarterlyIndustryGDP_NAICS_51"
                     ],
-                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (Naics/51) in California",
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
                     "type": "LINE"
                   }
                 ]
@@ -200,18 +200,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (Naics/51) in California",
+                    "description": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
                     "statVarKey": [
                       "USStateQuarterlyIndustryGDP_NAICS_51"
                     ],
-                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (Naics/51) in California",
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (Naics/51)"
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51)"
           },
           {
             "columns": [
@@ -221,7 +221,7 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (Naics/51) in Counties of California (${date})",
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -236,14 +236,14 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (Naics/51) in Counties of California (${date})",
+                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Wages Annual of Establishment: Information (Naics/51) in Counties of California"
+            "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California"
           }
         ],
         "statVarSpec": {

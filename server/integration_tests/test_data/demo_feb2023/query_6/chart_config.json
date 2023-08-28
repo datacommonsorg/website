@@ -448,7 +448,7 @@
                     "statVarKey": [
                       "Count_Person_WithVAHealthCare"
                     ],
-                    "title": "People With Va Health Care in Placer County",
+                    "title": "People With VA Health Care in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -456,18 +456,18 @@
               {
                 "tiles": [
                   {
-                    "description": "People With Va Health Care in Placer County",
+                    "description": "People With VA Health Care in Placer County",
                     "statVarKey": [
                       "Count_Person_WithVAHealthCare"
                     ],
-                    "title": "People With Va Health Care in Placer County",
+                    "title": "People With VA Health Care in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "People With Va Health Care"
+            "title": "People With VA Health Care"
           }
         ],
         "statVarSpec": {
