@@ -106,8 +106,7 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
       ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
                                                         sv)
     else:
-      ranked_places = filter_and_rank_places_per_capita(place, state.place_type,
-                                                        sv)
+      ranked_places = filter_and_rank_places(place, state.place_type, sv)
   else:
     ranked_places = filter_and_rank_places(place, state.place_type, sv)
 
