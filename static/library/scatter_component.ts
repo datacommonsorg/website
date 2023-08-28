@@ -96,6 +96,9 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Boolean })
   showQuadrants?: boolean;
 
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  usePerCapita?: string[];
+
   render(): HTMLElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
@@ -115,7 +118,7 @@ export class DatacommonsScatterComponent extends LitElement {
         showQuadrants: this.showQuadrants,
       },
       statVarSpec: this.variables.map((variable) => ({
-        denom: "",
+        denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
         log: false,
         name: "",
         scaling: 1,
