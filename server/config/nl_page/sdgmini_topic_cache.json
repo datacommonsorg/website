@@ -1,0 +1,448 @@
+{
+  "nodes": [
+    {
+      "dcid": [
+        "dc/topic/sdg"
+      ],
+      "name": [
+        "Sustainable Development Goals"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdg_1",
+        "dc/topic/sdg_2",
+        "dc/topic/sdg_3",
+        "dc/topic/sdg_4",
+        "dc/topic/sdg_5",
+        "dc/topic/sdg_6",
+        "dc/topic/sdg_7",
+        "dc/topic/sdg_8",
+        "dc/topic/sdg_9",
+        "dc/topic/sdg_10",
+        "dc/topic/sdg_11",
+        "dc/topic/sdg_12",
+        "dc/topic/sdg_13",
+        "dc/topic/sdg_14",
+        "dc/topic/sdg_15",
+        "dc/topic/sdg_16",
+        "dc/topic/sdg_17"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_1"
+      ],
+      "name": [
+        "1: No Poverty"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SI_POV_DAY1",
+        "sdg/SI_COV_MATNL",
+        "sdg/SI_COV_POOR",
+        "sdg/SI_COV_CHLD",
+        "sdg/SI_COV_UEMP",
+        "sdg/SI_COV_VULN",
+        "sdg/SI_COV_WKINJRY",
+        "sdg/SI_COV_BENFTS",
+        "sdg/SI_COV_DISAB",
+        "sdg/SI_COV_PENSN",
+        "sdg/SP_ACS_BSRVH2O",
+        "sdg/SP_ACS_BSRVSAN",
+        "sdg/VC_DSR_LSGP",
+        "sdg/VC_DSR_AGLN",
+        "sdg/VC_DSR_HOLN",
+        "sdg/VC_DSR_CILN",
+        "sdg/SD_XPD_ESED"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_10"
+      ],
+      "name": [
+        "10: Reduced Inequality"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SI_HEI_TOTL",
+        "sdg/SI_POV_50MI",
+        "sdg/VC_VOV_GDSD",
+        "sdg/SL_EMP_GTOTL",
+        "sdg/FI_FSI_FSANL",
+        "sdg/FI_FSI_FSERA",
+        "sdg/FI_FSI_FSKA",
+        "sdg/FI_FSI_FSKNL",
+        "sdg/FI_FSI_FSLS",
+        "sdg/TM_TRF_ZERO",
+        "sdg/DC_TRF_TOTDL"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_11"
+      ],
+      "name": [
+        "11: Sustainable Cities and Communities"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EN_ATM_PM25"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_12"
+      ],
+      "name": [
+        "12: Responsible Consumption and Production"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EN_MAT_DOMCMPG",
+        "sdg/EN_MAT_DOMCMPC",
+        "sdg/EN_EWT_GENPCAP",
+        "sdg/EN_EWT_RCYR",
+        "sdg/EN_EWT_RCYPCAP",
+        "sdg/EN_HAZ_PCAP",
+        "sdg/EN_HAZ_GENGDP",
+        "sdg/EN_HAZ_TRTDISR",
+        "sdg/EN_EWT_RCYR",
+        "sdg/EN_EWT_RCYPCAP",
+        "sdg/ER_FFS_PRTSST",
+        "sdg/ER_FFS_PRTSPC",
+        "sdg/ER_FFS_PRTSPR"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_13"
+      ],
+      "name": [
+        "13: Climate Action"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/VC_DSR_AFFCT",
+        "sdg/VC_DSR_MORT",
+        "sdg/VC_DSR_MTMP",
+        "sdg/VC_DSR_MTMN",
+        "sdg/VC_DSR_DAFF",
+        "sdg/VC_DSR_PDAN",
+        "sdg/VC_DSR_PDLN",
+        "sdg/SG_DSR_LGRGSR",
+        "sdg/SG_DSR_SILS"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_14"
+      ],
+      "name": [
+        "14: Life Below Water"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/ER_MRN_MARINT",
+        "sdg/ER_MRN_MARIN",
+        "sdg/ER_MRN_MPA",
+        "sdg/ER_RDE_OSEX"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_15"
+      ],
+      "name": [
+        "15: Life on Land"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/AG_LND_FRST",
+        "sdg/ER_PTD_FRWRT",
+        "sdg/ER_PTD_TERRS",
+        "sdg/AG_LND_FRSTBIOPHA",
+        "sdg/AG_LND_FRSTCERT",
+        "sdg/AG_LND_FRSTCHG",
+        "sdg/AG_LND_FRSTMGT",
+        "sdg/AG_LND_FRSTPRCT",
+        "sdg/ER_PTD_MOTN",
+        "sdg/ER_MTN_GRNCVI",
+        "sdg/ER_RSK_LSTI",
+        "sdg/ER_CBD_SMTA",
+        "sdg/DC_ODA_BDVDL",
+        "sdg/DC_ODA_BDVDL"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_16"
+      ],
+      "name": [
+        "16: Peace and Justice Strong Institutions"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/VC_VOV_PHYL",
+        "sdg/VC_HTF_DETV",
+        "sdg/VC_PRR_PHYV",
+        "sdg/VC_PRR_ROBB",
+        "sdg/VC_PRS_UNSEC",
+        "sdg/SG_REG_BRTH",
+        "sdg/VC_VOV_GDSD"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_17"
+      ],
+      "name": [
+        "17: Partnerships to achieve the Goal"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/GR_G14_GDP",
+        "sdg/GC_GOB_TAXD",
+        "sdg/DC_ODA_SIDSG",
+        "sdg/DC_ODA_LDCG",
+        "sdg/DC_ODA_LLDC",
+        "sdg/DC_ODA_SIDS",
+        "sdg/DC_ODA_LDCS",
+        "sdg/DC_ODA_LLDCG",
+        "sdg/DC_ODA_TOTG",
+        "sdg/DC_ODA_TOTL",
+        "sdg/GF_FRN_FDI",
+        "sdg/BX_TRF_PWKR",
+        "sdg/IT_NET_BBP",
+        "sdg/IT_USE_ii99"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_2"
+      ],
+      "name": [
+        "2: Zero Hunger"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SN_ITK_DEFC",
+        "sdg/AG_PRD_FIESMSI",
+        "sdg/AG_PRD_FIESMSIN",
+        "sdg/AG_PRD_FIESSI",
+        "sdg/AG_PRD_FIESSIN",
+        "sdg/ER_GRF_ANIMRCNTN",
+        "sdg/ER_GRF_PLNTSTOR",
+        "sdg/ER_RSK_LBREDS",
+        "sdg/AG_PRD_ORTIND",
+        "sdg/AG_PRD_AGVAS",
+        "sdg/AG_XPD_AGSGB",
+        "sdg/AG_FPA_CFPI"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_3"
+      ],
+      "name": [
+        "3: Good Health and Well-being"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SH_STA_MMR",
+        "sdg/SH_DYN_IMRTN",
+        "sdg/SH_DYN_MORT",
+        "sdg/SH_DYN_IMRT",
+        "sdg/SH_DYN_MORTN",
+        "sdg/SH_DYN_NMRTN",
+        "sdg/SH_DYN_NMRT",
+        "sdg/SH_HIV_INCD",
+        "sdg/SH_TBS_INCID",
+        "sdg/SH_HAP_HBSAG",
+        "sdg/SH_TRP_INTVN",
+        "sdg/SH_DTH_NCOM",
+        "sdg/SH_DTH_RNCOM",
+        "sdg/SH_STA_SCIDE",
+        "sdg/SH_STA_SCIDEN",
+        "sdg/SH_SUD_ALCOL",
+        "sdg/SH_ALC_CONSPT",
+        "sdg/SH_STA_TRAF",
+        "sdg/SP_DYN_ADKL",
+        "sdg/SH_ACS_UNHC",
+        "sdg/SH_XPD_EARN25",
+        "sdg/SH_XPD_EARN10",
+        "sdg/SH_AAP_ASMORT",
+        "sdg/SH_STA_WASH",
+        "sdg/SH_STA_POISN",
+        "sdg/SH_PRV_SMOK",
+        "sdg/SH_ACS_DTP3",
+        "sdg/SH_ACS_PCV3",
+        "sdg/SH_ACS_HPV",
+        "sdg/SH_MED_HEAWOR"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_4"
+      ],
+      "name": [
+        "4: Quality Education"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SE_PRE_PARTN",
+        "sdg/SE_ADT_EDUCTRN",
+        "sdg/SE_ADT_ACTS",
+        "sdg/SE_PRE_GPIPARTN",
+        "sdg/SE_GPI_PART",
+        "sdg/SE_GPI_ICTS",
+        "sdg/SE_IMP_FPOF",
+        "sdg/SE_ADT_FUNS"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_5"
+      ],
+      "name": [
+        "5: Gender Equality"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SG_GEN_PARL",
+        "sdg/SG_GEN_LOCGELS",
+        "sdg/IC_GEN_MGTL",
+        "sdg/IC_GEN_MGTN",
+        "sdg/IT_MOB_OWN"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_6"
+      ],
+      "name": [
+        "6: Clean Water and Sanitation"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SH_H2O_SAFE",
+        "sdg/SH_SAN_SAFE",
+        "sdg/SH_SAN_DEFECT",
+        "sdg/EN_WWT_WWDS",
+        "sdg/EN_H2O_OPAMBQ",
+        "sdg/EN_H2O_RVAMBQ",
+        "sdg/EN_H2O_GRAMBQ",
+        "sdg/EN_H2O_WBAMBQ",
+        "sdg/ER_H2O_WUEYST",
+        "sdg/ER_H2O_STRESS",
+        "sdg/ER_H2O_IWRMD",
+        "sdg/EG_TBA_H2CO",
+        "sdg/EG_TBA_H2COAQ",
+        "sdg/EG_TBA_H2CORL",
+        "sdg/EN_WBE_PMPR"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_7"
+      ],
+      "name": [
+        "7: Affordable and Clean Energy"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EG_ELC_ACCS",
+        "sdg/EG_EGY_CLEAN",
+        "sdg/EG_FEC_RNEW",
+        "sdg/EG_EGY_PRIM"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_8"
+      ],
+      "name": [
+        "8: Decent Work and Economic Growth"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/NY_GDP_PCAP",
+        "sdg/SL_EMP_PCAP",
+        "sdg/SL_EMP_AEARN",
+        "sdg/SL_TLF_UEM",
+        "sdg/SL_TLF_NEET",
+        "sdg/SL_EMP_FTLINJUR",
+        "sdg/SL_EMP_INJUR",
+        "sdg/SL_LBR_NTLCPL",
+        "sdg/FB_ATM_TOTL",
+        "sdg/FB_CBK_BRCH",
+        "sdg/FB_BNK_ACCSS",
+        "sdg/DC_TOF_TRDCMDL",
+        "sdg/DC_TOF_TRDDBMDL"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdg_9"
+      ],
+      "name": [
+        "9: Industry, Innovation and Infrastructure"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/IS_RDP_FRGVOL",
+        "sdg/IS_RDP_PFVOL",
+        "sdg/IS_RDP_PORFVOL",
+        "sdg/NV_IND_MANFPC",
+        "sdg/NV_IND_MANF",
+        "sdg/SL_TLF_MANF",
+        "sdg/NV_IND_SSIS",
+        "sdg/EN_ATM_CO2",
+        "sdg/EN_ATM_CO2MVA",
+        "sdg/EN_ATM_CO2GDP",
+        "sdg/GB_XPD_RSDV",
+        "sdg/GB_POP_SCIERD",
+        "sdg/NV_IND_TECH",
+        "sdg/IT_MOB_2GNTWK",
+        "sdg/IT_MOB_3GNTWK",
+        "sdg/IT_MOB_4GNTWK"
+      ]
+    }
+  ]
+}

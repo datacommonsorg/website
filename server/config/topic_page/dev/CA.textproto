@@ -22,6 +22,44 @@ metadata {
     key: "State"
     value: "County"
   }
+  event_type_spec {
+    key: "fire"
+    value {
+      id: "fire"
+      name: "Fire"
+      event_type_dcids: "WildlandFireEvent"
+      event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
+        lower_limit: 50
+      }
+      place_type_severity_filter {
+        key: "Continent"
+        value {
+          lower_limit: 300
+        }
+      }
+      place_type_severity_filter {
+        key: "Planet"
+        value {
+          lower_limit: 500
+        }
+      }
+      end_date_prop: "endDate"
+      end_date_prop: "containmentDate"
+      end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
+    }
+  }
 }
 
 categories {
@@ -268,6 +306,119 @@ categories {
     key: 'male_population'
     value {
       stat_var: "Count_Person_Male"
+    }
+  }
+}
+
+categories {
+  title: "Test ranking tile with single list"
+  blocks {
+    denom: "Count_Person"
+    start_with_denom: false
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        ranking_tile_spec {
+          show_highest_lowest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}
+
+categories {
+  title: "Disaster block with selected date"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "fire"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+          ranking_count: 20
+        }
+      }
+    }
+    disaster_block_spec {
+      date: "2015"
+    }
+  }
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "fire"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+          ranking_count: 20
+        }
+      }
+    }
+    disaster_block_spec {
+      date_range: THIRTY_DAYS
+    }
+  }
+
+  stat_var_spec {
+    key: "fire_count"
+    value {
+      stat_var: "Count_FireEvent"
+      name: "Count of fires (${date})"
+    }
+  }
+  stat_var_spec {
+    key: "fire_area"
+    value {
+      stat_var: "Area_FireEvent"
+      name: "Area affected by fires (${date})"
     }
   }
 }

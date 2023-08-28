@@ -43,6 +43,7 @@ import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { formatPropertyValue } from "../../utils/property_value_utils";
+import { getSourcesJsx } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 
@@ -130,7 +131,10 @@ export const TopEventTile = memo(function TopEventTile(
         }`}
       >
         <div className={`ranking-list top-event-content `}>
-          {<h4>{!isInitialLoading && props.title}</h4>}
+          <div className="ranking-header-section">
+            {<h4>{!isInitialLoading && props.title}</h4>}
+            {showChart && getSourcesJsx(sources)}
+          </div>
           {!showChart && !isInitialLoading && (
             <p>There were no severe events in that time period.</p>
           )}
@@ -198,8 +202,7 @@ export const TopEventTile = memo(function TopEventTile(
                         <span className="num-value">
                           {formatNumber(
                             event.severity[severityProp],
-                            props.eventTypeSpec.defaultSeverityFilter.unit,
-                            false
+                            props.eventTypeSpec.defaultSeverityFilter.unit
                           )}
                         </span>
                       </td>
@@ -210,12 +213,14 @@ export const TopEventTile = memo(function TopEventTile(
             </table>
           )}
           <ChartFooter
-            sources={sources}
             handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
-            exploreMoreUrl={
+            exploreLink={
               props.showExploreMore
-                ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
-                : ""
+                ? {
+                    displayText: "Disaster Tool",
+                    url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
+                  }
+                : null
             }
           />
         </div>

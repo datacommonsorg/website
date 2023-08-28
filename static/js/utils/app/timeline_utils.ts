@@ -62,7 +62,7 @@ export function getStatVarGroups(
   }
   const seenGroups = new Set();
   const filteredChartOrder = chartOrder.filter((group) => {
-    const keep = !seenGroups.has(group);
+    const keep = !seenGroups.has(group) && !_.isEmpty(group);
     seenGroups.add(group);
     return keep;
   });

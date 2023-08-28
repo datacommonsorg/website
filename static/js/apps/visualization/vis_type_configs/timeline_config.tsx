@@ -23,14 +23,14 @@ import React from "react";
 
 import { LineTile } from "../../../components/tiles/line_tile";
 import { Chip } from "../../../shared/chip";
+import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
+import { getTimelineSqlQuery } from "../../../tools/timeline/bq_query_utils";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
-import {
-  getFooterOptions,
-  getStatVarSpec,
-} from "../../../utils/app/visualization_utils";
+import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { AppContextType, ContextStatVar } from "../app_context";
+import { ChartFooter } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
 
 const COLORS = [
@@ -74,10 +74,10 @@ function getSvChips(
   );
 }
 
-function getChartArea(
-  appContext: AppContextType,
-  chartHeight: number
-): JSX.Element {
+function groupStatVars(appContext: AppContextType): {
+  groups: { [key: string]: string[] };
+  chartOrder: string[];
+} {
   const statVarInfo = {};
   appContext.statVars.forEach((sv) => (statVarInfo[sv.dcid] = sv.info));
   const lineChartGrouping = getStatVarGroups(
@@ -87,6 +87,14 @@ function getChartArea(
       appContext.statVars.filter((sv) => sv.isPerCapita).map((sv) => sv.dcid)
     )
   );
+  return lineChartGrouping;
+}
+
+function getChartArea(
+  appContext: AppContextType,
+  chartHeight: number
+): JSX.Element {
+  const lineChartGrouping = groupStatVars(appContext);
   return (
     <>
       {lineChartGrouping.chartOrder.map((chartId) => {
@@ -116,10 +124,11 @@ function getChartArea(
                   appContext.setStatVars(newStatVars);
                 },
                 label: "Per Capita",
+                gaEventParam: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
               },
             ];
         return (
-          <div className="chart" key={chartId}>
+          <div className="chart timeline" key={chartId}>
             {getSvChips(chartSvInfo, appContext)}
             <LineTile
               comparisonPlaces={appContext.places.map((place) => place.dcid)}
@@ -130,8 +139,11 @@ function getChartArea(
               place={appContext.places[0]}
               colors={COLORS}
               showLoadingSpinner={true}
+              showTooltipOnHover={true}
             />
-            {getFooterOptions(chartPCInputs, [])}
+            {!_.isEmpty(chartPCInputs) && (
+              <ChartFooter inputSections={[{ inputs: chartPCInputs }]} />
+            )}
           </div>
         );
       })}
@@ -161,6 +173,37 @@ function getInfoContent(): JSX.Element {
   );
 }
 
+function getSqlQueryFn(appContext: AppContextType): () => string {
+  const { chartOrder, groups } = groupStatVars(appContext);
+  // map of stat var dcid to the stat var object in the context.
+  const svToContextSv = {};
+  appContext.statVars.forEach((sv) => {
+    svToContextSv[sv.dcid] = sv;
+  });
+  const chartIdToOptions = {};
+  for (const chartId of chartOrder) {
+    // use a sample stat var in the group to determine that chart's
+    // options. This assumes all charts in a group will have the same options
+    const sampleSv = groups[chartId][0];
+    const sampleContextSv = svToContextSv[sampleSv];
+    const sampleSvSpec = getStatVarSpec(sampleContextSv, VisType.TIMELINE);
+    chartIdToOptions[chartId] = {
+      // TODO: update this when implementing delta
+      delta: false,
+      denom: sampleSvSpec.denom,
+      perCapita: !!sampleSvSpec.denom,
+    };
+  }
+  return () => {
+    return getTimelineSqlQuery(
+      { chartOrder, chartIdToOptions, chartIdToStatVars: groups },
+      appContext.places.map((place) => place.dcid),
+      {},
+      {}
+    );
+  };
+}
+
 export const TIMELINE_CONFIG = {
   displayName: "Timeline",
   icon: "timeline",
@@ -168,4 +211,6 @@ export const TIMELINE_CONFIG = {
   skipEnclosedPlaceType: true,
   getChartArea,
   getInfoContent,
+  getSqlQueryFn,
+  oldToolUrl: "/tools/timeline",
 };

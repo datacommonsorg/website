@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 import os
 from typing import List
@@ -19,40 +20,30 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
+from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
-_MAX_PLACES_TO_RETURN = 20
+
+# Demo HACK! to avoid tiny countries to bubble up on top.
+def get_min_population(place_type: str, sv: str):
+  if (place_type == 'Country' and
+      sv in ['Annual_Emissions_GreenhouseGas', 'worldBank/EG_ELC_ACCS_ZS']):
+    return 10000000
+  return 0
 
 
 #
 # Computes growth rate and ranks charts of child places in parent place.
 #
-def populate(uttr: Utterance):
-  time_delta = utils.get_time_delta_types(uttr)
-  place_type = utils.get_contained_in_type(uttr)
-  if not time_delta or not time_delta:
-    logging.info('time_delta_across_places: return unexpectedly')
-    return False
-  ranking_types = utils.get_ranking_types(uttr)
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    ranking_types=ranking_types,
-                    time_delta_types=time_delta))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, rank: int) -> bool:
   logging.info('populate_cb for time_delta_across_places')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-places_failed_cb_events', 1)
@@ -61,17 +52,18 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     state.uttr.counters.err(
         'time-delta-across-places_failed_cb_notimedeltatypes', 1)
     return False
-  if len(places) > 1:
-    state.uttr.counters.err('time-delta-across-places_failed_cb_toomanyplaces',
-                            [p.dcid for p in places])
-    return False
   if len(chart_vars.svs) > 1:
     state.uttr.counters.err('time-delta-across-places_failed_cb_toomanysvs',
                             chart_vars.svs)
     return False
-  if not state.place_type:
+  if not state.place_type and len(state.uttr.places) == 1:
     state.uttr.counters.err(
         'time-delta-across-places_failed_cb_missingchildtype', chart_vars.svs)
+    return False
+  if state.uttr.answerPlaces:
+    # We've already answered this query
+    state.uttr.counters.err('time-delta-across-places_failed_alreadyanswered',
+                            len(state.uttr.answerPlaces))
     return False
 
   found = False
@@ -81,10 +73,16 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
   logging.info('Attempting to compute growth rate stats')
 
   # Get place DCIDs.
-  parent_place = places[0].dcid
-  child_places = utils.get_all_child_places([parent_place],
-                                            state.place_type.value,
-                                            state.uttr.counters)
+  if len(places) > 1:
+    # This is place comparison!
+    child_places = places
+    state.uttr.counters.info('time-delta-across-places_using_comparison_places',
+                             [p.dcid for p in places])
+  else:
+    parent_place = places[0].dcid
+    child_places = utils.get_all_child_places([parent_place],
+                                              state.place_type.value,
+                                              state.uttr.counters)
 
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())
@@ -95,13 +93,17 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
+  pt = child_places[0].place_type
+  sv = chart_vars.svs[0]
   ranked_children = rank_utils.rank_places_by_series_growth(
       places=dcids,
-      sv=chart_vars.svs[0],
+      sv=sv,
       growth_direction=direction,
       rank_order=rank_order,
       counters=state.uttr.counters,
-      nopc_vars=nopc_vars)
+      nopc_vars=nopc_vars,
+      place_type=pt,
+      min_population=get_min_population(pt, sv))
 
   state.uttr.counters.info(
       'time-delta_reranked_places', {
@@ -110,16 +112,32 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
           'ranked_pct': ranked_children.pct,
       })
   for field, ranked_dcids in ranked_children._asdict().items():
-    if not ranked_dcids:
+    # Unless there are at least 2 places don't do this.
+    if len(ranked_dcids) < 2:
       continue
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
+    ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
+
+    # TODO: Uncomment this once we agree on look and feel
+    # if field == 'abs' and ranked_places:
+    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+    #                                   state, chart_vars, ranked_places,
+    #                                   chart_origin)
+
+    if rank == 0 and field == 'abs' and ranked_places:
+      ans_places = copy.deepcopy(ranked_places)
+      state.uttr.answerPlaces = ans_places
+      state.uttr.counters.info('time-delta-across-places_answer_places',
+                               [p.dcid for p in ans_places])
+
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
-    ranked_places = ranked_places[:_MAX_PLACES_TO_RETURN]
 
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, ranked_places, chart_origin)
 
+  if not found:
+    state.uttr.counters.err('time-delta-across-places_toofewplaces', '')
   return found

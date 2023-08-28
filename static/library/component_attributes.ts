@@ -28,6 +28,7 @@ export interface BarComponentProps
   barHeight?: number;
   childPlaceType?: string;
   colors?: string[];
+  header: string;
   horizontal?: boolean;
   lollipop?: boolean;
   maxPlaces?: number;
@@ -35,7 +36,7 @@ export interface BarComponentProps
   places?: string[];
   sort?: SortType;
   stacked?: boolean;
-  title: string;
+  title?: string;
   variables: string[];
   yAxisMargin?: number;
 }
@@ -47,10 +48,24 @@ export interface GaugeComponentProps
   > {
   apiRoot?: string;
   colors?: string[];
+  header: string;
   max: number;
   min: number;
   place: string;
-  title: string;
+  title?: string;
+  variable: string;
+}
+
+export interface HighlightComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  apiRoot?: string;
+  date?: string;
+  description?: string;
+  header: string;
+  place: string;
   variable: string;
 }
 
@@ -62,9 +77,10 @@ export interface LineComponentProps
   apiRoot?: string;
   childPlaceType?: string;
   colors?: string[];
+  header: string;
   place?: string;
   places?: string[];
-  title: string;
+  title?: string;
   variables: string[];
 }
 
@@ -78,12 +94,13 @@ export interface MapComponentProps
   colors?: string[];
   date?: string;
   enclosedPlaceType?: string;
+  header: string;
   parentPlace?: string;
   place?: string;
   placeDcid?: string;
   statVarDcid?: string;
   subscribe?: string;
-  title: string;
+  title?: string;
   variable: string;
 }
 
@@ -95,8 +112,9 @@ export interface PieComponentProps
   apiRoot?: string;
   colors?: string[];
   donut?: boolean;
+  header: string;
   place: string;
-  title: string;
+  title?: string;
   variables: string[];
 }
 
@@ -107,9 +125,10 @@ export interface RankingComponentProps
   > {
   apiRoot?: string;
   childPlaceType: string;
+  header: string;
   parentPlace: string;
   showLowest?: boolean;
-  title: string;
+  title?: string;
   variable: string;
 }
 
@@ -122,4 +141,15 @@ export interface SliderComponentProps
   min: number;
   publish: string;
   value: number;
+}
+
+export interface TextComponentProps
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLElement>,
+    HTMLElement
+  > {
+  characterLimit?: number;
+  heading: string;
+  text: string;
+  showFullText?: boolean;
 }

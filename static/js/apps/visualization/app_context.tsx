@@ -21,11 +21,19 @@
 import _ from "lodash";
 import React, { createContext, useEffect, useRef, useState } from "react";
 
+import {
+  DISPLAY_PARAM_KEYS,
+  PARAM_VALUE_SEP,
+  PARAM_VALUE_TRUE,
+  STAT_VAR_PARAM_KEYS,
+  URL_PARAMS,
+} from "../../constants/app/visualization_constants";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import {
   getEnclosedPlaceTypes,
   getFilteredStatVarPromise,
+  getHash,
 } from "../../utils/app/visualization_utils";
 import {
   getEnclosedPlacesPromise,
@@ -35,26 +43,20 @@ import {
 } from "../../utils/place_utils";
 import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
 
-const URL_PARAMS = {
-  VIS_TYPE: "visType",
-  PLACE: "place",
-  ENCLOSED_PLACE_TYPE: "placeType",
-  STAT_VAR: "sv",
-};
-const PARAM_VALUE_SEP = "___";
-const PARAM_VALUE_TRUE = "1";
-const STAT_VAR_PARAM_KEYS = {
-  DCID: "dcid",
-  PER_CAPITA: "pc",
-  LOG: "log",
-};
+export interface DisplayOptions {
+  scatterPlaceLabels?: boolean;
+  scatterQuadrants?: boolean;
+}
 
 export interface ContextStatVar {
   dcid: string;
   info: StatVarInfo;
   isPerCapita?: boolean;
   isLog?: boolean;
+  date?: string;
+  denom?: string;
 }
+
 export interface AppContextType {
   visType: string;
   places: NamedTypedPlace[];
@@ -62,11 +64,13 @@ export interface AppContextType {
   statVars: ContextStatVar[];
   childPlaceTypes: string[];
   samplePlaces: NamedNode[];
+  displayOptions: DisplayOptions;
   isContextLoading: boolean;
   setVisType: (visType: string) => void;
   setPlaces: (places: NamedTypedPlace[]) => void;
   setEnclosedPlaceType: (enclosedPlaceType: string) => void;
   setStatVars: (statVars: ContextStatVar[]) => void;
+  setDisplayOptions: (displayOptions: DisplayOptions) => void;
 }
 
 export const AppContext = createContext({} as AppContextType);
@@ -84,6 +88,7 @@ export function AppContextProvider(
   const [visType, setVisType] = useState(
     getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf()
   );
+  const [displayOptions, setDisplayOptions] = useState(null);
   // for childPlaceTypes and samplePlaces, null means they haven't been fetched
   const [childPlaceTypes, setChildPlaceTypes] = useState(null);
   const [samplePlaces, setSamplePlaces] = useState(null);
@@ -104,6 +109,7 @@ export function AppContextProvider(
     childPlaceTypes,
     samplePlaces,
     isContextLoading,
+    displayOptions,
     setPlaces: (places) => {
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
@@ -124,6 +130,10 @@ export function AppContextProvider(
       setChildPlaceTypes(null);
       setSamplePlaces(null);
       setVisType(visType);
+    },
+    setDisplayOptions: (displayOptions) => {
+      shouldUpdateHash.current.push(true);
+      setDisplayOptions(displayOptions);
     },
   };
   const visTypeConfig = VIS_TYPE_CONFIG[visType];
@@ -256,40 +266,20 @@ export function AppContextProvider(
     if (isContextLoading || !shouldUpdateHash.current.shift()) {
       return;
     }
-    const params = {
-      [URL_PARAMS.VIS_TYPE]: visType,
-      [URL_PARAMS.PLACE]: places
-        .map((place) => place.dcid)
-        .join(PARAM_VALUE_SEP),
-      [URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
-      [URL_PARAMS.STAT_VAR]: statVars
-        .map((sv) => {
-          const svValue = { [STAT_VAR_PARAM_KEYS.DCID]: sv.dcid };
-          if (sv.isPerCapita) {
-            svValue[STAT_VAR_PARAM_KEYS.PER_CAPITA] = PARAM_VALUE_TRUE;
-          }
-          if (sv.isLog) {
-            svValue[STAT_VAR_PARAM_KEYS.LOG] = PARAM_VALUE_TRUE;
-          }
-          return JSON.stringify(svValue);
-        })
-        .join(PARAM_VALUE_SEP),
-    };
-    let hash = "";
-    Object.keys(params).forEach((key, idx) => {
-      if (_.isEmpty(params[key])) {
-        return;
-      }
-      hash += `${idx === 0 ? "" : "&"}${key}=${params[key]}`;
-    });
-    const newHash = encodeURIComponent(hash);
+    const newHash = getHash(
+      visType,
+      places.map((place) => place.dcid),
+      enclosedPlaceType,
+      statVars,
+      displayOptions
+    );
     const currentHash = location.hash.replace("#", "");
     if (newHash && newHash !== currentHash) {
       history.pushState({}, "", `/tools/visualization#${newHash}`);
     }
     // For all values in this dependency array, setting the value should always
     // be preceded by shouldUpdateHash.current.push()
-  }, [places, enclosedPlaceType, statVars, visType]);
+  }, [places, enclosedPlaceType, statVars, visType, displayOptions]);
 
   return (
     <AppContext.Provider value={contextValue}>
@@ -308,6 +298,8 @@ export function AppContextProvider(
     const visType =
       getParamValue(URL_PARAMS.VIS_TYPE) || ORDERED_VIS_TYPE[0].valueOf();
     const visTypeConfig = VIS_TYPE_CONFIG[visType];
+    const displayValue = getParamValue(URL_PARAMS.DISPLAY);
+    const displayParsedValue = displayValue ? JSON.parse(displayValue) : {};
     let placesPromise = Promise.resolve([]);
     let statVarsPromise = Promise.resolve([]);
     let childTypesPromise = Promise.resolve(null);
@@ -364,6 +356,8 @@ export function AppContextProvider(
               isPerCapita:
                 sv[STAT_VAR_PARAM_KEYS.PER_CAPITA] === PARAM_VALUE_TRUE,
               isLog: sv[STAT_VAR_PARAM_KEYS.LOG] === PARAM_VALUE_TRUE,
+              date: sv[STAT_VAR_PARAM_KEYS.DATE] || "",
+              denom: sv[STAT_VAR_PARAM_KEYS.DENOM] || "",
             };
           }
         });
@@ -400,6 +394,14 @@ export function AppContextProvider(
           setChildPlaceTypes(childTypes);
           setSamplePlaces(samplePlaces);
           setVisType(visType);
+          setDisplayOptions({
+            scatterPlaceLabels:
+              displayParsedValue[DISPLAY_PARAM_KEYS.SCATTER_LABELS] ===
+              PARAM_VALUE_TRUE,
+            scatterQuadrants:
+              displayParsedValue[DISPLAY_PARAM_KEYS.SCATTER_QUADRANTS] ===
+              PARAM_VALUE_TRUE,
+          });
           setIsContextLoading(false);
         }
       )

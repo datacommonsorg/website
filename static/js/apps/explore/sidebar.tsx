@@ -22,7 +22,6 @@ import React from "react";
 
 import { NamedTypedNode } from "../../shared/types";
 import { randDomId } from "../../shared/util";
-import { CategoryConfig } from "../../types/subject_page_proto_types";
 
 interface SidebarPropType {
   id: string;
@@ -30,10 +29,12 @@ interface SidebarPropType {
   place: string;
   cmpPlace: string;
   placeType: string;
+  dc: string;
+  exploreMore: string;
   /**
    * Categories from the page config.
    */
-  categories: CategoryConfig[];
+  childTopics: NamedTypedNode[];
   peerTopics: NamedTypedNode[];
   setQuery: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -42,7 +43,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
     <div id="subject-page-sidebar">
       <ul id="nav-topics" className="nav flex-column accordion">
         {props.peerTopics.map((topic, idx) => {
-          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}`;
+          const url = `/explore/#t=${topic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}&em=${props.exploreMore}`;
           const isCurrentTopic = topic.dcid == props.currentTopicDcid;
           // Do not display itself for "root".
           const isRootTopic = topic.dcid == "dc/topic/Root";
@@ -66,12 +67,12 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
               )}
               <div className="sub-topic-group">
                 {isCurrentTopic &&
-                  props.categories &&
-                  props.categories.map((category) => {
-                    if (!category.dcid || category.dcid === topic.dcid) {
+                  props.childTopics &&
+                  props.childTopics.map((childTopic) => {
+                    if (!childTopic.dcid || childTopic.dcid === topic.dcid) {
                       return;
                     }
-                    const url = `/explore/#t=${category.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}`;
+                    const url = `/explore/#t=${childTopic.dcid}&p=${props.place}&pcmp=${props.cmpPlace}&pt=${props.placeType}&dc=${props.dc}&em=${props.exploreMore}`;
                     return (
                       <a
                         key={randDomId()}
@@ -81,7 +82,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                           props.setQuery("");
                         }}
                       >
-                        {category.title}
+                        {childTopic.name}
                       </a>
                     );
                   })}

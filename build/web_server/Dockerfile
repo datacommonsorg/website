@@ -12,11 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM envoyproxy/envoy:v1.22.0 AS envoy
 
-FROM gcr.io/datcom-ci/datacommons-mixer-base:latest as mixer-base
+FROM nikolaik/python-nodejs:python3.11-nodejs18-slim as base
 
-FROM nikolaik/python-nodejs:python3.11-nodejs18 as base
+RUN apt-get update && apt-get -y upgrade
 
 ARG ENV
 ENV ENV=${ENV}
@@ -42,23 +41,5 @@ RUN npm run-script build
 # Flask
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
-
-FROM base as server
-
-# Run server
 WORKDIR /workspace
 CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 4 web_app:app
-
-# Compose of mixer, esp and website
-FROM base as website-compose
-WORKDIR /workspace
-
-COPY --from=mixer-base /mixer/internal/ /mixer/internal
-COPY --from=mixer-base /mixer/esp/ /mixer/esp
-COPY --from=mixer-base /mixer/mixer-grpc.pb mixer-grpc.pb
-COPY --from=mixer-base /go/bin/mixer /go/bin/mixer
-COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
-
-COPY build/web_server/compose.sh .
-EXPOSE 8080 8081
-CMD ./compose.sh $USE_SQLITE $SQLITE_PATH

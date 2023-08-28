@@ -15,6 +15,7 @@
  */
 
 @use "./shared/subject_page";
+@use "./nl_search_bar";
 @import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
@@ -44,7 +45,6 @@ $feedback-link-font-color: #70757a;
 }
 
 #main-header {
-  background-color: #467bd5;
   height: 72px;
 }
 
@@ -190,33 +190,7 @@ $feedback-link-font-color: #70757a;
   font-size: 0.9rem;
 
   .search-section {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-
-    .btn {
-      height: 2.5rem;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-    .experiment-tag {
-      border-radius: 10px;
-      border-style: solid;
-      border-width: 3px;
-      color: var(--blue);
-      display: flex;
-      float: left;
-      font: normal 1em monospace;
-      padding: 4px 6px;
-      height: 80%;
-      margin-right: 20px;
-    }
-    .history-button {
-      margin-left: 0.5rem;
-    }
-    .search-box-section {
-      flex-grow: 1;
-    }
+    margin: 0;
   }
 
   .search-history-container {
@@ -424,12 +398,6 @@ $feedback-link-font-color: #70757a;
     display: none;
   }
 
-  .tile-hidden {
-    position: absolute;
-    top: -10000px;
-    visibility: hidden;
-  }
-
   .tile-lg {
     width: 100%;
   }
@@ -524,6 +492,10 @@ h3,
 
 .expando {
   font-size: 0.9rem;
+}
+.block .expando {
+  display: inline-block;
+  margin-top: 12px;
 }
 
 .expando,

@@ -17,31 +17,16 @@
                     ],
                     "title": "Larceny Theft Cases in Cities of San Francisco Bay Area (${date})",
                     "type": "RANKING"
-                  },
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft_pc"
-                    ],
-                    "title": "Per Capita Larceny Theft Cases in Cities of San Francisco Bay Area (${date})",
-                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Larceny Theft Cases"
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases in Cities of San Francisco Bay Area"
           }
         ],
         "statVarSpec": {
           "Count_CriminalActivities_LarcenyTheft": {
-            "name": "Larceny Theft Cases",
-            "statVar": "Count_CriminalActivities_LarcenyTheft"
-          },
-          "Count_CriminalActivities_LarcenyTheft_pc": {
-            "denom": "Count_Person",
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           }
@@ -55,10 +40,6 @@
       "placeDcid": [
         "wikidataId/Q213205"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -71,5 +52,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q213205",
+      "name": "San Francisco Bay Area",
+      "place_type": "AdministrativeArea"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

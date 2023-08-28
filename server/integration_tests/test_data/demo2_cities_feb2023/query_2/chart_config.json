@@ -15,8 +15,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asthma in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Asthma"
           },
           {
             "columns": [
@@ -30,8 +43,21 @@
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
+                    ],
+                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
               }
-            ]
+            ],
+            "title": "Chronic Obstructive Pulmonary Disease"
           },
           {
             "columns": [
@@ -58,12 +84,13 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Asthma compared with other variables in Sunnyvale (${date})",
+                    "title": "Asthma and more in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Related: Asthma and more"
           }
         ],
         "statVarSpec": {
@@ -171,5 +198,13 @@
   },
   "placeFallback": {},
   "placeSource": "PAST_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

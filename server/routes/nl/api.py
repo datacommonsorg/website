@@ -22,6 +22,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from server.lib.nl.detection import context
 from server.routes.nl import helpers
 import server.services.bigtable as bt
 

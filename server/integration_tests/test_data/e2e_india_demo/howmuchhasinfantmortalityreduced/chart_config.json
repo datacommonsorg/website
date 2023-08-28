@@ -1,0 +1,123 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1162",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q43433"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Infant_multiple_place_bar_block"
+                    ],
+                    "title": "Total number of infant deaths reported (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Total number of infant deaths reported"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death_Infant_multiple_place_bar_block": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "wikidataId/Q1168"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "wikidataId/Q1168",
+    "name": "Chhattisgarh",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1184",
+      "name": "Jharkhand",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1162",
+      "name": "Arunachal Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1165",
+      "name": "Bihar",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1164",
+      "name": "Assam",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q1498",
+      "name": "Uttar Pradesh",
+      "place_type": "State"
+    },
+    {
+      "dcid": "wikidataId/Q43433",
+      "name": "Chandigarh",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY"
+}

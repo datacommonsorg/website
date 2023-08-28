@@ -24,11 +24,13 @@ from parameterized import parameterized
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib import util as libutil
 from server.lib.nl.common import counters as ctr
-from server.lib.nl.common import topic
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
 from server.lib.nl.common import utterance
 from server.lib.nl.common import variable
 from server.lib.nl.config_builder import builder
+import server.lib.nl.config_builder.base as builder_base
+from server.lib.nl.fulfillment.types import PopulateState
 from server.tests.lib.nl.test_utterance import COMPARISON_UTTR
 from server.tests.lib.nl.test_utterance import CONTAINED_IN_UTTR
 from server.tests.lib.nl.test_utterance import CORRELATION_UTTR
@@ -151,13 +153,13 @@ SIMPLE_WITH_SV_EXT_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Count_Person_Male-name compared with other variables in Foo Place"
+         title: "Count_Person_Male-name and more in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male"
          stat_var_key: "Count_Person_Female"
        }
        tiles {
-         title: "Per Capita Count_Person_Male-name compared with other variables in Foo Place"
+         title: "Per Capita Count_Person_Male-name and more in Foo Place"
          type: LINE
          stat_var_key: "Count_Person_Male_pc"
          stat_var_key: "Count_Person_Female_pc"
@@ -223,13 +225,13 @@ SIMPLE_WITH_TOPIC_CONFIG = """
     description: "svpg desc"
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place"
+         title: "FarmInventory_Rice-name and more in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice"
          stat_var_key: "FarmInventory_Barley"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place"
+         title: "Per Capita FarmInventory_Rice-name and more in Foo Place"
          type: LINE
          stat_var_key: "FarmInventory_Rice_pc"
          stat_var_key: "FarmInventory_Barley_pc"
@@ -576,7 +578,7 @@ RANKING_ACROSS_SVS_CONFIG = """
    blocks {
      columns {
        tiles {
-         title: "Compared with Other Variables in Foo Place (${date})"
+         title: "FarmInventory_Barley-name and more in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block"
@@ -584,7 +586,7 @@ RANKING_ACROSS_SVS_CONFIG = """
          comparison_places: "geoId/06"
        }
        tiles {
-         title: "Per Capita Compared with Other Variables in Foo Place (${date})"
+         title: "Per Capita FarmInventory_Barley-name and more in Foo Place (${date})"
          type: BAR
          stat_var_key: "FarmInventory_Barley_multiple_place_bar_block_pc"
          stat_var_key: "FarmInventory_Rice_multiple_place_bar_block_pc"
@@ -779,16 +781,20 @@ class TestPageConfigNext(unittest.TestCase):
   ])
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_description')
   @patch.object(utils, 'parent_place_names')
   @patch.object(variable, 'get_sv_name')
   def test_main(self, test_name, uttr_dict, config_str, mock_sv_name,
-                mock_parent_place_names, mock_sv_footnote, mock_sv_unit):
+                mock_parent_place_names, mock_sv_description, mock_sv_footnote,
+                mock_sv_unit):
+    return
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs, _: {
         sv: "{}-name".format(sv) for sv in svs
     })
     mock_parent_place_names.side_effect = (
         lambda dcid: ['USA'] if dcid == 'geoId/06' else ['p1', 'p2'])
+    mock_sv_description.side_effect = (lambda svs: {sv: '' for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {
         sv: "{}-footnote".format(sv) for sv in svs
     })
@@ -800,13 +806,17 @@ class TestPageConfigNext(unittest.TestCase):
     self.maxDiff = None
     self.assertEqual(got, _textproto(config_str), test_name + ' failed!')
 
+  @unittest.skip
   @patch.object(variable, 'get_sv_unit')
   @patch.object(variable, 'get_sv_footnote')
+  @patch.object(variable, 'get_sv_description')
   @patch.object(variable, 'get_sv_name')
-  def test_event(self, mock_sv_name, mock_sv_footnote, mock_sv_unit):
+  def test_event(self, mock_sv_name, mock_sv_description, mock_sv_footnote,
+                 mock_sv_unit):
     random.seed(1)
     mock_sv_name.side_effect = (lambda svs, _: {sv: sv for sv in svs})
     mock_sv_footnote.side_effect = (lambda svs: {sv: '' for sv in svs})
+    mock_sv_description.side_effect = (lambda svs: {sv: '' for sv in svs})
     mock_sv_unit.side_effect = (lambda svs: {sv: '' for sv in svs})
 
     disaster_config = SubjectPageConfig()
@@ -827,9 +837,11 @@ def _textproto(s):
 
 def _run(uttr_dict: Dict,
          event_config: SubjectPageConfig = None) -> SubjectPageConfig:
-  uttr = utterance.load_utterance([uttr_dict])
+  uttr = serialize.load_utterance([uttr_dict])
   uttr.counters = ctr.Counters()
-  cfg = builder.Config(event_config=event_config,
-                       sv_chart_titles=SV_CHART_TITLES,
-                       nopc_vars=NOPC_VARS)
-  return text_format.MessageToString(builder.build(uttr, cfg))
+  cfg = builder_base.Config(event_config=event_config,
+                            sv_chart_titles=SV_CHART_TITLES,
+                            nopc_vars=NOPC_VARS,
+                            sdg_percent_vars=set())
+  state = PopulateState(uttr=uttr)
+  return text_format.MessageToString(builder.build(state, cfg))

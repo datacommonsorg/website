@@ -22,6 +22,10 @@ Required:
 
   Child place types to plot. Example: `State`.
 
+- `header` _string_
+
+  Chart title.
+
 - `parentPlace` _string_, optional if `places` specified
 
   Parent place DCID to plot. Example: `country/USA`.
@@ -29,10 +33,6 @@ Required:
 - `places` _space-separated list of strings_, optional if `childPLaceType` and `parentPlace` specified
 
   Place DCID(s) to plot. Example: `"geoId/12 geoId/13"`).
-
-- `title` _string_
-
-  Chart title.
 
 - `variables` _space-separated list of strings_
 

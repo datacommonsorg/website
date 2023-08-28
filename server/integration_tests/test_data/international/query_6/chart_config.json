@@ -21,8 +21,74 @@
             ],
             "title": "Droughts in Africa",
             "type": "DISASTER_EVENT"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Drought Event in Africa",
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Drought Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Droughts in Africa",
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Area_DroughtEvent": {
+            "name": "Area of Drought Event",
+            "statVar": "Area_DroughtEvent"
+          },
+          "Count_DroughtEvent": {
+            "name": "Droughts",
+            "statVar": "Count_DroughtEvent"
+          }
+        }
       }
     ],
     "metadata": {
@@ -60,10 +126,6 @@
       "placeDcid": [
         "africa"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -76,5 +138,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "africa",
+      "name": "Africa",
+      "place_type": "Continent"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

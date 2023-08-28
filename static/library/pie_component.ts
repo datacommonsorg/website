@@ -17,8 +17,6 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
@@ -27,7 +25,7 @@ import {
   DonutTilePropType,
 } from "../js/components/tiles/donut_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a donut chart tile.
@@ -65,6 +63,10 @@ export class DatacommonsPieComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   // List of DCIDs of statistical variables to plot
   // !Important: variables provided must cover all cases (sum of values takes
   //             up the full circle)
@@ -80,7 +82,10 @@ export class DatacommonsPieComponent extends LitElement {
   @property()
   place!: string;
 
-  // Title of the chart
+  /**
+   * @deprecated
+   * Title of the chart
+   */
   @property()
   title!: string;
 
@@ -108,10 +113,8 @@ export class DatacommonsPieComponent extends LitElement {
       },
       statVarSpec,
       svgChartHeight: 200,
-      title: this.title,
+      title: this.header || this.title,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(DonutTile, donutTileProps), mountPoint);
-    return mountPoint;
+    return createWebComponentElement(DonutTile, donutTileProps);
   }
 }

@@ -13,6 +13,7 @@
 # limitations under the License.
 """Endpoints for Datacommons NL"""
 
+import copy
 import json
 import logging
 import os
@@ -23,17 +24,19 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
-from google.protobuf.json_format import MessageToJson
 
-from server.lib.explore.detector import Params
-import server.lib.explore.detector as insight_detector
 import server.lib.explore.fulfiller as fulfillment
+import server.lib.explore.fulfiller_bridge as nl_fulfillment
+from server.lib.explore.params import DCNames
+from server.lib.explore.params import Params
+from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
-import server.lib.nl.config_builder.builder as config_builder
+import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
+from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
@@ -53,20 +56,22 @@ def detect():
   if error_json:
     return error_json
   if not utterance:
-    return helpers.abort('Failed to process!', '', [])
+    return helpers.abort('Sorry could not answer your query.', '', [])
 
-  data_dict = insight_detector.detect_with_context(utterance)
+  data_dict = copy.deepcopy(utterance.insight_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = serialize.save_utterance(utterance)
 
   dbg_counters = utterance.counters.get()
   utterance.counters = None
   status_str = "Successful"
 
-  return helpers.prepare_response(data_dict,
-                                  status_str,
-                                  utterance.detection,
-                                  dbg_counters,
-                                  debug_logs,
-                                  has_data=True)
+  return helpers.prepare_response_common(data_dict,
+                                         status_str,
+                                         utterance.detection,
+                                         dbg_counters,
+                                         debug_logs,
+                                         has_data=True)
 
 
 #
@@ -86,20 +91,99 @@ def fulfill():
     flask.abort(404)
 
   req_json = request.get_json()
-  if not req_json:
-    return helpers.abort('Missing input', '', [])
-  if not req_json.get('entities'):
-    return helpers.abort('`entities` must be provided', '', [])
-
-  entities = req_json.get(Params.ENTITIES.value, [])
-  cmp_entities = req_json.get(Params.CMP_ENTITIES.value, [])
-  vars = req_json.get(Params.VARS.value, [])
-  cmp_vars = req_json.get(Params.CMP_VARS.value, [])
-  child_type = req_json.get(Params.CHILD_TYPE.value, '')
-  session_id = req_json.get(Params.SESSION_ID.value, '')
-
-  counters = ctr.Counters()
   debug_logs = {}
+  counters = ctr.Counters()
+  return _fulfill_with_insight_ctx(req_json, debug_logs, counters)
+
+
+#
+# The detect and fulfill endpoint.
+#
+@bp.route('/detect-and-fulfill', methods=['POST'])
+def detect_and_fulfill():
+  debug_logs = {}
+  utterance, error_json = helpers.parse_query_and_detect(
+      request, 'explore', debug_logs)
+  if error_json:
+    return error_json
+  if not utterance:
+    return helpers.abort('Sorry, could not answer your query.', '', [])
+
+  data_dict = copy.deepcopy(utterance.insight_ctx)
+  utterance.prev_utterance = None
+  data_dict[Params.CTX.value] = serialize.save_utterance(utterance)
+  data_dict[Params.ENABLE_NL_FULFILLMENT.value] = request.get_json().get(
+      Params.ENABLE_NL_FULFILLMENT, True)
+  data_dict[Params.EXP_MORE_DISABLED.value] = request.get_json().get(
+      Params.EXP_MORE_DISABLED, "")
+  data_dict[Params.DC.value] = request.get_json().get(Params.DC, "")
+  return _fulfill_with_insight_ctx(data_dict, debug_logs, utterance.counters,
+                                   utterance.detection)
+
+
+#
+# Given an utterance constructed either from a query or from dcids,
+# fulfills it into charts.
+#
+def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
+                               debug_logs: Dict,
+                               orig_detection: Detection = None) -> Dict:
+  disaster_config = current_app.config['NL_DISASTER_CONFIG']
+  if current_app.config['LOCAL']:
+    # Reload configs for faster local iteration.
+    disaster_config = get_nl_disaster_config()
+  else:
+    logging.info('Unable to load event configs!')
+
+  cb_config = config_builder.Config(
+      event_config=disaster_config,
+      sv_chart_titles=current_app.config['NL_CHART_TITLES'],
+      nopc_vars=current_app.config['NOPC_VARS'],
+      sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
+
+  start = time.time()
+  use_nl = utterance.insight_ctx.get(Params.ENABLE_NL_FULFILLMENT.value, True)
+  if use_nl:
+    fresp = nl_fulfillment.fulfill(utterance, cb_config)
+  else:
+    fresp = fulfillment.fulfill(utterance, cb_config)
+  utterance.counters.timeit('fulfillment', start)
+
+  if orig_detection:
+    # This is the case of Detection + Fulfill flow.
+    detection = orig_detection
+  else:
+    # This is the case of Fulfill-only flow.
+    detection = utterance.detection
+  return helpers.prepare_response(utterance, fresp.chart_pb, detection,
+                                  debug_logs, fresp.related_things)
+
+
+#
+# Given an insight context, fulfills it into charts.
+#
+def _fulfill_with_insight_ctx(insight_ctx: Dict,
+                              debug_logs: Dict,
+                              counters: ctr.Counters,
+                              orig_detection: Detection = None) -> Dict:
+  if not insight_ctx:
+    return helpers.abort('Sorry, could not answer your query.', '', [])
+  if not insight_ctx.get('entities'):
+    return helpers.abort('Could not recognize any places in the query.', '', [])
+
+  entities = insight_ctx.get(Params.ENTITIES.value, [])
+  cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
+  vars = insight_ctx.get(Params.VARS.value, [])
+  cmp_vars = insight_ctx.get(Params.CMP_VARS.value, [])
+  child_type = insight_ctx.get(Params.CHILD_TYPE.value, '')
+  session_id = insight_ctx.get(Params.SESSION_ID.value, '')
+  classifications = insight_ctx.get(Params.CLASSIFICATIONS.value, [])
+
+  dc_name = insight_ctx.get(Params.DC.value)
+  if not dc_name:
+    dc_name = DCNames.MAIN_DC.value
+  if dc_name not in set([it.value for it in DCNames]):
+    return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}', '', [])
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
@@ -111,83 +195,21 @@ def fulfill():
   # TODO: Maybe check that if cmp_entities is set, entities should
   # be singleton.
   start = time.time()
+  if orig_detection:
+    # Pass in dummy logs, since we've done the detection already and
+    # have those logs.
+    construct_logs = {}
+  else:
+    construct_logs = debug_logs
   query_detection, error_msg = nl_detector.construct(entities, vars, child_type,
                                                      cmp_entities, cmp_vars,
-                                                     debug_logs, counters)
+                                                     classifications,
+                                                     construct_logs, counters)
   counters.timeit('query_detection', start)
   if not query_detection:
     return helpers.abort(error_msg, '', [])
 
   utterance = create_utterance(query_detection, None, counters, session_id)
-  utterance.insight_ctx = req_json
-  return _fulfill_with_chart_config(utterance, debug_logs)
-
-
-#
-# Given an utterance constructed either from a query or from dcids,
-# fulfills it into charts.
-#
-def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict) -> Dict:
-  disaster_config = current_app.config['NL_DISASTER_CONFIG']
-  if current_app.config['LOCAL']:
-    # Reload configs for faster local iteration.
-    disaster_config = get_nl_disaster_config()
-  else:
-    logging.info('Unable to load event configs!')
-
-  cb_config = config_builder.Config(
-      event_config=disaster_config,
-      sv_chart_titles=current_app.config['NL_CHART_TITLES'],
-      nopc_vars=current_app.config['NOPC_VARS'])
-
-  start = time.time()
-  fresp = fulfillment.fulfill(utterance, cb_config)
-  utterance.counters.timeit('fulfillment', start)
-  if fresp.chart_pb:
-    # Use the first chart's place as main place.
-    main_place = utterance.places[0]
-    page_config = json.loads(MessageToJson(fresp.chart_pb))
-
-  else:
-    page_config = {}
-    utterance.place_source = nl_utterance.FulfillmentResult.UNRECOGNIZED
-    main_place = Place(dcid='', name='', place_type='')
-    logging.info('Found empty place for query "%s"',
-                 utterance.detection.original_query)
-
-  dbg_counters = utterance.counters.get()
-  utterance.counters = None
-  context_history = nl_utterance.save_utterance(utterance)
-
-  data_dict = {
-      'place': {
-          'dcid': main_place.dcid,
-          'name': main_place.name,
-          'place_type': main_place.place_type,
-      },
-      'config': page_config,
-      'context': context_history,
-      'placeFallback': context_history[0]['placeFallback'],
-      'svSource': utterance.sv_source.value,
-      'placeSource': utterance.place_source.value,
-      'pastSourceContext': utterance.past_source_context,
-      'relatedThings': fresp.related_things,
-      'userMessage': fresp.user_message,
-  }
-  status_str = "Successful"
-  if utterance.rankedCharts:
-    status_str = ""
-  else:
-    if not utterance.places:
-      status_str += '**No Place Found**.'
-    if not utterance.svs:
-      status_str += '**No SVs Found**.'
-
-  has_charts = True if page_config else False
-  return helpers.prepare_response(data_dict,
-                                  status_str,
-                                  utterance.detection,
-                                  dbg_counters,
-                                  debug_logs,
-                                  has_data=has_charts)
+  utterance.insight_ctx = insight_ctx
+  utterance.insight_ctx[Params.DC.value] = dc_name
+  return _fulfill_with_chart_config(utterance, debug_logs, orig_detection)

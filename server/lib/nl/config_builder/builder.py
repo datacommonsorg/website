@@ -12,9 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from dataclasses import dataclass
 import time
-from typing import Dict, Set
+from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.nl.common import variable
@@ -23,129 +22,175 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
+from server.lib.nl.config_builder import highlight
 from server.lib.nl.config_builder import map
 from server.lib.nl.config_builder import ranking
 from server.lib.nl.config_builder import scatter
-from server.lib.nl.config_builder import suggestions
 from server.lib.nl.config_builder import timeline
-
-
-# Config structures.
-@dataclass
-class Config:
-  event_config: SubjectPageConfig
-  sv_chart_titles: Dict
-  nopc_vars: Set[str]
+from server.lib.nl.config_builder.base import Config
+from server.lib.nl.fulfillment.types import ChartSpec
+from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.types import SV2Thing
 
 
 #
 # Given an Utterance, build the final Chart config proto.
-# TODO: Do fine-grained existence checks while adding charts.
 #
-def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
-  builder = base.Builder(uttr)
-
+def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   # Get names of all SVs
+  uttr = state.uttr
   all_svs = set()
   for cspec in uttr.rankedCharts:
     all_svs.update(cspec.svs)
-  all_svs.update(uttr.extra_success_svs)
+    cv: ChartVars = cspec.chart_vars
+    if cv.source_topic:
+      all_svs.add(cv.source_topic)
+    if cv.svpg_id:
+      all_svs.add(cv.svpg_id)
+    if cv.orig_svs:
+      all_svs.update(cv.orig_svs)
   all_svs = list(all_svs)
   start = time.time()
-  sv2thing = base.SV2Thing(
+  sv2thing = SV2Thing(
       name=variable.get_sv_name(all_svs, config.sv_chart_titles),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),
   )
+  state.sv2thing = sv2thing
   uttr.counters.timeit('get_sv_details', start)
+
+  builder = base.Builder(uttr, sv2thing, config)
 
   # Build chart blocks
   for cspec in uttr.rankedCharts:
+    cspec = cast(ChartSpec, cspec)
+    cv = cspec.chart_vars
     if not cspec.places:
       continue
     stat_var_spec_map = {}
 
     # Call per-chart handlers.
     if cspec.chart_type == ChartType.PLACE_OVERVIEW:
-      place = cspec.places[0]
-      block, column = builder.new_chart(cspec.attr)
-      block.title = place.name
-      base.place_overview_block(column)
+      # Skip the title because in explore the place appears
+      # as page title.
+      block = builder.new_chart(cspec, skip_title=True)
+      base.place_overview_block(block.columns.add())
 
-    elif cspec.chart_type == ChartType.TIMELINE_CHART:
-      _, column = builder.new_chart(cspec.attr)
+    elif cspec.chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT:
       if len(cspec.svs) > 1:
+        block = builder.new_chart(cspec)
         stat_var_spec_map = timeline.single_place_multiple_var_timeline_block(
-            column, cspec.places[0], cspec.svs, sv2thing, cspec.attr,
-            config.nopc_vars)
+            block.columns.add(), cspec.places[0], cspec.svs, sv2thing, cv)
+      elif len(cspec.places) > 1:
+        stat_var_spec_map = timeline.multi_place_single_var_timeline_block(
+            builder, cspec.places, cspec.svs[0], sv2thing, cspec)
       else:
+        block = builder.new_chart(cspec)
+        if cspec.is_sdg:
+          # Return highlight before timeline for SDG.
+          stat_var_spec_map.update(
+              highlight.higlight_block(block.columns.add(), cspec.places[0],
+                                       cspec.svs[0], sv2thing))
         stat_var_spec_map = timeline.single_place_single_var_timeline_block(
-            column, cspec.places[0], cspec.svs[0], sv2thing, cspec.attr,
-            config.nopc_vars)
+            block.columns.add(), cspec.places[0], cspec.svs[0], sv2thing)
+        if not cspec.is_sdg:
+          stat_var_spec_map.update(
+              highlight.higlight_block(block.columns.add(), cspec.places[0],
+                                       cspec.svs[0], sv2thing))
 
     elif cspec.chart_type == ChartType.BAR_CHART:
-      _, column = builder.new_chart(cspec.attr)
-      stat_var_spec_map = bar.multiple_place_bar_block(column, cspec.places,
-                                                       cspec.svs, sv2thing,
-                                                       cspec.attr,
-                                                       config.nopc_vars)
+      block = builder.new_chart(cspec)
+      if len(cspec.places) == 1 and len(cspec.svs) == 1:
+        # Demote this to a highlight.
+        stat_var_spec_map = highlight.higlight_block(block.columns.add(),
+                                                     cspec.places[0],
+                                                     cspec.svs[0], sv2thing)
+      else:
+        stat_var_spec_map = bar.multiple_place_bar_block(
+            column=block.columns.add(),
+            places=cspec.places,
+            svs=cspec.svs,
+            sv2thing=sv2thing,
+            cv=cv,
+            ranking_types=cspec.ranking_types)
 
     elif cspec.chart_type == ChartType.MAP_CHART:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
+      block = builder.new_chart(cspec,
+                                place=cspec.places[0],
+                                child_type=cspec.place_type)
       for sv in cspec.svs:
-        _, column = builder.new_chart(cspec.attr)
         stat_var_spec_map.update(
-            map.map_chart_block(column, cspec.places[0], sv, sv2thing,
-                                cspec.attr, config.nopc_vars))
+            map.map_chart_block(column=block.columns.add(),
+                                place=cspec.places[0],
+                                pri_sv=sv,
+                                child_type=cspec.place_type,
+                                sv2thing=sv2thing))
 
-    elif cspec.chart_type == ChartType.RANKING_CHART:
+    elif cspec.chart_type == ChartType.RANKING_WITH_MAP:
       if not base.is_map_or_ranking_compatible(cspec):
         continue
       pri_place = cspec.places[0]
 
-      if cspec.attr['source_topic'] == 'dc/topic/ProjectedClimateExtremes':
+      if cv.source_topic == 'dc/topic/ProjectedClimateExtremes':
         stat_var_spec_map.update(
             ranking.ranking_chart_block_climate_extremes(
-                builder, pri_place, cspec.svs, sv2thing, cspec.attr))
+                builder, pri_place, cspec.svs, sv2thing, cspec))
       else:
-        # Do not let the builder decide the title and description.
-        cspec.attr['title'] = ''
-        cspec.attr['description'] = ''
-
+        if cv.skip_map_for_ranking:
+          # Create the block here.
+          block = builder.new_chart(cspec,
+                                    place=pri_place,
+                                    child_type=cspec.place_type)
         for sv in cspec.svs:
-          block, column = builder.new_chart(cspec.attr)
-          block.footnote = sv2thing.footnote[sv]
-
-          if not builder.block.title and builder.ignore_block_id_check:
-            builder.block.title = sv2thing.name[sv]
-            builder.block.description = sv2thing.description[sv]
-
-          chart_origin = cspec.attr.get('class', None)
-          builder.block.title = base.decorate_block_title(
-              title=builder.block.title, chart_origin=chart_origin)
+          if not cv.skip_map_for_ranking:
+            # We have a rank + map, so create a block per SV.
+            block = builder.new_chart(cspec,
+                                      override_sv=sv,
+                                      place=pri_place,
+                                      child_type=cspec.place_type)
+            if len(cspec.ranking_types) > 1:
+              # This is Explore case where we show both HIGH + LOW mappings.
+              stat_var_spec_map.update(
+                  map.map_chart_block(column=block.columns.add(),
+                                      place=pri_place,
+                                      pri_sv=sv,
+                                      child_type=cspec.place_type,
+                                      sv2thing=sv2thing))
           stat_var_spec_map.update(
-              ranking.ranking_chart_block_nopc(column, pri_place, sv, sv2thing,
-                                               cspec.attr))
-          if (cspec.attr['include_percapita'] and
-              variable.is_percapita_relevant(sv, config.nopc_vars)):
-            if not 'skip_map_for_ranking' in cspec.attr:
-              block, column = builder.new_chart(cspec.attr)
+              ranking.ranking_chart_block(column=block.columns.add(),
+                                          pri_place=pri_place,
+                                          pri_sv=sv,
+                                          child_type=cspec.place_type,
+                                          sv2thing=sv2thing,
+                                          ranking_types=cspec.ranking_types,
+                                          ranking_count=cspec.ranking_count))
+          if not cv.skip_map_for_ranking and len(cspec.ranking_types) < 2:
+            # Also add a map chart.
             stat_var_spec_map.update(
-                ranking.ranking_chart_block_pc(column, pri_place, sv, sv2thing,
-                                               cspec.attr))
+                map.map_chart_block(column=block.columns.add(),
+                                    place=pri_place,
+                                    pri_sv=sv,
+                                    child_type=cspec.place_type,
+                                    sv2thing=sv2thing))
+
     elif cspec.chart_type == ChartType.SCATTER_CHART:
-      _, column = builder.new_chart(cspec.attr)
-      stat_var_spec_map = scatter.scatter_chart_block(column, cspec.places[0],
-                                                      cspec.svs, sv2thing,
-                                                      cspec.attr,
-                                                      config.nopc_vars)
+      block = builder.new_chart(cspec, skip_title=True)
+      stat_var_spec_map = scatter.scatter_chart_block(
+          column=block.columns.add(),
+          pri_place=cspec.places[0],
+          sv_pair=cspec.svs,
+          child_type=cspec.place_type,
+          sv2thing=sv2thing,
+          nopc_vars=config.nopc_vars)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and config.event_config:
-      block, column = builder.new_chart(cspec.attr)
-      event.event_chart_block(builder.page_config.metadata, block, column,
-                              cspec.places[0], cspec.event, cspec.attr,
+      block = builder.new_chart(cspec, skip_title=True)
+      event.event_chart_block(builder.page_config.metadata, block,
+                              cspec.places[0], cspec.event, cspec.ranking_types,
                               config.event_config)
 
     elif cspec.chart_type == ChartType.RANKED_TIMELINE_COLLECTION:
@@ -155,5 +200,4 @@ def build(uttr: Utterance, config: Config) -> SubjectPageConfig:
     builder.update_sv_spec(stat_var_spec_map)
 
   builder.finalize()
-  suggestions.add(uttr, sv2thing, builder.page_config)
   return builder.page_config

@@ -1,5 +1,18 @@
 {
   "childEntityType": "State",
+  "classifications": [
+    {
+      "ranking_type": [
+        1
+      ],
+      "type": 2
+    },
+    {
+      "contained_in_place_type": "State",
+      "had_default_type": false,
+      "type": 4
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},

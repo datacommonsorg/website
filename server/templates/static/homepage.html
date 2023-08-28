@@ -1,12 +1,12 @@
 {#
   Copyright 2023 Google LLC
- 
+
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
- 
+
        http://www.apache.org/licenses/LICENSE-2.0
- 
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,128 +14,131 @@
   limitations under the License.
  #}
  {%- extends BASE_HTML -%}
- 
+
  {% set main_id = 'homepage' %}
  {% set page_id = 'page-homepage' %}
  {% set title = 'Home' %}
- {% set brand_logo_light = true %}
- 
+ {% set brand_logo_light = false %}
+
  {% macro external_icon() -%}
  <svg class="icon"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="12px" fill="#660000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
  {%- endmacro %}
- 
+
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
  <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}}></script>
  {% endblock %}
- 
+
  {% block content %}
- <section id="homepage-top">
+
+<section id="homepage-top">
+  <div id="search-container" class="container">
+  </div>
+</section>
+
+<section id="search-animation">
   <div class="container">
-    <div class="header">Data tells interesting stories</div>
-    <div class="sub-header">
-      Data Commons makes it easier to find them.<br/>
-      Data Commons is a free, unified database of
-      <a href="https://docs.datacommons.org/datasets/" target="_blank" rel="noopener noreferrer">
-        public data.
-      </a>
+    <div id="default-text">
+      <div class="content">
+        <div class="header">Data tells interesting stories</div>
+        <div class="sub-header">Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</div>
+      </div>
+    </div>
+    <div id="search-sequence" class="hidden">
+      <input id="animation-search-input" placeholder="Enter a question or topic to explore" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="" readonly>
+      <div id="result-svg" class="">
+        <div class="result hidden" data-query="Which countries in Africa have had the greatest increase in electricity access?" style="background-image: url('/images/home-answers/access-electricity.svg')"></div>
+        <div class="result hidden" data-query="How do income and diabetes trend in US counties?" style="background-image: url('/images/home-answers/income-diabetes.svg')"></div>
+        <div class="result hidden" data-query="Which counties in the US have the highest levels of diabetes?" style="background-image: url('/images/home-answers/diabetes.svg')"></div>
+        <div class="result hidden" data-query="Tell me about global greenhouse gas emissions" style="background-image: url('/images/home-answers/emissions.svg')"></div>
+        <div class="result hidden" data-query="Show me agricultural income by US county" style="background-image: url('/images/home-answers/farm-income.svg')"></div>
+      </div>
     </div>
   </div>
 </section>
- 
- <section>
+
+<section>
   <div class="container">
-    <h2>Explore Data Commons</h2>
     <div class="topics-container">
       {% for topic in topics %}
-      <div class="topic-card">
+        <div class="topic-card clickable" onclick="location.href='{{ topic['browseUrl'] }}';">
           <div class="topic-card-body">
-            <div>
-              <div class="topic-card-title">{{ topic['title'] }}</div>
-              <div class="topic-card-description">{{ topic['description'] }}</div>
-            </div>
+            <img class="topic-card-image" src="{{ topic['image'] }}" />
+            <div class="topic-card-title">{{ topic['title'] }}</div>
+            <div class="topic-card-description">{{ topic['description'] }}</div>
             <div class="topic-card-links">
-              <a href="{{ topic['browseUrl'] }}" >Search</a> |
-              <a href="{{ topic['url'] }}" id="{{ topic['title']}}" >Chat</a>
+              <a href="{{ topic['browseUrl'] }}" ><span class="material-icons-outlined">arrow_forward</span><span>Explore</span></a>
             </div>
-          </div>
-          <div class="topic-card-icon">
-            <span class="material-icons-outlined">{{ topic['icon'] }}</span>
           </div>
         </div>
       {% endfor %}
     </div>
 </section>
 
-<section>
-  <div class="container">
-    <h2>Tools</h2>
-    <div class="tool-buttons-container">
-        <a href="{{ url_for('tools.visualization')}}#visType=scatter" id="scatter-button" class="tool-button">
-          <div class="img-container">
-            <div class="tool-button-img"></div>
-          </div>
-          <span>Scatter Plots</span>
-        </a>
-        <a href="{{ url_for('tools.visualization')}}#visType=map" id="map-button" class="tool-button">
-          <div class="img-container">
-            <div class="tool-button-img"></div>
-          </div>
-          <span>Map Explorer</span>
-        </a>
-        <a href="{{ url_for('tools.visualization')}}#visType=timeline" id="timeline-button" class="tool-button">
-          <div class="img-container">
-            <div class="tool-button-img"></div>
-          </div>
-          <span>Timelines</span>
-        </a>
-        <a href="{{ url_for('place.place') }}" id="place-button" class="tool-button">
-          <div class="img-container">
-            <div class="tool-button-img"></div>
-          </div>
-          <span>Place Explorer</span>
-        </a>
-        <a href="{{ url_for('tools.download') }}" id="download-button" class="tool-button">
-          <div class="img-container">
-            <span class="material-icons-outlined">download</span>
-          </div>
-          <span>Data Download</span>
-        </a>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <h2>Our Partners</h2>
-    <div id="partners-container" data-items="{{ partners }}"></div>
-  </div>
-</section>
-
-<section>
-  <div class="container">
-    <h2>Learn More</h2>
-    <div class="interact-buttons-container">
-        <a href="http://docs.datacommons.org" class="interact-button">
-            <span>Documentation</span>
-            <div><span class="material-icons-outlined">menu_book</span></div>
-        </a>
-        <a href="http://docs.datacommons.org/api" class="interact-button">
-            <span>API</span>
-            <div><span class="material-icons-outlined">swap_horiz</span></div>
-        </a>
-        <a href="http://docs.datacommons.org/tutorials" class="interact-button">
-            <span>Tutorials</span>
-            <div><span class="material-icons-outlined">school</span></div>
-        </a>
-        <a href="{{ url_for('static.about') }}" class="interact-button">
-            <span>About</span>
-            <div><span class="material-icons-outlined">contact_support</span></div>
-      </a>
+<div class="background-gradient">
+  <section class="tools">
+    <div class="container">
+      <div class="tools-description">
+        <div class="tools-description-header">Data Commons Tools</div>
+        <div class="tools-description-subheader">Explore the public database through these tools</div>
+      </div>
+      <div class="tools-icons">
+      <div class="tool-buttons-container">
+          <a href="{{ url_for('tools.visualization')}}#visType=map" id="map-button" class="tool-button">
+            <img class="tool-icon" src="/images/tool-map-explorer.svg" />
+            <span>Map explorer</span>
+          </a>
+          <a href="{{ url_for('tools.visualization')}}#visType=scatter" id="scatter-button" class="tool-button">
+            <img class="tool-icon" src="/images/tool-scatter.svg" />
+            <span>Scatter plots</span>
+          </a>
+          <a href="{{ url_for('tools.visualization')}}#visType=timeline" id="timeline-button" class="tool-button">
+            <img class="tool-icon" src="/images/tool-timeline.svg" />
+            <span>Timelines</span>
+          </a>
+          <a href="{{ url_for('place.place') }}" id="place-button" class="tool-button">
+            <img class="tool-icon" src="/images/tool-place-explorer.svg" />
+            <span>Place explorer</span>
+          </a>
+          <a href="{{ url_for('tools.download') }}" id="download-button" class="tool-button">
+            <img class="tool-icon" src="/images/tool-download.png" />
+            <span>Data download</span>
+          </a>
+        </div>
     </div>
-  </div>
-</section>
+  </section>
 
- 
+  <section>
+    <div class="container">
+      <div class="learn-more">
+        <img class="learn-more-image" src="/images/learn-more.svg" />
+        <div class="learn-more-content">
+          <h3>Learn More</h3>
+          <p>Data forms the foundation of science, policy, and journalism, but its full potential is often limited. Data Commons addresses this by offering cloud-based APIs to access and integrate cleaned datasets, boosting their usability across different domains.</p>
+          <div class="learn-more-links">
+            <a href="{{ url_for('static.about') }}" ><span class="material-icons-outlined">arrow_forward</span><span>About Data Commons</span></a>
+            <a href="https://docs.datacommons.org/tutorials/" ><span class="material-icons-outlined">arrow_forward</span><span>Tutorials</span></a>
+            <a href="https://docs.datacommons.org/" ><span class="material-icons-outlined">arrow_forward</span><span>Documentation</span></a>
+            <a href="https://docs.datacommons.org/api/" ><span class="material-icons-outlined">arrow_forward</span><span>API</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="partners">
+        <h3>Our Partners</h2>
+        <div class="partner-items">
+          {% for partner in partners_list %}
+            <a href="{{ partner['url'] }}" title="{{ partner['title'] }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ partner['imgUrl']}}" />
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
  {% endblock %}
- 

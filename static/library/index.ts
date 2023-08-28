@@ -23,20 +23,26 @@ import {
 } from "./components";
 import { DEFAULT_API_ENDPOINT } from "./constants";
 import { DatacommonsGaugeComponent } from "./gauge_component";
+import { DatacommonsHighlightComponent } from "./highlight_component";
 import { DatacommonsLineComponent } from "./line_chart_component";
 import { DatacommonsMapComponent } from "./map_component";
 import { DatacommonsPieComponent } from "./pie_component";
 import { DatacommonsRankingComponent } from "./ranking_component";
+import { DatacommonsScatterComponent } from "./scatter_component";
 import { DatacommonsSliderComponent } from "./slider_component";
+import { DatacommonsTextComponent } from "./text_component";
 
 globalThis.datacommons = {
   DatacommonsBarComponent,
   DatacommonsGaugeComponent,
+  DatacommonsHighlightComponent,
   DatacommonsLineComponent,
   DatacommonsMapComponent,
   DatacommonsPieComponent,
   DatacommonsRankingComponent,
+  DatacommonsScatterComponent,
   DatacommonsSliderComponent,
+  DatacommonsTextComponent,
   drawBar: renderBarComponent,
   drawLine: renderLineComponent,
   drawMap: renderMapComponent,

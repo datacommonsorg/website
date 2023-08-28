@@ -1,5 +1,10 @@
 {
   "childEntityType": "",
+  "classifications": [
+    {
+      "type": 15
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},

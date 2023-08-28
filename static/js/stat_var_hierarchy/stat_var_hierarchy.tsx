@@ -34,6 +34,7 @@ import {
   NamedNode,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
+  StatVarGroupNodeType,
   StatVarHierarchyType,
 } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
@@ -211,6 +212,14 @@ export class StatVarHierarchy extends React.Component<
                           showAllSV={this.state.showAllSV}
                           expandedPath={this.state.expandedPath.slice(1)}
                           numEntitiesExistence={this.props.numEntitiesExistence}
+                          dataSource={
+                            // This is a virtual node for holding stat vars of
+                            // a data source.
+                            // Add data source to constrain this node.
+                            svg.id == ROOT_SVG
+                              ? (globalThis.dataSourceDcid as string)
+                              : ""
+                          }
                         />
                       </Context.Provider>
                     );
@@ -235,7 +244,9 @@ export class StatVarHierarchy extends React.Component<
   private fetchData(): void {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     const entityList = this.props.entities.map((entity) => entity.dcid);
-    const allPromises: Promise<string[] | StatVarGroupInfo[]>[] = [];
+    const allPromises: Promise<
+      string[] | StatVarGroupInfo[] | StatVarGroupNodeType
+    >[] = [];
     allPromises.push(
       axios
         .post("/api/variable-group/info", {
@@ -247,6 +258,21 @@ export class StatVarHierarchy extends React.Component<
           return resp.data["childStatVarGroups"];
         })
     );
+    if (globalThis.dataSourceDcid) {
+      allPromises.push(
+        axios
+          .post("/api/variable-group/info", {
+            dcid: ROOT_SVG,
+            entities: [globalThis.dataSourceDcid],
+          })
+          .then((resp) => {
+            return resp.data;
+          })
+      );
+    } else {
+      allPromises.push(Promise.resolve(null));
+    }
+
     const svPath = {};
     if (this.props.selectedSVs) {
       for (const sv of this.props.selectedSVs) {
@@ -261,7 +287,21 @@ export class StatVarHierarchy extends React.Component<
       .then((allResult) => {
         removeSpinner(SV_HIERARCHY_SECTION_ID);
         const rootSVGs = allResult[0] as StatVarGroupInfo[];
-        const paths = allResult.slice(1) as string[][];
+        const dataSourceNode = allResult[1] as StatVarGroupNodeType;
+        // When data source is specified, create a virtual top level node for
+        // this data source. This node is marked with the ROOT_SVG, hence the
+        // children can just be fetched with the data source as contraining
+        // entity.
+        if (dataSourceNode) {
+          rootSVGs.push({
+            id: ROOT_SVG,
+            specializedEntity: "",
+            displayName: globalThis.dataSourceName,
+            descendentStatVarCount: dataSourceNode.descendentStatVarCount,
+          });
+        }
+
+        const paths = allResult.slice(2) as string[][];
         for (const path of paths) {
           // In this case, the stat var is not in hierarchy.
           if (path.length == 1) {

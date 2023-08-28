@@ -78,6 +78,13 @@ website and mixer changes.
 
 This will watch static files change and re-build on code edit.
 
+> NOTE: On macOS machines with a M1 chip, run the following command before running the above command.
+> See [this](https://stackoverflow.com/a/71353060) for more details.
+
+```bash
+brew install pkg-config cairo pango libpng jpeg giflib librsvg
+```
+
 ### Start the Flask Server
 
 Start the flask webserver locally at localhost:8080
@@ -144,12 +151,10 @@ gcloud auth login
 gcloud auth configure-docker
 ./scripts/push_image.sh
 ./scripts/deploy_gke_helm.sh -e dev
-./scripts/deploy_gke_helm.sh -e dev -l us-west1
 ```
 
 The script builds docker image locally and tags it with the local git commit
-hash at HEAD, then deploys to dev instance in GKE. Need to deploy it to both
-us-central1 (which is the default) and us-west1.
+hash at HEAD, then deploys to dev instance in GKE.
 
 View the deployoment at [link](https://dev.datacommons.org).
 
@@ -163,7 +168,7 @@ different cloud enviornment.
 
 ### Obtain API Key
 
-- Get API key for mixer by sending an email to [Data Commons Support](support@datacommons.org).
+- Get API key for mixer by sending an email to `support@datacommons.org`.
 - [Optional] Provision a Google Maps API key from your GCP project. This is
   optional and used for place search in various visualization tools.
 
@@ -197,7 +202,7 @@ docker run -it --pull=always \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
 -e USE_SQLITE=true \
--e SQLITE_PATH=/sqlite
+-e SQLITE_PATH=/sqlite \
 -p 8080:8080 \
 -p 8081:8081 \
 -v $HOME/dc-data:/sqlite \
@@ -219,8 +224,8 @@ Make code changes and build the image:
 
 ```bash
 docker build \
-  --tag datacommons-website/compose \
-  -f build/web_server/Dockerfile \
+  --tag datacommons-website/compose:latest \
+  -f build/web_compose/Dockerfile \
   -t website-compose .
 ```
 
@@ -233,7 +238,11 @@ docker run -it \
 -e FLASK_ENV=custom \
 -e ENV_PREFIX=Compose \
 -e USE_LOCAL_MIXER=true \
+-e USE_SQLITE=true \
+-e SQLITE_PATH=/sqlite \
 -p 8080:8080 \
+-p 8081:8081 \
+-v $HOME/dc-data:/sqlite \
 datacommons-website/compose:latest
 ```
 
@@ -406,7 +415,7 @@ rm -rf ~/.datacommons/cache.*
 
 ### GKE config
 
-The GKE configuration is stored [here](../deploy/overlays).
+The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
 
 ### Redis memcache
 

@@ -17,8 +17,6 @@
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
-import React from "react";
-import ReactDOM from "react-dom";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
@@ -27,7 +25,7 @@ import {
   GaugeTilePropType,
 } from "../js/components/tiles/gauge_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute } from "./utils";
+import { convertArrayAttribute, createWebComponentElement } from "./utils";
 
 /**
  * Web component for rendering a gauge tile.
@@ -60,6 +58,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   colors?: string[];
 
+  // Title of the chart
+  @property()
+  header!: string;
+
   // Maximum value of gauge range
   @property()
   max: number;
@@ -72,7 +74,10 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   place!: string;
 
-  // Title of the chart
+  /**
+   * @deprecated
+   * Title of the chart
+   */
   @property()
   title!: string;
 
@@ -85,7 +90,6 @@ export class DatacommonsGaugeComponent extends LitElement {
       apiRoot: this.apiRoot || DEFAULT_API_ENDPOINT,
       colors: this.colors,
       id: `chart-${_.uniqueId()}`,
-      minSvgChartHeight: 200,
       place: {
         dcid: this.place,
         name: "",
@@ -95,6 +99,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         min: this.min,
         max: this.max,
       },
+      svgChartHeight: 200,
       statVarSpec: {
         denom: "",
         log: false,
@@ -103,10 +108,8 @@ export class DatacommonsGaugeComponent extends LitElement {
         statVar: this.variable,
         unit: "",
       },
-      title: this.title,
+      title: this.header || this.title,
     };
-    const mountPoint = document.createElement("div");
-    ReactDOM.render(React.createElement(GaugeTile, gaugeTileProps), mountPoint);
-    return mountPoint;
+    return createWebComponentElement(GaugeTile, gaugeTileProps);
   }
 }

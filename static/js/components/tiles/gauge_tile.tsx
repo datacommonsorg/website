@@ -22,9 +22,8 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { drawGaugeChart } from "../../chart/draw";
+import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
@@ -40,8 +39,6 @@ export interface GaugeTilePropType {
   colors?: string[];
   // ID of the tile
   id: string;
-  // Min height, in px, for the SVG chart
-  minSvgChartHeight: number;
   // Place to show data for
   place: NamedTypedPlace;
   // Range of values gauge should span
@@ -51,6 +48,8 @@ export interface GaugeTilePropType {
   };
   // Variable to show data for
   statVarSpec: StatVarSpec;
+  // Specific height, in px, for the SVG chart
+  svgChartHeight: number;
   // Title at top of tile
   title: string;
 }
@@ -117,7 +116,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-        style={{ minHeight: props.minSvgChartHeight }}
+        style={{ minHeight: props.svgChartHeight }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -184,9 +183,8 @@ function draw(
   drawGaugeChart(
     svgContainer,
     svgContainer.offsetWidth,
+    props.svgChartHeight,
     chartData,
-    formatNumber,
-    props.minSvgChartHeight,
     {
       colors: props.colors,
     }

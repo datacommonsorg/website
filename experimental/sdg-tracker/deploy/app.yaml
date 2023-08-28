@@ -1,0 +1,27 @@
+runtime: python311
+
+handlers:
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+    expiration: "0d 0h"
+
+  - url: /config/(.*)
+    static_files: dist/config/\1
+    upload: dist/config/(.*)
+    expiration: "0d 0h"
+
+  - url: /images/(.*)
+    static_files: dist/images/\1
+    upload: dist/images/(.*)
+    expiration: "0d 0h"
+
+  - url: /assets/(.*)
+    static_files: dist/assets/\1
+    upload: dist/assets/(.*)
+    expiration: "0d 0h"
+
+  - url: /(.*)
+    static_files: dist/index.html
+    upload: dist/index.html
+    expiration: "0d 0h"

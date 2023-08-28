@@ -18,7 +18,7 @@ domain: dev.datacommons.org
 region:
   primary: us-central1
   others:
-    - us-west1
+    -
 nodes: 1
 storage_project: datcom-store
 model_bucket: "gs://datcom-ipragma-models"

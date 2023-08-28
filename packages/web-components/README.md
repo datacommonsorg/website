@@ -36,11 +36,13 @@ Example:
 ## Components
 
 - [datacommons-bar](./docs/components/bar.md)
+- [datacommons-highlight](./docs/components/highlight.md)
 - [datacommons-gauge](./docs/components/gauge.md)
 - [datacommons-line](./docs/components/line.md)
 - [datacommons-map](./docs/components/map.md)
 - [datacommons-pie](./docs/components/pie.md)
 - [datacommons-ranking](./docs/components/ranking.md)
+- [datacommons-scatter](./docs/components/scatter.md)
 - [datacommons-slider](./docs/components/slider.md)
 
 ## Examples
@@ -82,7 +84,9 @@ Custom styles are supported through [CSS shadow parts](https://developer.mozilla
 | `series-place-<dcid>`                 | Series data for a particular place. Example: `series-place-geoId\/12` \*                                    | `bar`, `line`. `pie`       |
 | `series-place-<dcid>-variable-<dcid>` | Series data for a particular place and variable. Example: `series-place-geoId\/12-variable-Count_Person` \* | `bar`, `line`              |
 | `series-variable-<dcid>`              | Series data for a variable. Example: `series-place-variable-Count_Person`                                   | `bar`, `line`. `pie`       |
-| `title`                               | Chart title                                                                                                 | All                        |
+| `header`                              | Chart title                                                                                                 | All                        |
+| `subheader`                           | Chart subtitle (if provided in `slot="subheader"`)                                                          | All                        |
+| `footer`                              | Chart footer (if provided in `slot="footer"`)                                                               | All                        |
 | `x-axis`                              | X-axis line                                                                                                 | `bar`, `line`              |
 | `x-axis-text`                         | X-axis label text                                                                                           | `bar`, `line`              |
 | `x-axis-tick`                         | X-axis tick mark                                                                                            | `bar`, `line`              |

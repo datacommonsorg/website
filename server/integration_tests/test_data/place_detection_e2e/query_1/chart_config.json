@@ -12,8 +12,7 @@
                   }
                 ]
               }
-            ],
-            "title": "Palo Alto"
+            ]
           }
         ]
       }
@@ -22,10 +21,6 @@
       "placeDcid": [
         "geoId/0655282"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -38,5 +33,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0655282",
+      "name": "Palo Alto",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

@@ -23,29 +23,24 @@ import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { StatVarSpec } from "../../shared/types";
-import {
-  EmptyAxis,
-  EmptyPlace,
-  FieldToAbbreviation,
-} from "../../tools/scatter/context";
-import {
-  getStatWithinPlace,
-  SCATTER_URL_PATH,
-  updateHashAxis,
-  updateHashBoolean,
-  updateHashPlace,
-} from "../../tools/scatter/util";
+import { getStatWithinPlace } from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
@@ -137,7 +132,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(bivariateChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -362,31 +357,19 @@ function draw(
   );
 }
 
-function getExploreMoreUrl(props: BivariateTilePropType): string {
-  const yStatVar = props.statVarSpec[0];
-  const xStatVar = props.statVarSpec[1];
-  const xAxis = {
-    ...EmptyAxis,
-    statVarDcid: xStatVar.statVar,
-    log: xStatVar.log,
-    perCapita: !!xStatVar.denom,
-    denom: xStatVar.denom,
+function getExploreLink(props: BivariateTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const hash = getHash(
+    VisType.SCATTER,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
+    {}
+  );
+  return {
+    displayText: "Scatter Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
-  const yAxis = {
-    ...EmptyAxis,
-    statVarDcid: yStatVar.statVar,
-    log: yStatVar.log,
-    perCapita: !!yStatVar.denom,
-    denom: yStatVar.denom,
-  };
-  const place = {
-    ...EmptyPlace,
-    enclosingPlace: props.place,
-    enclosedPlaceType: props.enclosedPlaceType,
-  };
-  let hash = updateHashAxis("", xAxis, true);
-  hash = updateHashAxis(hash, yAxis, false);
-  hash = updateHashPlace(hash, place);
-  hash = updateHashBoolean(hash, FieldToAbbreviation.chartType, true);
-  return `${props.apiRoot || ""}${SCATTER_URL_PATH}#${hash}`;
 }

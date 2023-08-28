@@ -1,5 +1,16 @@
 {
   "childEntityType": "",
+  "classifications": [
+    {
+      "correlation": true,
+      "type": 5
+    },
+    {
+      "contained_in_place_type": "DefaultType",
+      "had_default_type": false,
+      "type": 4
+    }
+  ],
   "comparisonEntities": [],
   "comparisonVariables": [
     "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
@@ -25,6 +36,11 @@
     "dc/topic/GDPByIndustry",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
-    "USStateQuarterlyIndustryGDP_NAICS_44_45"
+    "USStateQuarterlyIndustryGDP_NAICS_44_45",
+    "dc/topic/Economy",
+    "dc/topic/EconomicEquity",
+    "dc/topic/GDP",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
   ]
 }

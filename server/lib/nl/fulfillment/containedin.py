@@ -15,42 +15,19 @@
 import logging
 from typing import List
 
+import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ClassificationType
-from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
-from server.lib.nl.fulfillment.context import \
-    classifications_of_type_from_utterance
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
-def populate(uttr: Utterance) -> bool:
-  # Loop over all CONTAINED_IN classifications (from current to past) in order.
-  classifications = classifications_of_type_from_utterance(
-      uttr, ClassificationType.CONTAINED_IN)
-  for classification in classifications:
-    if (not classification or not isinstance(
-        classification.attributes, ContainedInClassificationAttributes)):
-      continue
-    place_type = classification.attributes.contained_in_place_type
-    if populate_charts(
-        PopulateState(uttr=uttr, main_cb=_populate_cb, place_type=place_type)):
-      return True
-    else:
-      uttr.counters.err('containedin_failed_populate_placetype',
-                        place_type.value)
-  return False
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 contained_places: List[Place],
-                 chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars,
+             contained_places: List[Place], chart_origin: ChartOriginType,
+             _: int) -> bool:
   logging.info('populate_cb for contained-in')
 
   if chart_vars.event:
@@ -74,7 +51,13 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
                             contained_places)
     return False
 
-  chart_vars.response_type = "comparison map"
+  exist_svs = ext.svs4children(state, contained_places[0],
+                               chart_vars.svs).exist_svs
+  if not exist_svs:
+    state.uttr.counters.err('containedin_failed_existence', 1)
+    return False
+  chart_vars.svs = exist_svs
+
   add_chart_to_utterance(ChartType.MAP_CHART, state, chart_vars,
                          contained_places, chart_origin)
   return True

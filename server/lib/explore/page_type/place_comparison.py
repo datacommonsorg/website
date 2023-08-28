@@ -14,6 +14,7 @@
 
 # Chart structure for the place comparison page.
 
+import server.lib.explore.existence as exist
 from server.lib.explore.page_type.builder import Builder
 from server.lib.nl.config_builder import bar
 import server.lib.nl.fulfillment.types as ftypes
@@ -24,20 +25,19 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
   sv_spec = {}
   places = state.uttr.places
 
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
-
   # Main SV existence checks.
-  exist_places = [p for p in places if p.dcid in state.exist_checks.get(sv, {})]
+  exist_places = [
+      p for p in places if exist.svs4place(state, p, [sv]).exist_svs
+  ]
   # Main existence check
   if len(exist_places) <= 1:
     return {}
   sv_spec.update(
-      bar.multiple_place_bar_block(builder.new_column(chart_vars),
-                                   exist_places, [sv], builder.sv2thing, attr,
-                                   builder.nopc()))
+      bar.multiple_place_bar_block(column=builder.new_column(chart_vars),
+                                   places=exist_places,
+                                   svs=[sv],
+                                   sv2thing=builder.sv2thing,
+                                   cv=chart_vars))
 
   return sv_spec
 
@@ -45,21 +45,19 @@ def add_sv(sv: str, chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
 def add_svpg(chart_vars: ftypes.ChartVars, state: ftypes.PopulateState,
              builder: Builder):
   places = state.uttr.places
-  attr = {
-      'include_percapita': False,
-      'title': chart_vars.title,
-  }
   sv_spec = {}
 
   # Pick SVs that satisfy all places.
   exist_svs = []
   for sv in chart_vars.svs:
-    if all([p.dcid in state.exist_checks.get(sv, {}) for p in places]):
+    if all([bool(exist.svs4place(state, p, [sv]).exist_svs) for p in places]):
       exist_svs.append(sv)
   if len(exist_svs) <= 1:
     return {}
   sv_spec.update(
-      bar.multiple_place_bar_block(builder.new_column(chart_vars), places,
-                                   exist_svs, builder.sv2thing, attr,
-                                   builder.nopc()))
+      bar.multiple_place_bar_block(column=builder.new_column(chart_vars),
+                                   places=places,
+                                   svs=exist_svs,
+                                   sv2thing=builder.sv2thing,
+                                   cv=chart_vars))
   return sv_spec

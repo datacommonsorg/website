@@ -33,11 +33,16 @@ export function Info(props: InfoPropType): JSX.Element {
   return (
     <div className="info-pane container">
       {VIS_TYPE_CONFIG[visType].getInfoContent()}
-      <div
-        className="primary-button start-button"
-        onClick={props.onStartClicked}
-      >
-        Start
+      <div className="actions">
+        <div
+          className="primary-button start-button"
+          onClick={props.onStartClicked}
+        >
+          Start
+        </div>
+        <a href={VIS_TYPE_CONFIG[visType].oldToolUrl}>
+          Switch back to the old tool
+        </a>
       </div>
     </div>
   );

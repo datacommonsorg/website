@@ -33,6 +33,14 @@ export const Context = createContext({} as ContextType);
 
 export const NlSessionContext = createContext("");
 
+export interface ExploreType {
+  exploreMore: Record<string, Record<string, string[]>>;
+  place: string;
+  placeType: string;
+}
+
+export const ExploreContext = createContext({} as ExploreType);
+
 export const RankingUnitUrlFuncContext = createContext((dcid: string) => {
   return "/place/" + dcid;
 });

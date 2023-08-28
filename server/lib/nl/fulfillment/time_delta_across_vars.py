@@ -20,34 +20,19 @@ from flask import current_app
 
 from server.lib import util as libutil
 from server.lib.nl.common import rank_utils
-from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 
 #
 # Computes growth rate and ranks charts of comparable peer SVs.
 #
-def populate(uttr: Utterance):
-  time_delta = utils.get_time_delta_types(uttr)
-  if not time_delta:
-    return False
-  ranking_types = utils.get_ranking_types(uttr)
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    ranking_types=ranking_types,
-                    time_delta_types=time_delta))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for time_delta_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-vars_failed_cb_events', 1)
@@ -101,6 +86,13 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     chart_vars.svs = ranked_svs
     chart_vars.growth_direction = direction
     chart_vars.growth_ranking_type = field
+
+    # TODO: Uncomment this once we agree on look and feel.
+    # if field == 'abs':
+    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+    #                                   state, chart_vars, places, chart_origin)
+    #
+
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, places, chart_origin)
 

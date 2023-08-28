@@ -29,6 +29,11 @@ import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
+import {
   RankingData,
   RankingGroup,
   RankingPoint,
@@ -47,6 +52,7 @@ const RANKING_COUNT = 5;
 const HEADING_HEIGHT = 36;
 const PER_RANKING_HEIGHT = 24;
 const FOOTER_HEIGHT = 26;
+const LATEST_DATE_KEY = "latest";
 
 export interface RankingTilePropType {
   id: string;
@@ -58,6 +64,9 @@ export interface RankingTilePropType {
   className?: string;
   apiRoot?: string;
   showExploreMore?: boolean;
+  hideFooter?: boolean;
+  onHoverToggled?: (placeDcid: string, hover: boolean) => void;
+  showLoadingSpinner?: boolean;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
@@ -67,8 +76,10 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const chartContainer = useRef(null);
 
   useEffect(() => {
+    loadSpinner(getSpinnerId());
     fetchData(props).then((rankingData) => {
       setRankingData(rankingData);
+      removeSpinner(getSpinnerId());
     });
   }, [props]);
 
@@ -137,40 +148,86 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               title={props.title}
               showExploreMore={props.showExploreMore}
               apiRoot={props.apiRoot}
+              hideFooter={props.hideFooter}
+              onHoverToggled={props.onHoverToggled}
+              tileId={props.id}
             />
           );
         })}
-      <NlChartFeedback id={props.id} />
       <ChartEmbed ref={embedModalElement} />
+      {props.showLoadingSpinner && (
+        <div id={getSpinnerId()} className="scatter-spinner">
+          <div className="screen">
+            <div id="spinner"></div>
+          </div>
+        </div>
+      )}
     </div>
   );
+
+  function getSpinnerId(): string {
+    return `ranking-spinner-${props.id}`;
+  }
 }
 
 export async function fetchData(
   props: RankingTilePropType
 ): Promise<RankingData> {
-  const variables = [];
+  // Get map of date to variables that should use this date for its data fetch
+  const dateToVariable = { [LATEST_DATE_KEY]: [] };
   for (const spec of props.statVarSpec) {
-    variables.push(spec.statVar);
-    if (spec.denom) {
-      variables.push(spec.denom);
+    for (const sv of [spec.statVar, spec.denom]) {
+      if (!sv) {
+        continue;
+      }
+      const variableDate =
+        spec.date || getCappedStatVarDate(sv) || LATEST_DATE_KEY;
+      if (!dateToVariable[variableDate]) {
+        dateToVariable[variableDate] = [];
+      }
+      dateToVariable[variableDate].push(sv);
     }
   }
-  return axios
-    .get<PointApiResponse>(
-      `${props.apiRoot || ""}/api/observations/point/within`,
-      {
-        params: {
-          parentEntity: props.place.dcid,
-          childType: props.enclosedPlaceType,
-          variables,
-        },
-        paramsSerializer: stringifyFn,
-      }
-    )
-    .then((resp) => {
+  // Make one promise for each date
+  const statPromises: Promise<PointApiResponse>[] = [];
+  for (const date of Object.keys(dateToVariable)) {
+    if (_.isEmpty(dateToVariable[date])) {
+      continue;
+    }
+    const params = {
+      parentEntity: props.place.dcid,
+      childType: props.enclosedPlaceType,
+      variables: dateToVariable[date],
+    };
+    if (date !== LATEST_DATE_KEY) {
+      params["date"] = date;
+    }
+    statPromises.push(
+      axios
+        .get<PointApiResponse>(
+          `${props.apiRoot || ""}/api/observations/point/within`,
+          {
+            params,
+            paramsSerializer: stringifyFn,
+          }
+        )
+        .then((resp) => resp.data)
+    );
+  }
+  return Promise.all(statPromises)
+    .then((statResponses) => {
+      // Merge the responses of all stat promises and get the ranking data from
+      // the merged response
+      const mergedResponse = { data: {}, facets: {} };
+      statResponses.forEach((resp) => {
+        mergedResponse.data = Object.assign(mergedResponse.data, resp.data);
+        mergedResponse.facets = Object.assign(
+          mergedResponse.facets,
+          resp.facets
+        );
+      });
       const rankingData = pointApiToPerSvRankingData(
-        resp.data,
+        mergedResponse,
         props.statVarSpec
       );
       if (props.rankingMetadata.showMultiColumn) {
@@ -329,6 +386,11 @@ function getNumRankingLists(
   }
   if (rankingTileSpec.showLowest) {
     numListsPerSv++;
+  }
+  // if showHighestLowest is set, will show a single list and ignore
+  // showHighest/showLowest.
+  if (rankingTileSpec.showHighestLowest) {
+    numListsPerSv = 1;
   }
   if (!rankingData) {
     return statVarSpec.length * numListsPerSv;

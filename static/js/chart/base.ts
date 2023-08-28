@@ -31,7 +31,9 @@ const MIN_PREDICTION_COLORS = ["#007bff", "#66c2a5"];
 export class DataPoint {
   value: number;
   label: string;
-  // Optional DCID to add to a chart as a data atttribute
+  // Optional date of measurement for the value, to show on tooltips
+  date?: string;
+  // Optional DCID to add to a chart as a data attribute
   dcid?: string;
   // Optional Label link to show on UI element
   link?: string;
@@ -43,10 +45,12 @@ export class DataPoint {
     value: number,
     dcid?: string,
     link?: string,
-    time?: number
+    time?: number,
+    date?: string
   ) {
     this.value = value;
     this.label = label;
+    this.date = date;
     this.dcid = dcid;
     this.link = link;
     this.time = time;

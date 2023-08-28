@@ -14,8 +14,8 @@
                       "geoId/0668000",
                       "geoId/0627000",
                       "geoId/0669000",
-                      "geoId/0643000",
-                      "geoId/0603526"
+                      "geoId/0603526",
+                      "geoId/0643000"
                     ],
                     "statVarKey": [
                       "Percent_Person_WithAsthma_multiple_place_bar_block"
@@ -25,7 +25,8 @@
                   }
                 ]
               }
-            ]
+            ],
+            "title": "Asthma"
           }
         ],
         "statVarSpec": {
@@ -41,22 +42,25 @@
       "placeDcid": [
         "geoId/0644000"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/0644000",
-    "name": "Los Angeles",
-    "place_type": "City"
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

@@ -86,6 +86,7 @@ export interface StatVarGroupNodeType {
   parent?: string;
   childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
   childStatVars?: StatVarNodeType[];
+  descendentStatVarCount?: number;
 }
 
 export interface StatVarNodeType {
@@ -199,6 +200,7 @@ export interface StatVarSpec {
   scaling: number;
   log: boolean;
   name?: string;
+  date?: string;
 }
 
 export interface SampleDates {

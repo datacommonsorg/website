@@ -17,7 +17,11 @@
                     ],
                     "title": "High Blood Pressure in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
@@ -28,7 +32,7 @@
                 ]
               }
             ],
-            "title": "High Blood Pressure"
+            "title": "High Blood Pressure in Counties of United States"
           },
           {
             "columns": [
@@ -44,7 +48,11 @@
                     ],
                     "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "RANKING"
-                  },
+                  }
+                ]
+              },
+              {
+                "tiles": [
                   {
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
@@ -55,7 +63,7 @@
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -79,10 +87,6 @@
       "placeDcid": [
         "country/USA"
       ]
-    },
-    "suggestions": {
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -95,5 +99,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

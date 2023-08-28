@@ -23,23 +23,23 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import { DataGroup, DataPoint } from "../../chart/base";
 import {
   drawGroupBarChart,
   drawHorizontalBarChart,
   drawStackBarChart,
-} from "../../chart/draw";
+} from "../../chart/draw_bar";
 import { SortType } from "../../chart/types";
-import { formatNumber } from "../../i18n/i18n";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import {
-  placeSep,
-  statVarSep,
-  TIMELINE_URL_PARAM_KEYS,
-} from "../../tools/timeline/util";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { BarTileSpec } from "../../types/subject_page_proto_types";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPlaceNames } from "../../utils/place_utils";
@@ -53,8 +53,10 @@ const NUM_PLACES = 7;
 
 const FILTER_STAT_VAR = "Count_Person";
 const DEFAULT_X_LABEL_LINK_ROOT = "/place/";
-const EXPLORE_MORE_BASE_URL = "/tools/timeline";
 
+// TODO (juliawu): Refactor the "optional" specs into BarTileSpec. This will
+//                 also allow BarTilePropType to match the structure of the
+//                 subject page protos.
 export interface BarTilePropType {
   // API root
   apiRoot?: string;
@@ -75,6 +77,8 @@ export interface BarTilePropType {
   place: NamedTypedPlace;
   // sort order
   sort?: SortType;
+  // Set to true to draw tooltip when hovering over bars
+  showTooltipOnHover?: boolean;
   // Set to true to draw as a stacked chart instead of a grouped chart
   stacked?: boolean;
   statVarSpec: StatVarSpec[];
@@ -97,6 +101,7 @@ export interface BarChartData {
   unit: string;
   dateRange: string;
   props: BarTilePropType;
+  statVarOrder: string[];
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -135,7 +140,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         barChartData ? () => dataGroupsToCsv(barChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(barChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
       <div
         id={props.id}
@@ -235,6 +240,11 @@ function rawToChart(
   const raw = _.cloneDeep(rawData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
+  // Track original order of stat vars in props, to maintain 1:1 pairing of
+  // colors to stat var labels even after sorting
+  const statVarOrder = props.statVarSpec.map(
+    (spec) => statVarNames[spec.statVar]
+  );
 
   let unit = "";
   const dates: Set<string> = new Set();
@@ -251,6 +261,7 @@ function rawToChart(
         label: statVarNames[statVar],
         value: stat.value || 0,
         dcid: placeDcid,
+        date: stat.date,
       };
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
@@ -270,28 +281,40 @@ function rawToChart(
     }
     const specLinkRoot = props.tileSpec ? props.tileSpec.xLabelLinkRoot : "";
     const link = `${specLinkRoot || DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
-    dataGroups.push(
-      new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
-    );
+    if (!_.isEmpty(dataPoints)) {
+      // Only add to dataGroups if data is present
+      dataGroups.push(
+        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
+      );
+    }
   }
   if (!_.isEmpty(props.statVarSpec)) {
     unit = props.statVarSpec[0].unit || unit;
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    dataGroups.sort(
-      (a, b) =>
-        (d3.sum(a.value.map((v) => v.value)) -
-          d3.sum(b.value.map((v) => v.value))) *
-        (props.sort === "ascending" ? 1 : -1)
-    );
+    if (popPoints.length === 1 && !_.isEmpty(dataGroups)) {
+      // Only one place, sort should be by variable, not by group.
+      dataGroups[0].value.sort(
+        (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
+      );
+    } else {
+      dataGroups.sort(
+        (a, b) =>
+          (d3.sum(a.value.map((v) => v.value)) -
+            d3.sum(b.value.map((v) => v.value))) *
+          (props.sort === "ascending" ? 1 : -1)
+      );
+    }
   }
+
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
     props,
+    statVarOrder,
   };
 }
 
@@ -306,11 +329,12 @@ export function draw(
       svgContainer,
       svgWidth || svgContainer.offsetWidth,
       chartData.dataGroup,
-      formatNumber,
       {
         colors: props.colors,
         lollipop: props.useLollipop,
         stacked: props.stacked,
+        showTooltipOnHover: props.showTooltipOnHover,
+        statVarColorOrder: chartData.statVarOrder,
         style: {
           barHeight: props.barHeight,
           yAxisMargin: props.yAxisMargin,
@@ -326,10 +350,11 @@ export function draw(
         svgWidth || svgContainer.offsetWidth,
         props.svgChartHeight,
         chartData.dataGroup,
-        formatNumber,
         {
           colors: props.colors,
           lollipop: props.useLollipop,
+          showTooltipOnHover: props.showTooltipOnHover,
+          statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
         }
       );
@@ -340,10 +365,11 @@ export function draw(
         svgWidth || svgContainer.offsetWidth,
         props.svgChartHeight,
         chartData.dataGroup,
-        formatNumber,
         {
           colors: props.colors,
           lollipop: props.useLollipop,
+          showTooltipOnHover: props.showTooltipOnHover,
+          statVarColorOrder: chartData.statVarOrder,
           unit: chartData.unit,
         }
       );
@@ -351,20 +377,19 @@ export function draw(
   }
 }
 
-function getExploreMoreUrl(props: BarTilePropType): string {
-  const params = {
-    [TIMELINE_URL_PARAM_KEYS.PLACE]: [
-      ...props.comparisonPlaces,
-      props.place.dcid,
-    ].join(placeSep),
-    [TIMELINE_URL_PARAM_KEYS.STAT_VAR]: props.statVarSpec
-      .map((spec) => spec.statVar)
-      .join(statVarSep),
+function getExploreLink(props: BarTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const hash = getHash(
+    VisType.TIMELINE,
+    [...props.comparisonPlaces, props.place.dcid],
+    "",
+    props.statVarSpec.map((spec) => getContextStatVar(spec)),
+    {}
+  );
+  return {
+    displayText: "Timeline Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${EXPLORE_MORE_BASE_URL}#${hashParams.join(
-    "&"
-  )}`;
 }

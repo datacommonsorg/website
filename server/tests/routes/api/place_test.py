@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,8 +23,7 @@ class TestCoords2Places(unittest.TestCase):
 
   @patch('server.routes.shared_api.place.fetch.resolve_coordinates')
   @patch('server.routes.shared_api.place.names')
-  @patch('server.routes.shared_api.place.fetch.property_values')
-  def test_get_places_for_coords(self, mock_property_values, mock_place_names,
+  def test_get_places_for_coords(self, mock_place_names,
                                  mock_resolve_coordinates):
     test_coordinates = [{
         'latitude': '1',
@@ -41,30 +40,33 @@ class TestCoords2Places(unittest.TestCase):
     def resolve_coordinates_side_effect(coordinates):
       if coordinates == test_coordinates:
         return {
-            '1#-5': ['place2', 'place1'],
-            '2#55': ['place3'],
-            '3.4#48': ['place1', 'place3']
+            '1#-5': [{
+                'dcid': 'place2',
+                'dominantType': 'County'
+            }, {
+                'dcid': 'place1',
+                'dominantType': 'County'
+            }],
+            '2#55': [{
+                'dcid': 'place3',
+                'dominantType': 'County'
+            }],
+            '3.4#48': [{
+                'dcid': 'place1',
+                'dominantType': 'County'
+            }, {
+                'dcid': 'place3',
+                'dominantType': 'County'
+            }]
         }
       else:
         return None
 
     mock_resolve_coordinates.side_effect = resolve_coordinates_side_effect
 
-    def property_values_side_effect(dcids, prop):
-      if set(dcids) == set(['place1', 'place2', 'place3']) and prop == "typeOf":
-        return {
-            'place1': [place_type, 'AA1'],
-            'place2': [place_type],
-            'place3': ['Country']
-        }
-      else:
-        return None
-
-    mock_property_values.side_effect = property_values_side_effect
-
     def place_names_side_effect(dcids):
-      if set(dcids) == set(['place1', 'place2']):
-        return {'place1': "", 'place2': "place2name"}
+      if set(dcids) == set(['place1', 'place2', 'place3']):
+        return {'place1': '', 'place2': 'place2name', 'place': 'place3name'}
       else:
         return None
 
@@ -79,12 +81,12 @@ class TestCoords2Places(unittest.TestCase):
     assert response.status_code == 200
     response_data = json.loads(response.data)
     expected_response = [{
-        'longitude': -5,
-        'latitude': 1,
+        'longitude': -5.0,
+        'latitude': 1.0,
         'placeDcid': 'place2',
         'placeName': 'place2name'
     }, {
-        'longitude': 48,
+        'longitude': 48.0,
         'latitude': 3.4,
         'placeDcid': 'place1',
         'placeName': 'place1'

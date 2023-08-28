@@ -22,9 +22,8 @@ import _ from "lodash";
 import React, { memo, useCallback, useRef } from "react";
 
 import { DataPoint } from "../../chart/base";
-import { drawHistogram } from "../../chart/draw";
+import { drawHistogram } from "../../chart/draw_histogram";
 import { DATE_OPTION_30D_KEY } from "../../constants/disaster_event_map_constants";
-import { formatNumber } from "../../i18n/i18n";
 import { NamedTypedPlace } from "../../shared/types";
 import {
   DisasterEventPoint,
@@ -280,10 +279,13 @@ export const HistogramTile = memo(function HistogramTile(
       className={"histogram-chart"}
       allowEmbed={false}
       isInitialLoading={isInitialLoading}
-      exploreMoreUrl={
+      exploreLink={
         props.showExploreMore
-          ? `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`
-          : ""
+          ? {
+              displayText: "Disaster Tool",
+              url: `${EXPLORE_MORE_BASE_URL}${props.place.dcid}`,
+            }
+          : null
       }
     >
       <div id={props.id} className="svg-container" ref={svgContainer}></div>
@@ -352,7 +354,6 @@ export const HistogramTile = memo(function HistogramTile(
         elem.clientWidth,
         elem.clientHeight,
         histogramData,
-        formatNumber,
         {
           fillColor: props.eventTypeSpec.color,
           unit,

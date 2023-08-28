@@ -34,6 +34,10 @@ import {
   EventTypeSpec,
   TileConfig,
 } from "../js/types/subject_page_proto_types";
+import {
+  getDate,
+  getSeverityFilters,
+} from "../js/utils/disaster_event_map_utils";
 import { getChartTitle } from "../js/utils/tile_utils";
 import { CHART_ID, SVG_HEIGHT, SVG_WIDTH } from "./constants";
 import { TileResult } from "./types";
@@ -76,7 +80,7 @@ function getDisasterMapSvg(
   );
   const svg = mapContainer.querySelector("svg");
   svg.style.background = "#eee";
-  return getProcessedSvg(svg);
+  return getProcessedSvg(svg, true);
 }
 
 /**
@@ -160,9 +164,11 @@ export async function getDisasterMapChart(
 ): Promise<SVGSVGElement> {
   try {
     const disasterEventData = await fetchDisasterEventData(
-      CHART_ID,
       eventTypeSpec,
       place.dcid,
+      // TODO: update the endpoint to also take a date for the tile
+      getDate(CHART_ID, {}, place),
+      getSeverityFilters(eventTypeSpec, CHART_ID),
       null,
       apiRoot
     );

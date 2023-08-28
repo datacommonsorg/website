@@ -14,57 +14,112 @@
 """Module for NL page data spec"""
 
 import logging
+from typing import cast, List
 
-from server.lib.nl.common import counters as ctr
+import server.lib.explore.topic as topic
+from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection import utils as detection_utils
-from server.lib.nl.detection.types import Detection
-from server.lib.nl.fulfillment import context
+import server.lib.nl.detection.types as dtypes
+from server.lib.nl.fulfillment import base
+from server.lib.nl.fulfillment import event
+from server.lib.nl.fulfillment import filter_with_dual_vars
+from server.lib.nl.fulfillment import overview
+from server.lib.nl.fulfillment import size_across_entities
 import server.lib.nl.fulfillment.handlers as handlers
+from server.lib.nl.fulfillment.types import PopulateState
+import server.lib.nl.fulfillment.utils as futils
 
 
 #
 # Populate chart candidates in the utterance.
 #
-def fulfill(uttr: Utterance) -> Utterance:
+def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
+  # Construct a common PopulateState
+  state = PopulateState(uttr=uttr)
+
+  # IMPORTANT: Do this as the very first thing before
+  # accessing the various heuristics, since it may
+  # update `uttr`
+  state.query_types = _produce_query_types(uttr)
+
+  pt_cls = futils.classifications_of_type(
+      uttr.classifications, dtypes.ClassificationType.CONTAINED_IN)
+  if pt_cls:
+    cip = cast(dtypes.ContainedInClassificationAttributes, pt_cls[0].attributes)
+    state.place_type = cip.contained_in_place_type
+    state.had_default_place_type = cip.had_default_type
+  state.ranking_types = utils.get_ranking_types(uttr)
+  state.time_delta_types = utils.get_time_delta_types(uttr)
+  state.quantity = utils.get_quantity(uttr)
+  state.event_types = utils.get_event_types(uttr)
+  state.explore_mode = explore_mode
+
+  if not state.query_types:
+    uttr.counters.err('fulfill_empty_querytypes', '')
+    return state
+
+  main_qt = state.query_types[0]
+
+  # TODO: Avoid relying on a single query_type
+
+  state.uttr.query_type = main_qt
+  # Perform certain type-specific overrides or actions.
+  done = False
+  if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
+    # This needs custom SVs.
+    filter_with_dual_vars.set_overrides(state)
+  elif main_qt == QueryType.SIZE_ACROSS_ENTITIES:
+    # This needs custom SVs.
+    size_across_entities.set_overrides(state)
+  elif main_qt == QueryType.OVERVIEW:
+    done = overview.populate(uttr)
+  elif main_qt == QueryType.EVENT:
+    # TODO: Port `event` to work in the normal flow.
+    # Don't consider it done and fallthrough to show SV stuff
+    event.populate(uttr)
+    state.query_types.remove(QueryType.EVENT)
+
+  elif main_qt == QueryType.COMPARISON_ACROSS_PLACES:
+    # There are multiple places so we don't fallback.
+    state.disable_fallback = True
+
+  if done:
+    _rank_charts(uttr)
+    return state
+
+  # Compute all the ChartVars
+  has_correlation = main_qt == QueryType.CORRELATION_ACROSS_VARS
+  if (has_correlation and state.uttr.multi_svs and
+      state.uttr.multi_svs.candidates):
+    state.chart_vars_map = topic.compute_correlation_chart_vars(state)
+  else:
+    state.chart_vars_map = topic.compute_chart_vars(state)
+
+  # Call populate_charts.
+  if not base.populate_charts(state):
+    # If that failed, try OVERVIEW.
+    state.uttr.query_type = QueryType.OVERVIEW
+    overview.populate(uttr)
+
+  # Rank candidates.
+  _rank_charts(state.uttr)
+
+  return state
+
+
+def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   query_types = [handlers.first_query_type(uttr)]
   while query_types[-1] != None:
-    if fulfill_query_type(uttr, query_types[-1]):
-      break
     query_types.append(handlers.next_query_type(query_types))
-
-  rank_charts(uttr)
-  return uttr
-
-
-def fulfill_query_type(uttr: Utterance, query_type: QueryType) -> bool:
-  # Reset previous state
-  uttr.query_type = query_type
-  uttr.chartCandidates = []
-
-  # If we could not detect query_type from user-query, infer from past context.
-  if (uttr.query_type == QueryType.UNKNOWN):
-    uttr.query_type = context.query_type_from_context(uttr)
-
-  found = False
-
-  # Each query-type has its own handler. Each knows what arguments it needs and
-  # will call on the *_from_context() routines to obtain missing arguments.
-  handler = handlers.QUERY_HANDLERS.get(query_type, None)
-  if handler:
-    found = handler.module.populate(uttr)
-    uttr.counters.info('processed_fulfillment_types',
-                       handler.module.__name__.split('.')[-1])
-
-  return found
+  return query_types
 
 
 #
 # Rank candidate charts in the given Utterance.
 #
 # TODO: Maybe improve in future.
-def rank_charts(utterance: Utterance):
+def _rank_charts(utterance: Utterance):
   for chart in utterance.chartCandidates:
     logging.info("Chart: %s %s\n" % (chart.places, chart.svs))
   utterance.rankedCharts = utterance.chartCandidates

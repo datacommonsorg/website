@@ -1,32 +1,38 @@
 [
   {
+    "id": "techsoup",
+    "title": "TechSoup",
+    "imgUrl": "/images/partners/partner-techsoup.svg",
+    "url": "https://datacommons.techsoup.org/"
+  },
+  {
     "id": "feedingAmerica",
     "title": "Feeding America",
-    "imgUrl": "/images/partners/feeding-america-old.png",
+    "imgUrl": "/images/partners/partner-feeding-america.svg",
     "url": "https://datacommons.feedingamerica.org"
   },
   {
     "id": "iit",
     "title": "Indian Institute of Technology",
-    "imgUrl": "/images/partners/iit-madras.png",
+    "imgUrl": "/images/partners/partner-iit-madras.svg",
     "url": "https://datacommons.iitm.ac.in/"
   },
   {
     "id": "rff",
     "title": "Resources for the Future",
-    "imgUrl": "/images/partners/rff.png",
+    "imgUrl": "/images/partners/partner-rff.svg",
     "url": "https://datacommons.rff.org"
   },
   {
     "id": "stanford",
     "title": "Stanford University",
-    "imgUrl": "/images/partners/stanford.png",
+    "imgUrl": "/images/partners/partner-stanford.svg",
     "url": "https://datacommons.stanford.edu"
   },
   {
-    "id": "techsoup",
-    "title": "TechSoup",
-    "imgUrl": "/images/partners/techsoup.png",
-    "url": "https://blog.techsoup.org/posts/introducing-data-commons-to-civil-society"
+    "id": "unSdg",
+    "title": "United Nations Sustainable Development Goals",
+    "imgUrl": "/images/partners/partner-un-sdg.svg",
+    "url": "https://unstats.un.org/UNSDWebsite/"
   }
 ]

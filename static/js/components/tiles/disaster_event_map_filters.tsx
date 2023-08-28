@@ -22,12 +22,10 @@ import _ from "lodash";
 import React, { useRef, useState } from "react";
 import { Input } from "reactstrap";
 
-import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
-import { EventTypeSpec } from "../../types/subject_page_proto_types";
 import {
-  getSeverityFilters,
-  setUrlHash,
-} from "../../utils/disaster_event_map_utils";
+  EventTypeSpec,
+  SeverityFilter,
+} from "../../types/subject_page_proto_types";
 
 const DELAY_MS = 700;
 
@@ -36,6 +34,10 @@ interface DisasterEventMapFiltersPropType {
   eventTypeSpec: Record<string, EventTypeSpec>;
   // id of the block this component is in.
   blockId: string;
+  // severity filters
+  severityFilters: Record<string, SeverityFilter>;
+  // function to run to set severity filters
+  setSeverityFilters: (filters: Record<string, SeverityFilter>) => void;
 }
 
 export function DisasterEventMapFilters(
@@ -43,7 +45,7 @@ export function DisasterEventMapFilters(
 ): JSX.Element {
   const delayTimer = useRef(null);
   const [severityFilterInputs, setSeverityFilterInputs] = useState(
-    getSeverityFilters(props.eventTypeSpec, props.blockId)
+    props.severityFilters
   );
 
   function onFilterInputChanged(
@@ -63,23 +65,14 @@ export function DisasterEventMapFilters(
     setSeverityFilterInputs(updatedSeverityFilters);
     clearTimeout(delayTimer.current);
     delayTimer.current = setTimeout(
-      () =>
-        setUrlHash(
-          URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
-          JSON.stringify(updatedSeverityFilters),
-          props.blockId
-        ),
+      () => props.setSeverityFilters(updatedSeverityFilters),
       DELAY_MS
     );
   }
 
-  function updateFilterHash(): void {
+  function updateFilter(): void {
     clearTimeout(delayTimer.current);
-    setUrlHash(
-      URL_HASH_PARAM_KEYS.SEVERITY_FILTER,
-      JSON.stringify(severityFilterInputs),
-      props.blockId
-    );
+    props.setSeverityFilters(severityFilterInputs);
   }
 
   return (
@@ -113,8 +106,8 @@ export function DisasterEventMapFilters(
                       )
                     }
                     value={severityFilter.lowerLimit}
-                    onBlur={() => updateFilterHash()}
-                    onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
+                    onBlur={() => updateFilter()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
                   />
                 </div>
                 <div className="prop-filter-input">
@@ -129,8 +122,8 @@ export function DisasterEventMapFilters(
                       )
                     }
                     value={severityFilter.upperLimit}
-                    onBlur={() => updateFilterHash()}
-                    onKeyPress={(e) => e.key === "Enter" && updateFilterHash()}
+                    onBlur={() => updateFilter()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
                   />
                 </div>
               </div>

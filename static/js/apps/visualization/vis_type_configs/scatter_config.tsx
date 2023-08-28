@@ -22,14 +22,78 @@ import _ from "lodash";
 import React from "react";
 
 import { ScatterTile } from "../../../components/tiles/scatter_tile";
+import {
+  GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+  GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+} from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
-import {
-  getFooterOptions,
-  getStatVarSpec,
-} from "../../../utils/app/visualization_utils";
+import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { AppContextType } from "../app_context";
+import { ChartFooter, InputInfo } from "../chart_footer";
 import { VisType } from "../vis_type_configs";
+
+function getAxisInputs(
+  svIdx: number,
+  appContext: AppContextType,
+  hidePc?: boolean
+): InputInfo[] {
+  if (svIdx > appContext.statVars.length) {
+    return [];
+  }
+  const inputs = [];
+  const sv = appContext.statVars[svIdx];
+  if (!hidePc) {
+    inputs.push({
+      isChecked: sv.isPerCapita,
+      onUpdated: (isChecked: boolean) => {
+        const newStatVars = _.cloneDeep(appContext.statVars);
+        newStatVars[svIdx].isPerCapita = isChecked;
+        appContext.setStatVars(newStatVars);
+      },
+      label: "Per Capita",
+      gaEventParam: GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
+    });
+  }
+  inputs.push({
+    isChecked: sv.isLog,
+    onUpdated: (isChecked: boolean) => {
+      const newStatVars = _.cloneDeep(appContext.statVars);
+      newStatVars[svIdx].isLog = isChecked;
+      appContext.setStatVars(newStatVars);
+    },
+    label: "Log Scale",
+    gaEventParam: GA_VALUE_TOOL_CHART_OPTION_LOG_SCALE,
+  });
+  return inputs;
+}
+
+function getDisplayInputs(appContext: AppContextType): InputInfo[] {
+  return [
+    {
+      isChecked: appContext.displayOptions.scatterQuadrants,
+      onUpdated: (isChecked: boolean) => {
+        const newDisplayOptions = _.cloneDeep(appContext.displayOptions);
+        newDisplayOptions.scatterQuadrants = isChecked;
+        appContext.setDisplayOptions(newDisplayOptions);
+      },
+      label: "Show quadrants",
+      gaEventParam: GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS,
+    },
+    {
+      isChecked: appContext.displayOptions.scatterPlaceLabels,
+      onUpdated: (isChecked: boolean) => {
+        const newDisplayOptions = _.cloneDeep(appContext.displayOptions);
+        newDisplayOptions.scatterPlaceLabels = isChecked;
+        appContext.setDisplayOptions(newDisplayOptions);
+      },
+      label: "Show labels",
+      gaEventParam: GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS,
+    },
+  ];
+}
 
 function getChartArea(
   appContext: AppContextType,
@@ -38,35 +102,11 @@ function getChartArea(
   // If any svs do not allow per capita, hide the per capita inputs.
   const hidePcInputs =
     appContext.statVars.filter((sv) => !sv.info.pcAllowed).length > 0;
-  const perCapitaInputs = hidePcInputs
-    ? []
-    : appContext.statVars.slice(0, 2).map((sv, idx) => {
-        return {
-          isChecked: sv.isPerCapita,
-          onUpdated: (isChecked: boolean) => {
-            const newStatVars = _.cloneDeep(appContext.statVars);
-            newStatVars[idx].isPerCapita = isChecked;
-            appContext.setStatVars(newStatVars);
-          },
-          label: idx === 0 ? "y Per Capita" : "x Per Capita",
-        };
-      });
-  const logInputs = appContext.statVars.slice(0, 2).map((sv, idx) => {
-    return {
-      isChecked: sv.isLog,
-      onUpdated: (isChecked: boolean) => {
-        const newStatVars = _.cloneDeep(appContext.statVars);
-        newStatVars[idx].isLog = isChecked;
-        appContext.setStatVars(newStatVars);
-      },
-      label: idx === 0 ? "y Log Scale" : "x Log Scale",
-    };
-  });
   const statVarLabels = appContext.statVars.map(
     (sv) => sv.info.title || sv.dcid
   );
   return (
-    <div className="chart">
+    <div className="chart scatter">
       <ScatterTile
         id="vis-tool-scatter"
         title={
@@ -81,10 +121,25 @@ function getChartArea(
           getStatVarSpec(sv, VisType.SCATTER)
         )}
         svgChartHeight={chartHeight}
-        scatterTileSpec={{}}
+        scatterTileSpec={{
+          showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
+          showQuadrants: appContext.displayOptions.scatterQuadrants,
+        }}
         showLoadingSpinner={true}
       />
-      {getFooterOptions(perCapitaInputs, logInputs)}
+      <ChartFooter
+        inputSections={[
+          {
+            label: "Y-axis:",
+            inputs: getAxisInputs(0, appContext, hidePcInputs),
+          },
+          {
+            label: "X-axis:",
+            inputs: getAxisInputs(1, appContext, hidePcInputs),
+          },
+          { label: "Display:", inputs: getDisplayInputs(appContext) },
+        ]}
+      />
     </div>
   );
 }
@@ -120,4 +175,5 @@ export const SCATTER_CONFIG = {
   numSv: 2,
   getChartArea,
   getInfoContent,
+  oldToolUrl: "/tools/scatter",
 };

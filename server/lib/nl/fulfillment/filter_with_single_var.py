@@ -12,20 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 from typing import List
 
+from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
-from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
-from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
-from server.lib.nl.fulfillment.base import add_chart_to_utterance
-from server.lib.nl.fulfillment.base import populate_charts
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
 # TODO: Support per-capita
 # TODO: Increase this after frontend handles comparedPlaces better.
@@ -35,23 +33,8 @@ _MAX_PLACES_TO_RETURN = 7
 #
 # Computes ranked list of places after applying the filter
 #
-def populate(uttr: Utterance):
-  quantity = utils.get_quantity(uttr)
-  if not quantity:
-    uttr.counters.err('filter-with-single-var_missingquantity', 1)
-    return False
-  place_type = utils.get_contained_in_type(uttr)
-  if not place_type:
-    place_type = ContainedInPlaceType.DEFAULT_TYPE
-  return populate_charts(
-      PopulateState(uttr=uttr,
-                    main_cb=_populate_cb,
-                    place_type=place_type,
-                    quantity=quantity))
-
-
-def _populate_cb(state: PopulateState, chart_vars: ChartVars,
-                 places: List[Place], chart_origin: ChartOriginType) -> bool:
+def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
+             chart_origin: ChartOriginType, rank: int) -> bool:
   logging.info('populate_cb for filter_with_single_var')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-single-var_failed_cb_events', 1)
@@ -93,13 +76,19 @@ def _populate_cb(state: PopulateState, chart_vars: ChartVars,
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]
 
+  if rank == 0:
+    # Set answer places.
+    ans_places = copy.deepcopy(ranked_children[:constants.MAX_ANSWER_PLACES])
+    state.uttr.answerPlaces = ans_places
+    state.uttr.counters.info('filter-with-single-var_answer_places',
+                             [p.dcid for p in ans_places])
+
   # Compute title suffix.
   if len(ranked_children) > _MAX_PLACES_TO_RETURN:
     first = 'Bottom' if show_lowest else 'Top'
     last = f'{_MAX_PLACES_TO_RETURN} of {len(ranked_children)}'
     chart_vars.title_suffix = first + ' ' + last
 
-  chart_vars.include_percapita = False
   found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
                                   shortlist, chart_origin)
 

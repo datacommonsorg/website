@@ -15,10 +15,12 @@
  */
 
 @use "./shared/subject_page";
+@use "./nl_search_bar";
 @import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
 @import "./draw_scatter";
+@import "./shared/item_list";
 @import "./shared/story_block";
 @import "./shared/story_chart";
 @import "./nl_interface";
@@ -45,37 +47,22 @@
   }
 }
 
-.search-section {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  margin: 20px 0;
+#explore-more-section {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-top: 24px;
 
-  .btn {
-    height: 2.5rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
 
-  .experiment-tag {
-    border-radius: 10px;
-    border-style: solid;
-    border-width: 3px;
-    color: var(--blue);
+  .explore-more-box {
     display: flex;
-    float: left;
-    font: normal 0.85em monospace;
-    padding: 4px 6px;
-    height: 80%;
-    margin-right: 20px;
   }
-
-  .history-button {
-    margin-left: 0.5rem;
-  }
-
-  .search-box-section {
-    width: 100%;
+  .explore-more-prompt {
+    line-height: 24px;
   }
 }
 
@@ -148,8 +135,11 @@
 }
 
 #place-callout {
-  font-weight: bold;
-  font-size: 25px;
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--gm-3-ref-neutral-neutral-20);
+  padding-bottom: 16px;
 }
 
 .topic-item {
@@ -169,25 +159,29 @@
   color: var(--dc-gray);
 }
 
-.nav-item.highlight {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 0.5rem;
+.explore-topics-box {
+  display: flex;
+  .explore-relevant-topics {
+    min-width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: rgb(94, 94, 94);
+  }
 }
 
-.feedback-link {
-  background-color: transparent;
-  display: flex;
-  justify-content: flex-end;
-  min-height: 1rem;
-  margin-top: 5px;
-  margin-bottom: -5px;
+.related-places {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-bottom: 24px;
 
-  a {
-    color: $feedback-link-font-color;
-    font-style: italic;
-    text-align: right;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-weight: bolder;
+  .related-places-callout {
+    margin-bottom: 16px;
   }
+}
+
+.chart-container.map-chart {
+  flex-grow: 1;
 }

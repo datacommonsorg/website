@@ -22,4 +22,19 @@
 
 #main-header {
   background-color: var(--palo-alto-dark);
+
+  .navbar-brand a {
+    color: #fff;
+  }
+
+  .nav-item .nav-link {
+    color: rgba(255,255,255,.5)
+  }
+}
+
+.brand-byline span {
+  display: flex;
+  flex-direction: row;
+  margin-left: 0.5rem;
+  gap: 4px;
 }

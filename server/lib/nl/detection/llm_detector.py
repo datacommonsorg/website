@@ -19,6 +19,7 @@ import sys
 from typing import Dict, List
 
 from server.lib.nl.common import counters
+from server.lib.nl.common import serialize
 from server.lib.nl.common import utterance
 from server.lib.nl.detection import palm_api
 from server.lib.nl.detection import place
@@ -66,6 +67,7 @@ _LLM_TYPE_TO_CLASSIFICATION_SUBTYPE = {
     'GROWTH': {
         'INCREASE': types.TimeDeltaType.INCREASE,
         'DECREASE': types.TimeDeltaType.DECREASE,
+        'CHANGE': types.TimeDeltaType.CHANGE,
     },
     'SIZE': {
         'BIG': types.SizeType.BIG,
@@ -245,7 +247,7 @@ def _handle_llm2classification(llm_ctype: str,
       'type': ctype,
       dict_key: matches,
   }
-  return utterance.dict_to_classification([cdict])[0]
+  return serialize.dict_to_classification([cdict])[0]
 
 
 def _handle_quantity(filter: Dict, ctype: str) -> types.NLClassifier:

@@ -132,7 +132,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
-    CHART_TITLE = "Median age by gender: states near California(2020)"
+    CHART_TITLE = "Median age by gender: states near California(2021)"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
 
@@ -182,7 +182,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
         By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
-    self.assertEqual("Median age by gender: states near California(2020)",
+    self.assertEqual("Median age by gender: states near California(2021)",
                      chart_title)
 
   def test_ranking_chart_present(self):
@@ -232,13 +232,13 @@ class TestPlaceExplorer(WebdriverBaseTest):
     # Check the title text.
     chart_unit_highest_title = self.driver.find_element(
         By.XPATH,
-        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/h4'
+        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[1]/div/h4'
     ).text
     self.assertTrue = (CHART_UNIT_HIGHEST_TITLE in chart_unit_highest_title)
 
     chart_unit_lowest_title = self.driver.find_element(
         By.XPATH,
-        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/h4'
+        '//*[@id="main-pane"]/section[5]/div/div[6]/div/div/div/div/div[2]/div/h4'
     ).text
     self.assertTrue = (CHART_UNIT_LOWEST_TITLE in chart_unit_lowest_title)
 

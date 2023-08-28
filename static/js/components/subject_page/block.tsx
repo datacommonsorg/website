@@ -20,9 +20,12 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Input } from "reactstrap";
 
+import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
 import {
   COLUMN_ID_PREFIX,
+  HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
   SELF_PLACE_DCID_PLACEHOLDER,
   TILE_ID_PREFIX,
@@ -32,6 +35,7 @@ import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
 import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
+  convertToSortType,
   getColumnTileClassName,
   getColumnWidth,
   getId,
@@ -39,6 +43,7 @@ import {
 } from "../../utils/subject_page_utils";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
+import { DonutTile } from "../tiles/donut_tile";
 import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -103,15 +108,12 @@ export function Block(props: BlockPropType): JSX.Element {
     <>
       {props.denom && (
         <div className="block-per-capita-toggle">
-          <span
-            className={`material-icons-outlined ${
-              useDenom ? "toggle-on" : "toggle-off"
-            }`}
-            onClick={() => setUseDenom(!useDenom)}
-          >
-            {useDenom ? "toggle_on" : "toggle_off"}
-          </span>
-          <span>Per Capita</span>
+          <Input
+            type="checkbox"
+            checked={useDenom}
+            onChange={() => setUseDenom(!useDenom)}
+          />
+          <span>See per capita</span>
         </div>
       )}
       <div className="block-body row">
@@ -119,8 +121,10 @@ export function Block(props: BlockPropType): JSX.Element {
           props.columns.map((column, idx) => {
             const id = getId(props.id, COLUMN_ID_PREFIX, idx);
             const columnTileClassName = getColumnTileClassName(column);
+            const shouldHideColumn = idx >= minIdxToHide;
             return (
               <Column
+                shouldHideColumn={shouldHideColumn}
                 key={id}
                 id={id}
                 config={column}
@@ -138,9 +142,29 @@ export function Block(props: BlockPropType): JSX.Element {
             );
           })}
       </div>
+      {isNlInterface() && props.columns.length > NL_NUM_BLOCKS_SHOWN && (
+        <a className="expando" onClick={expandoCallback}>
+          Show more
+        </a>
+      )}
     </>
   );
 }
+
+const expandoCallback = function (e) {
+  // Callback to remove HIDE_TILE_CLASS from all sibling elements. Assumes
+  // target link is the child of the container with elements to toggle.
+  const selfEl = e.target as HTMLAnchorElement;
+  const parentEl = selfEl.parentElement;
+  const columns = parentEl.getElementsByClassName(
+    HIDE_COLUMN_CLASS
+  ) as HTMLCollectionOf<HTMLElement>;
+  for (let i = 0; i < columns.length; i++) {
+    columns[i].classList.remove(HIDE_COLUMN_CLASS);
+  }
+  selfEl.hidden = true;
+  e.preventDefault();
+};
 
 function renderTiles(
   tiles: TileConfig[],
@@ -202,6 +226,8 @@ function renderTiles(
             className={className}
             showExploreMore={props.showExploreMore}
             parentPlaces={props.parentPlaces}
+            allowZoom={true}
+            colors={tile.mapTileSpec?.colors}
           />
         );
       case "LINE":
@@ -211,6 +237,7 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={place}
+            comparisonPlaces={comparisonPlaces}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
@@ -218,6 +245,8 @@ function renderTiles(
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
+            showTooltipOnHover={true}
+            colors={tile.lineTileSpec?.colors}
           />
         );
       case "RANKING":
@@ -240,20 +269,29 @@ function renderTiles(
       case "BAR":
         return (
           <BarTile
-            key={id}
-            id={id}
-            title={tile.title}
-            place={place}
+            barHeight={tile.barTileSpec?.barHeight}
+            colors={tile.barTileSpec?.colors}
+            className={className}
             comparisonPlaces={comparisonPlaces}
             enclosedPlaceType={enclosedPlaceType}
+            horizontal={tile.barTileSpec?.horizontal}
+            id={id}
+            key={id}
+            maxPlaces={tile.barTileSpec?.maxPlaces}
+            place={place}
+            showExploreMore={props.showExploreMore}
+            sort={convertToSortType(tile.barTileSpec?.sort)}
+            showTooltipOnHover={true}
+            stacked={tile.barTileSpec?.stacked}
             statVarSpec={props.statVarProvider.getSpecList(
               tile.statVarKey,
               blockDenom
             )}
             svgChartHeight={props.svgChartHeight}
-            className={className}
             tileSpec={tile.barTileSpec}
-            showExploreMore={props.showExploreMore}
+            title={tile.title}
+            useLollipop={tile.barTileSpec?.useLollipop}
+            yAxisMargin={tile.barTileSpec?.yAxisMargin}
           />
         );
       case "SCATTER":
@@ -296,16 +334,32 @@ function renderTiles(
       case "GAUGE":
         return (
           <GaugeTile
+            colors={tile.gaugeTileSpec?.colors}
             id={id}
-            minSvgChartHeight={props.svgChartHeight}
             place={place}
             range={tile.gaugeTileSpec.range}
             statVarSpec={props.statVarProvider.getSpec(
               tile.statVarKey[0],
               blockDenom
             )}
+            svgChartHeight={props.svgChartHeight}
             title={tile.title}
           ></GaugeTile>
+        );
+      case "DONUT":
+        return (
+          <DonutTile
+            colors={tile.donutTileSpec?.colors}
+            id={id}
+            pie={tile.donutTileSpec?.pie}
+            place={place}
+            statVarSpec={props.statVarProvider.getSpecList(
+              tile.statVarKey,
+              blockDenom
+            )}
+            svgChartHeight={props.svgChartHeight}
+            title={tile.title}
+          ></DonutTile>
         );
       case "DESCRIPTION":
         return (

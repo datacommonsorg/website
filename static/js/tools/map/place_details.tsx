@@ -18,13 +18,11 @@
  * Component to allow per capita toggling and navigating to a parent place map.
  */
 
-import * as d3 from "d3";
 import _ from "lodash";
 import React, { useContext } from "react";
 import { Card } from "reactstrap";
 
-import { HOVER_HIGHLIGHTED_CLASS_NAME } from "../../chart/draw_d3_map";
-import { getPlacePathId } from "../../chart/draw_map_utils";
+import { highlightPlaceToggle } from "../../chart/draw_map_utils";
 import { GeoJsonFeature } from "../../chart/types";
 import { formatNumber } from "../../i18n/i18n";
 import { EUROPE_NAMED_TYPED_PLACE } from "../../shared/constants";
@@ -53,12 +51,10 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const selectedPlace = placeInfo.value.selectedPlace;
-  const unitString = _.isEmpty(props.unit) ? "" : ` ${props.unit}`;
   const selectedPlaceValue =
     props.breadcrumbDataValues &&
     selectedPlace.dcid in props.breadcrumbDataValues
-      ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], "") +
-        unitString
+      ? formatNumber(props.breadcrumbDataValues[selectedPlace.dcid], props.unit)
       : "N/A";
   const selectedPlaceDate =
     selectedPlace.dcid in props.metadata
@@ -92,7 +88,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
                 placeInfo.value,
                 statVar.value,
                 display.value,
-                unitString,
+                props.unit,
                 index + 1
               )
             )}
@@ -110,7 +106,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               placeInfo.value,
               statVar.value,
               display.value,
-              unitString,
+              props.unit,
               Math.max(0, rankedPlaces.length - 5) + index + 1
             )
           )}
@@ -128,7 +124,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
               placeInfo.value,
               statVar.value,
               display.value,
-              unitString
+              props.unit
             )
           )}
         </div>
@@ -137,27 +133,24 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
-function highlightPlaceToggle(
-  target: HTMLAnchorElement,
-  shouldHighlight: boolean
-) {
-  const geoDcid = target.dataset.geodcid;
-  const container = d3.select(`#${MAP_CONTAINER_ID}`);
-  const region = container
-    .select(`#${getPlacePathId(geoDcid)}`)
-    .raise()
-    .classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
-  if (region.size()) {
-    container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
-  }
-}
-
 function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
-  highlightPlaceToggle(e.target as HTMLAnchorElement, true);
+  const target = e.target as HTMLAnchorElement;
+  const placeDcid = target.dataset.geodcid;
+  highlightPlaceToggle(
+    document.getElementById(MAP_CONTAINER_ID),
+    placeDcid,
+    true
+  );
 }
 
 function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
-  highlightPlaceToggle(e.target as HTMLAnchorElement, false);
+  const target = e.target as HTMLAnchorElement;
+  const placeDcid = target.dataset.geodcid;
+  highlightPlaceToggle(
+    document.getElementById(MAP_CONTAINER_ID),
+    placeDcid,
+    false
+  );
 }
 
 function getListItemElement(
@@ -166,15 +159,14 @@ function getListItemElement(
   placeInfo: PlaceInfo,
   statVar: StatVar,
   display: DisplayOptions,
-  unitString: string,
+  unit: string,
   itemNumber?: number
 ): JSX.Element {
   let value = "N/A";
   if (props.breadcrumbDataValues && place.dcid in props.breadcrumbDataValues) {
-    value =
-      formatNumber(props.breadcrumbDataValues[place.dcid], "") + unitString;
+    value = formatNumber(props.breadcrumbDataValues[place.dcid], unit);
   } else if (place.dcid in props.mapDataValues) {
-    value = formatNumber(props.mapDataValues[place.dcid], "") + unitString;
+    value = formatNumber(props.mapDataValues[place.dcid], unit);
   }
   const date =
     place.dcid in props.metadata

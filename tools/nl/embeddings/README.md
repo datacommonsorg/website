@@ -52,7 +52,23 @@ This is a common sheet across the different index sizes.
    ```bash
    /run.sh -l medium <path_to_local_model>
    ```
+
+   To create custom embeddings (using the finetuned model in PROD):
+   ```bash
+   ./run.sh -c <embeddings_size> <sheets_url> <worksheet_name> data/curated_input/sheets_svs.csv
+   ```
+
+   For example, to create the UN SDG embeddings: 
+   ```bash
+   ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_SVs data/curated_input/sdg_sheets_svs.csv
+   ```
    
+   To create the (custom) UN SDG embeddings only for the goals+indicator topics: 
+   ```bash
+   ./run.sh -c sdg https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU SDG_GOALS_INDICATORS_ONLY data/curated_input/sdg_sheets_svs.csv
+   ```
+   
+   Note that the last parameter is the name and path of the local file (relative to the current directory) which will have the downloaded data from the <sheets_url> <worksheet_name>. This file should appear under [`curated_input\`](data/curated_input/). Examples are `data/curated_input/sheets_svs.csv` (for the general case) and `data/curated_input/sdg_sheets_svs.csv` for the UN SDG case.
 
 1. Validate the CSV diffs, update [`embeddings.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
 

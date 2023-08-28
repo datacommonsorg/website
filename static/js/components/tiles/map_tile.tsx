@@ -23,13 +23,16 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import {
   addPolygonLayer,
   drawD3Map,
   getProjection,
+  MapZoomParams,
 } from "../../chart/draw_d3_map";
 import { generateLegendSvg, getColorScale } from "../../chart/draw_map_utils";
 import { GeoJsonData } from "../../chart/types";
+import { URL_PATH } from "../../constants/app/visualization_constants";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import { USA_PLACE_DCID } from "../../shared/constants";
@@ -49,18 +52,24 @@ import {
   getPlaceChartData,
   MAP_URL_PATH,
   shouldShowBorder,
-  URL_PARAM_KEYS,
 } from "../../tools/map/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
+
+const ZOOM_IN_BUTTON_ID = "zoom-in-button";
+const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
 
 export interface MapTilePropType {
   // API root
@@ -69,7 +78,6 @@ export interface MapTilePropType {
   colors?: string[];
   // Extra classes to add to the container.
   className?: string;
-  date?: string;
   enclosedPlaceType: string;
   id: string;
   // Parent places of the current place showing map for
@@ -84,6 +92,8 @@ export interface MapTilePropType {
   showExploreMore?: boolean;
   // Whether or not to show a loading spinner when fetching data.
   showLoadingSpinner?: boolean;
+  // Whether or not to allow zoom in and out of the map
+  allowZoom?: boolean;
 }
 
 interface RawData {
@@ -116,13 +126,21 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     null
   );
   const [svgHeight, setSvgHeight] = useState(null);
+  const zoomParams = props.allowZoom
+    ? {
+        zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
+        zoomOutButtonId: `${ZOOM_OUT_BUTTON_ID}-${props.id}`,
+      }
+    : null;
+  const showZoomButtons =
+    !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
 
   useEffect(() => {
     if (!mapChartData || !_.isEqual(mapChartData.props, props)) {
       loadSpinner(props.id);
       (async () => {
         const data = await fetchData(props);
-        if (props && _.isEqual(data.props, props)) {
+        if (data && props && _.isEqual(data.props, props)) {
           setMapChartData(data);
         }
       })();
@@ -158,7 +176,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       props,
       svgContainer.current,
       legendContainer.current,
-      mapContainer.current
+      mapContainer.current,
+      null,
+      zoomParams
     );
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
@@ -177,8 +197,18 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           : null
       }
       isInitialLoading={_.isNull(mapChartData)}
-      exploreMoreUrl={props.showExploreMore ? getExploreMoreUrl(props) : ""}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
     >
+      {showZoomButtons && (
+        <div className="map-zoom-button-section">
+          <div id={zoomParams.zoomInButtonId} className="map-zoom-button">
+            <i className="material-icons">add</i>
+          </div>
+          <div id={zoomParams.zoomOutButtonId} className="map-zoom-button">
+            <i className="material-icons">remove</i>
+          </div>
+        </div>
+      )}
       <div
         id={props.id}
         className="svg-container"
@@ -230,9 +260,8 @@ export const fetchData = async (
       nodes: [props.place.dcid],
     })
     .then((resp) => resp.data);
-  const dataDate = props.date
-    ? props.date
-    : getCappedStatVarDate(props.statVarSpec.statVar);
+  const dataDate =
+    props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
   const placeStatPromise: Promise<PointApiResponse> = axios
     .get(`${props.apiRoot || ""}/api/observations/point/within`, {
       params: {
@@ -378,7 +407,8 @@ export function draw(
   svgContainer: HTMLDivElement,
   legendContainer: HTMLDivElement,
   mapContainer: HTMLDivElement,
-  svgWidth?: number
+  svgWidth?: number,
+  zoomParams?: MapZoomParams
 ): void {
   const mainStatVar = props.statVarSpec.statVar;
   const height = props.svgChartHeight;
@@ -421,8 +451,7 @@ export function draw(
     height,
     colorScale,
     chartData.unit,
-    0,
-    formatNumber
+    0
   );
   const chartWidth = (svgWidth || svgContainer.offsetWidth) - legendWidth;
   const shouldUseBorderData =
@@ -454,7 +483,9 @@ export function draw(
     getTooltipHtml,
     () => false,
     chartData.showMapBoundaries,
-    projection
+    projection,
+    undefined,
+    zoomParams
   );
   if (shouldUseBorderData) {
     addPolygonLayer(
@@ -469,16 +500,19 @@ export function draw(
   }
 }
 
-function getExploreMoreUrl(props: MapTilePropType): string {
-  const params = {
-    [URL_PARAM_KEYS.SELECTED_PLACE_DCID]: props.place.dcid,
-    [URL_PARAM_KEYS.ENCLOSED_PLACE_TYPE]: props.enclosedPlaceType,
-    [URL_PARAM_KEYS.PER_CAPITA]: props.statVarSpec.denom ? "1" : "",
-    [URL_PARAM_KEYS.STAT_VAR_DCID]: props.statVarSpec.statVar,
-    [URL_PARAM_KEYS.DENOM]: props.statVarSpec.denom,
+function getExploreLink(props: MapTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const hash = getHash(
+    VisType.MAP,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    [getContextStatVar(props.statVarSpec)],
+    {}
+  );
+  return {
+    displayText: "Map Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
-  const hashParams = Object.keys(params)
-    .sort()
-    .map((key) => `${key}=${params[key]}`);
-  return `${props.apiRoot || ""}${MAP_URL_PATH}#${hashParams.join("&")}`;
 }

@@ -21,8 +21,74 @@
             ],
             "title": "Floods in Brazil",
             "type": "DISASTER_EVENT"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Flood Event in Brazil",
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Flood Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Floods in Brazil",
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "Area_FloodEvent": {
+            "name": "Area of Flood Event",
+            "statVar": "Area_FloodEvent"
+          },
+          "Count_FloodEvent": {
+            "name": "Floods",
+            "statVar": "Count_FloodEvent"
+          }
+        }
       }
     ],
     "metadata": {
@@ -49,11 +115,6 @@
       "placeDcid": [
         "country/BRA"
       ]
-    },
-    "suggestions": {
-      "NL_PLACE_DISAMBIGUATION": {},
-      "NL_RELATED_PLACE": {},
-      "NL_RELATED_VAR": {}
     }
   },
   "context": {},
@@ -66,5 +127,13 @@
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/BRA",
+      "name": "Brazil",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
   "svSource": "CURRENT_QUERY"
 }

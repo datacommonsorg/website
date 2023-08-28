@@ -21,11 +21,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { Page } from "./page";
 
 window.onload = () => {
-  ReactDOM.render(
-    React.createElement(Page),
-    document.getElementById("main-pane")
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      ReactDOM.render(
+        React.createElement(Page),
+        document.getElementById("main-pane")
+      );
+    }
   );
 };

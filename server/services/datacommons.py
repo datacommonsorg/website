@@ -170,6 +170,26 @@ def obs_series_within(parent_entity, child_type, variables):
       })
 
 
+def series_facet(entities, variables):
+  """Gets facet of time series for the given entities and variables.
+
+  Args:
+      entities: A list of entity DCIDs.
+      variables: A list of statistical variable DCIDs.
+  """
+  url = get_service_url('/v2/observation')
+  return post(
+      url, {
+          'select': ['variable', 'entity', 'facet'],
+          'entity': {
+              'dcids': sorted(entities)
+          },
+          'variable': {
+              'dcids': sorted(variables)
+          },
+      })
+
+
 def v2observation(select, entity, variable):
   """
   Args:

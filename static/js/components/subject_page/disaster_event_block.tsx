@@ -18,8 +18,10 @@
  * Component for rendering a disaster type block.
  */
 
+import _ from "lodash";
 import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
+import { URL_HASH_PARAM_KEYS } from "../../constants/disaster_event_map_constants";
 import {
   COLUMN_ID_PREFIX,
   HIDE_TILE_CLASS,
@@ -33,15 +35,20 @@ import {
 } from "../../types/disaster_event_map_types";
 import {
   ColumnConfig,
+  DisasterBlockSpec,
   EventTypeSpec,
+  SeverityFilter,
   TileConfig,
 } from "../../types/subject_page_proto_types";
 import {
   fetchDisasterEventPoints,
   getDate,
+  getHashValue,
   getSeverityFilters,
+  getUpdatedHash,
   getUseCache,
 } from "../../utils/disaster_event_map_utils";
+import { isNlInterface } from "../../utils/nl_interface_utils";
 import {
   getColumnTileClassName,
   getColumnWidth,
@@ -72,6 +79,16 @@ interface DisasterEventBlockPropType {
   apiRoot?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  disasterBlockMetadata: DisasterBlockSpec;
+}
+
+interface DisasterEventBlockData {
+  // The data
+  disasterEventData: Record<string, DisasterEventPointData>;
+  // The date used to get the data
+  date: string;
+  // The severity filters used to get the data
+  severityFilters: Record<string, SeverityFilter>;
 }
 
 const DEFAULT_FILTER_SECTION_HEIGHT = 400;
@@ -83,12 +100,21 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
     getBlockEventTypeSpecs(props.eventTypeSpec, props.columns)
   );
   const [disasterEventData, setDisasterEventData] =
-    useState<Record<string, DisasterEventPointData>>(null);
+    useState<DisasterEventBlockData>(null);
   const [filterSectionHeight, setFilterSectionHeight] = useState(
     DEFAULT_FILTER_SECTION_HEIGHT
   );
   const [showFilters, setShowFilters] = useState(false);
+  const [date, setDate] = useState(
+    getDate(props.id, props.disasterBlockMetadata, props.place)
+  );
+  const [severityFilters, setSeverityFilters] = useState(
+    getSeverityFilters(blockEventTypeSpecs.current, props.id)
+  );
   const { fetchData } = useContext(DataFetchContext);
+  const isInitialLoading = useRef(true);
+  const prevFilters = useRef(severityFilters);
+  const prevDate = useRef(date);
 
   useEffect(() => {
     // when showFilters is toggled, calculate what the filter section height
@@ -108,55 +134,79 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
       props.eventTypeSpec,
       props.columns
     );
+    const spinnerId = getSpinnerId();
+    if (!_.isNull(disasterEventData)) {
+      loadSpinner(spinnerId);
+    }
     fetchDisasterEventData(
-      props.id,
       blockEventTypeSpecs.current,
       props.place.dcid,
+      date,
+      severityFilters,
       fetchData
     ).then((disasterData) => {
-      setDisasterEventData(disasterData);
-    });
-
-    function handleHashChange() {
-      const spinnerId = getSpinnerId();
-      loadSpinner(spinnerId);
-      fetchDisasterEventData(
-        props.id,
-        blockEventTypeSpecs.current,
-        props.place.dcid,
-        fetchData
-      ).then((disasterData) => {
-        setDisasterEventData(disasterData);
-        removeSpinner(spinnerId);
+      setDisasterEventData({
+        disasterEventData: disasterData,
+        date,
+        severityFilters,
       });
+      removeSpinner(spinnerId);
+    });
+  }, [props, date, severityFilters]);
+
+  useEffect(() => {
+    // When date or severity filters are updated, update the hash. Unless this
+    // is nl interface or the initial load.
+    if (isInitialLoading.current || isNlInterface()) {
+      isInitialLoading.current = false;
+      return;
     }
-    window.addEventListener("hashchange", handleHashChange);
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, [props]);
+    const updatedParams = {};
+    if (!_.isEqual(prevFilters.current, severityFilters)) {
+      updatedParams[URL_HASH_PARAM_KEYS.SEVERITY_FILTER] =
+        JSON.stringify(severityFilters);
+      prevFilters.current = severityFilters;
+    }
+    if (!_.isEqual(prevDate.current, date)) {
+      updatedParams[URL_HASH_PARAM_KEYS.DATE] = date;
+      prevDate.current = date;
+    }
+    const updatedHash = getUpdatedHash(updatedParams, props.id);
+    const currentHash = location.hash.replace("#", "");
+    const urlRoot = window.location.href.split("#")[0];
+    if (updatedHash && updatedHash !== currentHash) {
+      history.pushState({}, "", `${urlRoot}#${updatedHash}`);
+    }
+  }, [date, severityFilters]);
 
   const columnWidth = getColumnWidth(props.columns);
   const minIdxToHide = getMinTileIdxToHide();
+  const hideFilters = isNlInterface();
   return (
     <>
       <DisasterEventMapSelectors
         blockId={props.id}
         eventTypeSpec={blockEventTypeSpecs.current}
         place={props.place}
+        date={date}
+        setDate={setDate}
       >
-        <div
-          className="filter-toggle"
-          onClick={() => setShowFilters(!showFilters)}
-          title="Toggle filters"
-        >
-          <i className="material-icons">tune</i>
-        </div>
+        {!hideFilters && (
+          <div
+            className="filter-toggle"
+            onClick={() => setShowFilters(!showFilters)}
+            title="Toggle filters"
+          >
+            <i className="material-icons">tune</i>
+          </div>
+        )}
       </DisasterEventMapSelectors>
-      {showFilters && (
+      {!hideFilters && showFilters && (
         <DisasterEventMapFilters
           eventTypeSpec={blockEventTypeSpecs.current}
           blockId={props.id}
+          severityFilters={severityFilters}
+          setSeverityFilters={setSeverityFilters}
         />
       )}
       <div className="block-body row" ref={blockBodyRef}>
@@ -176,7 +226,10 @@ export const DisasterEventBlock = memo(function DisasterEventBlock(
                     props,
                     id,
                     minIdxToHide,
-                    disasterEventData,
+                    disasterEventData
+                      ? disasterEventData.disasterEventData
+                      : null,
+                    disasterEventData ? disasterEventData.date : "",
                     columnTileClassName
                   )}
                 />
@@ -224,16 +277,18 @@ function getDataFetchCacheKey(dataOptions: DisasterDataOptions): string {
 
 /**
  * Fetches disaster event data for a disaster event block
- * @param blockId id of the block
  * @param eventTypeSpecs event type specs used in current block
  * @param placeDcid dcid of the place to
+ * @param date date to fetch data for
+ * @param severityFilters severity filters to use on the fetched data
  * @param fetchData function to use to fetch data with a given cache key and
  *                  data promise
  */
 export function fetchDisasterEventData(
-  blockId: string,
   eventTypeSpecs: Record<string, EventTypeSpec>,
   placeDcid: string,
+  date: string,
+  severityFilters: Record<string, SeverityFilter>,
   fetchData?: (
     cacheKey: string,
     dataPromise: () => Promise<any>
@@ -247,8 +302,8 @@ export function fetchDisasterEventData(
   Object.values(eventTypeSpecs).forEach((spec) => {
     const specDataOptions = {
       eventTypeSpec: spec,
-      selectedDate: getDate(blockId),
-      severityFilters: getSeverityFilters(eventTypeSpecs, blockId),
+      selectedDate: date,
+      severityFilters,
       useCache: getUseCache(),
       place: placeDcid,
     };
@@ -295,6 +350,7 @@ function renderTiles(
   columnId: string,
   minIdxToHide: number,
   disasterEventData: Record<string, DisasterEventPointData>,
+  date: string,
   tileClassName?: string
 ): JSX.Element {
   if (!tiles) {
@@ -350,7 +406,7 @@ function renderTiles(
             id={id}
             title={tile.title}
             place={props.place}
-            selectedDate={getDate(props.id)}
+            selectedDate={date}
             eventTypeSpec={eventTypeSpec}
             property={tile.histogramTileSpec.prop}
             disasterEventData={tileEventData}

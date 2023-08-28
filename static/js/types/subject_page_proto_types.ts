@@ -67,6 +67,7 @@ export interface RankingTileSpec {
   rankingCount?: number;
 
   showMultiColumn: boolean;
+  showHighestLowest?: boolean;
 }
 
 export interface DisasterEventMapTileSpec {
@@ -94,18 +95,41 @@ export interface ScatterTileSpec {
   highlightTopLeft?: boolean;
   highlightBottomRight?: boolean;
   highlightBottomLeft?: boolean;
+  showPlaceLabels?: boolean;
+  showQuadrants?: boolean;
 }
 
 export interface BarTileSpec {
   xLabelLinkRoot?: string;
+  barHeight?: number;
+  colors?: string[];
+  horizontal?: boolean;
+  maxPlaces?: number;
+  sort?: string;
+  stacked?: boolean;
   useLollipop?: boolean;
+  yAxisMargin?: number;
 }
 
 export interface GaugeTileSpec {
+  colors?: string[];
   range: {
     min: number;
     max: number;
   };
+}
+
+export interface DonutTileSpec {
+  colors?: string[];
+  pie?: boolean;
+}
+
+export interface LineTileSpec {
+  colors?: string[];
+}
+
+export interface MapTileSpec {
+  colors?: string[];
 }
 
 export interface TileConfig {
@@ -122,10 +146,18 @@ export interface TileConfig {
   histogramTileSpec?: HistogramTileSpec;
   barTileSpec?: BarTileSpec;
   gaugeTileSpec?: GaugeTileSpec;
+  donutTileSpec?: DonutTileSpec;
+  lineTileSpec?: LineTileSpec;
+  mapTileSpec?: MapTileSpec;
 }
 
 export interface ColumnConfig {
   tiles: TileConfig[];
+}
+
+export interface DisasterBlockSpec {
+  dateRange?: string;
+  date?: string;
 }
 
 export interface BlockConfig {
@@ -136,6 +168,7 @@ export interface BlockConfig {
   type?: string;
   denom?: string;
   startWithDenom?: boolean;
+  disasterBlockSpec?: DisasterBlockSpec;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;

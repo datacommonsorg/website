@@ -38,7 +38,7 @@
         padding: 5px 8px;
         border-radius: 10px;
       }
-      #styled-map::part(title) {
+      #styled-map::part(header) {
         font-weight: 200;
         font-size: 16px;
         margin-bottom: 16px;
@@ -65,40 +65,57 @@
         width: 10px;
         height: 10px;
       }
+      #bar-with-subheader::part(subheader) {
+        color: grey;
+        font-size: 0.85rem;
+        font-weight: 200;
+      }
     </style>
   </head>
   <body style="max-width: 40vw; margin: auto">
     <h1>Datacommons Web Components</h1>
     <h2>Bar Chart</h2>
     <datacommons-bar
-      title="Most populous states in the US"
+      id="bar-with-subheader"
+      header="Most populous states in the US"
       parentPlace="country/USA"
       childPlaceType="State"
       variables="Count_Person"
       maxPlaces="15"
-    ></datacommons-bar>
+    >
+      <p slot="subheader">(top 15 places)</p>
+      <p slot="footer">
+        Custom footer here. This is a long custom footer. Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </datacommons-bar>
     <datacommons-bar
-      title="Population of select US states"
+      header="Population of select US states"
       variables="Count_Person"
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       sort="ascending"
       colors="orange"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender of select US states (grouped)"
+      header="Median income by gender of select US states (grouped)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender of select US states (stacked)"
+      header="Median income by gender of select US states (stacked)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      header="Median income by gender of select US states (horizontal, stacked, sorted descending)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
@@ -108,7 +125,7 @@
     ></datacommons-bar>
     <datacommons-bar
       barHeight="6"
-      title="Median income by gender (horizontal, grouped, sorted ascending)"
+      header="Median income by gender (horizontal, grouped, sorted ascending)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       parentPlace="country/USA"
       childPlaceType="State"
@@ -120,7 +137,7 @@
     ></datacommons-bar>
     <datacommons-bar
       id="styled-bar"
-      title="Styled: Mean Palmer Drought Severity Index in the USA"
+      header="Styled: Mean Palmer Drought Severity Index in the USA"
       parentPlace="country/USA"
       childPlaceType="State"
       variables="Mean_PalmerDroughtSeverityIndex"
@@ -128,7 +145,7 @@
     ></datacommons-bar>
     <datacommons-bar
       id="styled-bar-multivariable"
-      title="Styled: Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      header="Styled: Median income by gender of select US states (horizontal, stacked, sorted descending)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
       stacked
@@ -137,27 +154,53 @@
     ></datacommons-bar>
     <h2>Pie/Donut</h2>
     <datacommons-pie
-      title="California Farms by Size"
+      header="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
-    ></datacommons-pie>
+    >
+      <div slot="footer">
+        <ul>
+          <li>custom footer item 1</li>
+          <li>custom footer item 2</li>
+        </ul>
+      </div>
+    </datacommons-pie>
     <datacommons-pie
-      title="California Farms by Size"
+      header="California Farms by Size"
       place="geoId/06"
       variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
       donut
     ></datacommons-pie>
     <h2>Gauge</h2>
     <datacommons-gauge
-      title="Percentage of US Population that are Internet Users"
+      header="Percentage of US Population that are Internet Users"
       place="country/USA"
       variable="Count_Person_IsInternetUser_PerCapita"
       min="0"
       max="100"
     ></datacommons-gauge>
+    <h2>Highlight</h2>
+    <datacommons-highlight
+      description="Population of the United States"
+      place="country/USA"
+      variable="Count_Person"
+      date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      apiroot="https://dev.datacommons.org/"
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      apiroot="https://dev.datacommons.org/"
+      header="Local Breeds With Adequate Genetic Resources for Reconstitution in United States"
+      variable="sdg/ER_GRF_ANIMRCNTN"
+      place="country/USA"
+    ></datacommons-highlight>
     <h2>Map</h2>
     <datacommons-map
-      title="Population"
+      header="Population"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
@@ -165,21 +208,21 @@
     ></datacommons-map>
     <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
     <datacommons-map
-      title="California: Annual_ExpectedLoss_NaturalHazardImpact"
+      header="California: Annual_ExpectedLoss_NaturalHazardImpact"
       placeDcid="geoId/06"
       enclosedPlaceType="County"
       statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
     ></datacommons-map>
     <datacommons-map
       id="styled-map"
-      title="Styled map: Three most populous US states"
+      header="Styled map: Three most populous US states"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-map>
     <h2>Map with year slider</h2>
     <datacommons-map
-      title="Population"
+      header="Population"
       parentPlace="country/USA"
       childPlaceType="State"
       subscribe="dc-map"
@@ -193,13 +236,13 @@
     ></datacommons-slider>
     <h2>Ranking</h2>
     <datacommons-ranking
-      title="US States with the Highest Population"
+      header="US States with the Highest Population"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
     ></datacommons-ranking>
     <datacommons-ranking
-      title="US States with the Lowest Population"
+      header="US States with the Lowest Population"
       parentPlace="country/USA"
       childPlaceType="State"
       variable="Count_Person"
@@ -207,67 +250,67 @@
     ></datacommons-ranking>
     <h3>Line</h3>
     <datacommons-line
-      title="US Population Over Time"
+      header="US Population Over Time"
       place="country/USA"
       variables="Count_Person"
       colors="blue"
     ></datacommons-line>
     <datacommons-line
-      title="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
+      header="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
       place="country/USA"
       variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
     ></datacommons-line>
     <datacommons-line
-      title="Mean Palmer Drought Severity Index (PDSI) in the US"
+      header="Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
       variables="Mean_PalmerDroughtSeverityIndex"
     ></datacommons-line>
     <datacommons-line
       id="styled-line"
-      title="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
+      header="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
       place="country/USA"
       variables="Mean_PalmerDroughtSeverityIndex"
     ></datacommons-line>
     <datacommons-line
-      title="Population Of California, Texas, and New York State"
+      header="Population Of California, Texas, and New York State"
       places="geoId/06 geoId/48 geoId/36"
       variables="Count_Person"
       colors="green red blue"
     ></datacommons-line>
     <datacommons-line
-      title="Population Of Counties of Rhode Island"
+      header="Population Of Counties of Rhode Island"
       parentPlace="geoId/44"
       childPlaceType="County"
       variables="Count_Person"
     ></datacommons-line>
     <datacommons-line
-      title="Population Of California, Texas, and New York State, by gender"
+      header="Population Of California, Texas, and New York State, by gender"
       places="geoId/06 geoId/48 geoId/36"
       variables="Count_Person_Male Count_Person_Female"
     ></datacommons-line>
     <h2>Lollipop</h2>
     <datacommons-bar
-      title="Population in States of United States"
+      header="Population in States of United States"
       parentPlace="country/USA"
       childPlaceType="State"
       variables="Count_Person"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
-      title="Population in Alaska, Alabama, and Arizona"
+      header="Population in Alaska, Alabama, and Arizona"
       variables="Count_Person"
       places="geoId/01 geoId/02 geoId/04"
       lollipop
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender for Alaska, Alabama, and Arizona"
+      header="Median income by gender for Alaska, Alabama, and Arizona"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04"
       lollipop
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender for counties in Alaska"
+      header="Median income by gender for counties in Alaska"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       parentPlace="geoId/02"
       childPlaceType="County"
@@ -275,7 +318,7 @@
       colors="#4287f5 #f542a4"
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender for counties in Alaska (horizontal, stacked, lollipop)"
+      header="Median income by gender for counties in Alaska (horizontal, stacked, lollipop)"
       variables="Median_Income_Person Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       parentPlace="geoId/02"
       childPlaceType="County"
@@ -284,11 +327,18 @@
       stacked
     ></datacommons-bar>
     <datacommons-bar
-      title="Median income by gender of select US states (stacked, lollipop)"
+      header="Median income by gender of select US states (stacked, lollipop)"
       variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
       places="geoId/01 geoId/02 geoId/04 geoId/05"
       stacked
       lollipop
     ></datacommons-bar>
+    <h2>Scatter</h2>
+    <datacommons-scatter
+      header="Population vs Median Household Income for US States"
+      variables="Count_Person Median_Income_Household"
+      parentPlace="country/USA"
+      childPlaceType="State"
+    ></datacommons-scatter>
   </body>
 </html>

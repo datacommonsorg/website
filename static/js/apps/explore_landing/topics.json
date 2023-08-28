@@ -5,53 +5,67 @@
     "health",
     "sustainability",
     "education-housing-commute",
-    "equity"
+    "equity",
+    "sdg"
   ],
   "topics": {
     "equity": {
       "title": "Equity",
       "description": "Equity data serves as a vital compass in our pursuit of a just and inclusive society, offering crucial insights into disparities, privileges, and opportunities among diverse groups. Understanding equity empowers us to identify and address systemic imbalances, fostering a world where every individual can thrive and contribute to a shared and equitable future. Search for some equity data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Economic Equity",
+          "url": "t=dc/topic/EconomicEquity&p=country/USA"
+        },
+        {
+          "title": "Education Equity",
+          "url": "t=dc/topic/EducationEquity&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Justice System Equity",
+          "url": "t=dc/topic/JusticeSystemEquity&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-equity.svg",
       "examples": {
         "general": [
           {
-            "title": "Economic equity in California",
-            "url": "oq=Economic+equity+in+California&t=dc/topic/EconomicEquity&p=geoId/06"
+            "title": "Tell me about economic equity in California",
+            "url": "q=Tell+me+about+economic+equity+in+California"
           },
           {
-            "title": "Incarceration rates by race in the US",
-            "url": "oq=Incarceration+rates+by+race+in+the+US&t=dc/topic/JusticeSystemEquity&p=country/USA"
+            "title": "What is the breakdown of incarceration rates by race in the US",
+            "url": "q=What+is+the+breakdown+of+incarceration+rates+by+race+in+the+US"
           },
           {
-            "title": "Health equity in Santa Clara County",
-            "url": "oq=Health+equity+in+Santa+Clara+County&t=dc/topic/HealthEquity&p=geoId/06085"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Number of poor hispanic women in Santa Clara County",
-            "url": "oq=Number+of+poor+hispanic+women+in+Santa+Clara+County"
+            "title": "What about health equity in Santa Clara County",
+            "url": "q=What+about+health+equity+in+Santa+Clara+County"
           },
           {
-            "title": "Counties with the highest unemployment rate in the US",
-            "url": "oq=Counties+with+the+highest+unemployment+rate+in+the+US&t=dc/topic/UnemploymentRate&p=country/USA&pt=County"
+            "title": "What is the number of poor hispanic women in Santa Clara County",
+            "url": "q=What+is+the+number+of+poor+hispanic+women+in+Santa+Clara+County"
           },
           {
-            "title": "Counties with the highest rates of uninsured",
-            "url": "oq=Counties+with+the+highest+rates+of+uninsured&t=dc/topic/NoHealthInsurance&p=country/USA&pt=County"
+            "title": "Which counties in the US hav the highest unemployment rate",
+            "url": "q=Which+counties+in+the+US+hav+the+highest+unemployment+rate"
           },
           {
-            "title": "Cities with the highest number of women PhDs in Pennsylvania",
-            "url": "oq=Cities+with+the+highest+number+of+women+PhDs+in+Pennsylvania&t=Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female&t=dc/topic/EducationalAttainmentByGenderAndLevel&p=geoId/42&pt=City"
+            "title": "Which counties in the US have the highest rates of uninsured",
+            "url": "q=Which+counties+in+the+US+have+the+highest+rates+of+uninsured"
           },
           {
-            "title": "Countries with the lowest Gini index",
-            "url": "oq=Countries+with+the+lowest+Gini+index&t=GiniIndex_EconomicActivity&p=Earth&pt=Country"
+            "title": "Which countries have the lowest Gini index",
+            "url": "q=Which+countries+have+the+lowest+Gini+index"
           }
         ],
         "comparison": [
           {
-            "title": "Correlation between diabetes and poverty across US counties",
-            "url": "oq=Correlation+between+diabetes+and+poverty+across+US+counties&t=dc/topic/Diabetes&tcmp=dc/topic/Poverty&p=country/USA&pt=County"
+            "title": "What is the correlation between diabetes and poverty across US counties",
+            "url": "q=What+is+the+correlation+between+diabetes+and+poverty+across+US+counties"
           }
         ]
       },
@@ -89,111 +103,100 @@
     "economics": {
       "title": "Economics",
       "description": "Understanding economics illuminates the intricate web of human choices and resource allocation, guiding governments, businesses, and individuals to make informed decisions for a prosperous and sustainable future. Search for some economic data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Businesses",
+          "url": "t=dc/topic/Businesses&p=country/USA"
+        },
+        {
+          "title": "Economic Activity",
+          "url": "t=dc/topic/EconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Global Economic Activity",
+          "url": "t=dc/topic/GlobalEconomicActivity&p=country/USA"
+        },
+        {
+          "title": "Employment",
+          "url": "t=dc/topic/Employment&p=country/USA"
+        },
+        {
+          "title": "Income",
+          "url": "t=dc/topic/Income&p=country/USA"
+        },
+        {
+          "title": "Poverty",
+          "url": "t=dc/topic/Poverty&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-economics.svg",
       "examples": {
         "general": [
           {
-            "title": "Jobs in Texas",
-            "url": "p=geoId/48&t=dc/topic/Jobs&oq=Jobs+in+Texas"
+            "title": "What are the most common jobs in Texas",
+            "url": "q=What+are+the+most+common+jobs+in+Texas"
           },
           {
-            "title": "Businesses by type in the US",
-            "url": "p=country/USA&t=dc/topic/Businesses&oq=Businesses+by+type+in+the+US"
+            "title": "What is the median income in Santa Clara County",
+            "url": "q=What+is+the+median+income+in+Santa+Clara+County"
           },
           {
-            "title": "Median income in Santa Clara County",
-            "url": "p=geoId/06085&t=dc/topic/Income&oq=Median+income+in+Santa+Clara+County"
+            "title": "Which industries have grown the most in California",
+            "url": "q=Which+industries+have+grown+the+most+in+California"
           },
           {
-            "title": "Employment in Florida",
-            "url": "p=geoId/12&t=dc/topic/Employment&oq=Employment+in+Florida"
+            "title": "Show me the breakdown of businesses by type in the US",
+            "url": "q=Show+me+the+breakdown+of+businesses+by+type+in+the+US"
           },
           {
-            "title": "Poverty in Louisiana",
-            "url": "p=geoId/22&t=dc/topic/Poverty&oq=Poverty+in+Louisiana"
+            "title": "Who are the most poor Louisiana",
+            "url": "q=Who+are+the+most+poor+Louisiana"
           },
           {
-            "title": "Industries in Dallas County, TX",
-            "url": "p=geoId/48113&t=dc/topic/EconomicActivity&oq=Industries+in+Dallas+County,+TX"
+            "title": "Tell me about the economy in Brazil",
+            "url": "q=Tell+me+about+the+economy+in+Brazil"
           },
           {
-            "title": "Economy in Brazil",
-            "url": "p=country/BRA&t=dc/topic/GlobalEconomicActivity&oq=Economy+in+Brazil"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Businesses by industry in New York State",
-            "url": "p=geoId/36&t=dc/topic/NumberOfBusinessesByIndustry&oq=Businesses+by+industry+in+New+York+State"
-          },
-          {
-            "title": "Number of People Employed in New York City vs Boston",
-            "url": "oq=Number+of+People+Employed+in+New+York+City+vs+Boston"
-          },
-          {
-            "title": "Number of privately owned businesses in California",
-            "url": "oq=Number+of+privately+owned+businesses+in+California"
-          },
-          {
-            "title": "Education expenditure in the US vs Canada",
-            "url": "oq=Education+expenditure+in+the+US+vs+Canada"
-          },
-          {
-            "title": "GDP of Iran",
-            "url": "p=country/IRN&t=dc/topic/GDP&oq=GDP+of+Iran"
-          },
-          {
-            "title": "GDP of USA vs China vs India",
-            "url": "oq=compare+GDP+of+USA+vs+China+vs+India"
-          },
-          {
-            "title": "Remittances in Lebanon",
-            "url": "p=country/LBN&t=dc/topic/Remittance&oq=Remittances+in+Lebanon"
+            "title": "What is the GDP of Iran",
+            "url": "q=What+is+then+GDP+of+Iran"
           }
         ],
         "comparison": [
           {
-            "title": "Income vs Health Insurance in the US",
-            "url": "oq=Income+vs+health+insurance+rates+in+USA"
+            "title": "Compare the education expenditure in the US vs Canada",
+            "url": "q=Compare+the+education+expenditure+in+the+US+vs+Canada"
           },
           {
-            "title": "Richest counties in CA",
-            "url": "oq=richest+counties+in+CA"
+            "title": "How does the GDP of USA compare with that of China",
+            "url": "q=How+does+the+GDP+of+USA+compare+with+that+of+China"
           },
           {
-            "title": "Richest and Poorest countries in the world by GDP",
-            "url": "oq=richest+and+poorest+countries+in+the+world+by+GDP"
+            "title": "What is the correlation between income and health insurance in the US",
+            "url": "q=What+is+the+correlation+between+income+and+health+insurance+in+the+US"
           },
           {
-            "title": "GDP vs Remittances across countries in Africa",
-            "url": "oq=GDP+vs+Remittances+across+countries+in+Africa&t=dc/topic/GDP&tcmp=dc/topic/Remittance&p=africa&pt=Country"
+            "title": "Which are the richest counties in California",
+            "url": "q=Which+are+the+richest+counties+in+California"
           },
           {
-            "title": "Highest Gini Index in the World",
-            "url": "oq=highest+Gini+index+in+the+world"
+            "title": "What is the correlation between GDP and remittances across countries in Africa",
+            "url": "q=What+is+the+correlation+between+GDP+and+remittances+across+countries+in+Africa"
           },
           {
-            "title": "Countries with the most incoming remittances in the world",
-            "url": "oq=countries+with+the+most+incoming+remittances+in+the+world"
+            "title": "Which countries have the most incoming remittances",
+            "url": "q=Which+countries+have+the+most+incoming+remittances"
           },
           {
-            "title": "Median income vs unemployment rate in California",
-            "url": "oq=median+income+vs+unemployment+in+California&t=Median_Income_Person&tcmp=UnemploymentRate_Person&p=geoId%2F06&pcmp=&pt="
+            "title": "What is the correlation between obesity and poverty across counties in the US",
+            "url": "q=What+is+the+correlation+between+obesity+and+poverty+across+counties+in+the+US"
           },
           {
-            "title": "Poverty vs Unemployment in the US",
-            "url": "oq=Poverty+vs+Unemployment+in+the+US"
-          },
-          {
-            "title": "Poorest states in the US",
-            "url": "oq=worst+states+for+poverty+in+the+US"
-          },
-          {
-            "title": "Obesity vs Unemployment in the US counties",
-            "url": "oq=Obesity+vs+Unemployment+in+the+US+counties"
-          },
-          {
-            "title": "Debt vs GDP for countries in Europe",
-            "url": "oq=Debt+vs+GDP+in+countries+in+countries+in+Europe"
+            "title": "How does debt correlate with GDP for countries in Europe",
+            "url": "q=How+does+debt+correlate+with+GDP+for+countries+in+Europe"
           }
         ]
       },
@@ -221,119 +224,100 @@
     "health": {
       "title": "Health",
       "description": "Health statistics are key to journalists, policymakers, and public health professionals to help with population-based statistics, interventions, and outcomes for different populations.  Search for some Health data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Health Conditions",
+          "url": "t=dc/topic/HealthConditions&p=country/USA"
+        },
+        {
+          "title": "Health Equity",
+          "url": "t=dc/topic/HealthEquity&p=country/USA"
+        },
+        {
+          "title": "Health Insurance",
+          "url": "t=dc/topic/HealthInsurance&p=country/USA"
+        },
+        {
+          "title": "Mortality",
+          "url": "t=dc/topic/Mortality&p=country/USA"
+        },
+        {
+          "title": "Preventive Health And Behavior",
+          "url": "t=dc/topic/PreventativeHealthAndBehavior&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-health.svg",
       "examples": {
         "general": [
           {
-            "title": "Top health issues in Arizona",
-            "url": "p=geoId/04&t=dc/topic/HealthConditions&oq=Health+issues+in+Arizona"
+            "title": "What are the leading causes of death in the US",
+            "url": "q=What+are+the+leading+causes+of+death+in+the+US"
           },
           {
-            "title": "Health Equity in California",
-            "url": "p=geoId/06&t=dc/topic/HealthEquity&oq=Health+Equity+in+California"
+            "title": "Which are the biggest health issues in Arizona",
+            "url": "q=Which+are+the+biggest+health+issues+in+Arizona"
           },
           {
-            "title": "Uninsured in Kansas",
-            "url": "p=geoId/20&t=dc/topic/NoHealthInsurance&oq=Uninsured+in+Kansas"
+            "title": "Tell me about health equity in California",
+            "url": "q=Tell+me+about+health+equity+in+California"
           },
           {
-            "title": "Health behaviors in Bangladesh",
-            "url": "p=country/BGD&t=dc/topic/GlobalHealth&oq=Health+behaviors+in+Bangladesh"
+            "title": "Which communities in Kansas are uninsured",
+            "url": "q=Which+communities+in+Kansas+are+uninsured"
           },
           {
-            "title": "Mortality in the US",
-            "url": "p=country/USA&t=dc/topic/Mortality&oq=Mortality+in+the+US"
-          }
-        ],
-        "specific": [
-          {
-            "title": "People with Asthma in Phoenix",
-            "url": "p=geoId/0455000&t=dc/topic/Asthma&oq=People+with+Asthma+in+Phoenix"
+            "title": "What is the prevelance of Asthma across California counties",
+            "url": "q=What+is+the+prevelance+of+Asthma+across+California+counties"
           },
           {
-            "title": "High blood pressure in Jackson, MS",
-            "url": "p=geoId/2836000&t=dc/topic/BloodPressure&oq=High+blood+pressure+in+Jackson,+MS"
+            "title": "What are the rates of immunization in Pakistan",
+            "url": "q=What+are+the+rates+of+immunization+in+Pakistan"
           },
           {
-            "title": "Most obese cities in Kansas",
-            "url": "oq=most+obese+cities+in+Kansas&oq=Most+obese+cities+in+Kansas"
+            "title": "Which counties in Illinois have seen the greatest increase in the number of cancer deaths",
+            "url": "q=Which+counties+in+Illinois+have+seen+the+greatest+increase+in+the+number+of+cancer+deaths"
           },
           {
-            "title": "Diabetes in Atlanta",
-            "url": "p=geoId/1304000&t=dc/topic/Diabetes&oq=Diabetes+in+Atlanta"
-          },
-          {
-            "title": "Health behaviors in India vs Norway",
-            "url": "oq=health+behaviors+in+India+vs+Norway"
-          },
-          {
-            "title": "Immunization in Pakistan",
-            "url": "p=country/PAK&t=dc/topic/WHOImmunization&oq=Immunization+in+Pakistan"
-          },
-          {
-            "title": "Immunizations by gender in Pakistan",
-            "url": "p=country/PAK&t=dc/topic/WHOChildImmunizationsByGender&oq=Immunizations+by+gender+in+Pakistan"
-          },
-          {
-            "title": "Cancer in Illinois",
-            "url": "p=geoId/17&t=dc/topic/Cancer&oq=Cancer+in+Illinois"
-          },
-          {
-            "title": "Mental health in Massachusetts",
-            "url": "p=geoId/25&t=dc/topic/MentalHealth&oq=Mental+health+in+Massachusetts"
-          },
-          {
-            "title": "Mental health in Mercer County vs Arlington County",
-            "url": "oq=Mental+health+in+Mercer+County+vs+Arlington+County"
-          },
-          {
-            "title": "Mortality in the US vs Spain vs Nigeria",
-            "url": "oq=compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
-          },
-          {
-            "title": "Life Expectancy in countries in Africa",
-            "url": "oq=life+expectancy+in+countries+in+Africa"
-          },
-          {
-            "title": "Causes of Death in Louisiana ",
-            "url": "p=geoId/22&t=dc/topic/CausesOfDeath&oq=Causes+of+Death+in+Louisiana+"
+            "title": "How does life Expectancy vary across countries in Africa",
+            "url": "q=How+does+life+Expectancy+vary+across+countries+in+Africa"
           }
         ],
         "comparison": [
           {
-            "title": "Obesity vs Unemployment in the US counties",
-            "url": "oq=Obesity+vs+Unemployment+in+the+US+counties"
+            "title": "Compare mortality in the US vs Spain vs Nigeria",
+            "url": "q=Compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
           },
           {
-            "title": "High blood pressure vs Asthma in Alabama",
-            "url": "oq=High+blood+pressure+vs+Asthma+in+Alabama"
+            "title": "What is the correlation between obesity and unemployment in the US counties",
+            "url": "q=What+is+the+correlation+between+obesity+and+unemployment+in+the+US+counties"
           },
           {
-            "title": "Child immunizations vs life expectancy in Asia",
-            "url": "oq=child+Immunizations+vs+Life+expectancy+in+Asia"
+            "title": "How does child immunizations correlate with life expectancy in Asia",
+            "url": "q=How+does+child+immunizations+correlate+with+life+expectancy+in+Asia"
           },
           {
             "title": "Health conditions vs median age in Alameda County",
-            "url": "oq=health+conditions+vs+median+age+in+alameda+county"
+            "url": "q=Health+conditions+vs+median+age+in+Alameda+County"
           },
           {
-            "title": "Obesity vs lack of sleep in US counties",
-            "url": "oq=obesity+vs+lack+of+sleep+in+the+US+counties"
+            "title": "Does obesity correlate with lack of sleep in US counties",
+            "url": "q=Does+obesity+correlate+with+lack+of+sleep+in+US+counties"
           },
           {
-            "title": "Best immunization rates in the world",
-            "url": "oq=best+immunizations+rates+in+the+world"
+            "title": "Which countries have the best immunization rates in the world",
+            "url": "q=Which+countries+have+the+best+immunization+rates+in+the+world"
           },
           {
             "title": "Highest rates of infant mortality in the world",
-            "url": "oq=Highest+rates+of+infant+mortality+in+the+world"
+            "url": "q=Highest+rates+of+infant+mortality+in+the+world"
           },
           {
-            "title": "Life expectancy across US states",
-            "url": "oq=Life+expectancy+across+US+states"
+            "title": "How does life expectancy vary across US states",
+            "url": "q=How+does+life+expectancy+vary+across+US+states"
           },
           {
-            "title": "Maternal mortality across countries in the world",
-            "url": "oq=Maternal+mortality+across+countries+in+the+world"
+            "title": "Tell me about maternal mortality across countries in the world",
+            "url": "q=Tell+me+about+maternal+mortality+across+countries+in+the+world"
           }
         ]
       },
@@ -367,99 +351,92 @@
     "education-housing-commute": {
       "title": "Education, Housing, and Commute",
       "description": "Education, housing, commutes, and more are all factors that affect the quality of life of our communities. Search for some data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Educational Attainment",
+          "url": "t=dc/topic/EducationalAttainment&p=country/USA"
+        },
+        {
+          "title": "Schools",
+          "url": "t=dc/topic/Schools&p=country/USA"
+        },
+        {
+          "title": "Home Ownership",
+          "url": "t=dc/topic/HomeOwnership&p=country/USA"
+        },
+        {
+          "title": "Rental Houses",
+          "url": "t=dc/topic/RentalHouses&p=country/USA"
+        },
+        {
+          "title": "Commute",
+          "url": "t=dc/topic/WorkCommute&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-education.svg",
       "examples": {
         "general": [
           {
-            "title": "Educational Attainment in the US",
-            "url": "p=country/USA&t=dc/topic/EducationalAttainment&oq=Educational+Attainment+in+the+US"
+            "title": "Which states have the most college educated in the US",
+            "url": "q=Which+states+have+the+most+college+educated+in+the+US"
           },
           {
-            "title": "School Enrollment in California",
-            "url": "p=geoId/06&t=dc/topic/Schools&oq=School+Enrollment+in+California"
+            "title": "Which grades have the most enrollment in Palo Alto Schools",
+            "url": "q=Which+grades+have+the+most+enrollment+in+Palo+Alto+Schools"
           },
           {
-            "title": "Housing in Oakland",
-            "url": "p=geoId/0653000&t=dc/topic/Housing&oq=Housing+in+Oakland"
+            "title": "How have house rents in Mountain View changed",
+            "url": "q=How+have+house+rents+in+Mountain+View+changed"
           },
           {
-            "title": "Commute in New York State",
-            "url": "p=geoId/36&t=dc/topic/WorkCommute&oq=Commute+times+in+New+York+State"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Bachelors major types in Texas",
-            "url": "p=geoId/48&t=dc/topic/BachelorsMajor&oq=Bachelors+major+types+in+Texas"
+            "title": "How much time do people in San Francisco spend commuting",
+            "url": "q=How+much+time+do+people+in+San+Francisco+spend+commuting"
           },
           {
-            "title": "Bachelors majors in Berkeley vs Austin",
-            "url": "oq=bachelors+majors+in+Berkeley+vs+Austin"
+            "title": "What are the most common bachelors majors in Texas",
+            "url": "q=What+are+the+most+common+bachelors+majors+in+Texas"
           },
           {
-            "title": "Student demographics among schools in Sunnyvale",
-            "url": "oq=Student+demographics+among+schools+in+Sunnyvale"
+            "title": "What is the demographics of students in Sunnyvale",
+            "url": "q=What+is+the+demographics+of+students+in+Sunnyvale"
           },
           {
-            "title": "Education Attainment by Gender in New York City",
-            "url": "p=geoId/3651000&t=dc/topic/EducationalAttainmentByGenderAndLevel&oq=Education+Attainment+by+Gender+in+New+York+City"
-          },
-          {
-            "title": "Bachelor's degree holders in California counties",
-            "url": "p=geoId/06&t=Count_Person_EducationalAttainmentBachelorsDegree&pt=County&oq=Bachelors+degree+holders+in+California+counties"
-          },
-          {
-            "title": "US counties with the most number of PhDs",
-            "url": "p=country/USA&t=Count_Person_EducationalAttainmentDoctorateDegree&pt=County&oq=US+counties+with+the+most+number+of+PhDs"
-          },
-          {
-            "title": "Home value in Detroit",
-            "url": "p=geoId/2622000&t=dc/topic/HousesByHomeValue&oq=Home+value+in+Detroit"
-          },
-          {
-            "title": "Compare rooms per house in New York City vs Salt Lake City",
-            "url": "oq=Compare+rooms+per+house+in+New+York+City+vs+Salt+Lake+City"
-          },
-          {
-            "title": "Rental prices in Oakland vs Berkeley",
-            "url": "p=geoId/0606000&pcmp=geoId/0653000&t=dc/topic/RentalHouses&oq=Rental+prices+in+Oakland+vs+Berkeley"
+            "title": "Which US county has the most number of PhDs",
+            "url": "q=which+US+county+has+the+most+number+of+PhDs"
           },
           {
             "title": "When were the houses in NYC built?",
-            "url": "oq=When+were+the+houses+in+NYC+built?"
-          },
-          {
-            "title": "Educational attainment of homeowners in Boston",
-            "url": "p=geoId/2507000&t=dc/topic/HousesByHouseholderEducationalAttainment&oq=Educational+attainment+of+homeowners+in+Boston"
-          },
-          {
-            "title": "Compare modes of commute between NYC and Chicago",
-            "url": "p=geoId/1714000&pcmp=geoId/3651000&t=dc/topic/CommuteMode&oq=Compare+modes+of+commute+between+NYC+and+Chicago"
+            "url": "q=When+were+the+houses+in+NYC+built?"
           },
           {
             "title": "Counties in California with the highest work-from-home population",
-            "url": "oq=Counties+in+California+with+the+highest+work-from-home+population"
+            "url": "q=Counties+in+California+with+the+highest+work-from-home+population"
           }
         ],
         "comparison": [
           {
-            "title": "Educational Attainment vs Poverty in Florida",
-            "url": "oq=educational+attainment+vs+poverty+in+Florida"
+            "title": "How do the most common bachelors majors in Berkeley compare with Austin",
+            "url": "q=How+do+the+most+common+bachelors+majors+in+Berkeley+compare+with+Austin"
           },
           {
-            "title": "Median rent vs. Median Income in US counties",
-            "url": "oq=Median+rent+vs.+Median+Income+in+US+counties"
+            "title": "Compare the number of rooms per house in New York City vs Salt Lake City",
+            "url": "q=Compare+the+number+of+rooms+per+house+in+New+York+City+vs+Salt+Lake+City"
           },
           {
-            "title": "Median rent vs. Masters degree holders in California counties",
-            "url": "oq=Median+rent+vs.+Masters+degree+holders+in+California+counties"
+            "title": "How does educational attainment correlate with poverty in Florida",
+            "url": "q=How+does+educational+attainment+correlate+with+poverty+in+Florida"
           },
           {
-            "title": "Median home value vs. hypertension in US counties",
-            "url": "oq=Median+home+value+vs.+hypertension+in+US+counties"
+            "title": "How does median rent correlate with diabetes in California counties",
+            "url": "q=How+does+median+rent+correlate+with+diabetes+in+California+counties"
+          },
+          {
+            "title": "Correlate median home value vs. hypertension in US counties",
+            "url": "q=Correlate+median+home+value+vs.+hypertension+in+US+counties"
           },
           {
             "title": "Median home value vs. Work from home population in US counties",
-            "url": "oq=Median+home+value+vs.+Work+from+home+populationin+US+counties"
+            "url": "q=Median+home+value+vs.+Work+from+home+population+in+US+counties"
           }
         ]
       },
@@ -483,95 +460,108 @@
     "demographics": {
       "title": "Demographics",
       "description": "Demographic data is a powerful lens through which we gain insights into human populations, shaping policies and services to meet diverse needs, foster inclusivity, and drive social progress. Search for some demographics data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Age",
+          "url": "t=dc/topic/Age&p=country/USA"
+        },
+        {
+          "title": "Gender",
+          "url": "t=dc/topic/Gender&p=country/USA"
+        },
+        {
+          "title": "Population by Race",
+          "url": "t=dc/topic/Race&p=country/USA"
+        },
+        {
+          "title": "Language Spoken at Home",
+          "url": "t=dc/topic/Language&p=country/USA"
+        },
+        {
+          "title": "Marital Status",
+          "url": "t=dc/topic/MaritalStatus&p=country/USA"
+        },
+        {
+          "title": "Nationality",
+          "url": "t=dc/topic/Nationality&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-demographics.svg",
       "examples": {
         "general": [
           {
-            "title": "Gender distribution in the US",
-            "url": "p=country/USA&t=dc/topic/Gender&oq=Gender+distribution+in+the+US"
+            "title": "What is the racial distribution of the US",
+            "url": "q=What+is+the+racial+distribution+of+the+US"
           },
           {
-            "title": "Languages spoken in California",
-            "url": "p=geoId/06&t=dc/topic/Language&oq=Languages+spoken+in+California"
+            "title": "What languages are spoken at home in California",
+            "url": "q=What+languages+are+spoken+at+home+in+California"
           },
           {
-            "title": "Citizenship in Florida",
-            "url": "p=geoId/12&t=dc/topic/CitizenshipStatus&oq=Citizenship+in+Florida"
-          },
-          {
-            "title": "Racial Diversity in California",
-            "url": "p=geoId/06&t=dc/topic/Race&oq=Racial+diversity+in+California"
-          },
-          {
-            "title": "Statistics on Married people in New York State",
-            "url": "p=geoId/36&t=dc/topic/MarriedPopulationByDemographic&oq=Statistics+on+Married+people+in+New+York+State"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Median age in Texas",
-            "url": "p=geoId/48&t=dc/topic/AgeMedians&oq=Median+age+in+Texas"
-          },
-          {
-            "title": "Young and Old people in Florida",
-            "url": "p=geoId/12&t=dc/topic/VeryOldAndVeryYoungPopulation&oq=Young+and+Old+people+in+Florida"
-          },
-          {
-            "title": "Widowed population in San Francisco",
-            "url": "p=geoId/0667000&t=dc/topic/WidowedPopulationByDemographic&oq=Widowed+population+in+San+Francisco"
-          },
-          {
-            "title": "Citizenship in California vs Georgia",
-            "url": "oq=citizenship+for+people+in+California+vs+Georgia"
-          },
-          {
-            "title": "People of Caribbean origin in Florida",
-            "url": "oq=People+of+Caribbean+origin+in+Florida"
-          },
-          {
-            "title": "Demographics of divorced people in California",
-            "url": "p=geoId/06&t=dc/topic/DivorcedPopulationByDemographic&oq=Divorced+people+demographics+in+California"
-          },
-          {
-            "title": "Foreign born population in Texas",
-            "url": "oq=Foreign+born+population+in+Texas"
-          },
-          {
-            "title": "Immigration in Texas vs California",
-            "url": "oq=Immigration+in+Texas+vs+California"
-          },
-          {
-            "title": "Counties with the most Spanish speakers in California",
-            "url": "oq=counties+with+the+most+Spanish+speakers+in+California"
-          },
-          {
-            "title": "Racial breakdown of population in Texas vs New York State",
-            "url": "oq=racial+breakdown+of+population+in+Texas+vs+New+York+State"
-          },
-          {
-            "title": "States in the US with the most Tamil speakers",
-            "url": "oq=States+in+the+US+with+the+most+Tamil+Speakers"
+            "title": "Which state in the US has the most Tamil speakers",
+            "url": "q=Which+state+in+the+US+has+the+most+Tamil+speakers"
           },
           {
             "title": "Which counties in the US have most immigrants",
-            "url": "oq=Which+counties+in+the+US+have+most+immigrants"
+            "url": "q=Which+counties+in+the+US+have+most+immigrants"
+          },
+          {
+            "title": "Which countries do the immigrants in Florida come from",
+            "url": "q=Which+countries+do+the+immigrants+in+Florida+come+from"
+          },
+          {
+            "title": "Which country has the most old people",
+            "url": "q=Which+country+has+the+most+old+people"
+          },
+          {
+            "title": "Statistics on Married people in New York State",
+            "url": "q=Statistics+on+Married+people+in+New+York+State"
+          },
+          {
+            "title": "What is the median age in Texas",
+            "url": "q=What+is+the+median+age+in+Texas"
+          },
+          {
+            "title": "Which state in the US has most people of Caribbean origin",
+            "url": "q=Which+state+in+the+US+has+most+people+of+Caribbean+origin"
+          },
+          {
+            "title": "What are the demographics of divorced people in California",
+            "url": "q=What+are+the+demographics+of+divorced+people+in+California"
+          },
+          {
+            "title": "Tell me about the foreign born population in Texas",
+            "url": "q=Tell+me+about+the+foreign+born+population+in+Texas"
+          },
+          {
+            "title": "Counties with the most Spanish speakers in California",
+            "url": "q=Counties+with+the+most+Spanish+speakers+in+California"
           }
         ],
         "comparison": [
           {
+            "title": "Compare immigration in Texas vs California",
+            "url": "q=Compare+immigration+in+Texas+vs+California"
+          },
+          {
+            "title": "Racial breakdown of population in Texas vs New York State",
+            "url": "q=Racial+breakdown+of+population+in+Texas+vs+New+York+State"
+          },
+          {
             "title": "US citizenship vs. income across counties",
-            "url": "oq=US+citizenship+vs+income+across+counties"
+            "url": "q=US+citizenship+vs.+income+across+counties"
           },
           {
             "title": "Racial breakdown of population vs. obesity prevalence in Alabama counties",
-            "url": "oq=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties"
+            "url": "q=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties"
           },
           {
             "title": "Foreign born population vs. PhD holders in California counties",
-            "url": "oq=Foreign+born+population+vs.+PhD+holders+in+California+counties"
+            "url": "q=Foreign+born+population+vs.+PhD+holders+in+California+counties"
           },
           {
             "title": "Hispanic population vs. Green Jobs in Texas counties",
-            "url": "oq=Hispanic+population+vs.+Green+Jobs+in+Texas+counties"
+            "url": "q=Hispanic+population+vs.+Green+Jobs+in+Texas+counties"
           }
         ]
       },
@@ -609,75 +599,108 @@
     "sustainability": {
       "title": "Sustainability",
       "description": "Sustainability data acts as the compass for measuring and managing our environmental, social, and economic impact, guiding us towards a more resilient and regenerative future for both humanity and the planet. Search for some sustainability data or click around on one of the suggested searches below to get started.",
+      "subTopics": [
+        {
+          "title": "Emissions",
+          "url": "t=dc/topic/Emissions&p=country/USA"
+        },
+        {
+          "title": "Natural Disasters",
+          "url": "t=dc/topic/NaturalDisasters&p=country/USA"
+        },
+        {
+          "title": "Temperature",
+          "url": "t=dc/topic/Temperatures&p=country/USA"
+        },
+        {
+          "title": "Precipitation",
+          "url": "t=dc/topic/Precipitation&p=country/USA"
+        },
+        {
+          "title": "Agriculture",
+          "url": "t=dc/topic/Agriculture&p=country/USA"
+        },
+        {
+          "title": "Energy",
+          "url": "t=dc/topic/Energy&p=country/USA"
+        },
+        {
+          "title": "Green Jobs",
+          "url": "t=dc/topic/GreenJobs&p=country/USA"
+        },
+        {
+          "title": "Land Use and Coverage",
+          "url": "t=dc/topic/LandUseAndCoverage&p=country/USA"
+        },
+        {
+          "title": "Ocean Health",
+          "url": "t=dc/topic/OceanHealth&p=country/USA"
+        },
+        {
+          "title": "Production Consumption and Waste",
+          "url": "t=dc/topic/ProductionConsumptionandWaste&p=country/USA"
+        }
+      ],
+      "image": "/images/topic-sustainability.svg",
       "examples": {
         "general": [
           {
             "title": "What are the sources of greenhouse gas emissions in the US",
-            "url": "oq=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&p=country/USA&t=dc/topic/GreenhouseGasEmissions"
+            "url": "q=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US"
           },
           {
-            "title": "Emissions in Harris County, Texas",
-            "url": "oq=Emissions+in+Harris+County,+Texas&p=geoId/48201&t=dc/topic/Emissions"
+            "title": "What are the major emissions in Harris County, Texas",
+            "url": "q=What+are+the+major+emissions+in+Harris+County,+Texas"
           },
           {
-            "title": "Pollution in Los Angeles County",
-            "url": "oq=Pollution+in+Los+Angeles+County&p=geoId/06037&t=dc/topic/Pollutants"
+            "title": "Tell me about pollution in Los Angeles County",
+            "url": "q=Tell+me+about+pollution+in+Los+Angeles+County"
           },
           {
-            "title": "Projected temperature extremes in US counties",
-            "url": "oq=Projected+temperature+extremes+in+USA&p=country/USA&pt=County&t=dc/topic/TemperaturePredictions"
+            "title": "What are the projected temperature extremes across the counties in Montana",
+            "url": "q=What+are+the+projected+temperature+extremes+across+the+counties+in+Montana"
           },
           {
-            "title": "Electricity usage in the US",
-            "url": "oq=Electricity+usage+in+the+US&p=country/USA&t=dc/topic/Electricity_Consumption"
+            "title": "What is the electricity usage of the US",
+            "url": "q=What+is+the+electricity+usage+of+the+US"
           },
           {
-            "title": "Green jobs in the US",
-            "url": "oq=Green+jobs+in+the+US&p=country/USA&t=dc/topic/GreenJobs"
-          }
-        ],
-        "specific": [
-          {
-            "title": "Electronic Waste generated in different countries",
-            "url": "oq=Electronic+Waste+generated+in+different+countries&p=Earth&pt=Country&t=sdg/EN_EWT_GENV___sdg/EN_EWT_GENPCAP"
+            "title": "Tell me about the green jobs in the US",
+            "url": "q=Tell+me+about+the+green+jobs+in+the+US"
           },
           {
             "title": "Floods in Pakistan",
-            "url": "oq=Floods+in+Pakistan&p=country/PAK&t=dc/topic/Flood"
+            "url": "q=Floods+in+Pakistan"
           },
           {
-            "title": "Solar energy consumption in the US",
-            "url": "oq=Solar+energy+consumption+in+the+US"
+            "title": "What is the solar energy consumption in the US",
+            "url": "q=What+is+the+solar+energy+consumption+in+the+US"
           },
           {
-            "title": "Drought events around the world",
-            "url": "oq=Drought+events+around+the+world&p=Earth&pt=Country&t=dc/topic/Drought"
+            "title": "Which counties in the US have the most smoke pollution",
+            "url": "q=Which+counties+in+the+US+have+the+most+smoke+pollution"
           },
           {
-            "title": "Counties in the US with the most smoke pollution",
-            "url": "oq=Counties+in+the+US+with+the+most+smoke+pollution&p=country/USA&pt=County&t=dc/topic/SmokePM2.5"
-          },
-          {
-            "title": "Top sources of CO2 emissions in the US",
-            "url": "oq=Top+sources+of+CO2+emissions+in+the+US"
+            "title": "What are the top sources of CO2 emissions in the US",
+            "url": "q=What+are+the+top+sources+of+CO2+emissions+in+the+US"
           },
           {
             "title": "Which countries have the most greenhouse gas emissions",
-            "url": "oq=Which+countries+have+the+most+in+greenhouse+gas+emissions&p=Earth&pt=Country&t=dc/topic/GreenhouseGasEmissions"
+            "url": "q=Which+countries+have+the+most+greenhouse+gas+emissions"
           }
         ],
         "comparison": [
           {
             "title": "How does PM2.5 correlate with asthma across US counties",
-            "url": "oq=How+does+PM2.5+correlate+with+asthma+across+US+counties&p=country/USA&pt=County&t=dc/topic/PM2.5&tcmp=dc/topic/Asthma"
+            "url": "q=How+does+PM2.5+correlate+with+asthma+across+US+counties"
           },
           {
             "title": "How do solar installations correlate with median income across US counties",
-            "url": "oq=How+does+renewable+energy+usage+correlate+with+median+income+across+US+counties&p=country/USA&pt=County&t=Count_SolarInstallation&tcmp=dc/topic/Income"
+            "url": "q=How+do+solar+installations+correlate+with+median+income+across+US+counties"
           },
           {
-            "title": "AQI vs blood pressure in New Jersey",
-            "url": "oq=AQI+vs+blood+pressure+in+New+Jersey&p=geoId/34&t=dc/topic/AirQualityIndex&tcmp=dc/topic/BloodPressure"
+            "title": "What is the correlation of AQI vs blood pressure in New Jersey",
+            "url": "q=What+is+the+correlation+of+AQI+vs+blood+pressure+in+New+Jersey"
           }
         ]
       },
@@ -709,6 +732,79 @@
           "Wildland Fire Interagency Geospatial Services",
           "World Bank"
         ]
+      }
+    },
+    "sdg": {
+      "title": "Sustainability Development Goals",
+      "description": "Explore global and country level progress on the 17 Sustainable Development Goals (SDGs).",
+      "subTopics": [],
+      "image": "/images/topic-sustainability.svg",
+      "examples": {
+        "general": [
+          {
+            "title": "Hunger in Nigeria",
+            "url": "q=Hunger+in+Nigeria&dc=sdg"
+          },
+          {
+            "title": "Poverty in Mexico",
+            "url": "q=Poverty+in+Mexico&dc=sdg"
+          },
+          {
+            "title": "Progress on health related goals in Pakistan",
+            "url": "q=Progress+on+health+related+goals+in+Pakistan&dc=sdg"
+          },
+          {
+            "title": "SDG goals on gender equality across the world",
+            "url": "q=SDG+goals+on+gender+equality+across+the+world&dc=sdg"
+          },
+          {
+            "title": "Women in managerial positions in India",
+            "url": "q=Women+in+managerial+positions+in+India&dc=sdg"
+          },
+          {
+            "title": "Access to clean drinking water in Mexico",
+            "url": "q=Access+to+clean+drinking+water+in+Mexico&dc=sdg"
+          },
+          {
+            "title": "Access to primary school education in Afghanistan",
+            "url": "q=Access+to+primary+school+education+in+Afghanistan&dc=sdg"
+          },
+          {
+            "title": "How is the world combating unregulated fishing?",
+            "url": "q=How+is+the+world+combating+unregulated+fishing?&dc=sdg"
+          },
+          {
+            "title": "How has access to electricity improved in Kenya?",
+            "url": "q=How+has+access+to+electricity+improved+in+Kenya?&dc=sdg"
+          },
+          {
+            "title": "How has informal employment changed over time in Bangladesh?",
+            "url": "q=How+has+informal+employment+changed+over+time+in+Bangladesh?&dc=sdg"
+          },
+          {
+            "title": "How much food goes wasted around the world?",
+            "url": "q=How+much+food+goes+wasted+around+the+world?&dc=sdg"
+          }
+        ],
+        "comparison": [
+          {
+            "title": "Compare progress on poverty in Mexico, Nigeria and Pakistan",
+            "url": "q=Compare+progress+on+poverty+in+Mexico,+Nigeria+and+Pakistan&dc=sdg"
+          },
+          {
+            "title": "Compare SDG goals on climate change between Brazil, China and India",
+            "url": "q=Compare+SDG+goals+on+climate+change+between+Brazil,+China+and+India&dc=sdg"
+          },
+          {
+            "title": "Violence vs poverty across the world",
+            "url": "q=Violence+vs+poverty+across+the+world&dc=sdg"
+          }
+        ]
+      },
+      "meta": {
+        "dataPointCount": 0,
+        "variableCount": 3786,
+        "sources": ["United Nations (UN)"]
       }
     }
   }

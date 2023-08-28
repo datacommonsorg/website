@@ -393,7 +393,14 @@ ORDER BY PlaceName`,
   ];
 
   for (const c of cases) {
-    const gotQuery = getPcQuery(TEST_SV, TEST_PLACE, c.date, c.metadata);
+    const gotQuery = getPcQuery(
+      TEST_SV.dcid || "",
+      TEST_SV.denom || "",
+      TEST_PLACE.enclosingPlace?.dcid || "",
+      TEST_PLACE.enclosedPlaceType || "",
+      c.date,
+      c.metadata
+    );
     try {
       expect(gotQuery).toEqual(c.wantQuery);
     } catch (e) {
@@ -596,7 +603,13 @@ ORDER BY PlaceName`,
   ];
 
   for (const c of cases) {
-    const gotQuery = getNonPcQuery(TEST_SV, TEST_PLACE, c.date, c.metadata);
+    const gotQuery = getNonPcQuery(
+      TEST_SV.dcid || "",
+      TEST_PLACE.enclosingPlace?.dcid || "",
+      TEST_PLACE.enclosedPlaceType || "",
+      c.date,
+      c.metadata
+    );
     try {
       expect(gotQuery).toEqual(c.wantQuery);
     } catch (e) {

@@ -19,6 +19,7 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
+from server.lib.explore.params import DCNames
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
 
@@ -109,14 +110,12 @@ _PEER_GROUP_TO_OVERRIDE = {
         "Count_SolarPanelPotential_WestFacingRoofSpace",
     ],
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp": [
-        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26",
-        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45",
-        "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
     ],
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp": [
-        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP26",
-        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP45",
-        "ProjectedMin_Until_2050_DifferenceRelativeToBaseDate1981To2010_Min_Temperature_RCP60",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245",
+        "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585",
     ],
     "dc/svpg/ClimateChange_FEMARisk": [
         "FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent",
@@ -231,9 +230,9 @@ SVPG_NAMES_OVERRIDE = {
     "dc/svpg/SolarPanelPotential":
         "Solar Panel Potential",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Projected highest increase in max temperature under different scenarios",
+        "Predicted relative max temperature (95% likely), under different scenarios",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Projected highest decrease in min temperature under different scenarios",
+        "Predicted relative min temperature (95% likely), under different scenarios",
     "dc/svpg/ClimateChange_FEMARisk":
         "Risk due to various Natural Hazards",
     "dc/svpg/AgricultureEmissionsByGas":
@@ -267,21 +266,119 @@ SVPG_NAMES_OVERRIDE = {
         "Health worker density",
     "dc/svpg/SDG_3_TobaccoAndAlcohol":
         "Tobacco and alcohol",
+
+    # Temperature Prediction SVPGs.
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Max Temperature Likely (95%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Max Temperature Likely (50%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Max Temperature Likely (5%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Max Temperature Likely (95%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Max Temperature Likely (50%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Max Temperature Likely (5%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario':
+        'Min Temperature Likely (95%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Min Temperature Likely (50%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Min Temperature Likely (5%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear_MinTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Min Temperature Likely (95%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear_MinTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Min Temperature Likely (50%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear_MinTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Min Temperature Likely (5%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Relative Max Temperature Likely (95%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Relative Max Temperature Likely (50%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Relative Max Temperature Likely (5%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Relative Max Temperature Likely (95%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Relative Max Temperature Likely (50%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Relative Max Temperature Likely (5%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario':
+        'Relative Min Temperature Likely (95%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Relative Min Temperature Likely (50%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Relative Min Temperature Likely (5%) In The Decade, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Relative Min Temperature Likely (95%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Relative Min Temperature Likely (50%) In The Year, By Scenario',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Relative Min Temperature Likely (5%) In The Year, By Scenario',
 }
 
-SVPG_DESC_OVERRIDE = {
+TOPIC_AND_SVPG_DESC_OVERRIDE = {
     "dc/svpg/MedicalConditionsPeerGroup":
         "Estimates of the percentage of people living with these medical conditions, provided by the CDC.",
     "dc/svpg/ProjectedClimateExtremes_HighestMaxTemp":
-        "Highest temperature likely to be reached by 2050 compared to average observed "
-        "max temperature of 30 years. Reported values are differences in temperature.",
+        "Predicted Max Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
     "dc/svpg/ProjectedClimateExtremes_LowestMinTemp":
-        "Lowest temperature likely to be reached by 2050 compared to average observed "
-        "min temperature of 30 years. Reported values are differences in temperature.",
+        "Predicted Min Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
     "dc/svpg/GreenhouseGasEmissionsBySource":
         "Breakdown of annual emissions of all greenhouse gases by emission sources (measured in tonnes of CO₂ equivalents).",
     "dc/svpg/CarbonDioxideEmissionsBySource":
         "Breakdown of annual CO₂ emissions by emission sources (measured in tonnes).",
+
+    # Temperature Prediction SVPGs.
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade_MinTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature, at least once in a decade, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYear_MinTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYear_MinTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear_MinTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature, at least once in a year, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Max Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MaxTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Predicted Max Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecadeDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerDecadeByScenario':
+        'Predicted Min Temperature differences, at least once in a decade, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature95PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely95PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 95% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature50PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely50PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 50% chance across different CMIP6 scenarios.',
+    'dc/svpg/dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYearDifferenceToBaseline_MinTemperatureLikely5PctAtLeastOncePerYearByScenario':
+        'Predicted Min Temperature differences, at least once in a year, relative to the yearly average from 1980-2010, with a 5% chance across different CMIP6 scenarios.',
 }
 
 TOPIC_NAMES_OVERRIDE = {
@@ -294,17 +391,18 @@ TOPIC_NAMES_OVERRIDE = {
 # TODO: Consider having a default max limit.
 def get_topic_vars_recurive(topic: str,
                             rank: int = 0,
+                            dc: str = DCNames.MAIN_DC.value,
                             max_svs: int = MAX_TOPIC_SVS,
                             cur_svs: int = 0):
   if not utils.is_topic(topic) or rank >= TOPIC_RANK_LIMIT:
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable')
+    svs = _members(topic, 'relevantVariable', dc)
   new_svs = []
   for sv in svs:
     if utils.is_topic(sv):
-      in_new_svs = get_topic_vars_recurive(sv, rank, max_svs, cur_svs)
+      in_new_svs = get_topic_vars_recurive(sv, rank, dc, max_svs, cur_svs)
       new_svs.extend(in_new_svs)
       cur_svs += len(in_new_svs)
     else:
@@ -315,19 +413,19 @@ def get_topic_vars_recurive(topic: str,
   return new_svs
 
 
-def get_topic_vars(topic: str):
+def get_topic_vars(topic: str, dc: str):
   if not utils.is_topic(topic):
     return []
   svs = _TOPIC_DCID_TO_SV_OVERRIDE.get(topic, [])
   if not svs:
-    svs = _members(topic, 'relevantVariable')
+    svs = _members(topic, 'relevantVariable', dc)
   return svs
 
 
-def get_parent_topics(topic_or_sv: str):
+def get_parent_topics(topic_or_sv: str, dc: str = DCNames.MAIN_DC.value):
   # This is an SV, so get parent SVPGs, if any
   if utils.is_sv(topic_or_sv):
-    psvpg = _parents_raw([topic_or_sv], 'member')
+    psvpg = _parents_raw([topic_or_sv], 'member', dc)
     psvpg_ids = [p['dcid'] for p in psvpg]
     # Get its actual topic, if any.
     topics = psvpg_ids + [topic_or_sv]
@@ -335,12 +433,28 @@ def get_parent_topics(topic_or_sv: str):
     topics = [topic_or_sv]
   if not topics:
     return []
-  parents = _parents_raw(topics, 'relevantVariable')
+  parents = _parents_raw(topics, 'relevantVariable', dc)
   return parents
 
 
-def get_child_topics(topics: List[str]):
-  children = _members_raw(topics, 'relevantVariable')
+def _get_ancestors_recursive(topic: str, dc: str, result: List[str]):
+  resp = get_parent_topics(topic, dc)
+  if not resp:
+    return
+  resp.sort(key=lambda x: x['dcid'])
+  resp = resp[0]
+  result.append(resp)
+  _get_ancestors_recursive(resp['dcid'], dc, result)
+
+
+def get_ancestors(topic: str, dc: str = DCNames.MAIN_DC.value):
+  result = []
+  _get_ancestors_recursive(topic, dc, result)
+  return result
+
+
+def get_child_topics(topics: List[str], dc: str = DCNames.MAIN_DC.value):
+  children = _members_raw(topics, 'relevantVariable', dc)
   resp = []
   for pvals in children.values():
     for p in pvals:
@@ -356,22 +470,29 @@ def get_child_topics(topics: List[str]):
   return resp
 
 
-def get_topic_peergroups(sv_dcids: List[str]):
+def get_topic_peergroups(sv_dcids: List[str], dc: str = DCNames.MAIN_DC.value):
   """Returns a new div of svpg's expanded to peer svs."""
   ret = {}
   for sv in sv_dcids:
     if utils.is_svpg(sv):
-      ret[sv] = _get_svpg_vars(sv)
+      ret[sv] = _get_svpg_vars(sv, dc)
     else:
       ret[sv] = []
   return ret
 
 
-def svpg_name(sv: str):
+def get_topic_extended_svgs(topic: str, dc: str = DCNames.MAIN_DC.value):
+  if 'TOPIC_CACHE' in current_app.config:
+    return current_app.config['TOPIC_CACHE'][dc].get_extended_svgs(topic)
+  else:
+    return fetch.property_values(nodes=[topic], prop='extendedVariable')[topic]
+
+
+def svpg_name(sv: str, dc: str = DCNames.MAIN_DC.value):
   name = SVPG_NAMES_OVERRIDE.get(sv, '')
   if not name:
     if 'TOPIC_CACHE' in current_app.config:
-      name = current_app.config['TOPIC_CACHE'].get_name(sv)
+      name = current_app.config['TOPIC_CACHE'][dc].get_name(sv)
     if not name:
       resp = fetch.property_values(nodes=[sv], prop='name')[sv]
       if resp:
@@ -380,7 +501,7 @@ def svpg_name(sv: str):
 
 
 def svpg_description(sv: str):
-  name = SVPG_DESC_OVERRIDE.get(sv, '')
+  name = TOPIC_AND_SVPG_DESC_OVERRIDE.get(sv, '')
   if not name:
     resp = fetch.property_values(nodes=[sv], prop='description')[sv]
     if resp:
@@ -388,10 +509,10 @@ def svpg_description(sv: str):
   return name
 
 
-def _get_svpg_vars(svpg: str) -> List[str]:
+def _get_svpg_vars(svpg: str, dc: str) -> List[str]:
   svs = _PEER_GROUP_TO_OVERRIDE.get(svpg, [])
   if not svs:
-    svs = _members(svpg, 'member')
+    svs = _members(svpg, 'member', dc)
   return svs
 
 
@@ -444,31 +565,31 @@ def _open_topic_in_var(sv: str, rank: int, counters: ctr.Counters) -> List[str]:
   return []
 
 
-def _members(node: str, prop: str) -> List[str]:
+def _members(node: str, prop: str, dc: str) -> List[str]:
   val_list = []
   if 'TOPIC_CACHE' in current_app.config:
-    resp = current_app.config['TOPIC_CACHE'].get_members(node)
+    resp = current_app.config['TOPIC_CACHE'][dc].get_members(node)
     val_list = [v['dcid'] for v in resp]
   else:
     val_list = _prop_val_ordered(node, prop + 'List')
   return val_list
 
 
-def _members_raw(nodes: List[str], prop: str) -> Dict[str, List[str]]:
+def _members_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[str]]:
   val_map = {}
   if 'TOPIC_CACHE' in current_app.config:
     for n in nodes:
-      val_map[n] = current_app.config['TOPIC_CACHE'].get_members(n)
+      val_map[n] = current_app.config['TOPIC_CACHE'][dc].get_members(n)
   else:
     val_map = fetch.raw_property_values(nodes=nodes, prop=prop)
   return val_map
 
 
-def _parents_raw(nodes: List[str], prop: str) -> Dict[str, List[Dict]]:
+def _parents_raw(nodes: List[str], prop: str, dc: str) -> Dict[str, List[Dict]]:
   parent_list = []
   if 'TOPIC_CACHE' in current_app.config:
     for n in nodes:
-      plist = current_app.config['TOPIC_CACHE'].get_parents(n, prop)
+      plist = current_app.config['TOPIC_CACHE'][dc].get_parents(n, prop)
       parent_list.extend(plist)
   else:
     parents = fetch.raw_property_values(nodes=nodes, prop=prop, out=False)

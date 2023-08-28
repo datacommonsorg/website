@@ -20,7 +20,7 @@ import axios from "axios";
 import * as d3 from "d3";
 import { when } from "jest-when";
 
-import { drawGroupLineChart } from "../../chart/draw";
+import { drawGroupLineChart } from "../../chart/draw_line";
 import { stringifyFn } from "../../utils/axios";
 
 export function axiosMock(): void {
