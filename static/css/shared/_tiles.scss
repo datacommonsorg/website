@@ -200,7 +200,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
   border: 0.5px solid var(--dc-gray-lite);
   word-break: break-word;  
   white-space: normal;
-  position: relative;
+  position: absolute;
 }
 
 #scatter-tooltip header {
