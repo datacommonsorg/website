@@ -591,7 +591,7 @@ function drawHorizontalGroupedBars(
       )
       .attr("x", xScale(0))
       .attr("y", (item, i) => yScale(item.label) + i * barHeight)
-      .attr("width", (item) => xScale(item.dataGroupValue.value))
+      .attr("width", (item) => xScale(item.dataGroupValue.value) - xScale(0))
       .attr("height", barHeight);
   }
 }
