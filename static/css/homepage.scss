@@ -366,36 +366,45 @@ $animation-section-background: #fafbff;
 
 @include media-breakpoint-down(xs) {
   #homepage .topics-container {
-    align-items: center;
-    display: flex;
-    flex-wrap: wrap;
+    // align-items: center;
+    // display: flex;
+    // flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
+    // justify-content: center;
     margin-top: 32px;
 
     .topic-card {
       border-radius: 8px;
-      border: 1px solid var(--card-border-color);
+      // border: 1px solid var(--card-border-color);
       box-shadow: none;
-      color: var(--gm-3-ref-neutral-neutral-20);
-      display: flex;
+      // color: var(--gm-3-ref-neutral-neutral-20);
+      // display: flex;
       height: 134px;
       width: 166px;
 
       .topic-card-body {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        justify-content: space-between;
+        // display: flex;
+        // flex-direction: column;
+        // flex-grow: 1;
+        // justify-content: space-between;
         padding: 16px;
       }
 
-      .topic-card-image {
+      .topic-card-image-container {
         height: 66px;
-        margin-bottom: 12px;
+        width: 132.5px;
+        margin-left: -66px;  // (scaled - actual) / 2
+        margin-top: -32.5px;
+      }
+
+      .topic-card-image {
+        transform: scale(.5);
+        // height: 66px;
+        // width: 132.5px;
       }
 
       .topic-card-title {
+        margin-top: 12px;
         font-size: 16px;
         font-weight: 500;
         height: 24px;

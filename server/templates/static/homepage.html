@@ -65,7 +65,9 @@
         <div class="topic-card clickable" onclick="location.href='{{ topic['browseUrl'] }}';">
           <div class="topic-card-body">
             <!-- <img class="topic-card-image" src="{{ topic['image'] }}" /> -->
+            <div class="topic-card-image-container">
             <div class="topic-card-image" style="background-position-y: -{{ topic['sprite-index'] * 141 }}px"></div>
+            </div>
             <div class="topic-card-title">{{ topic['title'] }}</div>
             <div class="topic-card-description">{{ topic['description'] }}</div>
             <div class="topic-card-links">
