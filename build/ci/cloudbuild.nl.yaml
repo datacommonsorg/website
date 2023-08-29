@@ -33,7 +33,7 @@ steps:
         ./run_test.sh -b
 
   # Run the tests
-  - id: flask_test
+  - id: explore_test
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/sh
     waitFor:
@@ -41,7 +41,18 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh -i
+        ./run_test.sh --explore
+
+  # Run the tests
+  - id: nl_test
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
+    entrypoint: /bin/sh
+    waitFor:
+      - package_js
+    args:
+      - -c
+      - |
+        ./run_test.sh --nl
 
 options:
   machineType: "E2_HIGHCPU_32"

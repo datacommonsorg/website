@@ -88,14 +88,19 @@ function run_npm_build () {
 function run_py_test {
   setup_python
   setup_python_nl
-  export FLASK_ENV=test
-  python3 -m pytest server/tests/ -s --ignore=sustainability
 
-  # TODO(beets): add tests for other private dc instances
-  # export FLASK_ENV=test-sustainability
-  # python3 -m pytest tests/sustainability/**.py
+  # Run server pytest.
+  export FLASK_ENV=test
+  python3 -m pytest server/tests/ -s
   python3 -m pytest shared/tests/ -s
   python3 -m pytest nl_server/tests/ -s
+
+  # Tests within tools/nl/embeddings
+  echo "Running tests within tools/nl/embeddings:"
+  cd tools/nl/embeddings
+  pip3 install -r requirements.txt
+  python3 -m pytest ./ -s
+  cd ../../..
 
   pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
@@ -147,7 +152,8 @@ function run_screenshot_test {
   python3 -m pytest -n 2 --reruns 2 server/webdriver/screenshot/
 }
 
-# Run integration test for NL interface
+# Run integration test for NL and explore interface
+# The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
   setup_python
   setup_python_nl
@@ -155,13 +161,7 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -vv server/integration_tests/
-
-  # Tests within tools/nl/embeddings
-  echo "Running tests within tools/nl/embeddings:"
-  cd tools/nl/embeddings
-  pip3 install -r requirements.txt
-  python3 -m pytest *_test.py -s
+  python3 -m pytest -n 2 --reruns 2 -vv server/integration_tests/$1
 }
 
 function update_integration_test_golden {
@@ -181,7 +181,8 @@ function run_all_tests {
   run_webdriver_test
   run_npm_lint_test
   run_npm_test
-  run_integration_test
+  run_integration_test explore_test.py
+  run_integration_test nl_test.py
 }
 
 function help {
@@ -200,49 +201,53 @@ function help {
 }
 
 # Always reset the variable null.
-while getopts tpwigotblcsaf OPTION; do
-  case $OPTION in
-    p)
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -p)
         echo -e "### Running server tests"
         run_py_test
         ;;
-    w)
+    -w)
         echo -e "### Running webdriver tests"
         run_webdriver_test
         ;;
-    i)
-        echo -e "### Running integration tests"
-        run_integration_test
+    --explore)
+        echo --explore "### Running explore page integration tests"
+        run_integration_test explore_test.py
         ;;
-    g)
+    --nl)
+        echo --nl "### Running nl page integration tests"
+        run_integration_test nl_test.py
+        ;;
+    -g)
         echo -e "### Updating integration test goldens"
         update_integration_test_golden
         ;;
-    o)
+    -o)
         echo -e "### Production flag enabled"
         PROD=true
         ;;
-    b)
+    -b)
         echo -e "### Build client-side packages"
         run_npm_build $PROD
         ;;
-    l)
+    -l)
         echo -e "### Running lint"
         run_npm_lint_test
         ;;
-    c)
+    -c)
         echo -e "### Running client tests"
         run_npm_test
         ;;
-    s)
+    -s)
         echo -e "### Running screenshot tests"
         run_screenshot_test
         ;;
-    f)
+    -f)
         echo -e "### Fix lint errors"
         run_lint_fix
         ;;
-    a)
+    -a)
         echo -e "### Running all tests"
         run_all_tests
         ;;
@@ -250,8 +255,3 @@ while getopts tpwigotblcsaf OPTION; do
         help
     esac
 done
-
-if [ $OPTIND -eq 1 ]
-then
-  help
-fi
