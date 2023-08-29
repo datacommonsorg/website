@@ -67,6 +67,8 @@ def populate(state: PopulateState,
     })
     return False
 
+  chart_vars = copy.deepcopy(chart_vars)
+
   if chart_vars.event:
     return add_chart_to_utterance(ChartType.EVENT_CHART, state, chart_vars,
                                   places, chart_origin)

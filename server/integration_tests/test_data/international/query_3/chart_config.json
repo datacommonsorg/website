@@ -82,6 +82,62 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate in United Kingdom",
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "UnemploymentRate_Person_Female"
+                    ],
+                    "title": "Unemployment Rate of Females in United Kingdom",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate of Females in United Kingdom",
+                    "statVarKey": [
+                      "UnemploymentRate_Person_Female"
+                    ],
+                    "title": "Unemployment Rate of Females in United Kingdom",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Unemployment Rate of Females"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
                     "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
@@ -109,6 +165,14 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "UnemploymentRate_Person": {
+            "name": "Unemployment Rate",
+            "statVar": "UnemploymentRate_Person"
+          },
+          "UnemploymentRate_Person_Female": {
+            "name": "Unemployment Rate of Females",
+            "statVar": "UnemploymentRate_Person_Female"
           }
         }
       }
