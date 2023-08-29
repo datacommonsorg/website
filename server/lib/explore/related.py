@@ -18,8 +18,8 @@ import time
 from typing import Dict, List
 
 from server.lib.explore.params import DCNames
-from server.lib.explore.params import Params
 from server.lib.explore.params import is_sdg
+from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
