@@ -161,7 +161,7 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -n 2 --reruns 2 -vv server/integration_tests/$1
+  python3 -m pytest -vv server/integration_tests/$1
 }
 
 function update_integration_test_golden {
@@ -218,6 +218,14 @@ while [[ "$#" -gt 0 ]]; do
     --nl)
         echo --nl "### Running nl page integration tests"
         run_integration_test nl_test.py
+        ;;
+    --explore)
+        echo --explore "### Running explore page integration tests"
+        run_integration_test explore_test.py
+        ;;
+    --nodejs)
+        echo --nl "### Running nodejs integration tests"
+        run_integration_test nodejs_e2e_test.py
         ;;
     -g)
         echo -e "### Updating integration test goldens"
