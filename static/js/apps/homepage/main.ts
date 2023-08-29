@@ -95,7 +95,6 @@ window.onload = () => {
     }, ANSWER_DELAY_MS);
 
     inputIntervalTimer = setInterval(() => {
-
       // Start typing animation
       if (inputLength < prompt.dataset.query.length) {
         inputEl.value = prompt.dataset.query.substring(0, inputLength);
