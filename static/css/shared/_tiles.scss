@@ -20,6 +20,7 @@
 
 @forward "ranking_unit";
 @forward "chart_embed";
+@forward "../draw_scatter";
 @use "../base";
 
 $chart-container-top-margin: 20px;
