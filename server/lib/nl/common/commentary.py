@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import dataclass
+
 from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
@@ -22,18 +24,11 @@ from server.lib.nl.common.utterance import Utterance
 
 
 def place_from_context(u: Utterance) -> str:
-  return 'Could not recognize any place in this query. See relevant statistics' \
-          f'{_ctx("for", u.past_source_context)} based on the previous query.'
+  return f'See relevant statistics{_ctx("for", u.past_source_context)} based on the previous query.'
 
 
 def topic_from_context(_) -> str:
-  return 'Could not recognize any topic in this query. See relevant ' \
-         'statistics based on the previous query.'
-
-
-def place_and_topic_from_context(u: Utterance) -> str:
-  return 'Could not recognize any place or topic in this query. See relevant statistics' \
-          f'{_ctx("for", u.past_source_context)} based on the previous query.'
+  return 'See relevant statistics based on the previous query.'
 
 
 def cmp_places_from_context(_) -> str:
@@ -82,21 +77,29 @@ def fallback_place(u: Utterance) -> str:
   return f'Sorry, there were no relevant statistics for {oldstr}. See results for {newstr}.'
 
 
+@dataclass
+class UserMessage:
+  msg: str
+  show_form: bool = False
+
+
 #
 # Return a user-message if this response invovle stuff like
 # context lookup, default place or fallback.
 #
-# TODO: Add support for answer-places.
-def user_message(uttr: Utterance) -> str:
+def user_message(uttr: Utterance) -> UserMessage:
   callback = None
+  show_form = False
 
   if uttr.place_fallback:
     callback = fallback_place
   else:
     if uttr.sv_source == FulfillmentResult.UNFULFILLED:
       callback = nodata_topic
+      show_form = True
     elif uttr.sv_source == FulfillmentResult.UNRECOGNIZED:
       callback = unknown_topic
+      show_form = True
     elif uttr.place_source == FulfillmentResult.PARTIAL_PAST_QUERY:
       if uttr.sv_source == FulfillmentResult.PAST_QUERY:
         callback = cmp_places_and_topic_from_context
@@ -109,14 +112,14 @@ def user_message(uttr: Utterance) -> str:
     elif uttr.place_source == FulfillmentResult.CURRENT_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
       callback = topic_from_context
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
-      callback = place_and_topic_from_context
+      callback = place_from_context
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH_DCID:
       callback = default_place
 
   if callback == None:
-    return ''
+    return UserMessage(msg='', show_form=show_form)
 
-  return callback(uttr)
+  return UserMessage(msg=callback(uttr), show_form=show_form)
 
 
 def _ctx(connector: str, ctx: str) -> str:
