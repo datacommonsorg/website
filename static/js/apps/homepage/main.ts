@@ -23,20 +23,18 @@ import ReactDOM from "react-dom";
 import { App } from "./app";
 
 window.onload = () => {
-  // Initialize search box.
-  ReactDOM.render(
-    React.createElement(App),
-    document.getElementById("search-container")
-  );
-
   // Homepage animation.
-  const CHARACTER_INPUT_INTERVAL_MS = 30;
+  const CHARACTER_INPUT_INTERVAL_MS = 45;
   const NEXT_PROMPT_DELAY_MS = 4000;
-  const INITIAL_START_DELAY_MS = 100;
+  const INITIAL_MISSION_ON_SCREEN_DELAY_MS = 2000;
+  const INITIAL_MISSION_FADE_IN_DELAY_MS = 1000;
+  const ANSWER_DELAY_MS = 1500;
   const FADE_OUT_MS = 800;
   const FADE_OUT_CLASS = "fade-out";
   const HIDDEN_CLASS = "hidden";
   const SLIDE_DOWN_CLASS = "slide-down";
+  const INVISIBLE_CLASS = "invisible";
+  const FADE_IN_CLASS = "fade-in";
 
   let inputIntervalTimer, nextInputTimer: ReturnType<typeof setTimeout>;
   let currentPromptIndex = 0;
@@ -53,56 +51,88 @@ window.onload = () => {
   const svgDiv: HTMLDivElement = <HTMLDivElement>(
     document.getElementById("result-svg")
   );
+  const promptDiv: HTMLDivElement = <HTMLDivElement>(
+    document.getElementById("header-prompt")
+  );
+  const missionDiv: HTMLDivElement = <HTMLDivElement>(
+    document.getElementById("header-mission")
+  );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
-  setTimeout(() => {
-    nextInputTimer = setInterval(() => {
-      let inputLength = 0;
-      if (currentPromptIndex < resultsElList.length) {
-        prompt = resultsElList.item(currentPromptIndex);
-      } else {
-        // End the animation
-        setTimeout(() => {
-          defaultTextContainer.classList.remove(FADE_OUT_CLASS);
-        }, FADE_OUT_MS);
-        searchSequenceContainer.classList.add(FADE_OUT_CLASS);
-        clearInterval(nextInputTimer);
-        nextInputTimer = undefined;
+  function startNextPrompt() {
+    console.log("next prompt", currentPromptIndex);
+    let inputLength = 0;
+    if (currentPromptIndex < resultsElList.length) {
+      prompt = resultsElList.item(currentPromptIndex);
+    } else {
+      // End the animation
+      console.log("end animation");
+      setTimeout(() => {
+        defaultTextContainer.classList.remove(FADE_OUT_CLASS);
+      }, FADE_OUT_MS);
+      searchSequenceContainer.classList.add(FADE_OUT_CLASS);
+      clearInterval(nextInputTimer);
+      nextInputTimer = undefined;
+      return;
+    }
+    // Fade out the previous query
+    if (currentPromptIndex == 0) {
+      defaultTextContainer.classList.add(FADE_OUT_CLASS);
+      searchSequenceContainer.classList.remove(HIDDEN_CLASS);
+    } else {
+      resultsElList.item(currentPromptIndex - 1).classList.add(FADE_OUT_CLASS);
+    }
+    setTimeout(() => {
+      if (currentPromptIndex == 0) {
+        defaultTextContainer.classList.add(FADE_OUT_CLASS);
+        svgDiv.classList.remove(HIDDEN_CLASS);
+        promptDiv.classList.add(HIDDEN_CLASS);
+        missionDiv.classList.remove(HIDDEN_CLASS);
       }
-      if (nextInputTimer) {
-        // Fade out the previous query
-        if (currentPromptIndex == 0) {
-          defaultTextContainer.classList.add(FADE_OUT_CLASS);
-          searchSequenceContainer.classList.remove(HIDDEN_CLASS);
-        } else {
+        prompt.classList.remove(HIDDEN_CLASS);
+        prompt.classList.add(SLIDE_DOWN_CLASS);
+        if (currentPromptIndex > 0) {
           resultsElList
             .item(currentPromptIndex - 1)
-            .classList.add(FADE_OUT_CLASS);
+            .classList.add(HIDDEN_CLASS);
         }
-        inputIntervalTimer = setInterval(() => {
-          // Start typing animation
-          if (inputLength <= prompt.dataset.query.length) {
-            inputEl.value = prompt.dataset.query.substring(0, inputLength);
-          }
-          if (inputLength === prompt.dataset.query.length) {
-            // Slide in the answer
-            clearInterval(inputIntervalTimer);
-            defaultTextContainer.classList.add(FADE_OUT_CLASS);
-            svgDiv.classList.remove(HIDDEN_CLASS);
-            prompt.classList.remove(HIDDEN_CLASS);
-            prompt.classList.add(SLIDE_DOWN_CLASS);
-            if (currentPromptIndex > 0) {
-              resultsElList
-                .item(currentPromptIndex - 1)
-                .classList.add(HIDDEN_CLASS);
-            }
+    }, ANSWER_DELAY_MS);
 
-            currentPromptIndex++;
-            return;
-          }
-          inputLength++;
-        }, CHARACTER_INPUT_INTERVAL_MS);
+    inputIntervalTimer = setInterval(() => {
+      // if (!document.hasFocus()) {
+      //   return;
+      // }
+
+      // Start typing animation
+      if (inputLength < prompt.dataset.query.length) {
+        inputEl.value = prompt.dataset.query.substring(0, inputLength);
+        inputLength++;
+      } else {
+        // Slide in the answer
+        clearInterval(inputIntervalTimer);
+
+        currentPromptIndex++;
       }
-    }, NEXT_PROMPT_DELAY_MS);
-  }, INITIAL_START_DELAY_MS);
+    }, CHARACTER_INPUT_INTERVAL_MS);
+  }
+
+  setTimeout(() => {
+    promptDiv.classList.remove(INVISIBLE_CLASS);
+    promptDiv.classList.add(FADE_IN_CLASS);
+    setTimeout(() => {
+      startNextPrompt();
+      nextInputTimer = setInterval(() => {
+        // if (!document.hasFocus()) {
+        //   return;
+        // }
+        startNextPrompt();
+      }, NEXT_PROMPT_DELAY_MS);
+    }, INITIAL_MISSION_ON_SCREEN_DELAY_MS);
+  }, INITIAL_MISSION_FADE_IN_DELAY_MS);
+
+  // Initialize search box.
+  ReactDOM.render(
+    React.createElement(App),
+    document.getElementById("search-container")
+  );
 };
