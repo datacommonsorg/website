@@ -14,6 +14,7 @@
 
 import multiprocessing
 import os
+import socket
 
 from flask_testing import LiveServerTestCase
 
@@ -21,17 +22,20 @@ from nl_server.__init__ import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
 
-_NL_SERVER_URL = 'http://127.0.0.1:6060'
-
 
 class NLWebServerTestCase(LiveServerTestCase):
 
   @classmethod
   def setUpClass(cls):
     if os.environ.get('ENABLE_MODEL') == 'true':
+      # Start NL server on an unused port, so multiple integration tests can
+      # run at the same time.
+      sock = socket.socket()
+      sock.bind(('', 0))
+      port = sock.getsockname()[1]
 
       def start_nl_server(app):
-        app.run(port=6060, debug=False, use_reloader=False, threaded=True)
+        app.run(port=port, debug=False, use_reloader=False, threaded=True)
 
       nl_app = create_nl_app()
       # Create a thread that will contain our running server
@@ -39,7 +43,7 @@ class NLWebServerTestCase(LiveServerTestCase):
                                          args=(nl_app,),
                                          daemon=True)
       cls.proc.start()
-      libutil.check_backend_ready([_NL_SERVER_URL + '/healthz'])
+      libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(port)])
 
   @classmethod
   def tearDownClass(cls):
