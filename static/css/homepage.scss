@@ -75,6 +75,13 @@ $animation-section-background: #fafbff;
   line-height: 40px;
 }
 
+@include media-breakpoint-down(xs) {
+  #homepage h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+}
+
 #homepage a.carousel-item-container,
 #homepage a.interact-button,
 #homepage a.tool-button {
@@ -127,11 +134,13 @@ $animation-section-background: #fafbff;
     }
 
     .header {
-      font-size: 24px !important;
+      font-size: 22px !important;
+      line-height: 28px !important;
     }
 
     .sub-header {
       font-size: 16px !important;
+      line-height: 24px !important;
     }
 
     .result {
