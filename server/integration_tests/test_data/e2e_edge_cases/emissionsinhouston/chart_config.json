@@ -631,57 +631,7 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/GreenhouseGasEmissions",
-        "name": "Greenhouse Gasses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/CO2Emissions",
-        "name": "Carbondioxide ( CO2)",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_FlourinatedGases",
-        "name": "Flourinated Gas",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
-        "name": "Methane",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
-        "name": "Nitrous Oxide",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_PM2.5_EmissionsbySource",
-        "name": "PM 2.5",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_SulfurDioxide_EmissionsbySource",
-        "name": "Sulfur Dioxide",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -1064,13 +1014,6 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Pollutants",
-        "name": "Air Pollutants",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Temperatures",
         "name": "Temperature",
         "types": [
@@ -1085,50 +1028,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/NaturalDisasters",
-        "name": "Natural Disasters",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Energy",
-        "name": "Energy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GreenJobs",
         "name": "Green Jobs",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/LandUseAndCoverage",
-        "name": "Land Use and Coverage",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/OceanHealth",
-        "name": "Ocean Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/ProductionConsumptionandWaste",
-        "name": "Production Consumption and Waste",
         "types": [
           "Topic"
         ]
