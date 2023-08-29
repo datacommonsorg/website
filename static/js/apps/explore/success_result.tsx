@@ -32,7 +32,10 @@ import {
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -50,7 +53,7 @@ interface SuccessResultPropType {
   exploreContext: any;
   queryResult: QueryResult;
   pageMetadata: SubjectPageMetadata;
-  userMessage: string;
+  userMessage: UserMessageInfo;
 }
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
@@ -86,7 +89,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
             exploreContext={props.exploreContext}
           />
         )}
-        <UserMessage userMessage={props.userMessage} showForm={false} />
+        <UserMessage userMessage={props.userMessage} />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
             <ResultHeaderSection
