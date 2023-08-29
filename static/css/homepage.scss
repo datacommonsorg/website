@@ -65,6 +65,14 @@ $animation-section-background: #fafbff;
   margin-bottom: 1.5rem;
 }
 
+#homepage h3 {
+  color: var(--gm-3-ref-neutral-neutral-20);
+  font-family: $headings-font-family;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
 #homepage a.carousel-item-container,
 #homepage a.interact-button,
 #homepage a.tool-button {
@@ -290,71 +298,75 @@ $animation-section-background: #fafbff;
 }
 
 // Styling for the topics section
-#homepage .topics-container {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: $topic-card-hgap $topic-card-vgap;
-  justify-content: center;
+#homepage #topics {
   margin-top: 88px;
 
-  .topic-card {
-    color: var(--gm-3-ref-neutral-neutral-20);
-    border: 1px solid var(--card-border-color);
-    border-radius: 12px;
-    box-shadow: var(--card-box-shadow);
+  .topics-container {
+    align-items: center;
     display: flex;
-    height: $topic-card-height;
-    width: $topic-card-width;
+    flex-wrap: wrap;
+    gap: $topic-card-hgap $topic-card-vgap;
+    justify-content: center;
+    margin-top: 32px;
 
-    .topic-card-body {
+    .topic-card {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      border: 1px solid var(--card-border-color);
+      border-radius: 12px;
+      box-shadow: var(--card-box-shadow);
       display: flex;
-      flex-direction: column;
-      padding: 32px 24px;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
+      height: $topic-card-height;
+      width: $topic-card-width;
 
-    .topic-card-image {
-      height: $topic-card-image-height;
-      width: $topic-card-image-width;
-      background-image: url("/images/home-sprite.svg");
-      background-position-x: -$topic-card-image-sprite-x;
-    }
-
-    .topic-card-title {
-      font-family: $headings-font-family;
-      font-size: 22px;
-      font-weight: 400;
-      margin-bottom: 12px;
-      margin-top: 18px;
-    }
-
-    .topic-card-description {
-      font-family: $headings-font-family;
-      color: var(--gm-3-ref-neutral-neutral-40);
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .topic-card-links a {
-      color: var(--gm-3-sys-light-primary);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-size: 14px;
-      text-decoration: none;
-      .material-icons-outlined {
-        margin-right: 8px;
-        font-size: 18px;
+      .topic-card-body {
+        display: flex;
+        flex-direction: column;
+        padding: 32px 24px;
+        flex-grow: 1;
+        justify-content: space-between;
       }
-    }
 
-    &:hover {
-      box-shadow: var(--card-box-shadow-hover);
+      .topic-card-image {
+        height: $topic-card-image-height;
+        width: $topic-card-image-width;
+        background-image: url("/images/home-sprite.svg");
+        background-position-x: -$topic-card-image-sprite-x;
+      }
+
+      .topic-card-title {
+        font-family: $headings-font-family;
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 12px;
+        margin-top: 18px;
+      }
+
+      .topic-card-description {
+        font-family: $headings-font-family;
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 12px;
+      }
+
       .topic-card-links a {
-        color: var(--gm-3-sys-light-primary-60);
+        color: var(--gm-3-sys-light-primary);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+        text-decoration: none;
+        .material-icons-outlined {
+          margin-right: 8px;
+          font-size: 18px;
+        }
+      }
+
+      &:hover {
+        box-shadow: var(--card-box-shadow-hover);
+        .topic-card-links a {
+          color: var(--gm-3-sys-light-primary-60);
+        }
       }
     }
   }
@@ -365,42 +377,30 @@ $animation-section-background: #fafbff;
 }
 
 @include media-breakpoint-down(xs) {
-  #homepage .topics-container {
-    // align-items: center;
-    // display: flex;
-    // flex-wrap: wrap;
+  #homepage #topics .topics-container {
     gap: 10px;
-    // justify-content: center;
     margin-top: 32px;
 
     .topic-card {
       border-radius: 8px;
-      // border: 1px solid var(--card-border-color);
       box-shadow: none;
-      // color: var(--gm-3-ref-neutral-neutral-20);
-      // display: flex;
       height: 134px;
       width: 166px;
 
       .topic-card-body {
-        // display: flex;
-        // flex-direction: column;
-        // flex-grow: 1;
-        // justify-content: space-between;
         padding: 16px;
       }
 
       .topic-card-image-container {
         height: 66px;
         width: 132.5px;
-        margin-left: -66px;  // (scaled - actual) / 2
+        // negative margins to account for scale transform below: (scaled - actual) / 2
+        margin-left: -66px;
         margin-top: -32.5px;
       }
 
       .topic-card-image {
-        transform: scale(.5);
-        // height: 66px;
-        // width: 132.5px;
+        transform: scale(0.5);
       }
 
       .topic-card-title {
@@ -483,6 +483,7 @@ $animation-section-background: #fafbff;
 }
 
 #homepage .background-gradient {
+  background-image: url("/images/tools-background.svg");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -524,10 +525,6 @@ $animation-section-background: #fafbff;
     flex-direction: column;
 
     .tools-description-header {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      font-family: $headings-font-family;
-      font-size: 32px;
-      font-weight: 400;
       margin-bottom: 20px;
     }
     .tools-description-subheader {
@@ -640,11 +637,6 @@ $animation-section-background: #fafbff;
 
   .learn-more-content {
     h3 {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      font-family: $headings-font-family;
-      font-size: 32px;
-      font-weight: 400;
-      line-height: 40px;
       margin-bottom: 24px;
     }
 
@@ -695,11 +687,6 @@ $animation-section-background: #fafbff;
   margin: 70px 0;
 
   h3 {
-    color: var(--gm-3-ref-neutral-neutral-20);
-    font-family: $headings-font-family;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
     margin-bottom: 48px;
   }
 

@@ -58,15 +58,15 @@
   </div>
 </section>
 
-<section>
+<section id="topics">
   <div class="container">
+    <h3>Explore curated searches by the Data Commons team</h3>
     <div class="topics-container">
       {% for topic in topics %}
         <div class="topic-card clickable" onclick="location.href='{{ topic['browseUrl'] }}';">
           <div class="topic-card-body">
-            <!-- <img class="topic-card-image" src="{{ topic['image'] }}" /> -->
             <div class="topic-card-image-container">
-            <div class="topic-card-image" style="background-position-y: -{{ topic['sprite-index'] * 141 }}px"></div>
+              <div class="topic-card-image" style="background-position-y: -{{ topic['sprite-index'] * 141 }}px"></div>
             </div>
             <div class="topic-card-title">{{ topic['title'] }}</div>
             <div class="topic-card-description">{{ topic['description'] }}</div>
@@ -83,7 +83,7 @@
   <section class="tools">
     <div class="container">
       <div class="tools-description">
-        <div class="tools-description-header">Data Commons Tools</div>
+        <h3 class="tools-description-header">Data Commons Tools</h3>
         <div class="tools-description-subheader">Explore the public database through these tools</div>
       </div>
       <div class="tools-icons">
