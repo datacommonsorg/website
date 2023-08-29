@@ -22,7 +22,7 @@
         "FLASK_ENV": "local",
         "FLASK_DEBUG": "1",
         "ENABLE_MODEL": "true",
-        "GOOGLE_CLOUD_PROJECT": "datcom-webiste-dev"
+        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
       },
       "args": ["8080", "--no-debugger"],
       "cwd": "${workspaceRoot}",
