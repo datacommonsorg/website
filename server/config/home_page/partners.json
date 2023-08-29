@@ -33,12 +33,5 @@
     "imgUrl": "/images/partners/partner-stanford.svg",
     "sprite-index": 4,
     "url": "https://datacommons.stanford.edu"
-  },
-  {
-    "id": "unSdg",
-    "title": "United Nations Sustainable Development Goals",
-    "imgUrl": "/images/partners/partner-un-sdg.svg",
-    "sprite-index": 5,
-    "url": "https://unstats.un.org/UNSDWebsite/"
   }
 ]
