@@ -220,14 +220,14 @@
                       "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
                       "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
                     ],
-                    "title": "Population By Income Level in California (${date})",
+                    "title": "Population by Income Level in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population By Income Level"
+            "title": "Population by Income Level"
           },
           {
             "columns": [
@@ -258,13 +258,13 @@
                       "dc/yw52qqrrb2w11_multiple_place_bar_block",
                       "dc/zbpsz8dg01nh2_multiple_place_bar_block"
                     ],
-                    "title": "Individual Income By Industry Type in California (${date})",
+                    "title": "Individual Income by Industry Type in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Individual Income By Industry Type"
+            "title": "Individual Income by Industry Type"
           },
           {
             "columns": [
@@ -276,13 +276,13 @@
                       "Median_Income_Household_MarriedCoupleFamilyHousehold",
                       "Median_Income_Household_NonfamilyHousehold"
                     ],
-                    "title": "Median Income By Household Type in California",
+                    "title": "Median Income by Household Type in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Median Income By Household Type"
+            "title": "Median Income by Household Type"
           },
           {
             "columns": [

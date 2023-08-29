@@ -651,7 +651,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/GlobalElectricityAccess",
-        "name": "Access To Electricity",
+        "name": "Access to Electricity",
         "types": [
           "Topic"
         ]

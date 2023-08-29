@@ -69,14 +69,14 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Gender (${date})",
+                    "title": "Impoverished Population by Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Gender"
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
@@ -101,14 +101,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Race (${date})",
+                    "title": "Impoverished Population by Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Race"
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
@@ -129,14 +129,14 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By By Language Spoken At Home (${date})",
+                    "title": "Impoverished Population by By Language Spoken At Home (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken At Home"
           },
           {
             "columns": [

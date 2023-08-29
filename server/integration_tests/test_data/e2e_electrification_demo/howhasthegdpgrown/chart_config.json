@@ -471,7 +471,7 @@
     "childTopics": [
       {
         "dcid": "dc/topic/GDPByIndustry",
-        "name": "GDP By Industry",
+        "name": "GDP by Industry",
         "types": [
           "Topic"
         ]
