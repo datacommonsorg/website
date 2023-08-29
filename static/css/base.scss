@@ -251,6 +251,15 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   }
 }
 
+@include media-breakpoint-down(xs) {
+  #main-footer #sub-footer {
+    .container {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
 .brand-byline {
   display: flex;
   flex-direction: row;

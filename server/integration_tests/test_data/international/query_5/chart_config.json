@@ -77,12 +77,235 @@
               }
             ],
             "title": "Floods"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Drought Event in Brazil",
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Drought Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Droughts in Brazil",
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Fire Event in Brazil",
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Fire Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CycloneEvent"
+                    ],
+                    "title": "Cyclones in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Cyclones in Brazil",
+                    "statVarKey": [
+                      "Count_CycloneEvent"
+                    ],
+                    "title": "Cyclones in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Cyclones"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/BRA"
+                    ],
+                    "statVarKey": [
+                      "Count_CycloneEvent_TropicalDisturbance_multiple_place_bar_block",
+                      "Count_CycloneEvent_TropicalStorm_multiple_place_bar_block"
+                    ],
+                    "title": "Cyclones by Type in Brazil (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Cyclones by Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_EarthquakeEvent"
+                    ],
+                    "title": "Earthquakes in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Earthquakes in Brazil",
+                    "statVarKey": [
+                      "Count_EarthquakeEvent"
+                    ],
+                    "title": "Earthquakes in Brazil",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Earthquakes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_EarthquakeEvent_M5To6",
+                      "Count_EarthquakeEvent_M6To7",
+                      "Count_EarthquakeEvent_M7To8"
+                    ],
+                    "title": "Earthquakes by Intensity in Brazil",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earthquakes by Intensity"
           }
         ],
         "statVarSpec": {
+          "Area_DroughtEvent": {
+            "name": "Area of Drought Event",
+            "statVar": "Area_DroughtEvent"
+          },
           "Area_FloodEvent": {
             "name": "Area of Flood Event",
             "statVar": "Area_FloodEvent"
+          },
+          "Count_CycloneEvent": {
+            "name": "Cyclones",
+            "statVar": "Count_CycloneEvent"
+          },
+          "Count_CycloneEvent_TropicalDisturbance_multiple_place_bar_block": {
+            "name": "Count of Cyclone Event: Tropical Disturbance",
+            "statVar": "Count_CycloneEvent_TropicalDisturbance"
+          },
+          "Count_CycloneEvent_TropicalStorm_multiple_place_bar_block": {
+            "name": "Count of Cyclone Event: Tropical Storm",
+            "statVar": "Count_CycloneEvent_TropicalStorm"
+          },
+          "Count_DroughtEvent": {
+            "name": "Droughts",
+            "statVar": "Count_DroughtEvent"
+          },
+          "Count_EarthquakeEvent": {
+            "name": "Earthquakes",
+            "statVar": "Count_EarthquakeEvent"
+          },
+          "Count_EarthquakeEvent_M5To6": {
+            "name": "Count of Earthquake Event: 5 - 6 Magnitude",
+            "statVar": "Count_EarthquakeEvent_M5To6"
+          },
+          "Count_EarthquakeEvent_M6To7": {
+            "name": "Count of Earthquake Event: 6 - 7 Magnitude",
+            "statVar": "Count_EarthquakeEvent_M6To7"
+          },
+          "Count_EarthquakeEvent_M7To8": {
+            "name": "Count of Earthquake Event: 7 - 8 Magnitude",
+            "statVar": "Count_EarthquakeEvent_M7To8"
+          },
+          "Count_FireEvent": {
+            "name": "Count of Fire Event",
+            "statVar": "Count_FireEvent"
           },
           "Count_FloodEvent": {
             "name": "Floods",
