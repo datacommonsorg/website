@@ -29,6 +29,7 @@ $topic-card-image-width: 263px;
 $topic-card-image-sprite-x: 150px;
 $topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
+$section-vmargin: 64px;
 
 $animation-card-max-width: 905px;
 $animation-card-height: 363px;
@@ -47,11 +48,12 @@ $animation-section-background: #fafbff;
 }
 
 .main-content {
-  margin: 0 0 3rem 0;
+  margin: 0;
+  padding-bottom: $section-vmargin;
 }
 
 #homepage section {
-  padding-bottom: 58px;
+  margin-bottom: $section-vmargin;
 }
 
 #homepage section .main {
@@ -106,6 +108,7 @@ $animation-section-background: #fafbff;
 // Styling for top search box
 #homepage #homepage-top {
   padding-bottom: 8px;
+  margin-bottom: 0;
   box-shadow: 0px 1px 2px 0px #0000004d;
   z-index: 100;
   position: relative;
@@ -299,7 +302,7 @@ $animation-section-background: #fafbff;
 
 // Styling for the topics section
 #homepage #topics {
-  margin-top: 88px;
+  margin-top: $section-vmargin;
 
   .topics-container {
     align-items: center;
@@ -487,7 +490,8 @@ $animation-section-background: #fafbff;
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  margin-bottom: 3rem;
+  margin-bottom: $section-vmargin;
+  margin-top: $section-vmargin;
 }
 
 // Styling for the tools section
@@ -594,7 +598,7 @@ $animation-section-background: #fafbff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  margin: 70px 0;
+  margin: $section-vmargin 0;
 
   @include media-breakpoint-up(md) {
     flex-wrap: nowrap;
@@ -684,7 +688,7 @@ $animation-section-background: #fafbff;
 #homepage section .partners {
   display: flex;
   flex-direction: column;
-  margin: 70px 0;
+  margin: $section-vmargin 0;
 
   h3 {
     margin-bottom: 48px;
