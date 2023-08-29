@@ -197,22 +197,11 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
+                    "title": "Impoverished Population by Residency in India",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
-                    "statVarKey": [
-                      "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -255,22 +244,12 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y15T64"
+                      "sdg/SI_POV_DAY1.AGE--Y0T14",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
                     ],
-                    "title": "Population Age 15 to 64 Below International Poverty Line in India",
+                    "title": "Population Below International Poverty Line by Age in India",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Age 15 to 64 Below International Poverty Line in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y15T64"
-                    ],
-                    "title": "Population Age 15 to 64 Below International Poverty Line in India",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -283,22 +262,11 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_DAY1.SEX--F",
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
-                    "title": "Men Below International Poverty Line in India",
+                    "title": "Population Below International Poverty Line by Gender in India",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Men Below International Poverty Line in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1.SEX--M"
-                    ],
-                    "title": "Men Below International Poverty Line in India",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
@@ -311,9 +279,26 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SI_POV_DAY1.URBANISATION--U",
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Rural Population Below International Poverty Line in India",
+                    "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Population Using Basic Drinking Water Services in India",
                     "type": "LINE"
                   }
                 ]
@@ -321,17 +306,90 @@
               {
                 "tiles": [
                   {
-                    "description": "Rural Population Below International Poverty Line in India",
+                    "description": "Population Using Basic Drinking Water Services in India",
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1.URBANISATION--R"
+                      "sdg/SP_ACS_BSRVH2O"
                     ],
-                    "title": "Rural Population Below International Poverty Line in India",
+                    "title": "Population Using Basic Drinking Water Services in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
+            "title": "Population Using Basic Drinking Water Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Population Using Basic Sanitation Services in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Using Basic Sanitation Services in India",
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Population Using Basic Sanitation Services in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Using Basic Sanitation Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in India",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Employed Population Below International Poverty Line by Gender in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population Below International Poverty Line by Gender"
           }
         ],
         "statVarSpec": {
@@ -355,9 +413,21 @@
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
+          "sdg/SI_POV_DAY1.AGE--Y0T14": {
+            "name": "Population Age Under 15 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          },
           "sdg/SI_POV_DAY1.AGE--Y15T64": {
             "name": "Population Age 15 to 64 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
+            "name": "Population Age 65 or Older Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
+          },
+          "sdg/SI_POV_DAY1.SEX--F": {
+            "name": "Women Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
             "name": "Men Below International Poverty Line",
@@ -366,6 +436,30 @@
           "sdg/SI_POV_DAY1.URBANISATION--R": {
             "name": "Rural Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--U": {
+            "name": "Urban Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
+            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
+            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SP_ACS_BSRVH2O": {
+            "name": "Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVSAN": {
+            "name": "Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -723,6 +817,24 @@
         "sdg_urbanisation": [
           "sdg/SI_POV_DAY1.URBANISATION--R",
           "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+        "gender": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
         ]
       }
     },
