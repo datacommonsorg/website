@@ -21,10 +21,13 @@
 
 $color-font-dark: #3c4043;
 $topic-card-width: 320px;
-$topic-card-height: 355px;
+$topic-card-height: 365px;
 $topic-card-hgap: 24px;
 $topic-card-vgap: 24px;
-$topic-card-image-height: 109px;
+$topic-card-image-height: 131px; //109px;
+$topic-card-image-width: 263px;
+$topic-card-image-sprite-x: 150px;
+$topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
 
 $animation-card-max-width: 905px;
@@ -95,10 +98,10 @@ $animation-section-background: #fafbff;
 // Styling for top search box
 #homepage #homepage-top {
   padding-bottom: 8px;
-  box-shadow: 0px 1px 2px 0px #0000004D;
+  box-shadow: 0px 1px 2px 0px #0000004d;
   z-index: 100;
   position: relative;
-
+  height: 123px;
 }
 
 // Styling for the search animation
@@ -160,7 +163,7 @@ $animation-section-background: #fafbff;
 
     #result-svg {
       height: $animation-card-height;
-      padding-top: 32px;
+      margin-top: 32px;
     }
   }
 
@@ -245,6 +248,19 @@ $animation-section-background: #fafbff;
     }
   }
 
+  .fade-in {
+    animation: fade-in 400ms !important;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   .fade-out {
     animation: fade-out 800ms !important;
     opacity: 0;
@@ -301,7 +317,9 @@ $animation-section-background: #fafbff;
 
     .topic-card-image {
       height: $topic-card-image-height;
-      margin-bottom: 18px;
+      width: $topic-card-image-width;
+      background-image: url("/images/home-sprite.svg");
+      background-position-x: -$topic-card-image-sprite-x;
     }
 
     .topic-card-title {
@@ -309,6 +327,7 @@ $animation-section-background: #fafbff;
       font-size: 22px;
       font-weight: 400;
       margin-bottom: 12px;
+      margin-top: 18px;
     }
 
     .topic-card-description {
@@ -403,7 +422,6 @@ $animation-section-background: #fafbff;
 }
 
 #homepage .background-gradient {
-  background-image: url(/images/tools-background.svg);
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -484,6 +502,9 @@ $animation-section-background: #fafbff;
       }
       .tool-icon {
         width: 64px;
+        height: 64px;
+        background-image: url("/images/home-sprite.svg");
+        background-position-x: -750px;
       }
       span {
         color: var(--gm-3-ref-neutral-neutral-20);
@@ -491,6 +512,22 @@ $animation-section-background: #fafbff;
         padding: 0px;
       }
     }
+  }
+
+  #map-button .tool-icon {
+    background-position-y: -188px;
+  }
+  #scatter-button .tool-icon {
+    background-position-y: -94px;
+  }
+  #timeline-button .tool-icon {
+    background-position-y: -282px;
+  }
+  #place-button .tool-icon {
+    background-position-y: -376px;
+  }
+  #download-button .tool-icon {
+    background-position-y: 0;
   }
 }
 
@@ -505,16 +542,38 @@ $animation-section-background: #fafbff;
     flex-wrap: nowrap;
   }
 
-  img.learn-more-image {
-    width: 300px;
+  #learn-more-icon-container {
+    flex: none;
+    position: relative;
     margin: 0 auto;
 
     @include media-breakpoint-up(md) {
+      width: 204px;
       margin: 0 56px 0 0;
-      width: 210px;
     }
+
     @include media-breakpoint-up(lg) {
-      width: 300px;
+      transform: scale(1);
+      width: 306px;
+    }
+
+    #learn-more-icon {
+      margin: 0 auto;
+      background-image: url("/images/home-sprite.svg");
+      background-position: -413px 0;
+      width: 306px;
+      height: 225px;
+
+      @include media-breakpoint-up(md) {
+        position: absolute;
+        top: 50%;
+        transform: scale(0.65) translate(0, -45%);
+        transform-origin: 0 0;
+      }
+
+      @include media-breakpoint-up(lg) {
+        transform: scale(1) translate(0, -45%);
+      }
     }
   }
 
@@ -594,9 +653,11 @@ $animation-section-background: #fafbff;
     @include media-breakpoint-up(lg) {
       justify-content: space-between;
     }
-    img {
+    .partner-logo {
       width: 120px;
       height: 120px;
+      background-image: url("/images/home-sprite.svg");
+      background-position-x: 0;
     }
   }
 }
