@@ -18,6 +18,7 @@
 @import "./base/box";
 
 $full-footer-bg: #fafcff;
+$sub-footer-breakpoint: 596px;
 
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
@@ -249,10 +250,9 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     flex-direction: row;
     justify-content: space-between;
   }
-}
-
-@include media-breakpoint-down(xs) {
-  #main-footer #sub-footer {
+  height: fit-content;
+  
+  @media (max-width: $sub-footer-breakpoint) {
     .container {
       align-items: center;
       flex-direction: column;
