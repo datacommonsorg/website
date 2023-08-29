@@ -677,29 +677,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/Energy_Consumption_FossilFuels",
-        "name": "Energy Consumption by Fossil Fuels",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Energy_Renewables",
         "name": "Renewables",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Electricity_Consumption",
-        "name": "Electricity Consumption",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Energy_Fraction",
-        "name": "Energy Percentages",
         "types": [
           "Topic"
         ]

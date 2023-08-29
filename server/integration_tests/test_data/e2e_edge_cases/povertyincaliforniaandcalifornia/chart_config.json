@@ -1149,22 +1149,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
         "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SDG_1",
-        "name": "",
         "types": [
           "Topic"
         ]

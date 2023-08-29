@@ -838,13 +838,6 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/GlobalHealth",
-        "name": "Global Health",
-        "types": [
-          "Topic"
-        ]
       }
     ]
   },
