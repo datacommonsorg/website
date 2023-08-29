@@ -19,6 +19,7 @@ set -e
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
+  python3 -m pip install --upgrade pip
   pip3 install -r server/requirements.txt
 }
 
@@ -183,20 +184,23 @@ function run_all_tests {
   run_npm_test
   run_integration_test explore_test.py
   run_integration_test nl_test.py
+  run_integration_test nodejs_e2e_test.py
 }
 
 function help {
   echo "Usage: $0 -pwblcsaf"
-  echo "-p       Run server python tests"
-  echo "-w       Run webdriver tests"
-  echo "-i       Run integration tests"
-  echo "-g       Update integration test golden files"
-  echo "-o       Build for production (ignores dev dependencies)"
-  echo "-b       Run client install and build"
-  echo "-l       Run client lint test"
-  echo "-c       Run client tests"
-  echo "-a       Run all tests"
-  echo "-f       Fix lint"
+  echo "-p          Run server python tests"
+  echo "-w          Run webdriver tests"
+  echo "--explore   Run explore integration tests"
+  echo "--nl        Run nl integration tests"
+  echo "--nodejs    Run nodejs integration tests"
+  echo "-g          Update integration test golden files"
+  echo "-o          Build for production (ignores dev dependencies)"
+  echo "-b          Run client install and build"
+  echo "-l          Run client lint test"
+  echo "-c          Run client tests"
+  echo "-a          Run all tests"
+  echo "-f          Fix lint"
   exit 1
 }
 
