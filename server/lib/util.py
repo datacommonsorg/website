@@ -54,7 +54,7 @@ TOPIC_PAGE_CONFIGS = {
     'foodsecurity' : ['USA'],
     'foodsecurity_old' : ['CA'],
     'economic-and-social-growth' : ['COL'],
-    'dc2_2' : ['NGA'],
+    'development' : ['NGA'],
     'climate' : ['USA'],
     'climate_allvars' : ['USA'],
     'playground' : ['US_Places']

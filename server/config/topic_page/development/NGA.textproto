@@ -15,7 +15,7 @@
 ## This file specifies the topic page config for poverty in USA
 
 metadata {
-  topic_id: "dc2_2"
+  topic_id: "development"
   topic_name: "Development Landscape"
   place_dcid: "country/NGA"
   contained_place_types {
@@ -24,6 +24,17 @@ metadata {
   }
 }
 
+categories {
+    title: "Introduction"
+    blocks {
+        columns {
+            tiles {
+                type: DESCRIPTION
+                description: "Nigeria is facing increasing pressure to deliver on its Sustainable Development Goals (SDGs) in the face of rising development needs, population growth, the COVID-19 pandemic, and the cost of living crisis. This dashboard aggregates country-level development data from Data Commons to show progress on the SDGs. It compares relationships across development indicators to identify the factors that are driving or slowing progress. This information is useful for understanding the development landscape in Nigeria since the adoption of the SDGs in 2015."
+            }
+        }
+    }
+}
 
 categories {
     title: "Life Expectancy"
@@ -63,6 +74,7 @@ categories {
     }
 
     blocks {
+        description: "Other factors which are undoubtedly helping to increase life expectancy include reduction in mortality from chronic diseases, and wider access to safe drinking water."
         columns {
             tiles {
                 type: LINE
@@ -118,26 +130,18 @@ categories {
                 description: "Cumulative COVID-19 Deaths in ${placeName}"
                 stat_var_key: "covidDeaths"
             }
-        }
-    }
-
-    blocks {
-        columns {
-            tiles {
-                type: HIGHLIGHT
-                description: "Total Population in ${placeName}"
-                stat_var_key: "Count_Person"
-            }
-        }
-    }
-
-    blocks {
-        columns {
             tiles {
                 type: HIGHLIGHT
                 description: "COVID-19 Deaths per 100,000 people in ${placeName}"
                 stat_var_key: "covidDeaths_pc"
             }
+        }
+        columns {
+            tiles {
+                type: HIGHLIGHT
+                description: "Total Population in ${placeName}"
+                stat_var_key: "Count_Person"
+            }   
         }
     }
 
@@ -299,6 +303,17 @@ categories {
 }
 
 categories {
+    blocks {
+        columns {
+            tiles {
+                type: DESCRIPTION
+                description: "Nonprofit organizations are providing hope and essential services to vulnerable people in Nigeria, aligned with the Sustainable Development Goals. During the pandemic, 132 nonprofits collectively spent 316 million Nigerian naira (about USD$409,000) to help people in need. These nonprofits reached over 2 million beneficiaries across 31 states and 206 local governments according to data from the [Nigeria Network of NGOs](http://nnngo.org/).\n\nMany nonprofits in Nigeria are working on critical issues including infant mortality, death from common disease, access to clean water, population growth and education. Here are some examples:\n* [Helpmum](https://helpmum.org/) is a social enterprise with the mission to reduce maternal and infant mortality in Africa. \n* [Project PINK BLUE](https://projectpinkblue.org/ngoscsos-cancer-policy-advocacy-nigeria/) is an organization engaged in cancer awareness, free cancer screenings, supporting to people battling with cancer, patient navigation, advocacy, fundraising for cancer patients, cancer research, oncology training and psychological support.\n* [Fairlife Africa](https://www.fairlifeafrica.org/) as a progressive, humanitarian organization. They are committed to empowering people through practical social initiatives and programs. The organisation stands for a fairer life for all people, by improving the life chances of the most disadvantaged serving people of all faiths, races, gender, and any other orientation, without discrimination.\n* [Onelife Initiative for Human Development](https://onelifeinitiative.org/sexual-reproductive-health-rights/) works to improve the well being of young people by providing safe spaces, skills, linkages and vocational training including information and resources to enable them to make informed life decisions.\n* [Serendipity Healthcare Foundation](https://www.serendipityhealthcare.org.in/home) is a growing organization positioned to fight poverty through provision of access to safe clean drinking water, basic sanitation and hygiene education; also through programs aimed at reducing the scourge of malaria in rural communities and saving lives at birth.\n\nThese are just a few examples of the many nonprofits that are working to improve the lives of vulnerable people in Nigeria. Their work is essential to building a more just and equitable society."
+            }
+        }
+    }
+}
+
+categories {
   blocks {
     columns {
       tiles {
@@ -307,7 +322,7 @@ categories {
       }
       tiles {
         type: DESCRIPTION
-        description: "Designed by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
+        description: "Authored by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
       }
       tiles {
         type: DESCRIPTION
@@ -318,6 +333,13 @@ categories {
         type: DESCRIPTION
         description: "![Oyebisi Babatunde Oluseyi](/custom_dc/custom/images/topics/development-landscape/EDD1.jpeg)"
       }
+
+      tiles {
+        type: DESCRIPTION
+        description: "*The authors interacted with the following artificial intelligence tools to assist in the creation of content included in this site: Google Bard v2.0*"
+      }
     }
+
   }
+  
 }
