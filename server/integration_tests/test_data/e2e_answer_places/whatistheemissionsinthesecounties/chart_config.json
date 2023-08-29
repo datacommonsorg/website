@@ -457,14 +457,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
+                    "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+            "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
           },
           {
             "columns": [

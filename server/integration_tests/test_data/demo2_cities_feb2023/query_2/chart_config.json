@@ -88,13 +88,13 @@
                       "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Asthma and more in Sunnyvale (${date})",
+                    "title": "Asthma and More in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Related: Asthma and more"
+            "title": "Related: Asthma and More"
           }
         ],
         "statVarSpec": {

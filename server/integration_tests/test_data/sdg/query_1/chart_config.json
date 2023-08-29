@@ -55,7 +55,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line by age in Countries of Africa"
+            "title": "Population Below International Poverty Line by Age in Countries of Africa"
           },
           {
             "columns": [
@@ -82,7 +82,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line by gender in Countries of Africa"
+            "title": "Population Below International Poverty Line by Gender in Countries of Africa"
           },
           {
             "columns": [
@@ -109,7 +109,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line in rural vs. urban areas in Countries of Africa"
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in Countries of Africa"
           }
         ],
         "statVarSpec": {
