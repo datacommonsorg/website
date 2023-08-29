@@ -19,7 +19,6 @@ set -e
 function setup_python {
   python3 -m venv .env
   source .env/bin/activate
-  python3 -m pip install --upgrade pip
   pip3 install -r server/requirements.txt
 }
 
@@ -174,6 +173,7 @@ function update_integration_test_golden {
   export TEST_MODE=write
   python3 -m pytest -vv server/integration_tests/topic_cache
   python3 -m pytest -vv -n 3 server/integration_tests/
+  python3 -m pytest -vv server/tests/nodejs_e2e_test.py
 }
 
 function run_all_tests {
@@ -280,5 +280,6 @@ while [[ "$#" -gt 0 ]]; do
     *)
         help
         exit 1
+        ;;
     esac
 done
