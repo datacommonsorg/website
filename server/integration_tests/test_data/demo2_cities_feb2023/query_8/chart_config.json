@@ -51,14 +51,14 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School By Race in Sunnyvale (${date})",
+                    "title": "Students in Middle School by Race in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Students In Middle School By Race"
+            "title": "Students in Middle School by Race"
           },
           {
             "columns": [

@@ -251,14 +251,14 @@
                       "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
                       "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Gender (${date})",
+                    "title": "Uninsured by Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Gender"
+            "title": "Uninsured by Gender"
           },
           {
             "columns": [
@@ -282,14 +282,14 @@
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block",
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Income (${date})",
+                    "title": "Uninsured by Income (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Income"
+            "title": "Uninsured by Income"
           },
           {
             "columns": [
@@ -316,14 +316,14 @@
                       "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
                       "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Race (${date})",
+                    "title": "Uninsured by Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Race"
+            "title": "Uninsured by Race"
           },
           {
             "columns": [
@@ -834,7 +834,7 @@
       },
       {
         "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health And Behavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]

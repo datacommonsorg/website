@@ -23,6 +23,7 @@ import React from "react";
 import { QueryResult } from "../../types/app/nl_interface_types";
 import { DebugInfo } from "../nl_interface/debug_info";
 import { SearchSection } from "./search_section";
+import { UserMessage } from "./user_message";
 
 interface ErrorResultPropType {
   query: string;
@@ -38,7 +39,6 @@ export function ErrorResult(props: ErrorResultPropType): JSX.Element {
     : "Sorry, could not complete your request.";
   return (
     <div className="row explore-charts">
-      <div id="user-message">{msg}</div>
       {props.query && (
         <>
           <SearchSection
@@ -52,6 +52,7 @@ export function ErrorResult(props: ErrorResultPropType): JSX.Element {
           ></DebugInfo>
         </>
       )}
+      <UserMessage userMessage={msg} showForm={true} />
     </div>
   );
 }
