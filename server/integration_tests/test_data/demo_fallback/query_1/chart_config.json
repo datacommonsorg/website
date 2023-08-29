@@ -46,5 +46,7 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "UNRECOGNIZED"
+  "showForm": true,
+  "svSource": "UNRECOGNIZED",
+  "userMessage": "Could not recognize any topic from the query. See available topic categories for San Francisco."
 }

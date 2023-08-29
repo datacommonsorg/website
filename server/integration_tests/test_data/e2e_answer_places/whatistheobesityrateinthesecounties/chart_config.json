@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -36,6 +40,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -65,6 +73,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -93,6 +105,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -154,7 +170,7 @@
     "place_type": "County"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "geoId/06105",
@@ -231,7 +247,7 @@
     "parentTopics": [
       {
         "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health And Behavior",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]
@@ -248,5 +264,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

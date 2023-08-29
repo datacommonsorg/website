@@ -83,7 +83,7 @@
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
-                    "title": "External debt stocks as a proportion of GNI in Brazil",
+                    "title": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -91,11 +91,11 @@
               {
                 "tiles": [
                   {
-                    "description": "External debt stocks as a proportion of GNI in Brazil",
+                    "description": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
-                    "title": "External debt stocks as a proportion of GNI in Brazil",
+                    "title": "External Debt Stocks as a Proportion of GNI in Brazil",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -123,7 +123,7 @@
                       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government",
                       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "Education Expenditure Compared To Total Spending in Brazil",
+                    "title": "Education Expenditure Compared to Total Spending in Brazil",
                     "type": "LINE"
                   }
                 ]
@@ -298,14 +298,14 @@
                       "Amount_Remittance_InwardRemittance",
                       "Amount_Remittance_OutwardRemittance"
                     ],
-                    "title": "Inward Remittances and more in Brazil",
+                    "title": "Inward Remittances and More in Brazil",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Inward Remittances and more"
+            "title": "Inward Remittances and More"
           },
           {
             "columns": [
@@ -327,14 +327,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossValueAdded_RealValue"
                     ],
-                    "title": "Amount of Economic Activity (Real Value): Gross Value Added and more in Brazil",
+                    "title": "Amount of Economic Activity (Real Value): Gross Value Added and More in Brazil",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Amount of Economic Activity (Real Value): Gross Value Added and more"
+            "title": "Amount of Economic Activity (Real Value): Gross Value Added and More"
           },
           {
             "columns": [
@@ -523,14 +523,14 @@
                       "Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue_multiple_place_bar_block"
                     ],
-                    "title": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing and more in Brazil (${date})",
+                    "title": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing and More in Brazil (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing and more"
+            "title": "Amount of Economic Activity (Real Value): Gross Value Added, Agriculture, Hunting, Forestry, Fishing and More"
           },
           {
             "columns": [
@@ -541,13 +541,13 @@
                       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal",
                       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "% Nominal GDP Spent on Education and more in Brazil",
+                    "title": "% Nominal GDP Spent on Education and More in Brazil",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "% Nominal GDP Spent on Education and more"
+            "title": "% Nominal GDP Spent on Education and More"
           },
           {
             "columns": [
@@ -878,50 +878,8 @@
         ]
       }
     ],
-    "peerTopics": [
-      {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      }
-    ]
+    "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -28,6 +32,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -49,6 +57,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -57,20 +69,24 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Gender (${date})",
+                    "title": "Impoverished Population by Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Gender"
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -85,20 +101,24 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Race (${date})",
+                    "title": "Impoverished Population by Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Race"
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -109,20 +129,24 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By By Language Spoken At Home (${date})",
+                    "title": "Impoverished Population by By Language Spoken at Home (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken at Home"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -130,20 +154,24 @@
                     "statVarKey": [
                       "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block"
                     ],
-                    "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line (${date})",
+                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line"
+            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -165,6 +193,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -186,6 +218,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -207,6 +243,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -214,13 +254,13 @@
                     "statVarKey": [
                       "dc/9pmyhk89dj3pf_multiple_place_bar_block"
                     ],
-                    "title": "Median Incomes in Accommodation And Food Services (${date})",
+                    "title": "Median Incomes in Accommodation and Food Services (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Accommodation And Food Services"
+            "title": "Median Incomes in Accommodation and Food Services"
           }
         ],
         "statVarSpec": {
@@ -341,5 +381,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

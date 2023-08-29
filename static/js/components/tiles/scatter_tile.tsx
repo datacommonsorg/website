@@ -46,7 +46,7 @@ import { scatterDataToCsv } from "../../utils/chart_csv_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -73,6 +73,7 @@ interface RawData {
   placeStats: PointApiResponse;
   population: SeriesApiResponse;
   placeNames: { [placeDcid: string]: string };
+  statVarNames: { [statVarDcid: string]: string };
 }
 
 interface ScatterChartData {
@@ -87,6 +88,9 @@ interface ScatterChartData {
   errorMsg: string;
   // props used when fetching this data
   props: ScatterTilePropType;
+  // Names of stat vars to use for labels
+  xStatVarName: string;
+  yStatVarName: string;
 }
 
 export function ScatterTile(props: ScatterTilePropType): JSX.Element {
@@ -158,7 +162,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           {scatterChartData.errorMsg}
         </div>
       ) : (
-        <>
+        <div className="scatter-tile-content">
           <div
             id={props.id}
             className="scatter-svg-container"
@@ -170,7 +174,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
             ref={tooltip}
             style={{ visibility: "hidden" }}
           />
-        </>
+        </div>
       )}
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()} className="scatter-spinner">
@@ -282,7 +286,11 @@ export const fetchData = async (props: ScatterTilePropType) => {
       populationPromise,
       placeNamesPromise,
     ]);
-    const rawData = { placeStats, population, placeNames };
+    const statVarNames = await getStatVarNames(
+      props.statVarSpec,
+      props.apiRoot
+    );
+    const rawData = { placeStats, population, placeNames, statVarNames };
     return rawToChart(rawData, props);
   } catch (error) {
     return null;
@@ -297,6 +305,8 @@ function rawToChart(
   const xStatVar = props.statVarSpec[1];
   const yPlacePointStat = rawData.placeStats.data[yStatVar.statVar];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
+  const xStatVarName = rawData.statVarNames[xStatVar.statVar];
+  const yStatVarName = rawData.statVarNames[yStatVar.statVar];
   if (!xPlacePointStat || !yPlacePointStat) {
     return;
   }
@@ -354,6 +364,8 @@ function rawToChart(
     yDate: getDateRange(Array.from(yDates)),
     errorMsg,
     props,
+    xStatVarName,
+    yStatVarName,
   };
 }
 
@@ -411,21 +423,11 @@ export function draw(
     showRegression: false,
     highlightPoints,
   };
-  const yLabel = getStatVarName(
-    chartData.yStatVar.statVar,
-    [chartData.yStatVar],
-    !_.isEmpty(chartData.yStatVar.denom)
-  );
-  const xLabel = getStatVarName(
-    chartData.xStatVar.statVar,
-    [chartData.xStatVar],
-    !_.isEmpty(chartData.xStatVar.denom)
-  );
   const plotProperties: ScatterPlotProperties = {
     width,
     height: svgChartHeight,
-    xLabel,
-    yLabel,
+    xLabel: chartData.xStatVarName,
+    yLabel: chartData.yStatVarName,
     xUnit: chartData.xStatVar.unit,
     yUnit: chartData.yStatVar.unit,
   };
