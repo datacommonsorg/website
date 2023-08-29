@@ -43,10 +43,10 @@ metadata {
 }
 
 
-############ CATEGORY: Landuse/Remote Sensing/Atmospheric ############
+############ CATEGORY: Land and Water Use ############
 
 categories {
-  title: "Land Use / Remote Sensing / Atmospheric"
+  title: "Land and Water Use"
 
   #---------- Land Use ----------# 
   blocks {
@@ -78,9 +78,16 @@ categories {
   }
   stat_var_spec {key: "WithdrawalRate_Water" value {stat_var: "WithdrawalRate_Water" name: "Rate of Water Withdrawal"}}
 
+}
+
+############ CATEGORY: Observed Temperatures ############
+
+categories {
+  title: "Observed Temperatures"
+
+
   #---------- Observed Temperatures ----------# 
   blocks {
-    title: "Observed Temperatures"
     description: "According to the National Oceanic and Atmospheric Administration, Earth's temperature has risen at an average of 0.14 degrees Fahrenheit per decade since 1880. Having an authoritative, verifiable baseline for temperatures allows us to look at how temperature has changed so far, and use that information to create helpful climate models that project what temperatures could look like in the future."
     columns {tiles {type: MAP title: "Mean Temperature (${date})" stat_var_key: "Mean_Temperature"}}
     columns {tiles {type: LINE stat_var_key: "Mean_Temperature"}}
@@ -91,10 +98,10 @@ categories {
     columns {tiles {type: LINE stat_var_key: "Mean_MaxTemperature"}}
     columns {
       tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Mean_MaxTemperature"}
-      tiles {type: MAP title: "Mean maximum temperature (${date})" stat_var_key: "Mean_MaxTemperature"}
+      tiles {type: MAP title: "Mean maximum temperature Celsius (${date})" stat_var_key: "Mean_MaxTemperature"}
     }
   }
-  stat_var_spec {key: "Mean_MaxTemperature" value {stat_var: "Mean_MaxTemperature" name: "Mean maximum temperature"}}
+  stat_var_spec {key: "Mean_MaxTemperature" value {stat_var: "Mean_MaxTemperature" name: "Mean maximum temperature (Celsius)"}}
 
   blocks {
     columns {tiles {type: MAP title: "Mean maximum temperature in forested areas (${date})" stat_var_key: "Mean_MaxTemperature_Forest"}}
@@ -139,18 +146,18 @@ categories {
     title: "Climate Hazard Damages"
     description: "Climate hazards are atmospheric events that cause damage to human settlements or the natural environment. These events include thunderstorms, cyclones, earthquakes, hail, snow, and drought to name a few. In some places of the U.S. there are insurance agencies that are beginning to recognize the costs of climate change and are integrating that into their processes. The following data helps visualize the monetary response to flooding hazards in the United States, sourced through Federal Emergency Management Agency (FEMA)’s National Flood Insurance Program."
     columns {
-      tiles {type: LINE stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}
+      tiles {type: LINE title: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone (FEMA)" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}
       #tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: false} stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}
     }
-    #columns {tiles {type: MAP title: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone(FEMA) (${date})" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}
+    #columns {tiles {type: MAP title: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone (FEMA) (${date})" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}}
   }
-  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" name: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone(FEMA)"}}
+  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent" name: "Settlement Amount (USD)"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
+    columns {tiles {type: LINE title: "Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone (FEMA)" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
     #columns {tiles {type: MAP title: "Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone(FEMA) (${date})" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent"}}
   }
-  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" name: "Settlement amount of natural hazard insurance for HOUSE CONTENT within the 100 year flood zone(FEMA)"}}
+  stat_var_spec {key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" value {stat_var: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingContents_FloodEvent" name: "Settlement Amount (USD)"}}
 
   #---------- Wildfires ----------# 
   blocks {
@@ -162,12 +169,12 @@ categories {
   stat_var_spec {key: "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5" value {stat_var: "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5" name: "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, PM 2.5"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_DenseSmokeEvent"}}
+    columns {tiles {type: LINE title: "Dense Smoke" stat_var_key: "Count_DenseSmokeEvent"}}
   }
   stat_var_spec {key: "Count_DenseSmokeEvent" value {stat_var: "Count_DenseSmokeEvent" name: "Cloud of Dense Smoke Event"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_FireIncidentComplex"}}
+    columns {tiles {type: LINE title: "Fire Incident Complex" stat_var_key: "Count_FireIncidentComplex"}}
   }
   stat_var_spec {key: "Count_FireIncidentComplex" value {stat_var: "Count_FireIncidentComplex" name: "Count of Fire Incident Complex Event"}}
 
@@ -193,7 +200,7 @@ categories {
   blocks {
     title: "Marine and Water Hazards"
     description: "Hurricanes and coastal flooding are destructive, and sometimes life threatening events that our coastal communities face. As storms become more intense due to abundant energy in our atmosphere, coastal populations face the decision whether to retreat or to armor their coastline. Datasets like the following track these water hazards to enable us to make better decisions on how to address incoming storms."
-    columns {tiles {type: LINE stat_var_key: "Count_HurricaneEvent"}}
+    columns {tiles {type: LINE title: "Hurricanes" stat_var_key: "Count_HurricaneEvent"}}
   }
   stat_var_spec {key: "Count_HurricaneEvent" value {stat_var: "Count_HurricaneEvent" name: "Count of Hurricane Event"}}
 
@@ -204,11 +211,10 @@ categories {
 #  stat_var_spec {key: "Count_FlashFloodEvent" value {stat_var: "Count_FlashFloodEvent" name: "Count of Flash Flood Event"}}
 
   blocks {
-    #columns {tiles {type: MAP title: "Count of Flood Event (${date})" stat_var_key: "Count_FloodEvent"}}
-    #columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_FloodEvent"}}
-    columns {tiles {type: LINE stat_var_key: "Count_FloodEvent"}}
+    columns {tiles {type: MAP title: "Area of Flood Event (${date})" stat_var_key: "Area_FloodEvent"}}
+    columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Area_FloodEvent"}}
   }
-  stat_var_spec {key: "Count_FloodEvent" value {stat_var: "Count_FloodEvent" name: "Count of Flood Event"}}
+  stat_var_spec {key: "Area_FloodEvent" value {stat_var: "Area_FloodEvent" name: "Area of Flood Event"}}
 
 #  blocks {
 #    columns {tiles {type: LINE stat_var_key: "Count_HurricaneTyphoonEvent"}}
@@ -221,12 +227,12 @@ categories {
 #  stat_var_spec {key: "Count_TropicalDepressionEvent" value {stat_var: "Count_TropicalDepressionEvent" name: "Count of Tropical Depression Event"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_TropicalStormEvent"}}
+    columns {tiles {type: LINE title: "Tropical Storms" stat_var_key: "Count_TropicalStormEvent"}}
   }
   stat_var_spec {key: "Count_TropicalStormEvent" value {stat_var: "Count_TropicalStormEvent" name: "Count of Tropical Storm Event"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_CoastalFloodEvent"}}
+    columns {tiles {type: LINE title: "Coastal Floods" stat_var_key: "Count_CoastalFloodEvent"}}
   }
   stat_var_spec {key: "Count_CoastalFloodEvent" value {stat_var: "Count_CoastalFloodEvent" name: "Count of Coastal Flood Event"}}
 
@@ -235,45 +241,24 @@ categories {
     title: "Atmospheric Events/Hazards"
     description: "Climate change has a key role in impacting severe weather events worldwide. As our atmosphere traps more heat, extreme weather events will become more likely. The American Meteorological Society released their annual report in 2021 highlighting the occurrence of \"compound events\" where two weather events happen simultaneously. An example of this would be severe heat coupled with lack of rainfall. This weather coupling is a recipe for dry forest litter, which can lead to severe forest fires."
     columns {
-      tiles {type: LINE stat_var_key: "Count_ExcessiveHeatEvent"}
-      #tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_ExcessiveHeatEvent"}
+      tiles {type: LINE title: "Excessive Heat (105° F or greater)" stat_var_key: "Count_ExcessiveHeatEvent"}
     }
-    #columns {tiles {type: MAP title: "Count of Excessive Heat Event (${date})" stat_var_key: "Count_ExcessiveHeatEvent"}}
+    columns {tiles {type: LINE title: "Heat Waves" stat_var_key: "Count_HeatEvent"}}
   }
   stat_var_spec {key: "Count_ExcessiveHeatEvent" value {stat_var: "Count_ExcessiveHeatEvent" name: "Count of Excessive Heat Event"}}
-
-  blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_ExtremeColdWindChillEvent"}}
-    #columns {tiles {type: MAP title: "Count of Extreme Cold Wind Chill Event (${date})" stat_var_key: "Count_ExtremeColdWindChillEvent"}}
-    #columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_ExtremeColdWindChillEvent"}}
-  }
-  stat_var_spec {key: "Count_ExtremeColdWindChillEvent" value {stat_var: "Count_ExtremeColdWindChillEvent" name: "Count of Extreme Cold Wind Chill Event"}}
-  
-  blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_HeatEvent"}}
-    #columns {tiles {type: MAP title: "Heat Waves (${date})" stat_var_key: "Count_HeatEvent"}}
-    #columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeatEvent"}}
-  }
   stat_var_spec {key: "Count_HeatEvent" value {stat_var: "Count_HeatEvent" name: "Heat Waves"}}
 
   blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_HeavyRainEvent"}}
-    #columns {tiles {type: MAP title: "Heavy Rains (${date})" stat_var_key: "Count_HeavyRainEvent"}}
-    #columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeavyRainEvent"}}
+    columns {tiles {type: LINE title: "Extreme Cold Wind Chill" stat_var_key: "Count_ExtremeColdWindChillEvent"}}
+    columns {tiles {type: LINE title: "Heavy Rains" stat_var_key: "Count_HeavyRainEvent"}}
   }
+  stat_var_spec {key: "Count_ExtremeColdWindChillEvent" value {stat_var: "Count_ExtremeColdWindChillEvent" name: "Count of Extreme Cold Wind Chill Event"}}
   stat_var_spec {key: "Count_HeavyRainEvent" value {stat_var: "Count_HeavyRainEvent" name: "Heavy Rains"}}
-
-  blocks {
-    columns {tiles {type: LINE stat_var_key: "Count_HeatTemperatureEvent"}}
-    #columns {tiles {type: MAP title: "Count of Heat Temperature Event (${date})" stat_var_key: "Count_HeatTemperatureEvent"}}
-    #columns {tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_HeatTemperatureEvent"}}
-  }
-  stat_var_spec {key: "Count_HeatTemperatureEvent" value {stat_var: "Count_HeatTemperatureEvent" name: "Count of Heat Temperature Event"}}
 
   blocks {
     #columns {tiles {type: MAP title: "Droughts (${date})" stat_var_key: "Count_DroughtEvent"}}
     columns {
-      tiles {type: LINE stat_var_key: "Count_DroughtEvent"}
+      tiles {type: LINE title: "Droughts" stat_var_key: "Count_DroughtEvent"}
       #tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: true} stat_var_key: "Count_DroughtEvent"}
       #tiles {type: BAR stat_var_key: "Count_DroughtEvent"}
     }
