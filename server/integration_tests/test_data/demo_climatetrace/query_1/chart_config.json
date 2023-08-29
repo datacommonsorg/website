@@ -1180,6 +1180,102 @@
                       "showHighest": true
                     },
                     "statVarKey": [
+                      "Annual_Emissions_NitrousOxide_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Nitrous Oxide in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_NitrousOxide_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Nitrous Oxide in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Power, Nitrous Oxide in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 100 Year Global Warming Potential in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 100 Year Global Warming Potential in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 100 Year Global Warming Potential in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 20 Year Global Warming Potential in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Power"
+                    ],
+                    "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 20 Year Global Warming Potential in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 20 Year Global Warming Potential in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
                       "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse"
                     ],
                     "title": "Annual Amount of Emissions: Other Energy Use, Methane in the World (${date})",
@@ -1303,6 +1399,14 @@
           "Amount_Emissions_CarbonDioxide_PerCapita": {
             "name": "CO2 Emissions Per Capita",
             "statVar": "Amount_Emissions_CarbonDioxide_PerCapita"
+          },
+          "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Power": {
+            "name": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 100 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Power"
+          },
+          "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Power": {
+            "name": "Annual Amount of Emissions: Power, Carbon Dioxide Equivalent 20 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Power"
           },
           "Annual_Emissions_CarbonDioxide_Agriculture": {
             "name": "CO\u2082 Emissions from Agriculture",
@@ -1443,6 +1547,10 @@
           "Annual_Emissions_NitrousOxide_Manufacturing": {
             "name": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide",
             "statVar": "Annual_Emissions_NitrousOxide_Manufacturing"
+          },
+          "Annual_Emissions_NitrousOxide_Power": {
+            "name": "Annual Amount of Emissions: Power, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_Power"
           },
           "Annual_Emissions_NitrousOxide_Transportation": {
             "name": "Annual Amount of Emissions: Transportation, Nitrous Oxide",

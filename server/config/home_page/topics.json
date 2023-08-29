@@ -6,6 +6,7 @@
     "url": "/nl#topic=economics",
     "browseUrl": "/explore/economics",
     "icon": "area_chart",
+    "sprite-index": 2,
     "image": "/images/topic-economics.svg"
   },
   {
@@ -15,6 +16,7 @@
     "url": "/nl#topic=demographics",
     "browseUrl": "/explore/demographics",
     "icon": "family_restroom",
+    "sprite-index": 5,
     "image": "/images/topic-demographics.svg"
   },
   {
@@ -24,6 +26,7 @@
     "url": "/nl#topic=health",
     "browseUrl": "/explore/health",
     "icon": "area_chart",
+    "sprite-index": 4,
     "image": "/images/topic-health.svg"
   },
   {
@@ -33,6 +36,7 @@
     "url": "/nl#topic=sustainability",
     "browseUrl": "/explore/sustainability",
     "icon": "eco",
+    "sprite-index": 1,
     "image": "/images/topic-sustainability.svg"
   },
   {
@@ -42,6 +46,7 @@
     "url": "/nl#topic=education-housing-commute",
     "browseUrl": "/explore/education-housing-commute",
     "icon": "school",
+    "sprite-index": 3,
     "image": "/images/topic-education.svg"
   },
   {
@@ -51,6 +56,7 @@
     "url": "/nl#topic=equity",
     "browseUrl": "/explore/equity",
     "icon": "public",
+    "sprite-index": 0,
     "image": "/images/topic-equity.svg"
   }
 ]

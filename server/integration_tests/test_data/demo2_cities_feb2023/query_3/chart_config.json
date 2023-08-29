@@ -147,6 +147,70 @@
             ],
             "denom": "Count_Person",
             "title": "Production Transportation and Material Moving Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e9gftzl2hm8h9"
+                    ],
+                    "title": "Commute Time in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Commute Time in Sunnyvale",
+                    "statVarKey": [
+                      "dc/e9gftzl2hm8h9"
+                    ],
+                    "title": "Commute Time in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Commute Time"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/fyc3yvjy0xw6g_multiple_place_bar_block",
+                      "dc/dbe0drezxrpv6_multiple_place_bar_block",
+                      "dc/1fw0t5m6459gb_multiple_place_bar_block",
+                      "dc/vgwx3kjjzz8wf_multiple_place_bar_block",
+                      "dc/7ykp70f9rtck9_multiple_place_bar_block",
+                      "dc/exr9t81en1h34_multiple_place_bar_block",
+                      "dc/62gn48xpbqew9_multiple_place_bar_block",
+                      "dc/vfs5dgtzhp4j4_multiple_place_bar_block",
+                      "dc/pplpj0y0mzd3g_multiple_place_bar_block",
+                      "dc/t0hh9jhx104k7_multiple_place_bar_block",
+                      "dc/kfr6chpkw90e3_multiple_place_bar_block",
+                      "dc/h7ft916g93ys2_multiple_place_bar_block"
+                    ],
+                    "title": "Commuters by Commute Time in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Commuters by Commute Time"
           }
         ],
         "statVarSpec": {
@@ -154,9 +218,17 @@
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
           },
+          "dc/1fw0t5m6459gb_multiple_place_bar_block": {
+            "name": "Population: 10 - 14 Minute",
+            "statVar": "dc/1fw0t5m6459gb"
+          },
           "dc/4xklqxfc27w1f_multiple_place_bar_block": {
             "name": "Population: Public Transportation Excluding Taxicab, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/4xklqxfc27w1f"
+          },
+          "dc/62gn48xpbqew9_multiple_place_bar_block": {
+            "name": "Population: 30 - 34 Minute",
+            "statVar": "dc/62gn48xpbqew9"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
@@ -170,6 +242,10 @@
             "name": "Population: Worked At Home, Sales And Office Occupations",
             "statVar": "dc/7wt44yv38rew"
           },
+          "dc/7ykp70f9rtck9_multiple_place_bar_block": {
+            "name": "Population: 20 - 24 Minute",
+            "statVar": "dc/7ykp70f9rtck9"
+          },
           "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
             "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/80q8jrnkvwtt3"
@@ -181,6 +257,10 @@
           "dc/cs8fvwkmpmlpg_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/cs8fvwkmpmlpg"
+          },
+          "dc/dbe0drezxrpv6_multiple_place_bar_block": {
+            "name": "Population: 5 - 9 Minute",
+            "statVar": "dc/dbe0drezxrpv6"
           },
           "dc/dj7khl7q78412_multiple_place_bar_block": {
             "name": "Population: Car Truck or Van Carpooled, Production, Transportation, And Material Moving Occupations",
@@ -194,9 +274,25 @@
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/e27c5t4tbplg"
           },
+          "dc/e9gftzl2hm8h9": {
+            "name": "Commute Time",
+            "statVar": "dc/e9gftzl2hm8h9"
+          },
+          "dc/exr9t81en1h34_multiple_place_bar_block": {
+            "name": "Population: 25 - 29 Minute",
+            "statVar": "dc/exr9t81en1h34"
+          },
           "dc/fgt7thnws9vx9_multiple_place_bar_block": {
             "name": "Population: Walked, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/fgt7thnws9vx9"
+          },
+          "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
+            "name": "Population: 5 Minute or Less",
+            "statVar": "dc/fyc3yvjy0xw6g"
+          },
+          "dc/h7ft916g93ys2_multiple_place_bar_block": {
+            "name": "Population: 90 Minute or More",
+            "statVar": "dc/h7ft916g93ys2"
           },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
             "name": "Public Transit",
@@ -218,6 +314,10 @@
             "name": "Population: Car Truck or Van Drove Alone, Service Occupations",
             "statVar": "dc/k33ngtzpqxql6"
           },
+          "dc/kfr6chpkw90e3_multiple_place_bar_block": {
+            "name": "Population: 60 - 89 Minute",
+            "statVar": "dc/kfr6chpkw90e3"
+          },
           "dc/kt900ezddrf79_multiple_place_bar_block": {
             "name": "Population: Car Truck or Van Drove Alone, Sales And Office Occupations",
             "statVar": "dc/kt900ezddrf79"
@@ -238,6 +338,10 @@
             "name": "Population: Public Transportation Excluding Taxicab, Sales And Office Occupations",
             "statVar": "dc/nvrxn11yxlen2"
           },
+          "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
+            "name": "Population: 40 - 44 Minute",
+            "statVar": "dc/pplpj0y0mzd3g"
+          },
           "dc/r0delcsw86kc6_multiple_place_bar_block": {
             "name": "Population: Car Truck or Van Drove Alone, Production, Transportation, And Material Moving Occupations",
             "statVar": "dc/r0delcsw86kc6"
@@ -246,9 +350,21 @@
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Sales And Office Occupations",
             "statVar": "dc/slp5hywj7b9c1"
           },
+          "dc/t0hh9jhx104k7_multiple_place_bar_block": {
+            "name": "Population: 45 - 59 Minute",
+            "statVar": "dc/t0hh9jhx104k7"
+          },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
             "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/v33p7mwnpe9vb"
+          },
+          "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
+            "name": "Population: 35 - 39 Minute",
+            "statVar": "dc/vfs5dgtzhp4j4"
+          },
+          "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
+            "name": "Population: 15 - 19 Minute",
+            "statVar": "dc/vgwx3kjjzz8wf"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
             "name": "Walk to work",

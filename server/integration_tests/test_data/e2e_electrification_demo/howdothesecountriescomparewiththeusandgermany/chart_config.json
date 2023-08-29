@@ -126,50 +126,22 @@
                       "country/UGA"
                     ],
                     "statVarKey": [
-                      "Annual_Consumption_Electricity_multiple_place_bar_block"
+                      "Annual_Consumption_Electricity_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_Agriculture_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_CommerceAndPublicServices_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_ConstructionIndustry_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_Households_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_Manufacturing_multiple_place_bar_block",
+                      "Annual_Consumption_Electricity_TransportIndustry_multiple_place_bar_block"
                     ],
-                    "title": "Annual Electricity Consumption (${date})",
+                    "title": "Electricity Consumption by Sector (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Electricity Consumption"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
-                      "country/KEN",
-                      "country/GHA",
-                      "country/ETH",
-                      "country/MLI",
-                      "country/MAR",
-                      "country/RWA",
-                      "country/SEN",
-                      "country/GIN",
-                      "country/UGA"
-                    ],
-                    "statVarKey": [
-                      "Annual_Consumption_Electricity_Households_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Consumption of Electricity: for Households (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Consumption of Electricity: for Households"
+            "title": "Electricity Consumption by Sector"
           },
           {
             "columns": [
@@ -318,6 +290,18 @@
             "name": "Per Capita Electricity Use",
             "statVar": "Amount_Consumption_Electricity_PerCapita"
           },
+          "Annual_Consumption_Electricity_Agriculture_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Agriculture",
+            "statVar": "Annual_Consumption_Electricity_Agriculture"
+          },
+          "Annual_Consumption_Electricity_CommerceAndPublicServices_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Commerce And Public Services",
+            "statVar": "Annual_Consumption_Electricity_CommerceAndPublicServices"
+          },
+          "Annual_Consumption_Electricity_ConstructionIndustry_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Construction Industry",
+            "statVar": "Annual_Consumption_Electricity_ConstructionIndustry"
+          },
           "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse_multiple_place_bar_block": {
             "name": "Annual Consumption of Electricity: for Electricity Generation, Energy Industry Own Use",
             "statVar": "Annual_Consumption_Electricity_ElectricityGeneration_EnergyIndustryOwnUse"
@@ -326,9 +310,17 @@
             "name": "Annual Consumption of Electricity: for Households",
             "statVar": "Annual_Consumption_Electricity_Households"
           },
+          "Annual_Consumption_Electricity_Manufacturing_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Manufacturing",
+            "statVar": "Annual_Consumption_Electricity_Manufacturing"
+          },
           "Annual_Consumption_Electricity_OtherSector_multiple_place_bar_block": {
             "name": "Annual Consumption of Electricity: for UN_Other Sector",
             "statVar": "Annual_Consumption_Electricity_OtherSector"
+          },
+          "Annual_Consumption_Electricity_TransportIndustry_multiple_place_bar_block": {
+            "name": "Annual Consumption of Electricity: for Transport Industry",
+            "statVar": "Annual_Consumption_Electricity_TransportIndustry"
           },
           "Annual_Consumption_Electricity_multiple_place_bar_block": {
             "name": "Annual Electricity Consumption",
