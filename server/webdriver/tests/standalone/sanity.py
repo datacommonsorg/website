@@ -25,6 +25,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
+import logging
 
 FLAGS = flags.FLAGS
 
@@ -87,7 +88,7 @@ class WebsiteSanityTest:
     self.driver = webdriver.Chrome(
         service=Service(ChromeDriverManager().install()))
     self.file = open(self.results_csv_file_path, "w", newline="")
-    print("Writing results to", self.results_csv_file_path)
+    logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,
                                      fieldnames=result_csv_columns(),
                                      lineterminator="\n")
@@ -96,11 +97,11 @@ class WebsiteSanityTest:
 
   def __exit__(self, exc_type, exc_value, traceback):
     self.file.close()
-    print("\nResults written to", self.results_csv_file_path)
+    logging.info("Results written to: %s", self.results_csv_file_path)
     self.driver.quit()
 
   def add_result(self, result: Result) -> None:
-    print(f"#{len(self.results) + 1}", result)
+    logging.info("\n#%s %s", len(self.results) + 1, result)
     self.csv_writer.writerow(result.__dict__)
     self.file.flush()
     self.results.append(result)
@@ -113,7 +114,7 @@ class WebsiteSanityTest:
     # topic cards
     topic_cards = find_elems(self.driver, By.CLASS_NAME, "topic-card")
     if topic_cards is None or len(topic_cards) == 0:
-      self.add_result(fresult(page, "No topic cards."))
+      self.add_result(fail_result(page, "No topic cards."))
       return
 
     explore_landing_pages = []
@@ -122,7 +123,7 @@ class WebsiteSanityTest:
                                    "topic-card-title")
       if topic_title_elem is None:
         self.add_result(
-            fresult(
+            fail_result(
                 page,
                 "No explore landing title on one of the cards.",
             ))
@@ -131,7 +132,7 @@ class WebsiteSanityTest:
       topic_url_elem = find_elem(topic_card, By.TAG_NAME, "a")
       if topic_url_elem is None:
         self.add_result(
-            fresult(
+            fail_result(
                 page,
                 "No explore landing URL on one of the cards.",
             ))
@@ -145,7 +146,7 @@ class WebsiteSanityTest:
           ))
 
     # Pass
-    self.add_result(presult(page))
+    self.add_result(pass_result(page))
 
     for explore_landing_page in explore_landing_pages:
       self.explore_landing(explore_landing_page)
@@ -158,7 +159,7 @@ class WebsiteSanityTest:
     # topics
     topics = find_elems(self.driver, By.CLASS_NAME, "item-list-text")
     if topics is None or len(topics) == 0:
-      self.add_result(fresult(page, "No topics."))
+      self.add_result(fail_result(page, "No topics."))
       return
 
     # queries
@@ -168,15 +169,15 @@ class WebsiteSanityTest:
         "#dc-explore-landing > div > div > div.topic-container > div.topic-queries",
     )
     if queries_parent is None:
-      self.add_result(fresult(page, "No queries."))
+      self.add_result(fail_result(page, "No queries."))
       return
     queries = find_elems(queries_parent, By.TAG_NAME, "a")
     if queries is None or len(queries) == 0:
-      self.add_result(fresult(page, "No queries."))
+      self.add_result(fail_result(page, "No queries."))
       return
 
     # Pass
-    self.add_result(presult(page))
+    self.add_result(pass_result(page))
 
     explore_links = topics + queries
     explore_pages = []
@@ -191,13 +192,16 @@ class WebsiteSanityTest:
 
     page.title = self.driver.title if page.title is None else page.title
 
+    # TODO(keyurs): Use this function to ensure all async elements have loaded:
+    # https://github.com/datacommonsorg/website/blob/master/server/webdriver/shared.py#L56
+
     # Wait 5 secs for charts container to load
     explore_container_present = EC.presence_of_element_located(
         (By.CLASS_NAME, "explore-charts"))
     try:
       WebDriverWait(self.driver, 10).until(explore_container_present)
     except:
-      self.add_result(fresult(
+      self.add_result(fail_result(
           page,
           "Timed out.",
       ))
@@ -209,7 +213,7 @@ class WebsiteSanityTest:
     try:
       WebDriverWait(self.driver, 2).until(subtopics_present)
     except:
-      self.add_result(fresult(
+      self.add_result(fail_result(
           page,
           "No charts.",
       ))
@@ -219,7 +223,7 @@ class WebsiteSanityTest:
     subtopics = find_elems(self.driver, By.CSS_SELECTOR,
                            "section[class*='block subtopic']")
     if subtopics is None or len(subtopics) == 0:
-      self.add_result(fresult(
+      self.add_result(fail_result(
           page,
           "No charts.",
       ))
@@ -227,13 +231,13 @@ class WebsiteSanityTest:
     if len(subtopics) == 1:
       map_element = find_elem(subtopics[0], By.CLASS_NAME, "map-container")
       if map_element:
-        self.add_result(fresult(
+        self.add_result(fail_result(
             page,
             "Placeholder map only, no charts.",
         ))
         return
 
-    warning_result = None
+    maybe_warning_result = None
 
     # relavant topics parent
     topics = []
@@ -241,16 +245,16 @@ class WebsiteSanityTest:
     if topics_parent:
       topics = find_elems(topics_parent, By.TAG_NAME, "a")
       if topics is None or len(topics) == 0:
-        warning_result = wresult(
+        maybe_warning_result = warning_result(
             page,
             "Topics section with no relevant topics.",
         )
 
     # Pass or Warning
-    if warning_result:
-      self.add_result(warning_result)
+    if maybe_warning_result:
+      self.add_result(maybe_warning_result)
     else:
-      self.add_result(presult(page))
+      self.add_result(pass_result(page))
 
     if not recurse:
       return
@@ -279,22 +283,23 @@ def find_elems(parent, by: str, value: str):
 
 
 # Pass result
-def presult(page: WebPage, comments: str = "") -> Result:
+def pass_result(page: WebPage, comments: str = "") -> Result:
   return Result(page, "PASS", comments)
 
 
 # Fail result
-def fresult(page: WebPage, comments: str = "") -> Result:
+def fail_result(page: WebPage, comments: str = "") -> Result:
   return Result(page, "FAIL", comments)
 
 
 # Warning result
-def wresult(page: WebPage, comments: str = "") -> Result:
+def warning_result(page: WebPage, comments: str = "") -> Result:
   return Result(page, "WARNING", comments)
 
 
 def result_csv_columns() -> str:
-  return list(presult(WebPage(PageType.UNKNOWN, "", ""), "").__dict__.keys())
+  return list(
+      pass_result(WebPage(PageType.UNKNOWN, "", ""), "").__dict__.keys())
 
 
 def run_test():
@@ -323,15 +328,13 @@ def run_test():
 
 def main(_):
   start = datetime.now()
-  print("Start", start)
-  print()
+  logging.info("Start: %s", start)
 
   run_test()
 
-  print()
   end = datetime.now()
-  print("End", end)
-  print("Duration", str(end - start))
+  logging.info("End: %s", end)
+  logging.info("Duration: %s", str(end - start))
 
 
 if __name__ == "__main__":
