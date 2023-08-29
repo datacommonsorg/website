@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06085"
                     ],
@@ -68,7 +72,7 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home in Cities of Santa Clara County (${date})",
+                    "title": "Work at Home in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -83,20 +87,24 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home in Cities of Santa Clara County (${date})",
+                    "title": "Work at Home in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Work At Home in Cities of Santa Clara County"
+            "title": "Work at Home in Cities of Santa Clara County"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06085"
                     ],
@@ -125,7 +133,7 @@
                     "statVarKey": [
                       "dc/nfdf9rt7kbggb"
                     ],
-                    "title": "Population: Worked At Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -140,14 +148,14 @@
                     "statVarKey": [
                       "dc/nfdf9rt7kbggb"
                     ],
-                    "title": "Population: Worked At Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
+            "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -186,6 +194,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06085"
                     ],
@@ -214,7 +226,7 @@
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -229,14 +241,14 @@
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Sales and Office Occupations in Cities of Santa Clara County"
+            "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -275,6 +287,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06085"
                     ],
@@ -303,7 +319,7 @@
                     "statVarKey": [
                       "dc/dn2h9yfcgbkg2"
                     ],
-                    "title": "Population: Worked At Home, Service Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -318,14 +334,14 @@
                     "statVarKey": [
                       "dc/dn2h9yfcgbkg2"
                     ],
-                    "title": "Population: Worked At Home, Service Occupations in Cities of Santa Clara County (${date})",
+                    "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Service Occupations in Cities of Santa Clara County"
+            "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -425,6 +441,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06085"
                     ],

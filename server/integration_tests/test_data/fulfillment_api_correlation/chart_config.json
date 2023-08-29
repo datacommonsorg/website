@@ -15,12 +15,14 @@
                       "dc/0gettc3bc60cb_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Drive Alone Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Drive Alone (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Drive alone vs. Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -96,12 +98,14 @@
                       "dc/6rltk4kf75612_scatter",
                       "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Work At Home Per Capita (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
+                    "title": "Work at Home (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Work at home vs. Asthma"
           },
           {
             "columns": [
@@ -111,7 +115,7 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home in Counties of California (${date})",
+                    "title": "Work at Home in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -126,13 +130,13 @@
                     "statVarKey": [
                       "dc/6rltk4kf75612"
                     ],
-                    "title": "Work At Home in Counties of California (${date})",
+                    "title": "Work at Home in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Work At Home in Counties of California"
+            "title": "Work at Home in Counties of California"
           },
           {
             "columns": [
@@ -177,12 +181,14 @@
                       "dc/hbkh95kc7pkb6_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Public Transit Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Public Transit (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Public Transit vs. Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -227,12 +233,14 @@
                       "dc/vp8cbt6k79t94_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Walk to Work Per Capita (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Walk to Work (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Walk to work vs. Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -274,6 +282,7 @@
           },
           "Percent_Person_Children_WithAsthma_scatter": {
             "name": "Percent of Children That Have Asthma",
+            "noPerCapita": true,
             "statVar": "Percent_Person_Children_WithAsthma",
             "unit": "%"
           },
@@ -284,6 +293,7 @@
           },
           "Percent_Person_WithAsthma_scatter": {
             "name": "Asthma",
+            "noPerCapita": true,
             "statVar": "Percent_Person_WithAsthma",
             "unit": "%"
           },
@@ -292,40 +302,32 @@
             "statVar": "dc/0gettc3bc60cb"
           },
           "dc/0gettc3bc60cb_scatter": {
-            "denom": "Count_Person",
-            "name": "Drive alone Per Capita",
-            "statVar": "dc/0gettc3bc60cb",
-            "unit": "%"
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
           },
           "dc/6rltk4kf75612": {
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
           },
           "dc/6rltk4kf75612_scatter": {
-            "denom": "Count_Person",
-            "name": "Work at home Per Capita",
-            "statVar": "dc/6rltk4kf75612",
-            "unit": "%"
+            "name": "Work at home",
+            "statVar": "dc/6rltk4kf75612"
           },
           "dc/hbkh95kc7pkb6": {
             "name": "Public Transit",
             "statVar": "dc/hbkh95kc7pkb6"
           },
           "dc/hbkh95kc7pkb6_scatter": {
-            "denom": "Count_Person",
-            "name": "Public Transit Per Capita",
-            "statVar": "dc/hbkh95kc7pkb6",
-            "unit": "%"
+            "name": "Public Transit",
+            "statVar": "dc/hbkh95kc7pkb6"
           },
           "dc/vp8cbt6k79t94": {
             "name": "Walk to work",
             "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vp8cbt6k79t94_scatter": {
-            "denom": "Count_Person",
-            "name": "Walk to work Per Capita",
-            "statVar": "dc/vp8cbt6k79t94",
-            "unit": "%"
+            "name": "Walk to work",
+            "statVar": "dc/vp8cbt6k79t94"
           }
         }
       }

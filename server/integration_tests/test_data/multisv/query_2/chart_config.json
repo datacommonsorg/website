@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -28,6 +32,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -49,6 +57,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -71,6 +83,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -99,6 +115,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -109,20 +129,24 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population by By Language Spoken At Home (${date})",
+                    "title": "Impoverished Population by By Language Spoken at Home (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population by By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken at Home"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -144,6 +168,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -165,6 +193,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -186,6 +218,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"
@@ -207,6 +243,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/12"

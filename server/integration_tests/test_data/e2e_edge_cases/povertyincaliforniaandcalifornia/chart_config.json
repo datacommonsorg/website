@@ -151,6 +151,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06"
                     ],
@@ -248,14 +252,14 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population by By Language Spoken At Home in California",
+                    "title": "Impoverished Population by By Language Spoken at Home in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population by By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken at Home"
           },
           {
             "columns": [
@@ -265,7 +269,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California (${date})",
+                    "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -280,14 +284,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California (${date})",
+                    "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of California"
+            "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of California"
           },
           {
             "columns": [

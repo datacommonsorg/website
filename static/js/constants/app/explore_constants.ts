@@ -25,7 +25,6 @@ export const URL_HASH_PARAMS = {
   QUERY: "q",
   DC: "dc",
   DISABLE_EXPLORE_MORE: "em",
-  NL_FULFILLMENT: "nl",
   // old query param
   DEPRECATED_QUERY: "oq",
   // auto play params

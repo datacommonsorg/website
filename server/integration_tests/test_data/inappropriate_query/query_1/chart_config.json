@@ -2,11 +2,11 @@
   "config": {},
   "context": {},
   "debug": {},
-  "failure": "The query was rejected due to the presence of inappropriate words.",
+  "failure": "Sorry, could not complete your request.",
   "place": {
     "dcid": "",
     "name": "",
     "place_type": ""
   },
-  "userMessage": "The query was rejected due to the presence of inappropriate words."
+  "userMessage": "Sorry, could not complete your request."
 }

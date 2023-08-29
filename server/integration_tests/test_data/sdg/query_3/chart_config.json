@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "WHO/WHS4_128"
                     ],
-                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
                     "type": "MAP"
                   }
                 ]

@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/12"
                     ],
@@ -241,7 +245,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued At $10,000 or Less in Florida",
+                    "title": "Homes Valued at $10,000 or Less in Florida",
                     "type": "LINE"
                   }
                 ]
@@ -249,18 +253,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Homes Valued At $10,000 or Less in Florida",
+                    "description": "Homes Valued at $10,000 or Less in Florida",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValueUpto10000USDollar"
                     ],
-                    "title": "Homes Valued At $10,000 or Less in Florida",
+                    "title": "Homes Valued at $10,000 or Less in Florida",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Homes Valued At $10,000 or Less"
+            "title": "Homes Valued at $10,000 or Less"
           },
           {
             "columns": [
@@ -415,7 +419,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
                     ],
-                    "title": "Homes Valued At $2,000,000 or More in Florida",
+                    "title": "Homes Valued at $2,000,000 or More in Florida",
                     "type": "LINE"
                   }
                 ]
@@ -423,18 +427,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Homes Valued At $2,000,000 or More in Florida",
+                    "description": "Homes Valued at $2,000,000 or More in Florida",
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
                     ],
-                    "title": "Homes Valued At $2,000,000 or More in Florida",
+                    "title": "Homes Valued at $2,000,000 or More in Florida",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Homes Valued At $2,000,000 or More"
+            "title": "Homes Valued at $2,000,000 or More"
           }
         ],
         "statVarSpec": {
@@ -554,5 +558,5 @@
   ],
   "relatedThings": {},
   "svSource": "PAST_QUERY",
-  "userMessage": "Could not recognize any topic in this query. See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics based on the previous query."
 }

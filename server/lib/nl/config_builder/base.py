@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 import logging
+import re
 from typing import Dict, Set
 
 from server.config.subject_page_pb2 import Block
@@ -34,6 +35,7 @@ import server.lib.nl.fulfillment.utils as futils
 
 _SPECIAL_REPLACEMENTS = {
     " A ": " a ",
+    " At ": " at ",
     " By ": " by ",
     " Of ": " of ",
     " For ": " for ",
@@ -46,8 +48,6 @@ _SPECIAL_REPLACEMENTS = {
     " To ": " to ",
     " The ": " the ",
     "Covid": "COVID",
-    "- ": "-",
-    " -": "-",
 }
 
 
@@ -65,6 +65,13 @@ def _replace_special(input_string_title_case: str) -> str:
   input = input_string_title_case
   for sr, sr_replace in _SPECIAL_REPLACEMENTS.items():
     input = input.replace(sr, sr_replace)
+
+  # Replace " - " with "-" only if surrounded by a number
+  # on both sides.
+  matches = re.findall(r'\d+ - \d+', input)
+  for m in matches:
+    input = input.replace(m, m.replace(" ", ""))
+
   return input
 
 
@@ -249,7 +256,9 @@ def decorate_chart_title(title: str,
       else:
         title = title + ' in ' + place.name
 
-  # Use title case.
+  # Use title case. Note, this needs to happend before
+  # the following line which could add '(${date})' where
+  # we don't want to capitalize 'date'.
   title = _make_title_case(title)
 
   if add_date:

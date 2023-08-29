@@ -104,9 +104,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   #
   if (not bad_words.is_safe(original_query, nl_bad_words) or
       not bad_words.is_safe(query, nl_bad_words)):
-    err_json = helpers.abort(
-        'The query was rejected due to the ' +
-        'presence of inappropriate words.', original_query, context_history)
+    err_json = helpers.abort('Sorry, could not complete your request.',
+                             original_query, context_history)
     return None, err_json
 
   counters = ctr.Counters()
@@ -219,8 +218,10 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'placeSource': utterance.place_source.value,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
-      'userMessage': user_message,
+      'userMessage': user_message.msg
   }
+  if user_message.show_form:
+    data_dict['showForm'] = True
   status_str = "Successful"
   if utterance.rankedCharts:
     status_str = ""

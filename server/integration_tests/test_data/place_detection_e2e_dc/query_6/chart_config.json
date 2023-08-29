@@ -367,7 +367,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of United States (${date})",
+                    "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -378,14 +378,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of United States (${date})",
+                    "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Some Language Other Than English Spoken At Home & Below Poverty Line in Counties of United States"
+            "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States"
           },
           {
             "columns": [
