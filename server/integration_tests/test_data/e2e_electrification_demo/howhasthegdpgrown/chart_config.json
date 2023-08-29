@@ -475,13 +475,6 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/InflationAdjustedGDP",
-        "name": "Inflation Adjusted GDP",
-        "types": [
-          "Topic"
-        ]
       }
     ],
     "exploreMore": {},

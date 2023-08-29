@@ -658,67 +658,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population With Poverty Status Determined"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "English Spoken at Home, Above Poverty Line in California",
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "English Spoken at Home, Above Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "English Spoken at Home, Above Poverty Line in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -741,10 +680,6 @@
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months": {
-            "name": "English Spoken At Home, Above Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
@@ -1218,22 +1153,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
         "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SDG_1",
-        "name": "",
         "types": [
           "Topic"
         ]
