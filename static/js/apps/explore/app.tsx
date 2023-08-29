@@ -30,7 +30,10 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
@@ -82,7 +85,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   );
   const [query, setQuery] = useState<string>("");
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
-  const [userMessage, setUserMessage] = useState<string>("");
+  const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
   const savedContext = useRef([]);
@@ -213,9 +216,13 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         }
       }
     }
+    const userMessage = {
+      msg: fulfillData["userMessage"] || "",
+      showForm: !!fulfillData["showForm"],
+    };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
-    setUserMessage(fulfillData["userMessage"]);
+    setUserMessage(userMessage);
     setLoadingStatus(LoadingStatus.SUCCESS);
     setQueryResult({
       place: mainPlace,

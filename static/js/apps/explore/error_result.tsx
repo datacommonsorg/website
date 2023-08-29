@@ -20,23 +20,29 @@
 
 import React from "react";
 
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { DebugInfo } from "../nl_interface/debug_info";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
+
+const DEFAULT_USER_MSG = "Sorry, could not complete your request.";
 
 interface ErrorResultPropType {
   query: string;
   debugData: any;
   exploreContext: any;
   queryResult: QueryResult;
-  userMessage: string;
+  userMessage: UserMessageInfo;
 }
 
 export function ErrorResult(props: ErrorResultPropType): JSX.Element {
-  const msg = props.userMessage
-    ? props.userMessage
-    : "Sorry, could not complete your request.";
+  const userMessage = {
+    msg: props.userMessage?.msg || DEFAULT_USER_MSG,
+    showForm: props.userMessage?.showForm,
+  };
   return (
     <div className="row explore-charts">
       {props.query && (
@@ -52,7 +58,7 @@ export function ErrorResult(props: ErrorResultPropType): JSX.Element {
           ></DebugInfo>
         </>
       )}
-      <UserMessage userMessage={msg} showForm={true} />
+      <UserMessage userMessage={userMessage} />
     </div>
   );
 }
