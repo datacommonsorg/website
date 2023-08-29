@@ -15,6 +15,7 @@
 import csv
 from datetime import datetime
 from enum import StrEnum
+import logging
 import os
 
 from absl import app
@@ -25,7 +26,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
-import logging
 
 FLAGS = flags.FLAGS
 
