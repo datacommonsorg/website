@@ -22,7 +22,6 @@ import { DEFAULT_API_ENDPOINT } from "./constants";
 import { convertArrayAttribute } from "./utils";
 
 const MOST_RECENT_TEXT = "Most recent";
-const MOST_RECENT_TEXT_LONG = "Most recently available";
 interface ObservationDatesByVariable {
   observationDates: {
     date: string;
@@ -142,7 +141,7 @@ export class DatacommonsSliderComponent extends LitElement {
   apiRoot: string;
 
   /**
-   * Type of child place to rank (ex: State, County)
+   * Type of child place (ex: State, County)
    */
   @property()
   childPlaceType: string;
@@ -199,13 +198,13 @@ export class DatacommonsSliderComponent extends LitElement {
    * Loading indicator
    */
   @state()
-  private _isLoading: boolean = false;
+  private _isLoading = false;
 
   /**
    * Currently selected value
    */
   @state()
-  private _errorMessage: string = "";
+  private _errorMessage = "";
 
   connectedCallback(): void {
     super.connectedCallback();
