@@ -15,7 +15,7 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
                     ],
-                    "title": "Women below Poverty Line (${yDate}) vs. Males in Poverty (in last year) (${xDate}) in Counties of California",
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Males in Poverty (In Last Year) (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women below Poverty Line in Counties of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,14 +47,14 @@
                     "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Women below Poverty Line in Counties of California (${date})",
+                    "title": "Women Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women below Poverty Line in Counties of California"
+            "title": "Women Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -64,7 +64,7 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males in Poverty (in last year) in Counties of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -79,14 +79,14 @@
                     "statVarKey": [
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Males in Poverty (in last year) in Counties of California (${date})",
+                    "title": "Males in Poverty (In Last Year) in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Males in Poverty (in last year) in Counties of California"
+            "title": "Males in Poverty (In Last Year) in Counties of California"
           }
         ],
         "statVarSpec": {

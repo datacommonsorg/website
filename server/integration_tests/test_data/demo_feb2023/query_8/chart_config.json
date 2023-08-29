@@ -46,7 +46,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -57,13 +57,13 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication in Counties of United States"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States"
           }
         ],
         "statVarSpec": {

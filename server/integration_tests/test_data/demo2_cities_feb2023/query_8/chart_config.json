@@ -217,7 +217,7 @@
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -225,18 +225,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 7th And 8th Grade in Sunnyvale",
+                    "description": "Population: 7th and 8th Grade in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 7th And 8th Grade"
+            "title": "Population: 7th and 8th Grade"
           }
         ],
         "statVarSpec": {

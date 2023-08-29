@@ -127,7 +127,7 @@
               }
             ],
             "description": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
-            "title": "Increase in Population With Electricity Access (%) over time (Absolute change)"
+            "title": "Increase in Population With Electricity Access (%) Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -253,7 +253,7 @@
               }
             ],
             "description": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
-            "title": "Increase in Population With Electricity Access (%) over time (Percent change)"
+            "title": "Increase in Population With Electricity Access (%) Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {

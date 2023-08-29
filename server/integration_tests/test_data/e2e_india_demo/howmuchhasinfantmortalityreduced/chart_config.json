@@ -27,14 +27,14 @@
                     "statVarKey": [
                       "Count_Death_Infant_multiple_place_bar_block"
                     ],
-                    "title": "Total number of infant deaths reported (${date})",
+                    "title": "Total Number of Infant Deaths Reported (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total number of infant deaths reported"
+            "title": "Total Number of Infant Deaths Reported"
           }
         ],
         "statVarSpec": {
