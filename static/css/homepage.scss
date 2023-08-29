@@ -95,10 +95,9 @@ $animation-section-background: #fafbff;
 // Styling for top search box
 #homepage #homepage-top {
   padding-bottom: 8px;
-  box-shadow: 0px 1px 2px 0px #0000004D;
+  box-shadow: 0px 1px 2px 0px #0000004d;
   z-index: 100;
   position: relative;
-
 }
 
 // Styling for the search animation
@@ -343,6 +342,58 @@ $animation-section-background: #fafbff;
 
 .topic-card.clickable:hover {
   cursor: pointer;
+}
+
+@include media-breakpoint-down(xs) {
+  #homepage .topics-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 32px;
+
+    .topic-card {
+      border-radius: 8px;
+      border: 1px solid var(--card-border-color);
+      box-shadow: none;
+      color: var(--gm-3-ref-neutral-neutral-20);
+      display: flex;
+      height: 134px;
+      width: 166px;
+
+      .topic-card-body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: space-between;
+        padding: 16px;
+      }
+
+      .topic-card-image {
+        height: 66px;
+        margin-bottom: 12px;
+      }
+
+      .topic-card-title {
+        font-size: 16px;
+        font-weight: 500;
+        height: 24px;
+        line-height: 24px;
+        margin-bottom: 0px;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 134px;
+      }
+
+      .topic-card-description,
+      .topic-card-links {
+        display: none;
+      }
+    }
+  }
 }
 
 // Styling for the partners carousel
