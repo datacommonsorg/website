@@ -267,7 +267,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural Residents, Below Poverty Level in The Past 12 Months in India",
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
                     "type": "LINE"
                   }
                 ]
@@ -275,18 +275,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Rural Residents, Below Poverty Level in The Past 12 Months in India",
+                    "description": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural Residents, Below Poverty Level in The Past 12 Months in India",
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Rural Residents, Below Poverty Level in The Past 12 Months"
+            "title": "Rural Residents, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [

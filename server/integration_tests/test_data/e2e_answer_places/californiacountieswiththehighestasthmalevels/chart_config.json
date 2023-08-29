@@ -105,7 +105,7 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheRespiratorySystem"
                     ],
-                    "title": "Deaths From Diseases of The Respiratory System in Counties of California (${date})",
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -116,14 +116,14 @@
                     "statVarKey": [
                       "Count_Death_DiseasesOfTheRespiratorySystem"
                     ],
-                    "title": "Deaths From Diseases of The Respiratory System in Counties of California (${date})",
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of The Respiratory System in Counties of California"
+            "title": "Deaths From Diseases of the Respiratory System in Counties of California"
           }
         ],
         "statVarSpec": {

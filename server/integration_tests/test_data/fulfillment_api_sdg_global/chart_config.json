@@ -8,11 +8,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Under 5 With Moderate or Severe Stunting in The World",
+                    "description": "Children Under 5 With Moderate or Severe Stunting in the World",
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in The World",
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -23,7 +23,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in The World",
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
                     "type": "LINE"
                   }
                 ]
@@ -39,24 +39,24 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNTN.AGE--Y0T4"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in The World (${date})",
+                    "title": "Children Under 5 With Moderate or Severe Stunting in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Children Under 5 With Moderate or Severe Stunting in The World"
+            "title": "Children Under 5 With Moderate or Severe Stunting in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Moderate or Severe Stunting in Population Under 5 in The World",
+                    "description": "Moderate or Severe Stunting in Population Under 5 in the World",
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in The World",
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -67,7 +67,7 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in The World",
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
                     "type": "LINE"
                   }
                 ]
@@ -83,13 +83,13 @@
                     "statVarKey": [
                       "sdg/SH_STA_STNT.AGE--Y0T4"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in The World (${date})",
+                    "title": "Moderate or Severe Stunting in Population Under 5 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Moderate or Severe Stunting in Population Under 5 in The World"
+            "title": "Moderate or Severe Stunting in Population Under 5 in the World"
           }
         ],
         "statVarSpec": {

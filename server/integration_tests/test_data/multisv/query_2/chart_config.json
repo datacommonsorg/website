@@ -172,14 +172,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Family Households Below The Poverty Level in The Past Year (${date})",
+                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below The Poverty Level in The Past Year"
+            "title": "Family Households Below the Poverty Level in the Past Year"
           },
           {
             "columns": [

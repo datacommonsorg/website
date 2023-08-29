@@ -70,7 +70,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of The Information Industry in California",
+                    "title": "GDP of the Information Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -78,18 +78,18 @@
               {
                 "tiles": [
                   {
-                    "description": "GDP of The Information Industry in California",
+                    "description": "GDP of the Information Industry in California",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of The Information Industry in California",
+                    "title": "GDP of the Information Industry in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "GDP of The Information Industry"
+            "title": "GDP of the Information Industry"
           },
           {
             "columns": [
@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of The Information Industry in Counties of California (${date})",
+                    "title": "GDP of the Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -114,14 +114,14 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
                     ],
-                    "title": "GDP of The Information Industry in Counties of California (${date})",
+                    "title": "GDP of the Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "GDP of The Information Industry in Counties of California"
+            "title": "GDP of the Information Industry in Counties of California"
           },
           {
             "columns": [
@@ -131,7 +131,7 @@
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in The Information Industry in California",
+                    "title": "Total Wages for Population Working in the Information Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -139,18 +139,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Wages for Population Working in The Information Industry in California",
+                    "description": "Total Wages for Population Working in the Information Industry in California",
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in The Information Industry in California",
+                    "title": "Total Wages for Population Working in the Information Industry in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Wages for Population Working in The Information Industry"
+            "title": "Total Wages for Population Working in the Information Industry"
           },
           {
             "columns": [
@@ -160,7 +160,7 @@
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in The Information Industry in Counties of California (${date})",
+                    "title": "Total Wages for Population Working in the Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -175,14 +175,14 @@
                     "statVarKey": [
                       "WagesTotal_Worker_NAICSInformation"
                     ],
-                    "title": "Total Wages for Population Working in The Information Industry in Counties of California (${date})",
+                    "title": "Total Wages for Population Working in the Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total Wages for Population Working in The Information Industry in Counties of California"
+            "title": "Total Wages for Population Working in the Information Industry in Counties of California"
           },
           {
             "columns": [

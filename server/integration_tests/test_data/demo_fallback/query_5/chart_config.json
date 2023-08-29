@@ -181,14 +181,14 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
                     ],
-                    "title": "GDP of The Finance and Insurance Industry and More in United States (${date})",
+                    "title": "GDP of the Finance and Insurance Industry and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: GDP of The Finance and Insurance Industry and More"
+            "title": "Related: GDP of the Finance and Insurance Industry and More"
           },
           {
             "columns": [

@@ -44,6 +44,7 @@ _SPECIAL_REPLACEMENTS = {
     " Is ": " is ",
     " And ": " and ",
     " To ": " to ",
+    " The ": " the ",
     "Covid": "COVID",
     "- ": "-",
     " -": "-",
