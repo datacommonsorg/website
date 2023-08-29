@@ -60,13 +60,11 @@ window.onload = () => {
   const resultsElList = svgDiv.getElementsByClassName("result");
 
   function startNextPrompt() {
-    console.log("next prompt", currentPromptIndex);
     let inputLength = 0;
     if (currentPromptIndex < resultsElList.length) {
       prompt = resultsElList.item(currentPromptIndex);
     } else {
       // End the animation
-      console.log("end animation");
       setTimeout(() => {
         defaultTextContainer.classList.remove(FADE_OUT_CLASS);
       }, FADE_OUT_MS);
@@ -97,9 +95,6 @@ window.onload = () => {
     }, ANSWER_DELAY_MS);
 
     inputIntervalTimer = setInterval(() => {
-      // if (!document.hasFocus()) {
-      //   return;
-      // }
 
       // Start typing animation
       if (inputLength < prompt.dataset.query.length) {
@@ -120,9 +115,6 @@ window.onload = () => {
     setTimeout(() => {
       startNextPrompt();
       nextInputTimer = setInterval(() => {
-        // if (!document.hasFocus()) {
-        //   return;
-        // }
         startNextPrompt();
       }, NEXT_PROMPT_DELAY_MS);
     }, INITIAL_MISSION_ON_SCREEN_DELAY_MS);
