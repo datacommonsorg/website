@@ -89,13 +89,11 @@ window.onload = () => {
         promptDiv.classList.add(HIDDEN_CLASS);
         missionDiv.classList.remove(HIDDEN_CLASS);
       }
-        prompt.classList.remove(HIDDEN_CLASS);
-        prompt.classList.add(SLIDE_DOWN_CLASS);
-        if (currentPromptIndex > 0) {
-          resultsElList
-            .item(currentPromptIndex - 1)
-            .classList.add(HIDDEN_CLASS);
-        }
+      prompt.classList.remove(HIDDEN_CLASS);
+      prompt.classList.add(SLIDE_DOWN_CLASS);
+      if (currentPromptIndex > 0) {
+        resultsElList.item(currentPromptIndex - 1).classList.add(HIDDEN_CLASS);
+      }
     }, ANSWER_DELAY_MS);
 
     inputIntervalTimer = setInterval(() => {
