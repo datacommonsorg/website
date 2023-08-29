@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -36,6 +40,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06033",
                       "geoId/06023",
@@ -61,6 +69,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -90,6 +102,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -119,6 +135,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -148,6 +168,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -177,6 +201,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -206,6 +234,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -235,6 +267,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -251,20 +287,24 @@
                       "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
                       "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Gender (${date})",
+                    "title": "Uninsured by Gender (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Gender"
+            "title": "Uninsured by Gender"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06033",
                       "geoId/06023",
@@ -282,20 +322,24 @@
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings_multiple_place_bar_block",
                       "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Income (${date})",
+                    "title": "Uninsured by Income (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Income"
+            "title": "Uninsured by Income"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -316,20 +360,24 @@
                       "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
                       "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
                     ],
-                    "title": "Uninsured By Race (${date})",
+                    "title": "Uninsured by Race (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Uninsured By Race"
+            "title": "Uninsured by Race"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -359,6 +407,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -388,6 +440,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -417,6 +473,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
@@ -834,14 +894,7 @@
       },
       {
         "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health And Behavior",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalHealth",
-        "name": "Global Health",
+        "name": "Preventive Health and Behavior",
         "types": [
           "Topic"
         ]
@@ -849,5 +902,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics based on the previous query."
 }

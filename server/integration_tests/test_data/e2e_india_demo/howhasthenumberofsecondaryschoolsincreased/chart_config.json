@@ -127,7 +127,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Secondary Schools over time (Absolute change)"
+            "title": "Increase in Secondary Schools Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -253,7 +253,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Secondary Schools over time (Percent change)"
+            "title": "Increase in Secondary Schools Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -379,7 +379,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Secondary Schools over time (Per Capita change)"
+            "title": "Increase in Secondary Schools Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
@@ -501,5 +501,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics based on the previous query."
 }

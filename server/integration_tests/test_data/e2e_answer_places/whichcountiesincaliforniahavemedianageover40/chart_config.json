@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -798,7 +802,7 @@
       },
       {
         "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old And Very Young Population",
+        "name": "Very Old and Very Young Population",
         "types": [
           "Topic"
         ]

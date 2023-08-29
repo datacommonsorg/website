@@ -11,7 +11,7 @@
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in California",
+                    "title": "Median Incomes in Information Industry in California",
                     "type": "LINE"
                   }
                 ]
@@ -19,17 +19,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Incomes in Information industry in California",
+                    "description": "Median Incomes in Information Industry in California",
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in California",
+                    "title": "Median Incomes in Information Industry in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Information industry"
+            "title": "Median Incomes in Information Industry"
           },
           {
             "columns": [
@@ -39,7 +39,7 @@
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in Counties of California (${date})",
+                    "title": "Median Incomes in Information Industry in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -54,13 +54,13 @@
                     "statVarKey": [
                       "dc/xj2nk2bg60fg"
                     ],
-                    "title": "Median Incomes in Information industry in Counties of California (${date})",
+                    "title": "Median Incomes in Information Industry in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Information industry in Counties of California"
+            "title": "Median Incomes in Information Industry in Counties of California"
           },
           {
             "columns": [
@@ -665,7 +665,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income By Industry",
+        "name": "Individual Income by Industry",
         "types": [
           "Topic"
         ]

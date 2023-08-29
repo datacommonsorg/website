@@ -71,19 +71,23 @@
                       "Percent_Person_SleepLessThan7Hours",
                       "Percent_Person_Smoking"
                     ],
-                    "title": "Prevalence of Obesity and more in California",
+                    "title": "Prevalence of Obesity and More in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Related: Prevalence of Obesity and more"
+            "title": "Related: Prevalence of Obesity and More"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06"
                     ],
@@ -104,13 +108,13 @@
                       "Percent_Person_WithMentalHealthNotGood_multiple_place_bar_block",
                       "Percent_Person_WithStroke_multiple_place_bar_block"
                     ],
-                    "title": "Physical Health Issues and more in California (${date})",
+                    "title": "Physical Health Issues and More in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Related: Physical Health Issues and more"
+            "title": "Related: Physical Health Issues and More"
           }
         ],
         "statVarSpec": {

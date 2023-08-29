@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 import logging
+import re
 from typing import Dict, Set
 
 from server.config.subject_page_pb2 import Block
@@ -32,6 +33,23 @@ from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
 import server.lib.nl.fulfillment.utils as futils
 
+_SPECIAL_REPLACEMENTS = {
+    " A ": " a ",
+    " At ": " at ",
+    " By ": " by ",
+    " Of ": " of ",
+    " For ": " for ",
+    " In ": " in ",
+    " As ": " as ",
+    " Or ": " or ",
+    " On ": " on ",
+    " Is ": " is ",
+    " And ": " and ",
+    " To ": " to ",
+    " The ": " the ",
+    "Covid": "COVID",
+}
+
 
 # Config structures.
 @dataclass
@@ -40,6 +58,32 @@ class Config:
   sv_chart_titles: Dict
   nopc_vars: Set[str]
   sdg_percent_vars: Set[str]
+
+
+# Keep some special words as small case.
+def _replace_special(input_string_title_case: str) -> str:
+  input = input_string_title_case
+  for sr, sr_replace in _SPECIAL_REPLACEMENTS.items():
+    input = input.replace(sr, sr_replace)
+
+  # Replace " - " with "-" only if surrounded by a number
+  # on both sides.
+  matches = re.findall(r'\d+ - \d+', input)
+  for m in matches:
+    input = input.replace(m, m.replace(" ", ""))
+
+  return input
+
+
+def _make_title_case(input_string: str) -> str:
+  # Only title case those parts which aren't already capitalized.
+  # This is necessary for words like "GDP" do not become "Gdp".
+  # Note that we don't want to title-case words like "7th" etc.
+  output_str = ' '.join([
+      w.title() if (w.islower() and not w[0].isdigit()) else w
+      for w in input_string.split()
+  ])
+  return _replace_special(output_str)
 
 
 # A structure with maps from SV DCID to different things.
@@ -132,6 +176,9 @@ class Builder:
       footnote = self.sv2thing.footnote.get(cv.svs[0], '')
     elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
       title = self.sv2thing.name[cv.svs[0]] + ' and more'
+
+    # Make title case.
+    title = _make_title_case(title)
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
@@ -186,7 +233,8 @@ def decorate_block_title(title: str,
   if chart_origin == ChartOriginType.SECONDARY_CHART:
     title = 'Related: ' + title
 
-  return title
+  # Return in title case.
+  return _make_title_case(title)
 
 
 def decorate_chart_title(title: str,
@@ -208,11 +256,16 @@ def decorate_chart_title(title: str,
       else:
         title = title + ' in ' + place.name
 
+  # Use title case. Note, this needs to happend before
+  # the following line which could add '(${date})' where
+  # we don't want to capitalize 'date'.
+  title = _make_title_case(title)
+
   if add_date:
     title = title + ' (${date})'
 
   if title_suffix:
-    title += ' - ' + title_suffix
+    title += ' - ' + _make_title_case(title_suffix)
 
   return title
 

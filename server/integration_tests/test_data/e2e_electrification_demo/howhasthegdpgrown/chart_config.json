@@ -127,7 +127,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Absolute change)"
+            "title": "Increase in GDP (Nominal Value) Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -253,7 +253,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Percent change)"
+            "title": "Increase in GDP (Nominal Value) Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -379,7 +379,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in GDP (Nominal Value) over time (Per Capita change)"
+            "title": "Increase in GDP (Nominal Value) Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
@@ -471,14 +471,7 @@
     "childTopics": [
       {
         "dcid": "dc/topic/GDPByIndustry",
-        "name": "GDP By Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/InflationAdjustedGDP",
-        "name": "Inflation Adjusted GDP",
+        "name": "GDP by Industry",
         "types": [
           "Topic"
         ]
@@ -537,5 +530,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics based on the previous query."
 }

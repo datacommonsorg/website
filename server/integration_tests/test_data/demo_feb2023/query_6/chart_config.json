@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -117,7 +118,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Placer County",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -125,17 +126,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of Adults with Blood Pressure Who Take Medication in Placer County",
+                    "description": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults with Blood Pressure Who Take Medication in Placer County",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults with Blood Pressure Who Take Medication"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication"
           },
           {
             "columns": [
@@ -145,7 +146,7 @@
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (excluding skin cancer) in Placer County",
+                    "title": "Cancer (Excluding Skin Cancer) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -153,17 +154,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Cancer (excluding skin cancer) in Placer County",
+                    "description": "Cancer (Excluding Skin Cancer) in Placer County",
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
-                    "title": "Cancer (excluding skin cancer) in Placer County",
+                    "title": "Cancer (Excluding Skin Cancer) in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Cancer (excluding skin cancer)"
+            "title": "Cancer (Excluding Skin Cancer)"
           },
           {
             "columns": [
@@ -200,6 +201,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -228,6 +230,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -366,7 +369,7 @@
                     "statVarKey": [
                       "Count_Death_MentalBehaviouralDisorders"
                     ],
-                    "title": "Deaths Due To Mental And Behavioural Disorders in Placer County",
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -374,18 +377,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths Due To Mental And Behavioural Disorders in Placer County",
+                    "description": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "statVarKey": [
                       "Count_Death_MentalBehaviouralDisorders"
                     ],
-                    "title": "Deaths Due To Mental And Behavioural Disorders in Placer County",
+                    "title": "Deaths Due to Mental and Behavioural Disorders in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths Due To Mental And Behavioural Disorders"
+            "title": "Deaths Due to Mental and Behavioural Disorders"
           },
           {
             "columns": [
@@ -393,6 +396,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -672,5 +676,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics for Placer County based on the previous query."
+  "userMessage": "See relevant statistics for Placer County based on the previous query."
 }

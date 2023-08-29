@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
                       "wikidataId/Q1184",
@@ -23,14 +27,14 @@
                     "statVarKey": [
                       "Count_Death_Infant_multiple_place_bar_block"
                     ],
-                    "title": "Total number of infant deaths reported (${date})",
+                    "title": "Total Number of Infant Deaths Reported (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Total number of infant deaths reported"
+            "title": "Total Number of Infant Deaths Reported"
           }
         ],
         "statVarSpec": {
@@ -120,5 +124,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics based on the previous query."
+  "userMessage": "See relevant statistics based on the previous query."
 }

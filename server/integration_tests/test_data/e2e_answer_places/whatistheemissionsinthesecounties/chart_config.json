@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -48,6 +52,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -87,6 +95,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -116,6 +128,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -143,6 +159,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06063",
                       "geoId/06057",
@@ -167,6 +187,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -196,6 +220,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -225,6 +253,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -254,6 +286,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -283,6 +319,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -312,6 +352,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -341,6 +385,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06057",
                       "geoId/06005",
@@ -363,6 +411,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06057",
                       "geoId/06005",
@@ -386,6 +438,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -401,20 +457,24 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_CarbonMonoxide_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
+                    "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Non Road Engines And Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+            "title": "Annual Amount of Emissions: Non Road Engines and Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06009",
@@ -659,27 +719,6 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [
-      {
-        "dcid": "dc/topic/GreenhouseGasEmissions",
-        "name": "Greenhouse Gasses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/CO2Emissions",
-        "name": "Carbondioxide (CO2)",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Emissions_FlourinatedGases",
-        "name": "Flourinated Gas",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
         "name": "Methane",
@@ -929,20 +968,6 @@
       {
         "dcid": "dc/topic/LandUseAndCoverage",
         "name": "Land Use and Coverage",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/OceanHealth",
-        "name": "Ocean Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/ProductionConsumptionandWaste",
-        "name": "Production Consumption and Waste",
         "types": [
           "Topic"
         ]

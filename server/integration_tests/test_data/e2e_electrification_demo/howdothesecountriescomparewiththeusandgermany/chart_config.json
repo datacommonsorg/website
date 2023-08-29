@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -39,6 +43,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -57,19 +65,23 @@
                       "worldBank/EG_ELC_ACCS_UR_ZS_multiple_place_bar_block",
                       "worldBank/EG_ELC_ACCS_RU_ZS_multiple_place_bar_block"
                     ],
-                    "title": "Accesss To Electricty By Percentage Of Urban/Rural Population (${date})",
+                    "title": "Accesss to Electricty by Percentage of Urban/Rural Population (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Accesss To Electricty By Percentage Of Urban/Rural Population"
+            "title": "Accesss to Electricty by Percentage of Urban/Rural Population"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -95,6 +107,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -126,6 +142,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -156,6 +176,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -188,6 +212,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -219,6 +247,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -250,6 +282,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/USA",
                       "country/DEU",
@@ -474,7 +510,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/GlobalElectricityAccess",
-        "name": "Access To Electricity",
+        "name": "Access to Electricity",
         "types": [
           "Topic"
         ]

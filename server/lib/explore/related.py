@@ -18,6 +18,7 @@ import time
 from typing import Dict, List
 
 from server.lib.explore.params import DCNames
+from server.lib.explore.params import is_sdg
 from server.lib.explore.params import Params
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
@@ -89,6 +90,9 @@ def compute_related_things(state: ftypes.PopulateState,
       # We found a topic, so break!
       break
 
+  if not is_sdg(state.uttr.insight_ctx):
+    related_things = prune_related_topics(related_things, state.uttr)
+
   state.uttr.counters.timeit('topic_expansion', start)
 
   _trim_dups(related_things)
@@ -109,6 +113,28 @@ def _trim_dups(related_things: Dict):
       added.add(it['dcid'])
       k_list.append(it)
     related_things[k] = k_list
+
+
+def prune_related_topics(related_things, uttr):
+  # Check the data existence for related topics
+  all_topics = list(
+      set(([x['dcid'] for x in related_things['parentTopics']] +
+           [x['dcid'] for x in related_things['peerTopics']] +
+           [x['dcid'] for x in related_things['childTopics']])))
+
+  valid_topics, _ = utils.sv_existence_for_places([x.dcid for x in uttr.places],
+                                                  all_topics, uttr.counters)
+  valid_topics_set = set(valid_topics)
+  related_things['parentTopics'] = [
+      t for t in related_things['parentTopics'] if t['dcid'] in valid_topics_set
+  ]
+  related_things['peerTopics'] = [
+      t for t in related_things['peerTopics'] if t['dcid'] in valid_topics_set
+  ]
+  related_things['childTopics'] = [
+      t for t in related_things['childTopics'] if t['dcid'] in valid_topics_set
+  ]
+  return related_things
 
 
 def _node_to_topic_dict(n: Node, dc: str) -> Dict:

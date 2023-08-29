@@ -270,4 +270,4 @@ class IntegrationTest(NLWebServerTestCase):
     # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
-                      failure='inappropriate words')
+                      failure='could not complete')

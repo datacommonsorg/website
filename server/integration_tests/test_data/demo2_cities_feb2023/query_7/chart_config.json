@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -36,6 +40,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -64,6 +72,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -78,20 +90,24 @@
                     "statVarKey": [
                       "WHO/SA_0000001432_multiple_place_bar_block"
                     ],
-                    "title": "Prematurity And Low Birth Rate, Per 100,000 (${date})",
+                    "title": "Prematurity and Low Birth Rate, Per 100,000 (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -106,20 +122,24 @@
                     "statVarKey": [
                       "WHO/SA_0000001451_multiple_place_bar_block"
                     ],
-                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 (${date})",
+                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -148,6 +168,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -176,6 +200,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "country/DZA",
                       "country/MAR",
@@ -192,13 +220,13 @@
                       "WHO/MORT_MATERNALNUM_multiple_place_bar_block",
                       "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Number Of Maternal Deaths and more (${date})",
+                    "title": "Number of Maternal Deaths and More (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Number Of Maternal Deaths and more"
+            "title": "Number of Maternal Deaths and More"
           }
         ],
         "statVarSpec": {

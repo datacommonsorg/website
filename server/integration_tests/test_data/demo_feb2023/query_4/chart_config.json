@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
@@ -139,7 +140,7 @@
                     "statVarKey": [
                       "dc/nfdf9rt7kbggb"
                     ],
-                    "title": "Population: Worked At Home, Management, Business, Science, And Arts Occupations in Placer County",
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -147,18 +148,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Worked At Home, Management, Business, Science, And Arts Occupations in Placer County",
+                    "description": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Placer County",
                     "statVarKey": [
                       "dc/nfdf9rt7kbggb"
                     ],
-                    "title": "Population: Worked At Home, Management, Business, Science, And Arts Occupations in Placer County",
+                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Management, Business, Science, And Arts Occupations"
+            "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations"
           },
           {
             "columns": [
@@ -197,7 +198,7 @@
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales And Office Occupations in Placer County",
+                    "title": "Population: Worked at Home, Sales and Office Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -205,18 +206,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Worked At Home, Sales And Office Occupations in Placer County",
+                    "description": "Population: Worked at Home, Sales and Office Occupations in Placer County",
                     "statVarKey": [
                       "dc/7wt44yv38rew"
                     ],
-                    "title": "Population: Worked At Home, Sales And Office Occupations in Placer County",
+                    "title": "Population: Worked at Home, Sales and Office Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Sales And Office Occupations"
+            "title": "Population: Worked at Home, Sales and Office Occupations"
           },
           {
             "columns": [
@@ -226,7 +227,7 @@
                     "statVarKey": [
                       "dc/dn2h9yfcgbkg2"
                     ],
-                    "title": "Population: Worked At Home, Service Occupations in Placer County",
+                    "title": "Population: Worked at Home, Service Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -234,18 +235,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Worked At Home, Service Occupations in Placer County",
+                    "description": "Population: Worked at Home, Service Occupations in Placer County",
                     "statVarKey": [
                       "dc/dn2h9yfcgbkg2"
                     ],
-                    "title": "Population: Worked At Home, Service Occupations in Placer County",
+                    "title": "Population: Worked at Home, Service Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Service Occupations"
+            "title": "Population: Worked at Home, Service Occupations"
           },
           {
             "columns": [
@@ -284,7 +285,7 @@
                     "statVarKey": [
                       "dc/cs8fvwkmpmlpg"
                     ],
-                    "title": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations in Placer County",
+                    "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -292,18 +293,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations in Placer County",
+                    "description": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in Placer County",
                     "statVarKey": [
                       "dc/cs8fvwkmpmlpg"
                     ],
-                    "title": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations in Placer County",
+                    "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Worked At Home, Production, Transportation, And Material Moving Occupations"
+            "title": "Population: Worked at Home, Production, Transportation, and Material Moving Occupations"
           },
           {
             "columns": [
@@ -313,7 +314,7 @@
                     "statVarKey": [
                       "dc/j7pej9wer7lkd"
                     ],
-                    "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -321,18 +322,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "description": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "statVarKey": [
                       "dc/j7pej9wer7lkd"
                     ],
-                    "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, And Maintenance Occupations"
+            "title": "Population: Car Truck or Van Carpooled, Natural Resources, Construction, and Maintenance Occupations"
           },
           {
             "columns": [
@@ -371,7 +372,7 @@
                     "statVarKey": [
                       "dc/n99t0lnl3fch6"
                     ],
-                    "title": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "title": "Population: Walked, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -379,18 +380,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "description": "Population: Walked, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "statVarKey": [
                       "dc/n99t0lnl3fch6"
                     ],
-                    "title": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations in Placer County",
+                    "title": "Population: Walked, Natural Resources, Construction, and Maintenance Occupations in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Walked, Natural Resources, Construction, And Maintenance Occupations"
+            "title": "Population: Walked, Natural Resources, Construction, and Maintenance Occupations"
           }
         ],
         "statVarSpec": {
@@ -546,5 +547,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in this query. See relevant statistics for Placer County based on the previous query."
+  "userMessage": "See relevant statistics for Placer County based on the previous query."
 }

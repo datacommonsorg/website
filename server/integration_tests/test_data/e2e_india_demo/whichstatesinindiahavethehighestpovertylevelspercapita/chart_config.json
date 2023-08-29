@@ -137,7 +137,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -148,7 +148,7 @@
                     "statVarKey": [
                       "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Rural residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -156,7 +156,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Rural residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
+            "title": "Rural Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -170,7 +170,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
+                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -181,7 +181,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India (${date})",
+                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -189,7 +189,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Urban residents, Below Poverty Level in The Past 12 Months in Administrative Area 1 Places of India"
+            "title": "Urban Residents, Below Poverty Level in the Past 12 Months in Administrative Area 1 Places of India"
           },
           {
             "columns": [
@@ -199,7 +199,7 @@
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban residents, Below Poverty Level in The Past 12 Months in India",
+                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
                     "type": "LINE"
                   }
                 ]
@@ -207,11 +207,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Urban residents, Below Poverty Level in The Past 12 Months in India",
+                    "description": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
                     "statVarKey": [
                       "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Urban residents, Below Poverty Level in The Past 12 Months in India",
+                    "title": "Urban Residents, Below Poverty Level in the Past 12 Months in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -219,7 +219,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Impoverished Population By Residency"
+            "title": "Impoverished Population by Residency"
           },
           {
             "columns": [
@@ -275,7 +275,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line by age"
+            "title": "Population Below International Poverty Line by Age"
           },
           {
             "columns": [
@@ -303,7 +303,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line by gender"
+            "title": "Population Below International Poverty Line by Gender"
           },
           {
             "columns": [
@@ -331,7 +331,7 @@
                 ]
               }
             ],
-            "title": "Population below international poverty line in rural vs. urban areas"
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
           }
         ],
         "statVarSpec": {
@@ -662,36 +662,8 @@
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SDG_1",
-        "name": "",
+        "name": "Poverty by Residency",
         "types": [
           "Topic"
         ]
@@ -847,43 +819,8 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
         "types": [
           "Topic"
         ]
