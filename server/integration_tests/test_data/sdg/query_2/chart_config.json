@@ -126,7 +126,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line over time (Absolute change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -251,7 +251,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line over time (Percent change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {

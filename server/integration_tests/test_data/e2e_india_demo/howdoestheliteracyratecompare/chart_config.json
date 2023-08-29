@@ -28,14 +28,14 @@
                       "Count_Person_Literate_multiple_place_bar_block",
                       "Count_Person_Illiterate_multiple_place_bar_block"
                     ],
-                    "title": "Population: Literate and more (${date})",
+                    "title": "Population: Literate and More (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Literate and more"
+            "title": "Population: Literate and More"
           },
           {
             "columns": [

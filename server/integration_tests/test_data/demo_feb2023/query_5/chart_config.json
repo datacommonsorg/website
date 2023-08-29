@@ -99,7 +99,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_abs"
                     ],
-                    "title": "Other Services (except Public Admin) in Placer County",
+                    "title": "Other Services (Except Public Admin) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -172,7 +172,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Categories of Jobs over time (Absolute change)"
+            "title": "Increase in Categories of Jobs Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -292,7 +292,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_pct"
                     ],
-                    "title": "Other Services (except Public Admin) in Placer County",
+                    "title": "Other Services (Except Public Admin) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -343,7 +343,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Categories of Jobs over time (Percent change)"
+            "title": "Increase in Categories of Jobs Over Time (Percent Change)"
           },
           {
             "columns": [
@@ -441,7 +441,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_pc"
                     ],
-                    "title": "Other Services (except Public Admin) in Placer County",
+                    "title": "Other Services (Except Public Admin) in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -514,7 +514,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Increase in Categories of Jobs over time (Per Capita change)"
+            "title": "Increase in Categories of Jobs Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
