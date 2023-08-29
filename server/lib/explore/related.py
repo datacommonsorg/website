@@ -19,6 +19,7 @@ from typing import Dict, List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
+from server.lib.explore.params import is_sdg
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as utils
 import server.lib.nl.detection.types as dtypes
@@ -89,7 +90,7 @@ def compute_related_things(state: ftypes.PopulateState,
       # We found a topic, so break!
       break
 
-  if dc != "sdg":
+  if not is_sdg(state.uttr.insight_ctx):
     related_things = prune_related_topics(related_things, state.uttr)
 
   state.uttr.counters.timeit('topic_expansion', start)
