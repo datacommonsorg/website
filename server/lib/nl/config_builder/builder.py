@@ -178,14 +178,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
                                     sv2thing=sv2thing))
 
     elif cspec.chart_type == ChartType.SCATTER_CHART:
-      block = builder.new_chart(cspec, skip_title=True)
-      stat_var_spec_map = scatter.scatter_chart_block(
-          column=block.columns.add(),
-          pri_place=cspec.places[0],
-          sv_pair=cspec.svs,
-          child_type=cspec.place_type,
-          sv2thing=sv2thing,
-          nopc_vars=config.nopc_vars)
+      stat_var_spec_map = scatter.scatter_chart_block(builder, cspec)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and config.event_config:
       block = builder.new_chart(cspec, skip_title=True)

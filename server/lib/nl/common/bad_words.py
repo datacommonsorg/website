@@ -47,6 +47,5 @@ def load_bad_words() -> Set[str]:
 def is_safe(query: str, bad_words: Set[str]) -> bool:
   for w in query.split():
     if w.strip() in bad_words:
-      logging.info(f'Found an inappropriate word {w} in {query}')
       return False
   return True
