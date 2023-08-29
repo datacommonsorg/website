@@ -206,60 +206,75 @@ while [[ "$#" -gt 0 ]]; do
     -p)
         echo -e "### Running server tests"
         run_py_test
+        shift 1
         ;;
     -w)
         echo -e "### Running webdriver tests"
         run_webdriver_test
+        shift 1
         ;;
     --explore)
         echo --explore "### Running explore page integration tests"
         run_integration_test explore_test.py
+        shift 1
         ;;
     --nl)
         echo --nl "### Running nl page integration tests"
         run_integration_test nl_test.py
+        shift 1
         ;;
     --explore)
         echo --explore "### Running explore page integration tests"
         run_integration_test explore_test.py
+        shift 1
         ;;
     --nodejs)
         echo --nl "### Running nodejs integration tests"
         run_integration_test nodejs_e2e_test.py
+        shift 1
         ;;
     -g)
         echo -e "### Updating integration test goldens"
         update_integration_test_golden
+        shift 1
         ;;
     -o)
         echo -e "### Production flag enabled"
         PROD=true
+        shift 1
         ;;
     -b)
         echo -e "### Build client-side packages"
         run_npm_build $PROD
+        shift 1
         ;;
     -l)
         echo -e "### Running lint"
         run_npm_lint_test
+        shift 1
         ;;
     -c)
         echo -e "### Running client tests"
         run_npm_test
+        shift 1
         ;;
     -s)
         echo -e "### Running screenshot tests"
         run_screenshot_test
+        shift 1
         ;;
     -f)
         echo -e "### Fix lint errors"
         run_lint_fix
+        shift 1
         ;;
     -a)
         echo -e "### Running all tests"
         run_all_tests
+        shift 1
         ;;
     *)
         help
+        exit 1
     esac
 done
