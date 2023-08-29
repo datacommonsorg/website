@@ -16,7 +16,6 @@
 from typing import Dict, List
 
 from flask import current_app
-from markupsafe import escape
 
 from server.lib.nl.common import serialize
 from server.lib.nl.common import utils
@@ -73,12 +72,9 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
   #
   # Heuristic detection.
   #
-  heuristic_detection = heuristic_detector.detect(place_detector_type,
-                                                  str(escape(original_query)),
-                                                  no_punct_query,
-                                                  embeddings_index_type,
-                                                  query_detection_debug_logs,
-                                                  counters)
+  heuristic_detection = heuristic_detector.detect(
+      place_detector_type, original_query, no_punct_query,
+      embeddings_index_type, query_detection_debug_logs, counters)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
