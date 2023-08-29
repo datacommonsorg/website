@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/12"
                     ],
@@ -553,5 +557,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "PAST_QUERY"
+  "svSource": "PAST_QUERY",
+  "userMessage": "See relevant statistics based on the previous query."
 }

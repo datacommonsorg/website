@@ -2506,3 +2506,87 @@ Age-standardized prevalence of current tobacco use among persons aged 15 years a
 ,worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,,Total Electricity Output (GWh),,Total Electricity Output (GWh)
 ,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,,Renewable Electricity Output (GWh),,Renewable Electricity Output (GWh)
 ,Count_School_SeniorSecondarySchool_Grade1To10,,Number of Secondary Schools,,Number of Secondary Schools
+,Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome,,African Languages Spoken At Home,,African language spoken at home
+,Count_Person_5OrMoreYears_AmharicSomaliOrOtherAfroAsiaticLanguagesSpokenAtHome,,Amharic Somali Or Other Afro Asiatic Languages Spoken At Home,,Amharic Somali Or Other Afro Asiatic Languages Spoken At Home
+,Count_Person_5OrMoreYears_ArabicSpokenAtHome,,Arabic Spoken At Home,,Arabic spoken at home
+,Count_Person_5OrMoreYears_ArmenianSpokenAtHome,,Armenian Spoken At Home,,Armenian spoken at home
+,Count_Person_5OrMoreYears_BengaliSpokenAtHome,,Bengali Spoken At Home,,Bengali spoken at home
+,Count_Person_5OrMoreYears_ChineseInclMandarinCantoneseSpokenAtHome,,Chinese Incl Mandarin Cantonese Spoken At Home,,Chinese Incl Mandarin Cantonese Spoken At Home
+,Count_Person_5OrMoreYears_ChineseSpokenAtHome,,Chinese Spoken At Home,,Chinese spoken at home
+,Count_Person_5OrMoreYears_FrenchCreoleSpokenAtHome,,French Creole Spoken At Home,,French Creole Spoken At Home
+,Count_Person_5OrMoreYears_FrenchInclCajunSpokenAtHome,,French Incl Cajun Spoken At Home,,French Incl Cajun Spoken At Home
+,Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome,,French Incl Patois Cajun Spoken At Home,,French (incl. Patois Cajun) spoken at home
+,Count_Person_5OrMoreYears_GermanSpokenAtHome,,German Spoken At Home,,German spoken at home
+,Count_Person_5OrMoreYears_GreekSpokenAtHome,,Greek Spoken At Home,,Greek spoken at home
+,Count_Person_5OrMoreYears_GujaratiSpokenAtHome,,Gujarati Spoken At Home,,Gujarati spoken at home
+,Count_Person_5OrMoreYears_HaitianSpokenAtHome,,Haitian Spoken At Home,,Haitian spoken at home
+,Count_Person_5OrMoreYears_HebrewSpokenAtHome,,Hebrew Spoken At Home,,Hebrew spoken at home
+,Count_Person_5OrMoreYears_HindiSpokenAtHome,,Hindi Spoken At Home,,Hindi spoken at home
+,Count_Person_5OrMoreYears_HmongSpokenAtHome,,Hmong Spoken At Home,,Hmong Spoken At Home
+,Count_Person_5OrMoreYears_HungarianSpokenAtHome,,Hungarian Spoken At Home,,Hungarian spoken at home
+,Count_Person_5OrMoreYears_IlocanoSamoanHawaiianOrOtherAustronesianLanguagesSpokenAtHome,,Ilocano Samoan Hawaiian Or Other Austronesian Languages Spoken At Home,,Ilocano Samoan Hawaiian Or Other Austronesian Languages Spoken At Home
+,Count_Person_5OrMoreYears_ItalianSpokenAtHome,,Italian Spoken At Home,,Italian spoken at home
+,Count_Person_5OrMoreYears_JapaneseSpokenAtHome,,Japanese Spoken At Home,,Japanese spoken at home
+,Count_Person_5OrMoreYears_KhmerSpokenAtHome,,Khmer Spoken At Home,,Khmer spoken at home
+,Count_Person_5OrMoreYears_KoreanSpokenAtHome,,Korean Spoken At Home,,Korean spoken at home
+,Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome,,Language Other Than English Spoken At Home,,Some language other than English spoken at home
+,Count_Person_5OrMoreYears_LaotianSpokenAtHome,,Laotian Spoken At Home,,Laotian Spoken At Home
+,Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome,,Malayalam Kannada Or Other Dravidian Languages Spoken At Home,,Malayalam Kannada Or Other Dravidian Languages Spoken At Home
+,Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome,,Mon Khmer Cambodian Spoken At Home,,Mon Khmer Cambodian Spoken At Home
+,Count_Person_5OrMoreYears_NavajoSpokenAtHome,,Navajo Spoken At Home,,Navajo Spoken At Home
+,Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome,,Nepali Marathi Or Other Indic Languages Spoken At Home,,Nepali Marathi Or Other Indic Languages Spoken At Home
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome,,English Spoken At Home,,English Spoken At Home
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months,,"English Spoken At Home, Above Poverty Line",,"English Spoken At Home, Above Poverty Line"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months,,"English Spoken At Home, Below Poverty Line",,"Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ForeignBorn,,"English  Spoken At Home, Foreign Born",,"English  Spoken At Home, Foreign Born"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_Native,,Only Native English Spoken At Home,,Only Native English Spoken At Home
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_PovertyStatusDetermined,,English Spakers Poverty Status Determined,,English Spakers Poverty Status Determined
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInAdultCorrectionalFacilities,,"English Spoken At Home, Residing In Adult Correctional Facilities",,"English Spoken At Home, Residing In Adult Correctional Facilities"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInCollegeOrUniversityStudentHousing,,"English Spoken At Home, Residing In College Or University Student Housing",,"English Spoken At Home, Residing In College Or University Student Housing"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInGroupQuarters,,"English Spoken At Home, Residing In Group Quarters",,"English Spoken At Home, Residing In Group Quarters"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInInstitutionalizedGroupQuarters,,"English Spoken At Home, Residing In Institutionalized Group Quarters",,"English Spoken At Home, Residing In Institutionalized Group Quarters"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInNoninstitutionalizedGroupQuarters,,"English Spoken At Home, Residing In Noninstitutionalized Group Quarters",,"English Spoken At Home, Residing In Noninstitutionalized Group Quarters"
+,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_ResidesInNursingFacilities,,"English Spoken At Home, Residing In Nursing Facilities",,"English Spoken At Home, Residing In Nursing Facilities"
+,Count_Person_5OrMoreYears_OtherAndUnspecifiedLanguagesSpokenAtHome,,Unspecified Languages Spoken At Home,,Unspecified Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherAsianLanguagesSpokenAtHome,,Other Asian Languages Spoken At Home,,Other Asian Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherIndicLanguagesSpokenAtHome,,Other Indic Languages Spoken At Home,,Other Indic Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherLanguagesOfAsiaSpokenAtHome,,Other Languages Of Asia Spoken At Home,,Other Languages Of Asia Spoken At Home
+,Count_Person_5OrMoreYears_OtherNativeLanguagesOfNorthAmericaSpokenAtHome,,Other Native Languages Of North America Spoken At Home,,Other Native Languages Of North America Spoken At Home
+,Count_Person_5OrMoreYears_OtherNativeNorthAmericanLanguagesSpokenAtHome,,Other Native North American Languages Spoken At Home,,Other Native North American Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherPacificIslandLanguagesSpokenAtHome,,Other Pacific Island Languages Spoken At Home,,Other Pacific Island Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherSlavicLanguagesSpokenAtHome,,Other Slavic Languages Spoken At Home,,Other Slavic Languages Spoken At Home
+,Count_Person_5OrMoreYears_OtherWestGermanicLanguagesSpokenAtHome,,Other West Germanic Languages Spoken At Home,,Other West Germanic Languages Spoken At Home
+,Count_Person_5OrMoreYears_PersianInclFarsiDariSpokenAtHome,,Persian Incl Farsi Dari Spoken At Home,,Persian Incl Farsi Dari Spoken At Home
+,Count_Person_5OrMoreYears_PersianSpokenAtHome,,Persian Spoken At Home,,Persian Spoken At Home
+,Count_Person_5OrMoreYears_PolishSpokenAtHome,,Polish Spoken At Home,,Polish Spoken At Home
+,Count_Person_5OrMoreYears_PortugueseOrPortugueseCreoleSpokenAtHome,,Portuguese Or Portuguese Creole Spoken At Home,,Portuguese Or Portuguese Creole Spoken At Home
+,Count_Person_5OrMoreYears_PortugueseSpokenAtHome,,Portuguese Spoken At Home,,Portuguese Spoken At Home
+,Count_Person_5OrMoreYears_PunjabiSpokenAtHome,,Punjabi Spoken At Home,,Punjabi Spoken At Home
+,Count_Person_5OrMoreYears_ResidesInHousehold,,Resides In HouseholdSpoken At Home,,Resides In HouseholdSpoken At Home
+,Count_Person_5OrMoreYears_RussianSpokenAtHome,,Russian Spoken At Home,,Russian Spoken At Home
+,Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome,,Scandinavian Languages Spoken At Home,,Scandinavian Languages Spoken At Home
+,Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome,,Serbo Croatian Spoken At Home,,Serbo Croatian Spoken At Home
+,Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_AbovePovertyLevelInThePast12Months,,"Spanish Or Spanish Creole Spoken At Home, Above Poverty Line",,"Spanish Or Spanish Creole Spoken At Home, Above Poverty Line"
+,Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months,,"Spanish Or Spanish Creole Spoken At Home, Below Poverty Line",,"Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months"
+,Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_ForeignBorn,,"Spanish Or Spanish Creole Spoken At Home, Foreign Born",,"Spanish Or Spanish Creole Spoken At Home, Foreign Born"
+,Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_Native,,"Spanish Or Spanish Creole Spoken At Home, Native",,"Spanish Or Spanish Creole Spoken At Home, Native"
+,Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_PovertyStatusDetermined,,"Spanish Or Spanish Creole Spoken At Home, Poverty Status Determined",,"Spanish Or Spanish Creole Spoken At Home, Poverty Status Determined"
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome,,Spanish Spoken At Home,,Spanish Spoken At Home
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome_AbovePovertyLevelInThePast12Months,,"Spanish Spoken At Home,  Above Poverty Line",,"Spanish Spoken At Home,  Above Poverty Line"
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months,,"Spanish Spoken At Home, Below Poverty Line",,"Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months"
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn,,"Spanish Spoken At Home, Foreign Born",,"Spanish Spoken At Home, Foreign Born"
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome_Native,,"Spanish Spoken At Home, Native",,"Spanish Spoken At Home, Native"
+,Count_Person_5OrMoreYears_SpanishSpokenAtHome_PovertyStatusDetermined,,"Spanish Spoken At Home, Poverty Status Determined",,"Spanish Spoken At Home, Poverty Status Determined"
+,Count_Person_5OrMoreYears_SwahiliOrOtherLanguagesOfCentralEasternAndSouthernAfricaSpokenAtHome,,Swahili Or Other Central Eastern And Southern Africa Languages Spoken At Home,,Swahili Or Other Central Eastern And Southern Africa Languages Spoken At Home
+,Count_Person_5OrMoreYears_TagalogInclFilipinoSpokenAtHome,,Tagalog Incl Filipino Spoken At Home,,Tagalog Incl Filipino Spoken At Home
+,Count_Person_5OrMoreYears_TagalogSpokenAtHome,,Tagalog Spoken At Home,,Tagalog Spoken At Home
+,Count_Person_5OrMoreYears_TamilSpokenAtHome,,Tamil Spoken At Home,,Tamil Spoken At Home
+,Count_Person_5OrMoreYears_TeluguSpokenAtHome,,Telugu Spoken At Home,,Telugu Spoken At Home
+,Count_Person_5OrMoreYears_ThaiLaoOrOtherTaiKadaiLanguagesSpokenAtHome,,Thai Lao Or Other Tai Kadai Languages Spoken At Home,,Thai Lao Or Other Tai Kadai Languages Spoken At Home
+,Count_Person_5OrMoreYears_ThaiSpokenAtHome,,Thai Spoken At Home,,Thai Spoken At Home
+,Count_Person_5OrMoreYears_UkrainianOrOtherSlavicLanguagesSpokenAtHome,,Ukrainian Or Other Slavic Languages Spoken At Home,,Ukrainian Or Other Slavic Languages Spoken At Home
+,Count_Person_5OrMoreYears_UrduSpokenAtHome,,Urdu Spoken At Home,,Urdu Spoken At Home
+,Count_Person_5OrMoreYears_VietnameseSpokenAtHome,,Vietnamese Spoken At Home,,Vietnamese Spoken At Home
+,Count_Person_5OrMoreYears_YiddishPennsylvaniaDutchOrOtherWestGermanicLanguagesSpokenAtHome,,Yiddish Pennsylvania Dutch Or Other West Germanic Languages Spoken At Home,,Yiddish Pennsylvania Dutch Or Other West Germanic Languages Spoken At Home
+,Count_Person_5OrMoreYears_YiddishSpokenAtHome,,Yiddish Spoken At Home,,Yiddish Spoken At Home
+,Count_Person_5OrMoreYears_YorubaTwiIgboOrOtherLanguagesOfWesternAfricaSpokenAtHome,,Yoruba Twi Igbo Or Other Languages Of Western Africa Spoken At Home,,Yoruba Twi Igbo Or Other Languages Of Western Africa Spoken At Home

@@ -166,9 +166,9 @@ export function Block(props: BlockPropType): JSX.Element {
     const columns = columnSectionRef.current.getElementsByClassName(
       HIDE_COLUMN_CLASS
     ) as HTMLCollectionOf<HTMLElement>;
-    for (let i = 0; i < columns.length; i++) {
-      columns[i].classList.remove(HIDE_COLUMN_CLASS);
-    }
+    Array.from(columns).forEach((column) => {
+      column.classList.remove(HIDE_COLUMN_CLASS);
+    });
     expandoRef.current.hidden = true;
   }
 }

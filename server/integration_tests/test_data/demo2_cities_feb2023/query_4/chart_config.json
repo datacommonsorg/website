@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0665028",
                       "geoId/0677000"
@@ -34,6 +38,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0665028",
                       "geoId/0677000"
@@ -60,6 +68,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0665028",
                       "geoId/0677000"
@@ -86,6 +98,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0665028",
                       "geoId/0677000"
@@ -112,6 +128,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0665028",
                       "geoId/0677000"
@@ -287,5 +307,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "PAST_QUERY"
+  "svSource": "PAST_QUERY",
+  "userMessage": "See comparisons with San Bruno and Sunnyvale based on the previous query."
 }

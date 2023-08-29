@@ -85,7 +85,7 @@
                     "statVarKey": [
                       "Count_Person_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "title": "Population: 16-64 Years, Did Not Work in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -93,18 +93,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "description": "Population: 16-64 Years, Did Not Work in Washington",
                     "statVarKey": [
                       "Count_Person_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Did Not Work in Washington",
+                    "title": "Population: 16-64 Years, Did Not Work in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 - 64 Years, Did Not Work"
+            "title": "Population: 16-64 Years, Did Not Work"
           },
           {
             "columns": [
@@ -114,7 +114,7 @@
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "type": "LINE"
                   }
                 ]
@@ -122,18 +122,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "description": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "statVarKey": [
                       "Count_Person_Male_DidNotWork"
                     ],
-                    "title": "Population: 16 - 64 Years, Male, Did Not Work in Washington",
+                    "title": "Population: 16-64 Years, Male, Did Not Work in Washington",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 16 - 64 Years, Male, Did Not Work"
+            "title": "Population: 16-64 Years, Male, Did Not Work"
           },
           {
             "columns": [
@@ -241,5 +241,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

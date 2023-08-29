@@ -117,13 +117,12 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 #
 # Constructor a Detection object given DCID inputs.
 #
-def construct(entities: List[str], vars: List[str], child_type: str,
-              cmp_entities: List[str], cmp_vars: List[str],
-              in_classifications: List[Dict], debug_logs: Dict,
-              counters: Counters) -> types.Detection:
+def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
+                          cmp_entities: List[str], cmp_vars: List[str],
+                          in_classifications: List[Dict], debug_logs: Dict,
+                          counters: Counters) -> types.Detection:
   all_entities = entities + cmp_entities
-  parent_map = {p: [] for p in all_entities}
-  places = place.get_place_from_dcids(all_entities, debug_logs, parent_map)
+  places, parent_map = place.get_place_from_dcids(all_entities, debug_logs)
   if not places:
     counters.err('failed_detection_unabletofinddcids', all_entities)
     return None, 'No places found in the query!'
@@ -181,24 +180,15 @@ def construct(entities: List[str], vars: List[str], child_type: str,
           ])))
 
   main_dcid = places[0].dcid
-  child_places = []
-  if child_type:
-    child_places = utils.get_all_child_places(main_dcid, child_type.value,
-                                              counters)
-    child_places = child_places[:MAX_CHILD_LIMIT]
-
-  peer_places = []
-  if not cmp_entities:
-    peer_places = get_similar(places[0])
-
   place_detection = PlaceDetection(query_original=query,
                                    query_without_place_substr=var_query,
                                    query_places_mentioned=all_entities,
                                    places_found=places,
                                    main_place=places[0],
                                    parent_places=parent_map.get(main_dcid, []),
-                                   peer_places=peer_places,
-                                   child_places=child_places)
+                                   peer_places=[],
+                                   child_places=[])
+  add_child_and_peer_places(places, child_type, counters, place_detection)
 
   if not cmp_entities and cmp_vars:
     # Multi SV case.
@@ -222,3 +212,54 @@ def construct(entities: List[str], vars: List[str], child_type: str,
                          classifications=classifications,
                          detector=ActualDetectorType.NOP,
                          place_detector=PlaceDetectorType.NOP), None
+
+
+# In this flow, we already have the Utterance with detection, just set it up
+# for explore flow.  This involves:
+# (1) Setting default child-type.
+# (2) Setting child and peer places.
+def setup_for_explore(uttr: Utterance):
+  if not uttr.places:
+    return
+  main_place = uttr.places[0]
+
+  had_default_type = False
+  child_type = utils.get_contained_in_type(uttr)
+  if not child_type or child_type == types.ContainedInPlaceType.DEFAULT_TYPE:
+    child_type = utils.get_default_child_place_type(main_place)
+    had_default_type = True
+
+  if child_type:
+    # This is important so that the child places correspond to AA1/AA2 regardless
+    # of what the user has asked for (district, state)
+    child_type = utils.admin_area_equiv_for_place(child_type, main_place)
+    cls = [
+        types.NLClassifier(type=types.ClassificationType.CONTAINED_IN,
+                           attributes=types.ContainedInClassificationAttributes(
+                               contained_in_place_type=child_type,
+                               had_default_type=had_default_type))
+    ]
+    cls.extend(
+        utils.trim_classifications(uttr.classifications,
+                                   set([types.ClassificationType.CONTAINED_IN
+                                       ])))
+    uttr.classifications = cls
+
+  add_child_and_peer_places(uttr.places, child_type, uttr.counters,
+                            uttr.detection.places_detected)
+
+
+def add_child_and_peer_places(places: List[types.Place],
+                              child_type: types.ContainedInPlaceType,
+                              counters: Counters, detection: PlaceDetection):
+  if not places or len(places) > 1:
+    return
+
+  main_dcid = places[0].dcid
+  child_places = []
+  if child_type and child_type.value != places[0].place_type:
+    child_places = utils.get_all_child_places(main_dcid, child_type.value,
+                                              counters)
+    detection.child_places = child_places[:MAX_CHILD_LIMIT]
+
+  detection.peer_places = get_similar(places[0])

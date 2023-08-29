@@ -37,6 +37,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/0677000"
                     ],
@@ -51,14 +55,14 @@
                       "dc/qvf1yrhwzp8rd_multiple_place_bar_block",
                       "dc/zvr6djt1p9gj3_multiple_place_bar_block"
                     ],
-                    "title": "Students In Middle School By Race in Sunnyvale (${date})",
+                    "title": "Students in Middle School by Race in Sunnyvale (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Students In Middle School By Race"
+            "title": "Students in Middle School by Race"
           },
           {
             "columns": [
@@ -213,7 +217,7 @@
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -221,18 +225,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: 7th And 8th Grade in Sunnyvale",
+                    "description": "Population: 7th and 8th Grade in Sunnyvale",
                     "statVarKey": [
                       "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
                     ],
-                    "title": "Population: 7th And 8th Grade in Sunnyvale",
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 7th And 8th Grade"
+            "title": "Population: 7th and 8th Grade"
           }
         ],
         "statVarSpec": {
@@ -327,5 +331,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

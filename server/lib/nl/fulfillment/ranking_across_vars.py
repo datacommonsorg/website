@@ -67,7 +67,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if not eres.exist_svs:
     state.uttr.counters.err('ranking_across_vars_failed_existence', 1)
     return False
-  # TODO: Add limit back after chart-config supports it natively.
   chart_vars.svs = eres.exist_svs
 
   return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,

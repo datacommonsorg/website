@@ -102,7 +102,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line over time (Absolute change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -203,7 +203,7 @@
                 ]
               }
             ],
-            "title": "Decrease in Population Below International Poverty Line over time (Percent change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
@@ -233,7 +233,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "PAST_ANSWER",
   "places": [
     {
       "dcid": "country/USA",
@@ -291,35 +291,21 @@
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
+        "name": "Poverty by Gender",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SDG_1",
-        "name": "",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]
@@ -391,5 +377,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparison based on places in the previous answer."
 }

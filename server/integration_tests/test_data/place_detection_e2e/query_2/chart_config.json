@@ -22,7 +22,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000 - 99,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 50,000-99,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -33,7 +33,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100,000 - 199,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 100,000-199,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue200000To299999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 200,000 - 299,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,7 +55,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue300000To499999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 300,000 - 499,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 300,000-499,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -66,7 +66,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue500000To999999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 500,000 - 999,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 500,000-999,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -455,5 +455,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

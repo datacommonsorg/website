@@ -60,7 +60,7 @@
                 ]
               }
             ],
-            "title": "Causes Of Death in the World"
+            "title": "Causes of Death in the World"
           },
           {
             "columns": [
@@ -81,7 +81,7 @@
                     "statVarKey": [
                       "WHO/WHS4_128"
                     ],
-                    "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -99,7 +99,7 @@
               }
             ],
             "denom": "Count_Person",
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and more in the World"
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
           },
           {
             "columns": [
@@ -227,5 +227,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

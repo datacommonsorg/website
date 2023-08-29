@@ -77,9 +77,9 @@ export function Column(props: ColumnPropType): JSX.Element {
     const tiles = tileSectionRef.current.getElementsByClassName(
       HIDE_TILE_CLASS
     ) as HTMLCollectionOf<HTMLElement>;
-    for (let i = 0; i < tiles.length; i++) {
-      tiles[i].classList.remove(HIDE_TILE_CLASS);
-    }
+    Array.from(tiles).forEach((tile) => {
+      tile.classList.remove(HIDE_TILE_CLASS);
+    });
     expandoRef.current.hidden = true;
   }
 }
