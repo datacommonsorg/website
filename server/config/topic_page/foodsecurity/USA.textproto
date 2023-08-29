@@ -56,7 +56,7 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "People live in poverty"
+        description: "People live below the poverty line"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
       tiles {
@@ -71,7 +71,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Population Living In Poverty (${date})"
+        title: "Population Living Below the Poverty Line (${date})"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months"
       }
     }
@@ -80,7 +80,7 @@ categories {
     key: "Count_Person_BelowPovertyLevelInThePast12Months"
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
-      name: "Population Living In Poverty"
+      name: "Population Living Below the Poverty Line"
     }
   }
 
@@ -89,7 +89,7 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Of people live in poverty"
+        description: "Of people live below the poverty line"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
       }
       tiles {
@@ -104,7 +104,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Percentage of Population Living In Poverty (${date})"
+        title: "Percentage of Population Living Below the Poverty Line (${date})"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
       }
     }
@@ -114,7 +114,7 @@ categories {
     value {
       stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
       denom: "Count_Person"
-      name: "Percentage of Population Living In Poverty"
+      name: "Percentage of Population Living Below the Poverty Line"
       scaling: 100
       unit: "%"
     }
@@ -125,7 +125,7 @@ categories {
     columns {
       tiles {
         type: HIGHLIGHT
-        description: "Households in ${placeName} live in poverty but do not receive food assistance (SNAP)"
+        description: "Households in ${placeName} live below the poverty line and do not receive food assistance (SNAP)"
         stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
       }
       tiles {
@@ -140,7 +140,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Percentage of Households in Poverty and Not Receiving SNAP (${date})"
+        title: "Percentage of Households That Live Below the Poverty Line and Not Receiving SNAP (${date})"
         stat_var_key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
       }
     }
@@ -149,7 +149,7 @@ categories {
     key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
     value {
       stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
-      name: "Households Not Receiving Food Stamps in Last Year, Income Below Poverty Level"
+      name: "Households That Live Below the Poverty Line and Not Receiving SNAP"
     }
   }
 
@@ -157,7 +157,7 @@ categories {
     key: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_pct"
     value {
       stat_var: "Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months"
-      name: "Percentage of Households in Poverty and Not Receiving SNAP"
+      name: "Percentage of Households That Live Below the Poverty Line and Not Receiving SNAP"
       denom: "Count_Household"
       scaling: 100
       unit: "%"
@@ -209,7 +209,7 @@ categories {
     columns {
       tiles {
         type: MAP
-        title: "Percentage of Population Living In Poverty (${date})"
+        title: "Percentage of Population Living Below the Poverty Line (${date})"
         stat_var_key: "Count_Person_BelowPovertyLevelInThePast12Months_pct"
       }
     }
@@ -388,7 +388,7 @@ categories {
     columns {
       tiles {
         type: DESCRIPTION
-        description: "Single mothers often have to deal with income disparities since women on average earn less than men. Combined with the pervasiveness of single mother households living in poverty, this financial challenge makes it difficult for mothers to ensure nutritious food is consistently available in their household."
+        description: "Single mothers often have to deal with income disparities since women on average earn less than men. Combined with the pervasiveness of single mother households living below the poverty line, this financial challenge makes it difficult for mothers to ensure nutritious food is consistently available in their household."
       }
     }
   }
