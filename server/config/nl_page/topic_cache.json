@@ -9897,6 +9897,7 @@
       "relevantVariableList": [
         "eia/INTL.4008-8-MMTCD.A",
         "Amount_Emissions_CarbonDioxide_PerCapita",
+        "Annual_Emissions_CarbonDioxide_NonBiogenic",
         "dc/svpg/Emissions_CO2_EmissionsbySource"
       ],
       "typeOf": [
@@ -10708,6 +10709,7 @@
       ],
       "relevantVariableList": [
         "Annual_Emissions_GreenhouseGas",
+        "Annual_Emissions_GreenhouseGas_NonBiogenic",
         "dc/topic/GreenhouseGasEmissions",
         "dc/topic/CO2Emissions",
         "dc/topic/Emissions_FlourinatedGases",
@@ -11149,11 +11151,11 @@
         "Green Jobs"
       ],
       "relevantVariableList": [
-        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages",
-        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses",
         "dc/svpg/dc/topic/GreenJobs_Renewableenergybusinesses",
         "dc/svpg/dc/topic/GreenJobs_Renewableenergyrevenue",
-        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems"
+        "dc/svpg/dc/topic/GreenJobs_Renewableenergysystems",
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionbusinesses",
+        "dc/svpg/dc/topic/GreenJobs_Greenbuilding/constructionWages"
       ],
       "typeOf": [
         "Topic"
