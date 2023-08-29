@@ -25,7 +25,6 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
-import server.lib.explore.fulfiller as fulfillment
 import server.lib.explore.fulfiller_bridge as nl_fulfillment
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
@@ -36,8 +35,6 @@ import server.lib.nl.common.utils as utils
 import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
-from server.lib.nl.detection.types import Detection
-from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.utils import create_utterance
 from server.lib.util import get_nl_disaster_config
 from server.routes.nl import helpers
@@ -119,9 +116,6 @@ def detect_and_fulfill():
 
   # Set some params used downstream in explore flow.
   utterance.insight_ctx[
-      Params.ENABLE_NL_FULFILLMENT.value] = request.get_json().get(
-          Params.ENABLE_NL_FULFILLMENT, True)
-  utterance.insight_ctx[
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
   utterance.insight_ctx[Params.DC.value] = dc_name
@@ -138,8 +132,7 @@ def detect_and_fulfill():
 # fulfills it into charts.
 #
 def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
-                               debug_logs: Dict,
-                               orig_detection: Detection = None) -> Dict:
+                               debug_logs: Dict) -> Dict:
   disaster_config = current_app.config['NL_DISASTER_CONFIG']
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
@@ -154,21 +147,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
       sdg_percent_vars=current_app.config['SDG_PERCENT_VARS'])
 
   start = time.time()
-  use_nl = utterance.insight_ctx.get(Params.ENABLE_NL_FULFILLMENT.value, True)
-  if use_nl:
-    fresp = nl_fulfillment.fulfill(utterance, cb_config)
-  else:
-    fresp = fulfillment.fulfill(utterance, cb_config)
+  fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
 
-  if orig_detection:
-    # This is the case of Detection + Fulfill flow.
-    detection = orig_detection
-  else:
-    # This is the case of Fulfill-only flow.
-    detection = utterance.detection
-  return helpers.prepare_response(utterance, fresp.chart_pb, detection,
-                                  debug_logs, fresp.related_things)
+  return helpers.prepare_response(utterance, fresp.chart_pb,
+                                  utterance.detection, debug_logs,
+                                  fresp.related_things)
 
 
 #

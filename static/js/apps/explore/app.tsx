@@ -200,10 +200,14 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
-        if (pageMetadata.mainTopics.length == 2) {
+        if (
+          pageMetadata.mainTopics.length == 2 &&
+          pageMetadata.mainTopics[0].name &&
+          pageMetadata.mainTopics[1].name
+        ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-        } else {
+        } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
         }
@@ -236,9 +240,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const disableExploreMore = getSingleParam(
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
-    const nlFulfillment = getSingleParam(
-      hashParams[URL_HASH_PARAMS.NL_FULFILLMENT]
-    );
     let fulfillmentPromise: Promise<any>;
     if (query) {
       setQuery(query);
@@ -246,8 +247,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         query,
         savedContext.current,
         dc,
-        disableExploreMore,
-        nlFulfillment
+        disableExploreMore
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -266,8 +266,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         dc,
         [],
         [],
-        disableExploreMore,
-        nlFulfillment
+        disableExploreMore
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -295,8 +294,7 @@ const fetchFulfillData = async (
   dc: string,
   svgs: string[],
   classificationsJson: any,
-  disableExploreMore: string,
-  nlFulfillment: string
+  disableExploreMore: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -309,7 +307,6 @@ const fetchFulfillData = async (
       extensionGroups: svgs,
       classifications: classificationsJson,
       disableExploreMore,
-      nlFulfillment: nlFulfillment === "0" ? false : true,
     });
     return resp.data;
   } catch (error) {
@@ -322,8 +319,7 @@ const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
   dc: string,
-  disableExploreMore: string,
-  nlFulfillment: string
+  disableExploreMore: string
 ) => {
   try {
     const resp = await axios.post(
@@ -332,7 +328,6 @@ const fetchDetectAndFufillData = async (
         contextHistory: savedContext,
         dc,
         disableExploreMore,
-        nlFulfillment: nlFulfillment === "0" ? false : true,
       }
     );
     return resp.data;
