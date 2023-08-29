@@ -60,3 +60,19 @@ tbody tr:nth-child(even) {
   stroke-width: 1.5;
   border: 3px solid #000;
 }
+
+.map {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.legend {
+  position: absolute;
+  top: 425px;
+  padding-top: 10px;
+}
+
+.outlinks {
+  padding-top: 10px;
+}

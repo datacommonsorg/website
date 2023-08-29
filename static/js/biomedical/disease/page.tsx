@@ -224,6 +224,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
                 enclosedPlaceType={"State"}
                 statVarSpec={statVarDisease}
                 svgChartHeight={200}
+                className="disease-map"
               />
             </>
           )}
