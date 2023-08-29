@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import logging
 from typing import List
 
@@ -50,6 +51,7 @@ def populate(state: PopulateState, chart_vars: ChartVars,
     state.uttr.counters.err('containedin_failed_cb_toomanyplaces',
                             contained_places)
     return False
+  chart_vars = copy.deepcopy(chart_vars)
 
   exist_svs = ext.svs4children(state, contained_places[0],
                                chart_vars.svs).exist_svs

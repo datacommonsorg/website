@@ -43,9 +43,9 @@ class TopicMembers:
 def compute_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
   # Have a slightly higher limit for non-US places since there are fewer vars.
-  num_topics_limit = 2
+  num_topics_limit = 3
   if state.uttr.places and cutils.is_us_place(state.uttr.places[0]):
-    num_topics_limit = 1
+    num_topics_limit = 2
 
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   chart_vars_map = OrderedDict()
@@ -62,7 +62,8 @@ def compute_chart_vars(
                              orig_sv=sv,
                              dc=dc)
       state.uttr.counters.timeit('topic_calls', start)
-      num_topics_opened += 1
+      if cv:
+        num_topics_opened += 1
     if cv:
       chart_vars_map[sv] = cv
   return chart_vars_map
