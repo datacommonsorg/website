@@ -75,24 +75,23 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   max_rank_and_map_charts = _get_max_rank_and_map_charts(chart_vars, state)
   is_sdg = params.is_sdg(state.uttr.insight_ctx)
 
-  # If user specified ranking or an explicit child place type, show child charts
+  # If user specified an explicit child place type, show child charts
   # (map, ranking) before main (bars, timelines).
   main_before_child = True
-  if state.ranking_types or (state.place_type and
-                             not state.had_default_place_type):
+  if state.place_type and not state.had_default_place_type:
     main_before_child = False
 
   # If user didn't ask for ranking, show timeline+highlight first.
   if main_before_child and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
-  all_svs = copy.deepcopy(chart_vars.svs)
-  for sv in all_svs[:max_rank_and_map_charts]:
-    chart_vars.svs = [sv]
+  cv = copy.deepcopy(chart_vars)
+  for sv in chart_vars.svs[:max_rank_and_map_charts]:
+    cv.svs = [sv]
 
     # If user didn't ask for ranking, show timeline+highlight first.
-    if main_before_child and not chart_vars.is_topic_peer_group:
-      added |= simple.populate(state, chart_vars, places, chart_origin, rank)
+    if main_before_child and not cv.is_topic_peer_group:
+      added |= simple.populate(state, cv, places, chart_origin, rank)
 
     if state.place_type:
       # If this is SDG, unless user has asked for ranking, do not return!
@@ -102,7 +101,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
         added |= ranking_across_places.populate(
             state,
-            chart_vars,
+            cv,
             places,
             chart_origin,
             rank,
@@ -111,12 +110,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
         state.ranking_types = ranking_orig
       elif is_sdg:
         # Return only map.
-        added |= containedin.populate(state, chart_vars, places, chart_origin,
-                                      rank)
+        added |= containedin.populate(state, cv, places, chart_origin, rank)
 
     # If user had asked for ranking, show timeline+highlight last.
-    if not main_before_child and not chart_vars.is_topic_peer_group:
-      added |= simple.populate(state, chart_vars, places, chart_origin, rank)
+    if not main_before_child and not cv.is_topic_peer_group:
+      added |= simple.populate(state, cv, places, chart_origin, rank)
 
   # If user had asked for ranking, show timeline+highlight last.
   if not main_before_child and chart_vars.is_topic_peer_group:

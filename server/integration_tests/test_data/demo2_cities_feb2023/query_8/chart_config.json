@@ -99,28 +99,102 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_Person_EnrolledInKindergarten",
+                      "Count_Person_DetailedPrimarySchool",
+                      "Count_Person_DetailedMiddleSchool",
+                      "Count_Person_DetailedHighSchool",
+                      "Count_Person_EnrolledInCollegeUndergraduateYears"
                     ],
-                    "title": "High School Students in Sunnyvale",
+                    "title": "Student Population by Enrollment Level in Sunnyvale",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High School Students in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
-                    ],
-                    "title": "High School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "High School Students"
+            "title": "Student Population by Enrollment Level"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/g8kg52zcxzw9f",
+                      "dc/p34mhcpgtth76"
+                    ],
+                    "title": "Students in Kindergarten by Gender in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Students in Kindergarten by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/1c4zcyw02n71g_multiple_place_bar_block",
+                      "dc/3n8g9we5yv7th_multiple_place_bar_block",
+                      "dc/556pqlh586bmc_multiple_place_bar_block",
+                      "dc/7g77dy8hfb1rg_multiple_place_bar_block",
+                      "dc/c6n2z7vh9sy31_multiple_place_bar_block",
+                      "dc/gr3zem8shyhbf_multiple_place_bar_block",
+                      "dc/ns1rqx6wy9909_multiple_place_bar_block",
+                      "dc/nt9cq96phw6nf_multiple_place_bar_block",
+                      "dc/qnphlls92tvs9_multiple_place_bar_block"
+                    ],
+                    "title": "Students in Kindergarten by Race in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Students in Kindergarten by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "dc/68cg2z97cpl7d_multiple_place_bar_block",
+                      "dc/b6h698m2vmdcc_multiple_place_bar_block",
+                      "dc/bf85zc6wypd2h_multiple_place_bar_block",
+                      "dc/e4y4hqq6mjfsh_multiple_place_bar_block",
+                      "dc/env3140jqssg8_multiple_place_bar_block",
+                      "dc/jhjdplbeg26k1_multiple_place_bar_block",
+                      "dc/p4jzvj8q1lnmd_multiple_place_bar_block",
+                      "dc/wk2vjrzfgyq5d_multiple_place_bar_block",
+                      "dc/x9e7150515yt7_multiple_place_bar_block"
+                    ],
+                    "title": "Students in Primary School by Race in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Students in Primary School by Race"
           },
           {
             "columns": [
@@ -150,35 +224,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population Currently Enrolled in School"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/jhjdplbeg26k1"
-                    ],
-                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Primary School, Two or More Races in Sunnyvale",
-                    "statVarKey": [
-                      "dc/jhjdplbeg26k1"
-                    ],
-                    "title": "Population: Primary School, Two or More Races in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Primary School, Two or More Races"
           },
           {
             "columns": [
@@ -256,6 +301,14 @@
             "name": "Population: 11th Grade",
             "statVar": "Count_Person_EducationalAttainment11ThGrade"
           },
+          "Count_Person_EnrolledInCollegeUndergraduateYears": {
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_EnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_EnrolledInKindergarten"
+          },
           "Count_Person_EnrolledInSchool": {
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
@@ -264,17 +317,49 @@
             "name": "Population: 7th And 8th Grade",
             "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
           },
+          "dc/1c4zcyw02n71g_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Asian Alone",
+            "statVar": "dc/1c4zcyw02n71g"
+          },
+          "dc/3n8g9we5yv7th_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Two or More Races",
+            "statVar": "dc/3n8g9we5yv7th"
+          },
+          "dc/556pqlh586bmc_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "dc/556pqlh586bmc"
+          },
+          "dc/68cg2z97cpl7d_multiple_place_bar_block": {
+            "name": "Population: Primary School, Hispanic or Latino",
+            "statVar": "dc/68cg2z97cpl7d"
+          },
           "dc/6zbb7s5nx6rxb_multiple_place_bar_block": {
             "name": "Population: Middle School, Some Other Race Alone",
             "statVar": "dc/6zbb7s5nx6rxb"
+          },
+          "dc/7g77dy8hfb1rg_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Hispanic or Latino",
+            "statVar": "dc/7g77dy8hfb1rg"
           },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
             "name": "Population: Middle School, Two or More Races",
             "statVar": "dc/b3nmcj3w1lhed"
           },
+          "dc/b6h698m2vmdcc_multiple_place_bar_block": {
+            "name": "Population: Primary School, White Alone Not Hispanic or Latino",
+            "statVar": "dc/b6h698m2vmdcc"
+          },
+          "dc/bf85zc6wypd2h_multiple_place_bar_block": {
+            "name": "Population: Primary School, White Alone",
+            "statVar": "dc/bf85zc6wypd2h"
+          },
           "dc/c57vzg7l74577_multiple_place_bar_block": {
             "name": "Population: Middle School, Native Hawaiian or Other Pacific Islander Alone",
             "statVar": "dc/c57vzg7l74577"
+          },
+          "dc/c6n2z7vh9sy31_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Some Other Race Alone",
+            "statVar": "dc/c6n2z7vh9sy31"
           },
           "dc/c75qlm98pmcb2_multiple_place_bar_block": {
             "name": "Population: Middle School, White Alone Not Hispanic or Latino",
@@ -284,11 +369,27 @@
             "name": "Population: Middle School, Black or African American Alone",
             "statVar": "dc/e2szvml8jkld8"
           },
+          "dc/e4y4hqq6mjfsh_multiple_place_bar_block": {
+            "name": "Population: Primary School, Black or African American Alone",
+            "statVar": "dc/e4y4hqq6mjfsh"
+          },
+          "dc/env3140jqssg8_multiple_place_bar_block": {
+            "name": "Population: Primary School, Some Other Race Alone",
+            "statVar": "dc/env3140jqssg8"
+          },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
             "name": "Population: Middle School, Asian Alone",
             "statVar": "dc/g4fthg3t3y5td"
           },
-          "dc/jhjdplbeg26k1": {
+          "dc/g8kg52zcxzw9f": {
+            "name": "Population: Female, Enrolled in Kindergarten",
+            "statVar": "dc/g8kg52zcxzw9f"
+          },
+          "dc/gr3zem8shyhbf_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, White Alone",
+            "statVar": "dc/gr3zem8shyhbf"
+          },
+          "dc/jhjdplbeg26k1_multiple_place_bar_block": {
             "name": "Population: Primary School, Two or More Races",
             "statVar": "dc/jhjdplbeg26k1"
           },
@@ -296,9 +397,37 @@
             "name": "Population: Middle School, American Indian or Alaska Native Alone",
             "statVar": "dc/njgzb8knf11n8"
           },
+          "dc/ns1rqx6wy9909_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, Black or African American Alone",
+            "statVar": "dc/ns1rqx6wy9909"
+          },
+          "dc/nt9cq96phw6nf_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, White Alone Not Hispanic or Latino",
+            "statVar": "dc/nt9cq96phw6nf"
+          },
+          "dc/p34mhcpgtth76": {
+            "name": "Population: Male, Enrolled in Kindergarten",
+            "statVar": "dc/p34mhcpgtth76"
+          },
+          "dc/p4jzvj8q1lnmd_multiple_place_bar_block": {
+            "name": "Population: Primary School, American Indian or Alaska Native Alone",
+            "statVar": "dc/p4jzvj8q1lnmd"
+          },
+          "dc/qnphlls92tvs9_multiple_place_bar_block": {
+            "name": "Population: Enrolled in Kindergarten, American Indian or Alaska Native Alone",
+            "statVar": "dc/qnphlls92tvs9"
+          },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
             "name": "Population: Middle School, White Alone",
             "statVar": "dc/qvf1yrhwzp8rd"
+          },
+          "dc/wk2vjrzfgyq5d_multiple_place_bar_block": {
+            "name": "Population: Primary School, Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "dc/wk2vjrzfgyq5d"
+          },
+          "dc/x9e7150515yt7_multiple_place_bar_block": {
+            "name": "Population: Primary School, Asian Alone",
+            "statVar": "dc/x9e7150515yt7"
           },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
             "name": "Population: Middle School, Hispanic or Latino",

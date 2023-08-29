@@ -421,28 +421,106 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
                     ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
                     "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                      "Count_Person_WithDisability_Female_multiple_place_bar_block",
+                      "Count_Person_WithDisability_Male_multiple_place_bar_block"
                     ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Placer County",
-                    "type": "HIGHLIGHT"
+                    "title": "Disabled Population by Gender in Placer County (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
+            "denom": "Count_Person",
+            "title": "Disabled Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_WithDisability_OneRace_multiple_place_bar_block",
+                      "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Disabled Population by Race in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Disabled Population by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Uninsured by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Uninsured by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "With Health Insurance by Gender in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "With Health Insurance by Gender"
           },
           {
             "columns": [
@@ -450,9 +528,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_WithVAHealthCare"
+                      "Count_Person_NoHealthInsurance"
                     ],
-                    "title": "People With VA Health Care in Placer County",
+                    "title": "Population Without Health Insurance in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -460,18 +538,74 @@
               {
                 "tiles": [
                   {
-                    "description": "People With VA Health Care in Placer County",
+                    "description": "Population Without Health Insurance in Placer County",
                     "statVarKey": [
-                      "Count_Person_WithVAHealthCare"
+                      "Count_Person_NoHealthInsurance"
                     ],
-                    "title": "People With VA Health Care in Placer County",
+                    "title": "Population Without Health Insurance in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "People With VA Health Care"
+            "title": "Population Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Health Insurance in Placer County",
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
+                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
+                    ],
+                    "title": "Type of Health Insurance Coverage in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Type of Health Insurance Coverage"
           }
         ],
         "statVarSpec": {
@@ -519,9 +653,85 @@
             "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
             "statVar": "Count_Death_Neoplasms"
           },
-          "Count_Person_WithVAHealthCare": {
-            "name": "People With VA Health Care",
-            "statVar": "Count_Person_WithVAHealthCare"
+          "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance": {
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian/Alaska Native Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black/African American Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_Female_multiple_place_bar_block": {
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic/Latino Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_HispanicOrLatino"
+          },
+          "Count_Person_WithDisability_Male_multiple_place_bar_block": {
+            "name": "Men With Disabilities",
+            "statVar": "Count_Person_WithDisability_Male"
+          },
+          "Count_Person_WithDisability_OneRace_multiple_place_bar_block": {
+            "name": "Single-Race Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_OneRace"
+          },
+          "Count_Person_WithDisability_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Disabled Population of Some Other Race",
+            "statVar": "Count_Person_WithDisability_SomeOtherRaceAlone"
+          },
+          "Count_Person_WithDisability_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Disabled Population of Two or More Races",
+            "statVar": "Count_Person_WithDisability_TwoOrMoreRaces"
+          },
+          "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Non Hispanic or Latino White Population With Disabilities",
+            "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Disbabled Population",
+            "statVar": "Count_Person_WithDisability_WhiteAlone"
+          },
+          "Count_Person_WithHealthInsurance": {
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
+            "name": "People With Only Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
+          },
+          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
+            "name": "People With Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsurance"
+          },
+          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block": {
+            "name": "People With Only Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
+          },
+          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
+            "name": "People With Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsurance"
           },
           "Percent_Person_18OrMoreYears_WithDepression": {
             "name": "Depression",
@@ -531,11 +741,6 @@
           "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication": {
             "name": "Percent of Adults with Blood Pressure Who Take Medication",
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
-            "unit": "%"
-          },
-          "Percent_Person_18To64Years_ReceivedNoHealthInsurance": {
-            "name": "Percentage of Population Aged 18-64 With No Health Insurance",
-            "statVar": "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
             "unit": "%"
           },
           "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {

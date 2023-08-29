@@ -341,6 +341,63 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate in Placer County",
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
+                    ],
+                    "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "dc/m615rq99fwf2c"
                     ],
                     "title": "Population: Car Truck or Van Carpooled, Service Occupations in Placer County",
@@ -402,6 +459,10 @@
           "Count_Household_MarriedCoupleFamilyHousehold_With2Worker": {
             "name": "Count of Household: Married Couple Family Household, Worker 2",
             "statVar": "Count_Household_MarriedCoupleFamilyHousehold_With2Worker"
+          },
+          "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker": {
+            "name": "Population: 16 Years or More, Civilian, Privately Owned, No Health Insurance, Non Institutionalized, Unpaid Family Worker, Worker",
+            "statVar": "Count_Person_16OrMoreYears_PrivatelyOwnedEstablishment_NoHealthInsurance_UnpaidFamilyWorker_Worker"
           },
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
@@ -478,6 +539,10 @@
           "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block": {
             "name": "Wholesale Trade",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
+          },
+          "UnemploymentRate_Person": {
+            "name": "Unemployment Rate",
+            "statVar": "UnemploymentRate_Person"
           },
           "dc/7wt44yv38rew": {
             "name": "Population: Worked At Home, Sales And Office Occupations",

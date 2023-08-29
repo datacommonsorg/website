@@ -35,6 +35,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # [meaning of life]
     state.uttr.counters.err('simple_failed_noplaceandsv', 1)
     return False
+  # Do not mutate the original.
+  chart_vars = copy.deepcopy(chart_vars)
 
   if chart_vars.event:
     # This can happen if an event is part of a topic and it can be triggered
