@@ -665,7 +665,7 @@
     "mainTopics": [
       {
         "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income By Industry",
+        "name": "Individual Income by Industry",
         "types": [
           "Topic"
         ]

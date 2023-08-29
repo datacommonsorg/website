@@ -170,15 +170,30 @@
   }
 }
 
-.related-places {
+.related-places, .user-message {
   padding: 24px;
   border-radius: var(--border-radius-primary);
   border: var(--border-primary);
   background: var(--gm-3-white);
   margin-bottom: 24px;
+  width: 100%;
+}
 
-  .related-places-callout {
-    margin-bottom: 16px;
+.related-places .related-places-callout {
+  margin-bottom: 16px;
+}
+
+.user-message .user-message-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .main-message {
+    font-size: 20px;
+  }
+
+  .sub-message {
+    font-size: 14px;
   }
 }
 

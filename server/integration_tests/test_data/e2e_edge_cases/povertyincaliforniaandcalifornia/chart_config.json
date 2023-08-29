@@ -73,14 +73,14 @@
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population By Gender in California",
+                    "title": "Impoverished Population by Gender in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Gender"
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
@@ -168,14 +168,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
                       "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Impoverished Population By Race in California (${date})",
+                    "title": "Impoverished Population by Race in California (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By Race"
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
@@ -252,14 +252,14 @@
                       "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
                       "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Impoverished Population By By Language Spoken At Home in California",
+                    "title": "Impoverished Population by By Language Spoken At Home in California",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Impoverished Population By By Language Spoken At Home"
+            "title": "Impoverished Population by By Language Spoken At Home"
           },
           {
             "columns": [
@@ -1140,28 +1140,28 @@
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
+        "name": "Poverty by Gender",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
+        "name": "Poverty by Residency",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]

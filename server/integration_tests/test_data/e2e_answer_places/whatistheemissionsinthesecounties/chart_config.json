@@ -728,7 +728,7 @@
       },
       {
         "dcid": "dc/topic/CO2Emissions",
-        "name": "Carbondioxide (CO2)",
+        "name": "Carbondioxide ( CO2)",
         "types": [
           "Topic"
         ]

@@ -219,7 +219,7 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Impoverished Population By Residency"
+            "title": "Impoverished Population by Residency"
           },
           {
             "columns": [
@@ -663,28 +663,28 @@
     "childTopics": [
       {
         "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty By Gender",
+        "name": "Poverty by Gender",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty By Race",
+        "name": "Poverty by Race",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty By Residency",
+        "name": "Poverty by Residency",
         "types": [
           "Topic"
         ]
       },
       {
         "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty By Language Spoken At Home",
+        "name": "Poverty by Language Spoken At Home",
         "types": [
           "Topic"
         ]
