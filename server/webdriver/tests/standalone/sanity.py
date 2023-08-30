@@ -21,6 +21,7 @@ import os
 from absl import app
 from absl import flags
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -91,8 +92,11 @@ class WebsiteSanityTest:
     self.results = []
 
   def __enter__(self):
-    self.driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()))
+    chrome_options = Options()
+    chrome_options.add_argument("--headless=new")
+    self.driver = webdriver.Chrome(service=Service(
+        ChromeDriverManager().install()),
+                                   options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,
