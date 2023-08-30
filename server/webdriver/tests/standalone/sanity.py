@@ -56,10 +56,15 @@ class PageType(StrEnum):
 
 class WebPage:
 
-  def __init__(self, page_type: PageType, title: str, url: str) -> None:
+  def __init__(self,
+               page_type: PageType,
+               title: str,
+               url: str,
+               source_url: str = "") -> None:
     self.page_type = page_type
     self.title = title
     self.url = url
+    self.source_url = source_url
 
 
 class Result:
@@ -69,6 +74,7 @@ class Result:
     self.title = page.title
     self.status = status
     self.url = page.url
+    self.source_url = page.source_url
     self.comments = comments
 
   def to_csv_row(self) -> dict:
@@ -143,6 +149,7 @@ class WebsiteSanityTest:
               PageType.EXPLORE_LANDING,
               topic_title_elem.text,
               topic_url_elem.get_attribute("href"),
+              source_url=page.url,
           ))
 
     # Pass
@@ -183,7 +190,12 @@ class WebsiteSanityTest:
     explore_pages = []
     for link in explore_links:
       explore_pages.append(
-          WebPage(PageType.EXPLORE, link.text, link.get_attribute("href")))
+          WebPage(
+              PageType.EXPLORE,
+              link.text,
+              link.get_attribute("href"),
+              source_url=page.url,
+          ))
     for explore_page in explore_pages:
       self.explore(explore_page, True)
 
@@ -263,7 +275,12 @@ class WebsiteSanityTest:
     explore_pages = []
     for link in explore_links:
       explore_pages.append(
-          WebPage(PageType.EXPLORE, link.text, link.get_attribute("href")))
+          WebPage(
+              PageType.EXPLORE,
+              link.text,
+              link.get_attribute("href"),
+              source_url=page.url,
+          ))
     for explore_page in explore_pages:
       self.explore(explore_page, False)
 
