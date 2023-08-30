@@ -58,18 +58,18 @@ interface SuccessResultPropType {
 
 // Whether or not to show topic list in the user message.
 function showTopicsInUserMsg(pageMetadata: SubjectPageMetadata): boolean {
-  for (const category of pageMetadata.pageConfig.categories) {
-    for (const block of category.blocks) {
-      for (const column of block.columns) {
-        for (const tile of column.tiles) {
-          if (tile.type !== "PLACE_OVERVIEW") {
-            return false;
-          }
-        }
-      }
-    }
+  const categories = pageMetadata.pageConfig.categories;
+  // False if there is more than 1 tile
+  if (
+    categories.length !== 1 ||
+    categories[0].blocks.length !== 1 ||
+    categories[0].blocks[0].columns.length !== 1 ||
+    categories[0].blocks[0].columns[0].tiles.length !== 1
+  ) {
+    return false;
   }
-  return true;
+  // True only if the one tile is of type PLACE_OVERVIEW
+  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
 }
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
