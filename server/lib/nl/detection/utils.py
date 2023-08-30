@@ -96,6 +96,14 @@ def get_multi_sv_pair(
   return parts
 
 
+def get_top_sv_score(detection: Detection) -> float:
+  if is_multi_sv(detection):
+    return detection.svs_detected.multi_sv.candidates[0].aggregate_score
+  elif detection.svs_detected.single_sv and detection.svs_detected.single_sv.scores:
+    return detection.svs_detected.single_sv.scores[0]
+  return 0
+
+
 def empty_svs_score_dict():
   return {"SV": [], "CosineScore": [], "SV_to_Sentences": {}, "MultiSV": {}}
 
