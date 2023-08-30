@@ -56,6 +56,22 @@ interface SuccessResultPropType {
   userMessage: UserMessageInfo;
 }
 
+// Whether or not to show topic list in the user message.
+function showTopicsInUserMsg(pageMetadata: SubjectPageMetadata): boolean {
+  for (const category of pageMetadata.pageConfig.categories) {
+    for (const block of category.blocks) {
+      for (const column of block.columns) {
+        for (const tile of column.tiles) {
+          if (tile.type !== "PLACE_OVERVIEW") {
+            return false;
+          }
+        }
+      }
+    }
+  }
+  return true;
+}
+
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
     return null;
@@ -120,12 +136,18 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
         </div>
       </div>
       <div className="col-12" ref={chartSectionRef}>
-        <UserMessage userMessage={props.userMessage} />
+        <UserMessage
+          userMessage={props.userMessage}
+          pageMetadata={props.pageMetadata}
+          placeUrlVal={placeUrlVal}
+          shouldShowTopics={showTopicsInUserMsg(props.pageMetadata)}
+        />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
             <ResultHeaderSection
               pageMetadata={props.pageMetadata}
               placeUrlVal={placeUrlVal}
+              hideRelatedTopics={showTopicsInUserMsg(props.pageMetadata)}
             />
             <RankingUnitUrlFuncContext.Provider
               value={(dcid: string) => {
