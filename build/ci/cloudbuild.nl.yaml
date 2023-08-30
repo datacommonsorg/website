@@ -33,7 +33,7 @@ steps:
         ./run_test.sh -b
 
   # Run integration tests
-  - id: explore_test
+  - id: integration_test
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/sh
     waitFor:
