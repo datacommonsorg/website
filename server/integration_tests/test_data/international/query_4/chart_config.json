@@ -67,34 +67,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
-                    ],
-                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Access to Modern Family Planning for Adult Women in Turkey",
-                    "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
-                    ],
-                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Access to Modern Family Planning for Adult Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -156,34 +128,6 @@
             ],
             "denom": "Count_Person",
             "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Maternal Mortality Ratio in Turkey",
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Maternal Mortality Ratio"
           },
           {
             "columns": [
@@ -272,6 +216,34 @@
             ],
             "denom": "Count_Person",
             "title": "Number of Maternal Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in Turkey",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Maternal Mortality Ratio"
           }
         ],
         "statVarSpec": {
@@ -306,10 +278,6 @@
           "WHO/SA_0000001451": {
             "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
             "statVar": "WHO/SA_0000001451"
-          },
-          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
-            "name": "Access to modern family planning for adult women",
-            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",

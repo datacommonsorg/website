@@ -85,38 +85,6 @@
                       "country/ERI",
                       "country/MWI",
                       "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Access to Modern Family Planning for Adult Women (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Access to Modern Family Planning for Adult Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
                       "country/GMB"
                     ],
                     "statVarKey": [
@@ -162,38 +130,6 @@
             ],
             "denom": "Count_Person",
             "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Maternal Mortality Ratio (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Maternal Mortality Ratio"
           },
           {
             "columns": [
@@ -321,10 +257,6 @@
           "WHO/SA_0000001451_multiple_place_bar_block": {
             "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
             "statVar": "WHO/SA_0000001451"
-          },
-          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block": {
-            "name": "Access to modern family planning for adult women",
-            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block": {
             "name": "Maternal mortality ratio",
