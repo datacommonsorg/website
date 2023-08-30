@@ -28,6 +28,10 @@
   height: 72px;
 }
 
+.main-content {
+  flex-grow: 1;
+}
+
 .explore-container {
   display: flex;
   flex-direction: column;

@@ -66,7 +66,7 @@ export interface RelatedThings {
   childPlaces: {
     [placeType: string]: RelatedPlace[];
   };
-  mainTopic: RelatedTopic;
+  mainTopics: RelatedTopic[];
   parentPlaces: RelatedPlace[];
   parentTopics: RelatedTopic[];
   peerTopics: RelatedTopic[];

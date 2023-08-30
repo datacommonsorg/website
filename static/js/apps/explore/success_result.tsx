@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
@@ -32,7 +32,10 @@ import {
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -50,13 +53,14 @@ interface SuccessResultPropType {
   exploreContext: any;
   queryResult: QueryResult;
   pageMetadata: SubjectPageMetadata;
-  userMessage: string;
+  userMessage: UserMessageInfo;
 }
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
     return null;
   }
+  const searchSectionRef = useRef<HTMLDivElement>(null);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -72,21 +76,47 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
         types: null,
       }
     : props.pageMetadata.mainTopics[0];
+
+  useEffect(() => {
+    const searchBoundingBox = searchSectionRef.current?.getBoundingClientRect();
+    function handleScroll(): void {
+      if (!searchBoundingBox) {
+        return;
+      }
+      if (window.scrollY >= searchBoundingBox.height) {
+        if (!searchSectionRef.current.classList.contains("sticky")) {
+          searchSectionRef.current.classList.add("sticky");
+        }
+      } else {
+        searchSectionRef.current.classList.remove("sticky");
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <div className="row explore-charts">
-      <div className="col-12">
-        <DebugInfo
-          debugData={props.debugData}
-          queryResult={props.queryResult}
-        ></DebugInfo>
-        {props.exploreContext.dc !== "sdg" && (
-          <SearchSection
-            query={props.query}
+      <div className="search-section-container" ref={searchSectionRef}>
+        <div className="search-section-content container">
+          <DebugInfo
             debugData={props.debugData}
-            exploreContext={props.exploreContext}
-          />
-        )}
-        <UserMessage userMessage={props.userMessage} showForm={false} />
+            queryResult={props.queryResult}
+          ></DebugInfo>
+          {props.exploreContext.dc !== "sdg" && (
+            <SearchSection
+              query={props.query}
+              debugData={props.debugData}
+              exploreContext={props.exploreContext}
+            />
+          )}
+        </div>
+      </div>
+      <div className="col-12">
+        <UserMessage userMessage={props.userMessage} />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
             <ResultHeaderSection

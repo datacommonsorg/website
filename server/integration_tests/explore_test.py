@@ -265,4 +265,5 @@ class IntegrationTest(NLWebServerTestCase):
         'emissions in Houston',
         'poverty in California and California',
         'poverty vs. poverty in California',
+        'number of headless drivers in california',
     ])

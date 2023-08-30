@@ -4384,21 +4384,6 @@ Count_UnemploymentInsuranceClaim_UCFENoStateUnemploymentInsurance_InitialClaim,"
 Count_UnemploymentInsuranceClaim_UCXOnly,Count of Unemployment Insurance Claim: Unemployment Compensation for Ex-servicemembers;Unemployment Insurance Claims UCX Only;count of unemployment insurance claims for ex-servicemembers;number of unemployment claims for ex-servicemembers;number of unemployment compensation claims for ex-servicemembers;number of unemployment insurance claims for unemployment compensation for ex-servicemembers
 Count_UnemploymentInsuranceClaim_UCXOnly_ContinuedClaim,"Count of Unemployment Insurance Claim: Unemployment Compensation for Ex-servicemembers, Continued Claim;Unemployment Insurance Claims for Ex-Service Members;claims for unemployment insurance by ex-service members;unemployment assistance for ex-service members;unemployment assistance for former service members;unemployment benefits for ex-military personnel"
 Count_UnemploymentInsuranceClaim_UCXOnly_InitialClaim,"Count of Unemployment Insurance Claim: Unemployment Compensation for Ex-servicemembers, Initial Claim;Unemployment Compensation for Ex-servicemembers With Initial Claims;unemployment assistance for ex-servicemembers who are filing their first claim;unemployment assistance for ex-servicemembers who are making their first claim;unemployment benefits for former service members who are filing a claim for the first time;unemployment help for ex-servicemembers who are making their first application"
-Count_Variable_AdministrativeArea1,Administrative Variable Area 1;Count of Statistical Variable: Administrative Area 1;headcount in administrative area 1;the headcount of administrative area 1;the tally of administrative area 1;what is the headcount of administrative area 1?
-Count_Variable_AdministrativeArea1_ClimateAndEnvironment,"Administrative Variable Area 1 in Climate And Environment;Count of Statistical Variable: Climate And Environment, Administrative Area 1;how many climate and environment variables are there in administrative area 1?;what is the count of climate and environment variables in administrative area 1?;what is the number of climate and environment variables in administrative area 1?;what is the total number of climate and environment variables in administrative area 1?"
-Count_Variable_AdministrativeArea1_Demographics,"Administrative Variable Area 1 in Demographic;Count of Statistical Variable: Demographics, Administrative Area 1;census of administrative area 1;how many people live in administrative area 1;population of administrative area 1;the population of administrative area 1"
-Count_Variable_AdministrativeArea1_Economy,"Administrative Variable Area 1 in Economy;Count of Statistical Variable: Economy, Administrative Area 1;number of economic indicators in administrative area 1;number of economic measures in administrative area 1;number of economic statistics in administrative area 1;number of economic variables in administrative area 1"
-Count_Variable_AdministrativeArea1_HealthAndEducation,"Administrative Variable Area 1 in Health And Education;Count of Statistical Variable: Health And Education, Administrative Area 1;the number of people in administrative area 1 who are employed in the health and education sector;the number of people in administrative area 1 who are in the health and education sector;the number of people in administrative area 1 who have jobs in the health and education sector;the number of people in administrative area 1 who work in the health and education sector"
-Count_Variable_AdministrativeArea2,Administrative Variable Area 2;Count of Statistical Variable: Administrative Area 2;headcount in administrative area 2;headcount of administrative area 2;how many people are there in administrative area 2
-Count_Variable_AdministrativeArea2_ClimateAndEnvironment,"Administrative Variable Area 2 in Climate And Environment;Count of Statistical Variable: Climate And Environment, Administrative Area 2;how many climate and environment variables are counted in administrative area 2?;how many climate and environment variables are there in administrative area 2?;what is the count of climate and environment variables in administrative area 2?;what is the number of climate and environment variables in administrative area 2?"
-Count_Variable_AdministrativeArea2_Demographics,"Count of Statistical Variable: Demographics, Administrative Area 2;Variable Administrative Area 2 in Demographic;how many people live in administrative area 2;population of administrative area 2;the census of administrative area 2;the population of administrative area 2"
-Count_Variable_AdministrativeArea2_Economy,"Count of Statistical Variable: Economy, Administrative Area 2;Variable Administrative Area 2 in Economy;number of economic indicators in administrative area 2;number of economic measures in administrative area 2;number of economic statistics in administrative area 2;number of economic variables in administrative area 2"
-Count_Variable_AdministrativeArea2_HealthAndEducation,"Count of Statistical Variable: Health And Education, Administrative Area 2;Variable Administrative Area 2 in Health And Education;number of people in administrative area 2 who are employed in health and education;number of people in administrative area 2 who are working in health and education;number of people in administrative area 2 who have a job in health and education;number of people in administrative area 2 who work in health and education"
-Count_Variable_Country,Count of Statistical Variable: Country;Variables in Countries;count of statistical variable: country;number of people in a specific country
-Count_Variable_Country_ClimateAndEnvironment,"Count of Statistical Variable: Climate And Environment, Country;Countries With Variables in Climate And Environment;number of countries by climate and environment;number of countries by climate and environmental characteristics;number of countries by climate and environmental conditions;number of countries by climate and environmental factors"
-Count_Variable_Country_Demographics,"Count of Statistical Variable: Demographics, Country;Countries With Variables in Demographics;demographics by country;demographics of a country;demographics of each country;statistical data on demographics by country"
-Count_Variable_Country_Economy,"Count of Statistical Variable: Economy, Country;Countries With Variables in Economy;country with the highest gdp;country with the highest gdp per capita;country with the largest economy;country with the most money"
-Count_Variable_Country_HealthAndEducation,"Count of Statistical Variable: Health And Education, Country;Countries With Variables in Health And Education;health and education data by country;health and education statistics by country;health and education statistics for each country;number of people in each country by health and education status"
 Count_VolcanicAshEvent,Volcanic activity;Volcanic eruptions;Volcanic events;Volcanic outbursts;Volcanic phenomena;Volcano Events;eruptions of volcanoes;how many times has a volcano exploded;volcanic activity;volcanic ash events;volcanic eruptions;volcanic events;volcanic outbursts
 Count_WaterspoutEvent,Count of Waterspout Event;Water Spout Events;how many waterspouts have been reported;how many waterspouts have occurred;number of waterspout events;waterspout count
 Count_WetBulbTemperatureEvent,Count of Wet Bulb Temperature Event;Wet Bulb Temperature Events;number of wet bulb temperature events;wet bulb temperature event count;wet bulb temperature event frequency;wet bulb temperature event occurrence
@@ -6503,6 +6488,51 @@ indianCensus/Count_Person_Religion_Sikh_YearsUpto6_Female,"Female Sikhs Aged 6 Y
 indianCensus/Count_Person_Religion_Sikh_YearsUpto6_Male,"Male Sikhs Aged 6 Years Old or Less;Population: 6 Years or Less, Male, Sikhism;male sikhs under 6 years old;sikh boys aged 6 or younger;sikh boys under 6;sikh boys under 6 years old"
 indianCensus/Count_Person_Religion_Sikh_YearsUpto6_Rural,"Population: 6 Years or Less, Rural, Sikhism;Sikh Population Aged 6 Years or Less;population of sikhs aged 6 or younger;the number of people aged 6 or less who are sikh;the population of sikhs aged 6 or less;the population of sikhs aged 6 years or less"
 indianCensus/Count_Person_Religion_Sikh_YearsUpto6_Urban,"Population: 6 Years or Less, Urban, Sikhism;Sikh Population Aged 6 Years or Less in Urban Areas;count of sikhs under 6 years old in urban areas;number of people who are sikh and under 6 years old in urban areas;number of sikhs under 6 years old in urban areas;population of sikhs under 6 years old in urban areas"
+sdg/AG_FOOD_WST,Food waste
+sdg/AG_FOOD_WST_PC,Food waste per capita
+sdg/AG_LND_FRST,Forest area as a proportion of total land area
+sdg/AG_LND_FRSTBIOPHA,Above-ground biomass in forest
+sdg/AG_LND_FRSTCERT,Forest area under an independently verified forest management certification scheme
+sdg/AG_LND_FRSTCHG,Annual forest area change rate
+sdg/AG_LND_FRSTN,Forest area
+sdg/AG_LND_FRSTPRCT,Proportion of forest area within legally established protected areas
+sdg/DC_ODA_BDVDL,Total official development assistance for biodiversity
+sdg/EG_FEC_RNEW,Renewable energy share in the total final energy consumption
+sdg/EN_EWT_GENPCAP,"Electronic waste generated, per capita"
+sdg/EN_EWT_GENV,Electronic waste generated
+sdg/EN_MAR_BEALITSQ,Beach litter per square kilometer
+sdg/EN_MAR_BEALIT_BP,Beach litter originating from national land-based sources that ends in the beach
+sdg/EN_MAR_BEALIT_OP,Beach litter originating from national land-based sources that ends in the ocean
+sdg/EN_MAR_PLASDD,Floating plastic debris density
+sdg/EN_MAT_DOMCMPG,Domestic material consumption per unit of GDP
+sdg/EN_MAT_DOMCMPT,Domestic material consumption
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF1,Domestic material consumption [Type of product = Biomass]
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF11,Domestic material consumption [Type of product = Crops]
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF13,Domestic material consumption [Type of product = Wood]
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF14,Domestic material consumption [Type of product = Wild catch and harvest]
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF2,Domestic material consumption [Type of product = Metal ores]
+sdg/EN_MAT_DOMCMPT.PRODUCT--MF3,Domestic material consumption [Type of product = Non-metallic minerals]
+sdg/EN_SCP_FRMN,Number of companies publishing sustainability reports with disclosure by dimension
+sdg/EN_SCP_FSHGDP,Sustainable fisheries as a proportion of GDP
+sdg/ER_FFS_CMPT_GDP,Fossil-fuel subsidies as a proportion of total GDP
+sdg/ER_FFS_CMPT_PC_CD,Fossil-fuel subsidies per capita
+sdg/ER_H2O_FWTL,Proportion of fish stocks within biologically sustainable levels
+sdg/ER_MRN_MPA,Average proportion of Marine Key Biodiversity Areas covered by protected areas
+sdg/ER_PTD_FRHWTR,Average proportion of Freshwater Key Biodiversity Areas covered by protected areas
+sdg/ER_PTD_MTN,Average proportion of Mountain Key Biodiversity Areas covered by protected areas
+sdg/ER_PTD_TERR,Average proportion of Terrestrial Key Biodiversity Areas covered by protected areas
+sdg/ER_RSK_LST,Red List Index
+sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Proportion of women of reproductive age who have their need for family planning satisfied with modern methods [Age = 15 to 49 years old | Sex = Female]
+sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Proportion of women aged 15-49 years with anaemia [Age = 15 to 49 years old | Sex = Female]
+sdg/SH_STA_MORT.SEX--F,Maternal mortality ratio [Sex = Female]
+sdg/SH_STA_STNT.AGE--Y0T4,Proportion of children moderately or severely stunted [Age = under 5 years old]
+sdg/SH_STA_WAST.AGE--Y0T4,Proportion of children moderately or severely wasted [Age = under 5 years old]
+sdg/SI_POV_DAY1,Proportion of population below international poverty line
+sdg/SI_POV_EMP1.AGE--Y_GE15,Employed population below international poverty line [Age = 15 years old and over]
+sdg/SN_ITK_DEFC,Prevalence of undernourishment
+sdg/SP_ACS_BSRVH2O,Proportion of population using basic drinking water services
+sdg/SP_ACS_BSRVSAN,Proportion of population using basic sanitation services
+sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F,Adolescent birth rate [Age = 15 to 19 years old | Sex = Female]
 worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,Total electricity output;Total electricity output (GWh);total energy output;total energy produced
 worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,Renewable electricity output;Renewable electricity output (GWh);energy produced from renewables;renewable energy output
 worldBank/4_1_SHARE_RE_IN_ELECTRICITY,Renewable electricity proportion in total output;Renewable electricity share of total electricity output (%);electricity output from renewables;fraction of electricity output due to renewables;renewable electricity as a percentage of total output
