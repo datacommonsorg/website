@@ -301,18 +301,18 @@ def resolve(nodes, prop):
 
 def nl_search_sv(query, index_type):
   """Search sv from NL server."""
-  url = f'{cfg.NL_ROOT}/api/search_sv?q={query}&sz={index_type}'
+  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&sz={index_type}'
   return get(url)
 
 
 def nl_detect_place_ner(query):
   """Detect places from NL server."""
-  url = f'{cfg.NL_ROOT}/api/search_places?q={query}'
+  url = f'{current_app.config["NL_ROOT"]}/api/search_places?q={query}'
   return get(url).get('places', [])
 
 
 def nl_embeddings_version_map():
-  return get(f'{cfg.NL_ROOT}/api/embeddings_version_map')
+  return get(f'{current_app.config["NL_ROOT"]}/api/embeddings_version_map')
 
 
 # =======================   V0 V0 V0 ================================

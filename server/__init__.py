@@ -46,6 +46,8 @@ propagator = google_cloud_format.GoogleCloudFormatPropagator()
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
+DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
+
 
 def createMiddleWare(app, exporter):
   # Configure a flask middleware that listens for each request and applies
@@ -243,12 +245,13 @@ def register_routes_common(app):
   app.register_blueprint(oembed.bp)
 
 
-def create_app():
+def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
   # Setup flask config
   cfg = libconfig.get_config()
   app.config.from_object(cfg)
+  app.config['NL_ROOT'] = nl_root
 
   # Init extentions
   from server.cache import cache

@@ -34,6 +34,7 @@ steps:
     args:
       - -c
       - |
+        ./run_test.sh --setup_python
         ./run_website_snapshot.sh
 
 timeout: 1800s
