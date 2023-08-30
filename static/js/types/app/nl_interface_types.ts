@@ -77,3 +77,8 @@ export interface DebugInfo {
   correlationClassification: string;
   eventClassification: string;
 }
+
+export interface UserMessageInfo {
+  msg: string;
+  showForm: boolean;
+}
