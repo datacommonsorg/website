@@ -76,7 +76,25 @@ def _replace_special(input_string_title_case: str) -> str:
 
 
 def _make_sentence_case(input_string: str) -> str:
-  return input_string.capitalize()
+  # Only capitalize the first word and make everything else
+  # lower case, except those words which are all caps.
+  words = input_string.split()
+  output_str = ""
+  for i in range(len(words)):
+    w = words[i]
+
+    if w.isupper():
+      w = w
+    elif i == 0:
+      w = w.title()
+    else:
+      w = w.lower()
+
+    if i > 0:
+      w = f" {w}"
+
+    output_str += w
+  return output_str
 
 
 def _make_title_case(input_string: str) -> str:
@@ -162,9 +180,9 @@ class Builder:
     title, description, footnote = '', '', ''
 
     if override_sv:
-      title = self.sv2thing.name.get(override_sv, '')
-      description = self.sv2thing.description.get(override_sv, '')
-      footnote = self.sv2thing.footnote.get(override_sv, '')
+      title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
+      description = _make_sentence_case(self.sv2thing.description.get(override_sv, ''))
+      footnote = _make_sentence_case(self.sv2thing.footnote.get(override_sv, ''))
       return title, description, footnote
 
     if cv.title:
