@@ -161,7 +161,7 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -n 2 --reruns 2 -vv server/integration_tests/$1
+  python3 -m pytest -n 5 --reruns 2 -vv server/integration_tests/$1
 }
 
 function update_integration_test_golden {
@@ -172,7 +172,7 @@ function update_integration_test_golden {
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=write
   python3 -m pytest -vv server/integration_tests/topic_cache
-  python3 -m pytest -vv -n 3 server/integration_tests/
+  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/
   python3 -m pytest -vv server/tests/nodejs_e2e_test.py
 }
 

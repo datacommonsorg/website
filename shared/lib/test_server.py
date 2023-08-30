@@ -32,10 +32,10 @@ class NLWebServerTestCase(LiveServerTestCase):
       # run at the same time.
       sock = socket.socket()
       sock.bind(('', 0))
-      port = sock.getsockname()[1]
+      cls.port = sock.getsockname()[1]
 
       def start_nl_server(app):
-        app.run(port=port, debug=False, use_reloader=False, threaded=True)
+        app.run(port=cls.port, debug=False, use_reloader=False, threaded=False)
 
       nl_app = create_nl_app()
       # Create a thread that will contain our running server
@@ -43,15 +43,16 @@ class NLWebServerTestCase(LiveServerTestCase):
                                          args=(nl_app,),
                                          daemon=True)
       cls.proc.start()
-      libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(port)])
+      libutil.check_backend_ready(
+          ['http://127.0.0.1:{}/healthz'.format(cls.port)])
 
   @classmethod
   def tearDownClass(cls):
     if os.environ.get('ENABLE_MODEL') == 'true':
       cls.proc.terminate()
 
-  def create_app(self):
+  def create_app(cls):
     """Returns the Flask Server running Data Commons."""
-    app = create_web_app()
+    app = create_web_app('http://127.0.0.1:{}'.format(cls.port))
     app.config['LIVESERVER_PORT'] = 0
     return app
