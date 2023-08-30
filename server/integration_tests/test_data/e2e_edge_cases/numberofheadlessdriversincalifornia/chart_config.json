@@ -1077,5 +1077,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Have low confidence in understanding your query, but displaying the closest results."
+  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
 }
