@@ -200,17 +200,23 @@
   margin-bottom: 16px;
 }
 
-.user-message .user-message-text {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  .main-message {
-    font-size: 20px;
+.user-message {
+  .user-message-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  
+    .main-message {
+      font-size: 20px;
+    }
+  
+    .sub-message {
+      font-size: 14px;
+    }
   }
 
-  .sub-message {
-    font-size: 14px;
+  .item-list-container {
+    margin-top: 16px;
   }
 }
 
