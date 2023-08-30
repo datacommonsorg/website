@@ -1,0 +1,667 @@
+[
+    {
+        "key": "1.1.1",
+        "tags": {
+            "headline": "Slow and uneven progress on poverty reduction may leave hundreds of millions in extreme poverty by 2030",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-01/"
+        }
+    },
+    {
+        "key": "1.2.1",
+        "tags": {
+            "headline": "If current trends continue, only one third of countries will halve national poverty by 2030",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-01/"
+        }
+    },
+    {
+        "key": "1.3.1",
+        "tags": {
+            "headline": "Amid overlapping crises, coverage and expenditures on social protection programmes remain low",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-01/"
+        }
+    },
+    {
+        "key": "1.a.2",
+        "tags": {
+            "headline": "Advanced, emerging and developing economies alike have all increased their share of government spending on essential services",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-01/"
+        }
+    },
+    {
+        "key": "1.5.1",
+        "tags": {
+            "headline": "Globally, disasters are affecting more people but causing fewer deaths",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-01/"
+        }
+    },
+    {
+        "key": "2.1.1",
+        "tags": {
+            "headline": "In the face of a polycrisis, joint global efforts are urgently needed to address hunger and ensure food security",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-02/"
+        }
+    },
+    {
+        "key": "2.a.1",
+        "tags": {
+            "headline": "Aid and public spending on agriculture are falling despite the growing global food crisis",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-02/"
+        }
+    },
+    {
+        "key": "2.2.1",
+        "tags": {
+            "headline": "Malnutrition continues to threaten children and women worldwide, despite some progress",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-02/"
+        }
+    },
+    {
+        "key": "2.c.1",
+        "tags": {
+            "headline": "Despite dropping in 2021, the share of countries experiencing high food prices remained above the 2015\u20132019 average",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-02/"
+        }
+    },
+    {
+        "key": "3.1.1",
+        "tags": {
+            "headline": "Stagnating progress in reducing maternal mortality means a woman dies of preventable causes every two minutes",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.7.1",
+        "tags": {
+            "headline": "Progress on reproductive health continues, with falling adolescent birth rates and rising access to contraception",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.2.1",
+        "tags": {
+            "headline": "Global child mortality rates show significant decline, but challenges remain",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.b.1",
+        "tags": {
+            "headline": "The alarming decline in childhood vaccination is leaving millions of children at risk from devastating but preventable diseases",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.3.1",
+        "tags": {
+            "headline": "Intersecting crises have left the world off-kilter to achieve SDG targets on HIV, malaria and tuberculosis",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.8.1",
+        "tags": {
+            "headline": "In the wake of the pandemic, progress towards universal health coverage has slowed while financial hardship has risen",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.c.1",
+        "tags": {
+            "headline": "Despite increases in the global health workforce, numbers remain low in regions with the highest burden of disease",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "3.b.2",
+        "tags": {
+            "headline": "Driven by COVID-19, official development assistance for basic health has doubled since 2015",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-03/"
+        }
+    },
+    {
+        "key": "4.1.2",
+        "tags": {
+            "headline": "Primary and secondary school completion is rising, but the pace is far too slow and uneven",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "4.1.1",
+        "tags": {
+            "headline": "Patchy data show disappointing progress on improving primary school reading levels",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "4.2.2",
+        "tags": {
+            "headline": "Access to early childhood education has expanded, but progress has slowed since 2015",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "4.4.1",
+        "tags": {
+            "headline": "Low digital skills hamper progress towards universal and meaningful connectivity",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "4.a.1",
+        "tags": {
+            "headline": "Basic school infrastructure varies widely across regions and is far from universal",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "4.c.1",
+        "tags": {
+            "headline": "Many teachers still lack the required qualifications to teach",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-04/"
+        }
+    },
+    {
+        "key": "5.5.1",
+        "tags": {
+            "headline": "Progress has been sluggish on upping women\u2019s share in management and political representation",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.6.1",
+        "tags": {
+            "headline": "Nearly half of married women lack decision-making power over their sexual and reproductive health and rights",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.2.1",
+        "tags": {
+            "headline": "Insufficient progress has been made in reducing intimate partner violence over the past two decades",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.1.1",
+        "tags": {
+            "headline": "Discriminatory laws and gaps in legal protection persist in critical aspects, denying women their human rights worldwide",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.3.1",
+        "tags": {
+            "headline": "Recent gains are under threat in efforts to end child marriage",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.a.1",
+        "tags": {
+            "headline": "Agricultural land ownership and legal protection of women\u2019s land rights remain low",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "5.b.1",
+        "tags": {
+            "headline": "Mobile phone ownership can be a powerful tool for empowering women, but gender parity remains elusive in many regions",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-05/"
+        }
+    },
+    {
+        "key": "6.1.1",
+        "tags": {
+            "headline": "Access to drinking water, sanitation and hygiene improved significantly in rural areas, but stagnated or decreased in urban areas",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "6.3.2",
+        "tags": {
+            "headline": "Water quality is improving in countries with robust monitoring, but there are still many unknowns",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "6.4.1",
+        "tags": {
+            "headline": "Water-use efficiency has improved, particularly in agriculture, but rising water stress in several areas is cause for concern",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "6.5.1",
+        "tags": {
+            "headline": "Enhancing water management and transboundary cooperation is critical for bolstering resilience to crises",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "6.a.1",
+        "tags": {
+            "headline": "Decline in official development assistance to water sector raises concerns",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "6.6.1",
+        "tags": {
+            "headline": "As wetland ecosystems and species disappear, large-scale protection and restoration are imperative",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-06/"
+        }
+    },
+    {
+        "key": "7.1.1",
+        "tags": {
+            "headline": "More people than ever have access to electricity, but the pace is lagging for least developed countries",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "7.1.2",
+        "tags": {
+            "headline": "At the current pace, a quarter of the population will still be using unsafe and inefficient cooking systems by 2030",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "7.2.1",
+        "tags": {
+            "headline": "Renewable energy use is growing in the electricity sector, but limited in heating and transport",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "7.3.1",
+        "tags": {
+            "headline": "A strong rebound is needed to reach energy efficiency targets",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "7.a.1",
+        "tags": {
+            "headline": "International public financing for clean energy in developing countries continues to decline",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "7.b.1",
+        "tags": {
+            "headline": "Renewable energy is booming in developing countries, but the least developed are falling behind",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-07/"
+        }
+    },
+    {
+        "key": "8.1.1",
+        "tags": {
+            "headline": "Global economic recovery continues on a slow trajectory",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "8.3.1",
+        "tags": {
+            "headline": "Challenging economic conditions are pushing more workers into informal employment",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "8.5.2",
+        "tags": {
+            "headline": "Global unemployment is expected to decline below pre-pandemic levels, but challenges persist in low-income countries",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "8.6.1",
+        "tags": {
+            "headline": "Young women are more than twice as likely as young men to be out of education, employment or training",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "8.9.1",
+        "tags": {
+            "headline": "Tourism is on a path to recovery, but still well below pre-pandemic levels",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "8.10.2",
+        "tags": {
+            "headline": "COVID-19 has accelerated the adoption of digital solutions, transforming access to finance",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-08/"
+        }
+    },
+    {
+        "key": "9.2.1",
+        "tags": {
+            "headline": "Least developed countries face challenges in achieving the manufacturing target by 2030",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-09/"
+        }
+    },
+    {
+        "key": "9.4.1",
+        "tags": {
+            "headline": "Economic growth outpaced increases in CO2 emissions, aided by the use of clean technologies and reduced industrial output",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-09/"
+        }
+    },
+    {
+        "key": "9.5.1",
+        "tags": {
+            "headline": "Global research and development spending is up, particularly since the pandemic, but is still too low in least developed countries",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-09/"
+        }
+    },
+    {
+        "key": "9.b.1",
+        "tags": {
+            "headline": "Strong growth in medium-high- and high-technology industries amid global manufacturing slowdown",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-09/"
+        }
+    },
+    {
+        "key": "9.c.1",
+        "tags": {
+            "headline": "More than 95 per cent of the world has mobile broadband access of at least 3G, but connecting the final frontier is proving difficult",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-09/"
+        }
+    },
+    {
+        "key": "10.1.1",
+        "tags": {
+            "headline": "Most countries experienced increased shared prosperity, but the pandemic may have reversed some of this progress",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-10/"
+        }
+    },
+    {
+        "key": "10.2.1",
+        "tags": {
+            "headline": "The pandemic has caused the largest rise in income inequality between countries in three decades",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-10/"
+        }
+    },
+    {
+        "key": "10.3.1",
+        "tags": {
+            "headline": "Racial discrimination is one of the most common grounds for discrimination worldwide",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-10/"
+        }
+    },
+    {
+        "key": "10.7.3",
+        "tags": {
+            "headline": "With deaths along migratory routes rising globally, urgent action is needed to ensure safe migration",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-10/"
+        }
+    },
+    {
+        "key": "10.7.4",
+        "tags": {
+            "headline": "Record numbers of people are fleeing their countries in the face of mounting crises",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-10/"
+        }
+    },
+    {
+        "key": "11.1.1",
+        "tags": {
+            "headline": "Smaller cities and towns in many regions are recording faster growth in slum populations than major cities",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "11.2.1",
+        "tags": {
+            "headline": "The demand for urban transportation continues to grow exponentially, particularly in developing countries",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "11.6.2",
+        "tags": {
+            "headline": "Air pollution is not only an urban problem, but is also affecting towns and rural areas",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "11.7.1",
+        "tags": {
+            "headline": "Provision and access to open public spaces remains low across regions, impacting negatively on the quality of urban life",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "11.3.1",
+        "tags": {
+            "headline": "Urban sprawl is outpacing population growth in most cities, with detrimental effects on sustainability",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "11.b.1",
+        "tags": {
+            "headline": "Since 2015, many more national and local governments have reported having disaster risk reduction strategies",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-11/"
+        }
+    },
+    {
+        "key": "12.2.2",
+        "tags": {
+            "headline": "Regional inequalities in material footprints highlight consumption disparities",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "12.c.1",
+        "tags": {
+            "headline": "Fossil fuel subsidies rise back to 2014 levels despite calls for a phase-out",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "12.3.1",
+        "tags": {
+            "headline": "Despite rising global hunger, food waste and losses are staggering and uneven",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "12.6.1",
+        "tags": {
+            "headline": "More companies, large and small, are reporting on their efforts to improve sustainability",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "12.1.1",
+        "tags": {
+            "headline": "Global cooperation on sustainable consumption and production rises, while reporting dwindles",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "12.7.1",
+        "tags": {
+            "headline": "Despite increased public procurement reporting, sustainable tourism monitoring is down",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-12/"
+        }
+    },
+    {
+        "key": "13.2.2",
+        "tags": {
+            "headline": "Urgent global greenhouse gas emission reductions are needed to avert 1.5&deg;C tipping point",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-13/"
+        }
+    },
+    {
+        "key": "13.3.1",
+        "tags": {
+            "headline": "Global climate change education has so far not kept up with youth demand",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-13/"
+        }
+    },
+    {
+        "key": "13.2.2",
+        "tags": {
+            "headline": "Record-setting rising sea levels are a severe threat to hundreds of millions of people",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-13/"
+        }
+    },
+    {
+        "key": "13.a.1",
+        "tags": {
+            "headline": "The $100-billion-a-year climate finance goal by developed countries has yet to be met",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-13/"
+        }
+    },
+    {
+        "key": "14.1.1b",
+        "tags": {
+            "headline": "Citizen science sheds light on the magnitude of ocean plastic pollution",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
+        }
+    },
+    {
+        "key": "14.1.1a",
+        "tags": {
+            "headline": "Coastal eutrophication: a growing threat to marine ecosystems and communities",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
+        }
+    },
+    {
+        "key": "14.3.1",
+        "tags": {
+            "headline": "Expanding global ocean acidification monitoring is crucial to confront an unabating crisis",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
+        }
+    },
+    {
+        "key": "14.6.1",
+        "tags": {
+            "headline": "Despite improvements, stronger global cooperation is needed to reel in illegal fishing",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
+        }
+    },
+    {
+        "key": "14.c.1",
+        "tags": {
+            "headline": "Turning the tide: Recent marine agreements show promise for ocean protection",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-14/"
+        }
+    },
+    {
+        "key": "15.1.1",
+        "tags": {
+            "headline": "Deforestation and forest degradation remain major global threats",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-15/"
+        }
+    },
+    {
+        "key": "15.a.1",
+        "tags": {
+            "headline": "Despite efforts to mobilize financing for biodiversity conservation, a persistent funding gap remains",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-15/"
+        }
+    },
+    {
+        "key": "15.5.1",
+        "tags": {
+            "headline": "Species extinction risk has accelerated each decade since 1993",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-15/"
+        }
+    },
+    {
+        "key": "15.1.2",
+        "tags": {
+            "headline": "Growth in protected area coverage of key biodiversity areas has largely stalled",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-15/"
+        }
+    },
+    {
+        "key": "15.3.1",
+        "tags": {
+            "headline": "Alarming trends in land degradation call for urgent action to restore the Earth",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-15/"
+        }
+    },
+    {
+        "key": "16.1.1",
+        "tags": {
+            "headline": "Global homicides hit a 20-year high amid escalating gang and sociopolitical violence",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "16.1.2",
+        "tags": {
+            "headline": "There has been an unprecedented increase in civilian deaths in conflicts \u2013 the first since the adoption of the 2030 Agenda",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "16.2.2",
+        "tags": {
+            "headline": "Falling detection of victims of human trafficking during crises prompts new methods to track and combat this hidden crime",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "16.3.2",
+        "tags": {
+            "headline": "The global prison population keeps rising, creating overcrowding and concerns over the proportion of unsentenced detainees",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "16.4.1",
+        "tags": {
+            "headline": "Drug trafficking is generating illicit financial flows worth billions, fuelling corruption and diverting resources",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "16.7.1",
+        "tags": {
+            "headline": "The number of young parliamentarians remains low, with few holding leadership positions",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-16/"
+        }
+    },
+    {
+        "key": "17.4.1",
+        "tags": {
+            "headline": "In the wake of the pandemic, many developing countries are facing a debt crisis",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-17/"
+        }
+    },
+    {
+        "key": "17.11.1",
+        "tags": {
+            "headline": "Despite record-breaking global trade increases, the share of exports from least developed countries has stagnated and is far off target",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-17/"
+        }
+    },
+    {
+        "key": "17.2.1",
+        "tags": {
+            "headline": "Official development assistance surged in 2022 owing to spending on refugees in donor countries and aid to Ukraine",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-17/"
+        }
+    },
+    {
+        "key": "17.8.1",
+        "tags": {
+            "headline": "Internet usage reaches two-thirds of the world\u2019s population, but gender and connectivity gaps persist",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-17/"
+        }
+    },
+    {
+        "key": "17.18.3",
+        "tags": {
+            "headline": "The world needs more timely, detailed and accurate data to tackle a multitude of crises, but funding for data and statistics is ever more scarce",
+            "link": "https://unstats.un.org/sdgs/report/2023/Goal-17/"
+        }
+    }
+]
