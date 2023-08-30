@@ -20,23 +20,24 @@
 
 import React from "react";
 
+import { UserMessageInfo } from "../../types/app/nl_interface_types";
+
 const FORM_URL = "";
 
 interface UserMessagePropType {
-  userMessage: string;
-  showForm: boolean;
+  userMessage: UserMessageInfo;
 }
 
 export function UserMessage(props: UserMessagePropType): JSX.Element {
-  if (!props.userMessage) {
+  if (!props.userMessage || !props.userMessage.msg) {
     return null;
   }
 
   return (
     <div className="user-message">
       <div className="user-message-text">
-        <span className="main-message">{props.userMessage}</span>
-        {props.showForm && (
+        <span className="main-message">{props.userMessage.msg}</span>
+        {props.userMessage.showForm && (
           <span className="sub-message">
             <a href={FORM_URL}>Fill out this form</a> to add data to answer this
             query.
