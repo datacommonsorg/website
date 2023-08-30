@@ -23,6 +23,7 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
   OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
+  USE_PALM = True
 
 
 class LocalConfig(Config, local.Config):
