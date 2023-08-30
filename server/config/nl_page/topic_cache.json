@@ -3085,13 +3085,8 @@
         "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "memberList": [
-        "sdg/SH_AAP_ASMORT",
         "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
-        "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M",
-        "sdg/SH_HAP_ASMORT",
-        "sdg/SH_STA_ASAIRP",
-        "sdg/SH_STA_POISN",
-        "sdg/SH_STA_SCIDE"
+        "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
       ],
       "name": [
         "Infant Mortality Rate by Gender"
@@ -12320,8 +12315,10 @@
         "Infant Mortality"
       ],
       "relevantVariableList": [
+        "sdg/SH_DYN_NMRT.AGE--M0",
         "Count_Death_Upto1Years",
-        "dc/svpg/dc/topic/InfantMortality_CausesOfDeath"
+        "dc/svpg/dc/topic/InfantMortality_CausesOfDeath",
+        "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "typeOf": [
         "Topic"
@@ -12992,6 +12989,8 @@
         "Mortality"
       ],
       "relevantVariableList": [
+        "Count_Death",
+        "Count_Death_AsAFractionOfCount_Person",
         "dc/topic/LifeExpectancy",
         "dc/topic/CausesOfDeath",
         "dc/topic/FemaleMortality",
@@ -13044,21 +13043,6 @@
         "Count_Death_AsianOrPacificIslander",
         "Count_Death_BlackOrAfricanAmerican",
         "Count_Death_White"
-      ],
-      "typeOf": [
-        "Topic"
-      ]
-    },
-    {
-      "dcid": [
-        "dc/topic/MortalityRate"
-      ],
-      "name": [
-        "Mortality Rate"
-      ],
-      "relevantVariableList": [
-        "sdg/SH_DYN_NMRT.AGE--M0",
-        "dc/svpg/MortalityRate_InfantMortalityRateByGender"
       ],
       "typeOf": [
         "Topic"
