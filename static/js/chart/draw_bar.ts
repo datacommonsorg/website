@@ -27,6 +27,8 @@ import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
+  HIGHLIGHT_TIMEOUT,
+  LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
   NUM_Y_TICKS,
   SVGNS,
@@ -39,6 +41,7 @@ import {
   addYAxis,
   appendLegendElem,
   getDisplayUnitAndLabel,
+  getLegendKeyFn,
   updateXAxis,
 } from "./draw_utils";
 import { ChartOptions, HorizontalBarChartOptions } from "./types";
@@ -179,7 +182,7 @@ function addHighlightOnHover(
     hideFn = setTimeout(() => {
       svg.selectAll("rect, circle").style("opacity", 1);
       tooltip.style("display", "none");
-    }, 200);
+    }, HIGHLIGHT_TIMEOUT);
   };
   const mousemoveFn = function () {
     const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
@@ -220,6 +223,7 @@ export function drawStackBarChart(
   }
 
   const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendKeyFn = getLegendKeyFn(keys);
   const data = [];
   for (const dataGroup of dataGroups) {
     const curr: { [property: string]: any } = { label: dataGroup.label };
@@ -332,7 +336,11 @@ export function drawStackBarChart(
       .attr("x1", (d) => x(String(d.data.label)) + xShift)
       .attr("x2", (d) => x(String(d.data.label)) + xShift)
       .attr("y1", (d) => y(d[0]))
-      .attr("y2", (d) => y(d[1]));
+      .attr("y2", (d) => y(d[1]))
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
 
     // draw circles
     chart
@@ -357,7 +365,11 @@ export function drawStackBarChart(
       .attr("data-d", (d) => d.data.value)
       .attr("r", 6)
       .attr("cx", (d) => x(String(d.data.label)) + xShift)
-      .attr("cy", (d) => y(d[1]));
+      .attr("cy", (d) => y(d[1]))
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
   } else {
     // draw bars
     chart
@@ -382,7 +394,11 @@ export function drawStackBarChart(
       .attr("x", (d) => x(String(d.data.label)))
       .attr("y", (d) => (Number.isNaN(d[1]) ? y(d[0]) : y(d[1])))
       .attr("width", x.bandwidth())
-      .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])));
+      .attr("height", (d) => (Number.isNaN(d[1]) ? 0 : y(d[0]) - y(d[1])))
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
   }
 
   if (options?.showTooltipOnHover) {
@@ -402,7 +418,9 @@ export function drawStackBarChart(
       dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
+      index: legendKeyFn(dp.label),
     })),
+    svg,
     options?.apiRoot
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
@@ -417,6 +435,7 @@ export function drawStackBarChart(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of bars
  * @param yScale  scale for y-axis values
+ * @param legendKeyFn mapping of label to key of corresponding entry in legend
  * @param unit data's unit of measurement to show in tooltip
  */
 function drawBars(
@@ -426,6 +445,7 @@ function drawBars(
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
   yScale: d3.ScaleLinear<number, number, never>,
+  legendKeyFn: (l: string) => string,
   unit?: string
 ): void {
   chart
@@ -460,7 +480,11 @@ function drawBars(
     .attr("y", (d) => yScale(Math.max(0, d.value)))
     .attr("width", xSubScale.bandwidth())
     .attr("height", (d) => Math.abs(yScale(0) - yScale(d.value)))
-    .attr("fill", (d) => colorFn(d.statVar));
+    .attr("fill", (d) => colorFn(d.statVar))
+    .attr(
+      "class",
+      (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+    );
 }
 
 /**
@@ -472,6 +496,7 @@ function drawBars(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
+ * @param legendKeyFn mapping of label to key of corresponding entry in legend
  * @param useLollipop whether to use lollipop style
  * @param unit data's unit of measurement to show in tooltip
  */
@@ -481,18 +506,20 @@ function drawHorizontalGroupedBars(
   dataGroups: DataGroup[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
+  legendKeyFn: (l: string) => string,
   useLollipop?: boolean,
   unit?: string
 ): void {
   const numGroups = dataGroups[0].value.length;
   const setData = (dg: DataGroup) => {
-    return dg.value.map((dgv) => ({
+    return dg.value.map((dgv, index) => ({
       dataGroupValue: dgv,
       label: dg.label,
       statVar: dgv.label,
       value: dgv.value,
       place: dg.label,
       date: dgv.date,
+      index,
       unit,
     }));
   };
@@ -537,6 +564,11 @@ function drawHorizontalGroupedBars(
         "y2",
         (item, i) =>
           yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
+      )
+      .attr(
+        "class",
+        (item) =>
+          `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(item.dataGroupValue.label)}`
       );
 
     // draw circles
@@ -565,7 +597,12 @@ function drawHorizontalGroupedBars(
         (item, i) =>
           yScale(item.label) + (i + 1) * stemSpacing + bandwidthPadding
       )
-      .attr("r", Math.min(6, stemSpacing));
+      .attr("r", Math.min(6, stemSpacing))
+      .attr(
+        "class",
+        (item) =>
+          `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(item.dataGroupValue.label)}`
+      );
   } else {
     // Draw grouped horizontal bars
     const barHeight = yScale.bandwidth() / numGroups;
@@ -592,7 +629,12 @@ function drawHorizontalGroupedBars(
       .attr("x", xScale(0))
       .attr("y", (item, i) => yScale(item.label) + i * barHeight)
       .attr("width", (item) => xScale(item.dataGroupValue.value) - xScale(0))
-      .attr("height", barHeight);
+      .attr("height", barHeight)
+      .attr(
+        "class",
+        (item) =>
+          `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(item.dataGroupValue.label)}`
+      );
   }
 }
 
@@ -605,6 +647,7 @@ function drawHorizontalGroupedBars(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
+ * @param legendKeyFn mapping of label to key of corresponding entry in legend
  * @param useLollipop whether to use lollipop style
  * @param unit data's unit of measurement to show in tooltip
  */
@@ -614,6 +657,7 @@ function drawHorizontalStackedBars(
   series: d3.Series<{ [key: string]: number }, string>[],
   xScale: d3.ScaleLinear<number, number>,
   yScale: d3.ScaleBand<string>,
+  legendKeyFn: (l: string) => string,
   useLollipop?: boolean,
   unit?: string
 ): void {
@@ -656,7 +700,11 @@ function drawHorizontalStackedBars(
       .attr("x1", (d) => xScale(d[0]))
       .attr("x2", (d) => xScale(d[1]))
       .attr("y1", (d) => yScale(String(d.data.label)) + yShift)
-      .attr("y2", (d) => yScale(String(d.data.label)) + yShift);
+      .attr("y2", (d) => yScale(String(d.data.label)) + yShift)
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
 
     // draw circles
     chart
@@ -681,7 +729,11 @@ function drawHorizontalStackedBars(
       )
       .attr("cx", (d) => xScale(d[1]))
       .attr("cy", (d) => yScale(String(d.data.label)) + yShift)
-      .attr("r", 6);
+      .attr("r", 6)
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
   } else {
     // Draw horizontal bars, stacked
     chart
@@ -708,7 +760,11 @@ function drawHorizontalStackedBars(
       .attr("x", (d) => xScale(d[0]))
       .attr("y", (d) => yScale(String(d.data.label)))
       .attr("width", (d) => xScale(d[1]) - xScale(d[0]))
-      .attr("height", yScale.bandwidth());
+      .attr("height", yScale.bandwidth())
+      .attr(
+        "class",
+        (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+      );
   }
 }
 
@@ -721,6 +777,7 @@ function drawHorizontalStackedBars(
  * @param xScale main scale for x-axis values
  * @param xSubScale sub-scale for a single group of lollipops
  * @param yScale  scale for y-axis values
+ * @param legendKeyFn mapping of label to key of corresponding entry in legend
  * @param unit data's unit of measurement to show in tooltip
  */
 function drawLollipops(
@@ -730,6 +787,7 @@ function drawLollipops(
   xScale: d3.ScaleBand<string>,
   xSubScale: d3.ScaleBand<string>,
   yScale: d3.ScaleLinear<number, number, never>,
+  legendKeyFn: (l: string) => string,
   unit?: string
 ): void {
   const setData = (dg: DataGroup) => {
@@ -767,7 +825,11 @@ function drawLollipops(
     .attr("x1", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
     .attr("x2", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
     .attr("y1", yScale(0))
-    .attr("y2", (d) => yScale(d.value));
+    .attr("y2", (d) => yScale(d.value))
+    .attr(
+      "class",
+      (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+    );
 
   // draw circles
   chart
@@ -792,7 +854,11 @@ function drawLollipops(
     .attr("fill", (d) => colorFn(d.statVar))
     .attr("cx", (d) => xSubScale(d.statVar) + xSubScale.bandwidth() / 2)
     .attr("cy", (d) => yScale(d.value))
-    .attr("r", 6);
+    .attr("r", 6)
+    .attr(
+      "class",
+      (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.statVar)}`
+    );
 }
 
 /**
@@ -820,6 +886,7 @@ export function drawGroupBarChart(
     labelToLink[dataGroup.label] = dataGroup.link;
   }
   const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendKeyFn = getLegendKeyFn(keys);
   const minV = Math.min(
     0,
     Math.min(...dataGroups.map((dataGroup) => dataGroup.min()))
@@ -890,9 +957,18 @@ export function drawGroupBarChart(
   const colorFn = getColorFn(colorOrder, options.colors);
 
   if (options?.lollipop) {
-    drawLollipops(chart, colorFn, dataGroups, x0, x1, y, options?.unit);
+    drawLollipops(
+      chart,
+      colorFn,
+      dataGroups,
+      x0,
+      x1,
+      y,
+      legendKeyFn,
+      options?.unit
+    );
   } else {
-    drawBars(chart, colorFn, dataGroups, x0, x1, y, options?.unit);
+    drawBars(chart, colorFn, dataGroups, x0, x1, y, legendKeyFn, options?.unit);
   }
 
   if (options?.showTooltipOnHover) {
@@ -912,7 +988,9 @@ export function drawGroupBarChart(
       dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
+      index: legendKeyFn(dp.label),
     })),
+    svg,
     options?.apiRoot
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
@@ -940,6 +1018,7 @@ export function drawHorizontalBarChart(
   }
 
   const keys = dataGroups[0].value.map((dp) => dp.label);
+  const legendKeyFn = getLegendKeyFn(keys);
   const data = [];
   for (const dataGroup of dataGroups) {
     const curr: { [property: string]: any } = { label: dataGroup.label };
@@ -975,7 +1054,6 @@ export function drawHorizontalBarChart(
   const colorOrder = options?.statVarColorOrder || keys;
   const color = getColorFn(colorOrder, options?.colors);
   const [displayUnit, label] = getDisplayUnitAndLabel(options?.unit);
-
   // Create the SVG container.
   const svg = d3
     .create("svg")
@@ -1084,6 +1162,7 @@ export function drawHorizontalBarChart(
       series,
       x,
       y,
+      legendKeyFn,
       options?.lollipop,
       options?.unit
     );
@@ -1095,6 +1174,7 @@ export function drawHorizontalBarChart(
       dataGroups,
       x,
       y,
+      legendKeyFn,
       options?.lollipop,
       options?.unit
     );
@@ -1118,7 +1198,9 @@ export function drawHorizontalBarChart(
       dcid: dp.dcid,
       label: dp.label,
       link: dp.link,
+      index: legendKeyFn(dp.label),
     })),
+    svg,
     options?.apiRoot
   );
 }

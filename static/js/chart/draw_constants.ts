@@ -20,6 +20,10 @@
 
 export const AXIS_TEXT_FILL = "#2b2929";
 
+// amount of time to delay style resetting in tooltip & legend hover behavior
+// in miliseconds, to prevent flickering
+export const HIGHLIGHT_TIMEOUT = 150;
+
 export const LEGEND = {
   ratio: 0.2,
   minTextWidth: 100,
@@ -29,6 +33,8 @@ export const LEGEND = {
   marginTop: 40,
   defaultColor: "#000",
 };
+
+export const LEGEND_HIGHLIGHT_CLASS = "chart-data-object";
 
 export const MARGIN = {
   top: 20, // margin between chart and top edge

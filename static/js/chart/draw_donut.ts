@@ -23,8 +23,8 @@ import _ from "lodash";
 
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { DataGroup, DataPoint, getColorFn } from "./base";
-import { SVGNS, XLINKNS } from "./draw_constants";
-import { appendLegendElem } from "./draw_utils";
+import { LEGEND_HIGHLIGHT_CLASS, SVGNS, XLINKNS } from "./draw_constants";
+import { appendLegendElem, getLegendKeyFn } from "./draw_utils";
 import { ChartOptions } from "./types";
 
 /**
@@ -52,6 +52,7 @@ export function drawDonutChart(
   }
   const keys = dataGroups[0].value.map((dp) => dp.label);
   const colorFn = getColorFn(keys, options?.colors);
+  const legendKeyFn = getLegendKeyFn(keys);
   // minimum thickness of the donut, in px
   const minArcThickness = 10;
   // how thickness of donut should scale with donut's radius
@@ -108,6 +109,10 @@ export function drawDonutChart(
     })
     .attr("part", (d) =>
       ["series", `series-variable-${d.data.label}`].join(" ")
+    )
+    .attr(
+      "class",
+      (d) => `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(d.data.label)}`
     );
 
   appendLegendElem(
@@ -116,7 +121,9 @@ export function drawDonutChart(
     dataGroups[0].value.map((dp) => ({
       label: dp.label,
       link: dp.link,
-    }))
+      index: legendKeyFn(dp.label),
+    })),
+    svg
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }
