@@ -20,6 +20,6 @@ import sys
 # python3.8+ on MacOS.
 # https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
 # This code must only be run once per execution.
-# if sys.version_info >= (3, 8) and sys.platform == "darwin":
-multiprocessing.set_start_method("fork")
-os.environ['no_proxy'] = '*'
+if sys.version_info >= (3, 8) and sys.platform == "darwin":
+  multiprocessing.set_start_method("fork")
+  os.environ['no_proxy'] = '*'

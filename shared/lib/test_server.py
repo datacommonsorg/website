@@ -35,11 +35,7 @@ class NLWebServerTestCase(LiveServerTestCase):
       cls.port = sock.getsockname()[1]
 
       def start_nl_server(app):
-        app.run(port=cls.port,
-                debug=False,
-                use_reloader=False,
-                threaded=False,
-                processes=4)
+        app.run(port=cls.port, debug=False, use_reloader=False, threaded=True)
 
       nl_app = create_nl_app()
       # Create a thread that will contain our running server
