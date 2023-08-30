@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -34,6 +38,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -60,6 +68,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -86,6 +98,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -112,6 +128,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -133,6 +153,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/32"
@@ -328,7 +352,7 @@
     "place_type": "State"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "geoId/06",
@@ -471,5 +495,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "UNKNOWN",
+  "userMessage": ""
 }

@@ -20,9 +20,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import { RootTopic, useStoreActions, useStoreState } from "../../state";
+import { IndicatorTags, GoalText, useStoreActions, useStoreState } from "../../state";
 import {
-  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
@@ -459,7 +458,7 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
-            mainTopic={fulfillmentResponse.relatedThings.mainTopic}
+            mainTopic={fulfillmentResponse.relatedThings.mainTopics[0]}
           />
         ))}
     </>
@@ -472,13 +471,22 @@ const ChartCategoryContent: React.FC<{
   mainTopic: RelatedTopic;
 }> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
+  const goalSummaries = useStoreState((s) => s.goalSummaries);
+  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
 
-  const matches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  // get current goal, for displaying header and bullet point summaries
+  const goalMatches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
   const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
-  const rootTopicIndex =
-    matches && matches.length > 1 ? Number(matches[1]) - 1 : -1;
-
+  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
+  const goalText = goalSummaries.byGoal[goalId];
+  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
+
+
+  // get current indicator, for displaying headlines for the current indicator
+  const indicatorMatches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/)
+  const indicatorId = indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
+  const indicator = indicatorHeadlines.byIndicator[indicatorId];
 
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
@@ -501,9 +509,8 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
-        {placeDcid === EARTH_PLACE_DCID && isGoal && (
-          <StoryTile sdgTopic={sdgTopic} />
-        )}
+        {sdgTopic && isGoal && <BulletTile goal={goalText} />}
+        {indicator && <HeadlineTile indicator={indicator} />}
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
@@ -512,15 +519,31 @@ const ChartCategoryContent: React.FC<{
   );
 };
 
-const StoryTile: React.FC<{ sdgTopic: RootTopic | null }> = ({sdgTopic}) => {
-  if (!sdgTopic) {
+const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({indicator}) => {
+  if (!indicator) {
     return <></>;
   }
   return (
     <datacommons-text
-      header={sdgTopic.storyTitle}
-      text={sdgTopic.storyText}
-    />
+      link={indicator.link}
+    >
+      <div slot="text">{indicator.headline}</div>
+    </datacommons-text>
+  )
+};
+
+const BulletTile: React.FC<{ goal: GoalText | null }> = ({goal}) => {
+  if (!goal) {
+    return <></>;
+  }
+  return (
+    <datacommons-text>
+      <div slot="text">
+        <ul>
+          {goal.headlines.map((point: string, i: number) => <li key={i}>{point}</li>)}
+        </ul>
+      </div>
+    </datacommons-text>
   )
 };
 

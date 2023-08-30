@@ -22,7 +22,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 50,000 - 99,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 50,000-99,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -33,7 +33,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 100,000 - 199,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 100,000-199,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -44,7 +44,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue200000To299999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 200,000 - 299,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -55,7 +55,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue300000To499999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 300,000 - 499,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 300,000-499,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -66,7 +66,7 @@
                     "statVarKey": [
                       "Count_HousingUnit_HomeValue500000To999999USDollar"
                     ],
-                    "title": "Count of Housing Unit: 500,000 - 999,999 USD in States of United States (${date})",
+                    "title": "Count of Housing Unit: 500,000-999,999 USD in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -96,6 +96,33 @@
             ],
             "denom": "Count_Person",
             "title": "Home Value of Houses in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                    ],
+                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Ownership Cost by Mortgage Status in States of United States"
           },
           {
             "columns": [
@@ -317,23 +344,6 @@
             ],
             "denom": "Count_Person",
             "title": "Homes Valued Between $15,000 to $19,999 in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
-                    ],
-                    "title": "Homes Valued at $2,000,000 or More in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued at $2,000,000 or More in States of United States"
           }
         ],
         "statVarSpec": {
@@ -356,10 +366,6 @@
           "Count_HousingUnit_HomeValue175000To199999USDollar": {
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar": {
-            "name": "Homes Valued at $2,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
           "Count_HousingUnit_HomeValue200000To249999USDollar": {
             "name": "Homes Valued Between $200,000 to $249,999",
@@ -424,6 +430,14 @@
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
             "name": "Count of Housing Unit: 49,999 USD or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           }
         }
       }
@@ -455,5 +469,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

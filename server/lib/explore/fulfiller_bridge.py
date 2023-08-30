@@ -14,7 +14,7 @@
 
 # NL Bridge fulfiller.
 
-import copy
+from dataclasses import dataclass
 import time
 from typing import cast, Dict, List
 
@@ -22,8 +22,8 @@ from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.explore import extension
 from server.lib.explore import params
 from server.lib.explore import related
-import server.lib.explore.fulfiller as exp_fulfiller
 import server.lib.explore.related as related
+from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import base
@@ -31,12 +31,18 @@ import server.lib.nl.config_builder.builder as nl_config_builder
 from server.lib.nl.fulfillment import existence
 import server.lib.nl.fulfillment.fulfiller as nl_fulfiller
 from server.lib.nl.fulfillment.types import ChartSpec
+from server.lib.nl.fulfillment.types import ChartType
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
 
-def fulfill(uttr: nl_uttr.Utterance,
-            cb_config: base.Config) -> exp_fulfiller.FulfillResp:
+@dataclass
+class FulfillResp:
+  chart_pb: SubjectPageConfig
+  related_things: Dict
+
+
+def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
 
   config_pb = nl_config_builder.build(state, cb_config)
@@ -52,12 +58,20 @@ def fulfill(uttr: nl_uttr.Utterance,
   related_things = related.compute_related_things(state, plotted_orig_vars,
                                                   explore_peer_groups)
 
-  return exp_fulfiller.FulfillResp(chart_pb=config_pb,
-                                   related_things=related_things)
+  return FulfillResp(chart_pb=config_pb, related_things=related_things)
 
 
 def _get_plotted_orig_vars(
     state: PopulateState) -> List[related.PlottedOrigVar]:
+
+  if _is_place_overview(state.uttr.rankedCharts):
+    return [
+        related.PlottedOrigVar(svs=[
+            related.Node(
+                dcid=constants.ROOT_TOPIC, name='Statistics', types=['Topic'])
+        ])
+    ]
+
   plotted_orig_vars: List[related.PlottedOrigVar] = []
 
   def _node(sv):
@@ -82,6 +96,11 @@ def _get_plotted_orig_vars(
     added.add(svk)
 
   return plotted_orig_vars
+
+
+def _is_place_overview(ranked_charts: List[ChartSpec]) -> bool:
+  return ranked_charts and len(ranked_charts) == 1 and ranked_charts[
+      0].chart_type == ChartType.PLACE_OVERVIEW
 
 
 def _get_explore_more_chart_vars(

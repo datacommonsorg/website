@@ -123,6 +123,9 @@ def _add_charts_with_place_fallback(state: PopulateState,
   else:
     pt = place.place_type
   if isinstance(pt, str):
+    if pt not in set([it.value for it in ContainedInPlaceType]):
+      state.uttr.counters.err('failed_unknown_placetype', pt)
+      return False
     pt = ContainedInPlaceType(pt)
 
   # Walk up the parent type hierarchy trying to add charts.

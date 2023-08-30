@@ -21,43 +21,23 @@
 import _ from "lodash";
 import React from "react";
 
-import {
-  DEFAULT_TOPIC,
-  URL_HASH_PARAMS,
-} from "../../constants/app/explore_constants";
+import { DEFAULT_TOPIC } from "../../constants/app/explore_constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getUpdatedHash } from "../../utils/url_utils";
+import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
 
 interface ResultHeaderSectionPropType {
   placeUrlVal: string;
   pageMetadata: SubjectPageMetadata;
-  userMessage: string;
+  hideRelatedTopics: boolean;
 }
 
 export function ResultHeaderSection(
   props: ResultHeaderSectionPropType
 ): JSX.Element {
-  const topics = props.pageMetadata?.childTopics
-    .concat(props.pageMetadata?.peerTopics)
-    .concat(props.pageMetadata?.parentTopics);
-  const topicList = [];
-  if (!_.isEmpty(topics)) {
-    for (const topic of topics) {
-      if (topic.dcid == DEFAULT_TOPIC || !topic.name) {
-        // Do not show the root topic.
-        continue;
-      }
-      topicList.push({
-        text: topic.name,
-        url: `/explore/#${getUpdatedHash({
-          [URL_HASH_PARAMS.TOPIC]: topic.dcid,
-          [URL_HASH_PARAMS.PLACE]: props.placeUrlVal,
-          [URL_HASH_PARAMS.QUERY]: "",
-        })}`,
-      });
-    }
-  }
+  const topicList = props.hideRelatedTopics
+    ? []
+    : getTopics(props.pageMetadata, props.placeUrlVal);
 
   let placeNameStr = "";
   for (let i = 0; i < props.pageMetadata.places.length; i++) {
@@ -89,13 +69,12 @@ export function ResultHeaderSection(
         {placeNameStr}
         {topicNameStr && <span> • {topicNameStr}</span>}
       </div>
-      {!_.isEmpty(props.pageMetadata.mainTopics) && (
+      {!_.isEmpty(props.pageMetadata.mainTopics) && !_.isEmpty(topicList) && (
         <div className="explore-topics-box">
-          <span className="explore-relevant-topics">Relevant topics</span>
+          <span className="explore-relevant-topics">Related topics</span>
           <ItemList items={topicList}></ItemList>
         </div>
       )}
-      {props.userMessage && <div id="user-message">{props.userMessage}</div>}
     </>
   );
 }

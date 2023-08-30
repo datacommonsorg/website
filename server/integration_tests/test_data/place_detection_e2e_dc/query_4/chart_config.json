@@ -8,6 +8,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -37,6 +41,36 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/36",
+                      "geoId/53"
+                    ],
+                    "statVarKey": [
+                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block",
+                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block"
+                    ],
+                    "title": "Ownership Cost by Mortgage Status (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Ownership Cost by Mortgage Status"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -59,6 +93,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -81,6 +119,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -103,6 +145,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -125,6 +171,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -147,6 +197,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -169,6 +223,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -191,6 +249,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -213,6 +275,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -235,6 +301,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -257,6 +327,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -279,6 +353,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -301,6 +379,10 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
                     "comparisonPlaces": [
                       "geoId/06",
                       "geoId/36",
@@ -317,28 +399,6 @@
             ],
             "denom": "Count_Person",
             "title": "Homes Valued Between $15,000 to $19,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/36",
-                      "geoId/53"
-                    ],
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block"
-                    ],
-                    "title": "Homes Valued at $2,000,000 or More (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued at $2,000,000 or More"
           }
         ],
         "statVarSpec": {
@@ -361,10 +421,6 @@
           "Count_HousingUnit_HomeValue175000To199999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $175,000 to $199,999",
             "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "Homes Valued at $2,000,000 or More",
-            "statVar": "Count_HousingUnit_HomeValue2000000OrMoreUSDollar"
           },
           "Count_HousingUnit_HomeValue200000To249999USDollar_multiple_place_bar_block": {
             "name": "Homes Valued Between $200,000 to $249,999",
@@ -429,6 +485,14 @@
           "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block": {
             "name": "Count of Housing Unit: 49,999 USD or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          },
+          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          },
+          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_multiple_place_bar_block": {
+            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
+            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
           }
         }
       }
@@ -467,5 +531,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "PAST_QUERY"
+  "svSource": "PAST_QUERY",
+  "userMessage": "See relevant statistics based on the previous query."
 }

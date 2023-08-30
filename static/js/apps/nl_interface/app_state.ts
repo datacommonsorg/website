@@ -56,6 +56,7 @@ export interface NLQueryType {
   queryResult?: QueryResult;
   context?: any; // Summarized context
   debugData?: any;
+  userMessage?: string;
   errorMsg?: any;
   feedbackGiven?: boolean;
   id: string;
@@ -378,6 +379,7 @@ const nlAppActions: NLAppActions = {
             nlQueryUpdate.errorMsg = "Sorry, we couldn't answer your question.";
           }
         }
+        nlQueryUpdate.userMessage = resp.data["userMessage"] || "";
         const debugData = resp.data["debug"];
         if (debugData !== undefined) {
           debugData["context"] = context;

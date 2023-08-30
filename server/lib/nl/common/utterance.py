@@ -99,6 +99,7 @@ class FulfillmentResult(str, Enum):
   UNFULFILLED = "UNFULFILLED"
   # The thing was recognized in current / past query.
   UNRECOGNIZED = "UNRECOGNIZED"
+  UNKNOWN = "UNKNOWN"
 
 
 # Enough of a spec per chart to create the chart config proto.
@@ -161,8 +162,8 @@ class Utterance:
   multi_svs: MultiVarCandidates
   # Response from LLM.  Relevant only when LLM is used.
   llm_resp: Dict
-  sv_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
-  place_source: FulfillmentResult = FulfillmentResult.CURRENT_QUERY
+  sv_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  place_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   # This is more details on the *_source if it is from PAST query.
   # This is important for knowing the original place for a query
   # like [poverty across africa] -> [which countries have shown the greatest increase].

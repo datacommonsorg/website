@@ -201,6 +201,11 @@ export interface StatVarSpec {
   log: boolean;
   name?: string;
   date?: string;
+  // Whether to block setting the denominator to "per capita".
+  // Used in subject pages for variables where dividing by population does
+  // not make sense.
+  // Set to "true" to block toggling per capita in subject pages.
+  noPerCapita?: boolean;
 }
 
 export interface SampleDates {

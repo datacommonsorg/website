@@ -30,7 +30,10 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { QueryResult } from "../../types/app/nl_interface_types";
+import {
+  QueryResult,
+  UserMessageInfo,
+} from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
@@ -82,7 +85,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   );
   const [query, setQuery] = useState<string>("");
   const [pageMetadata, setPageMetadata] = useState<SubjectPageMetadata>(null);
-  const [userMessage, setUserMessage] = useState<string>("");
+  const [userMessage, setUserMessage] = useState<UserMessageInfo>(null);
   const [debugData, setDebugData] = useState<any>({});
   const [queryResult, setQueryResult] = useState<QueryResult>(null);
   const savedContext = useRef([]);
@@ -200,18 +203,26 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
-        if (pageMetadata.mainTopics.length == 2) {
+        if (
+          pageMetadata.mainTopics.length == 2 &&
+          pageMetadata.mainTopics[0].name &&
+          pageMetadata.mainTopics[1].name
+        ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-        } else {
+        } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
         }
       }
     }
+    const userMessage = {
+      msg: fulfillData["userMessage"] || "",
+      showForm: !!fulfillData["showForm"],
+    };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
-    setUserMessage(fulfillData["userMessage"]);
+    setUserMessage(userMessage);
     setLoadingStatus(LoadingStatus.SUCCESS);
     setQueryResult({
       place: mainPlace,
@@ -236,9 +247,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const disableExploreMore = getSingleParam(
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
-    const nlFulfillment = getSingleParam(
-      hashParams[URL_HASH_PARAMS.NL_FULFILLMENT]
-    );
     let fulfillmentPromise: Promise<any>;
     if (query) {
       setQuery(query);
@@ -246,8 +254,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         query,
         savedContext.current,
         dc,
-        disableExploreMore,
-        nlFulfillment
+        disableExploreMore
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -266,8 +273,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         dc,
         [],
         [],
-        disableExploreMore,
-        nlFulfillment
+        disableExploreMore
       )
         .then((resp) => {
           processFulfillData(resp, true);
@@ -295,8 +301,7 @@ const fetchFulfillData = async (
   dc: string,
   svgs: string[],
   classificationsJson: any,
-  disableExploreMore: string,
-  nlFulfillment: string
+  disableExploreMore: string
 ) => {
   try {
     const resp = await axios.post(`/api/explore/fulfill`, {
@@ -309,7 +314,6 @@ const fetchFulfillData = async (
       extensionGroups: svgs,
       classifications: classificationsJson,
       disableExploreMore,
-      nlFulfillment: nlFulfillment === "0" ? false : true,
     });
     return resp.data;
   } catch (error) {
@@ -322,8 +326,7 @@ const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
   dc: string,
-  disableExploreMore: string,
-  nlFulfillment: string
+  disableExploreMore: string
 ) => {
   try {
     const resp = await axios.post(
@@ -332,7 +335,6 @@ const fetchDetectAndFufillData = async (
         contextHistory: savedContext,
         dc,
         disableExploreMore,
-        nlFulfillment: nlFulfillment === "0" ? false : true,
       }
     );
     return resp.data;

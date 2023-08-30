@@ -1099,7 +1099,7 @@
     "place_type": "Country"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "country/USA",
@@ -1420,5 +1420,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY"
+  "svSource": "UNKNOWN",
+  "userMessage": ""
 }

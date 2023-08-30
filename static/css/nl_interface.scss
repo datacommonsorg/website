@@ -477,8 +477,6 @@ $feedback-link-font-color: #70757a;
   color: $question-text-color;
 }
 
-.expando,
-.expando:hover,
 h2,
 h3,
 .category p,
@@ -490,17 +488,28 @@ h3,
   color: $text-color;
 }
 
-.expando {
-  font-size: 0.9rem;
-}
-.block .expando {
-  display: inline-block;
+.block .show-more-expando {
   margin-top: 12px;
 }
 
-.expando,
+.show-more-expando,
 .debug-info-toggle {
   cursor: pointer;
+}
+
+.show-more-expando {
+  color: var(--link-color);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 5px;
+  height: 36px;
+  width: fit-content;
+}
+
+.show-more-expando:hover .expando-text {
+  text-decoration: underline;
 }
 
 .debug-info-toggle {

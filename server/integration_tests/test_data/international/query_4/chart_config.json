@@ -67,6 +67,34 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "statVarKey": [
+                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Access to Modern Family Planning for Adult Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -98,36 +126,64 @@
               {
                 "tiles": [
                   {
-                    "description": "Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "description": "Prematurity and Low Birth Rate, Per 100,000 in Turkey",
                     "statVarKey": [
                       "WHO/SA_0000001432"
                     ],
-                    "title": "Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "title": "Prematurity and Low Birth Rate, Per 100,000 in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Prematurity and Low Birth Rate, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "description": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 in Turkey",
                     "statVarKey": [
                       "WHO/SA_0000001451"
                     ],
-                    "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000 in Turkey",
+                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000"
+            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in Turkey",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Maternal Mortality Ratio"
           },
           {
             "columns": [
@@ -196,7 +252,7 @@
                     "statVarKey": [
                       "WHO/MORT_MATERNALNUM"
                     ],
-                    "title": "Number Of Maternal Deaths in Turkey",
+                    "title": "Number of Maternal Deaths in Turkey",
                     "type": "LINE"
                   }
                 ]
@@ -204,46 +260,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Number Of Maternal Deaths in Turkey",
+                    "description": "Number of Maternal Deaths in Turkey",
                     "statVarKey": [
                       "WHO/MORT_MATERNALNUM"
                     ],
-                    "title": "Number Of Maternal Deaths in Turkey",
+                    "title": "Number of Maternal Deaths in Turkey",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Number Of Maternal Deaths"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal mortality ratio in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Maternal mortality ratio in Turkey",
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal mortality ratio in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Maternal mortality ratio"
+            "title": "Number of Maternal Deaths"
           }
         ],
         "statVarSpec": {
@@ -279,6 +307,10 @@
             "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
             "statVar": "WHO/SA_0000001451"
           },
+          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
+            "name": "Access to modern family planning for adult women",
+            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+          },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",
             "statVar": "sdg/SH_STA_MORT.SEX--F"
@@ -313,5 +345,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY"
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
 }

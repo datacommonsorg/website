@@ -17,8 +17,8 @@ from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
 from server.lib.nl.common import variable
+from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
-from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.config_builder import bar
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder import event
@@ -135,7 +135,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
         continue
       pri_place = cspec.places[0]
 
-      if cv.source_topic == 'dc/topic/ProjectedClimateExtremes':
+      if cv.source_topic == PROJECTED_TEMP_TOPIC:
         stat_var_spec_map.update(
             ranking.ranking_chart_block_climate_extremes(
                 builder, pri_place, cspec.svs, sv2thing, cspec))
@@ -178,14 +178,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
                                     sv2thing=sv2thing))
 
     elif cspec.chart_type == ChartType.SCATTER_CHART:
-      block = builder.new_chart(cspec, skip_title=True)
-      stat_var_spec_map = scatter.scatter_chart_block(
-          column=block.columns.add(),
-          pri_place=cspec.places[0],
-          sv_pair=cspec.svs,
-          child_type=cspec.place_type,
-          sv2thing=sv2thing,
-          nopc_vars=config.nopc_vars)
+      stat_var_spec_map = scatter.scatter_chart_block(builder, cspec)
 
     elif cspec.chart_type == ChartType.EVENT_CHART and config.event_config:
       block = builder.new_chart(cspec, skip_title=True)

@@ -21,11 +21,15 @@
 
 $color-font-dark: #3c4043;
 $topic-card-width: 320px;
-$topic-card-height: 355px;
+$topic-card-height: 365px;
 $topic-card-hgap: 24px;
 $topic-card-vgap: 24px;
-$topic-card-image-height: 109px;
+$topic-card-image-height: 131px;
+$topic-card-image-width: 263px;
+$topic-card-image-sprite-x: 150px;
+$topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
+$section-vmargin: 64px;
 
 $animation-card-max-width: 905px;
 $animation-card-height: 363px;
@@ -44,11 +48,12 @@ $animation-section-background: #fafbff;
 }
 
 .main-content {
-  margin: 0 0 3rem 0;
+  margin: 0;
+  padding-bottom: $section-vmargin;
 }
 
 #homepage section {
-  padding-bottom: 58px;
+  margin-bottom: $section-vmargin;
 }
 
 #homepage section .main {
@@ -60,6 +65,21 @@ $animation-section-background: #fafbff;
   font-weight: 400;
   color: #444746;
   margin-bottom: 1.5rem;
+}
+
+#homepage h3 {
+  color: var(--gm-3-ref-neutral-neutral-20);
+  font-family: $headings-font-family;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 40px;
+}
+
+@include media-breakpoint-down(xs) {
+  #homepage h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
 }
 
 #homepage a.carousel-item-container,
@@ -95,10 +115,11 @@ $animation-section-background: #fafbff;
 // Styling for top search box
 #homepage #homepage-top {
   padding-bottom: 8px;
-  box-shadow: 0px 1px 2px 0px #0000004D;
+  margin-bottom: 0;
+  box-shadow: 0px 1px 2px 0px #0000004d;
   z-index: 100;
   position: relative;
-
+  height: 123px;
 }
 
 // Styling for the search animation
@@ -113,11 +134,13 @@ $animation-section-background: #fafbff;
     }
 
     .header {
-      font-size: 24px !important;
+      font-size: 22px !important;
+      line-height: 28px !important;
     }
 
     .sub-header {
       font-size: 16px !important;
+      line-height: 24px !important;
     }
 
     .result {
@@ -160,7 +183,7 @@ $animation-section-background: #fafbff;
 
     #result-svg {
       height: $animation-card-height;
-      padding-top: 32px;
+      margin-top: 32px;
     }
   }
 
@@ -245,6 +268,19 @@ $animation-section-background: #fafbff;
     }
   }
 
+  .fade-in {
+    animation: fade-in 400ms !important;
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
   .fade-out {
     animation: fade-out 800ms !important;
     opacity: 0;
@@ -274,68 +310,75 @@ $animation-section-background: #fafbff;
 }
 
 // Styling for the topics section
-#homepage .topics-container {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: $topic-card-hgap $topic-card-vgap;
-  justify-content: center;
-  margin-top: 88px;
+#homepage #topics {
+  margin-top: $section-vmargin;
 
-  .topic-card {
-    color: var(--gm-3-ref-neutral-neutral-20);
-    border: 1px solid var(--card-border-color);
-    border-radius: 12px;
-    box-shadow: var(--card-box-shadow);
+  .topics-container {
+    align-items: center;
     display: flex;
-    height: $topic-card-height;
-    width: $topic-card-width;
+    flex-wrap: wrap;
+    gap: $topic-card-hgap $topic-card-vgap;
+    justify-content: center;
+    margin-top: 32px;
 
-    .topic-card-body {
+    .topic-card {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      border: 1px solid var(--card-border-color);
+      border-radius: 12px;
+      box-shadow: var(--card-box-shadow);
       display: flex;
-      flex-direction: column;
-      padding: 32px 24px;
-      flex-grow: 1;
-      justify-content: space-between;
-    }
+      height: $topic-card-height;
+      width: $topic-card-width;
 
-    .topic-card-image {
-      height: $topic-card-image-height;
-      margin-bottom: 18px;
-    }
-
-    .topic-card-title {
-      font-family: $headings-font-family;
-      font-size: 22px;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .topic-card-description {
-      font-family: $headings-font-family;
-      color: var(--gm-3-ref-neutral-neutral-40);
-      font-size: 16px;
-      font-weight: 400;
-      margin-bottom: 12px;
-    }
-
-    .topic-card-links a {
-      color: var(--gm-3-sys-light-primary);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-size: 14px;
-      text-decoration: none;
-      .material-icons-outlined {
-        margin-right: 8px;
-        font-size: 18px;
+      .topic-card-body {
+        display: flex;
+        flex-direction: column;
+        padding: 32px 24px;
+        flex-grow: 1;
+        justify-content: space-between;
       }
-    }
 
-    &:hover {
-      box-shadow: var(--card-box-shadow-hover);
+      .topic-card-image {
+        height: $topic-card-image-height;
+        width: $topic-card-image-width;
+        background-image: url("/images/home-sprite.svg");
+        background-position-x: -$topic-card-image-sprite-x;
+      }
+
+      .topic-card-title {
+        font-family: $headings-font-family;
+        font-size: 22px;
+        font-weight: 400;
+        margin-bottom: 12px;
+        margin-top: 18px;
+      }
+
+      .topic-card-description {
+        font-family: $headings-font-family;
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-size: 16px;
+        font-weight: 400;
+        margin-bottom: 12px;
+      }
+
       .topic-card-links a {
-        color: var(--gm-3-sys-light-primary-60);
+        color: var(--gm-3-sys-light-primary);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+        text-decoration: none;
+        .material-icons-outlined {
+          margin-right: 8px;
+          font-size: 18px;
+        }
+      }
+
+      &:hover {
+        box-shadow: var(--card-box-shadow-hover);
+        .topic-card-links a {
+          color: var(--gm-3-sys-light-primary-60);
+        }
       }
     }
   }
@@ -343,6 +386,55 @@ $animation-section-background: #fafbff;
 
 .topic-card.clickable:hover {
   cursor: pointer;
+}
+
+@include media-breakpoint-down(xs) {
+  #homepage #topics .topics-container {
+    gap: 10px;
+    margin-top: 32px;
+
+    .topic-card {
+      border-radius: 8px;
+      box-shadow: none;
+      height: 134px;
+      width: 166px;
+
+      .topic-card-body {
+        padding: 16px;
+      }
+
+      .topic-card-image-container {
+        height: 66px;
+        width: 132.5px;
+        // negative margins to account for scale transform below: (scaled - actual) / 2
+        margin-left: -66px;
+        margin-top: -32.5px;
+      }
+
+      .topic-card-image {
+        transform: scale(0.5);
+      }
+
+      .topic-card-title {
+        margin-top: 12px;
+        font-size: 16px;
+        font-weight: 500;
+        height: 24px;
+        line-height: 24px;
+        margin-bottom: 0px;
+        overflow: hidden;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 134px;
+      }
+
+      .topic-card-description,
+      .topic-card-links {
+        display: none;
+      }
+    }
+  }
 }
 
 // Styling for the partners carousel
@@ -403,11 +495,12 @@ $animation-section-background: #fafbff;
 }
 
 #homepage .background-gradient {
-  background-image: url(/images/tools-background.svg);
+  background-image: url("/images/tools-background.svg");
   background-position: center top;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  margin-bottom: 3rem;
+  margin-bottom: $section-vmargin;
+  margin-top: $section-vmargin;
 }
 
 // Styling for the tools section
@@ -445,10 +538,6 @@ $animation-section-background: #fafbff;
     flex-direction: column;
 
     .tools-description-header {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      font-family: $headings-font-family;
-      font-size: 32px;
-      font-weight: 400;
       margin-bottom: 20px;
     }
     .tools-description-subheader {
@@ -484,6 +573,9 @@ $animation-section-background: #fafbff;
       }
       .tool-icon {
         width: 64px;
+        height: 64px;
+        background-image: url("/images/home-sprite.svg");
+        background-position-x: -750px;
       }
       span {
         color: var(--gm-3-ref-neutral-neutral-20);
@@ -492,6 +584,22 @@ $animation-section-background: #fafbff;
       }
     }
   }
+
+  #map-button .tool-icon {
+    background-position-y: -188px;
+  }
+  #scatter-button .tool-icon {
+    background-position-y: -94px;
+  }
+  #timeline-button .tool-icon {
+    background-position-y: -282px;
+  }
+  #place-button .tool-icon {
+    background-position-y: -376px;
+  }
+  #download-button .tool-icon {
+    background-position-y: 0;
+  }
 }
 
 // Styling for the learn more section
@@ -499,32 +607,49 @@ $animation-section-background: #fafbff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap-reverse;
-  margin: 70px 0;
+  margin: $section-vmargin 0;
 
   @include media-breakpoint-up(md) {
     flex-wrap: nowrap;
   }
 
-  img.learn-more-image {
-    width: 300px;
+  #learn-more-icon-container {
+    flex: none;
+    position: relative;
     margin: 0 auto;
 
     @include media-breakpoint-up(md) {
+      width: 204px;
       margin: 0 56px 0 0;
-      width: 210px;
     }
+
     @include media-breakpoint-up(lg) {
-      width: 300px;
+      transform: scale(1);
+      width: 306px;
+    }
+
+    #learn-more-icon {
+      margin: 0 auto;
+      background-image: url("/images/home-sprite.svg");
+      background-position: -413px 0;
+      width: 306px;
+      height: 225px;
+
+      @include media-breakpoint-up(md) {
+        position: absolute;
+        top: 50%;
+        transform: scale(0.65) translate(0, -45%);
+        transform-origin: 0 0;
+      }
+
+      @include media-breakpoint-up(lg) {
+        transform: scale(1) translate(0, -45%);
+      }
     }
   }
 
   .learn-more-content {
     h3 {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      font-family: $headings-font-family;
-      font-size: 32px;
-      font-weight: 400;
-      line-height: 40px;
       margin-bottom: 24px;
     }
 
@@ -572,14 +697,9 @@ $animation-section-background: #fafbff;
 #homepage section .partners {
   display: flex;
   flex-direction: column;
-  margin: 70px 0;
+  margin: $section-vmargin 0;
 
   h3 {
-    color: var(--gm-3-ref-neutral-neutral-20);
-    font-family: $headings-font-family;
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 40px;
     margin-bottom: 48px;
   }
 
@@ -594,9 +714,11 @@ $animation-section-background: #fafbff;
     @include media-breakpoint-up(lg) {
       justify-content: space-between;
     }
-    img {
+    .partner-logo {
       width: 120px;
       height: 120px;
+      background-image: url("/images/home-sprite.svg");
+      background-position-x: 0;
     }
   }
 }

@@ -148,7 +148,6 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_basic(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/WorkCommute'],
         'dc': '',
@@ -158,26 +157,14 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_explore_more(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['geoId/06085'],
         'variables': ['dc/topic/DivorcedPopulationByDemographic'],
         'dc': '',
     }
     self.run_fulfillment('fulfillment_api_explore_more', req)
 
-  # NOTE: SVG Expansion is not supported with NL backend.
-  def test_fulfillment_expansion(self):
-    req = {
-        'nlFulfillment': False,
-        'entities': ['country/BRA'],
-        'variables': ['dc/topic/GlobalEconomicActivity'],
-        'dc': ''
-    }
-    self.run_fulfillment('fulfillment_api_expansion', req)
-
   def test_fulfillment_sdg(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['country/USA'],
         'variables': ['dc/topic/sdg_1'],
         'dc': 'sdg'
@@ -186,7 +173,6 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_sdg_global(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['Earth'],
         'variables': ['dc/topic/sdg_2.2.1'],
         'dc': 'sdg'
@@ -195,7 +181,6 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_comparison(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'childEntityType': 'County',
@@ -205,7 +190,6 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_correlation(self):
     req = {
-        'nlFulfillment': True,
         'entities': ['geoId/06'],
         'variables': ['dc/topic/WorkCommute'],
         'comparisonVariables': ['dc/topic/Asthma'],
@@ -215,7 +199,6 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_fulfillment_statvars(self):
     req = {
-        'nlFulfillment': True,
         'variables': [
             'ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll',
             'dc/xj2nk2bg60fg',
@@ -228,26 +211,11 @@ class IntegrationTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_statvars', req)
 
-  #
-  # Legacy Explore Backend queries
-  # TODO: Delete me.
-  #
-  def test_fulfillment_explorebackend_basic(self):
-    req = {
-        "nlFulfillment": False,
-        'entities': ['geoId/06085'],
-        'variables': ['dc/topic/WorkCommute'],
-        'disableExploreMore': '1',
-    }
-    self.run_fulfillment('fulfillment_api_nl_basic', req)
-
   def test_fulfillment_nl_size(self):
     # How big are schools in Redwood city
     # -> this query returns 3 ranking tables, not supported
     #    on old Explore backend.
     req = {
-        "nlFulfillment":
-            True,
         "entities": ["geoId/0660102"],
         "variables": ["dc/topic/Schools", "Count_Person_EnrolledInSchool"],
         'childEntityType':
@@ -297,4 +265,5 @@ class IntegrationTest(NLWebServerTestCase):
         'emissions in Houston',
         'poverty in California and California',
         'poverty vs. poverty in California',
+        'number of headless drivers in california',
     ])
