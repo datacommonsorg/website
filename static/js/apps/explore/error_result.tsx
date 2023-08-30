@@ -58,7 +58,7 @@ export function ErrorResult(props: ErrorResultPropType): JSX.Element {
           ></DebugInfo>
         </>
       )}
-      <UserMessage userMessage={userMessage} />
+      <UserMessage userMessage={userMessage} shouldShowTopics={false} />
     </div>
   );
 }

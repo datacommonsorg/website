@@ -784,3 +784,7 @@ SV_BLOCKS_MAP = {
 
 # Max number of answer places
 MAX_ANSWER_PLACES = 10
+
+ROOT_TOPIC = 'dc/topic/Root'
+
+PROJECTED_TEMP_TOPIC = 'dc/topic/ProjectedClimateExtremes'

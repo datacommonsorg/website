@@ -25,8 +25,25 @@
 @import "./shared/story_chart";
 @import "./nl_interface";
 
+#main {
+  height: auto;
+  min-height: 100vh;
+}
+
 #main-header {
-  height: 72px;
+  height: fit-content;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#explore.main-content {
+  flex-grow: 1;
+}
+
+#explore.main-content {
+  flex-grow: 1;
 }
 
 #insight-lhs {
@@ -183,20 +200,65 @@
   margin-bottom: 16px;
 }
 
-.user-message .user-message-text {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  .main-message {
-    font-size: 20px;
+.user-message {
+  .user-message-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  
+    .main-message {
+      font-size: 20px;
+    }
+  
+    .sub-message {
+      font-size: 14px;
+    }
   }
 
-  .sub-message {
-    font-size: 14px;
+  .item-list-container {
+    margin-top: 16px;
   }
 }
 
 .chart-container.map-chart {
   flex-grow: 1;
+}
+
+.search-section-container {
+  width: 100%;
+
+  .search-section-content {
+    position: relative;
+  }
+
+  .debug-info-toggle {
+    top: -0.5rem;
+    right: 1.5rem;
+    padding: 0;
+  }
+}
+
+.search-section-container.sticky {
+  position: fixed;
+  left: 0;
+  background-color: var(--gm-3-ref-primary-primary-99);
+  z-index: 9;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
+  transition: all ease-out 0.2s;
+
+  .search-section {
+    margin: 0;
+  }
+
+  #query-search-input {
+    height: 30px;
+    font-size: 13px;
+  }
+  
+  .search-bar .search-bar-content #rich-search-button {
+    height: 30px;
+    width: 30px;
+    background-size: contain;
+  }
 }

@@ -164,7 +164,7 @@ def _classification_to_query_type(cl: NLClassifier,
       # no SVs in current utterance, so consider it a place overview.
       query_type = QueryType.OVERVIEW
       # Reset the source of SV to the default.
-      uttr.sv_source = FulfillmentResult.CURRENT_QUERY
+      uttr.sv_source = FulfillmentResult.UNKNOWN
   elif cl.type == ClassificationType.RANKING:
     _maybe_add_containedin(uttr)
     classification = futils.classifications_of_type_from_utterance(
