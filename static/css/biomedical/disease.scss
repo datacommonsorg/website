@@ -67,9 +67,19 @@ tbody tr:nth-child(even) {
   display: block;
 }
 
+.chart-headers {
+  font-style: normal;
+  font-size: 15px;
+}
+
+h4, .h4{
+    font-size: 20px;
+  }
+
 .legend {
   position: absolute;
-  top: 425px;
+  top: 380px;
+  left: 1200px;
   padding-top: 10px;
 }
 
