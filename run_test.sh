@@ -20,11 +20,6 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-}
-
-function setup_python_nl {
-  python3 -m venv .env
-  source .env/bin/activate
   python3 -m pip install --upgrade pip setuptools light-the-torch
   ltt install torch --cpuonly
   pip3 install -r nl_server/requirements.txt
@@ -86,10 +81,9 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
-  setup_python
-  setup_python_nl
-
   # Run server pytest.
+  python3 -m venv .env
+  source .env/bin/activate
   export FLASK_ENV=test
   python3 -m pytest server/tests/ -s
   python3 -m pytest shared/tests/ -s
@@ -121,9 +115,9 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  python3 -m venv .env
+  source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  setup_python
-  setup_python_nl
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -136,9 +130,9 @@ function run_webdriver_test {
 
 # Run test for screenshot test codes.
 function run_screenshot_test {
+  python3 -m venv .env
+  source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  setup_python
-  setup_python_nl
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -155,18 +149,18 @@ function run_screenshot_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  setup_python
-  setup_python_nl
+  python3 -m venv .env
+  source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -vv server/integration_tests/$1
+  python3 -m pytest -vv -n 3 --reruns 2 server/integration_tests/$1
 }
 
 function update_integration_test_golden {
-  setup_python
-  setup_python_nl
+  python3 -m venv .env
+  source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
@@ -188,18 +182,18 @@ function run_all_tests {
 
 function help {
   echo "Usage: $0 -pwblcsaf"
-  echo "-p          Run server python tests"
-  echo "-w          Run webdriver tests"
-  echo "--explore   Run explore integration tests"
-  echo "--nl        Run nl integration tests"
-  echo "--nodejs    Run nodejs integration tests"
-  echo "-g          Update integration test golden files"
-  echo "-o          Build for production (ignores dev dependencies)"
-  echo "-b          Run client install and build"
-  echo "-l          Run client lint test"
-  echo "-c          Run client tests"
-  echo "-a          Run all tests"
-  echo "-f          Fix lint"
+  echo "-p              Run server python tests"
+  echo "-w              Run webdriver tests"
+  echo "--explore       Run explore integration tests"
+  echo "--nl            Run nl integration tests"
+  echo "--setup_python  Setup python environment"
+  echo "-g              Update integration test golden files"
+  echo "-o              Build for production (ignores dev dependencies)"
+  echo "-b              Run client install and build"
+  echo "-l              Run client lint test"
+  echo "-c              Run client tests"
+  echo "-a              Run all tests"
+  echo "-f              Fix lint"
   exit 1
 }
 
@@ -226,9 +220,9 @@ while [[ "$#" -gt 0 ]]; do
         run_integration_test nl_test.py
         shift 1
         ;;
-    --explore)
-        echo --explore "### Running explore page integration tests"
-        run_integration_test explore_test.py
+    --setup_python)
+        echo --setup_python "### Set up python environment"
+        setup_python
         shift 1
         ;;
     -g)

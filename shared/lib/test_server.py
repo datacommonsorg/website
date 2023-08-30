@@ -23,19 +23,27 @@ from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
 
 
+def find_open_port():
+  for port in range(12000, 13000):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+      res = sock.connect_ex(('localhost', port))
+      if res != 0:
+        return port
+
+
+# Start NL server on an unused port, so multiple integration tests can
+# run at the same time.
+port = find_open_port()
+
+
 class NLWebServerTestCase(LiveServerTestCase):
 
   @classmethod
   def setUpClass(cls):
     if os.environ.get('ENABLE_MODEL') == 'true':
-      # Start NL server on an unused port, so multiple integration tests can
-      # run at the same time.
-      sock = socket.socket()
-      sock.bind(('', 0))
-      cls.port = sock.getsockname()[1]
 
       def start_nl_server(app):
-        app.run(port=cls.port, debug=False, use_reloader=False, threaded=True)
+        app.run(port=port, debug=False, use_reloader=False, threaded=True)
 
       nl_app = create_nl_app()
       # Create a thread that will contain our running server
@@ -43,18 +51,17 @@ class NLWebServerTestCase(LiveServerTestCase):
                                          args=(nl_app,),
                                          daemon=True)
       cls.proc.start()
-      libutil.check_backend_ready(
-          ['http://127.0.0.1:{}/healthz'.format(cls.port)])
+      libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(port)])
 
   @classmethod
   def tearDownClass(cls):
     if os.environ.get('ENABLE_MODEL') == 'true':
       cls.proc.terminate()
 
-  def create_app(cls):
+  def create_app(self):
     """Returns the Flask Server running Data Commons."""
     if os.environ.get('ENABLE_MODEL') == 'true':
-      app = create_web_app('http://127.0.0.1:{}'.format(cls.port))
+      app = create_web_app('http://127.0.0.1:{}'.format(port))
     else:
       app = create_web_app()
     app.config['LIVESERVER_PORT'] = 0
