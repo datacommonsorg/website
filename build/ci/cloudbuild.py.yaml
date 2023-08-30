@@ -20,4 +20,5 @@ steps:
     args:
       - -c
       - |
+        ./run_test.sh --setup_python
         ./run_test.sh -p
