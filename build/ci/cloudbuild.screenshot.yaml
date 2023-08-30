@@ -35,6 +35,7 @@ steps:
       - -c
       - |
         set -e
+        ./run_test.sh --setup_python
         ./run_test.sh -s
 
   - id: copy_files
@@ -49,7 +50,7 @@ steps:
         gsutil cp ./screenshots/*.png gs://datcom-website-screenshot/local/$SHORT_SHA/
         rm -rf screenshots
 
-timeout: 1800s
+timeout: 3600s
 
 options:
   machineType: "E2_HIGHCPU_32"

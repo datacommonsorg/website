@@ -14,8 +14,10 @@
 
 import logging
 import os
+import sys
 
 from flask import Flask
+import torch
 import yaml
 
 import nl_server.loader as loader
@@ -27,6 +29,10 @@ def create_app():
   app.register_blueprint(routes.bp)
 
   flask_env = os.environ.get('FLASK_ENV')
+
+  # https://github.com/UKPLab/sentence-transformers/issues/1318
+  if sys.version_info >= (3, 8) and sys.platform == "darwin":
+    torch.set_num_threads(1)
 
   # Download existing finetuned models (if not already downloaded).
   models_downloaded_paths = {}
