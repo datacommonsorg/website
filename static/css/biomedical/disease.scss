@@ -62,17 +62,10 @@ tbody tr:nth-child(even) {
   border: 3px solid #000;
 }
 
-.map {
-  height: 100%;
-  width: 100%;
-  display: block;
-}
-
 .chart-container .sources {
   font-style: normal;
   font-size: 15px;
 }
-
 
 .legend {
   position: absolute;
@@ -81,6 +74,3 @@ tbody tr:nth-child(even) {
   padding-top: 10px;
 }
 
-.outlinks {
-  padding-top: 10px;
-}
