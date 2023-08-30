@@ -23,7 +23,7 @@ import React from "react";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 
 export interface TextTilePropType {
-  // url to
+  // url to link to under "see more"
   link?: string;
 }
 
