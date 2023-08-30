@@ -324,7 +324,7 @@ export function appendLegendElem(
     link?: string;
     index: string;
   }[],
-  svg: d3.Selection<SVGSVGElement, any, any, any>,
+  svg2,
   apiRoot?: string
 ): void {
   const legendContainer = d3
@@ -359,29 +359,34 @@ export function appendLegendElem(
       })
     );
 
-  // define mouse behavior functions
-  let hideFn: ReturnType<typeof setTimeout> = null;
-  const highlightSelector = `.${LEGEND_HIGHLIGHT_CLASS}`;
-  const mouseoverFn = function () {
-    if (hideFn) {
-      clearTimeout(hideFn);
-    }
-    svg.selectAll(highlightSelector).style("opacity", 0.3);
-    svg.selectAll(`.${this.id}`).style("opacity", 1);
-  };
-  const mouseoutFn = function () {
-    // Slightly delay resetting styling so that quickly mousing over a stream
-    // of legend items doesn't result in the chart flickering
-    hideFn = setTimeout(() => {
-      svg.selectAll(highlightSelector).style("opacity", 1);
-    }, HIGHLIGHT_TIMEOUT);
-  };
+  // Add highlighting to svg chart area when mousing over legend
+  const svg = d3.select(elem).select("svg");
+  if (svg) {
+    // define mouse behavior functions
+    let hideFn: ReturnType<typeof setTimeout> = null;
+    const highlightSelector = `.${LEGEND_HIGHLIGHT_CLASS}`;
+    const mouseoverFn = function () {
+      if (hideFn) {
+        clearTimeout(hideFn);
+      }
+      const selector = this.id ? `.${this.id}` : null;
+      svg.selectAll(highlightSelector).style("opacity", 0.3);
+      svg.selectAll(selector).style("opacity", 1);
+    };
+    const mouseoutFn = function () {
+      // Slightly delay resetting styling so that quickly mousing over a stream
+      // of legend items doesn't result in the chart flickering
+      hideFn = setTimeout(() => {
+        svg.selectAll(highlightSelector).style("opacity", 1);
+      }, HIGHLIGHT_TIMEOUT);
+    };
 
-  // Add mouse behavior functions on hover to legend items
-  legendContainer
-    .selectAll(".legend-item")
-    .on("mouseover", mouseoverFn)
-    .on("mouseout", mouseoutFn);
+    // Add mouse behavior functions on hover to legend items
+    legendContainer
+      .selectAll(".legend-item")
+      .on("mouseover", mouseoverFn)
+      .on("mouseout", mouseoutFn);
+  }
 }
 
 /**
