@@ -165,7 +165,7 @@ export function drawGaugeChart(
     [
       {
         label: data.statVarName,
-        index: "legend-index-0",
+        index: "",
       },
     ],
     svg,

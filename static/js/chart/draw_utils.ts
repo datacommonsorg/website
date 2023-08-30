@@ -312,7 +312,8 @@ export function getLegendKeyFn(labels: string[]): (label: string) => string {
  * @param elem parent element
  * @param color d3 color scale
  * @param key legend items
- * @param marginLeft [optional] legend offset
+ * @param svg svg element to find corresponding bars/lines/etc. in
+ * @param apiRoot root to use for links in legend items
  */
 export function appendLegendElem(
   elem: HTMLElement,

@@ -21,7 +21,7 @@
 export const AXIS_TEXT_FILL = "#2b2929";
 
 // amount of time to delay style resetting in tooltip & legend hover behavior
-// in miliseconds, to prevent flickering
+// in milliseconds, to prevent flickering
 export const HIGHLIGHT_TIMEOUT = 150;
 
 export const LEGEND = {
@@ -34,6 +34,8 @@ export const LEGEND = {
   defaultColor: "#000",
 };
 
+// class name to add to svg parts that represent data (bars/lines/etc.)
+// Used for highlight styling when hovering over legend items.
 export const LEGEND_HIGHLIGHT_CLASS = "chart-data-object";
 
 export const MARGIN = {

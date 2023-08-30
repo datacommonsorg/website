@@ -324,7 +324,9 @@ export function drawLineChart(
   if (maxV == 0) {
     maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
+  // wrapper div for chart area, used as bounds for tooltip
   const svgWrapper = d3.select(svgContainer).append("div");
+  // create svg
   const svg = svgWrapper
     .append("svg")
     .attr("xmlns", SVGNS)
