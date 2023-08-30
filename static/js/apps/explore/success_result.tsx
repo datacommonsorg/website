@@ -61,6 +61,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     return null;
   }
   const searchSectionRef = useRef<HTMLDivElement>(null);
+  const chartSectionRef = useRef<HTMLDivElement>(null);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -86,8 +87,11 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
       if (window.scrollY >= searchBoundingBox.height) {
         if (!searchSectionRef.current.classList.contains("sticky")) {
           searchSectionRef.current.classList.add("sticky");
+          chartSectionRef.current.style.marginTop =
+            searchBoundingBox.height + "px";
         }
       } else {
+        chartSectionRef.current.style.marginTop = "0";
         searchSectionRef.current.classList.remove("sticky");
       }
     }
@@ -115,7 +119,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           )}
         </div>
       </div>
-      <div className="col-12">
+      <div className="col-12" ref={chartSectionRef}>
         <UserMessage userMessage={props.userMessage} />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
