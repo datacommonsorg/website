@@ -232,11 +232,6 @@ while [[ "$#" -gt 0 ]]; do
         run_integration_test explore_test.py
         shift 1
         ;;
-    --nodejs)
-        echo --nl "### Running nodejs integration tests"
-        run_integration_test nodejs_e2e_test.py
-        shift 1
-        ;;
     -g)
         echo -e "### Updating integration test goldens"
         update_integration_test_golden

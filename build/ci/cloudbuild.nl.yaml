@@ -32,7 +32,7 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-  # Run explore tests
+  # Run integration tests
   - id: explore_test
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/sh
@@ -42,28 +42,7 @@ steps:
       - -c
       - |
         ./run_test.sh --explore
-
-  # Run nl tests
-  - id: nl_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
-    entrypoint: /bin/sh
-    waitFor:
-      - package_js
-    args:
-      - -c
-      - |
         ./run_test.sh --nl
-
-  # Run nodejs tests
-  - id: nodejs_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
-    entrypoint: /bin/sh
-    waitFor:
-      - package_js
-    args:
-      - -c
-      - |
-        ./run_test.sh --nodejs
 
 options:
   machineType: "E2_HIGHCPU_32"

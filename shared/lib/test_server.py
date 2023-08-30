@@ -57,6 +57,10 @@ class NLWebServerTestCase(LiveServerTestCase):
 
   def create_app(cls):
     """Returns the Flask Server running Data Commons."""
-    app = create_web_app('http://127.0.0.1:{}'.format(cls.port))
+    if os.environ.get('ENABLE_MODEL') == 'true':
+      port = cls.port
+    else:
+      port = 6060
+    app = create_web_app('http://127.0.0.1:{}'.format(port))
     app.config['LIVESERVER_PORT'] = 0
     return app
