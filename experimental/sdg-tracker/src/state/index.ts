@@ -30,6 +30,8 @@ import styled from "styled-components";
 import countries from "../config/countries.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
+import goalSummaries from "../config/goalSummaries.json";
+import indicatorHeadlines from "../config/indicatorText.json"
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
@@ -51,6 +53,30 @@ export interface Place {
 }
 
 /**
+ * Summary text to accompany each goal
+ */
+export interface GoalText {
+  key: string;
+  headlines: string[];
+}
+
+/**
+ * Headlines and links for each indicator
+ */
+export interface IndicatorTags {
+  headline: string;
+  link: string;
+}
+
+/**
+ * Text to accompany each indicator
+ */
+export interface IndicatorText {
+  key: string;
+  tags: IndicatorTags;
+}
+
+/**
  * Root topic interface
  */
 export interface RootTopic {
@@ -59,8 +85,6 @@ export interface RootTopic {
   groupDcid: string;
   topicDcid: string;
   iconUrl: string;
-  storyTitle: string;
-  storyText: string;
 }
 
 /**
@@ -110,6 +134,16 @@ export interface AppModel {
   };
   sidebarMenuHierarchy: MenuItemType[];
   rootTopics: RootTopic[];
+  goalSummaries: {
+    byGoal: {
+      [key: string]: GoalText;
+    }
+  }
+  indicatorHeadlines: {
+    byIndicator: {
+      [key: string]: IndicatorTags;
+    }
+  }
 }
 
 /**
@@ -122,6 +156,8 @@ export interface AppActions {
   setSidebarMenuHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
+  setGoalSummaries: Action<AppModel, GoalText[]>
+  setIndicatorHeadlines: Action<AppModel, IndicatorText[]>;
   setFulfillment: Action<
     AppModel,
     { key: string; fulfillment: FulfillResponse }
@@ -161,6 +197,12 @@ const appModel: AppModel = {
   },
   rootTopics: [],
   sidebarMenuHierarchy: [],
+  goalSummaries: {
+    byGoal: {},
+  },
+  indicatorHeadlines: {
+    byIndicator: {},
+  },
 };
 
 /**
@@ -181,6 +223,8 @@ const appActions: AppActions = {
         }),
       }))
     );
+    actions.setGoalSummaries(goalSummaries);
+    actions.setIndicatorHeadlines(indicatorHeadlines);
     const topics: Topic[] = [];
     const traverseTopics = (item: MenuItemType) => {
       if (!item.key.startsWith("dc")) {
@@ -253,6 +297,18 @@ const appActions: AppActions = {
   setFulfillment: action((state, { key, fulfillment }) => {
     state.fulfillments.byId[key] = { ...fulfillment };
   }),
+  setGoalSummaries: action((state, goalSummaries) => {
+    state.goalSummaries.byGoal = {}
+    goalSummaries.forEach((goal) => {
+      state.goalSummaries.byGoal[goal.key] = goal;
+    })
+  }),
+  setIndicatorHeadlines: action((state, indicatorHeadlines) => {
+    state.indicatorHeadlines.byIndicator = {}
+    indicatorHeadlines.forEach((indicator) => {
+      state.indicatorHeadlines.byIndicator[indicator.key] = indicator.tags;
+    })
+  })
 };
 
 /**
