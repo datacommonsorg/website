@@ -324,7 +324,6 @@ export function appendLegendElem(
     link?: string;
     index: string;
   }[],
-  svg2,
   apiRoot?: string
 ): void {
   const legendContainer = d3

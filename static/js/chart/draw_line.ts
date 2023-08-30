@@ -494,7 +494,6 @@ export function drawLineChart(
       link: dg.link,
       index: legendKeyFn(dg.label),
     })),
-    svg,
     options?.apiRoot
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);

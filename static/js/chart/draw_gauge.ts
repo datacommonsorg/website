@@ -168,7 +168,6 @@ export function drawGaugeChart(
         index: "",
       },
     ],
-    svg,
     options?.apiRoot
   );
 }

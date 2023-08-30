@@ -122,8 +122,7 @@ export function drawDonutChart(
       label: dp.label,
       link: dp.link,
       index: legendKeyFn(dp.label),
-    })),
-    svg
+    }))
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
 }

@@ -420,7 +420,6 @@ export function drawStackBarChart(
       link: dp.link,
       index: legendKeyFn(dp.label),
     })),
-    svg,
     options?.apiRoot
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
@@ -990,7 +989,6 @@ export function drawGroupBarChart(
       link: dp.link,
       index: legendKeyFn(dp.label),
     })),
-    svg,
     options?.apiRoot
   );
   svg.attr("class", ASYNC_ELEMENT_CLASS);
@@ -1200,7 +1198,6 @@ export function drawHorizontalBarChart(
       link: dp.link,
       index: legendKeyFn(dp.label),
     })),
-    svg,
     options?.apiRoot
   );
 }
