@@ -95,6 +95,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Home Value of Houses in States of United States"
           },
           {
@@ -122,6 +124,8 @@
                 ]
               }
             ],
+            "description": " .",
+            "footnote": " .",
             "title": "Ownership Cost by Mortgage Status in States of United States"
           },
           {
@@ -139,6 +143,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $250,000 to $299,999 in States of United States"
           },
           {
@@ -156,6 +162,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $40,000 to $49,999 in States of United States"
           },
           {
@@ -173,6 +181,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $35,000 to $39,999 in States of United States"
           },
           {
@@ -190,6 +200,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $200,000 to $249,999 in States of United States"
           },
           {
@@ -207,6 +219,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $175,000 to $199,999 in States of United States"
           },
           {
@@ -224,6 +238,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $25,000 to $29,999 in States of United States"
           },
           {
@@ -241,6 +257,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $90,000 to $99,999 in States of United States"
           },
           {
@@ -258,6 +276,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued at $10,000 or Less in States of United States"
           },
           {
@@ -275,6 +295,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $50,000 to $59,999 in States of United States"
           },
           {
@@ -292,6 +314,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $20,000 to $24,999 in States of United States"
           },
           {
@@ -309,6 +333,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $30,000 to $34,999 in States of United States"
           },
           {
@@ -326,6 +352,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $60,000 to $69,999 in States of United States"
           },
           {
@@ -343,6 +371,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Homes Valued Between $15,000 to $19,999 in States of United States"
           }
         ],

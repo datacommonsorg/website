@@ -75,25 +75,46 @@ def _replace_special(input_string_title_case: str) -> str:
   return input
 
 
+def _count_caps(word: str) -> int:
+  return sum(1 for c in word if c.isupper())
+
 def _make_sentence_case(input_string: str) -> str:
-  # Only capitalize the first word and make everything else
-  # lower case, except those words which are all caps.
-  words = input_string.split()
+  if not input_string:
+    return ""
+  
   output_str = ""
-  for i in range(len(words)):
-    w = words[i]
+  sentences = input_string.split(".")
+  for s_index in range(len(sentences)):
+    s = sentences[s_index]
+    words = s.split()
+    
+    if not words:
+      continue
 
-    if w.isupper():
-      w = w
-    elif i == 0:
-      w = w.title()
-    else:
-      w = w.lower()
+    # Only add a space if this is the second sentence onward.
+    # and the starting word is not numeric.
+    if s_index > 0 and not words[0].isnumeric():
+      output_str += " "
 
-    if i > 0:
-      w = f" {w}"
+    # Only capitalize the first word and make everything else
+    # lower case, except those words which have multiple caps.
+    for i in range(len(words)):
+      w = words[i]
 
-    output_str += w
+      if _count_caps(w) > 1:
+        w = w
+      elif i == 0:
+        w = w.title()
+      else:
+        w = w.lower()
+
+      if i > 0:
+        w = f" {w}"
+
+      output_str += w
+  
+    output_str += "."
+
   return output_str
 
 

@@ -33,6 +33,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population Below Poverty Level in Counties of United States"
           },
           {
@@ -65,6 +67,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Women Below Poverty Line in Counties of United States"
           },
           {
@@ -97,6 +101,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Males in Poverty (In Last Year) in Counties of United States"
           },
           {
@@ -129,6 +135,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Asians Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -161,6 +169,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Black or African Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -193,6 +203,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Hispanic or Latino Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -225,6 +237,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -257,6 +271,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Below Poverty Level Status in Past Year (Other Race) in Counties of United States"
           },
           {
@@ -289,6 +305,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Below Poverty Level Status in Past Year (Two or More Races) in Counties of United States"
           },
           {
@@ -321,6 +339,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "White Americans Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -353,6 +373,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "White Americans (Not Hispanic or Latino) Below Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -385,6 +407,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Some Language Other Than English Spoken at Home & Below Poverty Line in Counties of United States"
           },
           {
@@ -417,6 +441,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
@@ -449,6 +475,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population 5 Years or More, Spanish or Spanish Creole, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
@@ -481,6 +509,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population 5 Years or More, Spanish, Below Poverty Level in Past 12 Months in Counties of United States"
           },
           {
@@ -509,6 +539,8 @@
                 ]
               }
             ],
+            "description": " .",
+            "footnote": " .",
             "title": "Population Below International Poverty Line"
           },
           {
@@ -537,6 +569,8 @@
                 ]
               }
             ],
+            "description": " .",
+            "footnote": " .",
             "title": "Population Using Basic Drinking Water Services"
           },
           {
@@ -565,6 +599,8 @@
                 ]
               }
             ],
+            "description": " .",
+            "footnote": " .",
             "title": "Population Using Basic Sanitation Services"
           },
           {
@@ -597,6 +633,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population Above Poverty Level Status in Past Year in Counties of United States"
           },
           {
@@ -629,6 +667,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States"
           },
           {
@@ -661,6 +701,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States"
           },
           {
@@ -693,6 +735,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
@@ -725,6 +769,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States"
           },
           {
@@ -754,6 +800,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "Population With Poverty Status Determined"
           },
           {
@@ -786,6 +834,8 @@
               }
             ],
             "denom": "Count_Person",
+            "description": " .",
+            "footnote": " .",
             "title": "English Spoken at Home, Above Poverty Line in Counties of United States"
           }
         ],
