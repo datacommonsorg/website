@@ -40,7 +40,7 @@
       "legend": [
         "Total area that burned (Acres)"
       ],
-      "title": "Total area that burned (Acres) in California",
+      "title": "Total Area That Burned (Acres) in California",
       "type": "LINE",
       "chartUrl": ""
     },
@@ -55,7 +55,7 @@
       "legend": [
         "Percent of area that burned"
       ],
-      "title": "Percent of area that burned in California",
+      "title": "Percent of Area That Burned in California",
       "type": "LINE",
       "chartUrl": ""
     },
@@ -70,7 +70,7 @@
       "legend": [
         "Percent of forest area that experienced high-severity fire"
       ],
-      "title": "Percent of forest area that experienced high-severity fire in California",
+      "title": "Percent of Forest Area That Experienced High-Severity Fire in California",
       "type": "LINE",
       "chartUrl": ""
     },
@@ -172,7 +172,7 @@
         "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Sulfur Dioxide",
         "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Volatile Organic Compound"
       ],
-      "title": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Carbon Monoxide and more in California (2021)",
+      "title": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Carbon Monoxide and More in California (2021)",
       "type": "BAR",
       "chartUrl": ""
     }
