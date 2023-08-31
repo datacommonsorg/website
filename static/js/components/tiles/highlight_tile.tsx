@@ -121,7 +121,6 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
-
   useEffect(() => {
     fetchData(props).then((data) => {
       setHighlightData(data);
@@ -151,6 +150,15 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     metadataUnit = numberUnit
       ? metadataUnit.slice(numberUnit.length).trimStart()
       : metadataUnit;
+  }
+  if (
+    numberUnit === "%" &&
+    highlightData.value >= 100 &&
+    props.statVarSpec.scaling == 100
+  ) {
+    numberUnit = "";
+    metadataUnit = highlightData.unitDisplayName;
+    highlightData.value /= props.statVarSpec.scaling;
   }
   return (
     <div
