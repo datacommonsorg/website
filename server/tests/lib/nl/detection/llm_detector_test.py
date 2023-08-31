@@ -29,8 +29,8 @@ from server.lib.nl.detection.types import Quantity
 from server.lib.nl.detection.types import QuantityClassificationAttributes
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
-from server.lib.nl.detection.types import SizeType
-from server.lib.nl.detection.types import SizeTypeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 
@@ -139,7 +139,7 @@ class TestBuildClassifications(unittest.TestCase):
           {
               "DISASTER_EVENT": "FLOOD",
               "PLACES": ["California"],
-              "SIZE": "BIG",
+              "SUPERLATIVE": "BIG",
           },
           None,
           [
@@ -147,10 +147,10 @@ class TestBuildClassifications(unittest.TestCase):
                            attributes=EventClassificationAttributes(
                                event_types=[EventType.FLOOD],
                                event_trigger_words=[])),
-              NLClassifier(type=ClassificationType.SIZE_TYPE,
-                           attributes=SizeTypeClassificationAttributes(
-                               size_types=[SizeType.BIG],
-                               size_types_trigger_words=[]))
+              NLClassifier(type=ClassificationType.SUPERLATIVE,
+                           attributes=SuperlativeClassificationAttributes(
+                               superlatives=[SuperlativeType.BIG],
+                               superlatives_trigger_words=[]))
           ]),
       (
           # asthma in california counties where median age is over 40

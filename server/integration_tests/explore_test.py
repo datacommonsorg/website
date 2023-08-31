@@ -227,7 +227,7 @@ class IntegrationTest(NLWebServerTestCase):
                 "type": 4
             },
             {
-                "size_type": [1],
+                "superlatives": [1],
                 "type": 11
             },
         ],
@@ -266,4 +266,10 @@ class IntegrationTest(NLWebServerTestCase):
         'poverty in California and California',
         'poverty vs. poverty in California',
         'number of headless drivers in california',
+    ])
+
+  def test_e2e_superlatives(self):
+    self.run_detect_and_fulfill('e2e_superlatives', [
+        'Richest counties in california',
+        'List schools in Sunnyvale',
     ])
