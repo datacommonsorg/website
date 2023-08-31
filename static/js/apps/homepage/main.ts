@@ -1,4 +1,3 @@
-import { NL_SOURCE_REPLACEMENTS } from './../../constants/app/nl_interface_constants';
 /**
  * Copyright 2023 Google LLC
  *
@@ -14,13 +13,13 @@ import { NL_SOURCE_REPLACEMENTS } from './../../constants/app/nl_interface_const
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Entrypoint file for homepage.
  */
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { NL_SOURCE_REPLACEMENTS } from "./../../constants/app/nl_interface_constants";
 import { App } from "./app";
 
 window.onload = () => {
@@ -62,7 +61,9 @@ window.onload = () => {
 
   searchSequenceContainer.onclick = () => {
     if (prompt) {
-      window.location.href = `/explore#q=${encodeURIComponent(prompt.dataset.query)}`;
+      window.location.href = `/explore#q=${encodeURIComponent(
+        prompt.dataset.query
+      )}`;
     }
   };
 
@@ -112,7 +113,6 @@ window.onload = () => {
       } else {
         // Slide in the answer
         clearInterval(inputIntervalTimer);
-
       }
     }, CHARACTER_INPUT_INTERVAL_MS);
   }
