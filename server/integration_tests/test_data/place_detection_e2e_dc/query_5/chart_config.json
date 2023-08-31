@@ -29,8 +29,6 @@
                 ]
               }
             ],
-            "description": " .",
-            "footnote": " .",
             "title": "Population"
           },
           {
@@ -60,8 +58,6 @@
               }
             ],
             "denom": "Count_Person",
-            "description": " .",
-            "footnote": " .",
             "title": "Population Density"
           },
           {
@@ -90,8 +86,6 @@
                 ]
               }
             ],
-            "description": " .",
-            "footnote": " .",
             "title": "Rate of Population Growth"
           }
         ],
