@@ -283,21 +283,30 @@ function rawToChart(
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    // sort variables in first group by value
-    dataGroups[0].value.sort(
-      (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
-    );
+    // if only one variable, sort by places
+    if (props.statVarSpec.length == 1) {
+      dataGroups.sort(
+        (a, b) =>
+          (a.value[0].value - b.value[0].value) *
+          (props.sort === "ascending" ? 1 : -1)
+      );
+    } else {
+      // sort variables in first group by value
+      dataGroups[0].value.sort(
+        (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
+      );
 
-    // use order of first group for all other groups
-    if (dataGroups.length > 1) {
-      const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
-      dataGroups.slice(1).forEach((dataGroup) => {
-        dataGroup.value.sort(
-          (a, b) =>
-            firstGroupLabels.indexOf(a.label) -
-            firstGroupLabels.indexOf(b.label)
-        );
-      });
+      // use order of first group for all other groups
+      if (dataGroups.length > 1) {
+        const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
+        dataGroups.slice(1).forEach((dataGroup) => {
+          dataGroup.value.sort(
+            (a, b) =>
+              firstGroupLabels.indexOf(a.label) -
+              firstGroupLabels.indexOf(b.label)
+          );
+        });
+      }
     }
   }
 
