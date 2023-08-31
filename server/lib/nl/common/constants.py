@@ -395,131 +395,131 @@ SV_DISPLAY_NAME_OVERRIDE = {
 
 SV_DISPLAY_FOOTNOTE_OVERRIDE = {
     'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_5PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_50PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_1PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_5PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_50PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayADecade_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245':
-        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.,',
+        'SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m². RCP 4.5 is more likely than not to result in global temperature rise between 2 °C and 3 °C by 2100.',
     'DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585':
         'SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m². RCP 8.5 is more likely than not to result in global temperature rise between 3 °C and 12.6 °C by 2100.',
 }

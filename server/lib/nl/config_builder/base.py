@@ -158,7 +158,7 @@ class Builder:
     title, description, footnote = '', '', ''
 
     if override_sv:
-      title = self.sv2thing.name.get(override_sv, '')
+      title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
       description = self.sv2thing.description.get(override_sv, '')
       footnote = self.sv2thing.footnote.get(override_sv, '')
       return title, description, footnote
