@@ -154,7 +154,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         })}
       <ChartEmbed ref={embedModalElement} />
       {props.showLoadingSpinner && (
-        <div id={getSpinnerId()} className="scatter-spinner">
+        <div id={getSpinnerId()}>
           <div className="screen">
             <div id="spinner"></div>
           </div>
