@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * Entrypoint file for homepage.
  */
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { NL_SOURCE_REPLACEMENTS } from "./../../constants/app/nl_interface_constants";
 import { App } from "./app";
 
 window.onload = () => {
   // Homepage animation.
   const CHARACTER_INPUT_INTERVAL_MS = 45;
-  const NEXT_PROMPT_DELAY_MS = 4000;
+  const NEXT_PROMPT_DELAY_MS = 5000;
   const INITIAL_MISSION_ON_SCREEN_DELAY_MS = 2000;
   const INITIAL_MISSION_FADE_IN_DELAY_MS = 1000;
-  const ANSWER_DELAY_MS = 1500;
+  const ANSWER_DELAY_MS = 2000;
   const FADE_OUT_MS = 800;
   const FADE_OUT_CLASS = "fade-out";
   const HIDDEN_CLASS = "hidden";
@@ -58,6 +58,14 @@ window.onload = () => {
     document.getElementById("header-mission")
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
+
+  searchSequenceContainer.onclick = () => {
+    if (prompt) {
+      window.location.href = `/explore#q=${encodeURIComponent(
+        prompt.dataset.query
+      )}`;
+    }
+  };
 
   function startNextPrompt() {
     let inputLength = 0;
@@ -92,18 +100,19 @@ window.onload = () => {
       if (currentPromptIndex > 0) {
         resultsElList.item(currentPromptIndex - 1).classList.add(HIDDEN_CLASS);
       }
+      currentPromptIndex++;
     }, ANSWER_DELAY_MS);
 
     inputIntervalTimer = setInterval(() => {
       // Start typing animation
-      if (inputLength < prompt.dataset.query.length) {
+      if (inputLength <= prompt.dataset.query.length) {
         inputEl.value = prompt.dataset.query.substring(0, inputLength);
+        // Set scrollLeft so we always see the full input even on narrow screens
+        inputEl.scrollLeft = inputEl.scrollWidth;
         inputLength++;
       } else {
         // Slide in the answer
         clearInterval(inputIntervalTimer);
-
-        currentPromptIndex++;
       }
     }, CHARACTER_INPUT_INTERVAL_MS);
   }
