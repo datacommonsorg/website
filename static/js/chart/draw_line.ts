@@ -422,18 +422,17 @@ export function drawLineChart(
     chart
       .append("path")
       .datum(dataset)
-      .attr("class", "line")
+      .attr(
+        "class",
+        `line ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+      )
       .attr("d", line)
       .attr("part", (d) =>
         ["series", `series-variable-${dataGroup.label}`].join(" ")
       )
       .style("fill", "none")
       .style("stroke-width", "2.5px")
-      .style("stroke", colorFn(dataGroup.label))
-      .attr(
-        "class",
-        `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
-      );
+      .style("stroke", colorFn(dataGroup.label));
 
     if (shouldAddDots) {
       const dots = chart
@@ -442,7 +441,10 @@ export function drawLineChart(
         .data(dataGroup.value)
         .enter()
         .append("circle")
-        .attr("class", "dot")
+        .attr(
+          "class",
+          `dot ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+        )
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
         .attr("part", (d) =>
@@ -450,11 +452,7 @@ export function drawLineChart(
         )
         .attr("r", (d) => (d.value === null ? 0 : 3))
         .style("fill", colorFn(dataGroup.label))
-        .style("stroke", "#fff")
-        .attr(
-          "class",
-          `${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
-        );
+        .style("stroke", "#fff");
       if (options?.handleDotClick) {
         dots.on("click", options?.handleDotClick);
       }

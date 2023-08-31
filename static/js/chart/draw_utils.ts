@@ -337,7 +337,7 @@ export function appendLegendElem(
     .data(keys)
     .join("div")
     .attr("class", "legend-item")
-    .attr("id", (d) => d.index || "");
+    .attr("id", (d) => d.index || null);
 
   legendItem
     .append("div")
