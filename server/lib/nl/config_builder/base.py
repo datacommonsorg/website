@@ -103,7 +103,7 @@ def _make_sentence_case(input_string: str) -> str:
       w = words[i]
 
       if ((_count_caps(w) > 1) or (not w.isalpha())):
-        # If there are more than 1 capital letters and 
+        # If there are more than 1 capital letters and
         # if the word isn't all alpha, then do not change
         # anything.
         w = w
@@ -206,8 +206,10 @@ class Builder:
 
     if override_sv:
       title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
-      description = _make_sentence_case(self.sv2thing.description.get(override_sv, ''))
-      footnote = _make_sentence_case(self.sv2thing.footnote.get(override_sv, ''))
+      description = _make_sentence_case(
+          self.sv2thing.description.get(override_sv, ''))
+      footnote = _make_sentence_case(self.sv2thing.footnote.get(
+          override_sv, ''))
       return title, description, footnote
 
     if cv.title:
