@@ -212,9 +212,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Concentration_AirPollutant_Ozone"
+                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
                     ],
-                    "title": "Mean Concentration of Ozone Air Pollutant in Fort Bend County",
+                    "title": "Annual Amount Emissions MiscellaneousAreaSources (28) in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -222,17 +222,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Concentration of Ozone Air Pollutant in Fort Bend County",
+                    "description": "Annual Amount Emissions MiscellaneousAreaSources (28) in Fort Bend County",
                     "statVarKey": [
-                      "Mean_Concentration_AirPollutant_Ozone"
+                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
                     ],
-                    "title": "Mean Concentration of Ozone Air Pollutant in Fort Bend County",
+                    "title": "Annual Amount Emissions MiscellaneousAreaSources (28) in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Concentration of Ozone Air Pollutant"
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions MiscellaneousAreaSources (28)"
           },
           {
             "columns": [
@@ -240,9 +241,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "AirQualityIndex_AirPollutant"
+                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
                     ],
-                    "title": "Air Quality Index in Fort Bend County",
+                    "title": "Annual Amount Emissions InternalCombustionEngines (2) in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -250,17 +251,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Air Quality Index in Fort Bend County",
+                    "description": "Annual Amount Emissions InternalCombustionEngines (2) in Fort Bend County",
                     "statVarKey": [
-                      "AirQualityIndex_AirPollutant"
+                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
                     ],
-                    "title": "Air Quality Index in Fort Bend County",
+                    "title": "Annual Amount Emissions InternalCombustionEngines (2) in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Air Quality Index"
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions InternalCombustionEngines (2)"
           },
           {
             "columns": [
@@ -268,9 +270,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Concentration_AirPollutant_PM2.5"
+                      "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
                     ],
-                    "title": "Mean Concentration of PM2.5 Air Pollutant in Fort Bend County",
+                    "title": "Annual Amount Emissions ExternalCombustion (1) in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -278,17 +280,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Mean Concentration of PM2.5 Air Pollutant in Fort Bend County",
+                    "description": "Annual Amount Emissions ExternalCombustion (1) in Fort Bend County",
                     "statVarKey": [
-                      "Mean_Concentration_AirPollutant_PM2.5"
+                      "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
                     ],
-                    "title": "Mean Concentration of PM2.5 Air Pollutant in Fort Bend County",
+                    "title": "Annual Amount Emissions ExternalCombustion (1) in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mean Concentration of PM2.5 Air Pollutant"
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions ExternalCombustion (1)"
           },
           {
             "columns": [
@@ -296,23 +299,154 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Concentration_AirPollutant_Ozone",
-                      "Mean_Concentration_AirPollutant_PM2.5",
-                      "Mean_Concentration_AirPollutant_SmokePM25"
+                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
                     ],
-                    "title": "Mean Concentration of Ozone Air Pollutant and More in Fort Bend County",
+                    "title": "Annual Amount Emissions NaturalSources (27) in Fort Bend County",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount Emissions NaturalSources (27) in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                    ],
+                    "title": "Annual Amount Emissions NaturalSources (27) in Fort Bend County",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Related: Mean Concentration of Ozone Air Pollutant and More"
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions NaturalSources (27)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
+                    ],
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
+                    ],
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
+                    ],
+                    "title": "Annual Amount Emissions StorageAndTransport (25) in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount Emissions StorageAndTransport (25) in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
+                    ],
+                    "title": "Annual Amount Emissions StorageAndTransport (25) in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions StorageAndTransport (25)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
+                    ],
+                    "title": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26) in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26) in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
+                    ],
+                    "title": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26) in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
+                    ],
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
+                    ],
+                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia"
           }
         ],
         "statVarSpec": {
-          "AirQualityIndex_AirPollutant": {
-            "name": "Air Quality Index",
-            "statVar": "AirQualityIndex_AirPollutant"
+          "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia": {
+            "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia",
+            "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
+          },
+          "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide": {
+            "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide",
+            "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions PM2.5, ExternalCombustion (1)",
@@ -353,6 +487,30 @@
           "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block": {
             "name": "Annual Amount Emissions PM2.5, WasteDisposal (5)",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal"
+          },
+          "Annual_Amount_Emissions_SCC_1_ExternalCombustion": {
+            "name": "Annual Amount Emissions ExternalCombustion (1)",
+            "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
+          },
+          "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
+            "name": "Annual Amount Emissions StorageAndTransport (25)",
+            "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
+          },
+          "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery": {
+            "name": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)",
+            "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
+          },
+          "Annual_Amount_Emissions_SCC_27_NaturalSources": {
+            "name": "Annual Amount Emissions NaturalSources (27)",
+            "statVar": "Annual_Amount_Emissions_SCC_27_NaturalSources"
+          },
+          "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources": {
+            "name": "Annual Amount Emissions MiscellaneousAreaSources (28)",
+            "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
+          },
+          "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
+            "name": "Annual Amount Emissions InternalCombustionEngines (2)",
+            "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, ExternalCombustion (1)",
@@ -429,18 +587,6 @@
           "Annual_Emissions_SulfurHexafluoride_NonBiogenic_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
             "statVar": "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
-          },
-          "Mean_Concentration_AirPollutant_Ozone": {
-            "name": "Mean Concentration of Ozone Air Pollutant",
-            "statVar": "Mean_Concentration_AirPollutant_Ozone"
-          },
-          "Mean_Concentration_AirPollutant_PM2.5": {
-            "name": "Mean Concentration of PM2.5 Air Pollutant",
-            "statVar": "Mean_Concentration_AirPollutant_PM2.5"
-          },
-          "Mean_Concentration_AirPollutant_SmokePM25": {
-            "name": "Mean Concentration of Smoke PM2.5",
-            "statVar": "Mean_Concentration_AirPollutant_SmokePM25"
           }
         }
       }

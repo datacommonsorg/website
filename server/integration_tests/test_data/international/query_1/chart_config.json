@@ -40,6 +40,323 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_Rural"
+                    ],
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_Rural"
+                    ],
+                    "title": "Count of Household: Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Rural in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Workers_Rural"
+                    ],
+                    "title": "Population: Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Workers_Rural"
+                    ],
+                    "title": "Population: Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Worker in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NonWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NonWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Non Worker in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural"
+                    ],
+                    "title": "Population: Literate, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Literate_Rural"
+                    ],
+                    "title": "Population: Literate, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate, Rural in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_MainWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Main Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_MainWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Main Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Main Worker in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_YearsUpto6_Rural"
+                    ],
+                    "title": "Population: 6 Years or Less, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_YearsUpto6_Rural"
+                    ],
+                    "title": "Population: 6 Years or Less, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 6 Years or Less, Rural in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Houseless_Workers_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Houseless_Workers_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Houseless, Rural, Worker in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
+                    "statVarKey": [
+                      "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Rural Residents, Below Poverty Level in the Past 12 Months in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Rural Residents, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural"
+                    ],
+                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Christian_Rural"
+                    ],
+                    "title": "Population: Rural, Christianity in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Christianity in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Houseless_ScheduledCaste_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural, Scheduled Caste in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Houseless_ScheduledCaste_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural, Scheduled Caste in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Houseless, Rural, Scheduled Caste in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_RU_ZS"
                     ],
@@ -63,12 +380,160 @@
             ],
             "description": "Access to electricity, rural is the percentage of rural population with access to electricity.",
             "title": "Rural Population With Electricity Access (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_MarginalWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Marginal Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_MarginalWorker_Rural"
+                    ],
+                    "title": "Population: Rural, Marginal Worker in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Marginal Worker in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Rural_Female"
+                    ],
+                    "title": "Population: Female, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Rural_Female"
+                    ],
+                    "title": "Population: Female, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Rural in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Houseless_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Houseless_Rural"
+                    ],
+                    "title": "Population: Houseless, Rural in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Houseless, Rural in Administrative Area 2 Places of India"
           }
         ],
         "statVarSpec": {
+          "Count_Household_Rural": {
+            "name": "Count of Household: Rural",
+            "statVar": "Count_Household_Rural"
+          },
+          "Count_Person_Houseless_Rural": {
+            "name": "Population: Houseless, Rural",
+            "statVar": "Count_Person_Houseless_Rural"
+          },
+          "Count_Person_Houseless_ScheduledCaste_Rural": {
+            "name": "Population: Houseless, Rural, Scheduled Caste",
+            "statVar": "Count_Person_Houseless_ScheduledCaste_Rural"
+          },
+          "Count_Person_Houseless_Workers_Rural": {
+            "name": "Population: Houseless, Rural, Worker",
+            "statVar": "Count_Person_Houseless_Workers_Rural"
+          },
+          "Count_Person_Literate_Rural": {
+            "name": "Population: Literate, Rural",
+            "statVar": "Count_Person_Literate_Rural"
+          },
+          "Count_Person_MainWorker_Rural": {
+            "name": "Population: Rural, Main Worker",
+            "statVar": "Count_Person_MainWorker_Rural"
+          },
+          "Count_Person_MarginalWorker_Rural": {
+            "name": "Population: Rural, Marginal Worker",
+            "statVar": "Count_Person_MarginalWorker_Rural"
+          },
+          "Count_Person_NonWorker_Rural": {
+            "name": "Population: Rural, Non Worker",
+            "statVar": "Count_Person_NonWorker_Rural"
+          },
           "Count_Person_Rural": {
             "name": "Population Living in Rural Areas",
             "statVar": "Count_Person_Rural"
+          },
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months": {
+            "name": "Rural residents, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Person_Rural_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Rural_Female": {
+            "name": "Population: Female, Rural",
+            "statVar": "Count_Person_Rural_Female"
+          },
+          "Count_Person_Workers_Rural": {
+            "name": "Population: Rural, Worker",
+            "statVar": "Count_Person_Workers_Rural"
+          },
+          "Count_Person_YearsUpto6_Rural": {
+            "name": "Population: 6 Years or Less, Rural",
+            "statVar": "Count_Person_YearsUpto6_Rural"
+          },
+          "indianCensus/Count_Person_Religion_Christian_Rural": {
+            "name": "Population: Rural, Christianity",
+            "statVar": "indianCensus/Count_Person_Religion_Christian_Rural"
           },
           "worldBank/EG_ELC_ACCS_RU_ZS": {
             "name": "Rural Population With Electricity Access (%)",

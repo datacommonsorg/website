@@ -136,9 +136,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "GiniIndex_EconomicActivity"
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "Gini Index of Economic Activity of a Population in United States",
+                    "title": "GDP (Real Value) in United States",
                     "type": "LINE"
                   }
                 ]
@@ -146,17 +146,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Gini Index of Economic Activity of a Population in United States",
+                    "description": "GDP (Real Value) in United States",
                     "statVarKey": [
-                      "GiniIndex_EconomicActivity"
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
                     ],
-                    "title": "Gini Index of Economic Activity of a Population in United States",
+                    "title": "GDP (Real Value) in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Gini Index of Economic Activity of a Population"
+            "denom": "Count_Person",
+            "title": "GDP (Real Value)"
           },
           {
             "columns": [
@@ -196,6 +197,24 @@
             ],
             "denom": "Count_Person",
             "title": "Related: GDP of the Finance and Insurance Industry and More"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+                      "Amount_EconomicActivity_GrossValueAdded_RealValue"
+                    ],
+                    "title": "GDP (Real Value) and More in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: GDP (Real Value) and More"
           }
         ],
         "statVarSpec": {
@@ -271,9 +290,13 @@
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
           },
-          "GiniIndex_EconomicActivity": {
-            "name": "Gini Index of Economic Activity of a Population",
-            "statVar": "GiniIndex_EconomicActivity"
+          "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
+            "name": "GDP (Real Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+          },
+          "Amount_EconomicActivity_GrossValueAdded_RealValue": {
+            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
+            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",

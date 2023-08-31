@@ -92,6 +92,189 @@
             ],
             "denom": "Count_Person",
             "title": "Motor Vehicle Thefts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Drive Alone in California",
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Drive Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Drive Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/k33ngtzpqxql6"
+                    ],
+                    "title": "Population: Car Truck or Van Drove Alone, Service Occupations in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Car Truck or Van Drove Alone, Service Occupations in California",
+                    "statVarKey": [
+                      "dc/k33ngtzpqxql6"
+                    ],
+                    "title": "Population: Car Truck or Van Drove Alone, Service Occupations in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Car Truck or Van Drove Alone, Service Occupations"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/k33ngtzpqxql6"
+                    ],
+                    "title": "Population: Car Truck or Van Drove Alone, Service Occupations in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/k33ngtzpqxql6"
+                    ],
+                    "title": "Population: Car Truck or Van Drove Alone, Service Occupations in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Car Truck or Van Drove Alone, Service Occupations in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Carpool in California",
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Carpool"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/wc8q05drd74bd"
+                    ],
+                    "title": "Carpool in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Carpool in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -99,9 +282,21 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
+          },
+          "dc/k33ngtzpqxql6": {
+            "name": "Population: Car Truck or Van Drove Alone, Service Occupations",
+            "statVar": "dc/k33ngtzpqxql6"
+          },
           "dc/k3hehk50ch012": {
             "name": "Truck Transportation",
             "statVar": "dc/k3hehk50ch012"
+          },
+          "dc/wc8q05drd74bd": {
+            "name": "Carpool",
+            "statVar": "dc/wc8q05drd74bd"
           }
         }
       }
@@ -489,10 +684,30 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "dc/0gettc3bc60cb": {
+        "hasOccupation": [
+          "dc/b9plt3q5k6gyb",
+          "dc/jszfr5wd4f7pb",
+          "dc/k33ngtzpqxql6",
+          "dc/kt900ezddrf79",
+          "dc/r0delcsw86kc6",
+          "dc/wqbf0ppbmly7"
+        ]
+      },
       "dc/k3hehk50ch012": {
         "establishmentOwnership": [
           "dc/606prkyq9yx7f",
           "dc/njp8y559jz0p4"
+        ]
+      },
+      "dc/wc8q05drd74bd": {
+        "hasOccupation": [
+          "dc/80q8jrnkvwtt3",
+          "dc/dj7khl7q78412",
+          "dc/j7pej9wer7lkd",
+          "dc/jxsx1rb4xg84f",
+          "dc/m54m06x6r5xm9",
+          "dc/m615rq99fwf2c"
         ]
       }
     },

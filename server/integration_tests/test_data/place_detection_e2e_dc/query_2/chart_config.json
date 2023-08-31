@@ -130,16 +130,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit"
+                      "Count_HousingUnit_HomeValue250000To299999USDollar"
                     ],
-                    "title": "Vacant Housing Units in States of United States (${date})",
+                    "title": "Homes Valued Between $250,000 to $299,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Vacant Housing Units in States of United States"
+            "title": "Homes Valued Between $250,000 to $299,999 in States of United States"
           },
           {
             "columns": [
@@ -147,32 +147,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_HousingUnit_HomeValue40000To49999USDollar"
                     ],
-                    "title": "Average Income for Households in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Income for Households in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household"
-                    ],
-                    "title": "Households in States of United States (${date})",
+                    "title": "Homes Valued Between $40,000 to $49,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Households in States of United States"
+            "title": "Homes Valued Between $40,000 to $49,999 in States of United States"
           },
           {
             "columns": [
@@ -180,16 +164,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit"
+                      "Count_HousingUnit_HomeValue35000To39999USDollar"
                     ],
-                    "title": "Housing Units in States of United States (${date})",
+                    "title": "Homes Valued Between $35,000 to $39,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units in States of United States"
+            "title": "Homes Valued Between $35,000 to $39,999 in States of United States"
           },
           {
             "columns": [
@@ -197,32 +181,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_MarketValue_Farm_LandAndBuildings"
+                      "Count_HousingUnit_HomeValue200000To249999USDollar"
                     ],
-                    "title": "Average Market Value of Land and Buildings on a Farm in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Average Market Value of Land and Buildings on a Farm in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_OwnerOccupied"
-                    ],
-                    "title": "Owner-Occupied Homes in States of United States (${date})",
+                    "title": "Homes Valued Between $200,000 to $249,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Owner-Occupied Homes in States of United States"
+            "title": "Homes Valued Between $200,000 to $249,999 in States of United States"
           },
           {
             "columns": [
@@ -230,16 +198,16 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_HousingUnit_RenterOccupied"
+                      "Count_HousingUnit_HomeValue175000To199999USDollar"
                     ],
-                    "title": "Renter-Occupied Homes in States of United States (${date})",
+                    "title": "Homes Valued Between $175,000 to $199,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Renter-Occupied Homes in States of United States"
+            "title": "Homes Valued Between $175,000 to $199,999 in States of United States"
           },
           {
             "columns": [
@@ -247,26 +215,138 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/015d58s9xh8kd"
+                      "Count_HousingUnit_HomeValue25000To29999USDollar"
                     ],
-                    "title": "Median Incomes in Real Estate and Rental and Leasing in States of United States (${date})",
+                    "title": "Homes Valued Between $25,000 to $29,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Median Incomes in Real Estate and Rental and Leasing in States of United States"
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $25,000 to $29,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue90000To99999USDollar"
+                    ],
+                    "title": "Homes Valued Between $90,000 to $99,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $90,000 to $99,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto10000USDollar"
+                    ],
+                    "title": "Homes Valued at $10,000 or Less in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued at $10,000 or Less in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue50000To59999USDollar"
+                    ],
+                    "title": "Homes Valued Between $50,000 to $59,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $50,000 to $59,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue20000To24999USDollar"
+                    ],
+                    "title": "Homes Valued Between $20,000 to $24,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $20,000 to $24,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue30000To34999USDollar"
+                    ],
+                    "title": "Homes Valued Between $30,000 to $34,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $30,000 to $34,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue60000To69999USDollar"
+                    ],
+                    "title": "Homes Valued Between $60,000 to $69,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $60,000 to $69,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue15000To19999USDollar"
+                    ],
+                    "title": "Homes Valued Between $15,000 to $19,999 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Homes Valued Between $15,000 to $19,999 in States of United States"
           }
         ],
         "statVarSpec": {
-          "Count_Household": {
-            "name": "Households",
-            "statVar": "Count_Household"
-          },
-          "Count_HousingUnit": {
-            "name": "Housing Units",
-            "statVar": "Count_HousingUnit"
-          },
           "Count_HousingUnit_HomeValue1000000To1499999USDollar": {
             "name": "Homes Valued Between $1,000,000 and $1,499,999",
             "statVar": "Count_HousingUnit_HomeValue1000000To1499999USDollar"
@@ -279,45 +359,77 @@
             "name": "Homes Valued Between $1,500,000 and $1,999,999",
             "statVar": "Count_HousingUnit_HomeValue1500000To1999999USDollar"
           },
+          "Count_HousingUnit_HomeValue15000To19999USDollar": {
+            "name": "Homes Valued Between $15,000 to $19,999",
+            "statVar": "Count_HousingUnit_HomeValue15000To19999USDollar"
+          },
+          "Count_HousingUnit_HomeValue175000To199999USDollar": {
+            "name": "Homes Valued Between $175,000 to $199,999",
+            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To249999USDollar": {
+            "name": "Homes Valued Between $200,000 to $249,999",
+            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
+          },
           "Count_HousingUnit_HomeValue200000To299999USDollar": {
             "name": "Count of Housing Unit: 200,000 - 299,999 USD",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue20000To24999USDollar": {
+            "name": "Homes Valued Between $20,000 to $24,999",
+            "statVar": "Count_HousingUnit_HomeValue20000To24999USDollar"
+          },
+          "Count_HousingUnit_HomeValue250000To299999USDollar": {
+            "name": "Homes Valued Between $250,000 to $299,999",
+            "statVar": "Count_HousingUnit_HomeValue250000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue25000To29999USDollar": {
+            "name": "Homes Valued Between $25,000 to $29,999",
+            "statVar": "Count_HousingUnit_HomeValue25000To29999USDollar"
           },
           "Count_HousingUnit_HomeValue300000To499999USDollar": {
             "name": "Count of Housing Unit: 300,000 - 499,999 USD",
             "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
           },
+          "Count_HousingUnit_HomeValue30000To34999USDollar": {
+            "name": "Homes Valued Between $30,000 to $34,999",
+            "statVar": "Count_HousingUnit_HomeValue30000To34999USDollar"
+          },
+          "Count_HousingUnit_HomeValue35000To39999USDollar": {
+            "name": "Homes Valued Between $35,000 to $39,999",
+            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
+          },
+          "Count_HousingUnit_HomeValue40000To49999USDollar": {
+            "name": "Homes Valued Between $40,000 to $49,999",
+            "statVar": "Count_HousingUnit_HomeValue40000To49999USDollar"
+          },
           "Count_HousingUnit_HomeValue500000To999999USDollar": {
             "name": "Count of Housing Unit: 500,000 - 999,999 USD",
             "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To59999USDollar": {
+            "name": "Homes Valued Between $50,000 to $59,999",
+            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
           },
           "Count_HousingUnit_HomeValue50000To99999USDollar": {
             "name": "Count of Housing Unit: 50,000 - 99,999 USD",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
+          "Count_HousingUnit_HomeValue60000To69999USDollar": {
+            "name": "Homes Valued Between $60,000 to $69,999",
+            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
+          },
+          "Count_HousingUnit_HomeValue90000To99999USDollar": {
+            "name": "Homes Valued Between $90,000 to $99,999",
+            "statVar": "Count_HousingUnit_HomeValue90000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto10000USDollar": {
+            "name": "Homes Valued at $10,000 or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto10000USDollar"
+          },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
             "name": "Count of Housing Unit: 49,999 USD or Less",
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
-          },
-          "Count_HousingUnit_OwnerOccupied": {
-            "name": "Owner-Occupied Homes",
-            "statVar": "Count_HousingUnit_OwnerOccupied"
-          },
-          "Count_HousingUnit_RenterOccupied": {
-            "name": "Renter-Occupied Homes",
-            "statVar": "Count_HousingUnit_RenterOccupied"
-          },
-          "Count_HousingUnit_VacantHousingUnit": {
-            "name": "Vacant Housing Units",
-            "statVar": "Count_HousingUnit_VacantHousingUnit"
-          },
-          "Mean_Income_Household": {
-            "name": "Average Income for Households",
-            "statVar": "Mean_Income_Household"
-          },
-          "Mean_MarketValue_Farm_LandAndBuildings": {
-            "name": "Average Market Value of Land and Buildings on a Farm",
-            "statVar": "Mean_MarketValue_Farm_LandAndBuildings"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
@@ -326,10 +438,6 @@
           "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
             "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
             "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
-          },
-          "dc/015d58s9xh8kd": {
-            "name": "Median Incomes in Real Estate And Rental And Leasing",
-            "statVar": "dc/015d58s9xh8kd"
           }
         }
       }

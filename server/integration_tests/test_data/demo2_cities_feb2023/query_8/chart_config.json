@@ -231,9 +231,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate"
+                      "Count_Person_EducationalAttainment11ThGrade"
                     ],
-                    "title": "Population: Less Than High School Graduate in Sunnyvale",
+                    "title": "Population: 11th Grade in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -241,18 +241,47 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Less Than High School Graduate in Sunnyvale",
+                    "description": "Population: 11th Grade in Sunnyvale",
                     "statVarKey": [
-                      "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate"
+                      "Count_Person_EducationalAttainment11ThGrade"
                     ],
-                    "title": "Population: Less Than High School Graduate in Sunnyvale",
+                    "title": "Population: 11th Grade in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Less Than High School Graduate"
+            "title": "Population: 11th Grade"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
+                    ],
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 7th and 8th Grade in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
+                    ],
+                    "title": "Population: 7th and 8th Grade in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 7th and 8th Grade"
           }
         ],
         "statVarSpec": {
@@ -268,9 +297,9 @@
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
-          "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate": {
-            "name": "Population: Less Than High School Graduate",
-            "statVar": "Count_Person_EducationalAttainmentLessThanHighSchoolGraduate"
+          "Count_Person_EducationalAttainment11ThGrade": {
+            "name": "Population: 11th Grade",
+            "statVar": "Count_Person_EducationalAttainment11ThGrade"
           },
           "Count_Person_EnrolledInCollegeUndergraduateYears": {
             "name": "Population: Enrolled in College Undergraduate Years",
@@ -283,6 +312,10 @@
           "Count_Person_EnrolledInSchool": {
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
+          },
+          "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
+            "name": "Population: 7th And 8th Grade",
+            "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
           },
           "dc/1c4zcyw02n71g_multiple_place_bar_block": {
             "name": "Population: Enrolled in Kindergarten, Asian Alone",

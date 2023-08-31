@@ -138,27 +138,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "GiniIndex_EconomicActivity"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Gini Index of Economic Activity of a Population in United Kingdom",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Gini Index of Economic Activity of a Population in United Kingdom",
-                    "statVarKey": [
-                      "GiniIndex_EconomicActivity"
-                    ],
-                    "title": "Gini Index of Economic Activity of a Population in United Kingdom",
-                    "type": "HIGHLIGHT"
+                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Gini Index of Economic Activity of a Population"
+            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
           }
         ],
         "statVarSpec": {
@@ -166,13 +154,13 @@
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
+            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
-          },
-          "GiniIndex_EconomicActivity": {
-            "name": "Gini Index of Economic Activity of a Population",
-            "statVar": "GiniIndex_EconomicActivity"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",

@@ -68,6 +68,129 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "statVarKey": [
+                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Access to Modern Family Planning for Adult Women in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Access to Modern Family Planning for Adult Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Prematurity and Low Birth Rate, Per 100,000 in Turkey",
+                    "statVarKey": [
+                      "WHO/SA_0000001432"
+                    ],
+                    "title": "Prematurity and Low Birth Rate, Per 100,000 in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Prematurity and Low Birth Rate, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 in Turkey",
+                    "statVarKey": [
+                      "WHO/SA_0000001451"
+                    ],
+                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in Turkey",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
                     ],
                     "title": "Female Infant Mortality Rate in Turkey",
@@ -149,108 +272,20 @@
             ],
             "denom": "Count_Person",
             "title": "Number of Maternal Deaths"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Maternal Mortality Ratio in Turkey",
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
-                    ],
-                    "title": "Maternal Mortality Ratio in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Maternal Mortality Ratio"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Infant Mortality Rate in Turkey",
-                    "statVarKey": [
-                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-                    ],
-                    "title": "Infant Mortality Rate in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Infant Mortality Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male"
-                    ],
-                    "title": "Male Infant Mortality Rate in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Male Infant Mortality Rate in Turkey",
-                    "statVarKey": [
-                      "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male"
-                    ],
-                    "title": "Male Infant Mortality Rate in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Male Infant Mortality Rate"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent_AsAFractionOfCount_Person": {
+            "name": "Count of Birth Event (Per Capita)",
+            "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
+          },
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
             "name": "Count of Birth Event: Live Birth (Per Capita)",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
-            "name": "Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
-          },
           "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female": {
             "name": "Female Infant Mortality Rate",
             "statVar": "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
-          },
-          "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male": {
-            "name": "Male Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male"
           },
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
@@ -263,6 +298,18 @@
           "WHO/MORT_MATERNALNUM": {
             "name": "Number Of Maternal Deaths",
             "statVar": "WHO/MORT_MATERNALNUM"
+          },
+          "WHO/SA_0000001432": {
+            "name": "Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001432"
+          },
+          "WHO/SA_0000001451": {
+            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
+            "statVar": "WHO/SA_0000001451"
+          },
+          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
+            "name": "Access to modern family planning for adult women",
+            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
           },
           "sdg/SH_STA_MORT.SEX--F": {
             "name": "Maternal mortality ratio",
