@@ -36,6 +36,12 @@ class NeedLLM(Enum):
   Fully = 4
 
 
+# Any score below this value does not qualify for fallback. This
+# gives us confidence that the multi-var is indeed made up of
+# multiple independent variables.
+MULTIVAR_HIGH_THRESHOLD_SCORE = 0.9
+
+
 #
 # Given a heuristic-based Detection, decides whether we need a call to LLM
 #
@@ -46,7 +52,7 @@ class NeedLLM(Enum):
 # - Prevalence of Asthma in counties of California with the highest hispanic population
 #   => Because we have detected 2 SVs, and its not correlation/comparison.
 # - Number of shakespeare fans in california
-#   => Because we would not have detected any SV, SIZE_TYPE, OVERVIEW, EVENT
+#   => Because we would not have detected any SV, SUPERLATIVE, OVERVIEW, EVENT
 # - Asthma where Obama was born
 #   => Because we would not have detected a Place.
 #
@@ -58,15 +64,19 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
   # 1. If there was no SV.
   if _has_no_sv(heuristic, ctr):
 
-    # For OVERVIEW/SIZE_TYPE/EVENT_TYPE classifications, we don't have SVs,
+    # For OVERVIEW/SUPERLATIVE/EVENT_TYPE classifications, we don't have SVs,
     # exclude those.
     has_sv_classification = any(
         cl.type == ClassificationType.OVERVIEW or cl.type ==
-        ClassificationType.SIZE_TYPE or cl.type == ClassificationType.EVENT
+        ClassificationType.SUPERLATIVE or cl.type == ClassificationType.EVENT
         for cl in heuristic.classifications)
 
+    # Does the query have more words beyond place names?
+    has_more_words = bool(heuristic.places_detected.query_without_place_substr)
+
     # Check if the context had SVs.
-    if not has_sv_classification and not futils.has_sv(prev_uttr):
+    if not has_sv_classification and not futils.has_sv(
+        prev_uttr) and has_more_words:
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
@@ -123,21 +133,33 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
   # Use the top-multi-sv, whose score exceeds top single-SV.
   multi_sv = d.svs_detected.multi_sv.candidates[0]
 
+  # Ensure that the top candidate has a much higher threshold.
+  if not _do_high_threshold_check(multi_sv):
+    ctr.info('info_fallback_below_high_threshold', '')
+    return False
+
+  # If there are ~2 SVs, and we have detected comparison/correlation,
+  # we would handle it better ourselves.
+  if dutils.get_multi_sv_pair(d) and any(
+      cl.type == ClassificationType.COMPARISON or
+      cl.type == ClassificationType.CORRELATION for cl in d.classifications):
+    ctr.info('info_fallback_dual_sv_correlation', '')
+    return False
+
   # Increase confidence that it is a multi-sv case by checking that the top
   # candidate is either delimiter-separated, or is delimited
   # by the place name.
   if not _is_multi_sv_delimited(d, query_places, multi_sv, ctr):
     return False
 
-  # If there are ~2 SVs, and we have detected comparison/correlation,
-  # we would handle it better ourselves.
-  if len(
-      multi_sv.parts) == 2 and any(cl.type == ClassificationType.COMPARISON or
-                                   cl.type == ClassificationType.CORRELATION
-                                   for cl in d.classifications):
-    ctr.info('info_fallback_dual_sv_correlation', '')
-    return False
+  return True
 
+
+def _do_high_threshold_check(multi_sv: dvars.MultiVarCandidate) -> bool:
+  for p in multi_sv.parts:
+    if not p.scores or p.scores[0] < MULTIVAR_HIGH_THRESHOLD_SCORE:
+      return False
+  # Every SV part's score was >= the high-threshold, so return true.
   return True
 
 
