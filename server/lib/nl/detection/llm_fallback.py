@@ -72,8 +72,7 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
         for cl in heuristic.classifications)
 
     # Does the query have more words beyond place names?
-    has_more_words = bool(
-        not heuristic.places_detected.query_without_place_substr)
+    has_more_words = bool(heuristic.places_detected.query_without_place_substr)
 
     # Check if the context had SVs.
     if not has_sv_classification and not futils.has_sv(
@@ -136,6 +135,7 @@ def _is_complex_query(d: Detection, ctr: counters.Counters) -> bool:
 
   # Ensure that the top candidate has a much higher threshold.
   if not _do_high_threshold_check(multi_sv):
+    ctr.info('info_fallback_below_high_threshold', '')
     return False
 
   # If there are ~2 SVs, and we have detected comparison/correlation,

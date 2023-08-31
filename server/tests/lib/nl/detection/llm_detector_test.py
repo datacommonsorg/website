@@ -139,7 +139,7 @@ class TestBuildClassifications(unittest.TestCase):
           {
               "DISASTER_EVENT": "FLOOD",
               "PLACES": ["California"],
-              "SIZE": "BIG",
+              "SUPERLATIVE": "BIG",
           },
           None,
           [
