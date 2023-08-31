@@ -60,6 +60,12 @@ window.onload = () => {
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
+  searchSequenceContainer.onclick = () => {
+    if (prompt) {
+      window.location.href = `/explore#q=${encodeURIComponent(prompt.dataset.query)}`;
+    }
+  };
+
   function startNextPrompt() {
     let inputLength = 0;
     if (currentPromptIndex < resultsElList.length) {
