@@ -322,7 +322,7 @@ export function appendLegendElem(
     dcid?: string;
     label: string;
     link?: string;
-    index: string;
+    index?: string;
   }[],
   apiRoot?: string
 ): void {
@@ -337,7 +337,7 @@ export function appendLegendElem(
     .data(keys)
     .join("div")
     .attr("class", "legend-item")
-    .attr("id", (d) => d.index);
+    .attr("id", (d) => d.index || "");
 
   legendItem
     .append("div")
