@@ -151,10 +151,13 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       ? metadataUnit.slice(numberUnit.length).trimStart()
       : metadataUnit;
   }
+  // Find percentages that are too big, and adjust back to non-percentage value
+  // This avoids cases like "1.3K%" being displayed instead of "13" when showing
+  // a per capita value.
   if (
     numberUnit === "%" &&
     highlightData.value >= 100 &&
-    props.statVarSpec.scaling == 100
+    props.statVarSpec.denom === "Count_Person"
   ) {
     numberUnit = "";
     metadataUnit = highlightData.unitDisplayName;
