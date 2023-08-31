@@ -22,7 +22,7 @@ namespace:
 website:
   image:
     project: techsoup-data-commons
-    tag: 7b602ff 
+    tag: 1b2f2ac 
   flaskEnv: custom
   replicas: 1
 
