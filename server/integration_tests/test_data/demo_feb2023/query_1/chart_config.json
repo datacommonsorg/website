@@ -23,7 +23,7 @@
                 ]
               }
             ],
-            "description": "Predicted max temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
+            "description": "Predicted Max Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
             "title": "Predicted Relative Max Temperature (95% Likely), Under Different Scenarios"
           },
           {
@@ -73,7 +73,7 @@
                 ]
               }
             ],
-            "description": "Predicted min temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
+            "description": "Predicted Min Temperature differences, relative to the yearly average from 1980-2010, with a 95% chance.",
             "title": "Predicted Relative Min Temperature (95% Likely), Under Different Scenarios"
           },
           {
@@ -132,7 +132,7 @@
                 ]
               }
             ],
-            "description": "Predicted max temperature with 95% chance, at least once in the decade, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once in Decade With 95% Chance: SSP245 in Counties of California"
           },
@@ -165,7 +165,7 @@
                 ]
               }
             ],
-            "description": "Predicted max temperature with 95% chance, at least once in the decade, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once in Decade With 95% Chance: SP585 in Counties of California"
           },
@@ -198,7 +198,7 @@
                 ]
               }
             ],
-            "description": "Predicted min temperature with 95% chance, at least once in the decade, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once in Decade With 95% Chance: SSP245 in Counties of California"
           },
@@ -231,7 +231,7 @@
                 ]
               }
             ],
-            "description": "Predicted min temperature with 95% chance, at least once in the decade, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the decade, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once in Decade With 95% Chance: SP585 in Counties of California"
           },
@@ -264,7 +264,7 @@
                 ]
               }
             ],
-            "description": "Relative to the average yearly max temperature between 1980-2010, the predicted max temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
           },
@@ -297,7 +297,7 @@
                 ]
               }
             ],
-            "description": "Relative to the average yearly max temperature between 1980-2010, the predicted max temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Max Temperature between 1980-2010, the Predicted Max Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Max Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
           },
@@ -330,7 +330,7 @@
                 ]
               }
             ],
-            "description": "Predicted max temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
           },
@@ -363,7 +363,7 @@
                 ]
               }
             ],
-            "description": "Predicted max temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Max Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
           },
@@ -396,7 +396,7 @@
                 ]
               }
             ],
-            "description": "Relative to the average yearly min temperature between 1980-2010, the predicted min temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
           },
@@ -429,7 +429,7 @@
                 ]
               }
             ],
-            "description": "Relative to the average yearly min temperature between 1980-2010, the predicted min temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
           },
@@ -462,7 +462,7 @@
                 ]
               }
             ],
-            "description": "Predicted min temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
             "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
           },
@@ -495,7 +495,7 @@
                 ]
               }
             ],
-            "description": "Predicted min temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
+            "description": "Predicted Min Temperature with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
           },
