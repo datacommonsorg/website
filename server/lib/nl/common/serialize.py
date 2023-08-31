@@ -37,8 +37,8 @@ from server.lib.nl.detection.types import QuantityRange
 from server.lib.nl.detection.types import RankingClassificationAttributes
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.detection.types import SimpleClassificationAttributes
-from server.lib.nl.detection.types import SizeType
-from server.lib.nl.detection.types import SizeTypeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeClassificationAttributes
+from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -97,8 +97,9 @@ def classification_to_dict(classifications: List[NLClassifier]) -> List[Dict]:
       cdict['ranking_type'] = c.attributes.ranking_type
     elif isinstance(c.attributes, TimeDeltaClassificationAttributes):
       cdict['time_delta_type'] = c.attributes.time_delta_types
-    elif isinstance(c.attributes, SizeTypeClassificationAttributes):
-      cdict['size_type'] = c.attributes.size_types
+    elif isinstance(c.attributes, SuperlativeClassificationAttributes):
+      cdict[''] = c.attributes.superlatives
+
     elif isinstance(c.attributes, ComparisonClassificationAttributes):
       cdict['comparison'] = True
     elif isinstance(c.attributes, CorrelationClassificationAttributes):
@@ -132,10 +133,10 @@ def dict_to_classification(
       attributes = TimeDeltaClassificationAttributes(
           time_delta_types=[TimeDeltaType(t) for t in cdict['time_delta_type']],
           time_delta_trigger_words=[])
-    elif 'size_type' in cdict:
-      attributes = SizeTypeClassificationAttributes(
-          size_types=[SizeType(t) for t in cdict['size_type']],
-          size_types_trigger_words=[])
+    elif 'superlatives' in cdict:
+      attributes = SuperlativeClassificationAttributes(
+          superlatives=[SuperlativeType(t) for t in cdict['superlatives']],
+          superlatives_trigger_words=[])
     elif cdict.get('comparison'):
       attributes = ComparisonClassificationAttributes(
           comparison_trigger_words=[])

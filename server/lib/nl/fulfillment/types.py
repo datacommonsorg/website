@@ -114,6 +114,9 @@ class PopulateState:
   exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
   # Whether this is explore mode of fulfillment.
   explore_mode: bool = False
+  # Set to true if utterance has overwritten SVs.  So they should
+  # be cleared and not propagated into context.
+  has_overwritten_svs: bool = False
 
 
 @dataclass

@@ -251,15 +251,15 @@ def get_contained_in_type(
   return place_type
 
 
-def get_size_types(uttr: nl_uttr.Utterance) -> List[types.SizeType]:
+def get_superlatives(uttr: nl_uttr.Utterance) -> List[types.SuperlativeType]:
   classification = futils.classifications_of_type_from_utterance(
-      uttr, types.ClassificationType.SIZE_TYPE)
-  size_types = []
+      uttr, types.ClassificationType.SUPERLATIVE)
+  superlatives = []
   if (classification and isinstance(classification[0].attributes,
-                                    types.SizeTypeClassificationAttributes)):
+                                    types.SuperlativeClassificationAttributes)):
     # Ranking among places.
-    size_types = classification[0].attributes.size_types
-  return size_types
+    superlatives = classification[0].attributes.superlatives
+  return superlatives
 
 
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
