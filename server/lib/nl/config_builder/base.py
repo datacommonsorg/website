@@ -94,7 +94,7 @@ def _make_sentence_case(input_string: str) -> str:
 
     # Only add a space if this is the second sentence onward.
     # and the starting word is not numeric.
-    if s_index > 0 and not words[0].isnumeric():
+    if s_index > 0 and s[0] == " " and not words[0].isnumeric():
       output_str += " "
 
     # Only capitalize the first word and make everything else
