@@ -18,8 +18,6 @@
  * Component for rendering a bar tile.
  */
 
-import axios from "axios";
-import * as d3 from "d3";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -40,8 +38,8 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getPoint, getPointWithin } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -166,43 +164,39 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: BarTilePropType) => {
-  const statVars = [];
-  for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
-    if (spec.denom) {
-      statVars.push(spec.denom);
-    }
-  }
+  const statSvs = props.statVarSpec.map((spec) => spec.statVar);
+  const denomSvs = props.statVarSpec.map((spec) => spec.denom);
+  const statVars = [statSvs, denomSvs].flat(1);
   // Fetch populations.
   statVars.push(FILTER_STAT_VAR);
-  let url: string;
-  let params;
+  let statPromise: Promise<PointApiResponse>;
   if (!_.isEmpty(props.comparisonPlaces)) {
-    url = `${props.apiRoot || ""}/api/observations/point`;
-    params = {
-      entities: props.comparisonPlaces,
-      variables: statVars,
-    };
+    statPromise = getPoint(
+      props.apiRoot,
+      props.comparisonPlaces,
+      statVars,
+      "",
+      [statSvs]
+    );
   } else {
-    url = `${props.apiRoot || ""}/api/observations/point/within`;
-    params = {
-      parentEntity: props.place.dcid,
-      childType: props.enclosedPlaceType,
-      variables: statVars,
-    };
+    statPromise = getPointWithin(
+      props.apiRoot,
+      props.enclosedPlaceType,
+      props.place.dcid,
+      statVars,
+      "",
+      [statSvs]
+    );
   }
   try {
-    const resp = await axios.get<PointApiResponse>(url, {
-      params,
-      paramsSerializer: stringifyFn,
-    });
+    const resp = await statPromise;
 
     // Find the most populated places.
     const popPoints: RankingPoint[] = [];
-    for (const place in resp.data.data[FILTER_STAT_VAR]) {
+    for (const place in resp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
-        value: resp.data.data[FILTER_STAT_VAR][place].value,
+        value: resp.data[FILTER_STAT_VAR][place].value,
       });
     }
     // Optionally sort by ascending/descending population
@@ -220,13 +214,7 @@ export const fetchData = async (props: BarTilePropType) => {
       props.statVarSpec,
       props.apiRoot
     );
-    return rawToChart(
-      props,
-      resp.data,
-      popPoints,
-      placeNames,
-      statVarDcidToName
-    );
+    return rawToChart(props, resp, popPoints, placeNames, statVarDcidToName);
   } catch (error) {
     return null;
   }
