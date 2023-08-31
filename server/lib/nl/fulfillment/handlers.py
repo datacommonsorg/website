@@ -30,7 +30,7 @@ from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import correlation
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import filter_with_single_var
-from server.lib.nl.fulfillment import size_across_entities
+from server.lib.nl.fulfillment import superlative
 from server.lib.nl.fulfillment import time_delta_across_places
 from server.lib.nl.fulfillment import time_delta_across_vars
 from server.lib.nl.fulfillment.types import PopulateState
@@ -76,8 +76,8 @@ QUERY_HANDLERS = {
     QueryType.EVENT:
         QueryHandlerConfig(module=None, rank=6,
                            direct_fallback=QueryType.BASIC),
-    QueryType.SIZE_ACROSS_ENTITIES:
-        QueryHandlerConfig(module=size_across_entities,
+    QueryType.SUPERLATIVE:
+        QueryHandlerConfig(module=superlative,
                            rank=7,
                            direct_fallback=QueryType.BASIC),
     QueryType.FILTER_WITH_SINGLE_VAR:
@@ -152,8 +152,8 @@ def _classification_to_query_type(cl: NLClassifier,
     query_type = QueryType.BASIC
   elif cl.type == ClassificationType.EVENT:
     query_type = QueryType.EVENT
-  elif cl.type == ClassificationType.SIZE_TYPE:
-    query_type = QueryType.SIZE_ACROSS_ENTITIES
+  elif cl.type == ClassificationType.SUPERLATIVE:
+    query_type = QueryType.SUPERLATIVE
   elif cl.type == ClassificationType.SIMPLE:
     query_type = QueryType.BASIC
   elif cl.type == ClassificationType.OVERVIEW:

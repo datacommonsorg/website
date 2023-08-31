@@ -58,7 +58,7 @@ class QueryType(IntEnum):
   TIME_DELTA_ACROSS_PLACES = 8
   EVENT = 9
   OVERVIEW = 10
-  SIZE_ACROSS_ENTITIES = 11
+  SUPERLATIVE = 11
   # This is [cities with population over 1M]
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]

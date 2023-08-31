@@ -45,7 +45,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
 
   ranking_classification = "<None>"
   overview_classification = "<None>"
-  size_type_classification = "<None>"
+  superlative_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
   contained_in_classification = "<None>"
@@ -59,8 +59,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
       ranking_classification = str(classification.attributes.ranking_type)
     elif classification.type == ClassificationType.OVERVIEW:
       overview_classification = 'DETECTED'
-    elif classification.type == ClassificationType.SIZE_TYPE:
-      size_type_classification = str(classification.attributes.size_types)
+    elif classification.type == ClassificationType.SUPERLATIVE:
+      superlative_classification = str(classification.attributes.superlatives)
     elif classification.type == ClassificationType.TIME_DELTA:
       time_delta_classification = str(
           classification.attributes.time_delta_types)
@@ -85,7 +85,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
       'overview_classification': overview_classification,
-      'size_type_classification': size_type_classification,
+      'superlative_classification': superlative_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
       'clustering_classification': clustering_classification,
