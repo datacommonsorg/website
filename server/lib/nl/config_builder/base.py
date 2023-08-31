@@ -75,53 +75,6 @@ def _replace_special(input_string_title_case: str) -> str:
   return input
 
 
-def _count_caps(word: str) -> int:
-  return sum(1 for c in word if c.isupper())
-
-
-def _make_sentence_case(input_string: str) -> str:
-  if not input_string:
-    return ""
-
-  output_str = ""
-  sentences = input_string.split(".")
-  for s_index in range(len(sentences)):
-    s = sentences[s_index]
-    words = s.split()
-
-    if not words:
-      continue
-
-    # Only add a space if this is the second sentence onward.
-    # and the starting word is not numeric.
-    if s_index > 0 and s[0] == " " and not words[0].isnumeric():
-      output_str += " "
-
-    # Only capitalize the first word and make everything else
-    # lower case, except those words which have multiple caps.
-    for i in range(len(words)):
-      w = words[i]
-
-      if ((_count_caps(w) > 1) or (not w.isalpha())):
-        # If there are more than 1 capital letters and
-        # if the word isn't all alpha, then do not change
-        # anything.
-        w = w
-      elif i == 0:
-        w = w.title()
-      else:
-        w = w.lower()
-
-      if i > 0:
-        w = f" {w}"
-
-      output_str += w
-
-    output_str += "."
-
-  return output_str
-
-
 def _make_title_case(input_string: str) -> str:
   # Only title case those parts which aren't already capitalized.
   # This is necessary for words like "GDP" do not become "Gdp".
@@ -206,10 +159,8 @@ class Builder:
 
     if override_sv:
       title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
-      description = _make_sentence_case(
-          self.sv2thing.description.get(override_sv, ''))
-      footnote = _make_sentence_case(self.sv2thing.footnote.get(
-          override_sv, ''))
+      description = self.sv2thing.description.get(override_sv, '')
+      footnote = self.sv2thing.footnote.get(override_sv, '')
       return title, description, footnote
 
     if cv.title:
@@ -228,8 +179,8 @@ class Builder:
 
     # Make title case.
     title = _make_title_case(title)
-    description = _make_sentence_case(description)
-    footnote = _make_sentence_case(footnote)
+    description = description
+    footnote = footnote
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
