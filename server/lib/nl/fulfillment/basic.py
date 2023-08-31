@@ -16,6 +16,7 @@ import copy
 from typing import List
 
 from server.lib.explore import params
+from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
@@ -60,7 +61,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             [p.dcid for p in places])
     return False
 
-  if state.explore_mode:
+  if state.explore_mode and chart_vars.source_topic != PROJECTED_TEMP_TOPIC:
     return _populate_explore(state, chart_vars, places, chart_origin, rank)
   else:
     return _populate_chat(state, chart_vars, places, chart_origin, rank)
