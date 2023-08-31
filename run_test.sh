@@ -20,11 +20,6 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-}
-
-function setup_python_nl {
-  python3 -m venv .env
-  source .env/bin/activate
   python3 -m pip install --upgrade pip setuptools light-the-torch
   ltt install torch --cpuonly
   pip3 install -r nl_server/requirements.txt
@@ -86,16 +81,20 @@ function run_npm_build () {
 
 # Run test and check lint for Python code.
 function run_py_test {
-  setup_python
-  setup_python_nl
+  # Run server pytest.
+  python3 -m venv .env
+  source .env/bin/activate
   export FLASK_ENV=test
-  python3 -m pytest server/tests/ -s --ignore=sustainability
-
-  # TODO(beets): add tests for other private dc instances
-  # export FLASK_ENV=test-sustainability
-  # python3 -m pytest tests/sustainability/**.py
+  python3 -m pytest server/tests/ -s
   python3 -m pytest shared/tests/ -s
   python3 -m pytest nl_server/tests/ -s
+
+  # Tests within tools/nl/embeddings
+  echo "Running tests within tools/nl/embeddings:"
+  cd tools/nl/embeddings
+  pip3 install -r requirements.txt
+  python3 -m pytest ./ -s
+  cd ../../..
 
   pip3 install yapf==0.33.0 -q
   if ! command -v isort &> /dev/null
@@ -116,9 +115,9 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
+  python3 -m venv .env
+  source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  setup_python
-  setup_python_nl
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -131,9 +130,9 @@ function run_webdriver_test {
 
 # Run test for screenshot test codes.
 function run_screenshot_test {
+  python3 -m venv .env
+  source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
-  setup_python
-  setup_python_nl
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -147,32 +146,28 @@ function run_screenshot_test {
   python3 -m pytest -n 2 --reruns 2 server/webdriver/screenshot/
 }
 
-# Run integration test for NL interface
+# Run integration test for NL and explore interface
+# The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  setup_python
-  setup_python_nl
+  python3 -m venv .env
+  source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -vv server/integration_tests/
-
-  # Tests within tools/nl/embeddings
-  echo "Running tests within tools/nl/embeddings:"
-  cd tools/nl/embeddings
-  pip3 install -r requirements.txt
-  python3 -m pytest *_test.py -s
+  python3 -m pytest -vv -n 3 --reruns 2 server/integration_tests/$1
 }
 
 function update_integration_test_golden {
-  setup_python
-  setup_python_nl
+  python3 -m venv .env
+  source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=write
   python3 -m pytest -vv server/integration_tests/topic_cache
-  python3 -m pytest -vv -n 3 server/integration_tests/
+  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/
+  python3 -m pytest -vv server/tests/nodejs_e2e_test.py
 }
 
 function run_all_tests {
@@ -181,77 +176,98 @@ function run_all_tests {
   run_webdriver_test
   run_npm_lint_test
   run_npm_test
-  run_integration_test
+  run_integration_test explore_test.py
+  run_integration_test nl_test.py
 }
 
 function help {
   echo "Usage: $0 -pwblcsaf"
-  echo "-p       Run server python tests"
-  echo "-w       Run webdriver tests"
-  echo "-i       Run integration tests"
-  echo "-g       Update integration test golden files"
-  echo "-o       Build for production (ignores dev dependencies)"
-  echo "-b       Run client install and build"
-  echo "-l       Run client lint test"
-  echo "-c       Run client tests"
-  echo "-a       Run all tests"
-  echo "-f       Fix lint"
+  echo "-p              Run server python tests"
+  echo "-w              Run webdriver tests"
+  echo "--explore       Run explore integration tests"
+  echo "--nl            Run nl integration tests"
+  echo "--setup_python  Setup python environment"
+  echo "-g              Update integration test golden files"
+  echo "-o              Build for production (ignores dev dependencies)"
+  echo "-b              Run client install and build"
+  echo "-l              Run client lint test"
+  echo "-c              Run client tests"
+  echo "-a              Run all tests"
+  echo "-f              Fix lint"
   exit 1
 }
 
 # Always reset the variable null.
-while getopts tpwigotblcsaf OPTION; do
-  case $OPTION in
-    p)
+while [[ "$#" -gt 0 ]]; do
+  case "$1" in
+    -p)
         echo -e "### Running server tests"
         run_py_test
+        shift 1
         ;;
-    w)
+    -w)
         echo -e "### Running webdriver tests"
         run_webdriver_test
+        shift 1
         ;;
-    i)
-        echo -e "### Running integration tests"
-        run_integration_test
+    --explore)
+        echo --explore "### Running explore page integration tests"
+        run_integration_test explore_test.py
+        shift 1
         ;;
-    g)
+    --nl)
+        echo --nl "### Running nl page integration tests"
+        run_integration_test nl_test.py
+        shift 1
+        ;;
+    --setup_python)
+        echo --setup_python "### Set up python environment"
+        setup_python
+        shift 1
+        ;;
+    -g)
         echo -e "### Updating integration test goldens"
         update_integration_test_golden
+        shift 1
         ;;
-    o)
+    -o)
         echo -e "### Production flag enabled"
         PROD=true
+        shift 1
         ;;
-    b)
+    -b)
         echo -e "### Build client-side packages"
         run_npm_build $PROD
+        shift 1
         ;;
-    l)
+    -l)
         echo -e "### Running lint"
         run_npm_lint_test
+        shift 1
         ;;
-    c)
+    -c)
         echo -e "### Running client tests"
         run_npm_test
+        shift 1
         ;;
-    s)
+    -s)
         echo -e "### Running screenshot tests"
         run_screenshot_test
+        shift 1
         ;;
-    f)
+    -f)
         echo -e "### Fix lint errors"
         run_lint_fix
+        shift 1
         ;;
-    a)
+    -a)
         echo -e "### Running all tests"
         run_all_tests
+        shift 1
         ;;
     *)
         help
+        exit 1
+        ;;
     esac
 done
-
-if [ $OPTIND -eq 1 ]
-then
-  help
-fi

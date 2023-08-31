@@ -26,7 +26,7 @@ from server.lib.nl.detection.utils import get_top_sv_score
 # If the score is below this, then we report low confidence.
 LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD = 0.7
 LOW_CONFIDENCE_SCORE_MESSAGE = \
-  'Have low confidence in understanding your query, but displaying the closest results.'
+  'Low confidence in understanding your query. Displaying the closest results.'
 
 
 def place_from_context(u: Utterance) -> str:

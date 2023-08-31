@@ -9,6 +9,17 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
                     "title": "Life Expectancy in the World (${date})",
@@ -17,7 +28,7 @@
                 ]
               }
             ],
-            "title": "Life Expectancy in the World"
+            "title": "Deaths Per Capita and More in the World"
           },
           {
             "columns": [
@@ -45,22 +56,6 @@
               }
             ],
             "title": "Life Expectancy by Gender in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita) in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Causes of Death in the World"
           },
           {
             "columns": [
@@ -645,9 +640,9 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
-            "name": "Count of Mortality Event: X60-X84 (Intentional Self-harm) (Per Capita)",
-            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",

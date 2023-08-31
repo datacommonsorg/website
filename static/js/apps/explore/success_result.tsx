@@ -56,11 +56,28 @@ interface SuccessResultPropType {
   userMessage: UserMessageInfo;
 }
 
+// Whether or not to show topic list in the user message.
+function showTopicsInUserMsg(pageMetadata: SubjectPageMetadata): boolean {
+  const categories = pageMetadata.pageConfig.categories;
+  // False if there is more than 1 tile
+  if (
+    categories.length !== 1 ||
+    categories[0].blocks.length !== 1 ||
+    categories[0].blocks[0].columns.length !== 1 ||
+    categories[0].blocks[0].columns[0].tiles.length !== 1
+  ) {
+    return false;
+  }
+  // True only if the one tile is of type PLACE_OVERVIEW
+  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
+}
+
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
     return null;
   }
   const searchSectionRef = useRef<HTMLDivElement>(null);
+  const chartSectionRef = useRef<HTMLDivElement>(null);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -86,8 +103,11 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
       if (window.scrollY >= searchBoundingBox.height) {
         if (!searchSectionRef.current.classList.contains("sticky")) {
           searchSectionRef.current.classList.add("sticky");
+          chartSectionRef.current.style.marginTop =
+            searchBoundingBox.height + "px";
         }
       } else {
+        chartSectionRef.current.style.marginTop = "0";
         searchSectionRef.current.classList.remove("sticky");
       }
     }
@@ -115,13 +135,19 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           )}
         </div>
       </div>
-      <div className="col-12">
-        <UserMessage userMessage={props.userMessage} />
+      <div className="col-12" ref={chartSectionRef}>
+        <UserMessage
+          userMessage={props.userMessage}
+          pageMetadata={props.pageMetadata}
+          placeUrlVal={placeUrlVal}
+          shouldShowTopics={showTopicsInUserMsg(props.pageMetadata)}
+        />
         {props.pageMetadata && props.pageMetadata.pageConfig && (
           <>
             <ResultHeaderSection
               pageMetadata={props.pageMetadata}
               placeUrlVal={placeUrlVal}
+              hideRelatedTopics={showTopicsInUserMsg(props.pageMetadata)}
             />
             <RankingUnitUrlFuncContext.Provider
               value={(dcid: string) => {

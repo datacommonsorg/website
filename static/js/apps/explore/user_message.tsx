@@ -18,20 +18,34 @@
  * Component for the user message section
  */
 
+import _ from "lodash";
 import React from "react";
 
 import { UserMessageInfo } from "../../types/app/nl_interface_types";
+import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { getTopics } from "../../utils/app/explore_utils";
+import { ItemList } from "./item_list";
 
-const FORM_URL = "";
+const FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSf_kZ13bmzXvgEbim0OXeAVsTQYsIhN8_o9ekdbjKoeFjfvRA/viewform";
 
 interface UserMessagePropType {
   userMessage: UserMessageInfo;
+  shouldShowTopics: boolean;
+  // pageMetadata and placeUrlVal only need to be set if shouldShowTopics
+  // is true.
+  pageMetadata?: SubjectPageMetadata;
+  placeUrlVal?: string;
 }
 
 export function UserMessage(props: UserMessagePropType): JSX.Element {
   if (!props.userMessage || !props.userMessage.msg) {
     return null;
   }
+
+  const topicList = props.shouldShowTopics
+    ? getTopics(props.pageMetadata, props.placeUrlVal)
+    : [];
 
   return (
     <div className="user-message">
@@ -44,6 +58,7 @@ export function UserMessage(props: UserMessagePropType): JSX.Element {
           </span>
         )}
       </div>
+      {!_.isEmpty(topicList) && <ItemList items={topicList} />}
     </div>
   );
 }

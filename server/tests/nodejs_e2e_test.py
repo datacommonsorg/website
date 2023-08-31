@@ -19,7 +19,7 @@ import requests
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
-_TEST_MODE = os.environ['TEST_MODE']
+_TEST_MODE = os.getenv('TEST_MODE')
 
 _TEST_DATA = 'test_data/nodejs_query'
 
