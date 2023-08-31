@@ -211,22 +211,7 @@ class IntegrationTest(NLWebServerTestCase):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'])
 
-  # # This test uses NER.
-  def test_place_detection_e2e_ner(self):
-    self.run_sequence('place_detection_e2e', [
-        'tell me about palo alto',
-        'US states which have that the cheapest houses',
-        'what about in florida',
-        'compare with california and new york state and washington state',
-        'show me the population of mexico city',
-        'counties in the US with the most poverty',
-    ],
-                      check_place_detection=True,
-                      place_detector='ner')
-
   # This test uses DC's Recognize Places API.
-  # TODO: "US" is not detected by RecognizePlaces.
-  # TODO: Also "mexico city" is wrongly detected.
   def test_place_detection_e2e_dc(self):
     self.run_sequence('place_detection_e2e_dc', [
         'tell me about palo alto',

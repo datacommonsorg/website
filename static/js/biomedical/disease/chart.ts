@@ -267,6 +267,9 @@ export function drawDiseaseOntologyHierarchy(
   id: string,
   data: DiseaseTreeNode
 ): void {
+  if (_.isEmpty(data)) {
+    return;
+  }
   const height = GRAPH_HEIGHT - MARGIN.top - MARGIN.bottom;
   const width = GRAPH_WIDTH - MARGIN.left;
   // tree root

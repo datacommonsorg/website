@@ -2,12 +2,14 @@
   {
     "id": "techsoup",
     "title": "TechSoup",
+    "sprite-index": 0,
     "imgUrl": "/images/partners/partner-techsoup.svg",
     "url": "https://datacommons.techsoup.org/"
   },
   {
     "id": "feedingAmerica",
     "title": "Feeding America",
+    "sprite-index": 1,
     "imgUrl": "/images/partners/partner-feeding-america.svg",
     "url": "https://datacommons.feedingamerica.org"
   },
@@ -15,24 +17,21 @@
     "id": "iit",
     "title": "Indian Institute of Technology",
     "imgUrl": "/images/partners/partner-iit-madras.svg",
+    "sprite-index": 2,
     "url": "https://datacommons.iitm.ac.in/"
   },
   {
     "id": "rff",
     "title": "Resources for the Future",
     "imgUrl": "/images/partners/partner-rff.svg",
+    "sprite-index": 3,
     "url": "https://datacommons.rff.org"
   },
   {
     "id": "stanford",
     "title": "Stanford University",
     "imgUrl": "/images/partners/partner-stanford.svg",
+    "sprite-index": 4,
     "url": "https://datacommons.stanford.edu"
-  },
-  {
-    "id": "unSdg",
-    "title": "United Nations Sustainable Development Goals",
-    "imgUrl": "/images/partners/partner-un-sdg.svg",
-    "url": "https://unstats.un.org/UNSDWebsite/"
   }
 ]

@@ -7,7 +7,7 @@
 ```html
 <!-- Listen for date changes on the "dc-year" channel -->
 <datacommons-map
-  title="Population"
+  header="Population"
   parentPlace="country/USA"
   childPlaceType="State"
   subscribe="dc-map"
@@ -16,10 +16,10 @@
 
 <!-- Publish date changes on the "dc-year" channel  -->
 <datacommons-slider
-  max="2023"
-  min="1950"
-  publish="dc-year"
-  value="2023"
+  publish="dc-map"
+  variable="Count_Person"
+  parentPlace="country/USA"
+  childPlaceType="State"
 ></datacommons-slider>
 ```
 
@@ -29,17 +29,31 @@
 
 Required:
 
-- `max` _number_
+- `dates` _space-separated list of strings_, optional if `variable`, `parentPlace`, and `childPlaceType` are specified
 
-  Maximum slider value.
+  Set date option range. Example: `"2001 2002 2003"`
 
-- `min` _number_
+- `childPlaceType` _string_, optional if `dates` specified
 
-  Minimum slider value
+  Child place types of date range. Example: `State`.
+
+- `parentPlace` _string_, optional if `dates` specified
+
+  Parent place DCID of date range. Example: `country/USA`.
+
+- `variable` _string_, optional if `dates` specified
+
+  Variable DCID of date range. Example: `Count_Person`.
 
 - `publish` _string_
 
   Event name to publish on slider change
+
+Optional:
+
+- `header` _string_
+
+  Override default header text
 
 - `value` _number_
 

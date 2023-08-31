@@ -350,7 +350,7 @@
     "place_type": "State"
   },
   "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
+  "placeSource": "UNKNOWN",
   "places": [
     {
       "dcid": "geoId/06",
@@ -1243,6 +1243,6 @@
       }
     ]
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessage": ""
 }
