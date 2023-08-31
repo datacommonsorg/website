@@ -144,7 +144,7 @@ categories {
   #---------- Climate Hazard Damages ----------# 
   blocks {
     title: "Climate Hazard Damages"
-    description: "Climate hazards are atmospheric events that cause damage to human settlements or the natural environment. These events include thunderstorms, cyclones, earthquakes, hail, snow, and drought to name a few. In some places of the U.S. there are insurance agencies that are beginning to recognize the costs of climate change and are integrating that into their processes. The following data helps visualize the monetary response to flooding hazards in the United States, sourced through Federal Emergency Management Agency (FEMA)’s National Flood Insurance Program."
+    description: "Climate hazards are atmospheric events that cause damage to human settlements or the natural environment. These events include thunderstorms, cyclones, earthquakes, hail, snow, and drought to name a few. In some places of the U.S. there are insurance agencies that are beginning to recognize the costs of climate change and are integrating that into their processes. The following data helps visualize the monetary response to flooding hazards in the United States, sourced through the Federal Emergency Management Agency (FEMA)’s National Flood Insurance Program."
     columns {
       tiles {type: LINE title: "Settlement amount of natural hazard insurance for STRUCTURE DAMAGE within the 100 year flood zone (FEMA)" stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}
       #tiles {type: RANKING ranking_tile_spec {show_highest: true show_lowest: false} stat_var_key: "SettlementAmount_NaturalHazardInsurance_FEMAHighRiskFloodZone_BuildingStructure_FloodEvent"}
@@ -239,7 +239,7 @@ categories {
   #---------- Atmospheric Events/Hazards ----------# 
   blocks {
     title: "Atmospheric Events/Hazards"
-    description: "Climate change has a key role in impacting severe weather events worldwide. As our atmosphere traps more heat, extreme weather events will become more likely. The American Meteorological Society released their annual report in 2021 highlighting the occurrence of \"compound events\" where two weather events happen simultaneously. An example of this would be severe heat coupled with lack of rainfall. This weather coupling is a recipe for dry forest litter, which can lead to severe forest fires."
+    description: "Climate change plays a key role in impacting severe weather events worldwide. As our atmosphere traps more heat, extreme weather events will become more likely. The American Meteorological Society released their annual report in 2021 highlighting the occurrence of \"compound events\" where two weather events happen simultaneously. An example of this would be severe heat coupled with lack of rainfall. This weather coupling is a recipe for dry forest litter, which can lead to severe forest fires."
     columns {
       tiles {type: LINE title: "Excessive Heat (105° F or greater)" stat_var_key: "Count_ExcessiveHeatEvent"}
     }
