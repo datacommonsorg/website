@@ -65,6 +65,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
