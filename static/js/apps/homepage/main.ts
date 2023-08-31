@@ -1,4 +1,3 @@
-import { NL_SOURCE_REPLACEMENTS } from './../../constants/app/nl_interface_constants';
 /**
  * Copyright 2023 Google LLC
  *
