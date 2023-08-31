@@ -18,6 +18,7 @@ from typing import cast, List
 
 import server.lib.explore.topic as topic
 from server.lib.nl.common import utils
+from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
@@ -25,7 +26,7 @@ from server.lib.nl.fulfillment import base
 from server.lib.nl.fulfillment import event
 from server.lib.nl.fulfillment import filter_with_dual_vars
 from server.lib.nl.fulfillment import overview
-from server.lib.nl.fulfillment import size_across_entities
+from server.lib.nl.fulfillment import superlative
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
@@ -69,9 +70,9 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   if main_qt == QueryType.FILTER_WITH_DUAL_VARS:
     # This needs custom SVs.
     filter_with_dual_vars.set_overrides(state)
-  elif main_qt == QueryType.SIZE_ACROSS_ENTITIES:
+  elif main_qt == QueryType.SUPERLATIVE:
     # This needs custom SVs.
-    size_across_entities.set_overrides(state)
+    superlative.set_overrides(state)
   elif main_qt == QueryType.OVERVIEW:
     done = overview.populate(uttr)
   elif main_qt == QueryType.EVENT:
@@ -104,6 +105,14 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
 
   # Rank candidates.
   _rank_charts(state.uttr)
+
+  # Prevent artificial overwritten SVs from propagating into
+  # the context of next query.  This is relevant for two types:
+  # - superlatives
+  # - dual-var filter query
+  if state.has_overwritten_svs:
+    state.uttr.svs = []
+    state.uttr.sv_source = FulfillmentResult.UNKNOWN
 
   return state
 

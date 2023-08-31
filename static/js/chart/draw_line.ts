@@ -28,6 +28,7 @@ import { Boundary } from "../shared/types";
 import { DataGroup, getColorFn, PlotParams, shouldFillInValues } from "./base";
 import {
   LEGEND,
+  LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
   NUM_Y_TICKS,
   SVGNS,
@@ -41,6 +42,7 @@ import {
   appendLegendElem,
   buildInChartLegend,
   computeRanges,
+  getLegendKeyFn,
   getRowLabels,
   updateXAxis,
 } from "./draw_utils";
@@ -322,8 +324,10 @@ export function drawLineChart(
   if (maxV == 0) {
     maxV = MAX_Y_FOR_ZERO_CHARTS;
   }
-  const svg = d3
-    .select(svgContainer)
+  // wrapper div for chart area, used as bounds for tooltip
+  const svgWrapper = d3.select(svgContainer).append("div");
+  // create svg
+  const svg = svgWrapper
     .append("svg")
     .attr("xmlns", SVGNS)
     .attr("xmlns:xlink", XLINKNS)
@@ -376,6 +380,7 @@ export function drawLineChart(
   const legendText = dataGroups.map((dataGroup) =>
     dataGroup.label ? dataGroup.label : "A"
   );
+  const legendKeyFn = getLegendKeyFn(legendText);
   const colorFn = getColorFn(legendText, options?.colors);
 
   let hasFilledInValues = false;
@@ -417,7 +422,10 @@ export function drawLineChart(
     chart
       .append("path")
       .datum(dataset)
-      .attr("class", "line")
+      .attr(
+        "class",
+        `line ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+      )
       .attr("d", line)
       .attr("part", (d) =>
         ["series", `series-variable-${dataGroup.label}`].join(" ")
@@ -433,7 +441,10 @@ export function drawLineChart(
         .data(dataGroup.value)
         .enter()
         .append("circle")
-        .attr("class", "dot")
+        .attr(
+          "class",
+          `dot ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
+        )
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
         .attr("part", (d) =>
@@ -456,8 +467,6 @@ export function drawLineChart(
       top: 0,
     };
     const dataGroupsDict = { [DATAGROUP_UNKNOWN_PLACE]: dataGroups };
-    const container: d3.Selection<HTMLDivElement, any, any, any> =
-      d3.select(svgContainer);
     const highlightColorFn = (_: string, dataGroup: DataGroup) => {
       return colorFn(dataGroup.label);
     };
@@ -465,7 +474,7 @@ export function drawLineChart(
     addHighlightOnHover(
       xScale,
       yScale,
-      container,
+      svgWrapper,
       dataGroupsDict,
       highlightColorFn,
       timePoints,
@@ -481,6 +490,7 @@ export function drawLineChart(
     dataGroups.map((dg) => ({
       label: dg.label,
       link: dg.link,
+      index: legendKeyFn(dg.label),
     })),
     options?.apiRoot
   );

@@ -32,26 +32,30 @@ from shared.lib import detected_variables as dvars
 
 def _place():
   return PlaceDetection(query_original='',
-                        query_without_place_substr='',
+                        query_without_place_substr='foo bar',
                         query_places_mentioned=['california'],
                         places_found=[Place('geoId/06', 'CA', 'State')],
                         main_place=None)
 
 
-def _sv(v=[], delim=False):
+def _sv(v=[], delim=False, above_thres=False):
   if len(v) == 1:
     return SVDetection(query='',
                        single_sv=dvars.VarCandidates(v, [1.0], {}),
                        multi_sv=None)
   if len(v) == 2:
+    if above_thres:
+      scores = [0.9]
+    else:
+      scores = [0.7]
     return SVDetection(query='',
                        single_sv=dvars.VarCandidates(v, [0.6, 0.4], {}),
                        multi_sv=dvars.MultiVarCandidates(candidates=[
                            dvars.MultiVarCandidate(parts=[
                                dvars.MultiVarCandidatePart(
-                                   query_part=v[0], svs=[v[0]], scores=[]),
+                                   query_part=v[0], svs=[v[0]], scores=scores),
                                dvars.MultiVarCandidatePart(
-                                   query_part=v[1], svs=[v[1]], scores=[])
+                                   query_part=v[1], svs=[v[1]], scores=scores)
                            ],
                                                    aggregate_score=0.7,
                                                    delim_based=delim)
@@ -95,13 +99,13 @@ class TestLLMFallback(unittest.TestCase):
           NeedLLM.No,
           ''),
       (
-          # Same as above, but since its SIZE_TYPE, we ignore
+          # Same as above, but since its SUPERLATIVE, we ignore
           # the lack of SV.  NO fallback.
           Detection(original_query='size of california',
                     cleaned_query='size of california',
                     places_detected=_place(),
                     svs_detected=_sv(),
-                    classifications=_nlcl(ClassificationType.SIZE_TYPE)),
+                    classifications=_nlcl(ClassificationType.SUPERLATIVE)),
           NeedLLM.No,
           ''),
       (
@@ -133,11 +137,24 @@ class TestLLMFallback(unittest.TestCase):
           NeedLLM.No,
           ''),
       (
-          # Multi-SV query, with delimiter, fallback.
+          # Multi-SV query, with delimiter, score below threshold, don't fallback.
           Detection(original_query='hispanic vs. asian in california',
                     cleaned_query='hispanic vs asian in california',
                     places_detected=_place(),
-                    svs_detected=_sv(['hispanic', 'asian'], True),
+                    svs_detected=_sv(['hispanic', 'asian'],
+                                     delim=True,
+                                     above_thres=False),
+                    classifications=[]),
+          NeedLLM.No,
+          'info_fallback_below_high_threshold'),
+      (
+          # Multi-SV query, with delimiter, score above threshold, fallback.
+          Detection(original_query='hispanic vs. asian in california',
+                    cleaned_query='hispanic vs asian in california',
+                    places_detected=_place(),
+                    svs_detected=_sv(['hispanic', 'asian'],
+                                     delim=True,
+                                     above_thres=True),
                     classifications=[]),
           NeedLLM.ForVar,
           'info_fallback_multi_sv_delimiter'),
@@ -146,7 +163,9 @@ class TestLLMFallback(unittest.TestCase):
           Detection(original_query='hispanic vs. asian in california',
                     cleaned_query='hispanic vs asian in california',
                     places_detected=_place(),
-                    svs_detected=_sv(['hispanic', 'asian'], True),
+                    svs_detected=_sv(['hispanic', 'asian'],
+                                     True,
+                                     above_thres=True),
                     classifications=_nlcl(ClassificationType.CORRELATION)),
           NeedLLM.No,
           'info_fallback_dual_sv_correlation'),
@@ -155,7 +174,7 @@ class TestLLMFallback(unittest.TestCase):
           Detection(original_query='hispanic asian in california',
                     cleaned_query='hispanic asian in california',
                     places_detected=_place(),
-                    svs_detected=_sv(['hispanic', 'asian']),
+                    svs_detected=_sv(['hispanic', 'asian'], above_thres=True),
                     classifications=[]),
           NeedLLM.No,
           'info_fallback_multi_sv_no_delim'),
@@ -165,7 +184,7 @@ class TestLLMFallback(unittest.TestCase):
           Detection(original_query='hispanic in california with most asian',
                     cleaned_query='hispanic in california with most asian',
                     places_detected=_place(),
-                    svs_detected=_sv(['hispanic', 'asian']),
+                    svs_detected=_sv(['hispanic', 'asian'], above_thres=True),
                     classifications=[]),
           NeedLLM.ForVar,
           'info_fallback_place_within_multi_sv'),
@@ -173,10 +192,7 @@ class TestLLMFallback(unittest.TestCase):
   def test_main(self, heuristic, fallback, counter):
     ctr = Counters()
     got = need_llm(heuristic, None, ctr)
-    if fallback:
-      self.assertTrue(got)
-    else:
-      self.assertFalse(got)
+    self.assertEqual(got, fallback)
     if counter:
       if 'info' in counter:
         self.assertTrue(counter in ctr.get()['INFO'])

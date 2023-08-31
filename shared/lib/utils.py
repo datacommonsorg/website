@@ -39,7 +39,7 @@ def _add_classification_heuristics(set_strings: Set[str]) -> None:
     """
   for (ctype, v) in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
     # Skip events since we want those to match SVs too!
-    if ctype == "Event":
+    if ctype == "Event" or ctype == "Superlative":
       continue
     if isinstance(v, list):
       # If 'v' is a list, add all the words.

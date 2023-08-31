@@ -29,6 +29,7 @@ import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getPoint } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -128,32 +129,25 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: DonutTilePropType) => {
-  const statVars = [];
-  for (const spec of props.statVarSpec) {
-    statVars.push(spec.statVar);
-    if (spec.denom) {
-      statVars.push(spec.denom);
-    }
-  }
-  // Fetch populations.
+  const statSvs = props.statVarSpec.map((spec) => spec.statVar);
+  const denomSvs = props.statVarSpec.map((spec) => spec.denom);
+  const statVars = [statSvs, denomSvs].flat(1);
   statVars.push(FILTER_STAT_VAR);
-  const url = `${props.apiRoot || ""}/api/observations/point`;
-  const params = {
-    entities: [props.place.dcid],
-    variables: statVars,
-  };
   try {
-    const resp = await axios.get<PointApiResponse>(url, {
-      params,
-      paramsSerializer: stringifyFn,
-    });
+    const resp = await getPoint(
+      props.apiRoot,
+      [props.place.dcid],
+      statVars,
+      "",
+      [statSvs, denomSvs]
+    );
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];
-    for (const place in resp.data.data[FILTER_STAT_VAR]) {
+    for (const place in resp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
-        value: resp.data.data[FILTER_STAT_VAR][place].value,
+        value: resp.data[FILTER_STAT_VAR][place].value,
       });
     }
     // Take the most populated places.
@@ -167,13 +161,7 @@ export const fetchData = async (props: DonutTilePropType) => {
       props.statVarSpec,
       props.apiRoot
     );
-    return rawToChart(
-      props,
-      resp.data,
-      popPoints,
-      placeNames,
-      statVarDcidToName
-    );
+    return rawToChart(props, resp, popPoints, placeNames, statVarDcidToName);
   } catch (error) {
     return null;
   }
