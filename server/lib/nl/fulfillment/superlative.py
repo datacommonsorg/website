@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
+from dataclasses import dataclass
 import logging
 from typing import List
 
@@ -22,10 +24,17 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
-from server.lib.nl.detection.types import SizeType
+from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+
+
+@dataclass
+class Config:
+  vars: List[str]
+  rank_types: List[RankingType]
+
 
 # TODO: Add area
 _PLACE_SIZE_VARS = [
@@ -40,6 +49,21 @@ _SCHOOL_SIZE_VARS = [
     'Percent_Student_AsAFractionOf_Count_Teacher',
 ]
 
+_VAR_MAPPINGS = {
+    SuperlativeType.BIG:
+        Config(rank_types=[RankingType.HIGH], vars=_PLACE_SIZE_VARS),
+    SuperlativeType.SMALL:
+        Config(rank_types=[RankingType.LOW], vars=_PLACE_SIZE_VARS),
+    SuperlativeType.RICH:
+        Config(rank_types=[RankingType.HIGH],
+               vars=['dc/topic/Income', 'dc/topic/HomeOwnership']),
+    SuperlativeType.POOR:
+        Config(rank_types=[RankingType.HIGH], vars=['dc/topic/Poverty']),
+    SuperlativeType.LIST:
+        Config(rank_types=[RankingType.HIGH, RankingType.LOW],
+               vars=_PLACE_SIZE_VARS),
+}
+
 _SCHOOL_TYPES = frozenset([
     ContainedInPlaceType.SCHOOL,
     ContainedInPlaceType.ELEMENTARY_SCHOOL,
@@ -51,10 +75,22 @@ _SCHOOL_TYPES = frozenset([
 ])
 
 
-def _get_vars(pt: ContainedInPlaceType):
-  if pt in _SCHOOL_TYPES:
-    return _SCHOOL_SIZE_VARS
-  return _PLACE_SIZE_VARS
+def _set_vars_and_ranking(state: PopulateState, sup: SuperlativeType,
+                          pt: ContainedInPlaceType):
+  vars = []
+  if sup == SuperlativeType.BIG or sup == SuperlativeType.SMALL or sup == SuperlativeType.LIST:
+    if pt in _SCHOOL_TYPES:
+      vars = _SCHOOL_SIZE_VARS
+    else:
+      vars = _PLACE_SIZE_VARS
+    rt = _VAR_MAPPINGS[sup].rank_types
+  else:
+    vars = _VAR_MAPPINGS[sup].vars
+    rt = _VAR_MAPPINGS[sup].rank_types
+
+  state.has_overwritten_svs = True
+  state.uttr.svs = copy.deepcopy(vars)
+  state.ranking_types = rt
 
 
 #
@@ -65,37 +101,31 @@ def _get_vars(pt: ContainedInPlaceType):
 #
 def set_overrides(state: PopulateState) -> bool:
   place_type = utils.get_contained_in_type(state.uttr)
-  size_types = utils.get_size_types(state.uttr)
-  if not place_type or not size_types:
-    state.uttr.counters.err('size-across-entities_failed_noplaceorsizetype',
-                            '-')
+  superlatives = utils.get_superlatives(state.uttr)
+  if not place_type or not superlatives:
+    state.uttr.counters.err('superlatives_failed_noplaceorsizetype', '-')
     return False
 
   #
-  # Only if there are no SVs detected, do we consider SIZE_TYPE classification.
+  # Only if there are no SVs detected, do we consider SUPERLATIVE classification.
   #
   # BUT NOTE: The is_non_geo_place_type check is there for non-geo places
   # like schools which are not removed as stop-words for SV query.
   # For example, [how big are high schools] query, since we pass in
   # "high schools", they will indeed often match SVs.  So we let the
-  # `SIZE_TYPE` heuristic override.
+  # `SUPERLATIVE` heuristic override.
   # TODO: Find a better approach
   #
   if not utils.is_non_geo_place_type(place_type) and state.uttr.svs:
-    state.uttr.counters.err('size-across-entities_failed_foundvars',
-                            state.uttr.svs)
+    state.uttr.counters.err('superlatives_failed_foundvars', state.uttr.svs)
     return False
 
-  state.uttr.svs = _get_vars(place_type)
+  superlative = superlatives[0]
+  if superlative not in _VAR_MAPPINGS:
+    state.uttr.counters.err('superlatives_invalidvalue', superlative.value)
+    return False
 
-  # Map size_types[0] to ranking_types.
-  size_type = size_types[0]
-  if size_type == SizeType.BIG:
-    ranking_type = RankingType.HIGH
-  else:
-    ranking_type = RankingType.LOW
-
-  state.ranking_types = [ranking_type]
+  _set_vars_and_ranking(state, superlative, place_type)
   return True
 
 
@@ -103,18 +133,17 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
   logging.info('populate_cb for size_across_entities')
   if not state.ranking_types:
-    state.uttr.counters.err('size-across-entities_failed_cb_norankingtypes', 1)
+    state.uttr.counters.err('superlatives_failed_cb_norankingtypes', 1)
     return False
   if len(places) > 1:
-    state.uttr.counters.err('size-across-entities_failed_cb_toomanyplaces',
+    state.uttr.counters.err('superlatives_failed_cb_toomanyplaces',
                             [p.dcid for p in places])
     return False
   if not state.place_type:
-    state.uttr.counters.err('size-across-entities_failed_cb_noplacetype', 1)
+    state.uttr.counters.err('superlatives_failed_cb_noplacetype', 1)
     return False
   if not chart_vars.svs:
-    state.uttr.counters.err('size-across-entities_failed_cb_emptyvars',
-                            chart_vars.svs)
+    state.uttr.counters.err('superlatives_failed_cb_emptyvars', chart_vars.svs)
     return False
 
   exist_svs = ext.svs4children(state, places[0], chart_vars.svs).exist_svs

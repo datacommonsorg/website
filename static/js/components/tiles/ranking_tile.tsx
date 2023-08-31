@@ -18,7 +18,6 @@
  * Component for rendering a ranking tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -39,13 +38,12 @@ import {
   RankingPoint,
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
-import { stringifyFn } from "../../utils/axios";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { getStatVarName } from "../../utils/tile_utils";
-import { NlChartFeedback } from "../nl_feedback";
 import { SvRankingUnits } from "./sv_ranking_units";
 
 const RANKING_COUNT = 5;
@@ -194,24 +192,18 @@ export async function fetchData(
     if (_.isEmpty(dateToVariable[date])) {
       continue;
     }
-    const params = {
-      parentEntity: props.place.dcid,
-      childType: props.enclosedPlaceType,
-      variables: dateToVariable[date],
-    };
+    let dateParam = "";
     if (date !== LATEST_DATE_KEY) {
-      params["date"] = date;
+      dateParam = date;
     }
     statPromises.push(
-      axios
-        .get<PointApiResponse>(
-          `${props.apiRoot || ""}/api/observations/point/within`,
-          {
-            params,
-            paramsSerializer: stringifyFn,
-          }
-        )
-        .then((resp) => resp.data)
+      getPointWithin(
+        props.apiRoot,
+        props.enclosedPlaceType,
+        props.place.dcid,
+        dateToVariable[date],
+        dateParam
+      )
     );
   }
   return Promise.all(statPromises)

@@ -27,6 +27,7 @@ import {
   PointApiResponse,
 } from "../../../shared/stat_types";
 import { stringifyFn } from "../../../utils/axios";
+import { getPointWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 import { getDate } from "../util";
@@ -63,23 +64,20 @@ export function useFetchMapPointStat(
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
     const date = getDate(usedSV, dateCtx.value);
-    axios
-      .get<PointApiResponse>("/api/observations/point/within", {
-        params: {
-          childType: placeInfo.value.mapPointPlaceType,
-          date,
-          parentEntity: placeInfo.value.enclosingPlace.dcid,
-          variables: [usedSV],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    getPointWithin(
+      "",
+      placeInfo.value.mapPointPlaceType,
+      placeInfo.value.enclosingPlace.dcid,
+      [usedSV],
+      date
+    )
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[usedSV])) {
+        if (_.isEmpty(resp.data[usedSV])) {
           action.error = "error fetching map point stat data";
         } else {
           action.payload = {
-            data: resp.data.data[usedSV],
-            facets: resp.data.facets,
+            data: resp.data[usedSV],
+            facets: resp.facets,
           } as EntityObservationWrapper;
         }
         console.log(`[Map Fetch] map point stat for: ${date}`);
