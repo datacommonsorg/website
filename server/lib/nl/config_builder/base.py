@@ -179,8 +179,6 @@ class Builder:
 
     # Make title case.
     title = _make_title_case(title)
-    description = description
-    footnote = footnote
     return title, description, footnote
 
   def update_sv_spec(self, stat_var_spec_map):
