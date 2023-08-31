@@ -38,7 +38,7 @@ categories {
 
 categories {
     title: "Life Expectancy"
-    description: "The life expectancy in Nigeria is at an all time high of 52.9 years as at 2022 , the highest since 1960 when the country gained  independence. At independence life expectancy was 37.4years. Into the millennium (200) it was 47.2 years. What is driving this improvement? We see that infant mortality is steadily declining"
+    description: "The life expectancy in Nigeria is at an all-time high of 52.9 years as of 2022, the highest since 1960 when the country gained independence. At independence, life expectancy was 37.4 years; by 2000, it was 47.2 years. What is driving this improvement? We see that infant mortality was steadily declining as life expectancy rose."
     
     blocks {
         columns {
@@ -74,7 +74,7 @@ categories {
     }
 
     blocks {
-        description: "Other factors which are undoubtedly helping to increase life expectancy include reduction in mortality from chronic diseases, and wider access to safe drinking water."
+        description: "Other factors that increase life expectancy include the reduction of deaths from chronic diseases and wider access to safe drinking water."
         columns {
             tiles {
                 type: LINE
@@ -111,8 +111,8 @@ categories {
 }
 
 categories {
-    title: "COVID Impact"
-    description: "Covid deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases in 2023. For countries with high populations such as Nigeria, confirmed cases remained high including deaths. For example the United States has 103 million confirmed cases and  1,135,343 deaths. As of the end of 2022, the vaccination rate in Nigeria was under 7%. Given its poor health infrastructure, what could have kept the numbers low for Nigeria and many other countries in Africa?"
+    title: "COVID-19 Impact"
+    description: "COVID-19 deaths recorded in Nigeria stood at 3,155 people from 267,000 confirmed cases as of March, 2023. For other countries with large populations the rates of death were much higher. For example the United States suffered over 1 million deaths from 103 million confirmed cases. As of 2022, the COVID-19 vaccination rate in Nigeria was under 7%. Given the low vaccination rate and its poor health infrastructure, what kept the death rate so low for Nigeria and many other countries in Africa?"
 
     blocks {
         columns {
@@ -174,7 +174,7 @@ categories {
 
 categories {
     title: "Population Growth"
-    description: "Nigeria’s population has grown rapidly since independence, but the growth rate has varied considerably. The growth rate peaked in 1980 at 3.06%, which was followed by a sharp decline around 1985. It remained steady until around 2010, but has been steadily declining since then. The growth rate is expected to continue to decline, but despite this Nigeria is projected to have a population of over 375 million people by 2050"
+    description: "Nigeria's population has grown rapidly since independence, but this growth rate has varied considerably. The rate peaked in 1980 at 3.06%, which was followed by a sharp decline around 1985. It remained steady until around 2010, but has been steadily declining since then. The growth rate is expected to continue to decline, but nonetheless Nigeria is projected to have a population of [over 375 million people by 2050](https://www.worldometers.info/world-population/nigeria-population/#:~:text=The%20current%20population%20of%20Nigeria,of%20the%20total%20world%20population)."
     
     blocks {
         columns {
@@ -216,7 +216,7 @@ categories {
 
 categories {
     title: "Fertility and Education"
-    description: "At independence (1960) fertility rate in Nigeria was 6.36, into the millennium there was a decrease, settling at 6.12 in 2000 and continued to witness a decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an increasing population growth (Globally the average fertility rate is 2.3.)  At the same time, Nigeria has been making progress towards broader access to education. What is the relationship between birth rates and education, especially for women?"
+    description: "At independence in 1960, the fertility rate in Nigeria was 6.36 children per woman; by 2000 it had dropped to 6.12 and continues to decline. A fertility rate of 5.32 in 2020 still puts Nigeria on the path of an ever increasing population (globally the average fertility rate is 2.3)  At the same time, Nigeria has been making progress towards broader access to education. What is the relationship between birth rates and education, especially for women?"
     
     blocks {
         columns {
@@ -257,7 +257,7 @@ categories {
 
 categories {
     title: "GDP and Consumption"
-    description: "In 2021 the Gross Domestic Product (GDP) of Nigera grew faster than the population (3.65% vs 2.41%). However, according to the World Bank “The economy is projected to grow by an average of 2.9% per year between 2023 and 2025, only slightly above the estimated population growth rate of 2.4%” The country is in an uncomfortable position where the population may soon rise faster than its economy. In this case the translation of economic growth into an enhancement of the average standard of living appears to be less probable. What happens then?"
+    description: "In 2021, the Gross Domestic Product (GDP) of Nigeria grew faster than the population (3.65% vs 2.41%, respectively). However, [according to the World Bank](https://www.worldbank.org/en/country/nigeria/overview#:~:text=The%20economy%20is%20projected%20to,population%20growth%20rate%20of%202.4%25), \"The economy is projected to grow by an average of 2.9% per year between 2023 and 2025, only slightly above the estimated population growth rate of 2.4%.\" The country is in an uncomfortable position where the population may soon rise faster than its economy. What does this mean if this economic growth does not enhance the standard of living?"
     
     blocks {
         columns {
@@ -307,7 +307,7 @@ categories {
         columns {
             tiles {
                 type: DESCRIPTION
-                description: "Nonprofit organizations are providing hope and essential services to vulnerable people in Nigeria, aligned with the Sustainable Development Goals. During the pandemic, 132 nonprofits collectively spent 316 million Nigerian naira (about USD$409,000) to help people in need. These nonprofits reached over 2 million beneficiaries across 31 states and 206 local governments according to data from the [Nigeria Network of NGOs](http://nnngo.org/).\n\nMany nonprofits in Nigeria are working on critical issues including infant mortality, death from common disease, access to clean water, population growth and education. Here are some examples:\n* [Helpmum](https://helpmum.org/) is a social enterprise with the mission to reduce maternal and infant mortality in Africa. \n* [Project PINK BLUE](https://projectpinkblue.org/ngoscsos-cancer-policy-advocacy-nigeria/) is an organization engaged in cancer awareness, free cancer screenings, supporting to people battling with cancer, patient navigation, advocacy, fundraising for cancer patients, cancer research, oncology training and psychological support.\n* [Fairlife Africa](https://www.fairlifeafrica.org/) as a progressive, humanitarian organization. They are committed to empowering people through practical social initiatives and programs. The organisation stands for a fairer life for all people, by improving the life chances of the most disadvantaged serving people of all faiths, races, gender, and any other orientation, without discrimination.\n* [Onelife Initiative for Human Development](https://onelifeinitiative.org/sexual-reproductive-health-rights/) works to improve the well being of young people by providing safe spaces, skills, linkages and vocational training including information and resources to enable them to make informed life decisions.\n* [Serendipity Healthcare Foundation](https://www.serendipityhealthcare.org.in/home) is a growing organization positioned to fight poverty through provision of access to safe clean drinking water, basic sanitation and hygiene education; also through programs aimed at reducing the scourge of malaria in rural communities and saving lives at birth.\n\nThese are just a few examples of the many nonprofits that are working to improve the lives of vulnerable people in Nigeria. Their work is essential to building a more just and equitable society."
+                description: "Civil society organisations are bringing hope and providing nonprofit services to the vulnerable in needy communities across the country in ways that improves livelihood and addresses attainment of the SDGs. During the pandemic, 132 nonprofits collectively spent 316 million Nigerian Naira (or USD$409,000) to help people in need. These nonprofits reached over 2 million beneficiaries across 31 states and 206 local governments according to data from the [Nigeria Network of NGOs](http://nnngo.org/).\n\nMany nonprofits in Nigeria are working on critical issues including infant mortality, death from common disease, access to clean water, population growth, and education. Below are some examples of these nonprofits.\n* [Helpmum](https://helpmum.org/) is a social enterprise with the mission to reduce maternal and infant mortality in Africa.\n* [Project PINK BLUE](https://projectpinkblue.org/ngoscsos-cancer-policy-advocacy-nigeria/) is an organization engaged in cancer awareness, free cancer screenings, support to people battling cancer, patient navigation, advocacy and fundraising for cancer patients, cancer research, oncology training and psychological support.\n* [Fairlife Africa](https://www.fairlifeafrica.org/) is a progressive, humanitarian organization. They are committed to empowering people through practical social initiatives and programs. The organisation stands for a fairer life for all people by improving the lives of the most disadvantaged and serving people of all faiths, races, gender, and any other orientation without discrimination.\n* [Onelife Initiative for Human Development](https://onelifeinitiative.org/sexual-reproductive-health-rights/) works to improve the well-being of young people by providing safe spaces, skills, linkages and vocational training including information and resources to enable them to make informed life decisions.\n* [Serendipity Healthcare Foundation](https://www.serendipityhealthcare.org.in/home) is a growing organization positioned to fight poverty through access to safe, clean drinking water, basic sanitation and hygiene education; also through programs aimed at reducing the scourge of malaria in rural communities and saving lives at birth.\n\nThese are just a few examples of the many nonprofits that are working to improve the lives of vulnerable people in Nigeria. Their work is essential to building a more just and equitable society."
             }
         }
     }
@@ -322,7 +322,7 @@ categories {
       }
       tiles {
         type: DESCRIPTION
-        description: "Authored by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
+        description: "Contributed by:\n\nOyebisi Babatunde Oluseyi\n\nExecutive Director\n\n[Nigeria Network of NGOs](https://nnngo.org/)"
       }
       tiles {
         type: DESCRIPTION
