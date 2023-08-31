@@ -121,6 +121,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
+
   useEffect(() => {
     fetchData(props).then((data) => {
       setHighlightData(data);
