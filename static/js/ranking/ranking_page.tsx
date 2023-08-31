@@ -30,6 +30,7 @@ import {
 import { getStatsVarTitle } from "../shared/stats_var_titles";
 import { getMatchingObservation } from "../tools/shared_util";
 import { getRoot, stringifyFn } from "../utils/axios";
+import { getPointWithin } from "../utils/data_fetch_utils";
 import { RankingHistogram } from "./ranking_histogram";
 import { RankingTable } from "./ranking_table";
 import { LocationRankData, RankInfo } from "./ranking_types";
@@ -347,17 +348,13 @@ export class Page extends React.Component<
         paramsSerializer: stringifyFn,
       })
       .then((resp) => resp.data);
-    const statPromise: Promise<PointApiResponse> = axios
-      .get(`${getRoot()}/api/observations/point/within`, {
-        params: {
-          parentEntity: this.props.withinPlace,
-          childType: this.props.placeType,
-          variables: [this.props.statVar],
-          date: this.props.date,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
+    const statPromise: Promise<PointApiResponse> = getPointWithin(
+      getRoot(),
+      this.props.placeType,
+      this.props.withinPlace,
+      [this.props.statVar],
+      this.props.date
+    );
     const placeNamesPromise: Promise<Record<string, string>> = axios
       .get(`${getRoot()}/api/place/descendent/name`, {
         params: {
