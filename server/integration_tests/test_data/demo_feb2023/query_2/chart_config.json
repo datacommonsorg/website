@@ -217,69 +217,6 @@
               }
             ],
             "title": "Wildfires in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_FireIncidentComplex"
-                    ],
-                    "title": "Count of Fire Incident Complex Event in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_FireIncidentComplex"
-                    ],
-                    "title": "Count of Fire Incident Complex Event in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Fire Incident Complex Event in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-                    ],
-                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-                    ],
-                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -311,17 +248,9 @@
             "name": "Annual Amount of Emissions: Wildfire, Non Biogenic Emission Source, Volatile Organic Compound",
             "statVar": "Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound"
           },
-          "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent": {
-            "name": "Annual Expected Loss from Natural Hazard Impact: Wildfire",
-            "statVar": "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-          },
           "BurnedArea_FireEvent": {
             "name": "Total area that burned (Acres)",
             "statVar": "BurnedArea_FireEvent"
-          },
-          "Count_FireIncidentComplex": {
-            "name": "Count of Fire Incident Complex Event",
-            "statVar": "Count_FireIncidentComplex"
           },
           "Count_WildfireEvent": {
             "name": "Wildfires",

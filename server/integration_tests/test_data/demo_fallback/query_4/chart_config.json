@@ -65,6 +65,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Percent_Person_PhysicalInactivity"
+                    ],
+                    "title": "Prevalence of Physical Inactivity in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Prevalence of Physical Inactivity in California",
+                    "statVarKey": [
+                      "Percent_Person_PhysicalInactivity"
+                    ],
+                    "title": "Prevalence of Physical Inactivity in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Physical Inactivity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Percent_Person_Obesity",
                       "Percent_Person_BingeDrinking",
                       "Percent_Person_PhysicalInactivity",

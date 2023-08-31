@@ -24,10 +24,6 @@
   "variables": [
     "Count_Person_EducationalAttainmentDoctorateDegree",
     "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male",
-    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female",
-    "Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears",
-    "Count_Person_25OrMoreYears_Female_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears_Female",
-    "Count_Person_EducationalAttainmentProfessionalSchoolDegree",
-    "Count_Person_EducationalAttainmentGraduateOrProfessionalDegree"
+    "Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Female"
   ]
 }

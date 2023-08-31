@@ -609,38 +609,6 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-                    ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-                    ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Family Households Below the Poverty Level in the Past Year in Counties of United States (${date})",
@@ -673,9 +641,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                      "Median_Income_Household"
                     ],
-                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Household Median Income in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -684,16 +652,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
+                      "Median_Income_Household"
                     ],
-                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Household Median Income in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in Counties of United States"
+            "title": "Household Median Income in Counties of United States"
           },
           {
             "columns": [
@@ -705,9 +672,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                      "Median_Income_Person"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Individual Median Income in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -716,77 +683,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                      "Median_Income_Person"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "title": "Individual Median Income in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined"
-                    ],
-                    "title": "Population With Poverty Status Determined in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population With Poverty Status Determined in United States",
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined"
-                    ],
-                    "title": "Population With Poverty Status Determined in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population With Poverty Status Determined"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
-                    ],
-                    "title": "English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "English Spoken at Home, Above Poverty Line in Counties of United States"
+            "title": "Individual Median Income in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -794,25 +699,9 @@
             "name": "Family Households Below the Poverty Level in the Past Year",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
-          },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months": {
-            "name": "English Spoken At Home, Above Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population 5 Years or More, Only English, Below Poverty Level in Past 12 Months",
@@ -874,9 +763,13 @@
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_PovertyStatusDetermined": {
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",

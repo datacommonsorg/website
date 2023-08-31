@@ -14,11 +14,11 @@
   ],
   "sessionId": "007_999999999",
   "variables": [
-    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
     "dc/xj2nk2bg60fg",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
     "WagesTotal_Worker_NAICSInformation",
-    "USStateQuarterlyIndustryGDP_NAICS_51",
-    "WagesAnnual_Establishment_NAICSInformation"
+    "dc/topic/Income",
+    "dc/topic/IndividualIncomeByIndustry",
+    "Count_Worker_NAICSInformation"
   ]
 }
