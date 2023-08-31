@@ -78,16 +78,17 @@ def _replace_special(input_string_title_case: str) -> str:
 def _count_caps(word: str) -> int:
   return sum(1 for c in word if c.isupper())
 
+
 def _make_sentence_case(input_string: str) -> str:
   if not input_string:
     return ""
-  
+
   output_str = ""
   sentences = input_string.split(".")
   for s_index in range(len(sentences)):
     s = sentences[s_index]
     words = s.split()
-    
+
     if not words:
       continue
 
@@ -112,7 +113,7 @@ def _make_sentence_case(input_string: str) -> str:
         w = f" {w}"
 
       output_str += w
-  
+
     output_str += "."
 
   return output_str
@@ -201,9 +202,9 @@ class Builder:
     title, description, footnote = '', '', ''
 
     if override_sv:
-      title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
-      description = _make_sentence_case(self.sv2thing.description.get(override_sv, ''))
-      footnote = _make_sentence_case(self.sv2thing.footnote.get(override_sv, ''))
+      title = self.sv2thing.name.get(override_sv, '')
+      description = self.sv2thing.description.get(override_sv, '')
+      footnote = self.sv2thing.footnote.get(override_sv, '')
       return title, description, footnote
 
     if cv.title:
