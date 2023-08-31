@@ -21,6 +21,9 @@ import { StatMetadata } from "../shared/stat_types";
  * @param statMetadata
  */
 export function getUnit(statMetadata: StatMetadata): string {
+  if (!statMetadata) {
+    return "";
+  }
   if (statMetadata.unitDisplayName) {
     return statMetadata.unitDisplayName;
   }
