@@ -29,7 +29,7 @@
  {% endblock %}
 
  {% block content %}
-<div id="metadata" class="d-none" data-website-hash="{{ website_hash }}" data-env="{{ env }}"></div>
+ <div id="metadata" class="d-none" data-website-hash="{{ website_hash }}" data-hide-debug="{{ config['HIDE_DEBUG'] }}"></div>
  <div id="dc-explore"></div>
  {% endblock %}
  {% block footer %}

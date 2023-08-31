@@ -29,8 +29,6 @@ import {
   SVScores,
 } from "../../types/app/nl_interface_types";
 
-const ALLOWED_ENV = new Set(["local", "dev", "autopush"]);
-
 const svToSentences = (
   svScores: SVScores,
   svSentences: Map<string, Array<string>>
@@ -164,8 +162,9 @@ export interface DebugInfoProps {
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
-  const env = document.getElementById("metadata").dataset.env;
-  if (_.isEmpty(props.debugData) || !ALLOWED_ENV.has(env)) {
+  const hideDebug =
+    document.getElementById("metadata").dataset.hideDebug === "True";
+  if (_.isEmpty(props.debugData) || hideDebug) {
     return <></>;
   }
   const [showDebug, setShowDebug] = useState(false);

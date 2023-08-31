@@ -30,9 +30,6 @@ def page():
   if current_app.config['HIDE_REVAMP_CHANGES']:
     flask.abort(404)
 
-  hide_debug = ""
-  if g.env not in ['local', 'dev', 'autopush']:
-    hide_debug = "true"
   placeholder_query = ''
   # TODO: Make this more customizable for all custom DC's
   if g.env == 'climate_trace':
@@ -41,8 +38,7 @@ def page():
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          placeholder_query=placeholder_query,
                          index_type="",
-                         website_hash=os.environ.get("WEBSITE_HASH"),
-                         env=g.env)
+                         website_hash=os.environ.get("WEBSITE_HASH"))
 
 
 @bp.route('/sdg')
@@ -56,5 +52,4 @@ def sdg_page():
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          placeholder_query=placeholder_query,
                          index_type="sdg_ft",
-                         website_hash=os.environ.get("WEBSITE_HASH"),
-                         env=g.env)
+                         website_hash=os.environ.get("WEBSITE_HASH"))
