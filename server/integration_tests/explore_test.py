@@ -227,7 +227,7 @@ class IntegrationTest(NLWebServerTestCase):
                 "type": 4
             },
             {
-                "size_type": [1],
+                "superlatives": [1],
                 "type": 11
             },
         ],

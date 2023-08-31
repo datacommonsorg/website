@@ -66,7 +66,7 @@ def set_overrides(state: PopulateState):
 
   # Update `svs` in uttr across the call to populate_charts()
   uttr.svs = svs
-  # TODO: Check if we need resetting uttr.svs.
+  state.has_overwritten_svs = True
 
   return True
 

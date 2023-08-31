@@ -95,13 +95,13 @@ class TestLLMFallback(unittest.TestCase):
           NeedLLM.No,
           ''),
       (
-          # Same as above, but since its SIZE_TYPE, we ignore
+          # Same as above, but since its SUPERLATIVE, we ignore
           # the lack of SV.  NO fallback.
           Detection(original_query='size of california',
                     cleaned_query='size of california',
                     places_detected=_place(),
                     svs_detected=_sv(),
-                    classifications=_nlcl(ClassificationType.SIZE_TYPE)),
+                    classifications=_nlcl(ClassificationType.SUPERLATIVE)),
           NeedLLM.No,
           ''),
       (
