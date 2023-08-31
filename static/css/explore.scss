@@ -262,3 +262,10 @@
     background-size: contain;
   }
 }
+
+.nl-query-result-debug-info {
+  position: absolute;
+  z-index: 20;
+  height: calc(100vh - 100px);
+  overflow-y: scroll;
+}

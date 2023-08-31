@@ -32,7 +32,9 @@ import { StatVarInfo } from "../shared/stat_var";
 import { DataGroup, Style, wrap } from "./base";
 import {
   AXIS_TEXT_FILL,
+  HIGHLIGHT_TIMEOUT,
   LEGEND,
+  LEGEND_HIGHLIGHT_CLASS,
   MARGIN,
   NUM_Y_TICKS,
   TEXT_FONT_FAMILY,
@@ -295,11 +297,23 @@ export function addYAxis(
 }
 
 /**
+ * Create a function mapping a legend label to a unique ID string, used to match
+ * a chart's data representation objects (line, bar, etc) with legend labels.
+ * @param labels array of labels present in the legend
+ */
+export function getLegendKeyFn(labels: string[]): (label: string) => string {
+  return function (label: string): string {
+    return `legend-index-${labels.indexOf(label)}`;
+  };
+}
+
+/**
  * Adds a legend to the parent element
  * @param elem parent element
  * @param color d3 color scale
  * @param key legend items
- * @param marginLeft [optional] legend offset
+ * @param svg svg element to find corresponding bars/lines/etc. in
+ * @param apiRoot root to use for links in legend items
  */
 export function appendLegendElem(
   elem: HTMLElement,
@@ -308,6 +322,7 @@ export function appendLegendElem(
     dcid?: string;
     label: string;
     link?: string;
+    index?: string;
   }[],
   apiRoot?: string
 ): void {
@@ -321,7 +336,8 @@ export function appendLegendElem(
     .selectAll("div")
     .data(keys)
     .join("div")
-    .attr("class", "legend-item");
+    .attr("class", "legend-item")
+    .attr("id", (d) => d.index || null);
 
   legendItem
     .append("div")
@@ -341,6 +357,35 @@ export function appendLegendElem(
         [GA_PARAM_PLACE_CHART_CLICK]: GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP,
       })
     );
+
+  // Add highlighting to svg chart area when mousing over legend
+  const svg = d3.select(elem).select("svg");
+  if (svg) {
+    // define mouse behavior functions
+    let hideFn: ReturnType<typeof setTimeout> = null;
+    const highlightSelector = `.${LEGEND_HIGHLIGHT_CLASS}`;
+    const mouseoverFn = function () {
+      if (hideFn) {
+        clearTimeout(hideFn);
+      }
+      const selector = this.id ? `.${this.id}` : null;
+      svg.selectAll(highlightSelector).style("opacity", 0.3);
+      svg.selectAll(selector).style("opacity", 1);
+    };
+    const mouseoutFn = function () {
+      // Slightly delay resetting styling so that quickly mousing over a stream
+      // of legend items doesn't result in the chart flickering
+      hideFn = setTimeout(() => {
+        svg.selectAll(highlightSelector).style("opacity", 1);
+      }, HIGHLIGHT_TIMEOUT);
+    };
+
+    // Add mouse behavior functions on hover to legend items
+    legendContainer
+      .selectAll(".legend-item")
+      .on("mouseover", mouseoverFn)
+      .on("mouseout", mouseoutFn);
+  }
 }
 
 /**
