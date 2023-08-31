@@ -55,7 +55,7 @@ _VAR_MAPPINGS = {
     SuperlativeType.SMALL:
         Config(rank_types=[RankingType.LOW], vars=_PLACE_SIZE_VARS),
     SuperlativeType.RICH:
-        Config(rank_types=RankingType.HIGH,
+        Config(rank_types=[RankingType.HIGH],
                vars=['dc/topic/Income', 'dc/topic/HomeOwnership']),
     SuperlativeType.POOR:
         Config(rank_types=[RankingType.HIGH], vars=['dc/topic/Poverty']),
