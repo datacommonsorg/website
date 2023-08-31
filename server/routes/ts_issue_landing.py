@@ -30,3 +30,6 @@ bp = Blueprint('ts_issue_landing', __name__)
 def foodsecurity():
   return flask.render_template('custom_dc/custom/issue_landing/foodsecurity.html')
 
+@bp.route('/climate')
+def climate():
+  return flask.render_template('custom_dc/custom/issue_landing/climate.html')

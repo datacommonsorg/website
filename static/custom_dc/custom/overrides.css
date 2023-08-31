@@ -95,6 +95,18 @@
   margin-bottom: 20px;
 }
 
+.climate-landing-header {
+  background-image: url("/custom_dc/custom/images/climate.png");
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .cta-button {
   display: inline-block;
   padding: 10px 20px;
@@ -109,6 +121,8 @@
   cursor: pointer;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .cta-button:hover {
