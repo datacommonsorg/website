@@ -15,7 +15,8 @@
  */
 
 /* Styles for the homepage */
-
+@use 'sass:math';
+@use "sass:map";
 @use "./nl_search_bar";
 @import "base";
 
@@ -30,6 +31,7 @@ $topic-card-image-sprite-x: 150px;
 $topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
 $section-vmargin: 64px;
+$topics-section-vmargin: 56px;  // to keep it above the fold
 
 $animation-card-max-width: 905px;
 $animation-card-height: 326px;  // NOTE: images are 363px tall
@@ -123,18 +125,37 @@ $animation-section-background: #fafbff;
   box-shadow: 0px 1px 2px 0px #0000004d;
   z-index: 100;
   position: relative;
-  height: 123px;
+  height: 128px;
 }
+
+$search-answer-top: 124px;
+$search-answer-bottom: 48px;
 
 // Styling for the search animation
 #search-animation {
   background: $animation-section-background;
   padding-bottom: 0 !important;
+  margin-bottom: $topics-section-vmargin !important;
 
-  @media (max-width: animation-width(2)) {
+  @include media-breakpoint-down(xs) {
     .container {
-      max-width: animation-width(1) !important;
-      height: 295px !important;
+      // max-width: animation-width(1) !important;
+      height: 348px !important;  // Approx at 485px wide. Find a better way to calculate this.
+      // height: math.floor(answer-height(map.get($container-max-widths, "xs")) + $search-answer-bottom + $search-answer-top) !important;
+    }
+
+    .result {
+      background-size: auto answer-height(animation-width(1)) !important;
+      // background-size: auto answer-height(map.get($container-max-widths, "xs")) !important;
+    }
+  }
+
+  // @media (max-width: animation-width(2)) {
+  @include media-breakpoint-up(sm) {
+    .container {
+      // max-width: animation-width(1) !important;
+      // height: 284px !important;
+      height: math.floor(answer-height(map.get($container-max-widths, "sm")) + $search-answer-bottom + $search-answer-top) !important;
     }
 
     .header {
@@ -148,18 +169,20 @@ $animation-section-background: #fafbff;
     }
 
     .result {
-      background-size: auto answer-height(animation-width(1)) !important;
+      // background-size: auto answer-height(animation-width(1)) !important;
+      background-size: auto answer-height(map.get($container-max-widths, "sm")) !important;
     }
 
-    #animation-search-input {
-      font-size: 12px !important;
-    }
+    // #animation-search-input {
+    //   font-size: 12px !important;
+    // }
   }
 
-  @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
+  @include media-breakpoint-up(md) {
+  // @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
     .container {
-      max-width: animation-width(2) !important;
-      height: 423px !important;
+      // max-width: animation-width(2) !important;
+      height: 411px !important;
     }
 
     .header {
@@ -174,15 +197,16 @@ $animation-section-background: #fafbff;
       background-size: auto answer-height(animation-width(2)) !important;
     }
   }
+  // }
 
-  @media (min-width: animation-width(3)) {
-    .container {
-      max-width: animation-width((3)) !important;
-    }
-  }
+  // @media (min-width: animation-width(3)) {
+  //   .container {
+  //     max-width: animation-width((3)) !important;
+  //   }
+  // }
 
   .container {
-    height: 508px; // TODO(beets): Find a better way to fix this height to max of either child.
+    height: 499px; // TODO(beets): Find a better way to fix this height to max of either child.
     position: relative;
 
     #result-svg {
@@ -191,10 +215,10 @@ $animation-section-background: #fafbff;
     }
   }
 
-  .hidden {
-    display: none !important;
-    position: absolute;
-  }
+  // .hidden {
+  //   display: none !important;
+  //   position: absolute;
+  // }
 
   #default-text {
     align-items: center;
@@ -233,16 +257,16 @@ $animation-section-background: #fafbff;
 
   #search-sequence {
     position: absolute;
-    top: 56px;
-    left: 0;
-    right: 0;
+    top: 52px;
+    left: 41px;  // to vertically align with main search input
+    right: 41px;
     overflow: hidden;
     cursor: pointer;
 
     #animation-search-input {
       background: $animation-section-background;
       border: none;
-      border-bottom: 1px solid rgba(199, 199, 199, .5);
+      border-bottom: 1px solid rgba(199, 199, 199, .3);
       border-radius: 0;
       padding-left: 0;
       color: var(--gm-3-sys-light-primary);
@@ -316,7 +340,7 @@ $animation-section-background: #fafbff;
 
 // Styling for the topics section
 #homepage #topics {
-  margin-top: $section-vmargin;
+  margin-top: $topics-section-vmargin;
 
   .topics-container {
     align-items: center;
