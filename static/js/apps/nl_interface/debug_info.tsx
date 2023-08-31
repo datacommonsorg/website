@@ -19,6 +19,7 @@
  */
 
 import _ from "lodash";
+import queryString from "query-string";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
@@ -28,6 +29,8 @@ import {
   QueryResult,
   SVScores,
 } from "../../types/app/nl_interface_types";
+
+const DEBUG_PARAM = "dbg";
 
 const svToSentences = (
   svScores: SVScores,
@@ -162,8 +165,10 @@ export interface DebugInfoProps {
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
+  const debugParam = queryString.parse(window.location.hash)[DEBUG_PARAM];
   const hideDebug =
-    document.getElementById("metadata").dataset.hideDebug === "True";
+    document.getElementById("metadata").dataset.hideDebug === "True" &&
+    !debugParam;
   if (_.isEmpty(props.debugData) || hideDebug) {
     return <></>;
   }
