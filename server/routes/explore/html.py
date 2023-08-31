@@ -32,8 +32,7 @@ def page():
 
   return render_template('/explore.html',
                          maps_api_key=current_app.config['MAPS_API_KEY'],
-                         website_hash=os.environ.get("WEBSITE_HASH"),
-                         env=g.env)
+                         website_hash=os.environ.get("WEBSITE_HASH"))
 
 
 @bp.route('/<string:topic>')
