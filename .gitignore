@@ -69,3 +69,5 @@ data/
 # Topic cache
 gen_ordered_list_for_topics.mcf
 mcf_parser.py
+
+redirect.json
