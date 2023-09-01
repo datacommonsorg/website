@@ -8,6 +8,34 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "country/TJK",
+                      "country/SLB",
+                      "country/NPL",
+                      "country/GUY",
+                      "country/MLI",
+                      "country/LBR",
+                      "country/GIN",
+                      "country/TGO",
+                      "country/COD",
+                      "country/GMB"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY110"
+                    ],
+                    "title": "Population Below International Poverty Line",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/TJK",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
@@ -255,6 +283,10 @@
           }
         ],
         "statVarSpec": {
+          "sdg/SI_POV_DAY110": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
+          },
           "sdg/SI_POV_DAY1_growth_abs": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"

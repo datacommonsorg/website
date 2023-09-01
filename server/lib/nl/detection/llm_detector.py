@@ -109,6 +109,9 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
 
   llm_resp = palm_api.call(query, history, ctr)
 
+  if llm_resp.get('UNSAFE') == True:
+    return None
+
   # Need to append to sv_list below, so make a copy.
   sv_list = copy.deepcopy(llm_resp.get('METRICS', []))
   places_str_found = llm_resp.get('PLACES', [])

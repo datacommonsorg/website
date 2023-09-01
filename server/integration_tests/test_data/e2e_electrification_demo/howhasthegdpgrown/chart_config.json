@@ -8,6 +8,35 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/SEN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal10"
+                    ],
+                    "title": "GDP (Nominal Value)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "GDP (Nominal Value)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/USA",
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs"
@@ -383,6 +412,10 @@
           }
         ],
         "statVarSpec": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal10": {
+            "name": "GDP (Nominal Value)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_growth_abs": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"

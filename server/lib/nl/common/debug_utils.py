@@ -16,6 +16,7 @@ from typing import Dict, List
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import GeneralClassificationAttributes
 from shared.lib import detected_variables as dvars
 
 
@@ -44,7 +45,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
     svs_dict = _empty_svs_score_dict()
 
   ranking_classification = "<None>"
-  overview_classification = "<None>"
+  general_classification = "<None>"
   superlative_classification = "<None>"
   time_delta_classification = "<None>"
   comparison_classification = "<None>"
@@ -54,11 +55,10 @@ def result_with_debug_info(data_dict: Dict, status: str,
   event_classification = "<None>"
   quantity_classification = "<None>"
 
+  general_parts = []
   for classification in query_detection.classifications:
     if classification.type == ClassificationType.RANKING:
       ranking_classification = str(classification.attributes.ranking_type)
-    elif classification.type == ClassificationType.OVERVIEW:
-      overview_classification = 'DETECTED'
     elif classification.type == ClassificationType.SUPERLATIVE:
       superlative_classification = str(classification.attributes.superlatives)
     elif classification.type == ClassificationType.TIME_DELTA:
@@ -75,6 +75,19 @@ def result_with_debug_info(data_dict: Dict, status: str,
       correlation_classification = 'DETECTED'
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
+    elif isinstance(classification.attributes, GeneralClassificationAttributes):
+      typ = None
+      if classification.type == ClassificationType.OVERVIEW:
+        typ = 'Overview'
+      elif classification.type == ClassificationType.ANSWER_PLACES_REFERENCE:
+        typ = 'Answer Places Reference'
+      elif classification.type == ClassificationType.PER_CAPITA:
+        typ = 'Per Capita'
+      if typ:
+        general_parts.append(typ)
+
+  if general_parts:
+    general_classification = ' | '.join(general_parts)
 
   debug_info = {
       'status': status,
@@ -84,7 +97,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
       'ranking_classification': ranking_classification,
-      'overview_classification': overview_classification,
+      'general_classification': general_classification,
       'superlative_classification': superlative_classification,
       'time_delta_classification': time_delta_classification,
       'contained_in_classification': contained_in_classification,
