@@ -89,6 +89,9 @@
           </button>
           <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
             <ul class="navbar-nav float-md-right">
+              <li class="nav-item dropdown">
+                <a href="{{ url_for('place.place') }}" id="nav-place" class="nav-link-main "><span>Places</span></a>
+              </li>
                 <li class="nav-item dropdown">
                     <a href="{{ url_for('tools.timeline') }}" id="nav-timeline" class="nav-link-main "><span>Timeline</span></a>
                 </li>
