@@ -88,10 +88,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     chart_vars.growth_ranking_type = field
 
     # TODO: Uncomment this once we agree on look and feel.
-    # if field == 'abs':
-    #   found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
-    #                                   state, chart_vars, places, chart_origin)
-    #
+    if field == 'abs':
+      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT, state,
+                                      chart_vars, places, chart_origin)
 
     found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
                                     chart_vars, places, chart_origin)

@@ -8,6 +8,35 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1184"
+                    ],
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker10"
+                    ],
+                    "title": "Mean Monthly Wages",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mean Monthly Wages"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
                       "Mean_WagesMonthly_Worker_growth_abs"
@@ -383,6 +412,10 @@
           }
         ],
         "statVarSpec": {
+          "Mean_WagesMonthly_Worker10": {
+            "name": "Mean Monthly Wages",
+            "statVar": "Mean_WagesMonthly_Worker"
+          },
           "Mean_WagesMonthly_Worker_growth_abs": {
             "name": "Mean Monthly Wages",
             "statVar": "Mean_WagesMonthly_Worker"
