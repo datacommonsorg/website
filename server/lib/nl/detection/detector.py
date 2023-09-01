@@ -91,6 +91,9 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type,
                                       query_detection_debug_logs, counters)
+  if not llm_detection:
+    counters.err('info_llm_blocked', '')
+    return None
 
   if llm_type == llm_fallback.NeedLLM.Fully:
     # Completely use LLM's detections.
