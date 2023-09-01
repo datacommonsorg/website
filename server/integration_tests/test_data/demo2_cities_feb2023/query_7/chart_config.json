@@ -290,16 +290,16 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
-                      "WHO/MORT_MATERNALNUM_multiple_place_bar_block",
-                      "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
+                      "WHO/MORT_MATERNALNUM_multiple_place_bar_block"
                     ],
-                    "title": "Number of Maternal Deaths and More (${date})",
+                    "title": "Number of Maternal Deaths (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Number of Maternal Deaths and More"
+            "denom": "Count_Person",
+            "title": "Number of Maternal Deaths"
           }
         ],
         "statVarSpec": {

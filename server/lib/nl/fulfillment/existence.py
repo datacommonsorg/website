@@ -134,7 +134,14 @@ class MainExistenceCheckTracker(ExistenceCheckTracker):
                     'places': places[:constants.DBG_LIST_LIMIT],
                     'event': chart_vars.event
                 })
-        else:
+        elif len(chart_vars.orig_svs) < 2:
+          # Do this dedupe only for non-correlation chart-vars.
+          # Because scatter plots will have overlapping vars.
+          # Imagine:  (sv1, sv2) vs. (sva, svb, svc, svd, sve)
+          # And assume: sv1 doesn't exist.
+          # By the time we get to (sv2, svd) as a pair, both
+          # SVs will exist.
+
           # NOTE: This does not prevent an SV that first appears alone
           # and is then part of a topic.  For that case, we do
           # chart dedupe (since having that SV as part of the

@@ -176,6 +176,46 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Household Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income vs. Percent of Adults with Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Individual Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income vs. High Blood Pressure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
@@ -228,6 +268,27 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Up to $9,999 (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Up to $9,999 vs. Percent of Adults with Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
@@ -270,6 +331,27 @@
               }
             ],
             "title": "Earners Between $10,000 and $14,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Between $10,000 and $14,999 (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Between $10,000 and $14,999 vs. Percent of Adults with Blood Pressure Who Take Medication"
           }
         ],
         "statVarSpec": {
