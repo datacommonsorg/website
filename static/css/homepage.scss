@@ -37,16 +37,17 @@ $animation-card-max-width: 905px;
 $animation-card-height: 326px;  // NOTE: images are 363px tall
 $animation-section-background: #fafbff;
 
-// Calculates the total width of $num-topic-cards including horizontal spacing.
-@function animation-width($num-topic-cards) {
-  @return ($topic-card-width * $num-topic-cards) +
-    ($topic-card-hgap * ($num-topic-cards - 1));
-}
+$search-answer-top: 124px;
+$search-answer-bottom: 48px;
 
 // Answer cards are fixed height, but of various widths. Calculates the height
 // to use for image size at a particular width.
 @function answer-height($max-width) {
-  @return $max-width * $animation-card-height / $animation-card-max-width;
+  @return math.floor($max-width * $animation-card-height / $animation-card-max-width);
+}
+
+@function animation-section-height($max-width) {
+  @return math.floor(answer-height($max-width) + $search-answer-bottom + $search-answer-top);
 }
 
 #page-homepage #main-header {
@@ -76,16 +77,51 @@ $animation-section-background: #fafbff;
 #homepage h3 {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-family: $headings-font-family;
-  font-size: 32px;
+  // font-size: 32px;
   font-weight: 400;
-  line-height: 40px;
+  // line-height: 40px;
+}
+
+#homepage h4 {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      // font-size: 22px;
+      font-weight: 400;
+      line-height: 1.5;
+      // line-height: 28px;
 }
 
 @include media-breakpoint-down(xs) {
   #homepage h3 {
-    font-size: 22px;
-    line-height: 28px;
+    font-size: 24px;
+    line-height: 32px;
   }
+  #homepage h4 {
+    // font-size: 14px;
+    // line-height: 20px;
+    font-size: 16px;
+    // line-height: 24px;
+  }
+}
+@include media-breakpoint-up(sm) {
+  #homepage h3 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  #homepage h4 {
+    font-size: 16px;
+    // line-height: 24px;
+  }
+}
+@include media-breakpoint-up(md) {
+  #homepage h3 {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+#homepage h4 {
+      font-size: 22px;
+      // line-height: 28px;
+}
 }
 
 #homepage a.carousel-item-container,
@@ -128,9 +164,6 @@ $animation-section-background: #fafbff;
   height: 128px;
 }
 
-$search-answer-top: 124px;
-$search-answer-bottom: 48px;
-
 // Styling for the search animation
 #search-animation {
   background: $animation-section-background;
@@ -139,74 +172,65 @@ $search-answer-bottom: 48px;
 
   @include media-breakpoint-down(xs) {
     .container {
-      // max-width: animation-width(1) !important;
-      height: 348px !important;  // Approx at 485px wide. Find a better way to calculate this.
-      // height: math.floor(answer-height(map.get($container-max-widths, "xs")) + $search-answer-bottom + $search-answer-top) !important;
+      height: math.floor(176px + $search-answer-bottom + $search-answer-top) !important;
     }
 
+    // .header {
+    //   font-size: 24px !important;
+    //   // line-height: 28px !important;
+    // }
+
+    // .sub-header {
+    //   font-size: 16px !important;
+    //   // line-height: 24px !important;
+    // }
+
     .result {
-      background-size: auto answer-height(animation-width(1)) !important;
-      // background-size: auto answer-height(map.get($container-max-widths, "xs")) !important;
+      background-size: auto 176px !important;  // Approx at 485px wide. Find a better way to calculate this.
     }
   }
 
-  // @media (max-width: animation-width(2)) {
   @include media-breakpoint-up(sm) {
     .container {
-      // max-width: animation-width(1) !important;
-      // height: 284px !important;
-      height: math.floor(answer-height(map.get($container-max-widths, "sm")) + $search-answer-bottom + $search-answer-top) !important;
+      height: animation-section-height(map.get($container-max-widths, "sm")) !important;
     }
 
-    .header {
-      font-size: 22px !important;
-      line-height: 28px !important;
-    }
+    // .header {
+    //   font-size: 24px !important;
+    //   // line-height: 28px !important;
+    // }
 
-    .sub-header {
-      font-size: 16px !important;
-      line-height: 24px !important;
-    }
+    // .sub-header {
+    //   font-size: 16px !important;
+    //   // line-height: 24px !important;
+    // }
 
     .result {
-      // background-size: auto answer-height(animation-width(1)) !important;
       background-size: auto answer-height(map.get($container-max-widths, "sm")) !important;
     }
-
-    // #animation-search-input {
-    //   font-size: 12px !important;
-    // }
   }
 
   @include media-breakpoint-up(md) {
-  // @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
     .container {
-      // max-width: animation-width(2) !important;
-      height: 411px !important;
+      height: animation-section-height(map.get($container-max-widths, "md")) !important;
     }
 
-    .header {
-      font-size: 36px !important;
-    }
+    // .header {
+    //   font-size: 32px !important;
+    // }
 
-    .sub-header {
-      font-size: 24px !important;
-    }
+    // .sub-header {
+    //   font-size: 24px !important;
+    // }
 
     .result {
-      background-size: auto answer-height(animation-width(2)) !important;
+      background-size: auto answer-height(map.get($container-max-widths, "md")) !important;
     }
   }
-  // }
-
-  // @media (min-width: animation-width(3)) {
-  //   .container {
-  //     max-width: animation-width((3)) !important;
-  //   }
-  // }
 
   .container {
-    height: 499px; // TODO(beets): Find a better way to fix this height to max of either child.
+    // TODO(beets): Find a better way to fix this height to max of either child.
+    height: math.floor($animation-card-height + $search-answer-bottom + $search-answer-top);
     position: relative;
 
     #result-svg {
@@ -215,10 +239,10 @@ $search-answer-bottom: 48px;
     }
   }
 
-  // .hidden {
-  //   display: none !important;
-  //   position: absolute;
-  // }
+  .hidden {
+    display: none !important;
+    position: absolute;
+  }
 
   #default-text {
     align-items: center;
@@ -240,14 +264,14 @@ $search-answer-bottom: 48px;
       flex: 0 0;
 
       .header {
-        font-size: 57px;
-        line-height: 1.2;
+        // font-size: 57px;
+        // line-height: 1.2;
         letter-spacing: 0em;
       }
 
       .sub-header {
-        font-size: 28px;
-        line-height: 1.2;
+        // font-size: 28px;
+        // line-height: 1.2;
         letter-spacing: 0em;
         color: var(--gm-3-ref-neutral-neutral-40);
         margin-top: 24px;
@@ -569,12 +593,7 @@ $search-answer-bottom: 48px;
     .tools-description-header {
       margin-bottom: 20px;
     }
-    .tools-description-subheader {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-    }
+
     margin-bottom: 32px;
   }
 
