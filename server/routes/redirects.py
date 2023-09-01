@@ -117,6 +117,6 @@ def load_redirects(name):
     return mapping.get(name, '/')
 
 
-@bp.route('/demo/<path:name>')
+@bp.route('/link/<path:name>')
 def demo(name):
   return redirect(load_redirects(name), code=302)
