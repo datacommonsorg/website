@@ -15,10 +15,8 @@
  */
 import axios from "axios";
 import _ from "lodash";
-import queryString from "query-string";
 
 import { GeoJsonData, SortType } from "../chart/types";
-import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import {
   NL_LARGE_TILE_CLASS,
   NL_MED_TILE_CLASS,
@@ -185,13 +183,15 @@ export function convertToSortType(str: string): SortType {
  * Trim subject page config based on the url parameter.
  *
  * @param pageConfig A subject page config
+ * @param numBlocks Total number blocks to keep
  * @returns subject config with trimmed category and blocks
  */
-export function trimCategory(pageConfig: SubjectPageConfig): SubjectPageConfig {
-  const hashParams = queryString.parse(window.location.hash);
-  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
-  if (maxBlockParam) {
-    let count = parseInt(maxBlockParam as string);
+export function trimCategory(
+  pageConfig: SubjectPageConfig,
+  numBlocks: number
+): SubjectPageConfig {
+  if (numBlocks) {
+    let count = numBlocks;
     const categories = [];
     for (const category of pageConfig.categories) {
       if (count == 0) {

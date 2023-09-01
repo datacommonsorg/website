@@ -19,6 +19,7 @@
  */
 
 import _ from "lodash";
+import queryString from "query-string";
 import React, { useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -95,6 +96,10 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
       }
     : props.pageMetadata.mainTopics[0];
 
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  const maxBlock = parseInt(maxBlockParam as string);
+
   useEffect(() => {
     const searchBoundingBox = searchSectionRef.current?.getBoundingClientRect();
     function handleScroll(): void {
@@ -170,7 +175,10 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   <SubjectPageMainPane
                     id={PAGE_ID}
                     place={props.pageMetadata.place}
-                    pageConfig={trimCategory(props.pageMetadata.pageConfig)}
+                    pageConfig={trimCategory(
+                      props.pageMetadata.pageConfig,
+                      maxBlock
+                    )}
                     svgChartHeight={SVG_CHART_HEIGHT}
                     showExploreMore={true}
                   />

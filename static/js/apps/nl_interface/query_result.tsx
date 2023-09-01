@@ -19,10 +19,12 @@
  */
 
 import axios from "axios";
+import queryString from "query-string";
 import React, { createRef, memo, useEffect, useRef } from "react";
 import { Container } from "reactstrap";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
+import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import { NlSessionContext } from "../../shared/context";
 import {
@@ -97,6 +99,11 @@ export const QueryResult = memo(function QueryResult(
     nlQuery.query || "",
     nlQuery.debugData
   );
+
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  const maxBlock = parseInt(maxBlockParam as string);
+
   return (
     <>
       <div className="nl-query" ref={scrollRef}>
@@ -142,7 +149,7 @@ export const QueryResult = memo(function QueryResult(
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
                 place={nlQuery.queryResult.place}
-                pageConfig={trimCategory(nlQuery.queryResult.config)}
+                pageConfig={trimCategory(nlQuery.queryResult.config, maxBlock)}
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showExploreMore={true}
               />
