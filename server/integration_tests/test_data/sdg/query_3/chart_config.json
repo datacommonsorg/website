@@ -9,45 +9,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female_ConditionArthritis"
-                    ],
-                    "title": "Population: Female, Arthritis in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_ConditionArthritis"
-                    ],
-                    "title": "Population: Male, Arthritis in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Arthritis by Gender in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death"
-                    ],
-                    "title": "Deaths in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
                     "title": "Deaths Per Capita in the World (${date})",
@@ -67,7 +28,7 @@
                 ]
               }
             ],
-            "title": "Deaths and More in the World"
+            "title": "Deaths Per Capita and More in the World"
           },
           {
             "columns": [
@@ -140,17 +101,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "WHO/Adult_daily_tob_use"
-                    ],
-                    "title": "% Daily Tobacco Use Among Adults in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "WHO/M_Est_smk_daily"
                     ],
                     "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
@@ -194,34 +144,6 @@
             ],
             "denom": "Count_Person",
             "title": "Health Behaviors in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_ConditionDiseasesOfHeart"
-                    ],
-                    "title": "Population: Female, Diseases of Heart in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_ConditionDiseasesOfHeart"
-                    ],
-                    "title": "Population: Male, Diseases of Heart in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Heart Disease by Gender in the World"
           },
           {
             "columns": [
@@ -526,17 +448,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "WHO/NTD_1"
-                    ],
-                    "title": "New Cases of Buruli Ulcer in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "WHO/NTD_4"
                     ],
                     "title": "New Cases of Human African Trypanosomiasis in the World (${date})",
@@ -727,29 +638,9 @@
           }
         ],
         "statVarSpec": {
-          "Count_Death": {
-            "name": "Deaths",
-            "statVar": "Count_Death"
-          },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
-          "Count_Person_Female_ConditionArthritis": {
-            "name": "Population: Female, Arthritis",
-            "statVar": "Count_Person_Female_ConditionArthritis"
-          },
-          "Count_Person_Female_ConditionDiseasesOfHeart": {
-            "name": "Population: Female, Diseases of Heart",
-            "statVar": "Count_Person_Female_ConditionDiseasesOfHeart"
-          },
-          "Count_Person_Male_ConditionArthritis": {
-            "name": "Population: Male, Arthritis",
-            "statVar": "Count_Person_Male_ConditionArthritis"
-          },
-          "Count_Person_Male_ConditionDiseasesOfHeart": {
-            "name": "Population: Male, Diseases of Heart",
-            "statVar": "Count_Person_Male_ConditionDiseasesOfHeart"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -762,10 +653,6 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
-          },
-          "WHO/Adult_daily_tob_use": {
-            "name": "% Daily Tobacco Use Among Adults",
-            "statVar": "WHO/Adult_daily_tob_use"
           },
           "WHO/CM_01": {
             "name": "Number Of Under-Five Deaths",
@@ -806,10 +693,6 @@
           "WHO/NCD_PAC": {
             "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
             "statVar": "WHO/NCD_PAC"
-          },
-          "WHO/NTD_1": {
-            "name": "New Cases Of Buruli Ulcer",
-            "statVar": "WHO/NTD_1"
           },
           "WHO/NTD_4": {
             "name": "New Cases Of Human African Trypanosomiasis",
