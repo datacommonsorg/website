@@ -1560,3 +1560,13 @@ dc/topic/LanguageSpokenAtHome_ForeignBorn,Language Spoken At Home By Immigrants,
 dc/topic/IndustriesByGDP,Industries By GDP Contribution,Industries By GDP Contribution,,contribution to the GDP by industries; GDP contribution by industries;
 dc/topic/NonEnglishLanguageAtHome,Non-English Languages Spoken At Home,Non-English Languages Spoken At Home,,non-english at home; non-english language at home; spoken language at home is not English; other languages spoken at home;
 dc/topic/GlobalElectricityAccess,Access To Electricity,Percentage of People with access to Electricity,,electrification; electricity access; people with access to electricity;
+Exports_EconomicActivity_Cereals,Cereal Exports,,,export of cereals;cereal export; exports of cereals;
+Imports_EconomicActivity_Cereals,Cereal Imports,,,import of cereals;cereal import; imports of cereals;
+Exports_EconomicActivity_CrudeOils,Crude Oil Exports,,,export of crude oil;crude oil export; exports of oils;crude oil exports;
+Imports_EconomicActivity_CrudeOils,Crude Oil Imports,,,import of crude oil;crude oil import; imports of oils;crude oils imports;
+Exports_EconomicActivity_IronAndSteel,Iron and Steel Exports,,,export of iron and steel;iron and steel export; exports of iron and steel;iron steel export;
+Imports_EconomicActivity_IronAndSteel,Iron and Steel Imports,,,import of iron and steel;iron and steel import; imports of iron and steel;iron steel import;
+Exports_EconomicActivity_ElectronicComponents,Electronics Components Exports,,,export of electronics;electronic components export; exports of electronic components;
+Imports_EconomicActivity_ElectronicComponents,Electronics Components Imports,,,import of electronics;electronic components import; imports of electronic components;
+Exports_EconomicActivity_Pharmaceutical,Pharmaceutical Exports,,,export of pharmaceuicals;pharmaceutical export; exports of pharmaceuticals;
+Imports_EconomicActivity_Pharmaceutical,Pharmaceutical Imports,,,import of pharmaceuicals;pharmaceutical import; imports of pharmaceuticals;
