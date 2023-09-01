@@ -183,7 +183,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         </div>
       )}
       {props.showLoadingSpinner && (
-        <div id={getSpinnerId()} className="scatter-spinner">
+        <div id={getSpinnerId()}>
           <div className="screen">
             <div id="spinner"></div>
           </div>

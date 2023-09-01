@@ -316,21 +316,34 @@ function rawToChart(
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    // sort variables in first group by value
-    dataGroups[0].value.sort(
-      (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
-    );
-
-    // use order of first group for all other groups
-    if (dataGroups.length > 1) {
-      const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
-      dataGroups.slice(1).forEach((dataGroup) => {
-        dataGroup.value.sort(
-          (a, b) =>
-            firstGroupLabels.indexOf(a.label) -
-            firstGroupLabels.indexOf(b.label)
-        );
+    if (props.statVarSpec.length == 1) {
+      // if only one variable, sort by places
+      dataGroups.sort(function (a, b): number {
+        if (!_.isEmpty(a.value) && !_.isEmpty(b.value)) {
+          return (
+            (a.value[0].value - b.value[0].value) *
+            (props.sort === "ascending" ? 1 : -1)
+          );
+        }
+        return 0;
       });
+    } else if (!_.isEmpty(dataGroups)) {
+      // sort variables in first group by value
+      dataGroups[0].value.sort(
+        (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
+      );
+
+      // use order of first group for all other groups
+      if (dataGroups.length > 1) {
+        const firstGroupLabels = dataGroups[0].value.map((dp) => dp.label);
+        dataGroups.slice(1).forEach((dataGroup) => {
+          dataGroup.value.sort(
+            (a, b) =>
+              firstGroupLabels.indexOf(a.label) -
+              firstGroupLabels.indexOf(b.label)
+          );
+        });
+      }
     }
   }
 

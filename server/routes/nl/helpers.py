@@ -106,6 +106,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
       not bad_words.is_safe(query, nl_bad_words)):
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query, context_history)
+    _set_blocked(err_json)
     return None, err_json
 
   counters = ctr.Counters()
@@ -127,6 +128,12 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
                                     embeddings_index_type, debug_logs, counters)
+  if not query_detection:
+    err_json = helpers.abort('Sorry, could not complete your request.',
+                             original_query, context_history, debug_logs,
+                             counters)
+    _set_blocked(err_json)
+    return None, err_json
   counters.timeit('query_detection', start)
 
   utterance = create_utterance(query_detection, prev_utterance, counters,
@@ -256,8 +263,11 @@ def prepare_response_common(data_dict: Dict, status_str: str,
 #
 # Preliminary abort with the given error message
 #
-def abort(error_message: str, original_query: str,
-          context_history: Dict) -> Dict:
+def abort(error_message: str,
+          original_query: str,
+          context_history: Dict,
+          debug_logs: Dict = None,
+          counters: ctr.Counters = None) -> Dict:
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   escaped_context_history = []
   for ch in context_history:
@@ -275,9 +285,11 @@ def abort(error_message: str, original_query: str,
       'userMessage': error_message,
   }
 
-  counters = ctr.Counters()
-  query_detection_debug_logs = {}
-  query_detection_debug_logs["original_query"] = query
+  if not counters:
+    counters = ctr.Counters()
+  if not debug_logs:
+    debug_logs = {}
+    debug_logs["original_query"] = query
 
   query_detection = Detection(original_query=original_query,
                               cleaned_query=query,
@@ -286,11 +298,16 @@ def abort(error_message: str, original_query: str,
                                   query, dutils.empty_svs_score_dict()),
                               classifications=[],
                               llm_resp={})
-  data_dict = dbg.result_with_debug_info(
-      data_dict=res,
-      status=error_message,
-      query_detection=query_detection,
-      debug_counters=counters.get(),
-      query_detection_debug_logs=query_detection_debug_logs)
+  data_dict = dbg.result_with_debug_info(data_dict=res,
+                                         status=error_message,
+                                         query_detection=query_detection,
+                                         debug_counters=counters.get(),
+                                         query_detection_debug_logs=debug_logs)
   logging.info('NL Data API: Empty Exit')
   return data_dict
+
+
+def _set_blocked(err_json: Dict):
+  err_json['blocked'] = True
+  if err_json.get('debug'):
+    err_json['debug']['blocked'] = True

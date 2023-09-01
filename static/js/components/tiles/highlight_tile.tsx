@@ -18,15 +18,16 @@
  * Component for rendering a highlight tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../../constants/css_constants";
 import { formatNumber, translateUnit } from "../../i18n/i18n";
-import { Observation, PointApiResponse } from "../../shared/stat_types";
+import { Observation } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { stringifyFn } from "../../utils/axios";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
@@ -163,7 +164,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            <span className="number">
+            <span className={`number ${ASYNC_ELEMENT_CLASS}`}>
               {formatNumber(
                 highlightData.value,
                 numberUnit,

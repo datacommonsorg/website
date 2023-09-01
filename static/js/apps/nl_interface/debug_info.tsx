@@ -19,6 +19,7 @@
  */
 
 import _ from "lodash";
+import queryString from "query-string";
 import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 
@@ -28,6 +29,8 @@ import {
   QueryResult,
   SVScores,
 } from "../../types/app/nl_interface_types";
+
+const DEBUG_PARAM = "dbg";
 
 const svToSentences = (
   svScores: SVScores,
@@ -162,14 +165,18 @@ export interface DebugInfoProps {
 }
 
 export function DebugInfo(props: DebugInfoProps): JSX.Element {
-  const [showDebug, setShowDebug] = useState(false);
-
-  if (_.isEmpty(props.debugData)) {
+  const debugParam = queryString.parse(window.location.hash)[DEBUG_PARAM];
+  const hideDebug =
+    document.getElementById("metadata").dataset.hideDebug === "True" &&
+    !debugParam;
+  if (_.isEmpty(props.debugData) || hideDebug) {
     return <></>;
   }
+  const [showDebug, setShowDebug] = useState(false);
 
   const debugInfo = {
     status: props.debugData["status"],
+    blocked: props.debugData["blocked"] || false,
     originalQuery: props.debugData["original_query"],
     detectionType: props.debugData["detection_type"],
     placeDetectionType: props.debugData["place_detection_type"],
@@ -182,7 +189,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     svScores: props.debugData["sv_matching"],
     svSentences: props.debugData["svs_to_sentences"],
     rankingClassification: props.debugData["ranking_classification"],
-    overviewClassification: props.debugData["overview_classification"],
+    generalClassification: props.debugData["general_classification"],
     superlativeClassification: props.debugData["superlative_classification"],
     timeDeltaClassification: props.debugData["time_delta_classification"],
     comparisonClassification: props.debugData["comparison_classification"],
@@ -225,6 +232,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <b>Original Query: </b> {debugInfo.originalQuery}
+          </Row>
+          <Row>
+            <b>Blocked:</b> {debugInfo.blocked.toString()}
           </Row>
           <Row>
             <b>Query used for variable detection: </b>
@@ -281,9 +291,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <Col>Event classification: {debugInfo.eventClassification}</Col>
           </Row>
           <Row>
-            <Col>
-              Overview classification: {debugInfo.overviewClassification}
-            </Col>
+            <Col>General classification: {debugInfo.generalClassification}</Col>
           </Row>
           <Row>
             <Col>
