@@ -18,6 +18,7 @@ import os
 import flask
 from flask import Blueprint
 from flask import current_app
+from flask import g
 from flask import render_template
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
