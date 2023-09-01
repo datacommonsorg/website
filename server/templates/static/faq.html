@@ -33,18 +33,18 @@
       useful. Learn more on <a href="{{ url_for('static.about') }}">About Data
       Commons</a>.
 
-    <dt>Q: Who can use Data Commons? 
+    <dt>Q: Who can use Data Commons?
     <dd>Data Commons is available for anyone to use. Our goal is to make the
       world’s publicly available data more helpful to people and organizations
       working on the big societal challenges like climate change, food security,
-      or economic inequity. 
+      or economic inequity.
 
-    <dt>Q: Is Data Commons free or is there a cost to use it? 
+    <dt>Q: Is Data Commons free or is there a cost to use it?
     <dd>There is no cost for the publicly available data, which is hosted on
       Google Cloud by Data Commons. For individuals or organizations who exceed
       the free usage limits, pricing will be in line with the <a
       href="https://cloud.google.com/bigquery/public-data">BigQuery public dataset
-      program</a>. 
+      program</a>.
 
     <dt>Q: What is the new Explore interface to Data Commons?
     <dd>Data Commons has a new Explore interface that uses large language models
@@ -58,9 +58,9 @@
       identify the most likely response to your query. As we continue to improve
       the interface, we will look to provide more options that allow the user to
       select sources themselves. For now, you can always click the “Explore in …”
-      Tool setting to change the source of data. 
+      Tool setting to change the source of data.
 
-    <dt>Q: Can I submit or suggest data I think should be added to Data Commons? 
+    <dt>Q: Can I submit or suggest data I think should be added to Data Commons?
     <dd>Yes, Data Commons is meant to be for the community, by the community and
       we welcome new submissions or suggestions. If you’d like to submit data,
       please review <a
@@ -69,11 +69,11 @@
       href="https://github.com/datacommonsorg/data">this development
       process</a>. If you have a suggestion, please use <a
       href="https://docs.google.com/forms/d/17BlSP8xLadDJFiimPvJQmoPWI_XV52ujhS59rW1lq3w/edit">this
-      Google Form</a>. 
+      Google Form</a>.
 
     <dt>Q: How can we access data in Data Commons?
-    <dd>The data in knowledge graph can be accessed through the 
-      <a href="{{ url_for('browser.browser_main') }}">Data Commons Graph Browser</a>, 
+    <dd>The data in knowledge graph can be accessed through the
+      <a href="{{ url_for('browser.browser_main') }}">Data Commons Graph Browser</a>,
         {% if config['HIDE_REVAMP_CHANGES'] %}
           <a href="{{ url_for('tools.timeline')}}">Timelines Explorer</a>,
           <a href="{{ url_for('tools.scatter')}}">Scatter Plot Explorer</a>,
@@ -81,9 +81,9 @@
         {% else %}
           <a href="{{ url_for('tools.visualization')}}">Data Commons Visualization tools</a>,
         {% endif %}
-      and APIs for 
-      <a href="https://docs.datacommons.org/api/python">Python</a>, 
-      <a href="https://docs.datacommons.org/api/rest">REST</a> and 
+      and APIs for
+      <a href="https://docs.datacommons.org/api/python">Python</a>,
+      <a href="https://docs.datacommons.org/api/rest">REST</a> and
       <a href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
 
     <dt>Q: Where can I download all the data?
@@ -103,7 +103,7 @@
     <dt>Q: How often is the data refreshed?
     <dd>Different data sources refresh at different frequencies. We try to keep
       the data updated as the sources publish new versions of their data. If you
-      see something out of date, please file an <a href="https://github.com/datacommonsorg/data/issues">issue on Github</a>. 
+      see something out of date, please file an <a href="https://github.com/datacommonsorg/data/issues">issue on Github</a>.
 
     <dt>Q: What are the SLAs / Performance levels we can expect?
     <dd>The service is provided on an as-is basis with no SLA or commitments on availability or uptime.
@@ -171,9 +171,9 @@
     <dd>Data Commons uses Google Analytics to collect non-identifiable usage
       data to improve the product. We log all queries asked in the Search tool,
       but do not associate IP address or any other identifiers with the queries.
-      We do use in-session cookies to be able to manage state. 
+      We do use in-session cookies to be able to manage state.
 
-    <dt>Q: How do I ask a question or offer feedback on Data Commons? 
+    <dt>Q: How do I ask a question or offer feedback on Data Commons?
     <dd>You can post your question on the <a
       href="https://github.com/datacommonsorg/docsite/issues">GitHub forum</a> or
       fill out <a
