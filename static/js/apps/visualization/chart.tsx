@@ -20,6 +20,7 @@
 import _ from "lodash";
 import React, { useContext } from "react";
 
+import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
 import { BqModal } from "../../tools/shared/bq_modal";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
@@ -32,9 +33,15 @@ export function Chart(): JSX.Element {
   const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
   return (
     <div className="chart-section">
-      <div className="stat-var-selector-area">
-        <div className="title">Variables</div>
-        <StatVarSelector />
+      <div className="stat-var-selector-area" id="collapsible-variable-area">
+        <DrawerToggle
+          collapseElemId="collapsible-variable-area"
+          visibleElemId="stat-var-selector-content"
+        />
+        <div id="stat-var-selector-content">
+          <div className="section-title">Variables</div>
+          <StatVarSelector />
+        </div>
       </div>
       <div className="chart-area">
         {VIS_TYPE_CONFIG[appContext.visType].getChartArea(
