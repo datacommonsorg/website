@@ -15,7 +15,7 @@
  */
 
 /* Styles for the homepage */
-@use 'sass:math';
+@use "sass:math";
 @use "sass:map";
 @use "./nl_search_bar";
 @import "base";
@@ -31,10 +31,10 @@ $topic-card-image-sprite-x: 150px;
 $topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
 $section-vmargin: 64px;
-$topics-section-vmargin: 56px;  // to keep it above the fold
+$topics-section-vmargin: 56px; // to keep it above the fold
 
 $animation-card-max-width: 905px;
-$animation-card-height: 326px;  // NOTE: images are 363px tall
+$animation-card-height: 326px; // NOTE: images are 363px tall
 $animation-section-background: #fafbff;
 
 $search-answer-top: 124px;
@@ -43,11 +43,15 @@ $search-answer-bottom: 48px;
 // Answer cards are fixed height, but of various widths. Calculates the height
 // to use for image size at a particular width.
 @function answer-height($max-width) {
-  @return math.floor($max-width * $animation-card-height / $animation-card-max-width);
+  @return math.floor(
+    $max-width * $animation-card-height / $animation-card-max-width
+  );
 }
 
 @function animation-section-height($max-width) {
-  @return math.floor(answer-height($max-width) + $search-answer-bottom + $search-answer-top);
+  @return math.floor(
+    answer-height($max-width) + $search-answer-bottom + $search-answer-top
+  );
 }
 
 #page-homepage #main-header {
@@ -77,17 +81,13 @@ $search-answer-bottom: 48px;
 #homepage h3 {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-family: $headings-font-family;
-  // font-size: 32px;
   font-weight: 400;
-  // line-height: 40px;
 }
 
 #homepage h4 {
-      color: var(--gm-3-ref-neutral-neutral-20);
-      // font-size: 22px;
-      font-weight: 400;
-      line-height: 1.5;
-      // line-height: 28px;
+  color: var(--gm-3-ref-neutral-neutral-20);
+  font-weight: 400;
+  line-height: 1.5;
 }
 
 @include media-breakpoint-down(xs) {
@@ -96,10 +96,7 @@ $search-answer-bottom: 48px;
     line-height: 32px;
   }
   #homepage h4 {
-    // font-size: 14px;
-    // line-height: 20px;
     font-size: 16px;
-    // line-height: 24px;
   }
 }
 @include media-breakpoint-up(sm) {
@@ -109,7 +106,6 @@ $search-answer-bottom: 48px;
   }
   #homepage h4 {
     font-size: 16px;
-    // line-height: 24px;
   }
 }
 @include media-breakpoint-up(md) {
@@ -118,10 +114,9 @@ $search-answer-bottom: 48px;
     line-height: 40px;
   }
 
-#homepage h4 {
-      font-size: 22px;
-      // line-height: 28px;
-}
+  #homepage h4 {
+    font-size: 22px;
+  }
 }
 
 #homepage a.carousel-item-container,
@@ -172,38 +167,22 @@ $search-answer-bottom: 48px;
 
   @include media-breakpoint-down(xs) {
     .container {
-      height: math.floor(176px + $search-answer-bottom + $search-answer-top) !important;
+      height: math.floor(
+        176px + $search-answer-bottom + $search-answer-top
+      ) !important;
     }
 
-    // .header {
-    //   font-size: 24px !important;
-    //   // line-height: 28px !important;
-    // }
-
-    // .sub-header {
-    //   font-size: 16px !important;
-    //   // line-height: 24px !important;
-    // }
-
     .result {
-      background-size: auto 176px !important;  // Approx at 485px wide. Find a better way to calculate this.
+      background-size: auto 176px !important; // Approx at 485px wide. Find a better way to calculate this.
     }
   }
 
   @include media-breakpoint-up(sm) {
     .container {
-      height: animation-section-height(map.get($container-max-widths, "sm")) !important;
+      height: animation-section-height(
+        map.get($container-max-widths, "sm")
+      ) !important;
     }
-
-    // .header {
-    //   font-size: 24px !important;
-    //   // line-height: 28px !important;
-    // }
-
-    // .sub-header {
-    //   font-size: 16px !important;
-    //   // line-height: 24px !important;
-    // }
 
     .result {
       background-size: auto answer-height(map.get($container-max-widths, "sm")) !important;
@@ -212,16 +191,10 @@ $search-answer-bottom: 48px;
 
   @include media-breakpoint-up(md) {
     .container {
-      height: animation-section-height(map.get($container-max-widths, "md")) !important;
+      height: animation-section-height(
+        map.get($container-max-widths, "md")
+      ) !important;
     }
-
-    // .header {
-    //   font-size: 32px !important;
-    // }
-
-    // .sub-header {
-    //   font-size: 24px !important;
-    // }
 
     .result {
       background-size: auto answer-height(map.get($container-max-widths, "md")) !important;
@@ -230,7 +203,9 @@ $search-answer-bottom: 48px;
 
   .container {
     // TODO(beets): Find a better way to fix this height to max of either child.
-    height: math.floor($animation-card-height + $search-answer-bottom + $search-answer-top);
+    height: math.floor(
+      $animation-card-height + $search-answer-bottom + $search-answer-top
+    );
     position: relative;
 
     #result-svg {
@@ -264,14 +239,10 @@ $search-answer-bottom: 48px;
       flex: 0 0;
 
       .header {
-        // font-size: 57px;
-        // line-height: 1.2;
         letter-spacing: 0em;
       }
 
       .sub-header {
-        // font-size: 28px;
-        // line-height: 1.2;
         letter-spacing: 0em;
         color: var(--gm-3-ref-neutral-neutral-40);
         margin-top: 24px;
@@ -282,7 +253,7 @@ $search-answer-bottom: 48px;
   #search-sequence {
     position: absolute;
     top: 52px;
-    left: 41px;  // to vertically align with main search input
+    left: 41px; // to vertically align with main search input
     right: 41px;
     overflow: hidden;
     cursor: pointer;
@@ -290,7 +261,7 @@ $search-answer-bottom: 48px;
     #animation-search-input {
       background: $animation-section-background;
       border: none;
-      border-bottom: 1px solid rgba(199, 199, 199, .3);
+      border-bottom: 1px solid rgba(199, 199, 199, 0.3);
       border-radius: 0;
       padding-left: 0;
       color: var(--gm-3-sys-light-primary);
@@ -565,6 +536,12 @@ $search-answer-bottom: 48px;
     flex-wrap: wrap;
     justify-content: center;
     min-height: 380px;
+
+    @include media-breakpoint-down(lg) {
+      .tools-description {
+        width: 100%;
+      }
+    }
 
     @include media-breakpoint-up(lg) {
       flex-wrap: nowrap;
