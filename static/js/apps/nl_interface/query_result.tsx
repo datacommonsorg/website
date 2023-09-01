@@ -29,6 +29,7 @@ import {
   CHART_FEEDBACK_SENTIMENT,
   getFeedbackLink,
 } from "../../utils/nl_interface_utils";
+import { trimCategory } from "../../utils/subject_page_utils";
 import { useStoreActions, useStoreState } from "./app_state";
 import { DebugInfo } from "./debug_info";
 
@@ -141,7 +142,7 @@ export const QueryResult = memo(function QueryResult(
               <SubjectPageMainPane
                 id={`pg${props.queryIdx}`}
                 place={nlQuery.queryResult.place}
-                pageConfig={nlQuery.queryResult.config}
+                pageConfig={trimCategory(nlQuery.queryResult.config)}
                 svgChartHeight={SVG_CHART_HEIGHT}
                 showExploreMore={true}
               />

@@ -15,8 +15,10 @@
  */
 import axios from "axios";
 import _ from "lodash";
+import queryString from "query-string";
 
 import { GeoJsonData, SortType } from "../chart/types";
+import { URL_HASH_PARAMS } from "../constants/app/explore_constants";
 import {
   NL_LARGE_TILE_CLASS,
   NL_MED_TILE_CLASS,
@@ -24,6 +26,7 @@ import {
   NL_SMALL_TILE_CLASS,
 } from "../constants/app/nl_interface_constants";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import { ColumnConfig } from "../types/subject_page_proto_types";
 import { SubjectPageMetadata } from "./../types/subject_page_types";
 import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
@@ -177,4 +180,30 @@ export function convertToSortType(str: string): SortType {
       // Default to descending population to match behavior of bar tiles
       return "descendingPopulation" as SortType;
   }
+}
+/**
+ * Trim subject page config based on the url parameter.
+ *
+ * @param pageConfig A subject page config
+ * @returns subject config with trimmed category and blocks
+ */
+export function trimCategory(pageConfig: SubjectPageConfig): SubjectPageConfig {
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  if (maxBlockParam) {
+    let count = parseInt(maxBlockParam as string);
+    const categories = [];
+    for (const category of pageConfig.categories) {
+      if (count == 0) {
+        break;
+      }
+      if (category.blocks.length >= count) {
+        category.blocks = category.blocks.slice(0, count);
+      }
+      categories.push(category);
+      count -= category.blocks.length;
+    }
+    pageConfig.categories = categories;
+  }
+  return pageConfig;
 }

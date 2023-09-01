@@ -38,6 +38,7 @@ import {
 } from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
+import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "../nl_interface/debug_info";
 import { RelatedPlace } from "./related_place";
@@ -169,7 +170,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   <SubjectPageMainPane
                     id={PAGE_ID}
                     place={props.pageMetadata.place}
-                    pageConfig={props.pageMetadata.pageConfig}
+                    pageConfig={trimCategory(props.pageMetadata.pageConfig)}
                     svgChartHeight={SVG_CHART_HEIGHT}
                     showExploreMore={true}
                   />
