@@ -111,12 +111,12 @@ def insights():
 
 def load_redirects(name):
   local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename='redirect.json')
+                                 filename='redirects.json')
   with open(local_file) as fp:
     mapping = json.load(fp)
     return mapping.get(name, '/')
 
 
 @bp.route('/link/<path:name>')
-def demo(name):
+def link(name):
   return redirect(load_redirects(name), code=302)
