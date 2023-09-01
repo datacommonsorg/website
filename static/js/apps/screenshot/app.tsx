@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 import { stringifyFn } from "../../utils/axios";
 
 // diff ratio smaller than this is regarded as no diff.
-const DIFF_RATIO_THRESHOLD = 0.001;
+const DIFF_RATIO_THRESHOLD = 0.01;
 
 export function App(props: {
   data: Record<string, { blob1: string; blob2: string }>;
