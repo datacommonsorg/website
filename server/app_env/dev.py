@@ -21,3 +21,4 @@ class Config(_base.Config):
   SHOW_TOPIC = True
   GA_ACCOUNT = 'G-P9M91VX1T3'
   USE_PALM = True
+  HIDE_DEBUG = False

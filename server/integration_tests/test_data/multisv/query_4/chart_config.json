@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -66,6 +67,6 @@
     }
   ],
   "relatedThings": {},
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessage": ""
 }

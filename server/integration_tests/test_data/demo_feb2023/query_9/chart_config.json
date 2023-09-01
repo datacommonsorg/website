@@ -15,7 +15,7 @@
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "title": "Household Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -31,7 +31,7 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Household Median Income in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -46,13 +46,13 @@
                     "statVarKey": [
                       "Median_Income_Household"
                     ],
-                    "title": "Household Median Income in Counties of United States (${date})",
+                    "title": "Household Median Income in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income in Counties of United States"
+            "title": "Household Median Income in States of United States"
           },
           {
             "columns": [
@@ -62,7 +62,7 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "title": "High Blood Pressure in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -77,13 +77,13 @@
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
-                    "title": "High Blood Pressure in Counties of United States (${date})",
+                    "title": "High Blood Pressure in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "High Blood Pressure in Counties of United States"
+            "title": "High Blood Pressure in States of United States"
           },
           {
             "columns": [
@@ -97,7 +97,7 @@
                       "Median_Income_Person_scatter",
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
                     ],
-                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in Counties of United States",
+                    "title": "Individual Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -113,7 +113,7 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in Counties of United States (${date})",
+                    "title": "Individual Median Income in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -128,13 +128,13 @@
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
-                    "title": "Individual Median Income in Counties of United States (${date})",
+                    "title": "Individual Median Income in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Individual Median Income in Counties of United States"
+            "title": "Individual Median Income in States of United States"
           },
           {
             "columns": [
@@ -144,7 +144,7 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -159,13 +159,53 @@
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
                     ],
-                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States (${date})",
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent of Adults With Blood Pressure Who Take Medication in Counties of United States"
+            "title": "Percent of Adults With Blood Pressure Who Take Medication in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Household Median Income (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income vs. Percent of Adults with Blood Pressure Who Take Medication"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_scatter",
+                      "Percent_Person_WithHighBloodPressure_scatter"
+                    ],
+                    "title": "Individual Median Income (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income vs. High Blood Pressure"
           },
           {
             "columns": [
@@ -179,7 +219,7 @@
                       "Count_Person_IncomeOfUpto9999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Up to $9,999 (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Up to $9,999 (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -196,7 +236,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Earners Up to $9,999 in Counties of United States (${date})",
+                    "title": "Earners Up to $9,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -211,13 +251,34 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "Earners Up to $9,999 in Counties of United States (${date})",
+                    "title": "Earners Up to $9,999 in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Earners Up to $9,999 in Counties of United States"
+            "title": "Earners Up to $9,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Up to $9,999 (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Up to $9,999 vs. Percent of Adults with Blood Pressure Who Take Medication"
           },
           {
             "columns": [
@@ -231,7 +292,7 @@
                       "Count_Person_IncomeOf10000To14999USDollar_scatter",
                       "Percent_Person_WithHighBloodPressure_scatter"
                     ],
-                    "title": "Earners Between $10,000 and $14,999 (${yDate}) Vs. High Blood Pressure (${xDate}) in Counties of United States",
+                    "title": "Earners Between $10,000 and $14,999 (${yDate}) Vs. High Blood Pressure (${xDate}) in States of United States",
                     "type": "SCATTER"
                   }
                 ]
@@ -248,7 +309,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "Earners Between $10,000 and $14,999 in Counties of United States (${date})",
+                    "title": "Earners Between $10,000 and $14,999 in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -263,13 +324,34 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "Earners Between $10,000 and $14,999 in Counties of United States (${date})",
+                    "title": "Earners Between $10,000 and $14,999 in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Earners Between $10,000 and $14,999 in Counties of United States"
+            "title": "Earners Between $10,000 and $14,999 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar_scatter",
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication_scatter"
+                    ],
+                    "title": "Earners Between $10,000 and $14,999 (${yDate}) Vs. Percent of Adults With Blood Pressure Who Take Medication (${xDate}) in States of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Earners Between $10,000 and $14,999 vs. Percent of Adults with Blood Pressure Who Take Medication"
           }
         ],
         "statVarSpec": {
@@ -334,7 +416,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "County"
+        "Country": "State"
       },
       "placeDcid": [
         "country/USA"

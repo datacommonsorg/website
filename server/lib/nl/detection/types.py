@@ -165,17 +165,21 @@ class TimeDeltaType(IntEnum):
   CHANGE = 2
 
 
-class SizeType(IntEnum):
-  """SizeType indicates the type of size query specified."""
+class SuperlativeType(IntEnum):
+  """Indicates the type of superlative query specified."""
   NONE = 0
 
-  # BIG is for queries like:
   # "how big ..."
   BIG = 1
-
-  # SMALL is for queries like:
   # "how small ..."
   SMALL = 2
+  # "richest ..."
+  RICH = 3
+  # "poorest ..."
+  POOR = 4
+  # "List of counties in states"
+  # Not strictly superlative, but uses the same technique
+  LIST = 5
 
 
 class ClassificationAttributes(ABC):
@@ -250,13 +254,13 @@ class TimeDeltaClassificationAttributes(ClassificationAttributes):
 
 
 @dataclass
-class SizeTypeClassificationAttributes(ClassificationAttributes):
+class SuperlativeClassificationAttributes(ClassificationAttributes):
   """Size classification attributes."""
-  size_types: List[SizeType]
+  superlatives: List[SuperlativeType]
 
   # List of words which made this a size-type query:
   # e.g. "big", "small" etc
-  size_types_trigger_words: List[str]
+  superlatives_trigger_words: List[str]
 
 
 class QCmpType(str, Enum):
@@ -332,7 +336,7 @@ class ClassificationType(IntEnum):
   TIME_DELTA = 8
   EVENT = 9
   OVERVIEW = 10
-  SIZE_TYPE = 11
+  SUPERLATIVE = 11
   DATE = 12
   ANSWER_PLACES_REFERENCE = 13
   PER_CAPITA = 14

@@ -46,6 +46,8 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   state = nl_fulfiller.fulfill(uttr, explore_mode=True)
 
   config_pb = nl_config_builder.build(state, cb_config)
+  if not config_pb:
+    return FulfillResp(chart_pb=None, related_things={})
 
   plotted_orig_vars = _get_plotted_orig_vars(state)
 

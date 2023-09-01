@@ -40,10 +40,14 @@ The generated JSON object must conform to the following JSON Schema:
       "description": "Set to growth direction, INCREASE or DECREASE, if the sentence asks about growth of METRICS.",
       "enum":  [ "INCREASE", "DECREASE" ]
     },
-    "SIZE": {
+    "SUPERLATIVE": {
       "type": "string",
-      "description": "Set to BIG or SMALL, if the sentence asks about the size of PLACES.",
-      "enum": [ "BIG", "SMALL" ]
+      "description": "Set to BIG, SMALL, RICH, POOR or LIST, if the sentence asks about the these attributes of PLACES.",
+      "enum": [ "BIG", "SMALL", "RICH", "POOR", "LIST" ]
+    },
+    "UNSAFE": {
+      "type": "bool",
+      "description": "Set to true if the query has any slurs, insults or discriminatory words."
     },
     "COMPARISON_FILTER": {
       "type": "array",
@@ -163,13 +167,13 @@ Output JSON:
 }
 ```
 
-Input Sentence: "how big are cities in california?"
+Input Sentence: "what are the biggest cities in california?"
 Output JSON:
 ```
 {
   "PLACES":  ["california"],
   "METRICS": ["size"],
-  "SIZE": "BIG",
+  "SUPERLATIVE": "BIG",
   "SUB_PLACE_TYPE": "CITY"
 }
 ```
@@ -224,4 +228,14 @@ Output JSON:
 }
 ```
 
+Input Sentence: "Population of Nazis"
+Output JSON:
+```
+{
+  "UNSAFE": true
+}
+```
+
 Do not make up new JSON properties outside of the JSON Schema.
+
+Importantly, if there is are NSFW words set the `UNSAFE` field to true.
