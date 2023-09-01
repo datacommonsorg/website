@@ -283,14 +283,18 @@ function rawToChart(
   }
   // Optionally sort ascending/descending by value
   if (props.sort === "ascending" || props.sort === "descending") {
-    // if only one variable, sort by places
     if (props.statVarSpec.length == 1) {
-      dataGroups.sort(
-        (a, b) =>
-          (a.value[0].value - b.value[0].value) *
-          (props.sort === "ascending" ? 1 : -1)
-      );
-    } else {
+      // if only one variable, sort by places
+      dataGroups.sort(function (a, b): number {
+        if (!_.isEmpty(a.value) && !_.isEmpty(b.value)) {
+          return (
+            (a.value[0].value - b.value[0].value) *
+            (props.sort === "ascending" ? 1 : -1)
+          );
+        }
+        return 0;
+      });
+    } else if (!_.isEmpty(dataGroups)) {
       // sort variables in first group by value
       dataGroups[0].value.sort(
         (a, b) => (a.value - b.value) * (props.sort === "ascending" ? 1 : -1)
