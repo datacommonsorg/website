@@ -38,6 +38,9 @@ from server.lib.nl.fulfillment.types import SV2Thing
 # Given an Utterance, build the final Chart config proto.
 #
 def build(state: PopulateState, config: Config) -> SubjectPageConfig:
+  if not state.uttr.rankedCharts:
+    return None
+
   # Get names of all SVs
   uttr = state.uttr
   all_svs = set()

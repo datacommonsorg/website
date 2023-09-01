@@ -1,0 +1,160 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block"
+                    ],
+                    "title": "External Debt Stocks as a Proportion of GNI (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "External Debt Stocks as a Proportion of GNI"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/DEU",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "GiniIndex_EconomicActivity_multiple_place_bar_block"
+                    ],
+                    "title": "Gini Index of Economic Activity of a Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Gini Index of Economic Activity of a Population"
+          }
+        ],
+        "statVarSpec": {
+          "GiniIndex_EconomicActivity_multiple_place_bar_block": {
+            "name": "Gini Index of Economic Activity of a Population",
+            "statVar": "GiniIndex_EconomicActivity"
+          },
+          "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
+            "name": "External debt stocks as a proportion of GNI",
+            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/CHN"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/CHN",
+    "name": "China",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/CHN",
+      "name": "China",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/DEU",
+      "name": "Germany",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/IND",
+      "name": "India",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Debt",
+        "name": "Debt",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationExpenditure",
+        "name": "Education Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthcareExpenditure",
+        "name": "Healthcare Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Remittance",
+        "name": "Remittance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

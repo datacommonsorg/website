@@ -373,11 +373,6 @@ def get_default_child_place_type(
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
 
-    if place.dcid == constants.USA.dcid:
-      # NL has fallback, so if for country we preferred AA1, downgrade
-      # to AA2 since if data doesn't exist it will fallback to AA1.
-      ptype = types.ContainedInPlaceType.COUNTY
-
   return ptype
 
 
