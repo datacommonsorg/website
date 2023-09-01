@@ -23,12 +23,18 @@ import _ from "lodash";
 import React from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
+import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
 import { urlToDomain } from "../shared/util";
+import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./nl_interface_utils";
+import { getUnit } from "./stat_metadata_utils";
+
+const DEFAULT_PC_SCALING = 100;
+const DEFAULT_PC_UNIT = "%";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -269,4 +275,89 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
       Source: {sourcesJsx}
     </div>
   );
+}
+
+/**
+ * Gets the unit and scaling factor to use for a stat var spec
+ * @param svSpec stat var spec to get unit and scaling for
+ * @param statPointData stat data for the tile as a PointApiResponse
+ * @param statSeriesData stat data for the tile as a SeriesApiResponse
+ */
+export function getUnitAndScaling(
+  svSpec: StatVarSpec,
+  statPointData?: PointApiResponse,
+  statSeriesData?: SeriesApiResponse
+): { unit: string; scaling: number } {
+  // If the stat var spec specifies a unit, use that unit
+  const result = {
+    unit: svSpec.unit,
+    scaling: svSpec.scaling,
+  };
+  // Otherwise, try to get the unit from the stat data
+  if (!result.unit) {
+    let statMetadata = null;
+    if (statPointData) {
+      const obsWithFacet = Object.values(
+        statPointData.data[svSpec.statVar]
+      ).find((obs) => !!obs.facet);
+      statMetadata = statPointData.facets[obsWithFacet.facet];
+    }
+    if (statSeriesData) {
+      const seriesWithFacet = Object.values(
+        statSeriesData.data[svSpec.statVar]
+      ).find((series) => !!series.facet);
+      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    }
+    result.unit = getUnit(statMetadata);
+  }
+  // If this is a per capita case and no unit has been found, use the default
+  // per capita unit and scaling
+  if (svSpec.denom && !result.unit) {
+    result.unit = DEFAULT_PC_UNIT;
+    result.scaling = DEFAULT_PC_SCALING;
+  }
+  return result;
+}
+
+interface DenomInfo {
+  value: number;
+  date: string;
+  source: string;
+}
+
+/**
+ * Gets information needed to calculate per capita for a single stat data point.
+ * @param svSpec the stat var spec of the data point to calculate per capita for
+ * @param denomData population data to use for the calculation
+ * @param placeDcid place of the data point
+ * @param mainStatDate date of the data point
+ * @param mainStatUnit unit of the data point
+ */
+export function getDenomInfo(
+  svSpec: StatVarSpec,
+  denomData: SeriesApiResponse,
+  placeDcid: string,
+  mainStatDate: string
+): DenomInfo {
+  if (!denomData || !(svSpec.denom in denomData.data)) {
+    return null;
+  }
+  const placeDenomData = denomData.data[svSpec.denom][placeDcid];
+  if (!placeDenomData || _.isEmpty(placeDenomData.series)) {
+    return null;
+  }
+  const denomSeries = placeDenomData.series;
+  const denomObs = getMatchingObservation(denomSeries, mainStatDate);
+  if (!denomObs || !denomObs.value) {
+    return null;
+  }
+  let source = "";
+  if (denomData.facets[placeDenomData.facet]) {
+    source = denomData.facets[placeDenomData.facet].provenanceUrl;
+  }
+  return {
+    value: denomObs.value,
+    date: denomObs.date,
+    source,
+  };
 }

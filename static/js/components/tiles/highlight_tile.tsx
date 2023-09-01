@@ -27,11 +27,13 @@ import { formatNumber, translateUnit } from "../../i18n/i18n";
 import { Observation, PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
-import { getPoint } from "../../utils/data_fetch_utils";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
+  getDenomInfo,
   getSourcesJsx,
+  getUnitAndScaling,
   ReplacementStrings,
 } from "../../utils/tile_utils";
 
@@ -182,45 +184,56 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
 
 const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   // Now assume highlight only talks about one stat var.
-  const mainStatVar = props.statVarSpec.statVar;
-  const denomStatVar = props.statVarSpec.denom;
-  const statVars = [mainStatVar];
-  if (denomStatVar) {
-    statVars.push(denomStatVar);
-  }
-  return getPoint(props.apiRoot, [props.place.dcid], statVars, props.date)
-    .then((resp) => {
-      const statData = resp.data;
-      const mainStatData = statData[mainStatVar][props.place.dcid];
+  const statPromise = getPoint(
+    props.apiRoot,
+    [props.place.dcid],
+    [props.statVarSpec.statVar],
+    props.date
+  );
+  const denomPromise = props.statVarSpec.denom
+    ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])
+    : Promise.resolve(null);
+  return Promise.all([statPromise, denomPromise])
+    .then(([statResp, denomResp]) => {
+      const mainStatData =
+        statResp.data[props.statVarSpec.statVar][props.place.dcid];
       let value = mainStatData.value;
-      const facet = resp.facets[mainStatData.facet];
-      if (denomStatVar) {
-        value /= statData[denomStatVar][props.place.dcid].value;
+      const facet = statResp.facets[mainStatData.facet];
+      const sources = new Set();
+      if (facet && facet.provenanceUrl) {
+        sources.add(facet.provenanceUrl);
       }
-      if (props.statVarSpec.scaling) {
-        value *= props.statVarSpec.scaling;
+      let { unit, scaling } = getUnitAndScaling(props.statVarSpec, statResp);
+      if (props.statVarSpec.denom) {
+        const denomInfo = getDenomInfo(
+          props.statVarSpec,
+          denomResp,
+          props.place.dcid,
+          mainStatData.date
+        );
+        if (!denomInfo) {
+          return null;
+        }
+        value /= denomInfo.value;
+        sources.add(denomInfo.source);
+      }
+      let numFractionDigits = NUM_FRACTION_DIGITS;
+      if (unit in UnitOverrideConfig) {
+        const override = UnitOverrideConfig[unit];
+        unit = override.unitDisplayName;
+        scaling = override.multiplier;
+        numFractionDigits = override.numFractionDigits || numFractionDigits;
+      }
+      if (scaling) {
+        value *= scaling;
       }
       const result = {
         value,
         date: mainStatData.date,
-        numFractionDigits: NUM_FRACTION_DIGITS,
+        numFractionDigits,
+        unitDisplayName: unit,
+        sources,
       };
-      if (facet) {
-        if (facet.unit in UnitOverrideConfig) {
-          const override = UnitOverrideConfig[facet.unit];
-          result["unitDisplayName"] = override.unitDisplayName;
-          result.value = result.value * override.multiplier;
-          result["numFractionDigits"] =
-            override.numFractionDigits === undefined
-              ? NUM_FRACTION_DIGITS
-              : override.numFractionDigits;
-        } else if (facet.unitDisplayName) {
-          result["unitDisplayName"] = facet.unitDisplayName;
-        }
-        if (facet.provenanceUrl) {
-          result["sources"] = new Set([facet.provenanceUrl]);
-        }
-      }
       return result;
     })
     .catch(() => {
