@@ -15,11 +15,16 @@
 browser.datacommons.org with datacommons.org
 """
 
+import json
+
 from flask import Blueprint
 from flask import current_app
 from flask import redirect
 from flask import request
 from flask import url_for
+
+from server.lib.config import GLOBAL_CONFIG_BUCKET
+from shared.lib import gcs
 
 bp = Blueprint(
     "redirects",
@@ -102,3 +107,16 @@ def insights():
       url_for('explore.page',
               _scheme=current_app.config.get('SCHEME', 'https'),
               code=302))
+
+
+def load_redirects(name):
+  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
+                                 filename='redirects.json')
+  with open(local_file) as fp:
+    mapping = json.load(fp)
+    return mapping.get(name, '/')
+
+
+@bp.route('/link/<path:name>')
+def link(name):
+  return redirect(load_redirects(name), code=302)
