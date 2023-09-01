@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 from base64 import b64encode
 from datetime import datetime
 from datetime import timedelta
 import io
 import os
+import urllib.parse
 
 from dateutil.relativedelta import relativedelta
 import flask
@@ -29,9 +31,11 @@ from markupsafe import escape
 from server import cache
 from server.lib.gcs import list_folder
 from server.lib.gcs import list_png
+from server.lib.gcs import read_blob
 from server.routes.screenshot.diff import img_diff
 
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
+GCS_IMAGE_URL = 'https://storage.mtls.cloud.google.com/'
 
 bp = flask.Blueprint("screenshot", __name__, url_prefix='/screenshot')
 
@@ -40,6 +44,14 @@ def env_valid():
   return os.environ.get('FLASK_ENV') in [
       'autopush', 'local', 'test', 'webdriver'
   ]
+
+
+def get_name_url(prefix, blob_name):
+  name = blob_name.removeprefix(prefix + '/').removesuffix('.png')
+  name = urllib.parse.unquote(name)
+  url = os.path.join(GCS_IMAGE_URL, SCREENSHOT_BUCKET,
+                     urllib.parse.quote(blob_name))
+  return name, url
 
 
 @bp.route('/')
@@ -117,13 +129,13 @@ def home():
 def commit(sha):
   if not env_valid():
     flask.abort(404)
-  images = list_png(SCREENSHOT_BUCKET, 'local/' + sha)
-  data = {}
-  for name in images:
-    data[name] = {
-        'base': b64encode(images[name]).decode('utf-8'),
-    }
-  return flask.render_template('screenshot/commit.html', data=data, sha=sha)
+  prefix = 'local/' + sha
+  blob_names = list_png(SCREENSHOT_BUCKET, prefix)
+  images = {}
+  for blob in blob_names:
+    name, url = get_name_url(prefix, blob)
+    images[name] = url
+  return flask.render_template('screenshot/commit.html', images=images, sha=sha)
 
 
 @bp.route('/date/<path:date>')
@@ -132,13 +144,13 @@ def date(date):
   if not env_valid():
     flask.abort(404)
   domain = request.args.get('domain')
-  images = list_png(SCREENSHOT_BUCKET, domain + '/' + date)
-  data = {}
-  for name in images:
-    data[name] = {
-        'base': b64encode(images[name]).decode('utf-8'),
-    }
-  return flask.render_template('screenshot/date.html', data=data, date=date)
+  prefix = domain + '/' + date
+  blob_names = list_png(SCREENSHOT_BUCKET, prefix)
+  images = {}
+  for blob in blob_names:
+    name, url = get_name_url(prefix, blob)
+    images[name] = url
+  return flask.render_template('screenshot/date.html', images=images, date=date)
 
 
 @bp.route('/compare/<path:compare>')
@@ -157,25 +169,43 @@ def compare(compare):
   if len(parts) != 2:
     return "Invalid hash comparison: " + compare, 400
 
-  images_1 = list_png(SCREENSHOT_BUCKET, domain + '/' + parts[0])
-  images_2 = list_png(SCREENSHOT_BUCKET, domain + '/' + parts[1])
-
-  data = {}
-  for name, im1 in images_1.items():
-    data[name] = {}
-    if name in images_2:
-      im2 = images_2[name]
-      diff, diff_ratio = img_diff(im1, im2)
-      diff_byte_arr = io.BytesIO()
-      diff.save(diff_byte_arr, format='PNG')
-      diff_byte_arr = diff_byte_arr.getvalue()
-      data[name] = {
-          'diff': b64encode(diff_byte_arr).decode('utf-8'),
-          'base': b64encode(im1).decode('utf-8'),
-          'diff_ratio': diff_ratio
-      }
+  token1 = parts[0]
+  token2 = parts[1]
+  prefix1 = domain + '/' + token1
+  prefix2 = domain + '/' + token2
+  blob1_names = list_png(SCREENSHOT_BUCKET, prefix1)
+  blob2_names = list_png(SCREENSHOT_BUCKET, prefix2)
+  images1 = {}
+  images2 = {}
+  for blob in blob1_names:
+    name, _ = get_name_url(prefix1, blob)
+    images1[name] = blob
+  for blob in blob2_names:
+    name, _ = get_name_url(prefix2, blob)
+    images2[name] = blob
   return flask.render_template('screenshot/compare.html',
-                               data=data,
-                               token=parts[1],
-                               base_token=parts[0],
+                               images1=json.dumps(images1),
+                               images2=json.dumps(images2),
+                               token1=token1,
+                               token2=token2,
                                domain=domain)
+
+
+@bp.route('/api/diff')
+@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+def diff():
+  blob1 = request.args.get('blob1')
+  blob2 = request.args.get('blob2')
+
+  im1 = read_blob(SCREENSHOT_BUCKET, blob1)
+  im2 = read_blob(SCREENSHOT_BUCKET, blob2)
+
+  diff, diff_ratio = img_diff(im1, im2)
+  diff_byte_arr = io.BytesIO()
+  diff.save(diff_byte_arr, format='PNG')
+  diff_byte_arr = diff_byte_arr.getvalue()
+  return {
+      'diff': b64encode(diff_byte_arr).decode('utf-8'),
+      'base': b64encode(im1).decode('utf-8'),
+      'diffRatio': diff_ratio
+  }
