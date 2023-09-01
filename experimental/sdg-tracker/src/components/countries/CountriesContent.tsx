@@ -20,7 +20,12 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import { IndicatorTags, GoalText, useStoreActions, useStoreState } from "../../state";
+import {
+  GoalText,
+  IndicatorTags,
+  useStoreActions,
+  useStoreState,
+} from "../../state";
 import {
   QUERY_PARAM_VARIABLE,
   ROOT_TOPIC,
@@ -482,10 +487,12 @@ const ChartCategoryContent: React.FC<{
   const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
 
-
   // get current indicator, for displaying headlines for the current indicator
-  const indicatorMatches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/)
-  const indicatorId = indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
+  const indicatorMatches = mainTopic.dcid?.match(
+    /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+  );
+  const indicatorId =
+    indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
   const indicator = indicatorHeadlines.byIndicator[indicatorId];
 
   const tiles: ChartConfigTile[] = [];
@@ -519,20 +526,20 @@ const ChartCategoryContent: React.FC<{
   );
 };
 
-const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({indicator}) => {
+const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
+  indicator,
+}) => {
   if (!indicator) {
     return <></>;
   }
   return (
-    <datacommons-text
-      link={indicator.link}
-    >
+    <datacommons-text link={indicator.link}>
       <div slot="text">{indicator.headline}</div>
     </datacommons-text>
-  )
+  );
 };
 
-const BulletTile: React.FC<{ goal: GoalText | null }> = ({goal}) => {
+const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
   if (!goal) {
     return <></>;
   }
@@ -540,11 +547,13 @@ const BulletTile: React.FC<{ goal: GoalText | null }> = ({goal}) => {
     <datacommons-text>
       <div slot="text">
         <ul>
-          {goal.headlines.map((point: string, i: number) => <li key={i}>{point}</li>)}
+          {goal.headlines.map((point: string, i: number) => (
+            <li key={i}>{point}</li>
+          ))}
         </ul>
       </div>
     </datacommons-text>
-  )
+  );
 };
 
 const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
@@ -616,12 +625,22 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       </>
     );
   } else if (tile.type === "MAP") {
+    const channel = `map-${tile.statVarKey.join("__")}`;
     component = (
       <>
         {/** @ts-ignore */}
         <datacommons-map
           apiRoot={WEB_API_ENDPOINT}
+          subscribe={channel}
           header={tile.title}
+          variable={tile.statVarKey.join(" ")}
+          parentPlace="Earth"
+          childPlaceType="Country"
+        />
+        {/** @ts-ignore */}
+        <datacommons-slider
+          apiRoot={WEB_API_ENDPOINT}
+          publish={channel}
           variable={tile.statVarKey.join(" ")}
           parentPlace="Earth"
           childPlaceType="Country"

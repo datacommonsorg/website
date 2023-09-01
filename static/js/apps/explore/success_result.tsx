@@ -19,6 +19,7 @@
  */
 
 import _ from "lodash";
+import queryString from "query-string";
 import React, { useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
@@ -38,6 +39,7 @@ import {
 } from "../../types/app/nl_interface_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
+import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { DebugInfo } from "../nl_interface/debug_info";
 import { RelatedPlace } from "./related_place";
@@ -93,6 +95,10 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
         types: null,
       }
     : props.pageMetadata.mainTopics[0];
+
+  const hashParams = queryString.parse(window.location.hash);
+  const maxBlockParam = hashParams[URL_HASH_PARAMS.MAXIMUM_BLOCK];
+  const maxBlock = parseInt(maxBlockParam as string);
 
   useEffect(() => {
     const searchBoundingBox = searchSectionRef.current?.getBoundingClientRect();
@@ -169,7 +175,10 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   <SubjectPageMainPane
                     id={PAGE_ID}
                     place={props.pageMetadata.place}
-                    pageConfig={props.pageMetadata.pageConfig}
+                    pageConfig={trimCategory(
+                      props.pageMetadata.pageConfig,
+                      maxBlock
+                    )}
                     svgChartHeight={SVG_CHART_HEIGHT}
                     showExploreMore={true}
                   />

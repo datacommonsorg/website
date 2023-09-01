@@ -262,10 +262,10 @@ class IntegrationTest(NLWebServerTestCase):
 
   def test_e2e_edge_cases(self):
     self.run_detect_and_fulfill('e2e_edge_cases', [
-        'emissions in Houston',
-        'poverty in California and California',
+        'emissions in Houston', 'poverty in California and California',
         'poverty vs. poverty in California',
         'number of headless drivers in california',
+        'immunization vs. debt in the world', 'debt in china, germany and india'
     ])
 
   def test_e2e_superlatives(self):

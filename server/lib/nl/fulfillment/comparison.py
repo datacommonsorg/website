@@ -39,21 +39,30 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     dcids = [p.dcid for p in places]
     state.uttr.counters.info('comparison_place_candidates', dcids)
 
-  if len(chart_vars.svs) == 1:
-    sv = chart_vars.svs[0]
-    exist_places = [
-        p for p in places if ext.svs4place(state, p, [sv]).exist_svs
-    ]
-    # Main existence check
-    if len(exist_places) <= 1:
-      state.uttr.counters.err('comparison_failed_1p1v_existence', 1)
-      return False
-    places = exist_places
+  found = False
+  if not chart_vars.is_topic_peer_group:
+    for i, sv in enumerate(chart_vars.svs):
+      exist_places = [
+          p for p in places if ext.svs4place(state, p, [sv]).exist_svs
+      ]
+      # Main existence check
+      if len(exist_places) <= 1:
+        continue
+
+      if i == 0:
+        # This is for setting answer places.
+        places = exist_places
+
+      cv = copy.deepcopy(chart_vars)
+      cv.svs = [sv]
+      found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv,
+                                      exist_places, chart_origin)
   else:
     exist_svs = []
-    # Pick variables that exist in at least 1 place.
+    # Pick variables that exist in at least 2 place, so each variable is comparable.
     for sv in chart_vars.svs:
-      if any([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places]):
+      if sum([bool(ext.svs4place(state, p, [sv]).exist_svs) for p in places
+             ]) > 1:
         exist_svs.append(sv)
     if not exist_svs:
       state.uttr.counters.err('comparison_failed_varexistence', 1)
@@ -63,12 +72,18 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     for p in places:
       if ext.svs4place(state, p, exist_svs).exist_svs:
         exist_places.append(p)
-    if not exist_places:
+    if len(exist_places) <= 1:
       state.uttr.counters.err('comparison_failed_placeexistence', 1)
       return False
 
     places = exist_places
     chart_vars.svs = exist_svs
+    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
+                                    places, chart_origin)
+
+  if not found:
+    state.uttr.counters.err('failed_comparison_existence', '')
+    return False
 
   # If this is the top result, add to answer place.
   if rank == 0 and places:
@@ -76,7 +91,4 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.answerPlaces = ans_places
     state.uttr.counters.info('comparison_answer_places',
                              [p.dcid for p in ans_places])
-
-  add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                         chart_origin)
   return True
