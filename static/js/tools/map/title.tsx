@@ -26,7 +26,7 @@ import { ifShowChart } from "./util";
 export function Title(): JSX.Element {
   const { statVar, placeInfo } = useContext(Context);
   const hideVisLink =
-    document.getElementById("metadata").dataset.hideVisLink === "True";
+    document.getElementById("metadata")?.dataset?.hideVisLink === "True";
 
   return (
     <>

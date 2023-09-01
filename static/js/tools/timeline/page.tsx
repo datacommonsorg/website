@@ -158,7 +158,7 @@ class Page extends Component<unknown, PageStateType> {
         sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
     const hideVisLink =
-      document.getElementById("metadata").dataset.hideVisLink === "True";
+      document.getElementById("metadata")?.dataset?.hideVisLink === "True";
 
     return (
       <>

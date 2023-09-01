@@ -52,7 +52,7 @@ function App(): JSX.Element {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
   const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
   const hideVisLink =
-    document.getElementById("metadata").dataset.hideVisLink === "True";
+    document.getElementById("metadata")?.dataset?.hideVisLink === "True";
   return (
     <>
       <StatVarChooser
