@@ -27,7 +27,7 @@ ltt install torch --cpuonly
 pip3 install -r nl_server/requirements.txt
 
 # Define a list of domains
-domain_list="datacommons.feedingamerica.org"
+domain_list=("datacommons.feedingamerica.org","dev.datacommons.org","autopush.datacommons.org")
 
 # Loop through the domain list
 for domain in $domain_list
