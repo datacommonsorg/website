@@ -114,7 +114,7 @@ def load_redirects(name):
                                  filename='redirect.json')
   with open(local_file) as fp:
     mapping = json.load(fp)
-    return mapping.get(name, '')
+    return mapping.get(name, '/')
 
 
 @bp.route('/demo/<path:name>')
