@@ -145,7 +145,7 @@ endpoints = Endpoints([
     '/v1/variable/search',
     '/v1/internal/page/bio',
     '/v1/internal/page/place',
-    '/v1/find/entities',
+    '/v1/bulk/find/entities',
     '/v1/recognize/places',
     # v2
     '/v2/observation',

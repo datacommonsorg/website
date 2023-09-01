@@ -378,10 +378,10 @@ def recognize_places(query):
 
 
 def find_entities(places):
-  url = get_service_url('v1/find/entities')
+  url = get_service_url('/v1/bulk/find/entities')
   entities = [{'description': p} for p in places]
   resp = post(url, {'entities': entities})
-  retval = [{p: []} for p in places]
+  retval = {p: [] for p in places}
   for ent in resp.get('entities', []):
     if not ent.get('description') or not ent.get('dcids'):
       continue
