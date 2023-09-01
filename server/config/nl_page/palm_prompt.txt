@@ -225,3 +225,5 @@ Output JSON:
 ```
 
 Do not make up new JSON properties outside of the JSON Schema.
+
+Importantly, return empty response if the input includes any slur, insult or discriminatory words.
