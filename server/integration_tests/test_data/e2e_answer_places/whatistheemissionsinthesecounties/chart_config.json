@@ -730,6 +730,13 @@
     "childPlaces": {},
     "childTopics": [
       {
+        "dcid": "dc/topic/CO2Emissions",
+        "name": "Carbondioxide ( CO2)",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
         "name": "Methane",
         "types": [
