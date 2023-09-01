@@ -30,7 +30,7 @@ $topic-card-image-width: 263px;
 $topic-card-image-sprite-x: 150px;
 $topic-card-image-sprite-y: 0;
 $max-topics-per-row: 3;
-$section-vmargin: 64px;
+$section-vmargin: 100px;
 $topics-section-vmargin: 56px; // to keep it above the fold
 
 $animation-card-max-width: 905px;
@@ -60,7 +60,6 @@ $search-answer-bottom: 48px;
 
 .main-content {
   margin: 0;
-  padding-bottom: $section-vmargin;
 }
 
 #homepage section {
