@@ -251,15 +251,15 @@ def get_contained_in_type(
   return place_type
 
 
-def get_size_types(uttr: nl_uttr.Utterance) -> List[types.SizeType]:
+def get_superlatives(uttr: nl_uttr.Utterance) -> List[types.SuperlativeType]:
   classification = futils.classifications_of_type_from_utterance(
-      uttr, types.ClassificationType.SIZE_TYPE)
-  size_types = []
+      uttr, types.ClassificationType.SUPERLATIVE)
+  superlatives = []
   if (classification and isinstance(classification[0].attributes,
-                                    types.SizeTypeClassificationAttributes)):
+                                    types.SuperlativeClassificationAttributes)):
     # Ranking among places.
-    size_types = classification[0].attributes.size_types
-  return size_types
+    superlatives = classification[0].attributes.superlatives
+  return superlatives
 
 
 def get_ranking_types(uttr: nl_uttr.Utterance) -> List[types.RankingType]:
@@ -372,11 +372,6 @@ def get_default_child_place_type(
   ptype = constants.CHILD_PLACE_TYPES.get(ptype, None)
   if ptype:
     ptype = admin_area_equiv_for_place(ptype, place)
-
-    if place.dcid == constants.USA.dcid:
-      # NL has fallback, so if for country we preferred AA1, downgrade
-      # to AA2 since if data doesn't exist it will fallback to AA1.
-      ptype = types.ContainedInPlaceType.COUNTY
 
   return ptype
 

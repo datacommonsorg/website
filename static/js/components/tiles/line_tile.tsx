@@ -36,6 +36,7 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getBestUnit } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
@@ -233,12 +234,29 @@ function rawToChart(
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
   const allDates = new Set<string>();
-  let unit = "";
+  // TODO: make a new wrapper to fetch series data & do the processing there.
+  const unit2count = {};
+  for (const spec of props.statVarSpec) {
+    const entityToSeries = raw.data[spec.statVar];
+    for (const placeDcid in entityToSeries) {
+      const series = raw.data[spec.statVar][placeDcid];
+      const svUnit = getUnit(raw.facets[series.facet]);
+      if (!unit2count[svUnit]) {
+        unit2count[svUnit] = 0;
+      }
+      unit2count[svUnit]++;
+    }
+  }
+  let unit = getBestUnit(unit2count);
   for (const spec of props.statVarSpec) {
     // Do not modify the React state. Create a clone.
     const entityToSeries = raw.data[spec.statVar];
     for (const placeDcid in entityToSeries) {
       const series = raw.data[spec.statVar][placeDcid];
+      const svUnit = getUnit(raw.facets[series.facet]);
+      if (svUnit !== unit) {
+        continue;
+      }
       let obsList = series.series;
       if (spec.denom) {
         const denomSeries = raw.data[spec.denom][placeDcid];
@@ -262,8 +280,6 @@ function rawToChart(
           ? placeDcidToName[placeDcid]
           : statVarDcidToName[spec.statVar];
         dataGroups.push(new DataGroup(label, dataPoints));
-        const svUnit = getUnit(raw.facets[series.facet]);
-        unit = unit || svUnit;
         sources.add(raw.facets[series.facet].provenanceUrl);
       }
     }

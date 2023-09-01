@@ -9,6 +9,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -53,6 +54,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -72,7 +74,6 @@
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block",
                       "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block",
@@ -96,6 +97,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -129,6 +131,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -160,6 +163,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -188,6 +192,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -221,6 +226,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -254,6 +260,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -287,6 +294,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -320,6 +328,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -353,6 +362,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -386,6 +396,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -412,6 +423,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -439,6 +451,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -472,6 +485,7 @@
                 "tiles": [
                   {
                     "barTileSpec": {
+                      "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
@@ -636,10 +650,6 @@
           "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Sulfur Dioxide, IndustrialProcesses (3)",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses"
-          },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, WasteDisposal (5)",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal"
           },
           "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions Toluene, ExternalCombustion (1)",

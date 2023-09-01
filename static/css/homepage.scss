@@ -32,7 +32,7 @@ $max-topics-per-row: 3;
 $section-vmargin: 64px;
 
 $animation-card-max-width: 905px;
-$animation-card-height: 363px;
+$animation-card-height: 326px;  // NOTE: images are 363px tall
 $animation-section-background: #fafbff;
 
 // Calculates the total width of $num-topic-cards including horizontal spacing.
@@ -45,6 +45,10 @@ $animation-section-background: #fafbff;
 // to use for image size at a particular width.
 @function answer-height($max-width) {
   @return $max-width * $animation-card-height / $animation-card-max-width;
+}
+
+#page-homepage #main-header {
+  box-shadow: none;
 }
 
 .main-content {
@@ -130,7 +134,7 @@ $animation-section-background: #fafbff;
   @media (max-width: animation-width(2)) {
     .container {
       max-width: animation-width(1) !important;
-      height: 324px !important;
+      height: 295px !important;
     }
 
     .header {
@@ -155,7 +159,7 @@ $animation-section-background: #fafbff;
   @media (min-width: animation-width(2)) and (max-width: animation-width(3)) {
     .container {
       max-width: animation-width(2) !important;
-      height: 464px !important;
+      height: 423px !important;
     }
 
     .header {
@@ -178,7 +182,7 @@ $animation-section-background: #fafbff;
   }
 
   .container {
-    height: 552px; // TODO(beets): Find a better way to fix this height to max of either child.
+    height: 508px; // TODO(beets): Find a better way to fix this height to max of either child.
     position: relative;
 
     #result-svg {
@@ -233,11 +237,12 @@ $animation-section-background: #fafbff;
     left: 0;
     right: 0;
     overflow: hidden;
+    cursor: pointer;
 
     #animation-search-input {
       background: $animation-section-background;
       border: none;
-      border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-80);
+      border-bottom: 1px solid rgba(199, 199, 199, .5);
       border-radius: 0;
       padding-left: 0;
       color: var(--gm-3-sys-light-primary);
