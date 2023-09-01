@@ -311,7 +311,8 @@ def main(_):
   print("Attempting to write to GCS")
   print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
   blob = ctx.bucket.blob(gcs_embeddings_filename)
-  blob.upload_from_filename(gcs_tmp_out_path)
+  # Since the files can be fairly large, use a 10min timeout to be safe.
+  blob.upload_from_filename(gcs_tmp_out_path, timeout=600)
   print("Done uploading to gcs.")
   print(f"\t Embeddings Filename: {gcs_embeddings_filename}")
   print("\nNOTE: Please update embeddings.yaml with the Embeddings Filename")
