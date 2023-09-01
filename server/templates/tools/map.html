@@ -33,6 +33,7 @@
 {% endblock %}
 
 {% block content %}
+  <div id="metadata" class="d-none" data-hide-vis-link="{{ config['HIDE_REVAMP_CHANGES'] }}"></div>
   <div id="main-pane"></div>
   <script>
     infoConfig = {{info_json|tojson|safe}};
