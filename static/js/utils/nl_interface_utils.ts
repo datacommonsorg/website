@@ -106,13 +106,14 @@ export function getFeedbackLink(
     }
     debugInfo = {
       executionStatus: debugData["status"],
+      blocked: debugData["blocked"] || false,
       placesDetected: debugData["places_detected"],
       mainPlaceDCID: debugData["main_place_dcid"],
       mainPlaceName: debugData["main_place_name"],
       queryForVariableDetection: debugData["query_with_places_removed"],
       rankingClassification: debugData["ranking_classification"],
-      overviewClassification: debugData["overview_classification"],
-      sizeTypeClassification: debugData["size_type_classification"],
+      generalClassification: debugData["general_classification"],
+      superlativeClassification: debugData["superlative_classification"],
       timeDeltaClassification: debugData["time_delta_classification"],
       comparisonClassification: debugData["comparison_classification"],
       containedInClassification: debugData["contained_in_classification"],

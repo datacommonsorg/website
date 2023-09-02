@@ -28,6 +28,7 @@ import { PointApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
 import { dataPointsToCsv } from "../../utils/chart_csv_utils";
+import { getPoint } from "../../utils/data_fetch_utils";
 import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -131,22 +132,18 @@ const fetchData = async (props: GaugeTilePropType) => {
     statVars.push(denomStatVar);
   }
   try {
-    const resp = await axios.get<PointApiResponse>(
-      `${props.apiRoot || ""}/api/observations/point`,
-      {
-        params: {
-          entities: [props.place.dcid],
-          variables: statVars,
-        },
-        paramsSerializer: stringifyFn,
-      }
+    const resp = await getPoint(
+      props.apiRoot,
+      [props.place.dcid],
+      statVars,
+      ""
     );
     const statVarDcidToName = await getStatVarNames(
       [props.statVarSpec],
       props.apiRoot
     );
 
-    const statData = resp.data.data;
+    const statData = resp.data;
     const mainStatData = statData[mainStatVar][props.place.dcid];
     let value = mainStatData.value;
     if (denomStatVar) {
@@ -157,8 +154,8 @@ const fetchData = async (props: GaugeTilePropType) => {
     }
     const sources = new Set<string>();
 
-    if (resp.data.facets[mainStatData.facet]) {
-      sources.add(resp.data.facets[mainStatData.facet].provenanceUrl);
+    if (resp.facets[mainStatData.facet]) {
+      sources.add(resp.facets[mainStatData.facet].provenanceUrl);
     }
     return {
       value,

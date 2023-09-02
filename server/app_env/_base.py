@@ -70,3 +70,5 @@ class Config:
   DATA_SOURCE_DCID = ''
   # The name of the special data source to show as top level category in the hierarchy
   DATA_SOURCE_NAME = ''
+  # Should hide debug info
+  HIDE_DEBUG = True

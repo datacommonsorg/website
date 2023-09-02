@@ -80,43 +80,43 @@
     "async": true
   },
   {
-    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=True&d=True",
-    "height": 2000,
+    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=family+earnings+in+california&a=True&d=True",
-    "height": 2000,
+    "url": "/nl/#q=family+earnings+in+california&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=True&d=True",
-    "height": 1000,
+    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True",
-    "height": 1000,
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=True&d=True",
-    "height": 2000,
+    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=fires+in+california&a=True&d=True",
-    "height": 1000,
+    "url": "/nl/#q=fires+in+california&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True",
-    "height": 2000,
+    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=True&d=True",
-    "height": 1000,
+    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
@@ -135,163 +135,163 @@
     "async": true
   },
   {
-    "url": "/explore#q=Obesity+vs+Unemployment+in+the+US+counties",
-    "height": 1080,
+    "url": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Businesses+by+industry+in+New+York+State",
-    "height": 1080,
+    "url": "/explore/#q=Businesses+by+industry+in+New+York+State&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Health+equity+in+Santa+Clara+County",
-    "height": 1080,
+    "url": "/explore/#q=Health+equity+in+Santa+Clara+County&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Incarceration+rates+by+race+in+the+US",
-    "height": 1080,
+    "url": "/explore/#q=Incarceration+rates+by+race+in+the+US&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=health+behaviors+in+India+vs+Norway",
-    "height": 1080,
+    "url": "/explore/#q=health+behaviors+in+India+vs+Norway&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=High+blood+pressure+vs+Asthma+in+Alabama",
-    "height": 1080,
+    "url": "/explore/#q=High+blood+pressure+vs+Asthma+in+Alabama&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=School+Enrollment+in+California",
-    "height": 1080,
+    "url": "/explore/#q=School+Enrollment+in+California&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Student+demographics+among+schools+in+Sunnyvale",
-    "height": 1080,
+    "url": "/explore/#q=Student+demographics+among+schools+in+Sunnyvale&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Housing+in+Oakland",
-    "height": 1080,
+    "url": "/explore#q=Housing+in+Oakland&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Compare+modes+of+commute+between+NYC+and+Chicago",
-    "height": 1080,
+    "url": "/explore/#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Rental+prices+in+Oakland+vs+Berkeley",
-    "height": 1080,
+    "url": "/explore/#q=Rental+prices+in+Oakland+vs+Berkeley&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Median+home+value+vs.+hypertension+in+US+counties",
-    "height": 1080,
+    "url": "/explore/#q=Median+home+value+vs.+hypertension+in+US+counties&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Gender+distribution+in+the+US",
-    "height": 1080,
+    "url": "/explore/#q=Gender+distribution+in+the+US&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Foreign+born+population+vs.+PhD+holders+in+California+counties",
-    "height": 1080,
+    "url": "/explore/#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=Green+jobs+in+the+US",
-    "height": 1080,
+    "url": "/explore/#q=Green+jobs+in+the+US&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/explore#q=AQI+vs+blood+pressure+in+New+Jersey",
-    "height": 1080,
+    "url": "/explore/#q=AQI+vs+blood+pressure+in+New+Jersey&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#a=Obesity+vs+Unemployment+in+the+US+counties&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Obesity+vs+Unemployment+in+the+US+counties&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Businesses+by+industry+in+New+York+State&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Businesses+by+industry+in+New+York+State&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Health+equity+in+Santa+Clara+County&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Health+equity+in+Santa+Clara+County&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Incarceration+rates+by+race+in+the+US&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Incarceration+rates+by+race+in+the+US&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=health+behaviors+in+India+vs+Norway&a=True&d=True",
-    "height": 1080,
+    "url": "/nl#q=health+behaviors+in+India+vs+Norway&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=High+blood+pressure+vs+Asthma+in+Alabama&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=High+blood+pressure+vs+Asthma+in+Alabama&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=School+Enrollment+in+California&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=School+Enrollment+in+California&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Student+demographics+among+schools+in+Sunnyvale&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Student+demographics+among+schools+in+Sunnyvale&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Housing+in+Oakland&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Housing+in+Oakland&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Compare+modes+of+commute+between+NYC+and+Chicago&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Compare+modes+of+commute+between+NYC+and+Chicago&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Rental+prices+in+Oakland+vs+Berkeley&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Rental+prices+in+Oakland+vs+Berkeley&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Median+home+value+vs.+hypertension+in+US+counties&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Median+home+value+vs.+hypertension+in+US+counties&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Gender+distribution+in+the+US&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Gender+distribution+in+the+US&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=Green+jobs+in+the+US&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=Green+jobs+in+the+US&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   },
   {
-    "url": "/nl#q=AQI+vs+blood+pressure+in+New+Jersey&a=True&d=True",
-    "height": 1080,
+    "url": "/nl/#q=AQI+vs+blood+pressure+in+New+Jersey&a=True&d=True&mb=3",
+    "height": 3000,
     "async": true
   }
 ]

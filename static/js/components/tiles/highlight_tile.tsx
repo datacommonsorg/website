@@ -18,15 +18,17 @@
  * Component for rendering a highlight tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../../constants/css_constants";
 import { formatNumber, translateUnit } from "../../i18n/i18n";
-import { Observation, PointApiResponse } from "../../shared/stat_types";
+import { Observation } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { stringifyFn } from "../../utils/axios";
+import { getPoint } from "../../utils/data_fetch_utils";
 import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
@@ -160,7 +162,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       {highlightData && (
         <>
           <span className="stat">
-            <span className="number">
+            <span className={`number ${ASYNC_ELEMENT_CLASS}`}>
               {formatNumber(
                 highlightData.value,
                 numberUnit,
@@ -187,20 +189,12 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   if (denomStatVar) {
     statVars.push(denomStatVar);
   }
-  return axios
-    .get<PointApiResponse>(`${props.apiRoot || ""}/api/observations/point`, {
-      params: {
-        date: props.date,
-        entities: [props.place.dcid],
-        variables: statVars,
-      },
-      paramsSerializer: stringifyFn,
-    })
+  return getPoint(props.apiRoot, [props.place.dcid], statVars, props.date)
     .then((resp) => {
-      const statData = resp.data.data;
+      const statData = resp.data;
       const mainStatData = statData[mainStatVar][props.place.dcid];
       let value = mainStatData.value;
-      const facet = resp.data.facets[mainStatData.facet];
+      const facet = resp.facets[mainStatData.facet];
       if (denomStatVar) {
         value /= statData[denomStatVar][props.place.dcid].value;
       }

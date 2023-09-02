@@ -40,16 +40,16 @@
   <div class="container">
     <div id="default-text">
       <div class="content">
-        <div class="header">Data tells interesting stories</div>
-        <div class="sub-header invisible" id="header-prompt">Ask a question like...</div>
-        <div class="sub-header hidden" id="header-mission">Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</div>
+        <h3 class="header">Data tells interesting stories</h3>
+        <h4 class="sub-header invisible" id="header-prompt">Ask a question like...</h4>
+        <h4 class="sub-header hidden" id="header-mission">Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</h4>
       </div>
     </div>
     <div id="search-sequence" class="hidden">
-      <input id="animation-search-input" placeholder="Enter a question or topic to explore" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="" readonly>
+      <input id="animation-search-input" placeholder="" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="" readonly>
       <div id="result-svg" class="">
         <div class="result hidden" data-query="Which countries in Africa have had the greatest increase in electricity access?" style="background-image: url('/images/home-answers/access-electricity.svg')"></div>
-        <div class="result hidden" data-query="How do income and diabetes trend in US counties?" style="background-image: url('/images/home-answers/income-diabetes.svg')"></div>
+        <div class="result hidden" data-query="How does income correlate with diabetes in US counties?" style="background-image: url('/images/home-answers/income-diabetes.svg')"></div>
         <div class="result hidden" data-query="Which counties in the US have the highest levels of diabetes?" style="background-image: url('/images/home-answers/diabetes.svg')"></div>
         <div class="result hidden" data-query="Tell me about global greenhouse gas emissions" style="background-image: url('/images/home-answers/emissions.svg')"></div>
         <div class="result hidden" data-query="Show me agricultural income by US county" style="background-image: url('/images/home-answers/farm-income.svg')"></div>
@@ -60,7 +60,7 @@
 
 <section id="topics">
   <div class="container">
-    <h3>Explore curated searches by the Data Commons team</h3>
+    <h3>Curated topics to explore</h3>
     <div class="topics-container">
       {% for topic in topics %}
         <div class="topic-card clickable" onclick="location.href='{{ topic['browseUrl'] }}';">
@@ -84,10 +84,10 @@
     <div class="container">
       <div class="tools-description">
         <h3 class="tools-description-header">Data Commons Tools</h3>
-        <div class="tools-description-subheader">Explore the public database through these tools</div>
+        <h4 class="tools-description-subheader">Explore the public database through these tools</h4>
       </div>
       <div class="tools-icons">
-      <div class="tool-buttons-container">
+        <div class="tool-buttons-container">
           <a href="{{ url_for('tools.visualization')}}#visType=map" id="map-button" class="tool-button">
             <div class="tool-icon"></div>
             <span>Map explorer</span>

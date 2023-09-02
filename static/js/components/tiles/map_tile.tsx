@@ -63,6 +63,7 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { mapDataToCsv } from "../../utils/chart_csv_utils";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -262,17 +263,13 @@ export const fetchData = async (
     .then((resp) => resp.data);
   const dataDate =
     props.statVarSpec.date || getCappedStatVarDate(props.statVarSpec.statVar);
-  const placeStatPromise: Promise<PointApiResponse> = axios
-    .get(`${props.apiRoot || ""}/api/observations/point/within`, {
-      params: {
-        childType: props.enclosedPlaceType,
-        date: dataDate,
-        parentEntity: props.place.dcid,
-        variables: [props.statVarSpec.statVar],
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => resp.data);
+  const placeStatPromise: Promise<PointApiResponse> = getPointWithin(
+    props.apiRoot,
+    props.enclosedPlaceType,
+    props.place.dcid,
+    [props.statVarSpec.statVar],
+    dataDate
+  );
   const populationPromise: Promise<SeriesApiResponse> = props.statVarSpec.denom
     ? axios
         .get(`${props.apiRoot || ""}/api/observations/series/within`, {
