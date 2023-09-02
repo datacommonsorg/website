@@ -8,6 +8,35 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "country/KEN",
+                      "country/SOM",
+                      "country/GHA",
+                      "country/ETH",
+                      "country/MLI",
+                      "country/MAR",
+                      "country/RWA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/UGA"
+                    ],
+                    "statVarKey": [
+                      "worldBank/EG_ELC_ACCS_ZS10"
+                    ],
+                    "title": "Population With Electricity Access (%)",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+            "title": "Population With Electricity Access (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/KEN",
                     "statVarKey": [
                       "worldBank/EG_ELC_ACCS_ZS_growth_abs"
@@ -257,6 +286,10 @@
           }
         ],
         "statVarSpec": {
+          "worldBank/EG_ELC_ACCS_ZS10": {
+            "name": "Population With Electricity Access (%)",
+            "statVar": "worldBank/EG_ELC_ACCS_ZS"
+          },
           "worldBank/EG_ELC_ACCS_ZS_growth_abs": {
             "name": "Population With Electricity Access (%)",
             "statVar": "worldBank/EG_ELC_ACCS_ZS"

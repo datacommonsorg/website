@@ -31,6 +31,7 @@ export const URL_HASH_PARAMS = {
   AUTO_PLAY_QUERY: "aq",
   AUTO_PLAY_DISABLE_TYPING: "at",
   AUTO_PLAY_MANUAL_ENTER: "ae",
+  MAXIMUM_BLOCK: "mb",
 };
 // Dcid of the default topic to use
 export const DEFAULT_TOPIC = "dc/topic/Root";

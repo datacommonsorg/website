@@ -28,13 +28,13 @@
     <p>
       <b>Date: {{ date }}</b>
     </p>
-    {% for name in data %}
+    {% for name in images %}
       <div class="name">
         Url Path: <b>{{ "/" + name }}</b>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <img class="screenshot-image col-md-12" src="data:image/png;base64,{{ data[name]['base'] }}"/>
+          <img class="screenshot-image col-md-12" src="{{ images[name] }}"/>
         </div>
       </div>
     {% endfor %}

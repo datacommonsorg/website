@@ -8,6 +8,35 @@
               {
                 "tiles": [
                   {
+                    "comparisonPlaces": [
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1195"
+                    ],
+                    "statVarKey": [
+                      "Count_School_SeniorSecondarySchool_Grade1To1010"
+                    ],
+                    "title": "Secondary Schools",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Secondary Schools"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1188",
                     "statVarKey": [
                       "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs"
@@ -383,6 +412,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_School_SeniorSecondarySchool_Grade1To1010": {
+            "name": "Secondary Schools",
+            "statVar": "Count_School_SeniorSecondarySchool_Grade1To10"
+          },
           "Count_School_SeniorSecondarySchool_Grade1To10_growth_abs": {
             "name": "Secondary Schools",
             "statVar": "Count_School_SeniorSecondarySchool_Grade1To10"
