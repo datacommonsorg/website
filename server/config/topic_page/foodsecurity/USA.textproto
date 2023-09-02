@@ -963,14 +963,14 @@ categories {
       }
     }
   }
-  blocks {
-    columns {
-      tiles {
-        type: DESCRIPTION
-        description: "_The authors interacted with the following artificial intelligence tools to assist in the creation of content included in this site: ChatGPT_"
-      }
-    }
-  }
+  #blocks {
+  #  columns {
+  #    tiles {
+  #      type: DESCRIPTION
+  #      description: "_The authors interacted with the following artificial intelligence tools to assist in the creation of content included in this site: ChatGPT_"
+  #    }
+  #  }
+  #}
 }
 
 #categories {
