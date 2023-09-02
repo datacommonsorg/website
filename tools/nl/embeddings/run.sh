@@ -19,6 +19,7 @@ function help {
   echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
   echo "$0 -l <embeddings-size> <local_model_path> # 'small' or 'medium'. This option uses the locally stored model to build the embeddings."
   echo "$0 -c <embeddings-size> <sheets_url> <worksheet_name> <local_file_for_sheets_data_download> # This option creates custom embeddings (using the finetuned model in PROD)."
+  echo "$0 -d <embeddings-size> # This option creates custom embeddings for the bad/banned words (using the finetuned model in PROD)."
 }
 
 if [[ $# -le 1 ]]; then
@@ -26,7 +27,7 @@ if [[ $# -le 1 ]]; then
   exit 1
 fi
 
-while getopts bflc OPTION; do
+while getopts bflcd OPTION; do
   case $OPTION in
     b)
         echo -e "### Using the base default sentence_transformer model"
@@ -52,7 +53,6 @@ while getopts bflc OPTION; do
           echo "Using the local model at: $LOCAL_MODEL_PATH"
         fi
         ;;
-
     c) 
       echo -e "### Using the finetuned model from prod with custom embeddings-size"
       SHEETS_URL="$3"
@@ -84,6 +84,17 @@ while getopts bflc OPTION; do
         echo "Found finetuned model on prod: $FINETUNED_MODEL"
       fi
       ;;
+    d)
+      gsutil cp gs://datcom-website-config/nl_bad_words.txt /tmp/bad_words.txt
+      BAD_WORDS_FILEPATH="/tmp/bad_words.txt"
+      FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
+        if [ "$FINETUNED_MODEL" == "" ]; then
+          echo "Using option -f but could not retrieve an existing finetuned model from prod."
+          exit 1
+        else
+          echo "Found finetuned model on prod: $FINETUNED_MODEL"
+        fi
+      ;;
     *)
         help
     esac
@@ -95,8 +106,10 @@ python3 -m pip install --upgrade pip setuptools light-the-torch
 ltt install torch --cpuonly
 pip3 install -r requirements.txt
 
-if [ "$SHEETS_URL" != "" ]; then
-  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_name=$WORKSHEET_NAME --local_sheets_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
+if [ "$BAD_WORDS_FILEPATH" != "" ]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --bad_words_local_filepath=$BAD_WORDS_FILEPATH --sheets_url= --worksheet_name= --local_csv_filepath=data/curated_input/bad_words.csv
+elif [ "$SHEETS_URL" != "" ]; then
+  python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --sheets_url=$SHEETS_URL --worksheet_name=$WORKSHEET_NAME --local_csv_filepath=$LOCAL_CSV_FILE_FOR_SHEETS_DATA_DOWNLOAD
 elif [ "$FINETUNED_MODEL" != "" ]; then
   python3 build_embeddings.py --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 elif [ "$LOCAL_MODEL_PATH" != "" ]; then

@@ -42,15 +42,17 @@ flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
 flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 
-flags.DEFINE_string('local_sheets_csv_filepath',
-                    'data/curated_input/sheets_svs.csv',
-                    'Local Sheets csv (relative) file path')
+flags.DEFINE_string('local_csv_filepath', 'data/curated_input/sheets_svs.csv',
+                    'Local csv (relative) file path')
 flags.DEFINE_string(
     'sheets_url',
     'https://docs.google.com/spreadsheets/d/1-QPDWqD131LcDTZ4y_nnqllh66W010HDdows1phyneU',
     'Google Sheets Url for the latest SVs')
 flags.DEFINE_string('worksheet_name', 'Demo_SVs',
                     'Worksheet name in the Google Sheets file')
+
+flags.DEFINE_string('bad_words_local_filepath', '',
+                    'File path for the local bad_words txt file.')
 
 flags.DEFINE_string(
     'autogen_input_basedir', 'data/autogen_input',
@@ -127,6 +129,50 @@ def get_sheets_data(ctx, sheets_url: str, worksheet_name: str) -> pd.DataFrame:
   return df
 
 
+def process_write_bad_words(bad_words_input_filepath: str,
+                            bad_words_processed_csv_filepath: str) -> None:
+  # Read the bad_words file (line by line) and tranform to a csv format which is the same
+  # as for the other index input files.
+  print(f"Reading bad_words from: {bad_words_input_filepath}")
+  input_fp = open(bad_words_input_filepath, 'r')
+  input_lines = input_fp.readlines()
+  input_fp.close()
+  print(f"Lines read = {len(input_lines)}")
+
+  print(f"Writing bad_words to: {bad_words_processed_csv_filepath}")
+  output_lines = []
+  count = 0
+  with open(bad_words_processed_csv_filepath, 'w') as output_fp:
+    # write header.
+    header = [
+        "dcid", "Name", "Description", "Override_Alternatives",
+        "Curated_Alternatives"
+    ]
+    output_lines.append(",".join(header) + "\n")
+    count += 1
+    for input_str in input_lines:
+      if input_str.startswith("#") or not input_str:
+        continue
+      input_str = input_str[:-1]
+
+      # In this case, there is no "dcid". The phrases are the dcid and names + alternatives.
+      output = []
+      output.append(input_str)  # dcid.
+      output.append(input_str)  # Name.
+      output.append("")  # empty Description.
+      output.append("")  # empty Override_Alternatives.
+      output.append(f"population {input_str};number {input_str}"
+                   )  # empty Curated_Alternatives.
+      print(output)
+      print(",".join(output))
+      output_lines.append(",".join(output) + "\n")
+      count += 1
+
+    output_fp.writelines(output_lines)
+
+  print(f"Written lines = {count}")
+
+
 def _write_intermediate_output(name2sv_dict: Dict[str, str],
                                dup_sv_rows: List[List[str]],
                                local_merged_filepath: str,
@@ -194,22 +240,29 @@ def get_embeddings(ctx, df_svs: pd.DataFrame, local_merged_filepath: str,
   return _build_embeddings(ctx, texts, dcids)
 
 
-def build(ctx, sheets_url: str, worksheet_name: str,
-          local_sheets_csv_filepath: str, local_merged_filepath: str,
-          dup_names_filepath: str, autogen_input_filepattern: str,
+def build(ctx, bad_words_csv_filepath: str, sheets_url: str,
+          worksheet_name: str, local_csv_filepath: str,
+          local_merged_filepath: str, dup_names_filepath: str,
+          autogen_input_filepattern: str,
           alternative_filepattern: str) -> pd.DataFrame:
-  # First download the latest file from sheets.
-  print(
-      f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
-  )
-  df_svs = get_sheets_data(ctx, sheets_url, worksheet_name)
-  print(f"Downloaded {len(df_svs)} rows and {len(df_svs.columns)} columns.")
+  # Either process bad_words or the other indices (which read from Google Sheets).
+  if bad_words_csv_filepath:
+    # Write the bad_words file.
+    process_write_bad_words(bad_words_csv_filepath, local_csv_filepath)
+    # Reading the bad_words CSV.
+    print(f"Reading the bad_words data from: {local_csv_filepath}")
+    df_svs = pd.read_csv(local_csv_filepath)
+  else:
+    # First download the latest file from sheets.
+    print(
+        f"Downloading the latest sheets data from: {sheets_url} (worksheet: {worksheet_name})"
+    )
+    df_svs = get_sheets_data(ctx, sheets_url, worksheet_name)
+    print(f"Downloaded {len(df_svs)} rows and {len(df_svs.columns)} columns.")
 
-  # Write this downloaded file to local.
-  print(
-      f"Writing the downloaded dataframe to local at: {local_sheets_csv_filepath}"
-  )
-  df_svs.to_csv(local_sheets_csv_filepath, index=False)
+    # Write this downloaded file to local.
+    print(f"Writing the downloaded dataframe to local at: {local_csv_filepath}")
+    df_svs.to_csv(local_csv_filepath, index=False)
 
   # Append autogen CSVs if any.
   autogen_dfs = []
@@ -230,7 +283,11 @@ def build(ctx, sheets_url: str, worksheet_name: str,
 
 
 def main(_):
-  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_sheets_csv_filepath and FLAGS.sheets_url and FLAGS.worksheet_name
+  assert FLAGS.model_name_v2 and FLAGS.bucket_name_v2 and FLAGS.local_csv_filepath
+  print(FLAGS.sheets_url, FLAGS.worksheet_name, FLAGS.bad_words_local_filepath)
+
+  if FLAGS.bad_words_local_filepath:
+    assert not FLAGS.sheets_url and not FLAGS.worksheet_name, "If bad_words_local_filepath is set, then sheets_url and worksheet_name must be empty."
 
   assert os.path.exists(os.path.join('data'))
 
@@ -294,9 +351,10 @@ def main(_):
   # Process all the data, produce the final dataframes, build the embeddings and return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(ctx, FLAGS.sheets_url, FLAGS.worksheet_name,
-                        FLAGS.local_sheets_csv_filepath, local_merged_filepath,
-                        dup_names_filepath, autogen_input_filepattern,
+  embeddings_df = build(ctx, FLAGS.bad_words_local_filepath, FLAGS.sheets_url,
+                        FLAGS.worksheet_name, FLAGS.local_csv_filepath,
+                        local_merged_filepath, dup_names_filepath,
+                        autogen_input_filepattern,
                         FLAGS.alternatives_filepattern)
 
   print(f"Saving locally to {gcs_tmp_out_path}")
