@@ -201,8 +201,9 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (props.statVarSpec.scaling) {
         value *= props.statVarSpec.scaling;
       }
-      // If value is a decimal, calculate the numFractionDigits is the number of
-      // digits so that at least 2 non-zero digits will show.
+      // If value is a decimal, calculate the numFractionDigits as the number of
+      // digits to get the first non-zero digit and the number after
+      // TODO: think about adding a limit to the number of digits.
       const numFractionDigits =
         Math.abs(value) >= 1
           ? NUM_FRACTION_DIGITS
