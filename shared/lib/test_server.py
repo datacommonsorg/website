@@ -33,7 +33,10 @@ def find_open_port():
 
 # Start NL server on an unused port, so multiple integration tests can
 # run at the same time.
-port = find_open_port()
+if os.environ.get('DEFAULT_NL_SERVER'):
+  port = 6060
+else:
+  port = find_open_port()
 
 
 class NLWebServerTestCase(LiveServerTestCase):
@@ -42,20 +45,23 @@ class NLWebServerTestCase(LiveServerTestCase):
   def setUpClass(cls):
     if os.environ.get('ENABLE_MODEL') == 'true':
 
-      def start_nl_server(app):
-        app.run(port=port, debug=False, use_reloader=False, threaded=True)
+      if not os.environ.get('DEFAULT_NL_SERVER'):
+          def start_nl_server(app):
+            app.run(port=port, debug=False, use_reloader=False, threaded=True)
 
-      nl_app = create_nl_app()
-      # Create a thread that will contain our running server
-      cls.proc = multiprocessing.Process(target=start_nl_server,
-                                         args=(nl_app,),
-                                         daemon=True)
-      cls.proc.start()
+          nl_app = create_nl_app()
+          # Create a thread that will contain our running server
+          cls.proc = multiprocessing.Process(target=start_nl_server,
+                                             args=(nl_app,),
+                                             daemon=True)
+          cls.proc.start()
+      else:
+          cls.proc = None
       libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(port)])
 
   @classmethod
   def tearDownClass(cls):
-    if os.environ.get('ENABLE_MODEL') == 'true':
+    if os.environ.get('ENABLE_MODEL') == 'true' and cls.proc:
       cls.proc.terminate()
 
   def create_app(self):
