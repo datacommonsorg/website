@@ -46,17 +46,18 @@ class NLWebServerTestCase(LiveServerTestCase):
     if os.environ.get('ENABLE_MODEL') == 'true':
 
       if not os.environ.get('DEFAULT_NL_SERVER'):
-          def start_nl_server(app):
-            app.run(port=port, debug=False, use_reloader=False, threaded=True)
 
-          nl_app = create_nl_app()
-          # Create a thread that will contain our running server
-          cls.proc = multiprocessing.Process(target=start_nl_server,
-                                             args=(nl_app,),
-                                             daemon=True)
-          cls.proc.start()
+        def start_nl_server(app):
+          app.run(port=port, debug=False, use_reloader=False, threaded=True)
+
+        nl_app = create_nl_app()
+        # Create a thread that will contain our running server
+        cls.proc = multiprocessing.Process(target=start_nl_server,
+                                           args=(nl_app,),
+                                           daemon=True)
+        cls.proc.start()
       else:
-          cls.proc = None
+        cls.proc = None
       libutil.check_backend_ready(['http://127.0.0.1:{}/healthz'.format(port)])
 
   @classmethod
