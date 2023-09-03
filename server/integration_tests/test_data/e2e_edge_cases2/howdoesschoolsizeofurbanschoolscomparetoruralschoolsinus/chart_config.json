@@ -1,0 +1,409 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInKindergarten"
+                    ],
+                    "title": "Population: Enrolled in Kindergarten in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Enrolled in Kindergarten in United States",
+                    "statVarKey": [
+                      "Count_Person_EnrolledInKindergarten"
+                    ],
+                    "title": "Population: Enrolled in Kindergarten in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Enrolled in Kindergarten"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Currently Enrolled in School in United States",
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Currently Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool"
+                    ],
+                    "title": "Elementary School Students in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Elementary School Students in United States",
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool"
+                    ],
+                    "title": "Elementary School Students in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Elementary School Students"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool"
+                    ],
+                    "title": "Middle School Students in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Middle School Students in United States",
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool"
+                    ],
+                    "title": "Middle School Students in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Middle School Students"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool"
+                    ],
+                    "title": "High School Students in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High School Students in United States",
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool"
+                    ],
+                    "title": "High School Students in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "High School Students"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_DetailedHighSchool": {
+            "name": "High School Students",
+            "statVar": "Count_Person_DetailedHighSchool"
+          },
+          "Count_Person_DetailedMiddleSchool": {
+            "name": "Middle School Students",
+            "statVar": "Count_Person_DetailedMiddleSchool"
+          },
+          "Count_Person_DetailedPrimarySchool": {
+            "name": "Elementary School Students",
+            "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Person_EnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_EnrolledInKindergarten"
+          },
+          "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/StudentPopulation",
+        "name": "Student Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Person_DetailedHighSchool": {
+        "race": [
+          "dc/1kt512ynvpmc2",
+          "dc/3bg4r46ly61q9",
+          "dc/4hzyqndyzntm",
+          "dc/9q73ecfhmd0y9",
+          "dc/cc8wk2n0ywd9",
+          "dc/dxsxcw009pdm4",
+          "dc/dzfdgrtcv5h7",
+          "dc/fh4td3znm3l4g",
+          "dc/g8537zqf45wl3"
+        ]
+      },
+      "Count_Person_DetailedMiddleSchool": {
+        "race": [
+          "dc/6zbb7s5nx6rxb",
+          "dc/b3nmcj3w1lhed",
+          "dc/c57vzg7l74577",
+          "dc/c75qlm98pmcb2",
+          "dc/e2szvml8jkld8",
+          "dc/g4fthg3t3y5td",
+          "dc/njgzb8knf11n8",
+          "dc/qvf1yrhwzp8rd",
+          "dc/zvr6djt1p9gj3"
+        ]
+      },
+      "Count_Person_DetailedPrimarySchool": {
+        "race": [
+          "dc/68cg2z97cpl7d",
+          "dc/b6h698m2vmdcc",
+          "dc/bf85zc6wypd2h",
+          "dc/e4y4hqq6mjfsh",
+          "dc/env3140jqssg8",
+          "dc/jhjdplbeg26k1",
+          "dc/p4jzvj8q1lnmd",
+          "dc/wk2vjrzfgyq5d",
+          "dc/x9e7150515yt7"
+        ]
+      },
+      "Count_Person_EnrolledInKindergarten": {
+        "gender": [
+          "dc/g8kg52zcxzw9f",
+          "dc/p34mhcpgtth76"
+        ]
+      },
+      "Count_Person_EnrolledInSchool": {
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
+        ],
+        "race": [
+          "dc/4wdtyd2bbf9m9",
+          "dc/5qnjtqc0w783b",
+          "dc/8cnhmxe67qddf",
+          "dc/jbv3zc0ezvcyc",
+          "dc/km8en9ep7bwh6",
+          "dc/zq864lhfql079"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Schools",
+        "name": "Schools",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Education",
+        "name": "Education",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/EducationalAttainment",
+        "name": "Educational Attainment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/SchoolType",
+        "name": "School Type",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+}
