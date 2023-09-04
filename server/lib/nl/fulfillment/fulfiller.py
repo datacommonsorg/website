@@ -94,6 +94,8 @@ def fulfill(uttr: Utterance, explore_mode: bool = False) -> PopulateState:
   if (has_correlation and state.uttr.multi_svs and
       state.uttr.multi_svs.candidates):
     state.chart_vars_map = topic.compute_correlation_chart_vars(state)
+    if not state.chart_vars_map:
+      state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
 

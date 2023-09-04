@@ -268,6 +268,13 @@ class IntegrationTest(NLWebServerTestCase):
         'immunization vs. debt in the world', 'debt in china, germany and india'
     ])
 
+  def test_e2e_edge_cases2(self):
+    self.run_detect_and_fulfill('e2e_edge_cases2', [
+        'What crimes are considered felonies vs. misdemeanors in the US',
+        'How does school size of urban schools compare to rural schools in US',
+        'What is the relationship between housing size and home prices in California',
+    ])
+
   def test_e2e_superlatives(self):
     self.run_detect_and_fulfill('e2e_superlatives', [
         'Richest counties in california',

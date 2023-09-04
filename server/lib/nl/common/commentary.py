@@ -129,7 +129,8 @@ def user_message(uttr: Utterance) -> UserMessage:
 
   if (uttr.rankedCharts and
       uttr.sv_source == FulfillmentResult.CURRENT_QUERY and
-      get_top_sv_score(uttr.detection) < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
+      get_top_sv_score(uttr.detection, uttr.rankedCharts[0])
+      < LOW_CONFIDENCE_SCORE_REPORT_THRESHOLD):
     # We're showing charts for SVs in the current user query and the
     # top-score is below the threshold, so report message.
     msg = LOW_CONFIDENCE_SCORE_MESSAGE

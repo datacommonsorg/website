@@ -201,10 +201,17 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (props.statVarSpec.scaling) {
         value *= props.statVarSpec.scaling;
       }
+      // If value is a decimal, calculate the numFractionDigits as the number of
+      // digits to get the first non-zero digit and the number after
+      // TODO: think about adding a limit to the number of digits.
+      const numFractionDigits =
+        Math.abs(value) >= 1
+          ? NUM_FRACTION_DIGITS
+          : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
       const result = {
         value,
         date: mainStatData.date,
-        numFractionDigits: NUM_FRACTION_DIGITS,
+        numFractionDigits,
       };
       if (facet) {
         if (facet.unit in UnitOverrideConfig) {
@@ -213,7 +220,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
           result.value = result.value * override.multiplier;
           result["numFractionDigits"] =
             override.numFractionDigits === undefined
-              ? NUM_FRACTION_DIGITS
+              ? numFractionDigits
               : override.numFractionDigits;
         } else if (facet.unitDisplayName) {
           result["unitDisplayName"] = facet.unitDisplayName;

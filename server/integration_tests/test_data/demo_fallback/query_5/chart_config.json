@@ -188,8 +188,8 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
                       "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue_multiple_place_bar_block"
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
                     ],
                     "title": "GDP of the Finance and Insurance Industry and More in United States (${date})",
                     "type": "BAR"
@@ -275,6 +275,14 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",

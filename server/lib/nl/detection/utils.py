@@ -24,6 +24,8 @@ from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import Detection
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import SVDetection
+from server.lib.nl.fulfillment.types import ChartSpec
+from server.lib.nl.fulfillment.types import ChartType
 from shared.lib import constants as shared_constants
 from shared.lib import detected_variables as dvars
 
@@ -88,7 +90,7 @@ def has_dual_sv(detection: Detection) -> bool:
 
 def get_multi_sv_pair(
     detection: Detection) -> List[dvars.MultiVarCandidatePart]:
-  parts: List[dvars.MultiVarCandidatePart] = None
+  parts: List[dvars.MultiVarCandidatePart] = []
   for c in detection.svs_detected.multi_sv.candidates:
     if len(c.parts) == 2:
       parts = c.parts
@@ -96,10 +98,32 @@ def get_multi_sv_pair(
   return parts
 
 
-def get_top_sv_score(detection: Detection) -> float:
-  if is_multi_sv(detection):
-    return detection.svs_detected.multi_sv.candidates[0].aggregate_score
-  elif detection.svs_detected.single_sv and detection.svs_detected.single_sv.scores:
+# Gets the SV score of the first chart in chart_specs
+def get_top_sv_score(detection: Detection, cspec: ChartSpec) -> float:
+  # Note that we look for the detected SVs in the `orig_svs` field
+  # of the chart_vars, since the svs directly in ChartSpec or ChartVars
+  # can be the opened SVs from a topic.
+  if cspec.chart_type == ChartType.SCATTER_CHART and len(
+      cspec.chart_vars.orig_svs) == 2:
+    # Look for chart-var in multi-sv
+    cs_svs = cspec.chart_vars.orig_svs
+    score = -1
+    for p in get_multi_sv_pair(detection):
+      for idx, sv in enumerate(p.svs):
+        if sv in cs_svs:
+          if score == -1 or p.scores[idx] < score:
+            score = p.scores[idx]
+          break
+    if score != -1:
+      return score
+  elif cspec.svs and detection.svs_detected.single_sv:
+    # Look for chart-var in single-sv
+    for idx, sv in enumerate(detection.svs_detected.single_sv.svs):
+      if sv in cspec.chart_vars.orig_svs:
+        return detection.svs_detected.single_sv.scores[idx]
+
+  # Fallback return the first SV score.
+  if detection.svs_detected.single_sv:
     return detection.svs_detected.single_sv.scores[0]
   return 0
 
