@@ -151,6 +151,8 @@ def topic_page(topic_id=None, place_dcid=None):
     show_child_places = True
     place_metadata = lib_subject_page_config.place_metadata(place_dcid, True, None, None, 'name', False)
     place_children = place_metadata.child_places
+    if place_dcid == 'country/USA':
+      place_children.pop('Country', None); # HACK: Remove Country from US places to prevent American Samoa from showing up.  
   else:
     show_child_places = False
     place_children = []
