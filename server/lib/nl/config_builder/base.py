@@ -43,7 +43,7 @@ class Config:
   nopc_vars: Set[str]
   sdg_percent_vars: Set[str]
 
-    
+
 # A structure with maps from SV DCID to different things.
 class Builder:
 
@@ -112,9 +112,13 @@ class Builder:
     ])
 
   # Returns title, description and footnote for a block.
-  def get_block_strings(self, cv: ChartVars, override_sv: str = '') -> Tuple[str, str, str]:
-    title, description, footnote = _process_title_desc_footnote(self, cv, override_sv)
-    return formatting.make_title_case(title), description, footnote
+  def get_block_strings(self,
+                        cv: ChartVars,
+                        override_sv: str = '') -> Tuple[str, str, str]:
+    title, description, footnote = _process_title_desc_footnote(
+        self, cv, override_sv)
+    return formatting.make_title_case(title), formatting.make_sentence_case(
+        description), formatting.make_sentence_case(footnote)
 
   def update_sv_spec(self, stat_var_spec_map):
     for sv_key, spec in stat_var_spec_map.items():
@@ -262,7 +266,9 @@ def trim_config(page_config: SubjectPageConfig):
     page_config.categories.extend(out_cats)
 
 
-def _process_title_desc_footnote(builder: Builder, cv: ChartVars, override_sv: str = '') -> Tuple[str, str, str]:
+def _process_title_desc_footnote(builder: Builder,
+                                 cv: ChartVars,
+                                 override_sv: str = '') -> Tuple[str, str, str]:
   title, description, footnote = '', '', ''
 
   if override_sv:

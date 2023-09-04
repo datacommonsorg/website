@@ -30,6 +30,7 @@ _SPECIAL_REPLACEMENTS = {
     "Covid": "COVID",
 }
 
+
 # Counts the number of capital letters.
 def _count_caps(word: str) -> int:
   return sum(1 for c in word if c.isupper())
@@ -92,7 +93,7 @@ def make_sentence_case(input_string: str) -> str:
     # and the starting word is not numeric.
     # If the starting word is numeric, then this means the split
     # above by "." had split a decimal number. Shoudl not add a
-    # space in that case. 
+    # space in that case.
     # If the start word belongs to the first sentence, no need to
     # add a space as there must have been no "." preceeding it.
     if s_index > 0 and s[0] == " " and not words[0].isnumeric():
@@ -127,4 +128,3 @@ def make_sentence_case(input_string: str) -> str:
     output_str += "."
 
   return output_str
-
