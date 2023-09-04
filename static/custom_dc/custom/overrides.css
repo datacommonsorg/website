@@ -58,7 +58,7 @@
   background-image: url("/custom_dc/custom/images/home_header.png");
   background-size: cover;
   background-position: center;
-  height: 300px;
+  height: 25vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -189,4 +189,24 @@ section.data-examples article {
 
 .topicpage-searchbar {
   width: 100%;
+}
+
+.navbar-brand #brand-name-link {
+  text-decoration: none;
+}
+
+.navbar-brand #brand-name-title {
+  color: #212529;
+  font-weight:700;
+}
+
+.navbar-toggler {
+  border-color: rgba(78, 97, 45, .5) !important;
+}
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2878, 91, 49, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important
+}
+
+.navbar-nav > li > a {
+  font-size: 15px !important;
 }

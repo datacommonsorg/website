@@ -74,7 +74,7 @@
                 </a>
             </div>
             {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
+            <a id="brand-name-link" href="{{ url_for('static.homepage') }}"><div id="brand-name-title">Data Commons</div><div id="brand-name-subtitle">for Civil Society</div></a>
             {% if subpage_title %}
             <span>
               {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
@@ -121,7 +121,7 @@
     <footer id="main-footer">
       <div class="container">
         <div class="row">
-          <div id="sub-footer" class="col-12">
+          <div {# id="sub-footer" #} class="col-12">
             <span>Powered by Google's <a href="https://www.datacommons.org" target="_blank">Data Commons</a></span>
             <div class="float-md-right mt-3 mt-md-0">
               {% block subfooter_extra %}{% endblock %}
