@@ -45,23 +45,20 @@ class Mode:
 flags.DEFINE_string(
     "mode",
     Mode.RUN_ALL,
-    f"Specify one of the following modes: {Mode.RUN_ALL} (default), {Mode.RUN_QUERIES} (default), {Mode.RUN_QUERY}, {Mode.GENERATE_REPORTS}",
+    f"Specify one of the following modes: {Mode.RUN_ALL}, {Mode.RUN_QUERIES}, {Mode.RUN_QUERY}, {Mode.GENERATE_REPORTS}, {Mode.COMPUTE_FILE_STATS}",
 )
 
 flags.DEFINE_string(
     "input_dir", INPUT_DIR,
-    f"The input directory that contains the query TSVs when using {Mode.RUN_QUERIES} mode. Defaults to '{INPUT_DIR}' if not specified."
+    f"The input directory that contains the query TSVs when using {Mode.RUN_QUERIES} mode."
 )
 
 flags.DEFINE_string(
     "output_dir", OUTPUT_DIR,
-    f"The output directory where results and reports will be persisted. Defaults to '{OUTPUT_DIR}' if not specified."
-)
+    f"The output directory where results and reports will be persisted.")
 
-flags.DEFINE_string(
-    "base_url", "https://dev.datacommons.org",
-    f"The base URL of the API server. Defaults to 'https://dev.datacommons.org'."
-)
+flags.DEFINE_string("base_url", "https://dev.datacommons.org",
+                    f"The base URL of the API server.")
 
 flags.DEFINE_string("query", None,
                     f"The query to be run in {Mode.RUN_QUERY} mode.")
@@ -207,8 +204,8 @@ class ResultsFileWriter:
 
 class AdversarialQueriesTest:
 
-  def __init__(self, server_url='https://dev.datacommons.org') -> None:
-    self.server_url = server_url
+  def __init__(self, base_url) -> None:
+    self.base_url = base_url
 
   def generate_reports(self, output_dir: str) -> None:
     reports_dir = os.path.join(output_dir, REPORTS_DIR)
@@ -299,7 +296,7 @@ class AdversarialQueriesTest:
 
   def run_query(self, query: str) -> Result:
     result = unknown_result(
-        query, self.server_url + f'/explore#q={urllib.parse.quote_plus(query)}')
+        query, self.base_url + f'/explore#q={urllib.parse.quote_plus(query)}')
     logging.info("Running: %s", query)
     if not query:
       logging.info(result)
@@ -307,13 +304,13 @@ class AdversarialQueriesTest:
 
     resp = None
     try:
-      resp = requests.post(self.server_url +
+      resp = requests.post(self.base_url +
                            f'/api/explore/detect-and-fulfill?q={query}',
                            json={
                                'contextHistory': {},
                                'dc': '',
                            },
-                           timeout=10)
+                           timeout=30)
     except requests.exceptions.ReadTimeout:
       result.status = ResultStatus.TIMED_OUT
       logging.info(result)
@@ -415,7 +412,7 @@ def read_tsv(csv_file: str):
 
 def run_test():
   os.makedirs(os.path.join(FLAGS.output_dir, REPORTS_DIR), exist_ok=True)
-  test = AdversarialQueriesTest()
+  test = AdversarialQueriesTest(base_url=FLAGS.base_url)
 
   # match-case would be the right thing to use here.
   # But yapf errors out if we do, hence using if-elif.
