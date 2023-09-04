@@ -14,6 +14,7 @@
 """Unit tests for display text formatting for charts."""
 
 import unittest
+
 from parameterized import parameterized
 
 import server.lib.nl.config_builder.formatting_utils as formatting

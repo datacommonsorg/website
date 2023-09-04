@@ -25,6 +25,7 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.common.variable as var_lib
+import server.lib.nl.config_builder.formatting_utils as formatting
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
@@ -32,7 +33,6 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
 import server.lib.nl.fulfillment.utils as futils
-import server.lib.nl.config_builder.formatting_utils as formatting
 
 
 # Config structures.
