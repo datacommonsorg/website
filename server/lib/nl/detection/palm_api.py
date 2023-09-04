@@ -112,6 +112,25 @@ def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
   return {}
 
 
+_UNSAFE_SIGNAL_WORDS = [
+    'adult',
+    'biased',
+    'cannot',
+    'discriminatory',
+    'harmful'
+    'hate',
+    'offensive',
+    'problem',
+    'racist',
+    'respectful',
+    'sexist',
+    'stereotype',
+    'unsafe',
+    'violence',
+    'will not',
+]
+
+
 def _extract_answer(resp: str) -> str:
   ans = []
 
@@ -127,5 +146,14 @@ def _extract_answer(resp: str) -> str:
     # To handle that, just quit when we've found a pair of them.
     if num_code_block_delims == 2:
       break
+
+  if not ans:
+    # Sometimes the LLM refuses to set UNSAFE=true, but says
+    # it won't return any response.  In that case, try to
+    # use some heuristics to infer UNSAFE.
+    resp = resp.lower()
+    for w in _UNSAFE_SIGNAL_WORDS:
+      if w in resp:
+        return '{"UNSAFE": true}'
 
   return '\n'.join(ans)
