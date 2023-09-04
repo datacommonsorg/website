@@ -33,7 +33,7 @@ export function App(): JSX.Element {
       onSearch={(q) => {
         window.location.href = `/explore#q=${encodeURIComponent(q)}`;
       }}
-      placeholder={"Enter a question or topic to explore"}
+      placeholder={"Enter a question to explore"}
       initialValue={""}
       shouldAutoFocus={false}
     />
