@@ -32,5 +32,12 @@ if __name__ == "__main__":
   logging.info(args.domain)
   driver = base.create_driver()
   for page in runner.prepare(f'remote/{args.domain}'):
-    runner.run(driver, 'https://' + args.domain, page)
+    # Retry twice
+    for i in range(0, 2):
+      while True:
+        try:
+          runner.run(driver, 'https://' + args.domain, page)
+        except:
+          continue
+        break
   driver.quit()

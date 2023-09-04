@@ -51,7 +51,9 @@ def run(driver, base_url, page):
   driver.set_window_size(width=WIDTH,
                          height=page['height'],
                          windowHandle='current')
-  driver.get(base_url + page['url'])
+  url = base_url + page['url']
+  logging.info(url)
+  driver.get(url)
   # 'async' indicates whether this page fetches data or renders components
   # asyncronously. The web driver wait depends on it.
   if page['async']:
