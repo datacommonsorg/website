@@ -31,6 +31,7 @@ def page():
     flask.abort(404)
 
   return render_template('/explore.html',
+                         manual_ga_pageview=True,
                          maps_api_key=current_app.config['MAPS_API_KEY'],
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
