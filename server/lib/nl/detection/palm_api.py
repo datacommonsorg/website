@@ -46,10 +46,32 @@ _REQ_DATA = {
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def call(query: str, history: str, ctr: counters.Counters) -> Dict:
+def check_safety(query: str, ctr: counters.Counters) -> Dict:
   req_data = _REQ_DATA.copy()
 
-  req_data['prompt']['context'] = current_app.config['PALM_PROMPT_TEXT']
+  req_data['prompt']['context'] = current_app.config['PALM_PROMPT_TEXT'].safety
+  # For the first query in the session.
+  q = 'Convert this sentence to JSON: "' + query + '"'
+  req_data['prompt']['messages']['content'] = q
+
+  start_time = time.time()
+  req = json.dumps(req_data)
+  # NOTE: llm_detector.detect() caller checks this.
+  api_key = current_app.config['PALM_API_KEY']
+  r = requests.post(f'{_API_URL_BASE}?key={api_key}',
+                    data=req,
+                    headers=_API_HEADER)
+  resp = r.json()
+  ctr.timeit('palm_api_call', start_time)
+
+  return parse_response(query, resp, ctr)
+
+
+def detect(query: str, history: str, ctr: counters.Counters) -> Dict:
+  req_data = _REQ_DATA.copy()
+
+  req_data['prompt']['context'] = current_app.config[
+      'PALM_PROMPT_TEXT'].detection
   if not history:
     # For the first query in the session.
     q = 'Convert this sentence to JSON: "' + query + '"'

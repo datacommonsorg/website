@@ -80,7 +80,7 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     embeddings_index_type = 'sdg_ft'
 
   detector_type = request.args.get('detector',
-                                   default=RequestedDetectorType.Hybrid.value,
+                                   default=RequestedDetectorType.HybridSafetyCheck.value,
                                    type=str)
 
   place_detector_type = request.args.get('place_detector',

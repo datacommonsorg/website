@@ -97,6 +97,14 @@ _LLM_OP_TO_QUANTITY_OP = {
 }
 
 
+# Returns False if the query fails safety check.
+def check_safety(query: str, ctr: counters.Counters) -> Detection:
+  llm_resp = palm_api.check_safety(query, ctr)
+  if llm_resp.get('UNSAFE') == True:
+    return False
+  return True
+
+
 def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
            query_detection_debug_logs: Dict,
            ctr: counters.Counters) -> Detection:
@@ -107,7 +115,7 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
     history.append((u.query, u.llm_resp))
     u = u.prev_utterance
 
-  llm_resp = palm_api.call(query, history, ctr)
+  llm_resp = palm_api.detect(query, history, ctr)
 
   if llm_resp.get('UNSAFE') == True:
     return None

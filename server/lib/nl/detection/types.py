@@ -362,6 +362,8 @@ class ActualDetectorType(str, Enum):
   HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
   # Fallback to LLM for variable detection only
   HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  # LLM for safety check only
+  HybridLLMSafety = "Hybrid - LLM Safety Check"
   # The case of no detector involved.
   NOP = "Detector unnecessary"
 
@@ -371,6 +373,7 @@ class RequestedDetectorType(str, Enum):
   Heuristic = "heuristic"
   LLM = "llm"
   Hybrid = "hybrid"
+  HybridSafetyCheck = "hybridsafety"
 
 
 class PlaceDetectorType(str, Enum):
@@ -391,5 +394,5 @@ class Detection:
   svs_detected: SVDetection
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
-  detector: ActualDetectorType = ActualDetectorType.Heuristic
-  place_detector: PlaceDetectorType = PlaceDetectorType.NER
+  detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
+  place_detector: PlaceDetectorType = PlaceDetectorType.DC

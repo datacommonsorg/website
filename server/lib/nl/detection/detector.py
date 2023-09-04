@@ -37,6 +37,7 @@ import shared.lib.detected_variables as dutils
 _PALM_API_DETECTORS = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
+    RequestedDetectorType.HybridSafetyCheck.value,
 ]
 
 MAX_CHILD_LIMIT = 50
@@ -58,6 +59,11 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
   if (detector_type in _PALM_API_DETECTORS and
       'PALM_API_KEY' not in current_app.config):
     counters.err('failed_palm_keynotfound', '')
+    detector_type = RequestedDetectorType.Heuristic.value
+
+  if (detector_type in _PALM_API_DETECTORS and
+      'PALM_PROMPT_TEXT' not in current_app.config):
+    counters.err('failed_palm_promptnotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
   #
@@ -88,6 +94,15 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
     return heuristic_detection
 
   counters.err('warning_llm_fallback', '')
+
+  if detector_type == RequestedDetectorType.HybridSafetyCheck.value:
+    heuristic_detection.detector = ActualDetectorType.HybridLLMSafety
+    if llm_detector.check_safety(original_query, counters):
+      return heuristic_detection
+    else:
+      counters.err('info_llm_blocked', '')
+      return None
+
   llm_detection = llm_detector.detect(original_query, prev_utterance,
                                       embeddings_index_type,
                                       query_detection_debug_logs, counters)
