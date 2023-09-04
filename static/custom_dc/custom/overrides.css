@@ -59,6 +59,7 @@
   background-size: cover;
   background-position: center;
   height: 25vh;
+  max-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -87,7 +88,8 @@
   background-image: url("/custom_dc/custom/images/food-security.png");
   background-size: cover;
   background-position: center;
-  height: 300px;
+  height: 25vh;
+  max-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +101,8 @@
   background-image: url("/custom_dc/custom/images/climate.png");
   background-size: cover;
   background-position: center;
-  height: 300px;
+  height: 25vh;
+  max-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
