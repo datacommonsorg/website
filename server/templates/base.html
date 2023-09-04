@@ -25,6 +25,8 @@
   subpage_title: string, if specified, will be displayed in the header next to Data Commons
   locale: string, value for html lang attr
   brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
+  manual_ga_pageview: boolean, if true, will set the Google Analytics config to
+      stop pageview tracking, relying on the app to do all pageview tracking.
 
   Blocks to override:
   head - additional head elements
@@ -43,7 +45,10 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', '{{ GA_ACCOUNT }}', {
-      client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
+      client_storage: 'none',
+      anonymize_ip: true,
+      {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
     });
   </script>
   {% endif %}
