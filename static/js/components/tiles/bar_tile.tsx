@@ -49,9 +49,11 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getStatVarNames,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -111,6 +113,7 @@ export interface BarChartData {
   dateRange: string;
   props: BarTilePropType;
   statVarOrder: string[];
+  errorMsg: string;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
@@ -150,6 +153,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(barChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={barChartData && !!barChartData.errorMsg}
     >
       <div
         id={props.id}
@@ -352,7 +356,9 @@ function rawToChart(
       dataGroup.value = dataGroup.value.slice(0, props.maxVariables);
     });
   }
-
+  const errorMsg = _.isEmpty(dataGroups)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     dataGroup: dataGroups.slice(0, props.maxPlaces || NUM_PLACES),
     sources,
@@ -360,6 +366,7 @@ function rawToChart(
     unit,
     props,
     statVarOrder,
+    errorMsg,
   };
 }
 
@@ -369,6 +376,10 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   if (props.horizontal) {
     drawHorizontalBarChart(
       svgContainer,
