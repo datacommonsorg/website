@@ -62,6 +62,18 @@
   .explore-charts {
     font-size: 1.25rem;
   }
+  
+  .explore-charts.place-overview-only {
+    #subject-page-main-pane {
+      .category {
+        padding-top: 0;
+      }
+  
+      .block {
+        padding-top: 0;
+      }
+    }
+  }
 }
 
 #explore-more-section {
