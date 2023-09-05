@@ -1,5 +1,10 @@
 [
   {
+    "url": "/version",
+    "height": 1000,
+    "async": false
+  },
+  {
     "url": "/explore#q=What+are+the+most+common+jobs+in+Texas&mb=4",
     "height": 3000,
     "async": true
