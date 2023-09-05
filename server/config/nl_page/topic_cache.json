@@ -12227,6 +12227,8 @@
       "relevantVariableList": [
         "Median_Income_Household",
         "Median_Income_Person",
+        "Mean_WagesMonthly_Worker",
+        "Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived",
         "dc/topic/IndividualIncomeDistribution",
         "dc/topic/IndividualIncomeByIndustry",
         "dc/topic/HouseholdIncomeDistribution"
@@ -12672,6 +12674,7 @@
         "Malnutrition"
       ],
       "relevantVariableList": [
+        "sdg/SN_ITK_DEFC",
         "Percent_Underweight_In_Count_Person",
         "dc/topic/HeightStunting",
         "sdg/SH_STA_WASHARI",
@@ -15278,6 +15281,7 @@
       ],
       "relevantVariableList": [
         "UnemploymentRate_Person",
+        "Count_Person_NonWorker",
         "UnemploymentRate_Person_Female",
         "UnemploymentRate_Person_Male"
       ],
