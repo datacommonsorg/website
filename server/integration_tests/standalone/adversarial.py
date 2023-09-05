@@ -48,6 +48,13 @@ flags.DEFINE_string(
     f"Specify one of the following modes: {Mode.RUN_ALL}, {Mode.RUN_QUERIES}, {Mode.RUN_QUERY}, {Mode.GENERATE_REPORTS}, {Mode.COMPUTE_FILE_STATS}",
 )
 
+flags.DEFINE_enum(
+    "llm_api",
+    "chat",
+    ["chat", "text"],
+    f"Value for the llm_api parameter. Valid values: chat, text.",
+)
+
 flags.DEFINE_string(
     "input_dir", INPUT_DIR,
     f"The input directory that contains the query TSVs when using {Mode.RUN_QUERIES} mode."
@@ -143,10 +150,12 @@ class Result:
 
 
 class StatsResult:
+  llm_api: str
   status_counts: dict[ResultStatus, int]
   llm_detection_type_counts: dict[str, int]
 
-  def __init__(self) -> None:
+  def __init__(self, llm_api: str = None) -> None:
+    self.llm_api = llm_api
     self.status_counts = dict((status, 0) for status in ResultStatus)
     self.llm_detection_type_counts = {}
 
@@ -161,7 +170,11 @@ class StatsResult:
     rows = []
 
     # status stats
-    rows.append("====STATUS STATS====")
+    rows.append(f"====STATUS STATS====")
+
+    if self.llm_api:
+      rows.append(f"----LLM API: {self.llm_api}----")
+
     rows.append(f"TOTAL: {str(sum(self.status_counts.values()))}")
     for status, count in self.status_counts.items():
       rows.append(f"{str(status)}: {count}")
@@ -203,14 +216,17 @@ class ResultsFileWriter:
 
 
 class AdversarialQueriesTest:
+  base_url: str
+  llm_api: str
 
-  def __init__(self, base_url) -> None:
+  def __init__(self, base_url: str, llm_api: str) -> None:
     self.base_url = base_url
+    self.llm_api = llm_api
 
   def generate_reports(self, output_dir: str) -> None:
     reports_dir = os.path.join(output_dir, REPORTS_DIR)
     report_writers: dict[str, ResultsFileWriter] = {}
-    stats = StatsResult()
+    stats = StatsResult(self.llm_api)
 
     for file_name in sorted(os.listdir(output_dir)):
       if file_name.endswith('.csv'):
@@ -296,7 +312,8 @@ class AdversarialQueriesTest:
 
   def run_query(self, query: str) -> Result:
     result = unknown_result(
-        query, self.base_url + f'/explore#q={urllib.parse.quote_plus(query)}')
+        query, self.base_url +
+        f'/explore#q={urllib.parse.quote_plus(query)}&llm_api={self.llm_api}')
     logging.info("Running: %s", query)
     if not query:
       logging.info(result)
@@ -304,13 +321,14 @@ class AdversarialQueriesTest:
 
     resp = None
     try:
-      resp = requests.post(self.base_url +
-                           f'/api/explore/detect-and-fulfill?q={query}',
-                           json={
-                               'contextHistory': {},
-                               'dc': '',
-                           },
-                           timeout=30)
+      resp = requests.post(
+          self.base_url +
+          f'/api/explore/detect-and-fulfill?q={query}&llm_api={self.llm_api}',
+          json={
+              'contextHistory': {},
+              'dc': '',
+          },
+          timeout=30)
     except requests.exceptions.ReadTimeout:
       result.status = ResultStatus.TIMED_OUT
       logging.info(result)
@@ -412,7 +430,7 @@ def read_tsv(csv_file: str):
 
 def run_test():
   os.makedirs(os.path.join(FLAGS.output_dir, REPORTS_DIR), exist_ok=True)
-  test = AdversarialQueriesTest(base_url=FLAGS.base_url)
+  test = AdversarialQueriesTest(base_url=FLAGS.base_url, llm_api=FLAGS.llm_api)
 
   # match-case would be the right thing to use here.
   # But yapf errors out if we do, hence using if-elif.
