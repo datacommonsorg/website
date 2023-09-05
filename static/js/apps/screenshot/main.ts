@@ -28,15 +28,18 @@ window.onload = () => {
   );
 
   const data = {};
-  for (const name in images1) {
-    if (name in images2) {
-      data[name] = {
-        blob1: images1[name],
-        blob2: images2[name],
-      };
+  for (const blob in images1) {
+    const pageUrl = images1[blob]["page_url"];
+    data[pageUrl] = {
+      blob1: blob,
+    };
+  }
+  for (const blob in images2) {
+    const pageUrl = images2[blob]["page_url"];
+    if (pageUrl in data) {
+      data[pageUrl]["blob2"] = blob;
     }
   }
-
   ReactDOM.render(
     React.createElement(App, { data }),
     document.getElementById("dc-screenshot")
