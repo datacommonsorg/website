@@ -30,6 +30,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
+import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import {
   QueryResult,
   UserMessageInfo,
@@ -40,7 +41,6 @@ import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
-import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -251,7 +251,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     let fulfillmentPromise: Promise<any>;
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: document.title,
-      page_location: window.location.href
+      page_location: window.location.href,
     });
     if (query) {
       setQuery(query);

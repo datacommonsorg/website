@@ -301,8 +301,7 @@ export function getUnitAndScaling(
         statPointData.data[svSpec.statVar]
       ).find((obs) => !!obs.facet);
       statMetadata = statPointData.facets[obsWithFacet.facet];
-    }
-    if (statSeriesData) {
+    } else if (statSeriesData) {
       const seriesWithFacet = Object.values(
         statSeriesData.data[svSpec.statVar]
       ).find((series) => !!series.facet);
@@ -327,6 +326,8 @@ interface DenomInfo {
 
 /**
  * Gets information needed to calculate per capita for a single stat data point.
+ * Uses the denom value with the closest date to the mainStatDate and returns
+ * null if no matching value is found or matching value is 0.
  * @param svSpec the stat var spec of the data point to calculate per capita for
  * @param denomData population data to use for the calculation
  * @param placeDcid place of the data point
