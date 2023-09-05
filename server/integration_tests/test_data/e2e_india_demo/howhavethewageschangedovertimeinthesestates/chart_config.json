@@ -510,11 +510,35 @@
         ]
       }
     },
-    "mainTopics": [],
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessage": "See comparison based on places in the previous answer."
