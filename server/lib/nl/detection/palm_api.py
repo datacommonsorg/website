@@ -96,7 +96,7 @@ def check_safety_via_chat(query: str, ctr: counters.Counters) -> Dict:
   resp = r.json()
   ctr.timeit('palm_api_call', start_time)
 
-  return parse_response_chat(query, resp, ctr)
+  return parse_response(query, resp, field='content', ctr=ctr)
 
 
 def detect_via_text(query: str, history: List[List[str]],
@@ -131,7 +131,7 @@ def detect_via_text(query: str, history: List[List[str]],
   resp = r.json()
   ctr.timeit('palm_api_text_call', start_time)
 
-  return parse_response_text(query, resp, ctr)
+  return parse_response(query, resp, field='output', ctr=ctr)
 
 
 def detect_via_chat(query: str, history: List[List[str]],
@@ -168,47 +168,15 @@ def detect_via_chat(query: str, history: List[List[str]],
   resp = r.json()
   ctr.timeit('palm_api_chat_call', start_time)
 
-  return parse_response_chat(query, resp, ctr)
+  return parse_response(query, resp, field='content', ctr=ctr)
 
 
-def parse_response_text(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
+def parse_response(query: str, resp: Dict, field: str,
+                   ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
-    raw_output = resp['candidates'][0]
-    output = raw_output['output']
-    ctr.info('info_palm_api_text_response', raw_output)
-    ans = _extract_answer(output)
-    if not ans:
-      logging.error(f'ERROR: empty parsed result for {query}')
-      ctr.err('failed_palm_api_emptyparsedresult', output)
-      return {}
-    try:
-      # Use json5 to load since it is a lot more lenient (e.g.,
-      # allows trailing commas), even if ~600x slower (e.g.,
-      # from 2us to 1.2ms for one loads).
-      # But with current LLM latencies that's fine.
-      ans_json = json5.loads(ans, allow_duplicate_keys=False)
-    except Exception as e:
-      logging.error(f'ERROR: json decoding failed {e}')
-      ctr.err('failed_palm_api_jsondecodeerror', ans)
-      return {}
-
-    return ans_json
-  elif resp.get('filters') and 'reason' in resp['filters'][0]:
-    ctr.err('failed_palm_api_blocked_resp', resp)
-    return {'UNSAFE': True}
-
-  if "error" not in resp:
-    # TODO: Unclear why this occasionally happens.
-    ctr.err('failed_palm_api_empty_noerr', resp)
-  else:
-    ctr.err('failed_palm_api_empty', f'{query} -> {resp["error"]}')
-  return {}
-
-
-def parse_response_chat(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
-  if 'candidates' in resp and resp['candidates']:
-    content = resp['candidates'][0]['content']
-    ctr.info('info_palm_api_chat_response', content)
+    raw_content = resp['candidates'][0]
+    content = raw_content[field]
+    ctr.info('info_palm_api_chat_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')
@@ -227,6 +195,9 @@ def parse_response_chat(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
       return {}
 
     return ans_json
+  elif resp.get('filters') and 'reason' in resp['filters'][0]:
+    ctr.err('failed_palm_api_filtered_resp', resp)
+    return {'UNSAFE': True}
 
   if "error" not in resp:
     # TODO: Unclear why this occasionally happens.
