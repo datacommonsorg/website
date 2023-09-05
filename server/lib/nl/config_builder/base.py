@@ -15,7 +15,7 @@
 from dataclasses import dataclass
 import logging
 import re
-from typing import Dict, Set
+from typing import Dict, Set, Tuple
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
@@ -25,6 +25,7 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.common.variable as var_lib
+import server.lib.nl.config_builder.formatting_utils as formatting
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import TimeDeltaType
@@ -32,23 +33,6 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
 import server.lib.nl.fulfillment.utils as futils
-
-_SPECIAL_REPLACEMENTS = {
-    " A ": " a ",
-    " At ": " at ",
-    " By ": " by ",
-    " Of ": " of ",
-    " For ": " for ",
-    " In ": " in ",
-    " As ": " as ",
-    " Or ": " or ",
-    " On ": " on ",
-    " Is ": " is ",
-    " And ": " and ",
-    " To ": " to ",
-    " The ": " the ",
-    "Covid": "COVID",
-}
 
 
 # Config structures.
@@ -58,32 +42,6 @@ class Config:
   sv_chart_titles: Dict
   nopc_vars: Set[str]
   sdg_percent_vars: Set[str]
-
-
-# Keep some special words as small case.
-def _replace_special(input_string_title_case: str) -> str:
-  input = input_string_title_case
-  for sr, sr_replace in _SPECIAL_REPLACEMENTS.items():
-    input = input.replace(sr, sr_replace)
-
-  # Replace " - " with "-" only if surrounded by a number
-  # on both sides.
-  matches = re.findall(r'\d+ - \d+', input)
-  for m in matches:
-    input = input.replace(m, m.replace(" ", ""))
-
-  return input
-
-
-def _make_title_case(input_string: str) -> str:
-  # Only title case those parts which aren't already capitalized.
-  # This is necessary for words like "GDP" do not become "Gdp".
-  # Note that we don't want to title-case words like "7th" etc.
-  output_str = ' '.join([
-      w.title() if (w.islower() and not w[0].isdigit()) else w
-      for w in input_string.split()
-  ])
-  return _replace_special(output_str)
 
 
 # A structure with maps from SV DCID to different things.
@@ -154,32 +112,13 @@ class Builder:
     ])
 
   # Returns title, description and footnote for a block.
-  def get_block_strings(self, cv: ChartVars, override_sv: str = ''):
-    title, description, footnote = '', '', ''
-
-    if override_sv:
-      title = _make_title_case(self.sv2thing.name.get(override_sv, ''))
-      description = self.sv2thing.description.get(override_sv, '')
-      footnote = self.sv2thing.footnote.get(override_sv, '')
-      return title, description, footnote
-
-    if cv.title:
-      title = cv.title
-      description = cv.description
-    elif cv.svpg_id:
-      title = self.sv2thing.name.get(cv.svpg_id, '')
-      description = self.sv2thing.description.get(cv.svpg_id, '')
-      footnote = self.sv2thing.footnote.get(cv.svpg_id, '')
-    elif len(cv.svs) == 1:
-      title = self.sv2thing.name.get(cv.svs[0], '')
-      description = self.sv2thing.description.get(cv.svs[0], '')
-      footnote = self.sv2thing.footnote.get(cv.svs[0], '')
-    elif len(cv.svs) > 1 and self.sv2thing.name.get(cv.svs[0]):
-      title = self.sv2thing.name[cv.svs[0]] + ' and more'
-
-    # Make title case.
-    title = _make_title_case(title)
-    return title, description, footnote
+  def get_block_strings(self,
+                        cv: ChartVars,
+                        override_sv: str = '') -> Tuple[str, str, str]:
+    title, description, footnote = _process_title_desc_footnote(
+        self, cv, override_sv)
+    return formatting.make_title_case(title), formatting.make_sentence_case(
+        description), formatting.make_sentence_case(footnote)
 
   def update_sv_spec(self, stat_var_spec_map):
     for sv_key, spec in stat_var_spec_map.items():
@@ -234,7 +173,7 @@ def decorate_block_title(title: str,
     title = 'Related: ' + title
 
   # Return in title case.
-  return _make_title_case(title)
+  return formatting.make_title_case(title)
 
 
 def decorate_chart_title(title: str,
@@ -259,13 +198,13 @@ def decorate_chart_title(title: str,
   # Use title case. Note, this needs to happend before
   # the following line which could add '(${date})' where
   # we don't want to capitalize 'date'.
-  title = _make_title_case(title)
+  title = formatting.make_title_case(title)
 
   if add_date:
     title = title + ' (${date})'
 
   if title_suffix:
-    title += ' - ' + _make_title_case(title_suffix)
+    title += ' - ' + formatting.make_title_case(title_suffix)
 
   return title
 
@@ -325,3 +264,31 @@ def trim_config(page_config: SubjectPageConfig):
   del page_config.categories[:]
   if out_cats:
     page_config.categories.extend(out_cats)
+
+
+def _process_title_desc_footnote(builder: Builder,
+                                 cv: ChartVars,
+                                 override_sv: str = '') -> Tuple[str, str, str]:
+  title, description, footnote = '', '', ''
+
+  if override_sv:
+    title = builder.sv2thing.name.get(override_sv, '')
+    description = builder.sv2thing.description.get(override_sv, '')
+    footnote = builder.sv2thing.footnote.get(override_sv, '')
+    return title, description, footnote
+
+  if cv.title:
+    title = cv.title
+    description = cv.description
+  elif cv.svpg_id:
+    title = builder.sv2thing.name.get(cv.svpg_id, '')
+    description = builder.sv2thing.description.get(cv.svpg_id, '')
+    footnote = builder.sv2thing.footnote.get(cv.svpg_id, '')
+  elif len(cv.svs) == 1:
+    title = builder.sv2thing.name.get(cv.svs[0], '')
+    description = builder.sv2thing.description.get(cv.svs[0], '')
+    footnote = builder.sv2thing.footnote.get(cv.svs[0], '')
+  elif len(cv.svs) > 1 and builder.sv2thing.name.get(cv.svs[0]):
+    title = builder.sv2thing.name[cv.svs[0]] + ' and more'
+
+  return title, description, footnote
