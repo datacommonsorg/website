@@ -16,7 +16,7 @@
 import json
 import logging
 import time
-from typing import Dict
+from typing import Dict, List
 
 from flask import current_app
 import json5
@@ -24,17 +24,18 @@ import requests
 
 from server.lib.nl.common import counters
 
-_API_URL_BASE = f"https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
+_CHAT_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
+_TEXT_API_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText"
 _API_HEADER = {'content-type': 'application/json'}
 
 _SUFFIX = '\n\nIn your response, include just the JSON adhering to the above schema. Do not add JSON keys outside the schema.  Also, explain why you set specific enum values.'
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
-_TEMPERATURE = 1.0
+_TEMPERATURE = 0.1
 
 _CANDIDATE_COUNT = 1
 
-_REQ_DATA = {
+_CHAT_REQ_DATA = {
     'prompt': {
         'messages': {},
         'examples': [],
@@ -43,13 +44,80 @@ _REQ_DATA = {
     'candidateCount': _CANDIDATE_COUNT,
 }
 
+_TEXT_REQ_DATA = {
+    "prompt": {},
+    "temperature":
+        _TEMPERATURE,
+    "candidateCount":
+        _CANDIDATE_COUNT,
+    "safetySettings": [{
+        "category": "HARM_CATEGORY_UNSPECIFIED",
+        "threshold": "BLOCK_ONLY_HIGH"
+    }, {
+        "category": "HARM_CATEGORY_DEROGATORY",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+        "category": "HARM_CATEGORY_TOXICITY",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+        "category": "HARM_CATEGORY_MEDICAL",
+        "threshold": "BLOCK_ONLY_HIGH"
+    }, {
+        "category": "HARM_CATEGORY_DANGEROUS",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+        "category": "HARM_CATEGORY_VIOLENCE",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }, {
+        "category": "HARM_CATEGORY_SEXUAL",
+        "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+    }]
+}
+
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def call(query: str, history: str, ctr: counters.Counters) -> Dict:
-  req_data = _REQ_DATA.copy()
+def detect_via_text(query: str, history: List[List[str]],
+                    ctr: counters.Counters) -> Dict:
+  req_data = _TEXT_REQ_DATA.copy()
 
-  req_data['prompt']['context'] = current_app.config['PALM_PROMPT_TEXT']
+  text = current_app.config['PALM_PROMPT_TEXT'].detection_text + '\n\n'
+  if not history:
+    # For the first query in the session.
+    text += 'Convert this sentence to JSON: "' + query + '"'
+  else:
+    history_parts = []
+    for input, output in history:
+      history_parts.append(f'Sentence: {input}')
+      history_parts.append(f'Response: {json.dumps(output)}')
+      history_parts.append('')
+    text += 'Here are list of past sentences:\n'
+    text += '\n'.join(history_parts) + '\n\n'
+
+    # For subsequent queries in the session.
+    text += 'As a follow up to the last sentence, convert this sentence to JSON: "' + query + '"'
+
+  req_data['prompt']['text'] = text
+
+  start_time = time.time()
+  req = json.dumps(req_data)
+  # NOTE: llm_detector.detect() caller checks this.
+  api_key = current_app.config['PALM_API_KEY']
+  r = requests.post(f'{_TEXT_API_URL_BASE}?key={api_key}',
+                    data=req,
+                    headers=_API_HEADER)
+  resp = r.json()
+  ctr.timeit('palm_api_text_call', start_time)
+
+  return parse_response(query, resp, field='output', ctr=ctr)
+
+
+def detect_via_chat(query: str, history: List[List[str]],
+                    ctr: counters.Counters) -> Dict:
+  req_data = _CHAT_REQ_DATA.copy()
+
+  req_data['prompt']['context'] = current_app.config[
+      'PALM_PROMPT_TEXT'].detection_chat
   if not history:
     # For the first query in the session.
     q = 'Convert this sentence to JSON: "' + query + '"'
@@ -72,19 +140,21 @@ def call(query: str, history: str, ctr: counters.Counters) -> Dict:
   req = json.dumps(req_data)
   # NOTE: llm_detector.detect() caller checks this.
   api_key = current_app.config['PALM_API_KEY']
-  r = requests.post(f'{_API_URL_BASE}?key={api_key}',
+  r = requests.post(f'{_CHAT_API_URL_BASE}?key={api_key}',
                     data=req,
                     headers=_API_HEADER)
   resp = r.json()
-  ctr.timeit('palm_api_call', start_time)
+  ctr.timeit('palm_api_chat_call', start_time)
 
-  return parse_response(query, resp, ctr)
+  return parse_response(query, resp, field='content', ctr=ctr)
 
 
-def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
+def parse_response(query: str, resp: Dict, field: str,
+                   ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
-    content = resp['candidates'][0]['content']
-    ctr.info('info_palm_api_response', content)
+    raw_content = resp['candidates'][0]
+    content = raw_content[field]
+    ctr.info('info_palm_api_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')
@@ -103,10 +173,13 @@ def parse_response(query: str, resp: Dict, ctr: counters.Counters) -> Dict:
       return {}
 
     return ans_json
+  elif resp.get('filters') and 'reason' in resp['filters'][0]:
+    ctr.err('failed_palm_api_filtered_resp', resp)
+    return {'UNSAFE': True}
 
   if "error" not in resp:
     # TODO: Unclear why this occasionally happens.
-    ctr.err('failed_palm_api_empty_noerr', query)
+    ctr.err('failed_palm_api_empty_noerr', resp)
   else:
     ctr.err('failed_palm_api_empty', f'{query} -> {resp["error"]}')
   return {}

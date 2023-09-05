@@ -248,6 +248,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const disableExploreMore = getSingleParam(
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
+    const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
+    const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
+
     let fulfillmentPromise: Promise<any>;
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: document.title,
@@ -259,7 +262,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         query,
         savedContext.current,
         dc,
-        disableExploreMore
+        disableExploreMore,
+        detector,
+        llmApi
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -331,11 +336,15 @@ const fetchDetectAndFufillData = async (
   query: string,
   savedContext: any,
   dc: string,
-  disableExploreMore: string
+  disableExploreMore: string,
+  detector: string,
+  llmApi: string
 ) => {
+  const detectorTypeArg = detector ? `&detector=${detector}` : "";
+  const llmApiArg = llmApi ? `&llm_api=${llmApi}` : "";
   try {
     const resp = await axios.post(
-      `/api/explore/detect-and-fulfill?q=${query}`,
+      `/api/explore/detect-and-fulfill?q=${query}${detectorTypeArg}${llmApiArg}`,
       {
         contextHistory: savedContext,
         dc,
