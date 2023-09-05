@@ -33,6 +33,7 @@ import { formatDate } from "../../utils/string_utils";
 import {
   formatString,
   getDenomInfo,
+  getNoDataErrorMsg,
   getSourcesJsx,
   getUnitAndScaling,
   ReplacementStrings,
@@ -119,6 +120,7 @@ export interface HighlightTilePropType {
 interface HighlightData extends Observation {
   sources: Set<string>;
   numFractionDigits?: number;
+  errorMsg: string;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
@@ -161,7 +163,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
       {...{ part: "container" }}
     >
-      {highlightData && (
+      {highlightData && !highlightData.errorMsg && (
         <>
           <span className="stat">
             <span className={`number ${ASYNC_ELEMENT_CLASS}`}>
@@ -177,7 +179,11 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         </>
       )}
       <span className="desc">{description}</span>
+      {highlightData && highlightData.errorMsg && (
+        <span>{highlightData.errorMsg}</span>
+      )}
       {!_.isEmpty(highlightData.sources) &&
+        !highlightData.errorMsg &&
         getSourcesJsx(highlightData.sources)}
     </div>
   );
@@ -212,27 +218,36 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
           props.place.dcid,
           mainStatData.date
         );
-        if (!denomInfo) {
-          return null;
+        if (denomInfo && value) {
+          value /= denomInfo.value;
+          sources.add(denomInfo.source);
+        } else {
+          value = null;
         }
-        value /= denomInfo.value;
-        sources.add(denomInfo.source);
       }
-      // If value is a decimal, calculate the numFractionDigits as the number of
-      // digits to get the first non-zero digit and the number after
-      // TODO: think about adding a limit to the number of digits.
-      let numFractionDigits =
-        Math.abs(value) >= 1
-          ? NUM_FRACTION_DIGITS
-          : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
-      if (unit in UnitOverrideConfig) {
-        const override = UnitOverrideConfig[unit];
-        unit = override.unitDisplayName;
-        scaling = override.multiplier;
-        numFractionDigits = override.numFractionDigits || numFractionDigits;
-      }
-      if (scaling) {
-        value *= scaling;
+      const numFractionDigits = NUM_FRACTION_DIGITS;
+      let errorMsg = "";
+      if (_.isUndefined(value) || _.isNull(value)) {
+        errorMsg = getNoDataErrorMsg([props.statVarSpec]);
+      } else {
+        // Only do additional calculations if value is not null or undefined
+
+        // If value is a decimal, calculate the numFractionDigits as the number of
+        // digits to get the first non-zero digit and the number after
+        // TODO: think about adding a limit to the number of digits.
+        let numFractionDigits =
+          Math.abs(value) >= 1
+            ? NUM_FRACTION_DIGITS
+            : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
+        if (unit in UnitOverrideConfig) {
+          const override = UnitOverrideConfig[unit];
+          unit = override.unitDisplayName;
+          scaling = override.multiplier;
+          numFractionDigits = override.numFractionDigits || numFractionDigits;
+        }
+        if (scaling) {
+          value *= scaling;
+        }
       }
       const result = {
         value,
@@ -240,6 +255,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
         numFractionDigits,
         unitDisplayName: unit,
         sources,
+        errorMsg,
       };
       return result;
     })
