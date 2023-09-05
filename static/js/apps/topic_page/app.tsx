@@ -110,7 +110,7 @@ export function App(props: AppPropType): JSX.Element {
                   <div id="search-icon"></div>
                   <input
                     id="place-autocomplete"
-                    placeholder="Enter a state or county"
+                    placeholder="Enter a state, county or city"
                     type="text"
                   />
                 </div>
