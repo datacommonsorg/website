@@ -68,8 +68,10 @@ import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -122,10 +124,12 @@ export interface MapChartData {
   borderGeoJson?: GeoJsonData;
   // props used when fetching this data
   props: MapTilePropType;
+  errorMsg: string;
 }
 
 export function MapTile(props: MapTilePropType): JSX.Element {
   const svgContainer = useRef<HTMLDivElement>(null);
+  const errorMsgContainer = useRef<HTMLDivElement>(null);
   const mapContainer = useRef<HTMLDivElement>(null);
   const legendContainer = useRef<HTMLDivElement>(null);
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
@@ -156,7 +160,8 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         props,
         svgContainer.current,
         legendContainer.current,
-        mapContainer.current
+        mapContainer.current,
+        errorMsgContainer.current
       );
       removeSpinner(props.id);
     }
@@ -183,6 +188,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       svgContainer.current,
       legendContainer.current,
       mapContainer.current,
+      errorMsgContainer.current,
       null,
       zoomParams
     );
@@ -204,8 +210,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={mapChartData && !!mapChartData.errorMsg}
     >
-      {showZoomButtons && (
+      {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
           <div id={zoomParams.zoomInButtonId} className="map-zoom-button">
             <i className="material-icons">add</i>
@@ -221,6 +228,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         ref={svgContainer}
         style={{ minHeight: svgHeight }}
       >
+        <div className="error-msg" ref={errorMsgContainer}></div>
         <div className="map" ref={mapContainer}></div>
         <div
           className="legend"
@@ -381,9 +389,9 @@ function rawToChart(
     dates.add(placeChartData.date);
   }
   // check for empty data values
-  if (_.isEmpty(dataValues)) {
-    return;
-  }
+  const errorMsg = _.isEmpty(dataValues)
+    ? getNoDataErrorMsg([props.statVarSpec])
+    : "";
   return {
     dataValues,
     metadata,
@@ -399,6 +407,7 @@ function rawToChart(
     unit,
     borderGeoJson: rawData.borderGeoJson,
     props,
+    errorMsg,
   };
 }
 
@@ -408,9 +417,21 @@ export function draw(
   svgContainer: HTMLDivElement,
   legendContainer: HTMLDivElement,
   mapContainer: HTMLDivElement,
+  errorMsgContainer: HTMLDivElement,
   svgWidth?: number,
   zoomParams?: MapZoomParams
 ): void {
+  if (chartData.errorMsg && errorMsgContainer) {
+    // clear the map and legend before adding error message
+    mapContainer.innerHTML = "";
+    legendContainer.innerHTML = "";
+    showError(chartData.errorMsg, errorMsgContainer);
+    return;
+  }
+  // clear the error message before drawing the map and legend
+  if (errorMsgContainer) {
+    errorMsgContainer.innerHTML = "";
+  }
   const mainStatVar = props.statVarSpec.statVar;
   const height = props.svgChartHeight;
   const dataValues = Object.values(chartData.dataValues);
