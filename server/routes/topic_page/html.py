@@ -79,7 +79,8 @@ def topic_page(topic_id=None, place_dcid=None):
     all_configs = libutil.get_topic_page_config()
 
   # TO DO: For TECHSOUP dev only, remove this before deploying
-  if g.env == 'custom':
+  #if g.env == 'custom':
+  if current_app.config['LOCAL']:
     all_configs = libutil.get_topic_page_config()
 
   topic_configs = all_configs.get(topic_id, [])
