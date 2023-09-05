@@ -31,6 +31,10 @@ metadata {
     parent_place: "country/USA"
     place_type: "County"
   }
+  place_group{
+    parent_place: "country/USA"
+    place_type: "City"
+  }
   contained_place_types {
     key: "Country"
     value: "State"
@@ -41,6 +45,10 @@ metadata {
   }
   contained_place_types {
     key: "County"
+    value: "City"
+  }
+  contained_place_types {
+    key: "City"
     value: "CensusTract"
   }
 }
