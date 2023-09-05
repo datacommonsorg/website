@@ -328,7 +328,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "Median_Earnings_Person":
         "Individual Median Earnings",
     "dc/e9gftzl2hm8h9":
-        "Total Commute Time Across All Workers",
+        "Total Commute Time",
     "dc/6rltk4kf75612":
         "Work at home",
     "dc/vp8cbt6k79t94":
