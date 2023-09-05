@@ -14,6 +14,7 @@
 
 import argparse
 import logging
+from multiprocessing import current_process
 from multiprocessing import Lock
 from multiprocessing import Pool
 from multiprocessing import Value
@@ -31,13 +32,21 @@ parser.add_argument("-d",
 
 logging.getLogger().setLevel(logging.WARNING)
 
-driver = base.create_driver()
+NUM_WORKER = 5
+
+drivers = []
+for i in range(NUM_WORKER):
+  drivers.append(base.create_driver())
+
 global_var = Value('i', 0)
 lock = Lock()
 
 
 def worker(total, page):
   start = time.time()
+  p = current_process()
+  process_counter = p._identity[0]
+  driver = drivers[process_counter - 1]
   max_attempts = 3
   attempts = 0
   while attempts < max_attempts:
@@ -50,7 +59,7 @@ def worker(total, page):
   end = time.time()
   with lock:
     global_var.value += 1
-  duration = f"{end - start:2.2f}"
+  duration = f"{end - start:02.2f}"
   logging.warning('%03d/%d: %ss: %s%s', global_var.value, total, duration,
                   args.domain, page['url'])
 
@@ -59,11 +68,13 @@ if __name__ == "__main__":
   args = parser.parse_args()
   logging.info(args.domain)
   pages = runner.prepare(f'remote/{args.domain}')
-  pool = Pool(4)
+  pool = Pool(NUM_WORKER)
   args = []
   # A warm up window
-  driver.switch_to.new_window('window')
   for page in pages:
     args.append((len(pages), page))
   pool.starmap(worker, args)
-  driver.close()
+  pool.close()
+  pool.join()
+  for driver in drivers:
+    driver.close()
