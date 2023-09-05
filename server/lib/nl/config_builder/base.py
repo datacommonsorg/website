@@ -204,7 +204,7 @@ def decorate_chart_title(title: str,
     title = title + ' (${date})'
 
   if title_suffix:
-    title += ' - ' + _make_title_case(title_suffix)
+    title += ' - ' + formatting.make_title_case(title_suffix)
 
   return title
 
