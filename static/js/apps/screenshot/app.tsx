@@ -27,19 +27,21 @@ export function App(props: {
 }): JSX.Element {
   return (
     <>
-      {Object.keys(props.data).map((name, idx) => {
-        return (
-          <div key={idx}>
-            <div className="name">
-              Url Path: <b>{"/" + name}</b>
+      {Object.keys(props.data)
+        .sort()
+        .map((name, idx) => {
+          return (
+            <div key={idx}>
+              <div className="name">
+                Url Path: <b>{name}</b>
+              </div>
+              <Item
+                blob1={props.data[name].blob1}
+                blob2={props.data[name].blob2}
+              ></Item>
             </div>
-            <Item
-              blob1={props.data[name].blob1}
-              blob2={props.data[name].blob2}
-            ></Item>
-          </div>
-        );
-      })}
+          );
+        })}
     </>
   );
 }
