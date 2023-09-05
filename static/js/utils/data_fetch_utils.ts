@@ -24,6 +24,7 @@ import _ from "lodash";
 import {
   Observation,
   PointApiResponse,
+  SeriesApiResponse,
   StatMetadata,
 } from "../shared/stat_types";
 import { stringifyFn } from "./axios";
@@ -162,4 +163,45 @@ export function getPointWithin(
     .then((resp) => {
       return getProcessedPointResponse(resp.data, alignedVariables);
     });
+}
+
+/**
+ * Gets the data from /api/observations/series endpoint.
+ * @param apiRoot api root
+ * @param entities list of enitites to get data for
+ * @param variables list of variables to get data for
+ */
+export function getSeries(
+  apiRoot: string,
+  entities: string[],
+  variables: string[]
+): Promise<SeriesApiResponse> {
+  return axios
+    .get(`${apiRoot || ""}/api/observations/series`, {
+      params: { entities, variables },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => resp.data);
+}
+
+/**
+ * Gets the data from /api/observations/series/within endpoint.
+ * @param apiRoot api root
+ * @param parentEntity parent place to get the data for
+ * @param childType place type to get the data for
+ * @param variables variables to get data for
+ * @returns
+ */
+export function getSeriesWithin(
+  apiRoot: string,
+  parentEntity: string,
+  childType: string,
+  variables: string[]
+): Promise<SeriesApiResponse> {
+  return axios
+    .get(`${apiRoot || ""}/api/observations/series/within`, {
+      params: { parentEntity, childType, variables },
+      paramsSerializer: stringifyFn,
+    })
+    .then((resp) => resp.data);
 }
