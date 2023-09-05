@@ -14,6 +14,10 @@
 
 import argparse
 import logging
+from multiprocessing import Lock
+from multiprocessing import Pool
+from multiprocessing import Value
+import time
 
 from server.webdriver import base
 from server.webdriver.screenshot import runner
@@ -25,19 +29,41 @@ parser.add_argument("-d",
                     type=str,
                     required=True)
 
-logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger().setLevel(logging.WARNING)
+
+driver = base.create_driver()
+global_var = Value('i', 0)
+lock = Lock()
+
+
+def worker(total, page):
+  start = time.time()
+  max_attempts = 3
+  attempts = 0
+  while attempts < max_attempts:
+    try:
+      runner.run(driver, 'https://' + args.domain, page)
+      break
+    except Exception:
+      logging.error("Error: %s", page['url'])
+      attempts += 1
+  end = time.time()
+  with lock:
+    global_var.value += 1
+  duration = f"{end - start:0.2f}"
+  logging.warning('%03d/%d: %ss: %s%s', global_var.value, total, duration,
+                  args.domain, page['url'])
+
 
 if __name__ == "__main__":
   args = parser.parse_args()
   logging.info(args.domain)
-  driver = base.create_driver()
-  for page in runner.prepare(f'remote/{args.domain}'):
-    # Retry twice
-    for i in range(0, 2):
-      while True:
-        try:
-          runner.run(driver, 'https://' + args.domain, page)
-        except:
-          continue
-        break
-  driver.quit()
+  pages = runner.prepare(f'remote/{args.domain}')
+  pool = Pool(4)
+  args = []
+  # A warm up window
+  driver.switch_to.new_window('window')
+  for page in pages:
+    args.append((len(pages), page))
+  pool.starmap(worker, args)
+  driver.close()

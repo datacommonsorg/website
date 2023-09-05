@@ -143,7 +143,7 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export MIXER_API_KEY=
   export PALM_API_KEY=
-  python3 -m pytest --reruns 2 server/webdriver/screenshot/
+  python3 -m pytest -n 3 --reruns 2 server/webdriver/screenshot/
 }
 
 # Run integration test for NL and explore interface
