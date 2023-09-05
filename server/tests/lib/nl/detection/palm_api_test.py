@@ -103,5 +103,5 @@ class TestParseResponse(unittest.TestCase):
   def test_main(self, input, want):
     self.maxDiff = None
     response = {'candidates': [{'content': input}]}
-    got = palm_api.parse_response('', response, Counters())
+    got = palm_api.parse_response_chat('', response, Counters())
     self.assertEqual(got, want)

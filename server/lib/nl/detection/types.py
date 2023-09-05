@@ -376,6 +376,11 @@ class RequestedDetectorType(str, Enum):
   HybridSafetyCheck = "hybridsafety"
 
 
+class LlmApiType(str, Enum):
+  Chat = "chat"
+  Text = "text"
+
+
 class PlaceDetectorType(str, Enum):
   # Represents the open-source NER implementation
   NER = "ner"

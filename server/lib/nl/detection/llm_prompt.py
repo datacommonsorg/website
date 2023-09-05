@@ -20,22 +20,22 @@ from server.lib.util import get_repo_root
 
 @dataclass
 class Prompts:
-  # Prompt for full query detection
-  detection: str
-  # Prompt for safety check.
-  safety: str
+  # Prompt for full query detection for Chat API.
+  detection_chat: str
+  # Prompt for safety check for Chat API.
+  safety_chat: str
+  # Prompt for full query detection for Text API.
+  detection_text: str
 
 
 # Returns LLM prompt texts
 def get_prompts() -> Prompts:
-  filepath = os.path.join(get_repo_root(), "config", "nl_page",
-                          "palm_prompt.txt")
-  with open(filepath, 'r') as f:
-    detection = f.read()
+  return Prompts(detection_chat=_content("palm_prompt_chatapi.txt"),
+                 detection_text=_content("palm_prompt_textapi.txt"),
+                 safety_chat=_content("palm_prompt_safety.txt"))
 
-  filepath = os.path.join(get_repo_root(), "config", "nl_page",
-                          "palm_prompt_safety.txt")
-  with open(filepath, 'r') as f:
-    safety = f.read()
 
-  return Prompts(detection=detection, safety=safety)
+def _content(fname) -> str:
+  filepath = os.path.join(get_repo_root(), "config", "nl_page", fname)
+  with open(filepath, 'r') as f:
+    return f.read()
