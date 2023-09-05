@@ -50,7 +50,7 @@ def worker(total, page):
   end = time.time()
   with lock:
     global_var.value += 1
-  duration = f"{end - start:0.2f}"
+  duration = f"{end - start:2.2f}"
   logging.warning('%03d/%d: %ss: %s%s', global_var.value, total, duration,
                   args.domain, page['url'])
 
