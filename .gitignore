@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 .env/
 screenshots/*.png
+screenshots/screenshot_url.json
 
 # Production static files
 **/dist/**

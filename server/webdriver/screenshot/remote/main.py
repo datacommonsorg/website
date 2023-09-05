@@ -13,12 +13,14 @@
 # limitations under the License.
 
 import argparse
+import json
 import logging
 from multiprocessing import current_process
 from multiprocessing import Lock
 from multiprocessing import Pool
 from multiprocessing import Value
 import time
+import uuid
 
 from server.webdriver import base
 from server.webdriver.screenshot import runner
@@ -26,7 +28,7 @@ from server.webdriver.screenshot import runner
 parser = argparse.ArgumentParser()
 parser.add_argument("-d",
                     "--domain",
-                    help="Domain to take the screenshot for ",
+                    help="Domain to take the screenshot for",
                     type=str,
                     required=True)
 
@@ -38,11 +40,11 @@ drivers = []
 for i in range(NUM_WORKER):
   drivers.append(base.create_driver())
 
-global_var = Value('i', 0)
 lock = Lock()
+global_var = Value('i', 0)
 
 
-def worker(total, page):
+def worker(total, domain, page):
   start = time.time()
   p = current_process()
   process_counter = p._identity[0]
@@ -51,29 +53,33 @@ def worker(total, page):
   attempts = 0
   while attempts < max_attempts:
     try:
-      runner.run(driver, 'https://' + args.domain, page)
+      runner.run(driver, 'https://' + domain, page)
       break
-    except Exception:
-      logging.error("Error: %s", page['url'])
+    except Exception as e:
+      logging.error("Error: %s, %s", page['url'], e)
       attempts += 1
   end = time.time()
   with lock:
     global_var.value += 1
   duration = f"{end - start:02.2f}"
-  logging.warning('%03d/%d: %ss: %s%s', global_var.value, total, duration,
-                  args.domain, page['url'])
+  logging.warning('%03d/%d: %ss: %s', global_var.value, total, duration,
+                  page['url'])
 
 
 if __name__ == "__main__":
   args = parser.parse_args()
-  logging.info(args.domain)
   pages = runner.prepare(f'remote/{args.domain}')
   pool = Pool(NUM_WORKER)
-  args = []
-  # A warm up window
+  screenshot_url = {}
+  params = []
   for page in pages:
-    args.append((len(pages), page))
-  pool.starmap(worker, args)
+    file_name = '{}.png'.format(uuid.uuid4().hex)
+    page['file_name'] = file_name
+    params.append((len(pages), args.domain, page))
+    screenshot_url[file_name] = page['url']
+  with open("screenshots/screenshot_url.json", "w") as json_file:
+    json.dump(screenshot_url, json_file)
+  pool.starmap(worker, params)
   pool.close()
   pool.join()
   for driver in drivers:

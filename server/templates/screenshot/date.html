@@ -28,13 +28,13 @@
     <p>
       <b>Date: {{ date }}</b>
     </p>
-    {% for name in images %}
+    {% for blob, data in images|dictsort %}
       <div class="name">
-        Url Path: <b>{{ "/" + name }}</b>
+        Url Path: <b>{{ data['page_url'] }}</b>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <img class="screenshot-image col-md-12" src="{{ images[name] }}"/>
+          <img class="screenshot-image col-md-12" src="{{ data['image_url'] }}"/>
         </div>
       </div>
     {% endfor %}
