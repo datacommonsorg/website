@@ -99,6 +99,7 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
 
   if detector_type == RequestedDetectorType.HybridSafetyCheck.value:
     heuristic_detection.detector = ActualDetectorType.HybridLLMSafety
+    heuristic_detection.llm_api = llm_api_type
     if llm_detector.check_safety(original_query, llm_api_type, counters):
       return heuristic_detection
     else:
@@ -126,7 +127,7 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
     detection = heuristic_detection
     detection.places_detected = llm_detection.places_detected
     detection.detector = ActualDetectorType.HybridLLMPlace
-
+  detection.llm_api = llm_api_type
   return detection
 
 

@@ -154,7 +154,7 @@ def parse_response(query: str, resp: Dict, field: str,
   if 'candidates' in resp and resp['candidates']:
     raw_content = resp['candidates'][0]
     content = raw_content[field]
-    ctr.info('info_palm_api_chat_response', raw_content)
+    ctr.info('info_palm_api_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
       logging.error(f'ERROR: empty parsed result for {query}')

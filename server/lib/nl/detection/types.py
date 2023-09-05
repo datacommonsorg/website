@@ -379,6 +379,7 @@ class RequestedDetectorType(str, Enum):
 class LlmApiType(str, Enum):
   Chat = "chat"
   Text = "text"
+  Nop = "nop"
 
 
 class PlaceDetectorType(str, Enum):
@@ -401,3 +402,4 @@ class Detection:
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
   place_detector: PlaceDetectorType = PlaceDetectorType.DC
+  llm_api: LlmApiType = LlmApiType.Nop

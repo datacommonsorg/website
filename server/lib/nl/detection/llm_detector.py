@@ -177,7 +177,8 @@ def detect(query: str, prev_utterance: utterance.Utterance, index_type: str,
                    svs_detected=sv_detection,
                    classifications=classifications,
                    llm_resp=llm_resp,
-                   detector=ActualDetectorType.LLM)
+                   detector=ActualDetectorType.LLM,
+                   llm_api=llm_api_type)
 
 
 def _build_classifications(llm_resp: Dict,
