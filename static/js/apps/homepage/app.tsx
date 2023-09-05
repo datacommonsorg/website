@@ -22,6 +22,7 @@ import "../../../library";
 import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
+import { triggerGAEvent, GA_EVENT_NL_SEARCH } from "../../shared/ga_events";
 
 /**
  * Application container
@@ -31,6 +32,10 @@ export function App(): JSX.Element {
     <NlSearchBar
       inputId="query-search-input"
       onSearch={(q) => {
+        triggerGAEvent(GA_EVENT_NL_SEARCH, {
+          "query": q,
+          "source": "homepage"
+        });
         window.location.href = `/explore#q=${encodeURIComponent(q)}`;
       }}
       placeholder={"Enter a question to explore"}

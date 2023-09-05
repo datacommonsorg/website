@@ -27,6 +27,7 @@ import { Topic, TopicConfig } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
 import { Item, ItemList } from "../explore/item_list";
 import allTopics from "./topics.json";
+import { GA_EVENT_NL_SEARCH, triggerGAEvent } from "../../shared/ga_events";
 
 /**
  * Application container
@@ -76,6 +77,10 @@ export function App(): JSX.Element {
         <NlSearchBar
           inputId="query-search-input"
           onSearch={(q) => {
+            triggerGAEvent(GA_EVENT_NL_SEARCH, {
+              "query": q,
+              "source": "explore_landing"
+            });
             window.location.href =
               q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
                 ? placeholderHref

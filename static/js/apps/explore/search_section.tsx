@@ -24,6 +24,7 @@ import { NlSearchBar } from "../../components/nl_search_bar";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
+import { GA_EVENT_NL_SEARCH, triggerGAEvent } from "../../shared/ga_events";
 
 // TODO (juliawu): Extract this out to a global flag we can set to remove
 //                 all feedback items for external launch.
@@ -48,6 +49,10 @@ export function SearchSection(props: {
     <NlSearchBar
       inputId="query-search-input"
       onSearch={(q) => {
+        triggerGAEvent(GA_EVENT_NL_SEARCH, {
+          "query": q,
+          "source": "explore"
+        });
         updateHash({
           [URL_HASH_PARAMS.QUERY]: q,
           [URL_HASH_PARAMS.PLACE]: "",
