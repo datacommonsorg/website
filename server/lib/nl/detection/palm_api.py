@@ -209,6 +209,7 @@ def _extract_answer(resp: str) -> str:
 
   num_code_block_delims = 0
   for l in resp.splitlines():
+    l = l.strip()
     if l and not l[0] in _SKIP_BEGIN_CHARS and not l[0].isalnum():
       ans.append(l)
     if l.startswith('```'):
