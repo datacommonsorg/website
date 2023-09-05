@@ -42,6 +42,7 @@ import {
   getSamplePlaces,
 } from "../../utils/place_utils";
 import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
+import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 
 export interface DisplayOptions {
   scatterPlaceLabels?: boolean;
@@ -126,6 +127,7 @@ export function AppContextProvider(
       setStatVars(statVars);
     },
     setVisType: (visType) => {
+      trackPageview(visType);
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
       setSamplePlaces(null);
@@ -146,9 +148,19 @@ export function AppContextProvider(
     return params.get(paramKey) || "";
   }
 
+  function trackPageview(visType: string) {
+    triggerGAEvent(GA_EVENT_PAGE_VIEW, {
+      page_title: `${visType} - ${document.title}`,
+      page_location: `${window.location.pathname}/${visType}${window.location.hash}`
+    });
+  }
+
   useEffect(() => {
     // Update context value based off url on initial load
     updateContextValue();
+
+    // Track initial page load
+    trackPageview(visType);
 
     // Update the context value based off the url whenever the window history
     // state changes (i.e., forward or back buttons are clicked)
