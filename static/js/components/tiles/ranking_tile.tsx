@@ -41,10 +41,10 @@ import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
-import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getStatVarName,
   getUnitAndScaling,
 } from "../../utils/tile_utils";
@@ -140,6 +140,11 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         })}
       {rankingData &&
         Object.keys(rankingData).map((statVar) => {
+          const errorMsg =
+            _.isEmpty(rankingData[statVar]) ||
+            rankingData[statVar].numDataPoints === 0
+              ? getNoDataErrorMsg(props.statVarSpec)
+              : "";
           return (
             <SvRankingUnits
               key={statVar}
@@ -153,6 +158,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               hideFooter={props.hideFooter}
               onHoverToggled={props.onHoverToggled}
               tileId={props.id}
+              errorMsg={errorMsg}
             />
           );
         })}
