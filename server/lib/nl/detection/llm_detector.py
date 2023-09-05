@@ -104,7 +104,7 @@ def check_safety(query: str, llm_api_type: LlmApiType,
   if llm_api_type == LlmApiType.Text:
     llm_resp = palm_api.detect_via_text(query, [], ctr)
   else:
-    llm_resp = palm_api.check_safety_via_chat(query, ctr)
+    llm_resp = palm_api.detect_via_chat(query, [], ctr)
   if llm_resp.get('UNSAFE') == True:
     return False
   return True

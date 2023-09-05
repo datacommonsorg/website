@@ -22,8 +22,6 @@ from server.lib.util import get_repo_root
 class Prompts:
   # Prompt for full query detection for Chat API.
   detection_chat: str
-  # Prompt for safety check for Chat API.
-  safety_chat: str
   # Prompt for full query detection for Text API.
   detection_text: str
 
@@ -31,8 +29,7 @@ class Prompts:
 # Returns LLM prompt texts
 def get_prompts() -> Prompts:
   return Prompts(detection_chat=_content("palm_prompt_chatapi.txt"),
-                 detection_text=_content("palm_prompt_textapi.txt"),
-                 safety_chat=_content("palm_prompt_safety.txt"))
+                 detection_text=_content("palm_prompt_textapi.txt"))
 
 
 def _content(fname) -> str:

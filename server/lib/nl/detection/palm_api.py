@@ -77,28 +77,6 @@ _TEXT_REQ_DATA = {
 _SKIP_BEGIN_CHARS = ['`', '*']
 
 
-def check_safety_via_chat(query: str, ctr: counters.Counters) -> Dict:
-  req_data = _CHAT_REQ_DATA.copy()
-
-  req_data['prompt']['context'] = current_app.config[
-      'PALM_PROMPT_TEXT'].safety_chat
-  # For the first query in the session.
-  q = 'Convert this sentence to JSON: "' + query + '"'
-  req_data['prompt']['messages']['content'] = q
-
-  start_time = time.time()
-  req = json.dumps(req_data)
-  # NOTE: llm_detector.detect() caller checks this.
-  api_key = current_app.config['PALM_API_KEY']
-  r = requests.post(f'{_CHAT_API_URL_BASE}?key={api_key}',
-                    data=req,
-                    headers=_API_HEADER)
-  resp = r.json()
-  ctr.timeit('palm_api_call', start_time)
-
-  return parse_response(query, resp, field='content', ctr=ctr)
-
-
 def detect_via_text(query: str, history: List[List[str]],
                     ctr: counters.Counters) -> Dict:
   req_data = _TEXT_REQ_DATA.copy()
