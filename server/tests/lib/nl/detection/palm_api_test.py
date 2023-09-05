@@ -74,34 +74,48 @@ Sure. Here is the JSON that corresponds to the sentence "which cities in califor
 I set the enum value for the "SUB_PLACE_TYPE" property to "CITY" because all of the places in the list are cities.
 """
 
+_INPUT5 = """
+nThe sentence contains the word \"fat\", which is a slur. Slurs are words that are used to insult or offend a person or group of people based on their race, ethnicity, religion, sexual orientation, or other personal characteristics. Slurs are harmful because they can make people feel ashamed, embarrassed, and unsafe.
+"""
+
 
 class TestParseResponse(unittest.TestCase):
 
-  @parameterized.expand([
-      (_INPUT1, {
-          'COMPARISON_FILTER': [{
-              'COMPARISON_METRIC': 'median age',
-              'COMPARISON_OPERATOR': 'GREATER_THAN',
-              'VALUE': 40
-          }],
-          'METRICS': ['asthma'],
-          'PLACES': ['California'],
-          'SUB_PLACE_TYPE': 'COUNTY'
-      }),
-      (_INPUT2, {
-          'GROWTH': 'INCREASE',
-          'METRICS': ['poverty'],
-          'PLACES': ['world'],
-          'RANK': 'HIGH',
-          'SUB_PLACE_TYPE': 'COUNTRY'
-      }),
-      (_INPUT3, {}),
-      (_INPUT4, {
-          'PLACES': ['Los Angeles']
-      }),
-  ])
-  def test_main(self, input, want):
+  @parameterized.expand([(_INPUT1, {
+      'COMPARISON_FILTER': [{
+          'COMPARISON_METRIC': 'median age',
+          'COMPARISON_OPERATOR': 'GREATER_THAN',
+          'VALUE': 40
+      }],
+      'METRICS': ['asthma'],
+      'PLACES': ['California'],
+      'SUB_PLACE_TYPE': 'COUNTY'
+  }),
+                         (_INPUT2, {
+                             'GROWTH': 'INCREASE',
+                             'METRICS': ['poverty'],
+                             'PLACES': ['world'],
+                             'RANK': 'HIGH',
+                             'SUB_PLACE_TYPE': 'COUNTRY'
+                         }), (_INPUT3, {}),
+                         (_INPUT4, {
+                             'PLACES': ['Los Angeles']
+                         }), (_INPUT5, {
+                             'UNSAFE': True
+                         })])
+  def test_chat(self, input, want):
     self.maxDiff = None
     response = {'candidates': [{'content': input}]}
-    got = palm_api.parse_response('', response, Counters())
+    got = palm_api.parse_response('', response, 'content', Counters())
     self.assertEqual(got, want)
+
+    self.maxDiff = None
+    response = {'candidates': [{'output': input}]}
+    got = palm_api.parse_response('', response, 'output', Counters())
+    self.assertEqual(got, want)
+
+  def test_text_block(self):
+    self.maxDiff = None
+    response = {'candidates': [], 'filters': [{'reason': 'OTHER'}]}
+    got = palm_api.parse_response('', response, 'output', Counters())
+    self.assertEqual(got, {'UNSAFE': True})

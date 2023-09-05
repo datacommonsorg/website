@@ -39,6 +39,7 @@ from server.lib.nl.detection import utils as dutils
 import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
@@ -79,9 +80,10 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   if is_sdg:
     embeddings_index_type = 'sdg_ft'
 
-  detector_type = request.args.get('detector',
-                                   default=RequestedDetectorType.Hybrid.value,
-                                   type=str)
+  detector_type = request.args.get(
+      'detector',
+      default=RequestedDetectorType.HybridSafetyCheck.value,
+      type=str)
 
   place_detector_type = request.args.get('place_detector',
                                          default='dc',
@@ -91,6 +93,15 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
     place_detector_type = PlaceDetectorType.NER
   else:
     place_detector_type = PlaceDetectorType(place_detector_type)
+
+  llm_api_type = request.args.get('llm_api',
+                                  default=LlmApiType.Chat.value,
+                                  type=str).lower()
+  if llm_api_type not in [LlmApiType.Chat, LlmApiType.Text]:
+    logging.error(f'Unknown place_detector {place_detector_type}')
+    llm_api_type = LlmApiType.Chat
+  else:
+    llm_api_type = LlmApiType(llm_api_type)
 
   query = str(escape(shared_utils.remove_punctuations(original_query)))
   if not query:
@@ -127,7 +138,8 @@ def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
   start = time.time()
   query_detection = detector.detect(detector_type, place_detector_type,
                                     original_query, query, prev_utterance,
-                                    embeddings_index_type, debug_logs, counters)
+                                    embeddings_index_type, llm_api_type,
+                                    debug_logs, counters)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query, context_history, debug_logs,
