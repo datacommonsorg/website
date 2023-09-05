@@ -62,7 +62,7 @@ def run(driver, page_base_url, page_config):
       WebDriverWait(driver, timeout).until(shared.charts_rendered)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
       logging.error("Exception for url: %s\n%s", url, e)
-      return True
+      return False
   else:
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
     WebDriverWait(driver, timeout).until(element_present)
