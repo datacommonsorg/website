@@ -161,7 +161,7 @@
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Sunnyvale",
+                    "title": "Total Commute Time in Sunnyvale",
                     "type": "LINE"
                   }
                 ]
@@ -169,18 +169,19 @@
               {
                 "tiles": [
                   {
-                    "description": "Commute Time in Sunnyvale",
+                    "description": "Total Commute Time in Sunnyvale",
                     "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
-                    "title": "Commute Time in Sunnyvale",
+                    "title": "Total Commute Time in Sunnyvale",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Commute Time"
+            "description": "Total time spent on a single commute across all workers.",
+            "title": "Total Commute Time"
           },
           {
             "columns": [
@@ -281,7 +282,7 @@
             "statVar": "dc/e27c5t4tbplg"
           },
           "dc/e9gftzl2hm8h9": {
-            "name": "Commute Time",
+            "name": "Total Commute Time",
             "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {

@@ -390,6 +390,69 @@
               }
             ],
             "title": "Employed Population Below International Poverty Line by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker"
+                    ],
+                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker"
+                    ],
+                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mean Monthly Wages in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker"
+                    ],
+                    "title": "Mean Monthly Wages in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Monthly Wages in India",
+                    "statVarKey": [
+                      "Mean_WagesMonthly_Worker"
+                    ],
+                    "title": "Mean Monthly Wages in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mean Monthly Wages"
           }
         ],
         "statVarSpec": {
@@ -408,6 +471,10 @@
           "Count_Person_Urban_BelowPovertyLevelInThePast12Months": {
             "name": "Urban residents, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+          },
+          "Mean_WagesMonthly_Worker": {
+            "name": "Mean Monthly Wages",
+            "statVar": "Mean_WagesMonthly_Worker"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
