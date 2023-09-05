@@ -393,6 +393,10 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "CO₂ Emissions from Transportation",
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ Emissions from Waste Management",
+    "Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived":
+        "Mean Monthly Income",
+    "Count_Person_NonWorker":
+        "People Not Working",
 }
 
 SV_DISPLAY_FOOTNOTE_OVERRIDE = {
