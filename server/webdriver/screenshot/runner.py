@@ -15,12 +15,8 @@
 import json
 import logging
 import os
-import shutil
 import time
-import urllib.parse
 
-from PIL import Image
-from PIL import PngImagePlugin
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
@@ -33,50 +29,49 @@ from server.webdriver import shared
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 
+timeout = 20
+
 
 def prepare(page_config_dir):
   for f in os.listdir(SCREENSHOTS_FOLDER):
     if f != '.gitkeep':
-      os.remove(os.path.join(SCREENSHOTS_FOLDER, f))
+      try:
+        os.remove(os.path.join(SCREENSHOTS_FOLDER, f))
+      except FileNotFoundError:
+        continue
   curr_dir = os.path.dirname(os.path.abspath(__file__))
   with open(os.path.join(curr_dir, page_config_dir, 'page.json')) as f:
     page_config = json.load(f)
     return page_config
 
 
-def run(driver, base_url, page):
+def run(driver, page_base_url, page_config):
   """Take screenshot and save to desired folders"""
   # Set the window size. Testing different sizes.
   driver.switch_to.new_window('window')
   driver.set_window_size(width=WIDTH,
-                         height=page['height'],
+                         height=page_config['height'],
                          windowHandle='current')
-  driver.get(base_url + page['url'])
+  url = page_base_url + page_config['url']
+  driver.get(url)
   # 'async' indicates whether this page fetches data or renders components
   # asyncronously. The web driver wait depends on it.
-  if page['async']:
+  if page_config['async']:
     shared.wait_for_loading(driver)
     try:
-      WebDriverWait(driver, shared.TIMEOUT).until(shared.charts_rendered)
+      WebDriverWait(driver, timeout).until(shared.charts_rendered)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
-      logging.error("Exception for url: %s\n%s", page['url'], e)
+      logging.error("Exception for url: %s\n%s", url, e)
       return False
   else:
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
-    WebDriverWait(driver, shared.TIMEOUT).until(element_present)
+    WebDriverWait(driver, timeout).until(element_present)
   # Extra sleep to make sure page element settles. For example, stat var
   # hierarchy widget expands via animation.
   time.sleep(1)
-  # Take a screenshot of the page and save it.
-  name = urllib.parse.quote_plus(page['url'].removeprefix('/'))
-  # Cap file name otherwise it may exceed limit of file name length.
-  file_name = '{}/{}.png'.format(SCREENSHOTS_FOLDER, name[0:240])
-  if not driver.save_screenshot('tmp.png'):
-    logging.error('Failed to save screenshot image for url: %s', page['url'])
+  file_name = page_config['file_name']
+  tmp_file = '{}/{}'.format(SCREENSHOTS_FOLDER, file_name)
+  if not driver.save_screenshot(tmp_file):
+    logging.error('Failed to save screenshot image for url: %s', url)
     return False
-  img = Image.open('tmp.png')
-  meta = PngImagePlugin.PngInfo()
-  meta.add_text('url', page['url'])  # Add key-value pair
-  img.save('tmp.png', pnginfo=meta)
-  shutil.move('tmp.png', file_name)
   return True

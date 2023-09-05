@@ -55,25 +55,6 @@ def read_blob(bucket_name, blob_name):
   return blob.download_as_bytes()
 
 
-def list_png(bucket_name, prefix):
-  """Return a list of images in a given bucket and folder prefix.
-
-  Args:
-    bucket_name: the bucket where the image is stored.
-    prefix: the folder prefix
-  Returns:
-    An array of base64 encoded images.
-  """
-  storage_client = storage.Client()
-  bucket = storage_client.get_bucket(bucket_name)
-  blobs = bucket.list_blobs(prefix=prefix)
-  result = []
-  for b in blobs:
-    if b.name.endswith('png'):
-      result.append(b.name)
-  return result
-
-
 def list_folder(bucket_name, prefix, start_offset):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)

@@ -12,21 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import multiprocessing
-import sys
-
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from server.webdriver import shared
 from shared.lib.test_server import NLWebServerTestCase
-
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
 
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
@@ -38,6 +28,7 @@ def create_driver(preferences=None):
   chrome_options.add_argument('--headless=new')
   chrome_options.add_argument('--no-sandbox')
   chrome_options.add_argument('--disable-dev-shm-usage')
+  chrome_options.add_argument('--hide-scrollbars')
   if preferences:
     chrome_options.add_experimental_option("prefs", preferences)
   driver = webdriver.Chrome(options=chrome_options)
