@@ -37,7 +37,7 @@ steps:
         ./run_test.sh --setup_python
         ./run_website_snapshot.sh
 
-timeout: 1800s
+timeout: 3600s
 
 options:
   machineType: "E2_HIGHCPU_32"

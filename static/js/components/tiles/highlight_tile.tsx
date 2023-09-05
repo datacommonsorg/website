@@ -218,7 +218,13 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
         value /= denomInfo.value;
         sources.add(denomInfo.source);
       }
-      let numFractionDigits = NUM_FRACTION_DIGITS;
+      // If value is a decimal, calculate the numFractionDigits as the number of
+      // digits to get the first non-zero digit and the number after
+      // TODO: think about adding a limit to the number of digits.
+      let numFractionDigits =
+        Math.abs(value) >= 1
+          ? NUM_FRACTION_DIGITS
+          : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
       if (unit in UnitOverrideConfig) {
         const override = UnitOverrideConfig[unit];
         unit = override.unitDisplayName;

@@ -244,7 +244,12 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <b>Place Detection:</b>
           </Row>
           <Row>
-            <Col>Places Detected: {debugInfo.placesDetected.join(", ")}</Col>
+            <Col>
+              Places Detected:{" "}
+              {debugInfo.placesDetected
+                ? debugInfo.placesDetected.join(", ")
+                : ""}
+            </Col>
           </Row>
           <Row>
             <Col>Places Resolved: {debugInfo.placesResolved}</Col>

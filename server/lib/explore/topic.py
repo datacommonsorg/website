@@ -73,8 +73,16 @@ def compute_correlation_chart_vars(
     state: ftypes.PopulateState) -> OrderedDict[str, List[ftypes.ChartVars]]:
   # Note: This relies on the construction of multi-sv in `construct()`
   chart_vars_map = OrderedDict()
-  lhs_svs = state.uttr.multi_svs.candidates[0].parts[0].svs
-  rhs_svs = state.uttr.multi_svs.candidates[0].parts[1].svs
+
+  # Get dual-SV candidate.
+  lhs_svs, rhs_svs = [], []
+  for c in state.uttr.multi_svs.candidates:
+    if len(c.parts) == 2:
+      lhs_svs = c.parts[0].svs
+      rhs_svs = c.parts[1].svs
+      break
+  if not lhs_svs or not rhs_svs:
+    return chart_vars_map
 
   # To not go crazy with api calls, don't handle more than one topic on each
   # side.

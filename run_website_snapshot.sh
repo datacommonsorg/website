@@ -27,10 +27,10 @@ ltt install torch --cpuonly
 pip3 install -r nl_server/requirements.txt
 
 # Define a list of domains
-domain_list="datacommons.feedingamerica.org"
+domain_list=(datacommons.feedingamerica.org dev.datacommons.org autopush.datacommons.org)
 
 # Loop through the domain list
-for domain in $domain_list
+for domain in "${domain_list[@]}"
 do
   date_str=$(date +"%Y_%m_%d_%H_%M_%S")
   python3 -m server.webdriver.screenshot.remote.main -d $domain
