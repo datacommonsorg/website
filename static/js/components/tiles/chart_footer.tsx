@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React from "react";
+import { GA_EVENT_TILE_DOWNLOAD, triggerGAEvent } from "../../shared/ga_events";
 
 interface ChartFooterPropType {
   handleEmbed?: () => void;
@@ -44,6 +45,9 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 href="#"
                 onClick={(event) => {
                   event.preventDefault();
+                  triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
+                    "type": props.exploreLink?.displayText
+                  });
                   props.handleEmbed();
                 }}
               >
