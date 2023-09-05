@@ -94,6 +94,8 @@ class WebsiteSanityTest:
   def __enter__(self):
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
     self.driver = webdriver.Chrome(service=Service(
         ChromeDriverManager().install()),
                                    options=chrome_options)
@@ -211,11 +213,10 @@ class WebsiteSanityTest:
     # TODO(keyurs): Use this function to ensure all async elements have loaded:
     # https://github.com/datacommonsorg/website/blob/master/server/webdriver/shared.py#L56
 
-    # Wait 5 secs for charts container to load
-    explore_container_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, "explore-charts"))
+    # Wait 10 secs for charts container to load
     try:
-      WebDriverWait(self.driver, 10).until(explore_container_present)
+      WebDriverWait(self.driver, 10).until(
+          EC.presence_of_element_located((By.CLASS_NAME, "explore-charts")))
     except:
       self.add_result(fail_result(
           page,
@@ -224,20 +225,19 @@ class WebsiteSanityTest:
       return
 
     # Wait couple more seconds for subtopics (i.e. charts) to load
-    subtopics_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, "section[class*='block subtopic']"))
+    subtopics = None
     try:
-      WebDriverWait(self.driver, 2).until(subtopics_present)
+      subtopics = WebDriverWait(self.driver, 2).until(
+          EC.presence_of_all_elements_located(
+              (By.CSS_SELECTOR, "section[class*='block subtopic']")))
     except:
       self.add_result(fail_result(
           page,
-          "No charts.",
+          "Timed out.",
       ))
       return
 
     # subtopics
-    subtopics = find_elems(self.driver, By.CSS_SELECTOR,
-                           "section[class*='block subtopic']")
     if subtopics is None or len(subtopics) == 0:
       self.add_result(fail_result(
           page,

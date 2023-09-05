@@ -37,6 +37,7 @@ import server.lib.config as libconfig
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 from server.lib.nl.common import bad_words
+from server.lib.nl.detection import llm_prompt
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
@@ -378,7 +379,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
     # Get the API key from environment first.
     if cfg.USE_PALM:
-      app.config['PALM_PROMPT_TEXT'] = libutil.get_llm_prompt_text()
+      app.config['PALM_PROMPT_TEXT'] = llm_prompt.get_prompts()
       if os.environ.get('PALM_API_KEY'):
         app.config['PALM_API_KEY'] = os.environ.get('PALM_API_KEY')
       else:

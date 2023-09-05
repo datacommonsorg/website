@@ -179,6 +179,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     blocked: props.debugData["blocked"] || false,
     originalQuery: props.debugData["original_query"],
     detectionType: props.debugData["detection_type"],
+    llmApiType: props.debugData["llm_api_type"],
     placeDetectionType: props.debugData["place_detection_type"],
     placesDetected: props.debugData["places_detected"],
     placesResolved: props.debugData["places_resolved"],
@@ -225,6 +226,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           </Row>
           <Row>
             <b>Detection Type: </b> {debugInfo.detectionType}
+          </Row>
+          <Row>
+            <b>LLM API Type: </b> {debugInfo.llmApiType}
           </Row>
           <Row>
             <b>Place Detection Type: </b>{" "}

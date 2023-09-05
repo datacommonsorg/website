@@ -169,7 +169,7 @@ export function computeRatio(
   denom: Observation[],
   scaling = 1
 ): Observation[] {
-  if (!denom) {
+  if (_.isEmpty(denom)) {
     return [];
   }
   const result: Observation[] = [];

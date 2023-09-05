@@ -41,11 +41,16 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getDenomInfo,
+  getStatVarName,
+  getUnitAndScaling,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -159,16 +164,7 @@ function getPopulationPromise(
   if (_.isEmpty(variables)) {
     return Promise.resolve(null);
   } else {
-    return axios
-      .get("/api/observations/series/within", {
-        params: {
-          parentEntity: placeDcid,
-          childType: enclosedPlaceType,
-          variables,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
+    return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
   }
 }
 
@@ -247,22 +243,20 @@ function rawToChart(
   }
   const points = {};
   const sources: Set<string> = new Set();
+  const xUnitScaling = getUnitAndScaling(xStatVar, rawData.placeStats);
+  const yUnitScaling = getUnitAndScaling(yStatVar, rawData.placeStats);
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
       name: rawData.placeNames[place] || place,
     };
+    // get place chart data with no per capita or scaling.
     const placeChartData = getPlaceScatterData(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
       rawData.population,
-      rawData.placeStats.facets,
-      xStatVar.denom,
-      yStatVar.denom,
-      null,
-      xStatVar.scaling,
-      yStatVar.scaling
+      rawData.placeStats.facets
     );
     if (!placeChartData) {
       console.log(`BIVARIATE: No data for ${place}, skipping`);
@@ -273,7 +267,46 @@ function rawToChart(
         sources.add(source);
       }
     });
-    points[place] = placeChartData.point;
+    const point = placeChartData.point;
+    if (xStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        xStatVar,
+        rawData.population,
+        place,
+        point.xDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.xVal /= denomInfo.value;
+      point.xPopDate = denomInfo.date;
+      point.xPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (xUnitScaling.scaling) {
+      point.xVal *= xUnitScaling.scaling;
+    }
+    if (yStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        yStatVar,
+        rawData.population,
+        place,
+        point.yDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.yVal /= denomInfo.value;
+      point.yPopDate = denomInfo.date;
+      point.yPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (yUnitScaling.scaling) {
+      point.yVal *= yUnitScaling.scaling;
+    }
+    points[place] = point;
   }
   return {
     xStatVar,

@@ -28,6 +28,7 @@ from server.lib.nl.detection import place
 from server.lib.nl.detection import types
 from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
+from server.lib.nl.detection.types import LlmApiType
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import PlaceDetectorType
 from server.lib.nl.detection.types import RequestedDetectorType
@@ -37,6 +38,7 @@ import shared.lib.detected_variables as dutils
 _PALM_API_DETECTORS = [
     RequestedDetectorType.LLM.value,
     RequestedDetectorType.Hybrid.value,
+    RequestedDetectorType.HybridSafetyCheck.value,
 ]
 
 MAX_CHILD_LIMIT = 50
@@ -50,7 +52,8 @@ MAX_CHILD_LIMIT = 50
 #
 def detect(detector_type: str, place_detector_type: PlaceDetectorType,
            original_query: str, no_punct_query: str, prev_utterance: Utterance,
-           embeddings_index_type: str, query_detection_debug_logs: Dict,
+           embeddings_index_type: str, llm_api_type: LlmApiType,
+           query_detection_debug_logs: Dict,
            counters: Counters) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
@@ -60,12 +63,17 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
     counters.err('failed_palm_keynotfound', '')
     detector_type = RequestedDetectorType.Heuristic.value
 
+  if (detector_type in _PALM_API_DETECTORS and
+      'PALM_PROMPT_TEXT' not in current_app.config):
+    counters.err('failed_palm_promptnotfound', '')
+    detector_type = RequestedDetectorType.Heuristic.value
+
   #
   # LLM Detection.
   #
   if detector_type == RequestedDetectorType.LLM.value:
     llm_detection = llm_detector.detect(original_query, prev_utterance,
-                                        embeddings_index_type,
+                                        embeddings_index_type, llm_api_type,
                                         query_detection_debug_logs, counters)
     return llm_detection
 
@@ -88,8 +96,18 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
     return heuristic_detection
 
   counters.err('warning_llm_fallback', '')
+
+  if detector_type == RequestedDetectorType.HybridSafetyCheck.value:
+    heuristic_detection.detector = ActualDetectorType.HybridLLMSafety
+    heuristic_detection.llm_api = llm_api_type
+    if llm_detector.check_safety(original_query, llm_api_type, counters):
+      return heuristic_detection
+    else:
+      counters.err('info_llm_blocked', '')
+      return None
+
   llm_detection = llm_detector.detect(original_query, prev_utterance,
-                                      embeddings_index_type,
+                                      embeddings_index_type, llm_api_type,
                                       query_detection_debug_logs, counters)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
@@ -109,7 +127,7 @@ def detect(detector_type: str, place_detector_type: PlaceDetectorType,
     detection = heuristic_detection
     detection.places_detected = llm_detection.places_detected
     detection.detector = ActualDetectorType.HybridLLMPlace
-
+  detection.llm_api = llm_api_type
   return detection
 
 

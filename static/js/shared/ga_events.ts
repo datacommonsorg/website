@@ -28,6 +28,8 @@ export function triggerGAEvent(
   }
 }
 
+export const GA_EVENT_PAGE_VIEW = "page_view";
+
 /**
  * Event name: place_category_click
  * Triggered when: users click on the category redirect link in the place explorer page.

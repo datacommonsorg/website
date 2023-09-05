@@ -145,12 +145,12 @@ Output JSON:
 }
 ```
 
-Input Sentence: "Give me info on prevalence of asthma, gender inequality and per capita hispanic population in nevada, california and north dakota"
+Input Sentence: "Give me info on prevalence of asthma, gender inequality and per capita GDP in nevada, california and north dakota"
 Output JSON:
 ```
 {
   "PLACES":  ["nevada", "california", "north dakota"],
-  "METRICS": ["prevalence of asthma", "gender inequality", "per capita"],
+  "METRICS": ["prevalence of asthma", "gender inequality", "per capita GDP"],
   "COMPARE": "COMPARE_PLACES"
 }
 ```

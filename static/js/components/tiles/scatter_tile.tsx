@@ -43,10 +43,16 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getDenomInfo,
+  getStatVarNames,
+  getUnitAndScaling,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -232,16 +238,7 @@ function getPopulationPromise(
   if (_.isEmpty(statVars)) {
     return Promise.resolve(null);
   } else {
-    return axios
-      .get(`${apiRoot || ""}/api/observations/series/within`, {
-        params: {
-          parentEntity: placeDcid,
-          childType: enclosedPlaceType,
-          variables: statVars,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
+    return getSeriesWithin(apiRoot, placeDcid, enclosedPlaceType, statVars);
   }
 }
 
@@ -314,24 +311,20 @@ function rawToChart(
   const sources: Set<string> = new Set();
   const xDates: Set<string> = new Set();
   const yDates: Set<string> = new Set();
-  let xUnit = xStatVar.unit;
-  let yUnit = yStatVar.unit;
+  const xUnitScaling = getUnitAndScaling(xStatVar, rawData.placeStats);
+  const yUnitScaling = getUnitAndScaling(yStatVar, rawData.placeStats);
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
       name: rawData.placeNames[place] || place,
     };
+    // get place chart data with no per capita or scaling.
     const placeChartData = getPlaceScatterData(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
       rawData.population,
-      rawData.placeStats.facets,
-      xStatVar.denom,
-      yStatVar.denom,
-      null,
-      xStatVar.scaling,
-      yStatVar.scaling
+      rawData.placeStats.facets
     );
     if (!placeChartData) {
       console.log(
@@ -344,11 +337,48 @@ function rawToChart(
         sources.add(source);
       }
     });
-    points[place] = placeChartData.point;
-    xDates.add(placeChartData.point.xDate);
-    yDates.add(placeChartData.point.yDate);
-    xUnit = xUnit || placeChartData.xUnit;
-    yUnit = yUnit || placeChartData.yUnit;
+    const point = placeChartData.point;
+    if (xStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        xStatVar,
+        rawData.population,
+        place,
+        point.xDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.xVal /= denomInfo.value;
+      point.xPopDate = denomInfo.date;
+      point.xPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (xUnitScaling.scaling) {
+      point.xVal *= xUnitScaling.scaling;
+    }
+    if (yStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        yStatVar,
+        rawData.population,
+        place,
+        point.yDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.yVal /= denomInfo.value;
+      point.yPopDate = denomInfo.date;
+      point.yPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (yUnitScaling.scaling) {
+      point.yVal *= yUnitScaling.scaling;
+    }
+    points[place] = point;
+    xDates.add(point.xDate);
+    yDates.add(point.yDate);
   }
   const errorMsg = _.isEmpty(points)
     ? "Sorry, we don't have data for those variables"
@@ -358,8 +388,8 @@ function rawToChart(
     yStatVar,
     points,
     sources,
-    xUnit,
-    yUnit,
+    xUnit: xUnitScaling.unit,
+    yUnit: yUnitScaling.unit,
     xDate: getDateRange(Array.from(xDates)),
     yDate: getDateRange(Array.from(yDates)),
     errorMsg,
@@ -428,8 +458,8 @@ export function draw(
     height: svgChartHeight,
     xLabel: chartData.xStatVarName,
     yLabel: chartData.yStatVarName,
-    xUnit: chartData.xStatVar.unit,
-    yUnit: chartData.yStatVar.unit,
+    xUnit: chartData.xUnit,
+    yUnit: chartData.yUnit,
   };
   drawScatter(
     svgContainer,

@@ -33,7 +33,8 @@ class NeedLLM(Enum):
   No = 1
   ForPlace = 2
   ForVar = 3
-  Fully = 4
+  ForSafety = 4
+  Fully = 5
 
 
 # Any score below this value does not qualify for fallback. This
