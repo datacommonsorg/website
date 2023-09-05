@@ -19,7 +19,6 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -35,8 +34,8 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { Chart } from "./chart";
 import {
@@ -200,16 +199,12 @@ async function loadData(
       populationSvList.add(axis.denom);
     }
   }
-  const populationPromise: Promise<SeriesApiResponse> = axios
-    .get("/api/observations/series/within", {
-      params: {
-        parentEntity: place.enclosingPlace.dcid,
-        childType: place.enclosedPlaceType,
-        variables: Array.from(populationSvList),
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => resp.data);
+  const populationPromise: Promise<SeriesApiResponse> = getSeriesWithin(
+    "",
+    place.enclosingPlace.dcid,
+    place.enclosedPlaceType,
+    Array.from(populationSvList)
+  );
   Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
     .then(([statResponse, statAllResponse, populationData]) => {
       let metadataMap = statResponse.facets || {};

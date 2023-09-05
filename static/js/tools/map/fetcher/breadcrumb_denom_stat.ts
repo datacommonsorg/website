@@ -18,15 +18,11 @@
  * Fetch the breadcrumb (parent places) denominator stat data
  */
 
-import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntitySeriesWrapper,
-  SeriesApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
+import { EntitySeriesWrapper } from "../../../shared/stat_types";
+import { getSeries } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -64,21 +60,14 @@ export function useFetchBreadcrumbDenomStat(
       },
       error: null,
     };
-    axios
-      .get<SeriesApiResponse>("/api/observations/series", {
-        params: {
-          entities: placeDcids,
-          variables: [statVar.value.denom],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    getSeries("", placeDcids, [statVar.value.denom])
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
+        if (_.isEmpty(resp.data[statVar.value.denom])) {
           action.error = "error fetching breadcrumb denom stat data";
         } else {
           action.payload = {
-            data: resp.data.data[statVar.value.denom],
-            facets: resp.data.facets,
+            data: resp.data[statVar.value.denom],
+            facets: resp.facets,
           } as EntitySeriesWrapper;
         }
         console.log("[Map Fetch] breadcrumb denom stat");

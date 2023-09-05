@@ -18,22 +18,25 @@
  * Component for rendering a donut tile.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw_donut";
-import { PointApiResponse } from "../../shared/stat_types";
+import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
-import { stringifyFn } from "../../utils/axios";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
-import { getPoint } from "../../utils/data_fetch_utils";
+import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getStatVarNames, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  getDenomInfo,
+  getStatVarNames,
+  getUnitAndScaling,
+  ReplacementStrings,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
 
@@ -129,25 +132,30 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: DonutTilePropType) => {
-  const statSvs = props.statVarSpec.map((spec) => spec.statVar);
-  const denomSvs = props.statVarSpec.map((spec) => spec.denom);
-  const statVars = [statSvs, denomSvs].flat(1);
-  statVars.push(FILTER_STAT_VAR);
+  const statSvs = props.statVarSpec
+    .map((spec) => spec.statVar)
+    .filter((sv) => !!sv);
+  const denomSvs = props.statVarSpec
+    .map((spec) => spec.denom)
+    .filter((sv) => !!sv);
   try {
-    const resp = await getPoint(
+    const statResp = await getPoint(
       props.apiRoot,
       [props.place.dcid],
-      statVars,
+      [statSvs, FILTER_STAT_VAR].flat(1),
       "",
-      [statSvs, denomSvs]
+      [statSvs]
     );
+    const denomResp = _.isEmpty(denomSvs)
+      ? null
+      : await getSeries(props.apiRoot, [props.place.dcid], denomSvs);
 
     // Find the most populated places.
     let popPoints: RankingPoint[] = [];
-    for (const place in resp.data[FILTER_STAT_VAR]) {
+    for (const place in statResp.data[FILTER_STAT_VAR]) {
       popPoints.push({
         placeDcid: place,
-        value: resp.data[FILTER_STAT_VAR][place].value,
+        value: statResp.data[FILTER_STAT_VAR][place].value,
       });
     }
     // Take the most populated places.
@@ -161,25 +169,35 @@ export const fetchData = async (props: DonutTilePropType) => {
       props.statVarSpec,
       props.apiRoot
     );
-    return rawToChart(props, resp, popPoints, placeNames, statVarDcidToName);
+    return rawToChart(
+      props,
+      statResp,
+      denomResp,
+      popPoints,
+      placeNames,
+      statVarDcidToName
+    );
   } catch (error) {
+    console.log(error);
     return null;
   }
 };
 
 function rawToChart(
   props: DonutTilePropType,
-  rawData: PointApiResponse,
+  statData: PointApiResponse,
+  denomData: SeriesApiResponse,
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   statVarNames: Record<string, string>
 ): DonutChartData {
-  const raw = _.cloneDeep(rawData);
+  const raw = _.cloneDeep(statData);
   const dataGroups: DataGroup[] = [];
   const sources = new Set<string>();
 
-  let unit = "";
   const dates: Set<string> = new Set();
+  // Assume all stat var specs will use the same unit and scaling.
+  const { unit, scaling } = getUnitAndScaling(props.statVarSpec[0], statData);
   for (const point of popPoints) {
     const placeDcid = point.placeDcid;
     const dataPoints: DataPoint[] = [];
@@ -197,16 +215,18 @@ function rawToChart(
       dates.add(stat.date);
       if (raw.facets[stat.facet]) {
         sources.add(raw.facets[stat.facet].provenanceUrl);
-        const svUnit = getUnit(raw.facets[stat.facet]);
-        unit = unit || svUnit;
       }
-      if (spec.denom && spec.denom in raw.data) {
-        const denomStat = raw.data[spec.denom][placeDcid];
-        dataPoint.value /= denomStat.value;
-        sources.add(raw.facets[denomStat.facet].provenanceUrl);
+      if (spec.denom) {
+        const denomInfo = getDenomInfo(spec, denomData, placeDcid, stat.date);
+        if (!denomInfo) {
+          // skip this data point because missing denom data.
+          continue;
+        }
+        dataPoint.value /= denomInfo.value;
+        sources.add(denomInfo.source);
       }
-      if (spec.scaling) {
-        dataPoint.value *= spec.scaling;
+      if (scaling) {
+        dataPoint.value *= scaling;
       }
       dataPoints.push(dataPoint);
     }
@@ -214,9 +234,6 @@ function rawToChart(
     dataGroups.push(
       new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
     );
-  }
-  if (!_.isEmpty(props.statVarSpec)) {
-    unit = props.statVarSpec[0].unit || unit;
   }
   return {
     dataGroup: dataGroups,
