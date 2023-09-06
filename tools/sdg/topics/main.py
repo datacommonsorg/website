@@ -175,12 +175,20 @@ def generate_mcf(nodes: list[dict]) -> None:
 
 
 def generate_mcf_node(node: dict) -> str:
-  return f"""Node: dcid:{node['dcid'][0]}
-relevantVariable: {', '.join([f"dcid:{var}" for var in node['relevantVariableList']])}
-name: "{node['name'][0]}"
-typeOf: dcid:{node['typeOf'][0]}
+  lines = []
 
-"""
+  lines.append(f"Node: dcid:{node['dcid'][0]}")
+
+  if node['relevantVariableList']:
+    relevant_variables_str = ", ".join(
+        [f"dcid:{var}" for var in node["relevantVariableList"]])
+    lines.append(f"relevantVariable: {relevant_variables_str}")
+
+  lines.append(f'name: "{node["name"][0]}"')
+  lines.append(f"typeOf: dcid:{node['typeOf'][0]}")
+
+  lines.append("\n")
+  return "\n".join(lines)
 
 
 def generate_trimmed():
