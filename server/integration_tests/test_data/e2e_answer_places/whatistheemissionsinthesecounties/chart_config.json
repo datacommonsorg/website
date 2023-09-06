@@ -116,14 +116,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions MiscellaneousAreaSources (28) (${date})",
+                    "title": "Annual Emissions: Misc (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions MiscellaneousAreaSources (28)"
+            "title": "Annual Emissions: Misc"
           },
           {
             "columns": [
@@ -148,14 +148,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions InternalCombustionEngines (2) (${date})",
+                    "title": "Annual Emissions: Internal Combustion Engines (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions InternalCombustionEngines (2)"
+            "title": "Annual Emissions: Internal Combustion Engines"
           },
           {
             "columns": [
@@ -177,14 +177,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions ExternalCombustion (1) (${date})",
+                    "title": "Annual Emissions: External Combustion (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions ExternalCombustion (1)"
+            "title": "Annual Emissions: External Combustion"
           },
           {
             "columns": [
@@ -211,14 +211,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions NaturalSources (27) (${date})",
+                    "title": "Annual Emissions: Natural Sources (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions NaturalSources (27)"
+            "title": "Annual Emissions: Natural Sources"
           },
           {
             "columns": [
@@ -279,14 +279,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions StorageAndTransport (25) (${date})",
+                    "title": "Annual Emissions: Storage and Transport (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions StorageAndTransport (25)"
+            "title": "Annual Emissions: Storage and Transport"
           },
           {
             "columns": [
@@ -313,14 +313,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26) (${date})",
+                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)"
+            "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery"
           },
           {
             "columns": [
@@ -408,14 +408,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions WasteDisposal (5) (${date})",
+                    "title": "Annual Emissions: Waste Disposal (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions WasteDisposal (5)"
+            "title": "Annual Emissions: Waste Disposal"
           },
           {
             "columns": [
@@ -436,14 +436,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions Toluene, ExternalCombustion (1) (${date})",
+                    "title": "Annual Emissions: Toluene, External Combustion (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions Toluene, ExternalCombustion (1)"
+            "title": "Annual Emissions: Toluene, External Combustion"
           },
           {
             "columns": [
@@ -504,14 +504,14 @@
                     "statVarKey": [
                       "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block"
                     ],
-                    "title": "Annual Amount Emissions IndustrialProcesses (23) (${date})",
+                    "title": "Annual Emissions: Industrial Processes (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount Emissions IndustrialProcesses (23)"
+            "title": "Annual Emissions: Industrial Processes"
           }
         ],
         "statVarSpec": {
@@ -560,99 +560,99 @@
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, MiscellaneousAreaSources (28)",
+            "name": "Annual Emissions: PM 2.5, Misc Sources",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, InternalCombustionEngines (2)",
+            "name": "Annual Emissions: PM 2.5, Internal Combustion Engine",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, IndustrialProcesses (3)",
+            "name": "Annual Emissions: PM 2.5, Industrial Processes",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, PetroleumAndSolventEvaporation (4)",
+            "name": "Annual Emissions: PM 2.5, Petroleum & Solvent Evaporation",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation"
           },
           "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, WasteDisposal (5)",
+            "name": "Annual Emissions: PM 2.5, Waste Disposal",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal"
           },
           "Annual_Amount_Emissions_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions ExternalCombustion (1)",
+            "name": "Annual Emissions: External Combustion",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
           },
           "Annual_Amount_Emissions_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions IndustrialProcesses (23)",
+            "name": "Annual Emissions: Industrial Processes",
             "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions StorageAndTransport (25)",
+            "name": "Annual Emissions: Storage and Transport",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
           },
           "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions WasteDisposalTreatmentAndRecovery (26)",
+            "name": "Annual Emissions: Waste Dispotsal Treatment and Recovery",
             "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SCC_27_NaturalSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions NaturalSources (27)",
+            "name": "Annual Emissions: Natural Sources",
             "statVar": "Annual_Amount_Emissions_SCC_27_NaturalSources"
           },
           "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions MiscellaneousAreaSources (28)",
+            "name": "Annual Emissions: Misc",
             "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
           },
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions InternalCombustionEngines (2)",
+            "name": "Annual Emissions: Internal Combustion Engines",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
           },
           "Annual_Amount_Emissions_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions WasteDisposal (5)",
+            "name": "Annual Emissions: Waste Disposal",
             "statVar": "Annual_Amount_Emissions_SCC_5_WasteDisposal"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, ExternalCombustion (1)",
+            "name": "Annual Emissions: Sulfur Dioxide, External Combustion",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, StationarySourceFuelCombustion (21)",
+            "name": "Annual Emissions: Sulfur Dioxide, Stationary Source Fuel Combustion",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, MobileSources (22)",
+            "name": "Annual Emissions: Sulfur Dioxide, Mobile Sources",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, IndustrialProcesses (23)",
+            "name": "Annual Emissions: Sulfur Dioxide, Industrial Processes",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, SolventUtilization (24)",
+            "name": "Annual Emissions: Sulfur Dioxide, Solvent Utilization",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_24_SolventUtilization"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, StorageAndTransport (25)",
+            "name": "Annual Emissions: Sulfur Dioxide, Storage & Transport",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, WasteDisposalTreatmentAndRecovery (26)",
+            "name": "Annual Emissions: Sulfur Dioxide, Waste Treatment & Recovery",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, MiscellaneousAreaSources (28)",
+            "name": "Annual Emissions: Sulfur Dioxide, Misc Sources",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, InternalCombustionEngines (2)",
+            "name": "Annual Emissions: Sulfur Dioxide, Internal Combustion Engine",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Sulfur Dioxide, IndustrialProcesses (3)",
+            "name": "Annual Emissions: Sulfur Dioxide, Industrial Processes",
             "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions Toluene, ExternalCombustion (1)",
+            "name": "Annual Emissions: Toluene, External Combustion",
             "statVar": "Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion"
           }
         }
