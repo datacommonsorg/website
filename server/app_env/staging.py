@@ -17,5 +17,5 @@ from server.app_env import _base
 
 class Config(_base.Config):
   GA_ACCOUNT = 'G-HV2XYYS1JD'
-  HIDE_REVAMP_CHANGES = True
+  HIDE_REVAMP_CHANGES = False
   LOGO_PATH = '/images/dc-logo-old.svg'
