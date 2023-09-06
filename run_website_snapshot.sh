@@ -30,5 +30,5 @@ for domain in "${domain_list[@]}"
 do
   date_str=$(date +"%Y_%m_%d_%H_%M_%S")
   python3 -m server.webdriver.screenshot.remote.main -d $domain
-  gsutil -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/$domain/$date_str/
+  gsutil -o "GSUtil:parallel_process_count=1" -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/$domain/$date_str/
 done
