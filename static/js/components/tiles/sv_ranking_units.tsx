@@ -108,6 +108,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             rankingGroup,
             rankingMetadata,
             true,
+            props.apiRoot,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg
@@ -137,6 +138,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingGroup,
                 rankingMetadata,
                 true,
+                props.apiRoot,
                 highestRankingUnitRef,
                 props.onHoverToggled
               )}
@@ -162,6 +164,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingGroup,
                 rankingMetadata,
                 false,
+                props.apiRoot,
                 lowestRankingUnitRef,
                 props.onHoverToggled
               )}
@@ -230,6 +233,7 @@ export function getRankingUnit(
   rankingGroup: RankingGroup,
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
+  apiRoot: string,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string
@@ -271,6 +275,7 @@ export function getRankingUnit(
       onHoverToggled={onHoverToggled}
       headerChild={errorMsg ? null : getSourcesJsx(rankingGroup.sources)}
       errorMsg={errorMsg}
+      apiRoot={apiRoot}
     />
   );
 }

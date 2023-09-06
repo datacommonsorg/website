@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+// This component is used to show place name given the place DCID.
+// It can be used in other component to fetch and show place names
+// asynchronously.
+
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
