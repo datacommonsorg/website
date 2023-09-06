@@ -26,11 +26,11 @@ from flask import current_app
 from flask import request
 from github import Github
 from google.cloud import secretmanager
+from google.cloud import storage
 from markupsafe import escape
 
 from server import cache
 from server.lib.gcs import list_folder
-from server.lib.gcs import list_png
 from server.lib.gcs import read_blob
 from server.routes.screenshot.diff import img_diff
 
@@ -46,12 +46,55 @@ def env_valid():
   ]
 
 
-def get_name_url(prefix, blob_name):
-  name = blob_name.removeprefix(prefix + '/').removesuffix('.png')
-  name = urllib.parse.unquote(name)
-  url = os.path.join(GCS_IMAGE_URL, SCREENSHOT_BUCKET,
-                     urllib.parse.quote(blob_name))
-  return name, url
+def get_image_url(blob_name):
+  return os.path.join(GCS_IMAGE_URL, SCREENSHOT_BUCKET,
+                      urllib.parse.quote(blob_name))
+
+
+def get_page_url_from_blob(prefix, blob_name):
+  name = blob_name.removeprefix(prefix).removesuffix('.png')
+  return urllib.parse.unquote(name)
+
+
+def list_png(bucket_name, prefix):
+  """Return a png blob name and url given bucket and folder prefix.
+
+  Args:
+    bucket_name: the bucket where the image is stored.
+    prefix: the folder prefix
+  Returns:
+    A map from blob name to image url and page url
+  """
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
+  blobs = bucket.list_blobs(prefix=prefix)
+  # Read the image url json
+  image_url = {}
+  blob = bucket.get_blob(prefix + '/screenshot_url.json')
+  if blob:
+    image_url = json.loads(blob.download_as_string())
+  result = {}
+  for b in blobs:
+    if b.name.endswith('png'):
+      if b.metadata:
+        result[b.name] = {
+            'page_url': b.metadata['url'],
+            'image_url': get_image_url(b.name)
+        }
+      elif image_url:
+        parts = b.name.split('/')
+        file_name = parts[len(parts) - 1]
+        if file_name in image_url:
+          result[b.name] = {
+              'page_url': image_url[file_name],
+              'image_url': get_image_url(b.name)
+          }
+      else:
+        result[b.name] = {
+            'page_url': get_page_url_from_blob(prefix, b.name),
+            'image_url': get_image_url(b.name)
+        }
+  return result
 
 
 @bp.route('/')
@@ -130,11 +173,7 @@ def commit(sha):
   if not env_valid():
     flask.abort(404)
   prefix = 'local/' + sha
-  blob_names = list_png(SCREENSHOT_BUCKET, prefix)
-  images = {}
-  for blob in blob_names:
-    name, url = get_name_url(prefix, blob)
-    images[name] = url
+  images = list_png(SCREENSHOT_BUCKET, prefix)
   return flask.render_template('screenshot/commit.html', images=images, sha=sha)
 
 
@@ -145,11 +184,7 @@ def date(date):
     flask.abort(404)
   domain = request.args.get('domain')
   prefix = domain + '/' + date
-  blob_names = list_png(SCREENSHOT_BUCKET, prefix)
-  images = {}
-  for blob in blob_names:
-    name, url = get_name_url(prefix, blob)
-    images[name] = url
+  images = list_png(SCREENSHOT_BUCKET, prefix)
   return flask.render_template('screenshot/date.html', images=images, date=date)
 
 
@@ -173,16 +208,8 @@ def compare(compare):
   token2 = parts[1]
   prefix1 = domain + '/' + token1
   prefix2 = domain + '/' + token2
-  blob1_names = list_png(SCREENSHOT_BUCKET, prefix1)
-  blob2_names = list_png(SCREENSHOT_BUCKET, prefix2)
-  images1 = {}
-  images2 = {}
-  for blob in blob1_names:
-    name, _ = get_name_url(prefix1, blob)
-    images1[name] = blob
-  for blob in blob2_names:
-    name, _ = get_name_url(prefix2, blob)
-    images2[name] = blob
+  images1 = list_png(SCREENSHOT_BUCKET, prefix1)
+  images2 = list_png(SCREENSHOT_BUCKET, prefix2)
   return flask.render_template('screenshot/compare.html',
                                images1=json.dumps(images1),
                                images2=json.dumps(images2),

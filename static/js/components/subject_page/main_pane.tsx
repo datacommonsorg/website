@@ -82,7 +82,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
             // TODO: just use DataFetchContextProvider for fetching data and
             // remove DataContext.
             return (
-              <ErrorBoundary key={id}>
+              <ErrorBoundary key={id} customError={<></>}>
                 <Category
                   id={id}
                   place={props.place}

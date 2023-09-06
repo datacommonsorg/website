@@ -41,7 +41,8 @@
         "FLASK_APP": "${workspaceRoot}/web_app.py",
         "FLASK_ENV": "local",
         "FLASK_DEBUG": "1",
-        "ENABLE_MODEL": "false"
+        "ENABLE_MODEL": "false",
+        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
       },
       "args": ["8080", "--no-debugger"],
       "cwd": "${workspaceRoot}",

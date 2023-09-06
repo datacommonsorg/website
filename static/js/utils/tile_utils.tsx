@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
@@ -40,6 +41,8 @@ import { getUnit } from "./stat_metadata_utils";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
+const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
+const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -377,4 +380,27 @@ export function getDenomInfo(
     date: denomObs.date,
     source,
   };
+}
+
+/**
+ * Gets the error message to show when there's no data for a tile.
+ * @param statVarSpec stat var spec for the tile.
+ */
+export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
+  return statVarSpec.findIndex((spec) => !!spec.denom) >= 0
+    ? ERROR_MSG_PC
+    : ERROR_MSG_DEFAULT;
+}
+
+/**
+ * Shows an error message in a container div
+ * @param errorMsg the message to show
+ * @param container the container div to show the message
+ */
+export function showError(errorMsg: string, container: HTMLDivElement): void {
+  // Remove contents of the container
+  const containerSelection = d3.select(container);
+  containerSelection.selectAll("*").remove();
+  // Show error message in the container
+  containerSelection.html(errorMsg);
 }

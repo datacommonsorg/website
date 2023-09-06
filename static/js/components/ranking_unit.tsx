@@ -73,6 +73,7 @@ interface RankingUnitPropType {
    */
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   headerChild?: React.ReactNode;
+  errorMsg?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -129,89 +130,70 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
         <h4>{props.title}</h4>
         {props.headerChild}
       </div>
-      <table>
-        {props.svNames && !props.hideValue && (
-          <thead>
-            <tr>
-              <td></td>
-              <td></td>
-              {props.svNames.map((name, i) => (
-                <td key={i} className="stat">
-                  {name}
-                </td>
-              ))}
-            </tr>
-          </thead>
-        )}
-        <tbody>
-          {pointsList.map((points, idx) => {
-            return (
-              <React.Fragment key={`ranking-unit-list-${idx}`}>
-                {idx > 0 && (
-                  <tr>
-                    <td>...</td>
-                  </tr>
-                )}
-                {points.map((point) => {
-                  return (
-                    <tr key={point.placeDcid}>
-                      <td
-                        className={`rank ${
-                          point.placeDcid === props.highlightedDcid
-                            ? "bold"
-                            : ""
-                        }`}
-                      >
-                        {point.rank}.
-                      </td>
-                      <td
-                        className={`place-name ${
-                          point.placeDcid === props.highlightedDcid
-                            ? "bold"
-                            : ""
-                        }`}
-                      >
-                        <LocalizedLink
-                          href={urlFunc(point.placeDcid)}
-                          text={point.placeName || point.placeDcid}
-                          onMouseEnter={() => {
-                            if (!props.onHoverToggled) {
-                              return;
-                            }
-                            props.onHoverToggled(point.placeDcid, true);
-                          }}
-                          onMouseLeave={() => {
-                            if (!props.onHoverToggled) {
-                              return;
-                            }
-                            props.onHoverToggled(point.placeDcid, false);
-                          }}
-                        />
-                      </td>
-                      {!props.hideValue && _.isEmpty(point.values) && (
-                        <td className="stat">
-                          <span
-                            className={`num-value ${
-                              point.placeDcid === props.highlightedDcid
-                                ? "bold"
-                                : ""
-                            }`}
-                          >
-                            {formatNumber(
-                              !_.isEmpty(props.scaling) && props.scaling[0]
-                                ? point.value * props.scaling[0]
-                                : point.value,
-                              props.unit && props.unit.length
-                                ? props.unit[0]
-                                : ""
-                            )}
-                          </span>
+      {props.errorMsg ? (
+        <div>{props.errorMsg}</div>
+      ) : (
+        <table>
+          {props.svNames && !props.hideValue && (
+            <thead>
+              <tr>
+                <td></td>
+                <td></td>
+                {props.svNames.map((name, i) => (
+                  <td key={i} className="stat">
+                    {name}
+                  </td>
+                ))}
+              </tr>
+            </thead>
+          )}
+          <tbody>
+            {pointsList.map((points, idx) => {
+              return (
+                <React.Fragment key={`ranking-unit-list-${idx}`}>
+                  {idx > 0 && (
+                    <tr>
+                      <td>...</td>
+                    </tr>
+                  )}
+                  {points.map((point) => {
+                    return (
+                      <tr key={point.placeDcid}>
+                        <td
+                          className={`rank ${
+                            point.placeDcid === props.highlightedDcid
+                              ? "bold"
+                              : ""
+                          }`}
+                        >
+                          {point.rank}.
                         </td>
-                      )}
-                      {!props.hideValue &&
-                        !_.isEmpty(point.values) &&
-                        point.values.map((v, i) => (
-                          <td key={i} className="stat">
+                        <td
+                          className={`place-name ${
+                            point.placeDcid === props.highlightedDcid
+                              ? "bold"
+                              : ""
+                          }`}
+                        >
+                          <LocalizedLink
+                            href={urlFunc(point.placeDcid)}
+                            text={point.placeName || point.placeDcid}
+                            onMouseEnter={() => {
+                              if (!props.onHoverToggled) {
+                                return;
+                              }
+                              props.onHoverToggled(point.placeDcid, true);
+                            }}
+                            onMouseLeave={() => {
+                              if (!props.onHoverToggled) {
+                                return;
+                              }
+                              props.onHoverToggled(point.placeDcid, false);
+                            }}
+                          />
+                        </td>
+                        {!props.hideValue && _.isEmpty(point.values) && (
+                          <td className="stat">
                             <span
                               className={`num-value ${
                                 point.placeDcid === props.highlightedDcid
@@ -220,24 +202,47 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               }`}
                             >
                               {formatNumber(
-                                !_.isEmpty(props.scaling) && props.scaling[i]
-                                  ? v * props.scaling[i]
-                                  : v,
+                                !_.isEmpty(props.scaling) && props.scaling[0]
+                                  ? point.value * props.scaling[0]
+                                  : point.value,
                                 props.unit && props.unit.length
-                                  ? props.unit[i]
+                                  ? props.unit[0]
                                   : ""
                               )}
                             </span>
                           </td>
-                        ))}
-                    </tr>
-                  );
-                })}
-              </React.Fragment>
-            );
-          })}
-        </tbody>
-      </table>
+                        )}
+                        {!props.hideValue &&
+                          !_.isEmpty(point.values) &&
+                          point.values.map((v, i) => (
+                            <td key={i} className="stat">
+                              <span
+                                className={`num-value ${
+                                  point.placeDcid === props.highlightedDcid
+                                    ? "bold"
+                                    : ""
+                                }`}
+                              >
+                                {formatNumber(
+                                  !_.isEmpty(props.scaling) && props.scaling[i]
+                                    ? v * props.scaling[i]
+                                    : v,
+                                  props.unit && props.unit.length
+                                    ? props.unit[i]
+                                    : ""
+                                )}
+                              </span>
+                            </td>
+                          ))}
+                      </tr>
+                    );
+                  })}
+                </React.Fragment>
+              );
+            })}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

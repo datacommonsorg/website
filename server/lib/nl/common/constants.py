@@ -327,6 +327,8 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "Household Median Income",
     "Median_Earnings_Person":
         "Individual Median Earnings",
+    "dc/e9gftzl2hm8h9":
+        "Total Commute Time",
     "dc/6rltk4kf75612":
         "Work at home",
     "dc/vp8cbt6k79t94":
@@ -391,6 +393,10 @@ SV_DISPLAY_NAME_OVERRIDE = {
         "CO₂ Emissions from Transportation",
     "Annual_Emissions_CarbonDioxide_WasteManagement":
         "CO₂ Emissions from Waste Management",
+    "Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived":
+        "Mean Monthly Income",
+    "Count_Person_NonWorker":
+        "People Not Working",
 }
 
 SV_DISPLAY_FOOTNOTE_OVERRIDE = {
@@ -761,6 +767,8 @@ SV_DISPLAY_DESCRIPTION_OVERRIDE = {
         "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 245 (intermediate) scenario.",
     "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585":
         "Relative to the Average Yearly Min Temperature between 1980-2010, the Predicted Min Temperature difference with 95% chance, at least once in the year, according to a CMIP6 Ensemble model as per SSP 585 (pessimistic) scenario.",
+    "dc/e9gftzl2hm8h9":
+        "Total time spent on a single commute across all workers",
 }
 
 # Have a shorter limit to avoid spamming the json.

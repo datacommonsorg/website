@@ -49,9 +49,11 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getStatVarNames,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -124,10 +126,6 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     if (!scatterChartData || !areDataPropsEqual()) {
       return;
     }
-    if (_.isEmpty(scatterChartData.points)) {
-      removeSpinner(getSpinnerId());
-      return;
-    }
     draw(
       scatterChartData,
       svgContainer.current,
@@ -147,7 +145,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={scatterChartData && scatterChartData.sources}
       replacementStrings={getReplacementStrings(props, scatterChartData)}
       className={`${props.className} scatter-chart`}
-      allowEmbed={!(scatterChartData && scatterChartData.errorMsg)}
+      allowEmbed={true}
       getDataCsv={
         scatterChartData
           ? () =>
@@ -162,26 +160,21 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(scatterChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
     >
-      {scatterChartData && scatterChartData.errorMsg ? (
-        <div className="error-msg" style={{ minHeight: props.svgChartHeight }}>
-          {scatterChartData.errorMsg}
-        </div>
-      ) : (
-        <div className="scatter-tile-content">
-          <div
-            id={props.id}
-            className="scatter-svg-container"
-            ref={svgContainer}
-            style={{ minHeight: props.svgChartHeight }}
-          />
-          <div
-            id="scatter-tooltip"
-            ref={tooltip}
-            style={{ visibility: "hidden" }}
-          />
-        </div>
-      )}
+      <div className="scatter-tile-content">
+        <div
+          id={props.id}
+          className="scatter-svg-container"
+          ref={svgContainer}
+          style={{ minHeight: props.svgChartHeight }}
+        />
+        <div
+          id="scatter-tooltip"
+          ref={tooltip}
+          style={{ visibility: "hidden" }}
+        />
+      </div>
       {props.showLoadingSpinner && (
         <div id={getSpinnerId()}>
           <div className="screen">
@@ -381,7 +374,7 @@ function rawToChart(
     yDates.add(point.yDate);
   }
   const errorMsg = _.isEmpty(points)
-    ? "Sorry, we don't have data for those variables"
+    ? getNoDataErrorMsg(props.statVarSpec)
     : "";
   return {
     xStatVar,
@@ -425,9 +418,10 @@ export function draw(
   scatterTileSpec: ScatterTileSpec,
   svgWidth?: number
 ): void {
-  // Need to clear svg container before getting the width for resize cases.
-  // Otherwise, svgContainer offsetWidth will just be previous width.
-  svgContainer.innerHTML = "";
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   const width = svgWidth || svgContainer.offsetWidth;
   const shouldHighlightQuadrants = {
     [ChartQuadrant.TOP_LEFT]: scatterTileSpec.highlightTopLeft,

@@ -16,23 +16,19 @@
 set -e
 
 export FLASK_ENV=webdriver
-export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-export ENABLE_MODEL=true
 
 python3 -m venv .env
 source .env/bin/activate
+python3 -m pip install --upgrade pip setuptools
 pip3 install -r server/requirements.txt
-python3 -m pip install --upgrade pip setuptools light-the-torch
-ltt install torch --cpuonly
-pip3 install -r nl_server/requirements.txt
 
 # Define a list of domains
-domain_list=(datacommons.feedingamerica.org dev.datacommons.org autopush.datacommons.org)
+domain_list=(datacommons.feedingamerica.org dev.datacommons.org)
 
 # Loop through the domain list
 for domain in "${domain_list[@]}"
 do
   date_str=$(date +"%Y_%m_%d_%H_%M_%S")
   python3 -m server.webdriver.screenshot.remote.main -d $domain
-  gsutil cp ./screenshots/*.png ./screenshots/.png gs://datcom-website-screenshot/$domain/$date_str/
+  gsutil -o "GSUtil:parallel_process_count=1" -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/$domain/$date_str/
 done
