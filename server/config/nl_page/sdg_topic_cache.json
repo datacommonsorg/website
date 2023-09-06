@@ -830,6 +830,38 @@
     },
     {
       "dcid": [
+        "dc/topic/sdgENBIUREPNAIPDV"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With Biennial Update Reports, Non-Annex I Parties"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgENBIUREPNAIPDV_sdgreportOrdinal"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgENBIUREPNAIPDV_sdgreportOrdinal"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With Biennial Update Reports, Non-Annex I Parties by Report Ordinal"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EN_BIUREP_NAIP_DV.REPORT_ORDINAL--RO_FIFTH",
+        "sdg/EN_BIUREP_NAIP_DV.REPORT_ORDINAL--RO_FIRST",
+        "sdg/EN_BIUREP_NAIP_DV.REPORT_ORDINAL--RO_FOURTH",
+        "sdg/EN_BIUREP_NAIP_DV.REPORT_ORDINAL--RO_SECOND",
+        "sdg/EN_BIUREP_NAIP_DV.REPORT_ORDINAL--RO_THIRD"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/sdgENBIUREPNAIP_sdgreportOrdinal"
       ],
       "name": [
@@ -1187,6 +1219,38 @@
     },
     {
       "dcid": [
+        "dc/topic/sdgENNACOMNAIPDV"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With National Communications, Non-Annex I Parties"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgENNACOMNAIPDV_sdgreportOrdinal"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgENNACOMNAIPDV_sdgreportOrdinal"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With National Communications, Non-Annex I Parties by Report Ordinal"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EN_NACOM_NAIP_DV.REPORT_ORDINAL--RO_FIFTH",
+        "sdg/EN_NACOM_NAIP_DV.REPORT_ORDINAL--RO_FIRST",
+        "sdg/EN_NACOM_NAIP_DV.REPORT_ORDINAL--RO_FOURTH",
+        "sdg/EN_NACOM_NAIP_DV.REPORT_ORDINAL--RO_SECOND",
+        "sdg/EN_NACOM_NAIP_DV.REPORT_ORDINAL--RO_THIRD"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/sdgENNACOMNAIP_sdgreportOrdinal"
       ],
       "name": [
@@ -1216,6 +1280,35 @@
       ],
       "relevantVariableList": [
         "dc/topic/sdgENNADCONTR_sdgreportOrdinal"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgENNADCONTRDV"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With Nationally Determined Contributions"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgENNADCONTRDV_sdgreportOrdinal"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgENNADCONTRDV_sdgreportOrdinal"
+      ],
+      "name": [
+        "Number of Least Developed Countries And Small Island Developing States With Nationally Determined Contributions by Report Ordinal"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/EN_NAD_CONTR_DV.REPORT_ORDINAL--RO_FIRST",
+        "sdg/EN_NAD_CONTR_DV.REPORT_ORDINAL--RO_SECOND"
       ]
     },
     {
@@ -30730,6 +30823,79 @@
     },
     {
       "dcid": [
+        "dc/topic/sdgSHSTAFGMS"
+      ],
+      "name": [
+        "Proportion of Girls And Women Aged 15-49 Years Who Have Undergone Female Genital Mutilation"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSHSTAFGMS_age",
+        "dc/topic/sdgSHSTAFGMS_gender"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSHSTAFGMS_age"
+      ],
+      "name": [
+        "Proportion of Girls And Women Aged 15-49 Years Who Have Undergone Female Genital Mutilation by Age"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SH_STA_FGMS.AGE--Y15T19__SEX--F",
+        "sdg/SH_STA_FGMS.AGE--Y15T49__SEX--F"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSHSTAFGMS_age_gender-SDGSexEnumF"
+      ],
+      "name": [
+        "Proportion of Girls And Women Aged 15-49 Years Who Have Undergone Female Genital Mutilation With Age, Gender = Female"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "sdg/SH_STA_FGMS.AGE--Y15T19__SEX--F",
+        "sdg/SH_STA_FGMS.AGE--Y15T49__SEX--F"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSHSTAFGMS_gender"
+      ],
+      "name": [
+        "Proportion of Girls And Women Aged 15-49 Years Who Have Undergone Female Genital Mutilation by Gender"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSHSTAFGMS_gender-SDGSexEnumF"
+      ]
+    },
+    {
+      "dcid": [
+        "dc/topic/sdgSHSTAFGMS_gender-SDGSexEnumF"
+      ],
+      "name": [
+        "Proportion of Girls And Women Aged 15-49 Years Who Have Undergone Female Genital Mutilation With Gender = Female"
+      ],
+      "typeOf": [
+        "Topic"
+      ],
+      "relevantVariableList": [
+        "dc/topic/sdgSHSTAFGMS_age_gender-SDGSexEnumF"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/sdgSHSTAPOISN"
       ],
       "name": [
@@ -58166,6 +58332,7 @@
       ],
       "relevantVariableList": [
         "sdg/DC_ODA_POVDLG",
+        "sdg/DC_ODA_POVG",
         "sdg/DC_ODA_POVLG"
       ]
     },
@@ -58550,7 +58717,8 @@
       ],
       "relevantVariableList": [
         "sdg/DC_TRF_TOTDL",
-        "sdg/DC_TRF_TOTL"
+        "sdg/DC_TRF_TOTL",
+        "sdg/DC_TRF_TFDV"
       ]
     },
     {
@@ -59619,7 +59787,13 @@
       "typeOf": [
         "Topic"
       ],
-      "relevantVariableList": []
+      "relevantVariableList": [
+        "sdg/EN_ADAP_COM_DV.REPORT_ORDINAL--RO_FIRST",
+        "sdg/EN_NAA_PLAN_DV",
+        "dc/topic/sdgENBIUREPNAIPDV",
+        "dc/topic/sdgENNACOMNAIPDV",
+        "dc/topic/sdgENNADCONTRDV"
+      ]
     },
     {
       "dcid": [
@@ -61514,7 +61688,10 @@
       "typeOf": [
         "Topic"
       ],
-      "relevantVariableList": []
+      "relevantVariableList": [
+        "sdg/SG_CPA_SIGN_BIT",
+        "sdg/SG_CPA_INFORCE_BIT"
+      ]
     },
     {
       "dcid": [
@@ -63124,7 +63301,7 @@
         "Topic"
       ],
       "relevantVariableList": [
-        "sdg/SH_STA_FGMS.AGE--Y15T49__SEX--F"
+        "dc/topic/sdgSHSTAFGMS"
       ]
     },
     {
