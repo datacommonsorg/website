@@ -112,13 +112,13 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of United Kingdom (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
+            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of United Kingdom"
           }
         ],
         "statVarSpec": {
@@ -127,7 +127,7 @@
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
-            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production (Per Capita)",
+            "name": "Economic Activity: Nominal GDP (Nominal, Per Capita)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {

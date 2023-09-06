@@ -49,9 +49,6 @@ def data():
 
 @bp.route('/history')
 def history():
-  # No production support.
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
   return json.dumps(bt.read_success_rows())
 
 
@@ -73,8 +70,7 @@ def history():
 #
 @bp.route('/feedback', methods=['POST'])
 def feedback():
-  if (os.environ.get('FLASK_ENV') == 'production' or
-      not current_app.config['LOG_QUERY']):
+  if (not current_app.config['LOG_QUERY']):
     flask.abort(404)
 
   session_id = request.json['sessionId']

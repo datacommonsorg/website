@@ -40,8 +40,7 @@ class Overview extends React.Component<OverviewPropType> {
     return (
       <section
         className={`factoid col-12 ${
-          this.props.showRanking &&
-          `overview-with-ranking ${ASYNC_ELEMENT_HOLDER_CLASS}`
+          this.props.showRanking && `overview-with-ranking`
         }`}
       >
         <div className="row">
@@ -49,7 +48,7 @@ class Overview extends React.Component<OverviewPropType> {
             <GoogleMap dcid={this.props.dcid}></GoogleMap>
           </div>
           {this.props.showRanking && (
-            <div className="col-12 col-md-8">
+            <div className={`col-12 col-md-8 ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
               <Ranking
                 dcid={this.props.dcid}
                 locale={this.props.locale}
