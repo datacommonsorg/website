@@ -25,6 +25,7 @@ import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber, LocalizedLink } from "../i18n/i18n";
 import { RankingPoint } from "../types/ranking_unit_types";
+import { PlaceName } from "./place_name";
 
 interface RankingUnitPropType {
   title: string;
@@ -74,6 +75,7 @@ interface RankingUnitPropType {
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   headerChild?: React.ReactNode;
   errorMsg?: string;
+  apiRoot?: string;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -177,7 +179,12 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                         >
                           <LocalizedLink
                             href={urlFunc(point.placeDcid)}
-                            text={point.placeName || point.placeDcid}
+                            text={
+                              <PlaceName
+                                dcid={point.placeDcid}
+                                apiRoot={props.apiRoot}
+                              ></PlaceName>
+                            }
                             onMouseEnter={() => {
                               if (!props.onHoverToggled) {
                                 return;

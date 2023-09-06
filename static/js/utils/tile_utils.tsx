@@ -275,6 +275,7 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
         {index > 0 ? ", " : ""}
         <a
           href={processedSource}
+          rel="noreferrer"
           target="_blank"
           onClick={(event) => {
             triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
