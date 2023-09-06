@@ -14,12 +14,6 @@
  * limitations under the License.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-
-h1, h2, h3, h4 {
-    font-family: 'Roboto', sans-serif;
-}
-
 .branding-link-container {
     display: flex;
     flex-direction: row;
