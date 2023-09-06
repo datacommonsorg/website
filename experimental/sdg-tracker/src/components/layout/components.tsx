@@ -20,7 +20,7 @@ import { AutoComplete, Input, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
-import { RootTopic, useStoreState } from "../../state";
+import { useStoreState } from "../../state";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { FulfillResponse } from "../../utils/types";
 
@@ -237,8 +237,12 @@ export const PlaceHeaderCard: React.FC<{
   fulfillmentResponse: FulfillResponse | undefined;
   hidePlaceSearch: boolean | undefined;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
-}> = ({ currentPlaceName, fulfillmentResponse, hidePlaceSearch, setSelectedPlaceDcid}) => {
-
+}> = ({
+  currentPlaceName,
+  fulfillmentResponse,
+  hidePlaceSearch,
+  setSelectedPlaceDcid,
+}) => {
   useEffect(() => {});
 
   // get sdg goal/topic metadata using regex on fulfillment response
@@ -251,20 +255,23 @@ export const PlaceHeaderCard: React.FC<{
 
   return (
     <PlaceCard>
-    <PlaceCardContent>
-    {!hidePlaceSearch && (
-      <CountrySelect setSelectedPlaceDcid={setSelectedPlaceDcid} currentPlaceName={currentPlaceName}/>
-    )}
-    {sdgTopic ? (
-      <GoalTitle>
-        <img src={sdgTopic.iconUrl} />
-        <div>
-          <h3>{sdgTopic.name}</h3>
-          <div>{sdgTopic.description}</div>
-        </div>
-      </GoalTitle>
-      ) : null}
-  </PlaceCardContent>
-</PlaceCard>
+      <PlaceCardContent>
+        {!hidePlaceSearch && (
+          <CountrySelect
+            setSelectedPlaceDcid={setSelectedPlaceDcid}
+            currentPlaceName={currentPlaceName}
+          />
+        )}
+        {sdgTopic ? (
+          <GoalTitle>
+            <img src={sdgTopic.iconUrl} />
+            <div>
+              <h3>{sdgTopic.name}</h3>
+              <div>{sdgTopic.description}</div>
+            </div>
+          </GoalTitle>
+        ) : null}
+      </PlaceCardContent>
+    </PlaceCard>
   );
 };

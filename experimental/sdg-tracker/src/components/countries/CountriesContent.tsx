@@ -14,28 +14,20 @@
  * limitations under the License.
  */
 
-import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import {
-  GoalText,
-  IndicatorTags,
-  useStoreActions,
-  useStoreState,
-} from "../../state";
-import {
-  WEB_API_ENDPOINT,
-} from "../../utils/constants";
+import { useStoreActions, useStoreState } from "../../state";
+import { WEB_API_ENDPOINT } from "../../utils/constants";
 import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
   RelatedTopic,
 } from "../../utils/types";
-import { CountrySelect, PlaceHeaderCard, SearchBar } from "../layout/components";
+import { PlaceHeaderCard, SearchBar } from "../layout/components";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -89,8 +81,6 @@ const ContentCard = styled.div`
   background: white;
   border-radius: 1rem;
 `;
-
-
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
   const DEFAULT_SPINNER_FONT_SIZE = "1.5rem";
@@ -206,7 +196,6 @@ const CountriesContent: React.FC<{
   );
 };
 
-
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;
   placeDcid?: string;
@@ -249,7 +238,6 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
-            mainTopic={fulfillmentResponse.relatedThings.mainTopics[0]}
           />
         ))}
     </>
@@ -259,18 +247,7 @@ const ChartContent: React.FC<{
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-  mainTopic: RelatedTopic;
-}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
-  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
-
-  // get current indicator, for displaying headlines for the current indicator
-  const indicatorMatches = mainTopic.dcid?.match(
-    /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
-  );
-  const indicatorId =
-    indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
-  const indicator = indicatorHeadlines.byIndicator[indicatorId];
-
+}> = ({ chartConfigCategory, placeDcid }) => {
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
@@ -291,36 +268,6 @@ const ChartCategoryContent: React.FC<{
         ))}
       </ChartContentBody>
     </ContentCard>
-  );
-};
-
-const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
-  indicator,
-}) => {
-  if (!indicator) {
-    return <></>;
-  }
-  return (
-    <datacommons-text link={indicator.link}>
-      <div slot="text">{indicator.headline}</div>
-    </datacommons-text>
-  );
-};
-
-const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
-  if (!goal) {
-    return <></>;
-  }
-  return (
-    <datacommons-text>
-      <div slot="text">
-        <ul>
-          {goal.headlines.map((point: string, i: number) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </datacommons-text>
   );
 };
 
