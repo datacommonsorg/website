@@ -15,7 +15,7 @@
 
 from dataclasses import dataclass
 import time
-from typing import Dict, List, cast
+from typing import cast, Dict, List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
@@ -110,7 +110,8 @@ def compute_related_things(state: ftypes.PopulateState,
   return related_things
 
 
-def _add_sv2topic_map(state: ftypes.PopulateState, related_things: Dict, dc: str):
+def _add_sv2topic_map(state: ftypes.PopulateState, related_things: Dict,
+                      dc: str):
   added_svs = set()
   related_things['varToTopic'] = {}
   for cspec in state.uttr.rankedCharts:
