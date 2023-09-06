@@ -73,7 +73,6 @@ def list_png(bucket_name, prefix):
   blob = bucket.get_blob(prefix + '/screenshot_url.json')
   if blob:
     image_url = json.loads(blob.download_as_string())
-  print(image_url)
   result = {}
   for b in blobs:
     if b.name.endswith('png'):
@@ -224,6 +223,8 @@ def compare(compare):
 def diff():
   blob1 = request.args.get('blob1')
   blob2 = request.args.get('blob2')
+  if not blob1 or not blob2:
+    flask.abort(500, message='url param blob1 or blob2 is missing')
 
   im1 = read_blob(SCREENSHOT_BUCKET, blob1)
   im2 = read_blob(SCREENSHOT_BUCKET, blob2)

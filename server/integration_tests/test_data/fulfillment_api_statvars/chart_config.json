@@ -192,7 +192,7 @@
                     "statVarKey": [
                       "USStateQuarterlyIndustryGDP_NAICS_51"
                     ],
-                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "title": "Economic Activity: Nominal GDP Information in California",
                     "type": "LINE"
                   }
                 ]
@@ -200,18 +200,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "description": "Economic Activity: Nominal GDP Information in California",
                     "statVarKey": [
                       "USStateQuarterlyIndustryGDP_NAICS_51"
                     ],
-                    "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51) in California",
+                    "title": "Economic Activity: Nominal GDP Information in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51)"
+            "title": "Economic Activity: Nominal GDP Information"
           },
           {
             "columns": [
@@ -221,7 +221,7 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
+                    "title": "Annual Wages: Information in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -236,14 +236,14 @@
                     "statVarKey": [
                       "WagesAnnual_Establishment_NAICSInformation"
                     ],
-                    "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California (${date})",
+                    "title": "Annual Wages: Information in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Wages Annual of Establishment: Information (NAICS/51) in Counties of California"
+            "title": "Annual Wages: Information in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -252,11 +252,11 @@
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue"
           },
           "USStateQuarterlyIndustryGDP_NAICS_51": {
-            "name": "Amount of Economic Activity (Nominal): Gross Domestic Production, Information (NAICS/51)",
+            "name": "Economic Activity: Nominal GDP Information",
             "statVar": "USStateQuarterlyIndustryGDP_NAICS_51"
           },
           "WagesAnnual_Establishment_NAICSInformation": {
-            "name": "Wages Annual of Establishment: Information (NAICS/51)",
+            "name": "Annual Wages: Information",
             "statVar": "WagesAnnual_Establishment_NAICSInformation"
           },
           "WagesTotal_Worker_NAICSInformation": {

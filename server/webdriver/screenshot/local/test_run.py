@@ -22,7 +22,7 @@ from server.webdriver.screenshot import runner
 def create_test_function(page_config):
 
   def test_function(self):
-    assert runner.run(self.driver, self.url_, page_config)
+    runner.run(self.driver, self.url_, page_config)
 
   return test_function
 

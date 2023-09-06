@@ -24,6 +24,11 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
+import {
+  GA_EVENT_TILE_DOWNLOAD_CSV,
+  GA_EVENT_TILE_DOWNLOAD_IMG,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { randDomId, saveToFile, urlToDomain } from "../shared/util";
 
 // SVG adjustment related constants
@@ -332,6 +337,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * On click handler for "Copy SVG to clipboard button".
    */
   public onDownloadSvg(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
     saveToFile("chart.svg", this.state.chartDownloadXml);
   }
 
@@ -339,6 +345,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * On click handler for "Download Data" button.
    */
   public onDownloadData(): void {
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
     saveToFile("export.csv", this.state.dataCsv);
   }
 
