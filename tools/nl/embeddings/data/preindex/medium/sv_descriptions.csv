@@ -6529,6 +6529,7 @@ sdg/SH_STA_STNT.AGE--Y0T4,Proportion of children moderately or severely stunted 
 sdg/SH_STA_WAST.AGE--Y0T4,Proportion of children moderately or severely wasted [Age = under 5 years old]
 sdg/SI_POV_DAY1,Proportion of population below international poverty line
 sdg/SI_POV_EMP1.AGE--Y_GE15,Employed population below international poverty line [Age = 15 years old and over]
+sdg/SN_ITK_DEFC,Undernourishment;insufficient nutrition;lack of nutrition;malnutrition;prevalence of malnutrition
 sdg/SP_ACS_BSRVH2O,Proportion of population using basic drinking water services
 sdg/SP_ACS_BSRVSAN,Proportion of population using basic sanitation services
 sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F,Adolescent birth rate [Age = 15 to 19 years old | Sex = Female]
