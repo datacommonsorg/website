@@ -21,3 +21,8 @@ steps:
       - -c
       - |
         ./run_website_sanity.sh
+
+timeout: 7200s
+
+options:
+  machineType: "E2_HIGHCPU_32"
