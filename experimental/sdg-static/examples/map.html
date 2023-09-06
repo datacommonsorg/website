@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.cdnfonts.com/css/museo-sans-rounded"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.datacommons.org/css/ranking.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://www.datacommons.org/css/nl_interface.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    <script src="https://datacommons.org/datacommons.js"></script>
+    <style>
+      .map-chart {
+        height: auto;
+        margin-bottom: 2rem;
+      }
+    </style>
+    <script>
+      console.log("datacommons", datacommons);
+      window.onload = function () {
+        // Map example
+        //datacommons.drawMap()
+        var mapChartProps = {
+          id: "map-chart-1",
+          svgChartHeight: 200,
+          className: "map-chart",
+          apiRoot: datacommons.root,
+          isDataTile: false,
+          title:
+            "Population Below Poverty Level Status in Past Year in States of United States (2020)",
+          place: {
+            dcid: "country/USA",
+            name: "United States of America",
+            types: ["Country"],
+          },
+          enclosedPlaceType: "State",
+          statVarSpec: {
+            name: "Population Below Poverty Level Status in Past Year",
+            statVar: "Count_Person_BelowPovertyLevelInThePast12Months",
+          },
+        };
+        datacommons.drawMap(
+          document.getElementById("map-example"),
+          mapChartProps
+        );
+
+        $("#map-year").on("change", function (event) {
+          var year = event.currentTarget.value;
+          $("#year-value").html(year);
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">Datacommons Embedded Charts</a>
+      </div>
+    </nav>
+    <div class="container">
+      <h1 class="mt-4 mb-4">Map</h1>
+      <div id="map-example"></div>
+      <div>
+        <div>
+          <input
+            type="range"
+            min="1900"
+            max="2023"
+            value="2023"
+            class="slider"
+            id="map-year"
+          />
+        </div>
+        <div>Year: <span id="year-value">2023</span></div>
+      </div>
+    </div>
+  </body>
+</html>

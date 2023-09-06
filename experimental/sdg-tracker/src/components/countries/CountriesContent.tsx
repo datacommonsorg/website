@@ -250,7 +250,7 @@ const CountriesContent: React.FC<{
             )}
           </PlaceTitle>
           <AllGoalsOverview />
-          {rootTopics.map((rootTopic, topicIndex) => (
+          {rootTopics.map((_, topicIndex) => (
             <GoalOverview
               key={topicIndex}
               goalNumber={topicIndex + 1}
