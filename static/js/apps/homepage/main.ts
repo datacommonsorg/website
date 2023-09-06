@@ -148,7 +148,7 @@ window.onload = () => {
     document.getElementById("search-animation-container")
   );
 
-  function hideAnimation() {
+  function hideAnimation(): void {
     searchAnimationContainer.setAttribute("style", "display: none;");
     searchAnimationToggle.classList.add(HIDDEN_CLASS);
     searchAnimationToggle.innerHTML =
@@ -160,7 +160,7 @@ window.onload = () => {
     document.cookie = `${ANIMATION_TOGGLE_COOKIE_NAME}=true;max-age=${MAX_COOKIE_AGE};`;
   }
 
-  function showAnimation() {
+  function showAnimation(): void {
     searchAnimationContainer.setAttribute("style", "display: visible;");
     searchAnimationToggle.classList.remove(HIDDEN_CLASS);
     searchAnimationToggle.innerHTML =
@@ -172,7 +172,7 @@ window.onload = () => {
     document.cookie = `${ANIMATION_TOGGLE_COOKIE_NAME}=;max-age=0;`;
   }
 
-  searchAnimationToggle.addEventListener("click", function () {
+  searchAnimationToggle.addEventListener("click", function (): void {
     if (searchAnimationToggle.classList.contains(HIDDEN_CLASS)) {
       showAnimation();
     } else {
