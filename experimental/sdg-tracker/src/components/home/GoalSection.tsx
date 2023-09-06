@@ -106,7 +106,8 @@ const GoalContainer = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-left: 19px
+    padding-left: 19px;
+    padding-right: 45px;
   }
 
   .goal-icon {
