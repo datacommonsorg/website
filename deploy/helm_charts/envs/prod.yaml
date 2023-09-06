@@ -40,7 +40,7 @@ serviceAccount:
   name: website-ksa
 
 nl:
-  enabled: false
+  enabled: true
 
 serviceGroups:
   recon: null

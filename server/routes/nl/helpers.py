@@ -57,10 +57,6 @@ import shared.lib.utils as shared_utils
 # detects stuff into a Detection object.
 #
 def parse_query_and_detect(request: Dict, app: str, debug_logs: Dict):
-  # NO production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
-
   if not current_app.config.get('NL_BAD_WORDS'):
     logging.error('Missing NL_BAD_WORDS config!')
     flask.abort(404)
