@@ -236,5 +236,6 @@ def diff():
   return {
       'diff': b64encode(diff_byte_arr).decode('utf-8'),
       'base': b64encode(im1).decode('utf-8'),
+      'new': b64encode(im2).decode('utf-8'),
       'diffRatio': diff_ratio
   }

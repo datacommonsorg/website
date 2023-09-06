@@ -1076,8 +1076,8 @@
   },
   {
     "url": "/explore#q=Access+to+primary+school+education+in+Afghanistan&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=How+is+the+world+combating+unregulated+fishing?&mb=4",
@@ -1111,13 +1111,13 @@
   },
   {
     "url": "/explore#q=Violence+vs+poverty+across+the+world&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=Which+gender+is+stupid+in+India?&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=Which+gender+is+dumber+in+the+US?&mb=4",
@@ -1131,13 +1131,13 @@
   },
   {
     "url": "/explore#q=Which+gender+is+retarded+in+New+York?&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=Which+race+is+stupid?&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=Which+race+commits+the+most+crimes+in+New+York?&mb=4",
@@ -1161,8 +1161,8 @@
   },
   {
     "url": "/explore#q=Who+is+responsible+for+most+terrorism+in+europe?&mb=4",
-    "height": 3000,
-    "async": true
+    "height": 1000,
+    "async": false
   },
   {
     "url": "/explore#q=Who+has+affirmative+action+helped+out+the+most+in+the+US?&mb=4",
