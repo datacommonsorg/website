@@ -28,6 +28,10 @@ export function triggerGAEvent(
   }
 }
 
+/**
+ * Triggered on soft page navigations. To track all page views (and disable GA page view tracking), set
+ * manual_ga_pageview: true in the Jinja page render.
+ */
 export const GA_EVENT_PAGE_VIEW = "page_view";
 
 /**
@@ -85,6 +89,47 @@ export const GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT =
  */
 export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 
+/**
+ * Triggered when query is submitted in NL search.
+ * Parameters:
+ *   "query": search query
+ *   "source": "homepage" | "explore_landing" | "explore"
+ */
+export const GA_EVENT_NL_SEARCH = "explore_search_q";
+
+/**
+ * Triggered when "download" button is clicked on a tile.
+ * Parameters:
+ *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool" | ""
+ */
+export const GA_EVENT_TILE_DOWNLOAD = "tile_download";
+
+/**
+ * Triggered when "download image" button is clicked on a tile download modal.
+ * Parameters: None
+ */
+export const GA_EVENT_TILE_DOWNLOAD_IMG = "tile_download_image";
+
+/**
+ * Triggered when "download CSV" button is clicked on a tile download modal.
+ * Parameters: None
+ */
+export const GA_EVENT_TILE_DOWNLOAD_CSV = "tile_download_csv";
+
+/**
+ * Triggered when "Explore in ..." is clicked on Explore tiles.
+ * Parameters:
+ *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool"
+ */
+export const GA_EVENT_TILE_EXPLORE_MORE = "tile_explore_more";
+
+/**
+ * Triggered when tile source link is clicked.
+ * Parameters:
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_TILE_SOURCE = "tile_source";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -94,6 +139,10 @@ export const GA_PARAM_STAT_VAR = "stat_var";
 export const GA_PARAM_PLACE_DCID = "place_dcid";
 export const GA_PARAM_SEARCH_TERM = "search_term";
 export const GA_PARAM_TOOL_CHART_OPTION = "tool_chart_option";
+export const GA_PARAM_TILE_TYPE = "type";
+export const GA_PARAM_QUERY = "query";
+export const GA_PARAM_URL = "url";
+export const GA_PARAM_SOURCE = "source";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -120,3 +169,6 @@ export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
+export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
+export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
+export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";

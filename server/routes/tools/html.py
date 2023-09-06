@@ -101,5 +101,6 @@ def visualization():
     info_json = json.load(f)
     return flask.render_template(
         'tools/visualization.html',
+        manual_ga_pageview=True,
         info_json=info_json,
         maps_api_key=current_app.config['MAPS_API_KEY'])
