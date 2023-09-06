@@ -27,8 +27,6 @@ import {
   useStoreState,
 } from "../../state";
 import {
-  QUERY_PARAM_VARIABLE,
-  ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
 import {
@@ -37,7 +35,7 @@ import {
   FulfillResponse,
   RelatedTopic,
 } from "../../utils/types";
-import { SearchBar } from "../layout/components";
+import { CountrySelect, PlaceHeaderCard, SearchBar } from "../layout/components";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -92,37 +90,7 @@ const ContentCard = styled.div`
   border-radius: 1rem;
 `;
 
-const PlaceCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: white;
-  border-radius: 0rem 0rem 1rem 1rem;
-`;
 
-const PlaceCardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin: 40px;
-`;
-
-const GoalTitle = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  img {
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2rem;
-    border-radius: 1rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0.25rem;
-  }
-`;
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
   const DEFAULT_SPINNER_FONT_SIZE = "1.5rem";
@@ -170,13 +138,6 @@ const CountriesContent: React.FC<{
     return undefined;
   });
 
-  const rootTopics = useStoreState((s) => s.rootTopics);
-  const mainTopic = fulfillmentResponse?.relatedThings.mainTopics[0];
-  const goalMatches = mainTopic?.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
-  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
-  const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-
   /**
    * Fetch page content
    */
@@ -220,22 +181,12 @@ const CountriesContent: React.FC<{
           </SearchCard>
         )}
         <Layout.Content style={{ padding: "0 24px 24px" }}>
-        <PlaceCard>
-            <PlaceCardContent>
-            {!hidePlaceSearch && (
-              <CountrySelect setSelectedPlaceDcid={setPlaceDcid} currentPlaceName={placeName}/>
-            )}
-            {sdgTopic ? (
-              <GoalTitle>
-                            <img src={sdgTopic.iconUrl} />
-                <div>
-                  <h3>{sdgTopic.name}</h3>
-                  <div>{sdgTopic.description}</div>
-                </div>
-              </GoalTitle>
-              ) : null}
-          </PlaceCardContent>
-        </PlaceCard>
+          <PlaceHeaderCard
+            currentPlaceName={placeName}
+            hidePlaceSearch={hidePlaceSearch}
+            fulfillmentResponse={fulfillmentResponse}
+            setSelectedPlaceDcid={setPlaceDcid}
+          />
         </Layout.Content>
         <Layout.Content style={{ padding: "0 24px 24px" }}>
           {isFetchingFulfillment ? (
@@ -255,72 +206,6 @@ const CountriesContent: React.FC<{
   );
 };
 
-const CountrySelectContainer = styled.div`
-  display: flex;
-  position: relative;
-  width: fit-content;
-  .ant-select-selector {
-    border-radius: 2rem !important;
-  }
-  svg {
-    position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    font-size: 1rem;
-  }
-`;
-const CountrySelectNoResults = styled.div`
-  padding: 5px 12px;
-`;
-
-const CountrySelect: React.FC<{
-  setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
-  currentPlaceName?: string;
-}> = ({ setSelectedPlaceDcid, currentPlaceName }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const countries = useStoreState((s) =>
-    s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
-  );
-
-  const [value, setValue] = useState("");
-
-  useEffect(() => {});
-
-  return (
-    <CountrySelectContainer>
-      <AutoComplete
-        size="large"
-        value={isFocused ? value : ""}
-        style={{ width: 225 }}
-        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
-        placeholder={currentPlaceName || "Select a country"}
-        defaultActiveFirstOption={true}
-        notFoundContent={
-          <CountrySelectNoResults>No results found</CountrySelectNoResults>
-        }
-        filterOption={(inputValue, option) =>
-          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-            -1 ||
-          option!.dcid.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        }
-        onFocus={() => {
-          setIsFocused(true);
-        }}
-        onBlur={() => {
-          setIsFocused(false);
-        }}
-        onChange={(value, option) => {
-          setValue(value);
-          if ("dcid" in option) {
-            setSelectedPlaceDcid(option.dcid);
-            setValue("");
-          }
-        }}
-      />
-      <CaretDownOutlined />
-    </CountrySelectContainer>
-  );
-};
 
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;

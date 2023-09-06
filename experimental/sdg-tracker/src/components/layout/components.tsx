@@ -16,10 +16,13 @@
 
 import { gray } from "@ant-design/colors";
 import { SearchOutlined } from "@ant-design/icons";
-import { Input, Spin } from "antd";
+import { AutoComplete, Input, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
+import { RootTopic, useStoreState } from "../../state";
+import { CaretDownOutlined } from "@ant-design/icons";
+import { FulfillResponse } from "../../utils/types";
 
 const SearchInputContainer = styled.div`
   display: flex;
@@ -125,5 +128,143 @@ export const SearchBar: React.FC<{
         )}
       </div>
     </SearchInputContainer>
+  );
+};
+
+// Country selection dropdown
+const CountrySelectContainer = styled.div`
+  display: flex;
+  position: relative;
+  width: fit-content;
+  .ant-select-selector {
+    border-radius: 2rem !important;
+  }
+  svg {
+    position: absolute;
+    right: 0.8rem;
+    top: 0.8rem;
+    font-size: 1rem;
+  }
+`;
+const CountrySelectNoResults = styled.div`
+  padding: 5px 12px;
+`;
+
+export const CountrySelect: React.FC<{
+  setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+  currentPlaceName?: string;
+}> = ({ setSelectedPlaceDcid, currentPlaceName }) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const countries = useStoreState((s) =>
+    s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
+  );
+
+  const [value, setValue] = useState("");
+
+  useEffect(() => {});
+
+  return (
+    <CountrySelectContainer>
+      <AutoComplete
+        size="large"
+        value={isFocused ? value : ""}
+        style={{ width: 225 }}
+        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
+        placeholder={currentPlaceName || "Select a country"}
+        defaultActiveFirstOption={true}
+        notFoundContent={
+          <CountrySelectNoResults>No results found</CountrySelectNoResults>
+        }
+        filterOption={(inputValue, option) =>
+          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+            -1 ||
+          option!.dcid.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+        }
+        onFocus={() => {
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          setIsFocused(false);
+        }}
+        onChange={(value, option) => {
+          setValue(value);
+          if ("dcid" in option) {
+            setSelectedPlaceDcid(option.dcid);
+            setValue("");
+          }
+        }}
+      />
+      <CaretDownOutlined />
+    </CountrySelectContainer>
+  );
+};
+
+// Header "Place" Card for top of Country/Region Pages
+const PlaceCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 0rem 0rem 1rem 1rem;
+`;
+
+const PlaceCardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 40px;
+`;
+
+const GoalTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  img {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 2rem;
+    border-radius: 1rem;
+  }
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 0.25rem;
+  }
+`;
+
+export const PlaceHeaderCard: React.FC<{
+  currentPlaceName: string | undefined;
+  fulfillmentResponse: FulfillResponse | undefined;
+  hidePlaceSearch: boolean | undefined;
+  setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+}> = ({ currentPlaceName, fulfillmentResponse, hidePlaceSearch, setSelectedPlaceDcid}) => {
+
+  useEffect(() => {});
+
+  // get sdg goal/topic metadata using regex on fulfillment response
+  const rootTopics = useStoreState((s) => s.rootTopics);
+  const mainTopic = fulfillmentResponse?.relatedThings.mainTopics[0];
+  const goalMatches = mainTopic?.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
+  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
+  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
+  const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
+
+  return (
+    <PlaceCard>
+    <PlaceCardContent>
+    {!hidePlaceSearch && (
+      <CountrySelect setSelectedPlaceDcid={setSelectedPlaceDcid} currentPlaceName={currentPlaceName}/>
+    )}
+    {sdgTopic ? (
+      <GoalTitle>
+        <img src={sdgTopic.iconUrl} />
+        <div>
+          <h3>{sdgTopic.name}</h3>
+          <div>{sdgTopic.description}</div>
+        </div>
+      </GoalTitle>
+      ) : null}
+  </PlaceCardContent>
+</PlaceCard>
   );
 };
