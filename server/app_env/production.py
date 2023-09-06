@@ -19,3 +19,4 @@ class Config(_base.Config):
   GA_ACCOUNT = 'G-KWSES5WXZE'
   HIDE_REVAMP_CHANGES = False
   LOGO_PATH = '/images/dc-logo-old.svg'
+  USE_PALM = True
