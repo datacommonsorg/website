@@ -45,14 +45,14 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Population Below Poverty Level (${date})",
+                    "title": "Population Below Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Level"
+            "title": "Population Below Poverty Line"
           },
           {
             "columns": [
@@ -212,14 +212,14 @@
                     "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Family Households Below the Poverty Level in the Past Year (${date})",
+                    "title": "Family Households Below the Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Level in the Past Year"
+            "title": "Family Households Below the Poverty Line"
           },
           {
             "columns": [
@@ -238,14 +238,14 @@
                     "statVarKey": [
                       "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
-                    "title": "Population Above Poverty Level Status in Past Year (${date})",
+                    "title": "Population Above Poverty Line (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Above Poverty Level Status in Past Year"
+            "title": "Population Above Poverty Line"
           },
           {
             "columns": [
@@ -275,7 +275,7 @@
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Family Households Below the Poverty Level in the Past Year",
+            "name": "Family Households Below the poverty line",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine_multiple_place_bar_block": {
@@ -303,7 +303,7 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_AbovePovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population Above Poverty Level Status in Past Year",
+            "name": "Population Above poverty line",
             "statVar": "Count_Person_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
@@ -339,7 +339,7 @@
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Population Below Poverty Level",
+            "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
