@@ -252,10 +252,14 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
 
     let fulfillmentPromise: Promise<any>;
-    const gaTitle = query ? `Q: ${query} - ` : topic ? `T: ${topic} | P: ${place} - ` : '';
+    const gaTitle = query
+      ? `Q: ${query} - `
+      : topic
+      ? `T: ${topic} | P: ${place} - `
+      : "";
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
-      page_location: window.location.href.replace('#', '?'),
+      page_location: window.location.href.replace("#", "?"),
     });
     if (query) {
       setQuery(query);

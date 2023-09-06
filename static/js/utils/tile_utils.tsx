@@ -23,6 +23,11 @@ import _ from "lodash";
 import React from "react";
 
 import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
+import {
+  GA_EVENT_TILE_EXPLORE_MORE,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { StatVarSpec } from "../shared/types";
@@ -265,7 +270,18 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
     return (
       <span key={processedSource} {...{ part: "source" }}>
         {index > 0 ? ", " : ""}
-        <a href={processedSource}>{domain}</a>
+        <a
+          href={processedSource}
+          target="_blank"
+          onClick={(event) => {
+            triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
+              [GA_PARAM_URL]: processedSource,
+            });
+            return true;
+          }}
+        >
+          {domain}
+        </a>
         {globalThis.viaGoogle ? " via Google" : ""}
       </span>
     );

@@ -22,7 +22,13 @@ import "../../../library";
 import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
-import { triggerGAEvent, GA_EVENT_NL_SEARCH } from "../../shared/ga_events";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 
 /**
  * Application container
@@ -33,8 +39,8 @@ export function App(): JSX.Element {
       inputId="query-search-input"
       onSearch={(q) => {
         triggerGAEvent(GA_EVENT_NL_SEARCH, {
-          "query": q,
-          "source": "homepage"
+          [GA_PARAM_QUERY]: q,
+          [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
         });
         window.location.href = `/explore#q=${encodeURIComponent(q)}`;
       }}

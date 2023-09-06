@@ -24,8 +24,12 @@ import {
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
+import {
+  GA_EVENT_TILE_DOWNLOAD_CSV,
+  GA_EVENT_TILE_DOWNLOAD_IMG,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { randDomId, saveToFile, urlToDomain } from "../shared/util";
-import { GA_EVENT_TILE_DOWNLOAD_CSV, GA_EVENT_TILE_DOWNLOAD_IMG, triggerGAEvent } from "../shared/ga_events";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;

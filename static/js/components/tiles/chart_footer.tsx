@@ -20,7 +20,13 @@
 
 import _ from "lodash";
 import React from "react";
-import { GA_EVENT_TILE_DOWNLOAD, GA_EVENT_TILE_EXPLORE_MORE, triggerGAEvent } from "../../shared/ga_events";
+
+import {
+  GA_EVENT_TILE_DOWNLOAD,
+  GA_EVENT_TILE_EXPLORE_MORE,
+  GA_PARAM_TILE_TYPE,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 
 interface ChartFooterPropType {
   handleEmbed?: () => void;
@@ -46,7 +52,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 onClick={(event) => {
                   event.preventDefault();
                   triggerGAEvent(GA_EVENT_TILE_DOWNLOAD, {
-                    "type": props.exploreLink?.displayText
+                    [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
                   });
                   props.handleEmbed();
                 }}
@@ -64,7 +70,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 target="_blank"
                 onClick={(event) => {
                   triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-                    "type": props.exploreLink?.displayText
+                    [GA_PARAM_TILE_TYPE]: props.exploreLink?.displayText,
                   });
                   return true;
                 }}

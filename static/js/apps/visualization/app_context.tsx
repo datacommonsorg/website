@@ -28,6 +28,7 @@ import {
   STAT_VAR_PARAM_KEYS,
   URL_PARAMS,
 } from "../../constants/app/visualization_constants";
+import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 import { getStatVarInfo, StatVarInfo } from "../../shared/stat_var";
 import { NamedNode, NamedTypedPlace } from "../../shared/types";
 import {
@@ -42,7 +43,6 @@ import {
   getSamplePlaces,
 } from "../../utils/place_utils";
 import { ORDERED_VIS_TYPE, VIS_TYPE_CONFIG } from "./vis_type_configs";
-import { GA_EVENT_PAGE_VIEW, triggerGAEvent } from "../../shared/ga_events";
 
 export interface DisplayOptions {
   scatterPlaceLabels?: boolean;
@@ -151,7 +151,7 @@ export function AppContextProvider(
   function trackPageview(visType: string) {
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${visType} - ${document.title}`,
-      page_location: `${window.location.pathname}/${visType}${window.location.hash}`
+      page_location: `${window.location.pathname}/${visType}${window.location.hash}`,
     });
   }
 
