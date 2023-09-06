@@ -17,7 +17,6 @@
 /**
  * Component for rendering a ranking tile.
  */
-import _ from "lodash";
 import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
