@@ -96,9 +96,7 @@ class WebsiteSanityTest:
     chrome_options.add_argument("--headless=new")
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    self.driver = webdriver.Chrome(service=Service(
-        ChromeDriverManager().install()),
-                                   options=chrome_options)
+    self.driver = webdriver.Chrome(options=chrome_options)
     self.file = open(self.results_csv_file_path, "w", newline="")
     logging.info("Writing results to: %s", self.results_csv_file_path)
     self.csv_writer = csv.DictWriter(self.file,

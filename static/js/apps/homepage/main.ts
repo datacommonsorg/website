@@ -35,6 +35,12 @@ window.onload = () => {
   const SLIDE_DOWN_CLASS = "slide-down";
   const INVISIBLE_CLASS = "invisible";
   const FADE_IN_CLASS = "fade-in";
+  // Name of the cookie tracking wether to hide the search animation
+  const ANIMATION_TOGGLE_COOKIE_NAME = "keepAnimationClosed";
+  // Distance from edges to place toggle
+  const ANIMATION_TOGGLE_MARGIN = "6px";
+  // Maximum age of cookie in seconds
+  const MAX_COOKIE_AGE = 60 * 60 * 24; // 24hrs
 
   let inputIntervalTimer, nextInputTimer: ReturnType<typeof setTimeout>;
   let currentPromptIndex = 0;
@@ -133,4 +139,53 @@ window.onload = () => {
     React.createElement(App),
     document.getElementById("search-container")
   );
+
+  // Add toggle button and behavior to search animation
+  const searchAnimationToggle: HTMLDivElement = <HTMLDivElement>(
+    document.getElementById("search-animation-toggle")
+  );
+  const searchAnimationContainer: HTMLDivElement = <HTMLDivElement>(
+    document.getElementById("search-animation-container")
+  );
+
+  function hideAnimation(): void {
+    searchAnimationContainer.setAttribute("style", "display: none;");
+    searchAnimationToggle.classList.add(HIDDEN_CLASS);
+    searchAnimationToggle.innerHTML =
+      "<span class='material-icons-outlined'>keyboard_double_arrow_down</span>";
+    searchAnimationToggle.setAttribute(
+      "style",
+      `margin-top: ${ANIMATION_TOGGLE_MARGIN};`
+    );
+    document.cookie = `${ANIMATION_TOGGLE_COOKIE_NAME}=true;max-age=${MAX_COOKIE_AGE};`;
+  }
+
+  function showAnimation(): void {
+    searchAnimationContainer.setAttribute("style", "display: visible;");
+    searchAnimationToggle.classList.remove(HIDDEN_CLASS);
+    searchAnimationToggle.innerHTML =
+      "<span class='material-icons-outlined'>keyboard_double_arrow_up</span>";
+    searchAnimationToggle.setAttribute(
+      "style",
+      `margin-bottom: ${ANIMATION_TOGGLE_MARGIN};`
+    );
+    document.cookie = `${ANIMATION_TOGGLE_COOKIE_NAME}=;max-age=0;`;
+  }
+
+  searchAnimationToggle.addEventListener("click", function (): void {
+    if (searchAnimationToggle.classList.contains(HIDDEN_CLASS)) {
+      showAnimation();
+    } else {
+      hideAnimation();
+    }
+  });
+
+  // start with animation hidden if cookie is present
+  if (
+    document.cookie
+      .split(";")
+      .some((item) => item.includes(`${ANIMATION_TOGGLE_COOKIE_NAME}=true`))
+  ) {
+    hideAnimation();
+  }
 };

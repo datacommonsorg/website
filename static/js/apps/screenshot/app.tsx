@@ -47,9 +47,11 @@ export function App(props: {
 }
 
 interface ItemData {
-  diff: string;
-  base: string;
-  diffRatio: number;
+  diff?: string;
+  base?: string;
+  new?: string;
+  diffRatio?: number;
+  error?: string;
 }
 
 function Item(props: { blob1: string; blob2: string }): JSX.Element {
@@ -66,28 +68,41 @@ function Item(props: { blob1: string; blob2: string }): JSX.Element {
       })
       .then((resp) => {
         setData(resp.data);
+      })
+      .catch(() => {
+        setData({ error: "Error fetch data" });
       });
   }, [props.blob1, props.blob2]);
 
   return (
     <div>
       {data == null && <span className="loading">LOADING...</span>}
-      {data != null && (
+      {data != null && data.error && (
+        <span className="error">{data.error}</span>
+      )}
+      {data != null && !data.error && (
         <div>
           <div>
             diff ratio: <b>{data.diffRatio}</b>
           </div>
           {data.diffRatio > DIFF_RATIO_THRESHOLD && (
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div>Base</div>
                 <img
                   className="screenshot-image col-md-12"
                   src={`data:image/png;base64,${data.base}`}
                 />
               </div>
-              <div className="col-md-6">
-                <div>Current - Base</div>
+              <div className="col-md-4">
+                <div>New</div>
+                <img
+                  className="screenshot-image col-md-12"
+                  src={`data:image/png;base64,${data.new}`}
+                />
+              </div>
+              <div className="col-md-4">
+                <div>New - Base</div>
                 <img
                   className="screenshot-image col-md-12"
                   src={`data:image/png;base64,${data.diff}`}

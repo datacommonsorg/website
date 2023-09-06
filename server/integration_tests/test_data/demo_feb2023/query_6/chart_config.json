@@ -683,11 +683,11 @@
             "statVar": "Count_Person_NoHealthInsurance"
           },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian/Alaska Native Population With Disabilities",
+            "name": "American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black/African American Population With Disabilities",
+            "name": "Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_Female_multiple_place_bar_block": {
@@ -695,7 +695,7 @@
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic/Latino Population With Disabilities",
+            "name": "Hispanic/Latinos With Disabilities",
             "statVar": "Count_Person_WithDisability_HispanicOrLatino"
           },
           "Count_Person_WithDisability_Male_multiple_place_bar_block": {

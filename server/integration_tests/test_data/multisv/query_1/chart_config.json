@@ -15,14 +15,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Population Below Poverty Level (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population Below Poverty Level vs. Prevalence of Obesity"
+            "title": "Population Below poverty line vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -32,7 +32,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level in Counties of California (${date})",
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -47,13 +47,13 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Level in Counties of California (${date})",
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Level in Counties of California"
+            "title": "Population Below Poverty Line in Counties of California"
           },
           {
             "columns": [
@@ -202,14 +202,14 @@
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter",
                       "Percent_Person_Obesity_scatter"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
+                    "title": "Asians Below Poverty Line (${yDate}) Vs. Prevalence of Obesity (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Asians Below Poverty Level Status in Past Year vs. Prevalence of Obesity"
+            "title": "Asians Below Poverty Line vs. Prevalence of Obesity"
           },
           {
             "columns": [
@@ -219,7 +219,7 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -234,30 +234,30 @@
                     "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
                     ],
-                    "title": "Asians Below Poverty Level Status in Past Year in Counties of California (${date})",
+                    "title": "Asians Below Poverty Line in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Asians Below Poverty Level Status in Past Year in Counties of California"
+            "title": "Asians Below Poverty Line in Counties of California"
           }
         ],
         "statVarSpec": {
           "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below Poverty Level",
+            "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
-            "name": "Asians Below Poverty Level Status in Past Year",
+            "name": "Asians Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_scatter": {
-            "name": "Asians Below Poverty Level Status in Past Year",
+            "name": "Asians Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
-            "name": "Population Below Poverty Level",
+            "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {

@@ -124,7 +124,7 @@ function localizeLink(href: string): string {
 interface LocalizedLinkProps {
   className?: string;
   href: string;
-  text: string;
+  text: string | JSX.Element;
   // Callback function when a link is clicked.
   handleClick?: () => void;
   onMouseEnter?: () => void;
