@@ -22,10 +22,10 @@ import {
 } from "@ant-design/icons";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import Footer from "../layout/AppFooter";
-import Header from "../layout/AppHeader";
-import AppLayout from "../layout/AppLayout";
-import AppLayoutContent from "../layout/AppLayoutContent";
+import Footer from "../shared/AppFooter";
+import Header from "../shared/AppHeader";
+import AppLayout from "../shared/AppLayout";
+import AppLayoutContent from "../shared/AppLayoutContent";
 
 const HomeContainer = styled.div`
   margin: 4rem auto;

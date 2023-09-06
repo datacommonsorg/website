@@ -27,6 +27,7 @@ import {
   useStoreState,
 } from "../../state";
 import {
+  EARTH_PLACE_DCID,
   QUERY_PARAM_VARIABLE,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
@@ -37,7 +38,15 @@ import {
   FulfillResponse,
   RelatedTopic,
 } from "../../utils/types";
-import { SearchBar } from "../layout/components";
+import {
+  ContentCard,
+  ContentCardBody,
+  ContentCardHeader,
+  MainLayoutContent,
+  SearchBar,
+} from "../shared/components";
+import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
+import GoalOverview from "../shared/goals/GoalOverview";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -60,36 +69,6 @@ const SearchCard = styled.div`
   background: white;
   box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
     0px 1px 22px rgba(3, 7, 18, 0.06);
-`;
-const ChartContentHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  img {
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2rem;
-    border-radius: 1rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0.25rem;
-  }
-`;
-const ChartContentBody = styled.div`
-  h3 {
-    font-size: 2.5rem;
-    font-weight: 300;
-  }
-`;
-const ContentCard = styled.div`
-  margin: 0 0 1rem;
-  padding: 24px;
-  background: white;
-  border-radius: 1rem;
 `;
 const PlaceChipsContainer = styled.div`
   display: flex;
@@ -178,6 +157,7 @@ const CountriesContent: React.FC<{
   setPlaceDcid,
   variableDcids,
 }) => {
+  const rootTopics = useStoreState((s) => s.rootTopics);
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
@@ -247,6 +227,41 @@ const CountriesContent: React.FC<{
     })();
   }, [placeDcid, variableDcids]);
 
+  if (
+    variableDcids.length > 0 &&
+    variableDcids[0] === ROOT_TOPIC &&
+    placeDcid === EARTH_PLACE_DCID
+  ) {
+    return (
+      <Layout style={{ height: "100%", flexGrow: 1 }}>
+        <Layout.Content style={{ padding: "0rem 0" }}>
+          <PlaceTitle style={{ marginBottom: "1rem" }}>
+            <div>
+              {placeName ? (
+                placeName
+              ) : placeDcid ? (
+                <Spinner />
+              ) : (
+                "Select a country"
+              )}
+            </div>
+            {!hidePlaceSearch && (
+              <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+            )}
+          </PlaceTitle>
+          <AllGoalsOverview />
+          {rootTopics.map((rootTopic, topicIndex) => (
+            <GoalOverview
+              key={topicIndex}
+              goalNumber={topicIndex + 1}
+              showExploreLink={true}
+            />
+          ))}
+        </Layout.Content>
+      </Layout>
+    );
+  }
+
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
       <Layout.Content style={{ padding: "0rem 0" }}>
@@ -304,7 +319,7 @@ const CountriesContent: React.FC<{
             setSelectedPlaceDcid={setPlaceDcid}
           />
         </div>
-        <Layout.Content style={{ padding: "0 24px 24px" }}>
+        <MainLayoutContent>
           {isFetchingFulfillment ? (
             <ContentCard>
               <Spinner />
@@ -316,7 +331,7 @@ const CountriesContent: React.FC<{
               selectedVariableDcids={variableDcids}
             />
           )}
-        </Layout.Content>
+        </MainLayoutContent>
       </Layout.Content>
     </Layout>
   );
@@ -444,14 +459,14 @@ const ChartContent: React.FC<{
   if (fulfillmentResponse.failure || fulfillmentResponse.userMessage) {
     return (
       <ContentCard>
-        <ChartContentHeader>
+        <ContentCardHeader>
           <div>
             <h3>No information found</h3>
           </div>
-        </ChartContentHeader>
-        <ChartContentBody>
+        </ContentCardHeader>
+        <ContentCardBody>
           {fulfillmentResponse.failure || fulfillmentResponse.userMessage}
-        </ChartContentBody>
+        </ContentCardBody>
       </ContentCard>
     );
   }
@@ -506,22 +521,22 @@ const ChartCategoryContent: React.FC<{
   return (
     <ContentCard>
       {sdgTopic ? (
-        <ChartContentHeader>
+        <ContentCardHeader>
           <img src={sdgTopic.iconUrl} />
           <div>
             <h3>{sdgTopic.name}</h3>
             <div>{sdgTopic.description}</div>
           </div>
-        </ChartContentHeader>
+        </ContentCardHeader>
       ) : null}
 
-      <ChartContentBody>
+      <ContentCardBody>
         {sdgTopic && isGoal && <BulletTile goal={goalText} />}
         {indicator && <HeadlineTile indicator={indicator} />}
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
-      </ChartContentBody>
+      </ContentCardBody>
     </ContentCard>
   );
 };
@@ -533,9 +548,13 @@ const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
     return <></>;
   }
   return (
-    <datacommons-text link={indicator.link}>
-      <div slot="text">{indicator.headline}</div>
-    </datacommons-text>
+    <>
+      {/** @ts-ignore */}
+      <datacommons-text link={indicator.link}>
+        <div slot="text">{indicator.headline}</div>
+        {/** @ts-ignore */}
+      </datacommons-text>
+    </>
   );
 };
 
@@ -544,15 +563,19 @@ const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
     return <></>;
   }
   return (
-    <datacommons-text>
-      <div slot="text">
-        <ul>
-          {goal.headlines.map((point: string, i: number) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </datacommons-text>
+    <>
+      {/** @ts-ignore */}
+      <datacommons-text>
+        <div slot="text">
+          <ul>
+            {goal.headlines.map((point: string, i: number) => (
+              <li key={i}>{point}</li>
+            ))}
+          </ul>
+        </div>
+        {/** @ts-ignore */}
+      </datacommons-text>
+    </>
   );
 };
 

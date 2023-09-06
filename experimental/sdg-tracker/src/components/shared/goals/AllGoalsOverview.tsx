@@ -14,22 +14,29 @@
  * limitations under the License.
  */
 
-import AppFooter from "../shared/AppFooter";
-import AppHeader from "../shared/AppHeader";
-import AppLayout from "../shared/AppLayout";
-import AppLayoutContent from "../shared/AppLayoutContent";
+import styled from "styled-components";
+import { SDG_ICON_URL } from "../../../utils/constants";
+import {
+  ContentCard,
+  ContentCardHeader,
+  MainLayoutContent,
+} from "../components";
 
-const Topics = () => {
+const StyledContentCardHeader = styled(ContentCardHeader)`
+  margin-bottom: 0;
+`;
+
+const AllGoalsOverview = () => {
   return (
-    <AppLayout>
-      <AppHeader selected="topics" />
-      <AppLayoutContent>
-        <h3 style={{ margin: "2rem auto", textAlign: "center" }}>
-          Topics coming soon...
-        </h3>
-      </AppLayoutContent>
-      <AppFooter />
-    </AppLayout>
+    <MainLayoutContent>
+      <ContentCard>
+        <StyledContentCardHeader>
+          <img src={SDG_ICON_URL} />
+          <h3>All Goals</h3>
+        </StyledContentCardHeader>
+      </ContentCard>
+    </MainLayoutContent>
   );
 };
-export default Topics;
+
+export default AllGoalsOverview;

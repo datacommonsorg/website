@@ -16,7 +16,7 @@
 
 import { gray } from "@ant-design/colors";
 import { SearchOutlined } from "@ant-design/icons";
-import { Input, Spin } from "antd";
+import { Input, Layout, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
@@ -69,6 +69,9 @@ const SearchInput = styled(Input)`
   padding: 0.5rem 1rem;
 `;
 
+/**
+ * Header & Footer branding link
+ */
 export const BrandingLink: React.FC = () => {
   return (
     <div className="branding-link-container">
@@ -87,6 +90,9 @@ export const BrandingLink: React.FC = () => {
   );
 };
 
+/**
+ * Search bar for the search page and search results page
+ */
 export const SearchBar: React.FC<{
   initialQuery?: string;
   isSearching?: boolean;
@@ -127,3 +133,42 @@ export const SearchBar: React.FC<{
     </SearchInputContainer>
   );
 };
+
+export const MainLayoutContent = styled(Layout.Content)`
+  padding: 0 24px 24px;
+`;
+
+/**
+ * Content card for Goals / Countries page
+ */
+export const ContentCard = styled.div`
+  margin: 0 0 1rem;
+  padding: 24px;
+  background: white;
+  border-radius: 1rem;
+`;
+
+export const ContentCardHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+  img {
+    width: 5rem;
+    height: 5rem;
+    margin-right: 1.5rem;
+    border-radius: 0.5rem;
+  }
+  h3 {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+`;
+export const ContentCardBody = styled.div`
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+`;
