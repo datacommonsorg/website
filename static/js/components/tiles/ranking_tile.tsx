@@ -24,7 +24,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
-import { USA_NAMED_TYPED_PLACE } from "../../shared/constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import {
@@ -40,7 +39,6 @@ import {
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { rankingPointsToCsv } from "../../utils/chart_csv_utils";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
-import { getPlaceDisplayNames, getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -231,8 +229,8 @@ export async function fetchData(
         props.enclosedPlaceType,
         denoms
       );
-  return Promise.all([statPromise, denomPromise])
-    .then(([statResp, denomResp]) => {
+  return Promise.all([statPromise, denomPromise]).then(
+    ([statResp, denomResp]) => {
       const rankingData = pointApiToPerSvRankingData(
         statResp,
         denomResp,
@@ -245,32 +243,8 @@ export async function fetchData(
         );
       }
       return rankingData;
-    })
-    .then((rankingData) => {
-      // Fetch place names.
-      const places: Set<string> = new Set();
-      for (const statVar in rankingData) {
-        for (const point of rankingData[statVar].points) {
-          places.add(point.placeDcid);
-        }
-      }
-      // We want the display name (gets name with state code if available) if
-      // parent place is USA
-      const placeNamesPromise = _.isEqual(
-        props.place.dcid,
-        USA_NAMED_TYPED_PLACE.dcid
-      )
-        ? getPlaceDisplayNames(Array.from(places), props.apiRoot)
-        : getPlaceNames(Array.from(places), props.apiRoot);
-      return placeNamesPromise.then((placeNames) => {
-        for (const statVar in rankingData) {
-          for (const point of rankingData[statVar].points) {
-            point.placeName = placeNames[point.placeDcid] || point.placeDcid;
-          }
-        }
-        return rankingData;
-      });
-    });
+    }
+  );
 }
 
 // Reduces RankingData to only the SV used for sorting, to be compatible for multi-column rendering in RankingUnit.

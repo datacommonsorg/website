@@ -522,7 +522,23 @@
           "Topic"
         ]
       }
-    ]
+    ],
+    "varToTopic": {
+      "sdg/SH_STA_STNT.AGE--Y0T4": {
+        "dcid": "dc/topic/sdg_2.2.1",
+        "name": "Height Stunting for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SH_STA_STNTN.AGE--Y0T4": {
+        "dcid": "dc/topic/sdg_2.2.1",
+        "name": "Height Stunting for Children Under 5",
+        "types": [
+          "Topic"
+        ]
+      }
+    }
   },
   "svSource": "UNKNOWN",
   "userMessage": ""
