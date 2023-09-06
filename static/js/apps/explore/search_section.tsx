@@ -22,6 +22,13 @@ import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
 import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_EXPLORE,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { getFeedbackLink } from "../../utils/nl_interface_utils";
 import { updateHash } from "../../utils/url_utils";
 
@@ -48,6 +55,10 @@ export function SearchSection(props: {
     <NlSearchBar
       inputId="query-search-input"
       onSearch={(q) => {
+        triggerGAEvent(GA_EVENT_NL_SEARCH, {
+          [GA_PARAM_QUERY]: q,
+          [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE,
+        });
         updateHash({
           [URL_HASH_PARAMS.QUERY]: q,
           [URL_HASH_PARAMS.PLACE]: "",
