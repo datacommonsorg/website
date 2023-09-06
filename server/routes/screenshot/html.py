@@ -223,6 +223,8 @@ def compare(compare):
 def diff():
   blob1 = request.args.get('blob1')
   blob2 = request.args.get('blob2')
+  if not blob1 or not blob2:
+    flask.abort(500, message='url param blob1 or blob2 is missing')
 
   im1 = read_blob(SCREENSHOT_BUCKET, blob1)
   im2 = read_blob(SCREENSHOT_BUCKET, blob2)

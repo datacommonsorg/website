@@ -47,9 +47,10 @@ export function App(props: {
 }
 
 interface ItemData {
-  diff: string;
-  base: string;
-  diffRatio: number;
+  diff?: string;
+  base?: string;
+  diffRatio?: number;
+  error?: string;
 }
 
 function Item(props: { blob1: string; blob2: string }): JSX.Element {
@@ -66,13 +67,19 @@ function Item(props: { blob1: string; blob2: string }): JSX.Element {
       })
       .then((resp) => {
         setData(resp.data);
+      })
+      .catch(() => {
+        setData({ error: "Error fetch data" });
       });
   }, [props.blob1, props.blob2]);
 
   return (
     <div>
       {data == null && <span className="loading">LOADING...</span>}
-      {data != null && (
+      {data != null && data.error && (
+        <span className="error">{data.error}</span>
+      )}
+      {data != null && !data.error && (
         <div>
           <div>
             diff ratio: <b>{data.diffRatio}</b>
