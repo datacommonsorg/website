@@ -1,0 +1,121 @@
+[
+  {
+    "goalNum": "1",
+    "name": "No Poverty",
+    "iconUrl": "/images/datacommons/goal-1-icon.svg",
+    "topicDcid": "dc/topic/sdg_1",
+    "color": "#E5243B"
+  },
+  {
+    "goalNum": "2",
+    "name": "Zero Hunger",
+    "iconUrl": "/images/datacommons/goal-2-icon.svg",
+    "topicDcid": "dc/topic/sdg_2",
+    "color": "#E5B735"
+  },
+  {
+    "goalNum": "3",
+    "name": "Good Health and Well-being",
+    "iconUrl": "/images/datacommons/goal-3-icon.svg",
+    "topicDcid": "dc/topic/sdg_3",
+    "color": "#4C9F38"
+  },
+  {
+    "goalNum": "4",
+    "name": "Quality Education",
+    "iconUrl": "/images/datacommons/goal-4-icon.svg",
+    "topicDcid": "dc/topic/sdg_4",
+    "color": "#C5192D"
+  },
+  {
+    "goalNum": "5",
+    "name": "Gender Equality",
+    "iconUrl": "/images/datacommons/goal-5-icon.svg",
+    "topicDcid": "dc/topic/sdg_5",
+    "color": "#FF3A21"
+  },
+  {
+    "goalNum": "6",
+    "name": "Clean Water and Sanitation",
+    "iconUrl": "/images/datacommons/goal-6-icon.svg",
+    "topicDcid": "dc/topic/sdg_6",
+    "color": "#26BDE2"
+  },
+  {
+    "goalNum": "7",
+    "name": "Affordable and Clean Energy",
+    "iconUrl": "/images/datacommons/goal-7-icon.svg",
+    "topicDcid": "dc/topic/sdg_7",
+    "color": "#FCC30B"
+  },
+  {
+    "goalNum": "8",
+    "name": "Decent Work and Economic Growth",
+    "iconUrl": "/images/datacommons/goal-8-icon.svg",
+    "topicDcid": "dc/topic/sdg_8",
+    "color": "#A21942"
+  },
+  {
+    "goalNum": "9",
+    "name": "Industry, Innovation and Infrastructure",
+    "iconUrl": "/images/datacommons/goal-9-icon.svg",
+    "topicDcid": "dc/topic/sdg_9",
+    "color": "#FD6925"
+  },
+  {
+    "goalNum": "10",
+    "name": "Reduced Inequality",
+    "iconUrl": "/images/datacommons/goal-10-icon.svg",
+    "topicDcid": "dc/topic/sdg_10",
+    "color": "#DD1367"
+  },
+  {
+    "goalNum": "11",
+    "name": "Sustainable Cities and Communities",
+    "iconUrl": "/images/datacommons/goal-11-icon.svg",
+    "topicDcid": "dc/topic/sdg_11",
+    "color": "#FD9D24"
+  },
+  {
+    "goalNum": "12",
+    "name": "Responsible Consumption and Production",
+    "iconUrl": "/images/datacommons/goal-12-icon.svg",
+    "topicDcid": "dc/topic/sdg_12",
+    "color": "#C9992D"
+  },
+  {
+    "goalNum": "13",
+    "name": "Climate Action",
+    "iconUrl": "/images/datacommons/goal-13-icon.svg",
+    "topicDcid": "dc/topic/sdg_13",
+    "color": "#3F7E44"
+  },
+  {
+    "goalNum": "14",
+    "name": "Life Below Water",
+    "iconUrl": "/images/datacommons/goal-14-icon.svg",
+    "topicDcid": "dc/topic/sdg_14",
+    "color": "#0A97D9"
+  },
+  {
+    "goalNum": "15",
+    "name": "Life on Land",
+    "iconUrl": "/images/datacommons/goal-15-icon.svg",
+    "topicDcid": "dc/topic/sdg_15",
+    "color": "#56C02B"
+  },
+  {
+    "goalNum": "16",
+    "name": "Peace and Justice Strong Institutions",
+    "iconUrl": "/images/datacommons/goal-16-icon.svg",
+    "topicDcid": "dc/topic/sdg_16",
+    "color": "#00689D"
+  },
+  {
+    "goalNum": "17",
+    "name": "Partnerships to achieve the Goal",
+    "iconUrl": "/images/datacommons/goal-17-icon.svg",
+    "topicDcid": "dc/topic/sdg_17",
+    "color": "#19486A"
+  }
+]

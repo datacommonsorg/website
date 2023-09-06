@@ -1,0 +1,158 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import styled from "styled-components";
+import homeGoals from "../../config/homeGoals.json";
+
+
+interface GoalItem {
+  goalNum: string;
+  name: string;
+  iconUrl: string;
+  topicDcid: string;
+  color: string;
+}
+const Container = styled.div`
+  font-family: Roboto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 114px;
+  flex-shrink: 0;
+  background-color: #F2F2F2;
+  padding: 134px 0;
+`
+const HeaderContainer = styled.div`
+  color: #414042;
+  text-align: center;
+  
+  .title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 36px;
+  }
+
+  .line-separator {
+    height: 0;
+    border-top: solid 3px #999;
+    margin: 30px 0
+  }
+
+  .description {
+    max-width: 700px;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 36px;
+  }
+`
+const GoalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .goal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .goal-item {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 525px;
+    background-color: #fff;
+  }
+
+  .goal-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+  .goal-number {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 700;
+    width: 70px;
+    text-align: center;
+    line-height: 70px;
+    flex-shrink: 0;
+    border-radius: 6px 0px 0px 6px
+  } 
+
+  .goal-name {
+    color: #444;
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    padding-left: 19px
+  }
+
+  .goal-icon {
+    width: 116px;
+    height: 45px;
+    border-left: solid 1px #999;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    align-items: center;
+
+    img {
+      height: fit-content;
+    }
+  }
+`
+export const GoalSection = () => {
+  const goalSections: GoalItem[][] = [homeGoals.slice(0, 9) as GoalItem[], homeGoals.slice(9) as GoalItem[]]
+  return (
+    <Container>
+      <HeaderContainer>
+        <div className="title">Explore SDG Data by Goal</div>
+        <div className="line-separator" />
+        <div className="description">Learn about SDG progress across all 17 Goals -- with data, insights and infographics in one place for a comprehensive overview.</div>
+      </HeaderContainer>
+      <GoalContainer>{
+        goalSections.map((goalSection: GoalItem[], idx) => {
+          return (<div className="goal-section" key={`section-${idx}`}>
+          {
+            goalSection.map((goal: GoalItem) => {
+              return (<div className="goal-item" key={goal.topicDcid} onClick={() => window.open(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`, "_self")}>
+                <div style={{backgroundColor: goal.color}} className="goal-number">{goal.goalNum}</div>
+                <div className="goal-content"><div className="goal-name">{goal.name}</div><div className="goal-icon"><img src={goal.iconUrl}/></div></div>
+              </div>)
+            })
+          }
+          {idx === 1 && (
+            <div className="goal-item" onClick={() => window.open(`/goals`, "_self")}>
+            <div className="goal-number"><img src={"/images/datacommons/sdg-goals-icon.svg"}/></div>
+            <div className="goal-content"><div className="goal-name">All Goals</div></div>
+            </div>
+          )}
+          </div>)
+        })
+      }
+      </GoalContainer>
+    </Container>
+  )
+}
