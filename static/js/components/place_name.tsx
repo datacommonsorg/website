@@ -38,13 +38,17 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
       ? getPlaceDisplayNames([props.dcid], props.apiRoot)
       : getPlaceNames([props.dcid], props.apiRoot);
 
-    placeNamesPromise.then((resp) => {
-      if (props.dcid in resp) {
-        setName(resp[props.dcid]);
-      } else {
+    placeNamesPromise
+      .then((resp) => {
+        if (props.dcid in resp) {
+          setName(resp[props.dcid]);
+        } else {
+          setName(props.dcid);
+        }
+      })
+      .catch(() => {
         setName(props.dcid);
-      }
-    });
+      });
   }, [props.dcid, props.apiRoot]);
 
   return <>{name}</>;
