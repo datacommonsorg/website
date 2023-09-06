@@ -1418,7 +1418,254 @@
           "Topic"
         ]
       }
-    ]
+    ],
+    "varToTopic": {
+      "sdg/DC_ODA_POVDLG": {
+        "dcid": "dc/topic/sdg_1.a.1",
+        "name": "Grants for Poverty Reduction",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SD_XPD_ESED": {
+        "dcid": "dc/topic/sdg_1.a.2",
+        "name": "Government Expenditure On Essential Services",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SG_DSR_LGRGSR": {
+        "dcid": "dc/topic/sdg_1.5.3",
+        "name": "Countries With Disaster Risk Reduction",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SG_DSR_SILN": {
+        "dcid": "dc/topic/sdg_1.5.4",
+        "name": "Local Governments With Disaster Risk Reduction",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SG_DSR_SILS": {
+        "dcid": "dc/topic/sdg_1.5.4",
+        "name": "Local Governments With Disaster Risk Reduction",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SG_GOV_LOGV": {
+        "dcid": "dc/topic/sdg_1.5.4",
+        "name": "Local Governments With Disaster Risk Reduction",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_BENFTS": {
+        "dcid": "dc/topic/sdgSICOVBENFTS",
+        "name": "Population With Social Protection Benefits",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_CHLD": {
+        "dcid": "dc/topic/sdgSICOVCHLD",
+        "name": "Children/Households Receiving Family Cash Benefit",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_CHLD.SEX--F": {
+        "dcid": "dc/topic/sdgSICOVCHLD_gender",
+        "name": "Children/Households Receiving Family Cash Benefit by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_CHLD.SEX--M": {
+        "dcid": "dc/topic/sdgSICOVCHLD_gender",
+        "name": "Children/Households Receiving Family Cash Benefit by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_PENSN": {
+        "dcid": "dc/topic/sdgSICOVPENSN",
+        "name": "Population Above Retirement Age Receiving Pension",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_PENSN.SEX--F": {
+        "dcid": "dc/topic/sdgSICOVPENSN_gender",
+        "name": "Population Above Retirement Age Receiving Pension by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_PENSN.SEX--M": {
+        "dcid": "dc/topic/sdgSICOVPENSN_gender",
+        "name": "Population Above Retirement Age Receiving Pension by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_POOR": {
+        "dcid": "dc/topic/sdgSICOVPOOR",
+        "name": "Vulnerable Population Receiving Social Assistance Cash Benefit",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_COV_WKINJRY": {
+        "dcid": "dc/topic/sdgSICOVWKINJRY",
+        "name": "Employed Population Covered for Work Injury",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SI_POV_DAY1": {
+        "dcid": "dc/topic/sdgSIPOVDAY1",
+        "name": "Population Below International Poverty Line",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O": {
+        "dcid": "dc/topic/sdgSPACSBSRVH2O",
+        "name": "Population Using Basic Drinking Water Services",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
+        "dcid": "dc/topic/sdgSPACSBSRVH2O_sdgurbanisation",
+        "name": "Population Using Basic Drinking Water Services by Urbanization",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
+        "dcid": "dc/topic/sdgSPACSBSRVH2O_sdgurbanisation",
+        "name": "Population Using Basic Drinking Water Services by Urbanization",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN": {
+        "dcid": "dc/topic/sdgSPACSBSRVSAN",
+        "name": "Population Using Basic Sanitation Services",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
+        "dcid": "dc/topic/sdgSPACSBSRVSAN_sdgurbanisation",
+        "name": "Population Using Basic Sanitation Services by Urbanization",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
+        "dcid": "dc/topic/sdgSPACSBSRVSAN_sdgurbanisation",
+        "name": "Population Using Basic Sanitation Services by Urbanization",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_AFFCT": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_AGLH": {
+        "dcid": "dc/topic/sdg_1.5.2",
+        "name": "Economic Loss from Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_CILN": {
+        "dcid": "dc/topic/sdg_1.5.2",
+        "name": "Economic Loss from Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_DAFF": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_DDPA": {
+        "dcid": "dc/topic/sdg_1.5.2",
+        "name": "Economic Loss from Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_GDPLS": {
+        "dcid": "dc/topic/sdg_1.5.2",
+        "name": "Economic Loss from Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_IJILN": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_LSGP": {
+        "dcid": "dc/topic/sdg_1.5.2",
+        "name": "Economic Loss from Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_MMHN": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_MORT": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_MTMP": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_PDAN": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      },
+      "sdg/VC_DSR_PDYN": {
+        "dcid": "dc/topic/sdg_1.5.1",
+        "name": "Deaths from Disasters Per 100k Capita",
+        "types": [
+          "Topic"
+        ]
+      }
+    }
   },
   "svSource": "UNKNOWN",
   "userMessage": ""
