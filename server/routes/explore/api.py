@@ -83,9 +83,6 @@ def detect():
 def fulfill():
   """Data handler."""
   logging.info('NL Chart API: Enter')
-  # NO production support yet.
-  if os.environ.get('FLASK_ENV') == 'production':
-    flask.abort(404)
 
   req_json = request.get_json()
   debug_logs = {}

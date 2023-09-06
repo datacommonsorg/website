@@ -12,7 +12,7 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "title": "Prevalence of Obesity (2021) Vs. Population Below Poverty Level (2021) in Counties of California",
+      "title": "Prevalence of Obesity (2021) Vs. Population Below Poverty Line (2021) in Counties of California",
       "type": "SCATTER",
       "chartUrl": ""
     },
@@ -36,7 +36,7 @@
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Population Below Poverty Level in Counties of California (2021)",
+      "title": "Population Below Poverty Line in Counties of California (2021)",
       "type": "MAP",
       "chartUrl": ""
     },
@@ -108,7 +108,7 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "title": "Prevalence of Obesity (2021) Vs. Asians Below Poverty Level Status in Past Year (2021) in Counties of California",
+      "title": "Prevalence of Obesity (2021) Vs. Asians Below Poverty Line (2021) in Counties of California",
       "type": "SCATTER",
       "chartUrl": ""
     },
@@ -120,7 +120,7 @@
           "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
         }
       ],
-      "title": "Asians Below Poverty Level Status in Past Year in Counties of California (2021)",
+      "title": "Asians Below Poverty Line in Counties of California (2021)",
       "type": "MAP",
       "chartUrl": ""
     }
