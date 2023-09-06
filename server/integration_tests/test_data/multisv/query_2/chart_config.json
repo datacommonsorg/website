@@ -246,6 +246,31 @@
             ],
             "denom": "Count_Person",
             "title": "Population Above Poverty Level Status in Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "dc/9pmyhk89dj3pf_multiple_place_bar_block"
+                    ],
+                    "title": "Median Incomes in Accommodation and Food Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Incomes in Accommodation and Food Services"
           }
         ],
         "statVarSpec": {
@@ -329,6 +354,10 @@
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
+          },
+          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
+            "name": "Median Incomes in Accommodation And Food Services",
+            "statVar": "dc/9pmyhk89dj3pf"
           }
         }
       }
