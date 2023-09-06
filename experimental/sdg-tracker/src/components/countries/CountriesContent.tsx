@@ -25,7 +25,6 @@ import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
-  RelatedTopic,
 } from "../../utils/types";
 import { PlaceHeaderCard, SearchBar } from "../layout/components";
 
@@ -176,6 +175,7 @@ const CountriesContent: React.FC<{
             hidePlaceSearch={hidePlaceSearch}
             fulfillmentResponse={fulfillmentResponse}
             setSelectedPlaceDcid={setPlaceDcid}
+            variableDcids={variableDcids}
           />
         </Layout.Content>
         <Layout.Content style={{ padding: "0 24px 24px" }}>

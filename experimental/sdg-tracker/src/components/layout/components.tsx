@@ -16,13 +16,15 @@
 
 import { gray } from "@ant-design/colors";
 import { SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Input, Spin } from "antd";
+import { AutoComplete, Breadcrumb, Input, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
 import { useStoreState } from "../../state";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { FulfillResponse } from "../../utils/types";
+import { Link, useLocation } from "react-router-dom";
+import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 
 const SearchInputContainer = styled.div`
   display: flex;
@@ -139,6 +141,9 @@ const CountrySelectContainer = styled.div`
   .ant-select-selector {
     border-radius: 2rem !important;
   }
+  .ant-select-selection-placeholder {
+    color: black;
+  }
   svg {
     position: absolute;
     right: 0.8rem;
@@ -232,16 +237,31 @@ const GoalTitle = styled.div`
   }
 `;
 
+const StyledBreadcrumb = styled(Breadcrumb)`
+  li {
+    display: flex;
+  }
+  .ant-breadcrumb-link a {
+    display: block;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+`;
+
 export const PlaceHeaderCard: React.FC<{
   currentPlaceName: string | undefined;
   fulfillmentResponse: FulfillResponse | undefined;
   hidePlaceSearch: boolean | undefined;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+  variableDcids: string[];
 }> = ({
   currentPlaceName,
   fulfillmentResponse,
   hidePlaceSearch,
   setSelectedPlaceDcid,
+  variableDcids,
 }) => {
   useEffect(() => {});
 
@@ -252,6 +272,36 @@ export const PlaceHeaderCard: React.FC<{
   const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
   const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
   const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
+
+  // get breadcrumbs from current location
+  const location = useLocation();
+  const topics = useStoreState((s) =>
+    variableDcids
+      .filter((dcid) => dcid in s.topics.byDcid)
+      .map((dcid) => s.topics.byDcid[dcid])
+  );
+  const parentVariables = useStoreState((s) => {
+    const parentDcids: string[] = [];
+    if (topics.length !== 1) {
+      return [];
+    }
+    let currentVariableDcid = variableDcids[0];
+    const BREADCRUMB_LIMIT = 10;
+    let breadcrumbIndex = 0;
+    while (currentVariableDcid !== ROOT_TOPIC) {
+      // This avoids the possibility of an infinite loop
+      breadcrumbIndex++;
+      if (breadcrumbIndex > BREADCRUMB_LIMIT) {
+        break;
+      }
+      if (!(currentVariableDcid in s.topics.byDcid)) {
+        break;
+      }
+      currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
+      parentDcids.unshift(currentVariableDcid);
+    }
+    return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
+  });
 
   return (
     <PlaceCard>
@@ -271,6 +321,24 @@ export const PlaceHeaderCard: React.FC<{
             </div>
           </GoalTitle>
         ) : null}
+        <StyledBreadcrumb>
+          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
+            .filter((v) => v)
+            .map((v, i) => {
+              const searchParams = new URLSearchParams(location.search);
+              searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
+              return (
+                <Breadcrumb.Item key={i}>
+                  <Link
+                    to={"/countries?" + searchParams.toString()}
+                    title={v.name}
+                  >
+                    {v.name}
+                  </Link>
+                </Breadcrumb.Item>
+              );
+            })}
+        </StyledBreadcrumb>
       </PlaceCardContent>
     </PlaceCard>
   );
