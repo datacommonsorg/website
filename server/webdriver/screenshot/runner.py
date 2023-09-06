@@ -62,7 +62,7 @@ def run(driver, page_base_url, page_config):
       WebDriverWait(driver, timeout).until(shared.charts_rendered)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
       logging.error("Exception for url: %s\n%s", url, e)
-      return False
+      raise e
   else:
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
     WebDriverWait(driver, timeout).until(element_present)
@@ -72,6 +72,4 @@ def run(driver, page_base_url, page_config):
   file_name = page_config['file_name']
   tmp_file = '{}/{}'.format(SCREENSHOTS_FOLDER, file_name)
   if not driver.save_screenshot(tmp_file):
-    logging.error('Failed to save screenshot image for url: %s', url)
-    return False
-  return True
+    raise Exception('Failed to save screenshot image for url: {}'.format(url))
