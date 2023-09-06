@@ -26,7 +26,7 @@ _TEST_MODE = os.environ['TEST_MODE']
 _TEST_DATA = 'test_data'
 
 
-class IntegrationTest(NLWebServerTestCase):
+class NLTest(NLWebServerTestCase):
 
   # TODO: Validate contexts as well eventually.
   def run_sequence(self,
