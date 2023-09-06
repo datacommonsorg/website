@@ -177,7 +177,7 @@ def generate_mcf(nodes: list[dict]) -> None:
 def generate_mcf_node(node: dict) -> str:
   return f"""Node: dcid:{node['dcid'][0]}
 dcid: "{node['dcid'][0]}"
-relevantVariable: "{','.join(node['relevantVariableList'])}"
+relevantVariable: {', '.join([f"dcid:{var}" for var in node['relevantVariableList']])}
 name: "{node['name'][0]}"
 typeOf: dcid:{node['typeOf'][0]}
 
