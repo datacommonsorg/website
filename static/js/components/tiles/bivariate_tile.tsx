@@ -47,9 +47,11 @@ import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getStatVarName,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -86,6 +88,7 @@ interface BivariateChartData {
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
   props: BivariateTilePropType;
+  errorMsg: string;
 }
 
 export function BivariateTile(props: BivariateTilePropType): JSX.Element {
@@ -138,6 +141,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       }
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
     >
       <div
         id={props.id}
@@ -308,6 +312,9 @@ function rawToChart(
     }
     points[place] = point;
   }
+  const errorMsg = _.isEmpty(points)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     xStatVar,
     yStatVar,
@@ -321,6 +328,7 @@ function rawToChart(
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
     props,
+    errorMsg,
   };
 }
 
@@ -354,6 +362,10 @@ function draw(
   svgContainer: React.RefObject<HTMLDivElement>,
   legend: React.RefObject<HTMLDivElement>
 ): void {
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer.current);
+    return;
+  }
   const width = svgContainer.current.offsetWidth;
   const yLabel = getStatVarName(
     chartData.yStatVar.statVar,

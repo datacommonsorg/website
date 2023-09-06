@@ -50,6 +50,8 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
+  // Whether or not there is an error message in the chart.
+  hasErrorMsg?: boolean;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -60,7 +62,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
-  const showEmbed = props.allowEmbed && !props.isInitialLoading;
+  const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
+  const showEmbed =
+    props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
@@ -81,7 +85,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             props.title && <h4 {...{ part: "header" }}>{title}</h4>
           }
           <slot name="subheader" {...{ part: "subheader" }}></slot>
-          {!_.isEmpty(props.sources) && getSourcesJsx(props.sources)}
+          {showSources && getSourcesJsx(props.sources)}
         </div>
         {props.children}
       </div>

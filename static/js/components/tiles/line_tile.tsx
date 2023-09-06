@@ -42,9 +42,11 @@ import {
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
+  getNoDataErrorMsg,
   getStatVarNames,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -84,6 +86,7 @@ export interface LineChartData {
   unit: string;
   // props used when fetching this data
   props: LineTilePropType;
+  errorMsg: string;
 }
 
 export function LineTile(props: LineTilePropType): JSX.Element {
@@ -122,6 +125,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
       isInitialLoading={_.isNull(chartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      hasErrorMsg={chartData && !!chartData.errorMsg}
     >
       <div
         id={props.id}
@@ -194,6 +198,10 @@ export function draw(
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   const isCompleteLine = drawLineChart(
     svgContainer,
     props.svgChartWidth || svgContainer.offsetWidth,
@@ -287,11 +295,15 @@ function rawToChart(
   for (let i = 0; i < dataGroups.length; i++) {
     dataGroups[i].value = expandDataPoints(dataGroups[i].value, allDates);
   }
+  const errorMsg = _.isEmpty(dataGroups)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     dataGroup: dataGroups,
     sources,
     unit,
     props,
+    errorMsg,
   };
 }
 

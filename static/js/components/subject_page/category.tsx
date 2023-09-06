@@ -111,7 +111,7 @@ function renderBlocks(
     switch (block.type) {
       case "DISASTER_EVENT":
         return (
-          <ErrorBoundary key={id}>
+          <ErrorBoundary key={id} customError={<></>}>
             <BlockContainer
               id={id}
               title={block.title}
@@ -136,7 +136,7 @@ function renderBlocks(
         );
       default:
         return (
-          <ErrorBoundary key={id}>
+          <ErrorBoundary key={id} customError={<></>}>
             <BlockContainer
               id={id}
               title={block.title}

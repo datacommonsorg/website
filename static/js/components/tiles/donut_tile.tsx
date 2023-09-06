@@ -29,13 +29,14 @@ import { RankingPoint } from "../../types/ranking_unit_types";
 import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
-import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
+  getNoDataErrorMsg,
   getStatVarNames,
   getUnitAndScaling,
   ReplacementStrings,
+  showError,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -71,6 +72,7 @@ interface DonutChartData {
   sources: Set<string>;
   unit: string;
   dateRange: string;
+  errorMsg: string;
 }
 
 export function DonutTile(props: DonutTilePropType): JSX.Element {
@@ -109,6 +111,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
         donutChartData ? () => dataGroupsToCsv(donutChartData.dataGroup) : null
       }
       isInitialLoading={_.isNull(donutChartData)}
+      hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
     >
       <div
         id={props.id}
@@ -231,15 +234,21 @@ function rawToChart(
       dataPoints.push(dataPoint);
     }
     const link = `${DEFAULT_X_LABEL_LINK_ROOT}${placeDcid}`;
-    dataGroups.push(
-      new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
-    );
+    if (!_.isEmpty(dataPoints)) {
+      dataGroups.push(
+        new DataGroup(placeNames[placeDcid] || placeDcid, dataPoints, link)
+      );
+    }
   }
+  const errorMsg = _.isEmpty(dataGroups)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
   return {
     dataGroup: dataGroups,
     sources,
     dateRange: getDateRange(Array.from(dates)),
     unit,
+    errorMsg,
   };
 }
 
@@ -249,6 +258,10 @@ export function draw(
   svgContainer: HTMLDivElement,
   svgWidth?: number
 ): void {
+  if (chartData.errorMsg) {
+    showError(chartData.errorMsg, svgContainer);
+    return;
+  }
   drawDonutChart(
     svgContainer,
     svgWidth || svgContainer.offsetWidth,

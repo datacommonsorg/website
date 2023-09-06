@@ -73,7 +73,6 @@ def list_png(bucket_name, prefix):
   blob = bucket.get_blob(prefix + '/screenshot_url.json')
   if blob:
     image_url = json.loads(blob.download_as_string())
-  print(image_url)
   result = {}
   for b in blobs:
     if b.name.endswith('png'):
