@@ -162,7 +162,7 @@ $search-answer-bottom: 48px;
 #search-animation {
   background: $animation-section-background;
   padding-bottom: 0 !important;
-  margin-bottom: $topics-section-vmargin !important;
+  margin-bottom: 0 !important;
 
   @include media-breakpoint-down(xs) {
     .container {
@@ -331,6 +331,15 @@ $search-answer-bottom: 48px;
       transform: translateY(0px);
     }
   }
+}
+
+#search-animation-toggle {
+  color:#bbb;
+  font-size: 18px;
+  margin-bottom: $topics-section-vmargin !important;
+  margin-left: auto;
+  margin-top: -24px;
+  width: fit-content;
 }
 
 // Styling for the topics section
