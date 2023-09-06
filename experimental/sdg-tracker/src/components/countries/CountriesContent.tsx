@@ -173,7 +173,6 @@ const CountriesContent: React.FC<{
           <PlaceHeaderCard
             currentPlaceName={placeName}
             hidePlaceSearch={hidePlaceSearch}
-            fulfillmentResponse={fulfillmentResponse}
             setSelectedPlaceDcid={setPlaceDcid}
             variableDcids={variableDcids}
           />

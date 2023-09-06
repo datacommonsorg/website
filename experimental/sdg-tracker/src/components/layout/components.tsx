@@ -219,22 +219,13 @@ const PlaceCardContent = styled.div`
   margin: 40px;
 `;
 
-const GoalTitle = styled.div`
+const PlaceTitle = styled.div`
   display: flex;
   flex-direction: row;
+  font-size: 2rem;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-  img {
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2rem;
-    border-radius: 1rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0.25rem;
-  }
+  flex-wrap: wrap;
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
@@ -252,26 +243,16 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 
 export const PlaceHeaderCard: React.FC<{
   currentPlaceName: string | undefined;
-  fulfillmentResponse: FulfillResponse | undefined;
   hidePlaceSearch: boolean | undefined;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
   variableDcids: string[];
 }> = ({
   currentPlaceName,
-  fulfillmentResponse,
   hidePlaceSearch,
   setSelectedPlaceDcid,
   variableDcids,
 }) => {
   useEffect(() => {});
-
-  // get sdg goal/topic metadata using regex on fulfillment response
-  const rootTopics = useStoreState((s) => s.rootTopics);
-  const mainTopic = fulfillmentResponse?.relatedThings.mainTopics[0];
-  const goalMatches = mainTopic?.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
-  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
-  const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
 
   // get breadcrumbs from current location
   const location = useLocation();
@@ -302,43 +283,41 @@ export const PlaceHeaderCard: React.FC<{
     }
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
-
+  const shouldHideBreadcrumbs =
+    topics.length == 1 && topics[0].dcid === ROOT_TOPIC;
   return (
     <PlaceCard>
       <PlaceCardContent>
-        {!hidePlaceSearch && (
-          <CountrySelect
-            setSelectedPlaceDcid={setSelectedPlaceDcid}
-            currentPlaceName={currentPlaceName}
-          />
+        {currentPlaceName === "World" ? (
+          <PlaceTitle>World</PlaceTitle>
+        ) : (
+          !hidePlaceSearch && (
+            <CountrySelect
+              setSelectedPlaceDcid={setSelectedPlaceDcid}
+              currentPlaceName={currentPlaceName}
+            />
+          )
         )}
-        {sdgTopic ? (
-          <GoalTitle>
-            <img src={sdgTopic.iconUrl} />
-            <div>
-              <h3>{sdgTopic.name}</h3>
-              <div>{sdgTopic.description}</div>
-            </div>
-          </GoalTitle>
-        ) : null}
-        <StyledBreadcrumb>
-          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
-            .filter((v) => v)
-            .map((v, i) => {
-              const searchParams = new URLSearchParams(location.search);
-              searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
-              return (
-                <Breadcrumb.Item key={i}>
-                  <Link
-                    to={"/countries?" + searchParams.toString()}
-                    title={v.name}
-                  >
-                    {v.name}
-                  </Link>
-                </Breadcrumb.Item>
-              );
-            })}
-        </StyledBreadcrumb>
+        {!shouldHideBreadcrumbs && (
+          <StyledBreadcrumb>
+            {[...parentVariables, ...(topics.length === 1 ? topics : [])]
+              .filter((v) => v)
+              .map((v, i) => {
+                const searchParams = new URLSearchParams(location.search);
+                searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
+                return (
+                  <Breadcrumb.Item key={i}>
+                    <Link
+                      to={"/countries?" + searchParams.toString()}
+                      title={v.name}
+                    >
+                      {v.name}
+                    </Link>
+                  </Breadcrumb.Item>
+                );
+              })}
+          </StyledBreadcrumb>
+        )}
       </PlaceCardContent>
     </PlaceCard>
   );
