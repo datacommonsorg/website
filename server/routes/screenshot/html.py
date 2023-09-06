@@ -223,6 +223,8 @@ def compare(compare):
 def diff():
   blob1 = request.args.get('blob1')
   blob2 = request.args.get('blob2')
+  if not blob1 or not blob2:
+    flask.abort(500, message='url param blob1 or blob2 is missing')
 
   im1 = read_blob(SCREENSHOT_BUCKET, blob1)
   im2 = read_blob(SCREENSHOT_BUCKET, blob2)
@@ -234,5 +236,6 @@ def diff():
   return {
       'diff': b64encode(diff_byte_arr).decode('utf-8'),
       'base': b64encode(im1).decode('utf-8'),
+      'new': b64encode(im2).decode('utf-8'),
       'diffRatio': diff_ratio
   }

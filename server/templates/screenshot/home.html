@@ -48,7 +48,7 @@
               </th>
             {% endif %}
           {% else %}
-            <th>
+            <th style="width:65%;">
               <a href="{{item['url']}}">{{item['message']}}</a>
             </th>
             <th>
@@ -57,13 +57,13 @@
             <th>
               <a href="/screenshot/commit/{{item['sha']}}">this</a>
             </th>
-            <th>
+            <th style="width:15%;">
               <a
               href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}">diff
               (vs last)</a>
             </th>
             {% if item['base_sha'] %}
-              <th>
+              <th style="width:15%;">
                 <a
                 href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}">diff
                 (vs base)</a>

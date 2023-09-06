@@ -40,9 +40,15 @@ def prepare(page_config_dir):
       except FileNotFoundError:
         continue
   curr_dir = os.path.dirname(os.path.abspath(__file__))
-  with open(os.path.join(curr_dir, page_config_dir, 'page.json')) as f:
-    page_config = json.load(f)
-    return page_config
+  root_dir = os.path.join(curr_dir, page_config_dir)
+  file_list = os.listdir(root_dir)
+  all_page_config = []
+  for fname in file_list:
+    if fname.endswith('.json'):
+      with open(os.path.join(root_dir, fname)) as f:
+        page_config = json.load(f)
+        all_page_config.extend(page_config)
+  return all_page_config
 
 
 def run(driver, page_base_url, page_config):
@@ -62,7 +68,7 @@ def run(driver, page_base_url, page_config):
       WebDriverWait(driver, timeout).until(shared.charts_rendered)
     except (TimeoutException, UnexpectedAlertPresentException) as e:
       logging.error("Exception for url: %s\n%s", url, e)
-      return False
+      raise e
   else:
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'main'))
     WebDriverWait(driver, timeout).until(element_present)
@@ -72,6 +78,4 @@ def run(driver, page_base_url, page_config):
   file_name = page_config['file_name']
   tmp_file = '{}/{}'.format(SCREENSHOTS_FOLDER, file_name)
   if not driver.save_screenshot(tmp_file):
-    logging.error('Failed to save screenshot image for url: %s', url)
-    return False
-  return True
+    raise Exception('Failed to save screenshot image for url: {}'.format(url))

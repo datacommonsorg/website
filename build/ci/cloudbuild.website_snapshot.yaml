@@ -13,24 +13,9 @@
 # limitations under the License.
 
 steps:
-  # Build the static files
-  - id: package_js
-    name: gcr.io/datcom-ci/node:2023-05-18
-    entrypoint: /bin/bash
-    waitFor: ["-"]
-    args:
-      - -c
-      - |
-        rm -rf static/node_modules
-        cp -r /resources/node_modules -d static/
-        ./run_test.sh -b
-
-  # Run snapshot
   - id: snapshot
     name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/bash
-    waitFor:
-      - package_js
     args:
       - -c
       - |
