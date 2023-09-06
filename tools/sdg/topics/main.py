@@ -24,6 +24,8 @@ logging.getLogger().setLevel(logging.INFO)
 _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
 _SDG_MINI_TOPIC_JSON = '../../../server/config/nl_page/sdgmini_topic_cache.json'
+_TMP_DIR = 'tmp'
+_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
 API_ROOT = "https://autopush.api.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PV = API_ROOT + '/v1/bulk/property/values/out'
@@ -161,6 +163,32 @@ def generate_full():
   nodes.sort(key=lambda x: x['dcid'])
   with open(_SDG_TOPIC_JSON, 'w') as fp:
     json.dump({'nodes': nodes}, fp, indent=2)
+  generate_mcf(nodes)
+
+
+def generate_mcf(nodes: list[dict]) -> None:
+  logging.info("Writing MCF to: %s", _MCF_PATH)
+  os.makedirs(_TMP_DIR, exist_ok=True)
+  with open(_MCF_PATH, 'w') as out:
+    for node in nodes:
+      out.write(generate_mcf_node(node))
+
+
+def generate_mcf_node(node: dict) -> str:
+  lines = []
+
+  lines.append(f"Node: dcid:{node['dcid'][0]}")
+
+  if node['relevantVariableList']:
+    relevant_variables_str = ", ".join(
+        [f"dcid:{var}" for var in node["relevantVariableList"]])
+    lines.append(f"relevantVariable: {relevant_variables_str}")
+
+  lines.append(f'name: "{node["name"][0]}"')
+  lines.append(f"typeOf: dcid:{node['typeOf'][0]}")
+
+  lines.append("\n")
+  return "\n".join(lines)
 
 
 def generate_trimmed():
