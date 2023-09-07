@@ -25,6 +25,7 @@ steps:
         # This step is done for speed, downloading the delta files is faster than downloading the entire dependencies.
         rm -rf static/node_modules
         cp -r /resources/node_modules -d static/
+        cp -r /resources/node_modules -d experimental/sdg-tracker/
 
         # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
         ./run_test.sh -l
