@@ -17,7 +17,7 @@
 import _ from "lodash";
 
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
-import { Observation, StatMetadata } from "../shared/stat_types";
+import { Observation } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -143,6 +143,15 @@ export function isChildPlaceOf(
     selectedPlaceDcid === parentPlaceDcid ||
     parentPlaces.findIndex((parent) => parent.dcid === parentPlaceDcid) > -1
   );
+}
+
+/**
+ * Check whether a place is USA city or county.
+ * @param dcid The dcid of a place
+ * @returns boolean
+ */
+export function isUSACountyOrCity(dcid: string): boolean {
+  return dcid.startsWith("geoId/") && (dcid.length === 11 || dcid.length == 13);
 }
 
 /**
