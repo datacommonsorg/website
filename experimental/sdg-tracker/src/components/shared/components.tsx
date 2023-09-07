@@ -411,7 +411,7 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
 
 // Header for a target
 const TargetIdBox = styled.div`
-  border-radius: 4px;
+  border-radius: 16px;
   border: 2px solid #FA0031;
   color: #FA0031;
   padding: 2px;
@@ -438,15 +438,19 @@ const TargetText = styled.div`
 export const TargetHeader: React.FC<{ target: string}> = ({
   target,
 }) => {
+  
+  const targetDescriptions = useStoreState((s) => s.targetText);
+  const targetText = targetDescriptions.byTarget[target];
+
   return (
     <>
       <TargetIdBox>{target}</TargetIdBox>
-      <TargetText>Lorem Ipsum</TargetText>
+      <TargetText>{targetText}</TargetText>
     </>
   );
 };
 
-// Red Dividing line
+// Red Dividing line under target headers
 export const RedDivider = styled.div`
   border: 1px solid #FA0031;
   margin: 40px -24px 40px -24px;
