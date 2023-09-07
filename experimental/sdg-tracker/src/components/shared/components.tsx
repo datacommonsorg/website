@@ -15,14 +15,12 @@
  */
 
 import { gray } from "@ant-design/colors";
-import { SearchOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import "./components.css";
-import { useStoreState } from "../../state";
-import { CaretDownOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
+import styled from "styled-components";
+import { useStoreState } from "../../state";
 import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 import "./components.css";
 
@@ -102,7 +100,8 @@ export const SearchBar: React.FC<{
   initialQuery?: string;
   isSearching?: boolean;
   onSearch: (query: string) => void;
-}> = ({ initialQuery, isSearching, onSearch }) => {
+  placeholder?: string;
+}> = ({ initialQuery, isSearching, onSearch, placeholder }) => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -116,7 +115,11 @@ export const SearchBar: React.FC<{
       <div className="info">Early Preview</div>
       <div className="search">
         <SearchInput
-          placeholder='For example, "Access to Clean Energy in Afghanistan"'
+          placeholder={
+            placeholder
+              ? placeholder
+              : 'For example, "Access to Clean Energy in Afghanistan"'
+          }
           size="large"
           value={query}
           disabled={isSearching}
@@ -409,10 +412,10 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
 };
 
 // Header for a target
-const TargetIdBox = styled.div`
+const TargetIdBox = styled.div<{ color: string }>`
   border-radius: 16px;
-  border: 2px solid #fa0031;
-  color: #fa0031;
+  border: 2px solid ${(p) => p.color};
+  color: ${(p) => p.color};
   padding: 2px;
   width: 72px;
   height: 72px;
@@ -424,8 +427,8 @@ const TargetIdBox = styled.div`
   line-height: 40px;
 `;
 
-const TargetText = styled.div`
-  color: #444746;
+const TargetText = styled.div<{ color: string }>`
+  color: ${(p) => p.color};
   font-size: 22px;
   font-style: normal;
   font-weight: 400;
@@ -433,20 +436,23 @@ const TargetText = styled.div`
   margin-top: 24px;
 `;
 
-export const TargetHeader: React.FC<{ target: string }> = ({ target }) => {
+export const TargetHeader: React.FC<{ color: string; target: string }> = ({
+  color,
+  target,
+}) => {
   const targetDescriptions = useStoreState((s) => s.targetText);
   const targetText = targetDescriptions.byTarget[target];
 
   return (
     <>
-      <TargetIdBox>{target}</TargetIdBox>
-      <TargetText>{targetText}</TargetText>
+      <TargetIdBox color={color}>{target}</TargetIdBox>
+      <TargetText color={color}>{targetText}</TargetText>
     </>
   );
 };
 
 // Red Dividing line under target headers
-export const RedDivider = styled.div`
-  border: 1px solid #fa0031;
+export const Divider = styled.div<{ color: string }>`
+  border: 1px solid ${(p) => p.color};
   margin: 40px -24px 40px -24px;
 `;

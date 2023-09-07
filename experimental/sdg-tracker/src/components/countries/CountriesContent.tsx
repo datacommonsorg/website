@@ -39,18 +39,19 @@ import {
   ContentCardBody,
   ContentCardHeader,
   CountrySelect,
+  Divider,
   HeadlineTile,
   MainLayoutContent,
   PlaceHeaderCard,
-  RedDivider,
   SearchBar,
   TargetHeader,
 } from "../shared/components";
 import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
 import GoalOverview from "../shared/goals/GoalOverview";
 
-import { useLocation } from "react-router";
 import _ from "lodash";
+import { useLocation } from "react-router";
+import { theme } from "../../utils/theme";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -427,10 +428,12 @@ const ChartTargetBlock: React.FC<{
   target: string;
   indicatorData: Indicators;
 }> = ({ placeDcid, target, indicatorData }) => {
+  const goalNumber = Number(target.split(".")[0]) || 1;
+  const color = theme.sdgColors[goalNumber - 1];
   return (
     <ContentCard>
-      <TargetHeader target={target} />
-      <RedDivider />
+      <TargetHeader color={color} target={target} />
+      <Divider color={color} />
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
           <ChartIndicatorBlock
@@ -581,10 +584,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div
-      ref={ref}
-      style={{ minHeight: !loaded ? height : undefined }}
-    >
+    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
       {loaded && component}
     </div>
   );
