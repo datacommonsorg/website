@@ -64,7 +64,7 @@ class TestRanking(WebdriverBaseTest):
 
     self.assertEqual(
         self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
-        'Data Commons\n•\n्लेस रैंकिंग')
+        'Data Commons\n•\nप्लेस रैंकिंग')
 
     subtitle_present = EC.text_to_be_present_in_element(
         (By.TAG_NAME, 'h3'), 'the World से नीचे से 100 देश')
