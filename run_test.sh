@@ -43,6 +43,17 @@ function run_npm_lint_test {
   cd ..
 }
 
+# Tests if lint is required in experimental/sdg-tracker
+function run_npm_lint_test_sdg_tracker {
+  cd experimental/sdg-tracker
+  npm list eslint || npm install eslint
+  if ! npm run lint; then
+    echo "Fix lint errors by running ./run_test.sh -f"
+    exit 1
+  fi
+  cd ../..
+}
+
 # Fixes lint
 function run_lint_fix {
   echo -e "#### Fixing client-side code"
@@ -62,6 +73,15 @@ function run_lint_fix {
   yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=.env/*
   isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
   deactivate
+}
+
+# Fixes lint in experimental/sdg-tracker
+function run_lint_fix_sdg_tracker {
+  echo -e "#### Fixing client-side code"
+  cd experimental/sdg-tracker
+  npm list eslint || npm install eslint
+  npm run lint-fix
+  cd ../..
 }
 
 # Build client side code
@@ -242,7 +262,10 @@ while [[ "$#" -gt 0 ]]; do
         ;;
     -l)
         echo -e "### Running lint"
+        echo -e "Linting static/"
         run_npm_lint_test
+        echo -e "Linting experimental/sdg-tracker"
+        run_npm_lint_test_sdg_tracker
         shift 1
         ;;
     -c)
@@ -257,7 +280,10 @@ while [[ "$#" -gt 0 ]]; do
         ;;
     -f)
         echo -e "### Fix lint errors"
+        echo -e "Fixing static/"
         run_lint_fix
+        echo -e "Fixing experimental/sdg-tracker"
+        run_lint_fix_sdg_tracker
         shift 1
         ;;
     -a)
