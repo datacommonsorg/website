@@ -17,6 +17,7 @@
 import { gray } from "@ant-design/colors";
 import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
+import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -372,11 +373,15 @@ export const PlaceHeaderCard: React.FC<{
 };
 
 // Headline callouts for each of the indicators
-const HeadlineContainer = styled.div`
-  background-color: rgba(250, 0, 49, 0.05);
-  border-radius: 16px;
+const HeadlineContainer = styled.div<{ backgroundColor: string }>`
+  background-color: ${(p) => {
+    const rgb = parseToRgb(p.backgroundColor);
+    return `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.1);`;
+  }};
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   padding: 16px;
 `;
 
@@ -392,9 +397,10 @@ const HeadlineLink = styled.div`
   width: fit-content;
 `;
 
-export const HeadlineTile: React.FC<{ indicator: string }> = ({
-  indicator,
-}) => {
+export const HeadlineTile: React.FC<{
+  backgroundColor: string;
+  indicator: string;
+}> = ({ backgroundColor, indicator }) => {
   const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
   const headlineData = indicatorHeadlines.byIndicator[indicator];
 
@@ -402,7 +408,7 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
     return <></>;
   }
   return (
-    <HeadlineContainer>
+    <HeadlineContainer backgroundColor={backgroundColor}>
       <HeadlineText>{headlineData.headline}</HeadlineText>
       <HeadlineLink>
         <a href={headlineData.link}>Read more</a>

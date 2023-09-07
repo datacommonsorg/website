@@ -390,6 +390,7 @@ const ChartTargetBlock: React.FC<{
       {Object.keys(indicatorData).map((indicator) => {
         return (
           <ChartIndicatorBlock
+            color={color}
             indicator={indicator}
             placeDcid={placeDcid}
             tiles={indicatorData[indicator]}
@@ -402,13 +403,14 @@ const ChartTargetBlock: React.FC<{
 
 // Displays the tiles associated with a single indicator
 const ChartIndicatorBlock: React.FC<{
+  color: string;
   indicator: string;
   placeDcid: string;
   tiles: ChartConfigTile[];
-}> = ({ indicator, placeDcid, tiles }) => {
+}> = ({ color, indicator, placeDcid, tiles }) => {
   return (
     <ChartContentBody>
-      <HeadlineTile indicator={indicator} />
+      <HeadlineTile backgroundColor={color} indicator={indicator} />
       {tiles.map((tile, i) => (
         <ChartTile
           key={`${indicator}-${i}`}
