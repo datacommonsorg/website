@@ -99,6 +99,9 @@ export function urlToDomain(url: string): string {
   if (!url) {
     return "";
   }
+  if (globalThis.keepFullUrl) {
+    return url;
+  }
   return url
     .replace("http://", "")
     .replace("https://", "")
