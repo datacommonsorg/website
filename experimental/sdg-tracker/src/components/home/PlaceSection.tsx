@@ -18,6 +18,7 @@ import { AutoComplete } from "antd";
 import backgroundImg from "../../../public/images/datacommons/place-background.png";
 import React, { useState } from "react";
 import { useStoreState } from "../../state";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   font-family: Roboto;
@@ -44,7 +45,7 @@ const PlaceSearchContainer = styled.div`
   box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
   max-width: 702px;
   width: 90%;
-  height: 370px;
+  padding: 40px 0;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -104,6 +105,7 @@ const PlaceSearchContainer = styled.div`
 `
 
 const PlaceSearch: React.FC = () => {
+  const history = useHistory();
   const countries = useStoreState((s) =>
     s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
   );
@@ -133,7 +135,7 @@ const PlaceSearch: React.FC = () => {
         onChange={(value, option) => {
           setValue(value);
           if ("dcid" in option) {
-            window.open(`/countries?p=${option.dcid}`, "_self")
+            history.push(`/countries?p=${option.dcid}`);
           }
         }}
       />

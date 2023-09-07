@@ -19,6 +19,7 @@ import backgroundImg from "../../../public/images/datacommons/explore-background
 import { SearchBar } from "../layout/components";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import searchIcon from "../../../public/images/datacommons/sdg-goals-icon.svg";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   font-family: Roboto;
@@ -89,6 +90,8 @@ const SearchBarContainer = styled.div`
 `
 
 export const ExploreSection = () => {
+  const history = useHistory();
+
   return (
     <Container>
       <h3>Explore UN Data Commons for the SDGs</h3>
@@ -99,7 +102,7 @@ export const ExploreSection = () => {
         onSearch={(q) => {
           const searchParams = new URLSearchParams();
           searchParams.set(QUERY_PARAM_QUERY, q);
-          window.open(`/search?${searchParams.toString()}`, "_self")
+          history.push(`/search?${searchParams.toString()}`);
         }}
       />
       </SearchBarContainer>

@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 import styled from "styled-components";
-import homeGoals from "../../config/homeGoals.json";
+import { useHistory } from "react-router-dom";
+import { RootTopic, useStoreState } from "../../state";
+const HALF_TOPIC_NUM = 9;
 
-
-interface GoalItem {
-  goalNum: string;
-  name: string;
-  iconUrl: string;
-  topicDcid: string;
-  color: string;
-}
 const Container = styled.div`
   font-family: Roboto;
   display: flex;
@@ -77,7 +71,8 @@ const GoalContainer = styled.div`
     height: 70px;
     border-radius: 6px;
     cursor: pointer;
-    width: 525px;
+    max-width: 525px;
+    width: 100%;
     background-color: #fff;
   }
 
@@ -125,7 +120,10 @@ const GoalContainer = styled.div`
   }
 `
 export const GoalSection = () => {
-  const goalSections: GoalItem[][] = [homeGoals.slice(0, 9) as GoalItem[], homeGoals.slice(9) as GoalItem[]]
+  const history = useHistory();
+  const rootTopics = useStoreState((s) => s.rootTopics);
+  const goalSections = [rootTopics.slice(0, 9), rootTopics.slice(9)]
+
   return (
     <Container>
       <HeaderContainer>
@@ -134,18 +132,18 @@ export const GoalSection = () => {
         <div className="description">Learn about SDG progress across all 17 Goals -- with data, insights and infographics in one place for a comprehensive overview.</div>
       </HeaderContainer>
       <GoalContainer>{
-        goalSections.map((goalSection: GoalItem[], idx) => {
-          return (<div className="goal-section" key={`section-${idx}`}>
+        goalSections.map((goalSection: RootTopic[], sectionNum) => {
+          return (<div className="goal-section" key={`section-${sectionNum}`}>
           {
-            goalSection.map((goal: GoalItem) => {
-              return (<div className="goal-item" key={goal.topicDcid} onClick={() => window.open(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`, "_self")}>
-                <div style={{backgroundColor: goal.color}} className="goal-number">{goal.goalNum}</div>
-                <div className="goal-content"><div className="goal-name">{goal.name}</div><div className="goal-icon"><img src={goal.iconUrl}/></div></div>
+            goalSection.map((goal: RootTopic, topicNum) => {
+              return (<div className="goal-item" key={goal.topicDcid} onClick={() => history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)}>
+                <div style={{backgroundColor: goal.color}} className="goal-number">{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</div>
+                <div className="goal-content"><div className="goal-name">{goal.name}</div><div className="goal-icon"><img src={goal.homePageIcon}/></div></div>
               </div>)
             })
           }
-          {idx === 1 && (
-            <div className="goal-item" onClick={() => window.open(`/goals`, "_self")}>
+          {sectionNum === 1 && (
+            <div className="goal-item" onClick={() => history.push("/goals")}>
             <div className="goal-number"><img src={"/images/datacommons/sdg-goals-icon.svg"}/></div>
             <div className="goal-content"><div className="goal-name">All Goals</div></div>
             </div>
