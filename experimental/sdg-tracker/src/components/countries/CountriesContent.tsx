@@ -14,39 +14,38 @@
  * limitations under the License.
  */
 
-import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import {
-  GoalText,
-  IndicatorTags,
-  useStoreActions,
-  useStoreState,
-} from "../../state";
+
+import { useStoreActions, useStoreState } from "../../state";
 import {
   EARTH_PLACE_DCID,
-  QUERY_PARAM_VARIABLE,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
+
 import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
-  RelatedTopic,
 } from "../../utils/types";
+
 import {
   ContentCard,
   ContentCardBody,
   ContentCardHeader,
+  CountrySelect,
   MainLayoutContent,
+  PlaceHeaderCard,
   SearchBar,
 } from "../shared/components";
 import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
 import GoalOverview from "../shared/goals/GoalOverview";
+
+import { useLocation } from "react-router";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -70,36 +69,6 @@ const SearchCard = styled.div`
   box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
     0px 1px 22px rgba(3, 7, 18, 0.06);
 `;
-const PlaceChipsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0 24px;
-  margin: 0 0 1rem;
-`;
-const PlaceChip = styled.div<{ selected?: boolean }>`
-  padding: 0.25rem 0.75rem;
-  border-radius: 2rem;
-  background: white;
-  border: 1px solid #e9e9e9;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  svg {
-    margin-left: 0.25rem;
-  }
-  ${(p) =>
-    p.selected
-      ? `background: #e1e1e1;
-    border: 1px solid #dcdcdc;`
-      : null}
-
-  &:hover {
-    background: #e1e1e1;
-    border: 1px solid #dcdcdc;
-  }
-`;
 
 const PlaceTitle = styled.div`
   display: flex;
@@ -110,6 +79,13 @@ const PlaceTitle = styled.div`
   padding: 0rem 24px;
   margin: 1rem 0 0;
   flex-wrap: wrap;
+`;
+
+const ChartContentBody = styled.div`
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
 `;
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -125,20 +101,6 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
     />
   );
 };
-const StyledBreadcrumb = styled(Breadcrumb)`
-  margin: 16px 0;
-  padding: 0 24px;
-  li {
-    display: flex;
-  }
-  .ant-breadcrumb-link a {
-    display: block;
-    max-width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-`;
 
 const CountriesContent: React.FC<{
   hidePlaceSearch?: boolean;
@@ -172,35 +134,12 @@ const CountriesContent: React.FC<{
     }
     return undefined;
   });
-  const topics = useStoreState((s) =>
-    variableDcids
-      .filter((dcid) => dcid in s.topics.byDcid)
-      .map((dcid) => s.topics.byDcid[dcid])
-  );
 
-  const parentVariables = useStoreState((s) => {
-    const parentDcids: string[] = [];
-    if (topics.length !== 1) {
-      return [];
-    }
-    let currentVariableDcid = variableDcids[0];
-    const BREADCRUMB_LIMIT = 10;
-    let breadcrumbIndex = 0;
-    while (currentVariableDcid !== ROOT_TOPIC) {
-      // This avoids the possibility of an infinite loop
-      breadcrumbIndex++;
-      if (breadcrumbIndex > BREADCRUMB_LIMIT) {
-        break;
-      }
-      if (!(currentVariableDcid in s.topics.byDcid)) {
-        break;
-      }
-      currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
-      parentDcids.unshift(currentVariableDcid);
-    }
-    return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
-  });
+  // Determine if we're in the search pages.
+  // Used to hide PageHeaderCard if we're showing search results
   const location = useLocation();
+  const isSearch = location.pathname.includes("/search");
+
   /**
    * Fetch page content
    */
@@ -235,7 +174,7 @@ const CountriesContent: React.FC<{
     return (
       <Layout style={{ height: "100%", flexGrow: 1 }}>
         <Layout.Content style={{ padding: "0rem 0" }}>
-          <PlaceTitle style={{ marginBottom: "1rem" }}>
+          <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
               {placeName ? (
                 placeName
@@ -279,7 +218,7 @@ const CountriesContent: React.FC<{
           </SearchCard>
         )}
 
-        <PlaceTitle>
+        <PlaceTitle style={{ display: "none" }}>
           <div>
             {placeName ? (
               placeName
@@ -293,32 +232,17 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
-        <StyledBreadcrumb>
-          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
-            .filter((v) => v)
-            .map((v, i) => {
-              const searchParams = new URLSearchParams(location.search);
-              searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
-              return (
-                <Breadcrumb.Item key={i}>
-                  <Link
-                    to={"/countries?" + searchParams.toString()}
-                    title={v.name}
-                  >
-                    {v.name}
-                  </Link>
-                </Breadcrumb.Item>
-              );
-            })}
-        </StyledBreadcrumb>
-        <div style={{ display: "none" }}>
-          <PlaceChips
-            includeWorld={false}
-            includeRegions={false}
-            selectedPlaceDcid={placeDcid}
-            setSelectedPlaceDcid={setPlaceDcid}
-          />
-        </div>
+
+        {!isSearch && (
+          <Layout.Content style={{ padding: "0 24px 24px" }}>
+            <PlaceHeaderCard
+              currentPlaceName={placeName}
+              hidePlaceSearch={hidePlaceSearch}
+              setSelectedPlaceDcid={setPlaceDcid}
+              variableDcids={variableDcids}
+            />
+          </Layout.Content>
+        )}
         <MainLayoutContent>
           {isFetchingFulfillment ? (
             <ContentCard>
@@ -334,105 +258,6 @@ const CountriesContent: React.FC<{
         </MainLayoutContent>
       </Layout.Content>
     </Layout>
-  );
-};
-
-const PlaceChips: React.FC<{
-  includeWorld: boolean;
-  includeRegions: boolean;
-  selectedPlaceDcid?: string;
-  setSelectedPlaceDcid: (placeDcid: string) => void;
-}> = ({
-  includeWorld,
-  includeRegions,
-  selectedPlaceDcid,
-  setSelectedPlaceDcid,
-}) => {
-  const regions = useStoreState((s) =>
-    s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
-  );
-  return (
-    <PlaceChipsContainer>
-      <CountrySelect setSelectedPlaceDcid={setSelectedPlaceDcid} />
-      {includeRegions &&
-        regions
-          .filter((region) => (!includeWorld ? region.dcid !== "Earth" : true))
-          .map((region) => (
-            <PlaceChip
-              key={region.dcid}
-              selected={region.dcid === selectedPlaceDcid}
-              onClick={() => {
-                setSelectedPlaceDcid(region.dcid);
-              }}
-            >
-              {region.name}
-            </PlaceChip>
-          ))}
-    </PlaceChipsContainer>
-  );
-};
-
-const CountrySelectContainer = styled.div`
-  display: flex;
-  position: relative;
-  .ant-select-selector {
-    border-radius: 2rem !important;
-  }
-  svg {
-    position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    font-size: 1rem;
-  }
-`;
-const CountrySelectNoResults = styled.div`
-  padding: 5px 12px;
-`;
-const CountrySelect: React.FC<{
-  setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
-}> = ({ setSelectedPlaceDcid }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const countries = useStoreState((s) =>
-    s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
-  );
-
-  const [value, setValue] = useState("");
-
-  useEffect(() => {});
-
-  return (
-    <CountrySelectContainer>
-      <AutoComplete
-        size="large"
-        value={isFocused ? value : ""}
-        style={{ width: 225 }}
-        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
-        placeholder="Select country"
-        defaultActiveFirstOption={true}
-        notFoundContent={
-          <CountrySelectNoResults>No results found</CountrySelectNoResults>
-        }
-        filterOption={(inputValue, option) =>
-          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-            -1 ||
-          option!.dcid.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        }
-        onFocus={() => {
-          setIsFocused(true);
-        }}
-        onBlur={() => {
-          setIsFocused(false);
-        }}
-        onChange={(value, option) => {
-          setValue(value);
-          if ("dcid" in option) {
-            setSelectedPlaceDcid(option.dcid);
-            setValue("");
-          }
-        }}
-      />
-      <CaretDownOutlined />
-    </CountrySelectContainer>
   );
 };
 
@@ -478,7 +303,6 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
-            mainTopic={fulfillmentResponse.relatedThings.mainTopics[0]}
           />
         ))}
     </>
@@ -488,28 +312,7 @@ const ChartContent: React.FC<{
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-  mainTopic: RelatedTopic;
-}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
-  const rootTopics = useStoreState((s) => s.rootTopics);
-  const goalSummaries = useStoreState((s) => s.goalSummaries);
-  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
-
-  // get current goal, for displaying header and bullet point summaries
-  const goalMatches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-  const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
-  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
-  const goalText = goalSummaries.byGoal[goalId];
-  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
-  const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-
-  // get current indicator, for displaying headlines for the current indicator
-  const indicatorMatches = mainTopic.dcid?.match(
-    /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
-  );
-  const indicatorId =
-    indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
-  const indicator = indicatorHeadlines.byIndicator[indicatorId];
-
+}> = ({ chartConfigCategory, placeDcid }) => {
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
@@ -520,62 +323,12 @@ const ChartCategoryContent: React.FC<{
   });
   return (
     <ContentCard>
-      {sdgTopic ? (
-        <ContentCardHeader>
-          <img src={sdgTopic.iconUrl} />
-          <div>
-            <h3>{sdgTopic.name}</h3>
-            <div>{sdgTopic.description}</div>
-          </div>
-        </ContentCardHeader>
-      ) : null}
-
-      <ContentCardBody>
-        {sdgTopic && isGoal && <BulletTile goal={goalText} />}
-        {indicator && <HeadlineTile indicator={indicator} />}
+      <ChartContentBody>
         {tiles.map((tile, i) => (
           <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
         ))}
-      </ContentCardBody>
+      </ChartContentBody>
     </ContentCard>
-  );
-};
-
-const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
-  indicator,
-}) => {
-  if (!indicator) {
-    return <></>;
-  }
-  return (
-    <>
-      {/** @ts-ignore */}
-      <datacommons-text link={indicator.link}>
-        <div slot="text">{indicator.headline}</div>
-        {/** @ts-ignore */}
-      </datacommons-text>
-    </>
-  );
-};
-
-const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
-  if (!goal) {
-    return <></>;
-  }
-  return (
-    <>
-      {/** @ts-ignore */}
-      <datacommons-text>
-        <div slot="text">
-          <ul>
-            {goal.headlines.map((point: string, i: number) => (
-              <li key={i}>{point}</li>
-            ))}
-          </ul>
-        </div>
-        {/** @ts-ignore */}
-      </datacommons-text>
-    </>
   );
 };
 
