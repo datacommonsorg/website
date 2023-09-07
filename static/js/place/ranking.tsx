@@ -52,7 +52,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
     return (
       <React.Fragment>
         {data.label.length > 0 && (
-          <React.Fragment>
+          <div id="ranking-table-container">
             <table
               id="ranking-table"
               className={`table ${ASYNC_ELEMENT_CLASS}`}
@@ -120,7 +120,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                 values={{ sources: provenanceLinks }}
               />
             </div>
-          </React.Fragment>
+          </div>
         )}
       </React.Fragment>
     );
