@@ -475,7 +475,12 @@ export const TargetHeader: React.FC<{ color: string; target: string }> = ({
 
   return (
     <>
-      <TargetIdBox color={color}>{target}</TargetIdBox>
+      <TargetIdBox
+        className={`-dc-target-header -dc-target-header-${target}`}
+        color={color}
+      >
+        {target}
+      </TargetIdBox>
       <TargetText color={color}>{targetText}</TargetText>
     </>
   );

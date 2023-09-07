@@ -67,7 +67,9 @@ const GoalOverview: React.FC<{
   const exploreUrl = location.pathname + "?" + searchParams.toString();
 
   return (
-    <ContentCard className={`-dc-goal-overview-${goalNumber}`}>
+    <ContentCard
+      className={`-dc-goal-overview -dc-goal-overview-${goalNumber}`}
+    >
       <ContentCardHeader>
         <img src={rootTopic.iconUrl} />
         <h3>
