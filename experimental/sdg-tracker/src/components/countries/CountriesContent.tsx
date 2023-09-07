@@ -321,49 +321,6 @@ interface Targets {
   [key: string]: Indicators;
 }
 
-const ChartTargetBlock: React.FC<{
-  placeDcid: string;
-  target: string;
-  indicatorData: Indicators;
-}> = ({ placeDcid, target, indicatorData }) => {
-  console.log("Entered Chart Target Block");
-  return (
-    <ContentCard>
-      <h3>{target}</h3>
-      {Object.keys(indicatorData).map((indicator) => {
-        console.log(indicator);
-        console.log(indicatorData[indicator]);
-        <ChartIndicatorBlock 
-          indicator={indicator}
-          placeDcid={placeDcid}
-          tiles={indicatorData[indicator]}
-        />
-      })}
-    </ContentCard>
-  );
-};
-
-// Displays the tiles associated with a single indicator
-const ChartIndicatorBlock: React.FC<{
-  indicator: string;
-  placeDcid: string;
-  tiles: ChartConfigTile[];
-}> = ({ indicator, placeDcid, tiles }) => {
-  console.log("entered Chart Indicator Block");
-  return (
-    <ChartContentBody>
-      <HeadlineTile indicator={indicator} />
-      {tiles.map((tile, i) => (
-        <ChartTile
-          key={`${indicator}-${i}`}
-          placeDcid={placeDcid}
-          tile={tile}
-        />
-      ))}
-    </ChartContentBody>
-  );
-};
-
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
@@ -373,8 +330,10 @@ const ChartCategoryContent: React.FC<{
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        // Find matching 
-        const topicDcid = !_.isEmpty(tile.statVarKey) ? varToTopic[tile.statVarKey[0]].dcid: "";
+        // Find matching
+        const topicDcid = !_.isEmpty(tile.statVarKey)
+          ? varToTopic[tile.statVarKey[0]].dcid
+          : "";
         const indicatorMatches = topicDcid.match(
           /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
         );
@@ -403,13 +362,62 @@ const ChartCategoryContent: React.FC<{
       {Object.keys(allTargets).map((target) => {
         console.log("called ChartTargetBlock");
         console.log(allTargets[target]);
-        <ChartTargetBlock
-          placeDcid={placeDcid}
-          target={target}
-          indicatorData={allTargets[target]}
-        ></ChartTargetBlock>
+        console.log(placeDcid);
+        return (
+          <ChartTargetBlock
+            placeDcid={placeDcid}
+            target={target}
+            indicatorData={allTargets[target]}
+          ></ChartTargetBlock>
+        );
       })}
     </>
+  );
+};
+
+// Displays all tiles associated with a target, along with target's header
+const ChartTargetBlock: React.FC<{
+  placeDcid: string;
+  target: string;
+  indicatorData: Indicators;
+}> = ({ placeDcid, target, indicatorData }) => {
+  console.log("Entered Chart Target Block");
+  return (
+    <ContentCard>
+      <h3>{target}</h3>
+      {Object.keys(indicatorData).map((indicator) => {
+        console.log(indicator);
+        console.log(indicatorData[indicator]);
+        return (
+          <ChartIndicatorBlock
+            indicator={indicator}
+            placeDcid={placeDcid}
+            tiles={indicatorData[indicator]}
+          />
+        );
+      })}
+    </ContentCard>
+  );
+};
+
+// Displays the tiles associated with a single indicator
+const ChartIndicatorBlock: React.FC<{
+  indicator: string;
+  placeDcid: string;
+  tiles: ChartConfigTile[];
+}> = ({ indicator, placeDcid, tiles }) => {
+  console.log("entered Chart Indicator Block");
+  return (
+    <ChartContentBody>
+      <HeadlineTile indicator={indicator} />
+      {tiles.map((tile, i) => (
+        <ChartTile
+          key={`${indicator}-${i}`}
+          placeDcid={placeDcid}
+          tile={tile}
+        />
+      ))}
+    </ChartContentBody>
   );
 };
 
@@ -529,7 +537,10 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
+    <div
+      ref={ref}
+      style={{ minHeight: !loaded ? height : undefined }}
+    >
       {loaded && component}
     </div>
   );

@@ -392,14 +392,19 @@ const HeadlineLink = styled.div`
 export const HeadlineTile: React.FC<{ indicator: string }> = ({
   indicator,
 }) => {
-  if (!indicator) {
+
+  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
+  const headlineData = indicatorHeadlines.byIndicator[indicator];
+  console.log(headlineData)
+
+  if (!headlineData) {
     return <></>;
   }
   return (
     <HeadlineContainer>
-      <HeadlineText>{indicator.headline}</HeadlineText>
+      <HeadlineText>{headlineData.headline}</HeadlineText>
       <HeadlineLink>
-        <a href={indicator.link}>Read more</a>
+        <a href={headlineData.link}>Read more</a>
       </HeadlineLink>
     </HeadlineContainer>
   );
