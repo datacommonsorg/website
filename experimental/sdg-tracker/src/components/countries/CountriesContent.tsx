@@ -266,7 +266,6 @@ const ChartCategoryContent: React.FC<{
   return (
     <ContentCard>
       <ChartContentBody>
-        {indicator && <HeadlineTile indicator={indicator} />}
         {tiles.map((tile, i) => (
           <ChartTile
             key={i}
@@ -276,42 +275,6 @@ const ChartCategoryContent: React.FC<{
         ))}
       </ChartContentBody>
     </ContentCard>
-  );
-};
-
-const HeadlineContainer = styled.div`
-  background-color: rgba(250, 0, 49, 0.05);
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-`;
-
-const HeadlineText = styled.div`
-  font-size: 22px;
-  font-weight: 400;
-  line-height: 28px;
-  color: #444746;
-`;
-
-const HeadlineLink = styled.div`
-  margin-left: auto;
-  width: fit-content;
-`;
-
-const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
-  indicator,
-}) => {
-  if (!indicator) {
-    return <></>;
-  }
-  return (
-    <HeadlineContainer>
-      <HeadlineText>{indicator.headline}</HeadlineText>
-      <HeadlineLink>
-        <a href={indicator.link}>Read more</a>
-      </HeadlineLink>
-    </HeadlineContainer>
   );
 };
 

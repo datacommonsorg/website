@@ -20,7 +20,7 @@ import { AutoComplete, Breadcrumb, Input, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
-import { useStoreState } from "../../state";
+import { IndicatorTags, useStoreState } from "../../state";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { FulfillResponse } from "../../utils/types";
 import { Link, useLocation } from "react-router-dom";
@@ -320,5 +320,42 @@ export const PlaceHeaderCard: React.FC<{
         )}
       </PlaceCardContent>
     </PlaceCard>
+  );
+};
+
+// Headline callouts for each of the indicators
+const HeadlineContainer = styled.div`
+  background-color: rgba(250, 0, 49, 0.05);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
+
+const HeadlineText = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #444746;
+`;
+
+const HeadlineLink = styled.div`
+  margin-left: auto;
+  width: fit-content;
+`;
+
+export const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
+  indicator,
+}) => {
+  if (!indicator) {
+    return <></>;
+  }
+  return (
+    <HeadlineContainer>
+      <HeadlineText>{indicator.headline}</HeadlineText>
+      <HeadlineLink>
+        <a href={indicator.link}>Read more</a>
+      </HeadlineLink>
+    </HeadlineContainer>
   );
 };
