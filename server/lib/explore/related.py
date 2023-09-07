@@ -14,6 +14,7 @@
 """Module for related things."""
 
 from dataclasses import dataclass
+import re
 import time
 from typing import cast, Dict, List
 
@@ -99,7 +100,7 @@ def compute_related_things(state: ftypes.PopulateState,
       break
 
   if is_this_sdg:
-    _add_sv2topic_map(state, related_things, dc)
+    _add_sdg_topics(state, related_things, dc)
 
   if not is_this_sdg:
     related_things = prune_related_topics(related_things, state.uttr)
@@ -110,8 +111,7 @@ def compute_related_things(state: ftypes.PopulateState,
   return related_things
 
 
-def _add_sv2topic_map(state: ftypes.PopulateState, related_things: Dict,
-                      dc: str):
+def _add_sdg_topics(state: ftypes.PopulateState, related_things: Dict, dc: str):
   added_svs = set()
   related_things['varToTopic'] = {}
   for cspec in state.uttr.rankedCharts:
@@ -120,10 +120,19 @@ def _add_sv2topic_map(state: ftypes.PopulateState, related_things: Dict,
       if not utils.is_sv(sv) or sv in added_svs:
         continue
       added_svs.add(sv)
-      n = Node(dcid=sv, name='', types=['StatisticalVariable'])
-      t = _node_to_topic_dict(n, dc)
+      t = _get_sdg_topic(sv, dc)
       if t:
         related_things['varToTopic'][sv] = t
+
+
+def _get_sdg_topic(t: str, dc: str) -> Dict:
+  ancestors = topic.get_ancestors(t, dc)
+  # The ancestors is sorted from child to root.
+  for a in ancestors:
+    # We only want to return Goal/Target/Indicator.
+    if re.match(r'^dc/topic/sdg_[1-9]', a['dcid']):
+      return a
+  return {}
 
 
 def _trim_dups(related_things: Dict):
