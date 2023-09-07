@@ -16,18 +16,12 @@
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { RootTopic, useStoreState } from "../../state";
+import { HomeSection } from "./components";
 const HALF_TOPIC_NUM = 9;
 
-const Container = styled.div`
-  font-family: Roboto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const Container = styled(HomeSection)`
   gap: 114px;
-  flex-shrink: 0;
   background-color: #F2F2F2;
-  padding: 134px 0;
 `
 const HeaderContainer = styled.div`
   color: #414042;
@@ -58,17 +52,18 @@ const GoalContainer = styled.div`
   gap: 15px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 
   .goal-section {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 15px;
+    grid-auto-rows: 1fr;
   }
 
   .goal-item {
     display: flex;
-    align-items: center;
-    height: 70px;
+    align-items: stretch;
+    min-height: 70px;
     border-radius: 6px;
     cursor: pointer;
     max-width: 525px;
@@ -81,6 +76,8 @@ const GoalContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     flex-grow: 1;
+    height: 100%;
+    padding: 10px 0;
   }
 
   .goal-number {
@@ -88,10 +85,11 @@ const GoalContainer = styled.div`
     font-size: 24px;
     font-weight: 700;
     width: 70px;
-    text-align: center;
-    line-height: 70px;
     flex-shrink: 0;
-    border-radius: 6px 0px 0px 6px
+    border-radius: 6px 0px 0px 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   } 
 
   .goal-name {
@@ -101,8 +99,8 @@ const GoalContainer = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    padding-left: 19px;
-    padding-right: 45px;
+    padding: 0 19px;
+    word-wrap: break-word;
   }
 
   .goal-icon {
@@ -137,7 +135,9 @@ export const GoalSection = () => {
           {
             goalSection.map((goal: RootTopic, topicNum) => {
               return (<div className="goal-item" key={goal.topicDcid} onClick={() => history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)}>
-                <div style={{backgroundColor: goal.color}} className="goal-number">{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</div>
+                <div style={{backgroundColor: goal.color}} className="goal-number">
+                  <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+                </div>
                 <div className="goal-content"><div className="goal-name">{goal.name}</div><div className="goal-icon"><img src={goal.homePageIcon}/></div></div>
               </div>)
             })
