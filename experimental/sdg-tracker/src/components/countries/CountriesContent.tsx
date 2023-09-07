@@ -27,6 +27,7 @@ import {
   FulfillResponse,
 } from "../../utils/types";
 import { PlaceHeaderCard, SearchBar } from "../layout/components";
+import { useLocation } from "react-router";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -127,6 +128,11 @@ const CountriesContent: React.FC<{
     return undefined;
   });
 
+  // Determine if we're in the search pages.
+  // Used to hide PageHeaderCard if we're showing search results
+  const location = useLocation();
+  const isSearch = location.pathname.includes("/search");
+
   /**
    * Fetch page content
    */
@@ -169,14 +175,16 @@ const CountriesContent: React.FC<{
             />
           </SearchCard>
         )}
-        <Layout.Content style={{ padding: "0 24px 24px" }}>
-          <PlaceHeaderCard
-            currentPlaceName={placeName}
-            hidePlaceSearch={hidePlaceSearch}
-            setSelectedPlaceDcid={setPlaceDcid}
-            variableDcids={variableDcids}
-          />
-        </Layout.Content>
+        {!isSearch && (
+          <Layout.Content style={{ padding: "0 24px 24px" }}>
+            <PlaceHeaderCard
+              currentPlaceName={placeName}
+              hidePlaceSearch={hidePlaceSearch}
+              setSelectedPlaceDcid={setPlaceDcid}
+              variableDcids={variableDcids}
+            />
+          </Layout.Content>
+        )}
         <Layout.Content style={{ padding: "0 24px 24px" }}>
           {isFetchingFulfillment ? (
             <ContentCard>
