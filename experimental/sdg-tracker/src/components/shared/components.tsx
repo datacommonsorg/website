@@ -103,7 +103,8 @@ export const SearchBar: React.FC<{
   initialQuery?: string;
   isSearching?: boolean;
   onSearch: (query: string) => void;
-}> = ({ initialQuery, isSearching, onSearch }) => {
+  placeholder?: string;
+}> = ({ initialQuery, isSearching, onSearch, placeholder }) => {
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -117,7 +118,11 @@ export const SearchBar: React.FC<{
       <div className="info">Early Preview</div>
       <div className="search">
         <SearchInput
-          placeholder='For example, "Access to Clean Energy in Afghanistan"'
+          placeholder={
+            placeholder
+              ? placeholder
+              : 'For example, "Access to Clean Energy in Afghanistan"'
+          }
           size="large"
           value={query}
           disabled={isSearching}
