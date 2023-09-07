@@ -23,11 +23,11 @@ import {
   ROOT_TOPIC,
 } from "../../utils/constants";
 import CountriesContent from "../countries/CountriesContent";
-import AppFooter from "../layout/AppFooter";
-import AppHeader from "../layout/AppHeader";
-import AppLayout from "../layout/AppLayout";
-import AppLayoutContent from "../layout/AppLayoutContent";
-import AppSidebar from "../layout/AppSidebar";
+import AppFooter from "../shared/AppFooter";
+import AppHeader from "../shared/AppHeader";
+import AppLayout from "../shared/AppLayout";
+import AppLayoutContent from "../shared/AppLayoutContent";
+import AppSidebar from "../shared/AppSidebar";
 
 const Goals: React.FC = () => {
   const location = useLocation();

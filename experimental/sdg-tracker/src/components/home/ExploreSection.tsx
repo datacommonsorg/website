@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import backgroundImg from "../../../public/images/datacommons/explore-background.png";
-import { SearchBar } from "../layout/components";
-import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import searchIcon from "../../../public/images/datacommons/sdg-goals-icon.svg";
-import { useHistory } from "react-router-dom";
+import { QUERY_PARAM_QUERY } from "../../utils/constants";
+import { SearchBar } from "../shared/components";
 
 const Container = styled.div`
   font-family: Roboto;
@@ -34,7 +34,7 @@ const Container = styled.div`
   gap: 50px;
 
   h3 {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
     font-size: 64px;
@@ -45,7 +45,7 @@ const Container = styled.div`
   }
 
   .description {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
     font-size: 30px;
@@ -53,14 +53,14 @@ const Container = styled.div`
     line-height: 50px;
     max-width: 706px;
   }
-`
+`;
 
 const SearchBarContainer = styled.div`
   max-width: 885px;
   width: 90%;
 
   .info {
-    color: #FFF;
+    color: #fff;
   }
 
   .search {
@@ -71,7 +71,7 @@ const SearchBarContainer = styled.div`
       border-radius: 67.5px;
       font-size: 32px;
       padding-left: 53px;
-      padding-right: 70px; 
+      padding-right: 70px;
     }
   }
 
@@ -87,7 +87,7 @@ const SearchBarContainer = styled.div`
       display: none;
     }
   }
-`
+`;
 
 export const ExploreSection = () => {
   const history = useHistory();
@@ -96,17 +96,20 @@ export const ExploreSection = () => {
     <Container>
       <h3>Explore UN Data Commons for the SDGs</h3>
       <SearchBarContainer>
-      <SearchBar
-        initialQuery="What is the global poverty rate?"
-        isSearching={false}
-        onSearch={(q) => {
-          const searchParams = new URLSearchParams();
-          searchParams.set(QUERY_PARAM_QUERY, q);
-          history.push(`/search?${searchParams.toString()}`);
-        }}
-      />
+        <SearchBar
+          initialQuery="What is the global poverty rate?"
+          isSearching={false}
+          onSearch={(q) => {
+            const searchParams = new URLSearchParams();
+            searchParams.set(QUERY_PARAM_QUERY, q);
+            history.push(`/search?${searchParams.toString()}`);
+          }}
+        />
       </SearchBarContainer>
-      <div className="description">Delve into SDG data and insights with precision - where your questions lead the way!</div>
+      <div className="description">
+        Delve into SDG data and insights with precision - where your questions
+        lead the way!
+      </div>
     </Container>
-  )
-}
+  );
+};
