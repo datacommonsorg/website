@@ -16,14 +16,13 @@
 
 import { gray } from "@ant-design/colors";
 import { SearchOutlined } from "@ant-design/icons";
-
 import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
-
-import { CaretDownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import "./components.css";
 import { useStoreState } from "../../state";
+import { CaretDownOutlined } from "@ant-design/icons";
+import { Link, useLocation } from "react-router-dom";
 import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
 import "./components.css";
 
@@ -262,7 +261,7 @@ const PlaceCardContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 40px;
+  margin: 24px;
 `;
 
 const PlaceTitle = styled.div`
@@ -368,3 +367,86 @@ export const PlaceHeaderCard: React.FC<{
     </PlaceCard>
   );
 };
+
+// Headline callouts for each of the indicators
+const HeadlineContainer = styled.div`
+  background-color: rgba(250, 0, 49, 0.05);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
+
+const HeadlineText = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #444746;
+`;
+
+const HeadlineLink = styled.div`
+  margin-left: auto;
+  width: fit-content;
+`;
+
+export const HeadlineTile: React.FC<{ indicator: string }> = ({
+  indicator,
+}) => {
+  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
+  const headlineData = indicatorHeadlines.byIndicator[indicator];
+
+  if (!headlineData) {
+    return <></>;
+  }
+  return (
+    <HeadlineContainer>
+      <HeadlineText>{headlineData.headline}</HeadlineText>
+      <HeadlineLink>
+        <a href={headlineData.link}>Read more</a>
+      </HeadlineLink>
+    </HeadlineContainer>
+  );
+};
+
+// Header for a target
+const TargetIdBox = styled.div`
+  border-radius: 16px;
+  border: 2px solid #fa0031;
+  color: #fa0031;
+  padding: 2px;
+  width: 72px;
+  height: 72px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+`;
+
+const TargetText = styled.div`
+  color: #444746;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  margin-top: 24px;
+`;
+
+export const TargetHeader: React.FC<{ target: string }> = ({ target }) => {
+  const targetDescriptions = useStoreState((s) => s.targetText);
+  const targetText = targetDescriptions.byTarget[target];
+
+  return (
+    <>
+      <TargetIdBox>{target}</TargetIdBox>
+      <TargetText>{targetText}</TargetText>
+    </>
+  );
+};
+
+// Red Dividing line under target headers
+export const RedDivider = styled.div`
+  border: 1px solid #fa0031;
+  margin: 40px -24px 40px -24px;
+`;

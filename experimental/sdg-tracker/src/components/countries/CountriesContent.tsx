@@ -31,6 +31,7 @@ import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
+  VarToTopicMapping,
 } from "../../utils/types";
 
 import {
@@ -38,14 +39,18 @@ import {
   ContentCardBody,
   ContentCardHeader,
   CountrySelect,
+  HeadlineTile,
   MainLayoutContent,
   PlaceHeaderCard,
+  RedDivider,
   SearchBar,
+  TargetHeader,
 } from "../shared/components";
 import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
 import GoalOverview from "../shared/goals/GoalOverview";
 
 import { useLocation } from "react-router";
+import _ from "lodash";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -303,32 +308,119 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
+            varToTopic={fulfillmentResponse.relatedThings.varToTopic}
           />
         ))}
     </>
   );
 };
 
+// Interfaces to define Target -> Indicator -> Tiles[] mapping
+interface Indicators {
+  [key: string]: ChartConfigTile[];
+}
+interface Targets {
+  [key: string]: Indicators;
+}
+
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-}> = ({ chartConfigCategory, placeDcid }) => {
-  const tiles: ChartConfigTile[] = [];
+  varToTopic: VarToTopicMapping;
+}> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
+  const allTargets: Targets = {};
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        tiles.push(tile);
+        // Find which target and indicator this tile belongs to
+        const topicDcid = !_.isEmpty(tile.statVarKey)
+          ? varToTopic[tile.statVarKey[0]].dcid
+          : "";
+        const indicatorMatches = topicDcid.match(
+          /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+        );
+        const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
+        const indicator =
+          indicatorMatches && indicatorMatches.length > 1
+            ? indicatorMatches[1]
+            : "none";
+        const target =
+          targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
+        if (target in allTargets) {
+          if (indicator in allTargets[target]) {
+            allTargets[target][indicator].push(tile);
+          } else {
+            allTargets[target][indicator] = [tile];
+          }
+        } else {
+          allTargets[target] = {};
+          allTargets[target][indicator] = [tile];
+        }
       });
     });
   });
   return (
+    <>
+      {Object.keys(allTargets).map((target) => {
+        console.log("called ChartTargetBlock");
+        console.log(allTargets[target]);
+        console.log(placeDcid);
+        return (
+          <ChartTargetBlock
+            placeDcid={placeDcid}
+            target={target}
+            indicatorData={allTargets[target]}
+          ></ChartTargetBlock>
+        );
+      })}
+    </>
+  );
+};
+
+// Displays all tiles associated with a target, along with target's header
+const ChartTargetBlock: React.FC<{
+  placeDcid: string;
+  target: string;
+  indicatorData: Indicators;
+}> = ({ placeDcid, target, indicatorData }) => {
+  console.log("Entered Chart Target Block");
+  return (
     <ContentCard>
-      <ChartContentBody>
-        {tiles.map((tile, i) => (
-          <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
-        ))}
-      </ChartContentBody>
+      <TargetHeader target={target} />
+      <RedDivider />
+      {Object.keys(indicatorData).map((indicator) => {
+        console.log(indicator);
+        console.log(indicatorData[indicator]);
+        return (
+          <ChartIndicatorBlock
+            indicator={indicator}
+            placeDcid={placeDcid}
+            tiles={indicatorData[indicator]}
+          />
+        );
+      })}
     </ContentCard>
+  );
+};
+
+// Displays the tiles associated with a single indicator
+const ChartIndicatorBlock: React.FC<{
+  indicator: string;
+  placeDcid: string;
+  tiles: ChartConfigTile[];
+}> = ({ indicator, placeDcid, tiles }) => {
+  console.log("entered Chart Indicator Block");
+  return (
+    <ChartContentBody>
+      <HeadlineTile indicator={indicator} />
+      {tiles.map((tile, i) => (
+        <ChartTile
+          key={`${indicator}-${i}`}
+          placeDcid={placeDcid}
+          tile={tile}
+        />
+      ))}
+    </ChartContentBody>
   );
 };
 
@@ -448,7 +540,10 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
+    <div
+      ref={ref}
+      style={{ minHeight: !loaded ? height : undefined }}
+    >
       {loaded && component}
     </div>
   );

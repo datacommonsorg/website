@@ -32,6 +32,7 @@ import goalSummaries from "../config/goalSummaries.json";
 import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
+import targetText from "../config/targetText.json";
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
@@ -59,6 +60,13 @@ export interface GoalText {
   key: string;
   headlines: string[];
   image?: string;
+}
+
+/**
+ * Text to accompany each target
+ */
+export interface TargetText {
+  [key: string]: string;
 }
 
 /**
@@ -142,6 +150,9 @@ export interface AppModel {
       [key: string]: GoalText;
     };
   };
+  targetText: {
+    byTarget: TargetText;
+  };
   indicatorHeadlines: {
     byIndicator: {
       [key: string]: IndicatorTags;
@@ -160,6 +171,7 @@ export interface AppActions {
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
   setGoalSummaries: Action<AppModel, GoalText[]>;
+  setTargetText: Action<AppModel, TargetText>;
   setIndicatorHeadlines: Action<AppModel, IndicatorText[]>;
   setFulfillment: Action<
     AppModel,
@@ -203,6 +215,9 @@ const appModel: AppModel = {
   goalSummaries: {
     byGoal: {},
   },
+  targetText: {
+    byTarget: {},
+  },
   indicatorHeadlines: {
     byIndicator: {},
   },
@@ -228,6 +243,7 @@ const appActions: AppActions = {
     );
     actions.setGoalSummaries(goalSummaries);
     actions.setIndicatorHeadlines(indicatorHeadlines);
+    actions.setTargetText(targetText);
     const topics: Topic[] = [];
     const traverseTopics = (item: MenuItemType) => {
       if (!item.key.startsWith("dc")) {
@@ -305,6 +321,9 @@ const appActions: AppActions = {
     goalSummaries.forEach((goal) => {
       state.goalSummaries.byGoal[goal.key] = goal;
     });
+  }),
+  setTargetText: action((state, targetText) => {
+    state.targetText.byTarget = targetText;
   }),
   setIndicatorHeadlines: action((state, indicatorHeadlines) => {
     state.indicatorHeadlines.byIndicator = {};

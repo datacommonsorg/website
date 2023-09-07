@@ -62,6 +62,9 @@ export interface RelatedTopic {
   types: string[];
 }
 
+export interface VarToTopicMapping {
+  [key: string]: RelatedTopic;
+}
 export interface RelatedThings {
   childPlaces: {
     [placeType: string]: RelatedPlace[];
@@ -70,6 +73,7 @@ export interface RelatedThings {
   parentPlaces: RelatedPlace[];
   parentTopics: RelatedTopic[];
   peerTopics: RelatedTopic[];
+  varToTopic: VarToTopicMapping;
 }
 
 /**
