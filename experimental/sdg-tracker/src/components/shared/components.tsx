@@ -16,7 +16,7 @@
 
 import { gray } from "@ant-design/colors";
 import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
+import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -386,10 +386,18 @@ const HeadlineContainer = styled.div<{ backgroundColor: string }>`
 `;
 
 const HeadlineText = styled.div`
+  color: #444746;
   font-size: 22px;
   font-weight: 400;
   line-height: 28px;
-  color: #444746;
+  margin-bottom: 1rem;
+`;
+
+const HeadlineImage = styled.img`
+  box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
+    0px 1px 14px rgba(3, 7, 18, 0.05);
+  padding: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const HeadlineLink = styled.div`
@@ -407,9 +415,22 @@ export const HeadlineTile: React.FC<{
   if (!headlineData) {
     return <></>;
   }
+  const textSpanSize = headlineData.images.length === 1 ? 12 : 24;
   return (
     <HeadlineContainer backgroundColor={backgroundColor}>
-      <HeadlineText>{headlineData.headline}</HeadlineText>
+      <Row gutter={16}>
+        {headlineData.headline && (
+          <Col xs={24} sm={24} md={24} lg={24} xl={textSpanSize}>
+            <HeadlineText>{headlineData.headline}</HeadlineText>
+          </Col>
+        )}
+
+        {headlineData.images.map((url, i) => (
+          <Col xs={24} sm={24} md={24} lg={24} xl={12} key={i}>
+            <HeadlineImage src={url} />
+          </Col>
+        ))}
+      </Row>
       <HeadlineLink>
         <a href={headlineData.link}>Read more</a>
       </HeadlineLink>
