@@ -332,7 +332,7 @@ const ChartCategoryContent: React.FC<{
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        // Find matching
+        // Find which target and indicator this tile belongs to
         const topicDcid = !_.isEmpty(tile.statVarKey)
           ? varToTopic[tile.statVarKey[0]].dcid
           : "";
