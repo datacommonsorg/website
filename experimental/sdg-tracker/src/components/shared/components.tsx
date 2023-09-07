@@ -266,6 +266,7 @@ const PlaceCardContent = styled.div`
   flex-direction: column;
   gap: 24px;
   margin: 24px;
+  overflow: hidden;
 `;
 
 const PlaceTitle = styled.div`
