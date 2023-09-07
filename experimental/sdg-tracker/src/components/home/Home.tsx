@@ -22,26 +22,20 @@ import AppLayoutContent from "../shared/AppLayoutContent";
 import { ExploreSection } from "./ExploreSection";
 import { GoalSection } from "./GoalSection";
 import { PlaceSection } from "./PlaceSection";
+import { HomeSection } from "./components";
 
-const HomeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const HomeContainer = styled(HomeSection)`
   gap: 64px;
-  padding: 122px 0;
   background-color: #f2f2f2;
 
   .page-header {
     display: flex;
     align-items: center;
-    gap: 17.2px;
+    width: 100%;
+    max-width: 627px;
 
-    span {
-      color: #009edb;
-      font-family: Roboto;
-      font-size: 22px;
-      font-weight: 400;
-      line-height: 36px;
+    img {
+      width: 100%;
     }
   }
   p {
@@ -70,8 +64,7 @@ const Home = () => {
       >
         <HomeContainer>
           <div className="page-header">
-            <img src={"/images/datacommons/un-dc-sdg-logo.svg"} />
-            <span>BETA</span>
+            <img src={"/images/datacommons/un-dc-sdg-logo.png"} />
           </div>
           <p>
             Introducing the new SDG Data Commons — a platform integrating
