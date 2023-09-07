@@ -344,7 +344,7 @@ const HeadlineLink = styled.div`
   width: fit-content;
 `;
 
-export const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
+export const HeadlineTile: React.FC<{ indicator: string }> = ({
   indicator,
 }) => {
   if (!indicator) {

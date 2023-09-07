@@ -27,8 +27,9 @@ import {
   FulfillResponse,
   VarToTopicMapping,
 } from "../../utils/types";
-import { PlaceHeaderCard, SearchBar } from "../layout/components";
+import { HeadlineTile, PlaceHeaderCard, SearchBar } from "../layout/components";
 import { useLocation } from "react-router";
+import _ from "lodash";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -253,31 +254,78 @@ const ChartContent: React.FC<{
   );
 };
 
+// Interfaces to define Target -> Indicator -> Tiles[] mapping
 interface Indicators {
   [key: string]: ChartConfigTile[];
 }
 interface Targets {
   [key: string]: Indicators;
 }
+
+const ChartTargetBlock: React.FC<{
+  placeDcid: string;
+  target: string;
+  indicatorData: Indicators;
+}> = ({ placeDcid, target, indicatorData }) => {
+  console.log("Entered Chart Target Block");
+  return (
+    <ContentCard>
+      <h3>{target}</h3>
+      {Object.keys(indicatorData).map((indicator) => {
+        console.log(indicator);
+        console.log(indicatorData[indicator]);
+        <ChartIndicatorBlock 
+          indicator={indicator}
+          placeDcid={placeDcid}
+          tiles={indicatorData[indicator]}
+        />
+      })}
+    </ContentCard>
+  );
+};
+
+// Displays the tiles associated with a single indicator
+const ChartIndicatorBlock: React.FC<{
+  indicator: string;
+  placeDcid: string;
+  tiles: ChartConfigTile[];
+}> = ({ indicator, placeDcid, tiles }) => {
+  console.log("entered Chart Indicator Block");
+  return (
+    <ChartContentBody>
+      <HeadlineTile indicator={indicator} />
+      {tiles.map((tile, i) => (
+        <ChartTile
+          key={`${indicator}-${i}`}
+          placeDcid={placeDcid}
+          tile={tile}
+        />
+      ))}
+    </ChartContentBody>
+  );
+};
+
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
   varToTopic: VarToTopicMapping;
 }> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
   const allTargets: Targets = {};
-  const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        const topicDcid = varToTopic[tile.statVarKey[0]].dcid;
+        // Find matching 
+        const topicDcid = !_.isEmpty(tile.statVarKey) ? varToTopic[tile.statVarKey[0]].dcid: "";
         const indicatorMatches = topicDcid.match(
           /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
         );
-        const targetMatches = topicDcid.match(
-          /dc\/topic\/sdg_(\d\d?\.\w\w?)/
-        );
-        const indicator = indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "none";
-        const target = targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
+        const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
+        const indicator =
+          indicatorMatches && indicatorMatches.length > 1
+            ? indicatorMatches[1]
+            : "none";
+        const target =
+          targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
         if (target in allTargets) {
           if (indicator in allTargets[target]) {
             allTargets[target][indicator].push(tile);
@@ -288,24 +336,21 @@ const ChartCategoryContent: React.FC<{
           allTargets[target] = {};
           allTargets[target][indicator] = [tile];
         }
-        tiles.push(tile);
-        
       });
     });
   });
-  console.log(allTargets);
   return (
-    <ContentCard>
-      <ChartContentBody>
-        {tiles.map((tile, i) => (
-          <ChartTile
-            key={i}
-            placeDcid={placeDcid}
-            tile={tile}
-          />
-        ))}
-      </ChartContentBody>
-    </ContentCard>
+    <>
+      {Object.keys(allTargets).map((target) => {
+        console.log("called ChartTargetBlock");
+        console.log(allTargets[target]);
+        <ChartTargetBlock
+          placeDcid={placeDcid}
+          target={target}
+          indicatorData={allTargets[target]}
+        ></ChartTargetBlock>
+      })}
+    </>
   );
 };
 
