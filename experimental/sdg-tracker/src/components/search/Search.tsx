@@ -52,6 +52,7 @@ const QUERIES = {
 };
 
 const SearchContainer = styled.div`
+  color: #414042;
   margin: 4rem auto;
   padding: 0 2rem;
   h3 {
@@ -61,6 +62,15 @@ const SearchContainer = styled.div`
     margin-bottom: 2rem;
     text-align: center;
     max-width: 600px;
+  }
+  h4 {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid #999;
   }
   p {
     font-size: 1rem;
@@ -80,6 +90,20 @@ const SearchContainer = styled.div`
   }
 `;
 
+const StyledSubheader = styled.span`
+  display: block;
+  margin: 0 auto 16px auto;
+  max-width: 650px;
+
+  h4 span {
+    background-color: white;
+    color: inherit;
+    padding: 0 12px;
+    position: relative;
+    top: 12px;
+  }
+`;
+
 const ErrorMessage = styled.div`
   margin: auto;
   margin-bottom: 2rem;
@@ -92,31 +116,38 @@ const ErrorMessage = styled.div`
 
 const SearchLinks = styled.div`
   margin: auto;
-  text-align: center;
 `;
 const StyledLink = styled(Link)`
-  font-size: 1rem;
+  color: inherit;
+  font-size: .95rem;
+  line-height: 1.2;
   border-radius: 2rem;
   display: block;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #f1f1f1;
+  padding: 0.5rem 0;
+  margin-left: 1.5rem;
+  break-inside: avoid;
+
+  &::before {
+    content: "■";
+    margin-left: -1.5rem;
+    padding-right: .5rem;
+  }
+
   &:hover {
+    color: inherit;
     text-decoration: none;
-    background: #f1f1f1;
   }
 `;
 
 const LinkGroup = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin: auto;
-  margin-bottom: 2rem;
+  column-count: 2;
+  gap: 2rem;
+  margin: 0 auto 2rem auto;
   max-width: 650px;
-  text-align: center;
+
+  @media (max-width: 650px) {
+    column-count: 1;
+  }
 `;
 
 const SearchBarContainer = styled.div`
@@ -199,7 +230,9 @@ const Search = () => {
             </SearchBarContainer>
             {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
             <SearchLinks>
-              <p>Sample queries:</p>
+              <StyledSubheader>
+                <h4><span>Sample queries</span></h4>
+              </StyledSubheader>
               <LinkGroup>
                 {QUERIES.general.map((q, i) => (
                   <StyledLink key={i} to={`/search?q=${q}`}>
@@ -207,7 +240,9 @@ const Search = () => {
                   </StyledLink>
                 ))}
               </LinkGroup>
-              <p>Try diving deeper:</p>
+              <StyledSubheader>
+                <h4><span>Try diving deeper</span></h4>
+              </StyledSubheader>
               <LinkGroup>
                 {QUERIES.specific.map((q, i) => (
                   <StyledLink key={i} to={`/search?q=${q}`}>
@@ -215,7 +250,9 @@ const Search = () => {
                   </StyledLink>
                 ))}
               </LinkGroup>
-              <p>Combine and compare data:</p>
+              <StyledSubheader>
+                <h4><span>Combine and compare data</span></h4>
+              </StyledSubheader>
               <LinkGroup>
                 {QUERIES.comparison.map((q, i) => (
                   <StyledLink key={i} to={`/search?q=${q}`}>

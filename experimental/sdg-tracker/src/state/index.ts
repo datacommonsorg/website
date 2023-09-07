@@ -86,6 +86,8 @@ export interface RootTopic {
   groupDcid: string;
   topicDcid: string;
   iconUrl: string;
+  homePageIcon: string;
+  color: string;
 }
 
 /**
