@@ -16,6 +16,8 @@ import time
 from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore.params import DCNames
+from server.lib.explore.params import Params
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartType
@@ -41,6 +43,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   if not state.uttr.rankedCharts:
     return None
 
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
   uttr = state.uttr
   all_svs = set()
@@ -56,7 +59,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   all_svs = list(all_svs)
   start = time.time()
   sv2thing = SV2Thing(
-      name=variable.get_sv_name(all_svs, config.sv_chart_titles),
+      name=variable.get_sv_name(all_svs, config.sv_chart_titles, dc),
       unit=variable.get_sv_unit(all_svs),
       description=variable.get_sv_description(all_svs),
       footnote=variable.get_sv_footnote(all_svs),
@@ -105,7 +108,14 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       block = builder.new_chart(cspec)
-      if len(cspec.places) == 1 and len(cspec.svs) == 1:
+      if cspec.is_sdg:
+        # SDG never gets bar chart, only HIGHLIGHTs.
+        stat_var_spec_map = {}
+        for p in cspec.places:
+          for sv in cspec.svs:
+            stat_var_spec_map.update(
+                highlight.higlight_block(block.columns.add(), p, sv, sv2thing))
+      elif len(cspec.places) == 1 and len(cspec.svs) == 1:
         # Demote this to a highlight.
         stat_var_spec_map = highlight.higlight_block(block.columns.add(),
                                                      cspec.places[0],
