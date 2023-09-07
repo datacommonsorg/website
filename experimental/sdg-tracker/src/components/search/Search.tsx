@@ -321,7 +321,11 @@ const Search = () => {
                 {QUERIES.specific.map((q, i) => (
                   <StyledLinkContainer>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink
+                      className={`-dc-search-example`}
+                      key={i}
+                      to={`/search?q=${q.query}`}
+                    >
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
