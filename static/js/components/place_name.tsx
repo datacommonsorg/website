@@ -18,10 +18,9 @@
 // It can be used in other component to fetch and show place names
 // asynchronously.
 
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { USA_NAMED_TYPED_PLACE } from "../shared/constants";
+import { isUSACountyOrCity } from "../tools/shared_util";
 import { getPlaceDisplayNames, getPlaceNames } from "../utils/place_utils";
 
 export interface PlaceNameProp {
@@ -34,7 +33,7 @@ export function PlaceName(props: PlaceNameProp): JSX.Element {
   // parent place is USA
   const [name, setName] = useState<string>("");
   useEffect(() => {
-    const placeNamesPromise = _.isEqual(props.dcid, USA_NAMED_TYPED_PLACE.dcid)
+    const placeNamesPromise = isUSACountyOrCity(props.dcid)
       ? getPlaceDisplayNames([props.dcid], props.apiRoot)
       : getPlaceNames([props.dcid], props.apiRoot);
 
