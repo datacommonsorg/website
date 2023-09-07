@@ -28,7 +28,7 @@ domain_list=(datacommons.feedingamerica.org dev.datacommons.org)
 # Loop through the domain list
 for domain in "${domain_list[@]}"
 do
-  date_str=$(date +"%Y_%m_%d_%H_%M_%S")
+  date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
   python3 -m server.webdriver.screenshot.remote.main -d $domain
   gsutil -o "GSUtil:parallel_process_count=1" -m cp ./screenshots/*.png ./screenshots/*.json gs://datcom-website-screenshot/$domain/$date_str/
 done
