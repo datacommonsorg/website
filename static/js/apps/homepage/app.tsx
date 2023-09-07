@@ -36,6 +36,7 @@ import {
 export function App(): JSX.Element {
   return (
     <NlSearchBar
+      {/** @ts-ignore */}
       inputId="query-search-input"
       onSearch={(q) => {
         triggerGAEvent(GA_EVENT_NL_SEARCH, {
