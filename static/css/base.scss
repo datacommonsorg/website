@@ -110,8 +110,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 #main-nav .navbar-brand span,
 #main-nav .navbar-brand span a {
   font-weight: 200;
-  letter-spacing: 2px;
-  margin-left: 2rem;
+}
+
+#main-nav .navbar-brand .sep {
+  color: var(--gm-3-ref-neutral-neutral-40);
+  display: inline-block;
+  margin: 0 .5rem;
 }
 
 .main-content {

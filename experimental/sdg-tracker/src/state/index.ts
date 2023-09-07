@@ -28,10 +28,10 @@ import {
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import countries from "../config/countries.json";
+import goalSummaries from "../config/goalSummaries.json";
+import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
-import goalSummaries from "../config/goalSummaries.json";
-import indicatorHeadlines from "../config/indicatorText.json"
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
@@ -58,6 +58,7 @@ export interface Place {
 export interface GoalText {
   key: string;
   headlines: string[];
+  image?: string;
 }
 
 /**
@@ -139,13 +140,13 @@ export interface AppModel {
   goalSummaries: {
     byGoal: {
       [key: string]: GoalText;
-    }
-  }
+    };
+  };
   indicatorHeadlines: {
     byIndicator: {
       [key: string]: IndicatorTags;
-    }
-  }
+    };
+  };
 }
 
 /**
@@ -158,7 +159,7 @@ export interface AppActions {
   setSidebarMenuHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
-  setGoalSummaries: Action<AppModel, GoalText[]>
+  setGoalSummaries: Action<AppModel, GoalText[]>;
   setIndicatorHeadlines: Action<AppModel, IndicatorText[]>;
   setFulfillment: Action<
     AppModel,
@@ -300,17 +301,17 @@ const appActions: AppActions = {
     state.fulfillments.byId[key] = { ...fulfillment };
   }),
   setGoalSummaries: action((state, goalSummaries) => {
-    state.goalSummaries.byGoal = {}
+    state.goalSummaries.byGoal = {};
     goalSummaries.forEach((goal) => {
       state.goalSummaries.byGoal[goal.key] = goal;
-    })
+    });
   }),
   setIndicatorHeadlines: action((state, indicatorHeadlines) => {
-    state.indicatorHeadlines.byIndicator = {}
+    state.indicatorHeadlines.byIndicator = {};
     indicatorHeadlines.forEach((indicator) => {
       state.indicatorHeadlines.byIndicator[indicator.key] = indicator.tags;
-    })
-  })
+    });
+  }),
 };
 
 /**

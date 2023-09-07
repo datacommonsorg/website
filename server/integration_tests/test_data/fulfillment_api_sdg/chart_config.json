@@ -1463,113 +1463,113 @@
         ]
       },
       "sdg/SI_COV_BENFTS": {
-        "dcid": "dc/topic/sdgSICOVBENFTS",
-        "name": "Population With Social Protection Benefits",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_CHLD": {
-        "dcid": "dc/topic/sdgSICOVCHLD",
-        "name": "Children/Households Receiving Family Cash Benefit",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_CHLD.SEX--F": {
-        "dcid": "dc/topic/sdgSICOVCHLD_gender",
-        "name": "Children/Households Receiving Family Cash Benefit by Gender",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_CHLD.SEX--M": {
-        "dcid": "dc/topic/sdgSICOVCHLD_gender",
-        "name": "Children/Households Receiving Family Cash Benefit by Gender",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_PENSN": {
-        "dcid": "dc/topic/sdgSICOVPENSN",
-        "name": "Population Above Retirement Age Receiving Pension",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_PENSN.SEX--F": {
-        "dcid": "dc/topic/sdgSICOVPENSN_gender",
-        "name": "Population Above Retirement Age Receiving Pension by Gender",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_PENSN.SEX--M": {
-        "dcid": "dc/topic/sdgSICOVPENSN_gender",
-        "name": "Population Above Retirement Age Receiving Pension by Gender",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_POOR": {
-        "dcid": "dc/topic/sdgSICOVPOOR",
-        "name": "Vulnerable Population Receiving Social Assistance Cash Benefit",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_COV_WKINJRY": {
-        "dcid": "dc/topic/sdgSICOVWKINJRY",
-        "name": "Employed Population Covered for Work Injury",
+        "dcid": "dc/topic/sdg_1.3.1",
+        "name": "Population Covered By Social Protection Systems",
         "types": [
           "Topic"
         ]
       },
       "sdg/SI_POV_DAY1": {
-        "dcid": "dc/topic/sdgSIPOVDAY1",
-        "name": "Population Below International Poverty Line",
+        "dcid": "dc/topic/sdg_1.1.1",
+        "name": "Population Below the Poverty Line",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVH2O": {
-        "dcid": "dc/topic/sdgSPACSBSRVH2O",
-        "name": "Population Using Basic Drinking Water Services",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
-        "dcid": "dc/topic/sdgSPACSBSRVH2O_sdgurbanisation",
-        "name": "Population Using Basic Drinking Water Services by Urbanization",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
-        "dcid": "dc/topic/sdgSPACSBSRVH2O_sdgurbanisation",
-        "name": "Population Using Basic Drinking Water Services by Urbanization",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVSAN": {
-        "dcid": "dc/topic/sdgSPACSBSRVSAN",
-        "name": "Population Using Basic Sanitation Services",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
-        "dcid": "dc/topic/sdgSPACSBSRVSAN_sdgurbanisation",
-        "name": "Population Using Basic Sanitation Services by Urbanization",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]
       },
       "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
-        "dcid": "dc/topic/sdgSPACSBSRVSAN_sdgurbanisation",
-        "name": "Population Using Basic Sanitation Services by Urbanization",
+        "dcid": "dc/topic/sdg_1.4.1",
+        "name": "Households with Access to Basic Services",
         "types": [
           "Topic"
         ]

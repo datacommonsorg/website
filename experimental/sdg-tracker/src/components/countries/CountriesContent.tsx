@@ -19,15 +19,34 @@ import { Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 import styled from "styled-components";
+
 import { useStoreActions, useStoreState } from "../../state";
-import { WEB_API_ENDPOINT } from "../../utils/constants";
+import {
+  EARTH_PLACE_DCID,
+  ROOT_TOPIC,
+  WEB_API_ENDPOINT,
+} from "../../utils/constants";
+
 import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
   VarToTopicMapping,
 } from "../../utils/types";
-import { HeadlineTile, PlaceHeaderCard, SearchBar } from "../layout/components";
+
+import {
+  ContentCard,
+  ContentCardBody,
+  ContentCardHeader,
+  CountrySelect,
+  HeadlineTile,
+  MainLayoutContent,
+  PlaceHeaderCard,
+  SearchBar,
+} from "../shared/components";
+import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
+import GoalOverview from "../shared/goals/GoalOverview";
+
 import { useLocation } from "react-router";
 import _ from "lodash";
 
@@ -53,35 +72,23 @@ const SearchCard = styled.div`
   box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
     0px 1px 22px rgba(3, 7, 18, 0.06);
 `;
-const ChartContentHeader = styled.div`
+
+const PlaceTitle = styled.div`
   display: flex;
   flex-direction: row;
+  font-size: 2rem;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  img {
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2rem;
-    border-radius: 1rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0.25rem;
-  }
+  padding: 0rem 24px;
+  margin: 1rem 0 0;
+  flex-wrap: wrap;
 `;
+
 const ChartContentBody = styled.div`
   h3 {
     font-size: 2.5rem;
     font-weight: 300;
   }
-`;
-const ContentCard = styled.div`
-  margin: 0 0 1rem;
-  padding: 24px;
-  background: white;
-  border-radius: 1rem;
 `;
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -115,6 +122,7 @@ const CountriesContent: React.FC<{
   setPlaceDcid,
   variableDcids,
 }) => {
+  const rootTopics = useStoreState((s) => s.rootTopics);
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
@@ -161,6 +169,41 @@ const CountriesContent: React.FC<{
     })();
   }, [placeDcid, variableDcids]);
 
+  if (
+    variableDcids.length > 0 &&
+    variableDcids[0] === ROOT_TOPIC &&
+    placeDcid === EARTH_PLACE_DCID
+  ) {
+    return (
+      <Layout style={{ height: "100%", flexGrow: 1 }}>
+        <Layout.Content style={{ padding: "0rem 0" }}>
+          <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
+            <div>
+              {placeName ? (
+                placeName
+              ) : placeDcid ? (
+                <Spinner />
+              ) : (
+                "Select a country"
+              )}
+            </div>
+            {!hidePlaceSearch && (
+              <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+            )}
+          </PlaceTitle>
+          <AllGoalsOverview />
+          {rootTopics.map((_, topicIndex) => (
+            <GoalOverview
+              key={topicIndex}
+              goalNumber={topicIndex + 1}
+              showExploreLink={true}
+            />
+          ))}
+        </Layout.Content>
+      </Layout>
+    );
+  }
+
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
       <Layout.Content style={{ padding: "0rem 0" }}>
@@ -177,6 +220,22 @@ const CountriesContent: React.FC<{
             />
           </SearchCard>
         )}
+
+        <PlaceTitle style={{ display: "none" }}>
+          <div>
+            {placeName ? (
+              placeName
+            ) : placeDcid ? (
+              <Spinner />
+            ) : (
+              "Select a country"
+            )}
+          </div>
+          {!hidePlaceSearch && (
+            <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+          )}
+        </PlaceTitle>
+
         {!isSearch && (
           <Layout.Content style={{ padding: "0 24px 24px" }}>
             <PlaceHeaderCard
@@ -187,7 +246,7 @@ const CountriesContent: React.FC<{
             />
           </Layout.Content>
         )}
-        <Layout.Content style={{ padding: "0 24px 24px" }}>
+        <MainLayoutContent>
           {isFetchingFulfillment ? (
             <ContentCard>
               <Spinner />
@@ -199,7 +258,7 @@ const CountriesContent: React.FC<{
               selectedVariableDcids={variableDcids}
             />
           )}
-        </Layout.Content>
+        </MainLayoutContent>
       </Layout.Content>
     </Layout>
   );
@@ -228,14 +287,14 @@ const ChartContent: React.FC<{
   if (fulfillmentResponse.failure || fulfillmentResponse.userMessage) {
     return (
       <ContentCard>
-        <ChartContentHeader>
+        <ContentCardHeader>
           <div>
             <h3>No information found</h3>
           </div>
-        </ChartContentHeader>
-        <ChartContentBody>
+        </ContentCardHeader>
+        <ContentCardBody>
           {fulfillmentResponse.failure || fulfillmentResponse.userMessage}
-        </ChartContentBody>
+        </ContentCardBody>
       </ContentCard>
     );
   }
@@ -470,10 +529,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div
-      ref={ref}
-      style={{ minHeight: !loaded ? height : undefined }}
-    >
+    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
       {loaded && component}
     </div>
   );
