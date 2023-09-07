@@ -72,7 +72,6 @@ const GoalOverview: React.FC<{
   const exploreUrl = location.pathname + "?" + searchParams.toString();
 
   return (
-    <MainLayoutContent>
       <ContentCard>
         <ContentCardHeader>
           <img src={rootTopic.iconUrl} />
@@ -106,7 +105,6 @@ const GoalOverview: React.FC<{
           )}
         </ContentCardBody>
       </ContentCard>
-    </MainLayoutContent>
   );
 };
 

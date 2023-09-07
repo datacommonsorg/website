@@ -195,11 +195,13 @@ const CountriesContent: React.FC<{
           </PlaceTitle>
           <AllGoalsOverview />
           {rootTopics.map((_, topicIndex) => (
-            <GoalOverview
-              key={topicIndex}
-              goalNumber={topicIndex + 1}
-              showExploreLink={true}
-            />
+            <MainLayoutContent>
+              <GoalOverview
+                key={topicIndex}
+                goalNumber={topicIndex + 1}
+                showExploreLink={true}
+              />
+            </MainLayoutContent>
           ))}
         </Layout.Content>
       </Layout>
@@ -332,7 +334,10 @@ const ChartCategoryContent: React.FC<{
   placeDcid: string;
   varToTopic: VarToTopicMapping;
 }> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
+  // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
+
+  // iterate over tiles nested in chartConfigCategory
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
@@ -354,6 +359,7 @@ const ChartCategoryContent: React.FC<{
         const goal =
           goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
 
+        // put tile in appropriate spot in allGoals
         if (goal in allGoals) {
           if (target in allGoals[goal]) {
             if (indicator in allGoals[goal][target]) {
@@ -382,7 +388,7 @@ const ChartCategoryContent: React.FC<{
             placeDcid={placeDcid}
             goal={goal}
             targetData={allGoals[goal]}
-          ></ChartGoalBlock>
+          />
         );
       })}
     </>
@@ -394,10 +400,13 @@ const ChartGoalBlock: React.FC<{
   placeDcid: string;
   goal: string;
   targetData: Targets;
-}> = ({placeDcid, goal, targetData}) => {
+}> = ({ placeDcid, goal, targetData }) => {
   return (
     <>
-      <GoalOverview goalNumber={Number(goal)} showExploreLink={false}/>
+      <GoalOverview
+        goalNumber={Number(goal)}
+        showExploreLink={false}
+      />
       {Object.keys(targetData).map((target, i) => {
         return (
           <ChartTargetBlock
@@ -405,7 +414,7 @@ const ChartGoalBlock: React.FC<{
             placeDcid={placeDcid}
             target={target}
             indicatorData={targetData[target]}
-          ></ChartTargetBlock>
+          />
         );
       })}
     </>
