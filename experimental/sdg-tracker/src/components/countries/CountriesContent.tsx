@@ -315,7 +315,7 @@ const ChartContent: React.FC<{
   );
 };
 
-// Interfaces to define Target -> Indicator -> Tiles[] mapping
+// Interfaces to define Goal -> Target -> Indicator -> Tiles[] mapping
 interface Indicators {
   [key: string]: ChartConfigTile[];
 }
@@ -323,16 +323,20 @@ interface Targets {
   [key: string]: Indicators;
 }
 
+interface Goals {
+  [key: string]: Targets;
+}
+
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
   varToTopic: VarToTopicMapping;
 }> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
-  const allTargets: Targets = {};
+  const allGoals: Goals = {};
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        // Find which target and indicator this tile belongs to
+        // Find which goal, target, and indicator this tile belongs to
         const topicDcid = !_.isEmpty(tile.statVarKey)
           ? varToTopic[tile.statVarKey[0]].dcid
           : "";
@@ -340,36 +344,67 @@ const ChartCategoryContent: React.FC<{
           /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
         );
         const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
+        const goalMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?)/);
         const indicator =
           indicatorMatches && indicatorMatches.length > 1
             ? indicatorMatches[1]
             : "none";
         const target =
           targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
-        if (target in allTargets) {
-          if (indicator in allTargets[target]) {
-            allTargets[target][indicator].push(tile);
+        const goal =
+          goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
+
+        if (goal in allGoals) {
+          if (target in allGoals[goal]) {
+            if (indicator in allGoals[goal][target]) {
+              allGoals[goal][target][indicator].push(tile);
+            } else {
+              allGoals[goal][target][indicator] = [tile];
+            }
           } else {
-            allTargets[target][indicator] = [tile];
+            allGoals[goal][target] = {};
+            allGoals[goal][target][indicator] = [tile];
           }
         } else {
-          allTargets[target] = {};
-          allTargets[target][indicator] = [tile];
+          allGoals[goal] = {};
+          allGoals[goal][target] = {};
+          allGoals[goal][target][indicator] = [tile];
         }
       });
     });
   });
   return (
     <>
-      {Object.keys(allTargets).map((target) => {
-        console.log("called ChartTargetBlock");
-        console.log(allTargets[target]);
-        console.log(placeDcid);
+      {Object.keys(allGoals).map((goal, i) => {
+        return (
+          <ChartGoalBlock
+            key={i}
+            placeDcid={placeDcid}
+            goal={goal}
+            targetData={allGoals[goal]}
+          ></ChartGoalBlock>
+        );
+      })}
+    </>
+  );
+};
+
+// Displays all cards associated with a goal, along with goal's overview tile
+const ChartGoalBlock: React.FC<{
+  placeDcid: string;
+  goal: string;
+  targetData: Targets;
+}> = ({placeDcid, goal, targetData}) => {
+  return (
+    <>
+      <GoalOverview goalNumber={Number(goal)} showExploreLink={false}/>
+      {Object.keys(targetData).map((target, i) => {
         return (
           <ChartTargetBlock
+            key={`${goal}-${i}`}
             placeDcid={placeDcid}
             target={target}
-            indicatorData={allTargets[target]}
+            indicatorData={targetData[target]}
           ></ChartTargetBlock>
         );
       })}
@@ -377,22 +412,20 @@ const ChartCategoryContent: React.FC<{
   );
 };
 
-// Displays all tiles associated with a target, along with target's header
+// Displays the card associated with a target, along with target's header
 const ChartTargetBlock: React.FC<{
   placeDcid: string;
   target: string;
   indicatorData: Indicators;
 }> = ({ placeDcid, target, indicatorData }) => {
-  console.log("Entered Chart Target Block");
   return (
     <ContentCard>
       <TargetHeader target={target} />
       <RedDivider />
-      {Object.keys(indicatorData).map((indicator) => {
-        console.log(indicator);
-        console.log(indicatorData[indicator]);
+      {Object.keys(indicatorData).map((indicator, i) => {
         return (
           <ChartIndicatorBlock
+            key={`${target}=${i}`}
             indicator={indicator}
             placeDcid={placeDcid}
             tiles={indicatorData[indicator]}
@@ -409,7 +442,6 @@ const ChartIndicatorBlock: React.FC<{
   placeDcid: string;
   tiles: ChartConfigTile[];
 }> = ({ indicator, placeDcid, tiles }) => {
-  console.log("entered Chart Indicator Block");
   return (
     <ChartContentBody>
       <HeadlineTile indicator={indicator} />
