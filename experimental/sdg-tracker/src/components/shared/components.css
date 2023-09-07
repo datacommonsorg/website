@@ -15,21 +15,21 @@
  */
 
 .branding-link-container {
-    display: flex;
-    flex-direction: row;
-    font-weight: 500;
-    flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
 .branding-link-container a {
-    display: flex;
-    align-items: center;
-    color: #151515;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #151515;
+  text-decoration: none;
 }
 
 .branding-link-container img {
-    width: 100px;
-    align-self: flex-end;
-    margin-left: 0.5rem;
+  width: 100px;
+  align-self: flex-end;
+  margin-left: 0.5rem;
 }

@@ -15,13 +15,13 @@
  */
 
 import styled from "styled-components";
-import Footer from "../layout/AppFooter";
-import Header from "../layout/AppHeader";
-import AppLayout from "../layout/AppLayout";
-import AppLayoutContent from "../layout/AppLayoutContent";
+import Footer from "../shared/AppFooter";
+import Header from "../shared/AppHeader";
+import AppLayout from "../shared/AppLayout";
+import AppLayoutContent from "../shared/AppLayoutContent";
+import { ExploreSection } from "./ExploreSection";
 import { GoalSection } from "./GoalSection";
 import { PlaceSection } from "./PlaceSection";
-import { ExploreSection } from "./ExploreSection";
 
 const HomeContainer = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const HomeContainer = styled.div`
   align-items: center;
   gap: 64px;
   padding: 122px 0;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 
   .page-header {
     display: flex;
@@ -37,7 +37,7 @@ const HomeContainer = styled.div`
     gap: 17.2px;
 
     span {
-      color: #009EDB;
+      color: #009edb;
       font-family: Roboto;
       font-size: 22px;
       font-weight: 400;
@@ -70,7 +70,7 @@ const Home = () => {
       >
         <HomeContainer>
           <div className="page-header">
-            <img src={"/images/datacommons/un-dc-sdg-logo.svg"}/>
+            <img src={"/images/datacommons/un-dc-sdg-logo.svg"} />
             <span>BETA</span>
           </div>
           <p>
