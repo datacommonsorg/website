@@ -373,9 +373,9 @@ export const PlaceHeaderCard: React.FC<{
 };
 
 // Headline callouts for each of the indicators
-const HeadlineContainer = styled.div<{ backgroundColor: string }>`
+const HeadlineContainer = styled.div<{ $backgroundColor: string }>`
   background-color: ${(p) => {
-    const rgb = parseToRgb(p.backgroundColor);
+    const rgb = parseToRgb(p.$backgroundColor);
     return `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.1);`;
   }};
   border-radius: 8px;
@@ -417,7 +417,7 @@ export const HeadlineTile: React.FC<{
   }
   const textSpanSize = headlineData.images.length === 1 ? 12 : 24;
   return (
-    <HeadlineContainer backgroundColor={backgroundColor}>
+    <HeadlineContainer $backgroundColor={backgroundColor}>
       <Row gutter={16}>
         {headlineData.headline && (
           <Col xs={24} sm={24} md={24} lg={24} xl={textSpanSize}>

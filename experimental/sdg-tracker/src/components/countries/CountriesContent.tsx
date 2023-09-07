@@ -196,9 +196,8 @@ const CountriesContent: React.FC<{
           </PlaceTitle>
           <AllGoalsOverview />
           {rootTopics.map((_, topicIndex) => (
-            <MainLayoutContent>
+            <MainLayoutContent key={topicIndex}>
               <GoalOverview
-                key={topicIndex}
                 goalNumber={topicIndex + 1}
                 showExploreLink={true}
               />

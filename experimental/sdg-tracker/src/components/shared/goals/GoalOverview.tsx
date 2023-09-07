@@ -20,12 +20,7 @@ import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreState } from "../../../state";
 import { QUERY_PARAM_VARIABLE } from "../../../utils/constants";
-import {
-  ContentCard,
-  ContentCardBody,
-  ContentCardHeader,
-  MainLayoutContent,
-} from "../components";
+import { ContentCard, ContentCardBody, ContentCardHeader } from "../components";
 const { useBreakpoint } = Grid;
 
 const ExploreLink = styled(Link)`
@@ -72,41 +67,48 @@ const GoalOverview: React.FC<{
   const exploreUrl = location.pathname + "?" + searchParams.toString();
 
   return (
-    <MainLayoutContent>
-      <ContentCard>
-        <ContentCardHeader>
-          <img src={rootTopic.iconUrl} />
-          <h3>
-            {goalNumber}: {rootTopic.name}
-          </h3>
-        </ContentCardHeader>
-        <ContentCardBody>
-          <Row>
-            {goalSummary.image ? (
-              <StyledCol md={24} lg={12}>
-                <GoalImage src={goalSummary.image} $md={breakpoint.md} />
-              </StyledCol>
-            ) : null}
-            <StyledCol md={24} lg={goalSummary.image ? 12 : 24}>
-              <GoalText>
-                {goalSummary.headlines.map((headline, i) => (
-                  <li key={i}>{headline}</li>
-                ))}
-              </GoalText>
+    <ContentCard>
+      <ContentCardHeader>
+        <img src={rootTopic.iconUrl} />
+        <h3>
+          {goalNumber}: {rootTopic.name}
+        </h3>
+      </ContentCardHeader>
+      <ContentCardBody>
+        <Row>
+          {goalSummary.image ? (
+            <StyledCol
+              md={24}
+              lg={12}
+            >
+              <GoalImage
+                src={goalSummary.image}
+                $md={breakpoint.md}
+              />
             </StyledCol>
-          </Row>
+          ) : null}
+          <StyledCol
+            md={24}
+            lg={goalSummary.image ? 12 : 24}
+          >
+            <GoalText>
+              {goalSummary.headlines.map((headline, i) => (
+                <li key={i}>{headline}</li>
+              ))}
+            </GoalText>
+          </StyledCol>
+        </Row>
 
-          {showExploreLink && (
-            <p>
-              <ExploreLink to={exploreUrl}>
-                <ArrowRightOutlined />
-                Explore Goal {goalNumber}
-              </ExploreLink>
-            </p>
-          )}
-        </ContentCardBody>
-      </ContentCard>
-    </MainLayoutContent>
+        {showExploreLink && (
+          <p>
+            <ExploreLink to={exploreUrl}>
+              <ArrowRightOutlined />
+              Explore Goal {goalNumber}
+            </ExploreLink>
+          </p>
+        )}
+      </ContentCardBody>
+    </ContentCard>
   );
 };
 
