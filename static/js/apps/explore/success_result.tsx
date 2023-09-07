@@ -146,13 +146,11 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
             debugData={props.debugData}
             queryResult={props.queryResult}
           ></DebugInfo>
-          {props.exploreContext.dc !== "sdg" && (
-            <SearchSection
-              query={props.query}
-              debugData={props.debugData}
-              exploreContext={props.exploreContext}
-            />
-          )}
+          <SearchSection
+            query={props.query}
+            debugData={props.debugData}
+            exploreContext={props.exploreContext}
+          />
         </div>
       </div>
       <div className="col-12" ref={chartSectionRef}>
