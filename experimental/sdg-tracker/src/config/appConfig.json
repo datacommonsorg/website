@@ -1,3 +1,3 @@
 {
-  "webApiEndpoint": "https://dev.datacommons.org/"
+  "webApiEndpoint": "http://localhost:8080/"
 }

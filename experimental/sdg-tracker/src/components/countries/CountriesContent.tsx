@@ -25,6 +25,7 @@ import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
+  VarToTopicMapping,
 } from "../../utils/types";
 import { PlaceHeaderCard, SearchBar } from "../layout/components";
 import { useLocation } from "react-router";
@@ -245,24 +246,54 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
+            varToTopic={fulfillmentResponse.relatedThings.varToTopic}
           />
         ))}
     </>
   );
 };
 
+interface Indicators {
+  [key: string]: ChartConfigTile[];
+}
+interface Targets {
+  [key: string]: Indicators;
+}
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-}> = ({ chartConfigCategory, placeDcid }) => {
+  varToTopic: VarToTopicMapping;
+}> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
+  const allTargets: Targets = {};
   const tiles: ChartConfigTile[] = [];
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
+        const topicDcid = varToTopic[tile.statVarKey[0]].dcid;
+        const indicatorMatches = topicDcid.match(
+          /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+        );
+        const targetMatches = topicDcid.match(
+          /dc\/topic\/sdg_(\d\d?\.\w\w?)/
+        );
+        const indicator = indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "none";
+        const target = targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
+        if (target in allTargets) {
+          if (indicator in allTargets[target]) {
+            allTargets[target][indicator].push(tile);
+          } else {
+            allTargets[target][indicator] = [tile];
+          }
+        } else {
+          allTargets[target] = {};
+          allTargets[target][indicator] = [tile];
+        }
         tiles.push(tile);
+        
       });
     });
   });
+  console.log(allTargets);
   return (
     <ContentCard>
       <ChartContentBody>
