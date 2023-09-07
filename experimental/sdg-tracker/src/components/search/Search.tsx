@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import { gray, red } from "@ant-design/colors";
+import { red } from "@ant-design/colors";
 import { Layout } from "antd";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
+import { theme } from "../../utils/theme";
 import CountriesContent from "../countries/CountriesContent";
 import AppFooter from "../shared/AppFooter";
 import AppHeader from "../shared/AppHeader";
@@ -30,38 +31,79 @@ import { SearchBar } from "../shared/components";
 
 const QUERIES = {
   general: [
-    "Hunger in Nigeria",
-    "Poverty in Mexico",
-    "Progress on health related goals in Pakistan",
-    "SDG goals on gender equality across the world",
+    {
+      goal: 2,
+      query: "Hunger in Nigeria",
+    },
+    {
+      goal: 5,
+      query: "Gender equality across the world",
+    },
+    {
+      goal: 1,
+      query: "Poverty in Mexico",
+    },
+    {
+      goal: 3,
+      query: "Progress on health related goals in Pakistan",
+    },
   ],
   specific: [
-    "Women in managerial positions in India",
-    "Access to clean drinking water in Mexico",
-    "Access to primary school education in Afghanistan",
-    "How is the world combating unregulated fishing?",
-    "How has access to electricity improved in Kenya?",
-    "How has informal employment changed over time in Bangladesh?",
-    "How much food goes wasted around the world?",
+    {
+      goal: 5,
+      query: "Women in managerial positions in India",
+    },
+    {
+      goal: 4,
+      query: "Access to primary school education in Afghanistan",
+    },
+    {
+      goal: 7,
+      query: "How has access to electricity improved in Kenya?",
+    },
+    {
+      goal: 2,
+      query: "How much food goes wasted around the world?",
+    },
+    {
+      goal: 6,
+      query: "Access to clean drinking water in Mexico",
+    },
+    {
+      goal: 14,
+      query: "How is the world combating unregulated fishing?",
+    },
+    {
+      goal: 8,
+      query: "How has informal employment changed over time in Bangladesh?",
+    },
   ],
   comparison: [
-    "Compare progress on poverty in Mexico, Nigeria and Pakistan",
-    "Compare SDG goals on climate change between Brazil, China and India",
-    "Violence vs poverty across the world",
+    {
+      goal: 1,
+      query: "Compare progress on poverty in Mexico, Nigeria and Pakistan",
+    },
+    {
+      goal: 16,
+      query: "Violence vs poverty across the world",
+    },
+    {
+      goal: 13,
+      query:
+        "Compare SDG goals on climate change between Brazil, China and India",
+    },
   ],
 };
 
 const SearchContainer = styled.div`
   color: #414042;
-  margin: 4rem auto;
-  padding: 0 2rem;
+  margin: 0 auto;
   h3 {
     font-size: 1.5rem;
     font-weight: 400;
     margin: auto;
     margin-bottom: 2rem;
     text-align: center;
-    max-width: 600px;
   }
   h4 {
     font-size: 16px;
@@ -77,23 +119,37 @@ const SearchContainer = styled.div`
     font-weight: 500;
     margin: auto;
     margin-bottom: 1.5rem;
-    max-width: 600px;
     text-align: center;
   }
-  .subtext {
-    margin: auto;
-    max-width: 600px;
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 600px;
-    color: ${gray[4]};
+`;
+
+const SearchTop = styled.div`
+  background-image: url("./images/datacommons/search-background.png");
+  background-size: 100% auto;
+  padding: 8rem 2rem 8rem;
+
+  h3 {
+    color: inherit;
+    font-size: 36px;
+    font-weight: 700;
   }
+  p {
+    color: inherit;
+    font-size: 16px;
+    font-weight: 400;
+  }
+`;
+
+const ColorBar = styled.div`
+  background-image: url("./images/datacommons/sdg-color-bar.png");
+  background-size: 100% auto;
+  height: 10px;
 `;
 
 const StyledSubheader = styled.span`
   display: block;
-  margin: 0 auto 16px auto;
-  max-width: 650px;
+  margin: 0 auto 2.5rem auto;
+  max-width: 720px;
 
   h4 span {
     background-color: white;
@@ -115,27 +171,33 @@ const ErrorMessage = styled.div`
 `;
 
 const SearchLinks = styled.div`
-  margin: auto;
+  margin: 5rem auto;
+  padding: 0 2rem;
+`;
+
+const StyledLinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 18px;
+`;
+
+const IconSquare = styled.div<{ color: string }>`
+  background: ${(p) => p.color};
+  height: 14px;
+  flex-shrink: 0;
+  margin: 4px 14px 4px 0;
+  width: 14px;
 `;
 const StyledLink = styled(Link)`
-  color: inherit;
-  font-size: .95rem;
-  line-height: 1.2;
-  border-radius: 2rem;
-  display: block;
-  padding: 0.5rem 0;
-  margin-left: 1.5rem;
   break-inside: avoid;
-
-  &::before {
-    content: "■";
-    margin-left: -1.5rem;
-    padding-right: .5rem;
-  }
+  color: inherit;
+  display: block;
+  font-size: 0.95rem;
+  line-height: 22px;
 
   &:hover {
-    color: inherit;
-    text-decoration: none;
+    color: #141414;
+    text-decoration: underline;
   }
 `;
 
@@ -143,7 +205,7 @@ const LinkGroup = styled.div`
   column-count: 2;
   gap: 2rem;
   margin: 0 auto 2rem auto;
-  max-width: 650px;
+  max-width: 720px;
 
   @media (max-width: 650px) {
     column-count: 1;
@@ -152,9 +214,8 @@ const LinkGroup = styled.div`
 
 const SearchBarContainer = styled.div`
   margin: auto;
-  margin-bottom: 2rem;
   text-align: center;
-  max-width: 450px;
+  max-width: 525px;
 `;
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -214,50 +275,71 @@ const Search = () => {
         <AppHeader selected="search" />
         <AppLayoutContent style={{ overflow: "auto" }}>
           <SearchContainer>
-            <h3>SDG Data Commons Search</h3>
-            <p>Find SDG-related data about a place or region.</p>
+            <SearchTop>
+              <h3>Explore UN Data Commons for the SDGs</h3>
+              <p>Find SDG-related data about a place or region.</p>
 
-            <SearchBarContainer>
-              <SearchBar
-                initialQuery={query}
-                isSearching={isSearching}
-                onSearch={(q) => {
-                  const searchParams = new URLSearchParams();
-                  searchParams.set(QUERY_PARAM_QUERY, q);
-                  history.push("/search?" + searchParams.toString());
-                }}
-              />
-            </SearchBarContainer>
-            {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
+              <SearchBarContainer>
+                <SearchBar
+                  initialQuery={query}
+                  isSearching={isSearching}
+                  onSearch={(q) => {
+                    const searchParams = new URLSearchParams();
+                    searchParams.set(QUERY_PARAM_QUERY, q);
+                    history.push("/search?" + searchParams.toString());
+                  }}
+                  placeholder={"What is the global poverty rate?"}
+                />
+              </SearchBarContainer>
+              {errorMessage ? (
+                <ErrorMessage>{errorMessage}</ErrorMessage>
+              ) : null}
+            </SearchTop>
+            <ColorBar />
             <SearchLinks>
               <StyledSubheader>
-                <h4><span>Sample queries</span></h4>
+                <h4>
+                  <span>Sample queries</span>
+                </h4>
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.general.map((q, i) => (
-                  <StyledLink key={i} to={`/search?q=${q}`}>
-                    {q}
-                  </StyledLink>
+                  <StyledLinkContainer>
+                    <IconSquare color={theme.sdgColors[q.goal - 1]} />
+                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                      {q.query}
+                    </StyledLink>
+                  </StyledLinkContainer>
                 ))}
               </LinkGroup>
               <StyledSubheader>
-                <h4><span>Try diving deeper</span></h4>
+                <h4>
+                  <span>Try diving deeper</span>
+                </h4>
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.specific.map((q, i) => (
-                  <StyledLink key={i} to={`/search?q=${q}`}>
-                    {q}
-                  </StyledLink>
+                  <StyledLinkContainer>
+                    <IconSquare color={theme.sdgColors[q.goal - 1]} />
+                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                      {q.query}
+                    </StyledLink>
+                  </StyledLinkContainer>
                 ))}
               </LinkGroup>
               <StyledSubheader>
-                <h4><span>Combine and compare data</span></h4>
+                <h4>
+                  <span>Combine and compare data</span>
+                </h4>
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.comparison.map((q, i) => (
-                  <StyledLink key={i} to={`/search?q=${q}`}>
-                    {q}
-                  </StyledLink>
+                  <StyledLinkContainer>
+                    <IconSquare color={theme.sdgColors[q.goal - 1]} />
+                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                      {q.query}
+                    </StyledLink>
+                  </StyledLinkContainer>
                 ))}
               </LinkGroup>
             </SearchLinks>
