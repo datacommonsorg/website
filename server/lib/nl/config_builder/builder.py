@@ -16,6 +16,7 @@ import time
 from typing import cast
 
 from server.config.subject_page_pb2 import SubjectPageConfig
+from server.lib.explore.params import DCNames
 from server.lib.explore.params import Params
 from server.lib.nl.common import variable
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
@@ -42,7 +43,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
   if not state.uttr.rankedCharts:
     return None
 
-  dc = state.uttr.insight_ctx.get(Params.DC.value)
+  dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
   # Get names of all SVs
   uttr = state.uttr
   all_svs = set()
