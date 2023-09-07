@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import AppFooter from "../layout/AppFooter";
-import AppHeader from "../layout/AppHeader";
-import AppLayout from "../layout/AppLayout";
-import AppLayoutContent from "../layout/AppLayoutContent";
+import AppFooter from "../shared/AppFooter";
+import AppHeader from "../shared/AppHeader";
+import AppLayout from "../shared/AppLayout";
+import AppLayoutContent from "../shared/AppLayoutContent";
 
 const Topics = () => {
   return (

@@ -19,7 +19,7 @@ import appConfig from "../config/appConfig.json";
 /**
  * DCID for the world
  */
-export const EARTH_PLACE_DCID = "Earth"
+export const EARTH_PLACE_DCID = "Earth";
 
 /**
  * Variable DCID url parameter
@@ -44,3 +44,8 @@ export const ROOT_TOPIC = "dc/topic/sdg";
  * Web api root
  */
 export const WEB_API_ENDPOINT = appConfig.webApiEndpoint;
+
+/**
+ * URL to the SDG wheel icon
+ */
+export const SDG_ICON_URL = "./images/datacommons/sdg-wheel-transparent.png";

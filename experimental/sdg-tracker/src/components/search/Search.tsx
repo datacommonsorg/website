@@ -22,11 +22,11 @@ import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import CountriesContent from "../countries/CountriesContent";
-import AppFooter from "../layout/AppFooter";
-import AppHeader from "../layout/AppHeader";
-import AppLayout from "../layout/AppLayout";
-import AppLayoutContent from "../layout/AppLayoutContent";
-import { SearchBar } from "../layout/components";
+import AppFooter from "../shared/AppFooter";
+import AppHeader from "../shared/AppHeader";
+import AppLayout from "../shared/AppLayout";
+import AppLayoutContent from "../shared/AppLayoutContent";
+import { SearchBar } from "../shared/components";
 
 const QUERIES = {
   general: [
