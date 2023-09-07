@@ -116,6 +116,7 @@ export const SearchBar: React.FC<{
       <div className="info">Early Preview</div>
       <div className="search">
         <SearchInput
+          className="-dc-search-bar"
           placeholder={
             placeholder
               ? placeholder
@@ -220,6 +221,7 @@ export const CountrySelect: React.FC<{
   return (
     <CountrySelectContainer>
       <AutoComplete
+        className="-dc-place-search"
         size="large"
         value={isFocused ? value : ""}
         style={{ width: 225 }}

@@ -67,7 +67,7 @@ const GoalOverview: React.FC<{
   const exploreUrl = location.pathname + "?" + searchParams.toString();
 
   return (
-    <ContentCard>
+    <ContentCard className={`-dc-goal-overview-${goalNumber}`}>
       <ContentCardHeader>
         <img src={rootTopic.iconUrl} />
         <h3>
@@ -77,20 +77,11 @@ const GoalOverview: React.FC<{
       <ContentCardBody>
         <Row>
           {goalSummary.image ? (
-            <StyledCol
-              md={24}
-              lg={12}
-            >
-              <GoalImage
-                src={goalSummary.image}
-                $md={breakpoint.md}
-              />
+            <StyledCol md={24} lg={12}>
+              <GoalImage src={goalSummary.image} $md={breakpoint.md} />
             </StyledCol>
           ) : null}
-          <StyledCol
-            md={24}
-            lg={goalSummary.image ? 12 : 24}
-          >
+          <StyledCol md={24} lg={goalSummary.image ? 12 : 24}>
             <GoalText>
               {goalSummary.headlines.map((headline, i) => (
                 <li key={i}>{headline}</li>
