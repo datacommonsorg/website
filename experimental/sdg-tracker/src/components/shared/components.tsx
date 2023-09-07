@@ -135,7 +135,7 @@ export const SearchBar: React.FC<{
 };
 
 export const MainLayoutContent = styled(Layout.Content)`
-  padding: 0 24px 24px;
+  padding: 0 24px 16px;
 `;
 
 /**
