@@ -516,15 +516,38 @@ const ChartCategoryContent: React.FC<{
       ) : null}
 
       <ChartContentBody>
-        {sdgTopic && isGoal && <BulletTile goal={goalText} />}
         {indicator && <HeadlineTile indicator={indicator} />}
         {tiles.map((tile, i) => (
-          <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
+          <ChartTile
+            key={i}
+            placeDcid={placeDcid}
+            tile={tile}
+          />
         ))}
       </ChartContentBody>
     </ContentCard>
   );
 };
+
+const HeadlineContainer = styled.div`
+  background-color: rgba(250, 0, 49, 0.05);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+`;
+
+const HeadlineText = styled.div`
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #444746;
+`;
+
+const HeadlineLink = styled.div`
+  margin-left: auto;
+  width: fit-content;
+`;
 
 const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
   indicator,
@@ -533,26 +556,12 @@ const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
     return <></>;
   }
   return (
-    <datacommons-text link={indicator.link}>
-      <div slot="text">{indicator.headline}</div>
-    </datacommons-text>
-  );
-};
-
-const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
-  if (!goal) {
-    return <></>;
-  }
-  return (
-    <datacommons-text>
-      <div slot="text">
-        <ul>
-          {goal.headlines.map((point: string, i: number) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </datacommons-text>
+    <HeadlineContainer>
+      <HeadlineText>{indicator.headline}</HeadlineText>
+      <HeadlineLink>
+        <a href={indicator.link}>Read more</a>
+      </HeadlineLink>
+    </HeadlineContainer>
   );
 };
 
@@ -672,7 +681,10 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
+    <div
+      ref={ref}
+      style={{ minHeight: !loaded ? height : undefined }}
+    >
       {loaded && component}
     </div>
   );
