@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-.branding-link-container {
-    display: flex;
-    flex-direction: row;
-    font-weight: 500;
-    flex-shrink: 0;
-}
+import styled from "styled-components";
 
-.branding-link-container a {
-    display: flex;
-    align-items: center;
-    color: #151515;
-    text-decoration: none;
-}
-
-.branding-link-container img {
-    width: 100px;
-    align-self: flex-end;
-    margin-left: 0.5rem;
-}
+/**
+ * Styling for a section on the homepage.
+ */
+export const HomeSection = styled.div`
+  padding: 112px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  flex-shrink: 0;
+`

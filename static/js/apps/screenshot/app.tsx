@@ -49,6 +49,7 @@ export function App(props: {
 interface ItemData {
   diff?: string;
   base?: string;
+  new?: string;
   diffRatio?: number;
   error?: string;
 }
@@ -86,15 +87,22 @@ function Item(props: { blob1: string; blob2: string }): JSX.Element {
           </div>
           {data.diffRatio > DIFF_RATIO_THRESHOLD && (
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div>Base</div>
                 <img
                   className="screenshot-image col-md-12"
                   src={`data:image/png;base64,${data.base}`}
                 />
               </div>
-              <div className="col-md-6">
-                <div>Current - Base</div>
+              <div className="col-md-4">
+                <div>New</div>
+                <img
+                  className="screenshot-image col-md-12"
+                  src={`data:image/png;base64,${data.new}`}
+                />
+              </div>
+              <div className="col-md-4">
+                <div>New - Base</div>
                 <img
                   className="screenshot-image col-md-12"
                   src={`data:image/png;base64,${data.diff}`}

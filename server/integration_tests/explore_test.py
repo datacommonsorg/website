@@ -26,7 +26,7 @@ _TEST_MODE = os.environ['TEST_MODE']
 _TEST_DATA = 'test_data'
 
 
-class IntegrationTest(NLWebServerTestCase):
+class ExploreTest(NLWebServerTestCase):
 
   def run_fulfillment(self, test_dir, req_json, failure=''):
     resp = requests.post(self.get_server_url() + '/api/explore/fulfill',

@@ -14,30 +14,44 @@
  * limitations under the License.
  */
 
-import { CaretDownOutlined, LoadingOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Layout, Spin } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Layout, Spin } from "antd";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
+
+import { useStoreActions, useStoreState } from "../../state";
 import {
-  GoalText,
-  IndicatorTags,
-  useStoreActions,
-  useStoreState,
-} from "../../state";
-import {
-  QUERY_PARAM_VARIABLE,
+  EARTH_PLACE_DCID,
   ROOT_TOPIC,
   WEB_API_ENDPOINT,
 } from "../../utils/constants";
+
 import {
   ChartConfigCategory,
   ChartConfigTile,
   FulfillResponse,
-  RelatedTopic,
+  VarToTopicMapping,
 } from "../../utils/types";
-import { SearchBar } from "../layout/components";
+
+import {
+  ContentCard,
+  ContentCardBody,
+  ContentCardHeader,
+  CountrySelect,
+  Divider,
+  HeadlineTile,
+  MainLayoutContent,
+  PlaceHeaderCard,
+  SearchBar,
+  TargetHeader,
+} from "../shared/components";
+import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
+import GoalOverview from "../shared/goals/GoalOverview";
+
+import _ from "lodash";
+import { useLocation } from "react-router";
+import { theme } from "../../utils/theme";
 
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
@@ -61,66 +75,6 @@ const SearchCard = styled.div`
   box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
     0px 1px 22px rgba(3, 7, 18, 0.06);
 `;
-const ChartContentHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  img {
-    width: 5rem;
-    height: 5rem;
-    margin-right: 2rem;
-    border-radius: 1rem;
-  }
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 0.25rem;
-  }
-`;
-const ChartContentBody = styled.div`
-  h3 {
-    font-size: 2.5rem;
-    font-weight: 300;
-  }
-`;
-const ContentCard = styled.div`
-  margin: 0 0 1rem;
-  padding: 24px;
-  background: white;
-  border-radius: 1rem;
-`;
-const PlaceChipsContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  padding: 0 24px;
-  margin: 0 0 1rem;
-`;
-const PlaceChip = styled.div<{ selected?: boolean }>`
-  padding: 0.25rem 0.75rem;
-  border-radius: 2rem;
-  background: white;
-  border: 1px solid #e9e9e9;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  svg {
-    margin-left: 0.25rem;
-  }
-  ${(p) =>
-    p.selected
-      ? `background: #e1e1e1;
-    border: 1px solid #dcdcdc;`
-      : null}
-
-  &:hover {
-    background: #e1e1e1;
-    border: 1px solid #dcdcdc;
-  }
-`;
 
 const PlaceTitle = styled.div`
   display: flex;
@@ -131,6 +85,13 @@ const PlaceTitle = styled.div`
   padding: 0rem 24px;
   margin: 1rem 0 0;
   flex-wrap: wrap;
+`;
+
+const ChartContentBody = styled.div`
+  h3 {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
 `;
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
@@ -146,20 +107,6 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
     />
   );
 };
-const StyledBreadcrumb = styled(Breadcrumb)`
-  margin: 16px 0;
-  padding: 0 24px;
-  li {
-    display: flex;
-  }
-  .ant-breadcrumb-link a {
-    display: block;
-    max-width: 400px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-`;
 
 const CountriesContent: React.FC<{
   hidePlaceSearch?: boolean;
@@ -178,6 +125,7 @@ const CountriesContent: React.FC<{
   setPlaceDcid,
   variableDcids,
 }) => {
+  const rootTopics = useStoreState((s) => s.rootTopics);
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
@@ -192,35 +140,12 @@ const CountriesContent: React.FC<{
     }
     return undefined;
   });
-  const topics = useStoreState((s) =>
-    variableDcids
-      .filter((dcid) => dcid in s.topics.byDcid)
-      .map((dcid) => s.topics.byDcid[dcid])
-  );
 
-  const parentVariables = useStoreState((s) => {
-    const parentDcids: string[] = [];
-    if (topics.length !== 1) {
-      return [];
-    }
-    let currentVariableDcid = variableDcids[0];
-    const BREADCRUMB_LIMIT = 10;
-    let breadcrumbIndex = 0;
-    while (currentVariableDcid !== ROOT_TOPIC) {
-      // This avoids the possibility of an infinite loop
-      breadcrumbIndex++;
-      if (breadcrumbIndex > BREADCRUMB_LIMIT) {
-        break;
-      }
-      if (!(currentVariableDcid in s.topics.byDcid)) {
-        break;
-      }
-      currentVariableDcid = s.topics.byDcid[currentVariableDcid].parentDcids[0];
-      parentDcids.unshift(currentVariableDcid);
-    }
-    return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
-  });
+  // Determine if we're in the search pages.
+  // Used to hide PageHeaderCard if we're showing search results
   const location = useLocation();
+  const isSearch = location.pathname.includes("/search");
+
   /**
    * Fetch page content
    */
@@ -247,6 +172,42 @@ const CountriesContent: React.FC<{
     })();
   }, [placeDcid, variableDcids]);
 
+  if (
+    variableDcids.length > 0 &&
+    variableDcids[0] === ROOT_TOPIC &&
+    placeDcid === EARTH_PLACE_DCID
+  ) {
+    return (
+      <Layout style={{ height: "100%", flexGrow: 1 }}>
+        <Layout.Content style={{ padding: "0rem 0" }}>
+          <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
+            <div>
+              {placeName ? (
+                placeName
+              ) : placeDcid ? (
+                <Spinner />
+              ) : (
+                "Select a country"
+              )}
+            </div>
+            {!hidePlaceSearch && (
+              <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
+            )}
+          </PlaceTitle>
+          <AllGoalsOverview />
+          {rootTopics.map((_, topicIndex) => (
+            <MainLayoutContent key={topicIndex}>
+              <GoalOverview
+                goalNumber={topicIndex + 1}
+                showExploreLink={true}
+              />
+            </MainLayoutContent>
+          ))}
+        </Layout.Content>
+      </Layout>
+    );
+  }
+
   return (
     <Layout style={{ height: "100%", flexGrow: 1 }}>
       <Layout.Content style={{ padding: "0rem 0" }}>
@@ -264,7 +225,7 @@ const CountriesContent: React.FC<{
           </SearchCard>
         )}
 
-        <PlaceTitle>
+        <PlaceTitle style={{ display: "none" }}>
           <div>
             {placeName ? (
               placeName
@@ -278,33 +239,18 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
-        <StyledBreadcrumb>
-          {[...parentVariables, ...(topics.length === 1 ? topics : [])]
-            .filter((v) => v)
-            .map((v, i) => {
-              const searchParams = new URLSearchParams(location.search);
-              searchParams.set(QUERY_PARAM_VARIABLE, v.dcid);
-              return (
-                <Breadcrumb.Item key={i}>
-                  <Link
-                    to={"/countries?" + searchParams.toString()}
-                    title={v.name}
-                  >
-                    {v.name}
-                  </Link>
-                </Breadcrumb.Item>
-              );
-            })}
-        </StyledBreadcrumb>
-        <div style={{ display: "none" }}>
-          <PlaceChips
-            includeWorld={false}
-            includeRegions={false}
-            selectedPlaceDcid={placeDcid}
-            setSelectedPlaceDcid={setPlaceDcid}
-          />
-        </div>
-        <Layout.Content style={{ padding: "0 24px 24px" }}>
+
+        {!isSearch && (
+          <Layout.Content style={{ padding: "0 24px 24px" }}>
+            <PlaceHeaderCard
+              currentPlaceName={placeName}
+              hidePlaceSearch={hidePlaceSearch}
+              setSelectedPlaceDcid={setPlaceDcid}
+              variableDcids={variableDcids}
+            />
+          </Layout.Content>
+        )}
+        <MainLayoutContent>
           {isFetchingFulfillment ? (
             <ContentCard>
               <Spinner />
@@ -316,108 +262,9 @@ const CountriesContent: React.FC<{
               selectedVariableDcids={variableDcids}
             />
           )}
-        </Layout.Content>
+        </MainLayoutContent>
       </Layout.Content>
     </Layout>
-  );
-};
-
-const PlaceChips: React.FC<{
-  includeWorld: boolean;
-  includeRegions: boolean;
-  selectedPlaceDcid?: string;
-  setSelectedPlaceDcid: (placeDcid: string) => void;
-}> = ({
-  includeWorld,
-  includeRegions,
-  selectedPlaceDcid,
-  setSelectedPlaceDcid,
-}) => {
-  const regions = useStoreState((s) =>
-    s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
-  );
-  return (
-    <PlaceChipsContainer>
-      <CountrySelect setSelectedPlaceDcid={setSelectedPlaceDcid} />
-      {includeRegions &&
-        regions
-          .filter((region) => (!includeWorld ? region.dcid !== "Earth" : true))
-          .map((region) => (
-            <PlaceChip
-              key={region.dcid}
-              selected={region.dcid === selectedPlaceDcid}
-              onClick={() => {
-                setSelectedPlaceDcid(region.dcid);
-              }}
-            >
-              {region.name}
-            </PlaceChip>
-          ))}
-    </PlaceChipsContainer>
-  );
-};
-
-const CountrySelectContainer = styled.div`
-  display: flex;
-  position: relative;
-  .ant-select-selector {
-    border-radius: 2rem !important;
-  }
-  svg {
-    position: absolute;
-    right: 0.8rem;
-    top: 0.8rem;
-    font-size: 1rem;
-  }
-`;
-const CountrySelectNoResults = styled.div`
-  padding: 5px 12px;
-`;
-const CountrySelect: React.FC<{
-  setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
-}> = ({ setSelectedPlaceDcid }) => {
-  const [isFocused, setIsFocused] = useState(false);
-  const countries = useStoreState((s) =>
-    s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
-  );
-
-  const [value, setValue] = useState("");
-
-  useEffect(() => {});
-
-  return (
-    <CountrySelectContainer>
-      <AutoComplete
-        size="large"
-        value={isFocused ? value : ""}
-        style={{ width: 225 }}
-        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
-        placeholder="Select country"
-        defaultActiveFirstOption={true}
-        notFoundContent={
-          <CountrySelectNoResults>No results found</CountrySelectNoResults>
-        }
-        filterOption={(inputValue, option) =>
-          option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-            -1 ||
-          option!.dcid.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-        }
-        onFocus={() => {
-          setIsFocused(true);
-        }}
-        onBlur={() => {
-          setIsFocused(false);
-        }}
-        onChange={(value, option) => {
-          setValue(value);
-          if ("dcid" in option) {
-            setSelectedPlaceDcid(option.dcid);
-            setValue("");
-          }
-        }}
-      />
-      <CaretDownOutlined />
-    </CountrySelectContainer>
   );
 };
 
@@ -444,14 +291,14 @@ const ChartContent: React.FC<{
   if (fulfillmentResponse.failure || fulfillmentResponse.userMessage) {
     return (
       <ContentCard>
-        <ChartContentHeader>
+        <ContentCardHeader>
           <div>
             <h3>No information found</h3>
           </div>
-        </ChartContentHeader>
-        <ChartContentBody>
+        </ContentCardHeader>
+        <ContentCardBody>
           {fulfillmentResponse.failure || fulfillmentResponse.userMessage}
-        </ChartContentBody>
+        </ContentCardBody>
       </ContentCard>
     );
   }
@@ -463,96 +310,159 @@ const ChartContent: React.FC<{
             key={i}
             placeDcid={placeDcid}
             chartConfigCategory={chartConfigCategory}
-            mainTopic={fulfillmentResponse.relatedThings.mainTopics[0]}
+            varToTopic={fulfillmentResponse.relatedThings.varToTopic}
           />
         ))}
     </>
   );
 };
 
+// Interfaces to define Goal -> Target -> Indicator -> Tiles[] mapping
+interface Indicators {
+  [key: string]: ChartConfigTile[];
+}
+interface Targets {
+  [key: string]: Indicators;
+}
+
+interface Goals {
+  [key: string]: Targets;
+}
+
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcid: string;
-  mainTopic: RelatedTopic;
-}> = ({ chartConfigCategory, placeDcid, mainTopic }) => {
-  const rootTopics = useStoreState((s) => s.rootTopics);
-  const goalSummaries = useStoreState((s) => s.goalSummaries);
-  const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
+  varToTopic: VarToTopicMapping;
+}> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
+  // stores hierarchy of Goals -> Target -> Indicator -> Tiles
+  const allGoals: Goals = {};
 
-  // get current goal, for displaying header and bullet point summaries
-  const goalMatches = mainTopic.dcid?.match(/dc\/topic\/sdg_(\d\d?)/);
-  const isGoal = /^dc\/topic\/sdg_(\d\d?)$/.test(mainTopic.dcid);
-  const goalId = goalMatches && goalMatches.length > 1 ? goalMatches[1] : -1;
-  const goalText = goalSummaries.byGoal[goalId];
-  const rootTopicIndex = Number(goalId) > 0 ? Number(goalId) - 1 : -1;
-  const sdgTopic = rootTopicIndex !== -1 ? rootTopics[rootTopicIndex] : null;
-
-  // get current indicator, for displaying headlines for the current indicator
-  const indicatorMatches = mainTopic.dcid?.match(
-    /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
-  );
-  const indicatorId =
-    indicatorMatches && indicatorMatches.length > 1 ? indicatorMatches[1] : "";
-  const indicator = indicatorHeadlines.byIndicator[indicatorId];
-
-  const tiles: ChartConfigTile[] = [];
+  // iterate over tiles nested in chartConfigCategory
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
-        tiles.push(tile);
+        // Find which goal, target, and indicator this tile belongs to
+        const topicDcid = !_.isEmpty(tile.statVarKey)
+          ? varToTopic[tile.statVarKey[0]].dcid
+          : "";
+        const indicatorMatches = topicDcid.match(
+          /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+        );
+        const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
+        const goalMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?)/);
+        const indicator =
+          indicatorMatches && indicatorMatches.length > 1
+            ? indicatorMatches[1]
+            : "none";
+        const target =
+          targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
+        const goal =
+          goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
+
+        // put tile in appropriate spot in allGoals
+        if (goal in allGoals) {
+          if (target in allGoals[goal]) {
+            if (indicator in allGoals[goal][target]) {
+              allGoals[goal][target][indicator].push(tile);
+            } else {
+              allGoals[goal][target][indicator] = [tile];
+            }
+          } else {
+            allGoals[goal][target] = {};
+            allGoals[goal][target][indicator] = [tile];
+          }
+        } else {
+          allGoals[goal] = {};
+          allGoals[goal][target] = {};
+          allGoals[goal][target][indicator] = [tile];
+        }
       });
     });
   });
   return (
-    <ContentCard>
-      {sdgTopic ? (
-        <ChartContentHeader>
-          <img src={sdgTopic.iconUrl} />
-          <div>
-            <h3>{sdgTopic.name}</h3>
-            <div>{sdgTopic.description}</div>
-          </div>
-        </ChartContentHeader>
-      ) : null}
+    <>
+      {Object.keys(allGoals).map((goal, i) => {
+        return (
+          <ChartGoalBlock
+            key={i}
+            placeDcid={placeDcid}
+            goal={goal}
+            targetData={allGoals[goal]}
+          />
+        );
+      })}
+    </>
+  );
+};
 
-      <ChartContentBody>
-        {sdgTopic && isGoal && <BulletTile goal={goalText} />}
-        {indicator && <HeadlineTile indicator={indicator} />}
-        {tiles.map((tile, i) => (
-          <ChartTile key={i} placeDcid={placeDcid} tile={tile} />
-        ))}
-      </ChartContentBody>
+// Displays all cards associated with a goal, along with goal's overview tile
+const ChartGoalBlock: React.FC<{
+  placeDcid: string;
+  goal: string;
+  targetData: Targets;
+}> = ({ placeDcid, goal, targetData }) => {
+  return (
+    <>
+      <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
+      {Object.keys(targetData).map((target, i) => {
+        return (
+          <ChartTargetBlock
+            key={`${goal}-${i}`}
+            placeDcid={placeDcid}
+            target={target}
+            indicatorData={targetData[target]}
+          />
+        );
+      })}
+    </>
+  );
+};
+
+// Displays the card associated with a target, along with target's header
+const ChartTargetBlock: React.FC<{
+  placeDcid: string;
+  target: string;
+  indicatorData: Indicators;
+}> = ({ placeDcid, target, indicatorData }) => {
+  const goalNumber = Number(target.split(".")[0]) || 1;
+  const color = theme.sdgColors[goalNumber - 1];
+  return (
+    <ContentCard>
+      <TargetHeader color={color} target={target} />
+      <Divider color={color} />
+      {Object.keys(indicatorData).map((indicator, i) => {
+        return (
+          <ChartIndicatorBlock
+            key={`${target}=${i}`}
+            indicator={indicator}
+            placeDcid={placeDcid}
+            tiles={indicatorData[indicator]}
+          />
+        );
+      })}
     </ContentCard>
   );
 };
 
-const HeadlineTile: React.FC<{ indicator: IndicatorTags | null }> = ({
-  indicator,
-}) => {
-  if (!indicator) {
-    return <></>;
-  }
+// Displays the tiles associated with a single indicator
+const ChartIndicatorBlock: React.FC<{
+  indicator: string;
+  placeDcid: string;
+  tiles: ChartConfigTile[];
+}> = ({ indicator, placeDcid, tiles }) => {
+  const goalNumber = Number(indicator.split(".")[0]) || 1;
+  const color = theme.sdgColors[goalNumber - 1];
   return (
-    <datacommons-text link={indicator.link}>
-      <div slot="text">{indicator.headline}</div>
-    </datacommons-text>
-  );
-};
-
-const BulletTile: React.FC<{ goal: GoalText | null }> = ({ goal }) => {
-  if (!goal) {
-    return <></>;
-  }
-  return (
-    <datacommons-text>
-      <div slot="text">
-        <ul>
-          {goal.headlines.map((point: string, i: number) => (
-            <li key={i}>{point}</li>
-          ))}
-        </ul>
-      </div>
-    </datacommons-text>
+    <ChartContentBody>
+      <HeadlineTile backgroundColor={color} indicator={indicator} />
+      {tiles.map((tile, i) => (
+        <ChartTile
+          key={`${indicator}-${i}`}
+          placeDcid={placeDcid}
+          tile={tile}
+        />
+      ))}
+    </ChartContentBody>
   );
 };
 
