@@ -42,7 +42,9 @@ import {
   HeadlineTile,
   MainLayoutContent,
   PlaceHeaderCard,
+  RedDivider,
   SearchBar,
+  TargetHeader,
 } from "../shared/components";
 import AllGoalsOverview from "../shared/goals/AllGoalsOverview";
 import GoalOverview from "../shared/goals/GoalOverview";
@@ -384,7 +386,8 @@ const ChartTargetBlock: React.FC<{
   console.log("Entered Chart Target Block");
   return (
     <ContentCard>
-      <h3>{target}</h3>
+      <TargetHeader target={target} />
+      <RedDivider />
       {Object.keys(indicatorData).map((indicator) => {
         console.log(indicator);
         console.log(indicatorData[indicator]);

@@ -395,7 +395,6 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
 
   const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
   const headlineData = indicatorHeadlines.byIndicator[indicator];
-  console.log(headlineData)
 
   if (!headlineData) {
     return <></>;
@@ -409,3 +408,46 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
     </HeadlineContainer>
   );
 };
+
+// Header for a target
+const TargetIdBox = styled.div`
+  border-radius: 4px;
+  border: 2px solid #FA0031;
+  color: #FA0031;
+  padding: 2px;
+  width: 72px;
+  height: 72px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+
+`;
+
+const TargetText = styled.div`
+  color: #444746;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  margin-top: 24px;
+`;
+
+export const TargetHeader: React.FC<{ target: string}> = ({
+  target,
+}) => {
+  return (
+    <>
+      <TargetIdBox>{target}</TargetIdBox>
+      <TargetText>Lorem Ipsum</TargetText>
+    </>
+  );
+};
+
+// Red Dividing line
+export const RedDivider = styled.div`
+  border: 1px solid #FA0031;
+  margin: 40px -24px 40px -24px;
+`;
