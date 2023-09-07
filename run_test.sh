@@ -97,6 +97,10 @@ function run_npm_build () {
     npm run-script dev-build
   fi
   cd ..
+  cd experimental/sdg-tracker
+  npm install
+  npm run-script build
+  cd ..
 }
 
 # Run test and check lint for Python code.
