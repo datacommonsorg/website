@@ -20,7 +20,7 @@ import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import "./components.css";
-import { IndicatorTags, useStoreState } from "../../state";
+import { useStoreState } from "../../state";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import { QUERY_PARAM_VARIABLE, ROOT_TOPIC } from "../../utils/constants";
@@ -261,7 +261,7 @@ const PlaceCardContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin: 40px;
+  margin: 24px;
 `;
 
 const PlaceTitle = styled.div`
@@ -392,7 +392,6 @@ const HeadlineLink = styled.div`
 export const HeadlineTile: React.FC<{ indicator: string }> = ({
   indicator,
 }) => {
-
   const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
   const headlineData = indicatorHeadlines.byIndicator[indicator];
 
@@ -412,8 +411,8 @@ export const HeadlineTile: React.FC<{ indicator: string }> = ({
 // Header for a target
 const TargetIdBox = styled.div`
   border-radius: 16px;
-  border: 2px solid #FA0031;
-  color: #FA0031;
+  border: 2px solid #fa0031;
+  color: #fa0031;
   padding: 2px;
   width: 72px;
   height: 72px;
@@ -423,7 +422,6 @@ const TargetIdBox = styled.div`
   font-size: 24px;
   font-weight: 400;
   line-height: 40px;
-
 `;
 
 const TargetText = styled.div`
@@ -435,10 +433,7 @@ const TargetText = styled.div`
   margin-top: 24px;
 `;
 
-export const TargetHeader: React.FC<{ target: string}> = ({
-  target,
-}) => {
-  
+export const TargetHeader: React.FC<{ target: string }> = ({ target }) => {
   const targetDescriptions = useStoreState((s) => s.targetText);
   const targetText = targetDescriptions.byTarget[target];
 
@@ -452,6 +447,6 @@ export const TargetHeader: React.FC<{ target: string}> = ({
 
 // Red Dividing line under target headers
 export const RedDivider = styled.div`
-  border: 1px solid #FA0031;
+  border: 1px solid #fa0031;
   margin: 40px -24px 40px -24px;
 `;
