@@ -196,9 +196,8 @@ const CountriesContent: React.FC<{
           </PlaceTitle>
           <AllGoalsOverview />
           {rootTopics.map((_, topicIndex) => (
-            <MainLayoutContent>
+            <MainLayoutContent key={topicIndex}>
               <GoalOverview
-                key={topicIndex}
                 goalNumber={topicIndex + 1}
                 showExploreLink={true}
               />
@@ -404,10 +403,7 @@ const ChartGoalBlock: React.FC<{
 }> = ({ placeDcid, goal, targetData }) => {
   return (
     <>
-      <GoalOverview
-        goalNumber={Number(goal)}
-        showExploreLink={false}
-      />
+      <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
       {Object.keys(targetData).map((target, i) => {
         return (
           <ChartTargetBlock
@@ -454,9 +450,11 @@ const ChartIndicatorBlock: React.FC<{
   placeDcid: string;
   tiles: ChartConfigTile[];
 }> = ({ indicator, placeDcid, tiles }) => {
+  const goalNumber = Number(indicator.split(".")[0]) || 1;
+  const color = theme.sdgColors[goalNumber - 1];
   return (
     <ChartContentBody>
-      <HeadlineTile indicator={indicator} />
+      <HeadlineTile backgroundColor={color} indicator={indicator} />
       {tiles.map((tile, i) => (
         <ChartTile
           key={`${indicator}-${i}`}

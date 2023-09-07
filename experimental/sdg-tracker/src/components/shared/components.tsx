@@ -16,7 +16,8 @@
 
 import { gray } from "@ant-design/colors";
 import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
-import { AutoComplete, Breadcrumb, Input, Layout, Spin } from "antd";
+import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
+import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -372,19 +373,31 @@ export const PlaceHeaderCard: React.FC<{
 };
 
 // Headline callouts for each of the indicators
-const HeadlineContainer = styled.div`
-  background-color: rgba(250, 0, 49, 0.05);
-  border-radius: 16px;
+const HeadlineContainer = styled.div<{ $backgroundColor: string }>`
+  background-color: ${(p) => {
+    const rgb = parseToRgb(p.$backgroundColor);
+    return `rgba(${rgb.red}, ${rgb.green}, ${rgb.blue}, 0.1);`;
+  }};
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
   padding: 16px;
 `;
 
 const HeadlineText = styled.div`
+  color: #444746;
   font-size: 22px;
   font-weight: 400;
   line-height: 28px;
-  color: #444746;
+  margin-bottom: 1rem;
+`;
+
+const HeadlineImage = styled.img`
+  box-shadow: 0px 0px 6px rgba(3, 7, 18, 0.03),
+    0px 1px 14px rgba(3, 7, 18, 0.05);
+  padding: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const HeadlineLink = styled.div`
@@ -392,18 +405,32 @@ const HeadlineLink = styled.div`
   width: fit-content;
 `;
 
-export const HeadlineTile: React.FC<{ indicator: string }> = ({
-  indicator,
-}) => {
+export const HeadlineTile: React.FC<{
+  backgroundColor: string;
+  indicator: string;
+}> = ({ backgroundColor, indicator }) => {
   const indicatorHeadlines = useStoreState((s) => s.indicatorHeadlines);
   const headlineData = indicatorHeadlines.byIndicator[indicator];
 
   if (!headlineData) {
     return <></>;
   }
+  const textSpanSize = headlineData.images.length === 1 ? 12 : 24;
   return (
-    <HeadlineContainer>
-      <HeadlineText>{headlineData.headline}</HeadlineText>
+    <HeadlineContainer $backgroundColor={backgroundColor}>
+      <Row gutter={16}>
+        {headlineData.headline && (
+          <Col xs={24} sm={24} md={24} lg={24} xl={textSpanSize}>
+            <HeadlineText>{headlineData.headline}</HeadlineText>
+          </Col>
+        )}
+
+        {headlineData.images.map((url, i) => (
+          <Col xs={24} sm={24} md={24} lg={24} xl={12} key={i}>
+            <HeadlineImage src={url} />
+          </Col>
+        ))}
+      </Row>
       <HeadlineLink>
         <a href={headlineData.link}>Read more</a>
       </HeadlineLink>

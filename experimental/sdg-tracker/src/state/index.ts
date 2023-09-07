@@ -75,6 +75,7 @@ export interface TargetText {
 export interface IndicatorTags {
   headline: string;
   link: string;
+  images: string[];
 }
 
 /**
