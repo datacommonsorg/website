@@ -90,6 +90,9 @@ export class DatacommonsLineComponent extends LitElement {
   // Optional: Regex used to process variable names
   // If provided, will only use the first case of the variable name that matches
   // this regex.
+  // For example, if the variableNameRegex is "(.*?)(?=:)", only the part before
+  // a ":" will be used for variable names. So "variable 1: test" will become
+  // "variable 1".
   @property()
   variableNameRegex!: string;
 
