@@ -331,7 +331,7 @@ const ChartContent: React.FC<{
             key={i}
             placeDcids={placeDcids}
             chartConfigCategory={chartConfigCategory}
-            varToTopic={fulfillmentResponse.relatedThings.varToTopic}
+            varToTopics={fulfillmentResponse.relatedThings.varToTopics}
           />
         ))}
     </>
@@ -353,8 +353,8 @@ interface Goals {
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcids: string[];
-  varToTopic: VarToTopicMapping;
-}> = ({ chartConfigCategory, placeDcids, varToTopic }) => {
+  varToTopics: VarToTopicMapping;
+}> = ({ chartConfigCategory, placeDcids, varToTopics }) => {
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
 
@@ -365,40 +365,56 @@ const ChartCategoryContent: React.FC<{
         if (tile.type === "PLACE_OVERVIEW") {
           return;
         }
-        // Find which goal, target, and indicator this tile belongs to
-        const topicDcid = !_.isEmpty(tile.statVarKey)
-          ? varToTopic[tile.statVarKey[0]].dcid
-          : "";
-        const indicatorMatches = topicDcid.match(
-          /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+        console.log(
+          "!!! tile.statVarKey=",
+          tile.statVarKey,
+          "tile.statVarKey[0]=",
+          tile.statVarKey,
+          "varToTopics=",
+          varToTopics
         );
-        const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
-        const goalMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?)/);
-        const indicator =
-          indicatorMatches && indicatorMatches.length > 1
-            ? indicatorMatches[1]
-            : "none";
-        const target =
-          targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
-        const goal =
-          goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
+        if (
+          !_.isEmpty(tile.statVarKey) &&
+          !_.isEmpty(varToTopics[tile.statVarKey[0]])
+        ) {
+          for (const topic of varToTopics[tile.statVarKey[0]]) {
+            // Find which goal, target, and indicator this tile belongs to
+            const indicatorMatches = topic.dcid.match(
+              /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+            );
+            const targetMatches = topic.dcid.match(
+              /dc\/topic\/sdg_(\d\d?\.\w\w?)/
+            );
+            const goalMatches = topic.dcid.match(/dc\/topic\/sdg_(\d\d?)/);
+            const indicator =
+              indicatorMatches && indicatorMatches.length > 1
+                ? indicatorMatches[1]
+                : "none";
+            const target =
+              targetMatches && targetMatches.length > 1
+                ? targetMatches[1]
+                : "none";
+            const goal =
+              goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
 
-        // put tile in appropriate spot in allGoals
-        if (goal in allGoals) {
-          if (target in allGoals[goal]) {
-            if (indicator in allGoals[goal][target]) {
-              allGoals[goal][target][indicator].push(tile);
+            // put tile in appropriate spot in allGoals
+            if (goal in allGoals) {
+              if (target in allGoals[goal]) {
+                if (indicator in allGoals[goal][target]) {
+                  allGoals[goal][target][indicator].push(tile);
+                } else {
+                  allGoals[goal][target][indicator] = [tile];
+                }
+              } else {
+                allGoals[goal][target] = {};
+                allGoals[goal][target][indicator] = [tile];
+              }
             } else {
+              allGoals[goal] = {};
+              allGoals[goal][target] = {};
               allGoals[goal][target][indicator] = [tile];
             }
-          } else {
-            allGoals[goal][target] = {};
-            allGoals[goal][target][indicator] = [tile];
           }
-        } else {
-          allGoals[goal] = {};
-          allGoals[goal][target] = {};
-          allGoals[goal][target][indicator] = [tile];
         }
       });
     });
