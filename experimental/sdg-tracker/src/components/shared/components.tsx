@@ -184,7 +184,7 @@ export const ContentCardBody = styled.div`
 `;
 
 // Country selection dropdown
-const CountrySelectContainer = styled.div<{width: string}>`
+const CountrySelectContainer = styled.div<{ width: string }>`
   display: flex;
   position: relative;
   width: ${(p) => p.width};
@@ -217,8 +217,10 @@ export const CountrySelect: React.FC<{
   const regions = useStoreState((s) =>
     s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
   );
-  const options = [countries, regions].flat().map((place) => ({ value: place.name, dcid: place.dcid }))
-  const containerWidth =  style && style.width ? style.width : "fit-content";
+  const options = [countries, regions]
+    .flat()
+    .map((place) => ({ value: place.name, dcid: place.dcid }));
+  const containerWidth = style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
   useEffect(() => {});
@@ -298,17 +300,25 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
+const UserMessage = styled.div`
+  border: 1px solid #e3e3e3;
+  border-radius: 0.5rem;
+  padding: 16px 24px;
+`;
+
 export const PlaceHeaderCard: React.FC<{
   placeNames: string[];
   hideBreadcrumbs?: boolean;
   hidePlaceSearch?: boolean;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+  userMessage?: string;
   variableDcids: string[];
 }> = ({
   placeNames,
   hideBreadcrumbs,
   hidePlaceSearch,
   setSelectedPlaceDcid,
+  userMessage,
   variableDcids,
 }) => {
   // get breadcrumbs from current location
@@ -345,6 +355,7 @@ export const PlaceHeaderCard: React.FC<{
   return (
     <PlaceCard>
       <PlaceCardContent>
+        {userMessage && <UserMessage>{userMessage}</UserMessage>}
         {hidePlaceSearch ? (
           <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>
         ) : (

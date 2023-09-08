@@ -276,16 +276,16 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
-        {userMessage && <UserMessage message={userMessage} />}
-        {errorMessage && <UserMessage message={errorMessage} />}
+        {errorMessage && <ErorrMessage message={errorMessage} />}
 
-        {placeNames.length > 0 && (
+        {(placeNames.length > 0 || userMessage) && (
           <Layout.Content style={{ padding: "0 24px 24px" }}>
             <PlaceHeaderCard
               placeNames={placeNames}
               hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
               setSelectedPlaceDcid={setPlaceDcid}
+              userMessage={userMessage}
               variableDcids={variableDcids}
             />
           </Layout.Content>
@@ -659,14 +659,14 @@ const ChartTile: React.FC<{
   );
 };
 
-const UserMessageText = styled.div<{ error?: boolean }>`
+const ErorrMessageText = styled.div<{ error?: boolean }>`
   font-size: 18px;
 `;
-const UserMessage: React.FC<{ message: string }> = ({ message }) => {
+const ErorrMessage: React.FC<{ message: string }> = ({ message }) => {
   return (
     <MainLayoutContent>
       <ContentCard>
-        <UserMessageText>{message}</UserMessageText>
+        <ErorrMessageText>{message}</ErorrMessageText>
       </ContentCard>
     </MainLayoutContent>
   );
