@@ -20,17 +20,12 @@ import backgroundImg from "../../../public/images/datacommons/explore-background
 import searchIcon from "../../../public/images/datacommons/sdg-goals-icon.svg";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import { SearchBar } from "../shared/components";
+import { HomeSection } from "./components";
 
-const Container = styled.div`
-  font-family: Roboto;
+const Container = styled(HomeSection)`
   background-image: url(${backgroundImg});
   background-color: #005677;
-  height: 842px;
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 50px;
 
   h3 {
@@ -70,7 +65,7 @@ const SearchBarContainer = styled.div`
       height: 100%;
       border-radius: 67.5px;
       font-size: 32px;
-      padding-left: 53px;
+      padding-left: 40px;
       padding-right: 70px;
     }
   }

@@ -15,28 +15,16 @@
  */
 
 import styled from "styled-components";
-import { SDG_ICON_URL } from "../../../utils/constants";
-import {
-  ContentCard,
-  ContentCardHeader,
-  MainLayoutContent,
-} from "../components";
 
-const StyledContentCardHeader = styled(ContentCardHeader)`
-  margin-bottom: 0;
-`;
-
-const AllGoalsOverview = () => {
-  return (
-    <MainLayoutContent className="-dc-goal-overview -dc-goal-overview-all">
-      <ContentCard>
-        <StyledContentCardHeader>
-          <img src={SDG_ICON_URL} />
-          <h3>All Goals</h3>
-        </StyledContentCardHeader>
-      </ContentCard>
-    </MainLayoutContent>
-  );
-};
-
-export default AllGoalsOverview;
+/**
+ * Styling for a section on the homepage.
+ */
+export const HomeSection = styled.div`
+  padding: 112px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Roboto;
+  flex-shrink: 0;
+`
