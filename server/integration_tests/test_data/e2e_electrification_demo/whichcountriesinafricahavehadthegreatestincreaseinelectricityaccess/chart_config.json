@@ -503,13 +503,6 @@
           ]
         },
         {
-          "dcid": "country/IOT",
-          "name": "British Indian Ocean Territory",
-          "types": [
-            "Country"
-          ]
-        },
-        {
           "dcid": "country/KEN",
           "name": "Kenya",
           "types": [
@@ -673,6 +666,13 @@
         {
           "dcid": "country/STP",
           "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SWZ",
+          "name": "Eswatini",
           "types": [
             "Country"
           ]
