@@ -28,9 +28,8 @@ import { ItemList } from "./item_list";
 
 const DATA_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSf_kZ13bmzXvgEbim0OXeAVsTQYsIhN8_o9ekdbjKoeFjfvRA/viewform";
-// TODO: Consider switching to a different form.
 const LOW_CONFIDENCE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSc_xIinZPbO5RHDjq2a4eMoElkFgfe79U5DQ8-_kVhCNf2FJQ/viewform";
+  "https://docs.google.com/forms/d/e/1FAIpQLSfZw0M1xcwDLZYt0r1o9-KVsLZZINxNbTcgeBLrcPHTadsrgA/viewform";
 
 interface UserMessagePropType {
   userMessage: UserMessageInfo;
