@@ -49,10 +49,9 @@ class Entry:
 
 @dataclass
 class BadWords:
-  # The key is a word.  If the value is empty, then
-  # its a single word.  If it is non-empty then it is
-  # part of a multi-word filter where every other word
-  # must match!
+  # The key is a word.  It is either a singleton word,
+  # or the first word in a phrase, or the first sorted
+  # word in a multi-word (aka colon-delimited) entry.
   words: Dict[str, Entry]
 
 
