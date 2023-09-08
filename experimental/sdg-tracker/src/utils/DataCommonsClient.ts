@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { Place } from "../state";
 import { DetectRequest, FulfillResponse, FullfillRequest } from "./types";
 
 interface DatacommonsClientParams {
@@ -57,6 +58,31 @@ class DataCommonsClient {
       } as DetectRequest),
     });
     return (await response.json()) as FulfillResponse;
+  }
+
+  async getPlaces(placeTypes: string[]): Promise<Place[]> {
+    let url = `${this.apiRoot}/api/node/propvals/in?prop=typeOf`;
+    placeTypes.forEach((type) => {
+      url += `&dcids=${type}`;
+    })
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    const responseJson = await response.json();
+    const result: Place[] = [];
+    placeTypes.forEach((placeType) => {
+      const placeTypeResult = responseJson[placeType];
+      placeTypeResult.forEach((place: any) => {
+        if (!place || !place.dcid) {
+          return;
+        }
+        result.push({ dcid: place.dcid, name: place.name || place.dcid });
+      })
+    })
+    return result;
   }
 }
 export default DataCommonsClient;
