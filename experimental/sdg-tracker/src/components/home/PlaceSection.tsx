@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import styled from "styled-components";
 import { AutoComplete } from "antd";
-import backgroundImg from "../../../public/images/datacommons/place-background.png";
 import React, { useState } from "react";
-import { useStoreState } from "../../state";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import backgroundImg from "../../../public/images/datacommons/place-background.png";
+import { useStoreState } from "../../state";
 
 const Container = styled.div`
   font-family: Roboto;
@@ -26,7 +26,7 @@ const Container = styled.div`
   img {
     width: 100%;
   }
-`
+`;
 
 const PlaceContent = styled.div`
   background-image: url(${backgroundImg});
@@ -36,12 +36,12 @@ const PlaceContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const PlaceSearchContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #414042;
-  background: rgba(255, 255, 255, 0.90);
+  background: rgba(255, 255, 255, 0.9);
   box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.15);
   max-width: 702px;
   width: 90%;
@@ -54,7 +54,7 @@ const PlaceSearchContainer = styled.div`
   justify-content: center;
 
   .title {
-    color: #449BD5;
+    color: #449bd5;
     font-size: 34px;
     font-weight: 700;
     line-height: 47px;
@@ -83,7 +83,7 @@ const PlaceSearchContainer = styled.div`
       align-items: center;
       font-size: 24px;
       border-radius: 30px;
-  
+
       .ant-select-selection-search {
         height: 100%;
         display: flex;
@@ -102,7 +102,7 @@ const PlaceSearchContainer = styled.div`
       }
     }
   }
-`
+`;
 
 const PlaceSearch: React.FC = () => {
   const history = useHistory();
@@ -115,13 +115,14 @@ const PlaceSearch: React.FC = () => {
   return (
     <div className="search-bar-container">
       <AutoComplete
+        className="-dc-place-search"
         value={value}
         style={{
           width: "100%",
           borderRadius: "30px",
           border: "0.5px solid #414042",
           background: "#fff",
-          height: "63px"
+          height: "63px",
         }}
         options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
         placeholder="Select country"
@@ -146,15 +147,18 @@ const PlaceSearch: React.FC = () => {
 export const PlaceSection = () => {
   return (
     <Container>
-      <img src="/images/datacommons/sdg-color-bar.png"/>
+      <img src="/images/datacommons/sdg-color-bar.png" />
       <PlaceContent>
         <PlaceSearchContainer>
           <div className="title">Explore SDG Data by Countries</div>
           <PlaceSearch />
-          <div className="footer">Learn about country and SDG region progress through the UN Data Commons.</div>
+          <div className="footer">
+            Learn about country and SDG region progress through the UN Data
+            Commons.
+          </div>
         </PlaceSearchContainer>
       </PlaceContent>
-      <img src="/images/datacommons/sdg-color-bar.png"/>
+      <img src="/images/datacommons/sdg-color-bar.png" />
     </Container>
-  )
-}
+  );
+};

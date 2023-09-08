@@ -582,7 +582,11 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   }
 
   return (
-    <div ref={ref} style={{ minHeight: !loaded ? height : undefined }}>
+    <div
+      className={`-dc-chart-tile -dc-chart-tile-${tile.type}`}
+      ref={ref}
+      style={{ minHeight: !loaded ? height : undefined }}
+    >
       {loaded && component}
     </div>
   );
