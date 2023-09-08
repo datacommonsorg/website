@@ -245,22 +245,24 @@ const Search = () => {
     async (searchQuery?: string) => {
       setIsSearching(true);
       setErrorMessage("");
-      const responseObj = await dataCommonsClient.detect(searchQuery || query);
+      const fulfillResponse = await dataCommonsClient.detectAndFulfill(
+        searchQuery || query
+      );
       setIsSearching(false);
 
-      if (responseObj.failure) {
-        setErrorMessage(responseObj.failure);
+      if (fulfillResponse.failure || fulfillResponse.userMessage) {
+        setErrorMessage(fulfillResponse.failure || fulfillResponse.userMessage);
         setVariableDcids([]);
         setPlaceDcids([]);
+        return;
       }
-      setVariableDcids(responseObj.variables || []);
-      setPlaceDcids(responseObj.entities || []);
-      if (
-        !responseObj.variables ||
-        responseObj.variables.length === 0 ||
-        !responseObj.entities ||
-        responseObj.entities.length === 0
-      ) {
+
+      const variableDcids =
+        fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
+      const placesDcids = fulfillResponse?.places?.map((e) => e.dcid) || [];
+      setVariableDcids(variableDcids);
+      setPlaceDcids(placesDcids);
+      if (variableDcids.length === 0 || placesDcids.length === 0) {
         setErrorMessage(
           "Sorry, we couldn't find any data related to the place or topic you searched for. Please try another query."
         );
@@ -304,9 +306,9 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.general.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink to={`/search?q=${q.query}`}>
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>
@@ -319,11 +321,10 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.specific.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
                     <StyledLink
                       className={`-dc-search-example`}
-                      key={i}
                       to={`/search?q=${q.query}`}
                     >
                       {q.query}
@@ -338,9 +339,9 @@ const Search = () => {
               </StyledSubheader>
               <LinkGroup>
                 {QUERIES.comparison.map((q, i) => (
-                  <StyledLinkContainer>
+                  <StyledLinkContainer key={i}>
                     <IconSquare color={theme.sdgColors[q.goal - 1]} />
-                    <StyledLink key={i} to={`/search?q=${q.query}`}>
+                    <StyledLink to={`/search?q=${q.query}`}>
                       {q.query}
                     </StyledLink>
                   </StyledLinkContainer>

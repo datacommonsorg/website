@@ -109,27 +109,29 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
 };
 
 const CountriesContent: React.FC<{
+  fulfillResponse?: FulfillResponse;
   hidePlaceSearch?: boolean;
   onSearch?: (query: string) => void;
-  showNLSearch?: boolean;
-  variableDcids: string[];
   placeDcid?: string;
   query?: string;
   setPlaceDcid: (placeDcid: string) => void;
+  showNLSearch?: boolean;
+  variableDcids: string[];
 }> = ({
+  fulfillResponse,
   hidePlaceSearch,
-  showNLSearch,
   onSearch,
   placeDcid,
   query,
   setPlaceDcid,
+  showNLSearch,
   variableDcids,
 }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
   const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
-  const [fulfillmentResponse, setFulfillmentResponse] =
+  const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
   const placeName = useStoreState((s) => {
     if (placeDcid && placeDcid in s.countries.byDcid) {
@@ -150,6 +152,12 @@ const CountriesContent: React.FC<{
    * Fetch page content
    */
   useEffect(() => {
+    // If a fulfill response was passed in, use that
+    if (fulfillResponse) {
+      setLocalFulfillResponse(fulfillResponse);
+      return;
+    }
+    // Otherwise fetch a fulfill response based on the
     if (!variableDcids || variableDcids.length === 0 || !placeDcid) {
       return;
     }
@@ -168,9 +176,9 @@ const CountriesContent: React.FC<{
         fulfillmentsById,
       });
       setIsFetchingFulfillment(false);
-      setFulfillmentResponse(fulfillment);
+      setLocalFulfillResponse(fulfillment);
     })();
-  }, [placeDcid, variableDcids]);
+  }, [fulfillResponse, placeDcid, variableDcids]);
 
   if (
     variableDcids.length > 0 &&
@@ -257,7 +265,7 @@ const CountriesContent: React.FC<{
             </ContentCard>
           ) : (
             <ChartContent
-              fulfillmentResponse={fulfillmentResponse}
+              fulfillmentResponse={localFulfillResponse}
               placeDcid={placeDcid}
               selectedVariableDcids={variableDcids}
             />

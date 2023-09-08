@@ -109,6 +109,7 @@ export interface FulfillResponse {
   debug: any; // Not currently used; define interface later if needed
   failure?: string;
   place: Place;
+  places: Place[];
   placeFallback: any; // Not currently used; define interface later if needed
   placeSource: FulfillmentResult;
   relatedThings: RelatedThings;
