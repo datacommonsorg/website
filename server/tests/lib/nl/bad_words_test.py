@@ -34,6 +34,10 @@ class TestBadWords(unittest.TestCase):
     self.assertFalse(bad_words.is_safe('is that a very bad word really', bw))
     self.assertFalse(
         bad_words.is_safe('is that a very good sentence really', bw))
+    # Another ordering of the words is fine.
+    self.assertTrue(bad_words.is_safe('bad word very', bw))
+    self.assertTrue(bad_words.is_safe('word bad very', bw))
+    self.assertTrue(bad_words.is_safe('very word bad', bw))
     # Subset of phrases should be fine
     self.assertTrue(bad_words.is_safe('that very bad story', bw))
     self.assertTrue(bad_words.is_safe('that bad word was epic', bw))

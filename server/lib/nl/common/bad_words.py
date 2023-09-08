@@ -25,18 +25,21 @@ _DELIM = ':'
 
 @dataclass
 class Entry:
-  # Set to true if this is a single word!
+  # Set to true if the key of the Entry is a single word.
   is_singleton: bool
 
-  # This entry has phrases.
+  # This entry has phrases beginning with the key of Entry.
+  # NOTE: These are full phrases including the word in the key,
+  # for convenience of matching.
   #
   # In case of "very bad dog", "very bad cow"
   # We will have: ["very bad dog", "very bad cow"]
   #
   phrases: List[str] = field(default_factory=list)
 
-  # This is a multi-word entry, with the other words.
-  # Each string is a word.
+  # This is a multi-word entry, where we must match every
+  # word (in any order) in the query.  When sorted, the first
+  # word is the key of Entry, and the remaining words are here.
   #
   # In case of "idiot:cat:bat", only if idiot, bat and cat
   # appear in the query (regardless of ordering),
@@ -76,7 +79,6 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BadWords:
 
       # Generally, be resilient to duplicates.  Only assert when `validate` is set.
       if _DELIM in line:
-        # NOTE: in this case words should not have spaces in them!
         words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
         if words[0] not in bad_words.words:
           bad_words.words[words[0]] = Entry(is_singleton=False)
@@ -94,7 +96,7 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BadWords:
         parts = line.split(' ', 1)
         if parts[0] not in bad_words.words:
           bad_words.words[parts[0]] = Entry(is_singleton=False)
-        bad_words.words[parts[0]].phrases.append(parts[1])
+        bad_words.words[parts[0]].phrases.append(line)
 
         if validate:
           for w in line.split():
