@@ -184,10 +184,10 @@ export const ContentCardBody = styled.div`
 `;
 
 // Country selection dropdown
-const CountrySelectContainer = styled.div`
+const CountrySelectContainer = styled.div<{width: string}>`
   display: flex;
   position: relative;
-  width: fit-content;
+  width: ${(p) => p.width};
   .ant-select-selector {
     border-radius: 2rem !important;
   }
@@ -208,25 +208,30 @@ const CountrySelectNoResults = styled.div`
 export const CountrySelect: React.FC<{
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
   currentPlaceName?: string;
-}> = ({ setSelectedPlaceDcid, currentPlaceName }) => {
+  style?: Record<string, string>;
+}> = ({ setSelectedPlaceDcid, currentPlaceName, style }) => {
   const [isFocused, setIsFocused] = useState(false);
   const countries = useStoreState((s) =>
     s.countries.dcids.map((dcid) => s.countries.byDcid[dcid])
   );
-
+  const regions = useStoreState((s) =>
+    s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
+  );
+  const options = [countries, regions].flat().map((place) => ({ value: place.name, dcid: place.dcid }))
+  const containerWidth =  style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
   useEffect(() => {});
 
   return (
-    <CountrySelectContainer>
+    <CountrySelectContainer width={containerWidth}>
       <AutoComplete
         className="-dc-place-search"
         size="large"
         value={isFocused ? value : ""}
-        style={{ width: 225 }}
-        options={countries.map((c) => ({ value: c.name, dcid: c.dcid }))}
-        placeholder={currentPlaceName || "Select a country"}
+        style={style || { width: 225 }}
+        options={options}
+        placeholder={currentPlaceName || "Select a country/region"}
         defaultActiveFirstOption={true}
         notFoundContent={
           <CountrySelectNoResults>No results found</CountrySelectNoResults>
