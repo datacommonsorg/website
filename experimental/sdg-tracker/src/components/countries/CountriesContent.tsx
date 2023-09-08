@@ -545,6 +545,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           header={tile.title}
           variables={tile.statVarKey.join(" ")}
           places={placeDcid}
+          variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
         />
       </>
     );

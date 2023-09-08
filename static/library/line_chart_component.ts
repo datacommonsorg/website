@@ -86,6 +86,15 @@ export class DatacommonsLineComponent extends LitElement {
   // Statistical variable DCIDs
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables!: Array<string>;
+  
+  // Optional: Regex used to process variable names
+  // If provided, will only use the first case of the variable name that matches
+  // this regex.
+  // For example, if the variableNameRegex is "(.*?)(?=:)", only the part before
+  // a ":" will be used for variable names. So "variable 1: test" will become
+  // "variable 1".
+  @property()
+  variableNameRegex!: string;
 
   render(): HTMLElement {
     const lineTileProps: LineTilePropType = {
@@ -110,6 +119,7 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
+      statVarNameRegex: this.variableNameRegex
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }
