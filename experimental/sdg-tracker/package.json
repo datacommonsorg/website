@@ -27,19 +27,14 @@
     "styled-components": "^6.0.6"
   },
   "devDependencies": {
-    "@types/react-dom": "^17.0.2",
     "@types/react": "^17.0.2",
+    "@types/react-dom": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
+    "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint": "^8.45.0",
-    "prettier": "^2.7.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
