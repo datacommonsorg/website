@@ -14,8 +14,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -51,8 +49,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -98,8 +94,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
@@ -128,7 +122,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
                       "country/MAR",
                       "country/KEN",
                       "country/GHA",
@@ -159,8 +152,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -196,8 +187,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -228,8 +217,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -264,8 +251,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -300,8 +285,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -336,8 +319,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -371,8 +352,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -414,8 +393,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -450,34 +427,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/GHA"
-                    ],
-                    "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block"
-                    ],
-                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -512,8 +461,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -548,8 +495,6 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "country/USA",
-                      "country/DEU",
                       "country/ETH",
                       "country/MAR",
                       "country/KEN",
@@ -572,6 +517,34 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Amount of Emissions: Manufacturing, Methane"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/ETH",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/MLI"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide"
           }
         ],
         "statVarSpec": {
@@ -606,6 +579,10 @@
           "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
+          },
+          "Annual_Emissions_CarbonDioxide_OpenBurningWaste_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Open Burning Waste, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_OpenBurningWaste"
           },
           "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
             "name": "CO\u2082 Emissions from Power Sector",
@@ -659,10 +636,6 @@
             "name": "Greenhouse Gas Emissions from Mineral Extraction",
             "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
           },
-          "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
-            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
-          },
           "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block": {
             "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
             "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
@@ -708,7 +681,7 @@
     ],
     "metadata": {
       "placeDcid": [
-        "country/USA"
+        "country/ETH"
       ]
     }
   },
@@ -716,23 +689,13 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/USA",
-    "name": "United States",
+    "dcid": "country/ETH",
+    "name": "Ethiopia",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
-    {
-      "dcid": "country/USA",
-      "name": "United States",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/DEU",
-      "name": "Germany",
-      "place_type": "Country"
-    },
     {
       "dcid": "country/ETH",
       "name": "Ethiopia",
@@ -772,6 +735,16 @@
       "dcid": "country/MLI",
       "name": "Mali",
       "place_type": "Country"
+    },
+    {
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SOM",
+      "name": "Somalia",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
@@ -810,14 +783,7 @@
       "Annual_Emissions_GreenhouseGas": {
         "emissionSource": [
           "Annual_Emissions_GreenhouseGas_Agriculture",
-          "Annual_Emissions_GreenhouseGas_AluminumProduction",
-          "Annual_Emissions_GreenhouseGas_BauxiteMining",
-          "Annual_Emissions_GreenhouseGas_BiologicalTreatmentOfSolidWasteAndBiogenic",
-          "Annual_Emissions_GreenhouseGas_CementProduction",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
           "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
-          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation",
-          "Annual_Emissions_GreenhouseGas_CopperMining",
           "Annual_Emissions_GreenhouseGas_CroplandFire",
           "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
           "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
@@ -827,12 +793,9 @@
           "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
-          "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
           "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
           "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
-          "Annual_Emissions_GreenhouseGas_IronMining",
           "Annual_Emissions_GreenhouseGas_ManagedSoils",
           "Annual_Emissions_GreenhouseGas_Manufacturing",
           "Annual_Emissions_GreenhouseGas_ManureManagement",
@@ -840,10 +803,8 @@
           "Annual_Emissions_GreenhouseGas_MaritimeTransport",
           "Annual_Emissions_GreenhouseGas_MineralExtraction",
           "Annual_Emissions_GreenhouseGas_OilAndGas",
-          "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
           "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
           "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
-          "Annual_Emissions_GreenhouseGas_PetroleumRefining",
           "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
           "Annual_Emissions_GreenhouseGas_RiceCultivation",
           "Annual_Emissions_GreenhouseGas_RockQuarry",
@@ -902,22 +863,8 @@
         ]
       },
       {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Energy",
         "name": "Energy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GreenJobs",
-        "name": "Green Jobs",
         "types": [
           "Topic"
         ]
@@ -945,6 +892,6 @@
       }
     ]
   },
-  "svSource": "PAST_QUERY",
+  "svSource": "CURRENT_QUERY",
   "userMessage": "See comparison based on places in the previous answer."
 }
