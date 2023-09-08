@@ -108,14 +108,7 @@ def build(state: PopulateState, config: Config) -> SubjectPageConfig:
 
     elif cspec.chart_type == ChartType.BAR_CHART:
       block = builder.new_chart(cspec)
-      if cspec.is_sdg:
-        # SDG never gets bar chart, only HIGHLIGHTs.
-        stat_var_spec_map = {}
-        for p in cspec.places:
-          for sv in cspec.svs:
-            stat_var_spec_map.update(
-                highlight.higlight_block(block.columns.add(), p, sv, sv2thing))
-      elif len(cspec.places) == 1 and len(cspec.svs) == 1:
+      if len(cspec.places) == 1 and len(cspec.svs) == 1:
         # Demote this to a highlight.
         stat_var_spec_map = highlight.higlight_block(block.columns.add(),
                                                      cspec.places[0],
