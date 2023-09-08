@@ -54,5 +54,35 @@ class TestBadWords(unittest.TestCase):
     self.assertTrue(bad_words.is_safe('my cat is named doly', bw))
     self.assertTrue(bad_words.is_safe('cat on the wall', bw))
 
+    # Multi words: Cross
+    # white and board are in the two cross sets.
+    self.assertFalse(bad_words.is_safe('white board is a nice tool', bw))
+    # black and chalk are in the two cross sets.
+    self.assertFalse(bad_words.is_safe('chalk is black it is not ok', bw))
+    # man and use are in the two cross sets.
+    self.assertFalse(bad_words.is_safe('man can use some help', bw))
+    # woman and abuse are in the two cross sets.
+    self.assertFalse(bad_words.is_safe('abuse of a woman is not ok', bw))
+    # child and abuse are in the two cross sets.
+    self.assertFalse(bad_words.is_safe('child abuse is terrible', bw))
+
+    # white and black are in the same cross set so should not trigger.
+    self.assertTrue(bad_words.is_safe('white black is a good tool', bw))
+    # chalk and board are in the same cross set so should not trigger.
+    self.assertTrue(bad_words.is_safe('i write on a chalk board', bw))
+    # man, woman and child are in the same cross set so should not trigger.
+    self.assertTrue(bad_words.is_safe('happy people: woman child man', bw))
+    # abuse and use are in the same cross set so should not trigger.
+    self.assertTrue(bad_words.is_safe('what use is abuse?', bw))
+
+    # three sets.
+    # rule: wording,word:two,second:three,third
+    self.assertFalse(bad_words.is_safe('first second and third wording', bw))
+    self.assertFalse(bad_words.is_safe('word which means two but three', bw))
+
+    # only hitting two of the three sets above.
+    self.assertTrue(bad_words.is_safe('first second and wording', bw))
+    self.assertTrue(bad_words.is_safe('word which means two but is one', bw))
+
   def test_validate_prod(self):
     bad_words.validate_bad_words()
