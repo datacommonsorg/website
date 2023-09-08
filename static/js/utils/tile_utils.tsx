@@ -102,10 +102,13 @@ export function getStatVarName(
  * in its spec, will try to query the name though an api call.
  * @param statVarSpecs specs of stat vars to get names for
  * @param apiRoot api root to use for api
+ * @param nameRegex If provided, only the first part of the name that matches
+ *        this regex will be returned as the stat var name.
  */
 export async function getStatVarNames(
   statVarSpec: StatVarSpec[],
-  apiRoot?: string
+  apiRoot?: string,
+  nameRegex?: string
 ): Promise<{ [key: string]: string }> {
   if (_.isEmpty(statVarSpec)) {
     return Promise.resolve({});
@@ -127,28 +130,44 @@ export async function getStatVarNames(
     }
   });
 
+  // Promise that returns an object where key is stat var dcid and value is name
+  let statVarNamesPromise;
   // If all names were provided by statVarSpec or stats_var_labels.json
   // skip propval api call
   if (_.isEmpty(statVarDcids)) {
-    return Promise.resolve(statVarNames);
-  }
-
-  try {
-    const resp = await axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
+    statVarNamesPromise = Promise.resolve(statVarNames);
+  } else {
+    statVarNamesPromise = axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
       params: {
         dcids: statVarDcids,
         prop: "name",
       },
       paramsSerializer: stringifyFn,
+    }).then((resp) => {
+      for (const statVar in resp.data) {
+        // If the api call can't find a name for the stat var (api returns []),
+        // default to using its dcid
+        statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+          ? statVar
+          : resp.data[statVar][0].value;
+      }
+      return statVarNames;
     });
-    for (const statVar in resp.data) {
-      // If the api call can't find a name for the stat var (api returns []),
-      // default to using its dcid
-      statVarNames[statVar] = _.isEmpty(resp.data[statVar])
-        ? statVar
-        : resp.data[statVar][0].value;
+  }
+
+  try {
+    const statVarNamesResult = await statVarNamesPromise;
+    // If there is a nameRegex, process the stat var names using it
+    if (nameRegex) {
+      const regex = new RegExp(nameRegex, "g");
+      Object.keys(statVarNamesResult).forEach((dcid) => {
+        // Use the first part of the stat var name that matches the regex.
+        const extractedName = statVarNamesResult[dcid].match(regex)?.shift();
+        // If no match, use the original stat var name.
+        statVarNamesResult[dcid] = extractedName || statVarNamesResult[dcid];
+      })
     }
-    return statVarNames;
+    return statVarNamesResult;
   } catch (error) {
     return await Promise.reject(error);
   }
