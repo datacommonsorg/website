@@ -26,8 +26,11 @@ import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
 
-const FORM_URL =
+const DATA_FORM_URL =
   "https://docs.google.com/forms/d/e/1FAIpQLSf_kZ13bmzXvgEbim0OXeAVsTQYsIhN8_o9ekdbjKoeFjfvRA/viewform";
+// TODO: Consider switching to a different form.
+const LOW_CONFIDENCE_FORM_URL =
+  "https://docs.google.com/forms/d/e/1FAIpQLSc_xIinZPbO5RHDjq2a4eMoElkFgfe79U5DQ8-_kVhCNf2FJQ/viewform";
 
 interface UserMessagePropType {
   userMessage: UserMessageInfo;
@@ -53,10 +56,16 @@ export function UserMessage(props: UserMessagePropType): JSX.Element {
         <span className="main-message">{props.userMessage.msg}</span>
         {props.userMessage.showForm && (
           <span className="sub-message">
-            <a href={FORM_URL}>Fill out this form</a> to add data to answer this
-            query.
+            <a href={DATA_FORM_URL}>Fill out this form</a> to add data to answer
+            this query.
           </span>
         )}
+        {!props.userMessage.showForm &&
+          props.userMessage.msg.includes("Low confidence") && (
+            <span className="sub-message">
+              <a href={LOW_CONFIDENCE_FORM_URL}>Flag inappropriate results</a>
+            </span>
+          )}
       </div>
       {!_.isEmpty(topicList) && <ItemList items={topicList} />}
     </div>
