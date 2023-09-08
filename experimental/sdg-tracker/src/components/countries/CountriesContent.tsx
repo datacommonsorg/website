@@ -518,6 +518,12 @@ const ChartTile: React.FC<{ placeDcids: string[]; tile: ChartConfigTile }> = ({
     return () => observer.disconnect();
   }, []);
 
+  if (placeDcids.length === 0) {
+    return null;
+  }
+
+  const placeDcid = placeDcids[0];
+
   let component = null;
   const height =
     tile.type === "HIGHLIGHT" ? HIGHLIGHT_CHART_HEIGHT : CHART_HEIGHT;
@@ -544,7 +550,7 @@ const ChartTile: React.FC<{ placeDcids: string[]; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tile.statVarKey.join(" ")}
-          place={placeDcids.length > 0 ? placeDcids[0] : ""}
+          place={placeDcid}
         />
       </>
     );
@@ -591,7 +597,7 @@ const ChartTile: React.FC<{ placeDcids: string[]; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tile.statVarKey.join(" ")}
-          place={placeDcids.join(" ")}
+          place={placeDcid}
           min="0"
           max="100"
         />
