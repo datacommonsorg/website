@@ -404,7 +404,12 @@ const ChartGoalBlock: React.FC<{
 }> = ({ placeDcid, goal, targetData }) => {
   return (
     <>
-      <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
+      {placeDcid === EARTH_PLACE_DCID && (
+        <GoalOverview
+          goalNumber={Number(goal)}
+          showExploreLink={false}
+        />
+      )}
       {Object.keys(targetData).map((target, i) => {
         return (
           <ChartTargetBlock
@@ -429,7 +434,10 @@ const ChartTargetBlock: React.FC<{
   const color = theme.sdgColors[goalNumber - 1];
   return (
     <ContentCard>
-      <TargetHeader color={color} target={target} />
+      <TargetHeader
+        color={color}
+        target={target}
+      />
       <Divider color={color} />
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
@@ -455,7 +463,12 @@ const ChartIndicatorBlock: React.FC<{
   const color = theme.sdgColors[goalNumber - 1];
   return (
     <ChartContentBody>
-      <HeadlineTile backgroundColor={color} indicator={indicator} />
+      {placeDcid === EARTH_PLACE_DCID && (
+        <HeadlineTile
+          backgroundColor={color}
+          indicator={indicator}
+        />
+      )}
       {tiles.map((tile, i) => (
         <ChartTile
           key={`${indicator}-${i}`}
@@ -532,6 +545,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           header={tile.title}
           variables={tile.statVarKey.join(" ")}
           places={placeDcid}
+          variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
         />
       </>
     );
