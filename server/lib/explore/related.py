@@ -16,7 +16,7 @@
 from dataclasses import dataclass
 import re
 import time
-from typing import cast, Dict, List
+from typing import cast, Dict, List, Set
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
@@ -100,7 +100,7 @@ def compute_related_things(state: ftypes.PopulateState,
       break
 
   if is_this_sdg:
-    _add_sdg_topics(state, related_things, dc)
+    _add_sdg_topics(state, related_things)
 
   if not is_this_sdg:
     related_things = prune_related_topics(related_things, state.uttr)
@@ -111,28 +111,49 @@ def compute_related_things(state: ftypes.PopulateState,
   return related_things
 
 
-def _add_sdg_topics(state: ftypes.PopulateState, related_things: Dict, dc: str):
+def _add_sdg_topics(state: ftypes.PopulateState, related_things: Dict):
   added_svs = set()
-  related_things['varToTopic'] = {}
+  related_things['varToTopics'] = {}
   for cspec in state.uttr.rankedCharts:
     cspec = cast(ftypes.ChartSpec, cspec)
     for sv in cspec.svs:
       if not utils.is_sv(sv) or sv in added_svs:
         continue
       added_svs.add(sv)
-      t = _get_sdg_topic(sv, dc)
-      if t:
-        related_things['varToTopic'][sv] = t
+      topics = get_sdg_ancestors(sv)
+      if topics:
+        related_things['varToTopics'][sv] = topics
 
 
-def _get_sdg_topic(t: str, dc: str) -> Dict:
-  ancestors = topic.get_ancestors(t, dc)
-  # The ancestors is sorted from child to root.
-  for a in ancestors:
-    # We only want to return Goal/Target/Indicator.
-    if re.match(r'^dc/topic/sdg_[1-9]', a['dcid']):
-      return a
-  return {}
+def _is_goal_target_indicator(dcid: str) -> bool:
+  # We only want to return Goal/Target/Indicator.
+  return re.match(r'^dc/topic/sdg_[1-9]', dcid)
+
+
+def _get_sdg_ancestors_recursive(topics: List[str], result: List[str],
+                                 added: Set[str]):
+  dc: str = DCNames.SDG_DC.value
+  next = set()
+  for t in topics:
+    for r in topic.get_parent_topics(t, dc):
+      dcid = r['dcid']
+      if _is_goal_target_indicator(dcid):
+        # Stop here!
+        if dcid not in added:
+          result.append(r)
+          added.add(dcid)
+      else:
+        # Recurse up.
+        next.add(dcid)
+  if next:
+    _get_sdg_ancestors_recursive(sorted(list(next)), result, added)
+
+
+def get_sdg_ancestors(topic: str):
+  result = []
+  added = set()
+  _get_sdg_ancestors_recursive([topic], result, added)
+  return result
 
 
 def _trim_dups(related_things: Dict):
