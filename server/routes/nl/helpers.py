@@ -203,6 +203,13 @@ def prepare_response(utterance: nl_utterance.Utterance,
     if (fallback and fallback.origPlace and fallback.newPlace and
         fallback.origPlace.dcid != fallback.newPlace.dcid):
       ret_places = [fallback.newPlace]
+    elif utterance.answerPlaces and len(utterance.places) > 1:
+      # If there are answer places, then we know the charts will have
+      # data for that place.  However, important to not do this for queries
+      # like [cities with highest poverty in US]. So we do this only when
+      # we came in with comparison / answer-places, since in that
+      # case we know the answer will be a subset of the input places.
+      ret_places = utterance.answerPlaces
     else:
       ret_places = utterance.places
   else:
