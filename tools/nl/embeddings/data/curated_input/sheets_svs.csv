@@ -1570,3 +1570,6 @@ Exports_EconomicActivity_ElectronicComponents,Electronics Components Exports,,,e
 Imports_EconomicActivity_ElectronicComponents,Electronics Components Imports,,,import of electronics;electronic components import; imports of electronic components;
 Exports_EconomicActivity_Pharmaceutical,Pharmaceutical Exports,,,export of pharmaceuicals;pharmaceutical export; exports of pharmaceuticals;
 Imports_EconomicActivity_Pharmaceutical,Pharmaceutical Imports,,,import of pharmaceuicals;pharmaceutical import; imports of pharmaceuticals;
+Mean_WagesMonthly_Worker,Mean Monthly Wages,,,monthly wages of workers;mean monthly wage of workers;
+Monthly_Mean_Income_Person_Years14Onwards_Employed_AllJobs_IncomeActuallyReceived,"Mean Monthly Income: 14 Years or More, Employed, All Jobs, Income Actually Received",,,monthly wages of all employed workers;mean monthly wage of employed workers;
+sdg/SN_ITK_DEFC,Undernourishment,,,malnutrition; prevalence of malnutrition; lack of nutrition; insufficient nutrition;
