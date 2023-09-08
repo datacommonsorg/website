@@ -32,6 +32,7 @@ class TestBadWords(unittest.TestCase):
 
     # Phrase: "very bad word"
     self.assertFalse(bad_words.is_safe('is that a very bad word really', bw))
+    # Phrase: "very good sentence"
     self.assertFalse(
         bad_words.is_safe('is that a very good sentence really', bw))
     # Another ordering of the words is fine.
@@ -45,8 +46,12 @@ class TestBadWords(unittest.TestCase):
 
     # Multi words: cat and holy
     self.assertFalse(bad_words.is_safe('oh that cat is real holy', bw))
+    # Multi words: cat, moly and doly
+    self.assertFalse(bad_words.is_safe('doly is cat that has moly', bw))
     # Any single word is fine.
     self.assertTrue(bad_words.is_safe('is that cow holy too', bw))
+    self.assertTrue(bad_words.is_safe('is doly having moly holy', bw))
+    self.assertTrue(bad_words.is_safe('my cat is named doly', bw))
     self.assertTrue(bad_words.is_safe('cat on the wall', bw))
 
   def test_validate_prod(self):

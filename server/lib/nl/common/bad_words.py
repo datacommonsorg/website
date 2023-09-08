@@ -40,32 +40,36 @@ class Entry:
   # This is a multi-word entry, where we must match every
   # word (in any order) in the query.  When sorted, the first
   # word is the key of Entry, and the remaining words are here.
+  # NOTE: The first word only appears in the key, not here.
   #
-  # In case of "idiot:cat:bat", only if idiot, bat and cat
-  # appear in the query (regardless of ordering),
-  # will we match.  We will have: ["cat", "idiot"]
-  other_words: List[str] = field(default_factory=list)
+  # In case of lines "idiot:cat:bat", "mat:bat" only if
+  # all idiot, bat and cat appear in the query, or bat and mat
+  # both appear in the query will we match (regardless of ordering),
+  # In that case, the key of the Entry will be "bat", and
+  # in other_words, we'll have:
+  #   [ ["cat", "idiot"], ["mat"] ]
+  other_words: List[List[str]] = field(default_factory=list)
 
 
 @dataclass
-class BadWords:
+class BannedWords:
   # The key is a word.  It is either a singleton word,
   # or the first word in a phrase, or the first sorted
   # word in a multi-word (aka colon-delimited) entry.
-  words: Dict[str, Entry]
+  entries: Dict[str, Entry]
 
 
 #
 # Loads a list of bad words from a text file.
 #
-def load_bad_words() -> BadWords:
+def load_bad_words() -> BannedWords:
   local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
                                  filename=BAD_WORDS_FILE)
   return load_bad_words_file(local_file)
 
 
-def load_bad_words_file(local_file: str, validate: bool = False) -> BadWords:
-  bad_words = BadWords(words={})
+def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
+  bad_words = BannedWords(entries={})
 
   with open(local_file) as fp:
     for line in fp:
@@ -79,41 +83,28 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BadWords:
       # Generally, be resilient to duplicates.  Only assert when `validate` is set.
       if _DELIM in line:
         words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
-        if words[0] not in bad_words.words:
-          bad_words.words[words[0]] = Entry(is_singleton=False)
-        bad_words.words[words[0]].other_words = words[1:]
+        if words[0] not in bad_words.entries:
+          bad_words.entries[words[0]] = Entry(is_singleton=False)
+        bad_words.entries[words[0]].other_words.append(words[1:])
 
-        if validate:
-          assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
-          for w in words:
-            if w in bad_words.words:
-              assert not bad_words.words[
-                  w].is_singleton, f'{line} is redundant because {w} already exists!'
+        _validate('multi', line, bad_words, validate)
 
       elif ' ' in line:
         # This is the case of a phrase.
         parts = line.split(' ', 1)
-        if parts[0] not in bad_words.words:
-          bad_words.words[parts[0]] = Entry(is_singleton=False)
-        bad_words.words[parts[0]].phrases.append(line)
+        if parts[0] not in bad_words.entries:
+          bad_words.entries[parts[0]] = Entry(is_singleton=False)
+        bad_words.entries[parts[0]].phrases.append(line)
 
-        if validate:
-          for w in line.split():
-            if w in bad_words.words:
-              assert not bad_words.words[
-                  w].is_singleton, f'{line} is redundant because {w} already exists!'
+        _validate('phrase', line, bad_words, validate)
       else:
         # Singleton case.
-        if line not in bad_words.words:
-          bad_words.words[line] = Entry(is_singleton=True)
+        if line not in bad_words.entries:
+          bad_words.entries[line] = Entry(is_singleton=True)
         else:
-          bad_words.words[line].is_singleton = True
+          bad_words.entries[line].is_singleton = True
 
-        if validate:
-          ow = bad_words.words[line].other_words
-          assert not ow, f'{line} makes redundant {ow}'
-          ph = bad_words.words[line].phrases
-          assert not ph, f'{line} makes redundant {ph}'
+        _validate('singleton', line, bad_words, validate)
 
   return bad_words
 
@@ -124,14 +115,36 @@ def validate_bad_words():
   load_bad_words_file(local_file, validate=True)
 
 
+def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
+  if not validate:
+    return
+  if mode == 'multi':
+    assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
+    words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
+    for w in words:
+      if w in bad_words.entries:
+        assert not bad_words.entries[
+            w].is_singleton, f'{line} is redundant because {w} already exists!'
+  elif mode == 'phrase':
+    for w in line.split():
+      if w in bad_words.entries:
+        assert not bad_words.entries[
+            w].is_singleton, f'{line} is redundant because {w} already exists!'
+  else:
+    ow = bad_words.entries[line].other_words
+    assert not ow, f'{line} makes redundant {ow}'
+    ph = bad_words.entries[line].phrases
+    assert not ph, f'{line} makes redundant {ph}'
+
+
 #
 # Returns false if the query contains any bad word.
 #
-def is_safe(query: str, bad_words: BadWords) -> bool:
+def is_safe(query: str, bad_words: BannedWords) -> bool:
   qwords = [w.strip() for w in query.split() if w.strip()]
   qwset = set(qwords)
   for word in qwords:
-    entry = bad_words.words.get(word)
+    entry = bad_words.entries.get(word)
     if entry:
       if entry.is_singleton:
         # Single-word badword!
@@ -142,8 +155,9 @@ def is_safe(query: str, bad_words: BadWords) -> bool:
           # The entire phrase matches!
           return False
 
-      if entry.other_words and all([bw in qwset for bw in entry.other_words]):
-        # Every other bad-word also exists in the query.
-        return False
+      for ow_list in entry.other_words:
+        if all([ow in qwset for ow in ow_list]):
+          # Every other bad-word also exists in the query.
+          return False
 
   return True
