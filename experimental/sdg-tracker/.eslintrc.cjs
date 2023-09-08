@@ -18,5 +18,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': ['off'],
     // Allows @ts-ignore
     '@typescript-eslint/ban-ts-comment': ['off'],
+    // Ignore dependency array warnings
+    // "fixing" these sometimes causes breakage down the road
+    'react-hooks/exhaustive-deps': ['off'],
   },
 }
