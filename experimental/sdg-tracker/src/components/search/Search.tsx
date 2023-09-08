@@ -231,16 +231,6 @@ const Search = () => {
   );
   const searchParamQuery = searchParams.get(QUERY_PARAM_QUERY);
 
-  useEffect(() => {
-    setQuery(searchParamQuery || "");
-    if (searchParamQuery) {
-      search(searchParamQuery);
-    } else {
-      setVariableDcids([]);
-      setPlaceDcids([]);
-    }
-  }, [searchParamQuery]);
-
   const search = useCallback(
     async (searchQuery?: string) => {
       setIsSearching(true);
@@ -269,6 +259,16 @@ const Search = () => {
     [query]
   );
 
+  useEffect(() => {
+    setQuery(searchParamQuery || "");
+    if (searchParamQuery) {
+      search(searchParamQuery);
+    } else {
+      setVariableDcids([]);
+      setPlaceDcids([]);
+    }
+  }, [search, searchParamQuery]);
+  
   if (variableDcids.length === 0 || placeDcids.length === 0) {
     return (
       <AppLayout>
