@@ -401,6 +401,7 @@ const HeadlineImage = styled.img`
     0px 1px 14px rgba(3, 7, 18, 0.05);
   padding: 1rem;
   margin-bottom: 2rem;
+  background-color: white;
 `;
 
 const HeadlineLink = styled.div`
