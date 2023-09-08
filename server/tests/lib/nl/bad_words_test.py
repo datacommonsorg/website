@@ -75,5 +75,14 @@ class TestBadWords(unittest.TestCase):
     # abuse and use are in the same cross set so should not trigger.
     self.assertTrue(bad_words.is_safe('what use is abuse?', bw))
 
+    # three sets.
+    # rule: wording,word:two,second:three,third
+    self.assertFalse(bad_words.is_safe('first second and third wording', bw))
+    self.assertFalse(bad_words.is_safe('word which means two but three', bw))
+
+    # only hitting two of the three sets above.
+    self.assertTrue(bad_words.is_safe('first second and wording', bw))
+    self.assertTrue(bad_words.is_safe('word which means two but is one', bw))
+
   def test_validate_prod(self):
     bad_words.validate_bad_words()

@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
+import itertools
 from typing import Dict, List
 
 from server.lib.config import GLOBAL_CONFIG_BUCKET
@@ -21,8 +22,6 @@ from shared.lib import gcs
 
 BAD_WORDS_FILE = 'nl_bad_words.txt'
 _DELIM = ':'
-_SET_START = '{'
-_SET_END = '}'
 
 
 @dataclass
@@ -90,25 +89,23 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
         continue
 
       # Generally, be resilient to duplicates.  Only assert when `validate` is set.
-      if _DELIM in line and _SET_START in line and _SET_END in line:
-        # In this case, split the line into _DELIM separated words.
-        line = line.replace(_SET_START, "").replace(_SET_END, "")
-        parts = line.split(_DELIM)
-        set_A = parts[0].split(",")
-        set_B = parts[1].split(",")
-
-        for w_a in set_A:
-          for w_b in set_B:
-            if w_a not in bad_words.entries:
-              bad_words.entries[w_a] = Entry(is_singleton=False)
-            bad_words.entries[w_a].other_words.append([w_b])
-
-        _validate('multi_cross', line, bad_words, validate)
       elif _DELIM in line:
-        words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
-        if words[0] not in bad_words.entries:
-          bad_words.entries[words[0]] = Entry(is_singleton=False)
-        bad_words.entries[words[0]].other_words.append(words[1:])
+        # Get parts separated by ":"
+        delimited_parts = [w.strip() for w in line.split(_DELIM) if w.strip()]
+        # Each part is split into components by ","
+        lists = [[x.strip()
+                  for x in p.split(',')
+                  if x.strip()]
+                 for p in delimited_parts]
+
+        # Take a cross product across all lists (one element from each list) and
+        # use the first word as the key (which will typically belong to the
+        # element from the first set.)
+        for _, index_list in enumerate(list(itertools.product(*lists))):
+          words = sorted(list(index_list))
+          if words[0] not in bad_words.entries:
+            bad_words.entries[words[0]] = Entry(is_singleton=False)
+          bad_words.entries[words[0]].other_words.append(words[1:])
 
         _validate('multi', line, bad_words, validate)
 
@@ -141,20 +138,6 @@ def validate_bad_words():
 def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
   if not validate:
     return
-  if mode == 'multi_cross':
-    assert len(line.split(":")) == 2, f'Line {line} has more thab ibe ":"'
-    assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
-    parts = line.split(_DELIM)
-    set_A = parts[0].split(",")
-    set_B = parts[1].split(",")
-
-    for w_a in set_A:
-      for w_b in set_B:
-        if w_a in bad_words.entries:
-          assert w_a not in set_B, f'{w_a} exists in both sets separated by :'
-          assert w_b not in set_A, f'{w_b} exists in both sets separated by :'
-          assert not bad_words.entries[
-              w_a].is_singleton, f'{line} is redundant because {w_a} already exists!'
   if mode == 'multi':
     assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
     words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
