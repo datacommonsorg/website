@@ -17,7 +17,7 @@ export interface ChartConfigTile {
   description: string;
   statVarKey: string[];
   title: string;
-  type: "BAR" | "LINE" | "MAP" | "HIGHLIGHT" | "GAUGE";
+  type: "BAR" | "GAUGE" | "HIGHLIGHT" | "LINE" | "MAP" | "PLACE_OVERVIEW";
 }
 export interface ChartConfigColumn {
   tiles: ChartConfigTile[];

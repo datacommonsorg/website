@@ -36,8 +36,6 @@ import {
 
 import {
   ContentCard,
-  ContentCardBody,
-  ContentCardHeader,
   CountrySelect,
   Divider,
   HeadlineTile,
@@ -109,38 +107,49 @@ const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
 };
 
 const CountriesContent: React.FC<{
+  errorMessage?: string;
   fulfillResponse?: FulfillResponse;
   hidePlaceSearch?: boolean;
+  isFetchingFulfillment?: boolean;
   onSearch?: (query: string) => void;
-  placeDcid?: string;
+  placeDcids: string[];
   query?: string;
   setPlaceDcid: (placeDcid: string) => void;
   showNLSearch?: boolean;
+  userMessage?: string;
   variableDcids: string[];
 }> = ({
+  errorMessage,
   fulfillResponse,
   hidePlaceSearch,
+  isFetchingFulfillment,
   onSearch,
-  placeDcid,
+  placeDcids,
   query,
   setPlaceDcid,
   showNLSearch,
+  userMessage,
   variableDcids,
 }) => {
   const rootTopics = useStoreState((s) => s.rootTopics);
   const fulfillmentsById = useStoreState((s) => s.fulfillments.byId);
   const fetchTopicFulfillment = useStoreActions((a) => a.fetchTopicFulfillment);
-  const [isFetchingFulfillment, setIsFetchingFulfillment] = useState(false);
+  const [localIsFetchingFulfillment, setLocalIsFetchingFulfillment] =
+    useState(false);
   const [localFulfillResponse, setLocalFulfillResponse] =
     useState<FulfillResponse>();
-  const placeName = useStoreState((s) => {
-    if (placeDcid && placeDcid in s.countries.byDcid) {
-      return s.countries.byDcid[placeDcid].name;
-    }
-    if (placeDcid && placeDcid in s.regions.byDcid) {
-      return s.regions.byDcid[placeDcid].name;
-    }
-    return undefined;
+  const placeNames = useStoreState((s) => {
+    const names: string[] = [];
+    placeDcids.forEach((placeDcid) => {
+      if (placeDcids && placeDcid in s.countries.byDcid) {
+        names.push(s.countries.byDcid[placeDcid].name);
+      }
+      if (placeDcid && placeDcid in s.regions.byDcid) {
+        names.push(s.regions.byDcid[placeDcid].name);
+      }
+    });
+
+    return names;
   });
 
   // Determine if we're in the search pages.
@@ -153,16 +162,20 @@ const CountriesContent: React.FC<{
    */
   useEffect(() => {
     // If a fulfill response was passed in, use that
-    if (fulfillResponse) {
+    if (isSearch) {
       setLocalFulfillResponse(fulfillResponse);
       return;
     }
-    // Otherwise fetch a fulfill response based on the
-    if (!variableDcids || variableDcids.length === 0 || !placeDcid) {
+    // Otherwise fetch a fulfill response based on the specified variables & place
+    if (
+      !variableDcids ||
+      variableDcids.length === 0 ||
+      placeDcids.length === 0
+    ) {
       return;
     }
     (async () => {
-      setIsFetchingFulfillment(true);
+      setLocalIsFetchingFulfillment(true);
       const topicDcids = variableDcids.map((dcid) => {
         if (dcid.indexOf("/g/") !== -1) {
           return dcid.replace("/g/", "/topic/").toLocaleLowerCase();
@@ -171,28 +184,39 @@ const CountriesContent: React.FC<{
       });
 
       const fulfillment = await fetchTopicFulfillment({
-        entityDcids: [placeDcid],
+        entityDcids: placeDcids,
         variableDcids: topicDcids,
         fulfillmentsById,
       });
-      setIsFetchingFulfillment(false);
+      setLocalIsFetchingFulfillment(false);
       setLocalFulfillResponse(fulfillment);
     })();
-  }, [fulfillResponse, placeDcid, variableDcids]);
+  }, [fulfillResponse, isSearch, placeDcids, variableDcids]);
+
+  /** Show loading state if we are passing in a fulfillment response from outside this component */
+  useEffect(() => {
+    if (isFetchingFulfillment === undefined) {
+      return;
+    }
+    if (localIsFetchingFulfillment !== isFetchingFulfillment) {
+      setLocalIsFetchingFulfillment(isFetchingFulfillment);
+    }
+  }, [isFetchingFulfillment]);
 
   if (
     variableDcids.length > 0 &&
     variableDcids[0] === ROOT_TOPIC &&
-    placeDcid === EARTH_PLACE_DCID
+    placeDcids.length > 0 &&
+    placeDcids[0] === EARTH_PLACE_DCID
   ) {
     return (
       <Layout style={{ height: "100%", flexGrow: 1 }}>
         <Layout.Content style={{ padding: "0rem 0" }}>
           <PlaceTitle style={{ marginBottom: "1rem", display: "block" }}>
             <div>
-              {placeName ? (
-                placeName
-              ) : placeDcid ? (
+              {placeNames.length > 0 ? (
+                placeNames.join(", ")
+              ) : placeDcids.length > 0 ? (
                 <Spinner />
               ) : (
                 "Select a country"
@@ -235,9 +259,9 @@ const CountriesContent: React.FC<{
 
         <PlaceTitle style={{ display: "none" }}>
           <div>
-            {placeName ? (
-              placeName
-            ) : placeDcid ? (
+            {placeNames.length > 0 ? (
+              placeNames.join(", ")
+            ) : placeDcids.length > 0 ? (
               <Spinner />
             ) : (
               "Select a country"
@@ -247,18 +271,31 @@ const CountriesContent: React.FC<{
             <CountrySelect setSelectedPlaceDcid={setPlaceDcid} />
           )}
         </PlaceTitle>
+        {userMessage && <UserMessage message={userMessage} />}
+        {errorMessage && <UserMessage message={errorMessage} />}
 
-        {!isSearch && (
+        {placeNames.length > 0 && (
           <Layout.Content style={{ padding: "0 24px 24px" }}>
             <PlaceHeaderCard
-              currentPlaceName={placeName}
+              placeNames={placeNames}
+              hideBreadcrumbs={isSearch}
               hidePlaceSearch={hidePlaceSearch}
               setSelectedPlaceDcid={setPlaceDcid}
               variableDcids={variableDcids}
             />
           </Layout.Content>
         )}
+
         <MainLayoutContent>
+          {!isSearch &&
+            variableDcids.length === 0 &&
+            !fulfillResponse &&
+            placeDcids.length === 0 && (
+              <ContentCard>
+                <h5>Explore SDG progress</h5>
+                <p>Select a country to get started.</p>
+              </ContentCard>
+            )}
           {isFetchingFulfillment ? (
             <ContentCard>
               <Spinner />
@@ -266,7 +303,7 @@ const CountriesContent: React.FC<{
           ) : (
             <ChartContent
               fulfillmentResponse={localFulfillResponse}
-              placeDcid={placeDcid}
+              placeDcids={placeDcids}
               selectedVariableDcids={variableDcids}
             />
           )}
@@ -278,45 +315,21 @@ const CountriesContent: React.FC<{
 
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;
-  placeDcid?: string;
+  placeDcids: string[];
   selectedVariableDcids?: string[];
 }> = (props) => {
-  const { fulfillmentResponse, placeDcid, selectedVariableDcids } = props;
+  const { fulfillmentResponse, placeDcids } = props;
+  if (!fulfillmentResponse || fulfillmentResponse.failure) {
+    return null;
+  }
 
-  if (
-    !selectedVariableDcids ||
-    selectedVariableDcids.length === 0 ||
-    !fulfillmentResponse ||
-    !placeDcid
-  ) {
-    return (
-      <ContentCard>
-        <h5>Explore SDG progress</h5>
-        <p>Select a country to get started.</p>
-      </ContentCard>
-    );
-  }
-  if (fulfillmentResponse.failure || fulfillmentResponse.userMessage) {
-    return (
-      <ContentCard>
-        <ContentCardHeader>
-          <div>
-            <h3>No information found</h3>
-          </div>
-        </ContentCardHeader>
-        <ContentCardBody>
-          {fulfillmentResponse.failure || fulfillmentResponse.userMessage}
-        </ContentCardBody>
-      </ContentCard>
-    );
-  }
   return (
     <>
       {fulfillmentResponse.config.categories &&
         fulfillmentResponse.config.categories.map((chartConfigCategory, i) => (
           <ChartCategoryContent
             key={i}
-            placeDcid={placeDcid}
+            placeDcids={placeDcids}
             chartConfigCategory={chartConfigCategory}
             varToTopic={fulfillmentResponse.relatedThings.varToTopic}
           />
@@ -339,9 +352,9 @@ interface Goals {
 
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
-  placeDcid: string;
+  placeDcids: string[];
   varToTopic: VarToTopicMapping;
-}> = ({ chartConfigCategory, placeDcid, varToTopic }) => {
+}> = ({ chartConfigCategory, placeDcids, varToTopic }) => {
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
 
@@ -349,6 +362,9 @@ const ChartCategoryContent: React.FC<{
   chartConfigCategory.blocks.forEach((block) => {
     block.columns.forEach((column) => {
       column.tiles.forEach((tile) => {
+        if (tile.type === "PLACE_OVERVIEW") {
+          return;
+        }
         // Find which goal, target, and indicator this tile belongs to
         const topicDcid = !_.isEmpty(tile.statVarKey)
           ? varToTopic[tile.statVarKey[0]].dcid
@@ -393,7 +409,7 @@ const ChartCategoryContent: React.FC<{
         return (
           <ChartGoalBlock
             key={i}
-            placeDcid={placeDcid}
+            placeDcids={placeDcids}
             goal={goal}
             targetData={allGoals[goal]}
           />
@@ -405,10 +421,10 @@ const ChartCategoryContent: React.FC<{
 
 // Displays all cards associated with a goal, along with goal's overview tile
 const ChartGoalBlock: React.FC<{
-  placeDcid: string;
+  placeDcids: string[];
   goal: string;
   targetData: Targets;
-}> = ({ placeDcid, goal, targetData }) => {
+}> = ({ placeDcids, goal, targetData }) => {
   return (
     <>
       <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
@@ -416,7 +432,7 @@ const ChartGoalBlock: React.FC<{
         return (
           <ChartTargetBlock
             key={`${goal}-${i}`}
-            placeDcid={placeDcid}
+            placeDcids={placeDcids}
             target={target}
             indicatorData={targetData[target]}
           />
@@ -428,10 +444,10 @@ const ChartGoalBlock: React.FC<{
 
 // Displays the card associated with a target, along with target's header
 const ChartTargetBlock: React.FC<{
-  placeDcid: string;
+  placeDcids: string[];
   target: string;
   indicatorData: Indicators;
-}> = ({ placeDcid, target, indicatorData }) => {
+}> = ({ placeDcids, target, indicatorData }) => {
   const goalNumber = Number(target.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
@@ -443,7 +459,7 @@ const ChartTargetBlock: React.FC<{
           <ChartIndicatorBlock
             key={`${target}=${i}`}
             indicator={indicator}
-            placeDcid={placeDcid}
+            placeDcids={placeDcids}
             tiles={indicatorData[indicator]}
           />
         );
@@ -455,9 +471,9 @@ const ChartTargetBlock: React.FC<{
 // Displays the tiles associated with a single indicator
 const ChartIndicatorBlock: React.FC<{
   indicator: string;
-  placeDcid: string;
+  placeDcids: string[];
   tiles: ChartConfigTile[];
-}> = ({ indicator, placeDcid, tiles }) => {
+}> = ({ indicator, placeDcids, tiles }) => {
   const goalNumber = Number(indicator.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
@@ -466,7 +482,7 @@ const ChartIndicatorBlock: React.FC<{
       {tiles.map((tile, i) => (
         <ChartTile
           key={`${indicator}-${i}`}
-          placeDcid={placeDcid}
+          placeDcids={placeDcids}
           tile={tile}
         />
       ))}
@@ -474,8 +490,8 @@ const ChartIndicatorBlock: React.FC<{
   );
 };
 
-const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
-  placeDcid,
+const ChartTile: React.FC<{ placeDcids: string[]; tile: ChartConfigTile }> = ({
+  placeDcids,
   tile,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -505,7 +521,9 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   let component = null;
   const height =
     tile.type === "HIGHLIGHT" ? HIGHLIGHT_CHART_HEIGHT : CHART_HEIGHT;
-  if (tile.type === "BAR") {
+  if (tile.type === "PLACE_OVERVIEW") {
+    component = <></>;
+  } else if (tile.type === "BAR") {
     component = (
       <>
         {/** @ts-ignore */}
@@ -513,7 +531,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tile.statVarKey.join(" ")}
-          places={placeDcid}
+          places={placeDcids.join(" ")}
           sort="descending"
         />
       </>
@@ -526,7 +544,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tile.statVarKey.join(" ")}
-          place={placeDcid}
+          place={placeDcids.length > 0 ? placeDcids[0] : ""}
         />
       </>
     );
@@ -538,7 +556,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tile.statVarKey.join(" ")}
-          places={placeDcid}
+          places={placeDcids.join(" ")}
         />
       </>
     );
@@ -573,7 +591,7 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variable={tile.statVarKey.join(" ")}
-          place={placeDcid}
+          place={placeDcids.join(" ")}
           min="0"
           max="100"
         />
@@ -600,4 +618,16 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
   );
 };
 
+const UserMessageText = styled.div<{ error?: boolean }>`
+  font-size: 18px;
+`;
+const UserMessage: React.FC<{ message: string }> = ({ message }) => {
+  return (
+    <MainLayoutContent>
+      <ContentCard>
+        <UserMessageText>{message}</UserMessageText>
+      </ContentCard>
+    </MainLayoutContent>
+  );
+};
 export default CountriesContent;

@@ -294,18 +294,18 @@ const StyledBreadcrumb = styled(Breadcrumb)`
 `;
 
 export const PlaceHeaderCard: React.FC<{
-  currentPlaceName: string | undefined;
-  hidePlaceSearch: boolean | undefined;
+  placeNames: string[];
+  hideBreadcrumbs?: boolean;
+  hidePlaceSearch?: boolean;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
   variableDcids: string[];
 }> = ({
-  currentPlaceName,
+  placeNames,
+  hideBreadcrumbs,
   hidePlaceSearch,
   setSelectedPlaceDcid,
   variableDcids,
 }) => {
-  useEffect(() => {});
-
   // get breadcrumbs from current location
   const location = useLocation();
   const topics = useStoreState((s) =>
@@ -336,19 +336,17 @@ export const PlaceHeaderCard: React.FC<{
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const shouldHideBreadcrumbs =
-    topics.length == 1 && topics[0].dcid === ROOT_TOPIC;
+    hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
   return (
     <PlaceCard>
       <PlaceCardContent>
-        {currentPlaceName === "World" ? (
-          <PlaceTitle>World</PlaceTitle>
+        {hidePlaceSearch ? (
+          <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>
         ) : (
-          !hidePlaceSearch && (
-            <CountrySelect
-              setSelectedPlaceDcid={setSelectedPlaceDcid}
-              currentPlaceName={currentPlaceName}
-            />
-          )
+          <CountrySelect
+            setSelectedPlaceDcid={setSelectedPlaceDcid}
+            currentPlaceName={placeNames.length > 0 ? placeNames[0] : undefined}
+          />
         )}
         {!shouldHideBreadcrumbs && (
           <StyledBreadcrumb>
