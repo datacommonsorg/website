@@ -1,7 +1,7 @@
 [
   {
     "key": "dc/topic/sdg",
-    "label": "All Goals",
+    "label": "All Sustainable Development Goals",
     "icon": "/images/datacommons/sdg-wheel-transparent.png",
     "parents": []
   },

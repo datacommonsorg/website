@@ -28,10 +28,11 @@ import {
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import countries from "../config/countries.json";
+import goalSummaries from "../config/goalSummaries.json";
+import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
-import goalSummaries from "../config/goalSummaries.json";
-import indicatorHeadlines from "../config/indicatorText.json"
+import targetText from "../config/targetText.json";
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import { FulfillResponse } from "../utils/types";
@@ -58,6 +59,14 @@ export interface Place {
 export interface GoalText {
   key: string;
   headlines: string[];
+  image?: string;
+}
+
+/**
+ * Text to accompany each target
+ */
+export interface TargetText {
+  [key: string]: string;
 }
 
 /**
@@ -66,6 +75,7 @@ export interface GoalText {
 export interface IndicatorTags {
   headline: string;
   link: string;
+  images: string[];
 }
 
 /**
@@ -85,6 +95,8 @@ export interface RootTopic {
   groupDcid: string;
   topicDcid: string;
   iconUrl: string;
+  homePageIcon: string;
+  color: string;
 }
 
 /**
@@ -137,13 +149,16 @@ export interface AppModel {
   goalSummaries: {
     byGoal: {
       [key: string]: GoalText;
-    }
-  }
+    };
+  };
+  targetText: {
+    byTarget: TargetText;
+  };
   indicatorHeadlines: {
     byIndicator: {
       [key: string]: IndicatorTags;
-    }
-  }
+    };
+  };
 }
 
 /**
@@ -156,7 +171,8 @@ export interface AppActions {
   setSidebarMenuHierarchy: Action<AppModel, MenuItemType[]>;
   setCountries: Action<AppModel, Place[]>;
   setRegions: Action<AppModel, Place[]>;
-  setGoalSummaries: Action<AppModel, GoalText[]>
+  setGoalSummaries: Action<AppModel, GoalText[]>;
+  setTargetText: Action<AppModel, TargetText>;
   setIndicatorHeadlines: Action<AppModel, IndicatorText[]>;
   setFulfillment: Action<
     AppModel,
@@ -200,6 +216,9 @@ const appModel: AppModel = {
   goalSummaries: {
     byGoal: {},
   },
+  targetText: {
+    byTarget: {},
+  },
   indicatorHeadlines: {
     byIndicator: {},
   },
@@ -225,6 +244,7 @@ const appActions: AppActions = {
     );
     actions.setGoalSummaries(goalSummaries);
     actions.setIndicatorHeadlines(indicatorHeadlines);
+    actions.setTargetText(targetText);
     const topics: Topic[] = [];
     const traverseTopics = (item: MenuItemType) => {
       if (!item.key.startsWith("dc")) {
@@ -298,17 +318,20 @@ const appActions: AppActions = {
     state.fulfillments.byId[key] = { ...fulfillment };
   }),
   setGoalSummaries: action((state, goalSummaries) => {
-    state.goalSummaries.byGoal = {}
+    state.goalSummaries.byGoal = {};
     goalSummaries.forEach((goal) => {
       state.goalSummaries.byGoal[goal.key] = goal;
-    })
+    });
+  }),
+  setTargetText: action((state, targetText) => {
+    state.targetText.byTarget = targetText;
   }),
   setIndicatorHeadlines: action((state, indicatorHeadlines) => {
-    state.indicatorHeadlines.byIndicator = {}
+    state.indicatorHeadlines.byIndicator = {};
     indicatorHeadlines.forEach((indicator) => {
       state.indicatorHeadlines.byIndicator[indicator.key] = indicator.tags;
-    })
-  })
+    });
+  }),
 };
 
 /**
