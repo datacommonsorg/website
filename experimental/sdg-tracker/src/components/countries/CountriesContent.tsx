@@ -170,7 +170,7 @@ const CountriesContent: React.FC<{
       setIsFetchingFulfillment(false);
       setFulfillmentResponse(fulfillment);
     })();
-  }, [fetchTopicFulfillment, fulfillmentsById, placeDcid, variableDcids]);
+  }, [placeDcid, variableDcids]);
 
   if (
     variableDcids.length > 0 &&
@@ -479,20 +479,20 @@ const ChartTile: React.FC<{ placeDcid: string; tile: ChartConfigTile }> = ({
       new IntersectionObserver(([entry]) =>
         setIntersecting(entry.isIntersecting)
       ),
-    []
+    [ref]
   );
 
   useEffect(() => {
     if (isIntersecting && !loaded) {
       setLoaded(true);
     }
-  }, [isIntersecting, loaded]);
+  }, [isIntersecting]);
 
   useEffect(() => {
     // @ts-ignore
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [observer]);
+  }, []);
 
   let component = null;
   const height =

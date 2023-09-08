@@ -45,7 +45,7 @@ const InitializeStore: React.FC = () => {
   const initializeAppState = useStoreActions((a) => a.initializeAppState);
   useEffect(() => {
     initializeAppState();
-  }, [initializeAppState]);
+  }, []);
   return null;
 };
 

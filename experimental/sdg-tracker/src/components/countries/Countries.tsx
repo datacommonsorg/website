@@ -52,7 +52,7 @@ const Countries = () => {
       searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
       history.push(location.pathname + "?" + searchParams.toString());
     },
-    [history, location.pathname, location.search]
+    [location]
   );
 
   /**
@@ -64,7 +64,7 @@ const Countries = () => {
       searchParams.set(QUERY_PARAM_PLACE, placeDcid);
       history.push(location.pathname + "?" + searchParams.toString());
     },
-    [history, location.pathname, location.search]
+    [location]
   );
 
   return (

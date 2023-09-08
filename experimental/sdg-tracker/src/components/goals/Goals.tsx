@@ -48,7 +48,7 @@ const Goals: React.FC = () => {
       searchParams.set(QUERY_PARAM_VARIABLE, variableDcid);
       history.push(location.pathname + "?" + searchParams.toString());
     },
-    [history, location.pathname, location.search]
+    [location]
   );
 
   return (
