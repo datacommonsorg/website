@@ -252,34 +252,44 @@ const Search = () => {
       setVariableDcids([]);
       setPlaceDcids([]);
       setFulfillResponse(undefined);
-      const fulfillResponse = await dataCommonsClient.detectAndFulfill(
-        searchQuery || query
-      );
-      setFulfillResponse(fulfillResponse);
-      setIsSearching(false);
-
-      if (fulfillResponse.failure) {
-        setErrorMessage(fulfillResponse.failure || fulfillResponse.userMessage);
-        return;
-      }
-      if (fulfillResponse.place.dcid === "") {
-        setErrorMessage(
-          `Your search for "${
-            searchQuery || query
-          }" did not match any documents.`
+      try {
+        const fulfillResponse = await dataCommonsClient.detectAndFulfill(
+          searchQuery || query
         );
-        return;
-      }
-      setUserMessage(fulfillResponse.userMessage || "");
 
-      const variableDcids =
-        fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
-      const placesDcids = fulfillResponse?.places?.map((e) => e.dcid) || [];
-      setVariableDcids(variableDcids);
-      setPlaceDcids(placesDcids);
-      if (variableDcids.length === 0 || placesDcids.length === 0) {
+        setFulfillResponse(fulfillResponse);
+        setIsSearching(false);
+
+        if (fulfillResponse.failure) {
+          setErrorMessage(
+            fulfillResponse.failure || fulfillResponse.userMessage
+          );
+          return;
+        }
+        if (fulfillResponse.place.dcid === "") {
+          setErrorMessage(
+            `Your search for "${
+              searchQuery || query
+            }" did not match any documents.`
+          );
+          return;
+        }
+        setUserMessage(fulfillResponse.userMessage || "");
+
+        const variableDcids =
+          fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
+        const placesDcids = fulfillResponse?.places?.map((e) => e.dcid) || [];
+        setVariableDcids(variableDcids);
+        setPlaceDcids(placesDcids);
+        if (variableDcids.length === 0 || placesDcids.length === 0) {
+          setErrorMessage(
+            "Sorry, we couldn't find any data related to the place or topic you searched for. Please try another query."
+          );
+        }
+      } catch (e) {
+        setIsSearching(false);
         setErrorMessage(
-          "Sorry, we couldn't find any data related to the place or topic you searched for. Please try another query."
+          `Your search for "${searchQuery || query}" returned an error.`
         );
       }
     },

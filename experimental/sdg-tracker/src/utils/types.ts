@@ -26,14 +26,16 @@ export interface ChartConfigBlock {
   columns: ChartConfigColumn[];
   title: string;
 }
+
+export interface StatVarSpec {
+  [dcid: string]: {
+    name: string;
+    statVar: string;
+  };
+}
 export interface ChartConfigCategory {
   blocks: ChartConfigBlock[];
-  statVarSpec: {
-    [dcid: string]: {
-      name: string;
-      statVar: string;
-    };
-  };
+  statVarSpec: StatVarSpec;
 }
 export interface ChartConfig {
   categories?: ChartConfigCategory[];
