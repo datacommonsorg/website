@@ -38,70 +38,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "dc/0gettc3bc60cb"
-                    ],
-                    "title": "Drive Alone in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/0gettc3bc60cb"
-                    ],
-                    "title": "Drive Alone in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Drive Alone in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/6rltk4kf75612"
-                    ],
-                    "title": "Work at Home in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/6rltk4kf75612"
-                    ],
-                    "title": "Work at Home in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Work at Home in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -132,70 +68,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "dc/nfdf9rt7kbggb"
-                    ],
-                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/nfdf9rt7kbggb"
-                    ],
-                    "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Worked at Home, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/v33p7mwnpe9vb"
-                    ],
-                    "title": "Population: Walked, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/v33p7mwnpe9vb"
-                    ],
-                    "title": "Population: Walked, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Walked, Management, Business, Science, and Arts Occupations in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -220,70 +92,6 @@
             ],
             "denom": "Count_Person",
             "title": "Sales and Office Occupations"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/7wt44yv38rew"
-                    ],
-                    "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/7wt44yv38rew"
-                    ],
-                    "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Worked at Home, Sales and Office Occupations in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/zcth2y8fqte1f"
-                    ],
-                    "title": "Population: Walked, Sales and Office Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/zcth2y8fqte1f"
-                    ],
-                    "title": "Population: Walked, Sales and Office Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Walked, Sales and Office Occupations in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -321,70 +129,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/dn2h9yfcgbkg2"
-                    ],
-                    "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/dn2h9yfcgbkg2"
-                    ],
-                    "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Worked at Home, Service Occupations in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/bre4whrdn7pt7"
-                    ],
-                    "title": "Population: Walked, Service Occupations in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/bre4whrdn7pt7"
-                    ],
-                    "title": "Population: Walked, Service Occupations in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Walked, Service Occupations in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "dc/e9gftzl2hm8h9"
                     ],
                     "title": "Total Commute Time in Santa Clara County",
@@ -408,39 +152,6 @@
             "denom": "Count_Person",
             "description": "Total time spent on a single commute across all workers.",
             "title": "Total Commute Time"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
-                    ],
-                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
-                    ],
-                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Total time spent on a single commute across all workers.",
-            "title": "Total Commute Time in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -477,77 +188,9 @@
             ],
             "denom": "Count_Person",
             "title": "Commuters by Commute Time"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/fyc3yvjy0xw6g"
-                    ],
-                    "title": "Population: 5 Minute or Less in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/fyc3yvjy0xw6g"
-                    ],
-                    "title": "Population: 5 Minute or Less in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 5 Minute or Less in Cities of Santa Clara County"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/dbe0drezxrpv6"
-                    ],
-                    "title": "Population: 5-9 Minute in Cities of Santa Clara County (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/dbe0drezxrpv6"
-                    ],
-                    "title": "Population: 5-9 Minute in Cities of Santa Clara County (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 5-9 Minute in Cities of Santa Clara County"
           }
         ],
         "statVarSpec": {
-          "dc/0gettc3bc60cb": {
-            "name": "Drive alone",
-            "statVar": "dc/0gettc3bc60cb"
-          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
@@ -564,10 +207,6 @@
             "name": "Population: 30 - 34 Minute",
             "statVar": "dc/62gn48xpbqew9"
           },
-          "dc/6rltk4kf75612": {
-            "name": "Work at home",
-            "statVar": "dc/6rltk4kf75612"
-          },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
             "name": "Work at home",
             "statVar": "dc/6rltk4kf75612"
@@ -575,10 +214,6 @@
           "dc/6zrlr86zt61yg_multiple_place_bar_block": {
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Service Occupations",
             "statVar": "dc/6zrlr86zt61yg"
-          },
-          "dc/7wt44yv38rew": {
-            "name": "Population: Worked At Home, Sales And Office Occupations",
-            "statVar": "dc/7wt44yv38rew"
           },
           "dc/7wt44yv38rew_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Sales And Office Occupations",
@@ -592,25 +227,13 @@
             "name": "Population: Car Truck or Van Carpooled, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/80q8jrnkvwtt3"
           },
-          "dc/bre4whrdn7pt7": {
-            "name": "Population: Walked, Service Occupations",
-            "statVar": "dc/bre4whrdn7pt7"
-          },
           "dc/bre4whrdn7pt7_multiple_place_bar_block": {
             "name": "Population: Walked, Service Occupations",
             "statVar": "dc/bre4whrdn7pt7"
           },
-          "dc/dbe0drezxrpv6": {
-            "name": "Population: 5 - 9 Minute",
-            "statVar": "dc/dbe0drezxrpv6"
-          },
           "dc/dbe0drezxrpv6_multiple_place_bar_block": {
             "name": "Population: 5 - 9 Minute",
             "statVar": "dc/dbe0drezxrpv6"
-          },
-          "dc/dn2h9yfcgbkg2": {
-            "name": "Population: Worked At Home, Service Occupations",
-            "statVar": "dc/dn2h9yfcgbkg2"
           },
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Service Occupations",
@@ -623,10 +246,6 @@
           "dc/exr9t81en1h34_multiple_place_bar_block": {
             "name": "Population: 25 - 29 Minute",
             "statVar": "dc/exr9t81en1h34"
-          },
-          "dc/fyc3yvjy0xw6g": {
-            "name": "Population: 5 Minute or Less",
-            "statVar": "dc/fyc3yvjy0xw6g"
           },
           "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
             "name": "Population: 5 Minute or Less",
@@ -668,10 +287,6 @@
             "name": "Population: Public Transportation Excluding Taxicab, Service Occupations",
             "statVar": "dc/n2vhkpw0slkv5"
           },
-          "dc/nfdf9rt7kbggb": {
-            "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
-            "statVar": "dc/nfdf9rt7kbggb"
-          },
           "dc/nfdf9rt7kbggb_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/nfdf9rt7kbggb"
@@ -691,10 +306,6 @@
           "dc/t0hh9jhx104k7_multiple_place_bar_block": {
             "name": "Population: 45 - 59 Minute",
             "statVar": "dc/t0hh9jhx104k7"
-          },
-          "dc/v33p7mwnpe9vb": {
-            "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
-            "statVar": "dc/v33p7mwnpe9vb"
           },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
             "name": "Population: Walked, Management, Business, Science, And Arts Occupations",
@@ -724,10 +335,6 @@
             "name": "Population: Taxicab Motorcycle Bicycle or Other Means, Management, Business, Science, And Arts Occupations",
             "statVar": "dc/y9yb58snpfzw5"
           },
-          "dc/zcth2y8fqte1f": {
-            "name": "Population: Walked, Sales And Office Occupations",
-            "statVar": "dc/zcth2y8fqte1f"
-          },
           "dc/zcth2y8fqte1f_multiple_place_bar_block": {
             "name": "Population: Walked, Sales And Office Occupations",
             "statVar": "dc/zcth2y8fqte1f"
@@ -736,9 +343,6 @@
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "County": "City"
-      },
       "placeDcid": [
         "geoId/06085"
       ]
@@ -762,213 +366,7 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {
-      "City": [
-        {
-          "dcid": "geoId/0601458",
-          "name": "Alum Rock",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0601486",
-          "name": "Alviso",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608848",
-          "name": "Buena Vista",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0608968",
-          "name": "Burbank",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0610088",
-          "name": "Cambrian Park",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0610345",
-          "name": "Campbell",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0617610",
-          "name": "Cupertino",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0620598",
-          "name": "East Foothills",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0627080",
-          "name": "Fruitdale",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0629504",
-          "name": "Gilroy",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0641282",
-          "name": "Lexington Hills",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0643280",
-          "name": "Los Altos",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0643294",
-          "name": "Los Altos Hills",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0644112",
-          "name": "Los Gatos",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0644378",
-          "name": "Loyola",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0647766",
-          "name": "Milpitas",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0648956",
-          "name": "Monte Sereno",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0649278",
-          "name": "Morgan Hill",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0649670",
-          "name": "Mountain View",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0655282",
-          "name": "Palo Alto",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0668000",
-          "name": "San Jose",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0668238",
-          "name": "San Martin",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0669084",
-          "name": "Santa Clara",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0670280",
-          "name": "Saratoga",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0671074",
-          "name": "Seven Trees",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0673906",
-          "name": "Stanford",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "geoId/0677000",
-          "name": "Sunnyvale",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q1911837",
-          "name": "Cambrian Park",
-          "types": [
-            "City"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q2214519",
-          "name": "Sunol-Midtown",
-          "types": [
-            "City"
-          ]
-        }
-      ]
-    },
+    "childPlaces": {},
     "childTopics": [
       {
         "dcid": "dc/topic/CommuteMode",
