@@ -97,6 +97,8 @@ function run_npm_build () {
     npm run-script dev-build
   fi
   cd ..
+  # TODO: Remove this section and run_*_sdg_tracker() functions once
+  #       sdg-tracker code moves to UN.
   cd experimental/sdg-tracker
   npm install
   npm run-script build
