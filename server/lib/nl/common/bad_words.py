@@ -14,6 +14,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
+import itertools
 from typing import Dict, List
 
 from server.lib.config import GLOBAL_CONFIG_BUCKET
@@ -41,6 +42,13 @@ class Entry:
   # word (in any order) in the query.  When sorted, the first
   # word is the key of Entry, and the remaining words are here.
   # NOTE: The first word only appears in the key, not here.
+  # NOTE: entries provided as
+  #   "{wordA, wordB, wordC}: {wordX, wordY}""
+  #   will be parsed and added to multi-word entries of the form:
+  #
+  #   "wordA:wordX", "wordA:wordY",
+  #   "wordB:wordX", "wordB:wordY",
+  #   "wordC:wordX", "wordC:wordY",
   #
   # In case of lines "idiot:cat:bat", "mat:bat" only if
   # all idiot, bat and cat appear in the query, or bat and mat
@@ -81,11 +89,23 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
         continue
 
       # Generally, be resilient to duplicates.  Only assert when `validate` is set.
-      if _DELIM in line:
-        words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
-        if words[0] not in bad_words.entries:
-          bad_words.entries[words[0]] = Entry(is_singleton=False)
-        bad_words.entries[words[0]].other_words.append(words[1:])
+      elif _DELIM in line:
+        # Get parts separated by ":"
+        delimited_parts = [w.strip() for w in line.split(_DELIM) if w.strip()]
+        # Each part is split into components by ","
+        lists = [[x.strip()
+                  for x in p.split(',')
+                  if x.strip()]
+                 for p in delimited_parts]
+
+        # Take a cross product across all lists (one element from each list) and
+        # use the first word as the key (which will typically belong to the
+        # element from the first set.)
+        for index_list in list(itertools.product(*lists)):
+          words = sorted(list(index_list))
+          if words[0] not in bad_words.entries:
+            bad_words.entries[words[0]] = Entry(is_singleton=False)
+          bad_words.entries[words[0]].other_words.append(words[1:])
 
         _validate('multi', line, bad_words, validate)
 

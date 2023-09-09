@@ -15,12 +15,7 @@
  */
 
 import { Place } from "../state";
-import {
-  DetectRequest,
-  DetectResponse,
-  FulfillResponse,
-  FullfillRequest,
-} from "./types";
+import { DetectRequest, FulfillResponse, FullfillRequest } from "./types";
 
 interface DatacommonsClientParams {
   apiRoot?: string;
@@ -45,8 +40,11 @@ class DataCommonsClient {
     return (await response.json()) as FulfillResponse;
   }
 
-  async detect(query: string, context?: any[]): Promise<DetectResponse> {
-    const url = `${this.apiRoot}/api/explore/detect`;
+  async detectAndFulfill(
+    query: string,
+    context?: any[]
+  ): Promise<FulfillResponse> {
+    const url = `${this.apiRoot}/api/explore/detect-and-fulfill`;
     const urlWithSearchParams = `${url}?${new URLSearchParams({ q: query })}`;
     const response = await fetch(urlWithSearchParams, {
       method: "POST",
@@ -59,7 +57,7 @@ class DataCommonsClient {
         dc: "sdg",
       } as DetectRequest),
     });
-    return (await response.json()) as DetectResponse;
+    return (await response.json()) as FulfillResponse;
   }
 
   async getPlaces(placeTypes: string[]): Promise<Place[]> {
@@ -78,10 +76,12 @@ class DataCommonsClient {
     placeTypes.forEach((placeType) => {
       const placeTypeResult = responseJson[placeType];
       placeTypeResult.forEach((place: any) => {
-        if (!place || !place.dcid) {
+        // Only return places with name property because that is needed for the
+        // backend to work.
+        if (!place || !place.dcid || !place.name) {
           return;
         }
-        result.push({ dcid: place.dcid, name: place.name || place.dcid });
+        result.push({ dcid: place.dcid, name: place.name });
       })
     })
     return result;
