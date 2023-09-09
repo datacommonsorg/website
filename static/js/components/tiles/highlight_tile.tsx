@@ -35,74 +35,12 @@ import {
   getDenomInfo,
   getNoDataErrorMsg,
   getSourcesJsx,
-  getUnitAndScaling,
+  getStatFormat,
   ReplacementStrings,
 } from "../../utils/tile_utils";
 
-const NUM_FRACTION_DIGITS = 1;
 // units that should be formatted as part of the number
 const NUMBER_UNITS = ["%"];
-
-/**
- * Override unit display when unit contains
- * "TH" (Thousands), "M" (Millions), "B" (Billions)
- */
-interface UnitOverride {
-  multiplier: number;
-  numFractionDigits?: number;
-  unit: string;
-  unitDisplayName: string;
-}
-const UnitOverrideConfig: {
-  [key: string]: UnitOverride;
-} = {
-  SDG_CON_USD_M: {
-    unit: "SDG_CON_USD",
-    multiplier: 1000000,
-    unitDisplayName: "Constant USD",
-  },
-  SDG_CUR_LCU_M: {
-    unit: "SDG_CUR_LCU",
-    multiplier: 1000000,
-    unitDisplayName: "Current local currency",
-  },
-  SDG_CU_USD_B: {
-    unit: "SDG_CU_USD",
-    multiplier: 1000000000,
-    unitDisplayName: "USD",
-  },
-  SDG_CU_USD_M: {
-    unit: "SDG_CU_USD",
-    multiplier: 1000000,
-    unitDisplayName: "USD",
-  },
-  SDG_HA_TH: {
-    unit: "SDG_HA",
-    multiplier: 1000,
-    unitDisplayName: "Hectares",
-  },
-  SDG_NUM_M: {
-    unit: "SDG_NUMBER",
-    multiplier: 1000000,
-    unitDisplayName: "",
-  },
-  SDG_NUM_TH: {
-    unit: "SDG_NUMBER",
-    multiplier: 1000,
-    unitDisplayName: "",
-  },
-  SDG_TONNES_M: {
-    unit: "SDG_TONNES",
-    multiplier: 1000000,
-    unitDisplayName: "Tonnes",
-  },
-  SDG_NUMBER: {
-    unit: "SDG_NUMBER",
-    multiplier: 1,
-    numFractionDigits: 0,
-    unitDisplayName: "",
-  },
-};
 
 export interface HighlightTilePropType {
   // API root for data fetch
@@ -210,7 +148,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (facet && facet.provenanceUrl) {
         sources.add(facet.provenanceUrl);
       }
-      let { unit, scaling } = getUnitAndScaling(props.statVarSpec, statResp);
+      let { unit, scaling, numFractionDigits } = getStatFormat(props.statVarSpec, statResp);
       if (props.statVarSpec.denom) {
         const denomInfo = getDenomInfo(
           props.statVarSpec,
@@ -225,7 +163,6 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
           value = null;
         }
       }
-      const numFractionDigits = NUM_FRACTION_DIGITS;
       let errorMsg = "";
       if (_.isUndefined(value) || _.isNull(value)) {
         errorMsg = getNoDataErrorMsg([props.statVarSpec]);
@@ -235,16 +172,10 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
         // If value is a decimal, calculate the numFractionDigits as the number of
         // digits to get the first non-zero digit and the number after
         // TODO: think about adding a limit to the number of digits.
-        let numFractionDigits =
+        numFractionDigits =
           Math.abs(value) >= 1
-            ? NUM_FRACTION_DIGITS
+            ? numFractionDigits
             : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
-        if (unit in UnitOverrideConfig) {
-          const override = UnitOverrideConfig[unit];
-          unit = override.unitDisplayName;
-          scaling = override.multiplier;
-          numFractionDigits = override.numFractionDigits || numFractionDigits;
-        }
         if (scaling) {
           value *= scaling;
         }
