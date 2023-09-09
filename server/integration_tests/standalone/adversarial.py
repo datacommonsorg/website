@@ -333,6 +333,11 @@ class AdversarialQueriesTest:
       result.status = ResultStatus.TIMED_OUT
       logging.info(result)
       return result
+    except Exception as e:
+      logging.info("Request failed for: %s\n%s", query, e)
+      result.status = ResultStatus.REQUEST_FAILED
+      logging.info(result)
+      return result
 
     if resp.status_code != 200:
       result.status = ResultStatus.REQUEST_FAILED

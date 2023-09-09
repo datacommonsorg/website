@@ -50,8 +50,8 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getStatVarNames,
   getStatFormat,
+  getStatVarNames,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
