@@ -69,7 +69,7 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getUnitAndScaling,
+  getStatFormat,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -346,7 +346,7 @@ function rawToChart(
   if (_.isEmpty(rawData.geoJson)) {
     return;
   }
-  const { unit, scaling } = getUnitAndScaling(statVarSpec, rawData.placeStat);
+  const { unit, scaling } = getStatFormat(statVarSpec, rawData.placeStat);
   for (const geoFeature of rawData.geoJson.features) {
     const placeDcid = geoFeature.properties.geoDcid;
     const placeChartData = getPlaceChartData(

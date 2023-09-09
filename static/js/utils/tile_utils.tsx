@@ -43,6 +43,68 @@ const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
+const NUM_FRACTION_DIGITS = 1;
+
+/**
+ * Override unit display when unit contains
+ * "TH" (Thousands), "M" (Millions), "B" (Billions)
+ */
+interface UnitOverride {
+  multiplier: number;
+  numFractionDigits?: number;
+  unit: string;
+  unitDisplayName: string;
+}
+const UNIT_OVERRIDE_CONFIG: {
+  [key: string]: UnitOverride;
+} = {
+  SDG_CON_USD_M: {
+    unit: "SDG_CON_USD",
+    multiplier: 1000000,
+    unitDisplayName: "Constant USD",
+  },
+  SDG_CUR_LCU_M: {
+    unit: "SDG_CUR_LCU",
+    multiplier: 1000000,
+    unitDisplayName: "Current local currency",
+  },
+  SDG_CU_USD_B: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000000,
+    unitDisplayName: "USD",
+  },
+  SDG_CU_USD_M: {
+    unit: "SDG_CU_USD",
+    multiplier: 1000000,
+    unitDisplayName: "USD",
+  },
+  SDG_HA_TH: {
+    unit: "SDG_HA",
+    multiplier: 1000,
+    unitDisplayName: "Hectares",
+  },
+  SDG_NUM_M: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000000,
+    unitDisplayName: "",
+  },
+  SDG_NUM_TH: {
+    unit: "SDG_NUMBER",
+    multiplier: 1000,
+    unitDisplayName: "",
+  },
+  SDG_TONNES_M: {
+    unit: "SDG_TONNES",
+    multiplier: 1000000,
+    unitDisplayName: "Tonnes",
+  },
+  SDG_NUMBER: {
+    unit: "SDG_NUMBER",
+    multiplier: 1,
+    numFractionDigits: 0,
+    unitDisplayName: "",
+  },
+};
 
 export interface ReplacementStrings {
   placeName?: string;
@@ -322,37 +384,51 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
  * @param statPointData stat data for the tile as a PointApiResponse
  * @param statSeriesData stat data for the tile as a SeriesApiResponse
  */
-export function getUnitAndScaling(
+export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number } {
-  // If the stat var spec specifies a unit, use that unit
+): { unit: string; scaling: number, numFractionDigits: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling,
+    numFractionDigits: NUM_FRACTION_DIGITS
   };
-  // Otherwise, try to get the unit from the stat data
-  if (!result.unit) {
-    let statMetadata = null;
-    if (statPointData) {
-      const obsWithFacet = Object.values(
-        statPointData.data[svSpec.statVar]
-      ).find((obs) => !!obs.facet);
-      statMetadata = statPointData.facets[obsWithFacet.facet];
-    } else if (statSeriesData) {
-      const seriesWithFacet = Object.values(
-        statSeriesData.data[svSpec.statVar]
-      ).find((series) => !!series.facet);
-      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
-    }
+  // If unit was specified in the svSpec, use that unit
+  if (result.unit) {
+    return result;
+  }
+  // Get stat metadata info from stat data
+  let statMetadata = null;
+  if (statPointData) {
+    const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
+      (obs) => !!obs.facet
+    );
+    statMetadata = statPointData.facets[obsWithFacet.facet];
+  } else if (statSeriesData) {
+    const seriesWithFacet = Object.values(
+      statSeriesData.data[svSpec.statVar]
+    ).find((series) => !!series.facet);
+    statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+  }
+  const overrideConfig = statMetadata
+    ? UNIT_OVERRIDE_CONFIG[statMetadata.unit]
+    : null;
+  // If there's a matching override config, use the format information from
+  // the config. Otherwise, get unit from stat metadata.
+  if (overrideConfig) {
+    result.unit = overrideConfig.unitDisplayName;
+    result.scaling = overrideConfig.multiplier;
+    result.numFractionDigits = overrideConfig.numFractionDigits;
+  } else {
     result.unit = getUnit(statMetadata);
   }
-  // If this is a per capita case and no unit has been found, use the default
-  // per capita unit and scaling
+  // If this is a per capita case and no unit name has been found, use the
+  // default per capita unit and multiply scaling by the default per capita
+  // scaling.
   if (svSpec.denom && !result.unit) {
     result.unit = DEFAULT_PC_UNIT;
-    result.scaling = DEFAULT_PC_SCALING;
+    result.scaling *= DEFAULT_PC_SCALING;
   }
   return result;
 }
