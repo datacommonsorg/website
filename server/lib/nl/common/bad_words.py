@@ -101,7 +101,7 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
         # Take a cross product across all lists (one element from each list) and
         # use the first word as the key (which will typically belong to the
         # element from the first set.)
-        for _, index_list in enumerate(list(itertools.product(*lists))):
+        for index_list in list(itertools.product(*lists)):
           words = sorted(list(index_list))
           if words[0] not in bad_words.entries:
             bad_words.entries[words[0]] = Entry(is_singleton=False)
