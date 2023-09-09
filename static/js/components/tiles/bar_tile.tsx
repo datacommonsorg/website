@@ -51,7 +51,7 @@ import {
   getDenomInfo,
   getNoDataErrorMsg,
   getStatVarNames,
-  getUnitAndScaling,
+  getStatFormat,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -274,7 +274,7 @@ function rawToChart(
   );
 
   // Assume all stat var specs will use the same unit and scaling.
-  const { unit, scaling } = getUnitAndScaling(props.statVarSpec[0], statData);
+  const { unit, scaling } = getStatFormat(props.statVarSpec[0], statData);
   const dates: Set<string> = new Set();
   for (const point of popPoints) {
     const placeDcid = point.placeDcid;
