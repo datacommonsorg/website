@@ -94,6 +94,103 @@ const ChartContentBody = styled.div`
   }
 `;
 
+/**
+ * Given a sdg topic DCID, determine the goal, target, and indicator via regex.
+ * If a level of granularity is missing, the string "none" is used in its place.
+ * For example:
+ *   dc/topic/sdg/2.1.3 would return ["2", "1", "3"]
+ *   dc/topic/sdg/4 would return ["4", "none", "none"]
+ * @param topicDcid sdg topic's DCID
+ * @returns the id of the topic's goal, target, and indicator, in that order
+ */
+function getGoalTargetIndicator(topicDcid: string): [string, string, string] {
+  // Find which goal, target, and indicator a topic belongs to
+  const indicatorMatches = topicDcid.match(
+    /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
+  );
+  const targetMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?\.\w\w?)/);
+  const goalMatches = topicDcid.match(/dc\/topic\/sdg_(\d\d?)/);
+  const indicator =
+    indicatorMatches && indicatorMatches.length > 1
+      ? indicatorMatches[1]
+      : "none";
+  const target =
+    targetMatches && targetMatches.length > 1 ? targetMatches[1] : "none";
+  const goal = goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
+  return [goal, target, indicator];
+}
+
+/**
+ * Given an sdg topic, determine if it falls under a list of topics.
+ * If an sdg topic is a subset of any member of the list, returns true.
+ * For example,
+ *   if topicDcid = dc/topic/sdg_1.1.1
+ *   and selectedTopics = [dc/topic/sdg_1.1, dc/topic/sdg_2],
+ *   then the function returns true, because 1.1.1 is a subset of 1.1
+ * Used to determine if a given sdg topic matches the topic(s) selected by
+ * the user or passed into search.
+ * @param topicDcid sdg topic to test membership for
+ * @param selectedTopics list of topics to match
+ * @returns true if given topic is a subset of any member of the list,
+ *          false otherwise.
+ */
+function isInSelectedTopics(
+  topicDcid: string,
+  selectedTopics: string[]
+): boolean {
+  const [goal, target, indicator] = getGoalTargetIndicator(topicDcid);
+  for (const selectedTopic of selectedTopics) {
+    if (selectedTopic === ROOT_TOPIC) {
+      return true;
+    }
+    const [selectedGoal, selectedTarget, selectedIndicator] =
+      getGoalTargetIndicator(selectedTopic);
+    if (
+      indicator === selectedIndicator ||
+      (selectedIndicator === "none" && target === selectedTarget) ||
+      (selectedTarget === "none" && goal === selectedGoal)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Adds tile to a given goal->target->indicator->tiles mapping
+ * @param tile tile to add
+ * @param hierarchy tree of goal->target->indicator->tiles to add to
+ * @param topicDcid topic associated with the tile being added
+ * @param selectedTopics list of topics the current page is about
+ */
+function addTileToHierarchy(
+  tile: ChartConfigTile,
+  hierarchy: Goals,
+  topicDcid: string,
+  selectedTopics: string[]
+): void {
+  if (isInSelectedTopics(topicDcid, selectedTopics)) {
+    // put tile in appropriate spot in hierarchy
+    const [goal, target, indicator] = getGoalTargetIndicator(topicDcid);
+    if (goal in hierarchy) {
+      if (target in hierarchy[goal]) {
+        if (indicator in hierarchy[goal][target]) {
+          hierarchy[goal][target][indicator].push(tile);
+        } else {
+          hierarchy[goal][target][indicator] = [tile];
+        }
+      } else {
+        hierarchy[goal][target] = {};
+        hierarchy[goal][target][indicator] = [tile];
+      }
+    } else {
+      hierarchy[goal] = {};
+      hierarchy[goal][target] = {};
+      hierarchy[goal][target][indicator] = [tile];
+    }
+  }
+}
+
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
   const DEFAULT_SPINNER_FONT_SIZE = "1.5rem";
   return (
@@ -321,9 +418,9 @@ const CountriesContent: React.FC<{
 const ChartContent: React.FC<{
   fulfillmentResponse?: FulfillResponse;
   placeDcids: string[];
-  selectedVariableDcids?: string[];
+  selectedVariableDcids: string[];
 }> = (props) => {
-  const { fulfillmentResponse, placeDcids } = props;
+  const { fulfillmentResponse, placeDcids, selectedVariableDcids } = props;
   if (!fulfillmentResponse || fulfillmentResponse.failure) {
     return null;
   }
@@ -336,6 +433,7 @@ const ChartContent: React.FC<{
             placeDcids={placeDcids}
             chartConfigCategory={chartConfigCategory}
             varToTopics={fulfillmentResponse.relatedThings.varToTopics}
+            selectedTopics={selectedVariableDcids}
           />
         ))}
     </>
@@ -358,7 +456,8 @@ const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
   placeDcids: string[];
   varToTopics: VarToTopicMapping;
-}> = ({ chartConfigCategory, placeDcids, varToTopics }) => {
+  selectedTopics: string[];
+}> = ({ chartConfigCategory, placeDcids, varToTopics, selectedTopics }) => {
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
 
@@ -381,42 +480,7 @@ const ChartCategoryContent: React.FC<{
           return;
         }
         for (const topic of varToTopics[statVar]) {
-          // Find which goal, target, and indicator this tile belongs to
-          const indicatorMatches = topic.dcid.match(
-            /dc\/topic\/sdg_(\d\d?\.\w\w?\.\w\w?)/
-          );
-          const targetMatches = topic.dcid.match(
-            /dc\/topic\/sdg_(\d\d?\.\w\w?)/
-          );
-          const goalMatches = topic.dcid.match(/dc\/topic\/sdg_(\d\d?)/);
-          const indicator =
-            indicatorMatches && indicatorMatches.length > 1
-              ? indicatorMatches[1]
-              : "none";
-          const target =
-            targetMatches && targetMatches.length > 1
-              ? targetMatches[1]
-              : "none";
-          const goal =
-            goalMatches && goalMatches.length > 1 ? goalMatches[1] : "none";
-
-          // put tile in appropriate spot in allGoals
-          if (goal in allGoals) {
-            if (target in allGoals[goal]) {
-              if (indicator in allGoals[goal][target]) {
-                allGoals[goal][target][indicator].push(tile);
-              } else {
-                allGoals[goal][target][indicator] = [tile];
-              }
-            } else {
-              allGoals[goal][target] = {};
-              allGoals[goal][target][indicator] = [tile];
-            }
-          } else {
-            allGoals[goal] = {};
-            allGoals[goal][target] = {};
-            allGoals[goal][target][indicator] = [tile];
-          }
+          addTileToHierarchy(tile, allGoals, topic.dcid, selectedTopics);
         }
       });
     });
@@ -448,7 +512,10 @@ const ChartGoalBlock: React.FC<{
   return (
     <>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
+        <GoalOverview
+          goalNumber={Number(goal)}
+          showExploreLink={false}
+        />
       )}
       {Object.keys(targetData).map((target, i) => {
         return (
@@ -476,7 +543,10 @@ const ChartTargetBlock: React.FC<{
   const color = theme.sdgColors[goalNumber - 1];
   return (
     <ContentCard>
-      <TargetHeader color={color} target={target} />
+      <TargetHeader
+        color={color}
+        target={target}
+      />
       <Divider color={color} />
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
@@ -505,7 +575,10 @@ const ChartIndicatorBlock: React.FC<{
   return (
     <ChartContentBody>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <HeadlineTile backgroundColor={color} indicator={indicator} />
+        <HeadlineTile
+          backgroundColor={color}
+          indicator={indicator}
+        />
       )}
       {tiles.map((tile, i) => (
         <ChartTile
