@@ -155,7 +155,7 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   export TEST_MODE=test
-  python3 -m pytest -vv -n 3 --reruns 2 server/integration_tests/$1
+  python3 -m pytest -vv --reruns 2 server/integration_tests/$1
 }
 
 function update_integration_test_golden {
