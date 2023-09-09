@@ -214,6 +214,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
       stacked: this.stacked,
@@ -222,7 +223,6 @@ export class DatacommonsBarComponent extends LitElement {
       title: this.header || this.title,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
-      showExploreMore: this.showExploreMore,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

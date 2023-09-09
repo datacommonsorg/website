@@ -147,6 +147,7 @@ export class DatacommonsMapComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       statVarSpec: {
         denom: "",
         log: false,
@@ -158,7 +159,6 @@ export class DatacommonsMapComponent extends LitElement {
       },
       svgChartHeight: 200,
       title: this.header || this.title,
-      showExploreMore: this.showExploreMore,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

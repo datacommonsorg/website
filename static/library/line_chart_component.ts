@@ -113,7 +113,9 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
+      statVarNameRegex: this.variableNameRegex,
       statVarSpec: this.variables.map((variable) => ({
         denom: "",
         log: false,
@@ -124,8 +126,6 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
-      statVarNameRegex: this.variableNameRegex,
-      showExploreMore: this.showExploreMore,
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }
