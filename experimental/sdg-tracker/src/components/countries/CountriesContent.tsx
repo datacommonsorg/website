@@ -147,8 +147,8 @@ function isInSelectedTopics(
       getGoalTargetIndicator(selectedTopic);
     if (
       indicator === selectedIndicator ||
-      selectedIndicator === "none" && target === selectedTarget ||
-      selectedTarget === "none" && goal === selectedGoal
+      (selectedIndicator === "none" && target === selectedTarget) ||
+      (selectedTarget === "none" && goal === selectedGoal)
     ) {
       return true;
     }
@@ -157,8 +157,7 @@ function isInSelectedTopics(
 }
 
 /**
- * 
- * 
+ * Adds tile to a given goal->target->indicator->tiles mapping
  * @param tile tile to add
  * @param hierarchy tree of goal->target->indicator->tiles to add to
  * @param topicDcid topic associated with the tile being added
@@ -191,7 +190,6 @@ function addTileToHierarchy(
     }
   }
 }
-
 
 const Spinner: React.FC<{ fontSize?: string }> = ({ fontSize }) => {
   const DEFAULT_SPINNER_FONT_SIZE = "1.5rem";
@@ -514,7 +512,10 @@ const ChartGoalBlock: React.FC<{
   return (
     <>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
+        <GoalOverview
+          goalNumber={Number(goal)}
+          showExploreLink={false}
+        />
       )}
       {Object.keys(targetData).map((target, i) => {
         return (
@@ -542,7 +543,10 @@ const ChartTargetBlock: React.FC<{
   const color = theme.sdgColors[goalNumber - 1];
   return (
     <ContentCard>
-      <TargetHeader color={color} target={target} />
+      <TargetHeader
+        color={color}
+        target={target}
+      />
       <Divider color={color} />
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
@@ -571,7 +575,10 @@ const ChartIndicatorBlock: React.FC<{
   return (
     <ChartContentBody>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <HeadlineTile backgroundColor={color} indicator={indicator} />
+        <HeadlineTile
+          backgroundColor={color}
+          indicator={indicator}
+        />
       )}
       {tiles.map((tile, i) => (
         <ChartTile
