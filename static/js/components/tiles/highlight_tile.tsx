@@ -148,10 +148,11 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (facet && facet.provenanceUrl) {
         sources.add(facet.provenanceUrl);
       }
-      let { unit, scaling, numFractionDigits } = getStatFormat(
+      const { unit, scaling, numFractionDigits } = getStatFormat(
         props.statVarSpec,
         statResp
       );
+      let numFractionDigitsUsed: number;
       if (props.statVarSpec.denom) {
         const denomInfo = getDenomInfo(
           props.statVarSpec,
@@ -175,7 +176,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
         // If value is a decimal, calculate the numFractionDigits as the number of
         // digits to get the first non-zero digit and the number after
         // TODO: think about adding a limit to the number of digits.
-        numFractionDigits =
+        numFractionDigitsUsed =
           Math.abs(value) >= 1
             ? numFractionDigits
             : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
@@ -186,7 +187,7 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       const result = {
         value,
         date: mainStatData.date,
-        numFractionDigits,
+        numFractionDigitsUsed,
         unitDisplayName: unit,
         sources,
         errorMsg,

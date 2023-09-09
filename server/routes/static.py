@@ -19,8 +19,8 @@ import os
 
 from flask import Blueprint
 from flask import current_app
-from flask import render_template
 from flask import redirect
+from flask import render_template
 from flask import request
 
 import server.lib.render as lib_render
