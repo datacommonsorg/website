@@ -10,13 +10,13 @@
                   {
                     "comparisonPlaces": [
                       "country/MLI",
+                      "country/GIN",
                       "country/SEN",
                       "country/ETH",
                       "country/RWA",
                       "country/GHA",
-                      "country/MAR",
-                      "country/USA",
-                      "country/DEU"
+                      "country/UGA",
+                      "country/MAR"
                     ],
                     "statVarKey": [
                       "sdg/SI_POV_DAY18"
@@ -39,6 +39,18 @@
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Mali",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Guinea",
                     "type": "LINE"
                   }
                 ]
@@ -94,35 +106,23 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/UGA",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_abs"
+                    ],
+                    "title": "Uganda",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_abs"
                     ],
                     "title": "Morocco",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/USA",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/DEU",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_abs"
-                    ],
-                    "title": "Germany",
                     "type": "LINE"
                   }
                 ]
@@ -159,6 +159,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "country/GIN",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_growth_pct"
+                    ],
+                    "title": "Guinea",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
@@ -207,23 +219,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/USA",
+                    "placeDcidOverride": "country/UGA",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_growth_pct"
                     ],
-                    "title": "United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "country/DEU",
-                    "statVarKey": [
-                      "sdg/SI_POV_DAY1_growth_pct"
-                    ],
-                    "title": "Germany",
+                    "title": "Uganda",
                     "type": "LINE"
                   }
                 ]
@@ -258,36 +258,26 @@
   "debug": {},
   "pastSourceContext": "",
   "place": {
-    "dcid": "country/USA",
-    "name": "United States",
+    "dcid": "country/MLI",
+    "name": "Mali",
     "place_type": "Country"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "country/USA",
-      "name": "United States",
+      "dcid": "country/MLI",
+      "name": "Mali",
       "place_type": "Country"
     },
     {
-      "dcid": "country/DEU",
-      "name": "Germany",
+      "dcid": "country/GIN",
+      "name": "Guinea",
       "place_type": "Country"
     },
     {
-      "dcid": "country/KEN",
-      "name": "Kenya",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SOM",
-      "name": "Somalia",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/GHA",
-      "name": "Ghana",
+      "dcid": "country/SEN",
+      "name": "Senegal",
       "place_type": "Country"
     },
     {
@@ -296,52 +286,46 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/MLI",
-      "name": "Mali",
+      "dcid": "country/RWA",
+      "name": "Rwanda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
       "place_type": "Country"
     },
     {
       "dcid": "country/MAR",
       "name": "Morocco",
       "place_type": "Country"
-    },
-    {
-      "dcid": "country/RWA",
-      "name": "Rwanda",
-      "place_type": "Country"
-    },
-    {
-      "dcid": "country/SEN",
-      "name": "Senegal",
-      "place_type": "Country"
     }
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByGender",
-        "name": "Poverty by Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByRace",
-        "name": "Poverty by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
-        "name": "Poverty by Language Spoken At Home",
-        "types": [
-          "Topic"
+    "childTopics": [],
+    "exploreMore": {
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "gender": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
         ]
       }
-    ],
-    "exploreMore": {},
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",
@@ -364,43 +348,8 @@
     "peerPlaces": [],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
         "types": [
           "Topic"
         ]

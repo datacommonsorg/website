@@ -246,18 +246,27 @@ class ExploreTest(NLWebServerTestCase):
   def test_e2e_electrification_demo(self):
     self.run_detect_and_fulfill('e2e_electrification_demo', [
         'Which countries in Africa have had the greatest increase in electricity access?',
-        'How do these countries compare with the US and Germany?',
         'How has poverty reduced in these places?',
         'How has the GDP grown?',
+        'What is the greenhouse gas emissions from these places?',
+        'How do these countries compare with the US and Germany?',
     ])
 
   def test_e2e_india_demo(self):
     self.run_detect_and_fulfill('e2e_india_demo', [
         'Which states in India have the highest poverty levels per capita?',
-        'How have the wages changed over time in these states?',
-        'How much has infant mortality reduced?',
+        'How much has infant mortality changed over time in these states?',
         'How does the literacy rate compare?',
-        'How has the number of secondary schools increased?',
+        'How does literacy rate compare to poverty in India?',
+    ])
+
+  def test_e2e_us_demo(self):
+    self.run_detect_and_fulfill('e2e_us_demo', [
+        'Which counties in the US have the highest levels of diabetes?',
+        'What is the demographic breakdown of East Carroll Parish, LA?',
+        'What is the median household income in East Carroll Parish, LA?',
+        'How does household income compare with rates of diabetes in USA counties?',
+        'How do obesity rates compare with rates of diabetes in USA counties?',
     ])
 
   def test_e2e_edge_cases(self):

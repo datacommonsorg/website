@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import styled from "styled-components";
 import { RootTopic, useStoreState } from "../../state";
 import { HomeSection } from "./components";
 const HALF_TOPIC_NUM = 9;
 
 const Container = styled(HomeSection)`
   gap: 114px;
-  background-color: #F2F2F2;
-`
+  background-color: #f2f2f2;
+`;
 const HeaderContainer = styled.div`
   color: #414042;
   text-align: center;
-  
+
   .title {
     font-size: 36px;
     font-weight: 700;
@@ -36,7 +36,7 @@ const HeaderContainer = styled.div`
   .line-separator {
     height: 0;
     border-top: solid 3px #999;
-    margin: 30px 0
+    margin: 30px 0;
   }
 
   .description {
@@ -45,7 +45,7 @@ const HeaderContainer = styled.div`
     font-weight: 400;
     line-height: 36px;
   }
-`
+`;
 const GoalContainer = styled.div`
   display: flex;
   align-items: center;
@@ -81,7 +81,7 @@ const GoalContainer = styled.div`
   }
 
   .goal-number {
-    color: #FFF;
+    color: #fff;
     font-size: 24px;
     font-weight: 700;
     width: 70px;
@@ -90,7 +90,7 @@ const GoalContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-  } 
+  }
 
   .goal-name {
     color: #444;
@@ -116,42 +116,67 @@ const GoalContainer = styled.div`
       height: fit-content;
     }
   }
-`
+`;
 export const GoalSection = () => {
   const history = useHistory();
   const rootTopics = useStoreState((s) => s.rootTopics);
-  const goalSections = [rootTopics.slice(0, 9), rootTopics.slice(9)]
+  const goalSections = [rootTopics.slice(0, 9), rootTopics.slice(9)];
 
   return (
     <Container>
       <HeaderContainer>
         <div className="title">Explore SDG Data by Goal</div>
         <div className="line-separator" />
-        <div className="description">Learn about SDG progress across all 17 Goals -- with data, insights and infographics in one place for a comprehensive overview.</div>
+        <div className="description">
+          Learn about SDG progress across all 17 Goals -- with data, insights
+          and infographics in one place for a comprehensive overview.
+        </div>
       </HeaderContainer>
-      <GoalContainer>{
-        goalSections.map((goalSection: RootTopic[], sectionNum) => {
-          return (<div className="goal-section" key={`section-${sectionNum}`}>
-          {
-            goalSection.map((goal: RootTopic, topicNum) => {
-              return (<div className="goal-item" key={goal.topicDcid} onClick={() => history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)}>
-                <div style={{backgroundColor: goal.color}} className="goal-number">
-                  <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+      <GoalContainer>
+        {goalSections.map((goalSection: RootTopic[], sectionNum) => {
+          return (
+            <div className="goal-section" key={`section-${sectionNum}`}>
+              {goalSection.map((goal: RootTopic, topicNum) => {
+                return (
+                  <div
+                    className={`goal-item -dc-goal-item-${topicNum + 1}`}
+                    key={goal.topicDcid}
+                    onClick={() =>
+                      history.push(`/goals/dc/topic/sdg_1?v=${goal.topicDcid}`)
+                    }
+                  >
+                    <div
+                      style={{ backgroundColor: goal.color }}
+                      className="goal-number"
+                    >
+                      <span>{HALF_TOPIC_NUM * sectionNum + topicNum + 1}</span>
+                    </div>
+                    <div className="goal-content">
+                      <div className="goal-name">{goal.name}</div>
+                      <div className="goal-icon">
+                        <img src={goal.homePageIcon} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              {sectionNum === 1 && (
+                <div
+                  className="goal-item -dc-goal-item-all"
+                  onClick={() => history.push("/goals")}
+                >
+                  <div className="goal-number">
+                    <img src={"/images/datacommons/sdg-goals-icon.svg"} />
+                  </div>
+                  <div className="goal-content">
+                    <div className="goal-name">All Goals</div>
+                  </div>
                 </div>
-                <div className="goal-content"><div className="goal-name">{goal.name}</div><div className="goal-icon"><img src={goal.homePageIcon}/></div></div>
-              </div>)
-            })
-          }
-          {sectionNum === 1 && (
-            <div className="goal-item" onClick={() => history.push("/goals")}>
-            <div className="goal-number"><img src={"/images/datacommons/sdg-goals-icon.svg"}/></div>
-            <div className="goal-content"><div className="goal-name">All Goals</div></div>
+              )}
             </div>
-          )}
-          </div>)
-        })
-      }
+          );
+        })}
       </GoalContainer>
     </Container>
-  )
-}
+  );
+};
