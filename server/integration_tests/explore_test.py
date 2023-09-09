@@ -305,3 +305,10 @@ class ExploreTest(NLWebServerTestCase):
         'Richest counties in california',
         'List schools in Sunnyvale',
     ])
+
+  def test_e2e_sdg(self):
+    self.run_detect_and_fulfill('e2e_sdg', [
+        'Hunger in Nigeria',
+        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
+    ],
+                                dc='sdg')

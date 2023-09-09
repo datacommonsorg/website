@@ -1,0 +1,1044 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y15T24_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Below International Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC_multiple_place_bar_block"
+                    ],
+                    "title": "Population in Poverty (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in Poverty"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_NAHC_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population Below International Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living Below the National Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_ANDI_multiple_place_bar_block",
+                      "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC.AGE--Y0T17_multiple_place_bar_block"
+                    ],
+                    "title": "Impoverished Children Under 18 Years (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_MDP_MUHC.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SD_MDP_MUHC.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Location"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block"
+                    ],
+                    "title": "Mothers With Newborns Receiving Maternity Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Mothers With Newborns Receiving Maternity Cash Benefit"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD_multiple_place_bar_block"
+                    ],
+                    "title": "Children/Households Receiving Family Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_WKINJRY_multiple_place_bar_block"
+                    ],
+                    "title": "Employed Population Covered for Work Injury (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_POOR_multiple_place_bar_block"
+                    ],
+                    "title": "Population Covered by Social Assistance Programs (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_PENSN_multiple_place_bar_block"
+                    ],
+                    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_BENFTS_multiple_place_bar_block"
+                    ],
+                    "title": "Population With Social Protection Benefits (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Average Deprivation for Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
+          },
+          "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Average Deprivation for Impoverished Urban Population",
+            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
+          },
+          "sdg/SD_MDP_ANDI_multiple_place_bar_block": {
+            "name": "Average Deprivations for Population in Poverty",
+            "statVar": "sdg/SD_MDP_ANDI"
+          },
+          "sdg/SD_MDP_MUHC.AGE--Y0T17_multiple_place_bar_block": {
+            "name": "Impoverished Children Under 18 Years",
+            "statVar": "sdg/SD_MDP_MUHC.AGE--Y0T17"
+          },
+          "sdg/SD_MDP_MUHC.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Impoverished Rural Population",
+            "statVar": "sdg/SD_MDP_MUHC.URBANISATION--R"
+          },
+          "sdg/SD_MDP_MUHC.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Impoverished Urban Population",
+            "statVar": "sdg/SD_MDP_MUHC.URBANISATION--U"
+          },
+          "sdg/SD_MDP_MUHC_multiple_place_bar_block": {
+            "name": "Population in Poverty",
+            "statVar": "sdg/SD_MDP_MUHC"
+          },
+          "sdg/SI_COV_BENFTS_multiple_place_bar_block": {
+            "name": "Population With Social Protection Benefits",
+            "statVar": "sdg/SI_COV_BENFTS"
+          },
+          "sdg/SI_COV_CHLD_multiple_place_bar_block": {
+            "name": "Children/Households Receiving Family Cash Benefit",
+            "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block": {
+            "name": "Mothers With Newborns Receiving Maternity Cash Benefit",
+            "statVar": "sdg/SI_COV_MATNL.SEX--F"
+          },
+          "sdg/SI_COV_PENSN_multiple_place_bar_block": {
+            "name": "Vulnerable Population Receiving Social Assistance Cash Benefit",
+            "statVar": "sdg/SI_COV_PENSN"
+          },
+          "sdg/SI_COV_POOR_multiple_place_bar_block": {
+            "name": "Population Covered by Social Assistance Programs",
+            "statVar": "sdg/SI_COV_POOR"
+          },
+          "sdg/SI_COV_WKINJRY_multiple_place_bar_block": {
+            "name": "Employed Population Covered for Work Injury",
+            "statVar": "sdg/SI_COV_WKINJRY"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
+            "name": "Population Age Under 15 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block": {
+            "name": "Population Age 15 to 64 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block": {
+            "name": "Population Age 65 or Older Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
+          },
+          "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block": {
+            "name": "Women Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.SEX--F"
+          },
+          "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block": {
+            "name": "Men Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.SEX--M"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Rural Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Urban Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_DAY1_multiple_place_bar_block": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block": {
+            "name": "Employed Women Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block": {
+            "name": "Employed Men Age 14 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24_multiple_place_bar_block": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
+            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
+            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block": {
+            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block": {
+            "name": "Employed Women Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block": {
+            "name": "Employed Men Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25_multiple_place_bar_block": {
+            "name": "Employed Population Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
+          },
+          "sdg/SI_POV_NAHC_multiple_place_bar_block": {
+            "name": "Employed Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_NAHC"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/MEX"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/MEX",
+    "name": "Mexico",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/MEX",
+      "name": "Mexico",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/NGA",
+      "name": "Nigeria",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/PAK",
+      "name": "Pakistan",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdg_1.1",
+        "name": "End Poverty by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.2",
+        "name": "Reduce Poverty by Half by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.3",
+        "name": "Social Protection Systems",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.4",
+        "name": "Equal Rights and Access to Basic Services by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.5",
+        "name": "Reduce Extreme Climate Events And Disasters By 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.a",
+        "name": "Resource Mobilization",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.b",
+        "name": "Poverty Eradication Policy Frameworks",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg",
+        "name": "Sustainable Development Goals",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2",
+        "name": "Zero Hunger",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_3",
+        "name": "Good Health and Well-Being",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_4",
+        "name": "Quality Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_5",
+        "name": "Gender Equality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_6",
+        "name": "Clean Water and Sanitation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_7",
+        "name": "Affordable and Clean Energy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_8",
+        "name": "Decent Work and Economic Growth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_9",
+        "name": "Industry, Innovation, and Infrastructure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_10",
+        "name": "Reduce Inequality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11",
+        "name": "Sustainable Cities and Communities",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_12",
+        "name": "Responsible Consumption and Production",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_13",
+        "name": "Climate Action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_14",
+        "name": "Life Below Water",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_15",
+        "name": "Life on Land",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_16",
+        "name": "Peace and Justice Strong Institutions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_17",
+        "name": "Partnerships to Achieve SDG Goals",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "varToTopics": {
+      "sdg/SD_MDP_ANDI": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_ANDI.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_ANDI.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_MUHC": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_MUHC.AGE--Y0T17": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_MUHC.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SD_MDP_MUHC.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.2.2",
+          "name": "Population Of All Ages Below The Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_BENFTS": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_CHLD": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_MATNL.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_PENSN": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_POOR": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "Population Covered By Social Protection Systems",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.AGE--Y0T14": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.AGE--Y15T64": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.AGE--Y_GE65": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_DAY1.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y15T24": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE25": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.1.1",
+          "name": "Population Below the Poverty Line",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_POV_NAHC": [
+        {
+          "dcid": "dc/topic/sdg_1.2.1",
+          "name": "Population Below The Poverty Line By Gender And Age",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}
