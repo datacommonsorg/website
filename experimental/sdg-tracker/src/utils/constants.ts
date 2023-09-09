@@ -40,6 +40,7 @@ export const QUERY_PARAM_PLACE = "p";
  * Query search text url parameter
  */
 export const QUERY_PARAM_QUERY = "q";
+
 /**
  * Root SDG variable group
  */
