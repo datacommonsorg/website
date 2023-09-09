@@ -76,10 +76,12 @@ class DataCommonsClient {
     placeTypes.forEach((placeType) => {
       const placeTypeResult = responseJson[placeType];
       placeTypeResult.forEach((place: any) => {
-        if (!place || !place.dcid) {
+        // Only return places with name property because that is needed for the
+        // backend to work.
+        if (!place || !place.dcid || !place.name) {
           return;
         }
-        result.push({ dcid: place.dcid, name: place.name || place.dcid });
+        result.push({ dcid: place.dcid, name: place.name });
       })
     })
     return result;
