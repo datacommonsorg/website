@@ -199,22 +199,24 @@ export async function getStatVarNames(
   if (_.isEmpty(statVarDcids)) {
     statVarNamesPromise = Promise.resolve(statVarNames);
   } else {
-    statVarNamesPromise = axios.get(`${apiRoot || ""}/api/node/propvals/out`, {
-      params: {
-        dcids: statVarDcids,
-        prop: "name",
-      },
-      paramsSerializer: stringifyFn,
-    }).then((resp) => {
-      for (const statVar in resp.data) {
-        // If the api call can't find a name for the stat var (api returns []),
-        // default to using its dcid
-        statVarNames[statVar] = _.isEmpty(resp.data[statVar])
-          ? statVar
-          : resp.data[statVar][0].value;
-      }
-      return statVarNames;
-    });
+    statVarNamesPromise = axios
+      .get(`${apiRoot || ""}/api/node/propvals/out`, {
+        params: {
+          dcids: statVarDcids,
+          prop: "name",
+        },
+        paramsSerializer: stringifyFn,
+      })
+      .then((resp) => {
+        for (const statVar in resp.data) {
+          // If the api call can't find a name for the stat var (api returns []),
+          // default to using its dcid
+          statVarNames[statVar] = _.isEmpty(resp.data[statVar])
+            ? statVar
+            : resp.data[statVar][0].value;
+        }
+        return statVarNames;
+      });
   }
 
   try {
@@ -227,7 +229,7 @@ export async function getStatVarNames(
         const extractedName = statVarNamesResult[dcid].match(regex)?.shift();
         // If no match, use the original stat var name.
         statVarNamesResult[dcid] = extractedName || statVarNamesResult[dcid];
-      })
+      });
     }
     return statVarNamesResult;
   } catch (error) {
@@ -388,11 +390,11 @@ export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number, numFractionDigits: number } {
+): { unit: string; scaling: number; numFractionDigits: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling,
-    numFractionDigits: NUM_FRACTION_DIGITS
+    numFractionDigits: NUM_FRACTION_DIGITS,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
