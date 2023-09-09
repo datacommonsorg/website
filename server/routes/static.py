@@ -17,10 +17,11 @@ from datetime import date
 import json
 import os
 
-import flask
 from flask import Blueprint
 from flask import current_app
+from flask import redirect
 from flask import render_template
+from flask import request
 
 import server.lib.render as lib_render
 from server.services import datacommons as dc
@@ -31,6 +32,8 @@ bp = Blueprint('static', __name__)
 @bp.route('/')
 def homepage():
   # Return old homepage if hiding revamp changes
+  if request.url == 'https://unsdg.datacommons.org/':
+    return redirect('https://datcom-un.ue.r.appspot.com', code=302)
   if (current_app.config.get('HIDE_REVAMP_CHANGES')):
     return lib_render.render_page("static/homepage_old.html", "homepage.html")
   return lib_render.render_page(
