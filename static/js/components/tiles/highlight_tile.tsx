@@ -148,7 +148,10 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
       if (facet && facet.provenanceUrl) {
         sources.add(facet.provenanceUrl);
       }
-      let { unit, scaling, numFractionDigits } = getStatFormat(props.statVarSpec, statResp);
+      let { unit, scaling, numFractionDigits } = getStatFormat(
+        props.statVarSpec,
+        statResp
+      );
       if (props.statVarSpec.denom) {
         const denomInfo = getDenomInfo(
           props.statVarSpec,
