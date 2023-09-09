@@ -79,7 +79,7 @@ const Countries = () => {
           <Layout style={{ overflow: "auto" }}>
             <CountriesContent
               variableDcids={[variableDcid]}
-              placeDcid={placeDcid}
+              placeDcids={[placeDcid]}
               setPlaceDcid={setPlaceDcid}
             />
           </Layout>
