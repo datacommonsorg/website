@@ -40,6 +40,7 @@ import {
   ContentCard,
   CountrySelect,
   Divider,
+  Footnotes,
   HeadlineTile,
   MainLayoutContent,
   PlaceHeaderCard,
@@ -409,6 +410,7 @@ const CountriesContent: React.FC<{
               selectedVariableDcids={variableDcids}
             />
           )}
+          <Footnotes />
         </MainLayoutContent>
       </Layout.Content>
     </Layout>
@@ -682,7 +684,7 @@ const ChartTile: React.FC<{
         <datacommons-map
           apiRoot={WEB_API_ENDPOINT}
           subscribe={channel}
-          header={tile.title}
+          header={`${tile.title}*`}
           variable={tileStatVars.join(" ")}
           parentPlace="Earth"
           childPlaceType="Country"
