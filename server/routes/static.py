@@ -13,7 +13,6 @@
 # limitations under the License.
 """Data Commons static content routes."""
 
-import logging
 from datetime import date
 import json
 import os
@@ -33,8 +32,8 @@ bp = Blueprint('static', __name__)
 @bp.route('/')
 def homepage():
   # Return old homepage if hiding revamp changes
-  logging.info(request.url)
-  if request.url == 'https://unsdg.datacommons.org/':
+  # http since the ssl happens in GCP load balancer.
+  if request.url == 'http://unsdg.datacommons.org/':
     return redirect('https://datcom-un.ue.r.appspot.com', code=302)
   if (current_app.config.get('HIDE_REVAMP_CHANGES')):
     return lib_render.render_page("static/homepage_old.html", "homepage.html")
