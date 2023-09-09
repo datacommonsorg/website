@@ -181,6 +181,11 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Number })
   yAxisMargin?: number;
 
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean })
+  showExploreMore: boolean;
+
   render(): HTMLElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -209,6 +214,7 @@ export class DatacommonsBarComponent extends LitElement {
         name: "",
         types: [],
       },
+      showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
       stacked: this.stacked,

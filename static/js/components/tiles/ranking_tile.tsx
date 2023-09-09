@@ -43,8 +43,8 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getStatVarName,
   getStatFormat,
+  getStatVarName,
 } from "../../utils/tile_utils";
 import { SvRankingUnits } from "./sv_ranking_units";
 

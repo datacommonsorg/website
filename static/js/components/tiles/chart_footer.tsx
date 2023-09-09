@@ -18,7 +18,6 @@
  * Footer for charts in tiles.
  */
 
-import _ from "lodash";
 import React from "react";
 
 import {
