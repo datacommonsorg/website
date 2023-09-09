@@ -239,14 +239,15 @@ def _write_mcf_node(node: dict) -> str:
   lines = []
 
   if node['typeOf'][0] == 'Topic':
-    prop = 'relevantVariableList'
+    prop = 'relevantVariable'
   else:
-    prop = 'memberList'
+    prop = 'member'
+  list_prop = prop + 'List'
 
   lines.append(f"Node: dcid:{node['dcid'][0]}")
 
-  if node[prop]:
-    refs_str = ", ".join([f"dcid:{var}" for var in node[prop]])
+  if node[list_prop]:
+    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
     lines.append(f"{prop}: {refs_str}")
 
   lines.append(f'name: "{node["name"][0]}"')
