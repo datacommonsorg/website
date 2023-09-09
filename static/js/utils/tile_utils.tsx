@@ -104,6 +104,11 @@ const UNIT_OVERRIDE_CONFIG: {
     numFractionDigits: 0,
     unitDisplayName: "",
   },
+  "[SDG_PERCENT 2017]": {
+    unit: "[SDG_PERCENT 2017]",
+    multiplier: 1,
+    unitDisplayName: "%",
+  },
 };
 
 export interface ReplacementStrings {
