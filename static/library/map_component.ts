@@ -115,6 +115,11 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   statVarDcid: string;
 
+  // Optional: Whether to show the "explore" link.
+  // Default: false
+  @property({ type: Boolean })
+  showExploreMore: boolean;
+
   firstUpdated(): void {
     if (this.subscribe) {
       this.parentElement.addEventListener(
@@ -153,6 +158,7 @@ export class DatacommonsMapComponent extends LitElement {
       },
       svgChartHeight: 200,
       title: this.header || this.title,
+      showExploreMore: this.showExploreMore,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

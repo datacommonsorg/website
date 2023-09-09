@@ -512,10 +512,7 @@ const ChartGoalBlock: React.FC<{
   return (
     <>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <GoalOverview
-          goalNumber={Number(goal)}
-          showExploreLink={false}
-        />
+        <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
       )}
       {Object.keys(targetData).map((target, i) => {
         return (
@@ -543,10 +540,7 @@ const ChartTargetBlock: React.FC<{
   const color = theme.sdgColors[goalNumber - 1];
   return (
     <ContentCard>
-      <TargetHeader
-        color={color}
-        target={target}
-      />
+      <TargetHeader color={color} target={target} />
       <Divider color={color} />
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
@@ -575,10 +569,7 @@ const ChartIndicatorBlock: React.FC<{
   return (
     <ChartContentBody>
       {placeDcids[0] === EARTH_PLACE_DCID && (
-        <HeadlineTile
-          backgroundColor={color}
-          indicator={indicator}
-        />
+        <HeadlineTile backgroundColor={color} indicator={indicator} />
       )}
       {tiles.map((tile, i) => (
         <ChartTile
@@ -646,6 +637,7 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           places={placeDcids.join(" ")}
           sort="descending"
+          showExploreMore={true}
         />
       </>
     );
@@ -671,6 +663,7 @@ const ChartTile: React.FC<{
           variables={tileStatVars.join(" ")}
           places={placeDcid}
           variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
+          showExploreMore={true}
         />
       </>
     );
@@ -686,6 +679,7 @@ const ChartTile: React.FC<{
           variable={tileStatVars.join(" ")}
           parentPlace="Earth"
           childPlaceType="Country"
+          showExploreMore={true}
         />
         {/** @ts-ignore */}
         <datacommons-slider
