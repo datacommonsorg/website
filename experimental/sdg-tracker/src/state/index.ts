@@ -48,7 +48,7 @@ const MenuImageIcon = styled.img`
   border-radius: 0.25rem;
 `;
 
-const REGION_PLACE_TYPES = ["UNGeoRegion", "GeoRegion", "ContinentalUnion"];
+const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
 export interface Place {
   name: string;
   dcid: string;
