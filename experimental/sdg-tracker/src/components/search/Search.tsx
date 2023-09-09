@@ -143,7 +143,7 @@ const SearchTop = styled.div`
 
 const ColorBar = styled.div`
   background-image: url("./images/datacommons/sdg-color-bar.png");
-  background-size: 100% auto;
+  background-size: 100% 10px;
   height: 10px;
 `;
 
@@ -252,9 +252,12 @@ const Search = () => {
       setVariableDcids([]);
       setPlaceDcids([]);
       setFulfillResponse(undefined);
+      const context = fulfillResponse ? fulfillResponse.context : undefined;
+
       try {
         const fulfillResponse = await dataCommonsClient.detectAndFulfill(
-          searchQuery || query
+          searchQuery || query,
+          context
         );
 
         setFulfillResponse(fulfillResponse);
@@ -293,7 +296,7 @@ const Search = () => {
         );
       }
     },
-    [query]
+    [fulfillResponse, query, searchParamQuery]
   );
 
   if (!searchParamQuery) {
