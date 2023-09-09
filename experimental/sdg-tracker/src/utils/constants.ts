@@ -17,9 +17,14 @@
 import appConfig from "../config/appConfig.json";
 
 /**
- * DCID for the world
+ * DCID for the Earth/World
  */
 export const EARTH_PLACE_DCID = "Earth";
+
+/**
+ * Place name for Earth/World
+ */
+export const EARTH_PLACE_NAME = "World";
 
 /**
  * Variable DCID url parameter

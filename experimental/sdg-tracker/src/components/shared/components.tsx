@@ -184,7 +184,7 @@ export const ContentCardBody = styled.div`
 `;
 
 // Country selection dropdown
-const CountrySelectContainer = styled.div<{width: string}>`
+const CountrySelectContainer = styled.div<{ width: string }>`
   display: flex;
   position: relative;
   width: ${(p) => p.width};
@@ -217,8 +217,10 @@ export const CountrySelect: React.FC<{
   const regions = useStoreState((s) =>
     s.regions.dcids.map((dcid) => s.regions.byDcid[dcid])
   );
-  const options = [countries, regions].flat().map((place) => ({ value: place.name, dcid: place.dcid }))
-  const containerWidth =  style && style.width ? style.width : "fit-content";
+  const options = [countries, regions]
+    .flat()
+    .map((place) => ({ value: place.name, dcid: place.dcid }));
+  const containerWidth = style && style.width ? style.width : "fit-content";
   const [value, setValue] = useState("");
 
   useEffect(() => {});
@@ -298,19 +300,27 @@ const StyledBreadcrumb = styled(Breadcrumb)`
   }
 `;
 
+const UserMessage = styled.div`
+  border: 1px solid #e3e3e3;
+  border-radius: 0.5rem;
+  padding: 16px 24px;
+`;
+
 export const PlaceHeaderCard: React.FC<{
-  currentPlaceName: string | undefined;
-  hidePlaceSearch: boolean | undefined;
+  placeNames: string[];
+  hideBreadcrumbs?: boolean;
+  hidePlaceSearch?: boolean;
   setSelectedPlaceDcid: (selectedPlaceDcid: string) => void;
+  userMessage?: string;
   variableDcids: string[];
 }> = ({
-  currentPlaceName,
+  placeNames,
+  hideBreadcrumbs,
   hidePlaceSearch,
   setSelectedPlaceDcid,
+  userMessage,
   variableDcids,
 }) => {
-  useEffect(() => {});
-
   // get breadcrumbs from current location
   const location = useLocation();
   const topics = useStoreState((s) =>
@@ -341,19 +351,18 @@ export const PlaceHeaderCard: React.FC<{
     return parentDcids.map((parentDcid) => s.topics.byDcid[parentDcid]);
   });
   const shouldHideBreadcrumbs =
-    topics.length == 1 && topics[0].dcid === ROOT_TOPIC;
+    hideBreadcrumbs || (topics.length == 1 && topics[0].dcid === ROOT_TOPIC);
   return (
     <PlaceCard>
       <PlaceCardContent>
-        {currentPlaceName === "World" ? (
-          <PlaceTitle>World</PlaceTitle>
+        {userMessage && <UserMessage>{userMessage}</UserMessage>}
+        {hidePlaceSearch ? (
+          <PlaceTitle>{placeNames.join(", ")}</PlaceTitle>
         ) : (
-          !hidePlaceSearch && (
-            <CountrySelect
-              setSelectedPlaceDcid={setSelectedPlaceDcid}
-              currentPlaceName={currentPlaceName}
-            />
-          )
+          <CountrySelect
+            setSelectedPlaceDcid={setSelectedPlaceDcid}
+            currentPlaceName={placeNames.length > 0 ? placeNames[0] : undefined}
+          />
         )}
         {!shouldHideBreadcrumbs && (
           <StyledBreadcrumb>

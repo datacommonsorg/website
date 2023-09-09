@@ -17,7 +17,7 @@ export interface ChartConfigTile {
   description: string;
   statVarKey: string[];
   title: string;
-  type: "BAR" | "LINE" | "MAP" | "HIGHLIGHT" | "GAUGE";
+  type: "BAR" | "GAUGE" | "HIGHLIGHT" | "LINE" | "MAP" | "PLACE_OVERVIEW";
 }
 export interface ChartConfigColumn {
   tiles: ChartConfigTile[];
@@ -26,14 +26,16 @@ export interface ChartConfigBlock {
   columns: ChartConfigColumn[];
   title: string;
 }
+
+export interface StatVarSpec {
+  [dcid: string]: {
+    name: string;
+    statVar: string;
+  };
+}
 export interface ChartConfigCategory {
   blocks: ChartConfigBlock[];
-  statVarSpec: {
-    [dcid: string]: {
-      name: string;
-      statVar: string;
-    };
-  };
+  statVarSpec: StatVarSpec;
 }
 export interface ChartConfig {
   categories?: ChartConfigCategory[];
@@ -109,6 +111,7 @@ export interface FulfillResponse {
   debug: any; // Not currently used; define interface later if needed
   failure?: string;
   place: Place;
+  places: Place[];
   placeFallback: any; // Not currently used; define interface later if needed
   placeSource: FulfillmentResult;
   relatedThings: RelatedThings;
