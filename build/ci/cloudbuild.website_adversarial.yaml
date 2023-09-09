@@ -15,7 +15,7 @@
 # Run Website sanity
 steps:
   - id: website_adversarial
-    name: python:3.11.3
+    name: gcr.io/datcom-ci/webdriver-chrome:2023-06-17
     entrypoint: /bin/sh
     args:
       - -c
