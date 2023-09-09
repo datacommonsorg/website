@@ -16,7 +16,7 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 import time
-from typing import Dict, List
+from typing import List
 
 from server.lib.explore.params import DCNames
 from server.lib.explore.params import is_sdg
