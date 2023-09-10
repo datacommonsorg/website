@@ -489,9 +489,10 @@ const ChartCategoryContent: React.FC<{
       });
     });
   });
+  
   return (
     <>
-      {Object.keys(allGoals).map((goal, i) => {
+      {Object.keys(allGoals).sort().map((goal, i) => {
         return (
           <ChartGoalBlock
             fulfillResponse={fulfillResponse}
@@ -521,7 +522,7 @@ const ChartGoalBlock: React.FC<{
       {placeDcids[0] === EARTH_PLACE_DCID && (
         <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
       )}
-      {Object.keys(targetData).map((target, i) => {
+      {Object.keys(targetData).sort().map((target, i) => {
         return (
           <ChartTargetBlock
             key={`${goal}-${i}`}
@@ -551,7 +552,7 @@ const ChartTargetBlock: React.FC<{
     <ContentCard>
       <TargetHeader color={color} target={target} />
       <Divider color={color} />
-      {Object.keys(indicatorData).map((indicator, i) => {
+      {Object.keys(indicatorData).sort().map((indicator, i) => {
         return (
           <ChartIndicatorBlock
             fulfillResponse={fulfillResponse}
