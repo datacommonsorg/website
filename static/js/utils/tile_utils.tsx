@@ -104,11 +104,6 @@ const UNIT_OVERRIDE_CONFIG: {
     numFractionDigits: 0,
     unitDisplayName: "",
   },
-  "[SDG_PERCENT 2017]": {
-    unit: "[SDG_PERCENT 2017]",
-    multiplier: 1,
-    unitDisplayName: "%",
-  },
 };
 
 export interface ReplacementStrings {
@@ -418,13 +413,30 @@ export function getStatFormat(
     ).find((series) => !!series.facet);
     statMetadata = statSeriesData.facets[seriesWithFacet.facet];
   }
-  const overrideConfig = statMetadata
-    ? UNIT_OVERRIDE_CONFIG[statMetadata.unit]
-    : null;
+
+  const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
+  let overrideConfig = null;
+  if (statMetadata) {
+    // If complex unit, use the unit part to get the override config, otherwise
+    // use the whole unit to get the override config.
+    const unitStr = isComplexUnit
+      ? statMetadata.unit.substring(1, statMetadata.unit.indexOf(" "))
+      : statMetadata.unit;
+    overrideConfig = UNIT_OVERRIDE_CONFIG[unitStr];
+  }
   // If there's a matching override config, use the format information from
   // the config. Otherwise, get unit from stat metadata.
   if (overrideConfig) {
-    result.unit = overrideConfig.unitDisplayName;
+    let unitSuffix = "";
+    if (isComplexUnit) {
+      // If complex unit, form the unit suffix with the date part of the unit
+      const date = statMetadata.unit.substring(
+        statMetadata.unit.indexOf(" ") + 1,
+        statMetadata.unit.length - 1
+      );
+      unitSuffix = ` with base period ${date}`;
+    }
+    result.unit = `${overrideConfig.unitDisplayName}${unitSuffix}`;
     result.scaling = overrideConfig.multiplier;
     result.numFractionDigits = overrideConfig.numFractionDigits;
   } else {
