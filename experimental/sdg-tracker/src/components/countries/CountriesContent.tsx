@@ -683,7 +683,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
-          places={placeDcid}
+          places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
         />
