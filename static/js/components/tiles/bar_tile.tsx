@@ -443,7 +443,7 @@ function getExploreLink(props: BarTilePropType): {
 } {
   const hash = getHash(
     VisType.TIMELINE,
-    [...props.comparisonPlaces, props.place.dcid],
+    props.comparisonPlaces || [props.place.dcid],
     "",
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}
