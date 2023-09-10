@@ -511,18 +511,14 @@ export function drawD3Map(
           )
           .on("mouseover", onMouseOver(canClickRegion, containerElement));
       });
-    console.log(zoom);
     svg.call(zoom).call(zoom.transform, STARTING_ZOOM_TRANSFORMATION);
     if (zoomParams.zoomInButtonId) {
-      console.log(d3.select(`#${zoomParams.zoomInButtonId}`));
       d3.select(`#${zoomParams.zoomInButtonId}`).on("click", () => {
-        console.log("clicked zoom in");
         svg.call(zoom.scaleBy, 2);
       });
     }
     if (zoomParams.zoomOutButtonId) {
       d3.select(`#${zoomParams.zoomOutButtonId}`).on("click", () => {
-        console.log("clicked zoom out");
         svg.call(zoom.scaleBy, 0.5);
       });
     }
