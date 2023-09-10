@@ -115,8 +115,12 @@ class PopulateState:
   # Whether this is explore mode of fulfillment.
   explore_mode: bool = False
   # Set to true if utterance has overwritten SVs.  So they should
-  # be cleared and not propagated into context.
+  # be cleared and not be propagated into context.
   has_overwritten_svs: bool = False
+  # Set to true if TOP charts include requested child-type for
+  # BASIC.  This is a hack around the fact that BASIC type combines
+  # contained-in, ranking and simple.
+  has_child_type_in_top_basic_charts: bool = False
 
 
 @dataclass

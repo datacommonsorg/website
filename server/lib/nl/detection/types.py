@@ -46,6 +46,7 @@ class PlaceDetection:
   parent_places: List[Place] = field(default_factory=list)
   # This is only of the `child_type` requested.
   child_places: List[Place] = field(default_factory=list)
+  child_place_type: str = None
 
 
 @dataclass

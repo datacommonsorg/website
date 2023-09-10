@@ -119,7 +119,23 @@
     "name": "California",
     "place_type": "State"
   },
-  "placeFallback": {},
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "newStr": "California",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    },
+    "origStr": "counties in California",
+    "origType": "County"
+  },
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
@@ -130,5 +146,5 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "Sorry, there were no relevant statistics for counties in California. See results for California."
 }
