@@ -22,7 +22,11 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
 import { DEFAULT_API_ENDPOINT } from "./constants";
-import { convertArrayAttribute, createWebComponentElement } from "./utils";
+import {
+  convertArrayAttribute,
+  createWebComponentElement,
+  getVariableNameProcessingFn,
+} from "./utils";
 
 /**
  * Web component for rendering the datacommons line tile.
@@ -96,6 +100,12 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   variableNameRegex!: string;
 
+  // Optional: default variable name used with variableNameRegex.
+  // If provided and no variable name can be extracted using variableNameRegex,
+  // use this as the variable name.
+  @property()
+  defaultVariableName!: string;
+
   // Optional: Whether to show the "explore" link.
   // Default: false
   @property({ type: Boolean })
@@ -115,7 +125,6 @@ export class DatacommonsLineComponent extends LitElement {
       },
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
-      statVarNameRegex: this.variableNameRegex,
       statVarSpec: this.variables.map((variable) => ({
         denom: "",
         log: false,
@@ -126,6 +135,10 @@ export class DatacommonsLineComponent extends LitElement {
       })),
       svgChartHeight: 200,
       title: this.header || this.title,
+      getProcessedSVNameFn: getVariableNameProcessingFn(
+        this.variableNameRegex,
+        this.defaultVariableName
+      ),
     };
     return createWebComponentElement(LineTile, lineTileProps);
   }
