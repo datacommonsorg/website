@@ -402,12 +402,16 @@ export function getStatFormat(
     const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
       (obs) => !!obs.facet
     );
-    statMetadata = statPointData.facets[obsWithFacet.facet];
+    if (obsWithFacet) {
+      statMetadata = statPointData.facets[obsWithFacet.facet];
+    }
   } else if (statSeriesData) {
     const seriesWithFacet = Object.values(
       statSeriesData.data[svSpec.statVar]
     ).find((series) => !!series.facet);
-    statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    if (seriesWithFacet) {
+      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    }
   }
 
   const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
