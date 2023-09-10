@@ -91,6 +91,7 @@ def stat_var_property():
         'ranked':
             dcid in ranked_statvars,
         'pcAllowed':
+            current_app.config['ENABLE_PER_CAPITA'] and
             shared.is_percapita_relevant(dcid, current_app.config['NOPC_VARS'])
     }
   return result

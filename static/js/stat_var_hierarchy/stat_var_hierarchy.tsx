@@ -47,7 +47,7 @@ import {
   TOOLTIP_ID,
 } from "./util";
 
-const ROOT_SVG = "dc/g/Root";
+const ROOT_SVG = globalThis.svgRoot || "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
 export interface StatVarHierarchyPropType {
