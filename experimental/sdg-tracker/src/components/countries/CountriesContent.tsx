@@ -22,6 +22,7 @@ import styled from "styled-components";
 
 import { useStoreActions, useStoreState } from "../../state";
 import {
+  COUNTRY_PLACE_TYPE,
   EARTH_PLACE_DCID,
   EARTH_PLACE_NAME,
   ROOT_TOPIC,
@@ -30,10 +31,10 @@ import {
 
 import {
   ChartConfigCategory,
+  ChartConfigMetadata,
   ChartConfigTile,
   FulfillResponse,
   StatVarSpec,
-  VarToTopicMapping,
 } from "../../utils/types";
 
 import {
@@ -405,7 +406,7 @@ const CountriesContent: React.FC<{
             </ContentCard>
           ) : (
             <ChartContent
-              fulfillmentResponse={localFulfillResponse}
+              fulfillResponse={localFulfillResponse}
               placeDcids={placeDcids}
               selectedVariableDcids={variableDcids}
             />
@@ -418,23 +419,23 @@ const CountriesContent: React.FC<{
 };
 
 const ChartContent: React.FC<{
-  fulfillmentResponse?: FulfillResponse;
+  fulfillResponse?: FulfillResponse;
   placeDcids: string[];
   selectedVariableDcids: string[];
 }> = (props) => {
-  const { fulfillmentResponse, placeDcids, selectedVariableDcids } = props;
-  if (!fulfillmentResponse || fulfillmentResponse.failure) {
+  const { fulfillResponse, placeDcids, selectedVariableDcids } = props;
+  if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
   return (
     <>
-      {fulfillmentResponse.config.categories &&
-        fulfillmentResponse.config.categories.map((chartConfigCategory, i) => (
+      {fulfillResponse.config.categories &&
+        fulfillResponse.config.categories.map((chartConfigCategory, i) => (
           <ChartCategoryContent
             key={i}
             placeDcids={placeDcids}
             chartConfigCategory={chartConfigCategory}
-            varToTopics={fulfillmentResponse.relatedThings.varToTopics}
+            fulfillResponse={fulfillResponse}
             selectedTopics={selectedVariableDcids}
           />
         ))}
@@ -456,10 +457,11 @@ interface Goals {
 
 const ChartCategoryContent: React.FC<{
   chartConfigCategory: ChartConfigCategory;
+  fulfillResponse: FulfillResponse;
   placeDcids: string[];
-  varToTopics: VarToTopicMapping;
   selectedTopics: string[];
-}> = ({ chartConfigCategory, placeDcids, varToTopics, selectedTopics }) => {
+}> = ({ chartConfigCategory, fulfillResponse, placeDcids, selectedTopics }) => {
+  const varToTopics = fulfillResponse.relatedThings.varToTopics;
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
 
@@ -492,11 +494,12 @@ const ChartCategoryContent: React.FC<{
       {Object.keys(allGoals).map((goal, i) => {
         return (
           <ChartGoalBlock
+            fulfillResponse={fulfillResponse}
+            goal={goal}
             key={i}
             placeDcids={placeDcids}
-            goal={goal}
-            targetData={allGoals[goal]}
             statVarSpec={chartConfigCategory.statVarSpec}
+            targetData={allGoals[goal]}
           />
         );
       })}
@@ -506,11 +509,13 @@ const ChartCategoryContent: React.FC<{
 
 // Displays all cards associated with a goal, along with goal's overview tile
 const ChartGoalBlock: React.FC<{
+  fulfillResponse: FulfillResponse;
+  chartConfigMetadata?: ChartConfigMetadata;
   placeDcids: string[];
   goal: string;
   targetData: Targets;
   statVarSpec: StatVarSpec;
-}> = ({ placeDcids, goal, targetData, statVarSpec }) => {
+}> = ({ fulfillResponse, placeDcids, goal, targetData, statVarSpec }) => {
   return (
     <>
       {placeDcids[0] === EARTH_PLACE_DCID && (
@@ -520,6 +525,7 @@ const ChartGoalBlock: React.FC<{
         return (
           <ChartTargetBlock
             key={`${goal}-${i}`}
+            fulfillResponse={fulfillResponse}
             placeDcids={placeDcids}
             target={target}
             indicatorData={targetData[target]}
@@ -533,11 +539,12 @@ const ChartGoalBlock: React.FC<{
 
 // Displays the card associated with a target, along with target's header
 const ChartTargetBlock: React.FC<{
-  placeDcids: string[];
-  target: string;
+  fulfillResponse: FulfillResponse;
   indicatorData: Indicators;
+  placeDcids: string[];
   statVarSpec: StatVarSpec;
-}> = ({ placeDcids, target, indicatorData, statVarSpec }) => {
+  target: string;
+}> = ({ fulfillResponse, indicatorData, placeDcids, statVarSpec, target }) => {
   const goalNumber = Number(target.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
@@ -547,11 +554,12 @@ const ChartTargetBlock: React.FC<{
       {Object.keys(indicatorData).map((indicator, i) => {
         return (
           <ChartIndicatorBlock
-            key={`${target}=${i}`}
+            fulfillResponse={fulfillResponse}
             indicator={indicator}
+            key={`${target}=${i}`}
             placeDcids={placeDcids}
-            tiles={indicatorData[indicator]}
             statVarSpec={statVarSpec}
+            tiles={indicatorData[indicator]}
           />
         );
       })}
@@ -561,11 +569,12 @@ const ChartTargetBlock: React.FC<{
 
 // Displays the tiles associated with a single indicator
 const ChartIndicatorBlock: React.FC<{
+  fulfillResponse: FulfillResponse;
   indicator: string;
   placeDcids: string[];
   statVarSpec: StatVarSpec;
   tiles: ChartConfigTile[];
-}> = ({ indicator, placeDcids, statVarSpec, tiles }) => {
+}> = ({ fulfillResponse, indicator, placeDcids, statVarSpec, tiles }) => {
   const goalNumber = Number(indicator.split(".")[0]) || 1;
   const color = theme.sdgColors[goalNumber - 1];
   return (
@@ -575,6 +584,7 @@ const ChartIndicatorBlock: React.FC<{
       )}
       {tiles.map((tile, i) => (
         <ChartTile
+          fulfillResponse={fulfillResponse}
           key={`${indicator}-${i}`}
           placeDcids={placeDcids}
           tile={tile}
@@ -586,10 +596,11 @@ const ChartIndicatorBlock: React.FC<{
 };
 
 const ChartTile: React.FC<{
+  fulfillResponse: FulfillResponse;
   statVarSpec: StatVarSpec;
   placeDcids: string[];
   tile: ChartConfigTile;
-}> = ({ placeDcids, tile, statVarSpec }) => {
+}> = ({ fulfillResponse, placeDcids, tile, statVarSpec }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [isIntersecting, setIntersecting] = useState(false);
@@ -619,6 +630,13 @@ const ChartTile: React.FC<{
   }
 
   const placeDcid = placeDcids[0];
+  const placeType = fulfillResponse.place.place_type;
+  const containedPlaceTypes =
+    fulfillResponse.config.metadata?.containedPlaceTypes || {};
+  const childPlaceType =
+    placeType in containedPlaceTypes
+      ? containedPlaceTypes[placeType]
+      : COUNTRY_PLACE_TYPE;
 
   const tileStatVars = tile.statVarKey.map(
     (statVarKey) => statVarSpec[statVarKey].statVar
@@ -671,7 +689,10 @@ const ChartTile: React.FC<{
     );
   } else if (tile.type === "MAP") {
     const channel = `map-${tileStatVars.join("__")}`;
-    component = (
+    // To prevent showing sub-national map data, only show maps if
+    // the child place is Country (for World or regional views)
+    const showMap = childPlaceType === COUNTRY_PLACE_TYPE;
+    component = showMap ? (
       <>
         {/** @ts-ignore */}
         <datacommons-map
@@ -679,8 +700,8 @@ const ChartTile: React.FC<{
           subscribe={channel}
           header={`${tile.title}*`}
           variable={tileStatVars.join(" ")}
-          parentPlace="Earth"
-          childPlaceType="Country"
+          parentPlace={placeDcid}
+          childPlaceType={childPlaceType}
           showExploreMore={true}
         />
         {/** @ts-ignore */}
@@ -688,10 +709,12 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           publish={channel}
           variable={tileStatVars.join(" ")}
-          parentPlace="Earth"
-          childPlaceType="Country"
+          parentPlace={placeDcid}
+          childPlaceType={childPlaceType}
         />
       </>
+    ) : (
+      <></>
     );
   } else if (tile.type === "GAUGE") {
     component = (

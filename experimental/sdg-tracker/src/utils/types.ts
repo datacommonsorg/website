@@ -37,16 +37,18 @@ export interface ChartConfigCategory {
   blocks: ChartConfigBlock[];
   statVarSpec: StatVarSpec;
 }
+
+export interface ChartConfigMetadata {
+  containedPlaceTypes: {
+    [placeType: string]: string;
+  };
+  placeDcid: string[];
+  topicId: string;
+  topicName: string;
+}
 export interface ChartConfig {
   categories?: ChartConfigCategory[];
-  metadata?: {
-    containedPlaceTypes: {
-      Place: string;
-    };
-    placeDcid: string[];
-    topicId: string;
-    topicName: string;
-  };
+  metadata?: ChartConfigMetadata;
 }
 export interface Place {
   dcid: string;
