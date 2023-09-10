@@ -683,7 +683,7 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
-          places={placeDcid}
+          places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
         />
@@ -732,6 +732,9 @@ const ChartTile: React.FC<{
         />
       </>
     );
+  } else if (tile.type === "RANKING") {
+    // Do not render ranking tiles
+    component = <></>;
   } else {
     component = (
       <div>
