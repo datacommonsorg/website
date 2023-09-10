@@ -732,6 +732,9 @@ const ChartTile: React.FC<{
         />
       </>
     );
+  } else if (tile.type === "RANKING") {
+    // Do not render ranking tiles
+    component = <></>;
   } else {
     component = (
       <div>
