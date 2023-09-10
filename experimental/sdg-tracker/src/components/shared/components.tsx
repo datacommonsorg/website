@@ -195,6 +195,7 @@ const CountrySelectContainer = styled.div<{ width: string }>`
     color: black;
   }
   svg {
+    pointer-events: none;
     position: absolute;
     right: 0.8rem;
     top: 0.8rem;
