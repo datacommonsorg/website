@@ -15,8 +15,8 @@
 # This module defines functions to fetch data from Data Commons Mixer API.
 # The fetch functions call REST wrappers in datacommons module.
 
-import re
 import copy
+import re
 from typing import Dict, List
 
 import server.services.datacommons as dc
