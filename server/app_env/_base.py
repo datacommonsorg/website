@@ -43,6 +43,8 @@ class Config:
   SHOW_SUSTAINABILITY = False
   # Whether to use PaLM API
   USE_PALM = False
+  # Show per capita option in chart
+  ENABLE_PER_CAPITA = True
 
   # Environment name of the config.
   ENV = ''
