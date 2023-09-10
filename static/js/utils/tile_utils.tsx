@@ -407,7 +407,9 @@ export function getStatFormat(
     const seriesWithFacet = Object.values(
       statSeriesData.data[svSpec.statVar]
     ).find((series) => !!series.facet);
-    statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    if (seriesWithFacet) {
+      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    }
   }
 
   const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
