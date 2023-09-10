@@ -78,9 +78,8 @@ export interface LineTilePropType {
   showLoadingSpinner?: boolean;
   // Whether to show tooltip on hover
   showTooltipOnHover?: boolean;
-  // If provided, only the first case of the stat var name that matches
-  // this regex will be used as the stat var name.
-  statVarNameRegex?: string;
+  // Function used to get processed stat var names.
+  getProcessedSVNameFn?: (name: string) => string;
 }
 
 export interface LineChartData {
@@ -184,7 +183,7 @@ export const fetchData = async (props: LineTilePropType) => {
   const statVarNames = await getStatVarNames(
     props.statVarSpec,
     props.apiRoot,
-    props.statVarNameRegex
+    props.getProcessedSVNameFn
   );
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
