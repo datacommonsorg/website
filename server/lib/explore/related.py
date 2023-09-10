@@ -63,7 +63,7 @@ def compute_related_things(state: ftypes.PopulateState,
   # If we did a place-fallback, do not bother setting these!
   had_place_fallback = bool(fallback and fallback.newPlace and
                             fallback.origPlace and
-                            fallback.newPlace.dcid != fallback.origPlace.dcid)
+                            fallback.newStr != fallback.origStr)
   if not had_place_fallback:
     related_things['parentPlaces'] = _get_json_places(pd.parent_places)
     if state.place_type and pd.child_places:

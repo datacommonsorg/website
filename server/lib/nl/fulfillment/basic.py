@@ -36,6 +36,9 @@ _MAX_NUM_CHART_VARS_THRESHOLD = 3
 _MAX_RANKING_AND_MAP_PER_SVPG_LOWER = 2
 _MAX_RANKING_AND_MAP_PER_SVPG_UPPER = 10
 
+# Num charts for considering place-type fallback
+_PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
+
 #
 # NOTE: basic is a layer on topic of simple, containedin, ranking_across_places and ranking_across_vars
 # The choice of the charts to show depends on the `explore_mode`
@@ -78,12 +81,12 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 
   # If user specified an explicit child place type, show child charts
   # (map, ranking) before main (bars, timelines).
-  main_before_child = True
+  user_set_child_type = False
   if state.place_type and not state.had_default_place_type:
-    main_before_child = False
+    user_set_child_type = True
 
   # If user didn't ask for ranking, show timeline+highlight first.
-  if main_before_child and chart_vars.is_topic_peer_group:
+  if not user_set_child_type and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   cv = copy.deepcopy(chart_vars)
@@ -91,16 +94,17 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
     cv.svs = [sv]
 
     # If user didn't ask for ranking, show timeline+highlight first.
-    if main_before_child and not cv.is_topic_peer_group:
+    if not user_set_child_type and not cv.is_topic_peer_group:
       added |= simple.populate(state, cv, places, chart_origin, rank)
 
     if state.place_type:
       # If this is SDG, unless user has asked for ranking, do not return!
+      added_child_type_charts = False
       if not is_sdg or state.ranking_types:
         ranking_orig = state.ranking_types
         if not state.ranking_types:
           state.ranking_types = [RankingType.HIGH, RankingType.LOW]
-        added |= ranking_across_places.populate(
+        added_child_type_charts = ranking_across_places.populate(
             state,
             cv,
             places,
@@ -111,14 +115,19 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
         state.ranking_types = ranking_orig
       elif is_sdg:
         # Return only map.
-        added |= containedin.populate(state, cv, places, chart_origin, rank)
+        added_child_type_charts = containedin.populate(state, cv, places,
+                                                       chart_origin, rank)
+
+      if added_child_type_charts:
+        _maybe_set_place_type_existence(state, rank)
+      added |= added_child_type_charts
 
     # If user had asked for ranking, show timeline+highlight last.
-    if not main_before_child and not cv.is_topic_peer_group:
+    if user_set_child_type and not cv.is_topic_peer_group:
       added |= simple.populate(state, cv, places, chart_origin, rank)
 
   # If user had asked for ranking, show timeline+highlight last.
-  if not main_before_child and chart_vars.is_topic_peer_group:
+  if user_set_child_type and chart_vars.is_topic_peer_group:
     added |= simple.populate(state, chart_vars, places, chart_origin, rank)
 
   return added
@@ -133,6 +142,7 @@ def _populate_chat(state: PopulateState, chart_vars: ChartVars,
       # This is ranking across places.
       if ranking_across_places.populate(state, chart_vars, places, chart_origin,
                                         rank):
+        _maybe_set_place_type_existence(state, rank)
         return True
     else:
       # This is ranking across vars.
@@ -142,9 +152,16 @@ def _populate_chat(state: PopulateState, chart_vars: ChartVars,
 
   if state.place_type:
     if containedin.populate(state, chart_vars, places, chart_origin, rank):
+      _maybe_set_place_type_existence(state, rank)
       return True
 
   return simple.populate(state, chart_vars, places, chart_origin, rank)
+
+
+def _maybe_set_place_type_existence(state: PopulateState, rank: int):
+  if (state.place_type and not state.had_default_place_type and
+      rank < _PLACE_TYPE_FALLBACK_THRESHOLD_RANK):
+    state.has_child_type_in_top_basic_charts = True
 
 
 def _get_ranking_count_by_type(t: ContainedInPlaceType, rt: List[RankingType]):

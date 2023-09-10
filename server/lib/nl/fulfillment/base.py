@@ -221,7 +221,7 @@ def _add_charts_with_existence_check(state: PopulateState,
 
       # If we have found enough charts, return success
       if num_charts >= _MAX_NUM_CHARTS:
-        return True
+        break
 
     # Handle extended/comparable SVs only for simple query since
     # for those we would construct a single bar chart comparing the differe
@@ -229,7 +229,8 @@ def _add_charts_with_existence_check(state: PopulateState,
     # individual "related" charts, and those don't look good.
     #
     # TODO: Optimize and enable in Explore mode.
-    if qt == QueryType.BASIC and existing_svs and not state.place_type and not state.ranking_types:
+    if (qt == QueryType.BASIC and existing_svs and not state.place_type and
+        not state.ranking_types and num_charts < _MAX_NUM_CHARTS):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in svs if v in existing_svs]
@@ -240,6 +241,11 @@ def _add_charts_with_existence_check(state: PopulateState,
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
+      if (qt == QueryType.BASIC and state.place_type and
+          not state.had_default_place_type and
+          not state.has_child_type_in_top_basic_charts):
+        state.place_type = None
+        _maybe_set_fallback(state, places)
       break
 
   if not found:
