@@ -113,7 +113,6 @@ interface RawData {
 }
 
 export interface MapChartData {
-  dataDates: { [dcid: string]: string };
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -340,7 +339,6 @@ function rawToChart(
   const metadataMap = rawData.placeStat.facets || {};
   const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
 
-  const dataDates = {};
   const dataValues = {};
   const metadata = {};
   const sources: Set<string> = new Set();
@@ -388,15 +386,14 @@ function rawToChart(
     }
     dataValues[placeDcid] = value;
     metadata[placeDcid] = placeChartData.metadata;
-    dataDates[placeDcid] = placeChartData.date;
     dates.add(placeChartData.date);
   }
+  console.log(metadata);
   // check for empty data values
   const errorMsg = _.isEmpty(dataValues)
     ? getNoDataErrorMsg([props.statVarSpec])
     : "";
   return {
-    dataDates,
     dataValues,
     metadata,
     sources,
@@ -470,7 +467,7 @@ export function draw(
           chartData.unit
         );
       }
-      date = ` (${chartData.dataDates[place.dcid]})`;
+      date = ` (${chartData.metadata[place.dcid].placeStatDate})`;
     }
     return place.name + ": " + value + date;
   };
