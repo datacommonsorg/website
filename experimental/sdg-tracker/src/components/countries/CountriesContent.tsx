@@ -59,6 +59,7 @@ import { theme } from "../../utils/theme";
 const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
+const DEFAULT_VARIABLE_NAME = "Total";
 
 const SearchCard = styled.div`
   display: flex;
@@ -660,6 +661,7 @@ const ChartTile: React.FC<{
           sort="descending"
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
@@ -686,6 +688,7 @@ const ChartTile: React.FC<{
           places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
