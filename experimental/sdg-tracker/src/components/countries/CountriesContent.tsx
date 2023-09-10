@@ -22,6 +22,7 @@ import styled from "styled-components";
 
 import { useStoreActions, useStoreState } from "../../state";
 import {
+  COUNTRY_PLACE_TYPE,
   EARTH_PLACE_DCID,
   EARTH_PLACE_NAME,
   ROOT_TOPIC,
@@ -635,7 +636,7 @@ const ChartTile: React.FC<{
   const childPlaceType =
     placeType in containedPlaceTypes
       ? containedPlaceTypes[placeType]
-      : "Country";
+      : COUNTRY_PLACE_TYPE;
 
   const tileStatVars = tile.statVarKey.map(
     (statVarKey) => statVarSpec[statVarKey].statVar
@@ -688,7 +689,10 @@ const ChartTile: React.FC<{
     );
   } else if (tile.type === "MAP") {
     const channel = `map-${tileStatVars.join("__")}`;
-    component = (
+    // To prevent showing sub-national map data, only show maps if
+    // the child place is Country (for World or regional views)
+    const showMap = childPlaceType === COUNTRY_PLACE_TYPE;
+    component = showMap ? (
       <>
         {/** @ts-ignore */}
         <datacommons-map
@@ -709,6 +713,8 @@ const ChartTile: React.FC<{
           childPlaceType={childPlaceType}
         />
       </>
+    ) : (
+      <></>
     );
   } else if (tile.type === "GAUGE") {
     component = (
