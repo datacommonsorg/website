@@ -1,0 +1,202 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Motor Vehicle Thefts in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Motor Vehicle Thefts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Robberies in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Property Related Crimes in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Property Related Crimes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Larceny Theft Cases in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases"
+          }
+        ],
+        "statVarSpec": {
+          "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_MotorVehicleTheft": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  },
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    },
+    "newStr": "Sunnyvale",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    },
+    "origStr": "census tracts in Sunnyvale",
+    "origType": "CensusTract"
+  },
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Crime",
+        "name": "Crime",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Sorry, there were no relevant statistics for census tracts in Sunnyvale. See results for Sunnyvale."
+}
