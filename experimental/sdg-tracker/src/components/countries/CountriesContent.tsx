@@ -59,6 +59,7 @@ import { theme } from "../../utils/theme";
 const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
+const DEFAULT_VARIABLE_NAME = "Total";
 
 const SearchCard = styled.div`
   display: flex;
@@ -492,7 +493,7 @@ const ChartCategoryContent: React.FC<{
   });
   return (
     <>
-      {Object.keys(allGoals).map((goal, i) => {
+      {Object.keys(allGoals).sort().map((goal, i) => {
         return (
           <ChartGoalBlock
             fulfillResponse={fulfillResponse}
@@ -522,7 +523,7 @@ const ChartGoalBlock: React.FC<{
       {placeDcids[0] === EARTH_PLACE_DCID && (
         <GoalOverview goalNumber={Number(goal)} showExploreLink={false} />
       )}
-      {Object.keys(targetData).map((target, i) => {
+      {Object.keys(targetData).sort().map((target, i) => {
         return (
           <ChartTargetBlock
             key={`${goal}-${i}`}
@@ -552,7 +553,7 @@ const ChartTargetBlock: React.FC<{
     <ContentCard>
       <TargetHeader color={color} target={target} />
       <Divider color={color} />
-      {Object.keys(indicatorData).map((indicator, i) => {
+      {Object.keys(indicatorData).sort().map((indicator, i) => {
         return (
           <ChartIndicatorBlock
             fulfillResponse={fulfillResponse}
@@ -660,6 +661,7 @@ const ChartTile: React.FC<{
           sort="descending"
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
@@ -683,9 +685,10 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
-          places={placeDcid}
+          places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
@@ -732,6 +735,9 @@ const ChartTile: React.FC<{
         />
       </>
     );
+  } else if (tile.type === "RANKING") {
+    // Do not render ranking tiles
+    component = <></>;
   } else {
     component = (
       <div>
