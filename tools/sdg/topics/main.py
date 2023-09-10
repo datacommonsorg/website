@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import csv
 from dataclasses import dataclass
 import json
@@ -173,6 +174,47 @@ def load_variables():
   return vars
 
 
+# As a result of creating SVPG nodes we might have dropped some empty Topic
+# nodes that in turn led to "dangling" references.
+#
+# This function helps drop those references first and then check if as a result
+# we dropped more Topic nodes, and then drop those refs, etc
+def drop_dangling_topic_refs(nodes: List[Dict]):
+
+  new_nodes = []
+  rounds = 0
+  while True:
+    existing = set()
+    for n in nodes:
+      existing.add(n['dcid'][0])
+
+    new_nodes = []
+    for n in nodes:
+      if n['typeOf'][0] != 'Topic':
+        new_nodes.append(n)
+        continue
+
+      vars = []
+      for t in n.get('relevantVariableList', []):
+        if t.startswith('dc/topic/') and t not in existing:
+          continue
+        vars.append(t)
+
+      if vars:
+        n['relevantVariableList'] = vars
+        new_nodes.append(n)
+
+    if len(new_nodes) == len(nodes):
+      break
+    # There are fewer new_nodes, so this may in turn
+    # lead to more orphan refs.
+    rounds += 1
+    nodes = copy.deepcopy(new_nodes)
+
+  print(f'Took {rounds} rounds of orphan pruning!')
+  return new_nodes
+
+
 def generate(sdg_vars: Variables):
   nodes = download_sdg_svgs(sdg_vars.all_vars)
 
@@ -212,6 +254,8 @@ def generate(sdg_vars: Variables):
   # Assert we have consumed everything!
   assert not sdg_vars.series2group2vars, sdg_vars.series2group2vars
 
+  final_nodes = drop_dangling_topic_refs(final_nodes)
+
   final_nodes.sort(key=lambda x: x['dcid'])
   return final_nodes
 
@@ -239,14 +283,15 @@ def _write_mcf_node(node: dict) -> str:
   lines = []
 
   if node['typeOf'][0] == 'Topic':
-    prop = 'relevantVariableList'
+    prop = 'relevantVariable'
   else:
-    prop = 'memberList'
+    prop = 'member'
+  list_prop = prop + 'List'
 
   lines.append(f"Node: dcid:{node['dcid'][0]}")
 
-  if node[prop]:
-    refs_str = ", ".join([f"dcid:{var}" for var in node[prop]])
+  if node[list_prop]:
+    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
     lines.append(f"{prop}: {refs_str}")
 
   lines.append(f'name: "{node["name"][0]}"')

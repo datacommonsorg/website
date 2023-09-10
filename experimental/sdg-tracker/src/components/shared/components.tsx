@@ -15,7 +15,7 @@
  */
 
 import { gray } from "@ant-design/colors";
-import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
@@ -257,7 +257,6 @@ export const CountrySelect: React.FC<{
           }
         }}
       />
-      <CaretDownOutlined />
     </CountrySelectContainer>
   );
 };
@@ -509,8 +508,8 @@ export const Divider = styled.div<{ color: string }>`
 
 // Footnotes
 const MAP_DISCLAIMER_TEXT = `
-The boundaries and names shown and the designations used on this and other maps 
-throughout this publication do not imply official endorsement or acceptance by 
+The boundaries and names shown and the designations used on this and other maps
+throughout this publication do not imply official endorsement or acceptance by
 the United Nations.
 `;
 

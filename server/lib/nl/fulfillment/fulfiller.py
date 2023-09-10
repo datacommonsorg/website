@@ -134,7 +134,7 @@ def _produce_query_types(uttr: Utterance) -> List[QueryType]:
   if params.is_sdg(uttr.insight_ctx):
     # Prune out query_types that aren't relevant.
     pruned_types = []
-    for qt in pruned_types:
+    for qt in query_types:
       # Superlative introduces custom SVs not relevant for SDG.
       # And we don't do event maps for SDG.
       if qt not in [QueryType.EVENT, QueryType.SUPERLATIVE]:
