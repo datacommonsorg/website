@@ -27,6 +27,11 @@ export const EARTH_PLACE_DCID = "Earth";
 export const EARTH_PLACE_NAME = "World";
 
 /**
+ * Country place type
+ */
+export const COUNTRY_PLACE_TYPE = "Country";
+
+/**
  * Variable DCID url parameter
  */
 export const QUERY_PARAM_VARIABLE = "v";
