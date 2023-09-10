@@ -388,7 +388,6 @@ function rawToChart(
     metadata[placeDcid] = placeChartData.metadata;
     dates.add(placeChartData.date);
   }
-  console.log(metadata);
   // check for empty data values
   const errorMsg = _.isEmpty(dataValues)
     ? getNoDataErrorMsg([props.statVarSpec])
