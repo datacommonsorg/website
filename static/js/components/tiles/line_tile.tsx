@@ -43,8 +43,8 @@ import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
   getNoDataErrorMsg,
-  getStatVarNames,
   getStatFormat,
+  getStatVarNames,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -181,7 +181,11 @@ export const fetchData = async (props: LineTilePropType) => {
   const resp = await dataPromise;
   // get place names from dcids
   const placeDcids = Object.keys(resp.data[statVars[0]]);
-  const statVarNames = await getStatVarNames(props.statVarSpec, props.apiRoot, props.statVarNameRegex);
+  const statVarNames = await getStatVarNames(
+    props.statVarSpec,
+    props.apiRoot,
+    props.statVarNameRegex
+  );
   const placeNames = await getPlaceNames(placeDcids, props.apiRoot);
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels

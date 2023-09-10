@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import copy
 import csv
 from dataclasses import dataclass
 import json
 import logging
 import os
+import re
 from typing import Dict, List, Set
 
 import requests
@@ -25,6 +27,7 @@ logging.getLogger().setLevel(logging.INFO)
 
 _SDG_ROOT = "dc/g/SDG"
 _SDG_TOPIC_JSON = '../../../server/config/nl_page/sdg_topic_cache.json'
+_SDG_NON_COUNTRY_VARS = '../../../server/config/nl_page/sdg_non_country_vars.json'
 _TMP_DIR = '/tmp'
 _MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_sdg.mcf')
 _VARIABLES_FILE = 'variable_grouping.csv'
@@ -109,21 +112,40 @@ def download_sdg_svgs(filter_vars: Set[str]):
 class Variables:
   series2group2vars: Dict[str, Dict[str, List[str]]]
   grouped_vars: Set[str]
+  group_descriptions: Dict[str, str]
+  non_country_vars: Set[str]
   all_vars: Set[str]
 
 
 def load_variables():
-  vars = Variables(series2group2vars={}, grouped_vars=set(), all_vars=set())
+  vars = Variables(series2group2vars={},
+                   grouped_vars=set(),
+                   group_descriptions={},
+                   non_country_vars=set(),
+                   all_vars=set())
   with open(_VARIABLES_FILE) as fp:
     for row in csv.DictReader(fp):
-      if not row.get('GROUPING ID') or not row.get(
-          'VARIABLE_CODE') or not row.get('SERIES_CODE'):
+      if not row.get('VARIABLE_CODE'):
         continue
-      srs = 'dc/topic/sdg' + row['SERIES_CODE'].replace('_', '')
-      grp = 'dc/svpg/SDG' + row['GROUPING ID'].replace('_', '')
       var = 'sdg/' + row['VARIABLE_CODE'].replace('@', '.').replace(' ', '')
       vars.all_vars.add(var)
 
+      if row.get('SELECT') and 'Do not display' in row['SELECT']:
+        vars.non_country_vars.add(var)
+
+      if not row.get('GROUPING ID') or not row.get('SERIES_CODE'):
+        continue
+      srs = 'dc/topic/sdg' + row['SERIES_CODE'].replace('_', '')
+      grp = 'dc/svpg/SDG' + row['GROUPING ID'].replace('_', '')
+
+      if grp not in vars.group_descriptions:
+        desc = row.get('GROUPING DESCRIPTION', '')
+        # Drop the stuff within () and [].
+        desc = re.sub("[\(\[].*?[\)\]]", '', desc)
+        # Remove the extra spaces.
+        desc = ' '.join(desc.strip().split())
+        desc = desc.replace(' ,', ',')
+        vars.group_descriptions[grp] = desc
       if srs not in vars.series2group2vars:
         vars.series2group2vars[srs] = {}
       if grp not in vars.series2group2vars[srs]:
@@ -152,6 +174,47 @@ def load_variables():
   return vars
 
 
+# As a result of creating SVPG nodes we might have dropped some empty Topic
+# nodes that in turn led to "dangling" references.
+#
+# This function helps drop those references first and then check if as a result
+# we dropped more Topic nodes, and then drop those refs, etc
+def drop_dangling_topic_refs(nodes: List[Dict]):
+
+  new_nodes = []
+  rounds = 0
+  while True:
+    existing = set()
+    for n in nodes:
+      existing.add(n['dcid'][0])
+
+    new_nodes = []
+    for n in nodes:
+      if n['typeOf'][0] != 'Topic':
+        new_nodes.append(n)
+        continue
+
+      vars = []
+      for t in n.get('relevantVariableList', []):
+        if t.startswith('dc/topic/') and t not in existing:
+          continue
+        vars.append(t)
+
+      if vars:
+        n['relevantVariableList'] = vars
+        new_nodes.append(n)
+
+    if len(new_nodes) == len(nodes):
+      break
+    # There are fewer new_nodes, so this may in turn
+    # lead to more orphan refs.
+    rounds += 1
+    nodes = copy.deepcopy(new_nodes)
+
+  print(f'Took {rounds} rounds of orphan pruning!')
+  return new_nodes
+
+
 def generate(sdg_vars: Variables):
   nodes = download_sdg_svgs(sdg_vars.all_vars)
 
@@ -169,9 +232,14 @@ def generate(sdg_vars: Variables):
     # Add SVPGs in its place.
     for svpg, members in sdg_vars.series2group2vars.get(topic, {}).items():
       pruned_members.append(svpg)
+
+      if sdg_vars.group_descriptions.get(svpg):
+        names = [sdg_vars.group_descriptions[svpg]]
+      else:
+        names = node['name']
       final_nodes.append({
           'dcid': [svpg],
-          'name': node['name'],
+          'name': names,
           'memberList': members,
           'typeOf': ['StatVarPeerGroup']
       })
@@ -186,16 +254,24 @@ def generate(sdg_vars: Variables):
   # Assert we have consumed everything!
   assert not sdg_vars.series2group2vars, sdg_vars.series2group2vars
 
+  final_nodes = drop_dangling_topic_refs(final_nodes)
+
   final_nodes.sort(key=lambda x: x['dcid'])
   return final_nodes
 
 
-def write_json(nodes):
+def write_non_country_vars(sdg_vars: Variables):
+  js = {'variables': sorted(list(sdg_vars.non_country_vars))}
+  with open(_SDG_NON_COUNTRY_VARS, 'w') as fp:
+    json.dump(js, fp, indent=2)
+
+
+def write_topic_json(nodes):
   with open(_SDG_TOPIC_JSON, 'w') as fp:
     json.dump({'nodes': nodes}, fp, indent=2)
 
 
-def write_mcf(nodes: list[dict]) -> None:
+def write_topic_mcf(nodes: list[dict]) -> None:
   logging.info("Writing MCF to: %s", _MCF_PATH)
   os.makedirs(_TMP_DIR, exist_ok=True)
   with open(_MCF_PATH, 'w') as out:
@@ -207,14 +283,15 @@ def _write_mcf_node(node: dict) -> str:
   lines = []
 
   if node['typeOf'][0] == 'Topic':
-    prop = 'relevantVariableList'
+    prop = 'relevantVariable'
   else:
-    prop = 'memberList'
+    prop = 'member'
+  list_prop = prop + 'List'
 
   lines.append(f"Node: dcid:{node['dcid'][0]}")
 
-  if node[prop]:
-    refs_str = ", ".join([f"dcid:{var}" for var in node[prop]])
+  if node[list_prop]:
+    refs_str = ", ".join([f"dcid:{var}" for var in node[list_prop]])
     lines.append(f"{prop}: {refs_str}")
 
   lines.append(f'name: "{node["name"][0]}"')
@@ -228,8 +305,9 @@ def main():
   sdg_vars = load_variables()
   print(f'Found {len(sdg_vars.all_vars)} vars')
   nodes = generate(sdg_vars)
-  write_json(nodes)
-  write_mcf(nodes)
+  write_topic_json(nodes)
+  write_non_country_vars(sdg_vars)
+  write_topic_mcf(nodes)
 
 
 if __name__ == "__main__":

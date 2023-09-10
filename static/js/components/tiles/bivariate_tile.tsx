@@ -48,8 +48,8 @@ import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getStatVarName,
   getStatFormat,
+  getStatVarName,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";

@@ -50,8 +50,8 @@ import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getStatVarNames,
   getStatFormat,
+  getStatVarNames,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";
@@ -104,6 +104,9 @@ export interface BarTilePropType {
   yAxisMargin?: number;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // If provided, only the first case of the stat var name that matches
+  // this regex will be used as the stat var name.
+  statVarNameRegex?: string;
 }
 
 export interface BarChartData {
@@ -240,7 +243,8 @@ export const fetchData = async (props: BarTilePropType) => {
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
-      props.apiRoot
+      props.apiRoot,
+      props.statVarNameRegex
     );
     return rawToChart(
       props,

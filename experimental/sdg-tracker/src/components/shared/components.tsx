@@ -15,7 +15,7 @@
  */
 
 import { gray } from "@ant-design/colors";
-import { CaretDownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { AutoComplete, Breadcrumb, Col, Input, Layout, Row, Spin } from "antd";
 import { parseToRgb } from "polished";
 import React, { useEffect, useState } from "react";
@@ -257,7 +257,6 @@ export const CountrySelect: React.FC<{
           }
         }}
       />
-      <CaretDownOutlined />
     </CountrySelectContainer>
   );
 };
@@ -506,3 +505,43 @@ export const Divider = styled.div<{ color: string }>`
   border: 1px solid ${(p) => p.color};
   margin: 40px -24px 40px -24px;
 `;
+
+// Footnotes
+const MAP_DISCLAIMER_TEXT = `
+The boundaries and names shown and the designations used on this and other maps
+throughout this publication do not imply official endorsement or acceptance by
+the United Nations.
+`;
+
+export const FootnotesContainer = styled.div`
+  margin: 24px 0px;
+`;
+
+export const Footnote = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: grey;
+  font-size: 0.8rem;
+`;
+
+export const StyledMarker = styled.div`
+  font-size: 1rem;
+  margin: 0 4px;
+`;
+
+export const FootnoteDivider = styled.hr`
+  color: grey;
+  margin-bottom: 24px;
+`;
+
+export const Footnotes: React.FC = () => {
+  return (
+    <FootnotesContainer>
+      <FootnoteDivider></FootnoteDivider>
+      <Footnote>
+        <StyledMarker>*</StyledMarker>
+        {MAP_DISCLAIMER_TEXT}
+      </Footnote>
+    </FootnotesContainer>
+  );
+};

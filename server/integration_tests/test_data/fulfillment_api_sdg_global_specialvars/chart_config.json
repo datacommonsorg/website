@@ -8,11 +8,44 @@
               {
                 "tiles": [
                   {
-                    "description": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "description": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
                     "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                      "sdg/SG_REG_CENSUSN"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_CENSUSN"
+                    ],
+                    "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90N"
+                    ],
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -21,15 +54,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                      "sdg/SG_REG_BRTH90N"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in the World",
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Children Under 5 With Moderate or Severe Stunting"
+            "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete"
           },
           {
             "columns": [
@@ -37,26 +70,26 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                      "sdg/SG_REG_BRTH90N"
                     ],
-                    "title": "Children Under 5 With Moderate or Severe Stunting in the World (${date})",
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Children Under 5 With Moderate or Severe Stunting in the World"
+            "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "description": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
                     "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                      "sdg/SG_REG_DETH75N"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -65,15 +98,15 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                      "sdg/SG_REG_DETH75N"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in the World",
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Moderate or Severe Stunting in Population Under 5"
+            "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete"
           },
           {
             "columns": [
@@ -81,25 +114,114 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                      "sdg/SG_REG_DETH75N"
                     ],
-                    "title": "Moderate or Severe Stunting in Population Under 5 in the World (${date})",
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Moderate or Severe Stunting in Population Under 5 in the World"
+            "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_CENSUS"
+                    ],
+                    "title": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90"
+                    ],
+                    "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90"
+                    ],
+                    "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75"
+                    ],
+                    "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75"
+                    ],
+                    "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete"
           }
         ],
         "statVarSpec": {
-          "sdg/SH_STA_STNT.AGE--Y0T4": {
-            "name": "Moderate or Severe Stunting in Population Under 5",
-            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          "sdg/SG_REG_BRTH90": {
+            "name": "Proportion of countries with birth registration data that are at least 90 percent complete",
+            "statVar": "sdg/SG_REG_BRTH90"
           },
-          "sdg/SH_STA_STNTN.AGE--Y0T4": {
-            "name": "Children Under 5 With Moderate or Severe Stunting",
-            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          "sdg/SG_REG_BRTH90N": {
+            "name": "Countries with birth registration data that are at least 90 percent complete",
+            "statVar": "sdg/SG_REG_BRTH90N"
+          },
+          "sdg/SG_REG_CENSUS": {
+            "name": "Proportion of countries that have conducted at least one population and housing census in the last 10 years",
+            "statVar": "sdg/SG_REG_CENSUS"
+          },
+          "sdg/SG_REG_CENSUSN": {
+            "name": "Countries that have conducted at least one population and housing census in the last 10 years",
+            "statVar": "sdg/SG_REG_CENSUSN"
+          },
+          "sdg/SG_REG_DETH75": {
+            "name": "Proportion of countries with death registration data that are at least 75 percent complete",
+            "statVar": "sdg/SG_REG_DETH75"
+          },
+          "sdg/SG_REG_DETH75N": {
+            "name": "Countries with death registration data that are at least 75 percent complete",
+            "statVar": "sdg/SG_REG_DETH75N"
           }
         }
       }
@@ -489,8 +611,8 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/sdg_2.2.1",
-        "name": "Height Stunting for Children Under 5",
+        "dcid": "dc/topic/sdg_17.19.2",
+        "name": "Census, Birth, and Death Registration",
         "types": [
           "Topic"
         ]
@@ -499,8 +621,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/sdg_2.2",
-        "name": "End Malnutrition by 2030",
+        "dcid": "dc/topic/sdg_17.19",
+        "name": "Develop Progress Measurements for SDG by 2030",
         "types": [
           "Topic"
         ]
@@ -509,34 +631,63 @@
     "peerPlaces": [],
     "peerTopics": [
       {
-        "dcid": "dc/topic/sdg_2.2.2",
-        "name": "Malnutrition (wasting and overweight) for Children Under 5",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/sdg_2.2.3",
-        "name": "Aenemia",
+        "dcid": "dc/topic/sdg_17.19.1",
+        "name": "Resources for Strengthening Statistical Capacity",
         "types": [
           "Topic"
         ]
       }
     ],
     "varToTopics": {
-      "sdg/SH_STA_STNT.AGE--Y0T4": [
+      "sdg/SG_REG_BRTH90": [
         {
-          "dcid": "dc/topic/sdg_2.2.1",
-          "name": "Height Stunting for Children Under 5",
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
           "types": [
             "Topic"
           ]
         }
       ],
-      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+      "sdg/SG_REG_BRTH90N": [
         {
-          "dcid": "dc/topic/sdg_2.2.1",
-          "name": "Height Stunting for Children Under 5",
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_CENSUS": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_CENSUSN": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_DETH75": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_DETH75N": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "Census, Birth, and Death Registration",
           "types": [
             "Topic"
           ]

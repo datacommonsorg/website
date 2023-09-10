@@ -1,0 +1,1721 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourished Population in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFCN"
+                    ],
+                    "title": "Undernourished Population in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFCN"
+                    ],
+                    "title": "Undernourished Population in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Undernourished Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourishment in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Undernourishment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN",
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Moderately or Severely Food Insecure People in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN",
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Severely Food Insecure People in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Severely Food Insecure People"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Moderate or Severe Stunting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Moderate or Severe Stunting in Population Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Overweight Children Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGTN.AGE--Y0T4"
+                    ],
+                    "title": "Overweight Children Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGTN.AGE--Y0T4"
+                    ],
+                    "title": "Overweight Children Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Overweight Children Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Wasting in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WASTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Wasting in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_WASTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Wasting in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Children Under 5 With Wasting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Overweight Prevalence of Children Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGT.AGE--Y0T4"
+                    ],
+                    "title": "Overweight Prevalence of Children Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_STA_OVWGT.AGE--Y0T4"
+                    ],
+                    "title": "Overweight Prevalence of Children Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Overweight Prevalence of Children Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Wasting Prevalence of Children Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WAST.AGE--Y0T4"
+                    ],
+                    "title": "Wasting Prevalence of Children Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_WAST.AGE--Y0T4"
+                    ],
+                    "title": "Wasting Prevalence of Children Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Wasting Prevalence of Children Under 5"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Anemia in Women Age 15 to 49 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Women Age 15 to 49 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Women Age 15 to 49 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Anemia in Women Age 15 to 49"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Anemia in Non-Pregnant Women Age 15 to 49 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Non-Pregnant Women Age 15 to 49 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Non-Pregnant Women Age 15 to 49 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Anemia in Non-Pregnant Women Age 15 to 49"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Anemia in Pregnant Women Age 15 to 49 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Pregnant Women Age 15 to 49 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
+                    ],
+                    "title": "Anemia in Pregnant Women Age 15 to 49 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Anemia in Pregnant Women Age 15 to 49"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/PD_AGR_LSFP",
+                      "sdg/PD_AGR_LSFP.SEX--F",
+                      "sdg/PD_AGR_LSFP.SEX--M"
+                    ],
+                    "title": "Productivity of Large-Scale Food Producers in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Productivity of Large-Scale Food Producers"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/PD_AGR_SSFP",
+                      "sdg/PD_AGR_SSFP.SEX--F",
+                      "sdg/PD_AGR_SSFP.SEX--M"
+                    ],
+                    "title": "Productivity of Small-Scale Food Producers in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Productivity of Small-Scale Food Producers"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_AGR_LSFP",
+                      "sdg/SI_AGR_LSFP.SEX--F",
+                      "sdg/SI_AGR_LSFP.SEX--M"
+                    ],
+                    "title": "Average Income of Large-Scale Food Producers, PPP in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income of Large-Scale Food Producers, PPP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_AGR_SSFP",
+                      "sdg/SI_AGR_SSFP.SEX--F",
+                      "sdg/SI_AGR_SSFP.SEX--M"
+                    ],
+                    "title": "Average Income of Small-Scale Food Producers, PPP in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income of Small-Scale Food Producers, PPP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Local Breeds in the Country in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT"
+                    ],
+                    "title": "Local Breeds in the Country in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT"
+                    ],
+                    "title": "Local Breeds in the Country in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Local Breeds in the Country"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Transboundary Breeds in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT_TRB"
+                    ],
+                    "title": "Transboundary Breeds in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_GRF_ANIMKPT_TRB"
+                    ],
+                    "title": "Transboundary Breeds in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Transboundary Breeds"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ex Situ Stored Plant Genetic Resources in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_GRF_PLNTSTOR"
+                    ],
+                    "title": "Ex Situ Stored Plant Genetic Resources in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_GRF_PLNTSTOR"
+                    ],
+                    "title": "Ex Situ Stored Plant Genetic Resources in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Ex Situ Stored Plant Genetic Resources"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Local Breeds in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_NOEX_LBREDN"
+                    ],
+                    "title": "Local Breeds in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_NOEX_LBREDN"
+                    ],
+                    "title": "Local Breeds in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Local Breeds"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "statVarKey": [
+                      "sdg/ER_UNK_LBREDN"
+                    ],
+                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/ER_UNK_LBREDN"
+                    ],
+                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Local Breeds With Unknown Risk Status"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_ORTIND"
+                    ],
+                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_ORTIND"
+                    ],
+                    "title": "Agriculture Orientation Index for Government Expenditures in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Agriculture Orientation Index for Government Expenditures"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Share of Government Expenditure in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_XPD_AGSGB"
+                    ],
+                    "title": "Agriculture Share of Government Expenditure in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_XPD_AGSGB"
+                    ],
+                    "title": "Agriculture Share of Government Expenditure in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Agriculture Share of Government Expenditure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture Value Added Share of GDP in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_AGVAS"
+                    ],
+                    "title": "Agriculture Value Added Share of GDP in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_AGVAS"
+                    ],
+                    "title": "Agriculture Value Added Share of GDP in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Agriculture Value Added Share of GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Total Official Flows for Agriculture in Nigeria",
+                    "statVarKey": [
+                      "sdg/DC_TOF_AGRL"
+                    ],
+                    "title": "Total Official Flows for Agriculture in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/DC_TOF_AGRL"
+                    ],
+                    "title": "Total Official Flows for Agriculture in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Official Flows for Agriculture"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Indicator of Food Price Anomalies in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_FPA_CFPI"
+                    ],
+                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FPA_CFPI"
+                    ],
+                    "title": "Indicator of Food Price Anomalies in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Indicator of Food Price Anomalies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112",
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113",
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114",
+                      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
+                    ],
+                    "title": "Indicator of Food Price Anomalies, by Type of Product in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Indicator of Food Price Anomalies, by Type of Product"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/AG_FPA_CFPI": {
+            "name": "Indicator of Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_CFPI"
+          },
+          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": {
+            "name": "Maize Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112"
+          },
+          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": {
+            "name": "Rice Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113"
+          },
+          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": {
+            "name": "Sorghum Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114"
+          },
+          "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": {
+            "name": "Millet Food Price Anomalies",
+            "statVar": "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118"
+          },
+          "sdg/AG_PRD_AGVAS": {
+            "name": "Agriculture Value Added Share of GDP",
+            "statVar": "sdg/AG_PRD_AGVAS"
+          },
+          "sdg/AG_PRD_FIESMS": {
+            "name": "Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMS"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": {
+            "name": "Moderate or Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
+            "name": "Moderate or Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESMSN": {
+            "name": "Population With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN"
+          },
+          "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": {
+            "name": "Women Age 15 and Over With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": {
+            "name": "Men Age 15 and Over With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESS": {
+            "name": "Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESS"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": {
+            "name": "Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
+            "name": "Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESSN": {
+            "name": "Population With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN"
+          },
+          "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": {
+            "name": "Women Age 15 and Over With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
+            "name": "Men Age 15 and Over With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_ORTIND": {
+            "name": "Agriculture Orientation Index for Government Expenditures",
+            "statVar": "sdg/AG_PRD_ORTIND"
+          },
+          "sdg/AG_XPD_AGSGB": {
+            "name": "Agriculture Share of Government Expenditure",
+            "statVar": "sdg/AG_XPD_AGSGB"
+          },
+          "sdg/DC_TOF_AGRL": {
+            "name": "Total Official Flows for Agriculture",
+            "statVar": "sdg/DC_TOF_AGRL"
+          },
+          "sdg/ER_GRF_ANIMKPT": {
+            "name": "Local Breeds in the Country",
+            "statVar": "sdg/ER_GRF_ANIMKPT"
+          },
+          "sdg/ER_GRF_ANIMKPT_TRB": {
+            "name": "Transboundary Breeds",
+            "statVar": "sdg/ER_GRF_ANIMKPT_TRB"
+          },
+          "sdg/ER_GRF_PLNTSTOR": {
+            "name": "Ex Situ Stored Plant Genetic Resources",
+            "statVar": "sdg/ER_GRF_PLNTSTOR"
+          },
+          "sdg/ER_NOEX_LBREDN": {
+            "name": "Local Breeds",
+            "statVar": "sdg/ER_NOEX_LBREDN"
+          },
+          "sdg/ER_UNK_LBREDN": {
+            "name": "Local Breeds With Unknown Risk Status",
+            "statVar": "sdg/ER_UNK_LBREDN"
+          },
+          "sdg/PD_AGR_LSFP": {
+            "name": "Productivity of Large-Scale Food Producers",
+            "statVar": "sdg/PD_AGR_LSFP"
+          },
+          "sdg/PD_AGR_LSFP.SEX--F": {
+            "name": "Productivity of Large-Scale Female Food Producers",
+            "statVar": "sdg/PD_AGR_LSFP.SEX--F"
+          },
+          "sdg/PD_AGR_LSFP.SEX--M": {
+            "name": "Productivity of Large-Scale Male Food Producers",
+            "statVar": "sdg/PD_AGR_LSFP.SEX--M"
+          },
+          "sdg/PD_AGR_SSFP": {
+            "name": "Productivity of Small-Scale Food Producers",
+            "statVar": "sdg/PD_AGR_SSFP"
+          },
+          "sdg/PD_AGR_SSFP.SEX--F": {
+            "name": "Productivity of Small-Scale Female Food Producers",
+            "statVar": "sdg/PD_AGR_SSFP.SEX--F"
+          },
+          "sdg/PD_AGR_SSFP.SEX--M": {
+            "name": "Productivity of Small-Scale Male Food Producers",
+            "statVar": "sdg/PD_AGR_SSFP.SEX--M"
+          },
+          "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
+            "name": "Anemia in Women Age 15 to 49",
+            "statVar": "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F"
+          },
+          "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F": {
+            "name": "Anemia in Non-Pregnant Women Age 15 to 49",
+            "statVar": "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F"
+          },
+          "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F": {
+            "name": "Anemia in Pregnant Women Age 15 to 49",
+            "statVar": "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F"
+          },
+          "sdg/SH_STA_STNT.AGE--Y0T4": {
+            "name": "Moderate or Severe Stunting in Population Under 5",
+            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          },
+          "sdg/SH_STA_STNTN.AGE--Y0T4": {
+            "name": "Children Under 5 With Moderate or Severe Stunting",
+            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          },
+          "sdg/SH_STA_WAST.AGE--Y0T4": {
+            "name": "Wasting Prevalence of Children Under 5",
+            "statVar": "sdg/SH_STA_WAST.AGE--Y0T4"
+          },
+          "sdg/SH_STA_WASTN.AGE--Y0T4": {
+            "name": "Children Under 5 With Wasting",
+            "statVar": "sdg/SH_STA_WASTN.AGE--Y0T4"
+          },
+          "sdg/SI_AGR_LSFP": {
+            "name": "Average Earnings of Large-Scale Food Producers",
+            "statVar": "sdg/SI_AGR_LSFP"
+          },
+          "sdg/SI_AGR_LSFP.SEX--F": {
+            "name": "Average Earnings of Large-Scale Female Food Producers",
+            "statVar": "sdg/SI_AGR_LSFP.SEX--F"
+          },
+          "sdg/SI_AGR_LSFP.SEX--M": {
+            "name": "Average Earnings of Large-Scale Male Food Producers",
+            "statVar": "sdg/SI_AGR_LSFP.SEX--M"
+          },
+          "sdg/SI_AGR_SSFP": {
+            "name": "Average Earnings of Small-Scale Food Producers",
+            "statVar": "sdg/SI_AGR_SSFP"
+          },
+          "sdg/SI_AGR_SSFP.SEX--F": {
+            "name": "Average Earnings of Small-Scale Female Food Producers",
+            "statVar": "sdg/SI_AGR_SSFP.SEX--F"
+          },
+          "sdg/SI_AGR_SSFP.SEX--M": {
+            "name": "Average Earnings of Small-Scale Male Food Producers",
+            "statVar": "sdg/SI_AGR_SSFP.SEX--M"
+          },
+          "sdg/SN_ITK_DEFC": {
+            "name": "Undernourishment",
+            "statVar": "sdg/SN_ITK_DEFC"
+          },
+          "sdg/SN_ITK_DEFCN": {
+            "name": "Undernourished Population",
+            "statVar": "sdg/SN_ITK_DEFCN"
+          },
+          "sdg/SN_STA_OVWGT.AGE--Y0T4": {
+            "name": "Overweight Prevalence of Children Under 5",
+            "statVar": "sdg/SN_STA_OVWGT.AGE--Y0T4"
+          },
+          "sdg/SN_STA_OVWGTN.AGE--Y0T4": {
+            "name": "Overweight Children Under 5",
+            "statVar": "sdg/SN_STA_OVWGTN.AGE--Y0T4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/NGA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/NGA",
+    "name": "Nigeria",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/NGA",
+      "name": "Nigeria",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.1",
+        "name": "End Hunger by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.2",
+        "name": "End Malnutrition by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.3",
+        "name": "Double Agricultural Productivity by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.4",
+        "name": "Ensure Sustainable Food Production Systems by 2030",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.5",
+        "name": "Seed and Plant Banks for Genetic Diversity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.a",
+        "name": "Rural Development Investment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.b",
+        "name": "Agricultural Trade Distortion Elimination",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.c",
+        "name": "Food Commodity Markets",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_2",
+        "name": "Zero Hunger",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg",
+        "name": "Sustainable Development Goals",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_1",
+        "name": "No Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_3",
+        "name": "Good Health and Well-Being",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_4",
+        "name": "Quality Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_5",
+        "name": "Gender Equality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_6",
+        "name": "Clean Water and Sanitation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_7",
+        "name": "Affordable and Clean Energy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_8",
+        "name": "Decent Work and Economic Growth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_9",
+        "name": "Industry, Innovation, and Infrastructure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_10",
+        "name": "Reduce Inequality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_11",
+        "name": "Sustainable Cities and Communities",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_12",
+        "name": "Responsible Consumption and Production",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_13",
+        "name": "Climate Action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_14",
+        "name": "Life Below Water",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_15",
+        "name": "Life on Land",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_16",
+        "name": "Peace and Justice Strong Institutions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_17",
+        "name": "Partnerships to Achieve SDG Goals",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "varToTopics": {
+      "sdg/AG_FPA_CFPI": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "Food Price Anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "Food Price Anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "Food Price Anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "Food Price Anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": [
+        {
+          "dcid": "dc/topic/sdg_2.c.1",
+          "name": "Food Price Anomalies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_AGVAS": [
+        {
+          "dcid": "dc/topic/sdg_2.a.1",
+          "name": "Government Agricultural Spending Focus",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMSN": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESSN": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.1.2",
+          "name": "Food Insecurity",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_PRD_ORTIND": [
+        {
+          "dcid": "dc/topic/sdg_2.a.1",
+          "name": "Government Agricultural Spending Focus",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/AG_XPD_AGSGB": [
+        {
+          "dcid": "dc/topic/sdg_2.a.1",
+          "name": "Government Agricultural Spending Focus",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/DC_TOF_AGRL": [
+        {
+          "dcid": "dc/topic/sdg_2.a.2",
+          "name": "Agriculture Sector Funding",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_GRF_ANIMKPT": [
+        {
+          "dcid": "dc/topic/sdg_2.5.1",
+          "name": "Plant and Animal Conservation",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_GRF_ANIMKPT_TRB": [
+        {
+          "dcid": "dc/topic/sdg_2.5.1",
+          "name": "Plant and Animal Conservation",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_GRF_PLNTSTOR": [
+        {
+          "dcid": "dc/topic/sdg_2.5.1",
+          "name": "Plant and Animal Conservation",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_NOEX_LBREDN": [
+        {
+          "dcid": "dc/topic/sdg_2.5.2",
+          "name": "Local Breeds at Risk",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/ER_UNK_LBREDN": [
+        {
+          "dcid": "dc/topic/sdg_2.5.2",
+          "name": "Local Breeds at Risk",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_LSFP": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_LSFP.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_LSFP.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_SSFP": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_SSFP.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/PD_AGR_SSFP.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.3.1",
+          "name": "Agricultural Productivity by Class Type",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.2.3",
+          "name": "Aenemia",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.2.3",
+          "name": "Aenemia",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.2.3",
+          "name": "Aenemia",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "Height Stunting for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_WAST.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.2",
+          "name": "Malnutrition (wasting and overweight) for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_WASTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.2",
+          "name": "Malnutrition (wasting and overweight) for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_LSFP": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_LSFP.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_LSFP.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_SSFP": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_SSFP.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_AGR_SSFP.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_2.3.2",
+          "name": "Average Agricultural Income of Small-Scale Producers",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SN_ITK_DEFC": [
+        {
+          "dcid": "dc/topic/sdg_2.1.1",
+          "name": "Undernourishment",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SN_ITK_DEFCN": [
+        {
+          "dcid": "dc/topic/sdg_2.1.1",
+          "name": "Undernourishment",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SN_STA_OVWGT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.2",
+          "name": "Malnutrition (wasting and overweight) for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SN_STA_OVWGTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.2",
+          "name": "Malnutrition (wasting and overweight) for Children Under 5",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": ""
+}

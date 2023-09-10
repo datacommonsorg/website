@@ -29,8 +29,8 @@ import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
-  getStatVarNames,
   getStatFormat,
+  getStatVarNames,
   ReplacementStrings,
   showError,
 } from "../../utils/tile_utils";

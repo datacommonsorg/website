@@ -179,6 +179,22 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_sdg_global', req)
 
+  def test_fulfillment_sdg_specialvars(self):
+    req = {
+        'entities': ['country/USA'],
+        'variables': ['dc/topic/sdg_17.19.2'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_specialvars', req)
+
+  def test_fulfillment_sdg_global_specialvars(self):
+    req = {
+        'entities': ['Earth'],
+        'variables': ['dc/topic/sdg_17.19.2'],
+        'dc': 'sdg'
+    }
+    self.run_fulfillment('fulfillment_api_sdg_global_specialvars', req)
+
   def test_fulfillment_comparison(self):
     req = {
         'entities': ['geoId/06'],
@@ -289,3 +305,10 @@ class ExploreTest(NLWebServerTestCase):
         'Richest counties in california',
         'List schools in Sunnyvale',
     ])
+
+  def test_e2e_sdg(self):
+    self.run_detect_and_fulfill('e2e_sdg', [
+        'Hunger in Nigeria',
+        'Compare progress on poverty in Mexico, Nigeria and Pakistan'
+    ],
+                                dc='sdg')
