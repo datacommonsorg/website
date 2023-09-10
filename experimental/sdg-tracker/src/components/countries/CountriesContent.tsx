@@ -58,6 +58,7 @@ import { theme } from "../../utils/theme";
 // Approximate chart heights for lazy-loading
 const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
+const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
 
 const SearchCard = styled.div`
   display: flex;
@@ -658,7 +659,7 @@ const ChartTile: React.FC<{
           places={placeDcids.join(" ")}
           sort="descending"
           showExploreMore={true}
-          variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
+          variableNameRegex={VARIABLE_NAME_REGEX}
         />
       </>
     );
@@ -683,7 +684,7 @@ const ChartTile: React.FC<{
           header={tile.title}
           variables={tileStatVars.join(" ")}
           places={placeDcid}
-          variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
+          variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
         />
       </>
