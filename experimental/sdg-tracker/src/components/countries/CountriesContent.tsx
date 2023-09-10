@@ -658,6 +658,7 @@ const ChartTile: React.FC<{
           places={placeDcids.join(" ")}
           sort="descending"
           showExploreMore={true}
+          variableNameRegex={"(?<=\\[)(.*?)(?=\\])"}
         />
       </>
     );

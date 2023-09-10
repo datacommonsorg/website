@@ -77,6 +77,10 @@ Optional:
 
   Include to draw lollipops instead of bars
 
+- `variableNameRegex` _string_
+
+  Optionally specify regex to use to extract out variable name. e.g., if the variableNameRegex is "(.*?)(?=:)", only the part before a ":" will be used for variable names. So "variable 1: test" will become "variable 1".
+
 ## Examples
 
 A bar chart of population for states in the US:
