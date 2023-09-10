@@ -489,7 +489,6 @@ const ChartCategoryContent: React.FC<{
       });
     });
   });
-  
   return (
     <>
       {Object.keys(allGoals).sort().map((goal, i) => {
