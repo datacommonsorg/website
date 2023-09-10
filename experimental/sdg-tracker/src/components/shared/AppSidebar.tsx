@@ -83,7 +83,7 @@ const AppSidebar: React.FC<{
     >
       <MenuTitle>Goals</MenuTitle>
       <StyledMenu
-        defaultSelectedKeys={[variableDcid]}
+        selectedKeys={[variableDcid, `summary-${variableDcid}`]}
         mode="inline"
         defaultOpenKeys={["1"]}
         style={{ borderRight: 0 }}
