@@ -24,6 +24,7 @@ class Config(_base.Config):
   OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
   USE_PALM = True
+  ENABLE_PER_CAPITA = False
 
 
 class LocalConfig(Config, local.Config):

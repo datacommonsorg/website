@@ -46,6 +46,11 @@ export function PlaceOverviewTile(
             locale="en"
           />
         </RawIntlProvider>
+        <div className="row">
+          <a href={`/place/${props.place.dcid}`}>
+            See {props.place.name} in Place Explorer
+          </a>
+        </div>
       </div>
     </>
   );

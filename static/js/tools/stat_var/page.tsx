@@ -36,7 +36,9 @@ import { Explorer } from "./explorer";
 import { Info } from "./info";
 import { SV_URL_PARAMS } from "./stat_var_constants";
 
-const SVG_URL_PREFIX = "/api/variable-group/info?dcid=dc/g/Root&entities=";
+const SVG_URL_PREFIX = `/api/variable-group/info?dcid=${
+  globalThis.svgRoot || "dc/g/Root"
+}&entities=`;
 
 interface PageStateType {
   // DCID of selected dataset.
