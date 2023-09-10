@@ -113,6 +113,7 @@ interface RawData {
 }
 
 export interface MapChartData {
+  dataDates: { [dcid: string]: string };
   dataValues: { [dcid: string]: number };
   metadata: { [dcid: string]: DataPointMetadata };
   sources: Set<string>;
@@ -339,6 +340,7 @@ function rawToChart(
   const metadataMap = rawData.placeStat.facets || {};
   const placeStat = rawData.placeStat.data[statVarSpec.statVar] || {};
 
+  const dataDates = {};
   const dataValues = {};
   const metadata = {};
   const sources: Set<string> = new Set();
@@ -386,6 +388,7 @@ function rawToChart(
     }
     dataValues[placeDcid] = value;
     metadata[placeDcid] = placeChartData.metadata;
+    dataDates[placeDcid] = placeChartData.date;
     dates.add(placeChartData.date);
   }
   // check for empty data values
@@ -393,6 +396,7 @@ function rawToChart(
     ? getNoDataErrorMsg([props.statVarSpec])
     : "";
   return {
+    dataDates,
     dataValues,
     metadata,
     sources,
@@ -446,6 +450,7 @@ export function draw(
   );
   const getTooltipHtml = (place: NamedPlace) => {
     let value = "Data Unavailable";
+    let date = "";
     if (place.dcid in chartData.dataValues) {
       // shows upto 2 precision digits for very low values
       if (
@@ -465,8 +470,9 @@ export function draw(
           chartData.unit
         );
       }
+      date = ` (${chartData.dataDates[place.dcid]})`;
     }
-    return place.name + ": " + value;
+    return place.name + ": " + value + date;
   };
   const legendWidth = generateLegendSvg(
     legendContainer,
