@@ -16,9 +16,12 @@
 # The fetch functions call REST wrappers in datacommons module.
 
 import copy
+import re
 from typing import Dict, List
 
 import server.services.datacommons as dc
+
+COMPLEX_UNIT_REGEX = r'\[.+ [0-9]+\]'
 
 
 def _get_unit_names(units: List[str]) -> Dict:
@@ -46,15 +49,26 @@ def _get_unit_names(units: List[str]) -> Dict:
 def _get_processed_facets(facets):
   units = set()
   for facet in facets.values():
-    facet_unit = facet.get('unit')
+    facet_unit = facet.get('unit', '')
     if facet_unit:
       units.add(facet_unit)
+    # If the facet unit is a complex unit, add the unit part to the set of units
+    if re.match(COMPLEX_UNIT_REGEX, facet_unit):
+      unit = facet_unit[1:].split()[0]
+      units.add(unit)
   unit2name = _get_unit_names(list(units))
   result = copy.deepcopy(facets)
   for facet_id, facet in facets.items():
-    facet_unit = facet.get('unit')
+    facet_unit = facet.get('unit', '')
     if facet_unit and unit2name.get(facet_unit, ''):
       result[facet_id]['unitDisplayName'] = unit2name[facet_unit]
+    # handle unit display name for complex units
+    elif re.match(COMPLEX_UNIT_REGEX, facet_unit):
+      unit = facet_unit[1:].split()[0]
+      date = facet_unit.split()[1][:-1]
+      if unit2name.get(unit, ''):
+        result[facet_id][
+            'unitDisplayName'] = f'{unit2name[unit]} with base period {date}'
   return result
 
 

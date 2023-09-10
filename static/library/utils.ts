@@ -66,3 +66,22 @@ export function createWebComponentElement(
 
   return container;
 }
+
+/**
+ * Gets a function for processing variable names using variable name regex and
+ * a default variable name
+ * @param variableNameRegex regex to use for extracting out a part of the name
+ * @param defaultVariableName default name to use if nothing extracted out
+ */
+export function getVariableNameProcessingFn(
+  variableNameRegex: string,
+  defaultVariableName: string
+): (name: string) => string {
+  if (!variableNameRegex) {
+    return null;
+  }
+  return (name: string) => {
+    const extractedName = name.match(variableNameRegex)?.shift();
+    return extractedName || defaultVariableName || name;
+  };
+}

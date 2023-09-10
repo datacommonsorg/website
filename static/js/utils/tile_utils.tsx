@@ -104,11 +104,6 @@ const UNIT_OVERRIDE_CONFIG: {
     numFractionDigits: 0,
     unitDisplayName: "",
   },
-  "[SDG_PERCENT 2017]": {
-    unit: "[SDG_PERCENT 2017]",
-    multiplier: 1,
-    unitDisplayName: "%",
-  },
 };
 
 export interface ReplacementStrings {
@@ -169,13 +164,13 @@ export function getStatVarName(
  * in its spec, will try to query the name though an api call.
  * @param statVarSpecs specs of stat vars to get names for
  * @param apiRoot api root to use for api
- * @param nameRegex If provided, only the first part of the name that matches
- *        this regex will be returned as the stat var name.
+ * @param getProcessedName If provided, use this function to get the processed
+ *        stat var names.
  */
 export async function getStatVarNames(
   statVarSpec: StatVarSpec[],
   apiRoot?: string,
-  nameRegex?: string
+  getProcessedName?: (name: string) => string
 ): Promise<{ [key: string]: string }> {
   if (_.isEmpty(statVarSpec)) {
     return Promise.resolve({});
@@ -226,14 +221,10 @@ export async function getStatVarNames(
 
   try {
     const statVarNamesResult = await statVarNamesPromise;
-    // If there is a nameRegex, process the stat var names using it
-    if (nameRegex) {
-      const regex = new RegExp(nameRegex, "g");
+    // If there is a function for processing stat var names, use it
+    if (getProcessedName) {
       Object.keys(statVarNamesResult).forEach((dcid) => {
-        // Use the first part of the stat var name that matches the regex.
-        const extractedName = statVarNamesResult[dcid].match(regex)?.shift();
-        // If no match, use the original stat var name.
-        statVarNamesResult[dcid] = extractedName || statVarNamesResult[dcid];
+        statVarNamesResult[dcid] = getProcessedName(statVarNamesResult[dcid]);
       });
     }
     return statVarNamesResult;
@@ -411,20 +402,41 @@ export function getStatFormat(
     const obsWithFacet = Object.values(statPointData.data[svSpec.statVar]).find(
       (obs) => !!obs.facet
     );
-    statMetadata = statPointData.facets[obsWithFacet.facet];
+    if (obsWithFacet) {
+      statMetadata = statPointData.facets[obsWithFacet.facet];
+    }
   } else if (statSeriesData) {
     const seriesWithFacet = Object.values(
       statSeriesData.data[svSpec.statVar]
     ).find((series) => !!series.facet);
-    statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    if (seriesWithFacet) {
+      statMetadata = statSeriesData.facets[seriesWithFacet.facet];
+    }
   }
-  const overrideConfig = statMetadata
-    ? UNIT_OVERRIDE_CONFIG[statMetadata.unit]
-    : null;
+
+  const isComplexUnit = !!statMetadata?.unit?.match(/\[.+ [0-9]+\]/);
+  let overrideConfig = null;
+  if (statMetadata) {
+    // If complex unit, use the unit part to get the override config, otherwise
+    // use the whole unit to get the override config.
+    const unitStr = isComplexUnit
+      ? statMetadata.unit.substring(1, statMetadata.unit.indexOf(" "))
+      : statMetadata.unit;
+    overrideConfig = UNIT_OVERRIDE_CONFIG[unitStr];
+  }
   // If there's a matching override config, use the format information from
   // the config. Otherwise, get unit from stat metadata.
   if (overrideConfig) {
-    result.unit = overrideConfig.unitDisplayName;
+    let unitSuffix = "";
+    if (isComplexUnit) {
+      // If complex unit, form the unit suffix with the date part of the unit
+      const date = statMetadata.unit.substring(
+        statMetadata.unit.indexOf(" ") + 1,
+        statMetadata.unit.length - 1
+      );
+      unitSuffix = ` with base period ${date}`;
+    }
+    result.unit = `${overrideConfig.unitDisplayName}${unitSuffix}`;
     result.scaling = overrideConfig.multiplier;
     result.numFractionDigits = overrideConfig.numFractionDigits;
   } else {

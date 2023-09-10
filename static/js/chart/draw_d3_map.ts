@@ -275,7 +275,7 @@ export function getProjection(
         .geoAzimuthalEqualArea()
         .rotate([-20.0, -52.0])
         .translate([mapWidth / 2, mapHeight / 2])
-        .scale(mapWidth / 1.5)
+        .scale(Math.min(mapWidth / 1.5, mapHeight / 0.75))
         .precision(0.1);
       isMapFitted = true;
       break;

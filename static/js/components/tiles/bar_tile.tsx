@@ -104,9 +104,8 @@ export interface BarTilePropType {
   yAxisMargin?: number;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
-  // If provided, only the first case of the stat var name that matches
-  // this regex will be used as the stat var name.
-  statVarNameRegex?: string;
+  // Function used to get processed stat var names.
+  getProcessedSVNameFn?: (name: string) => string;
 }
 
 export interface BarChartData {
@@ -244,7 +243,7 @@ export const fetchData = async (props: BarTilePropType) => {
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
       props.apiRoot,
-      props.statVarNameRegex
+      props.getProcessedSVNameFn
     );
     return rawToChart(
       props,
@@ -443,7 +442,7 @@ function getExploreLink(props: BarTilePropType): {
 } {
   const hash = getHash(
     VisType.TIMELINE,
-    [...props.comparisonPlaces, props.place.dcid],
+    props.comparisonPlaces || [props.place.dcid],
     "",
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}

@@ -59,6 +59,7 @@ import { theme } from "../../utils/theme";
 const CHART_HEIGHT = 389;
 const HIGHLIGHT_CHART_HEIGHT = 155;
 const VARIABLE_NAME_REGEX = "(?<=\\[)(.*?)(?=\\])";
+const DEFAULT_VARIABLE_NAME = "Total";
 
 const SearchCard = styled.div`
   display: flex;
@@ -660,6 +661,7 @@ const ChartTile: React.FC<{
           sort="descending"
           showExploreMore={true}
           variableNameRegex={VARIABLE_NAME_REGEX}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
@@ -683,9 +685,10 @@ const ChartTile: React.FC<{
           apiRoot={WEB_API_ENDPOINT}
           header={tile.title}
           variables={tileStatVars.join(" ")}
-          places={placeDcid}
+          places={tile.placeDcidOverride || placeDcids.join(" ")}
           variableNameRegex={VARIABLE_NAME_REGEX}
           showExploreMore={true}
+          defaultVariableName={DEFAULT_VARIABLE_NAME}
         />
       </>
     );
@@ -732,6 +735,9 @@ const ChartTile: React.FC<{
         />
       </>
     );
+  } else if (tile.type === "RANKING") {
+    // Do not render ranking tiles
+    component = <></>;
   } else {
     component = (
       <div>

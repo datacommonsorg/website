@@ -78,7 +78,7 @@
   <link href="/css/base_old.css" rel="stylesheet">
   {% endif %}
   <script>
-    globalThis.is_custom_datacommons = {{ config['CUSTOM']|int }};
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.dataSourceDcid = "{{ config['DATA_SOURCE_DCID']|string }}";
     globalThis.dataSourceName = "{{ config['DATA_SOURCE_NAME']|string }}";
   </script>

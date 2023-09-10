@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 export interface ChartConfigTile {
+  comparisonPlaces?: string[];
   description: string;
+  placeDcidOverride?: string;
   statVarKey: string[];
   title: string;
   type: "BAR" | "GAUGE" | "HIGHLIGHT" | "LINE" | "MAP" | "PLACE_OVERVIEW";
