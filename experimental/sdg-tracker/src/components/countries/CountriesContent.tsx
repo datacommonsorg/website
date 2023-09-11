@@ -754,6 +754,19 @@ const ChartTile: React.FC<{
         />
       </>
     );
+  } else if (tile.type === "SCATTER") {
+    component = (
+      <>
+        {/** @ts-ignore */}
+        <datacommons-scatter
+          apiRoot={WEB_API_ENDPOINT}
+          header={tile.title}
+          variables={tileStatVars.join(" ")}
+          parentPlace={placeDcid}
+          childPlaceType={childPlaceType}
+        />
+      </>
+    );
   } else if (tile.type === "RANKING") {
     // Do not render ranking tiles
     component = <></>;
