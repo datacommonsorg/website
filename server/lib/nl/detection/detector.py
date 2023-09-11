@@ -275,6 +275,7 @@ def add_child_and_peer_places(places: List[types.Place],
   main_dcid = places[0].dcid
   child_places = []
   if child_type and child_type.value != places[0].place_type:
+    detection.child_place_type = child_type.value
     try:
       child_places = utils.get_all_child_places(main_dcid, child_type.value,
                                                 counters)
