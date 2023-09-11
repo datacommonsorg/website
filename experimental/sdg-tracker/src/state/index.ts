@@ -33,7 +33,12 @@ import indicatorHeadlines from "../config/indicatorText.json";
 import rootTopics from "../config/rootTopics.json";
 import sidebarConfig from "../config/sidebar.json";
 import targetText from "../config/targetText.json";
-import { WEB_API_ENDPOINT } from "../utils/constants";
+import {
+  CONTINENTS,
+  EARTH_COUNTRIES,
+  EARTH_PLACE_DCID,
+  WEB_API_ENDPOINT,
+} from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
 import {
   BulkObservationExistenceRequest,
@@ -52,6 +57,7 @@ const MenuImageIcon = styled.img`
 `;
 
 const REGION_PLACE_TYPES = ["UNGeoRegion", "ContinentalUnion", "Continent"];
+
 export interface Place {
   name: string;
   dcid: string;
@@ -308,16 +314,29 @@ const appActions: AppActions = {
 
   fetchPlaceSidebarMenuHierarchy: thunk(
     async (_, { placeDcid, allTopicDcids, sidebarMenuHierarchy }) => {
-      if (!placeDcid || !placeDcid.startsWith("country")) {
-        return sidebarMenuHierarchy;
-      }
       if (!allTopicDcids || allTopicDcids.length === 0) {
         return [];
       }
+      if (!placeDcid || placeDcid.length === 0) {
+        placeDcid = EARTH_PLACE_DCID;
+      }
 
       try {
+        // check existence for the place.
+        let placeDcids: string[] = [placeDcid];
+        if (placeDcid === EARTH_PLACE_DCID) {
+          // For Earth, add select countries as well.
+          placeDcids.push(...EARTH_COUNTRIES);
+        } else if (CONTINENTS.has(placeDcid)) {
+          // For continents, fetch countries in the continent.
+          const countryDcids = await dataCommonsClient.getCountriesInRegion(
+            placeDcid
+          );
+          placeDcids.push(...countryDcids);
+        }
+
         const request: BulkObservationExistenceRequest = {
-          entities: [placeDcid],
+          entities: placeDcids,
           variables: allTopicDcids,
         };
         const response = await dataCommonsClient.existence(request);
@@ -328,6 +347,7 @@ const appActions: AppActions = {
           for (const key in exists) {
             if (exists[key]) {
               existingTopicDcids.add(topicDcid);
+              break;
             }
           }
         }
