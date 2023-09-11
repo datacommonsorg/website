@@ -132,8 +132,8 @@ def _add_charts_with_place_fallback(state: PopulateState,
 
   # Walk up the parent type hierarchy trying to add charts.
   parent_type = utils.get_parent_place_type(pt, place)
-  parent_type = _maybe_switch_fallback_type(state, place, parent_type,
-                                            has_child_place_type)
+  parent_type = _maybe_switch_parent_type(state, place, parent_type,
+                                          has_child_place_type)
   while parent_type:
     if state.place_type:
       if parent_type == place.place_type:
@@ -164,19 +164,19 @@ def _add_charts_with_place_fallback(state: PopulateState,
       return True
     # Else, try next parent type.
     parent_type = utils.get_parent_place_type(parent_type, place)
-    parent_type = _maybe_switch_fallback_type(state, place, parent_type,
-                                              has_child_place_type)
+    parent_type = _maybe_switch_parent_type(state, place, parent_type,
+                                            has_child_place_type)
 
   return False
 
 
-def _maybe_switch_fallback_type(
+def _maybe_switch_parent_type(
     state: PopulateState, place: Place, parent_type: ContainedInPlaceType,
     has_child_place_type: bool) -> ContainedInPlaceType:
   if (has_child_place_type and state.place_type and
       (not parent_type or parent_type.value == place.place_type)):
     # This is the scenario where we have nowhere up to go
-    # for child-type query. Walk up the parent.
+    # for child-type hierarchy. Walk up the main-place hierarchy.
     state.place_type = None
     pt = ContainedInPlaceType(place.place_type)
     parent_type = utils.get_parent_place_type(pt, place)
@@ -193,9 +193,7 @@ def _add_charts_with_existence_check(state: PopulateState,
   _maybe_set_fallback(state, places)
 
   # If there is a child place_type, get child place samples for existence check.
-  start = time.time()
   state.places_to_check = get_places_to_check(state, places)
-  state.uttr.counters.timeit('get_places_to_check', start)
 
   if not state.places_to_check:
     # Counter updated in get_sample_child_places
@@ -271,6 +269,7 @@ def _add_charts_with_existence_check(state: PopulateState,
           # place, after reseting the child-type in state (important for
           # _maybe_set_fallback()).
           state.place_type = None
+          state.uttr.counters.info('info_internal_fallback_messaging', 1)
           _maybe_set_fallback(state, places)
         else:
           state.uttr.counters.info('info_internal_placetype_fallback',
