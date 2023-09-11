@@ -147,7 +147,6 @@ export const GA_EVENT_TILE_EXPLORE_MORE = "tile_explore_more";
  */
 export const GA_EVENT_TILE_SOURCE = "tile_source";
 
-
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
