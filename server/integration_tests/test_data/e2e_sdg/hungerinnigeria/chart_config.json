@@ -1024,13 +1024,6 @@
         ]
       },
       {
-        "dcid": "dc/topic/sdg_2.b",
-        "name": "Agricultural Trade Distortion Elimination",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/sdg_2.c",
         "name": "Food Commodity Markets",
         "types": [
