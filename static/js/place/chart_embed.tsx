@@ -29,7 +29,7 @@ import {
   GA_EVENT_TILE_DOWNLOAD_IMG,
   triggerGAEvent,
 } from "../shared/ga_events";
-import { randDomId, saveToFile, urlToDomain } from "../shared/util";
+import { randDomId, saveToFile, urlToDisplayText } from "../shared/util";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -186,7 +186,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
-          { sources: this.state.sources.map((s) => urlToDomain(s)).join(", ") }
+          {
+            sources: this.state.sources
+              .map((s) => urlToDisplayText(s))
+              .join(", "),
+          }
         )
       )
       .call(wrap, this.state.chartWidth);
@@ -266,7 +270,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
-          { sources: this.state.sources.map((s) => urlToDomain(s)).join(", ") }
+          {
+            sources: this.state.sources
+              .map((s) => urlToDisplayText(s))
+              .join(", "),
+          }
         )
       )
       .call(wrap, this.state.chartWidth);
