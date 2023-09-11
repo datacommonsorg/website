@@ -459,11 +459,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Populatin With Destroyed Dwellings From Disasters in United States",
+                    "description": "Population With Destroyed Dwellings From Disasters in United States",
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "Populatin With Destroyed Dwellings From Disasters in United States",
+                    "title": "Population With Destroyed Dwellings From Disasters in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -474,13 +474,13 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "Populatin With Destroyed Dwellings From Disasters in United States",
+                    "title": "Population With Destroyed Dwellings From Disasters in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Populatin With Destroyed Dwellings From Disasters"
+            "title": "Population With Destroyed Dwellings From Disasters"
           },
           {
             "columns": [
@@ -949,7 +949,7 @@
             "statVar": "sdg/VC_DSR_PDAN"
           },
           "sdg/VC_DSR_PDYN": {
-            "name": "Populatin With Destroyed Dwellings From Disasters",
+            "name": "Population With Destroyed Dwellings From Disasters",
             "statVar": "sdg/VC_DSR_PDYN"
           }
         }
