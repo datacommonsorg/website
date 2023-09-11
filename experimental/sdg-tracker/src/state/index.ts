@@ -327,8 +327,8 @@ const appActions: AppActions = {
         if (placeDcid === EARTH_PLACE_DCID) {
           // For Earth, add select countries as well.
           placeDcids.push(...EARTH_COUNTRIES);
-        } else if (CONTINENTS.has(placeDcid)) {
-          // For continents, fetch countries in the continent.
+        } else if (!placeDcid.startsWith("country")) {
+          // For regions, fetch countries in the region.
           const countryDcids = await dataCommonsClient.getCountriesInRegion(
             placeDcid
           );
