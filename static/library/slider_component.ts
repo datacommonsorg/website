@@ -332,7 +332,6 @@ export class DatacommonsSliderComponent extends LitElement {
     const url = `${apiRoot}/${apiPath}?${params.toString()}`;
     const result = await fetch(url);
     const resultObj = (await result.json()) as ObservationDatesResponse;
-    console.log("!! RESULT!", resultObj);
     this._isLoading = false;
 
     if (
