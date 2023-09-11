@@ -11,6 +11,38 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_TamilSpokenAtHome"
                     ],
+                    "title": "Population: Tamil Spoken at Home in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Population: Tamil Spoken at Home in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Tamil Spoken at Home in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
                     "title": "Population: Tamil Spoken at Home in United States",
                     "type": "LINE"
                   }
@@ -31,6 +63,38 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Tamil Spoken at Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Tamil Speakers at Home Who Speak English Very Well in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Tamil Speakers at Home Who Speak English Very Well in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Tamil Speakers at Home Who Speak English Very Well in States of United States"
           },
           {
             "columns": [
@@ -69,6 +133,38 @@
                     "statVarKey": [
                       "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome"
                     ],
+                    "title": "Tamil Speakers at Home Who Speak English Less Than Very Well in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Tamil Speakers at Home Who Speak English Less Than Very Well in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Tamil Speakers at Home Who Speak English Less Than Very Well in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome"
+                    ],
                     "title": "Tamil Speakers at Home Who Speak English Less Than Very Well in United States",
                     "type": "LINE"
                   }
@@ -89,6 +185,38 @@
             ],
             "denom": "Count_Person",
             "title": "Tamil Speakers at Home Who Speak English Less Than Very Well"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
+                    "title": "Telugu Speakers at Home Who Speak English Less Than Very Well in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
+                    "title": "Telugu Speakers at Home Who Speak English Less Than Very Well in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Telugu Speakers at Home Who Speak English Less Than Very Well in States of United States"
           },
           {
             "columns": [
@@ -127,6 +255,38 @@
                     "statVarKey": [
                       "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TeluguSpokenAtHome"
                     ],
+                    "title": "Telugu Speakers at Home Who Speak English Very Well in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
+                    "title": "Telugu Speakers at Home Who Speak English Very Well in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Telugu Speakers at Home Who Speak English Very Well in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
                     "title": "Telugu Speakers at Home Who Speak English Very Well in United States",
                     "type": "LINE"
                   }
@@ -147,6 +307,38 @@
             ],
             "denom": "Count_Person",
             "title": "Telugu Speakers at Home Who Speak English Very Well"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
+                    "title": "Population: Telugu Spoken at Home in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TeluguSpokenAtHome"
+                    ],
+                    "title": "Population: Telugu Spoken at Home in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Telugu Spoken at Home in States of United States"
           },
           {
             "columns": [
@@ -185,6 +377,38 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
                     ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
                     "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
                     "type": "LINE"
                   }
@@ -214,7 +438,7 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_HindiSpokenAtHome"
                     ],
-                    "title": "Population: Hindi Spoken at Home in Counties of United States (${date})",
+                    "title": "Population: Hindi Spoken at Home in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -229,14 +453,14 @@
                     "statVarKey": [
                       "Count_Person_5OrMoreYears_HindiSpokenAtHome"
                     ],
-                    "title": "Population: Hindi Spoken at Home in Counties of United States (${date})",
+                    "title": "Population: Hindi Spoken at Home in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Hindi Spoken at Home in Counties of United States"
+            "title": "Population: Hindi Spoken at Home in States of United States"
           },
           {
             "columns": [
@@ -275,6 +499,38 @@
                     "statVarKey": [
                       "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
                     ],
+                    "title": "Population: Speak English Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Speak English Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Speak English Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
                     "title": "Population: Speak English Very Well, Malayalam Kannada or Other Dravidian Languages in United States",
                     "type": "LINE"
                   }
@@ -295,6 +551,38 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Speak English Very Well, Malayalam Kannada or Other Dravidian Languages"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Speak English Less Than Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Speak English Less Than Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Speak English Less Than Very Well, Malayalam Kannada or Other Dravidian Languages in States of United States"
           },
           {
             "columns": [
@@ -372,7 +660,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "County"
+        "Country": "State"
       },
       "placeDcid": [
         "country/USA"
@@ -394,7 +682,8 @@
       "name": "United States",
       "place_type": "Country"
     },
-    "newStr": "United States",
+    "newStr": "states in United States",
+    "newType": "State",
     "origPlace": {
       "country": "country/USA",
       "dcid": "country/USA",
@@ -472,5 +761,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for counties in United States. See results for United States."
+  "userMessage": "Sorry, there were no relevant statistics for counties in United States. See results for states in United States."
 }
