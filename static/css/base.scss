@@ -115,7 +115,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 #main-nav .navbar-brand .sep {
   color: var(--gm-3-ref-neutral-neutral-40);
   display: inline-block;
-  margin: 0 .5rem;
+  margin: 0 0.5rem;
 }
 
 .main-content {
@@ -261,7 +261,7 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
     justify-content: space-between;
   }
   height: fit-content;
-  
+
   @media (max-width: $sub-footer-breakpoint) {
     .container {
       align-items: center;
@@ -356,6 +356,28 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
   animation: spin 1s infinite linear;
 }
 
+#spinner-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner-text::after {
+  content: "Still loading ...";
+  z-index: 10;
+  margin-top: 150px;
+  margin-left: 20px;
+  font-size: 20px;
+  color: white;
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 0.5s forwards 3s; /* Animation after 3s delay */
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -363,6 +385,12 @@ $headings-font-family: "Google Sans", "Public Sans", $font-family-sans-serif;
 
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
   }
 }
 
