@@ -35,7 +35,6 @@ import {
   ChartConfigTile,
   FulfillResponse,
   StatVarSpec,
-  VarToTopicMapping,
 } from "../../utils/types";
 
 import {
@@ -438,7 +437,8 @@ const ChartContent: React.FC<{
   selectedVariableDcids: string[];
   isSearch: boolean;
 }> = (props) => {
-  const { fulfillResponse, placeDcids, selectedVariableDcids, isSearch } = props;
+  const { fulfillResponse, placeDcids, selectedVariableDcids, isSearch } =
+    props;
   if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
@@ -477,7 +477,13 @@ const ChartCategoryContent: React.FC<{
   placeDcids: string[];
   selectedTopics: string[];
   isSearch: boolean;
-}> = ({ chartConfigCategory, fulfillResponse, placeDcids, selectedTopics, isSearch }) => {
+}> = ({
+  chartConfigCategory,
+  fulfillResponse,
+  placeDcids,
+  selectedTopics,
+  isSearch,
+}) => {
   const varToTopics = fulfillResponse.relatedThings.varToTopics;
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
