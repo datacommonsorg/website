@@ -20,6 +20,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { dataCommonsClient } from "../../state";
+import { formatUserMessage } from "../../utils";
 import { QUERY_PARAM_QUERY } from "../../utils/constants";
 import { theme } from "../../utils/theme";
 import { FulfillResponse } from "../../utils/types";
@@ -277,7 +278,10 @@ const Search = () => {
           );
           return;
         }
-        setUserMessage(fulfillResponse.userMessage || "");
+        const formattedUserMessage = formatUserMessage(
+          fulfillResponse.userMessage
+        );
+        setUserMessage(formattedUserMessage);
 
         const variableDcids =
           fulfillResponse?.relatedThings?.mainTopics?.map((e) => e.dcid) || [];
