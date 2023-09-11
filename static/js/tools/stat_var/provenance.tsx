@@ -22,7 +22,7 @@ import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
 import { ProvenanceSummary } from "../../shared/types";
-import { urlToDomain } from "../../shared/util";
+import { urlToDisplayText } from "../../shared/util";
 
 interface ProvenancePropType {
   provId: string;
@@ -51,7 +51,7 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               <li>
                 Source:{" "}
                 <a href={this.props.url} target="_blank" rel="noreferrer">
-                  {urlToDomain(this.props.url)}
+                  {urlToDisplayText(this.props.url)}
                 </a>
               </li>
             )}

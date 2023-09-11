@@ -73,6 +73,7 @@ const Countries = () => {
       <AppLayoutContent style={{ display: "flex", flexDirection: "column" }}>
         <Layout style={{ height: "100%", flexGrow: 1, flexDirection: "row" }}>
           <AppSidebar
+            placeDcid={placeDcid}
             variableDcid={variableDcid}
             setVariableDcid={setVariableDcid}
           />
