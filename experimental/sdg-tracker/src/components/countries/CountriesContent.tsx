@@ -401,6 +401,7 @@ const CountriesContent: React.FC<{
   /** Process tiles */
   useEffect(() => {
     if (
+      !localFulfillResponse ||
       !localFulfillResponse?.config?.categories ||
       _.isEmpty(localFulfillResponse.config.categories
     )) {
