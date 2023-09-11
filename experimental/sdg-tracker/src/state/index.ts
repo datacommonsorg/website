@@ -35,7 +35,10 @@ import sidebarConfig from "../config/sidebar.json";
 import targetText from "../config/targetText.json";
 import { WEB_API_ENDPOINT } from "../utils/constants";
 import DataCommonsClient from "../utils/DataCommonsClient";
-import { BulkObservationExistenceRequest, FulfillResponse } from "../utils/types";
+import {
+  BulkObservationExistenceRequest,
+  FulfillResponse,
+} from "../utils/types";
 
 export const dataCommonsClient = new DataCommonsClient({
   apiRoot: WEB_API_ENDPOINT,
@@ -312,38 +315,45 @@ const appActions: AppActions = {
         return [];
       }
 
-      const request: BulkObservationExistenceRequest = {
-        entities: [placeDcid],
-        variables: allTopicDcids,
-      };
-      const response = await dataCommonsClient.existence(request);
+      try {
+        const request: BulkObservationExistenceRequest = {
+          entities: [placeDcid],
+          variables: allTopicDcids,
+        };
+        const response = await dataCommonsClient.existence(request);
 
-      const existingTopicDcids = new Set<string>();
-      for (const topicDcid in response) {
-        const exists = response[topicDcid];
-        for (const key in exists) {
-          if (exists[key]) {
-            existingTopicDcids.add(topicDcid);
+        const existingTopicDcids = new Set<string>();
+        for (const topicDcid in response) {
+          const exists = response[topicDcid];
+          for (const key in exists) {
+            if (exists[key]) {
+              existingTopicDcids.add(topicDcid);
+            }
           }
         }
+
+        const filterItems = (items: MenuItemType[]) => {
+          const filtered: MenuItemType[] = [];
+
+          items.forEach((item) => {
+            const topicDcid = item.key.startsWith("summary-")
+              ? item.key.substring("summary-".length)
+              : item.key;
+            if (existingTopicDcids.has(topicDcid)) {
+              item = { ...item };
+              item.children = filterItems(item.children || []);
+              filtered.push(item);
+            }
+          });
+
+          return filtered;
+        };
+
+        return filterItems(sidebarMenuHierarchy);
+      } catch (e) {
+        console.error(e);
+        return sidebarMenuHierarchy;
       }
-
-      const filterItems = (items: MenuItemType[]) => {
-        const filtered: MenuItemType[] = []
-
-        items.forEach((item) => {
-          const topicDcid = item.key.startsWith("summary-") ? item.key.substring("summary-".length) : item.key;
-          if (existingTopicDcids.has(topicDcid)) {
-            item = { ...item }
-            item.children = filterItems(item.children || []);
-            filtered.push(item);
-          }
-        })
-
-        return filtered;
-      }
-
-      return filterItems(sidebarMenuHierarchy);
     }
   ),
 

@@ -149,9 +149,18 @@ export interface DetectResponse {
 }
 
 /**
- * API request for /v1/bulk/observation-existence
+ * API request for /api/observation/existence
  */
 export interface BulkObservationExistenceRequest {
   variables: string[];
   entities: string[];
+}
+
+/**
+ * API response from /api/observation/existence endpoint
+ */
+export interface BulkObservationExistenceResponse {
+  [topicDcid: string]: {
+    [countryDcid: string]: boolean;
+  };
 }
