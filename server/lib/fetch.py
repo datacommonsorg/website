@@ -65,26 +65,30 @@ def _get_processed_facets(facets):
     # handle unit display name for complex units
     elif re.match(COMPLEX_UNIT_REGEX, facet_unit):
       unit = facet_unit[1:].split()[0]
-      date = facet_unit.split()[1][:-1]
       if unit2name.get(unit, ''):
-        result[facet_id][
-            'unitDisplayName'] = f'{unit2name[unit]} with base period {date}'
+        result[facet_id]['unitDisplayName'] = unit2name[unit]
   return result
 
 
 def _convert_v2_obs_point(facet):
-  return {
+  result = {
       'facet': facet['facetId'],
-      'date': facet['observations'][0]['date'],
-      'value': facet['observations'][0]['value']
   }
+  if 'observations' in facet and len(facet['observations']) > 0:
+    if 'date' in facet['observations'][0]:
+      result['date'] = facet['observations'][0]['date']
+    if 'value' in facet['observations'][0]:
+      result['value'] = facet['observations'][0]['value']
+  return result
 
 
 def _convert_v2_obs_series(facet):
-  return {
+  result = {
       'facet': facet['facetId'],
-      'series': facet['observations'],
   }
+  if 'observations' in facet:
+    result['series'] = facet['observations']
+  return result
 
 
 # Returns a compact version of observation point API results
@@ -93,7 +97,7 @@ def _compact_point(point_resp, all_facets):
       'facets': {},
   }
   if all_facets:
-    result['facets'] = point_resp['facets']
+    result['facets'] = point_resp.get('facets', {})
   data = {}
   for var, var_obs in point_resp.get('byVariable', {}).items():
     data[var] = {}
@@ -178,8 +182,12 @@ def point_core(entities, variables, date, all_facets):
   return _compact_point(resp, all_facets)
 
 
-def point_within_core(ancestor_entity, descendent_type, variables, date,
-                      all_facets):
+def point_within_core(ancestor_entity,
+                      descendent_type,
+                      variables,
+                      date,
+                      all_facets,
+                      facet_ids=None):
   """Fetchs observation point for descendent entities of certain type.
 
   The response is in the following format:
@@ -196,12 +204,13 @@ def point_within_core(ancestor_entity, descendent_type, variables, date,
     }
   }
   """
-  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date)
+  resp = dc.obs_point_within(ancestor_entity, descendent_type, variables, date,
+                             facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_point(resp, all_facets)
 
 
-def series_core(entities, variables, all_facets):
+def series_core(entities, variables, all_facets, facet_ids=None):
   """Fetchs observation series for given entities and variables.
 
   The response is in the following format:
@@ -218,7 +227,7 @@ def series_core(entities, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series(entities, variables)
+  resp = dc.obs_series(entities, variables, facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
@@ -250,7 +259,21 @@ def series_facet(entities, variables, all_facets):
   return _compact_series(resp, all_facets)
 
 
-def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
+def point_within_facet(ancestor_entity, descendent_type, variables, date,
+                       all_facets):
+  """Fetches facet of child places of a certain place type contained in a parent
+  place at a given date.
+  """
+  resp = dc.point_within_facet(ancestor_entity, descendent_type, variables,
+                               date)
+  return _compact_point(resp, all_facets)
+
+
+def series_within_core(ancestor_entity,
+                       descendent_type,
+                       variables,
+                       all_facets,
+                       facet_ids=None):
   """Fetchs observation series for for descendent entities of certain type.
 
   The response is in the following format:
@@ -267,7 +290,8 @@ def series_within_core(ancestor_entity, descendent_type, variables, all_facets):
     }
   }
   """
-  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables)
+  resp = dc.obs_series_within(ancestor_entity, descendent_type, variables,
+                              facet_ids)
   resp['facets'] = _get_processed_facets(resp.get('facets', {}))
   return _compact_series(resp, all_facets)
 
