@@ -35,6 +35,7 @@ import {
   ChartConfigTile,
   FulfillResponse,
   StatVarSpec,
+  VarToTopicMapping,
 } from "../../utils/types";
 
 import {
@@ -174,13 +175,14 @@ function isInSelectedTopics(
  * @param tile tile to add
  * @param hierarchy tree of goal->target->indicator->tiles to add to
  * @param topicDcid topic associated with the tile being added
+ *        if provided, will only add tile if it falls under the topic
  * @param selectedTopics list of topics the current page is about
  */
 function addTileToHierarchy(
   tile: ChartConfigTile,
   hierarchy: Goals,
   topicDcid: string,
-  selectedTopics: string[]
+  selectedTopics: string[],
 ): void {
   if (isInSelectedTopics(topicDcid, selectedTopics)) {
     // put tile in appropriate spot in hierarchy
@@ -420,6 +422,7 @@ const CountriesContent: React.FC<{
               fulfillResponse={localFulfillResponse}
               placeDcids={placeDcids}
               selectedVariableDcids={variableDcids}
+              isSearch={isSearch}
             />
           )}
           <Footnotes />
@@ -433,8 +436,9 @@ const ChartContent: React.FC<{
   fulfillResponse?: FulfillResponse;
   placeDcids: string[];
   selectedVariableDcids: string[];
+  isSearch: boolean;
 }> = (props) => {
-  const { fulfillResponse, placeDcids, selectedVariableDcids } = props;
+  const { fulfillResponse, placeDcids, selectedVariableDcids, isSearch } = props;
   if (!fulfillResponse || fulfillResponse.failure) {
     return null;
   }
@@ -448,6 +452,7 @@ const ChartContent: React.FC<{
             chartConfigCategory={chartConfigCategory}
             fulfillResponse={fulfillResponse}
             selectedTopics={selectedVariableDcids}
+            isSearch={isSearch}
           />
         ))}
     </>
@@ -471,10 +476,13 @@ const ChartCategoryContent: React.FC<{
   fulfillResponse: FulfillResponse;
   placeDcids: string[];
   selectedTopics: string[];
-}> = ({ chartConfigCategory, fulfillResponse, placeDcids, selectedTopics }) => {
+  isSearch: boolean;
+}> = ({ chartConfigCategory, fulfillResponse, placeDcids, selectedTopics, isSearch }) => {
   const varToTopics = fulfillResponse.relatedThings.varToTopics;
   // stores hierarchy of Goals -> Target -> Indicator -> Tiles
   const allGoals: Goals = {};
+  // stores tiles in order returned by fulfillment api
+  const allTiles: ChartConfigTile[] = [];
 
   // iterate over tiles nested in chartConfigCategory
   chartConfigCategory.blocks.forEach((block) => {
@@ -494,12 +502,34 @@ const ChartCategoryContent: React.FC<{
         if (_.isEmpty(varToTopics[statVar])) {
           return;
         }
+        if (isSearch) {
+          allTiles.push(tile);
+        }
         for (const topic of varToTopics[statVar]) {
           addTileToHierarchy(tile, allGoals, topic.dcid, selectedTopics);
         }
       });
     });
   });
+
+  if (isSearch) {
+    // Show all tiles in one card without headers
+    return (
+      <ContentCard>
+        <ChartContentBody>
+          {allTiles.map((tile, i) => (
+            <ChartTile
+              fulfillResponse={fulfillResponse}
+              key={`search-result-tile-${i}`}
+              placeDcids={placeDcids}
+              tile={tile}
+              statVarSpec={chartConfigCategory.statVarSpec}
+            />
+          ))}
+        </ChartContentBody>
+      </ContentCard>
+    );
+  }
   return (
     <>
       {Object.keys(allGoals)
